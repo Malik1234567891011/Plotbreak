@@ -1457,6 +1457,95 @@ describe('forking charges once, or not at all', () => {
 });
 
 /**
+ * Crash reporting, which did not exist at all.
+ *
+ * The Hermes `Intl.RelativeTimeFormat` segfault shipped and was found because
+ * somebody happened to be holding a device when it died. Everybody else's app
+ * just closed.
+ */
+describe('client error reports', () => {
+  const crash = (overrides: Record<string, unknown> = {}) => ({
+    installId: 'ins_test_device',
+    platform: 'ios',
+    appVersion: '1.0.0',
+    osVersion: '18.2',
+    locale: 'en',
+    screen: 'StoryDetail',
+    message: "undefined is not a function (evaluating 'x.y()')",
+    stack: 'at StoryDetail (StoryDetail.tsx:41)\nat Navigation',
+    ...overrides,
+  });
+
+  it('accepts a report from a signed-out phone', async () => {
+    // The crash during onboarding is the one worth hearing about, and there is
+    // no account behind it. Requiring auth would have hidden exactly that.
+    const response = await app.inject({
+      method: 'POST',
+      url: '/v1/client-errors',
+      payload: crash(),
+    });
+    expect(response.statusCode).toBe(204);
+
+    const groups = await ctx.repo.listClientErrorGroups(24, 20);
+    expect(groups.some((g) => g.message.includes('is not a function'))).toBe(true);
+  });
+
+  it('groups repeats of one bug and counts devices, not rows', async () => {
+    const message = 'Cannot read property length of undefined';
+    // One handset in a relaunch loop.
+    for (let i = 0; i < 4; i += 1) {
+      await app.inject({
+        method: 'POST',
+        url: '/v1/client-errors',
+        payload: crash({ message, installId: 'ins_loop' }),
+      });
+    }
+    // And one other player hitting it once.
+    await app.inject({
+      method: 'POST',
+      url: '/v1/client-errors',
+      payload: crash({ message, installId: 'ins_other' }),
+    });
+
+    const group = (await ctx.repo.listClientErrorGroups(24, 50)).find(
+      (g) => g.message === message,
+    );
+    expect(group?.count).toBe(5);
+    // The number that matters. Five rows, two broken players.
+    expect(group?.devices).toBe(2);
+  });
+
+  it('separates two different crashes', async () => {
+    await app.inject({ method: 'POST', url: '/v1/client-errors', payload: crash({ message: 'first distinct failure' }) });
+    await app.inject({ method: 'POST', url: '/v1/client-errors', payload: crash({ message: 'second distinct failure' }) });
+    const groups = await ctx.repo.listClientErrorGroups(24, 50);
+    const a = groups.find((g) => g.message === 'first distinct failure');
+    const b = groups.find((g) => g.message === 'second distinct failure');
+    expect(a?.fingerprint).not.toBe(b?.fingerprint);
+  });
+
+  it('refuses a malformed report rather than storing junk', async () => {
+    const response = await app.inject({
+      method: 'POST',
+      url: '/v1/client-errors',
+      payload: { installId: 'ins_test_device' },
+    });
+    expect(response.statusCode).toBe(400);
+  });
+
+  it('truncates rather than accepting an unbounded stack', async () => {
+    // Unauthenticated endpoint taking free text from a device that has already
+    // lost the plot. React Native stacks reach tens of kilobytes.
+    const response = await app.inject({
+      method: 'POST',
+      url: '/v1/client-errors',
+      payload: crash({ stack: 'x'.repeat(20_000) }),
+    });
+    expect(response.statusCode).toBe(400);
+  });
+});
+
+/**
  * Guideline 1.2 asks a UGC app for filtering, reporting and blocking. All three
  * existed on paper; two of them did nothing.
  */

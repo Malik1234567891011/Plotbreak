@@ -62,6 +62,24 @@ export const errors = {
    */
   'error.request_failed': 'Ça n’a pas marché.',
 
+  // --- Plantage ---
+
+  /** Plat, comme l'anglais. `ne répond plus` plutôt que `a planté` : ce que voit
+      le joueur, pas ce qu'a fait le programme. */
+  'error.crash_title': 'Cet écran ne répond plus',
+
+  /**
+   * `sauvegardée` ici et non `gardée` : la progression est bien écrite côté
+   * serveur, contrairement à l'action hors ligne plus haut. La distinction
+   * existe en français comme en anglais et elle est vraie dans les deux cas.
+   */
+  'error.crash_body': 'Ta progression est sauvegardée. Réessaie, ou reviens dans un instant.',
+
+  'error.crash_body_repeat':
+    'Ta progression est sauvegardée. Le problème persiste : fermer puis rouvrir l\u2019app suffit en général.',
+
+  'error.crash_retry': 'Réessayer',
+
   /**
    * `tour` — l’unité de jeu, une action et la scène qui y répond. Jamais un
    * `round`, jamais un `tirage`, et surtout pas une place dans une file.

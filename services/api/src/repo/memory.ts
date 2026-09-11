@@ -11,6 +11,8 @@ import type {
   IdempotencyRecord,
   ReportRecord,
   ModerationQueueItem,
+  ClientErrorRecord,
+  ClientErrorGroup,
   Repository,
   SessionRecord,
   StoryComment,
@@ -121,6 +123,7 @@ export class MemoryRepository implements Repository {
   #commentLikes = new Map<string, Set<string>>();
   #commentReports = new Set<string>();
   #cases: ModerationQueueItem[] = [];
+  #clientErrors: ClientErrorRecord[] = [];
   #resolved = new Set<string>();
   #editorial: StoryEditorial[] = [];
   #badges = new Map<string, UserBadgeRow>();
@@ -531,6 +534,35 @@ export class MemoryRepository implements Repository {
   }
 
   // --- Safety ---
+
+  async recordClientError(error: ClientErrorRecord): Promise<void> {
+    if (this.#clientErrors.some((e) => e.errorId === error.errorId)) return;
+    this.#clientErrors.push(error);
+  }
+
+  async listClientErrorGroups(sinceHours: number, limit: number): Promise<ClientErrorGroup[]> {
+    const cutoff = Date.now() - sinceHours * 3600_000;
+    const groups = new Map<string, ClientErrorRecord[]>();
+    for (const e of this.#clientErrors) {
+      if (Date.parse(e.createdAt) < cutoff) continue;
+      groups.set(e.fingerprint, [...(groups.get(e.fingerprint) ?? []), e]);
+    }
+    return [...groups.entries()]
+      .map(([fingerprint, list]) => {
+        const newest = [...list].sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0]!;
+        return {
+          fingerprint,
+          message: newest.message,
+          screen: newest.screen,
+          count: list.length,
+          devices: new Set(list.map((e) => e.installId)).size,
+          lastSeen: newest.createdAt,
+          appVersions: [...new Set(list.map((e) => e.appVersion))].join(', '),
+        };
+      })
+      .sort((a, b) => b.devices - a.devices || b.count - a.count)
+      .slice(0, limit);
+  }
 
   async createReport(report: ReportRecord): Promise<void> {
     const list = this.#reports.get(report.reporterUserId) ?? [];

@@ -432,6 +432,88 @@ describe.skipIf(!URL)('PostgresRepository', () => {
     ).toBe(true);
   });
 
+  /**
+   * The crash grouping, against real SQL.
+   *
+   * array_agg with an ORDER BY inside it, make_interval and string_agg DISTINCT
+   * are not things the in-memory twin exercises in any meaningful way. If this
+   * query is wrong the first anyone learns of it is during an outage, which is
+   * the worst possible moment to debug a reporting tool.
+   */
+  it('groups crashes by fingerprint and counts devices rather than rows', async () => {
+    const base = {
+      userId: null,
+      platform: 'ios',
+      appVersion: '1.0.0',
+      osVersion: '18.2',
+      locale: 'en',
+      screen: 'StoryDetail',
+      stack: 'at StoryDetail\nat Navigation',
+      createdAt: new Date().toISOString(),
+    };
+
+    // One handset looping, one other player hitting the same bug once.
+    for (let i = 0; i < 4; i += 1) {
+      await repo.recordClientError({
+        ...base,
+        errorId: `cer_${uuid()}`,
+        installId: 'ins_loop',
+        message: 'grouping test failure',
+        fingerprint: 'fp_group_a',
+      });
+    }
+    await repo.recordClientError({
+      ...base,
+      errorId: `cer_${uuid()}`,
+      installId: 'ins_other',
+      appVersion: '1.0.1',
+      message: 'grouping test failure',
+      fingerprint: 'fp_group_a',
+    });
+    // A different bug, one device.
+    await repo.recordClientError({
+      ...base,
+      errorId: `cer_${uuid()}`,
+      installId: 'ins_third',
+      message: 'a different failure',
+      fingerprint: 'fp_group_b',
+    });
+
+    const groups = await repo.listClientErrorGroups(24, 50);
+    const a = groups.find((g) => g.fingerprint === 'fp_group_a');
+    expect(a?.count).toBe(5);
+    expect(a?.devices).toBe(2);
+    expect(a?.message).toBe('grouping test failure');
+    // Which builds it appears in, so "did we just make it worse" is answerable.
+    expect(a?.appVersions.split(', ').sort()).toEqual(['1.0.0', '1.0.1']);
+
+    // Two devices beats one, regardless of row count.
+    expect(groups.findIndex((g) => g.fingerprint === 'fp_group_a')).toBeLessThan(
+      groups.findIndex((g) => g.fingerprint === 'fp_group_b'),
+    );
+  });
+
+  it('excludes crashes older than the window', async () => {
+    await repo.recordClientError({
+      errorId: `cer_${uuid()}`,
+      userId: null,
+      installId: 'ins_ancient',
+      platform: 'ios',
+      appVersion: '0.9.0',
+      osVersion: '17.0',
+      locale: 'en',
+      screen: 'Discover',
+      message: 'a crash from last week',
+      stack: '',
+      fingerprint: 'fp_ancient',
+      createdAt: new Date(Date.now() - 8 * 24 * 3600_000).toISOString(),
+    });
+    const recent = await repo.listClientErrorGroups(24, 50);
+    expect(recent.some((g) => g.fingerprint === 'fp_ancient')).toBe(false);
+    const wider = await repo.listClientErrorGroups(24 * 30, 50);
+    expect(wider.some((g) => g.fingerprint === 'fp_ancient')).toBe(true);
+  });
+
   it('counts discovery signals without letting them go negative', async () => {
     await repo.bumpSignal(STORY.storyId, 'runs', 3);
     const after = await repo.getSignals(STORY.storyId);

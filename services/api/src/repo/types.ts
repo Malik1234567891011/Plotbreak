@@ -85,6 +85,33 @@ export interface IdempotencyRecord {
  */
 export const AUTO_HIDE_REPORTS = 3;
 
+/** A JavaScript crash on somebody's phone. */
+export interface ClientErrorRecord {
+  readonly errorId: string;
+  readonly userId: string | null;
+  readonly installId: string;
+  readonly platform: string;
+  readonly appVersion: string;
+  readonly osVersion: string;
+  readonly locale: string;
+  readonly screen: string;
+  readonly message: string;
+  readonly stack: string;
+  readonly fingerprint: string;
+  readonly createdAt: string;
+}
+
+/** One fingerprint, with how often and how recently it has happened. */
+export interface ClientErrorGroup {
+  readonly fingerprint: string;
+  readonly message: string;
+  readonly screen: string;
+  readonly count: number;
+  readonly devices: number;
+  readonly lastSeen: string;
+  readonly appVersions: string;
+}
+
 /** One thing waiting on a human, from either of the two tables that hold them. */
 export interface ModerationQueueItem {
   readonly kind: 'CASE' | 'REPORT';
@@ -292,6 +319,8 @@ export interface Repository {
   restoreComment(commentId: string): Promise<void>;
   listModerationQueue(limit?: number): Promise<ModerationQueueItem[]>;
   resolveModeration(kind: 'CASE' | 'REPORT', id: string, upheld: boolean): Promise<void>;
+  recordClientError(error: ClientErrorRecord): Promise<void>;
+  listClientErrorGroups(sinceHours: number, limit: number): Promise<ClientErrorGroup[]>;
   /** How many this person has posted since `since`. Rate limiting. */
   countRecentComments(userId: string, since: Date): Promise<number>;
 

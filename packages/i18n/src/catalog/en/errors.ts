@@ -37,6 +37,32 @@ export const errors = {
   /** The last-resort message when the server failed without explaining why. */
   'error.request_failed': 'Something went wrong.',
 
+  // --- Crash ---
+  //
+  // Read by somebody whose app just died. Same house rules, and one more: say
+  // nothing about what broke, because they cannot act on it and the report has
+  // already gone. Say what is still true and what to press.
+
+  /** Deliberately flat. A crash screen that exclaims is a crash screen that condescends. */
+  'error.crash_title': 'This screen stopped working',
+
+  /**
+   * "Your progress is saved" is the only sentence that matters here. A player
+   * who thinks they lost a run does not tap Try again, they delete the app.
+   * It is also true: turns commit server-side, so nothing in flight is on the
+   * phone.
+   */
+  'error.crash_body': 'Your progress is saved. Try again, or come back to it in a moment.',
+
+  /**
+   * After the second failed retry. Stops promising the button will help, since
+   * by now it demonstrably has not, and names the one thing left that might.
+   */
+  'error.crash_body_repeat':
+    'Your progress is saved. This keeps failing — closing the app and opening it again usually clears it.',
+
+  'error.crash_retry': 'Try again',
+
   /**
    * A turn that was accepted but never finished streaming. "Turn" is the
    * game's unit of play — one action and the scene that answers it — not a

@@ -12,6 +12,8 @@ import type {
   IdempotencyRecord,
   ReportRecord,
   ModerationQueueItem,
+  ClientErrorRecord,
+  ClientErrorGroup,
   Repository,
   SessionRecord,
   StoryComment,
@@ -1156,6 +1158,73 @@ export class PostgresRepository implements Repository {
   }
 
   // --- Safety --------------------------------------------------------------
+
+  async recordClientError(error: ClientErrorRecord): Promise<void> {
+    await this.#pool.query(
+      `INSERT INTO client_errors
+         (error_id, user_id, install_id, platform, app_version, os_version, locale,
+          screen, message, stack, fingerprint, created_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+       ON CONFLICT (error_id) DO NOTHING`,
+      [
+        error.errorId,
+        error.userId,
+        error.installId,
+        error.platform,
+        error.appVersion,
+        error.osVersion,
+        error.locale,
+        error.screen,
+        error.message,
+        error.stack,
+        error.fingerprint,
+        error.createdAt,
+      ],
+    );
+  }
+
+  /**
+   * Crashes grouped by fingerprint, worst first.
+   *
+   * `devices` rather than raw count is what makes this readable: one phone
+   * stuck in a relaunch loop can log two hundred rows of a bug nobody else
+   * will ever hit, and it should not outrank something breaking for thirty
+   * different people once each.
+   */
+  async listClientErrorGroups(sinceHours: number, limit: number): Promise<ClientErrorGroup[]> {
+    const { rows } = await this.#pool.query<{
+      fingerprint: string;
+      message: string;
+      screen: string;
+      count: string;
+      devices: string;
+      last_seen: Date;
+      app_versions: string;
+    }>(
+      `SELECT fingerprint,
+              (array_agg(message ORDER BY created_at DESC))[1] AS message,
+              (array_agg(screen  ORDER BY created_at DESC))[1] AS screen,
+              COUNT(*)::text                      AS count,
+              COUNT(DISTINCT install_id)::text    AS devices,
+              MAX(created_at)                     AS last_seen,
+              string_agg(DISTINCT app_version, ', ') AS app_versions
+         FROM client_errors
+        WHERE created_at >= now() - make_interval(hours => $1)
+        GROUP BY fingerprint
+        ORDER BY COUNT(DISTINCT install_id) DESC, COUNT(*) DESC
+        LIMIT $2`,
+      [sinceHours, limit],
+    );
+    return rows.map((r) => ({
+      fingerprint: r.fingerprint,
+      message: r.message,
+      screen: r.screen,
+      count: Number(r.count),
+      devices: Number(r.devices),
+      lastSeen: r.last_seen.toISOString(),
+      appVersions: r.app_versions ?? '',
+    }));
+  }
 
   async createReport(report: ReportRecord): Promise<void> {
     await this.#pool.query(

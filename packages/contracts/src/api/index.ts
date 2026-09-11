@@ -871,6 +871,29 @@ export const CreateReportRequest = z
   .strict();
 export type CreateReportRequest = z.infer<typeof CreateReportRequest>;
 
+/**
+ * A crash report from a phone.
+ *
+ * Every field is capped, because this endpoint takes unauthenticated input and
+ * a stack trace is the one payload where "it is just text" stops being true:
+ * React Native stacks on a bad day run to tens of kilobytes, and the sender is
+ * a device that has already lost the plot.
+ */
+export const ClientErrorRequest = z
+  .object({
+    /** Stable per-install, so a relaunch loop is one device and not four hundred. */
+    installId: z.string().min(1).max(64),
+    platform: z.string().max(16).default(''),
+    appVersion: z.string().max(32).default(''),
+    osVersion: z.string().max(32).default(''),
+    locale: z.string().max(16).default(''),
+    screen: z.string().max(64).default(''),
+    message: z.string().min(1).max(2000),
+    stack: z.string().max(8000).default(''),
+  })
+  .strict();
+export type ClientErrorRequest = z.infer<typeof ClientErrorRequest>;
+
 // --- Account (§33.9) -------------------------------------------------------
 
 export const MeResponse = z

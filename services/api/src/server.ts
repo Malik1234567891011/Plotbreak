@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { BADGES, BADGES_BY_ID } from '@aniplay/contracts';
 import { localizeStory } from '@aniplay/contracts';
 import { syncBadges, type PlayerRecord } from './badges.js';
@@ -6,6 +6,7 @@ import { rankTopRanked, rankTrending, trendingScore } from './ranking.js';
 import Fastify, { type FastifyInstance } from 'fastify';
 import {
   CanonCorrectionRequest,
+  ClientErrorRequest,
   CreateReportRequest,
   CreateSessionRequest,
   DEFAULT_QUALITY_TIER,
@@ -1742,6 +1743,57 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
   });
 
   // --- Safety (§33.8) ---
+
+  /**
+   * A crash on somebody's phone.
+   *
+   * Unauthenticated on purpose. The crash that matters most is the one during
+   * onboarding, before there is an account to attach it to, and requiring a
+   * token would have hidden exactly the failures worth knowing about. Rate
+   * limited on its own budget so a relaunch loop cannot flood the table or eat
+   * a player's write allowance.
+   *
+   * This catches JavaScript only. A Hermes segfault — which is how the
+   * `Intl.RelativeTimeFormat` bug killed the story screen — takes the process
+   * down before any of this runs. Native crashes come from App Store Connect;
+   * see docs/crash-reporting.md.
+   */
+  app.post('/v1/client-errors', async (request, reply) => {
+    const user = await optionalUser(ctx, request);
+    const parsed = ClientErrorRequest.safeParse(request.body);
+    if (!parsed.success) {
+      return sendError(reply, 400, 'INVALID_REQUEST', 'Error report is malformed.');
+    }
+
+    const body = parsed.data;
+    // Group on the message and the first frames. Later frames differ between
+    // two occurrences of one bug — different props, different render path — so
+    // fingerprinting the whole stack would make every crash unique and the
+    // grouping useless.
+    const fingerprint = createHash('sha256')
+      .update(`${body.message}\n${body.stack.split('\n').slice(0, 3).join('\n')}`)
+      .digest('hex')
+      .slice(0, 16);
+
+    await ctx.repo.recordClientError({
+      errorId: `cer_${randomUUID()}`,
+      userId: user?.userId ?? null,
+      installId: body.installId,
+      platform: body.platform,
+      appVersion: body.appVersion,
+      osVersion: body.osVersion,
+      locale: body.locale,
+      screen: body.screen,
+      message: body.message,
+      stack: body.stack,
+      fingerprint,
+      createdAt: new Date().toISOString(),
+    });
+
+    // The phone is already showing a crash screen. It does not need a body,
+    // and must never be made to wait on one.
+    return reply.code(204).send();
+  });
 
   app.post('/v1/reports', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);

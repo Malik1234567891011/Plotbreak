@@ -33,7 +33,7 @@ import type {
  * host's loopback; Android's emulator maps the host to 10.0.2.2. A physical
  * device needs an explicit LAN address via EXPO_PUBLIC_API_URL.
  */
-function defaultBaseUrl(): string {
+export function defaultBaseUrl(): string {
   const configured = process.env.EXPO_PUBLIC_API_URL;
   if (configured) return configured;
   if (Platform.OS === 'android') return 'http://10.0.2.2:4000';

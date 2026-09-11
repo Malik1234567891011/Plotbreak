@@ -6,6 +6,10 @@ that is not.
 
 Host: **Railway**, from the `Dockerfile` at the repo root.
 
+There is no `railway.json`. Railway deprecated config-as-code, and services
+created after 2025-08-28 cannot opt into it at all — every setting below lives
+in the dashboard, so this document is the only record of what it should say.
+
 ---
 
 ## Why there is a Dockerfile at all
@@ -66,6 +70,27 @@ Two things force Pro ($20) later, neither of them today:
 
 ---
 
+## Service settings
+
+Railway's monorepo detection creates a service per workspace. **Delete
+`@aniplay/mobile` and `@aniplay/worker`** and keep only `@aniplay/api`: mobile
+is an Expo client, and the worker is a library the API imports and runs
+in-process (`context.ts` constructs the `JobQueue`), not a process of its own.
+
+Then, on `@aniplay/api` → Settings:
+
+| Setting | Value | Why |
+|---|---|---|
+| Root Directory | *(empty)* | The Dockerfile copies `packages/` and `services/` from the repo root; from inside `services/api` neither exists. |
+| Builder | Dockerfile, path `Dockerfile` | |
+| Target port | `8080`, with `PORT=8080` set as a variable | `loadConfig` reads `Number(env.PORT ?? 4000)`. Setting both ends the question of what Railway injects. |
+| Healthcheck Path | `/health` | Empty means a deploy is "successful" the moment the container starts, including when the app died on boot. |
+| Watch Paths | *(empty)* | **Not** `/services/api/**`. The API compiles in `packages/engine`, `director`, `contracts` and `i18n`; with that rule a French fix or a turn-pipeline change pushes to GitHub and never deploys. |
+| Custom Start Command | *(empty)* | Railway guesses `npm run start --workspace=@aniplay/api`, which is `tsx --env-file-if-exists=../../.env src/index.ts` — relative paths against a working directory that may not be what it expects. The Dockerfile's `CMD` is correct. |
+| Replicas | 1 | See the media section above. |
+
+---
+
 ## Environment
 
 Set these in Railway → Variables. Railway injects `PORT` itself; do not set it.
@@ -79,6 +104,7 @@ Set these in Railway → Variables. Railway injects `PORT` itself; do not set it
 | `PUBLIC_BASE_URL` | The public HTTPS origin, e.g. `https://plotbreak-api.up.railway.app`. Stamped into media and turn-stream URLs — leave it wrong and phones fetch images from themselves. |
 | `ASSET_ROOT` | `/data/assets`, matching the volume. |
 | `NODE_ENV` | `production`. This is what turns on the startup check that refuses to boot without the two required secrets. |
+| `PORT` | `8080`, matching the domain's target port. |
 | `MEDIA_EPOCH` | Optional. Bump to cache-bust regenerated art. |
 
 ### Do not use the legacy JWT secret
