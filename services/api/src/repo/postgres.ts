@@ -415,10 +415,22 @@ export class PostgresRepository implements Repository {
     return true;
   }
 
-  /** Put back a comment the threshold took down. */
+  /**
+   * Put back a comment the threshold took down, and close its case.
+   *
+   * Both halves, because restoring *is* the decision. Clearing `deleted_at`
+   * alone leaves an OPEN case pointing at a comment that is visible again, so
+   * the queue keeps handing back something already settled and the next person
+   * through it cannot tell what still needs doing.
+   */
   async restoreComment(commentId: string): Promise<void> {
     await this.#pool.query(
       `UPDATE story_comments SET deleted_at = NULL WHERE comment_id = $1`,
+      [commentId],
+    );
+    await this.#pool.query(
+      `UPDATE moderation_cases SET status = 'RESOLVED', resolved_at = now()
+        WHERE subject_id = $1 AND status = 'OPEN'`,
       [commentId],
     );
   }

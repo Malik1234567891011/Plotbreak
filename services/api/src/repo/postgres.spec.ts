@@ -352,6 +352,86 @@ describe.skipIf(!URL)('PostgresRepository', () => {
     expect(await repo.listLedger(accountId)).toHaveLength(1);
   });
 
+  /**
+   * The auto-hide, against real SQL.
+   *
+   * The memory repository has its own copy of this logic and passing there
+   * says nothing about the statements that actually run in production — two
+   * implementations of one rule is the shape of bug this codebase produces
+   * most often. The threshold, the distinct-reporter constraint and the single
+   * case all live in Postgres, so they get tested in Postgres.
+   */
+  it('hides a comment once three different people report it', async () => {
+    const author = await makeUser();
+    const commentId = `cmt_${uuid()}`;
+    await repo.addComment({
+      commentId,
+      storyId: STORY.storyId,
+      userId: author.userId,
+      authorName: 'Test Player',
+      body: 'three people will object to this',
+      kind: 'USER',
+      spoiler: false,
+      likes: 0,
+      createdAt: new Date().toISOString(),
+    });
+
+    const listed = async (): Promise<boolean> =>
+      (await repo.listComments(STORY.storyId, 'NEW', 100)).some((c) => c.commentId === commentId);
+
+    const reporters = [await makeUser(), await makeUser(), await makeUser()];
+    expect(await repo.reportComment(`crp_${uuid()}`, commentId, reporters[0]!.userId, 'ABUSE')).toBe(false);
+    expect(await repo.reportComment(`crp_${uuid()}`, commentId, reporters[1]!.userId, 'ABUSE')).toBe(false);
+    expect(await listed()).toBe(true);
+
+    expect(await repo.reportComment(`crp_${uuid()}`, commentId, reporters[2]!.userId, 'ABUSE')).toBe(true);
+    expect(await listed()).toBe(false);
+
+    const queue = await repo.listModerationQueue();
+    const item = queue.find((i) => i.subjectId === commentId);
+    expect(item?.kind).toBe('CASE');
+    expect(item?.reports).toBe(3);
+
+    // A fourth report after the takedown must not open a second case, or the
+    // queue fills with duplicates of one decision.
+    const fourth = await makeUser();
+    expect(await repo.reportComment(`crp_${uuid()}`, commentId, fourth.userId, 'ABUSE')).toBe(false);
+    expect((await repo.listModerationQueue()).filter((i) => i.subjectId === commentId)).toHaveLength(1);
+
+    await repo.restoreComment(commentId);
+    expect(await listed()).toBe(true);
+    // And the case closes with it. A restored comment still sitting in the
+    // queue is how a reviewer loses track of what is actually outstanding.
+    expect((await repo.listModerationQueue()).some((i) => i.subjectId === commentId)).toBe(false);
+  });
+
+  it('does not hide on one person reporting repeatedly', async () => {
+    const author = await makeUser();
+    const commentId = `cmt_${uuid()}`;
+    await repo.addComment({
+      commentId,
+      storyId: STORY.storyId,
+      userId: author.userId,
+      authorName: 'Test Player',
+      body: 'one heckler is not a consensus',
+      kind: 'USER',
+      spoiler: false,
+      likes: 0,
+      createdAt: new Date().toISOString(),
+    });
+
+    const heckler = await makeUser();
+    for (let i = 0; i < 5; i += 1) {
+      // Same reporter, new report id each time. ON CONFLICT DO NOTHING is what
+      // makes this a no-op, so this asserts the unique constraint is carrying
+      // the weight rather than the id generator.
+      expect(await repo.reportComment(`crp_${uuid()}`, commentId, heckler.userId, 'ABUSE')).toBe(false);
+    }
+    expect(
+      (await repo.listComments(STORY.storyId, 'NEW', 100)).some((c) => c.commentId === commentId),
+    ).toBe(true);
+  });
+
   it('counts discovery signals without letting them go negative', async () => {
     await repo.bumpSignal(STORY.storyId, 'runs', 3);
     const after = await repo.getSignals(STORY.storyId);

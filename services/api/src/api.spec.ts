@@ -1569,6 +1569,7 @@ describe('user-generated content is actually moderated', () => {
       // people with a grudge can silence anybody permanently.
       await ctx.repo.restoreComment(id);
       expect(await visible(id)).toBe(true);
+      expect((await ctx.repo.listModerationQueue()).some((i) => i.subjectId === id)).toBe(false);
     });
   });
 });

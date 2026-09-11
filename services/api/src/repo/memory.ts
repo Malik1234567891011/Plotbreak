@@ -220,6 +220,7 @@ export class MemoryRepository implements Repository {
 
   async restoreComment(commentId: string): Promise<void> {
     this.#deletedComments.delete(commentId);
+    for (const c of this.#cases) if (c.subjectId === commentId) this.#resolved.add(c.id);
   }
 
   async listModerationQueue(limit = 100): Promise<ModerationQueueItem[]> {
