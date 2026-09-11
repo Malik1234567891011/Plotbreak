@@ -339,7 +339,7 @@ export class ApiClient {
     return this.#request(liked ? 'POST' : 'DELETE', `/v1/comments/${commentId}/like`);
   }
 
-  reportComment(commentId: string, reason: string): Promise<{ reported: boolean }> {
+  reportComment(commentId: string, reason: string): Promise<{ reported: boolean; hidden: boolean }> {
     return this.#request('POST', `/v1/comments/${commentId}/report`, { reason });
   }
 

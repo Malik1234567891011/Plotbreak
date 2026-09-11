@@ -189,6 +189,8 @@ export const story = {
   'story.comment_spoiler_hidden': 'Spoiler — appuie pour lire',
   'story.comment_delete': 'Supprimer',
   'story.comment_report': 'Signaler',
+  'story.comment_reported': 'Signalé',
+  'story.comment_removed': 'Retiré — merci',
   'story.comment_sort_top': 'Top',
   'story.comment_sort_new': 'Récents',
   'story.comment_sign_in': 'Connecte-toi pour participer.',

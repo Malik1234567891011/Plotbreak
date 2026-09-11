@@ -76,6 +76,27 @@ export interface IdempotencyRecord {
   readonly createdAt: string;
 }
 
+/**
+ * Distinct reporters that hide a comment without waiting for a person.
+ *
+ * Three, not one: one is a heckler with a grudge. Not ten: ten is a number you
+ * reach after the damage is done. Reversible either way — hiding is the same
+ * soft delete an author gets, and `restoreComment` puts it back.
+ */
+export const AUTO_HIDE_REPORTS = 3;
+
+/** One thing waiting on a human, from either of the two tables that hold them. */
+export interface ModerationQueueItem {
+  readonly kind: 'CASE' | 'REPORT';
+  readonly id: string;
+  readonly subjectType: string;
+  readonly subjectId: string;
+  /** The comment body, or the reason and details a reporter typed. */
+  readonly detail: string;
+  readonly reports: number;
+  readonly createdAt: string;
+}
+
 export interface ReportRecord {
   readonly reportId: string;
   readonly reporterUserId: string;
@@ -266,7 +287,11 @@ export interface Repository {
   deleteComment(commentId: string, userId: string): Promise<boolean>;
   setCommentLiked(userId: string, commentId: string, liked: boolean): Promise<boolean>;
   likedCommentIds(userId: string, storyId: string): Promise<string[]>;
-  reportComment(reportId: string, commentId: string, reporterId: string, reason: string): Promise<void>;
+  /** Returns whether this report crossed the threshold and hid the comment. */
+  reportComment(reportId: string, commentId: string, reporterId: string, reason: string): Promise<boolean>;
+  restoreComment(commentId: string): Promise<void>;
+  listModerationQueue(limit?: number): Promise<ModerationQueueItem[]>;
+  resolveModeration(kind: 'CASE' | 'REPORT', id: string, upheld: boolean): Promise<void>;
   /** How many this person has posted since `since`. Rate limiting. */
   countRecentComments(userId: string, since: Date): Promise<number>;
 

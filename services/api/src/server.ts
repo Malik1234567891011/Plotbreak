@@ -892,13 +892,17 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     async (request, reply) => {
       const user = await requireUser(ctx, request, reply);
       if (!user) return reply;
-      await ctx.repo.reportComment(
+      const hidden = await ctx.repo.reportComment(
         `crp_${randomUUID()}`,
         request.params.commentId,
         user.userId,
         (request.body?.reason ?? 'UNSPECIFIED').slice(0, 200),
       );
-      return { reported: true };
+      // `hidden` when this report was the one that crossed the threshold. The
+      // client says "thanks, we've taken it down" instead of "thanks, we'll
+      // look into it" — which is both truer and the difference between a
+      // report button people keep using and one they decide is decorative.
+      return { reported: true, hidden };
     },
   );
 

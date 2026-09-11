@@ -108,6 +108,8 @@ export const story = {
   'story.comment_spoiler_hidden': 'Spoiler — tap to read',
   'story.comment_delete': 'Delete',
   'story.comment_report': 'Report',
+  'story.comment_reported': 'Reported',
+  'story.comment_removed': 'Removed — thanks',
   'story.comment_sort_top': 'Top',
   'story.comment_sort_new': 'New',
   'story.comment_sign_in': 'Sign in to join the conversation.',

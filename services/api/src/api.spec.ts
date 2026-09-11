@@ -1483,4 +1483,92 @@ describe('user-generated content is actually moderated', () => {
     });
     expect(response.statusCode).toBe(201);
   });
+
+  /**
+   * The reporting half.
+   *
+   * Reports landed in a table nothing read. That is not a moderation system,
+   * it is a suggestion box — and the gap between the two is what Apple means
+   * by "timely responses to concerns". Three distinct reporters now take a
+   * comment down without waiting for a person.
+   */
+  describe('reporting', () => {
+    const post = async (body: string): Promise<string> => {
+      const response = await app.inject({
+        method: 'POST',
+        url: '/v1/stories/story_ninth_archive/comments',
+        headers: auth,
+        payload: { body },
+      });
+      expect(response.statusCode).toBe(201);
+      return response.json().commentId as string;
+    };
+
+    const report = async (commentId: string, token: string): Promise<boolean> => {
+      const response = await app.inject({
+        method: 'POST',
+        url: `/v1/comments/${commentId}/report`,
+        headers: { authorization: `Bearer ${token}` },
+        payload: { reason: 'ABUSE' },
+      });
+      expect(response.statusCode).toBe(200);
+      return response.json().hidden as boolean;
+    };
+
+    const visible = async (commentId: string): Promise<boolean> => {
+      const response = await app.inject({
+        method: 'GET',
+        url: '/v1/stories/story_ninth_archive/comments',
+        headers: auth,
+      });
+      return (response.json().comments as Array<{ commentId: string }>).some(
+        (c) => c.commentId === commentId,
+      );
+    };
+
+    it('hides a comment on the third distinct reporter', async () => {
+      const id = await post('a comment three people will object to');
+
+      expect(await report(id, 'guest_reporter_a')).toBe(false);
+      expect(await report(id, 'guest_reporter_b')).toBe(false);
+      expect(await visible(id)).toBe(true);
+
+      expect(await report(id, 'guest_reporter_c')).toBe(true);
+      expect(await visible(id)).toBe(false);
+    });
+
+    it('ignores one person reporting the same comment repeatedly', async () => {
+      const id = await post('one persistent heckler is not a consensus');
+
+      for (let i = 0; i < 5; i += 1) {
+        expect(await report(id, 'guest_persistent')).toBe(false);
+      }
+      // UNIQUE (comment_id, reporter_id) is what makes this true, so the test
+      // is really asserting that the schema constraint is load-bearing.
+      expect(await visible(id)).toBe(true);
+    });
+
+    it('opens exactly one case, however many reports arrive after the threshold', async () => {
+      const id = await post('a comment that keeps attracting reports');
+      for (const who of ['a', 'b', 'c', 'd', 'e']) await report(id, `guest_late_${who}`);
+
+      const queue = await ctx.repo.listModerationQueue();
+      expect(queue.filter((i) => i.subjectId === id)).toHaveLength(1);
+    });
+
+    it('surfaces the hidden comment for review, and restores it on dismissal', async () => {
+      const id = await post('hidden wrongly, as will happen');
+      for (const who of ['a', 'b', 'c']) await report(id, `guest_wrong_${who}`);
+      expect(await visible(id)).toBe(false);
+
+      const item = (await ctx.repo.listModerationQueue()).find((i) => i.subjectId === id);
+      expect(item?.kind).toBe('CASE');
+
+      // The review is a person deciding the crowd was wrong. It has to be able
+      // to undo the takedown, or the threshold is a one-way door and three
+      // people with a grudge can silence anybody permanently.
+      await ctx.repo.restoreComment(id);
+      expect(await visible(id)).toBe(true);
+    });
+  });
 });

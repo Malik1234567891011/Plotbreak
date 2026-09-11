@@ -54,6 +54,7 @@ export function Comments({
   const [draft, setDraft] = useState('');
   const [spoiler, setSpoiler] = useState(false);
   const [revealed, setRevealed] = useState<Set<string>>(new Set());
+  const [reported, setReported] = useState<Set<string>>(new Set());
   const [posting, setPosting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -273,10 +274,35 @@ export function Comments({
                   ) : signedIn ? (
                     <Pressable
                       accessibilityRole="button"
-                      onPress={() => void api.reportComment(comment.commentId, 'USER_REPORT')}
+                      disabled={reported.has(comment.commentId)}
+                      onPress={() => {
+                        // Acknowledge before the request, not after. Tapping
+                        // Report used to change nothing on screen at all, ever
+                        // — the only way to know it had worked was to query
+                        // the database. A report button that looks broken is a
+                        // report button nobody taps twice.
+                        setReported((seen) => new Set(seen).add(comment.commentId));
+                        void api
+                          .reportComment(comment.commentId, 'USER_REPORT')
+                          .then((result) => {
+                            if (!result.hidden) return;
+                            setComments((list) =>
+                              list.filter((c) => c.commentId !== comment.commentId),
+                            );
+                          })
+                          .catch(() => {
+                            setReported((seen) => {
+                              const next = new Set(seen);
+                              next.delete(comment.commentId);
+                              return next;
+                            });
+                          });
+                      }}
                     >
                       <Txt variant="caption" color={colors.text.muted}>
-                        {t('story.comment_report')}
+                        {reported.has(comment.commentId)
+                          ? t('story.comment_reported')
+                          : t('story.comment_report')}
                       </Txt>
                     </Pressable>
                   ) : null}

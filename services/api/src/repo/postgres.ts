@@ -11,6 +11,7 @@ import {
 import type {
   IdempotencyRecord,
   ReportRecord,
+  ModerationQueueItem,
   Repository,
   SessionRecord,
   StoryComment,
@@ -19,7 +20,7 @@ import type {
   UserBadgeRow,
   UserRecord,
 } from './types.js';
-import { EMPTY_SIGNALS } from './types.js';
+import { EMPTY_SIGNALS, AUTO_HIDE_REPORTS } from './types.js';
 
 /**
  * The production persistence adapter (spec §34, §35).
@@ -157,6 +158,7 @@ export class PostgresRepository implements Repository {
   #catalogue: { at: number; stories: StoryVersion[] } | null = null;
 
   static readonly CATALOGUE_TTL_MS = 60_000;
+
 
   async listStories(): Promise<StoryVersion[]> {
     const fresh =
@@ -363,11 +365,122 @@ export class PostgresRepository implements Repository {
     return rows.map((r) => r.comment_id);
   }
 
-  async reportComment(reportId: string, commentId: string, reporterId: string, reason: string): Promise<void> {
+  /**
+   * File a report against a comment, and take it down if enough people agree.
+   *
+   * Returns whether this report was the one that hid it.
+   *
+   * A queue a human reads is not a moderation system when the team is two
+   * people in two timezones. Apple asks for "timely responses"; the honest
+   * reading of timely is *not eight hours from now, if somebody happens to
+   * check.* So the threshold acts on its own, and the queue exists for the
+   * review that follows rather than the takedown that precedes it.
+   *
+   * Hiding is `deleted_at` — the same soft delete an author gets — so nothing
+   * is destroyed and `restoreComment` puts it back. That is deliberate: the
+   * failure mode of a low threshold is a good comment hidden for a few hours,
+   * and the failure mode of a high one is something vile in front of a
+   * fourteen-year-old. Those are not the same size.
+   */
+  async reportComment(reportId: string, commentId: string, reporterId: string, reason: string): Promise<boolean> {
     await this.#pool.query(
       `INSERT INTO comment_reports (report_id, comment_id, reporter_id, reason)
        VALUES ($1,$2,$3,$4) ON CONFLICT DO NOTHING`,
       [reportId, commentId, reporterId, reason],
+    );
+
+    // UNIQUE (comment_id, reporter_id) means this is already distinct people,
+    // not one person tapping report four times.
+    const { rows } = await this.#pool.query<{ n: string }>(
+      `SELECT COUNT(*)::text AS n FROM comment_reports WHERE comment_id = $1`,
+      [commentId],
+    );
+    if (Number(rows[0]?.n ?? 0) < AUTO_HIDE_REPORTS) return false;
+
+    const hidden = await this.#pool.query(
+      `UPDATE story_comments SET deleted_at = now()
+        WHERE comment_id = $1 AND deleted_at IS NULL
+        RETURNING comment_id`,
+      [commentId],
+    );
+    // Already down — an author delete, or a second reporter racing the first.
+    // Either way this report did not do it and must not open a second case.
+    if (hidden.rowCount === 0) return false;
+
+    await this.#pool.query(
+      `INSERT INTO moderation_cases (subject_type, subject_id, severity, status)
+       VALUES ('COMMENT', $1, 'HIGH', 'OPEN')`,
+      [commentId],
+    );
+    return true;
+  }
+
+  /** Put back a comment the threshold took down. */
+  async restoreComment(commentId: string): Promise<void> {
+    await this.#pool.query(
+      `UPDATE story_comments SET deleted_at = NULL WHERE comment_id = $1`,
+      [commentId],
+    );
+  }
+
+  /**
+   * Everything waiting on a person, newest first.
+   *
+   * Two tables feed this. `moderation_cases` is what the threshold opens when
+   * it hides something; `reports` is what a player files against a story, a
+   * turn, an image or an account. They are different shapes and both are the
+   * queue, so they arrive here as one list.
+   */
+  async listModerationQueue(limit = 100): Promise<ModerationQueueItem[]> {
+    const { rows } = await this.#pool.query<{
+      kind: string;
+      id: string;
+      subject_type: string;
+      subject_id: string;
+      detail: string;
+      reports: string;
+      created_at: Date;
+    }>(
+      `SELECT 'CASE' AS kind, c.case_id AS id, c.subject_type, c.subject_id,
+              COALESCE(s.body, '') AS detail,
+              (SELECT COUNT(*)::text FROM comment_reports r WHERE r.comment_id = c.subject_id) AS reports,
+              c.created_at
+         FROM moderation_cases c
+         LEFT JOIN story_comments s ON s.comment_id = c.subject_id
+        WHERE c.status = 'OPEN'
+        UNION ALL
+       SELECT 'REPORT', report_id, target_type, target_id,
+              reason || CASE WHEN details = '' THEN '' ELSE ' — ' || details END,
+              '1', created_at
+         FROM reports
+        WHERE status = 'OPEN'
+        ORDER BY created_at DESC
+        LIMIT $1`,
+      [limit],
+    );
+    return rows.map((r) => ({
+      kind: r.kind as 'CASE' | 'REPORT',
+      id: r.id,
+      subjectType: r.subject_type,
+      subjectId: r.subject_id,
+      detail: r.detail,
+      reports: Number(r.reports),
+      createdAt: r.created_at.toISOString(),
+    }));
+  }
+
+  /** Close a queue item. `UPHELD` leaves a hidden comment hidden. */
+  async resolveModeration(kind: 'CASE' | 'REPORT', id: string, upheld: boolean): Promise<void> {
+    if (kind === 'CASE') {
+      await this.#pool.query(
+        `UPDATE moderation_cases SET status = 'RESOLVED', resolved_at = now() WHERE case_id = $1`,
+        [id],
+      );
+      return;
+    }
+    await this.#pool.query(
+      `UPDATE reports SET status = $2 WHERE report_id = $1`,
+      [id, upheld ? 'ACTIONED' : 'DISMISSED'],
     );
   }
 

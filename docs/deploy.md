@@ -74,15 +74,32 @@ Set these in Railway → Variables. Railway injects `PORT` itself; do not set it
 |---|---|
 | `DATABASE_URL` | Supabase Postgres. Use the **pooler** connection string. |
 | `SUPABASE_URL` | `https://<project>.supabase.co` |
-| `SUPABASE_JWT_SECRET` | **Required in production** — without it bearer tokens are not verified and the service refuses to start. Supabase → Settings → API → JWT Secret. |
+| `AUTH_JWKS_URL` | `<SUPABASE_URL>/auth/v1/.well-known/jwks.json`. See below — **not** the legacy JWT secret. |
 | `OPENAI_API_KEY` *or* `ANTHROPIC_API_KEY` | Writes every turn. With both set, `MODEL_PROVIDER` decides; with neither, the app falls back to the rule-based pipeline and the prose stops being the product. |
 | `PUBLIC_BASE_URL` | The public HTTPS origin, e.g. `https://plotbreak-api.up.railway.app`. Stamped into media and turn-stream URLs — leave it wrong and phones fetch images from themselves. |
 | `ASSET_ROOT` | `/data/assets`, matching the volume. |
 | `NODE_ENV` | `production`. This is what turns on the startup check that refuses to boot without the two required secrets. |
 | `MEDIA_EPOCH` | Optional. Bump to cache-bust regenerated art. |
 
-`loadConfig` refuses to start in production without `DATABASE_URL` and a JWT
-secret, deliberately — the in-memory repository silently loses every session on
+### Do not use the legacy JWT secret
+
+Supabase has moved projects to asymmetric signing. On ours the current key is
+**ECC P-256** and the old HS256 shared secret is listed under *Previously used
+keys* — it verifies tokens issued before the rotation and nothing since. Pasting
+it into `SUPABASE_JWT_SECRET` produces an API that starts cleanly, passes its
+health check, and rejects every single sign-in.
+
+Set `AUTH_JWKS_URL` instead. `SupabaseJwtVerifier` already handles ES256 against
+a JWKS, including the `ieee-p1363` signature encoding — JWS ES256 is raw r‖s,
+not DER, and a verifier that assumes DER rejects every token while looking
+entirely correct.
+
+It is also the better end state: the key is fetched and cached for ten minutes,
+so a future rotation needs no redeploy, and no shared secret sits in Railway's
+environment waiting to be lifted.
+
+`loadConfig` refuses to start in production without `DATABASE_URL` and a signing
+key, deliberately — the in-memory repository silently loses every session on
 restart, and unverified bearer tokens are worse than no auth at all.
 
 ---
