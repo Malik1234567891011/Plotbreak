@@ -9,6 +9,7 @@ import { findFourthWallBreaks, fourthWallRepairNote } from './fourth-wall.js';
 import { findEmptyConsequences, stripEmptyConsequences } from './empty-consequence.js';
 import { findAbsenceOfPresent, findPresenceOfAbsent } from './present-absence.js';
 import { findInventedHistory } from './invented-history.js';
+import { findSpeechTics, SPEECH_TIC_MARKER, stripOpener } from './speech-tics.js';
 
 /** Words that make a following "you" an object rather than somebody addressed. */
 const PREPOSITIONS = [
@@ -266,6 +267,22 @@ export function validateNarrative({ context, turn }: ValidateOptions): Consisten
       'ERROR',
       `${INVENTED_HISTORY_MARKER}: ${hit.reason} "${hit.sentence}"`,
       hit.blockIndex,
+    );
+  }
+
+  // --- NAME_IDENTITY_DRIFT: a voice that has collapsed into one word ---
+  //
+  // Sabo opened seventeen of twenty-one lines with "Look,". Nobody wrote that;
+  // the context window grew it, one matched beat at a time. WARN rather than
+  // ERROR — the line is good, it is only wearing a tic, and the repair takes
+  // the tic off rather than the line. See `speech-tics.ts`.
+  for (const tic of findSpeechTics(turn.blocks, context.recentDialogue)) {
+    const who = story.characters.find((c) => c.id === tic.speakerId)?.name ?? tic.speakerId;
+    push(
+      'NAME_IDENTITY_DRIFT',
+      'WARN',
+      `${SPEECH_TIC_MARKER}: ${who} has opened ${tic.streak} recent lines with "${tic.opener}".`,
+      tic.blockIndex,
     );
   }
 
@@ -557,7 +574,13 @@ export function isRepairable(report: ConsistencyReport): boolean {
     !report.valid ||
     report.violations.some(
       (v) =>
-        v.description.startsWith(EMPTY_CONSEQUENCE_MARKER) || v.description.includes(NAME_SPAM_MARKER),
+        v.description.startsWith(EMPTY_CONSEQUENCE_MARKER) ||
+        v.description.includes(NAME_SPAM_MARKER) ||
+        // A tic is a WARN — the turn is valid and the prose is fine — but it
+        // is fixed in place, so the repair pass has to be allowed to run for
+        // it alone. Without this the only tics ever removed would be the ones
+        // that happened to share a turn with a real error.
+        v.description.startsWith(SPEECH_TIC_MARKER),
     )
   );
 }
@@ -567,6 +590,8 @@ export function repairNarrative(
   report: ConsistencyReport,
   /** Needed to rewrite third-person narration rather than delete it. */
   playerName?: string,
+  /** Names a line may be opening with as direct address, the player's included. */
+  addressNames: readonly string[] = [],
 ): NarrativeTurn {
   // A consequence with nothing in it: strip the sentence, keep the beat. Not
   // gated on knowing the player's name, unlike the voice repairs below.
@@ -587,6 +612,25 @@ export function repairNarrative(
     report = {
       ...report,
       violations: report.violations.filter((v) => !v.description.startsWith(EMPTY_CONSEQUENCE_MARKER)),
+    };
+  }
+
+  // A verbal tic: take the opener off, keep the line. Before anything is
+  // dropped, and unconditional on the player's name being known.
+  const tics = report.violations.filter((v) => v.description.startsWith(SPEECH_TIC_MARKER));
+  if (tics.length > 0) {
+    const ticBlocks = new Set(
+      tics.filter((v) => typeof v.blockIndex === 'number').map((v) => v.blockIndex as number),
+    );
+    turn = {
+      ...turn,
+      blocks: turn.blocks.map((block, index) =>
+        ticBlocks.has(index) ? { ...block, text: stripOpener(block.text, addressNames) } : block,
+      ),
+    };
+    report = {
+      ...report,
+      violations: report.violations.filter((v) => !v.description.startsWith(SPEECH_TIC_MARKER)),
     };
   }
 

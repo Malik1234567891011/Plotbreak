@@ -187,6 +187,42 @@ export interface TurnContext {
   readonly recentTurns: readonly { actionText: string | null; sceneSummary: string }[];
 
   /**
+   * What has actually been said lately, and by whom.
+   *
+   * A scene summary does not carry a voice, so nothing downstream could see
+   * that Sabo had opened seventeen of his last twenty-one lines with "Look,"
+   * and Luffy twenty of twenty-two with "Ace!". It is a loop through the
+   * context window rather than a fault in the character: the model reads its
+   * own last beat, matches it, and the match is then what the next beat reads.
+   * Somebody has to be able to see across turns to break it, which means
+   * somebody has to be given the lines.
+   */
+  readonly recentDialogue: readonly { speakerId: string; text: string }[];
+
+  /**
+   * The cards already offered, newest last.
+   *
+   * A set of three is only a choice if the three differ, and three sets in a
+   * row are only a story if they move. Response generation compares against
+   * this before it offers anything.
+   *
+   * Two turns, not four. An exit the player keeps not taking has to come back
+   * rather than vanish, and a short window is what makes a dropped card a
+   * pause instead of a removal.
+   */
+  readonly recentSuggestions: readonly string[];
+
+  /**
+   * Images, gestures and props the last few beats have leant on.
+   *
+   * Not a banned list — a world is allowed its cicadas, and Ace's mountain
+   * should sound like Ace's mountain. This is what the writer has already
+   * spent, so it can reach for something else rather than the nearest thing it
+   * just used.
+   */
+  readonly recentMotifs: readonly string[];
+
+  /**
    * How many turns since the last hero frame, or null if there has never been
    * one. Spec §19.6 — image cadence is a rhythm, not a per-turn coin flip.
    */
@@ -482,6 +518,15 @@ export function buildTurnContext(options: BuildContextOptions): TurnContext {
       actionText: t.actionText,
       sceneSummary: t.sceneSummary,
     })),
+    recentDialogue: recentTurns
+      .slice(-4)
+      .flatMap((t) =>
+        (t.blocks ?? [])
+          .filter((b) => b.type === 'DIALOGUE' && b.speakerId && b.speakerId !== 'player')
+          .map((b) => ({ speakerId: b.speakerId as string, text: b.text })),
+      ),
+    recentSuggestions: recentTurns.slice(-2).flatMap((t) => (t.suggestions ?? []).map((sug) => sug.text)),
+    recentMotifs: recentMotifs(recentTurns.slice(-3)),
     retrievedFacts,
     arc: {
       episode: state.arc.episode,
@@ -512,6 +557,51 @@ export function estimateTokens(value: unknown): number {
  * record of what the player actually saw — a frame that failed to generate
  * should not count as one they were shown.
  */
+/**
+ * The concrete nouns and gestures the last few beats spent.
+ *
+ * Deliberately a frequency list of ordinary words rather than a curated motif
+ * vocabulary: what matters is not which image it is, it is that the same one
+ * is back for the fourth time. Ace's transcript leant on cicadas, sap, bark
+ * and knuckles until the mountain stopped being a place and became a texture.
+ *
+ * Only words used more than once survive, because a thing said once is not yet
+ * a habit, and only the top handful are carried, because a long list reads as
+ * a prohibition and this is meant to read as a reminder.
+ */
+function recentMotifs(recentTurns: readonly TurnRecord[]): string[] {
+  const counts = new Map<string, number>();
+  for (const turn of recentTurns) {
+    for (const block of turn.blocks ?? []) {
+      for (const word of block.text.toLowerCase().match(/\p{L}{4,}/gu) ?? []) {
+        if (MOTIF_STOPWORDS.has(word)) continue;
+        counts.set(word, (counts.get(word) ?? 0) + 1);
+      }
+    }
+  }
+  return [...counts.entries()]
+    .filter(([, n]) => n > 1)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 12)
+    .map(([word]) => word);
+}
+
+/**
+ * Words a beat repeats because it is a beat, not because it is repeating
+ * itself. Function words, the second person, and the verbs every sentence in
+ * an interactive story needs.
+ */
+const MOTIF_STOPWORDS = new Set([
+  'your', 'yours', 'that', 'this', 'they', 'them', 'their', 'there', 'then', 'than', 'with',
+  'from', 'into', 'onto', 'over', 'under', 'about', 'against', 'between', 'before', 'after',
+  'still', 'just', 'like', 'when', 'what', 'which', 'while', 'where', 'because', 'been', 'have',
+  'has', 'had', 'does', 'doing', 'said', 'says', 'saying', 'look', 'looks', 'looking', 'know',
+  'knows', 'going', 'gone', 'want', 'wants', 'could', 'would', 'should', 'might', 'will',
+  'something', 'nothing', 'anything', 'everything', 'someone', 'nobody', 'again', 'back',
+  'down', 'here', 'only', 'even', 'more', 'much', 'very', 'never', 'always', 'once',
+  'tes', 'vous', 'pour', 'dans', 'avec', 'mais', 'plus', 'tout', 'comme', 'sans', 'elle',
+]);
+
 function turnsSinceHeroImage(recentTurns: readonly TurnRecord[]): number | null {
   for (let i = recentTurns.length - 1; i >= 0; i--) {
     // Distance to the turn being planned, which is not in `recentTurns` — so

@@ -24,7 +24,7 @@ import { findFourthWallBreaks, fourthWallRepairNote } from './fourth-wall.js';
 import { expandElliptical } from './elliptical.js';
 import { writeStreaming } from './fast-writer.js';
 import { pickReactionEmotion } from './director.js';
-import { reactionAssetKey } from '@plotbreak/contracts';
+import { calledName, reactionAssetKey } from '@plotbreak/contracts';
 import type { ModelGateway } from './gateway/types.js';
 import { generateResponses } from './responses.js';
 import { recordMentions } from '@plotbreak/engine';
@@ -322,7 +322,10 @@ export async function runTurn(options: RunTurnOptions): Promise<TurnPipelineResu
 
   // Step 11 — exactly one constrained repair pass. Never a loop.
   if (isRepairable(report)) {
-    narrative = repairNarrative(narrative, report, context.player.name);
+    narrative = repairNarrative(narrative, report, context.player.name, [
+      context.player.name,
+      ...context.presentCharacters.map((c) => calledName(c.def)),
+    ]);
     report = validateNarrative({ context, turn: narrative });
     repaired = true;
   }
@@ -557,7 +560,10 @@ export async function rephraseNarration(options: RephraseOptions): Promise<Rephr
   let report = validateNarrative({ context, turn: narrative });
   let repaired = false;
   if (isRepairable(report)) {
-    narrative = repairNarrative(narrative, report, context.player.name);
+    narrative = repairNarrative(narrative, report, context.player.name, [
+      context.player.name,
+      ...context.presentCharacters.map((c) => calledName(c.def)),
+    ]);
     report = validateNarrative({ context, turn: narrative });
     repaired = true;
   }

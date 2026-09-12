@@ -420,6 +420,25 @@ function directorPayload(context: TurnContext): Record<string, unknown> {
     })),
     cast: context.story.characters.map((c) => ({ id: c.id, name: c.name, pronouns: c.pronouns })),
     recentTurns: context.recentTurns,
+    /**
+     * What this cast has actually said lately.
+     *
+     * A scene summary carries events and not voices, so the writer's only
+     * evidence of how somebody talks was the authored voice samples — and its
+     * own last beat, read back through the transcript it cannot see. That is
+     * how Sabo came to open seventeen of twenty-one lines with "Look,": the
+     * model matched the most recent example of the voice, which was itself.
+     * Showing the lines makes the repetition visible to the thing repeating.
+     */
+    recentlySaid: context.recentDialogue.slice(-8),
+    /**
+     * Images the last few beats already spent.
+     *
+     * Not a ban. Ace's mountain is allowed to have cicadas in it, and a world
+     * that sounds like itself is the point. This is a list of what has just
+     * been used, so the fourth cicada is a choice rather than an accident.
+     */
+    alreadyUsedRecently: context.recentMotifs,
     retrievedFacts: context.retrievedFacts.map((f) => f.fact.text),
     arc: context.arc,
     // Where this run could end up from here. Destinations, never a route —
@@ -461,6 +480,12 @@ export const WRITER_POLICY = [
   'got a different game.',
   'Never grant items, levels, or knowledge that is not in the mutations.',
   'Characters have their own goals and may disagree with the player.',
+  '',
+  'You can see what the cast just said in `recentlySaid` and what the last beats already used in',
+  '`alreadyUsedRecently`. Do not open a character’s line the way their last line opened. Do not reach',
+  'for the same image, gesture or prop a third time — the cicadas, the knuckles, the sap, whatever this',
+  'world’s version of it is. Repetition is not a voice; it is the absence of one, and the player notices',
+  'it faster than they notice anything you get right.',
   '',
   'NEVER INVENT SHARED HISTORY. No injury, bruise, scar, promise, debt, oath, past fight or old betrayal',
   'unless the state, the memories or an earlier turn actually contains it. A missed punch is a missed',

@@ -31,6 +31,7 @@ import { ModelGatewayError } from './gateway/types.js';
 import { buildMessages, policyFor, worldRules } from './model-stages.js';
 import { RESPONSE_POLICY_FR } from './policies-fr.js';
 import { nameKeys } from '@plotbreak/contracts';
+import { lexicalSimilarity } from './memory.js';
 import { speakerBrief } from './speaker-brief.js';
 import { stateBands } from './state-bands.js';
 import { frenchTypography } from '@plotbreak/i18n';
@@ -227,6 +228,16 @@ function payload(context: TurnContext, narrative: NarrativeTurn): Record<string,
      * nothing named a destination the parser could resolve.
      */
     whereYouCouldGo: exitsFrom(context),
+    /**
+     * What has already been on the table.
+     *
+     * The filter below drops a card that repeats one of these, which costs the
+     * player a choice. Showing them here is how the model stops writing them:
+     * a turn that offers three cards and has two dropped as duplicates is a
+     * turn where the player picks from two, and the fix for that is upstream
+     * of the filter, not in it.
+     */
+    alreadyOfferedRecently: context.recentSuggestions.slice(-6),
     you: {
       name: context.player.name,
       pronouns: context.player.pronouns,
@@ -412,14 +423,73 @@ export async function generateResponses(
       // Sixteen cards in a twenty-three world smoke test carried straight
       // apostrophes — `D'accord`, `m'occuper`. The policy asks for curly ones
       // and the model complies most of the time, which is not a standard.
-      .map((r) => (locale === 'fr' ? { ...r, text: frenchTypography(r.text) } : r))
-      .slice(0, 3);
+      .map((r) => (locale === 'fr' ? { ...r, text: frenchTypography(r.text) } : r));
 
-    return responses.length >= 2 ? responses : null;
+    const offered = distinct(responses, context.recentSuggestions).slice(0, 3);
+    return offered.length >= 2 ? offered : null;
   } catch (error) {
     if (error instanceof ModelGatewayError) return null;
     throw error;
   }
+}
+
+/**
+ * How close two cards have to be before offering both is a lie about choice.
+ *
+ * Set by measurement, not taste. Every pair of the sixty cards offered across
+ * the Ace transcript was scored: **within a set** the highest similarity any
+ * two cards reached was 0.18, and the median was 0.05 — the model does not
+ * often write the same card twice in one breath. **Across turns** the median
+ * was 0.06 and the 99th percentile 0.40, and every pair above 0.40 was the
+ * same card again: card 3 was "head down the path toward the Dadan Family
+ * House" on turns 2, 3, 5, 8 and 20, in five different sentences.
+ *
+ * So the two thresholds are different on purpose. In-set sits well above what
+ * a healthy set produces, and cross-turn sits at the point where the real data
+ * stops being variation and starts being repetition.
+ */
+const TOO_ALIKE_IN_SET = 0.3;
+const TOO_ALIKE_ACROSS_TURNS = 0.4;
+
+/**
+ * Three cards that are three choices, and not the same one three times.
+ *
+ * Two failures, both live in Ace, and only the second one shows up in the
+ * numbers. Within a set the cards were usually distinct. Across turns they
+ * were not: a tap-only player pressing card 1 every time was choosing from a
+ * rotating menu of about two ideas, and card 3 was the same exit five times.
+ *
+ * The comparison is lexical, which is crude and is the point — it is cheap
+ * enough to run every turn and it catches what actually happens, which is the
+ * model paraphrasing itself rather than inventing a subtly different
+ * intention. The payload now shows it what it already offered, so the honest
+ * outcome of this change is that no card is dropped at all; the filter is what
+ * happens when that does not work.
+ *
+ * Two safeguards, because a player who cannot leave a room is worse off than a
+ * player reading a repeated card. At most one card is dropped per set for
+ * repeating an earlier turn, and if fewer than two survive nothing is dropped
+ * at all. `recentSuggestions` is a two-turn window for the same reason: an
+ * exit the player keeps not taking comes back rather than disappearing.
+ */
+export function distinct<T extends { text: string }>(
+  cards: readonly T[],
+  alreadyOffered: readonly string[],
+): T[] {
+  const kept: T[] = [];
+  let droppedForRepeating = 0;
+  for (const card of cards) {
+    if (kept.some((other) => lexicalSimilarity(card.text, other.text) >= TOO_ALIKE_IN_SET)) continue;
+    const repeatsTheRun = alreadyOffered.some(
+      (old) => lexicalSimilarity(card.text, old) >= TOO_ALIKE_ACROSS_TURNS,
+    );
+    if (repeatsTheRun && droppedForRepeating === 0) {
+      droppedForRepeating += 1;
+      continue;
+    }
+    kept.push(card);
+  }
+  return kept.length >= 2 ? kept : [...cards];
 }
 
 /**
