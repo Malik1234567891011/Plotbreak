@@ -111,6 +111,20 @@ interface PendingTurn {
   reaction: { name: string; url: string | null; emotion: string } | null;
   /** Spec §19.1 — arrives after the turn, never blocking it. */
   heroImageUrl: string | null;
+  /**
+   * A frame was planned for this beat and has not arrived.
+   *
+   * The reason the art felt absent was never that it was missing — it was that
+   * nothing on screen said it was coming. A frame takes forty to sixty seconds
+   * and the prose takes ten, so by the time it lands the player has read on,
+   * and the image appears silently behind them. They meet it by scrolling back
+   * past a beat they have already finished, which reads as a bug in the app
+   * rather than as a slow drawing.
+   *
+   * The slot now exists from the moment the frame is planned, so the thing the
+   * player watches fill in is in front of them.
+   */
+  awaitingHero?: boolean;
   blocks: NarrativeBlock[];
   check: {
     label: string;
@@ -229,7 +243,7 @@ export function SessionScreen({
     // typed is not in question, so it does not need permission to appear.
     setDraft('');
     void saveDraft(sessionId, '');
-    setPending({ turnId: '', actionText: text, streamed: [], reaction: null, heroImageUrl: null, blocks: [], check: null, deltas: [] });
+    setPending({ turnId: '', actionText: text, streamed: [], reaction: null, heroImageUrl: null, awaitingHero: false, blocks: [], check: null, deltas: [] });
     // Removing the three response cards shrinks the feed by their whole stack,
     // and the scroll offset is absolute — so submitting left the reader roughly
     // 350pt above the newest beat, watching "Resolving…" from two beats up. It
@@ -337,6 +351,26 @@ export function SessionScreen({
                 requestAnimationFrame(() => transcriptRef.current?.scrollToEnd({ animated: false }));
               });
             }
+            if (event === 'media.queued') {
+              // Before a word of it exists. This is the whole point: the slot
+              // has to be on screen while the player is still here.
+              setPending((current) =>
+                current && current.turnId === accepted.turnId ? { ...current, awaitingHero: true } : current,
+              );
+              setTurns((current) =>
+                current.map((t) => (t.turnId === accepted.turnId ? { ...t, awaitingHero: true } : t)),
+              );
+            }
+            if (event === 'media.failed') {
+              // Nothing is coming. Take the slot away rather than leaving a
+              // shimmer on the beat forever.
+              setPending((current) =>
+                current && current.turnId === accepted.turnId ? { ...current, awaitingHero: false } : current,
+              );
+              setTurns((current) =>
+                current.map((t) => (t.turnId === accepted.turnId ? { ...t, awaitingHero: false } : t)),
+              );
+            }
             if (event === 'media.completed' && typeof data.url === 'string') {
               // The turn is already committed and read; the frame just arrives.
               const url = data.url;
@@ -357,10 +391,14 @@ export function SessionScreen({
               // The `setTurns` call below was always keyed by `turnId` and was
               // always right. Only the live slot guessed.
               setPending((current) =>
-                current && current.turnId === accepted.turnId ? { ...current, heroImageUrl: url } : current,
+                current && current.turnId === accepted.turnId
+                  ? { ...current, heroImageUrl: url, awaitingHero: false }
+                  : current,
               );
               setTurns((current) =>
-                current.map((t) => (t.turnId === accepted.turnId ? { ...t, heroImageUrl: url } : t)),
+                current.map((t) =>
+                  t.turnId === accepted.turnId ? { ...t, heroImageUrl: url, awaitingHero: false } : t,
+                ),
               );
             }
             if (event === 'turn.failed') {
@@ -547,6 +585,8 @@ export function SessionScreen({
             */}
             {turn.heroImageUrl ? (
               <HeroFrame uri={turn.heroImageUrl} onPress={() => setFullScreenImage(turn.heroImageUrl!)} />
+            ) : turn.awaitingHero ? (
+              <HeroFramePending />
             ) : null}
             {turn.blocks.map((block, index) => (
               <Block key={index} block={block} scene={scene} />
@@ -581,6 +621,8 @@ export function SessionScreen({
         {/* Spec §19.1 tier 2 — a hero frame for a beat that earned one. */}
         {heroImageUrl ? (
           <HeroFrame uri={heroImageUrl} onPress={() => setFullScreenImage(heroImageUrl)} />
+        ) : (pending ? pending.awaitingHero : latest?.awaitingHero) ? (
+          <HeroFramePending />
         ) : null}
 
         {/*
@@ -1154,6 +1196,45 @@ function HeroFrame({ uri, onPress }: { uri: string; onPress: () => void }): Reac
         resizeMode="cover"
       />
     </Pressable>
+  );
+}
+
+/**
+ * The frame's slot, before the frame.
+ *
+ * Deliberately the same dimensions as `HeroFrame`, so nothing moves when the
+ * image replaces it — a slot that resizes on arrival pushes the prose the
+ * player is reading down the screen, which is a worse bug than the one this
+ * fixes. Gently animated, because a static grey box reads as a broken image
+ * rather than as a pending one.
+ */
+function HeroFramePending(): React.JSX.Element {
+  const t = useT();
+  const pulse = React.useRef(new Animated.Value(0.35)).current;
+
+  React.useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, { toValue: 0.75, duration: 900, useNativeDriver: true }),
+        Animated.timing(pulse, { toValue: 0.35, duration: 900, useNativeDriver: true }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+
+  return (
+    <Animated.View
+      accessible
+      accessibilityLabel={t('session.scene_image_pending_a11y')}
+      style={{
+        width: '100%',
+        aspectRatio: 3 / 2,
+        borderRadius: radius.card,
+        backgroundColor: colors.bg.elevated,
+        opacity: pulse,
+      }}
+    />
   );
 }
 

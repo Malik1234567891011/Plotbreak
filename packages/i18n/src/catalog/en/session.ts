@@ -23,6 +23,15 @@ export const session = {
    */
   'session.scene_image_a11y': 'Scene image. Tap to view full screen.',
   /**
+   * The frame's slot, before the frame.
+   *
+   * Read out while the art is still being drawn, which takes the best part of
+   * a minute — so it says what is happening rather than "loading", because a
+   * screen reader user has no other way to know that something is on its way
+   * to this exact spot.
+   */
+  'session.scene_image_pending_a11y': 'Scene image being drawn for this moment.',
+  /**
    * Screen-reader label on the reacting character's portrait. `{name}` is a
    * character name and `{emotion}` is an engine-supplied mood word.
    */

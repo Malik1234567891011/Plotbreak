@@ -66,6 +66,9 @@ export const session = {
   /* ---------------------------------------------------------------------- */
 
   'session.scene_image_a11y': 'Image de la scène. Toucher pour afficher en plein écran.',
+  /** « en cours de dessin » plutôt que « chargement » : rien n’est en train
+      d’arriver, quelque chose est en train d’être fait. */
+  'session.scene_image_pending_a11y': 'Image de la scène en cours de dessin pour ce moment.',
   'session.reaction_image_a11y': '{name}, {emotion}. Toucher pour afficher en plein écran.',
   /**
    * `Résolution…` is impossible: `résolution` is a screen setting in French and

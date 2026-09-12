@@ -1429,9 +1429,13 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
 
       const result = hub.subscribe(turnId, token, auth.user.userId, (event) => {
         write(formatSse(event));
-        if (event.event === 'turn.completed' || event.event === 'turn.failed') {
-          reply.raw.end();
-        }
+        // The hub decides when a stream is finished, and says so on the event.
+        //
+        // This used to close on `turn.completed`, which is the end of the turn
+        // and not the end of the stream: a frame is enqueued during the turn
+        // and lands seconds later, so closing here threw away every
+        // `media.completed` the API ever sent.
+        if (event.final) reply.raw.end();
       });
 
       if (!result.ok) {
