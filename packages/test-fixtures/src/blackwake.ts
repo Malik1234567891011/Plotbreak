@@ -892,7 +892,10 @@ const raw = {
       portrait: 'blackwake/veyra',
       expressions: ['neutral', 'regretful', 'implacable'],
       schedule: [],
-      homeLocationId: null,
+      homeLocationId: 'stormlee',
+      // She has no schedule, so without a home `createInitialState` falls
+      // through to the player's starting location — putting the Fleet captain
+      // hunting you beside you in the market on turn one.
       knowledgeScope: ['ninth_fleet', 'crownless_sea', 'ferro_vane', 'the_chart'],
       startingRelationship: { trust: 0, affection: 0, respect: 0, fear: 0, rivalry: 10 },
       gates: [],

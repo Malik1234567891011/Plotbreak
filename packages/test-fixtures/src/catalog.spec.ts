@@ -222,6 +222,95 @@ describe('every launch world', () => {
         expect(dead, `unreachable content: ${dead.join('; ')}`).toEqual([]);
       });
 
+      /**
+       * Nobody arrives in the opening scene by accident.
+       *
+       * `createInitialState` places a character by schedule, then by
+       * `homeLocationId`, then — as a last resort — at the player's own
+       * starting location. That last fallback is silent and it is where
+       * Red-Haired Shanks ended up standing in a children's forest on Dawn
+       * Island, because his schedule began twenty minutes after the story did.
+       * Blackwake had the same shape: a Fleet captain hunting the player was
+       * beside them in the market on turn one, because she had no schedule at
+       * all.
+       *
+       * A character who should be in the opening is put there deliberately.
+       * This catches the ones who are not.
+       */
+      /**
+       * An authored card has to mean what the parser thinks it means.
+       *
+       * Ace's first card was a threat aimed at a seven-year-old that ended
+       * "...because Sabo is laughing and I will hit him" — an idiom. The
+       * parser read `hit` as a verb with a present target, so a player who
+       * tapped dialogue got a fistfight with the wrong person, a failed Strike
+       * check, and two people newly afraid of them. The card was word-perfect
+       * prose and completely wrong as an input.
+       *
+       * This runs the real parser rather than a word list, because the rule it
+       * is protecting is the parser's rule.
+       */
+      it('offers no opening card the parser turns into a fight', async () => {
+        if (story.openingSuggestions.length === 0) return;
+        const [{ RuleBasedIntentParser }, { createInitialState }] = await Promise.all([
+          import('@plotbreak/director'),
+          import('@plotbreak/engine'),
+        ]);
+        const parser = new RuleBasedIntentParser();
+        const state = createInitialState({
+          sessionId: `sess_cards_${story.storyId}`,
+          story,
+          identity: {
+            displayName: story.protagonist.kind === 'NAMED' ? story.protagonist.name : 'Tester',
+            pronouns: story.protagonist.pronouns || 'they/them',
+            ageBand: null,
+            archetypeId: story.archetypes[0]?.id ?? null,
+            worldKnowsAboutYou: '',
+            advanced: {},
+            portraitAssetId: null,
+          },
+        });
+
+        const violent: string[] = [];
+        for (const card of story.openingSuggestions) {
+          const intent = await parser.parse(card, {
+            story,
+            state,
+            intentId: 'intent_card_probe',
+            addressee: null,
+          });
+          // `actions[].verb`, not `intent.verb`. The first version of this
+          // test read a field that does not exist, so it passed on the exact
+          // card that caused the bug — which is worse than having no test,
+          // because it reported the world as clean.
+          if (intent.actions.some((a) => a.verb === 'attack')) violent.push(card.slice(0, 70));
+        }
+        expect(
+          violent,
+          `these opening cards parse as an attack: ${violent.join(' | ')}`,
+        ).toEqual([]);
+      });
+
+      it('never drops a character into the opening scene by fallback', () => {
+        const minuteOfDay = ((story.rules.startWorldMinute % 1440) + 1440) % 1440;
+        const scheduledAtStart = (character: (typeof story.characters)[number]): string | null => {
+          for (const block of character.schedule) {
+            if (minuteOfDay >= block.startMinute && minuteOfDay < block.endMinute) {
+              return block.locationId;
+            }
+          }
+          return null;
+        };
+        const dumped = story.characters.filter(
+          (c) => scheduledAtStart(c) === null && c.homeLocationId === null,
+        );
+        expect(
+          dumped.map((c) => c.id),
+          `these have no place at the opening minute and will be placed on the player: ` +
+            dumped.map((c) => c.id).join(', '),
+        ).toEqual([]);
+      });
+
       it('can be walked to from where it starts', () => {
         // A location with no inbound connection that is not discovered by
         // default is content nobody will ever see.

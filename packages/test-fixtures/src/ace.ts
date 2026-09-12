@@ -1516,8 +1516,11 @@ const raw = {
       expressions: ['neutral', 'grinning', 'scheming', 'angry', 'frightened'],
       schedule: [
         { startMinute: 0, endMinute: 390, locationId: 'asl_treehouse', activity: 'asleep in the treehouse' },
-        { startMinute: 390, endMinute: 660, locationId: 'gray_terminal', activity: 'working the Terminal, trading what he lifted' },
-        { startMinute: 660, endMinute: 1020, locationId: 'mt_colubo', activity: 'with Ace, planning something' },
+        // On the mountain for the morning, because the opening prose has him
+        // sitting on the log up the slope enjoying himself. A character the
+        // first paragraph names has to be in the room it names them in.
+        { startMinute: 390, endMinute: 780, locationId: 'mt_colubo', activity: 'with Ace, planning something, not helping' },
+        { startMinute: 780, endMinute: 1020, locationId: 'gray_terminal', activity: 'working the Terminal, trading what he lifted' },
         { startMinute: 1020, endMinute: 1200, locationId: 'asl_treehouse', activity: 'counting the can and recounting it' },
         { startMinute: 1200, endMinute: 1440, locationId: 'asl_treehouse', activity: 'awake longer than he admits' },
       ],
@@ -2304,7 +2307,11 @@ const raw = {
       schedule: [
         { startMinute: 600, endMinute: 1440, locationId: 'grand_line_port', activity: 'drinking, and hearing everything said in the room' },
       ],
-      homeLocationId: null,
+      // Without this he has no schedule block at the opening minute and no
+      // home, and `createInitialState` falls through to the player's starting
+      // location — which put an Emperor of the Sea in a children's forest on
+      // Dawn Island for the first twenty minutes of the story.
+      homeLocationId: 'grand_line_port',
       knowledgeScope: ['shanks', 'luffy', 'the_hat', 'roger', 'the_era', 'whitebeard', 'grand_line_port'],
       startingRelationship: { trust: 40, affection: 35, respect: 45, fear: 0, rivalry: 20 },
       gates: [
@@ -3567,9 +3574,23 @@ const raw = {
     'Eleven days. Walking faster does not work, because he runs. Leaving at four in the morning does not work, because he does not appear to sleep. Yesterday you said something deliberately cruel about his hat, and he thought about it for nine seconds and then asked what you were having for lunch.\n\n' +
     'Up the slope, Sabo sits on the log with the pipe across his knees, not helping, enjoying himself enormously.\n\n' +
     '"Ace." Luffy comes out from behind the tree, muddy to the knees, a scrape down one arm from something on the way up. "Ace. I can keep up. Look at me. I kept up."',
+  /**
+   * Three cards, and the wording is load-bearing in a way I got wrong first
+   * time.
+   *
+   * The first version of card one ended "...because Sabo is laughing and I
+   * will hit him" — an idiom, meaning *if I look at him I will*. The parser
+   * read `hit` as a verb with a present target, and a player who tapped a
+   * threat aimed at a seven-year-old got a fistfight with somebody else, a
+   * failed Strike check, and two people newly afraid of them. Card two said
+   * "I toss the spare pipe at him", which is the same trap.
+   *
+   * An authored card is a sentence the parser has to agree with. No violence
+   * verb aimed at anybody in the room unless violence is the card.
+   */
   openingSuggestions: [
-    '"Go home, Luffy. I mean it this time — if you follow us again I am tying you to a tree and leaving you there." I do not look back at Sabo, because Sabo is laughing and I will hit him.',
-    'I toss the spare pipe down the slope at him, hard enough that catching it will hurt. "Fine. You want to come? Keep up." Then I turn and go up the ridge at the speed I would use alone.',
+    '"Go home, Luffy. I mean it this time — if you follow us again I am tying you to a tree and leaving you there." I keep my eyes on him and not on Sabo, who is laughing, and who I am going to deal with later.',
+    'I hold the spare pipe out down the slope until he comes and takes it. "Fine. You want to come? Keep up." Then I turn and go up the ridge at the speed I would use alone.',
     'I stop walking. "Why me? There are a thousand people on this island you could be annoying. Why is it me." I actually want the answer, which is new, and I am annoyed with myself about it.',
   ],
   publishedAt: '2026-09-12T05:00:00.000Z',

@@ -54,12 +54,18 @@ describe('the opening is the opening', () => {
     expect(ACE.attributes.arcana).toBeLessThan(8);
   });
 
-  it('has the two boys the opening is about scheduled where it happens', () => {
-    const hour = Math.floor(ACE.rules.startWorldMinute / 60) * 60;
+  it('has the two boys the opening is about in the place it happens', () => {
+    // The first version of this checked that they were scheduled *somewhere*,
+    // which passes for a character standing in a different town. The opening
+    // paragraph names both of them on the mountain, so the assertion is about
+    // the mountain.
+    const hour = ACE.rules.startWorldMinute;
     for (const id of ['luffy', 'sabo']) {
-      const who = ACE.characters.find((c) => c.id === id);
-      const block = who?.schedule.find((b) => b.startMinute <= hour && b.endMinute > hour);
-      expect(block, `${id} is not scheduled anywhere at the opening hour`).toBeDefined();
+      const who = ACE.characters.find((c) => c.id === id)!;
+      const block = who.schedule.find((b) => b.startMinute <= hour && b.endMinute > hour);
+      expect(block?.locationId, `${id} is not in the opening scene`).toBe(
+        ACE.rules.startingLocationId,
+      );
     }
   });
 

@@ -1326,6 +1326,79 @@ const raw = {
    */
   characters: [
     {
+      id: 'kaito',
+      name: 'Kaito Serizawa',
+      role: 'The boy behind you, who will ask for your notes on the way out and has been asking for two years',
+      cardBlurb:
+        'He is the only person in this building who talks to you like a person rather than like a ranking, and he has no idea he is the last ordinary conversation you are going to have. He will ask for your notes. You will say yes.',
+      pronouns: 'he/him',
+      publicTraits: ['Cheerfully behind on everything', 'Talks through the lesson', 'Grateful in a way that costs him nothing'],
+      hiddenDrives: [
+        'He has worked out that being liked is more useful to him than being clever, and he is entirely at peace with that',
+        'He genuinely likes Light, which almost nobody at this school does — they admire him, which is different',
+      ],
+      values: [
+        'Getting through this year without anybody making a fuss',
+        'Paying people back in small currencies — lunch, gossip, a seat saved',
+      ],
+      fears: [
+        'Being found out as somebody who never actually understood any of it',
+      ],
+      socialStyle:
+        'Easy, unembarrassed, physically close. Leans over the desk mid-sentence. Treats a favour as a conversation rather than a transaction, and never notices that he is the one always asking.',
+      boundaries: [
+        'Will not pretend to have done the work',
+      ],
+      goals: [
+        'Your notes for the last four lessons',
+        'Find out whether you are going to the thing on Saturday',
+      ],
+      secrets: [
+        {
+          id: 'kaito_the_opinion',
+          fact: 'He thinks the criminal deaths are a good thing and says so casually, before anybody has named them, because that is what everybody at school thinks.',
+          visibility: 'NPC_PRIVATE',
+          revealHint: 'He volunteers it as small talk, cheerfully, with no idea what he is saying or to whom.',
+        },
+      ],
+      speechStyle:
+        'Informal, fast, half-finished, cheerfully self-deprecating. Calls him "Yagami" like a nickname rather than a surname. Asks for things as though he is doing you a favour by including you.',
+      topics: ['your notes', 'the lesson', 'Saturday', 'what people are saying', 'lunch'],
+      voiceSamples: [
+        'Yagami. Yagami. You finished, didn’t you. Course you did. Any chance?',
+        'I have understood none of this. Not one part. I have been sitting here for forty minutes with my eyes open.',
+        'Everyone’s saying those guys dying is a good thing. I dunno. Probably is?',
+        'You’re a lifesaver. I mean it. Genuinely, actually, a lifesaver.',
+      ],
+      appearance:
+        'Seventeen, the same tan blazer worn considerably less carefully, tie loose, hair uncombed, a bag with nothing much in it. Entirely ordinary in a way nobody has ever remarked on.',
+      visualHook: 'A loose tie and a blazer with one cuff turned up.',
+      silhouette: 'Slouched forward over a desk, chin on a hand.',
+      artSeed: 'light-kaito-01',
+      portrait: null,
+      expressions: ['neutral', 'cheerful', 'baffled', 'grateful'],
+      schedule: [
+        { startMinute: 480, endMinute: 960, locationId: 'daikoku_classroom', activity: 'school, understanding none of it' },
+        { startMinute: 960, endMinute: 1140, locationId: 'kanto_street', activity: 'out with the people he is easy with' },
+        { startMinute: 1140, endMinute: 1440, locationId: 'kanto_street', activity: 'home, somewhere this story never goes' },
+      ],
+      homeLocationId: 'daikoku_classroom',
+      knowledgeScope: ['kaito', 'daikoku_classroom', 'school_chatter', 'public_kira_opinion'],
+      startingRelationship: { trust: 60, affection: 55, respect: 90, fear: 0, rivalry: 0 },
+      gates: [
+        {
+          id: 'kaito_says_what_everyone_thinks',
+          label: 'He tells you what the school thinks about the deaths',
+          kind: 'OTHER',
+          requires: { trust: 62, flagsSet: ['spoke:kaito'] },
+        },
+      ],
+      attributes: { might: 10, agility: 11, mind: 9, presence: 14, resolve: 9, arcana: 1 },
+      companion: null,
+      scouting: null,
+      combatant: null,
+    },
+    {
       id: 'ryuk',
       name: 'Ryuk',
       role: 'The Shinigami who dropped the notebook, who is here because he was bored, and who does not care whether you win',
@@ -1634,8 +1707,8 @@ const raw = {
       schedule: [
         { startMinute: 0, endMinute: 390, locationId: 'yagami_home', activity: 'asleep' },
         { startMinute: 390, endMinute: 480, locationId: 'yagami_home', activity: 'breakfast, talking through it' },
-        { startMinute: 480, endMinute: 960, locationId: 'kanto_street', activity: 'school, and afterwards with friends' },
-        { startMinute: 960, endMinute: 1140, locationId: 'yagami_home', activity: 'homework, badly, in front of the television' },
+        { startMinute: 480, endMinute: 930, locationId: 'kanto_street', activity: 'her own school, two years below him, then the walk back' },
+        { startMinute: 930, endMinute: 1140, locationId: 'yagami_home', activity: 'homework, badly, in front of the television' },
         { startMinute: 1140, endMinute: 1440, locationId: 'yagami_home', activity: 'dinner and television' },
       ],
       homeLocationId: 'yagami_home',

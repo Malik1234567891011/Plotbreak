@@ -126,7 +126,7 @@ groupSynonyms('warm', 'cheerful', 'devout', 'pleading');
 groupSynonyms('amused', 'conspiratorial', 'grimly amused', 'faintly amused', 'faintly smug',
   'triumphant', 'drunk', 'avid');
 groupSynonyms('surprised', 'genuinely surprised', 'horrified');
-groupSynonyms('confused', 'scheming', 'working');
+groupSynonyms('confused', 'scheming', 'working', 'baffled');
 groupSynonyms('annoyed', 'severe', 'threatening', 'irritated', 'flat accusation');
 groupSynonyms('angry', 'blazing', 'shouting');
 groupSynonyms('worried', 'ailing', 'crying', 'dying', 'in pain', 'sleepy', 'uneasy');
