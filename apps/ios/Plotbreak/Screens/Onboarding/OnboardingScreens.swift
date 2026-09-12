@@ -30,29 +30,28 @@ private enum Legal {
 
 // MARK: - OB-01 Splash
 
-/// No fake delay; the wordmark shows only for as long as boot takes.
+/// The same logo, at the same size and place, as the system launch screen
+/// (`UILaunchScreen` → `LaunchLogo` on `LaunchBackground`). The system shows
+/// that while the process starts; this takes over the instant SwiftUI can
+/// draw and holds it until boot finishes. Identical pixels, so the handoff is
+/// invisible and the player sees one logo, once, for as long as launch takes.
+/// No fade-in, for the same reason.
 struct SplashScreen: View {
     @Environment(\.translator) private var t
-    @State private var visible = false
     @State private var showProgress = false
 
     var body: some View {
-        Screen {
-            VStack(spacing: Theme.Spacing.md) {
-                // The wordmark. PLOTBREAK is the product's name, not a word.
-                Text("PLOTBREAK")
-                    .font(Theme.TypeStyle.display.font())
-                    .kerning(6)
-                    .foregroundStyle(Theme.Colors.textPrimary)
-                if showProgress {
+        ZStack {
+            Theme.Colors.bgBase.ignoresSafeArea()
+            Image("LaunchLogo")
+                .accessibilityLabel("Plotbreak")
+            if showProgress {
+                VStack {
+                    Spacer()
                     Txt(t("onboarding.loading"), .caption, color: Theme.Colors.textMuted)
+                        .padding(.bottom, Theme.Spacing.giant)
                 }
             }
-            .opacity(visible ? 1 : 0)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        .onAppear {
-            withAnimation(.easeOut(duration: 0.26)) { visible = true }
         }
         .task {
             // Spec §6.2 — a progress indicator appears only if boot exceeds 800ms.

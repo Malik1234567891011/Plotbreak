@@ -79,15 +79,9 @@ final class AppStore {
 
     /// Restore identity, then bootstrap. A guest is minted so the player can
     /// browse and start one session before any account exists (§6.3).
-    /// The wordmark stays up at least this long. Boot no longer waits on the
-    /// network, so without a floor the splash is a two-frame flash, which
-    /// reads as a glitch rather than as the product's name.
-    static let splashFloor: TimeInterval = 0.5
-
     func boot() async {
         guard !hydrating else { return }
         hydrating = true
-        let bootStarted = Date()
 
         await api.setTokenProvider { [auth] force in await auth.accessToken(force: force) }
 
@@ -105,10 +99,6 @@ final class AppStore {
         tastes = defaults.stringArray(forKey: Keys.tastes) ?? []
         if let stored = defaults.string(forKey: Keys.quality), let tier = QualityTier(rawValue: stored) {
             qualityTier = tier
-        }
-        let elapsed = Date().timeIntervalSince(bootStarted)
-        if elapsed < Self.splashFloor {
-            try? await Task.sleep(nanoseconds: UInt64((Self.splashFloor - elapsed) * 1_000_000_000))
         }
         ready = true
 

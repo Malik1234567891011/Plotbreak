@@ -136,9 +136,9 @@ struct RootView: View {
     var body: some View {
         Group {
             if !store.ready {
-                // OB-01 — the splash lasts as long as boot, which no longer
-                // waits on the network, with a short floor
-                // (`AppStore.splashFloor`) so the wordmark reads rather than flashes.
+                // OB-01 — no artificial delay. The splash is the launch
+                // screen's logo, continued; it lasts exactly as long as boot,
+                // which no longer waits on the network.
                 SplashScreen()
             } else if !store.ageVerified {
                 // OB-02 — before any personalized content.
