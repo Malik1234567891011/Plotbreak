@@ -1,13 +1,15 @@
 # `engine-fixes`
 
-**Branched from `5f1152f` — Omar's "Merge Malik's work, keeping the Expo app
-removed", 12 September 2026.** That commit is `main` and `origin/main` as of
-this branch's creation, and it is the commit that finished the SwiftUI port and
-deleted `apps/mobile`.
+**Sits on `eea773a` — Omar's "Serve a world from its newest version that
+parses", 12 September 2026**, which is the tip of `main`. It was originally cut
+from `5f1152f`, the commit that finished the SwiftUI port and deleted
+`apps/mobile`, and has been rebased forward since; it is kept rebased on `main`
+rather than merged, so `main..engine-fixes` is always exactly this branch's own
+work and nothing else.
 
 Verify the base at any time:
 
-    git merge-base main engine-fixes      # -> 5f1152f
+    git merge-base main engine-fixes      # -> the commit this sits on
     git log --oneline main..engine-fixes  # only this branch's commits
 
 ## Why this is a branch and not main
@@ -32,6 +34,27 @@ the evidence that produced it. In order:
    present character the prose has forgotten.
 5. `c125d56` — one punch printing "afraid of you" for everybody who watched.
 6. `5753d7b` — what re-playing it found the first five had missed.
+
+## This branch is what repairs the production catalogue
+
+`eea773a` exists because of a mistake made while writing this branch: `npm run
+migrate` was run against the **production** database from a machine holding an
+unpushed contract change, so every world was republished carrying
+`CharacterDef.calledName`, which the deployed build's strict schema rejects.
+`/v1/discover` and `/v1/bootstrap` answered 500 while `/health` said fine, and
+the app read that as offline. Omar made the catalogue resilient — a world whose
+newest version will not parse is served from its newest version that does — so
+production is up, but it is serving the version *before* the bad one for the
+six worlds that carry the new field.
+
+`calledName` is defined in this branch, so merging it is what makes those
+versions parse again. Measured against the live database: **25 of 25 newest
+published versions parse under this branch's contract**, six of them carrying
+`calledName`.
+
+Until then, do not run `migrate` against production from a branch whose
+contract changes are not deployed. The lesson is the ordering: a schema change
+ships before the data that uses it, never after.
 
 ## Before merging
 
