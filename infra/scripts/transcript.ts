@@ -285,7 +285,16 @@ async function main(): Promise<void> {
     cards = after.suggestions ?? [];
 
     const scene = after.scene ?? {};
-    const header = [scene.locationName, scene.dayLabel ?? scene.clockLabel, scene.timeLabel]
+    // `SessionSceneState` carries `worldTimeLabel` and `dayNumber`, not the
+    // three fields this used to look for — which were all undefined, so twenty
+    // turns of transcript printed a bare location and read as a session where
+    // no time passed at all. It had; 115 minutes of it. The tool was lying
+    // about the one thing it was there to record.
+    const header = [
+      scene.locationName,
+      scene.dayNumber ? `Day ${scene.dayNumber}` : null,
+      scene.worldTimeLabel,
+    ]
       .filter(Boolean)
       .join(' · ');
     if (header) {

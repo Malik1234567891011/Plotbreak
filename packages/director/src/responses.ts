@@ -104,6 +104,16 @@ const POLICY = [
   'it. If somebody walked out, the responses are about that. If the player just burned the room down,',
   'nobody is discussing homework.',
   '',
+  'If `sceneProgress.stalled` is true, this scene has been the same scene for several turns. At least one',
+  'of the three has to change the situation rather than continue it — go somewhere in `whereYouCouldGo`,',
+  'force the thing everyone is circling, walk out, or do the thing that ends the argument. Three more',
+  'variations on the same conversation is a room with the door painted on, and a player who only taps',
+  'will never find the real one.',
+  '',
+  'And do not re-offer a card from `alreadyOfferedRecently`. Not reworded, not with a different opening',
+  'gesture — a different move. A player who taps the same position every turn should be getting a',
+  'different story, not the same one in three sentences.',
+  '',
   'Never announce the outcome. "I cross him over and dunk on him" decides something the world decides.',
   'Write the attempt and the intent: "I wave Jun over. ‘Guard me.’ The second he squares up I go at his',
   'weak side and try to get all the way to the rim."',
@@ -238,6 +248,14 @@ function payload(context: TurnContext, narrative: NarrativeTurn): Record<string,
      * of the filter, not in it.
      */
     alreadyOfferedRecently: context.recentSuggestions.slice(-6),
+    /**
+     * Whether this scene has stopped moving.
+     *
+     * The cards are the other half of the fix. A stalled scene where all three
+     * cards keep talking to the same people about the same thing is a room
+     * with the door painted on, and a tap-only player will never find it.
+     */
+    sceneProgress: context.sceneProgress,
     you: {
       name: context.player.name,
       pronouns: context.player.pronouns,

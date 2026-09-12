@@ -417,6 +417,15 @@ function directorPayload(context: TurnContext): Record<string, unknown> {
     presentCharacters: context.presentCharacters.map((c) => ({
       ...speakerBrief(c, context.state.locale),
       openGates: c.openGates,
+      /**
+       * Beats since the prose last acknowledged them. See `context.ts`.
+       *
+       * Ace stood Dadan in the clearing from turn 12 and then wrote four
+       * beats that did not mention her while the other two talked over her.
+       * She had not left; she had been dropped, which the player experiences
+       * as the same thing and the validator cannot call a contradiction.
+       */
+      turnsSinceMentioned: c.turnsSinceMentioned,
     })),
     cast: context.story.characters.map((c) => ({ id: c.id, name: c.name, pronouns: c.pronouns })),
     recentTurns: context.recentTurns,
@@ -439,6 +448,14 @@ function directorPayload(context: TurnContext): Record<string, unknown> {
      * been used, so the fourth cicada is a choice rather than an accident.
      */
     alreadyUsedRecently: context.recentMotifs,
+    /**
+     * How long this has been the same scene.
+     *
+     * Surfaced rather than acted on: the engine measures, the writer decides.
+     * See `scene-progress.ts` for the twenty turns on one mountain that made
+     * this necessary.
+     */
+    sceneProgress: context.sceneProgress,
     retrievedFacts: context.retrievedFacts.map((f) => f.fact.text),
     arc: context.arc,
     // Where this run could end up from here. Destinations, never a route —
@@ -480,6 +497,19 @@ export const WRITER_POLICY = [
   'got a different game.',
   'Never grant items, levels, or knowledge that is not in the mutations.',
   'Characters have their own goals and may disagree with the player.',
+  '',
+  'Everybody in `presentCharacters` is physically here. `turnsSinceMentioned` says how many beats ago the',
+  'prose last acknowledged them: at two or more, they have effectively vanished, and the player is',
+  'watching people talk through a person who is standing right there. They do not need a line — a clause',
+  'is enough, and a character who has been silent for three beats and is still here is doing something',
+  'about it. Nobody leaves a scene by being forgotten.',
+  '',
+  'When `sceneProgress.stalled` is true, the dramatic question in this scene has been asked and answered',
+  'and is still being asked. Do not write another version of the last beat. The world is larger than this',
+  'room and it has not been waiting politely: somebody arrives, somebody leaves, something outside',
+  'intrudes, a reason to stay expires, or one of the people here stops going along with it. Use what the',
+  'world actually contains — a character with somewhere to be, an obligation coming due, a place on the',
+  'map — and end the beat somewhere the next turn cannot be the same turn again.',
   '',
   'You can see what the cast just said in `recentlySaid` and what the last beats already used in',
   '`alreadyUsedRecently`. Do not open a character’s line the way their last line opened. Do not reach',

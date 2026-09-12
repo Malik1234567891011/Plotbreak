@@ -11,7 +11,7 @@ import type {
   StoryVersion,
   TurnRecord,
 } from '@plotbreak/contracts';
-import { QUALITY_TIERS, playerGrammar } from '@plotbreak/contracts';
+import { QUALITY_TIERS, nameKeys, playerGrammar } from '@plotbreak/contracts';
 import {
   abandonedObjectiveNote,
   approachingEndings,
@@ -32,6 +32,7 @@ import {
 import type { DayPart, RelationshipTone } from '@plotbreak/engine';
 import { retrieveLore } from './authored-lore.js';
 import { lexicalSimilarity, retrieveMemories, type ScoredFact } from './memory.js';
+import { sceneProgress, type SceneProgress } from './scene-progress.js';
 import { addressState } from './address-fr.js';
 import { pressureOf } from '@plotbreak/engine';
 
@@ -90,6 +91,19 @@ export interface PresentCharacterContext {
   readonly knownMemories: ScoredFact[];
   readonly revealableSecrets: Array<{ id: string; fact: string }>;
   readonly openGates: string[];
+  /**
+   * Beats since the prose last named them or gave them a line.
+   *
+   * A person the engine has standing in the room and the writing has not
+   * acknowledged for four turns has disappeared as far as the player is
+   * concerned — not written out, which `present-absence.ts` catches, just
+   * dropped. Ace put Dadan in the clearing from turn 12 and then did not
+   * mention her on 16, 17, 18 or 20 while the other two talked over her.
+   *
+   * Null when they have not been mentioned anywhere in the window, which is
+   * the case on the turn they arrive.
+   */
+  readonly turnsSinceMentioned: number | null;
 }
 
 export interface TurnContext {
@@ -211,6 +225,16 @@ export interface TurnContext {
    * pause instead of a removal.
    */
   readonly recentSuggestions: readonly string[];
+
+  /**
+   * Whether the scene has stopped moving. See `scene-progress.ts`.
+   *
+   * Twenty turns of Ace never left Mount Colubo and advanced the world clock
+   * by 115 minutes, so the first authored world event — three hundred turns
+   * away at that rate — could never arrive. Nothing could see that, so nothing
+   * pressed.
+   */
+  readonly sceneProgress: SceneProgress;
 
   /**
    * Images, gestures and props the last few beats have leant on.
@@ -376,6 +400,7 @@ export function buildTurnContext(options: BuildContextOptions): TurnContext {
           : relationshipLabel(NEUTRAL_RELATIONSHIP, state.locale),
         relationship: dimensions,
         address: addressState(def, rel),
+        turnsSinceMentioned: turnsSinceMentioned(def, recentTurns),
         // Per-NPC retrieval, filtered to their own knowledge scope.
         knownMemories: retrieveMemories(
           memories,
@@ -527,6 +552,7 @@ export function buildTurnContext(options: BuildContextOptions): TurnContext {
       ),
     recentSuggestions: recentTurns.slice(-2).flatMap((t) => (t.suggestions ?? []).map((sug) => sug.text)),
     recentMotifs: recentMotifs(recentTurns.slice(-3)),
+    sceneProgress: sceneProgress(state, recentTurns),
     retrievedFacts,
     arc: {
       episode: state.arc.episode,
@@ -601,6 +627,29 @@ const MOTIF_STOPWORDS = new Set([
   'down', 'here', 'only', 'even', 'more', 'much', 'very', 'never', 'always', 'once',
   'tes', 'vous', 'pour', 'dans', 'avec', 'mais', 'plus', 'tout', 'comme', 'sans', 'elle',
 ]);
+
+/**
+ * How many beats ago the prose last acknowledged this person.
+ *
+ * Named in narration or given a line — both count, because a character noticed
+ * in a sentence is a character who is still in the room. Every word of their
+ * name is checked, the same way `nameKeys` is used everywhere else, so "Curly
+ * Dadan" is found when the prose writes "Dadan".
+ */
+function turnsSinceMentioned(def: CharacterDef, recentTurns: readonly TurnRecord[]): number | null {
+  const keys = nameKeys(def.name).map((k) => k.toLowerCase());
+  const window = recentTurns.slice(-6);
+  for (let i = window.length - 1; i >= 0; i -= 1) {
+    const turn = window[i]!;
+    const named = (turn.blocks ?? []).some(
+      (block) =>
+        block.speakerId === def.id ||
+        keys.some((key) => block.text.toLowerCase().includes(key)),
+    );
+    if (named) return window.length - 1 - i;
+  }
+  return null;
+}
 
 function turnsSinceHeroImage(recentTurns: readonly TurnRecord[]): number | null {
   for (let i = recentTurns.length - 1; i >= 0; i--) {
