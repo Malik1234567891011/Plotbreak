@@ -21,7 +21,7 @@ ticked and saved.
 
 Why it is separate: the app already carries the
 `com.apple.developer.applesignin` entitlement in
-`apps/mobile/ios/Plotbreak/Plotbreak.entitlements`, but an entitlement is only a
+`apps/ios/Plotbreak/Plotbreak.entitlements`, but an entitlement is only a
 request. The App ID must grant it or the native call fails at runtime with a
 signing error rather than a useful message.
 

@@ -57,8 +57,10 @@ given the credit screen and StoreKit path already exist.
 `EXPO_PUBLIC_LEGAL_BASE_URL=https://www.plotbreak.com` is set, so the links now
 appear on the age gate.
 
-⚠️ `apps/mobile/.env` is gitignored, so **this variable has to be set in
-whatever builds the production app too**, or the links silently vanish again.
+⚠️ Now `PLOTBREAK_LEGAL_BASE_URL`, set in the app's xcconfig. It has a real
+value in `Release.xcconfig`, which *is* committed — but `Local.xcconfig`
+overrides it and is gitignored, so **check what the production build actually
+resolved**, or the links silently vanish again.
 
 ### 5. Apple-account work — see `AppleForOmar.md`
 

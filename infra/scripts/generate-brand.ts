@@ -18,10 +18,22 @@ import sharp from 'sharp';
 import { createMediaGatewayFromEnv, type ImagePromptSpec } from '@plotbreak/director';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const ASSETS = join(ROOT, 'apps/mobile/assets');
 
-/** The product's own palette, from packages/ui tokens. */
-const INK = '#0B0D12';
+/**
+ * Where the marks land.
+ *
+ * `docs/brand` is the canonical copy — it outlives any one client. The asset
+ * catalogue is what the app actually ships. Both are written, because the pair
+ * drifting apart is how an old icon ends up in the App Store.
+ *
+ * The Android and web outputs went with the Expo app. iOS wants one opaque
+ * 1024 square for the icon and one inset mark for the launch screen; it does
+ * not want a favicon.
+ */
+const BRAND = join(ROOT, 'docs/brand');
+const ASSETS = join(ROOT, 'apps/ios/Plotbreak/Resources/Assets.xcassets');
+const APP_ICON = join(ASSETS, 'AppIcon.appiconset/icon-1024.png');
+const SPLASH = join(ASSETS, 'SplashIcon.imageset/splash.png');
 
 const ICON_PROMPT = [
   'A flat vector app icon. Extreme simplicity: one bold centred symbol and nothing else.',
@@ -91,8 +103,7 @@ async function main(): Promise<void> {
   await loadEnv();
   const force = process.argv.includes('--force');
 
-  const iconPath = join(ASSETS, 'icon.png');
-  if (!force && (await exists(join(ASSETS, '.brand-generated')))) {
+  if (!force && (await exists(join(BRAND, '.brand-generated')))) {
     console.log('Brand assets already generated. Pass --force to redo them.');
     return;
   }
@@ -125,40 +136,18 @@ async function main(): Promise<void> {
   const edge = await edgeColour(asset.bytes);
   const inset = await insetSquare(asset.bytes, 0.86, edge);
 
-  await writeFile(iconPath, inset);
-  console.log('  ✓ icon.png (1024x1024, opaque)');
+  await writeFile(join(BRAND, 'appstore-icon-1024.png'), inset);
+  await writeFile(APP_ICON, inset);
+  console.log('  ✓ app icon (1024x1024, opaque)');
 
-  // The splash mark is the same artwork with more room around it, not a second
+  // The launch mark is the same artwork with more room around it, not a second
   // design.
-  await writeFile(join(ASSETS, 'splash-icon.png'), await insetSquare(asset.bytes, 0.55, edge));
-  console.log('  ✓ splash-icon.png');
+  const splash = await insetSquare(asset.bytes, 0.55, edge);
+  await writeFile(join(BRAND, 'splash-icon.png'), splash);
+  await writeFile(SPLASH, splash);
+  console.log('  ✓ launch mark');
 
-  // Android draws the foreground on its own background layer and masks it, so
-  // the safe zone is the middle 66 percent.
-  const foreground = await sharp({
-    create: { width: 1024, height: 1024, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
-  })
-    .composite([
-      {
-        input: await sharp(asset.bytes)
-          .resize(620, 620, { fit: 'cover' })
-          .png()
-          .toBuffer(),
-      },
-    ])
-    .png()
-    .toBuffer();
-  await writeFile(join(ASSETS, 'android-icon-foreground.png'), foreground);
-  await writeFile(
-    join(ASSETS, 'android-icon-background.png'),
-    await sharp({ create: { width: 1024, height: 1024, channels: 3, background: INK } }).png().toBuffer(),
-  );
-  console.log('  ✓ android icon layers');
-
-  await writeFile(join(ASSETS, 'favicon.png'), await sharp(inset).resize(48, 48).png().toBuffer());
-  console.log('  ✓ favicon.png');
-
-  await writeFile(join(ASSETS, '.brand-generated'), `${new Date().toISOString()}\n`);
+  await writeFile(join(BRAND, '.brand-generated'), `${new Date().toISOString()}\n`);
   console.log(`\nDone. Approx cost $${asset.provenance.costUsd.toFixed(2)}.`);
 }
 

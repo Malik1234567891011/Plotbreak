@@ -32,7 +32,7 @@
  *   npm run i18n:extract -- --exempt  # list every exemption and its reason
  *   npm run i18n:extract -- --json    # machine-readable
  *   npm run i18n:extract -- --worlds
- *   npm run i18n:extract -- --file apps/mobile/src/screens/Session.tsx
+ *   npm run i18n:extract -- --file apps/ios/Plotbreak/Screens/Session/SessionScreen.swift
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -41,16 +41,18 @@ const ROOT = new URL('../..', import.meta.url).pathname.replace(/\/$/, '');
 
 /** Where user-facing English is known to live. */
 const ROOTS = [
-  'apps/mobile/src',
-  'packages/ui/src',
+  // The client is Swift. It was `apps/mobile/src` + `packages/ui/src` until the
+  // React Native app was replaced; leaving those here would have quietly
+  // scanned nothing and reported a clean client forever.
+  'apps/ios/Plotbreak',
   'services/api/src',
   'packages/engine/src',
   'packages/contracts/src',
   'packages/director/src',
 ];
 
-const SOURCE = /\.(tsx?|jsx?)$/;
-const SKIP_FILE = /\.(spec|test)\.[tj]sx?$/;
+const SOURCE = /\.(tsx?|jsx?|swift)$/;
+const SKIP_FILE = /(\.(spec|test)\.[tj]sx?|Tests\.swift)$/;
 
 /**
  * A literal is a candidate when it reads like a sentence rather than an
@@ -118,7 +120,7 @@ interface Hit {
  *             is mostly examples (LOCALIZATION_ARCHITECTURE §4).
  */
 function layerOf(file: string): Layer {
-  if (file.startsWith('apps/') || file.startsWith('packages/ui/')) return 'client';
+  if (file.startsWith('apps/')) return 'client';
   if (file.startsWith('services/')) return 'server';
   return 'model';
 }

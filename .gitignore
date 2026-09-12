@@ -10,7 +10,6 @@ build/
 .env.*.local
 coverage/
 *.log
-apps/mobile/ios/
 android/
 .turbo/
 .data/

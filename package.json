@@ -8,8 +8,7 @@
   },
   "workspaces": [
     "packages/*",
-    "services/*",
-    "apps/*"
+    "services/*"
   ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
@@ -17,7 +16,6 @@
     "test": "npm run test --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "api": "npm run dev -w @plotbreak/api",
-    "mobile": "npm run start -w @plotbreak/mobile",
     "clean": "rm -rf packages/*/dist services/*/dist node_modules/.cache",
     "smoke": "tsx --env-file-if-exists=.env infra/scripts/smoke.ts",
     "i18n:extract": "tsx infra/scripts/i18n-extract.ts",

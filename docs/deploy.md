@@ -118,11 +118,15 @@ when `ASSET_ROOT` points at a volume; only generated art lives on the volume.
 
 ## Pointing the app at it
 
-`apps/mobile/.env`:
+`apps/ios/Plotbreak/Config/Release.xcconfig` (or `Local.xcconfig`, which is
+gitignored and wins):
 
 ```
-EXPO_PUBLIC_API_URL=https://<domain>
+PLOTBREAK_API_URL = https:/$()/<domain>
 ```
+
+The `$()` is an xcconfig quirk — without it `//` starts a comment and the URL
+silently truncates to `https:`.
 
 Rebuild the app — this is compiled in, not read at runtime. After that the
 phone no longer needs to be on the same wifi as anybody's laptop, which is the

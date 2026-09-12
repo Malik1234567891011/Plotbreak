@@ -17,6 +17,12 @@ import { describe, expect, it } from 'vitest';
  * try/catch, probes it against the two cases it needs, and falls back to
  * ordinary string comparison when the engine's version is not trustworthy.
  * Unpolyfilled `Intl` is allowed there precisely because it is guarded.
+ *
+ * The React Native client this was written for is gone — the app is Swift and
+ * uses Foundation's own formatters, which carry no such hazard. What is left to
+ * guard is this package, which the API and the engine both import, and which a
+ * future JS client would inherit whole. The rule is cheap and the crash it
+ * caught was expensive, so it stays.
  */
 
 const ROOT = new URL('../../..', import.meta.url).pathname.replace(/\/$/, '');
@@ -40,7 +46,7 @@ function sources(dir: string, out: string[] = []): string[] {
 describe('Intl areas the polyfill does not install', () => {
   it('are not constructed anywhere unguarded', () => {
     const offenders: string[] = [];
-    for (const dir of ['apps/mobile/src', 'packages/i18n/src', 'packages/ui/src']) {
+    for (const dir of ['packages/i18n/src']) {
       for (const file of sources(join(ROOT, dir))) {
         const relative = file.slice(ROOT.length + 1);
         if (relative.endsWith('polyfill.ts') || relative.endsWith('conformance.ts')) continue;

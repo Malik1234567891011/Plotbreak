@@ -21,14 +21,13 @@ truth — prose is decoration over it.
 ## Layout
 
 ```
-apps/mobile        Expo / React Native client (four root tabs + session shell)
+apps/ios           SwiftUI client, Xcode project (four root tabs + session shell)
 apps/admin         Next.js admin console
 services/api       Fastify /v1 API, SSE turn streaming, wallet ledger
 services/worker    Async media, embeddings, rollups
 packages/contracts Zod twins of ai_contracts.json + the REST surface
 packages/engine    Pure deterministic rules: seeded RNG, checks, mutations
 packages/director  Context building, model gateway, beat planning, writing
-packages/ui        Design-system primitives (spec §25/§26)
 packages/analytics Typed event names
 packages/config    Feature flags and environment-safe public config
 infra/migrations   Postgres schema
@@ -43,7 +42,15 @@ ever reaches the app bundle (spec §31.7).
 ```bash
 npm install
 npm run api      # http://localhost:4000  — works with zero API keys
-npm run mobile   # Expo; press "i" for the iOS simulator
+```
+
+The client is an Xcode project, not an npm workspace:
+
+```bash
+cd apps/ios
+./build.sh                # build for the simulator, errors only
+./test.sh                 # unit tests
+open Plotbreak.xcodeproj  # Debug talks to http://localhost:4000
 ```
 
 The API defaults to the rule-based pipeline, so the full turn sequence —

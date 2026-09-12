@@ -14,10 +14,12 @@ writes the beat.
   validator, response cards.
 - `services/api` — Fastify on **port 4000**. `tsx watch` reloads on edit, so do
   not edit mid-run.
-- `apps/mobile` — Expo SDK 57 / RN 0.86. Being replaced by `apps/ios`.
-- `apps/ios` — the native SwiftUI app (Xcode, iOS 17+). `project.yml` is the
-  source of truth; `./build.sh` regenerates and builds, `./test.sh` runs unit
-  tests. Read `apps/ios/PORTING.md` before touching it.
+- `apps/ios` — the client: a native SwiftUI app (Xcode, iOS 17+). It replaced
+  an Expo/React Native app, which is gone as of 2026-09-12; `git log -- apps/mobile`
+  still has it. `project.yml` is the source of truth for the Xcode project, and
+  `./build.sh` regenerates it before building, so a new `.swift` file needs no
+  Xcode fiddling. `./test.sh` runs the unit tests. Read `apps/ios/PORTING.md`
+  first — it documents two local-setup traps that look like app bugs.
 
 ## Things that have bitten us more than once
 

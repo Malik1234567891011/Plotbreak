@@ -4,9 +4,9 @@ Everything needed to get the app on a phone and play a turn. Written for Omar,
 2026-09-11.
 
 There are three moving parts: a **Postgres database** (Supabase, already live),
-an **API** (Node, currently only on Malik's laptop), and the **iOS app** (Expo /
-React Native). The app talks only to the API; the API talks to Supabase and to a
-model provider.
+an **API** (Node, currently only on Malik's laptop), and the **iOS app** (Swift
+/ SwiftUI, an Xcode project). The app talks only to the API; the API talks to
+Supabase and to a model provider.
 
 ---
 
@@ -24,14 +24,15 @@ Ask him for a `.env` file directly.
 | `PUBLIC_BASE_URL` | Where the API is reachable — see §3 |
 | `MEDIA_EPOCH` | Cache-busts regenerated art |
 
-Two `.env` files:
+Two files, both gitignored, which is why they are not in your checkout:
 
 - **`/.env`** at the repo root — everything above. The API reads it.
-- **`/apps/mobile/.env`** — needs `EXPO_PUBLIC_API_URL` (where the phone finds
-  the API) and `EXPO_PUBLIC_LEGAL_BASE_URL=https://www.plotbreak.com`, plus
-  `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_ANON_KEY`.
-
-Both are gitignored, which is why they are not in your checkout.
+- **`/apps/ios/Plotbreak/Config/Local.xcconfig`** — the app's half. Copy
+  `Local.xcconfig.example` next to it and fill in
+  `PLOTBREAK_SUPABASE_ANON_KEY`. The API URL, the Supabase URL and the legal
+  URL already have sane values in `Debug.xcconfig` (localhost) and
+  `Release.xcconfig` (Railway); override them here when you need something
+  else, such as your Mac's LAN address for a physical device.
 
 If the OpenAI account is out of credit, **every turn fails**. The app looks
 fine — worlds browse, sessions open, the opening beat appears, because that is
@@ -78,36 +79,34 @@ ipconfig getifaddr en0        # e.g. 10.144.7.164
 Put that in **both** files:
 
 - root `.env` → `PUBLIC_BASE_URL=http://10.144.7.164:4000`
-- `apps/mobile/.env` → `EXPO_PUBLIC_API_URL=http://10.144.7.164:4000`
+- `apps/ios/Plotbreak/Config/Local.xcconfig` → `PLOTBREAK_API_URL = http:/$()/10.144.7.164:4000`
+  (the `$()` is an xcconfig quirk: it stops `//` being read as a comment)
 
 `PUBLIC_BASE_URL` matters more than it looks: it is what the API stamps into
 image URLs and the turn stream URL. Leave it as localhost and the phone will
 dutifully try to fetch images from itself and show none.
 
-Then build. **Release, not Debug** — a Debug build expects a Metro server and
-shows "No script URL provided" when you open it later:
+Then build and run. In Xcode: open `apps/ios/Plotbreak.xcodeproj`, pick your
+phone, hit Run. From the terminal:
 
 ```bash
 # from the repo root, with the phone plugged in and unlocked
-xcodebuild -workspace apps/mobile/ios/Plotbreak.xcworkspace \
+xcodebuild -project apps/ios/Plotbreak.xcodeproj \
   -scheme Plotbreak -configuration Release \
   -destination 'platform=iOS,id=<device-udid>' \
   DEVELOPMENT_TEAM=Q7ZLXMG4SB CODE_SIGN_STYLE=Automatic
 ```
 
-Simulator is easier: `npm run mobile` and press `i`.
-
-**Iterating on JS without a full rebuild.** The installed app runs an embedded
-bundle, so Metro reloads do nothing. Rebuild just the bundle and swap it:
+The simulator is easier and needs no phone or signing setup:
 
 ```bash
-cd apps/mobile
-npx expo export:embed --platform ios --dev false --entry-file index.ts \
-  --bundle-output /tmp/b/main.jsbundle --assets-dest /tmp/b
-cp /tmp/b/main.jsbundle "<Simulator .app path>/main.jsbundle"
+cd apps/ios
+./build.sh      # builds, prints only errors
+open Plotbreak.xcodeproj
 ```
 
-About 60 seconds instead of a native build.
+There is no JavaScript bundle to swap any more — it is a native app, so a change
+means a rebuild, which takes about thirty seconds.
 
 ---
 
