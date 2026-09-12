@@ -72,7 +72,7 @@ enum Keychain {
 // Written against the REST endpoints rather than a Supabase SDK: what we use
 // is six requests.
 
-struct AuthSession: Equatable {
+struct AuthSession: Equatable, Codable {
     let accessToken: String
     let refreshToken: String
     /// Epoch seconds. The store refreshes before this, never after.
@@ -220,6 +220,34 @@ struct AuthIdentity: Equatable {
     let isGuest: Bool
 }
 
+/// Where the whole session lives between launches. The keychain in the app; a
+/// dictionary in tests, which run unsigned and have no keychain access group.
+struct SessionVault {
+    var load: () -> AuthSession?
+    var save: (AuthSession) -> Void
+    var clear: () -> Void
+
+    static let sessionKey = "plotbreak.session"
+
+    static let keychain = SessionVault(
+        load: {
+            guard let raw = Keychain.get(sessionKey) else { return nil }
+            return try? JSONDecoder().decode(AuthSession.self, from: Data(raw.utf8))
+        },
+        save: { session in
+            guard let data = try? JSONEncoder().encode(session), let raw = String(data: data, encoding: .utf8) else { return }
+            _ = Keychain.set(raw, for: sessionKey)
+        },
+        clear: { Keychain.delete(sessionKey) }
+    )
+
+    static func inMemory(_ initial: AuthSession? = nil) -> SessionVault {
+        final class Box { var session: AuthSession?; init(_ s: AuthSession?) { session = s } }
+        let box = Box(initial)
+        return SessionVault(load: { box.session }, save: { box.session = $0 }, clear: { box.session = nil })
+    }
+}
+
 actor AuthStore {
     private static let refreshTokenKey = "plotbreak.refreshToken"
     private static let devTokenKey = "plotbreak.token"
@@ -228,13 +256,15 @@ actor AuthStore {
 
     private var client: SupabaseAuth?
     private var session: AuthSession?
+    private let vault: SessionVault
     /// The development identity when no Supabase project is configured.
     private var devToken: String?
     private var inFlight: Task<String?, Never>?
     private var translator = Translator(locale: .en)
 
-    init(client: SupabaseAuth? = AuthStore.defaultClient()) {
+    init(client: SupabaseAuth? = AuthStore.defaultClient(), vault: SessionVault = .keychain) {
         self.client = client
+        self.vault = vault
     }
 
     static func defaultClient() -> SupabaseAuth? {
@@ -259,10 +289,24 @@ actor AuthStore {
         return nil
     }
 
-    /// Restores the identity at launch: refresh what is in the keychain, and
-    /// if there is nothing there, become a guest.
+    /// Restores the identity at launch without waiting on the network.
+    ///
+    /// The session from last time is adopted as it is. That is enough to know
+    /// who the player is; the access token is renewed by the first request
+    /// that needs it (`accessToken`), not here. Launch used to spend about a
+    /// second on that refresh before anything could draw, and the splash was
+    /// that second. If the refresh token has since been revoked, the first
+    /// request becomes a new guest, which is what it did mid-session before.
+    ///
+    /// Only an install from before sessions were stored whole, or a fresh one,
+    /// still pays for a round trip here, once.
     func restore() async -> AuthIdentity? {
         guard let client else { return restoreDevIdentity() }
+
+        if let stored = vault.load() {
+            session = stored
+            return identity
+        }
 
         if let refreshToken = Keychain.get(Self.refreshTokenKey) {
             do {
@@ -356,11 +400,13 @@ actor AuthStore {
     private func adopt(_ session: AuthSession) {
         self.session = session
         Keychain.set(session.refreshToken, for: Self.refreshTokenKey)
+        vault.save(session)
     }
 
     private func clear() {
         session = nil
         Keychain.delete(Self.refreshTokenKey)
+        vault.clear()
     }
 
     /// With no Supabase project configured the app still has to run against
