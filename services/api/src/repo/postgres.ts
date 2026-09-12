@@ -171,13 +171,63 @@ export class PostgresRepository implements Repository {
     // returned every version ever published, so the moment a world had a
     // second version it appeared twice in Discover — the same cover, the same
     // title, two cards.
-    const { rows } = await this.#pool.query<{ definition: unknown }>(
-      `SELECT DISTINCT ON (story_id) definition FROM story_versions
+    const { rows } = await this.#pool.query<{
+      story_id: string;
+      version: number;
+      definition: unknown;
+    }>(
+      `SELECT DISTINCT ON (story_id) story_id, version, definition FROM story_versions
        ORDER BY story_id, version DESC`,
     );
-    const stories = rows.map((row) => StoryVersion.parse(row.definition));
+    const stories: StoryVersion[] = [];
+    for (const row of rows) {
+      const story = await this.#parseOrFallBack(row);
+      if (story) stories.push(story);
+    }
     this.#catalogue = { at: Date.now(), stories };
     return stories;
+  }
+
+  /**
+   * A published version this build's contract cannot parse must not take the
+   * whole catalogue down with it.
+   *
+   * It happened: a migrate run from a machine with an unpushed contract change
+   * published versions carrying a field this server had never heard of, and
+   * `/v1/discover` and `/v1/bootstrap` answered 500 for every world — the app
+   * said "offline" while `/health` said fine. One `.strict()` rejection in one
+   * row was the whole screen.
+   *
+   * So a bad newest version is logged and skipped, and the world is served from
+   * its newest version that does parse. Sessions pinned to the bad version stay
+   * broken (`getStoryVersion` is still strict); they were started by whoever
+   * published it.
+   */
+  async #parseOrFallBack(row: {
+    story_id: string;
+    version: number;
+    definition: unknown;
+  }): Promise<StoryVersion | null> {
+    const parsed = StoryVersion.safeParse(row.definition);
+    if (parsed.success) return parsed.data;
+    console.warn(
+      `story_versions: ${row.story_id} v${row.version} does not match this build's contract; ` +
+        `serving an older version. ${summarizeIssues(parsed.error)}`,
+    );
+    const { rows } = await this.#pool.query<{ version: number; definition: unknown }>(
+      `SELECT version, definition FROM story_versions
+       WHERE story_id = $1 AND version < $2 ORDER BY version DESC`,
+      [row.story_id, row.version],
+    );
+    for (const older of rows) {
+      const attempt = StoryVersion.safeParse(older.definition);
+      if (attempt.success) return attempt.data;
+      console.warn(
+        `story_versions: ${row.story_id} v${older.version} does not parse either. ${summarizeIssues(attempt.error)}`,
+      );
+    }
+    console.warn(`story_versions: no version of ${row.story_id} parses; hidden from the catalogue.`);
+    return null;
   }
 
   async getStoryVersion(storyVersionId: string): Promise<StoryVersion | null> {
@@ -197,11 +247,16 @@ export class PostgresRepository implements Repository {
       return cached;
     }
     // Published versions are immutable, so "the story" is its highest version.
-    const { rows } = await this.#pool.query<{ definition: unknown }>(
-      `SELECT definition FROM story_versions WHERE story_id = $1 ORDER BY version DESC LIMIT 1`,
+    const { rows } = await this.#pool.query<{
+      story_id: string;
+      version: number;
+      definition: unknown;
+    }>(
+      `SELECT story_id, version, definition FROM story_versions
+       WHERE story_id = $1 ORDER BY version DESC LIMIT 1`,
       [storyId],
     );
-    return rows[0] ? StoryVersion.parse(rows[0].definition) : null;
+    return rows[0] ? this.#parseOrFallBack(rows[0]) : null;
   }
 
   async getSignals(storyId: string): Promise<StorySignals> {
@@ -1473,4 +1528,12 @@ function toIdempotency(row: Record<string, unknown>): IdempotencyRecord {
  */
 function userIdForAccount(accountId: string): string {
   return accountId.startsWith('acct_') ? accountId.slice('acct_'.length) : accountId;
+}
+
+/** "characters/0: unrecognized_keys calledName; characters/2: …" — enough to grep for. */
+function summarizeIssues(error: { issues: { path: PropertyKey[]; code: string; keys?: string[] }[] }): string {
+  return error.issues
+    .slice(0, 3)
+    .map((issue) => `${issue.path.join('/')}: ${issue.code}${issue.keys ? ' ' + issue.keys.join(',') : ''}`)
+    .join('; ');
 }

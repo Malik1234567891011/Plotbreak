@@ -106,6 +106,45 @@ describe.skipIf(!URL)('PostgresRepository', () => {
     expect(await repo.getStoryByStoryId(STORY.storyId)).toMatchObject({ title: STORY.title });
   });
 
+  it('serves the newest version that parses when a newer one does not', async () => {
+    // A migrate run from a machine with an unpushed contract change published
+    // versions this build cannot parse, and Discover answered 500 for every
+    // world. The catalogue must survive one bad row.
+    const good = (await repo.getStoryByStoryId(STORY.storyId))!;
+    const badId = `${STORY.storyId}_bad_${Math.random().toString(36).slice(2, 8)}`;
+    const bad = {
+      ...good,
+      id: badId,
+      version: good.version + 1000,
+      characters: good.characters.map((c) => ({ ...c, calledName: 'nope' })),
+    };
+    await admin.query(
+      `INSERT INTO story_versions (story_version_id, story_id, version, definition, title,
+                                   fantasy_label, hook, intensity, content_descriptors,
+                                   clarity_passed, published_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,true,now())`,
+      [badId, STORY.storyId, bad.version, JSON.stringify(bad), good.title,
+       good.fantasyLabel, good.hook, good.intensity, good.contentDescriptors],
+    );
+    try {
+      const fresh = new PostgresRepository({ connectionString: URL! });
+      try {
+        const listed = await fresh.listStories();
+        expect(listed.find((s) => s.storyId === STORY.storyId)?.version).toBe(good.version);
+        const single = new PostgresRepository({ connectionString: URL! });
+        try {
+          expect((await single.getStoryByStoryId(STORY.storyId))?.version).toBe(good.version);
+        } finally {
+          await single.close();
+        }
+      } finally {
+        await fresh.close();
+      }
+    } finally {
+      await admin.query(`DELETE FROM story_versions WHERE story_version_id = $1`, [badId]);
+    }
+  });
+
   it('keeps a user and their settings across a restart', async () => {
     const user = await makeUser();
     await repo.updateUser(user.userId, { settings: { ...user.settings, showCheckMath: true } });
