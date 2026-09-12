@@ -1,0 +1,3 @@
+// Copy to Local.xcconfig. The Supabase anon key is public by design, but it
+// still lives outside git so a fork does not inherit our project.
+PLOTBREAK_SUPABASE_ANON_KEY = 

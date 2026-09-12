@@ -10,7 +10,7 @@ build/
 .env.*.local
 coverage/
 *.log
-ios/
+apps/mobile/ios/
 android/
 .turbo/
 .data/
@@ -23,3 +23,10 @@ infra/seed/assets/**/*.png
 # one player, so neither is seed content. Both are regenerated on demand.
 infra/seed/assets/hero/
 infra/seed/assets/player/
+
+# Xcode machine-local config
+apps/ios/Plotbreak/Config/Local.xcconfig
+apps/ios/build/
+apps/ios/DerivedData/
+*.xcuserstate
+xcuserdata/

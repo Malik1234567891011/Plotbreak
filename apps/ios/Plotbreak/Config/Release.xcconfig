@@ -1,0 +1,8 @@
+// Release talks to production on Railway. The anon key is designed to be
+// public (Supabase's publishable key); paste it here or in Local.xcconfig.
+PLOTBREAK_API_URL = https:/$()/plotbreak-api-production.up.railway.app
+PLOTBREAK_SUPABASE_URL = https:/$()/qscmokjkflkrspqjjooa.supabase.co
+PLOTBREAK_SUPABASE_ANON_KEY = 
+PLOTBREAK_LEGAL_BASE_URL = https:/$()/www.plotbreak.com
+
+#include? "Local.xcconfig"

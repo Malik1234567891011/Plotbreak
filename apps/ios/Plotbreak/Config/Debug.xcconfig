@@ -1,0 +1,8 @@
+// Debug talks to the local API (`npm run api` on port 4000). The simulator
+// shares the host's loopback; a physical device needs your Mac's LAN address.
+PLOTBREAK_API_URL = http:/$()/localhost:4000
+PLOTBREAK_SUPABASE_URL = https:/$()/qscmokjkflkrspqjjooa.supabase.co
+PLOTBREAK_SUPABASE_ANON_KEY = 
+PLOTBREAK_LEGAL_BASE_URL = https:/$()/www.plotbreak.com
+
+#include? "Local.xcconfig"
