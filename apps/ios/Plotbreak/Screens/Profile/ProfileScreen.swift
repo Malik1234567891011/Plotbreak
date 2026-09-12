@@ -8,6 +8,7 @@ import SwiftUI
 /// The languages, in their own language. Never translated — a language picker
 /// that says "French" to someone looking for "Français" is the one string in
 /// the app that must not be localized.
+// i18n-exempt: each language named in its own language — see the note above
 private let languageNames: [AppLocale: String] = [.en: "English", .fr: "Français"]
 
 /// `BADGES.length` in `@plotbreak/contracts` — the set is fixed and known

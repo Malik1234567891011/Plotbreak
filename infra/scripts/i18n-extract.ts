@@ -141,7 +141,82 @@ function walk(dir: string, out: string[]): string[] {
   return out;
 }
 
-const LITERAL = /(['"`])((?:\\.|(?!\1)[^\\\n]){3,400})\1/g;
+/**
+ * Every string literal on one line, in order.
+ *
+ * Walked rather than matched with a regex. A regex pairs quotes greedily and
+ * cannot tell the closing quote of one literal from the opening quote of the
+ * next, so `.replacingOccurrences(of: "-", with: " ")` came back as a literal
+ * reading `, with: ` — and dozens of those buried the handful of real
+ * findings. A three-state walk gets it right and is no slower.
+ */
+function stringLiteralsOn(line: string): string[] {
+  const found: string[] = [];
+  let quote: string | null = null;
+  let value = '';
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i]!;
+    if (quote === null) {
+      if (ch === '"' || ch === "'" || ch === '`') {
+        quote = ch;
+        value = '';
+      }
+      continue;
+    }
+    if (ch === '\\') {
+      value += ch + (line[i + 1] ?? '');
+      i += 1;
+      continue;
+    }
+    if (ch === quote) {
+      if (value.length >= 3 && value.length <= 400) found.push(value);
+      quote = null;
+      continue;
+    }
+    value += ch;
+  }
+  return found;
+}
+
+/**
+ * Blanks the inside of Swift string interpolations.
+ *
+ * `"\(a) of \(b)"` holds quotes of its own the moment anything inside it is a
+ * string — `"\(x ?? "none")"` — and the literal regex then pairs the wrong ones
+ * and reports fragments like `", with: "` as English prose. Sixty of the first
+ * sixty-five hits on the Swift client were that.
+ *
+ * The interpolation is replaced with same-length filler rather than removed, so
+ * every column and line number still points where it did. What is left is the
+ * literal text around it, which is exactly what has to be keyed: the English in
+ * `"\(name) is waiting"` is ` is waiting`.
+ */
+function blankInterpolations(source: string): string {
+  let out = '';
+  for (let i = 0; i < source.length; i += 1) {
+    if (source[i] === '\\' && source[i + 1] === '(') {
+      let depth = 0;
+      let j = i + 1;
+      for (; j < source.length; j += 1) {
+        if (source[j] === '(') depth += 1;
+        else if (source[j] === ')') {
+          depth -= 1;
+          if (depth === 0) break;
+        } else if (source[j] === '\n') break;
+      }
+      const span = source.slice(i, j + 1);
+      // Filled with `#` rather than spaces, and newlines kept so line numbers
+      // survive. Spaces would be worse than useless: `"session:\(a):\(b)"` is an
+      // identifier, but blanked with spaces it reads as a sentence and gets
+      // reported as un-keyed English. `#` keeps it recognisably not-prose.
+      out += span.replace(/[^\n]/g, '#');
+      i = j;
+      continue;
+    }
+    out += source[i];
+  }
+  return out;
+}
 
 function extract(file: string): Hit[] {
   const hits: Hit[] = [];
@@ -160,9 +235,10 @@ function extract(file: string): Hit[] {
    * line. The `i18n-exempt:` markers are read off the untouched source, since
    * they live in the comments this is about to erase.
    */
-  const source = raw
+  const commentsBlanked = raw
     .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '))
     .replace(/(^|[^:'"\`\\])\/\/[^\n]*/g, (m, lead: string) => lead + ' '.repeat(m.length - lead.length));
+  const source = file.endsWith('.swift') ? blankInterpolations(commentsBlanked) : commentsBlanked;
   const lines = source.split('\n');
   const rawLines = raw.split('\n');
 
@@ -177,8 +253,7 @@ function extract(file: string): Hit[] {
     const exemptReason =
       (rawLines[index] ?? '').match(EXEMPT)?.[1] ?? (rawLines[index - 1] ?? '').match(EXEMPT)?.[1] ?? null;
 
-    for (const match of line.matchAll(LITERAL)) {
-      const value = match[2] ?? '';
+    for (const value of stringLiteralsOn(line)) {
       if (!isCandidate(value)) continue;
       if (routes.has(value)) continue;
       const rel = relative(ROOT, file);

@@ -432,7 +432,7 @@ struct StoryDetailScreen: View {
     /// what it is called, and an unrecognised value falls back to what was sent.
     private func shapeWord(_ label: String) -> String {
         if label == "Open-ended" { return t("story.shape_open_ended") }
-        if label == "Episodic" { return t("story.shape_episodic") }
+        if label == "Episodic" { return t("story.shape_episodic") }  // i18n-exempt: the server's value, matched to pick its key
         return label
     }
 

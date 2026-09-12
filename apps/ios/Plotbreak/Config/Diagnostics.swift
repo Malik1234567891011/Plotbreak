@@ -17,6 +17,7 @@ enum Diagnostics {
     static func log(_ message: String) {
         logger.error("\(message, privacy: .public)")
         #if DEBUG
+        // i18n-exempt: the Xcode console prefix, not copy
         print("[plotbreak] \(message)")
         #endif
     }

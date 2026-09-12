@@ -58,11 +58,16 @@ enum TierCopy {
 
     /// `QUALITY_TIERS` from `packages/contracts/src/game/economy.ts`, used when
     /// bootstrap has not arrived. Bootstrap's copy wins when it has.
+    ///
+    /// Only the numbers are real. Every place a tier is drawn reads the
+    /// catalogue through `labelKey`/`promiseKey` above, so `label` and
+    /// `promise` are left empty rather than filled with a second English copy
+    /// that nothing renders, nobody translates, and the contract can drift from.
     static let fallback: [QualityTierInfo] = [
-        QualityTierInfo(id: .QUICK, label: "Quick", costCredits: 30, promise: "Fast, concise turn", heroImageEligible: false),
-        QualityTierInfo(id: .VIVID, label: "Vivid", costCredits: 60, promise: "Richer dialogue and direction", heroImageEligible: false),
-        QualityTierInfo(id: .CINEMATIC, label: "Cinematic", costCredits: 90, promise: "Best balance of immersion and speed", heroImageEligible: true),
-        QualityTierInfo(id: .APEX, label: "Apex", costCredits: 195, promise: "Deepest reasoning and premium storytelling", heroImageEligible: true),
+        QualityTierInfo(id: .QUICK, label: "", costCredits: 30, promise: "", heroImageEligible: false),
+        QualityTierInfo(id: .VIVID, label: "", costCredits: 60, promise: "", heroImageEligible: false),
+        QualityTierInfo(id: .CINEMATIC, label: "", costCredits: 90, promise: "", heroImageEligible: true),
+        QualityTierInfo(id: .APEX, label: "", costCredits: 195, promise: "", heroImageEligible: true),
     ]
 
     static func tiers(_ bootstrap: BootstrapResponse?) -> [QualityTierInfo] {

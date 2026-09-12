@@ -147,6 +147,12 @@ export const setup = {
   /** L’action principale : entrer dans l’histoire. Pas « saisir une valeur ». Voir l’en-tête. */
   'setup.enter': 'Entrer',
   'setup.entering': 'Entrée…',
+  /**
+   * `Tu incarnes` plutôt qu'un calque de `you'll enter as` : c'est le verbe
+   * français pour « jouer ce personnage », et il tient dans la largeur d'une
+   * étiquette en capitales. Tutoiement, comme le reste de l'écran.
+   */
+  'setup.enter_as': 'TU INCARNES',
   'setup.use_quick_setup': 'Utiliser la création rapide',
   'setup.customize_more': 'Personnaliser davantage',
   /** Tutoiement, comme le reste de l’écran (`setup.heading` : `Tu es qui ?`). */

@@ -119,6 +119,7 @@ enum Theme {
     }
 
     /// Narration uses a serif for short passages only (§25.3).
+    // i18n-exempt: the platform's own font family name, not copy
     static let narrationFont = "Georgia"
 
     /// Spec §25.8 — 44×44pt minimum for anything used frequently.

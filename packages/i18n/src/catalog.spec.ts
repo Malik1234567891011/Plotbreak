@@ -1,3 +1,5 @@
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 import { en, TRANSLATION_KEYS, type TranslationKey } from './catalog/en/index.js';
@@ -87,6 +89,70 @@ describe('English renders identically', () => {
       // Skip the ICU messages, which are patterns rather than strings.
       if (/[{}]/.test(value)) continue;
       expect(t(key as TranslationKey)).toBe(value);
+    }
+  });
+});
+
+/**
+ * The iOS client asks this catalogue for its words by name.
+ *
+ * Swift cannot import the catalogue, so a key it asks for that nobody defines
+ * renders as the key itself — `setup.enter_as` in the middle of a form — and
+ * nothing fails until somebody sees it on a screen. The app reads a JSON export
+ * of this catalogue (`apps/ios/scripts/export-catalog.mjs`), which is one more
+ * step that can silently go stale.
+ *
+ * Both halves are checked here: every key the Swift source names must exist,
+ * and the export the app actually ships must agree with the catalogue it came
+ * from.
+ */
+describe('the keys the iOS client asks for', () => {
+  const ROOT = new URL('../../..', import.meta.url).pathname.replace(/\/$/, '');
+  const SWIFT = join(ROOT, 'apps/ios/Plotbreak');
+
+  function swiftFiles(dir: string, out: string[] = []): string[] {
+    let entries: string[];
+    try {
+      entries = readdirSync(dir);
+    } catch {
+      return out;
+    }
+    for (const entry of entries) {
+      const full = join(dir, entry);
+      if (statSync(full).isDirectory()) swiftFiles(full, out);
+      else if (entry.endsWith('.swift')) out.push(full);
+    }
+    return out;
+  }
+
+  /** `t("a.b")` and `translator("a.b")`, which is how Swift names a key. */
+  const REFERENCE = /\b(?:t|translator)\(\s*"([a-z0-9_]+\.[A-Za-z0-9_.]+)"/g;
+
+  it('all exist in the English catalogue', () => {
+    const files = swiftFiles(SWIFT);
+    // Guard the guard: a moved directory would otherwise pass by finding nothing.
+    expect(files.length).toBeGreaterThan(20);
+
+    const missing = new Set<string>();
+    for (const file of files) {
+      for (const match of readFileSync(file, 'utf8').matchAll(REFERENCE)) {
+        const key = match[1]!;
+        if (!(key in en)) missing.add(`${relative(ROOT, file)}: ${key}`);
+      }
+    }
+    expect([...missing]).toEqual([]);
+  });
+
+  it('are exported to the JSON the app ships, in both languages', () => {
+    for (const [locale, table] of [
+      ['en', en],
+      ['fr', fr],
+    ] as const) {
+      const exported = JSON.parse(
+        readFileSync(join(SWIFT, `Resources/i18n/${locale}.json`), 'utf8'),
+      ) as Record<string, string>;
+      const drifted = Object.keys(table).filter((key) => exported[key] !== (table as Record<string, string>)[key]);
+      expect({ locale, drifted }).toEqual({ locale, drifted: [] });
     }
   });
 });

@@ -114,6 +114,7 @@ actor APIClient {
         // provider again would spend a second refresh, and GoTrue rotates them.
         let bearer: String?
         if let useToken { bearer = useToken } else { bearer = await authorization() }
+        // i18n-exempt: an HTTP Authorization header value, not copy
         if let bearer { urlRequest.setValue("Bearer \(bearer)", forHTTPHeaderField: "authorization") }
 
         let data: Data
@@ -172,6 +173,7 @@ actor APIClient {
             return try JSONDecoder.plotbreak.decode(T.self, from: data)
         } catch {
             #if DEBUG
+            // i18n-exempt: a debug-build console line, not copy
             print("[api] decode failed for \(method) \(path): \(error)")
             #endif
             throw APIError(status: response.statusCode, code: "DECODE", message: translator("error.request_failed"),
@@ -331,6 +333,7 @@ actor APIClient {
         components.queryItems = [URLQueryItem(name: "token", value: streamToken)]
         var request = URLRequest(url: components.url!)
         request.timeoutInterval = 180
+        // i18n-exempt: an HTTP Authorization header value, not copy
         if let token = await token { request.setValue("Bearer \(token)", forHTTPHeaderField: "authorization") }
         request.setValue("text/event-stream", forHTTPHeaderField: "accept")
 

@@ -363,7 +363,11 @@ struct StateDeltaRow: View {
 
 struct ActionSuggestion: View {
     let suggestion: SuggestedAction
-    var editLabel: String = "Edit"
+    /// Required rather than defaulted. It defaulted to the English word `Edit`,
+    /// which a French player would have heard read aloud in English — and the
+    /// one caller was already passing the keyed string, so the default existed
+    /// only to be wrong.
+    let editLabel: String
     let onPress: () -> Void
     var onEdit: (() -> Void)? = nil
 
@@ -553,6 +557,8 @@ struct CreditBalance: View {
 // MARK: ResourceBar
 
 struct ResourceBar: View {
+    @Environment(\.translator) private var t
+
     let name: String
     let current: Double
     let max: Double
@@ -585,7 +591,13 @@ struct ResourceBar: View {
             .frame(height: 6)
         }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(name): \(Int(current.rounded())) of \(Int(max.rounded()))")
+        // `ui.meter_a11y` is `{name}: {current} of {max}` — the `of` is a word,
+        // and it was hard-coded here in English.
+        .accessibilityLabel(t("ui.meter_a11y", [
+            "name": name,
+            "current": Int(current.rounded()),
+            "max": Int(max.rounded()),
+        ]))
     }
 }
 

@@ -136,6 +136,7 @@ final class AppStore {
     /// older device-local case (§6.5).
     private func adopt(_ identity: AuthIdentity, previous: AuthIdentity?) async {
         if let previous, previous.isGuest, previous.userId != identity.userId {
+            // i18n-exempt: a display name written once to the account, not UI copy
             _ = try? await api.migrateGuest(guestUserId: previous.userId, displayName: identity.email ?? "Player")
         }
         apply(identity: identity)

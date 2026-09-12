@@ -63,10 +63,10 @@ func namesInWords(_ t: Translator, _ names: [String]) -> String {
 /// engine; this is only the colour.
 func crewMoodTone(_ mood: String) -> ChipTone {
     switch mood {
-    case "with you": return .success
+    case "with you": return .success  // i18n-exempt: an engine mood value, matched not shown
     case "steady": return .neutral
     case "restless", "unhappy": return .warning
-    case "about to walk": return .danger
+    case "about to walk": return .danger  // i18n-exempt: an engine mood value, matched not shown
     default: return .neutral
     }
 }

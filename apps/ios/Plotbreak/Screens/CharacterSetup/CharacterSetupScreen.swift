@@ -203,7 +203,7 @@ struct CharacterSetupScreen: View {
                 if !effectiveName.isEmpty {
                     Card {
                         VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                            Txt("YOU'LL ENTER AS", .caption, color: Theme.Colors.textMuted)
+                            Txt(t("setup.enter_as"), .caption, color: Theme.Colors.textMuted)
                             Txt(summaryLine, .bodyStrong)
                         }
                     }

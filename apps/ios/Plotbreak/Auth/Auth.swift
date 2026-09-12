@@ -50,6 +50,7 @@ enum Keychain {
         ]
         let status = SecItemAdd(attributes as CFDictionary, nil)
         if status != errSecSuccess {
+            // i18n-exempt: a diagnostic for whoever is reading the log, never shown
             Diagnostics.log("keychain write failed for \(key): OSStatus \(status)")
         }
         return status == errSecSuccess
@@ -111,6 +112,7 @@ struct SupabaseAuth {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         request.setValue(anonKey, forHTTPHeaderField: "apikey")
+        // i18n-exempt: an HTTP Authorization header value, not copy
         request.setValue("Bearer \(accessToken ?? anonKey)", forHTTPHeaderField: "authorization")
         request.httpBody = try JSONEncoder.plotbreak.encode(body)
 

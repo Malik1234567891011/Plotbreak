@@ -315,7 +315,7 @@ struct ShowcaseScreen: View {
                                             .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
                                             .padding(.bottom, Theme.Spacing.md)
                                         Txt(story.title, .h3, lineLimit: 2)
-                                        // The studio name. A brand is not translated.
+                                        // i18n-exempt: the studio name; a brand is the same word in every language
                                         Txt("Plotbreak", .caption, color: Theme.Colors.textMuted)
                                     }
                                     .frame(width: cardWidth, alignment: .leading)

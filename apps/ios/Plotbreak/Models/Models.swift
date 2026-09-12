@@ -124,6 +124,7 @@ enum JSONValue: Codable, Hashable {
         if let value = try? container.decode(String.self) { self = .string(value); return }
         if let value = try? container.decode([JSONValue].self) { self = .array(value); return }
         if let value = try? container.decode([String: JSONValue].self) { self = .object(value); return }
+        // i18n-exempt: a decoding failure a developer reads, never a player
         throw DecodingError.dataCorruptedError(in: container, debugDescription: "Unsupported JSON value")
     }
 

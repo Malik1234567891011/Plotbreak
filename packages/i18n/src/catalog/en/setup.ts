@@ -60,6 +60,11 @@ export const setup = {
   /** The primary action: begin the story. Not "enter a value". */
   'setup.enter': 'Enter',
   'setup.entering': 'Entering…',
+  /**
+   * Sits above the one-line summary of who you have made, just over the Enter
+   * button. Caps, like the other small section labels.
+   */
+  'setup.enter_as': "YOU'LL ENTER AS",
   'setup.use_quick_setup': 'Use quick setup',
   'setup.customize_more': 'Customize more',
   /**

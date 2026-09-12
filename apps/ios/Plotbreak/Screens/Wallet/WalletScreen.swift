@@ -376,9 +376,9 @@ struct WalletScreen: View {
     /// the offer sent.
     private func badgeWord(_ badge: String) -> String {
         switch badge {
-        case "Popular": return t("wallet.badge_popular")
-        case "Best value": return t("wallet.badge_best_value")
-        case "First purchase": return t("wallet.badge_first_purchase")
+        case "Popular": return t("wallet.badge_popular")  // i18n-exempt: the offer's value, matched to pick its key
+        case "Best value": return t("wallet.badge_best_value")  // i18n-exempt: as above
+        case "First purchase": return t("wallet.badge_first_purchase")  // i18n-exempt: as above
         default: return badge
         }
     }
