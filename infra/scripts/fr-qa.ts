@@ -248,7 +248,16 @@ function check(story: StoryVersion, findings: Finding[], gaps: string[]): void {
     // The fix is never a midpoint. It is a phrasing with no agreement in it:
     // `tu viens` rather than `tu es venu`, `la seule personne` rather than `le
     // seul`, `depuis que tu es là` rather than `depuis que tu es assis`.
-    if (!/voiceSamples|speechStyle|dialogue|\.lines/.test(path)) {
+    //
+    // Only for a player the world has not already named. Ace, Light and Itachi
+    // have `protagonist.kind === 'NAMED'` and are all men, so `tu es venu` is
+    // not a hardcoded guess — it is the correct and only agreement, and
+    // flagging it produces three permanent findings per canon world that
+    // nobody can ever action. The rule is about unknown gender, so it applies
+    // exactly where the gender is unknown.
+    const playerGenderIsOpen =
+      story.protagonist.kind !== 'NAMED' || !/\bhe\b/i.test(story.protagonist.pronouns);
+    if (playerGenderIsOpen && !/voiceSamples|speechStyle|dialogue|\.lines/.test(path)) {
       const AGREES_WITH_PLAYER: Array<[RegExp, string]> = [
         [/\bcelui-là\b/i, 'celui-là'],
         [/\btu (?:es|étais|serais|seras) (?:un |le |)?(?:prêt|seul|assis|debout|certain|sûr|content|fatigué|inquiet|surpris|perdu|arrivé|venu|resté)\b/i, 'tu es + masculin'],

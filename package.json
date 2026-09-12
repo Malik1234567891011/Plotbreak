@@ -22,6 +22,7 @@
     "smoke": "tsx --env-file-if-exists=.env infra/scripts/smoke.ts",
     "i18n:extract": "tsx infra/scripts/i18n-extract.ts",
     "fr:lint": "tsx infra/scripts/fr-lint.ts",
+    "fr:size": "tsx infra/scripts/fr-size.ts",
     "fr:probe": "tsx infra/scripts/fr-parser-probe.ts",
     "art": "tsx infra/scripts/generate-art.ts",
     "brand": "tsx infra/scripts/generate-brand.ts",
