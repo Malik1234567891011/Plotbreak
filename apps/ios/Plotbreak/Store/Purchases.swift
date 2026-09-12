@@ -181,11 +181,53 @@ final class Purchases {
         }
     }
 
+    /**
+     * What the server needs to check this purchase with the store itself.
+     *
+     * The platform split is **`.xcode` against everything else**, not
+     * production against everything else.
+     *
+     * `SANDBOX` means our own `SandboxStoreVerifier`, which exists only so the
+     * flow can be exercised with a local StoreKit configuration file, is
+     * refused outside development, and insists the id look like
+     * `sandbox_…` (`services/api/src/store-verifier.ts`). Only StoreKit
+     * Testing — `.xcode` — should ever claim it, and it has to shape the id to
+     * match or the dev server rejects its own test purchases.
+     *
+     * A TestFlight purchase reports `.sandbox`, and it is a *real* Apple
+     * transaction with a real signed JWS. Sending it as `SANDBOX` asked a
+     * verifier that does not exist in production to check it, so every
+     * TestFlight purchase would have failed. It goes to `APP_STORE` with the
+     * rest, where `AppStoreVerifier` asks Apple — which is configured against
+     * Apple's sandbox when we are not in production.
+     */
     private func syncRequest(_ transaction: Transaction, jws: String) -> PurchaseSyncRequest {
-        PurchaseSyncRequest(
+        Self.syncRequest(
             productId: transaction.productID,
-            storeTransactionId: String(transaction.id),
-            platform: transaction.environment == .production ? .APP_STORE : .SANDBOX,
+            transactionId: transaction.id,
+            environment: transaction.environment,
+            jws: jws
+        )
+    }
+
+    /// Split out from the `Transaction` so it can be tested: a `Transaction`
+    /// cannot be constructed, and this is the decision that decides whether a
+    /// real purchase reaches a verifier at all.
+    nonisolated static func syncRequest(
+        productId: String,
+        transactionId: UInt64,
+        environment: StoreKit.AppStore.Environment,
+        jws: String
+    ) -> PurchaseSyncRequest {
+        let isLocalTest = environment == .xcode
+        // `sandbox_tx_0`, not `sandbox_0`: the verifier's pattern demands at
+        // least four characters after the prefix, and StoreKit Testing numbers
+        // its first transaction 0. The id stays unique per transaction, which
+        // is what the server dedupes on.
+        return PurchaseSyncRequest(
+            productId: productId,
+            storeTransactionId: isLocalTest ? "sandbox_tx_\(transactionId)" : String(transactionId),
+            platform: isLocalTest ? .SANDBOX : .APP_STORE,
             receipt: jws
         )
     }

@@ -112,6 +112,50 @@ Two things about the local setup that look like app bugs and are not:
   `Local.xcconfig` aside to test persistence on the stable `guest_…` path, or
   point the build at a real API.
 
+## Payments
+
+The purchase flow is StoreKit 2 in `Store/Purchases.swift`, driven by the wallet
+sheet. The rule the module is built around: **a transaction is never finished
+until the server has credited it**, so a purchase Apple took and our server
+never heard about is redelivered on the next launch rather than lost.
+
+`Plotbreak.storekit` holds the six consumables from `STORE_OFFERS` +
+`FIRST_PURCHASE_OFFER` in `packages/contracts/src/game/economy.ts`, and the
+scheme points at it, so **running from Xcode can buy credits with no App Store
+Connect setup at all**. Keep the ids in step with the contract; a pack the
+server sells and the store has never heard of fails at the moment of payment.
+
+Which verifier a purchase reaches is decided by `Purchases.syncRequest`, and it
+splits on `.xcode`, not on production:
+
+| Where | platform | Verified by |
+|---|---|---|
+| Xcode / `Plotbreak.storekit` | `SANDBOX` | our own `SandboxStoreVerifier`, development only |
+| TestFlight | `APP_STORE` | Apple, through `AppStoreVerifier` pointed at Apple's sandbox |
+| App Store | `APP_STORE` | Apple |
+
+TestFlight reports `.sandbox` but is a *real* Apple transaction with a real
+signed payload, so it must not claim `SANDBOX` — there is no such verifier in
+production. The dev verifier also insists an id look like `sandbox_…` with at
+least four characters after the prefix, and StoreKit Testing numbers its first
+transaction `0`, which is why the id is sent as `sandbox_tx_0`.
+
+`PlotbreakTests/PurchaseTests.swift` covers all of it, including a real purchase
+against the local store. To check the server half by hand:
+
+```sh
+npm run api   # at the repo root
+curl -s -X POST -H 'authorization: Bearer guest_paytest01' -H 'content-type: application/json' \
+  -d '{"productId":"crd_2000","storeTransactionId":"sandbox_tx_0","platform":"SANDBOX","receipt":"x"}' \
+  http://localhost:4000/v1/store/purchases/sync
+```
+
+Sending it twice must answer `duplicate: true` and leave the balance alone.
+
+**Still blocked on Apple:** none of the six consumables exist in App Store
+Connect yet, so nothing can be bought on a real device or in TestFlight until
+somebody creates them. See `AppleForOmar.md`.
+
 The failures the app swallows on purpose are logged rather than lost:
 
 ```sh

@@ -78,6 +78,9 @@ targets:
     platform: iOS
     sources:
       - path: PlotbreakTests
+      # The StoreKit products, so SKTestSession can find them by name.
+      - path: Plotbreak.storekit
+        buildPhase: resources
     dependencies:
       - target: Plotbreak
     settings:
@@ -98,5 +101,10 @@ schemes:
         - PlotbreakTests
     run:
       config: Debug
+      # Local StoreKit products, so the purchase flow can be run without App
+      # Store Connect. Transactions made against it report the `.xcode`
+      # environment, which is the one case the app labels SANDBOX so our own
+      # dev verifier will check it — see Purchases.syncRequest.
+      storeKitConfiguration: Plotbreak.storekit
     archive:
       config: Release
