@@ -65,6 +65,10 @@ final class AppStore {
     private let defaults = UserDefaults.standard
     private var hydrating = false
 
+    /// The last Discover shelf, for the next launch's first frame. Personal, so
+    /// it is forgotten whenever the account changes (see `forgetPersonalCaches`).
+    let discoverSnapshot = DiscoverSnapshot.standard()
+
     init(api: APIClient = APIClient(), auth: AuthStore = AuthStore()) {
         self.api = api
         self.auth = auth
@@ -139,8 +143,16 @@ final class AppStore {
             // i18n-exempt: a display name written once to the account, not UI copy
             _ = try? await api.migrateGuest(guestUserId: previous.userId, displayName: identity.email ?? "Player")
         }
+        forgetPersonalCaches()
         apply(identity: identity)
         if let response = try? await api.bootstrap() { applyBootstrap(response) }
+    }
+
+    /// Anything cached on disk that belongs to one account. Called on every
+    /// sign-in and sign-out, so the next person to open Discover never sees the
+    /// previous account's saves, hidden worlds or ranking, even for a frame.
+    private func forgetPersonalCaches() {
+        discoverSnapshot.clear()
     }
 
     func sendEmailCode(_ email: String) async throws {
@@ -166,6 +178,7 @@ final class AppStore {
 
     func signOut() async {
         await auth.signOut()
+        forgetPersonalCaches()
         apply(identity: await auth.identity)
         if let response = try? await api.bootstrap() { applyBootstrap(response) }
     }

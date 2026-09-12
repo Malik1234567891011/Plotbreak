@@ -43,6 +43,16 @@ struct DiscoverScreen: View {
     /// hero art, solid once the page has scrolled up under it.
     @State private var headerFade: Double = 0
     @State private var loadedOnce = false
+    /// Whether the player has scrolled since this screen last came into view.
+    /// A fresh shelf that arrives after that is held (`pending`) rather than
+    /// swapped in under their thumb.
+    @State private var hasScrolled = false
+    /// A fresh response that arrived while the player was scrolling. Applied
+    /// the next time the tab comes back into view.
+    @State private var pending: DiscoverResponse?
+    /// The last load failed offline while a shelf was on screen. The shelf
+    /// stays; a banner says why it may be stale.
+    @State private var showingStaleShelf = false
 
     private var hero: [StorySummary] {
         data?.rails.first(where: { $0.kind == .HERO })?.stories ?? []
@@ -69,7 +79,7 @@ struct DiscoverScreen: View {
                             }
                             .frame(height: 0)
 
-                            if store.offline {
+                            if store.offline || showingStaleShelf {
                                 Txt(t("discover.offline_banner"), .caption, color: Theme.Colors.warning)
                                     .padding(Theme.Spacing.md)
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -168,11 +178,13 @@ struct DiscoverScreen: View {
                     }
                     .coordinateSpace(name: "discover.scroll")
                     .ignoresSafeArea(edges: .top)
-                    .refreshable { await load() }
+                    .refreshable { await load(force: true) }
                     .onPreferenceChange(ScrollOffsetKey.self) { y in
                         // A short ramp: the header is solid by the time
                         // anything reaches it.
                         headerFade = max(0, min(1, y / 120))
+                        // Anything past a nudge counts as reading the shelf.
+                        if y > 8 { hasScrolled = true }
                     }
 
                     // Spec §7.2 item 1 — the header, floated rather than
@@ -211,10 +223,23 @@ struct DiscoverScreen: View {
             }
             .animation(.easeOut(duration: Theme.Durations.short), value: preview == nil)
         }
-        .task(id: category) { await load() }
+        .task(id: category) {
+            // First frame from disk: the last shelf this phone saw, drawn
+            // before the network is asked. Only for the default view; a
+            // category is a filter chosen moments ago.
+            if data == nil, category == nil, let saved = store.discoverSnapshot.load() {
+                data = saved
+            }
+            await load()
+        }
         .onAppear {
             // Reload on every return to the tab, the way the RN screen does
             // on navigation focus. The first appearance is `.task`'s.
+            hasScrolled = false
+            if let pending {
+                self.pending = nil
+                apply(pending)
+            }
             if loadedOnce { Task { await load() } }
             loadedOnce = true
         }
@@ -284,20 +309,48 @@ struct DiscoverScreen: View {
         )
     }
 
-    private func load() async {
+    /// Fetches the shelf. `force` swaps the result in regardless of scrolling:
+    /// pull-to-refresh asked for exactly that.
+    private func load(force: Bool = false) async {
+        let requested = category
         do {
-            data = try await store.api.discover(tastes: store.tastes, category: category)
-            errorMessage = nil
+            let fresh = try await store.api.discover(tastes: store.tastes, category: requested)
+            guard requested == category else { return } // the player moved on
+            // A shelf the player is already reading is not swapped under
+            // their thumb. It waits for the next return to the tab, or for a
+            // pull. Nothing on screen yet, or a different category, or a
+            // pull: apply now.
+            let replacesDifferentView = data?.activeCategory != fresh.activeCategory
+            if force || data == nil || replacesDifferentView || !hasScrolled {
+                apply(fresh)
+            } else {
+                pending = fresh
+                showingStaleShelf = false
+            }
             Task { await store.refreshWallet() }
         } catch {
+            guard requested == category else { return }
             // Spec §10.8 — which failure it was decides what the player
             // should do about it.
-            if let api = error as? APIError {
+            let api = error as? APIError
+            if data != nil, api?.isOffline == true {
+                // A saved shelf beats an error screen, as long as it says so.
+                showingStaleShelf = true
+                return
+            }
+            if let api {
                 errorMessage = api.isOffline ? t("discover.offline_body") : api.message
             } else {
                 errorMessage = t("discover.load_failed")
             }
         }
+    }
+
+    private func apply(_ fresh: DiscoverResponse) {
+        data = fresh
+        errorMessage = nil
+        showingStaleShelf = false
+        if fresh.activeCategory == nil { store.discoverSnapshot.save(fresh) }
     }
 }
 
