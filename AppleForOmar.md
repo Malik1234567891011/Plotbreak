@@ -116,10 +116,12 @@ user id when somebody signs in, and the player's own written content.
 
 ## 2c. What is still open, and who has to do it
 
-- **Screenshots.** Required. 6.9-inch iPhone, 1320 × 2868 or 1290 × 2796
-  portrait, up to ten, first three are what people actually see. The iPhone 16
-  Pro Max simulator produces exactly 1320 × 2868 with
-  `xcrun simctl io booted screenshot out.png`.
+- ~~Screenshots.~~ **Done.** Five panels each for English and French, 1320 × 2868,
+  all ten accepted by Apple. They live in `docs/appstore-screenshots/` with a
+  README covering how to rebuild them, and `infra/scripts/appstore-screenshots.mjs`
+  uploads them (`--replace` to correct one). The French set is not the English
+  one relabelled: French headlines, and the app underneath captured in French.
+  Apple files 1320 × 2868 under the `APP_IPHONE_67` slot, not a 6.9-inch one.
 - **Price: Free.** Not set. Setting a price is a commercial decision, so it was
   left alone. *Pricing and Availability → Free.* The version cannot be
   submitted without it.
