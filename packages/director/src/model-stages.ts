@@ -198,6 +198,12 @@ const PARSER_POLICY = [
   '`persuade`. A lie is `deceive`. Reserve `speak` for talk that asks nothing of anyone — a greeting, a',
   'remark, an answer to a question. Telling someone they are a fraud in front of the whole room is not a',
   'greeting.',
+  '',
+  'But not every sentence aimed at a person is a move against them. Teasing, a dare, a boast, trash talk',
+  'between friends, a challenge to a race or a contest, and an argument between people who like each other',
+  'are `speak`. "Think you can keep up?" is not a threat and it is certainly not an attack.',
+  '`attack` means the player is doing something with their body or a weapon: a punch, a shove, a blade, a',
+  'shot. If the sentence contains no physical act, it is not `attack`, however heated it sounds.',
 ].join(' ');
 
 export class ModelIntentParser implements IntentParser {

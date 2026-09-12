@@ -24565,5 +24565,1335 @@
       "latencyMs": 19048,
       "createdAt": "2026-09-12T20:34:07.902Z"
     }
+  },
+  "story_ace/garp_neutral": {
+    "assetKey": "story_ace/garp_neutral",
+    "file": "story_ace/garp_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Garp, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "72901b43-cbb6-40e2-8be4-9bfa8b120e6c",
+      "promptHash": "a70532b3fe4822a9e01fff3b2634c459",
+      "seed": "ace-garp-01:neutral",
+      "costUsd": 0.00632,
+      "latencyMs": 13276,
+      "createdAt": "2026-09-12T21:46:11.559Z"
+    }
+  },
+  "story_ace/garp_warm": {
+    "assetKey": "story_ace/garp_warm",
+    "file": "story_ace/garp_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Garp, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "4cd13290-7440-4ab7-957c-6e7fc3a10f43",
+      "promptHash": "fb6735463bc16335a1afbb7825dd7fa1",
+      "seed": "ace-garp-01:warm",
+      "costUsd": 0.00632,
+      "latencyMs": 15944,
+      "createdAt": "2026-09-12T21:46:14.246Z"
+    }
+  },
+  "story_ace/garp_amused": {
+    "assetKey": "story_ace/garp_amused",
+    "file": "story_ace/garp_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Garp, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "440bac60-ff89-4072-9757-49463980ad48",
+      "promptHash": "13d8be02c01496aa2cbf5072171eb8d9",
+      "seed": "ace-garp-01:amused",
+      "costUsd": 0.01372,
+      "latencyMs": 16768,
+      "createdAt": "2026-09-12T21:46:15.071Z"
+    }
+  },
+  "story_ace/garp_surprised": {
+    "assetKey": "story_ace/garp_surprised",
+    "file": "story_ace/garp_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Garp, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "be5d6a8f-784a-49f7-bfba-acc15d2b5f18",
+      "promptHash": "741774add3c45c132762c91b64b159f8",
+      "seed": "ace-garp-01:surprised",
+      "costUsd": 0.01372,
+      "latencyMs": 18328,
+      "createdAt": "2026-09-12T21:46:29.898Z"
+    }
+  },
+  "story_ace/garp_annoyed": {
+    "assetKey": "story_ace/garp_annoyed",
+    "file": "story_ace/garp_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Garp, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "6fd52a5a-1b5f-49db-86b3-8a2d6a67e26c",
+      "promptHash": "93f9a44e79b3b0a484a53745dfe8bdfa",
+      "seed": "ace-garp-01:annoyed",
+      "costUsd": 0.00632,
+      "latencyMs": 15318,
+      "createdAt": "2026-09-12T21:46:30.395Z"
+    }
+  },
+  "story_ace/garp_angry": {
+    "assetKey": "story_ace/garp_angry",
+    "file": "story_ace/garp_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Garp, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "67550435-91c9-4fec-bab5-06d6eeebcb86",
+      "promptHash": "11ba7510a770b1f44e2879469bfddc8e",
+      "seed": "ace-garp-01:angry",
+      "costUsd": 0.00632,
+      "latencyMs": 17792,
+      "createdAt": "2026-09-12T21:46:47.706Z"
+    }
+  },
+  "story_ace/garp_confused": {
+    "assetKey": "story_ace/garp_confused",
+    "file": "story_ace/garp_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Garp, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "1876fd31-e447-44d4-bb7b-00401fe3e0cd",
+      "promptHash": "473eed1ad03868b504f0e03ec57cfddc",
+      "seed": "ace-garp-01:confused",
+      "costUsd": 0.05488,
+      "latencyMs": 33461,
+      "createdAt": "2026-09-12T21:46:47.718Z"
+    }
+  },
+  "story_ace/garp_worried": {
+    "assetKey": "story_ace/garp_worried",
+    "file": "story_ace/garp_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Garp, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "bfaf31a8-fac4-4a51-a0ae-d2156d3f7946",
+      "promptHash": "aabc489cd03caff4d588fd81a5a4feb5",
+      "seed": "ace-garp-01:worried",
+      "costUsd": 0.01372,
+      "latencyMs": 19939,
+      "createdAt": "2026-09-12T21:46:50.343Z"
+    }
+  },
+  "story_ace/deuce_neutral": {
+    "assetKey": "story_ace/deuce_neutral",
+    "file": "story_ace/deuce_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Masked Deuce, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "6047d5b8-5cb5-4d09-b1a6-479576ba9a4c",
+      "promptHash": "84e677abbf1195a76445de2f9c46524a",
+      "seed": "ace-deuce-01:neutral",
+      "costUsd": 0.00632,
+      "latencyMs": 13077,
+      "createdAt": "2026-09-12T21:47:04.036Z"
+    }
+  },
+  "story_ace/deuce_warm": {
+    "assetKey": "story_ace/deuce_warm",
+    "file": "story_ace/deuce_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Masked Deuce, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "6c4abc17-3c58-4827-b3ea-0167549e98c4",
+      "promptHash": "9475f17c422d3879ecbd82d5b6406669",
+      "seed": "ace-deuce-01:warm",
+      "costUsd": 0.00632,
+      "latencyMs": 16610,
+      "createdAt": "2026-09-12T21:47:07.582Z"
+    }
+  },
+  "story_ace/deuce_surprised": {
+    "assetKey": "story_ace/deuce_surprised",
+    "file": "story_ace/deuce_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Masked Deuce, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "96de82d7-9158-4fba-8c43-1a8abeeb1dca",
+      "promptHash": "5f388bd98e48afb177a51687ed8472a5",
+      "seed": "ace-deuce-01:surprised",
+      "costUsd": 0.01372,
+      "latencyMs": 17270,
+      "createdAt": "2026-09-12T21:47:21.318Z"
+    }
+  },
+  "story_ace/deuce_amused": {
+    "assetKey": "story_ace/deuce_amused",
+    "file": "story_ace/deuce_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Masked Deuce, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "84d7a987-829f-4504-abc5-fad279402fc3",
+      "promptHash": "4cfe6a0528ff4741ab84ae08e7240012",
+      "seed": "ace-deuce-01:amused",
+      "costUsd": 0.05488,
+      "latencyMs": 33033,
+      "createdAt": "2026-09-12T21:47:24.005Z"
+    }
+  },
+  "story_ace/deuce_confused": {
+    "assetKey": "story_ace/deuce_confused",
+    "file": "story_ace/deuce_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Masked Deuce, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "5e815535-bbe1-48b6-87fc-24c95b1dc2b5",
+      "promptHash": "e46c9ba9a6ae1713834bc5fe81a994d2",
+      "seed": "ace-deuce-01:confused",
+      "costUsd": 0.01372,
+      "latencyMs": 17702,
+      "createdAt": "2026-09-12T21:47:25.294Z"
+    }
+  },
+  "story_ace/deuce_angry": {
+    "assetKey": "story_ace/deuce_angry",
+    "file": "story_ace/deuce_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Masked Deuce, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "3eb3b03b-a59b-4ae8-bde3-b108e1261369",
+      "promptHash": "c47ff6e27bcf0ff1d9e75238e18e776c",
+      "seed": "ace-deuce-01:angry",
+      "costUsd": 0.01372,
+      "latencyMs": 17206,
+      "createdAt": "2026-09-12T21:47:41.222Z"
+    }
+  },
+  "story_ace/deuce_worried": {
+    "assetKey": "story_ace/deuce_worried",
+    "file": "story_ace/deuce_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Masked Deuce, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "0a7e764f-d146-4f78-af9e-fb28755141c1",
+      "promptHash": "e2d2dd9d9066b5387d9b6a778e5da14c",
+      "seed": "ace-deuce-01:worried",
+      "costUsd": 0.01372,
+      "latencyMs": 15947,
+      "createdAt": "2026-09-12T21:47:41.249Z"
+    }
+  },
+  "story_ace/deuce_annoyed": {
+    "assetKey": "story_ace/deuce_annoyed",
+    "file": "story_ace/deuce_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Masked Deuce, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "b93bfca9-7aa4-4c68-9d4f-fd2e1c50fa26",
+      "promptHash": "f1607bb93854b47fc8b8bb06031f4f1a",
+      "seed": "ace-deuce-01:annoyed",
+      "costUsd": 0.05488,
+      "latencyMs": 33134,
+      "createdAt": "2026-09-12T21:47:54.460Z"
+    }
+  },
+  "story_ace/whitebeard_warm": {
+    "assetKey": "story_ace/whitebeard_warm",
+    "file": "story_ace/whitebeard_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Edward Newgate, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "9a65ce03-f948-4d75-90f6-d46155a97fab",
+      "promptHash": "d22095325f1c31a1fe9292e84dac3746",
+      "seed": "ace-whitebeard-01:warm",
+      "costUsd": 0.00632,
+      "latencyMs": 14042,
+      "createdAt": "2026-09-12T21:48:09.289Z"
+    }
+  },
+  "story_ace/whitebeard_neutral": {
+    "assetKey": "story_ace/whitebeard_neutral",
+    "file": "story_ace/whitebeard_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Edward Newgate, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "93d7cc1c-555a-41ba-87a2-7a8ba18192c2",
+      "promptHash": "7e99f5285c9ff916921c8c4e680402dc",
+      "seed": "ace-whitebeard-01:neutral",
+      "costUsd": 0.01372,
+      "latencyMs": 18054,
+      "createdAt": "2026-09-12T21:48:13.319Z"
+    }
+  },
+  "story_ace/whitebeard_amused": {
+    "assetKey": "story_ace/whitebeard_amused",
+    "file": "story_ace/whitebeard_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Edward Newgate, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "e2205590-25c8-46df-be48-eee020c63d0c",
+      "promptHash": "1452f878d0ee6299e8ebbd924d63c4ed",
+      "seed": "ace-whitebeard-01:amused",
+      "costUsd": 0.05488,
+      "latencyMs": 35367,
+      "createdAt": "2026-09-12T21:48:30.633Z"
+    }
+  },
+  "story_ace/whitebeard_confused": {
+    "assetKey": "story_ace/whitebeard_confused",
+    "file": "story_ace/whitebeard_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Edward Newgate, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "53a21b8d-8521-4df1-9001-f626c1d08894",
+      "promptHash": "037bd6e4cc89e2733278ed55c42773a5",
+      "seed": "ace-whitebeard-01:confused",
+      "costUsd": 0.01372,
+      "latencyMs": 18846,
+      "createdAt": "2026-09-12T21:48:32.173Z"
+    }
+  },
+  "story_ace/whitebeard_surprised": {
+    "assetKey": "story_ace/whitebeard_surprised",
+    "file": "story_ace/whitebeard_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Edward Newgate, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "42ff2171-1f42-46a1-bd6f-f36b39ac65ac",
+      "promptHash": "a81f119c13a55b605bded0ef6c24e949",
+      "seed": "ace-whitebeard-01:surprised",
+      "costUsd": 0.05488,
+      "latencyMs": 33239,
+      "createdAt": "2026-09-12T21:48:42.535Z"
+    }
+  },
+  "story_ace/whitebeard_angry": {
+    "assetKey": "story_ace/whitebeard_angry",
+    "file": "story_ace/whitebeard_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Edward Newgate, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "4a69de7a-6b04-4097-8cb3-bd5fecf4f65b",
+      "promptHash": "f092669e845c29e3850e55c52ff2fdaa",
+      "seed": "ace-whitebeard-01:angry",
+      "costUsd": 0.00632,
+      "latencyMs": 14814,
+      "createdAt": "2026-09-12T21:48:46.996Z"
+    }
+  },
+  "story_ace/whitebeard_annoyed": {
+    "assetKey": "story_ace/whitebeard_annoyed",
+    "file": "story_ace/whitebeard_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Edward Newgate, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "b5aedbe7-7735-481f-ac42-ef1c37b64293",
+      "promptHash": "f81bee0329ab855248da751dd5da6e46",
+      "seed": "ace-whitebeard-01:annoyed",
+      "costUsd": 0.01372,
+      "latencyMs": 18691,
+      "createdAt": "2026-09-12T21:48:49.339Z"
+    }
+  },
+  "story_ace/whitebeard_worried": {
+    "assetKey": "story_ace/whitebeard_worried",
+    "file": "story_ace/whitebeard_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Edward Newgate, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "c261244f-0699-4638-898c-460d99091edf",
+      "promptHash": "d266797d51209fd4edc13292ef92e8b0",
+      "seed": "ace-whitebeard-01:worried",
+      "costUsd": 0.01372,
+      "latencyMs": 20458,
+      "createdAt": "2026-09-12T21:49:03.003Z"
+    }
+  },
+  "story_ace/marco_neutral": {
+    "assetKey": "story_ace/marco_neutral",
+    "file": "story_ace/marco_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marco, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "f938e938-1483-4d3e-8696-3a464f752715",
+      "promptHash": "01f9e92ee21e0e82ac9c3ddcff500ca2",
+      "seed": "ace-marco-01:neutral",
+      "costUsd": 0.05488,
+      "latencyMs": 31370,
+      "createdAt": "2026-09-12T21:49:35.015Z"
+    }
+  },
+  "story_ace/marco_warm": {
+    "assetKey": "story_ace/marco_warm",
+    "file": "story_ace/marco_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marco, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "d580d482-4c0f-4b21-ac86-7b7807ccdffe",
+      "promptHash": "062d0584d7cee57d8cf7ebd9553f1e9c",
+      "seed": "ace-marco-01:warm",
+      "costUsd": 0.05488,
+      "latencyMs": 32053,
+      "createdAt": "2026-09-12T21:49:35.684Z"
+    }
+  },
+  "story_ace/marco_amused": {
+    "assetKey": "story_ace/marco_amused",
+    "file": "story_ace/marco_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marco, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "93ad5013-cd4b-485a-81fd-40ebff432e27",
+      "promptHash": "a66769fc68bfd18abb7b159ed0e9cc6c",
+      "seed": "ace-marco-01:amused",
+      "costUsd": 0.05488,
+      "latencyMs": 33733,
+      "createdAt": "2026-09-12T21:49:37.379Z"
+    }
+  },
+  "story_ace/marco_surprised": {
+    "assetKey": "story_ace/marco_surprised",
+    "file": "story_ace/marco_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marco, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "766772fc-d233-4a64-8b28-005fae32301d",
+      "promptHash": "d475bef57e84c219f4176ba358a00096",
+      "seed": "ace-marco-01:surprised",
+      "costUsd": 0.01372,
+      "latencyMs": 18417,
+      "createdAt": "2026-09-12T21:49:53.439Z"
+    }
+  },
+  "story_ace/marco_confused": {
+    "assetKey": "story_ace/marco_confused",
+    "file": "story_ace/marco_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marco, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "71efd030-39c0-4e02-8a79-f2594ecdbbe3",
+      "promptHash": "3807e07b6a76208df6babe8179654703",
+      "seed": "ace-marco-01:confused",
+      "costUsd": 0.05488,
+      "latencyMs": 32293,
+      "createdAt": "2026-09-12T21:50:07.990Z"
+    }
+  },
+  "story_ace/marco_annoyed": {
+    "assetKey": "story_ace/marco_annoyed",
+    "file": "story_ace/marco_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marco, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "b8d51f97-04fc-44f2-9046-d3a8f86f24db",
+      "promptHash": "8234effa69a8f256c380a51c72e6b3d1",
+      "seed": "ace-marco-01:annoyed",
+      "costUsd": 0.05488,
+      "latencyMs": 33505,
+      "createdAt": "2026-09-12T21:50:10.890Z"
+    }
+  },
+  "story_ace/marco_angry": {
+    "assetKey": "story_ace/marco_angry",
+    "file": "story_ace/marco_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marco, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "753e72fe-c2ed-471a-a3e9-90a45a717ee6",
+      "promptHash": "2a1ba6a15174193e37d4b447a11cd3e3",
+      "seed": "ace-marco-01:angry",
+      "costUsd": 0.05488,
+      "latencyMs": 32399,
+      "createdAt": "2026-09-12T21:50:25.843Z"
+    }
+  },
+  "story_ace/marco_worried": {
+    "assetKey": "story_ace/marco_worried",
+    "file": "story_ace/marco_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marco, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "af17227a-1651-49dd-aa5e-9ba623308023",
+      "promptHash": "83585a979800bf9f9dc70d9dbc414252",
+      "seed": "ace-marco-01:worried",
+      "costUsd": 0.05488,
+      "latencyMs": 33066,
+      "createdAt": "2026-09-12T21:50:41.063Z"
+    }
+  },
+  "story_ace/thatch_amused": {
+    "assetKey": "story_ace/thatch_amused",
+    "file": "story_ace/thatch_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Thatch, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "1300817a-032c-40c9-a74b-33fdd2be328f",
+      "promptHash": "70b5b6684a62669182be4ebe4755fc98",
+      "seed": "ace-thatch-01:amused",
+      "costUsd": 0.01372,
+      "latencyMs": 16780,
+      "createdAt": "2026-09-12T21:50:58.597Z"
+    }
+  },
+  "story_ace/thatch_warm": {
+    "assetKey": "story_ace/thatch_warm",
+    "file": "story_ace/thatch_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Thatch, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "2600520c-9131-4aaf-a194-20efc1116242",
+      "promptHash": "b44d490b3a7403ecc308813d59e1da20",
+      "seed": "ace-thatch-01:warm",
+      "costUsd": 0.01372,
+      "latencyMs": 17737,
+      "createdAt": "2026-09-12T21:50:59.540Z"
+    }
+  },
+  "story_ace/thatch_neutral": {
+    "assetKey": "story_ace/thatch_neutral",
+    "file": "story_ace/thatch_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Thatch, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "b07c4732-e71e-492e-90f0-b60850ea325b",
+      "promptHash": "a510489d79efd9884650cf9c5c13aa78",
+      "seed": "ace-thatch-01:neutral",
+      "costUsd": 0.05488,
+      "latencyMs": 31497,
+      "createdAt": "2026-09-12T21:51:13.314Z"
+    }
+  },
+  "story_ace/thatch_surprised": {
+    "assetKey": "story_ace/thatch_surprised",
+    "file": "story_ace/thatch_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Thatch, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "d6fe75b5-6397-45b6-8d23-35ef4313c69c",
+      "promptHash": "6f114faa2b9d12963e4203b9e74b9fb9",
+      "seed": "ace-thatch-01:surprised",
+      "costUsd": 0.01372,
+      "latencyMs": 18854,
+      "createdAt": "2026-09-12T21:51:17.462Z"
+    }
+  },
+  "story_ace/thatch_annoyed": {
+    "assetKey": "story_ace/thatch_annoyed",
+    "file": "story_ace/thatch_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Thatch, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "4c64b51b-7877-4662-a3ba-3c3cd4e07965",
+      "promptHash": "1c662e8b016d4a4e03a1f4ff7016578c",
+      "seed": "ace-thatch-01:annoyed",
+      "costUsd": 0.01372,
+      "latencyMs": 15614,
+      "createdAt": "2026-09-12T21:51:28.939Z"
+    }
+  },
+  "story_ace/thatch_confused": {
+    "assetKey": "story_ace/thatch_confused",
+    "file": "story_ace/thatch_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Thatch, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "9a019517-dd4c-4649-8cc4-7b0d6ecd53ab",
+      "promptHash": "e26bd1a2aa7c540468af4c3b2eef2cc0",
+      "seed": "ace-thatch-01:confused",
+      "costUsd": 0.05488,
+      "latencyMs": 31960,
+      "createdAt": "2026-09-12T21:51:31.512Z"
+    }
+  },
+  "story_ace/thatch_angry": {
+    "assetKey": "story_ace/thatch_angry",
+    "file": "story_ace/thatch_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Thatch, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "ddbe6cc4-fe52-4053-87c8-ddce0e4844b5",
+      "promptHash": "183ff2a19b9e7223d90a5c8e318ec7a1",
+      "seed": "ace-thatch-01:angry",
+      "costUsd": 0.01372,
+      "latencyMs": 15790,
+      "createdAt": "2026-09-12T21:51:33.262Z"
+    }
+  },
+  "story_ace/thatch_worried": {
+    "assetKey": "story_ace/thatch_worried",
+    "file": "story_ace/thatch_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Thatch, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "3f427cc6-7af8-4286-8b36-c07aeb2d951b",
+      "promptHash": "1714d41a936a28d11abeb23df4057e8c",
+      "seed": "ace-thatch-01:worried",
+      "costUsd": 0.01372,
+      "latencyMs": 17793,
+      "createdAt": "2026-09-12T21:51:46.759Z"
+    }
+  },
+  "story_ace/teach_warm": {
+    "assetKey": "story_ace/teach_warm",
+    "file": "story_ace/teach_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marshall D. Teach, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "62381ae3-63c0-4493-b0a1-a92725f87d9f",
+      "promptHash": "f8716ce63e2d1948fc356572f56e1f6c",
+      "seed": "ace-teach-01:warm",
+      "costUsd": 0.00632,
+      "latencyMs": 16476,
+      "createdAt": "2026-09-12T21:52:04.088Z"
+    }
+  },
+  "story_ace/teach_neutral": {
+    "assetKey": "story_ace/teach_neutral",
+    "file": "story_ace/teach_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marshall D. Teach, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "2c06dd52-484e-44af-9bc0-3c2869bfc9b7",
+      "promptHash": "5d5258d5eb2652c4a2af13cb5398e5de",
+      "seed": "ace-teach-01:neutral",
+      "costUsd": 0.00632,
+      "latencyMs": 17017,
+      "createdAt": "2026-09-12T21:52:04.613Z"
+    }
+  },
+  "story_ace/teach_amused": {
+    "assetKey": "story_ace/teach_amused",
+    "file": "story_ace/teach_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marshall D. Teach, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "54994a3b-f4f8-43ad-a84d-f9e85c9b84a9",
+      "promptHash": "19ae6a2c1d78b4eb065a96613080d30e",
+      "seed": "ace-teach-01:amused",
+      "costUsd": 0.00632,
+      "latencyMs": 17023,
+      "createdAt": "2026-09-12T21:52:04.635Z"
+    }
+  },
+  "story_ace/teach_surprised": {
+    "assetKey": "story_ace/teach_surprised",
+    "file": "story_ace/teach_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marshall D. Teach, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "fe330eac-a735-40e9-ad57-c9efdfcb3c3a",
+      "promptHash": "38dd0acc7b31e52ba3e7401652fbded8",
+      "seed": "ace-teach-01:surprised",
+      "costUsd": 0.00632,
+      "latencyMs": 16600,
+      "createdAt": "2026-09-12T21:52:20.703Z"
+    }
+  },
+  "story_ace/teach_annoyed": {
+    "assetKey": "story_ace/teach_annoyed",
+    "file": "story_ace/teach_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marshall D. Teach, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "55311aef-c84e-4798-9663-3a520d8d84c9",
+      "promptHash": "0c4a81fcea66a4ad8c140cf66d1b5ded",
+      "seed": "ace-teach-01:annoyed",
+      "costUsd": 0.01372,
+      "latencyMs": 19633,
+      "createdAt": "2026-09-12T21:52:24.274Z"
+    }
+  },
+  "story_ace/teach_confused": {
+    "assetKey": "story_ace/teach_confused",
+    "file": "story_ace/teach_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marshall D. Teach, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "90be571d-e2d8-479d-b763-fe8c20f4e017",
+      "promptHash": "1e196e755ab29adbe0adac4f811c7dbe",
+      "seed": "ace-teach-01:confused",
+      "costUsd": 0.05488,
+      "latencyMs": 33812,
+      "createdAt": "2026-09-12T21:52:38.432Z"
+    }
+  },
+  "story_ace/teach_worried": {
+    "assetKey": "story_ace/teach_worried",
+    "file": "story_ace/teach_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marshall D. Teach, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "763e33e1-32fa-4b12-acb6-0f9bb08f4e08",
+      "promptHash": "36b1bcb8de2f3e86d6559920acd1bfbe",
+      "seed": "ace-teach-01:worried",
+      "costUsd": 0.00632,
+      "latencyMs": 16234,
+      "createdAt": "2026-09-12T21:52:40.521Z"
+    }
+  },
+  "story_ace/teach_angry": {
+    "assetKey": "story_ace/teach_angry",
+    "file": "story_ace/teach_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marshall D. Teach, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "3b472ef0-e954-489a-989b-909d3442f971",
+      "promptHash": "c253e8e86bdc1ddbe82aebb4eef63a68",
+      "seed": "ace-teach-01:angry",
+      "costUsd": 0.01372,
+      "latencyMs": 23313,
+      "createdAt": "2026-09-12T21:52:44.025Z"
+    }
+  },
+  "story_ace/jinbe_amused": {
+    "assetKey": "story_ace/jinbe_amused",
+    "file": "story_ace/jinbe_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Jinbe, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "6f87193b-b4d4-4e8c-a726-e6a598f8dc88",
+      "promptHash": "01c8f69ea5d43d97d0a5ce6bb371f563",
+      "seed": "ace-jinbe-01:amused",
+      "costUsd": 0.00632,
+      "latencyMs": 16127,
+      "createdAt": "2026-09-12T21:53:00.958Z"
+    }
+  },
+  "story_ace/jinbe_warm": {
+    "assetKey": "story_ace/jinbe_warm",
+    "file": "story_ace/jinbe_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Jinbe, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "acf15b11-82ab-483b-a7be-00d82c371dd9",
+      "promptHash": "46e8a29b4e7413784380cd9f4e26e39c",
+      "seed": "ace-jinbe-01:warm",
+      "costUsd": 0.01372,
+      "latencyMs": 18470,
+      "createdAt": "2026-09-12T21:53:03.284Z"
+    }
+  },
+  "story_ace/jinbe_confused": {
+    "assetKey": "story_ace/jinbe_confused",
+    "file": "story_ace/jinbe_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Jinbe, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "93e76e5d-0244-491a-87f2-d77e5c8a4b13",
+      "promptHash": "f32b865b84e5593d730b36ceacab4859",
+      "seed": "ace-jinbe-01:confused",
+      "costUsd": 0.00632,
+      "latencyMs": 13298,
+      "createdAt": "2026-09-12T21:53:16.594Z"
+    }
+  },
+  "story_ace/jinbe_neutral": {
+    "assetKey": "story_ace/jinbe_neutral",
+    "file": "story_ace/jinbe_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Jinbe, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "6fac97c8-5a31-4990-b14b-9d7a6a66bef1",
+      "promptHash": "09146731c3555bbe985cbb37bf2590e9",
+      "seed": "ace-jinbe-01:neutral",
+      "costUsd": 0.05488,
+      "latencyMs": 32587,
+      "createdAt": "2026-09-12T21:53:17.419Z"
+    }
+  },
+  "story_ace/jinbe_angry": {
+    "assetKey": "story_ace/jinbe_angry",
+    "file": "story_ace/jinbe_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Jinbe, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "61da0bbb-0e1a-4a43-b7d0-048bba6291ec",
+      "promptHash": "106e13302b18910abf2d0f8507b95fa2",
+      "seed": "ace-jinbe-01:angry",
+      "costUsd": 0.00632,
+      "latencyMs": 16409,
+      "createdAt": "2026-09-12T21:53:33.841Z"
+    }
+  },
+  "story_ace/jinbe_annoyed": {
+    "assetKey": "story_ace/jinbe_annoyed",
+    "file": "story_ace/jinbe_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Jinbe, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "645665b6-4e9e-4a34-b334-a8bb626e18ee",
+      "promptHash": "c9a5628b371af3d0225088677f9f276d",
+      "seed": "ace-jinbe-01:annoyed",
+      "costUsd": 0.01372,
+      "latencyMs": 17481,
+      "createdAt": "2026-09-12T21:53:34.082Z"
+    }
+  },
+  "story_ace/jinbe_surprised": {
+    "assetKey": "story_ace/jinbe_surprised",
+    "file": "story_ace/jinbe_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Jinbe, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "c384109d-04e4-4229-a114-fadc053e1eb3",
+      "promptHash": "175d72e35c9bece9d15f399f0121e727",
+      "seed": "ace-jinbe-01:surprised",
+      "costUsd": 0.05488,
+      "latencyMs": 33131,
+      "createdAt": "2026-09-12T21:53:34.100Z"
+    }
+  },
+  "story_ace/jinbe_worried": {
+    "assetKey": "story_ace/jinbe_worried",
+    "file": "story_ace/jinbe_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Jinbe, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "164a6ff9-3152-41ad-9334-3b30b127557b",
+      "promptHash": "14264adc0c8f1b08c0b94b39ab466ec2",
+      "seed": "ace-jinbe-01:worried",
+      "costUsd": 0.00632,
+      "latencyMs": 15220,
+      "createdAt": "2026-09-12T21:53:49.071Z"
+    }
+  },
+  "story_ace/akainu_warm": {
+    "assetKey": "story_ace/akainu_warm",
+    "file": "story_ace/akainu_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sakazuki, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "5714c884-7958-400c-abc9-ecd9d481f149",
+      "promptHash": "d51f8b4d150caac87d101777a0fdd8fb",
+      "seed": "ace-akainu-01:warm",
+      "costUsd": 0.00632,
+      "latencyMs": 14395,
+      "createdAt": "2026-09-12T21:54:04.264Z"
+    }
+  },
+  "story_ace/akainu_neutral": {
+    "assetKey": "story_ace/akainu_neutral",
+    "file": "story_ace/akainu_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sakazuki, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "9bbbce0c-8f49-444d-8ae0-a4d81501bb35",
+      "promptHash": "8c59cf05440447b57ffe250945305efa",
+      "seed": "ace-akainu-01:neutral",
+      "costUsd": 0.00632,
+      "latencyMs": 16046,
+      "createdAt": "2026-09-12T21:54:05.897Z"
+    }
+  },
+  "story_ace/akainu_amused": {
+    "assetKey": "story_ace/akainu_amused",
+    "file": "story_ace/akainu_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sakazuki, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "0241ad35-49c2-4679-bc69-e774f89e6c38",
+      "promptHash": "94ca3b0dded1963ffc30322908b7b41c",
+      "seed": "ace-akainu-01:amused",
+      "costUsd": 0.05488,
+      "latencyMs": 36013,
+      "createdAt": "2026-09-12T21:54:25.882Z"
+    }
+  },
+  "story_ace/akainu_surprised": {
+    "assetKey": "story_ace/akainu_surprised",
+    "file": "story_ace/akainu_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sakazuki, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "43d44883-c9b3-48f7-b406-a8d313b24cb9",
+      "promptHash": "7ecb9ef9bbd8c40ce5cf3ae28124de44",
+      "seed": "ace-akainu-01:surprised",
+      "costUsd": 0.05488,
+      "latencyMs": 32571,
+      "createdAt": "2026-09-12T21:54:36.848Z"
+    }
+  },
+  "story_ace/akainu_angry": {
+    "assetKey": "story_ace/akainu_angry",
+    "file": "story_ace/akainu_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sakazuki, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "f9b81845-0db5-4e65-9618-313d11c6832d",
+      "promptHash": "7e2068c3b63747e3046fc5c81acc55e9",
+      "seed": "ace-akainu-01:angry",
+      "costUsd": 0.00632,
+      "latencyMs": 14558,
+      "createdAt": "2026-09-12T21:54:48.908Z"
+    }
+  },
+  "story_ace/akainu_worried": {
+    "assetKey": "story_ace/akainu_worried",
+    "file": "story_ace/akainu_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sakazuki, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "9aa25915-840c-4cb2-9536-9857d2b6d434",
+      "promptHash": "885a8a9e2b2cef8fb74fe043eedfdeee",
+      "seed": "ace-akainu-01:worried",
+      "costUsd": 0.05488,
+      "latencyMs": 33186,
+      "createdAt": "2026-09-12T21:55:10.044Z"
+    }
+  },
+  "story_ace/shanks_amused": {
+    "assetKey": "story_ace/shanks_amused",
+    "file": "story_ace/shanks_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Red-Haired Shanks, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "ef2ad2a6-c134-4395-81cd-3fa9220eda17",
+      "promptHash": "6091d7d09baaedc55a5fbfe228eacee8",
+      "seed": "ace-shanks-01:amused",
+      "costUsd": 0.00632,
+      "latencyMs": 15681,
+      "createdAt": "2026-09-12T21:55:26.325Z"
+    }
+  },
+  "story_ace/shanks_neutral": {
+    "assetKey": "story_ace/shanks_neutral",
+    "file": "story_ace/shanks_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Red-Haired Shanks, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "9c006f11-d772-41b5-90bd-03012a189869",
+      "promptHash": "e8e22aa61c32bd6a0f0b9e1b4396a2a1",
+      "seed": "ace-shanks-01:neutral",
+      "costUsd": 0.01372,
+      "latencyMs": 22072,
+      "createdAt": "2026-09-12T21:55:32.703Z"
+    }
+  },
+  "story_ace/shanks_warm": {
+    "assetKey": "story_ace/shanks_warm",
+    "file": "story_ace/shanks_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Red-Haired Shanks, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "7c6e2285-9268-434c-8bc3-c427c0384934",
+      "promptHash": "4d0e7467527a1831f458b37b2a4bf1d0",
+      "seed": "ace-shanks-01:warm",
+      "costUsd": 0.05488,
+      "latencyMs": 33283,
+      "createdAt": "2026-09-12T21:55:43.926Z"
+    }
+  },
+  "story_ace/shanks_confused": {
+    "assetKey": "story_ace/shanks_confused",
+    "file": "story_ace/shanks_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Red-Haired Shanks, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "ac63762f-959b-44a1-9d73-7685bfd568de",
+      "promptHash": "1e6f1776bbcea5399a1a55a714f42b4f",
+      "seed": "ace-shanks-01:confused",
+      "costUsd": 0.02404,
+      "latencyMs": 22871,
+      "createdAt": "2026-09-12T21:55:55.582Z"
+    }
+  },
+  "story_ace/shanks_surprised": {
+    "assetKey": "story_ace/shanks_surprised",
+    "file": "story_ace/shanks_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Red-Haired Shanks, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "2ce5e753-fe1c-44d2-803e-4d18dfa13702",
+      "promptHash": "0c30a3c2ed134d7d5f53027bd9d329e7",
+      "seed": "ace-shanks-01:surprised",
+      "costUsd": 0.05488,
+      "latencyMs": 31913,
+      "createdAt": "2026-09-12T21:55:58.249Z"
+    }
+  },
+  "story_ace/shanks_annoyed": {
+    "assetKey": "story_ace/shanks_annoyed",
+    "file": "story_ace/shanks_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Red-Haired Shanks, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "1950e4ad-c9f5-44f5-868d-32138cbfd50d",
+      "promptHash": "abe2c1b8d1034fb47777ad3a79dfa147",
+      "seed": "ace-shanks-01:annoyed",
+      "costUsd": 0.01372,
+      "latencyMs": 18477,
+      "createdAt": "2026-09-12T21:56:02.412Z"
+    }
+  },
+  "story_ace/shanks_angry": {
+    "assetKey": "story_ace/shanks_angry",
+    "file": "story_ace/shanks_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Red-Haired Shanks, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "03c17dc1-77fa-4c31-bd3d-072a0494c9d1",
+      "promptHash": "9e6e38de6991d4ebed75eb92082fffd2",
+      "seed": "ace-shanks-01:angry",
+      "costUsd": 0.00632,
+      "latencyMs": 15043,
+      "createdAt": "2026-09-12T21:56:10.635Z"
+    }
+  },
+  "story_ace/shanks_worried": {
+    "assetKey": "story_ace/shanks_worried",
+    "file": "story_ace/shanks_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Red-Haired Shanks, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "827e1ee5-8b37-4987-b93f-f47a8e6c8cb0",
+      "promptHash": "ff18ce562c4caa708d6ae6ed88c2a55f",
+      "seed": "ace-shanks-01:worried",
+      "costUsd": 0.05488,
+      "latencyMs": 33042,
+      "createdAt": "2026-09-12T21:56:31.299Z"
+    }
   }
 }

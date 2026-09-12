@@ -126,18 +126,47 @@ export function recordMentions(
   // Capitalised runs of one to four words, which is what a name looks like.
   // Unicode-aware: the first pass cut "Moonlight Café" to "Moonlight Caf",
   // which then failed to match what the player typed.
-  const candidates = new Set<string>();
-  for (const match of text.matchAll(
-    /(?:[Tt]he\s+)?(\p{Lu}[\p{Ll}\p{M}'’-]{2,}(?:\s+\p{Lu}[\p{Ll}\p{M}'’-]{2,}){0,3})/gu,
-  )) {
+  //
+  // Capitalisation on its own is not evidence of a name, because English
+  // capitalises the first word of every sentence too. That gap put a person
+  // called **For** into Ace: the beat opened "For a second, the world is just
+  // light and bugs", `For` was recorded as a name, and a later turn promoted
+  // it into a character standing in the clearing who then took a relationship
+  // hit when the player swung at Sabo. The blocklist below did not have "for"
+  // in it, and no blocklist ever will have all of them — every preposition,
+  // conjunction and adverb in the language can open a sentence.
+  //
+  // So a single capitalised word at the start of a sentence has to corroborate
+  // itself: the same word has to appear capitalised somewhere it is *not*
+  // sentence-initial, which is what a real name does the moment the paragraph
+  // uses it twice. Multi-word runs are exempt — "Moonlight Café" is not an
+  // accident of punctuation.
+  //
+  // The failure this trades for is a new name the writer used exactly once and
+  // only at the head of a sentence, which is not recorded until the next beat
+  // says it again. That is the cheap direction: a name arrives a turn late,
+  // instead of a preposition becoming a person forever.
+  const midSentence = new Set<string>();
+  const seen: Array<{ name: string; initial: boolean }> = [];
+  const pattern = /(?:[Tt]he\s+)?(\p{Lu}[\p{Ll}\p{M}'’-]{2,}(?:\s+\p{Lu}[\p{Ll}\p{M}'’-]{2,}){0,3})/gu;
+  for (const match of text.matchAll(pattern)) {
     const name = match[1];
-    if (!name) continue;
+    if (!name || match.index === undefined) continue;
+    const start = match.index + (match[0].length - name.length);
+    const initial = startsASentence(text, start);
+    if (!initial) for (const word of name.split(/\s+/)) midSentence.add(word.toLowerCase());
+    seen.push({ name, initial });
+  }
+
+  const candidates = new Set<string>();
+  for (const { name, initial } of seen) {
     const lower = name.toLowerCase();
     if (known.has(lower)) continue;
     if (SENTENCE_STARTERS.has(lower)) continue;
     // A multi-word name whose every word is already known is the world's own.
     const words = lower.split(/\s+/);
     if (words.every((w) => known.has(w) || SENTENCE_STARTERS.has(w))) continue;
+    if (initial && words.length === 1 && !midSentence.has(lower)) continue;
     candidates.add(name);
   }
 
@@ -148,6 +177,22 @@ export function recordMentions(
     reasonCode: 'MENTIONED',
     payload: { flag: mentionFlag(name), value: encodeMention(name, locationId) },
   }));
+}
+
+/**
+ * Whether the character at `index` opens a sentence.
+ *
+ * Everything before it that is whitespace, an opening quote or a dash is
+ * skipped, so the first word of a line of dialogue counts as sentence-initial
+ * the same way the first word of a paragraph does.
+ */
+function startsASentence(text: string, index: number): boolean {
+  for (let i = index - 1; i >= 0; i -= 1) {
+    const ch = text[i]!;
+    if (/[\s"'“”‘’«»(\[—–-]/u.test(ch)) continue;
+    return /[.!?:;…]/u.test(ch);
+  }
+  return true;
 }
 
 /**
@@ -210,14 +255,40 @@ export function matchMentionHere(spoken: string, state: GameState): string | nul
   return match(spoken, here);
 }
 
+/**
+ * Whole words only.
+ *
+ * This was `includes`, which meant a recorded name matched inside any word that
+ * happened to contain it. Together with the sentence-initial bug above it is
+ * how Ace grew a character called For: once "For" was on the mention list,
+ * every later turn whose text contained "forest", "before" or "for a moment"
+ * read as the player speaking to them, and `promoteAddressee` made them real.
+ * Short names are the common case, not the edge case — Sabo, Marco, Ace, Rin —
+ * so substring matching is wrong for the names this engine is most likely to
+ * see.
+ */
 function match(spoken: string, names: readonly string[]): string | null {
   const text = spoken.toLowerCase();
   return (
     [...names]
       // Longest first, so "Moonlight Café" beats "Moonlight".
       .sort((a, b) => b.length - a.length)
-      .find((name) => text.includes(name.toLowerCase())) ?? null
+      .find((name) => wholeWord(text, name.toLowerCase())) ?? null
   );
+}
+
+/** `\b` is ASCII-only in JavaScript, so the boundaries are spelled out. */
+function wholeWord(haystack: string, needle: string): boolean {
+  let from = 0;
+  for (;;) {
+    const at = haystack.indexOf(needle, from);
+    if (at < 0) return false;
+    const before = at === 0 ? '' : haystack[at - 1]!;
+    const after = haystack[at + needle.length] ?? '';
+    const isLetter = (ch: string): boolean => ch !== '' && /[\p{L}\p{N}]/u.test(ch);
+    if (!isLetter(before) && !isLetter(after)) return true;
+    from = at + 1;
+  }
 }
 
 export interface Promotion {

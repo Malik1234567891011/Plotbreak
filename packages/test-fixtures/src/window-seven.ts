@@ -779,6 +779,7 @@ const raw = {
     {
       id: 'halden',
       name: 'Director Elias Halden',
+      calledName: 'Elias',
       role: 'Your handler. Twenty-nine years in the service and every one of them deniable',
       cardBlurb:
         'He asks after your health and means it, files everything you say in the same conversation, and has never once raised his voice at you. He also authorised the thing he is sending you to look at.',

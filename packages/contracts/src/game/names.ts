@@ -55,3 +55,12 @@ export function nameKeys(fullName: string): string[] {
     .filter((part) => part.length >= 3);
   return [...new Set(keys)];
 }
+
+/**
+ * What to call this person, preferring what the world says over what a rule
+ * can guess. See `CharacterDef.calledName`.
+ */
+export function calledName(character: { readonly name: string; readonly calledName?: string }): string {
+  const authored = character.calledName?.trim();
+  return authored && authored.length > 0 ? authored : shortName(character.name);
+}

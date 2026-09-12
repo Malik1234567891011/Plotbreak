@@ -381,3 +381,102 @@ export function stripSubstitutedPeople(
     unsafeOrMetaRequests: [...new Set([...intent.unsafeOrMetaRequests, 'unresolved_target'])],
   };
 }
+
+// --- Violence the player never did -----------------------------------------
+
+/**
+ * Physical language, in the words players actually use.
+ *
+ * Unambiguous verbs only. The words that are violence *and* furniture live in
+ * `AMBIGUOUS_PHYSICAL` below and need somebody on the end of them, for the same
+ * reason the rule lexicon splits them: "I bet I can beat you there" is a dare,
+ * and Last Five's own premise is "Beat the five who left".
+ */
+const PHYSICAL_CONTACT =
+  /\b(hits?|hitting|strikes?|striking|struck|punch(?:es|ed|ing)?|slaps?|smacks?|kicks?|kicking|knee(?:s|d)?|elbows?|headbutts?|shoves?|pushes|pushing|tackles?|grabs?|grabbing|grapples?|seizes?|hurls?|slams?|pins?|chokes?|strangl(?:e|es|ing)|throttles?|bites?|claws?|swings?|swinging|swung|lunges?|wrestles?|stomps?|attacks?|attacking|assaults?|fights?|fighting|fought|brawls?|batters?|pummels?|thrash(?:es)?|clobbers?|mauls?|wallops?|stabs?|stabbing|slashes|shoots?|shooting|burns?|burning|torch(?:es)?|scorch(?:es)?|incinerates?|kills?|killing|murders?|executes?|beheads?|knocks? (?:him|her|them|\p{Lu}[\p{Ll}\p{M}'’-]+) (?:out|down|over)|lays? (?:him|her|them) out|takes? (?:him|her|them) down|puts? (?:him|her|them) down|go(?:es)? for (?:him|her|them|the)|comes? at|come at|set upon|squares? up|jumps? (?:him|her|them))\b/iu;
+
+/**
+ * The idioms that are unmistakably violence without a violent verb in them.
+ * Mirrors the rule lexicon's own list, which is the floor this gate may never
+ * sit below: anything the rule parser is willing to call an attack has to
+ * count as physical evidence here, or the pipeline would demote it.
+ */
+const PHYSICAL_IDIOM =
+  /\b(?:beat|kick|knock|smack)\s+(?:the\s+)?(?:shit|hell|crap|life|daylights|stuffing|tar)\s+out of\b|\b(?:lay into|wail on|rough up|beat up|beats up|knock out|knocks out|knocked out|take a swing at|takes a swing at|set upon|square up to)\b/i;
+
+/**
+ * Violence that is also an ordinary word, so it counts only against a person.
+ * Same shape as the rule lexicon's `AGGRESSION_AT_A_PERSON`, and same reason.
+ */
+const AMBIGUOUS_PHYSICAL =
+  /\b(?:deck|floor|beat|hit|kick|jump|smack|slap|drop|charge|rush|cut|slice|trip|blast|throw|throws|drag|drags)\s+(?:him|her|them|me|us|his|their|(?:the|that|this|a|an)\s+(?:\w+\s+)?(?:man|woman|guy|girl|boy|kid|lad|fellow|bastard|guard|sailor|soldier|officer|captain|coach|stranger|thug|drunk|clerk|driver|bouncer)|the\s+\p{Lu}[\p{Ll}\p{M}'’-]+|\p{Lu}[\p{Ll}\p{M}'’-]{2,})\b/u;
+
+/** Weapons and fighting parts. A blade in the sentence is physical evidence. */
+const PHYSICAL_OBJECT =
+  /\b(fist|fists|knuckles|knife|blade|dagger|sword|katana|spear|gun|pistol|rifle|revolver|arrow|axe|throat|jaw|ribs|scruff)\b/i;
+
+/** The French list is authored against French idiom, never translated. */
+const PHYSICAL_CONTACT_FR =
+  /\b(frappe|frappes|frapper|cogne|cognes|cogner|attaque|attaques|attaquer|agresse|agresser|poignarde|poignarder|égorge|étrangle|étrangler|tabasse|tabasser|assomme|assommer|bouscule|bousculer|pousse|pousser|gifle|gifler|saisis|saisir|attrape|attraper|plaque|plaquer|défonce|défoncer|mords|mordre|griffe|griffer|tue|tuer|abats|abattre|achève|achever|brûle|brûler|dégaine|dégainer|bagarre|baston|me\s+bats|me\s+battre|coup\s+de|poing|poings|lame|couteau|épée|sabre|pistolet|fusil|flèche|gorge|mâchoire)\b/iu;
+
+/**
+ * Contempt aimed at a person. Not violence, but not small talk either.
+ */
+const HOSTILE_SPEECH =
+  /\b(fraud|liar|coward|pathetic|useless|worthless|disgrace|scum|traitor|shut up|get out|back off|or else|you'?ll regret|i'?m warning you|don'?t test me|last warning|make you|i'?ll end|watch yourself)\b/i;
+const HOSTILE_SPEECH_FR =
+  /\b(menteur|menteuse|lâche|pathétique|inutile|minable|ordure|traître|ferme[- ]la|tais[- ]toi|dégage|sinon|tu vas le regretter|je te préviens|dernier avertissement|fais gaffe)\b/iu;
+
+/**
+ * Demotes an attack the player's own words do not support.
+ *
+ * Live, in Ace, turn 12. The card read *"Hey, Sabo, don't go too fast or I
+ * might have to catch you! You really think you're unbeatable?"* — a boy
+ * teasing his brother during a race — and the screen answered
+ * `Strike Sabo · Hard · FAILURE`. The rule parser is not the culprit: it reads
+ * that sentence as `custom`, correctly, because there is no violence in it. It
+ * is the escalation that does the damage. `needsModelParse` sends every
+ * unrecognised sentence to the model, and the model parser is told that words
+ * aimed at a person are almost never `speak` — so it reaches for the most
+ * forceful verb the sentence could bear, and banter between brothers becomes
+ * assault. The engine then opens a combat check, the check fails, the writer is
+ * handed a failed attack, and the relationship moves. None of it can be undone.
+ *
+ * The invariant this enforces is not about tone or phrasing, which is why it is
+ * not a word list of taunts: **hitting somebody is something you do with your
+ * body, and a sentence that describes no physical act is not one.** A model may
+ * still call any sentence with a fist, a blade or a shove in it an attack. It
+ * may not manufacture one out of a dare.
+ *
+ * Demotion, never a drop. The player did do something — they spoke — so the
+ * turn keeps its action and lands on `threaten` if the words have teeth and
+ * `speak` if they do not. Dropping the action instead would trade a phantom
+ * fight for a phantom silence.
+ */
+export function stripInventedViolence(
+  intent: ActionIntent,
+  options: { readonly text: string; readonly locale?: string },
+): ActionIntent {
+  if (!intent.actions.some((a) => a.verb === 'attack')) return intent;
+
+  const { text } = options;
+  const fr = options.locale === 'fr';
+  const physical =
+    PHYSICAL_CONTACT.test(text) ||
+    PHYSICAL_IDIOM.test(text) ||
+    AMBIGUOUS_PHYSICAL.test(text) ||
+    PHYSICAL_OBJECT.test(text) ||
+    (fr && PHYSICAL_CONTACT_FR.test(text));
+  if (physical) return intent;
+
+  const hostile = fr
+    ? HOSTILE_SPEECH_FR.test(text) || HOSTILE_SPEECH.test(text)
+    : HOSTILE_SPEECH.test(text);
+
+  return {
+    ...intent,
+    actions: intent.actions.map((action) =>
+      action.verb === 'attack' ? { ...action, verb: hostile ? 'threaten' : 'speak' } : action,
+    ),
+  };
+}

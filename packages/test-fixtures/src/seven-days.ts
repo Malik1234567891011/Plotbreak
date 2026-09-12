@@ -547,6 +547,7 @@ const raw = {
     {
       id: 'wynn',
       name: 'Detective Sera Wynn',
+      calledName: 'Sera',
       role: 'Investigating something that has not happened yet',
       cardBlurb: 'She arrives on Wednesday to investigate a disappearance you have already watched happen, and she will want to know how you knew.',
       pronouns: 'she/her',
@@ -697,6 +698,7 @@ const raw = {
     {
       id: 'harrow',
       name: 'Councillor Ada Harrow',
+      calledName: 'Ada',
       role: 'Arrives Thursday, leaves Friday',
       cardBlurb: 'She comes down on Thursday to sign something about the tower and is gone by Friday — the one person you have never found in the city on a Sunday.',
       pronouns: 'she/her',

@@ -504,6 +504,7 @@ const raw = {
     {
       id: 'ysolde',
       name: 'Warden Ysolde Farrow',
+      calledName: 'Ysolde',
       role: 'Warden of Records',
       cardBlurb:
         "The teacher who signs off on record changes. She is unfailingly kind to you, which is the worrying part.",

@@ -1032,6 +1032,7 @@ const raw = {
     {
       id: 'vaultback',
       name: 'The Vaultback',
+      calledName: 'The Vaultback',
       role: 'Behemoth — armoured, burrowing',
       cardBlurb: 'The one that killed your squad. Forty feet of plated back and a mouth underneath. It is dead. The part of it that is in you is not.',
       pronouns: 'it/its',
@@ -1062,6 +1063,7 @@ const raw = {
     {
       id: 'nettlejaw',
       name: 'The Nettlejaw',
+      calledName: 'The Nettlejaw',
       role: 'Behemoth — electrical',
       cardBlurb: 'Long, low and wet, and it is in the culverts under the outer district. Your hair will stand up thirty feet before you see it.',
       pronouns: 'it/its',
@@ -1092,6 +1094,7 @@ const raw = {
     {
       id: 'quiet_one',
       name: 'The Quiet One',
+      calledName: 'The Quiet One',
       role: 'Behemoth — and possibly not',
       cardBlurb: 'Nobody has a description of it. Eleven people have reported the same feeling you have had twice now — of being looked at from somewhere you already checked.',
       pronouns: 'it/its',

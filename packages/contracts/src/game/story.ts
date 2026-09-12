@@ -532,6 +532,25 @@ export const CharacterDef = z
      * in the same breath — without spoiling anything they should discover.
      */
     cardBlurb: z.string().default(''),
+    /**
+     * What this person is actually called, when the name does not say.
+     *
+     * `shortName()` takes the first word that is not a title, which is right
+     * for "Dai Okonkwo" and for "Captain Veyra Sol" and wrong for every naming
+     * convention that does not put the given name first. Ace shipped with
+     * "Monkey is afraid of you" for Monkey D. Luffy, "Curly closes off" for
+     * Curly Dadan and "Red-Haired reconsiders you" for Red-Haired Shanks —
+     * family names and epithets read as the person, on the chips, in the cards
+     * and in the witness lines, while the check labels beside them said
+     * "Monkey D. Luffy" and did not match.
+     *
+     * No rule gets this from the string: "Monkey" is a surname here and a
+     * given name elsewhere, and a title list that grew to hold it would be
+     * wrong for the next world. The author knows, so the author says. Omitted
+     * means *derive it*, which is correct for the many worlds whose names are
+     * ordinary.
+     */
+    calledName: z.string().optional(),
     pronouns: z.string().default('they/them'),
     /**
      * How this person addresses the player in French, and is addressed back.

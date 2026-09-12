@@ -1366,6 +1366,7 @@ const raw = {
     {
       id: 'luffy',
       name: 'Monkey D. Luffy',
+      calledName: 'Luffy',
       role: 'Seven years old, has followed you for eleven days, and will not be discouraged by anything you have tried so far',
       cardBlurb:
         'He cannot fight, he cannot lie, and he has no concept of being unwanted. He has decided you are his brother and is waiting with infinite patience for you to catch up, and the one thing that would actually stop him has not occurred to you because it is being kind to him.',
@@ -1549,6 +1550,7 @@ const raw = {
     {
       id: 'dadan',
       name: 'Curly Dadan',
+      calledName: 'Dadan',
       role: 'The mountain bandit a Marine vice-admiral handed two children to, and who has complained about it every single day since without ever once putting either of them down',
       cardBlurb:
         'She shouts at you, she threatens you, and she tells anybody who will listen that Garp ruined her life by leaving you here. She has never once raised a hand to you. If you are late back she comes down the mountain armed, and she will deny that is what she was doing.',
@@ -1627,6 +1629,7 @@ const raw = {
     {
       id: 'garp',
       name: 'Monkey D. Garp',
+      calledName: 'Garp',
       role: 'Marine vice-admiral, Luffy’s grandfather, the man who carried you off Baterilla, and the only living person who knows who your father was',
       cardBlurb:
         'He keeps trying to push you towards the Marines and cannot say why, which is because the reason is a promise he made to a man he was hunting. He wants you alive and he wants you nowhere near your inheritance, and he is so bad at communicating this that it arrives as violence and laughter.',
@@ -1714,6 +1717,7 @@ const raw = {
     {
       id: 'deuce',
       name: 'Masked Deuce',
+      calledName: 'Deuce',
       role: 'The first person to join you, met on an island neither of you meant to be on, and the only man alive who knew you before there was a legend to know',
       cardBlurb:
         'He did not want to be a pirate and he does not much like you at first. He is practical where you are not, he writes down what actually happened, and he is the counterweight that makes the difference between a crew and a boy with followers.',
@@ -1791,6 +1795,7 @@ const raw = {
     {
       id: 'whitebeard',
       name: 'Edward Newgate',
+      calledName: 'Whitebeard',
       role: 'The strongest man in the world, captain of the ship you came to take, and a father to four hundred people who all chose him',
       cardBlurb:
         'You came to kill him and he offered you a place instead, and he has kept offering it every time you have tried since. He believes a family is something you choose and then refuse to abandon, which is the exact answer to the question you have been carrying since you were eight, and you cannot bring yourself to accept it.',
@@ -2039,6 +2044,7 @@ const raw = {
     {
       id: 'teach',
       name: 'Marshall D. Teach',
+      calledName: 'Teach',
       role: 'A Second Division man under your command, patient for decades, and the one person aboard who believes exactly what you believe and drew the opposite conclusion from it',
       cardBlurb:
         'He is loud, friendly, genuinely funny and has been waiting years for one specific opportunity. He believes a man should live without regret, which is your belief too. You attached yours to people. He attached his to whatever is in front of him.',
@@ -2254,6 +2260,7 @@ const raw = {
     {
       id: 'shanks',
       name: 'Red-Haired Shanks',
+      calledName: 'Shanks',
       role: 'An emperor of the sea who gave your little brother a hat, and who becomes an entirely different person the moment you mention his name',
       cardBlurb:
         'You came to thank him, or to measure him, or both, and you were braced for a monster. Then you said Luffy’s name and the room changed. He is the only person in this story who treats your famous bloodline as ordinary, because he has met people like that before.',

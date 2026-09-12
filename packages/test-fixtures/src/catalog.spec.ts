@@ -389,3 +389,35 @@ describe('authored expressions resolve to a real face', () => {
     });
   }
 });
+
+/**
+ * No two people on screen answer to the same word.
+ *
+ * The chips, the cards and the witness lines call a character by one word.
+ * `shortName` derives it by taking the first word that is not a title, which
+ * is right for most names and silently wrong for the rest: Ace's Monkey D.
+ * Luffy and Monkey D. Garp were both "Monkey", and Blackwake once had two
+ * captains in a scene who were both "Captain". A player reading
+ * "Monkey is afraid of you" cannot tell which one, and the check label beside
+ * it said "Monkey D. Luffy" — two names for the same person in one turn.
+ *
+ * The fix is `CharacterDef.calledName`, authored by the world that knows. This
+ * is what makes a world that needs it fail here instead of shipping.
+ */
+describe('every character has a name of their own', () => {
+  for (const story of LAUNCH_CATALOG) {
+    it(`${story.title} gives no two characters the same short name`, async () => {
+      const { calledName } = await import('@plotbreak/contracts');
+      const byWord = new Map<string, string[]>();
+      for (const character of story.characters) {
+        const word = calledName(character).toLowerCase();
+        byWord.set(word, [...(byWord.get(word) ?? []), character.name]);
+      }
+      const collisions = [...byWord.entries()]
+        .filter(([, names]) => names.length > 1)
+        .map(([word, names]) => `${word}: ${names.join(' / ')}`);
+      expect(collisions, 'set calledName on these characters').toEqual([]);
+    });
+
+  }
+});

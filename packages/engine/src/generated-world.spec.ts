@@ -105,6 +105,52 @@ describe('what the story has put in front of the player', () => {
   it('matches nothing when the player names something never mentioned', () => {
     expect(matchMention('go to the Crystal Palace', state())).toBeNull();
   });
+
+  /**
+   * Live, in Ace. The beat opened "For a second, the world is just light and
+   * bugs and the hot reek of sap." `For` was recorded as a proper noun,
+   * `matchMention` found it inside the next turn's text, and the engine
+   * promoted a person called For into the clearing — who then took a
+   * relationship hit, with the rest of the room, when the player swung at
+   * Sabo. Two turns later the writer was dutifully staging them: "For stands
+   * awkwardly at the edge of the clearing."
+   */
+  it('does not mistake the first word of a sentence for a person', () => {
+    for (const text of [
+      'For a second, the world is just light and bugs and the hot reek of sap.',
+      'Behind you, the door closes. Once it does, there is no going back.',
+      'Still, you wait. Though nobody is watching, you wait.',
+      'Above the treeline the smoke is thinning. Since dawn it has not moved.',
+      'He does not answer. Instead he picks up the pipe.',
+    ]) {
+      expect(recordMentions(text, NINTH_ARCHIVE, 'gate_arch', nextId), text).toEqual([]);
+    }
+  });
+
+  it('still records a name the beat uses like a name', () => {
+    // Said once mid-sentence is enough; said twice, once at the head of a
+    // sentence, is more than enough.
+    const once = recordMentions(
+      'A boy in a straw hat pushes through the ferns — Riku, someone calls him.',
+      NINTH_ARCHIVE, 'gate_arch', nextId,
+    ).map((m) => m.payload.value);
+    expect(once).toContain('Riku@gate_arch');
+
+    const twice = recordMentions(
+      'Riku is already at the water. You can hear Riku laughing from here.',
+      NINTH_ARCHIVE, 'gate_arch', nextId,
+    ).map((m) => m.payload.value);
+    expect(twice).toContain('Riku@gate_arch');
+  });
+
+  it('matches a mentioned name as a word, not as a run of letters', () => {
+    const s = state();
+    s.flags[mentionFlag('Ryo')] = 'Ryo@gate_arch';
+    expect(matchMention('I keep walking, ryoku be damned', s)).toBeNull();
+    expect(matchMention('I wait for a moment before the forest swallows it', s)).toBeNull();
+    expect(matchMention('I ask Ryo what he saw', s)).toBe('Ryo');
+    expect(matchMention('"Ryo?" I say.', s)).toBe('Ryo');
+  });
 });
 
 describe('promotion happens because the player made it happen', () => {

@@ -7,7 +7,7 @@ import type {
   SuggestedAction,
 } from '@plotbreak/contracts';
 import type { ReactionEmotion } from '@plotbreak/contracts';
-import { QUALITY_TIERS, shortName } from '@plotbreak/contracts';
+import { QUALITY_TIERS, calledName } from '@plotbreak/contracts';
 import { isSuccess, outcomeLabel, estimateRisk, attributeModifier } from '@plotbreak/engine';
 import { type HostileVerb, type StructuredFact } from './memory-facts.js';
 import type { TurnContext, PresentCharacterContext } from './context.js';
@@ -424,7 +424,7 @@ function buildSuggestions(context: TurnContext): SuggestedAction[] {
   if (confront) {
     const character = context.presentCharacters.find((c) => c.def.id === confront.slice('confront:'.length));
     if (character) {
-      const firstName = shortName(character.def.name);
+      const firstName = calledName(character.def);
       push({
         text: `Back off and let ${firstName} decide what happens next.`,
         intentHint: `wait:${character.def.id}`,
@@ -455,7 +455,7 @@ function buildSuggestions(context: TurnContext): SuggestedAction[] {
   if (strained) {
     const character = context.presentCharacters.find((c) => c.def.id === strained.subjectId);
     if (character && opportunities.includes(`speak_to:${character.def.id}`)) {
-      const firstName = shortName(character.def.name);
+      const firstName = calledName(character.def);
       push({
         text: `Take it back to ${firstName}.`,
         intentHint: `persuade:${character.def.id}`,
@@ -472,7 +472,7 @@ function buildSuggestions(context: TurnContext): SuggestedAction[] {
   }
 
   if (speaker && opportunities.includes(`speak_to:${speaker.def.id}`)) {
-    const firstName = shortName(speaker.def.name);
+    const firstName = calledName(speaker.def);
     const topic = speaker.def.topics[0];
     // Authored topics read naturally; without one, fall back to a phrasing that
     // is grammatical for any character rather than splicing quest copy.
@@ -537,7 +537,7 @@ function buildSuggestions(context: TurnContext): SuggestedAction[] {
     // than the system's name for the move.
     const phrase = ability.affordances[0] ?? lowerFirst(ability.name);
     const text = target
-      ? `${capitalize(phrase)} — ${shortName(target.def.name)}`
+      ? `${capitalize(phrase)} — ${calledName(target.def)}`
       : capitalize(phrase);
 
     push({

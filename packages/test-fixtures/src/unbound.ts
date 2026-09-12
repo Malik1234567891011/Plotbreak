@@ -661,6 +661,7 @@ const raw = {
     {
       id: 'auber',
       name: 'Reader Auber Kell',
+      calledName: 'Auber',
       role: 'Concord reader, took the Oyan ruling',
       cardBlurb:
         'The official who read the traces and closed your school. Unfailingly polite, and the only person who has seen all three.',

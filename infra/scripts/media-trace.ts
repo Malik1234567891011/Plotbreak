@@ -22,6 +22,9 @@ interface Row {
   stored: boolean;
   msToAnnounce: number | null;
   msToCompleted: number | null;
+  /** The cached face, which exists already and needs no drawing. */
+  reaction: string | null;
+  msToReaction: number | null;
 }
 
 async function token(): Promise<string> {
@@ -85,7 +88,7 @@ async function main(): Promise<void> {
 
     const row: Row = {
       turn: t, planned: false, queued: false, announced: false, stored: false,
-      msToAnnounce: null, msToCompleted: null,
+      msToAnnounce: null, msToCompleted: null, reaction: null, msToReaction: null,
     };
     const began = Date.now();
 
@@ -110,6 +113,10 @@ async function main(): Promise<void> {
             if (!line) continue;
             let parsed: any;
             try { parsed = JSON.parse(line.slice(5).trim()); } catch { continue; }
+            if (parsed.event === 'reaction.ready' && parsed.data?.url) {
+              row.reaction = `${parsed.data.name ?? '?'} ${parsed.data.emotion ?? ''}`.trim();
+              row.msToReaction = Date.now() - began;
+            }
             if (parsed.event === 'media.queued') { row.queued = true; row.planned = true; }
             if (parsed.event === 'media.completed') { row.announced = true; row.msToAnnounce = Date.now() - began; }
             if (parsed.event === 'turn.completed') { row.msToCompleted = Date.now() - began; }
@@ -133,12 +140,14 @@ async function main(): Promise<void> {
     cards = after.suggestions ?? [];
   }
 
-  console.log(`\nturn  planned  queued  announced  stored   stream closed at   frame announced at`);
+  console.log(`\nturn   cached face at  drawn frame at   prose done at   who reacted`);
   for (const r of rows) {
     console.log(
-      `${String(r.turn).padStart(4)}  ${String(r.planned).padStart(7)}  ${String(r.queued).padStart(6)}  ` +
-      `${String(r.announced).padStart(9)}  ${String(r.stored).padStart(6)}   ` +
-      `${String(r.msToCompleted ?? '-').padStart(14)}ms   ${String(r.msToAnnounce ?? 'never').padStart(14)}`,
+      `${String(r.turn).padStart(4)}   ` +
+      `${String(r.msToReaction === null ? '—' : `${r.msToReaction}ms`).padStart(14)}  ` +
+      `${String(r.msToAnnounce === null ? (r.planned ? 'planned, none' : '—') : `${r.msToAnnounce}ms`).padStart(14)}  ` +
+      `${String(r.msToCompleted === null ? '—' : `${r.msToCompleted}ms`).padStart(14)}   ` +
+      `${r.reaction ?? ''}`,
     );
   }
   const ghosts = rows.filter((r) => r.stored && !r.announced);
