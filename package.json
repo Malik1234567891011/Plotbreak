@@ -28,6 +28,7 @@
     "art": "tsx infra/scripts/generate-art.ts",
     "brand": "tsx infra/scripts/generate-brand.ts",
     "migrate": "tsx infra/scripts/migrate.ts",
+    "grant": "tsx --env-file-if-exists=.env infra/scripts/grant-credits.ts",
     "moderate": "tsx --env-file-if-exists=.env infra/scripts/moderate.ts",
     "media:trace": "tsx --env-file-if-exists=.env infra/scripts/media-trace.ts",
     "crashes": "tsx --env-file-if-exists=.env infra/scripts/crashes.ts",
