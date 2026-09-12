@@ -28,3 +28,11 @@ language it began in). Tagline: L'ANIME JOUABLE. Rebuild with
 headlines: `L'ANIME|JOUABLE`, `ÉCRIS CE QUE TU VEUX.|LE MOTEUR TRANCHE.`,
 `VINGT-TROIS MONDES|QUI SE SOUVIENNENT DE TOI`, `SOIS QUI|TU VEUX`,
 `LES DÉS|DÉCIDENT`.
+
+## iPad 13-inch sets (`ipad/`, `ipad-fr/`)
+
+2064x2752 panels for the 13-inch iPad slot, same five headlines per language,
+captured on the iPad Pro 13-inch (M4) simulator (`raw/ipad-*.png`). Rebuild with
+`PB_DEVICE=ipad PB_OUT=ipad python3 compose.py ...` (and `PB_TAGLINE` for FR).
+The iPad session frames include a generated scene image, which the phone runs
+did not produce on their first turn.
