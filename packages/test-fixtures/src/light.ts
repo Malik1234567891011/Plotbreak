@@ -2848,7 +2848,7 @@ const raw = {
           failWhen: null,
           deadlineWorldMinute: null,
           hiddenUntilEntered: true,
-          rewards: { xp: 120, items: [], flags: [] },
+          rewards: { xp: 120, items: [], flags: ['memories_returned'] },
         },
       ],
     },
@@ -3113,7 +3113,7 @@ const raw = {
           failWhen: null,
           deadlineWorldMinute: null,
           hiddenUntilEntered: false,
-          rewards: { xp: 130, items: [], flags: ['hq_built', 'entered_university'] },
+          rewards: { xp: 130, items: [], flags: ['successors_active', 'hq_built', 'entered_university'] },
         },
         {
           id: 'q_succ_mello',
@@ -3469,9 +3469,11 @@ const raw = {
       rarity: 'RARE',
       minTurn: 15,
       requires: { flagsSet: ['destroyed_notebook'] },
-      condition: 'He removes the object from the world before any of this takes hold.',
+      condition: 'He removes the object from the world before any of this takes hold — burned, buried, or posted to nobody. Available from the first evening onwards and not a failure to engage: it is the shortest complete answer this world has, and it is a real one.',
       epilogue:
-        'Ryuk is annoyed for about a minute and then goes and finds somebody else, which is the part nobody thinks about. Somewhere in the world this happens to another person and Light Yagami never hears about it. He finishes school, and is bored, and it is the best thing that ever happened to him.',
+        'Ryuk is annoyed for about a minute and then goes and finds somebody else, which is the part nobody ever thinks about. Somewhere in the world, within a month, this entire afternoon happens again to a person Light Yagami will never meet and never hear about, and everything that follows from it follows without him.\n\n' +
+        'He finishes school. He is bored, in the specific way he has been bored since he was thirteen, and he goes on being bored through university and into a career that suits him and through the first fifteen years of a life that is, by every measure anybody applies to it, extremely good. He does not think about the notebook often. When he does, it is with the mild embarrassment of a man remembering a week in which he nearly did something stupid.\n\n' +
+        'It was the best thing that ever happened to him and he will never know that either.',
       hint: '',
     },
     {
@@ -3491,7 +3493,7 @@ const raw = {
       rarity: 'UNCOMMON',
       minTurn: 60,
       requires: { flagsSet: ['relinquished_ownership'], flagsUnset: ['memories_returned'] },
-      condition: 'Somebody else ends up holding it, and does better with it than he did.',
+      condition: 'Somebody else ends up holding it and does better with it than he did. Reachable only from a run where he gave up ownership and never touched it again, so the man who spends the next four years hunting this Kira is sincerely hunting them.',
       epilogue:
         'He spends four years helping to hunt a Kira who is not him, honestly and extremely well, and the version of the world that results is not obviously better or worse. He never learns which of the eleven months was his. Nobody tells him and nobody can.',
       hint: '',
@@ -3502,7 +3504,7 @@ const raw = {
       rarity: 'RARE',
       minTurn: 65,
       requires: { flagsSet: ['l_dead', 'committed_to_kira'], flagsUnset: ['yellow_box_won'] },
-      condition: 'He beats L and then loses to something downstream of having beaten L.',
+      condition: 'He beats L and then loses to something that exists only because he beat L. The point is not that the successors are better than he was — they are not — it is that he spent five years assuming nobody could be, and they did not have to be.',
       epilogue:
         'He wins the only game he ever wanted to win and then spends five years playing against children who inherited the board, and the terrible thing is that they are not better than L. They simply do not need to be, because he has spent five years believing nobody could be.',
       hint: '',

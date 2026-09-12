@@ -3229,9 +3229,11 @@ const raw = {
       rarity: 'RARE',
       minTurn: 60,
       requires: { flagsSet: ['accepted_family', 'ace_survived'] },
-      condition: 'He took the mark, meant it, and survived to carry the family forward.',
+      condition: 'He took the mark, meant it, and survived to carry the family forward. The acceptance is the hard part and the surviving is the rare part, and this ending needs both — a man who took it and then died for it is a different destination.',
       epilogue:
-        'He wears a flag he did not design on a back he cannot see, and he has stopped treating it as a debt. Four hundred people call the same man the same word and one of them is him. The question from when he was eight does not come up much any more, which is not the same as having been answered, and he has decided he can live with that.',
+        'He wears a flag he did not design on a back he cannot see, and somewhere in the first year he stops treating it as a debt. Four hundred people call the same enormous man the same word, and one of them is him, and after a while saying it stops costing him anything at all.\n\n' +
+        'He is a commander for a long time and he is good at it in the particular way of somebody who has decided that the people under him are not a resource. Marco teaches him the paperwork. Thatch teaches him to eat with the crew rather than near them. He learns Haki from a man who simply does it in front of him until he sees it, and he is thirty before he can do it reliably, which he finds funnier than anybody else does.\n\n' +
+        'The question from when he was eight does not come up much any more. That is not the same as having been answered, and he knows it, and he has worked out that he can live in a family without the question being settled — which is the thing the eight-year-old could not have imagined and the twenty-year-old in the famous version never got to find out.',
       hint: '',
     },
     {
@@ -3321,7 +3323,7 @@ const raw = {
       rarity: 'UNCOMMON',
       minTurn: 55,
       requires: { flagsSet: ['sabo_revolutionary', 'ace_survived'] },
-      condition: 'He follows Sabo into the organisation that decided the wall was the problem.',
+      condition: 'He follows Sabo into the organisation that decided the wall between High Town and the Terminal should be removed rather than climbed. Write it as obvious work rather than as a conversion — he is not ideological, his brother is there, and the job is plainly correct.',
       epilogue:
         'The boy who was frightened that birth was destiny ends up dismantling, professionally, the structure that decided his birth was a crime. He is not especially ideological about it. His brother is there, and the work is obviously correct, and those two facts are sufficient.',
       hint: '',
