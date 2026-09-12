@@ -62,7 +62,8 @@
         ],
         "NSPrivacyTracking": false,
         "NSPrivacyTrackingDomains": []
-      }
+      },
+      "appleTeamId": "Q7ZLXMG4SB"
     },
     "android": {
       "package": "com.plotbreak.app",
