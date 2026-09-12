@@ -326,7 +326,7 @@ actor APIClient {
     /// Consumes the SSE turn stream. Falls back to polling the finished turn if
     /// the stream drops, because the turn may still have committed server-side.
     nonisolated func streamTurn(_ turnId: String, streamToken: String, handlers: TurnStreamHandlers) async {
-        let base = await baseURL
+        let base = baseURL
         var components = URLComponents(url: URL(string: "/v1/turns/\(turnId)/stream", relativeTo: base)!.absoluteURL, resolvingAgainstBaseURL: false)!
         components.queryItems = [URLQueryItem(name: "token", value: streamToken)]
         var request = URLRequest(url: components.url!)

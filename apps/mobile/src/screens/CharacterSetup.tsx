@@ -494,7 +494,7 @@ export function CharacterSetupScreen({
 
           {advanced ? (
             <Stack gap={spacing.lg}>
-              <Txt variant="h3">More about you</Txt>
+              <Txt variant="h3">{t('setup.more_about_you')}</Txt>
               {advancedFields.map((field) =>
                 field.kind === 'CHOICE' ? (
                   <Stack key={field.id} gap={spacing.sm}>

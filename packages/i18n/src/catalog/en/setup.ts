@@ -62,6 +62,13 @@ export const setup = {
   'setup.entering': 'Entering…',
   'setup.use_quick_setup': 'Use quick setup',
   'setup.customize_more': 'Customize more',
+  /**
+   * Heading over the advanced fields, once `Customize more` is open.
+   *
+   * Was an English literal in the screen itself, so a French player met it
+   * in English halfway down a French form.
+   */
+  'setup.more_about_you': 'More about you',
 
   // What an archetype grants, on the card.
   'setup.grants.starts_with': 'Starts with',

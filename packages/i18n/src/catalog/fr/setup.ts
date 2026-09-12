@@ -149,6 +149,8 @@ export const setup = {
   'setup.entering': 'Entrée…',
   'setup.use_quick_setup': 'Utiliser la création rapide',
   'setup.customize_more': 'Personnaliser davantage',
+  /** Tutoiement, comme le reste de l’écran (`setup.heading` : `Tu es qui ?`). */
+  'setup.more_about_you': 'En savoir plus sur toi',
 
   // Ce que donne un archétype, sur la carte.
   'setup.grants.starts_with': 'Commence avec',

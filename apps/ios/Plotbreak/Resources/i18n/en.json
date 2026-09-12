@@ -398,6 +398,7 @@
   "setup.grants.starts_with": "Starts with",
   "setup.heading": "Who are you?",
   "setup.heading_named": "You are {name}.",
+  "setup.more_about_you": "More about you",
   "setup.name_label": "What do they call you?",
   "setup.name_placeholder": "e.g. Malik Sarrow",
   "setup.own_answer_a11y": "{label}, your own answer",

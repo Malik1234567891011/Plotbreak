@@ -130,6 +130,14 @@ enum Format {
         ListFormatter.localizedString(byJoining: items)
     }
 
+    /// An ISO timestamp as a short locale date — `toLocaleDateString()` in the RN app.
+    /// Returns the raw string when it is not a timestamp, so a server format we
+    /// do not know shows something rather than nothing.
+    static func shortISODate(_ iso: String?, locale: AppLocale) -> String {
+        guard let iso, let parsed = parseISO(iso) else { return iso ?? "" }
+        return date(parsed, locale: locale, style: .short)
+    }
+
     /// Parses the ISO 8601 strings the server sends on every `...At` field.
     static func parseISO(_ text: String?) -> Date? {
         guard let text else { return nil }

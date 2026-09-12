@@ -398,6 +398,7 @@
   "setup.grants.starts_with": "Commence avec",
   "setup.heading": "Tu es qui ?",
   "setup.heading_named": "Tu es {name}.",
+  "setup.more_about_you": "En savoir plus sur toi",
   "setup.name_label": "On t’appelle comment ?",
   "setup.name_placeholder": "Ex. : Malik Sarrow",
   "setup.own_answer_a11y": "{label}, ta propre réponse",
