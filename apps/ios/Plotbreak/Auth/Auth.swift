@@ -31,7 +31,15 @@ enum Keychain {
         return String(data: data, encoding: .utf8)
     }
 
-    static func set(_ value: String, for key: String) {
+    /// Returns whether the write landed.
+    ///
+    /// The status used to be discarded. A refresh token that fails to save is
+    /// not a small thing: the next launch finds nothing, signs in as a brand new
+    /// guest, and the player's runs are gone with no error anywhere. An
+    /// unsigned build (`CODE_SIGNING_ALLOWED=NO`) has no keychain access group
+    /// and fails here every time, which is exactly how that looks.
+    @discardableResult
+    static func set(_ value: String, for key: String) -> Bool {
         delete(key)
         let attributes: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -40,7 +48,11 @@ enum Keychain {
             kSecValueData as String: Data(value.utf8),
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
         ]
-        SecItemAdd(attributes as CFDictionary, nil)
+        let status = SecItemAdd(attributes as CFDictionary, nil)
+        if status != errSecSuccess {
+            Diagnostics.log("keychain write failed for \(key): OSStatus \(status)")
+        }
+        return status == errSecSuccess
     }
 
     static func delete(_ key: String) {

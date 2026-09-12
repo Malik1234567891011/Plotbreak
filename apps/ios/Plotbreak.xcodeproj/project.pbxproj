@@ -26,6 +26,7 @@
 		44BB002C8BBD56EC5DFB9B1F /* ReportHistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D6292B9D75DC1D12ADEC1 /* ReportHistoryScreen.swift */; };
 		4866F27D3FC88B3D1A2B57E8 /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C7000277196C6CD988C557D /* en.json */; };
 		4892C91138FCDC0EF6CCE904 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62D4263C15FF137B7C9758D /* Models.swift */; };
+		4EED9BB22557588FF1B123EA /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75EC8949A240D64D0B650E9 /* Diagnostics.swift */; };
 		508FA1801463B9DEEA4CBE1F /* WalletScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B31D5789C5DB71F78EC2A60 /* WalletScreen.swift */; };
 		5F2EB5FCB4A69E8E2154347C /* WorldSheetTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5631B1B400A3D61BB9CD2A18 /* WorldSheetTabs.swift */; };
 		60260E454762F25FEB19151D /* SessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0CAC196C2DCEC41F99970 /* SessionModel.swift */; };
@@ -113,6 +114,7 @@
 		C3E0E7A559F500F64D4CF09B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC26DEBF4876CF3A2B6A227A /* HeroCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCarousel.swift; sourceTree = "<group>"; };
 		CC3242AF9AE411E98BBDC63F /* SessionFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionFeed.swift; sourceTree = "<group>"; };
+		D75EC8949A240D64D0B650E9 /* Diagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagnostics.swift; sourceTree = "<group>"; };
 		D971192A0E678F7F100B4E6B /* Plotbreak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Plotbreak.entitlements; sourceTree = "<group>"; };
 		E0BFBA0CD80BADAEAE409E44 /* Purchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
 		E0DB67F33A34525413EFA20C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 			children = (
 				3936E2851907FF6FE577EC1F /* AppConfig.swift */,
 				7062C42A778A06C894C39944 /* Debug.xcconfig */,
+				D75EC8949A240D64D0B650E9 /* Diagnostics.swift */,
 				87D520DD1346F266F41E2225 /* Local.xcconfig.example */,
 				B07870FFBF281DB3DBF2DA3E /* Release.xcconfig */,
 			);
@@ -561,6 +564,7 @@
 				1829C3F4C973CE2EC54A05B9 /* CommentsView.swift in Sources */,
 				A0DDC93C1AE0EE44754CD171 /* Components.swift in Sources */,
 				A05A8A3E2B6B59C2FAB43741 /* CreateScreen.swift in Sources */,
+				4EED9BB22557588FF1B123EA /* Diagnostics.swift in Sources */,
 				DF3566E4DA4DB88B778C0CA9 /* DiscoverScreen.swift in Sources */,
 				EA4CBEE11F2EFD2979523D13 /* FlowLayout.swift in Sources */,
 				12313533391ACC36F3817182 /* HeroCarousel.swift in Sources */,
@@ -681,6 +685,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -715,6 +720,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

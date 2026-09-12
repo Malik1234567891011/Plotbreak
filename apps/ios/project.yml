@@ -85,6 +85,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.plotbreak.app.tests
         TEST_HOST: $(BUILT_PRODUCTS_DIR)/Plotbreak.app/Plotbreak
         BUNDLE_LOADER: $(TEST_HOST)
+        # The bundle is signed along with the app, and signing needs one.
+        GENERATE_INFOPLIST_FILE: YES
 schemes:
   Plotbreak:
     build:

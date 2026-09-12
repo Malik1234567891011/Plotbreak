@@ -340,25 +340,23 @@ actor APIClient {
                 await pollTurn(turnId, handlers: handlers)
                 return
             }
-            var buffer = ""
+            // One frame, one `data:` line.
+            //
+            // Deliberately not "accumulate until a blank line", which is how SSE
+            // is usually framed: `AsyncLineSequence` collapses consecutive
+            // newlines, so the blank line that ends a frame never arrives and
+            // nothing was ever dispatched — every turn silently fell through to
+            // the poller below and appeared all at once instead of streaming.
+            // The server writes the whole event as one line of JSON
+            // (`formatSse`), so each one stands alone.
             var completed = false
             for try await line in bytes.lines {
                 if Task.isCancelled { return }
-                if line.isEmpty {
-                    // A blank line ends an SSE frame.
-                    if let frame = Self.parseFrame(buffer) {
-                        handlers.onEvent(frame.event, frame.data)
-                        if frame.event == .turnCompleted || frame.event == .turnFailed { completed = true }
-                    }
-                    buffer = ""
-                } else {
-                    buffer += line + "\n"
-                }
-            }
-            if let frame = Self.parseFrame(buffer) {
+                guard let frame = Self.parseFrame(line) else { continue }
                 handlers.onEvent(frame.event, frame.data)
                 if frame.event == .turnCompleted || frame.event == .turnFailed { completed = true }
             }
+            // The turn may still have committed after the stream dropped.
             if !completed {
                 await pollTurn(turnId, handlers: handlers)
             }
@@ -368,10 +366,11 @@ actor APIClient {
         }
     }
 
-    nonisolated private static func parseFrame(_ raw: String) -> TurnStreamFrame? {
-        let dataLines = raw.split(separator: "\n").filter { $0.hasPrefix("data:") }
-        guard !dataLines.isEmpty else { return nil }
-        let payload = dataLines.map { $0.dropFirst(5).trimmingCharacters(in: .whitespaces) }.joined(separator: "\n")
+    /// One SSE line. `event:`, `id:` and `:` comment lines carry nothing the
+    /// payload does not already say, so only `data:` is read.
+    nonisolated static func parseFrame(_ line: String) -> TurnStreamFrame? {
+        guard line.hasPrefix("data:") else { return nil }
+        let payload = line.dropFirst(5).trimmingCharacters(in: .whitespaces)
         guard let data = payload.data(using: .utf8) else { return nil }
         return try? JSONDecoder.plotbreak.decode(TurnStreamFrame.self, from: data)
     }

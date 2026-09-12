@@ -49,80 +49,136 @@ struct StoryArt<Overlay: View>: View {
 // MARK: StoryCoverCard
 
 enum StoryCardVariant {
-    case rail, hero, grid, list
+    case rail, hero, row
 }
 
 struct StoryCoverCard: View {
+    @Environment(\.translator) private var t
+
     let story: StorySummary
     var variant: StoryCardVariant = .rail
     var width: CGFloat? = nil
+    /**
+     * Position in a ranked shelf, drawn on the art.
+     *
+     * Only Top Ranked passes it. A rank on every card would be a number without
+     * a question — it is meaningful precisely because the shelf it sits on says
+     * what it is a rank *of*.
+     */
     var rank: Int? = nil
+    /// Whether to put the like count under the title.
     var showLikes: Bool = true
     var locale: AppLocale = .en
     var onPress: () -> Void
     var onLongPress: (() -> Void)? = nil
 
-    private var cardWidth: CGFloat {
+    private var isHero: Bool { variant == .hero }
+    private var isRow: Bool { variant == .row }
+
+    private var cardWidth: CGFloat? {
         if let width { return width }
         switch variant {
         case .rail: return 150
         case .hero: return 300
-        case .grid: return 160
-        case .list: return .infinity
+        case .row: return nil
         }
     }
 
-    private var aspect: CGFloat { variant == .hero ? 16 / 10 : 2 / 3 }
+    private var aspect: CGFloat { isHero ? 16 / 10 : isRow ? 1 : 2 / 3 }
+
+    /// In French the comma is the decimal separator, so an English-grouped
+    /// like count read as a decimal. The locale is passed, never assumed.
+    private var likeLine: String? {
+        guard showLikes, story.likes > 0 else { return nil }
+        return t("ui.story_likes", [
+            "formatted": Format.credits(story.likes, compact: true, locale: locale),
+            "count": story.likes,
+        ])
+    }
+
+    private var metaLine: String? {
+        let parts = [story.tags.first, story.official ? nil : story.creatorName].compactMap { $0 }
+        return parts.isEmpty ? nil : parts.joined(separator: " · ")
+    }
+
+    /// Spec §7.3 — the accessible name reads as one coherent label, not five
+    /// nodes. Attribution is dropped when there is no creator to attribute to:
+    /// the Continue rail reuses this card for a run already in progress.
+    private var accessibilityText: String {
+        var parts = [story.title, story.fantasyLabel]
+        if !story.creatorName.isEmpty {
+            parts.append(t("ui.by_creator", ["name": story.creatorName]))
+            parts.append(t(story.official ? "ui.official_world" : "ui.community_world"))
+        }
+        return parts.filter { !$0.isEmpty }.joined(separator: ". ")
+    }
+
+    private var cover: some View {
+        StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
+            .aspectRatio(aspect, contentMode: .fit)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
+                    .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
+            }
+            // The rank, bottom-left on the art, the way a chart numbers itself.
+            .overlay(alignment: .bottomLeading) {
+                if let rank {
+                    Text(String(rank))
+                        .font(Theme.TypeStyle.bodyStrong.font())
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .frame(minWidth: 26)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 1)
+                        .background(Theme.Colors.scrim, in: RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
+                        .padding(Theme.Spacing.sm)
+                }
+            }
+    }
+
+    /**
+     * What goes under a cover has to earn the space it takes from the art.
+     *
+     * "Official" is deliberately not a pill here. At launch every world is
+     * official, so it would be the most prominent thing on every card while
+     * distinguishing nothing; verification lives in the data and on world
+     * detail, where it means something. Same for run counts — "0 runs" on every
+     * card is not social proof.
+     */
+    private var caption: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            if story.badges.contains(.TRENDING) {
+                Chip(t("ui.trending"), tone: .warning)
+            }
+            Txt(story.title, isHero ? .h2 : .bodyStrong, lineLimit: 2)
+            // Spec §7.3 — max 42 characters, enforced at authoring time.
+            Txt(story.fantasyLabel, .caption, color: Theme.Colors.textSecondary, lineLimit: 2)
+            // One line, not two. The genre and the likes are both "what is this
+            // and is it any good"; where likes are asked for they are the more
+            // useful half.
+            if let line = likeLine ?? metaLine {
+                Txt(line, .micro, color: Theme.Colors.textMuted, lineLimit: 1)
+            }
+        }
+    }
 
     var body: some View {
         Button(action: onPress) {
-            VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage) {
-                    VStack {
-                        HStack(spacing: Theme.Spacing.xs) {
-                            ForEach(story.badges.filter { $0 != .UNKNOWN }.prefix(2), id: \.self) { badge in
-                                Text(badge.rawValue.replacingOccurrences(of: "_", with: " "))
-                                    .font(Theme.TypeStyle.micro.font())
-                                    .foregroundStyle(Theme.Colors.textOnAccent)
-                                    .padding(.horizontal, 6).padding(.vertical, 3)
-                                    .background(badge == .OFFICIAL ? Theme.Colors.accentPrimary : Theme.Colors.accentSecondary, in: Capsule())
-                            }
-                            Spacer()
-                            if let rank {
-                                Text("#\(rank)")
-                                    .font(Theme.TypeStyle.micro.font())
-                                    .foregroundStyle(Theme.Colors.textPrimary)
-                                    .padding(.horizontal, 6).padding(.vertical, 3)
-                                    .background(Theme.Colors.scrim, in: Capsule())
-                            }
-                        }
-                        Spacer()
+            Group {
+                if isRow {
+                    HStack(alignment: .center, spacing: Theme.Spacing.md) {
+                        cover.frame(width: 64)
+                        caption
+                        Spacer(minLength: 0)
                     }
-                    .padding(Theme.Spacing.sm)
-                }
-                .aspectRatio(aspect, contentMode: .fit)
-                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
-                .overlay {
-                    RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
-                        .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
-                }
-
-                VStack(alignment: .leading, spacing: 2) {
-                    Txt(story.title, .bodyStrong, lineLimit: variant == .hero ? 2 : 1)
-                    Txt(story.fantasyLabel, .caption, color: Theme.Colors.textSecondary, lineLimit: 1)
-                    HStack(spacing: Theme.Spacing.xs) {
-                        Txt("▶ " + Format.credits(story.runs, compact: true, locale: locale), .micro, color: Theme.Colors.textMuted)
-                        if showLikes {
-                            Txt("♥ " + Format.credits(story.likes, compact: true, locale: locale), .micro, color: Theme.Colors.textMuted)
-                        }
-                        if story.official {
-                            Txt("✓", .micro, color: Theme.Colors.accentPrimary)
-                        }
+                } else {
+                    VStack(alignment: .leading, spacing: 0) {
+                        cover
+                        caption.padding(.top, Theme.Spacing.sm)
                     }
+                    .frame(width: cardWidth)
                 }
             }
-            .frame(width: cardWidth == .infinity ? nil : cardWidth)
-            .frame(maxWidth: cardWidth == .infinity ? .infinity : nil, alignment: .leading)
             .contentShape(Rectangle())
         }
         .buttonStyle(PressScaleStyle())

@@ -119,6 +119,10 @@ struct StoryDetailScreen: View {
                         .padding(Theme.gutter)
                         .padding(.top, -Theme.Spacing.xxl)
                     }
+                    // Every horizontal shelf below claims exactly this, so the
+                    // column can never be widened from inside — see railWidth().
+                    .environment(\.railWidth, geo.size.width - Theme.gutter * 2)
+                    .frame(width: geo.size.width, alignment: .leading)
                     .padding(.bottom, Theme.Spacing.giant)
                     .background(
                         GeometryReader { inner in
@@ -333,6 +337,7 @@ struct StoryDetailScreen: View {
                     }
                 }
             }
+            .railWidth()
         }
     }
 
@@ -370,6 +375,7 @@ struct StoryDetailScreen: View {
                     }
                 }
             }
+            .railWidth()
         }
     }
 

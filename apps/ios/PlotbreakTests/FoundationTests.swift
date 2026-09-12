@@ -97,3 +97,58 @@ final class ModelDecodingTests: XCTestCase {
         XCTAssertTrue(error.isInsufficientCredits)
     }
 }
+
+final class SSEFrameTests: XCTestCase {
+    /// The exact shape `formatSse` writes in `services/api/src/stream.ts`.
+    private let frame = #"data: {"event":"text.delta","turnId":"t1","sequence":4,"data":{"blockIndex":1,"text":"He does not move."}}"#
+
+    func testParsesADataLine() throws {
+        let parsed = try XCTUnwrap(APIClient.parseFrame(frame))
+        XCTAssertEqual(parsed.event, .textDelta)
+        XCTAssertEqual(parsed.sequence, 4)
+        XCTAssertEqual(parsed.data["text"]?.stringValue, "He does not move.")
+    }
+
+    /// The server writes `event:`, `data:` and `id:` for every event, plus `:`
+    /// heartbeat comments. Only the data line carries the payload.
+    func testIgnoresEveryOtherLineKind() {
+        XCTAssertNil(APIClient.parseFrame("event: text.delta"))
+        XCTAssertNil(APIClient.parseFrame("id: 4"))
+        XCTAssertNil(APIClient.parseFrame(": keep-alive"))
+        XCTAssertNil(APIClient.parseFrame(""))
+    }
+
+    /// A whole turn's worth of lines, dispatched the way `streamTurn` does it.
+    ///
+    /// The regression this guards: framing on blank lines. `AsyncLineSequence`
+    /// collapses them, so a parser that waits for one dispatches nothing and
+    /// every turn falls through to the poller.
+    func testDispatchesEveryEventInATurn() {
+        let lines = """
+        event: turn.accepted
+        data: {"event":"turn.accepted","turnId":"t1","sequence":1,"data":{}}
+        id: 1
+
+        : keep-alive
+
+        event: check.resolved
+        data: {"event":"check.resolved","turnId":"t1","sequence":2,"data":{"outcome":"SUCCESS"}}
+        id: 2
+
+        event: turn.completed
+        data: {"event":"turn.completed","turnId":"t1","sequence":3,"data":{"creditsCharged":60}}
+        id: 3
+        """.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
+
+        var seen: [TurnStreamEventName] = []
+        var completed = false
+        for line in lines {
+            guard let frame = APIClient.parseFrame(line) else { continue }
+            seen.append(frame.event)
+            if frame.event == .turnCompleted || frame.event == .turnFailed { completed = true }
+        }
+
+        XCTAssertEqual(seen, [.turnAccepted, .checkResolved, .turnCompleted])
+        XCTAssertTrue(completed, "the stream must settle itself, never leave the poller to finish the turn")
+    }
+}

@@ -124,6 +124,21 @@ enum Theme {
     /// Spec §25.8 — 44×44pt minimum for anything used frequently.
     static let minTouchTarget: CGFloat = 44
 
+    /// The window's top safe-area inset, in points.
+    ///
+    /// Read from UIKit rather than a `GeometryReader`, because a reader inside
+    /// a view that ignores the safe area reports zero — which is how the
+    /// Discover header ended up painted across the clock and the battery. A
+    /// screen that floats a header over content it also scrolls under needs the
+    /// real number, and this is the only place that always has it.
+    @MainActor
+    static var topSafeAreaInset: CGFloat {
+        let scenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+        let window = scenes.first(where: { $0.activationState == .foregroundActive })?.keyWindow
+            ?? scenes.first?.keyWindow
+        return window?.safeAreaInsets.top ?? 0
+    }
+
     enum Durations {
         static let instant: Double = 0.12
         static let short: Double = 0.2

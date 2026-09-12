@@ -52,7 +52,10 @@ struct DiscoverScreen: View {
         Screen {
             GeometryReader { proxy in
                 let widths = CardWidths(screenWidth: proxy.size.width)
-                let topInset = proxy.safeAreaInsets.top
+                // Not `proxy.safeAreaInsets.top`: this reader ignores the top
+                // safe area (so the hero can paint under the status bar), and a
+                // reader inside that region reports zero.
+                let topInset = Theme.topSafeAreaInset
 
                 ZStack(alignment: .top) {
                     ScrollView {

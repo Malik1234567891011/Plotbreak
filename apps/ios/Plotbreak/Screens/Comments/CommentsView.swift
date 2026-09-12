@@ -102,6 +102,7 @@ struct CommentsView: View {
                         }
                     }
                 }
+                .railWidth()
             }
 
             if !signedIn {

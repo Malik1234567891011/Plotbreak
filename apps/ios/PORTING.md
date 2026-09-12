@@ -91,8 +91,29 @@ struct DiscoverScreen: View {
 
 ## Verifying
 
-`./build.sh` must print `BUILD SUCCEEDED`. To see a screen, run `npm run api`
-at the repo root, open the project in Xcode and run on an iPhone simulator; a
-Debug build is a device-local guest against `localhost:4000`. Set
-`PLOTBREAK_SUPABASE_ANON_KEY` in `Plotbreak/Config/Local.xcconfig` (copied from
-`apps/mobile/.env`) to get real Supabase auth and Sign in with Apple.
+`./build.sh` must print `BUILD SUCCEEDED` and `./test.sh` `TEST SUCCEEDED`. To
+see a screen, run `npm run api` at the repo root, open the project in Xcode and
+run on an iPhone simulator; a Debug build is a device-local guest against
+`localhost:4000`. Set `PLOTBREAK_SUPABASE_ANON_KEY` in
+`Plotbreak/Config/Local.xcconfig` (copied from `apps/mobile/.env`) to get real
+Supabase auth and Sign in with Apple.
+
+Two things about the local setup that look like app bugs and are not:
+
+- **Signing.** Both scripts build ad-hoc signed (`CODE_SIGN_IDENTITY=-`). An
+  *unsigned* build has no keychain access group, so every keychain write fails
+  with `OSStatus -34018` and the app forgets the player on each launch. If you
+  build by hand, sign it.
+- **Supabase against the local API.** `npm run api` runs in `dev-token` mode,
+  where *the bearer token is the user id* (`services/api/src/auth.ts`). A
+  Supabase access token is refreshed on a schedule, so each refresh presents a
+  new string and the dev API reads it as a brand new account — the library
+  empties and the balance resets to 600. Nothing is wrong with the app; move
+  `Local.xcconfig` aside to test persistence on the stable `guest_…` path, or
+  point the build at a real API.
+
+The failures the app swallows on purpose are logged rather than lost:
+
+```sh
+xcrun simctl spawn booted log stream --predicate 'subsystem == "com.plotbreak.app"'
+```
