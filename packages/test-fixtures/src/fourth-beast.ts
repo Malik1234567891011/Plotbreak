@@ -666,7 +666,7 @@ const raw = {
         'Deep limestone quarry gallery, hand-cut walls with old inspection marks, dry dust, absolute darkness beyond a single light source, a low ceiling, water standing in one channel. Ancient, silent, enormous.',
       connections: [
         { to: 'service_tunnels', travelMinutes: 11, label: 'Back up towards the Métro' },
-        { to: 'the_boundary', travelMinutes: 14, lockedByFlag: 'knows:the_boundary', label: 'Where the stone stops being stone' },
+        { to: 'the_boundary', travelMinutes: 14, lockedByFlag: 'inspected:the_boundary', label: 'Where the stone stops being stone' },
       ],
       discoveredByDefault: false,
       mapPosition: { x: 0, y: 4 },

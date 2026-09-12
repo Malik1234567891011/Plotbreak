@@ -118,6 +118,21 @@ groupSynonyms('worried', 'scared', 'strained');
 groupSynonyms('neutral', 'plain', 'lucid');
 
 /** Every authored word this knows how to draw, for the catalog spec to check. */
+// Ace and Light, the two canonical-character worlds, brought thirty-three more.
+// Both are wider in register than anything before them: Ace has to hold a man
+// asleep in his dinner and a man dying in the same cast, and Light needs four
+// separate flavours of "calm" because that is the entire performance.
+groupSynonyms('warm', 'cheerful', 'devout', 'pleading');
+groupSynonyms('amused', 'conspiratorial', 'grimly amused', 'faintly amused', 'faintly smug',
+  'triumphant', 'drunk', 'avid');
+groupSynonyms('surprised', 'genuinely surprised', 'horrified');
+groupSynonyms('confused', 'scheming', 'working');
+groupSynonyms('annoyed', 'severe', 'threatening', 'irritated', 'flat accusation');
+groupSynonyms('angry', 'blazing', 'shouting');
+groupSynonyms('worried', 'ailing', 'crying', 'dying', 'in pain', 'sleepy', 'uneasy');
+groupSynonyms('neutral', 'asleep', 'certain', 'formidable', 'resolute', 'professional',
+  'flat and serious');
+
 export function knownExpression(expression: string): boolean {
   const key = expression.trim().toLowerCase();
   return (REACTION_EMOTIONS as readonly string[]).includes(key) || key in EMOTION_SYNONYMS;
