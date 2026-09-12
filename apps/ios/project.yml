@@ -73,11 +73,27 @@ targets:
             node apps/ios/scripts/export-catalog.mjs || echo "warning: catalog export failed, using committed JSON"
           fi
         basedOnDependencyAnalysis: false
+  PlotbreakTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: PlotbreakTests
+    dependencies:
+      - target: Plotbreak
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.plotbreak.app.tests
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/Plotbreak.app/Plotbreak
+        BUNDLE_LOADER: $(TEST_HOST)
 schemes:
   Plotbreak:
     build:
       targets:
         Plotbreak: all
+        PlotbreakTests: [test]
+    test:
+      targets:
+        - PlotbreakTests
     run:
       config: Debug
     archive:

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		006FEA6BCC1BB07E2FBAE14F /* StubSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5E493975ED26F5EA2F3724 /* StubSession.swift */; };
 		0606CD376ED4FED9712641E0 /* fr.json in Resources */ = {isa = PBXBuildFile; fileRef = 35ADB173300E4A438F29547D /* fr.json */; };
+		1E3AD14F7D3FF1BAB6DF449A /* FoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C208C9F72C78893FD833371D /* FoundationTests.swift */; };
 		1FC9E109EE4564A16D1AC2E2 /* StubCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFD458E4107B0D02488E52D /* StubCharacters.swift */; };
 		303B74DAFB6D11C316E66447 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ECF86386EF34A310F8A144 /* Auth.swift */; };
 		409247813E68D393B0FBA517 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3936E2851907FF6FE577EC1F /* AppConfig.swift */; };
@@ -41,8 +42,19 @@
 		D8D19495C237160BD0A2CE7D /* StubDiscover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B35A4CE2533666E33A9F9 /* StubDiscover.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		353671A402D68A7A5E092A8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ACF0D55B947A55FE77103AAE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CBE5F744FDB74B8F65F886CD;
+			remoteInfo = Plotbreak;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0D7DDD29992AB9AE65700D7E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		1706C60F3BB502765ABC8DC0 /* PlotbreakTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PlotbreakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1900D92708529C2D539FD686 /* StubLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubLibrary.swift; sourceTree = "<group>"; };
 		27091E5FCC77E9A61B5CB1CF /* StubShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubShare.swift; sourceTree = "<group>"; };
 		3364C351DFD9C104926F4EC2 /* Primitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitives.swift; sourceTree = "<group>"; };
@@ -69,6 +81,7 @@
 		A62D4263C15FF137B7C9758D /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		B07870FFBF281DB3DBF2DA3E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		BA54D00F6EC27CB276F4FD20 /* Translator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translator.swift; sourceTree = "<group>"; };
+		C208C9F72C78893FD833371D /* FoundationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationTests.swift; sourceTree = "<group>"; };
 		C3E0E7A559F500F64D4CF09B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D271E5241CE5DBBE561E69F8 /* StubComments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubComments.swift; sourceTree = "<group>"; };
 		D30ABF54C8E58FEB70D09357 /* StubStoryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubStoryDetail.swift; sourceTree = "<group>"; };
@@ -86,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				8B46E121F869C497A6CABA0E /* Plotbreak.app */,
+				1706C60F3BB502765ABC8DC0 /* PlotbreakTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,8 +152,17 @@
 			isa = PBXGroup;
 			children = (
 				38D58215F382E6BB907FFF1F /* Plotbreak */,
+				3C2E40B0C2FC514A5F9196BF /* PlotbreakTests */,
 				0A50A0166437F257165B27CF /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		3C2E40B0C2FC514A5F9196BF /* PlotbreakTests */ = {
+			isa = PBXGroup;
+			children = (
+				C208C9F72C78893FD833371D /* FoundationTests.swift */,
+			);
+			path = PlotbreakTests;
 			sourceTree = "<group>";
 		};
 		422B7FE2CC25D7732FED8D69 /* Settings */ = {
@@ -360,6 +383,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		383F82EFBD7D5F83D0FEC717 /* PlotbreakTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4ED71FF82C480E432C065E3C /* Build configuration list for PBXNativeTarget "PlotbreakTests" */;
+			buildPhases = (
+				3C0F73F326CD8DDAA4D5F02D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				06D553999ADCE7406C0D07B8 /* PBXTargetDependency */,
+			);
+			name = PlotbreakTests;
+			packageProductDependencies = (
+			);
+			productName = PlotbreakTests;
+			productReference = 1706C60F3BB502765ABC8DC0 /* PlotbreakTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CBE5F744FDB74B8F65F886CD /* Plotbreak */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5C1C30F53A8D959E728580F3 /* Build configuration list for PBXNativeTarget "Plotbreak" */;
@@ -388,6 +429,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					383F82EFBD7D5F83D0FEC717 = {
+						DevelopmentTeam = Q7ZLXMG4SB;
+						ProvisioningStyle = Automatic;
+					};
 					CBE5F744FDB74B8F65F886CD = {
 						DevelopmentTeam = Q7ZLXMG4SB;
 						ProvisioningStyle = Automatic;
@@ -409,6 +454,7 @@
 			projectRoot = "";
 			targets = (
 				CBE5F744FDB74B8F65F886CD /* Plotbreak */,
+				383F82EFBD7D5F83D0FEC717 /* PlotbreakTests */,
 			);
 		};
 /* End PBXProject section */
@@ -450,6 +496,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3C0F73F326CD8DDAA4D5F02D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E3AD14F7D3FF1BAB6DF449A /* FoundationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CF34DCFA4CA6F651D74DB470 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -486,6 +540,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		06D553999ADCE7406C0D07B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CBE5F744FDB74B8F65F886CD /* Plotbreak */;
+			targetProxy = 353671A402D68A7A5E092A8C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		029144C15BA8338A1269EC27 /* Debug */ = {
@@ -559,6 +621,22 @@
 			};
 			name = Debug;
 		};
+		4CEE59B0FE2CB548C77FC014 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.plotbreak.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Plotbreak.app/Plotbreak";
+			};
+			name = Debug;
+		};
 		98215813AC9F5284550CC0D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -574,6 +652,22 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.plotbreak.app;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A5348BC8D12DC9575892BDE4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.plotbreak.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Plotbreak.app/Plotbreak";
 			};
 			name = Release;
 		};
@@ -662,6 +756,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4ED71FF82C480E432C065E3C /* Build configuration list for PBXNativeTarget "PlotbreakTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CEE59B0FE2CB548C77FC014 /* Debug */,
+				A5348BC8D12DC9575892BDE4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		5C1C30F53A8D959E728580F3 /* Build configuration list for PBXNativeTarget "Plotbreak" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

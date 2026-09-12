@@ -14,7 +14,10 @@ writes the beat.
   validator, response cards.
 - `services/api` — Fastify on **port 4000**. `tsx watch` reloads on edit, so do
   not edit mid-run.
-- `apps/mobile` — Expo SDK 57 / RN 0.86.
+- `apps/mobile` — Expo SDK 57 / RN 0.86. Being replaced by `apps/ios`.
+- `apps/ios` — the native SwiftUI app (Xcode, iOS 17+). `project.yml` is the
+  source of truth; `./build.sh` regenerates and builds, `./test.sh` runs unit
+  tests. Read `apps/ios/PORTING.md` before touching it.
 
 ## Things that have bitten us more than once
 
