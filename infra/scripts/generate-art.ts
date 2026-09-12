@@ -8,6 +8,22 @@
  * Idempotent: an asset that already exists is skipped unless `--force` is given,
  * so a failed or interrupted run resumes rather than paying to redo work.
  *
+ * ## If a cover comes back REJECTED / moderation_block
+ *
+ * The house rules appended to every prompt end with an explicit prohibition on
+ * sexualizing minors, which is correct and which the provider's classifier also
+ * reads as *subject matter*. Ace's cover was refused twice until its own
+ * `coverDirection` stopped describing the two younger brothers by age and
+ * clothing state — "two much younger brothers … both fully clothed" — and
+ * described them by costume instead: a straw hat and a red vest, a top hat and
+ * goggles.
+ *
+ * Nothing about the image changed. The prompt stopped stacking "minors",
+ * "children", "fully clothed" and "suggestively" into one request, which is
+ * what tipped it over. So: identify young characters by what they wear and
+ * where they stand in the frame, and leave the age policy to the house rules
+ * that already carry it.
+ *
  *   npx tsx infra/scripts/generate-art.ts [--force] [--only=<substring>] [--concurrency=3]
  */
 import { mkdir, readFile, writeFile, access } from 'node:fs/promises';
@@ -137,12 +153,36 @@ async function main(): Promise<void> {
     const file = `${spec.assetKey}.png`;
     const path = join(ASSET_DIR, file);
 
+    // A finished asset is one that exists in *either* format.
+    //
+    // This checked only for the PNG, and `optimize-art` converts to webp and
+    // removes the PNG — so once a world had been optimised, every one of its
+    // assets looked missing and a resumed run paid to draw all of them again.
+    // A no-op top-up of two new worlds planned 501 images and had redrawn
+    // twenty of Itachi's before I noticed. `/media/*` serves the webp first,
+    // so the webp is the asset.
+    const present =
+      (await exists(path)) || (await exists(join(ASSET_DIR, `${spec.assetKey}.webp`)));
+
     // Against the spec's own direction, not a global. Bumping the cover
     // standard for new worlds must never mark a finished asset stale — that is
     // the difference between "new worlds get the new look" and "everything is
     // silently regenerated overnight".
-    if (!force && (await exists(path)) && manifest[spec.assetKey]?.styleVersion === spec.styleVersion) {
+    //
+    // A missing manifest entry is not a reason to redraw. The entry is how we
+    // know which *direction* an asset was drawn to, and it is genuinely worth
+    // redrawing when it names an older one — but when it is absent entirely,
+    // all we know is that the bookkeeping is behind, and the file on disk is
+    // still the file the player sees. Treating absent as stale redrew three of
+    // Last Service's stages that had been finished and committed for weeks.
+    const recorded = manifest[spec.assetKey]?.styleVersion;
+    const drawnToAnOlderDirection = recorded !== undefined && recorded !== spec.styleVersion;
+    if (!force && present && !drawnToAnOlderDirection) {
       skipped++;
+      // Catch the bookkeeping up, so the next run knows what this one knew.
+      if (recorded === undefined) {
+        manifest[spec.assetKey] = { ...manifest[spec.assetKey], styleVersion: spec.styleVersion } as ManifestEntry;
+      }
       return;
     }
 

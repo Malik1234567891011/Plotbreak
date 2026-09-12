@@ -1457,6 +1457,95 @@ describe('forking charges once, or not at all', () => {
 });
 
 /**
+ * Crash reporting, which did not exist at all.
+ *
+ * The Hermes `Intl.RelativeTimeFormat` segfault shipped and was found because
+ * somebody happened to be holding a device when it died. Everybody else's app
+ * just closed.
+ */
+describe('client error reports', () => {
+  const crash = (overrides: Record<string, unknown> = {}) => ({
+    installId: 'ins_test_device',
+    platform: 'ios',
+    appVersion: '1.0.0',
+    osVersion: '18.2',
+    locale: 'en',
+    screen: 'StoryDetail',
+    message: "undefined is not a function (evaluating 'x.y()')",
+    stack: 'at StoryDetail (StoryDetail.tsx:41)\nat Navigation',
+    ...overrides,
+  });
+
+  it('accepts a report from a signed-out phone', async () => {
+    // The crash during onboarding is the one worth hearing about, and there is
+    // no account behind it. Requiring auth would have hidden exactly that.
+    const response = await app.inject({
+      method: 'POST',
+      url: '/v1/client-errors',
+      payload: crash(),
+    });
+    expect(response.statusCode).toBe(204);
+
+    const groups = await ctx.repo.listClientErrorGroups(24, 20);
+    expect(groups.some((g) => g.message.includes('is not a function'))).toBe(true);
+  });
+
+  it('groups repeats of one bug and counts devices, not rows', async () => {
+    const message = 'Cannot read property length of undefined';
+    // One handset in a relaunch loop.
+    for (let i = 0; i < 4; i += 1) {
+      await app.inject({
+        method: 'POST',
+        url: '/v1/client-errors',
+        payload: crash({ message, installId: 'ins_loop' }),
+      });
+    }
+    // And one other player hitting it once.
+    await app.inject({
+      method: 'POST',
+      url: '/v1/client-errors',
+      payload: crash({ message, installId: 'ins_other' }),
+    });
+
+    const group = (await ctx.repo.listClientErrorGroups(24, 50)).find(
+      (g) => g.message === message,
+    );
+    expect(group?.count).toBe(5);
+    // The number that matters. Five rows, two broken players.
+    expect(group?.devices).toBe(2);
+  });
+
+  it('separates two different crashes', async () => {
+    await app.inject({ method: 'POST', url: '/v1/client-errors', payload: crash({ message: 'first distinct failure' }) });
+    await app.inject({ method: 'POST', url: '/v1/client-errors', payload: crash({ message: 'second distinct failure' }) });
+    const groups = await ctx.repo.listClientErrorGroups(24, 50);
+    const a = groups.find((g) => g.message === 'first distinct failure');
+    const b = groups.find((g) => g.message === 'second distinct failure');
+    expect(a?.fingerprint).not.toBe(b?.fingerprint);
+  });
+
+  it('refuses a malformed report rather than storing junk', async () => {
+    const response = await app.inject({
+      method: 'POST',
+      url: '/v1/client-errors',
+      payload: { installId: 'ins_test_device' },
+    });
+    expect(response.statusCode).toBe(400);
+  });
+
+  it('truncates rather than accepting an unbounded stack', async () => {
+    // Unauthenticated endpoint taking free text from a device that has already
+    // lost the plot. React Native stacks reach tens of kilobytes.
+    const response = await app.inject({
+      method: 'POST',
+      url: '/v1/client-errors',
+      payload: crash({ stack: 'x'.repeat(20_000) }),
+    });
+    expect(response.statusCode).toBe(400);
+  });
+});
+
+/**
  * Guideline 1.2 asks a UGC app for filtering, reporting and blocking. All three
  * existed on paper; two of them did nothing.
  */
@@ -1482,5 +1571,94 @@ describe('user-generated content is actually moderated', () => {
       payload: { body: 'the ending actually got me, i sat there for a minute' },
     });
     expect(response.statusCode).toBe(201);
+  });
+
+  /**
+   * The reporting half.
+   *
+   * Reports landed in a table nothing read. That is not a moderation system,
+   * it is a suggestion box — and the gap between the two is what Apple means
+   * by "timely responses to concerns". Three distinct reporters now take a
+   * comment down without waiting for a person.
+   */
+  describe('reporting', () => {
+    const post = async (body: string): Promise<string> => {
+      const response = await app.inject({
+        method: 'POST',
+        url: '/v1/stories/story_ninth_archive/comments',
+        headers: auth,
+        payload: { body },
+      });
+      expect(response.statusCode).toBe(201);
+      return response.json().commentId as string;
+    };
+
+    const report = async (commentId: string, token: string): Promise<boolean> => {
+      const response = await app.inject({
+        method: 'POST',
+        url: `/v1/comments/${commentId}/report`,
+        headers: { authorization: `Bearer ${token}` },
+        payload: { reason: 'ABUSE' },
+      });
+      expect(response.statusCode).toBe(200);
+      return response.json().hidden as boolean;
+    };
+
+    const visible = async (commentId: string): Promise<boolean> => {
+      const response = await app.inject({
+        method: 'GET',
+        url: '/v1/stories/story_ninth_archive/comments',
+        headers: auth,
+      });
+      return (response.json().comments as Array<{ commentId: string }>).some(
+        (c) => c.commentId === commentId,
+      );
+    };
+
+    it('hides a comment on the third distinct reporter', async () => {
+      const id = await post('a comment three people will object to');
+
+      expect(await report(id, 'guest_reporter_a')).toBe(false);
+      expect(await report(id, 'guest_reporter_b')).toBe(false);
+      expect(await visible(id)).toBe(true);
+
+      expect(await report(id, 'guest_reporter_c')).toBe(true);
+      expect(await visible(id)).toBe(false);
+    });
+
+    it('ignores one person reporting the same comment repeatedly', async () => {
+      const id = await post('one persistent heckler is not a consensus');
+
+      for (let i = 0; i < 5; i += 1) {
+        expect(await report(id, 'guest_persistent')).toBe(false);
+      }
+      // UNIQUE (comment_id, reporter_id) is what makes this true, so the test
+      // is really asserting that the schema constraint is load-bearing.
+      expect(await visible(id)).toBe(true);
+    });
+
+    it('opens exactly one case, however many reports arrive after the threshold', async () => {
+      const id = await post('a comment that keeps attracting reports');
+      for (const who of ['a', 'b', 'c', 'd', 'e']) await report(id, `guest_late_${who}`);
+
+      const queue = await ctx.repo.listModerationQueue();
+      expect(queue.filter((i) => i.subjectId === id)).toHaveLength(1);
+    });
+
+    it('surfaces the hidden comment for review, and restores it on dismissal', async () => {
+      const id = await post('hidden wrongly, as will happen');
+      for (const who of ['a', 'b', 'c']) await report(id, `guest_wrong_${who}`);
+      expect(await visible(id)).toBe(false);
+
+      const item = (await ctx.repo.listModerationQueue()).find((i) => i.subjectId === id);
+      expect(item?.kind).toBe('CASE');
+
+      // The review is a person deciding the crowd was wrong. It has to be able
+      // to undo the takedown, or the threshold is a one-way door and three
+      // people with a grudge can silence anybody permanently.
+      await ctx.repo.restoreComment(id);
+      expect(await visible(id)).toBe(true);
+      expect((await ctx.repo.listModerationQueue()).some((i) => i.subjectId === id)).toBe(false);
+    });
   });
 });

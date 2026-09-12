@@ -23,7 +23,7 @@
  * moves, `npm run fr:stale` says which French is now describing a world that no
  * longer exists — rather than the French quietly remaining wrong forever.
  */
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { z } from 'zod';
 import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
@@ -251,6 +251,35 @@ function render(storyId: string, title: string, fields: ManifestField[], fr: Map
   return lines.join('\n') + '\n';
 }
 
+/**
+ * Read the French already in a `.fr.ts`, so a partial run does not discard it.
+ *
+ * Parses rather than imports, deliberately: importing would register the
+ * overlay into the live registry and make coverage numbers reported later in
+ * the same process wrong.
+ */
+function existing(path: string): Map<string, string | string[]> {
+  const found = new Map<string, string | string[]>();
+  const source = readFileSync(path, 'utf8');
+  // `"path": "value",` or `"path": ["a","b"],` — the shape `render` emits.
+  const entry = /^\s*"([^"]+)":\s*(\[[\s\S]*?\]|"(?:[^"\\]|\\.)*")\s*,\s*$/gm;
+  for (const match of source.matchAll(entry)) {
+    const key = match[1]!;
+    if (key === 'storyId') continue;
+    try {
+      found.set(key, JSON.parse(match[2]!) as string | string[]);
+    } catch {
+      // A hand-edited entry that will not parse is left to the author.
+    }
+  }
+  return found;
+}
+
+/** Which manifest paths a run with this `--tier` is responsible for. */
+function tierFields(fields: readonly ManifestField[], tierOnly: 'A' | 'B' | null): Set<string> {
+  return new Set(fields.filter((f) => !tierOnly || f.tier === tierOnly).map((f) => f.path));
+}
+
 async function main(): Promise<void> {
   const argv = process.argv.slice(2);
   const only = argv.find((a) => a.startsWith('--world='))?.slice('--world='.length);
@@ -294,6 +323,23 @@ async function main(): Promise<void> {
       console.log(`  ${slug}.fr.ts exists; skipping. Pass --world=${world.storyId} to rewrite.`);
       continue;
     }
+
+    // Keep what is already there.
+    //
+    // `--tier=A` and `--tier=B` are documented as "one tier only", and the file
+    // was being rendered from scratch every run — so running the two tiers as
+    // two commands silently threw away whichever one went first. That is the
+    // expensive kind of trap: it looks like it worked, the file is full of
+    // French, and a third of the world is missing. Existing entries are now
+    // read back and merged, and a fresh run of the same tier still replaces its
+    // own fields because `fr` is applied last.
+    if (existsSync(path)) {
+      const kept = existing(path);
+      for (const [key, value] of kept) if (!fr.has(key)) fr.set(key, value);
+      const carried = [...kept.keys()].filter((k) => !tierFields(fields, tierOnly).has(k)).length;
+      if (carried > 0) console.log(`    carried ${carried} field(s) from the existing file`);
+    }
+
     writeFileSync(path, render(world.storyId, world.title, fields, fr), 'utf8');
     console.log(`  wrote ${slug}.fr.ts — ${fr.size} of ${fields.length} fields`);
   }

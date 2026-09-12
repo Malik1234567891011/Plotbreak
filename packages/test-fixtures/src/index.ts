@@ -16,6 +16,8 @@ import { HUSH_HOUSE as HUSH_HOUSE_RAW } from './hush-house.js';
 import { WINDOW_SEVEN as WINDOW_SEVEN_RAW } from './window-seven.js';
 import { GOOD_MORNING_HUSBAND as GOOD_MORNING_HUSBAND_RAW } from './good-morning-husband.js';
 import { ITACHI as ITACHI_RAW } from './itachi.js';
+import { ACE as ACE_RAW } from './ace.js';
+import { LIGHT as LIGHT_RAW } from './light.js';
 import { PRIMAL_CROWN as PRIMAL_CROWN_RAW } from './primal-crown.js';
 import { ZERO_THRONE as ZERO_THRONE_RAW } from './zero-throne.js';
 import { FOURTH_BEAST as FOURTH_BEAST_RAW } from './fourth-beast.js';
@@ -40,6 +42,8 @@ export const SEVEN_DAYS = withDerivedAssetKeys(SEVEN_DAYS_RAW);
 export const BLACKWAKE = withDerivedAssetKeys(BLACKWAKE_RAW);
 export const LAST_FIVE = withDerivedAssetKeys(LAST_FIVE_RAW);
 export const ITACHI = withDerivedAssetKeys(ITACHI_RAW);
+export const ACE = withDerivedAssetKeys(ACE_RAW);
+export const LIGHT = withDerivedAssetKeys(LIGHT_RAW);
 export const PRIMAL_CROWN = withDerivedAssetKeys(PRIMAL_CROWN_RAW);
 export const ZERO_THRONE = withDerivedAssetKeys(ZERO_THRONE_RAW);
 export const FOURTH_BEAST = withDerivedAssetKeys(FOURTH_BEAST_RAW);
@@ -108,7 +112,10 @@ export const GOOD_MORNING_HUSBAND = withDerivedAssetKeys(GOOD_MORNING_HUSBAND_RA
  * they become at sixteen and keeps it for life, and a woman who has done it twice
  * comes through the ceremony window, and Last Service is a thirty-seat family
  * restaurant with thirty days left on a loan and a hood that is making a noise, and Pink Tide is seven nights at an adults-only
- * island resort where a guest checked out this morning without leaving.
+ * island resort where a guest checked out this morning without leaving, and Ace is ten years old on a mountain
+ * with a brother he has not agreed to and a decade in which nothing famous has
+ * happened yet, and Light is a bored seventeen-year-old in the last twenty
+ * minutes of a Wednesday, watching a notebook land in the school grounds.
  */
 export const LAUNCH_CATALOG = [
   NINTH_ARCHIVE,
@@ -134,4 +141,6 @@ export const LAUNCH_CATALOG = [
   SECOND_SKIN,
   LAST_SERVICE,
   PINK_TIDE,
+  ACE,
+  LIGHT,
 ] as const;

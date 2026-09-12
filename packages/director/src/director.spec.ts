@@ -453,7 +453,12 @@ describe('director beat planning', () => {
   it('does not put a frame on every turn of a dramatic run', () => {
     // Eligibility had no memory, so a stretch of good turns produced an image
     // on every one of them — which is how images stop meaning anything.
-    const state = baseState();
+    //
+    // Past the opening, deliberately. The first ten turns of a world are
+    // heavier on purpose and have no spacing at all — see OPENING_TURNS — so
+    // this invariant is about the settled rhythm a story spends most of its
+    // life in. The opening's own rules are held in hero-frame.spec.
+    const state = baseState({ turnIndex: 40 });
     const intent = parse('Attack Kael', state);
     const resolution = resolveIntent({ story: STORY, state, intent, turnId: 't1', seed: 's' });
 
@@ -479,7 +484,9 @@ describe('director beat planning', () => {
   });
 
   it('lets a landmark jump the queue, but never twice running', () => {
-    const state = baseState();
+    // Also past the opening. Back-to-back landmarks are exactly what the
+    // opening is for, and exactly what the rest of the story is not.
+    const state = baseState({ turnIndex: 40 });
     const intent = parse('Attack Kael', state);
     const base = resolveIntent({ story: STORY, state, intent, turnId: 't1', seed: 's' });
     const death = {

@@ -352,6 +352,186 @@ describe.skipIf(!URL)('PostgresRepository', () => {
     expect(await repo.listLedger(accountId)).toHaveLength(1);
   });
 
+  /**
+   * The auto-hide, against real SQL.
+   *
+   * The memory repository has its own copy of this logic and passing there
+   * says nothing about the statements that actually run in production — two
+   * implementations of one rule is the shape of bug this codebase produces
+   * most often. The threshold, the distinct-reporter constraint and the single
+   * case all live in Postgres, so they get tested in Postgres.
+   */
+  it('hides a comment once three different people report it', async () => {
+    const author = await makeUser();
+    const commentId = `cmt_${uuid()}`;
+    await repo.addComment({
+      commentId,
+      storyId: STORY.storyId,
+      userId: author.userId,
+      authorName: 'Test Player',
+      body: 'three people will object to this',
+      kind: 'USER',
+      spoiler: false,
+      likes: 0,
+      createdAt: new Date().toISOString(),
+    });
+
+    const listed = async (): Promise<boolean> =>
+      (await repo.listComments(STORY.storyId, 'NEW', 100)).some((c) => c.commentId === commentId);
+
+    const reporters = [await makeUser(), await makeUser(), await makeUser()];
+    expect(await repo.reportComment(`crp_${uuid()}`, commentId, reporters[0]!.userId, 'ABUSE')).toBe(false);
+    expect(await repo.reportComment(`crp_${uuid()}`, commentId, reporters[1]!.userId, 'ABUSE')).toBe(false);
+    expect(await listed()).toBe(true);
+
+    expect(await repo.reportComment(`crp_${uuid()}`, commentId, reporters[2]!.userId, 'ABUSE')).toBe(true);
+    expect(await listed()).toBe(false);
+
+    const queue = await repo.listModerationQueue();
+    const item = queue.find((i) => i.subjectId === commentId);
+    expect(item?.kind).toBe('CASE');
+    expect(item?.reports).toBe(3);
+
+    // A fourth report after the takedown must not open a second case, or the
+    // queue fills with duplicates of one decision.
+    const fourth = await makeUser();
+    expect(await repo.reportComment(`crp_${uuid()}`, commentId, fourth.userId, 'ABUSE')).toBe(false);
+    expect((await repo.listModerationQueue()).filter((i) => i.subjectId === commentId)).toHaveLength(1);
+
+    await repo.restoreComment(commentId);
+    expect(await listed()).toBe(true);
+    // And the case closes with it. A restored comment still sitting in the
+    // queue is how a reviewer loses track of what is actually outstanding.
+    expect((await repo.listModerationQueue()).some((i) => i.subjectId === commentId)).toBe(false);
+  });
+
+  it('does not hide on one person reporting repeatedly', async () => {
+    const author = await makeUser();
+    const commentId = `cmt_${uuid()}`;
+    await repo.addComment({
+      commentId,
+      storyId: STORY.storyId,
+      userId: author.userId,
+      authorName: 'Test Player',
+      body: 'one heckler is not a consensus',
+      kind: 'USER',
+      spoiler: false,
+      likes: 0,
+      createdAt: new Date().toISOString(),
+    });
+
+    const heckler = await makeUser();
+    for (let i = 0; i < 5; i += 1) {
+      // Same reporter, new report id each time. ON CONFLICT DO NOTHING is what
+      // makes this a no-op, so this asserts the unique constraint is carrying
+      // the weight rather than the id generator.
+      expect(await repo.reportComment(`crp_${uuid()}`, commentId, heckler.userId, 'ABUSE')).toBe(false);
+    }
+    expect(
+      (await repo.listComments(STORY.storyId, 'NEW', 100)).some((c) => c.commentId === commentId),
+    ).toBe(true);
+  });
+
+  /**
+   * The crash grouping, against real SQL.
+   *
+   * array_agg with an ORDER BY inside it, make_interval and string_agg DISTINCT
+   * are not things the in-memory twin exercises in any meaningful way. If this
+   * query is wrong the first anyone learns of it is during an outage, which is
+   * the worst possible moment to debug a reporting tool.
+   */
+  it('groups crashes by fingerprint and counts devices rather than rows', async () => {
+    // Unique per run. A fixed fingerprint makes the second `npm test` against
+    // the same database fail on a count of ten, which looks like a bug in the
+    // query rather than in the test.
+    const fpA = `fp_${uuid()}`;
+    const fpB = `fp_${uuid()}`;
+    const loop = `ins_loop_${uuid()}`;
+    const other = `ins_other_${uuid()}`;
+    const third = `ins_third_${uuid()}`;
+    const message = `grouping test failure ${fpA}`;
+    const base = {
+      userId: null,
+      platform: 'ios',
+      appVersion: '1.0.0',
+      osVersion: '18.2',
+      locale: 'en',
+      screen: 'StoryDetail',
+      stack: 'at StoryDetail\nat Navigation',
+      createdAt: new Date().toISOString(),
+    };
+
+    // One handset looping, one other player hitting the same bug once.
+    for (let i = 0; i < 4; i += 1) {
+      await repo.recordClientError({
+        ...base,
+        errorId: `cer_${uuid()}`,
+        installId: loop,
+        message,
+        fingerprint: fpA,
+      });
+    }
+    await repo.recordClientError({
+      ...base,
+      errorId: `cer_${uuid()}`,
+      installId: other,
+      appVersion: '1.0.1',
+      message,
+      fingerprint: fpA,
+    });
+    // A different bug, one device.
+    await repo.recordClientError({
+      ...base,
+      errorId: `cer_${uuid()}`,
+      installId: third,
+      message: `a different failure ${fpB}`,
+      fingerprint: fpB,
+    });
+
+    const groups = await repo.listClientErrorGroups(24, 50);
+    const a = groups.find((g) => g.fingerprint === fpA);
+    expect(a?.count).toBe(5);
+    expect(a?.devices).toBe(2);
+    expect(a?.message).toBe(message);
+    // Which builds it appears in, so "did we just make it worse" is answerable.
+    expect(a?.appVersions.split(', ').sort()).toEqual(['1.0.0', '1.0.1']);
+
+    // Two devices beats one, regardless of row count.
+    expect(groups.findIndex((g) => g.fingerprint === fpA)).toBeLessThan(
+      groups.findIndex((g) => g.fingerprint === fpB),
+    );
+  });
+
+  it('excludes crashes older than the window', async () => {
+    const ancient = `fp_${uuid()}`;
+    await repo.recordClientError({
+      errorId: `cer_${uuid()}`,
+      userId: null,
+      installId: `ins_ancient_${uuid()}`,
+      platform: 'ios',
+      appVersion: '0.9.0',
+      osVersion: '17.0',
+      locale: 'en',
+      screen: 'Discover',
+      message: 'a crash from last week',
+      stack: '',
+      fingerprint: ancient,
+      createdAt: new Date(Date.now() - 8 * 24 * 3600_000).toISOString(),
+    });
+    // The limit has to be wide enough that the ranking cannot decide this.
+    //
+    // Groups rank by distinct devices and this one has exactly one, so it
+    // sorts last — and because fingerprints are unique per run, a database
+    // that has been tested against for a while holds more groups than a
+    // fifty-row page. The assertion is about the time window; a limit small
+    // enough for the ordering to matter was testing the ordering instead, and
+    // it passed for twenty runs before it did not.
+    const recent = await repo.listClientErrorGroups(24, 1000);
+    expect(recent.some((g) => g.fingerprint === ancient)).toBe(false);
+    const wider = await repo.listClientErrorGroups(24 * 30, 1000);
+    expect(wider.some((g) => g.fingerprint === ancient)).toBe(true);
+  });
+
   it('counts discovery signals without letting them go negative', async () => {
     await repo.bumpSignal(STORY.storyId, 'runs', 3);
     const after = await repo.getSignals(STORY.storyId);

@@ -23,12 +23,14 @@ const ctx = (over: {
   turnsSinceHeroImage?: number | null;
   mutations?: { type: MutationType }[];
   checks?: { outcome: CheckOutcome }[];
+  /** Defaults past the opening window, so the settled rules are the default. */
+  turnIndex?: number;
 }): TurnContext =>
   ({
     tier: over.tier ?? 'VIVID',
     turnsSinceHeroImage: over.turnsSinceHeroImage ?? 6,
     presentCharacters: [],
-    state: { flags: {} },
+    state: { flags: {}, turnIndex: over.turnIndex ?? 40 },
     resolution: {
       mutations: (over.mutations ?? []).map((m) => ({ ...m, reasonCode: 'X' })),
       checks: over.checks ?? [],
@@ -156,5 +158,61 @@ describe('when a resource change is worth a sentence', () => {
       },
     });
     expect(found.some((b) => b.kind === 'STATE_REVEAL')).toBe(true);
+  });
+});
+
+/**
+ * The opening is heavier, and only the opening.
+ *
+ * A real five-turn session produced one frame: turn 1 earned it, turn 2 hit
+ * the floor, and turns 3 and 4 both came back "worth a frame, but only 2 / 3
+ * turns since the last one" — two beats that had earned art and were refused
+ * in the five turns that decide whether somebody keeps playing.
+ *
+ * What changed is the waiting, not the earning. These hold both halves of
+ * that: an earned beat is not made to wait during the opening, and an
+ * unearned one still gets nothing.
+ */
+describe('the first ten turns', () => {
+  const earned = { mutations: [{ type: 'RELATIONSHIP_DELTA' as MutationType }] };
+
+  it('does not make an earned beat wait', () => {
+    // One turn after the last frame, which the settled rules refuse outright.
+    const opening = heroImageDecision(ctx({ ...earned, turnIndex: 3, turnsSinceHeroImage: 1 }), 'DIALOGUE', ordinary);
+    expect(opening.eligible, opening.reason).toBe(true);
+  });
+
+  it('still refuses an ordinary beat, so nothing random appears', () => {
+    // No relationship move, no failed check, no new room, no new face.
+    const decision = heroImageDecision(ctx({ turnIndex: 2, turnsSinceHeroImage: 1 }), 'DIALOGUE', ordinary);
+    expect(decision.eligible).toBe(false);
+    expect(decision.reason).toMatch(/ordinary beat/i);
+  });
+
+  it('lets a landmark through on consecutive turns', () => {
+    // The settled floor is 2, so a first visit one turn after a frame is
+    // normally refused. In an opening it is the whole point.
+    const decision = heroImageDecision(
+      ctx({ turnIndex: 1, turnsSinceHeroImage: 1 }),
+      'DIALOGUE',
+      { locationChanged: true, firstVisit: true },
+    );
+    expect(decision.eligible, decision.reason).toBe(true);
+  });
+
+  it('hands back to the tier spacing once the opening is over', () => {
+    const justInside = heroImageDecision(ctx({ ...earned, turnIndex: 9, turnsSinceHeroImage: 1 }), 'DIALOGUE', ordinary);
+    const justOutside = heroImageDecision(ctx({ ...earned, turnIndex: 10, turnsSinceHeroImage: 1 }), 'DIALOGUE', ordinary);
+    expect(justInside.eligible, 'turn 9 should still be an opening turn').toBe(true);
+    expect(justOutside.eligible, 'turn 10 should be back to VIVID spacing').toBe(false);
+    expect(justOutside.reason).toMatch(/a moment ago|only 1 turns/i);
+  });
+
+  it('is measured in turns played, not in frames delivered', () => {
+    // A player who reached turn 30 is past the opening even if the world has
+    // shown them almost nothing, because the opening is about the beginning
+    // of the story rather than about topping up a quota.
+    const late = heroImageDecision(ctx({ ...earned, turnIndex: 30, turnsSinceHeroImage: 1 }), 'DIALOGUE', ordinary);
+    expect(late.eligible).toBe(false);
   });
 });

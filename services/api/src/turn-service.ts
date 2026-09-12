@@ -332,6 +332,9 @@ async function processTurn(
         `hero:${turnId}`,
       );
 
+      // Before `turn.completed`, so the stream knows to stay open for it.
+      hub.expectMedia(turnId);
+
       hub.emit(turnId, 'media.queued', {
         kind: 'HERO_IMAGE',
         jobId: job.jobId,
@@ -340,14 +343,25 @@ async function processTurn(
       });
 
       // The turn is already committed and streamed; this only decorates it.
+      //
+      // It must always settle, either way. The stream is now held open for
+      // this event, so a silent return on failure would leave the connection
+      // hanging until the client timed out.
       void (async () => {
-        await ctx.jobs.drain(120_000);
-        const finished = await ctx.repo.getTurn(turnId);
-        if (finished?.heroImageUrl) {
-          hub.emit(turnId, 'media.completed', {
-            kind: 'HERO_IMAGE',
-            url: finished.heroImageUrl,
-          });
+        try {
+          await ctx.jobs.drain(120_000);
+          const finished = await ctx.repo.getTurn(turnId);
+          if (finished?.heroImageUrl) {
+            hub.emit(turnId, 'media.completed', {
+              kind: 'HERO_IMAGE',
+              url: finished.heroImageUrl,
+            });
+            return;
+          }
+          hub.emit(turnId, 'media.failed', { kind: 'HERO_IMAGE', reason: 'NO_IMAGE' });
+        } catch (error) {
+          console.error(`[media] ${turnId} hero frame failed:`, error);
+          hub.emit(turnId, 'media.failed', { kind: 'HERO_IMAGE', reason: 'JOB_FAILED' });
         }
       })();
     }

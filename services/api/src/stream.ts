@@ -18,19 +18,53 @@ interface TurnStream {
   readonly listeners: Set<Listener>;
   sequence: number;
   done: boolean;
+  /** A frame was planned, so `turn.completed` is not the last event. */
+  awaitingMedia: boolean;
+  /** The turn has finished; only the frame is outstanding. */
+  turnDone: boolean;
   /** Single-use token so a stream URL cannot be replayed by another client. */
   readonly token: string;
   readonly userId: string;
   createdAt: number;
 }
 
-const TERMINAL: ReadonlySet<TurnStreamEventName> = new Set(['turn.completed', 'turn.failed']);
+/**
+ * `turn.completed` is the end of the *turn*, which is not the end of the
+ * stream.
+ *
+ * Art is enqueued during the turn and arrives seconds to a minute later, so
+ * for any turn with a frame there is still one event to come after the turn is
+ * done. This set used to include `turn.completed`, which set `done` and made
+ * `emit` drop everything after it — so `media.completed` was discarded every
+ * single time. The image was generated, written to the turn, and never
+ * announced; players met it later by scrolling back past a beat they had
+ * already finished reading.
+ */
+const TERMINAL: ReadonlySet<TurnStreamEventName> = new Set(['turn.failed']);
+
+/** The end of the turn, which closes the stream only when no art is pending. */
+const TURN_DONE: TurnStreamEventName = 'turn.completed';
+
+/** Either of these is the last word on a frame, and therefore on the stream. */
+const MEDIA_SETTLED: ReadonlySet<TurnStreamEventName> = new Set(['media.completed', 'media.failed']);
 
 /** Completed streams are dropped after this, so a long-lived process stays bounded. */
 const RETENTION_MS = 5 * 60 * 1000;
 
 export class TurnStreamHub {
   readonly #streams = new Map<string, TurnStream>();
+
+  /**
+   * Tell the stream a frame is coming, so `turn.completed` does not close it.
+   *
+   * Called when the image job is enqueued, which is always before the turn
+   * completes. Whoever calls this owes the stream a `media.completed` or a
+   * `media.failed`, or the connection stays open until the client gives up.
+   */
+  expectMedia(turnId: string): void {
+    const stream = this.#streams.get(turnId);
+    if (stream) stream.awaitingMedia = true;
+  }
 
   open(turnId: string, userId: string): { token: string } {
     const token = `st_${crypto.randomUUID()}`;
@@ -40,6 +74,8 @@ export class TurnStreamHub {
       listeners: new Set(),
       sequence: 0,
       done: false,
+      awaitingMedia: false,
+      turnDone: false,
       token,
       userId,
       createdAt: Date.now(),
@@ -62,11 +98,24 @@ export class TurnStreamHub {
       turnId,
       sequence: stream.sequence++,
       sessionRevision: sessionRevision ?? null,
+      final: false,
       data,
     };
 
+    if (TERMINAL.has(event)) {
+      stream.done = true;
+    } else if (event === TURN_DONE) {
+      stream.turnDone = true;
+      // Only finished if nothing is still being drawn.
+      stream.done = !stream.awaitingMedia;
+    } else if (MEDIA_SETTLED.has(event)) {
+      stream.awaitingMedia = false;
+      // If the turn already completed, this was the one thing left.
+      stream.done = stream.turnDone;
+    }
+    payload.final = stream.done;
+
     stream.events.push(payload);
-    if (TERMINAL.has(event)) stream.done = true;
 
     for (const listener of stream.listeners) {
       try {

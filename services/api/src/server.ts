@@ -1,4 +1,7 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
+import { readdir, stat } from 'node:fs/promises';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { BADGES, BADGES_BY_ID } from '@plotbreak/contracts';
 import { localizeStory } from '@plotbreak/contracts';
 import { syncBadges, type PlayerRecord } from './badges.js';
@@ -6,6 +9,7 @@ import { rankTopRanked, rankTrending, trendingScore } from './ranking.js';
 import Fastify, { type FastifyInstance } from 'fastify';
 import {
   CanonCorrectionRequest,
+  ClientErrorRequest,
   CreateReportRequest,
   CreateSessionRequest,
   DEFAULT_QUALITY_TIER,
@@ -135,6 +139,53 @@ export interface BuildServerOptions {
   readonly logger?: boolean;
 }
 
+/**
+ * Is the art where this build expects it?
+ *
+ * Counts world directories and confirms one file that has existed since the
+ * first catalogue. Cheap — two directory reads and a stat — and it answers the
+ * question that took an afternoon to work out by hand: the API was serving
+ * every world's text and none of the new worlds' pictures, and nothing said so.
+ */
+async function assetHealth(): Promise<{
+  root: string;
+  worlds: number;
+  sentinelPresent: boolean;
+}> {
+  const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
+  const root = process.env.ASSET_ROOT ?? join(repoRoot, 'infra/seed/assets');
+  // The volume holds generated art and the image holds the authored art, so
+  // both are searched when they differ. See media-routes.
+  const seed = join(repoRoot, 'infra/seed/assets');
+  const roots = root === seed ? [root] : [root, seed];
+
+  const worlds = new Set<string>();
+  for (const dir of roots) {
+    try {
+      for (const entry of await readdir(dir, { withFileTypes: true })) {
+        if (entry.isDirectory() && entry.name.startsWith('story_')) worlds.add(entry.name);
+      }
+    } catch {
+      // A volume that has not been written to yet is not an error.
+    }
+  }
+
+  let sentinelPresent = false;
+  for (const dir of roots) {
+    try {
+      // Itachi's cover: the oldest asset in the catalogue, so its absence
+      // means the art did not ship rather than that one world is behind.
+      await stat(join(dir, 'story_itachi/cover.webp'));
+      sentinelPresent = true;
+      break;
+    } catch {
+      // Try the next root.
+    }
+  }
+
+  return { root, worlds: worlds.size, sentinelPresent };
+}
+
 export function buildServer(options: BuildServerOptions = {}): FastifyInstance & { ctx: AppContext; hub: TurnStreamHub } {
   const ctx = options.ctx ?? createAppContext();
   const hub = new TurnStreamHub();
@@ -193,6 +244,32 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       contractVersion: CONTRACT_VERSION,
       persistence: ctx.repo.constructor.name === 'PostgresRepository' ? 'postgres' : 'in-process',
       auth: ctx.auth.name,
+      /**
+       * Which commit is actually answering.
+       *
+       * Everything else here was green while production served two worlds
+       * with no art and without a fix that had been on main for hours: the
+       * host's watch path did not match the commits, so seven pushes deployed
+       * nothing and no endpoint could say so. A health check that cannot tell
+       * you what it is running can only tell you that something is running.
+       *
+       * Railway injects these; they are absent locally, which is itself the
+       * honest answer to "what is deployed" on a laptop.
+       */
+      build: {
+        commit: process.env.RAILWAY_GIT_COMMIT_SHA?.slice(0, 12) ?? 'local',
+        branch: process.env.RAILWAY_GIT_BRANCH ?? null,
+        deploymentId: process.env.RAILWAY_DEPLOYMENT_ID ?? null,
+      },
+      /**
+       * Whether the art this build claims to ship is actually on the disk it
+       * will serve it from.
+       *
+       * The failure we hit was silent: every world's text present, every
+       * world's pictures missing, and a health check that said ok. One stat
+       * of one file that should always exist turns that into a symptom.
+       */
+      assets: await assetHealth(),
       // "The writing has gone flat" should have an answer here rather than
       // requiring somebody to guess at a provider dashboard.
       modelDegradations: { count: degraded.length, recent: degraded.slice(-5) },
@@ -892,13 +969,17 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     async (request, reply) => {
       const user = await requireUser(ctx, request, reply);
       if (!user) return reply;
-      await ctx.repo.reportComment(
+      const hidden = await ctx.repo.reportComment(
         `crp_${randomUUID()}`,
         request.params.commentId,
         user.userId,
         (request.body?.reason ?? 'UNSPECIFIED').slice(0, 200),
       );
-      return { reported: true };
+      // `hidden` when this report was the one that crossed the threshold. The
+      // client says "thanks, we've taken it down" instead of "thanks, we'll
+      // look into it" — which is both truer and the difference between a
+      // report button people keep using and one they decide is decorative.
+      return { reported: true, hidden };
     },
   );
 
@@ -1424,9 +1505,13 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
 
       const result = hub.subscribe(turnId, token, auth.user.userId, (event) => {
         write(formatSse(event));
-        if (event.event === 'turn.completed' || event.event === 'turn.failed') {
-          reply.raw.end();
-        }
+        // The hub decides when a stream is finished, and says so on the event.
+        //
+        // This used to close on `turn.completed`, which is the end of the turn
+        // and not the end of the stream: a frame is enqueued during the turn
+        // and lands seconds later, so closing here threw away every
+        // `media.completed` the API ever sent.
+        if (event.final) reply.raw.end();
       });
 
       if (!result.ok) {
@@ -1738,6 +1823,57 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
   });
 
   // --- Safety (§33.8) ---
+
+  /**
+   * A crash on somebody's phone.
+   *
+   * Unauthenticated on purpose. The crash that matters most is the one during
+   * onboarding, before there is an account to attach it to, and requiring a
+   * token would have hidden exactly the failures worth knowing about. Rate
+   * limited on its own budget so a relaunch loop cannot flood the table or eat
+   * a player's write allowance.
+   *
+   * This catches JavaScript only. A Hermes segfault — which is how the
+   * `Intl.RelativeTimeFormat` bug killed the story screen — takes the process
+   * down before any of this runs. Native crashes come from App Store Connect;
+   * see docs/crash-reporting.md.
+   */
+  app.post('/v1/client-errors', async (request, reply) => {
+    const user = await optionalUser(ctx, request);
+    const parsed = ClientErrorRequest.safeParse(request.body);
+    if (!parsed.success) {
+      return sendError(reply, 400, 'INVALID_REQUEST', 'Error report is malformed.');
+    }
+
+    const body = parsed.data;
+    // Group on the message and the first frames. Later frames differ between
+    // two occurrences of one bug — different props, different render path — so
+    // fingerprinting the whole stack would make every crash unique and the
+    // grouping useless.
+    const fingerprint = createHash('sha256')
+      .update(`${body.message}\n${body.stack.split('\n').slice(0, 3).join('\n')}`)
+      .digest('hex')
+      .slice(0, 16);
+
+    await ctx.repo.recordClientError({
+      errorId: `cer_${randomUUID()}`,
+      userId: user?.userId ?? null,
+      installId: body.installId,
+      platform: body.platform,
+      appVersion: body.appVersion,
+      osVersion: body.osVersion,
+      locale: body.locale,
+      screen: body.screen,
+      message: body.message,
+      stack: body.stack,
+      fingerprint,
+      createdAt: new Date().toISOString(),
+    });
+
+    // The phone is already showing a crash screen. It does not need a body,
+    // and must never be made to wait on one.
+    return reply.code(204).send();
+  });
 
   app.post('/v1/reports', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);

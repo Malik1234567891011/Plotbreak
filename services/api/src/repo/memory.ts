@@ -10,6 +10,9 @@ import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
 import type {
   IdempotencyRecord,
   ReportRecord,
+  ModerationQueueItem,
+  ClientErrorRecord,
+  ClientErrorGroup,
   Repository,
   SessionRecord,
   StoryComment,
@@ -18,6 +21,7 @@ import type {
   UserBadgeRow,
   UserRecord,
 } from './types.js';
+import { AUTO_HIDE_REPORTS } from './types.js';
 
 /**
  * In-process repository.
@@ -118,6 +122,9 @@ export class MemoryRepository implements Repository {
   #deletedComments = new Set<string>();
   #commentLikes = new Map<string, Set<string>>();
   #commentReports = new Set<string>();
+  #cases: ModerationQueueItem[] = [];
+  #clientErrors: ClientErrorRecord[] = [];
+  #resolved = new Set<string>();
   #editorial: StoryEditorial[] = [];
   #badges = new Map<string, UserBadgeRow>();
 
@@ -196,8 +203,49 @@ export class MemoryRepository implements Repository {
       .map((c) => c.commentId);
   }
 
-  async reportComment(reportId: string, commentId: string, reporterId: string): Promise<void> {
+  async reportComment(reportId: string, commentId: string, reporterId: string): Promise<boolean> {
     this.#commentReports.add(`${commentId}:${reporterId}`);
+    const reporters = [...this.#commentReports].filter((k) => k.startsWith(`${commentId}:`)).length;
+    if (reporters < AUTO_HIDE_REPORTS) return false;
+    if (this.#deletedComments.has(commentId)) return false;
+    this.#deletedComments.add(commentId);
+    this.#cases.push({
+      kind: 'CASE',
+      id: `case_${this.#cases.length + 1}`,
+      subjectType: 'COMMENT',
+      subjectId: commentId,
+      detail: this.#comments.find((c) => c.commentId === commentId)?.body ?? '',
+      reports: reporters,
+      createdAt: new Date().toISOString(),
+    });
+    return true;
+  }
+
+  async restoreComment(commentId: string): Promise<void> {
+    this.#deletedComments.delete(commentId);
+    for (const c of this.#cases) if (c.subjectId === commentId) this.#resolved.add(c.id);
+  }
+
+  async listModerationQueue(limit = 100): Promise<ModerationQueueItem[]> {
+    const reports: ModerationQueueItem[] = [...this.#reports.values()].flat()
+      .filter((r) => r.status === 'OPEN')
+      .map((r) => ({
+        kind: 'REPORT' as const,
+        id: r.reportId,
+        subjectType: r.targetType,
+        subjectId: r.targetId,
+        detail: r.details ? `${r.reason} — ${r.details}` : r.reason,
+        reports: 1,
+        createdAt: r.createdAt,
+      }));
+    return [...this.#cases, ...reports]
+      .filter((i) => !this.#resolved.has(i.id))
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      .slice(0, limit);
+  }
+
+  async resolveModeration(kind: 'CASE' | 'REPORT', id: string): Promise<void> {
+    this.#resolved.add(id);
   }
 
   async countRecentComments(userId: string, since: Date): Promise<number> {
@@ -486,6 +534,35 @@ export class MemoryRepository implements Repository {
   }
 
   // --- Safety ---
+
+  async recordClientError(error: ClientErrorRecord): Promise<void> {
+    if (this.#clientErrors.some((e) => e.errorId === error.errorId)) return;
+    this.#clientErrors.push(error);
+  }
+
+  async listClientErrorGroups(sinceHours: number, limit: number): Promise<ClientErrorGroup[]> {
+    const cutoff = Date.now() - sinceHours * 3600_000;
+    const groups = new Map<string, ClientErrorRecord[]>();
+    for (const e of this.#clientErrors) {
+      if (Date.parse(e.createdAt) < cutoff) continue;
+      groups.set(e.fingerprint, [...(groups.get(e.fingerprint) ?? []), e]);
+    }
+    return [...groups.entries()]
+      .map(([fingerprint, list]) => {
+        const newest = [...list].sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0]!;
+        return {
+          fingerprint,
+          message: newest.message,
+          screen: newest.screen,
+          count: list.length,
+          devices: new Set(list.map((e) => e.installId)).size,
+          lastSeen: newest.createdAt,
+          appVersions: [...new Set(list.map((e) => e.appVersion))].join(', '),
+        };
+      })
+      .sort((a, b) => b.devices - a.devices || b.count - a.count)
+      .slice(0, limit);
+  }
 
   async createReport(report: ReportRecord): Promise<void> {
     const list = this.#reports.get(report.reporterUserId) ?? [];

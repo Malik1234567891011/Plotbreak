@@ -761,6 +761,15 @@ export const TurnStreamEventName = z.enum([
   'turn.timings',
   'media.queued',
   'media.completed',
+  /**
+   * The frame was planned and is not coming.
+   *
+   * Needed because the stream now stays open past `turn.completed` when art
+   * is pending, so something has to close it when the art does not arrive.
+   * Without this a failed or slow image job left the connection hanging until
+   * the client gave up.
+   */
+  'media.failed',
   'turn.failed',
 ]);
 export type TurnStreamEventName = z.infer<typeof TurnStreamEventName>;
@@ -770,6 +779,20 @@ export const TurnStreamEvent = z.object({
   turnId: z.string(),
   sequence: z.number().int(),
   sessionRevision: z.number().int().nullable().optional(),
+  /**
+   * Nothing follows this one.
+   *
+   * The transport used to decide this for itself by looking for
+   * `turn.completed`, in two places that had to agree — the hub, which stopped
+   * accepting events, and the route, which closed the socket. Art is enqueued
+   * before the turn completes and arrives long after it, so both of them threw
+   * the frame away: generated, stored on the turn, and never announced. The
+   * player found it later by scrolling back past a beat they had already read.
+   *
+   * The hub is the only thing that knows whether a stream is finished, so it
+   * says so here and the route obeys.
+   */
+  final: z.boolean().default(false),
   data: z.record(z.unknown()),
 });
 export type TurnStreamEvent = z.infer<typeof TurnStreamEvent>;
@@ -870,6 +893,29 @@ export const CreateReportRequest = z
   })
   .strict();
 export type CreateReportRequest = z.infer<typeof CreateReportRequest>;
+
+/**
+ * A crash report from a phone.
+ *
+ * Every field is capped, because this endpoint takes unauthenticated input and
+ * a stack trace is the one payload where "it is just text" stops being true:
+ * React Native stacks on a bad day run to tens of kilobytes, and the sender is
+ * a device that has already lost the plot.
+ */
+export const ClientErrorRequest = z
+  .object({
+    /** Stable per-install, so a relaunch loop is one device and not four hundred. */
+    installId: z.string().min(1).max(64),
+    platform: z.string().max(16).default(''),
+    appVersion: z.string().max(32).default(''),
+    osVersion: z.string().max(32).default(''),
+    locale: z.string().max(16).default(''),
+    screen: z.string().max(64).default(''),
+    message: z.string().min(1).max(2000),
+    stack: z.string().max(8000).default(''),
+  })
+  .strict();
+export type ClientErrorRequest = z.infer<typeof ClientErrorRequest>;
 
 // --- Account (§33.9) -------------------------------------------------------
 

@@ -81,7 +81,10 @@ export interface RateLimitRule {
   readonly windowMs: number;
 }
 
-export const RATE_LIMITS: Record<'turn' | 'session' | 'media' | 'write' | 'read', RateLimitRule> = {
+export const RATE_LIMITS: Record<
+  'turn' | 'session' | 'media' | 'write' | 'read' | 'diagnostics',
+  RateLimitRule
+> = {
   // Well above any human. A player thinking about a sentence takes seconds;
   // this only catches a loop.
   turn: { limit: 30, windowMs: 60_000 },
@@ -89,6 +92,11 @@ export const RATE_LIMITS: Record<'turn' | 'session' | 'media' | 'write' | 'read'
   // Image generation is the most expensive thing a client can ask for.
   media: { limit: 10, windowMs: 60_000 },
   write: { limit: 120, windowMs: 60_000 },
+  // Crash reports. Its own budget for two reasons: a crash loop must not eat
+  // the write allowance a player needs to post a comment or start a session,
+  // and an app relaunching into the same throw every two seconds should be
+  // one row a few times over rather than a thousand.
+  diagnostics: { limit: 20, windowMs: 60_000 },
   read: { limit: 300, windowMs: 60_000 },
 };
 
@@ -99,5 +107,6 @@ export function ruleFor(method: string, path: string): keyof typeof RATE_LIMITS 
   if (/\/sessions$/.test(path) && method === 'POST') return 'session';
   if (/\/fork$/.test(path) && method === 'POST') return 'session';
   if (/\/(portrait|images|media)\b/.test(path) && method === 'POST') return 'media';
+  if (path === '/v1/client-errors' && method === 'POST') return 'diagnostics';
   return method === 'GET' ? 'read' : 'write';
 }

@@ -586,7 +586,12 @@ const raw = {
               closesFlags: [],
             },
           ],
-          rewards: { xp: 90, items: [], flags: [] },
+          // `summoned` unlocks the director's office, and nothing set it — so
+          // the office was unreachable and `q_the_book`'s route through it,
+          // which wants `visited:directors_office`, could never be taken. All
+          // four routes here prove Act Two, and being sent for afterwards is
+          // what the flag was always describing.
+          rewards: { xp: 90, items: [], flags: ['summoned'] },
         },
       ],
     },

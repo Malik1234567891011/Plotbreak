@@ -67,7 +67,8 @@ export const onboarding = {
    * `Continuer`. It is identical to the English word and that is a coincidence
    * of spelling, not an untranslated string.
    */
-  'onboarding.continue': 'Continue',
+  /** A button, so the infinitive. Shipped as the English word for months. */
+  'onboarding.continue': 'Continuer',
   /**
    * ⚠️ These two name published legal documents, so they must match whatever
    * the French versions are actually titled once they exist — if the published
