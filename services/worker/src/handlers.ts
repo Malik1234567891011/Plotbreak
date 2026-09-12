@@ -39,6 +39,8 @@ export interface HeroImageJob {
   readonly storyVersionId: string;
   readonly locationId: string;
   readonly presentCharacterIds: readonly string[];
+  /** Named people who are elsewhere, so the frame can be told to omit them. */
+  readonly absentCharacterIds?: readonly string[];
   readonly shotType: string;
   readonly sceneFacts: readonly string[];
   /**
@@ -47,6 +49,7 @@ export interface HeroImageJob {
    * because none of this was sent.
    */
   readonly player?: {
+    readonly name?: string;
     readonly appearance?: string;
     readonly condition?: string;
     readonly carrying?: readonly string[];
@@ -91,10 +94,15 @@ export function registerHandlers(queue: JobQueue, deps: HandlerDeps): void {
         .map((id) => story.characters.find((c) => c.id === id))
         .filter((c): c is CharacterDef => !!c);
 
+      const absentCharacters = (payload.absentCharacterIds ?? [])
+        .map((id) => story.characters.find((c) => c.id === id))
+        .filter((c): c is CharacterDef => !!c);
+
       const spec = heroFramePrompt({
         story,
         locationId: payload.locationId,
         presentCharacters,
+        absentCharacters,
         shotType: payload.shotType,
         turnId: payload.turnId,
         sceneFacts: payload.sceneFacts,

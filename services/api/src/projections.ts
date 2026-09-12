@@ -1,4 +1,10 @@
-import { abilityEffect, archetypeGrants } from '@plotbreak/contracts';
+import {
+  abilityEffect,
+  archetypeGrants,
+  knownExpression,
+  reactionAssetKey,
+  toReactionEmotion,
+} from '@plotbreak/contracts';
 import type {
   ContinueCard,
   GameEvent,
@@ -214,7 +220,15 @@ export function toSessionSummary(record: SessionRecord, story: StoryVersion, sta
   };
 }
 
-export function toSceneState(rawStory: StoryVersion, state: GameState): SessionSceneState {
+/**
+ * @param lastTurn The beat the player is looking at, when there is one. Its
+ * media plan is the only record of how anybody's face is currently set.
+ */
+export function toSceneState(
+  rawStory: StoryVersion,
+  state: GameState,
+  lastTurn?: { readonly mediaPlan: { readonly expressions?: Record<string, string> } | null } | null,
+): SessionSceneState {
   // Spec §11.9 — the client sees the composed world, or a player standing in a
   // place they made turns into a raw id on the HUD.
   const story = composeStory(rawStory, state);
@@ -245,14 +259,35 @@ export function toSceneState(rawStory: StoryVersion, state: GameState): SessionS
       .map((runtime) => {
         const def = story.characters.find((c) => c.id === runtime.characterId);
         if (!def) return null;
+        /**
+         * How this person's face is set, from the beat the player is reading.
+         *
+         * These three fields were hardcoded to `neutral` and `null`, for every
+         * character, on every turn — so the portrait row on the stage showed
+         * the same flat portrait whatever had just happened, and
+         * `character.reactionUrl ?? character.portrait` in the client fell
+         * through to the portrait forever. The reaction *stream* works: a
+         * `reaction.ready` arrives about two and a half seconds into a turn
+         * and the client draws it. But that one is transient, for the person
+         * the beat is about, and it goes when the turn commits. This is the
+         * persistent version, for everybody in the room, and it survives a
+         * reload.
+         *
+         * Routed through `toReactionEmotion` rather than used raw, because a
+         * world authors expressions in its own words — `determined`, `sulking`
+         * — and only the eight drawn faces exist on disk. `story_ace/ace_determined`
+         * is a 404; `story_ace/luffy_annoyed` is not.
+         */
+        const authored = lastTurn?.mediaPlan?.expressions?.[def.id];
+        const emotion = authored && knownExpression(authored) ? toReactionEmotion(authored) : null;
         return {
           id: def.id,
           name: def.name,
           portrait: resolveAssetUrl(def.portrait, story.version),
-          expression: 'neutral',
+          expression: emotion ?? 'neutral',
           speaking: false,
-          reactionUrl: null,
-          reactionEmotion: null,
+          reactionUrl: emotion ? resolveAssetUrl(reactionAssetKey(story.storyId, def.id, emotion)) : null,
+          reactionEmotion: emotion,
         };
       })
       .filter((c): c is NonNullable<typeof c> => c !== null),

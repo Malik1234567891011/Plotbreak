@@ -443,7 +443,9 @@ export async function generateResponses(
       // and the model complies most of the time, which is not a standard.
       .map((r) => (locale === 'fr' ? { ...r, text: frenchTypography(r.text) } : r));
 
-    const offered = distinct(responses, context.recentSuggestions).slice(0, 3);
+    const offered = await playable(gateway, distinct(responses, context.recentSuggestions)).then(
+      (cards) => cards.slice(0, 3),
+    );
     return offered.length >= 2 ? offered : null;
   } catch (error) {
     if (error instanceof ModelGatewayError) return null;
@@ -508,6 +510,42 @@ export function distinct<T extends { text: string }>(
     kept.push(card);
   }
   return kept.length >= 2 ? kept : [...cards];
+}
+
+/**
+ * A card the game will still accept when the player presses it.
+ *
+ * The worst thing in the forty-turn Ace log is not a bad sentence, it is this:
+ * the game offered *"Dadan, I'm starving. What's the damage? And don't say
+ * burnt again or I'll throw you in the fire instead of the food!"*, the player
+ * tapped it, and the server answered **"That takes the story somewhere it
+ * cannot go."** The product said press this, and then said you may not press
+ * that.
+ *
+ * The direct cause was a moderation category that should never have been
+ * blocking, and that is fixed in `gateway/openai.ts`. This is the structural
+ * half, and it is the half that matters: whatever the input gate is set to
+ * *today*, a card that would not survive it must not be shown. The two now
+ * cannot disagree, because the card is run through the same moderator the turn
+ * will run it through, before the player ever sees it.
+ *
+ * Off the critical path — cards are written after the beat is on screen — and
+ * the calls go out together, so this costs one round trip, not three. A
+ * moderation outage drops nothing: the turn gate falls back to the narrow
+ * rules, and so does this, by keeping the card.
+ */
+async function playable<T extends { text: string }>(
+  gateway: ModelGateway,
+  cards: readonly T[],
+): Promise<T[]> {
+  const verdicts = await Promise.all(
+    cards.map((card) => gateway.moderate(card.text).catch(() => null)),
+  );
+  const kept = cards.filter((_, i) => !verdicts[i]?.flagged);
+  // Everything was refused, which means the gate is wrong rather than the
+  // cards: three unpressable cards is a dead end, and the rule-built
+  // suggestions the caller falls back to are a better one.
+  return kept.length > 0 ? kept : [];
 }
 
 /**

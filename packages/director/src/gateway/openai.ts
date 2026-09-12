@@ -61,11 +61,36 @@ const PRICING: Record<string, { input: number; output: number }> = {
  * serve, so only the categories with no legitimate place in it block a turn.
  * Everything the provider flags is still reported in `categories` for review.
  */
+/**
+ * The categories that stop a turn, which is not the same as the categories the
+ * classifier reports.
+ *
+ * `violence` is deliberately absent and always has been: "I hit him as hard as
+ * I can" trips it, and a world about pirates that refuses that sentence is not
+ * a product. Measured against the live classifier, every one of these trips
+ * `violence` and nothing else — an ordinary punch, a threat to break somebody's
+ * legs, going for a guard's throat.
+ *
+ * `harassment/threatening` was in this set and is the same mistake one level
+ * up. It fired on a card **the game itself wrote**: Ace shouting at Dadan,
+ * *"don't say burnt again or I'll throw you in the fire instead of the food"* —
+ * cartoon banter between a boy and the woman who raises him, in a story where
+ * that is the relationship. The player tapped the game's own suggestion and got
+ * "That takes the story somewhere it cannot go."
+ *
+ * A threat aimed at a character is what dialogue in these worlds is made of.
+ * Spec §29.2 asks this layer to classify *request and context* rather than
+ * keyword-block fantasy violence, and blocking on a threat to an NPC is exactly
+ * the keyword-blocking it forbids. A credible threat against a real person is a
+ * different thing and the rule-based floor still catches it.
+ *
+ * `hate/threatening` stays. Hate speech against a protected group is not a
+ * medium any of these stories need, and no world here is worse for refusing it.
+ */
 const BLOCKING_CATEGORIES = new Set([
   'sexual/minors',
   'self-harm/instructions',
   'self-harm/intent',
-  'harassment/threatening',
   'hate/threatening',
   'illicit/violent',
 ]);

@@ -1178,7 +1178,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
 
     return {
       session: toSessionSummary(session, story, state, turns.length),
-      scene: toSceneState(story, state),
+      scene: toSceneState(story, state, last),
       // Spec §10.2 C — recent beats only; history is paged separately.
       // Projected, so the exact DC and the raw mutations stay server-side.
       recentTurns: turns.slice(-8).map((turn) => toPlayerTurn(story, turn, state.locale)),

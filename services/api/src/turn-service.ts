@@ -1,6 +1,6 @@
 import type { GameState, QualityTier, StoryVersion, TurnRecord } from '@plotbreak/contracts';
 import { QUALITY_TIERS } from '@plotbreak/contracts';
-import { dayPart, deriveTurnSeed, outcomeLabel, formatCheckMath, dcBandLabel } from '@plotbreak/engine';
+import { charactersPresent, dayPart, deriveTurnSeed, outcomeLabel, formatCheckMath, dcBandLabel } from '@plotbreak/engine';
 import { runTurn } from '@plotbreak/director';
 import type { AppContext } from './context.js';
 import { resolveAssetUrl, toSceneState } from './projections.js';
@@ -83,6 +83,38 @@ export class ContentBlockedError extends Error {
     super(message);
     this.name = 'ContentBlockedError';
   }
+}
+
+/** Exported for the grounding spec; the payload is otherwise unreachable. */
+export const heroCastForTest = (state: GameState, preferred: readonly string[]): string[] =>
+  heroCast(state, preferred);
+export const absentNotablesForTest = (state: GameState, story: StoryVersion): string[] =>
+  absentNotables(state, story);
+
+/**
+ * The cast of a hero frame: the director's ordering, the engine's membership.
+ */
+function heroCast(state: GameState, preferred: readonly string[]): string[] {
+  const here = charactersPresent(state).map((c) => c.characterId);
+  const inRoom = new Set(here);
+  const ordered = preferred.filter((id) => inRoom.has(id));
+  return (ordered.length > 0 ? ordered : here).slice(0, 3);
+}
+
+/**
+ * Named people who are somewhere else.
+ *
+ * Capped, and only characters the art is likely to know how to draw, because a
+ * long list of names in a negative clause stops working. Dadan turning up in
+ * Gray Terminal is the case this exists for.
+ */
+function absentNotables(state: GameState, story: StoryVersion): string[] {
+  const inRoom = new Set(charactersPresent(state).map((c) => c.characterId));
+  return story.characters
+    .filter((c) => !inRoom.has(c.id))
+    .filter((c) => !!c.visualHook || !!c.portrait)
+    .map((c) => c.id)
+    .slice(0, 6);
 }
 
 export async function submitTurn(args: SubmitTurnArgs): Promise<AcceptedTurn> {
@@ -312,13 +344,63 @@ async function processTurn(
           sessionId: session.sessionId,
           storyVersionId: session.storyVersionId,
           locationId: result.state.player.locationId,
-          presentCharacterIds: result.plan.mediaPlan.activeCharacterIds,
+          /**
+           * Who the engine has in the room, not who the director named.
+           *
+           * `activeCharacterIds` is the model's pick of up to three, and it
+           * went to the image generator unchecked. On turn 13 of the
+           * forty-turn Ace run it was `["luffy","sabo","dadan"]` while the
+           * player stood on Mount Colubo and Dadan was down at the house — and
+           * the frame came back as Dadan's camp, with Dadan in it, for a beat
+           * set in the forest. On turn 20 it was `[]`, and an empty cast is
+           * how the generator ends up inventing three people.
+           *
+           * So the director's pick is treated as an ordering preference and
+           * the engine's `charactersPresent` as the authority: anybody not in
+           * the room is dropped, and if nothing survives, the room itself is
+           * the cast.
+           */
+          presentCharacterIds: heroCast(result.state, result.plan.mediaPlan.activeCharacterIds),
+          /**
+           * Notable people who are *not* here, so the prompt can say so.
+           * Naming the absent is the only reliable way to keep them out.
+           */
+          absentCharacterIds: absentNotables(result.state, story),
           shotType: result.plan.mediaPlan.heroImage.shotType,
-          sceneFacts: result.resolution.observableFacts,
+          /**
+           * What the frame is of. Never empty.
+           *
+           * This was `observableFacts` alone, and on a conversational turn the
+           * engine has nothing observable to report — measured empty on turns
+           * 13 and 25 of the forty-turn run. The prompt then contained a
+           * style, a framing, a location and a cast, and **no statement of
+           * what was happening**, which is how it falls back to a generic
+           * scene from the source material. The beat plan's dramatic focus is
+           * engine-side and written before the prose, so it keeps the rule
+           * that an image never depicts something the engine did not agree to.
+           */
+          sceneFacts:
+            result.resolution.observableFacts.length > 0
+              ? result.resolution.observableFacts
+              : [result.plan.dramaticFocus].filter((f): f is string => !!f && f.length > 0),
           // What the player looks like and how they are doing, so the frame is
           // of this run rather than of the world in general.
           player: {
-            appearance: result.state.player.identity.advanced.appearance ?? undefined,
+            name: story.protagonist.kind === 'NAMED' ? story.protagonist.name : undefined,
+            /**
+             * A named protagonist has an authored appearance and it was never
+             * being sent: `identity.advanced.appearance` is null unless the
+             * player wrote one, so the prompt said "the player is in this
+             * shot, keep their face turned" and nothing else. With no
+             * description of who the body belongs to, the generator drew the
+             * most recognisable child it had been given — Luffy, straw hat and
+             * all, three times, and twice with Luffy *also* in the frame. Ace's
+             * own line, "Ten. Wiry, freckled, black hair that will not do
+             * anything", was sitting on the story the whole time.
+             */
+            appearance:
+              result.state.player.identity.advanced.appearance ??
+              (story.protagonist.kind === 'NAMED' ? story.protagonist.description : undefined),
             condition: playerCondition(result.state),
             carrying: result.state.player.inventory
               .filter((e) => e.equipped)
@@ -383,7 +465,7 @@ async function processTurn(
         balance,
         // The updated stage ships with the completion event so the client can
         // repaint without a round-trip.
-        scene: toSceneState(story, result.state),
+        scene: toSceneState(story, result.state, { mediaPlan: result.plan.mediaPlan }),
       },
       result.state.revision,
     );

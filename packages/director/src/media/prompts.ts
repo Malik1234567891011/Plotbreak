@@ -659,11 +659,15 @@ export function heroFramePrompt(input: {
   story: StoryVersion;
   locationId: string;
   presentCharacters: readonly CharacterDef[];
+  /** Named people who are somewhere else, so the frame can be told to omit them. */
+  absentCharacters?: readonly CharacterDef[];
   shotType: string;
   turnId: string;
   sceneFacts: readonly string[];
   /** How the player looks right now, and how they are doing. */
   player?: {
+    /** The protagonist's name, when the world gives them one. */
+    name?: string;
     appearance?: string;
     /** "unhurt" | "hurt" | "badly hurt" — a word, never a number. */
     condition?: string;
@@ -694,17 +698,62 @@ export function heroFramePrompt(input: {
   );
 
   const player = input.player;
+  /**
+   * Who the body in the foreground belongs to.
+   *
+   * This used to say only that the player is in the shot and their face should
+   * be turned away — and with no description of them, the generator drew the
+   * most recognisable child it had been handed. Three frames of the forty-turn
+   * Ace run put Luffy's straw hat on the over-the-shoulder figure, and two of
+   * those had Luffy in the frame as well, so the same boy appeared twice in one
+   * picture. A fourth drew Ace at twice his age, with the tattoo and hat he
+   * gets a decade later, because "Ace" as a name pulls harder than anything
+   * else in the prompt.
+   *
+   * So the protagonist is named, described, separated from the cast by name,
+   * and pinned to this story's version of themselves.
+   */
   const playerLine = player
     ? compose([
-        'The player character is in this shot and their face is deliberately not fixed — keep it turned,',
-        'obscured, at the edge of frame, or seen from behind, so the viewer can be them.',
+        player.name
+          ? `The foreground body, seen from behind or at the edge of frame, is ${player.name}, the player.`
+          : 'The player character is in this shot.',
+        'Their face is deliberately not fixed — keep it turned, obscured, at the edge of frame, or seen',
+        'from behind, so the viewer can be them.',
         player.appearance ? `What is fixed about them: ${player.appearance}.` : null,
+        player.name
+          ? `${player.name} is NOT any of the characters listed above, and must not be drawn wearing ` +
+            `their clothes or hats. Draw ${player.name} exactly as described here and at exactly that ` +
+            'age — no older, no other era or version of this character, and none of the costume, marks ' +
+            'or insignia they are known for at any other point in their life.'
+          : null,
         player.condition && player.condition !== 'unhurt' ? `They are ${player.condition}: show it.` : null,
         player.carrying && player.carrying.length > 0
           ? `Visibly carrying or wearing: ${player.carrying.join(', ')}.`
           : null,
       ])
     : null;
+
+  /**
+   * The frame's cast list, closed.
+   *
+   * Nothing said the cast was exhaustive, so the generator added whoever the
+   * source material suggested — Dadan in the middle of Gray Terminal, extra
+   * children in a two-person beat. Naming the absent works better than a bare
+   * "nobody else": a negative needs something to attach to.
+   */
+  const absent = (input.absentCharacters ?? []).map((c) => c.name);
+  const castRule = compose([
+    input.presentCharacters.length > 0
+      ? `ONLY these characters appear in this frame: ${input.presentCharacters.map((c) => c.name).join(', ')}` +
+        `${player?.name ? `, and ${player.name} as described above` : ''}. Nobody else is in the picture — ` +
+        'no extra bystanders, no crowd of named faces.'
+      : `No named character is in this frame${player?.name ? ` except ${player.name} as described above` : ''}.`,
+    'Each character appears exactly once. Never draw the same character twice in one image.',
+    absent.length > 0
+      ? `These people are somewhere else entirely and must NOT appear: ${absent.join(', ')}.`
+      : null,
+  ]);
 
   return {
     assetKey: heroFrameAssetKey(input.turnId),
@@ -720,9 +769,15 @@ export function heroFramePrompt(input: {
       location?.artDirection,
       cast.length > 0 ? `Characters present. ${cast.join(' ')}` : null,
       playerLine,
+      castRule,
       input.timeOfDay ? `Time of day: ${input.timeOfDay}.` : null,
       // The scene facts are the authoritative record of what just happened, so
       // they lead rather than decorate: this frame is of that, not of the room.
+      // The location is named, not only art-directed. "Bright dense green,
+      // hard tropical daylight" describes a forest and does not say *which*
+      // forest, and a prompt that never names the place drifts to whichever
+      // place the source material makes most available.
+      location ? `The place is ${location.name}, and the frame is set there and nowhere else.` : null,
       input.sceneFacts.length > 0
         ? `This frame is of this moment specifically: ${input.sceneFacts.slice(0, 3).join(' ')}`
         : null,
