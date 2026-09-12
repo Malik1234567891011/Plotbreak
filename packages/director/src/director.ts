@@ -1155,6 +1155,31 @@ const HERO_SPACING: Record<string, number> = {
 /** Nothing overrides the floor twice running. Even a death gets one frame. */
 const HERO_HARD_FLOOR = 2;
 
+/**
+ * How long the opening is, in turns.
+ *
+ * The first ten turns of any world are the ones that decide whether somebody
+ * keeps playing, and they are also the ones most likely to earn a frame
+ * honestly: a first location, a first meeting, a first check, a first person
+ * who changes their mind about you. The ordinary spacing was refusing them.
+ * A real five-turn session went: turn 1 earned a frame, turn 2 hit the floor,
+ * and turns 3 and 4 both came back "worth a frame, but only 2 / 3 turns since
+ * the last one" — two beats that had earned art and did not get it, in the
+ * five turns where it mattered most.
+ */
+const OPENING_TURNS = 10;
+
+/**
+ * Spacing during the opening. One, meaning none.
+ *
+ * Deliberately not a relaxation of what *earns* a frame — `landmark` and
+ * `notable` are untouched, so nothing random appears and an ordinary beat
+ * still gets nothing. It only stops a beat that has already earned one from
+ * being told to wait. After the opening the tier spacing takes over and the
+ * story settles into its rhythm.
+ */
+const OPENING_SPACING = 1;
+
 export function heroImageDecision(
   context: TurnContext,
   beatType: BeatType,
@@ -1217,9 +1242,12 @@ export function heroImageDecision(
     scene.locationChanged ||
     socialTurn;
 
-  const spacing = HERO_SPACING[tier] ?? 10;
+  // The opening is heavier on purpose. See OPENING_TURNS.
+  const opening = context.state.turnIndex < OPENING_TURNS;
+  const spacing = opening ? OPENING_SPACING : (HERO_SPACING[tier] ?? 10);
+  const floor = opening ? OPENING_SPACING : HERO_HARD_FLOOR;
   const spacedOut = since === null || since >= spacing;
-  const floorClear = since === null || since >= HERO_HARD_FLOOR;
+  const floorClear = since === null || since >= floor;
 
   const eligible = landmark ? floorClear : notable && spacedOut;
 
@@ -1227,11 +1255,13 @@ export function heroImageDecision(
     return {
       eligible: false,
       reason:
-        since !== null && since < HERO_HARD_FLOOR
+        since !== null && since < floor
           ? 'A frame appeared a moment ago; the stage carries this one.'
           : landmark || notable
             ? `Worth a frame, but only ${since} turns since the last one.`
-            : 'Ordinary beat; the persistent stage covers it.',
+            : opening
+              ? 'Ordinary beat, even for an opening; the persistent stage covers it.'
+              : 'Ordinary beat; the persistent stage covers it.',
       shotType: 'NONE',
     };
   }
