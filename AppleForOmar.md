@@ -87,27 +87,56 @@ clearing before any paid app ships, independent of this one.
 
 ---
 
-## 2b. What is still open on the App Store Connect record
+## 2b. The App Store listing
 
-Done on 2026-09-12: the app record, the six credit packs, the category
-(Games → Role Playing / Adventure), the subtitle, the privacy policy URL
-(`https://www.plotbreak.com/privacy`), and English and French storefronts.
+Written and applied on 2026-09-12 by `infra/scripts/appstore-metadata.mjs`.
+The copy lives in that file rather than only in App Store Connect, so it can be
+read, corrected and re-applied. It dry-runs unless passed `--apply`, and it
+checks every field against Apple's limits before sending anything.
 
-Still open, and each needs a person:
+Done: description, keywords and promotional text in English and French; support
+and marketing URLs; the privacy policy URL; the subtitle; the category
+(Games → Role Playing / Adventure); and the note App Review reads.
 
-- **Price: Free.** Not set. Setting an app's price is a commercial decision, so
-  it was deliberately left alone. *Pricing and Availability → set the app to
-  Free.* Without it the version cannot be submitted.
-- **Age rating.** Not set. It is a declaration about content the developer makes
-  under their own name, and this app generates open-ended text, which changes
-  the honest answers. The content the engine can produce is enumerated as
-  `ContentDescriptor` in `packages/contracts/src/game/economy.ts` — fantasy
+The reviewer note says there is **no demo account**, because there is no need
+for one: the app plays as a guest straight after the age gate. It also spells
+out where the in-app purchases are, what stops the model deciding outcomes, and
+what happens to a purchase the server cannot confirm. Those are the two things
+that get an app like this rejected — a reviewer who cannot get in, and a
+reviewer who cannot see the safety story.
+
+Also shipped: `apps/ios/Plotbreak/PrivacyInfo.xcprivacy`. Apple requires it, and
+the port had lost the one the React Native app carried. It is deliberately
+narrower than that one — the old manifest declared the file-timestamp and
+disk-space APIs because `expo-file-system` used them, and the Swift app does
+not. It declares UserDefaults, and the three things the app collects: email and
+user id when somebody signs in, and the player's own written content.
+
+---
+
+## 2c. What is still open, and who has to do it
+
+- **Screenshots.** Required. 6.9-inch iPhone, 1320 × 2868 or 1290 × 2796
+  portrait, up to ten, first three are what people actually see. The iPhone 16
+  Pro Max simulator produces exactly 1320 × 2868 with
+  `xcrun simctl io booted screenshot out.png`.
+- **Price: Free.** Not set. Setting a price is a commercial decision, so it was
+  left alone. *Pricing and Availability → Free.* The version cannot be
+  submitted without it.
+- **Age rating.** Not set. It is a declaration made under the account holder's
+  name, and this app generates open-ended text, which changes the honest
+  answers. The content the engine can produce is enumerated as
+  `ContentDescriptor` in `packages/contracts/src/game/story.ts` — fantasy
   violence, romance, suggestive themes, horror, psychological themes, alcohol
   references, language — and that list is the right starting point.
-- **Screenshots and description.** Need marketing assets and copy that do not
-  exist yet. The App Store wants 6.5" iPhone screenshots at minimum.
-- **A build.** Nothing has been uploaded to TestFlight. Until a build exists the
-  in-app purchases cannot be submitted, because consumables ship with a version.
+- **App Privacy answers.** The questionnaire in App Store Connect is separate
+  from the bundled manifest and has to be filled in by hand. `PrivacyInfo.xcprivacy`
+  has the true answers: email address, user id and user content, all linked to
+  the user, none used for tracking, all for app functionality.
+- **A build.** Nothing has been uploaded. Until one is, the in-app purchases
+  cannot be submitted, because consumables ship with an app version.
+- **App Review contact details.** Name, phone and email on the submission form.
+  Left blank deliberately — they are a real person's details, not ours to invent.
 
 ---
 
