@@ -143,6 +143,24 @@ describe('what the story has put in front of the player', () => {
     expect(twice).toContain('Riku@gate_arch');
   });
 
+  it('does not mistake the first person for a person', () => {
+    // Found on the re-test, after the sentence-initial fix: the mention list
+    // came back holding `I’m`, `I’ll`, `I’ve`, `And I’m` and `But I’ll`. Every
+    // one of them would have matched inside almost any sentence the player
+    // typed, and `promoteAddressee` would have made a character out of it.
+    const text = 'I’m not stopping. And I’ll be at the top before you. I’ve done it twice.';
+    expect(recordMentions(text, NINTH_ARCHIVE, 'gate_arch', nextId)).toEqual([]);
+  });
+
+  it('records a name without its possessive', () => {
+    const names = recordMentions(
+      'You can hear Rennick’s dogs from the ridge, and Rennick is not far behind them.',
+      NINTH_ARCHIVE, 'gate_arch', nextId,
+    ).map((m) => m.payload.value);
+    expect(names).toContain('Rennick@gate_arch');
+    expect(names).not.toContain('Rennick’s@gate_arch');
+  });
+
   it('matches a mentioned name as a word, not as a run of letters', () => {
     const s = state();
     s.flags[mentionFlag('Ryo')] = 'Ryo@gate_arch';

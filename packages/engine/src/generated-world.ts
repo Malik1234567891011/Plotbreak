@@ -159,14 +159,29 @@ export function recordMentions(
   }
 
   const candidates = new Set<string>();
-  for (const { name, initial } of seen) {
+  for (const { name: raw, initial } of seen) {
+    // "Luffy's straw hat" offered a name called `Luffy’s`, which the world
+    // does not have and which then sat one apostrophe away from being
+    // promoted into a second Luffy.
+    const name = stripPossessive(raw);
     const lower = name.toLowerCase();
     if (known.has(lower)) continue;
     if (SENTENCE_STARTERS.has(lower)) continue;
+    // A capitalised word is not a name when it is the first person.
+    //
+    // Found on the re-test after the sentence-initial fix above: the mention
+    // list came back holding `I’m`, `I’ll`, `I’ve`, `And I’m` and `But I’ll`.
+    // They pass everything else — capitalised, three characters long, used
+    // mid-sentence — and `matchMention` would have found "i’m" inside almost
+    // any sentence the player typed, which is the phantom-character bug again
+    // with a different word in it. A capital I before an apostrophe is the
+    // pronoun, in every English sentence there is; nothing is named that.
+    const words = name.split(/\s+/);
+    if (words.some(isFirstPerson)) continue;
     // A multi-word name whose every word is already known is the world's own.
-    const words = lower.split(/\s+/);
-    if (words.every((w) => known.has(w) || SENTENCE_STARTERS.has(w))) continue;
-    if (initial && words.length === 1 && !midSentence.has(lower)) continue;
+    const lowerWords = lower.split(/\s+/);
+    if (lowerWords.every((w) => known.has(w) || SENTENCE_STARTERS.has(w))) continue;
+    if (initial && lowerWords.length === 1 && !midSentence.has(lower)) continue;
     candidates.add(name);
   }
 
@@ -215,6 +230,16 @@ function decodeMention(value: string): { name: string; locationId: string } {
   const at = value.lastIndexOf('@');
   if (at <= 0) return { name: value, locationId: '' };
   return { name: value.slice(0, at), locationId: value.slice(at + 1) };
+}
+
+/** `Luffy’s` and `Luffy's` are both Luffy. */
+function stripPossessive(name: string): string {
+  return name.replace(/['’]s$/i, '').trim();
+}
+
+/** The pronoun, alone or in a contraction. Never anybody's name. */
+function isFirstPerson(word: string): boolean {
+  return /^I$/.test(word) || /^I['’]/.test(word);
 }
 
 /** Words that start sentences and are not names. */

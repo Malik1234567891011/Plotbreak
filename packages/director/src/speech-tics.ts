@@ -1,3 +1,5 @@
+import { nameKeys } from '@plotbreak/contracts';
+
 /**
  * A character who says the same word first, every time.
  *
@@ -106,13 +108,21 @@ export function findSpeechTics(
  * "Look — nobody checks the eastern gate before noon" loses two words and
  * keeps everything that matters; "Ace." on its own is the whole line and is
  * left alone, because a character saying only a name is a beat, not a habit.
+ *
+ * Names are matched a word at a time, which the first version did not do and
+ * which cost it half the bug. Ace's protagonist is "Portgas D. Ace"; Luffy
+ * opened twenty lines with "Ace!"; `"ace" === "portgas d. ace"` is false, so
+ * every one of them survived the repair. Nobody is addressed by their full
+ * name, which is the whole reason `nameKeys` exists.
  */
 export function stripOpener(text: string, speakerNames: readonly string[]): string {
   const match = OPENER.exec(text);
   if (!match) return text;
   const word = match[1]!.toLowerCase();
-  const removable =
-    FILLER.has(word) || speakerNames.some((name) => name.toLowerCase() === word);
+  const addressed = new Set(
+    speakerNames.flatMap((name) => nameKeys(name)).map((key) => key.toLowerCase()),
+  );
+  const removable = FILLER.has(word) || addressed.has(word);
   if (!removable) return text;
 
   const lead = text.slice(0, match.index);

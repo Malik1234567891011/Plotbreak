@@ -290,13 +290,9 @@ async function main(): Promise<void> {
     // turns of transcript printed a bare location and read as a session where
     // no time passed at all. It had; 115 minutes of it. The tool was lying
     // about the one thing it was there to record.
-    const header = [
-      scene.locationName,
-      scene.dayNumber ? `Day ${scene.dayNumber}` : null,
-      scene.worldTimeLabel,
-    ]
-      .filter(Boolean)
-      .join(' · ');
+    // `worldTimeLabel` is already "Day 1 · 9:46 AM", so adding the day number
+    // beside it printed "Day 1 · Day 1 · 9:46 AM". One field, not three.
+    const header = [scene.locationName, scene.worldTimeLabel].filter(Boolean).join(' · ');
     if (header) {
       say(`*${header}*`);
       say();

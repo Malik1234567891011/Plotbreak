@@ -70,6 +70,16 @@ describe('the repair takes the tic, not the line', () => {
     );
   });
 
+  it('matches the name people actually use, not the one on the record', () => {
+    // Ace's protagonist is "Portgas D. Ace" and Luffy calls him "Ace". The
+    // first version compared the whole string and stripped none of the twenty
+    // lines that opened with it.
+    expect(stripOpener('Ace! I’m coming. You said keep up.', ['Portgas D. Ace'])).toBe(
+      'I’m coming. You said keep up.',
+    );
+    expect(stripOpener('Dadan! Get down here.', ['Curly Dadan'])).toBe('Get down here.');
+  });
+
   it('leaves a line that is only the name', () => {
     expect(stripOpener('Ace.', ['Ace'])).toBe('Ace.');
   });
