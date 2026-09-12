@@ -8,6 +8,7 @@ import type { TurnContext } from './context.js';
 import { findFourthWallBreaks, fourthWallRepairNote } from './fourth-wall.js';
 import { findEmptyConsequences, stripEmptyConsequences } from './empty-consequence.js';
 import { findAbsenceOfPresent, findPresenceOfAbsent } from './present-absence.js';
+import { findInventedHistory } from './invented-history.js';
 
 /** Words that make a following "you" an object rather than somebody addressed. */
 const PREPOSITIONS = [
@@ -19,6 +20,15 @@ const PREPOSITIONS = [
 
 /** Kept in one place so the repair can find its own findings. */
 const EMPTY_CONSEQUENCE_MARKER = 'Names a change without naming what changed';
+
+/**
+ * The same, for history the engine can disprove.
+ *
+ * Sentence-level like the empty consequence, and for the same reason: the beat
+ * around an invented bruise is usually fine, and dropping the whole block over
+ * one clause would cost the player a turn they paid for.
+ */
+const INVENTED_HISTORY_MARKER = 'Invents something that did not happen';
 import {
   NAME_SPAM_MARKER,
   NAME_SPAM_THRESHOLD,
@@ -235,6 +245,27 @@ export function validateNarrative({ context, turn }: ValidateOptions): Consisten
       'ERROR',
       `${claim.name} is in this location, but the prose writes them out of it: "${claim.sentence}"`,
       claim.blockIndex,
+    );
+  }
+
+  // --- UNSUPPORTED_STATE: a past the run does not have ---
+  //
+  // Ace, turn 12: `Strike Sabo · Hard · FAILURE`. Turn 13: "He's got a split
+  // lip from earlier — your doing". Turn 15 was describing the bruise coming
+  // up. The miss became a landed hit because a landed hit is better prose, and
+  // then stayed landed, because every later beat read the earlier ones as
+  // canon. See `invented-history.ts`.
+  for (const hit of findInventedHistory(turn.blocks, {
+    story,
+    state,
+    memoryText: context.retrievedFacts.map((f) => f.fact.text),
+    playerName: state.player.identity.displayName,
+  })) {
+    push(
+      'UNSUPPORTED_STATE',
+      'ERROR',
+      `${INVENTED_HISTORY_MARKER}: ${hit.reason} "${hit.sentence}"`,
+      hit.blockIndex,
     );
   }
 
@@ -556,6 +587,40 @@ export function repairNarrative(
     report = {
       ...report,
       violations: report.violations.filter((v) => !v.description.startsWith(EMPTY_CONSEQUENCE_MARKER)),
+    };
+  }
+
+  // Invented history: take out the sentence that makes the claim, keep the
+  // beat. The quoted sentence is carried in the description so the repair does
+  // not have to guess which one it was.
+  const invented = report.violations.filter((v) => v.description.startsWith(INVENTED_HISTORY_MARKER));
+  if (invented.length > 0) {
+    const quoted = new Map<number, string[]>();
+    for (const violation of invented) {
+      if (typeof violation.blockIndex !== 'number') continue;
+      const sentence = violation.description.match(/"([^"]+)"\s*$/)?.[1];
+      if (!sentence) continue;
+      quoted.set(violation.blockIndex, [...(quoted.get(violation.blockIndex) ?? []), sentence]);
+    }
+    turn = {
+      ...turn,
+      blocks: turn.blocks
+        .map((block, index) => {
+          const drop = quoted.get(index);
+          if (!drop) return block;
+          const kept = block.text
+            .split(/(?<=[.!?…])\s+/)
+            .filter((sentence) => !drop.some((bad) => sentence.trim() === bad.trim()))
+            .join(' ')
+            .replace(/\s{2,}/g, ' ')
+            .trim();
+          return { ...block, text: kept };
+        })
+        .filter((block) => block.text.trim().length > 0),
+    };
+    report = {
+      ...report,
+      violations: report.violations.filter((v) => !v.description.startsWith(INVENTED_HISTORY_MARKER)),
     };
   }
 

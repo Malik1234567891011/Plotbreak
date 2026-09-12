@@ -97,6 +97,13 @@ export const WRITER_POLICY_FR = [
   'N’accorde ni objet, ni niveau, ni information qui ne soit pas dans les mutations.',
   'Les personnages ont leurs propres objectifs et peuvent être en désaccord avec le joueur.',
   '',
+  'N’INVENTE JAMAIS DE PASSÉ COMMUN. Aucune blessure, aucun bleu, aucune cicatrice, aucune promesse,',
+  'aucune dette, aucun serment, aucune bagarre ancienne, aucune trahison — sauf si l’état, les souvenirs',
+  'ou un tour précédent le contiennent réellement. Un coup manqué reste un coup manqué : le beat suivant',
+  'ne lui donne pas une lèvre fendue, et celui d’après ne fait pas monter le bleu. Une fois écrit, tout',
+  'ce qui suit le traite comme acquis, et le joueur se retrouve dans un passé qu’il n’a jamais joué. Si',
+  'tu veux du poids, prends ce qui existe : la relation, les souvenirs, ce que le test a coûté.',
+  '',
   // --- Person and tense, which are the two decisions everything else rests on
   'PERSONNE — tu t’adresses au joueur avec « tu ». Toujours, sans exception, y compris quand un personnage,',
   'lui, le vouvoie. Le narrateur ne vouvoie jamais. Et jamais la troisième personne : le joueur a écrit',
