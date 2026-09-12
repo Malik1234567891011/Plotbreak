@@ -490,19 +490,32 @@ export function buildDeltas(context: TurnContext): StateDeltaPresentation[] {
     // A player watching the chips could not tell which way the evening had gone.
     // The band is split by sign now: "reconsiders" is a real re-evaluation and
     // stays for movement toward you.
+    //
+    // Fear has two bands for the same reason warmth does. It used to have one,
+    // at five, and five is what a bystander picks up from watching something
+    // happen to somebody else — so one swing at Sabo printed "Sabo is afraid
+    // of you · Luffy is afraid of you · Dadan is afraid of you", three people
+    // terrified in the same breath, when two of them had been nudged six
+    // points for being in the clearing. A chip that says the same thing about
+    // the person you hit and the people who watched is telling the player
+    // nothing, and what it does tell them is wrong about two of the three.
     const warmth = trust + affection + respect;
     const label =
-      fear >= 5 && fear >= rivalry
+      fear >= 12 && fear >= rivalry
         ? `${firstName} is afraid of you`
-        : rivalry >= 5
-          ? `${firstName} turns on you`
-          : warmth <= -6
-            ? `${firstName} closes off`
-            : warmth < 0
-              ? `${firstName} cools toward you`
-              : warmth >= 4
-                ? `${firstName} warms to you`
-                : `${firstName} reconsiders you`;
+        : fear >= 5 && fear >= rivalry
+          ? `${firstName} is wary of you`
+          : rivalry >= 12
+            ? `${firstName} turns on you`
+            : rivalry >= 5
+              ? `${firstName} squares up to you`
+              : warmth <= -6
+                ? `${firstName} closes off`
+                : warmth < 0
+                  ? `${firstName} cools toward you`
+                  : warmth >= 4
+                    ? `${firstName} warms to you`
+                    : `${firstName} reconsiders you`;
 
     deltas.push({ mutationId: entry.mutationId, label, priority: 4 });
   }
