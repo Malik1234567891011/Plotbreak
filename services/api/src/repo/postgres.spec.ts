@@ -518,9 +518,17 @@ describe.skipIf(!URL)('PostgresRepository', () => {
       fingerprint: ancient,
       createdAt: new Date(Date.now() - 8 * 24 * 3600_000).toISOString(),
     });
-    const recent = await repo.listClientErrorGroups(24, 50);
+    // The limit has to be wide enough that the ranking cannot decide this.
+    //
+    // Groups rank by distinct devices and this one has exactly one, so it
+    // sorts last — and because fingerprints are unique per run, a database
+    // that has been tested against for a while holds more groups than a
+    // fifty-row page. The assertion is about the time window; a limit small
+    // enough for the ordering to matter was testing the ordering instead, and
+    // it passed for twenty runs before it did not.
+    const recent = await repo.listClientErrorGroups(24, 1000);
     expect(recent.some((g) => g.fingerprint === ancient)).toBe(false);
-    const wider = await repo.listClientErrorGroups(24 * 30, 50);
+    const wider = await repo.listClientErrorGroups(24 * 30, 1000);
     expect(wider.some((g) => g.fingerprint === ancient)).toBe(true);
   });
 
