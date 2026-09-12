@@ -441,6 +441,15 @@ describe.skipIf(!URL)('PostgresRepository', () => {
    * the worst possible moment to debug a reporting tool.
    */
   it('groups crashes by fingerprint and counts devices rather than rows', async () => {
+    // Unique per run. A fixed fingerprint makes the second `npm test` against
+    // the same database fail on a count of ten, which looks like a bug in the
+    // query rather than in the test.
+    const fpA = `fp_${uuid()}`;
+    const fpB = `fp_${uuid()}`;
+    const loop = `ins_loop_${uuid()}`;
+    const other = `ins_other_${uuid()}`;
+    const third = `ins_third_${uuid()}`;
+    const message = `grouping test failure ${fpA}`;
     const base = {
       userId: null,
       platform: 'ios',
@@ -457,47 +466,48 @@ describe.skipIf(!URL)('PostgresRepository', () => {
       await repo.recordClientError({
         ...base,
         errorId: `cer_${uuid()}`,
-        installId: 'ins_loop',
-        message: 'grouping test failure',
-        fingerprint: 'fp_group_a',
+        installId: loop,
+        message,
+        fingerprint: fpA,
       });
     }
     await repo.recordClientError({
       ...base,
       errorId: `cer_${uuid()}`,
-      installId: 'ins_other',
+      installId: other,
       appVersion: '1.0.1',
-      message: 'grouping test failure',
-      fingerprint: 'fp_group_a',
+      message,
+      fingerprint: fpA,
     });
     // A different bug, one device.
     await repo.recordClientError({
       ...base,
       errorId: `cer_${uuid()}`,
-      installId: 'ins_third',
-      message: 'a different failure',
-      fingerprint: 'fp_group_b',
+      installId: third,
+      message: `a different failure ${fpB}`,
+      fingerprint: fpB,
     });
 
     const groups = await repo.listClientErrorGroups(24, 50);
-    const a = groups.find((g) => g.fingerprint === 'fp_group_a');
+    const a = groups.find((g) => g.fingerprint === fpA);
     expect(a?.count).toBe(5);
     expect(a?.devices).toBe(2);
-    expect(a?.message).toBe('grouping test failure');
+    expect(a?.message).toBe(message);
     // Which builds it appears in, so "did we just make it worse" is answerable.
     expect(a?.appVersions.split(', ').sort()).toEqual(['1.0.0', '1.0.1']);
 
     // Two devices beats one, regardless of row count.
-    expect(groups.findIndex((g) => g.fingerprint === 'fp_group_a')).toBeLessThan(
-      groups.findIndex((g) => g.fingerprint === 'fp_group_b'),
+    expect(groups.findIndex((g) => g.fingerprint === fpA)).toBeLessThan(
+      groups.findIndex((g) => g.fingerprint === fpB),
     );
   });
 
   it('excludes crashes older than the window', async () => {
+    const ancient = `fp_${uuid()}`;
     await repo.recordClientError({
       errorId: `cer_${uuid()}`,
       userId: null,
-      installId: 'ins_ancient',
+      installId: `ins_ancient_${uuid()}`,
       platform: 'ios',
       appVersion: '0.9.0',
       osVersion: '17.0',
@@ -505,13 +515,13 @@ describe.skipIf(!URL)('PostgresRepository', () => {
       screen: 'Discover',
       message: 'a crash from last week',
       stack: '',
-      fingerprint: 'fp_ancient',
+      fingerprint: ancient,
       createdAt: new Date(Date.now() - 8 * 24 * 3600_000).toISOString(),
     });
     const recent = await repo.listClientErrorGroups(24, 50);
-    expect(recent.some((g) => g.fingerprint === 'fp_ancient')).toBe(false);
+    expect(recent.some((g) => g.fingerprint === ancient)).toBe(false);
     const wider = await repo.listClientErrorGroups(24 * 30, 50);
-    expect(wider.some((g) => g.fingerprint === 'fp_ancient')).toBe(true);
+    expect(wider.some((g) => g.fingerprint === ancient)).toBe(true);
   });
 
   it('counts discovery signals without letting them go negative', async () => {

@@ -19,11 +19,11 @@
  */
 import { Pool } from 'pg';
 
-const RESET = '[0m';
-const DIM = '[2m';
-const BOLD = '[1m';
-const RED = '[31m';
-const YELLOW = '[33m';
+const RESET = '\u001b[0m';
+const DIM = '\u001b[2m';
+const BOLD = '\u001b[1m';
+const RED = '\u001b[31m';
+const YELLOW = '\u001b[33m';
 
 function ago(then: Date): string {
   const mins = Math.floor((Date.now() - then.getTime()) / 60_000);
