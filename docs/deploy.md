@@ -73,11 +73,11 @@ Two things force Pro ($20) later, neither of them today:
 ## Service settings
 
 Railway's monorepo detection creates a service per workspace. **Delete
-`@aniplay/mobile` and `@aniplay/worker`** and keep only `@aniplay/api`: mobile
+`@plotbreak/mobile` and `@plotbreak/worker`** and keep only `@plotbreak/api`: mobile
 is an Expo client, and the worker is a library the API imports and runs
 in-process (`context.ts` constructs the `JobQueue`), not a process of its own.
 
-Then, on `@aniplay/api` → Settings:
+Then, on `@plotbreak/api` → Settings:
 
 | Setting | Value | Why |
 |---|---|---|
@@ -86,7 +86,7 @@ Then, on `@aniplay/api` → Settings:
 | Target port | `8080`, with `PORT=8080` set as a variable | `loadConfig` reads `Number(env.PORT ?? 4000)`. Setting both ends the question of what Railway injects. |
 | Healthcheck Path | `/health` | Empty means a deploy is "successful" the moment the container starts, including when the app died on boot. |
 | Watch Paths | *(empty)* | **Not** `/services/api/**`. The API compiles in `packages/engine`, `director`, `contracts` and `i18n`; with that rule a French fix or a turn-pipeline change pushes to GitHub and never deploys. |
-| Custom Start Command | *(empty)* | Railway guesses `npm run start --workspace=@aniplay/api`, which is `tsx --env-file-if-exists=../../.env src/index.ts` — relative paths against a working directory that may not be what it expects. The Dockerfile's `CMD` is correct. |
+| Custom Start Command | *(empty)* | Railway guesses `npm run start --workspace=@plotbreak/api`, which is `tsx --env-file-if-exists=../../.env src/index.ts` — relative paths against a working directory that may not be what it expects. The Dockerfile's `CMD` is correct. |
 | Replicas | 1 | See the media section above. |
 
 ---
@@ -154,7 +154,8 @@ curl -I https://<domain>/media/story_itachi/cover.webp   # 200, image/webp
 ```
 
 That third one is the one people forget. If it 404s, the assets did not make it
-into the image or `ASSET_ROOT` is pointing at an empty volume.
+into the image. World art is served from the image's `infra/seed/assets` even
+when `ASSET_ROOT` points at a volume; only generated art lives on the volume.
 
 ---
 

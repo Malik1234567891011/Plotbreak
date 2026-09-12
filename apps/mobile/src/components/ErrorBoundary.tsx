@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, ScrollView, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Button, colors, spacing, Stack, Txt } from '@aniplay/ui';
+import { Button, colors, spacing, Stack, Txt } from '@plotbreak/ui';
 import { useT } from '../i18n/useT.js';
 
 /**
