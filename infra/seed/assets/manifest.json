@@ -24109,5 +24109,461 @@
       "latencyMs": 31843,
       "createdAt": "2026-09-12T19:52:53.784Z"
     }
+  },
+  "story_ace/luffy_warm": {
+    "assetKey": "story_ace/luffy_warm",
+    "file": "story_ace/luffy_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Luffy, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "d930f081-325c-49e1-9308-4f6c4c408c8a",
+      "promptHash": "02dc244f8249a2776543a7eaaed03e50",
+      "seed": "ace-luffy-child-01:warm",
+      "costUsd": 0.00632,
+      "latencyMs": 15160,
+      "createdAt": "2026-09-12T20:31:25.370Z"
+    }
+  },
+  "story_ace/luffy_amused": {
+    "assetKey": "story_ace/luffy_amused",
+    "file": "story_ace/luffy_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Luffy, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "b27bcd70-987c-4a3f-8a15-d5bf2c1b3cc6",
+      "promptHash": "90d8d7088307eb4b7491bbc0940e42fd",
+      "seed": "ace-luffy-child-01:amused",
+      "costUsd": 0.00632,
+      "latencyMs": 17176,
+      "createdAt": "2026-09-12T20:31:27.387Z"
+    }
+  },
+  "story_ace/luffy_neutral": {
+    "assetKey": "story_ace/luffy_neutral",
+    "file": "story_ace/luffy_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Luffy, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "3fe35718-6dce-4632-8bc2-8de520971a36",
+      "promptHash": "90262890d3884f497785b6540cf1b96b",
+      "seed": "ace-luffy-child-01:neutral",
+      "costUsd": 0.01372,
+      "latencyMs": 18192,
+      "createdAt": "2026-09-12T20:31:28.366Z"
+    }
+  },
+  "story_ace/luffy_surprised": {
+    "assetKey": "story_ace/luffy_surprised",
+    "file": "story_ace/luffy_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Luffy, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "f8d22108-e358-4b92-9b15-b6f163150105",
+      "promptHash": "a9e70125d530f7fdf6861174cff74dfe",
+      "seed": "ace-luffy-child-01:surprised",
+      "costUsd": 0.01372,
+      "latencyMs": 16200,
+      "createdAt": "2026-09-12T20:31:41.584Z"
+    }
+  },
+  "story_ace/luffy_confused": {
+    "assetKey": "story_ace/luffy_confused",
+    "file": "story_ace/luffy_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Luffy, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "b75cf0fa-947c-4392-9166-9ac8b3f7afc2",
+      "promptHash": "adfbf5f965257c770f39e054d00b327d",
+      "seed": "ace-luffy-child-01:confused",
+      "costUsd": 0.00632,
+      "latencyMs": 15551,
+      "createdAt": "2026-09-12T20:31:42.962Z"
+    }
+  },
+  "story_ace/luffy_angry": {
+    "assetKey": "story_ace/luffy_angry",
+    "file": "story_ace/luffy_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Luffy, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "e77056fe-cd31-4099-9f40-556e3adbeb0c",
+      "promptHash": "fd26526e892729a14261fb0f91b646cd",
+      "seed": "ace-luffy-child-01:angry",
+      "costUsd": 0.00632,
+      "latencyMs": 13157,
+      "createdAt": "2026-09-12T20:31:54.762Z"
+    }
+  },
+  "story_ace/luffy_worried": {
+    "assetKey": "story_ace/luffy_worried",
+    "file": "story_ace/luffy_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Luffy, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "2303311c-4a6e-4e05-b2c7-59eafdabc8c8",
+      "promptHash": "8e208b763e94614be2cbfb5bd43a395a",
+      "seed": "ace-luffy-child-01:worried",
+      "costUsd": 0.00632,
+      "latencyMs": 13121,
+      "createdAt": "2026-09-12T20:31:56.096Z"
+    }
+  },
+  "story_ace/luffy_annoyed": {
+    "assetKey": "story_ace/luffy_annoyed",
+    "file": "story_ace/luffy_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Monkey D. Luffy, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "cd0e2314-3265-4079-b1cd-a01e1428b506",
+      "promptHash": "7db37403260a9bd9eaffe0676526ebe4",
+      "seed": "ace-luffy-child-01:annoyed",
+      "costUsd": 0.05488,
+      "latencyMs": 31661,
+      "createdAt": "2026-09-12T20:32:00.034Z"
+    }
+  },
+  "story_ace/sabo_amused": {
+    "assetKey": "story_ace/sabo_amused",
+    "file": "story_ace/sabo_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sabo, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "a662640a-db42-4b57-b4b7-65b7244fca4b",
+      "promptHash": "ae4e5c2b7be7970dbe5bad6a895d29c3",
+      "seed": "ace-sabo-child-01:amused",
+      "costUsd": 0.01372,
+      "latencyMs": 15503,
+      "createdAt": "2026-09-12T20:32:16.269Z"
+    }
+  },
+  "story_ace/sabo_neutral": {
+    "assetKey": "story_ace/sabo_neutral",
+    "file": "story_ace/sabo_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sabo, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "6a87c454-c167-49d9-bbcf-a557e1006905",
+      "promptHash": "e061a1c60e9019eb9017fddb8524060c",
+      "seed": "ace-sabo-child-01:neutral",
+      "costUsd": 0.00632,
+      "latencyMs": 15529,
+      "createdAt": "2026-09-12T20:32:16.276Z"
+    }
+  },
+  "story_ace/sabo_warm": {
+    "assetKey": "story_ace/sabo_warm",
+    "file": "story_ace/sabo_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sabo, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "00f879f2-2f51-4d66-ace8-7ca67eb9df15",
+      "promptHash": "ff74c75e03748305061711bcc03c90b9",
+      "seed": "ace-sabo-child-01:warm",
+      "costUsd": 0.00632,
+      "latencyMs": 16584,
+      "createdAt": "2026-09-12T20:32:17.349Z"
+    }
+  },
+  "story_ace/sabo_surprised": {
+    "assetKey": "story_ace/sabo_surprised",
+    "file": "story_ace/sabo_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sabo, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "70a50972-2ec2-4633-9318-b03b57c134a0",
+      "promptHash": "d29b4a927affb20ca953c13c0a16b761",
+      "seed": "ace-sabo-child-01:surprised",
+      "costUsd": 0.00632,
+      "latencyMs": 11951,
+      "createdAt": "2026-09-12T20:32:28.234Z"
+    }
+  },
+  "story_ace/sabo_confused": {
+    "assetKey": "story_ace/sabo_confused",
+    "file": "story_ace/sabo_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sabo, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "d13fdeec-cce7-4034-8560-e752c4250403",
+      "promptHash": "b787863d75a5f2467442339a4f08225c",
+      "seed": "ace-sabo-child-01:confused",
+      "costUsd": 0.00632,
+      "latencyMs": 15024,
+      "createdAt": "2026-09-12T20:32:31.309Z"
+    }
+  },
+  "story_ace/sabo_annoyed": {
+    "assetKey": "story_ace/sabo_annoyed",
+    "file": "story_ace/sabo_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sabo, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "30252f0d-ee20-4fb7-bcb0-55f4ce799c33",
+      "promptHash": "686530cf4b38aac76e565656a8b13cb1",
+      "seed": "ace-sabo-child-01:annoyed",
+      "costUsd": 0.01372,
+      "latencyMs": 17646,
+      "createdAt": "2026-09-12T20:32:35.001Z"
+    }
+  },
+  "story_ace/sabo_angry": {
+    "assetKey": "story_ace/sabo_angry",
+    "file": "story_ace/sabo_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sabo, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "755d755f-b515-4ade-9caf-3211360b1d83",
+      "promptHash": "de3e7f2b3f09ba915d4712c14b60a496",
+      "seed": "ace-sabo-child-01:angry",
+      "costUsd": 0.01372,
+      "latencyMs": 18103,
+      "createdAt": "2026-09-12T20:32:46.345Z"
+    }
+  },
+  "story_ace/sabo_worried": {
+    "assetKey": "story_ace/sabo_worried",
+    "file": "story_ace/sabo_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sabo, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "8c212b9d-fd54-4ca2-9af4-c88cc29f79e4",
+      "promptHash": "6e6eeeaa48301f922191773e9a71d447",
+      "seed": "ace-sabo-child-01:worried",
+      "costUsd": 0.05488,
+      "latencyMs": 33341,
+      "createdAt": "2026-09-12T20:33:04.658Z"
+    }
+  },
+  "story_ace/dadan_warm": {
+    "assetKey": "story_ace/dadan_warm",
+    "file": "story_ace/dadan_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Curly Dadan, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "815f72d6-fc07-4b74-a06b-f4bf292210bf",
+      "promptHash": "eac681f22da90fd36a7d00bc3cdc12a9",
+      "seed": "ace-dadan-01:warm",
+      "costUsd": 0.02404,
+      "latencyMs": 21356,
+      "createdAt": "2026-09-12T20:33:26.638Z"
+    }
+  },
+  "story_ace/dadan_amused": {
+    "assetKey": "story_ace/dadan_amused",
+    "file": "story_ace/dadan_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Curly Dadan, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "cd04b3c9-7bd1-42fc-ab10-6d9f27c1014b",
+      "promptHash": "ec78a24dca748d563bf378f894dc9c50",
+      "seed": "ace-dadan-01:amused",
+      "costUsd": 0.02404,
+      "latencyMs": 23538,
+      "createdAt": "2026-09-12T20:33:28.821Z"
+    }
+  },
+  "story_ace/dadan_neutral": {
+    "assetKey": "story_ace/dadan_neutral",
+    "file": "story_ace/dadan_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Curly Dadan, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "16e0072d-2caa-4125-ab22-719d856cc0c8",
+      "promptHash": "4b035cac10f6a76d1ceedc281d98f054",
+      "seed": "ace-dadan-01:neutral",
+      "costUsd": 0.05488,
+      "latencyMs": 35285,
+      "createdAt": "2026-09-12T20:33:40.553Z"
+    }
+  },
+  "story_ace/dadan_surprised": {
+    "assetKey": "story_ace/dadan_surprised",
+    "file": "story_ace/dadan_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Curly Dadan, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "33459e85-8be2-4bd4-ae4b-a467958de6e7",
+      "promptHash": "4151e2f405d82408bb938b40912c14d0",
+      "seed": "ace-dadan-01:surprised",
+      "costUsd": 0.00632,
+      "latencyMs": 17230,
+      "createdAt": "2026-09-12T20:33:43.879Z"
+    }
+  },
+  "story_ace/dadan_confused": {
+    "assetKey": "story_ace/dadan_confused",
+    "file": "story_ace/dadan_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Curly Dadan, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "a765e336-7b4b-4944-8c4c-d125d270c460",
+      "promptHash": "c1db6fcca295536e64b45a0e471be517",
+      "seed": "ace-dadan-01:confused",
+      "costUsd": 0.01372,
+      "latencyMs": 20010,
+      "createdAt": "2026-09-12T20:33:48.844Z"
+    }
+  },
+  "story_ace/dadan_angry": {
+    "assetKey": "story_ace/dadan_angry",
+    "file": "story_ace/dadan_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Curly Dadan, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "c3f86bca-efb9-4d57-8524-419f0f7dd02c",
+      "promptHash": "6e28c913ce56643e3849654bf414d215",
+      "seed": "ace-dadan-01:angry",
+      "costUsd": 0.02404,
+      "latencyMs": 21374,
+      "createdAt": "2026-09-12T20:34:05.261Z"
+    }
+  },
+  "story_ace/dadan_annoyed": {
+    "assetKey": "story_ace/dadan_annoyed",
+    "file": "story_ace/dadan_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Curly Dadan, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "96202a52-b559-4c9b-b8b1-3c4a3190dab3",
+      "promptHash": "ac662f71ab3ec1a80d046f986602b36c",
+      "seed": "ace-dadan-01:annoyed",
+      "costUsd": 0.02404,
+      "latencyMs": 26279,
+      "createdAt": "2026-09-12T20:34:06.841Z"
+    }
+  },
+  "story_ace/dadan_worried": {
+    "assetKey": "story_ace/dadan_worried",
+    "file": "story_ace/dadan_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Curly Dadan, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2",
+      "requestId": "70bb2bed-98b7-42ed-a8f9-a52bba6ad1ca",
+      "promptHash": "e5588ff4738d95c1f468f5924942e4b1",
+      "seed": "ace-dadan-01:worried",
+      "costUsd": 0.01372,
+      "latencyMs": 19048,
+      "createdAt": "2026-09-12T20:34:07.902Z"
+    }
   }
 }

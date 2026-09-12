@@ -3,7 +3,22 @@
 // ~4,000, and it carries the media plan and beat plan the UI cannot show.
 import pg from 'pg';
 import fs from 'node:fs';
-const url = fs.readFileSync('/Users/malik/Plotbreak/.env','utf8').match(/DATABASE_URL=(.*)/)[1].trim();
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+// Relative to this file, not to somebody's home directory. This was hardcoded
+// to /Users/malik/Plotbreak/.env, which is neither the repo's path nor any
+// path that exists — so the cheapest debugging tool in the project failed with
+// ENOENT for anybody who tried to use it, including on the machine it was
+// written on.
+const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
+const url =
+  process.env.DATABASE_URL ??
+  fs.readFileSync(join(repoRoot, '.env'), 'utf8').match(/DATABASE_URL=(.*)/)?.[1]?.trim();
+if (!url) {
+  console.error('No DATABASE_URL, in the environment or in .env at the repo root.');
+  process.exit(1);
+}
 const c = new pg.Client({ connectionString: url });
 await c.connect();
 
