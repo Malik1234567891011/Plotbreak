@@ -4,9 +4,10 @@ Everything that needs the **paid Apple Developer account**, which Malik does not
 have. Malik and Claude do everything on the code and Supabase side; the items
 below can only be done by whoever owns the Apple org.
 
-Live document — appended to as more is found. Last updated 2026-09-11.
+Live document — appended to as more is found. Last updated 2026-09-12.
 
 **App:** PLOTBREAK · **Bundle ID:** `com.plotbreak.app` · **Team:** `Q7ZLXMG4SB`
+**App Store Connect:** app ID `6811307049`, created 2026-09-12, under CielPM, Inc.
 
 ---
 
@@ -17,7 +18,8 @@ provider `apple` on, **Client IDs** = `com.plotbreak.app`.
 
 **What Omar needs to do:** in *Certificates, Identifiers & Profiles → Identifiers
 → `com.plotbreak.app`*, make sure the **Sign in with Apple** capability is
-ticked and saved.
+ticked and saved. The bundle ID itself exists — the App Store Connect record is
+attached to it — but the capability has not been verified.
 
 Why it is separate: the app already carries the
 `com.apple.developer.applesignin` entitlement in
@@ -34,29 +36,44 @@ rotation to worry about.
 
 ## 2. In-App Purchase products — none of these exist yet
 
-The app sells credit packs. Every one needs a **Consumable** in App Store
-Connect with the **exact** product ID below, or that row fails at purchase.
+The app sells credit packs. All six now exist in App Store Connect and are
+**Ready to Submit** — created 2026-09-12, priced, localized in English and
+French, available in 175 territories, each with a review screenshot of the
+wallet and a note telling the reviewer how to reach it.
 
-| Product ID | Credits | Bonus | Reference price (USD) |
-|---|---|---|---|
-| `crd_2000` | 2,000 | — | $2.89 |
-| `crd_10000` | 10,000 | +300 | $14.49 |
-| `crd_20000` | 20,000 | +1,000 | $28.49 |
-| `crd_50000` | 50,000 | +3,500 | $71.00 |
-| `crd_100000` | 100,000 | +10,000 | $142.99 |
-| `crd_first_21000` | 21,000 | — | $19.99 (first purchase only) |
+| Product ID | Credits | Bonus | Price (USD) | State |
+|---|---|---|---|---|
+| `crd_2000` | 2,000 | — | $2.89 | Ready to Submit |
+| `crd_10000` | 10,000 | +300 | $14.49 | Ready to Submit |
+| `crd_20000` | 20,000 | +1,000 | $28.49 | Ready to Submit |
+| `crd_50000` | 50,000 | +3,500 | $71.00 | Ready to Submit |
+| `crd_100000` | 100,000 | +10,000 | $142.99 | Ready to Submit |
+| `crd_first_21000` | 21,000 | — | $19.99 | Ready to Submit |
+
+Every price matched an Apple price point exactly, including the two that were
+doubted — `$2.89` and `$71.00` both exist, the latter listed as `71` rather
+than `71.00`.
+
+`infra/scripts/appstore-iaps.mjs` is what created them. It reads the catalogue
+from `packages/contracts/src/game/economy.ts`, is safe to re-run, and prints a
+dry run unless passed `--apply`. Use it to change prices or copy rather than
+clicking through six products:
+
+```sh
+ASC_KEY_ID=… ASC_ISSUER_ID=… ASC_KEY_PATH=…/AuthKey_XXX.p8 \
+  node infra/scripts/appstore-iaps.mjs --apply
+```
 
 Notes:
 
-- The prices above are **reference prices only**. They are what the app shows
-  before StoreKit answers; the real price and currency come from App Store
-  Connect and are what the player is charged. Pick the nearest Apple price
-  point — `$2.89` and `$71.00` are copied from a competitor that does not
-  appear to bill through Apple, so they may not be selectable.
+- "Ready to Submit" is not "on sale". Consumables ship with an app version, so
+  they go live when the first build is approved.
 - `crd_first_21000` is a normal consumable. "First purchase only" is enforced by
   our server, not by Apple.
-- Once created, the price shown in the app comes from Apple automatically. No
-  code change is needed to adjust prices later.
+- The price the player sees comes from Apple, so changing a price is an App
+  Store Connect change, not a code change. The `referencePriceUsd` in the
+  contract is only what the app shows before StoreKit answers — keep the two in
+  step.
 
 **Also needed:** the **Paid Applications agreement** must be active (App Store
 Connect → Business), with banking and tax forms complete. Until it is, StoreKit
@@ -67,6 +84,30 @@ showing: *"Your payment was returned by your bank… Your bank account number is
 formatted incorrectly"* — Wells Fargo, reference 403651046. That blocks payouts
 and may block the Paid Applications agreement being in good standing. Worth
 clearing before any paid app ships, independent of this one.
+
+---
+
+## 2b. What is still open on the App Store Connect record
+
+Done on 2026-09-12: the app record, the six credit packs, the category
+(Games → Role Playing / Adventure), the subtitle, the privacy policy URL
+(`https://www.plotbreak.com/privacy`), and English and French storefronts.
+
+Still open, and each needs a person:
+
+- **Price: Free.** Not set. Setting an app's price is a commercial decision, so
+  it was deliberately left alone. *Pricing and Availability → set the app to
+  Free.* Without it the version cannot be submitted.
+- **Age rating.** Not set. It is a declaration about content the developer makes
+  under their own name, and this app generates open-ended text, which changes
+  the honest answers. The content the engine can produce is enumerated as
+  `ContentDescriptor` in `packages/contracts/src/game/economy.ts` — fantasy
+  violence, romance, suggestive themes, horror, psychological themes, alcohol
+  references, language — and that list is the right starting point.
+- **Screenshots and description.** Need marketing assets and copy that do not
+  exist yet. The App Store wants 6.5" iPhone screenshots at minimum.
+- **A build.** Nothing has been uploaded to TestFlight. Until a build exists the
+  in-app purchases cannot be submitted, because consumables ship with a version.
 
 ---
 
