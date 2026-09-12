@@ -6,6 +6,8 @@ that is not.
 
 Host: **Railway**, from the `Dockerfile` at the repo root.
 
+The service is live at **https://plotbreak-api-production.up.railway.app**.
+
 There is no `railway.json`. Railway deprecated config-as-code, and services
 created after 2025-08-28 cannot opt into it at all — every setting below lives
 in the dashboard, so this document is the only record of what it should say.
@@ -85,7 +87,7 @@ Then, on `@plotbreak/api` → Settings:
 | Builder | Dockerfile, path `Dockerfile` | |
 | Target port | `8080`, with `PORT=8080` set as a variable | `loadConfig` reads `Number(env.PORT ?? 4000)`. Setting both ends the question of what Railway injects. |
 | Healthcheck Path | `/health` | Empty means a deploy is "successful" the moment the container starts, including when the app died on boot. |
-| Watch Paths | *(empty)* | **Not** `/services/api/**`. The API compiles in `packages/engine`, `director`, `contracts` and `i18n`; with that rule a French fix or a turn-pipeline change pushes to GitHub and never deploys. |
+| Watch Paths | *(empty)* | **Not** `/services/api/**`, which is what Railway sets. This has already cost us once: a day of commits touching `packages/`, `infra/seed/assets/` and `apps/` all pushed to GitHub and Railway deployed none of them, so production served two worlds with no art and without the hero-frame fix while reporting healthy. The image also carries the art, so an asset-only commit has to deploy too. |
 | Custom Start Command | *(empty)* | Railway guesses `npm run start --workspace=@plotbreak/api`, which is `tsx --env-file-if-exists=../../.env src/index.ts` — relative paths against a working directory that may not be what it expects. The Dockerfile's `CMD` is correct. |
 | Replicas | 1 | See the media section above. |
 
