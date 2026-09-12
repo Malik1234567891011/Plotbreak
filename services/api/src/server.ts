@@ -1,4 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
+import { readdir, stat } from 'node:fs/promises';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { BADGES, BADGES_BY_ID } from '@plotbreak/contracts';
 import { localizeStory } from '@plotbreak/contracts';
 import { syncBadges, type PlayerRecord } from './badges.js';
@@ -136,6 +139,53 @@ export interface BuildServerOptions {
   readonly logger?: boolean;
 }
 
+/**
+ * Is the art where this build expects it?
+ *
+ * Counts world directories and confirms one file that has existed since the
+ * first catalogue. Cheap — two directory reads and a stat — and it answers the
+ * question that took an afternoon to work out by hand: the API was serving
+ * every world's text and none of the new worlds' pictures, and nothing said so.
+ */
+async function assetHealth(): Promise<{
+  root: string;
+  worlds: number;
+  sentinelPresent: boolean;
+}> {
+  const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
+  const root = process.env.ASSET_ROOT ?? join(repoRoot, 'infra/seed/assets');
+  // The volume holds generated art and the image holds the authored art, so
+  // both are searched when they differ. See media-routes.
+  const seed = join(repoRoot, 'infra/seed/assets');
+  const roots = root === seed ? [root] : [root, seed];
+
+  const worlds = new Set<string>();
+  for (const dir of roots) {
+    try {
+      for (const entry of await readdir(dir, { withFileTypes: true })) {
+        if (entry.isDirectory() && entry.name.startsWith('story_')) worlds.add(entry.name);
+      }
+    } catch {
+      // A volume that has not been written to yet is not an error.
+    }
+  }
+
+  let sentinelPresent = false;
+  for (const dir of roots) {
+    try {
+      // Itachi's cover: the oldest asset in the catalogue, so its absence
+      // means the art did not ship rather than that one world is behind.
+      await stat(join(dir, 'story_itachi/cover.webp'));
+      sentinelPresent = true;
+      break;
+    } catch {
+      // Try the next root.
+    }
+  }
+
+  return { root, worlds: worlds.size, sentinelPresent };
+}
+
 export function buildServer(options: BuildServerOptions = {}): FastifyInstance & { ctx: AppContext; hub: TurnStreamHub } {
   const ctx = options.ctx ?? createAppContext();
   const hub = new TurnStreamHub();
@@ -194,6 +244,32 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       contractVersion: CONTRACT_VERSION,
       persistence: ctx.repo.constructor.name === 'PostgresRepository' ? 'postgres' : 'in-process',
       auth: ctx.auth.name,
+      /**
+       * Which commit is actually answering.
+       *
+       * Everything else here was green while production served two worlds
+       * with no art and without a fix that had been on main for hours: the
+       * host's watch path did not match the commits, so seven pushes deployed
+       * nothing and no endpoint could say so. A health check that cannot tell
+       * you what it is running can only tell you that something is running.
+       *
+       * Railway injects these; they are absent locally, which is itself the
+       * honest answer to "what is deployed" on a laptop.
+       */
+      build: {
+        commit: process.env.RAILWAY_GIT_COMMIT_SHA?.slice(0, 12) ?? 'local',
+        branch: process.env.RAILWAY_GIT_BRANCH ?? null,
+        deploymentId: process.env.RAILWAY_DEPLOYMENT_ID ?? null,
+      },
+      /**
+       * Whether the art this build claims to ship is actually on the disk it
+       * will serve it from.
+       *
+       * The failure we hit was silent: every world's text present, every
+       * world's pictures missing, and a health check that said ok. One stat
+       * of one file that should always exist turns that into a symptom.
+       */
+      assets: await assetHealth(),
       // "The writing has gone flat" should have an answer here rather than
       // requiring somebody to guess at a provider dashboard.
       modelDegradations: { count: degraded.length, recent: degraded.slice(-5) },
