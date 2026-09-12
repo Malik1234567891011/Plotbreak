@@ -114,6 +114,32 @@ user id when somebody signs in, and the player's own written content.
 
 ---
 
+## 2a. ⚠️ Before anything else: the Itachi world
+
+`story_itachi` is Naruto. Not loosely — the cast is Sasuke Uchiha, Shisui
+Uchiha, Fugaku Uchiha, Mikoto Uchiha, Izumi Uchiha, Danzo Shimura, Hiruzen
+Sarutobi and Kakashi Hatake, the premise is the Uchiha clan downfall, and the
+cover art is Itachi in an Akatsuki cloak with a Sharingan. It is marked
+`official: true`, credited to Plotbreak Studios, and it is **first in the hero
+rail on Discover in production** — the first thing an App Store reviewer sees
+when they open the app.
+
+That is App Review guideline 5.2, intellectual property, and it is one of the
+rejections that is hard to argue your way out of, because the reviewer does not
+have to interpret anything. It is also exposure well beyond Apple: the rights
+belong to Masashi Kishimoto, Shueisha and Viz Media.
+
+Somebody already knew — `docs/appstore-screenshots/README.md` notes the hero
+collage was built from "22 real world covers (Itachi excluded)". The screenshot
+was fixed; the catalogue was not.
+
+**Do one of these before submitting.** Take it out of the catalogue, or replace
+the cast and the art with original characters and keep the structure, which is
+the genuinely good part: two sides that both think you are theirs. The other 22
+worlds are original and unaffected.
+
+---
+
 ## 2c. What is still open, and who has to do it
 
 - ~~Screenshots.~~ **Done.** Five panels each for English and French, 1320 × 2868,
@@ -137,6 +163,24 @@ user id when somebody signs in, and the player's own written content.
   the user, none used for tracking, all for app functionality.
 - **A build.** Nothing has been uploaded. Until one is, the in-app purchases
   cannot be submitted, because consumables ship with an app version.
+
+  The code is ready: a Release build for `generic/platform=iOS` compiles clean,
+  and a simulator build pointed at the production API signs in, loads the
+  catalogue and shows real art, so the Release configuration is not wrong.
+
+  What is missing is a **distribution certificate**. The account has three
+  development certificates and no distribution one, which is why this cannot be
+  archived from the command line. Xcode creates it for you:
+
+  1. `open apps/ios/Plotbreak.xcodeproj`
+  2. Pick **Any iOS Device (arm64)** as the destination.
+  3. **Product → Archive.**
+  4. **Distribute App → App Store Connect → Upload.** Xcode creates the
+     distribution certificate and the provisioning profile on the way through.
+
+  Version is 1.0, build 1, set in `apps/ios/project.yml` as `MARKETING_VERSION`
+  and `CURRENT_PROJECT_VERSION`. Bump the build number for every upload; Apple
+  rejects a repeat.
 - **App Review contact details.** Name, phone and email on the submission form.
   Left blank deliberately — they are a real person's details, not ours to invent.
 
