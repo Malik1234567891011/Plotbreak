@@ -76,6 +76,13 @@ export interface GenerateOptions {
    * label. It must never change meaning, only spelling.
    */
   readonly normalize?: (raw: unknown) => unknown;
+  /**
+   * Opt into provider streaming and receive the structured output as it is
+   * written. The final result is still parsed and validated from the complete
+   * document, so this only affects when the caller learns about content, never
+   * what is ultimately returned.
+   */
+  readonly onTextDelta?: (delta: string) => void;
 }
 
 export interface ModelInvocation {

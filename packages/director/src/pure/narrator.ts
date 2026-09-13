@@ -4,6 +4,7 @@ import { charactersPresent } from '@plotbreak/engine';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 import { formatStoryTime, minutesFor, transitionLabel } from './clock.js';
 import { chooseReaction, parseShown, type ShownReaction } from './reaction.js';
+import { NarrativeStreamParser, type StreamedBlock } from './stream-parse.js';
 
 /**
  * LLM_PURE — the experiment.
@@ -231,16 +232,30 @@ export const UNKNOWN_SPEAKER = 'unknown';
  * called-names resolve to ids; anything still unrecognised becomes narration
  * rather than a guess, because a wrong portrait is worse than none.
  */
-function speakerNormalizer(story: StoryVersion): (raw: unknown) => unknown {
+function speakerLabels(story: StoryVersion): Map<string, string> {
   const byLabel = new Map<string, string>();
   for (const character of story.characters) {
     byLabel.set(character.id.toLowerCase(), character.id);
     byLabel.set(character.name.toLowerCase(), character.id);
     if (character.calledName) byLabel.set(character.calledName.toLowerCase(), character.id);
-    // "Monkey D. Luffy" is also reached for as "Luffy".
     const last = character.name.split(/\s+/).at(-1);
     if (last && last.length > 2 && !byLabel.has(last.toLowerCase())) byLabel.set(last.toLowerCase(), character.id);
   }
+  return byLabel;
+}
+
+/** One label to one id, for the streaming path. Same table, same answers. */
+function speakerLookup(story: StoryVersion): (raw: string) => string {
+  const byLabel = speakerLabels(story);
+  return (raw) => {
+    const key = raw.trim().toLowerCase();
+    if (key === NARRATION || key === UNKNOWN_SPEAKER) return key;
+    return byLabel.get(key) ?? NARRATION;
+  };
+}
+
+function speakerNormalizer(story: StoryVersion): (raw: unknown) => unknown {
+  const byLabel = speakerLabels(story);
   return (raw) => {
     if (!raw || typeof raw !== 'object') return raw;
     const turn = raw as { narrative?: unknown };
@@ -469,6 +484,13 @@ export async function narratePure(options: {
   readonly shape?: 'rebuilt' | 'append';
   /** Required by `append`: the previous turns exactly as they were sent. */
   readonly rendered?: readonly RenderedTurn[];
+  /**
+   * Called with each narrative block as soon as it closes, while the rest of
+   * the turn is still being written. Purely a latency optimisation: the result
+   * returned at the end is parsed and validated from the complete document
+   * either way, and a listener that throws cannot fail the turn.
+   */
+  readonly onBlock?: (block: StreamedBlock) => void;
 }): Promise<PureResult> {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
@@ -501,6 +523,9 @@ export async function narratePure(options: {
     `usually the same one, reads as a tic rather than a reaction.`;
 
   const shape = options.shape ?? 'rebuilt';
+  const normalizeSpeakers = speakerNormalizer(story);
+  const normalizeSpeaker = speakerLookup(story);
+  const parser = new NarrativeStreamParser();
 
   // This turn's user message. Identical text in both shapes; the difference is
   // only whether the transcript is concatenated in front of it.
@@ -544,7 +569,24 @@ export async function narratePure(options: {
     prefixItems: options.prefixItems,
     cacheRetention: options.cacheRetention,
     nativeSchema: shape === 'append',
-    normalize: speakerNormalizer(story),
+    normalize: normalizeSpeakers,
+    ...(options.onBlock
+      ? {
+          onTextDelta: (delta: string) => {
+            for (const block of parser.push(delta)) {
+              // Normalised on the way out so a streamed block is identical to
+              // the one the final document produces, which is what lets the
+              // caller treat the stream as a prefix of the finished turn.
+              try {
+                options.onBlock!({ speaker: normalizeSpeaker(block.speaker), text: block.text });
+              } catch {
+                // A listener failing is a delivery problem, not a story
+                // problem. The completed document still produces the turn.
+              }
+            }
+          },
+        }
+      : {}),
   });
 
   // Trim to what the client renders. Parsing succeeded; the beat is good even

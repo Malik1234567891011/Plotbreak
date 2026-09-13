@@ -15,11 +15,16 @@ export interface ShownReaction {
   readonly emotion: string;
 }
 
-/** How far back an identical asset still counts as "just seen". */
-const EXACT_ASSET_WINDOW = 6;
-/** How many of the recent shown faces one character may own before resting. */
-const DOMINANCE_WINDOW = 4;
-const DOMINANCE_LIMIT = 2;
+/**
+ * How far back an identical asset still counts as "just seen".
+ *
+ * The only thing being suppressed is a picture the player is already looking
+ * at. A different expression on the same face is new information and is not
+ * touched — "Sabo amused → Sabo worried" is exactly the kind of cut worth
+ * having, and an early game that shows a relevant face nearly every turn is
+ * the intended experience, not a problem to tune away.
+ */
+const EXACT_ASSET_WINDOW = 4;
 
 /**
  * Reads back what was shown on a past beat.
@@ -45,21 +50,12 @@ export function chooseReaction(
 ): ShownReaction | null {
   if (!proposed) return null;
 
-  // The identical picture, recently. Nothing has changed for the player to see.
+  // The identical picture, recently. Nothing about the screen would change, so
+  // showing it again is the one case that carries no information.
   const sameAsset = recent
     .slice(0, EXACT_ASSET_WINDOW)
     .some((r) => r && r.characterId === proposed.characterId && r.emotion === proposed.emotion);
   if (sameAsset) return null;
-
-  // The same face twice running, even with a new expression, reads as a
-  // portrait that is simply always on.
-  if (recent[0]?.characterId === proposed.characterId) return null;
-
-  // And one character should not own a long stretch just for talking most.
-  const owned = recent
-    .slice(0, DOMINANCE_WINDOW)
-    .filter((r) => r?.characterId === proposed.characterId).length;
-  if (owned >= DOMINANCE_LIMIT) return null;
 
   return proposed;
 }

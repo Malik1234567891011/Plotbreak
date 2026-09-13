@@ -450,10 +450,11 @@ final class SessionModel {
                 voiceEligible: data["voiceEligible"]?.boolValue ?? false
             )
             pending?.blocks.append(block)
-            // The narrative arrives as a burst of blocks rather than a token
-            // stream, so following each one queued a dozen animated scrolls for
-            // a single turn. Only the first one needs to move the view.
-            if pending?.blocks.count == 1 { requestScroll(animated: true) }
+            // Blocks now genuinely arrive over several seconds. Put the start
+            // of the new beat at the top of the view once, when the first one
+            // lands, and let the rest fill downward under the reader. Following
+            // every block would drag them along a paragraph at a time.
+            if pending?.blocks.count == 1 { requestScroll(animated: true, anchor: .latestBeat) }
 
         case .stateDelta:
             pending?.deltas.append(data["label"]?.stringValue ?? "")
@@ -473,10 +474,11 @@ final class SessionModel {
                     self.turns = response.recentTurns
                     self.revision = response.revision
                     self.pending = nil
-                    // Park the reader at the start of the beat that just
-                    // arrived. Scrolling to the bottom here put them below the
-                    // prose they had not read, at the cards.
-                    self.requestScroll(animated: false, anchor: .latestBeat)
+                    // Deliberately no scroll here. The prose is already on
+                    // screen — it streamed in — and the player may have read
+                    // well past the top of it by now. Cards appear below what
+                    // they are reading, so nothing above them moves, and a
+                    // scroll at this point would only fight the reader.
                 }
             }
 

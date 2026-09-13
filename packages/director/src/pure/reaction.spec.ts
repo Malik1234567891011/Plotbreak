@@ -20,20 +20,31 @@ describe('reaction selection', () => {
   });
 
   it('lets an asset come back once it is genuinely out of view', () => {
-    const recent = [null, null, null, null, null, null, sabo('worried')];
+    const recent = [null, null, null, null, sabo('worried')];
     expect(chooseReaction(sabo('worried'), recent)).toEqual(sabo('worried'));
   });
 
-  it('rests a character who was just on screen even with a new expression', () => {
-    expect(chooseReaction(sabo('angry'), [sabo('worried')])).toBeNull();
+  it('shows the same character again when the expression has actually changed', () => {
+    // "Sabo amused → Sabo worried" is a cut worth having. Suppressing it would
+    // be hiding new information to satisfy a density rule.
+    expect(chooseReaction(sabo('worried'), [sabo('amused')])).toEqual(sabo('worried'));
   });
 
-  it('stops one character owning a long sequence just for talking most', () => {
-    // Sabo has had two of the last four; a third is the streak forming.
-    const recent = [sabo('amused'), luffy('warm'), null, sabo('annoyed')];
-    expect(chooseReaction(sabo('angry'), recent)).toBeNull();
-    // Somebody who has not just been on screen is still free to appear.
-    expect(chooseReaction(luffy('surprised'), recent)).toEqual(luffy('surprised'));
+  it('does not hide a character merely because they were on screen recently', () => {
+    // The case this got wrong: Luffy had just obeyed, kept his promise and got
+    // his hat back. `luffy_warm` is the emotional shift, not a repeat.
+    const recent = [sabo('amused'), luffy('worried')];
+    expect(chooseReaction(luffy('warm'), recent)).toEqual(luffy('warm'));
+  });
+
+  it('allows a visually dense opening when every image differs', () => {
+    const run = [sabo('amused'), luffy('worried'), sabo('annoyed'), luffy('warm'), sabo('worried')];
+    const shown: (ShownReaction | null)[] = [];
+    for (const proposal of run) {
+      const pick = chooseReaction(proposal, [...shown].reverse());
+      shown.push(pick);
+    }
+    expect(shown.filter(Boolean)).toHaveLength(5);
   });
 
   it('shows nothing when the storyteller proposes nothing', () => {

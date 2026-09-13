@@ -214,6 +214,10 @@ async function processTurn(
       // Byte-identical replay is the whole of the cache saving: a reformatted
       // historical message costs every cached token for the rest of the session.
       const priorMessages = await ctx.repo.listPureMessages(session.sessionId);
+      // Blocks go out the moment they finish rather than after the whole
+      // structured object lands. Without this the player watched a spinner for
+      // six seconds and then received the entire turn at once.
+      let streamedBlocks = 0;
       const pure = await runTurnPure({
         gateway: ctx.modelGateway,
         story,
@@ -226,6 +230,14 @@ async function processTurn(
         cacheKey: `pb:${session.sessionId}`,
         actionText,
         turnId,
+        onBlock: (block) => {
+          hub.emit(turnId, 'text.stream', {
+            index: streamedBlocks,
+            speakerId: block.speakerId,
+            text: block.text,
+          });
+          streamedBlocks += 1;
+        },
       });
 
       const savedPure = await ctx.repo.saveState(session.sessionId, state.revision, pure.state);
@@ -259,8 +271,15 @@ async function processTurn(
       await ctx.wallet.finalize(reservation);
       const balancePure = await ctx.wallet.getBalance(user.userId);
 
-      for (const [index, block] of pure.blocks.entries()) {
-        hub.emit(turnId, 'text.stream', { index, speakerId: block.speakerId, text: block.text });
+      // Only what the stream did not already deliver. The streamed blocks are
+      // built by the same code that builds these, so the live sequence is a
+      // prefix of the committed one and this is a plain slice — never a resend.
+      for (const [offset, block] of pure.blocks.slice(streamedBlocks).entries()) {
+        hub.emit(turnId, 'text.stream', {
+          index: streamedBlocks + offset,
+          speakerId: block.speakerId,
+          text: block.text,
+        });
       }
       // Pre-generated art only, and after the prose on purpose. Emitted first,
       // the portrait arrived a beat before the words it belongs to, which reads

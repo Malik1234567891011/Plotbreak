@@ -40,7 +40,8 @@ for (const r of log) {
     lastAssetTurn.set(key, r.turn);
     shownReactions.push({ turn: r.turn, who: shown.characterId, key });
   } else if (proposal) {
-    reactionCell = `— (suppressed ${proposal.characterId}/${proposal.emotion})`;
+    const prev = lastAssetTurn.get(`story_ace/${proposal.characterId}_${proposal.emotion}`);
+    reactionCell = `— suppressed ${proposal.characterId}/${proposal.emotion} (same asset ${prev ? r.turn - prev : '?'} turns ago)`;
   }
 
   // Scene art is the stage backdrop, which changes on arrival somewhere new.

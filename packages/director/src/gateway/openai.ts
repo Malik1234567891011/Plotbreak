@@ -198,10 +198,12 @@ export class OpenAiGateway implements ModelGateway {
     const leading = options.nativeSchema ? messages.slice(0, cut) : [];
     const rest = options.nativeSchema ? messages.slice(cut) : messages;
 
+    const streaming = Boolean(options.onTextDelta);
     const response = await this.#post(
       '/responses',
       {
         model,
+        ...(streaming ? { stream: true } : {}),
         max_output_tokens: options.maxTokens ?? 2048,
         input: [
           // Opaque items sit between the standing instructions and the turn:
@@ -243,7 +245,9 @@ export class OpenAiGateway implements ModelGateway {
       options,
     );
 
-    const payload = (await response.json()) as {
+    const payload = (streaming
+      ? await readStream(response, options.onTextDelta!)
+      : await response.json()) as {
       id?: string;
       status?: string;
       incomplete_details?: { reason?: string };
@@ -632,4 +636,76 @@ function costOf(model: string, inputTokens: number, outputTokens: number): numbe
   const pricing = PRICING[model];
   if (!pricing) return 0;
   return (inputTokens * pricing.input + outputTokens * pricing.output) / 1_000_000;
+}
+
+
+/**
+ * Consumes a Responses SSE stream.
+ *
+ * Text is handed to `onDelta` the moment it arrives, and the terminal
+ * `response.completed` event carries the same object a non-streaming call would
+ * have returned — so everything downstream, including validation and usage
+ * accounting, stays identical.
+ */
+async function readStream(
+  response: Response,
+  onDelta: (delta: string) => void,
+): Promise<unknown> {
+  const reader = response.body?.getReader();
+  if (!reader) throw new ModelGatewayError('Provider returned no stream', 'PROVIDER_ERROR', true);
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let completed: unknown = null;
+  let text = '';
+
+  try {
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const chunks = buffer.split('\n\n');
+      buffer = chunks.pop() ?? '';
+      for (const chunk of chunks) {
+        const name = chunk.match(/^event:\s*(\S+)/m)?.[1];
+        const raw = chunk.match(/^data:\s*(.+)$/m)?.[1];
+        if (!name || !raw) continue;
+        let data: Record<string, unknown>;
+        try {
+          data = JSON.parse(raw) as Record<string, unknown>;
+        } catch {
+          continue;
+        }
+        if (name === 'response.output_text.delta' && typeof data.delta === 'string') {
+          text += data.delta;
+          // A listener that throws must not take the turn down with it.
+          try {
+            onDelta(data.delta);
+          } catch {
+            /* the completed document is still authoritative */
+          }
+        }
+        if (name === 'response.completed' || name === 'response.incomplete') {
+          completed = data.response ?? null;
+        }
+        if (name === 'response.failed' || name === 'error') {
+          throw new ModelGatewayError(
+            `Provider stream failed: ${JSON.stringify(data).slice(0, 200)}`,
+            'PROVIDER_ERROR',
+            true,
+          );
+        }
+      }
+    }
+  } finally {
+    await reader.cancel().catch(() => undefined);
+  }
+
+  if (!completed) {
+    // The stream ended without a terminal event. Everything that arrived is
+    // still here, so hand it back in the shape the caller expects rather than
+    // losing a turn the model has already been paid for.
+    if (!text) throw new ModelGatewayError('Provider stream ended with no content', 'PROVIDER_ERROR', true);
+    return { status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text }] }] };
+  }
+  return completed;
 }

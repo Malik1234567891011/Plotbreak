@@ -62,9 +62,25 @@ export async function runTurnPure(options: {
   readonly shape?: 'rebuilt' | 'append';
   /** Required by `append`: previous turns exactly as they were sent. */
   readonly rendered?: readonly RenderedTurn[];
+  /**
+   * Receives each finished narrative block while the turn is still generating,
+   * already in the shape the committed turn will carry — so the stream is a
+   * true prefix of `blocks` and the caller can send only what is left.
+   */
+  readonly onBlock?: (block: PureTurnResult['blocks'][number]) => void;
 }): Promise<PureTurnResult> {
   const started = Date.now();
   const { gateway, story, state, recentTurns, actionText, turnId } = options;
+
+  const castIdsForStream = new Set(story.characters.map((c) => c.id));
+  const toBlocks = (speaker: string, text: string) =>
+    splitForContract(text).map((part) => ({
+      type: castIdsForStream.has(speaker) ? 'DIALOGUE' : 'NARRATION',
+      speakerId: castIdsForStream.has(speaker) ? speaker : null,
+      text: part,
+      visibility: 'GROUP',
+      voiceEligible: false,
+    }));
 
   const { turn, promptChars, historyTurns, invocation, rendered, nextWorldMinute, timeLabel, transition, shown } =
     await narratePure({
@@ -75,6 +91,13 @@ export async function runTurnPure(options: {
         ? undefined
         : (options.cacheKey ?? `pb:${state.sessionId ?? 'anon'}`),
     api: options.api,
+    ...(options.onBlock
+      ? {
+          onBlock: (block) => {
+            for (const ready of toBlocks(block.speaker, block.text)) options.onBlock!(ready);
+          },
+        }
+      : {}),
     cacheRetention: options.cacheRetention,
     shape: options.shape,
     rendered: options.rendered,
@@ -82,7 +105,7 @@ export async function runTurnPure(options: {
     compactThreshold: options.compactThreshold,
   });
 
-  const castIds = new Set(story.characters.map((c) => c.id));
+  const castIds = castIdsForStream;
   const blocks = turn.narrative.flatMap((b) =>
     // A block is a paragraph, and the contract caps one at 1,200 characters.
     // A longer one used to write to the database and then fail validation on
