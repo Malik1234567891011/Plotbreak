@@ -184,6 +184,41 @@ async function main(): Promise<void> {
       break;
     }
 
+    // Read the stream rather than polling, so the media the client actually
+    // receives is observed instead of inferred. Polling could not see
+    // reaction.ready at all, which is how a working art path looked broken.
+    const media: Array<{ kind: string; detail: string }> = [];
+    try {
+      const streamed = await fetch(
+        `${BASE}/v1/turns/${accepted.turnId}/stream?token=${encodeURIComponent(accepted.streamToken)}`,
+        { headers: { authorization: H.authorization } },
+      );
+      const reader = streamed.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      const started = Date.now();
+      let finished = false;
+      while (!finished && Date.now() - started < 180_000) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const chunks = buffer.split('\n\n');
+        buffer = chunks.pop() ?? '';
+        for (const chunk of chunks) {
+          const name = chunk.match(/^event:\s*(\S+)/m)?.[1];
+          if (!name) continue;
+          if (name === 'reaction.ready' || name === 'media.queued' || name === 'media.completed') {
+            const payload = JSON.parse(chunk.match(/^data:\s*(.+)$/m)?.[1] ?? '{}');
+            media.push({ kind: name, detail: JSON.stringify(payload.data ?? payload) });
+          }
+          if (name === 'turn.completed' || name === 'turn.failed') finished = true;
+        }
+      }
+      await reader.cancel().catch(() => undefined);
+    } catch {
+      // The turn still lands; only the media observation is lost.
+    }
+
     let turn: any = null;
     for (let wait = 0; wait < 150 && !turn; wait += 1) {
       turn = await call<any>('GET', `/v1/turns/${accepted.turnId}`).catch(() => null);
@@ -207,6 +242,9 @@ async function main(): Promise<void> {
       location: after.scene?.locationName,
       present: (after.scene?.presentCharacters ?? []).map((p: any) => p.name),
       blocks: (turn.blocks ?? []).length,
+      attributed: (turn.blocks ?? []).filter((b: any) => b.speakerId).length,
+      media,
+      cards: cards.map((c: any) => c.text),
     });
 
     md.push(`## Turn ${i + 1} — ${how}`, '');
@@ -219,12 +257,17 @@ async function main(): Promise<void> {
       `*${turn.endStatePrompt} · ${after.scene?.locationName} · present: ${(after.scene?.presentCharacters ?? []).map((p: any) => p.name).join(', ') || 'nobody'} · ${words} words*`,
       '',
     );
+    for (const m of media) md.push(`*[media] ${m.kind} ${m.detail.slice(0, 200)}*`, '');
     md.push('**Cards offered:**', '');
     for (const [n, s] of cards.entries()) md.push(`${n + 1}. ${s.text}`);
     md.push('');
 
     writeFileSync(out, md.join('\n'), 'utf8');
-    process.stdout.write(`t${i + 1}/${turns} ${how} ${words}w ${turn.endStatePrompt} @ ${after.scene?.locationName}\n`);
+    process.stdout.write(
+      `t${i + 1}/${turns} ${how} ${words}w ${turn.endStatePrompt} @ ${after.scene?.locationName}` +
+        ` attr=${(turn.blocks ?? []).filter((b: any) => b.speakerId).length}/${(turn.blocks ?? []).length}` +
+        ` media=${media.map((m) => m.kind.replace('.ready', '').replace('media.', '')).join(',') || 'none'}\n`,
+    );
   }
 
   writeFileSync(out, md.join('\n'), 'utf8');

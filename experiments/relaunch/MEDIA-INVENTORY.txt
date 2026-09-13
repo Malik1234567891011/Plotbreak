@@ -1,0 +1,48 @@
+story                     files  uniq  cover  key  prot  locs  portr  react
+story_ace                  180   125      1    0     0    17     13     94
+story_last_five            226   113      1    0     0    11     13     88
+story_pink_tide            101   100      1    0     0    17     10     72
+story_itachi               112    90      1    0     1    14     10     64
+story_seven_names           84    83      1    0     0    17      9     56
+story_last_service          83    79      1    0     0    14      8     56
+story_red_floor             80    79      1    0     0    13      9     56
+story_second_skin           81    79      1    0     0    13      9     56
+story_zero_throne           80    79      1    0     0    13      9     56
+story_blank_prophecy        72    71      1    0     0    14      8     48
+story_fourth_beast          72    71      1    0     0    14      8     48
+story_primal_crown          71    70      1    0     0    13      8     48
+story_hush_house           126    63      1    0     0    15      7     40
+story_good_morning_husband   118    59      1    0     0    11      7     40
+story_window_seven         116    58      1    0     0    10      7     40
+story_light                 66    33      1    0     0    16     16      0
+story_red_moon              42    21      1    0     0     9     11      0
+story_seven_days            36    18      1    0     0     9      8      0
+story_blackwake             30    15      1    0     0     6      8      0
+story_ninth_archive         28    14      1    0     0     8      5      0
+story_nine_weeks            26    13      1    0     0     7      5      0
+story_tidewall              26    13      1    0     0     7      5      0
+story_unbound               26    13      1    0     0     7      5      0
+story_salt_road             20    10      1    0     0     5      4      0
+story_understudy            20    10      1    0     0     5      4      0
+
+TOTAL unique images: 1379 across 25 stories (285 location, 206 portrait, 862 reaction)
+shared/hero: 2298 files
+shared/player: 0 files
+
+═══ ACE detail ═══
+characters:
+  akainu         portrait:1  reactions:6/8
+  dadan          portrait:1  reactions:8/8
+  deuce          portrait:1  reactions:8/8
+  garp           portrait:1  reactions:8/8
+  jinbe          portrait:1  reactions:8/8
+  key            portrait:1  reactions:0/8
+  luffy          portrait:1  reactions:8/8
+  marco          portrait:1  reactions:8/8
+  sabo           portrait:1  reactions:8/8
+  shanks         portrait:1  reactions:8/8
+  teach          portrait:1  reactions:8/8
+  thatch         portrait:1  reactions:8/8
+  whitebeard     portrait:1  reactions:8/8
+locations (17): alabasta, asl_treehouse, banaro, dadan_house, dawn_shore, goa_high_town, grand_line_port, gray_terminal, impel_down, marineford_battlefield, marineford_platform, moby_dick_deck, moby_dick_mess, mt_colubo, sixis, spade_ship, whitebeard_medical
+event-specific art: none — no asset class exists for events

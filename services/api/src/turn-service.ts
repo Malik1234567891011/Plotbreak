@@ -264,7 +264,15 @@ async function processTurn(
       // enqueues a media job and never reaches an image provider. If the asset
       // does not exist the client simply shows no reaction.
       if (pure.reaction) {
-        const who = story.characters.find((c) => c.id === pure.reaction!.characterId);
+        // Short repeat suppression. The same face with the same expression two
+        // beats running reads as a stuck image rather than a reaction, and a
+        // measured run put one character up thirteen turns out of twenty. The
+        // previous choice is recorded at the end of the last assistant message,
+        // so this costs no storage and no extra query.
+        const lastShown = priorMessages.at(-1)?.assistant.match(/· shown: (\S+?)\/(\S+?)\]/);
+        const repeat =
+          lastShown?.[1] === pure.reaction.characterId && lastShown?.[2] === pure.reaction.emotion;
+        const who = repeat ? undefined : story.characters.find((c) => c.id === pure.reaction!.characterId);
         if (who) {
           hub.emit(turnId, 'reaction.ready', {
             characterId: who.id,
