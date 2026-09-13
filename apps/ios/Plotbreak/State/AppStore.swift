@@ -144,6 +144,7 @@ final class AppStore {
         userId = identity?.userId
         email = identity?.email
         isGuest = identity?.isGuest ?? true
+        Attribution.identify(userId: identity?.userId)
     }
 
     private func applyBootstrap(_ response: BootstrapResponse) {
@@ -156,13 +157,14 @@ final class AppStore {
 
     /// Signing in upgrades the guest in place; `guest-migrate` reconciles the
     /// older device-local case (§6.5).
-    private func adopt(_ identity: AuthIdentity, previous: AuthIdentity?) async {
+    private func adopt(_ identity: AuthIdentity, previous: AuthIdentity?, method: String) async {
         if let previous, previous.isGuest, previous.userId != identity.userId {
             // i18n-exempt: a display name written once to the account, not UI copy
             _ = try? await api.migrateGuest(guestUserId: previous.userId, displayName: identity.email ?? "Player")
         }
         forgetPersonalCaches()
         apply(identity: identity)
+        if !identity.isGuest { Attribution.signedUp(userId: identity.userId, method: method) }
         if let response = try? await api.bootstrap() { applyBootstrap(response) }
     }
 
@@ -180,7 +182,7 @@ final class AppStore {
     func verifyEmailCode(_ email: String, code: String) async throws {
         let previous = await auth.identity
         let identity = try await auth.verifyEmailCode(email, code: code)
-        await adopt(identity, previous: previous)
+        await adopt(identity, previous: previous, method: "email")
     }
 
     /// Sign in with Apple. Takes the credential the native button produced and
@@ -191,7 +193,7 @@ final class AppStore {
         }
         let previous = await auth.identity
         let identity = try await auth.signInWithIdToken(provider: "apple", idToken: idToken, nonce: rawNonce)
-        await adopt(identity, previous: previous)
+        await adopt(identity, previous: previous, method: "apple")
     }
 
     /// Whether the Google button can work in this build.
@@ -218,7 +220,7 @@ final class AppStore {
         }
         let previous = await auth.identity
         let identity = try await auth.signInWithIdToken(provider: "google", idToken: idToken, nonce: rawNonce)
-        await adopt(identity, previous: previous)
+        await adopt(identity, previous: previous, method: "google")
     }
 
     private static var keyWindow: UIWindow? {

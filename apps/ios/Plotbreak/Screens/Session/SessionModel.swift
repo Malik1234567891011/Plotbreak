@@ -417,6 +417,7 @@ final class SessionModel {
             pending?.deltas.append(data["label"]?.stringValue ?? "")
 
         case .turnCompleted:
+            Attribution.firstBeatCompleted(sessionId: sessionId)
             if let balance = data["balance"]?.intValue { store.setBalance(balance) }
             if let next = data["suggestions"]?.decoded(as: [SuggestedAction].self) { suggestions = next }
             if let next = data["scene"]?.decoded(as: SessionSceneState.self) { scene = next }

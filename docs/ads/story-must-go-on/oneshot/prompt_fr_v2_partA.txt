@@ -1,0 +1,21 @@
+22-second 16:9 widescreen anime comedy ad, PART 1 of 2, cinematic modern anime film style, fast-paced, continuous flow, no on-screen text, no captions, no logos, no subtitles, no UI boxes. NO black frames and NO fade-to-black anywhere; every shot change is a smooth motion-matched transition (whip pan, push-through, light flare, match cut on movement). The image must never go dark between shots. The very last frame of this part is a full-screen bright white sunlight flare.
+
+NARRATION SCRIPT (French, standard France French, neutral accent, no regional accent, no slang). NARRATOR: a VERY DEEP male voice, bass baritone, gravelly, slow and heavy like a movie-trailer announcer, calm and dry, never shouting. One character also speaks one line: the DEMON KING (even deeper, booming, indignant roar). The voices speak these 5 lines in this exact order, each line exactly once, never repeated, never overlapping, nothing added, no narration after line 5:
+1. NARRATOR: « L'histoire est terminée. »
+2. NARRATOR: « Non. Pas celle-là. »
+3. NARRATOR: « Un roi démon qui a préparé sa vengeance pendant mille ans... »
+4. NARRATOR: « ...se réveille dans un lycée. »
+5. DEMON KING: « Quoi ?! »
+
+MUSIC: opens as a slow, sad orchestral "end credits" string theme; a record-scratch and a low bass boom cut it off at line 2; from then on a punchy, playful cinematic hybrid trap beat with big drum hits on every reveal, a comedic sting on line 5, and a rising whoosh into the white flash at the very end. SFX: soft mechanical keyboard typing clicks play under lines 3 and 4, with a small "enter" chime at the end of line 4.
+
+SHOTS (timestamps, explicit hold, reference image, action):
+0.0-1.5s (hold 1.5s) @e06a77a9-a81b-48c0-bf21-eeb753d95b74.png — Slow push-in on a lone horned armored figure walking away down a misty moonlit mountain path toward a huge full moon, grey-blue near-monochrome, fog drifting, sad "the end" mood. Line 1. Transition: sudden fast rush forward toward the figure.
+1.5-5.0s (hold 3.5s) @63ea58cb-856c-4624-b391-de052838ece5.png — The demon king stops mid-step and snaps his head back over his shoulder toward the camera, eyes flaring bright crimson, hair whipping, defiant smirk. SFX: record scratch, low bass boom. Line 2. Transition: the crimson glow of his eyes floods the whole frame into deep red.
+5.0-9.5s (hold 4.5s) @9065b03b-edce-408d-8828-47c847b9c678.png — Close-up of the demon king in his volcanic lava throne hall, embers drifting, slow push-in on his menacing calm face, deep red and black, as if he is being described into existence. SFX: keyboard typing clicks. Line 3. Transition: the lava glow brightens into white sunlight and the lair dissolves around his face into a sunny classroom (match cut on his face).
+9.5-13.5s (hold 4.0s) @29a2f4bf-1090-40e7-8cf1-99573aff13a4.png — Bright sunny Japanese high school classroom materialises around him: the demon king now in a black gakuran school uniform sits at a small student desk, still frozen in his menacing pose, then slowly looks down at himself, cherry blossoms outside. SFX: keyboard typing clicks, then an "enter" chime. Line 4. Transition: none, same shot continues.
+13.5-17.0s (hold 3.5s) same classroom — He looks around the room; the teenage students stare wide-eyed, one drops a textbook, a collective gasp. Line 5 as he roars, horns nearly hitting the ceiling. SFX: book hitting the floor, gasp, comedic sting. Transition: fast push-in on his face.
+17.0-20.5s (hold 3.5s) @1b31c171-9629-4921-8d36-ddccc22ad007.png — Extreme close-up of the demon king's shocked face, eyes wide, pupils tiny, sweat drop, he snaps the pencil in his fist, worksheet crumples. SFX: pencil snap, music hit. No narration. Transition: whip pan straight up.
+20.5-22.0s (hold 1.5s) — The whip pan continues up past the classroom window into a bright blue sky, and a white sunlight flare grows until it fills the entire frame pure white by 22.0s. No narration. Rising whoosh.
+
+Keep the demon king (long black hair, large curved black horns, crimson eyes, pale grey skin) with face, hair, horns and outfit identical to the reference images throughout, one consistent anime art style, smooth quick motion-matched transitions, momentum carried through every cut, no black frames, no text of any kind.

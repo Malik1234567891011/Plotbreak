@@ -6,6 +6,7 @@ struct PlotbreakApp: App {
     @State private var store = AppStore()
 
     init() {
+        Attribution.configure()
         // Covers come back with `cache-control: immutable`, and AsyncImage
         // reads them through the shared URL cache. The default cache is a few
         // megabytes, so seventy-odd 90 KB covers evicted each other and every

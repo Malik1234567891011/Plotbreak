@@ -42,8 +42,14 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Lets us see which ads bring in players who enjoy Plotbreak, so we can make more stories like the ones you play.</string>
 	<key>PLOTBREAK_API_URL</key>
 	<string>$(PLOTBREAK_API_URL)</string>
+	<key>PLOTBREAK_APPLE_APP_ID</key>
+	<string>$(PLOTBREAK_APPLE_APP_ID)</string>
+	<key>PLOTBREAK_APPSFLYER_DEV_KEY</key>
+	<string>$(PLOTBREAK_APPSFLYER_DEV_KEY)</string>
 	<key>PLOTBREAK_GOOGLE_CLIENT_ID</key>
 	<string>$(PLOTBREAK_GOOGLE_CLIENT_ID)</string>
 	<key>PLOTBREAK_LEGAL_BASE_URL</key>
@@ -52,6 +58,29 @@
 	<string>$(PLOTBREAK_SUPABASE_ANON_KEY)</string>
 	<key>PLOTBREAK_SUPABASE_URL</key>
 	<string>$(PLOTBREAK_SUPABASE_URL)</string>
+	<key>SKAdNetworkItems</key>
+	<array>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>v9wttpbfk9.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>n38lu8286q.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>238da6jt44.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>22mmun2rn5.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>cstr6suwn9.skadnetwork</string>
+		</dict>
+	</array>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>

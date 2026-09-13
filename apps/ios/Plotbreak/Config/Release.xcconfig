@@ -13,4 +13,10 @@ PLOTBREAK_LEGAL_BASE_URL = https:/$()/www.plotbreak.com
 PLOTBREAK_GOOGLE_CLIENT_ID = 564080718924-u51v214cbu96op08hnmfv8e3e70nss79.apps.googleusercontent.com
 PLOTBREAK_GOOGLE_URL_SCHEME = com.googleusercontent.apps.564080718924-u51v214cbu96op08hnmfv8e3e70nss79
 
+// AppsFlyer ad attribution. The dev key ships inside the binary by design and
+// is not a secret; the App ID is the App Store listing (id6811307049). Empty
+// dev key disables the SDK. Debug builds also send nothing from the simulator.
+PLOTBREAK_APPSFLYER_DEV_KEY = 5P3wuiiJm9Y6R7RG3eSLf7
+PLOTBREAK_APPLE_APP_ID = 6811307049
+
 #include? "Local.xcconfig"

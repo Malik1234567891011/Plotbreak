@@ -1,0 +1,21 @@
+19-second 9:16 vertical anime ad, cinematic modern anime film style, fast-paced, continuous flow, no on-screen text, no captions, no logos. NO black frames and NO fade-to-black anywhere before the final second; every shot change is a smooth motion-matched transition (whip pan, push-through, light flare or strobe wash, match cut on movement). The image must never go dark between characters.
+
+NARRATION SCRIPT (English, neutral North American accent). Narrator: young male, low-medium pitch, calm and intimate, close to the mic, unhurried, slightly wistful at the start and warm and confident at the end; not a movie-trailer announcer, not a hype voice. The narrator speaks these 4 lines in this exact order, each line exactly once, never repeated, never overlapping, nothing added, no narration after line 4:
+1. "First day at hero academy."
+2. "Everyone here already has a power."
+3. "Everyone... except you."
+4. "So what's yours? Just type it."
+
+MUSIC: cinematic anime orchestral-electronic track, soft piano and strings at the open, a rising pulse under the reveals with a hit landing on each new character (2.0s, 4.4s, 6.6s, 9.0s), drops to a tense low drone under the crowd at 11.0s, swells warm and hopeful under line 4 at 13.0s, then the tail fades to silence over the final black.
+
+SHOTS:
+0.0-1.8s (hold 1.8s) @b53fe7b8-f480-45dc-bb1f-8e7f5b782a2b.png — wide golden atrium, students streaming in, slow push-in following the dark-haired boy from behind as he walks in alone with his backpack, light beams sweeping. SFX: distant crowd murmur, footsteps. Line 1. Transition: fast push-through the sunbeam into a white-gold flare.
+1.8-4.2s (hold 2.4s) @55d7a0cf-6136-49c3-b934-13ed41693def.png — the cat-eared white-haired girl lunges toward camera mid-leap, hot-pink energy claws slashing, sparks trailing, camera whips with her. SFX: pink energy crackle, playful laugh. Line 2. Transition: her claw slash wipes across the frame into a pink light wash.
+4.2-6.4s (hold 2.2s) @30bca3a9-971a-47ab-9c79-44b04a6dce1f.png — the white-haired boy in the white blazer walks calmly toward camera, hands in pockets, frost spreading from his footsteps, ice crystals blooming, camera dollies back ahead of him. SFX: crackling ice, cold wind. No narration, music hit. Transition: ice crystals flash white then shatter into the next shot.
+6.4-8.8s (hold 2.4s) @f12f3ce8-96a6-4b2c-8367-82910ae37888.png — the blonde girl thrusts her open palm toward camera, electric-blue lightning arcs from her fingertips across the frame, hair lifting, low angle push-in. SFX: lightning crack, electric hum. No narration, music hit. Transition: a lightning strike whites out the frame into the next shot.
+8.8-10.8s (hold 2.0s) @590e6d9d-b08b-46f9-89b0-46bc2f8df7a9.png — the orange-haired boy with goggles smirks at camera as a ball of fire roars above his open hand, embers rising, slow push-in. SFX: fire whoosh, embers. No narration, music hit. Transition: fire flares orange, then whip pan to the crowd.
+10.8-12.8s (hold 2.0s) @c1f29fb0-6976-4a65-ab8e-18a2cf240c68.png — POV shot, the whole crowd of students turned toward camera, staring, whispering, mouths open, slow creeping dolly in, the ring of faces tightening. SFX: whispers, a gasp, silence. Line 3. Transition: match cut on the protagonist's face turning up.
+12.8-15.6s (hold 2.8s) @a07cba36-bbbd-4c8b-96cf-5f19f7198749.png — close-up of the ordinary dark-haired boy looking down at his empty hands, uncertain, then a violet spark ignites in his palm and grows, light rising on his face, slow push-in. SFX: soft violet hum building. Line 4. Transition: violet light blooms up over the lens.
+15.6-19.0s (hold 3.4s) @52e0a699-8462-4f72-a790-4c11acbcf8a2.png — extreme close-up of the same boy looking straight into camera, quiet confident smile, violet light blazing from below, violet particles rising, hair lifting, slow push-in on his eyes. SFX: violet energy swell. No narration. The shot fades to full black over the last 1.0s (18.0-19.0s), no narration, music tail fades out.
+
+Keep faces, hair and outfits identical to the reference images, one consistent art style throughout, smooth quick motion-matched transitions, momentum carried through every cut, no black frames between shots.

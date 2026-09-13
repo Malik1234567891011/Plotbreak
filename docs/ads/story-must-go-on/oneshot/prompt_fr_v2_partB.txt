@@ -1,0 +1,22 @@
+24-second 16:9 widescreen anime comedy ad, PART 2 of 2, cinematic modern anime film style, fast-paced, continuous flow, no on-screen text, no captions, no logos, no subtitles, no UI boxes. The very first frame is a full-screen bright white sunlight flare that resolves into the first shot. NO black frames and NO fade-to-black anywhere before the final 1.5 seconds; every shot change is a smooth motion-matched transition (whip pan, push-through, light flare, match cut on movement). The image must never go dark between shots.
+
+NARRATION SCRIPT (French, standard France French, neutral accent, no regional accent, no slang). NARRATOR: a VERY DEEP male voice, bass baritone, gravelly, slow and heavy like a movie-trailer announcer, calm and dry, never shouting. One character also speaks one line: the DRAGON GIRL (high, bright, panicked). The voices speak these 5 lines in this exact order, each line exactly once, never repeated, never overlapping, nothing added, no narration after line 5:
+1. NARRATOR: « Une dragonne légendaire... »
+2. NARRATOR: « ...qui a le vertige. »
+3. DRAGON GIRL: « Non non non ! »
+4. NARRATOR: « Fais-les tomber amoureux. »
+5. NARRATOR: « Ton histoire. Écris-la. »
+
+MUSIC: enters on a big drum hit at 0.0s, continuing a punchy, playful cinematic hybrid trap beat already in progress, comedic sting on line 3, softens into a warm romantic swell at 9.5s, builds into an energetic electronic rise for the grid at 14s, then the tail fades to silence over the final black. SFX: soft mechanical keyboard typing clicks play under lines 1, 2 and 4, with a small "enter" chime after line 2 and after line 4.
+
+SHOTS (timestamps, explicit hold, reference image, action):
+0.0-1.5s (hold 1.5s) @5204c405-ad2c-415b-acf3-0784deb153db.png — The white flare resolves into a bright blue sky above white clouds where the dragon girl floats proudly, wings spread wide, arms crossed, hair blowing, sun flare, sky blue and gold. SFX: drum hit, keyboard typing clicks. Line 1. Transition: none, same shot continues.
+1.5-5.0s (hold 3.5s) same sky shot — She keeps posing proudly, then glances down at the clouds far below and her confident face suddenly freezes. SFX: keyboard typing clicks, "enter" chime. Line 2. Transition: fast tilt down and push through the clouds to a sunny street.
+5.0-9.5s (hold 4.5s) @9ef89cfd-eafe-4f64-a120-f9ce0bdadf14.png — Low angle on a sunny school street with cherry blossoms: the dragon girl clings to a lamppost only one metre above the ground, wings flapping frantically, tail coiled around the pole, eyes shut, tears flying, trembling, terrified of the tiny height. SFX: frantic wing flaps, a squeak, comedic sting. Line 3 as she wails. Transition: a gust of cherry petals sweeps across the frame into warm golden sunset light.
+9.5-14.0s (hold 4.5s) @216d757c-22cf-4a3d-a0c1-603dc32f15b7.png — School rooftop at golden-hour sunset: the demon king (long black hair, large curved black horns, crimson eyes, pale grey skin, black gakuran uniform) and the dragon girl now in a sailor school uniform stand face to face very close, holding hands; she blushes hard and looks up at him, he looks away awkwardly with a faint blush, then they slowly lean in, wind in their hair, chain-link fence, city skyline, warm orange and pink. Slow push-in. SFX: keyboard typing clicks, "enter" chime. Line 4. Transition: the frame splits along thin dark seams into a grid.
+14.0-18.5s (hold 4.5s) @e05440d5-26b4-45f2-bc9a-ecfc21dc103e.png — The rooftop shot becomes one tile in a grid of many different anime worlds (samurai duel, mecha, magical girl, space battle, cafe romance, cyberpunk street, pirate ship...), the camera pulls back as tiles multiply, everything washed in soft violet #7C6CFF light, tiles subtly animate. Line 5. Transition: none, keep pulling back.
+18.5-21.0s (hold 2.5s) same grid — The grid keeps multiplying and receding, a bright violet light flare swells from the centre. No narration.
+21.0-22.5s (hold 1.5s) — Violet #7C6CFF light flare fills the frame over the grid, then settles. No narration.
+22.5-24.0s — The final shot fades to full black over the last 1.5s, no narration, music tail fades out.
+
+Keep the dragon girl (silver-white hair with pale blue tips, small golden horns, blue and gold wings, scaled tail, golden eyes) and the demon king with faces, hair, horns, wings and outfits identical to the reference images throughout, one consistent anime art style, smooth quick motion-matched transitions, momentum carried through every cut, no black frames between shots, no text of any kind.

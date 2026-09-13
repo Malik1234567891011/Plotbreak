@@ -171,6 +171,7 @@ final class Purchases {
         do {
             let synced = try await api.syncPurchase(syncRequest(transaction, jws: result.jwsRepresentation))
             await transaction.finish()
+            if !synced.duplicate { Attribution.purchased(transaction) }
             if silent { return nil }
             return synced.duplicate ? .alreadyCredited(balance: synced.balance) : .credited(credits: synced.credited, balance: synced.balance)
         } catch {
