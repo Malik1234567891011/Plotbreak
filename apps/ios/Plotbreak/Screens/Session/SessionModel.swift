@@ -333,20 +333,20 @@ final class SessionModel {
         let qualityTier = store.qualityTier
         let sessionRevision = revision
 
-        // The player's own words go up before the network is touched, and the
-        // view parks on them rather than chasing the bottom.
+        // The player's own words go up before the network is touched. The view
+        // does not move.
         //
-        // Chasing the bottom made sense when the responses lived in a sheet.
-        // Now they sit at the end of the prose, so tapping one scrolled past
-        // the beat that was about to arrive and the reader had to climb back up
-        // to read it. Their action goes to the top instead and the story
-        // streams in underneath, which is the direction they are already
-        // reading in.
+        // It used to follow the bottom, then park the new beat at the top;
+        // both dragged the reader. The second was subtler: at send time the
+        // action is the last thing in the feed, and scrolling to it with a top
+        // anchor has nothing below to scroll past, so SwiftUI goes as far as it
+        // can — the bottom. The responses are already where the reader is
+        // looking, so their action appears right there and the prose grows
+        // downward from it. Nothing needs to move at all.
         draft = ""
         saveDraftNow("")
         lastReaction = nil
         pending = PendingTurn(actionText: text)
-        requestScroll(animated: true, anchor: .latestBeat)
 
         defer {
             sending = false
