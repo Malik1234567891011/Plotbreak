@@ -563,7 +563,10 @@ async function processTurn(
       heroImageUrl: null,
       revisionAfter: result.state.revision,
       createdAt: new Date().toISOString(),
-      repairViolations: result.repaired ? result.report.violations : [],
+      // What was actually wrong, not what survived the repair. `report` is
+      // re-validated after each repair pass, so a repair that worked left this
+      // column storing an empty array on every repaired turn.
+      repairViolations: result.repaired ? result.observedViolations : [],
       // Kept so `Rephrase narration` reruns the prose against the same
       // resolution and the same staging, rather than rolling the turn again.
       resolution: result.resolution,
@@ -738,7 +741,7 @@ async function processTurn(
     // §37.4 — every violation, not just the ones that forced a repair. The
     // repair rate alone says how often the validator fired; the codes say what
     // the writer keeps getting wrong, which is the part that can be fixed.
-    for (const violation of result.report.violations) {
+    for (const violation of result.observedViolations) {
       track.track('consistency_violation', {
         storyId: story.storyId,
         code: violation.code,
@@ -749,7 +752,7 @@ async function processTurn(
     if (result.repaired) {
       track.track('turn_repaired', {
         storyId: story.storyId,
-        violationCount: result.report.violations.length,
+        violationCount: result.observedViolations.length,
       });
     }
 

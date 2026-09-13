@@ -138,6 +138,16 @@ export interface TurnPipelineResult {
   readonly plan: BeatPlan;
   readonly narrative: NarrativeTurn;
   readonly report: ConsistencyReport;
+  /**
+   * Every violation the validator found, including the ones repair then fixed.
+   *
+   * `report` above is re-validated after each repair pass, so a successful
+   * repair leaves it empty — which is correct for "is this turn still wrong"
+   * and useless for "what was wrong with it". The second question is the one
+   * §37.4 and the `repairViolations` column are asking, and both were reading
+   * the post-repair report and silently recording nothing.
+   */
+  readonly observedViolations: ConsistencyReport['violations'];
   readonly repaired: boolean;
   readonly state: GameState;
   readonly events: GameEvent[];
@@ -322,6 +332,8 @@ export async function runTurn(options: RunTurnOptions): Promise<TurnPipelineResu
   clock.start('validate');
   let report = validateNarrative({ context, turn: narrative });
   let repaired = false;
+  // Kept because `report` is reassigned below; see `observedViolations`.
+  const observedViolations = [...report.violations];
 
   // Step 11 — exactly one constrained repair pass. Never a loop.
   if (isRepairable(report)) {
@@ -365,6 +377,10 @@ export async function runTurn(options: RunTurnOptions): Promise<TurnPipelineResu
       repaired = true;
     }
     report = validateNarrative({ context, turn: narrative });
+    // A fourth-wall break is found by its own detector and has no
+    // `ViolationCode`, so it is deliberately not pushed here: inventing a code
+    // would put a name in the analytics that the contract has never heard of.
+    // `repaired` above is what records that this pass ran.
   }
   clock.end('validate');
 
@@ -425,6 +441,7 @@ export async function runTurn(options: RunTurnOptions): Promise<TurnPipelineResu
     plan,
     narrative,
     report,
+    observedViolations,
     repaired,
     state: commit.state,
     events: commit.events,
