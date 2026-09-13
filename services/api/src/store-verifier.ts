@@ -129,11 +129,24 @@ export class AppStoreVerifier implements StoreVerifier {
         // their transaction and the client can retry, hence retryable.
         return { valid: false, reason: `App Store unreachable: ${String(error)}`, retryable: true };
       }
-      if (response.status !== 404) break;
+      // 404 is "that transaction is not in this environment". 401 is "this API
+      // does not know your app", which is what the production host answers
+      // until the app has actually shipped — so while it is unreleased, every
+      // real sandbox and TestFlight purchase hits 401 here first. Both answers
+      // mean ask the other host; treating 401 as final is the same bug as
+      // giving up on 404, one status code along.
+      if (response.status !== 404 && response.status !== 401) break;
     }
 
     if (!response || response.status === 404) {
       return { valid: false, reason: 'Apple has no record of that transaction.', retryable: false };
+    }
+    if (response.status === 401) {
+      return {
+        valid: false,
+        reason: 'Neither App Store environment accepted the key for this app.',
+        retryable: false,
+      };
     }
     if (!response.ok) {
       return { valid: false, reason: `App Store returned ${response.status}.`, retryable: response.status >= 500 };
