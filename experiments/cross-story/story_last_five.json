@@ -1,0 +1,262 @@
+{
+  "storyId": "story_last_five",
+  "sessionId": "sess_43faec36-35d7-4f1d-805f-ecc418149afc",
+  "log": [
+    {
+      "turn": 1,
+      "how": "typed",
+      "firstBlockMs": 4011,
+      "fullMs": 9818,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 5,
+      "words": 239,
+      "time": "Day 1 · afternoon",
+      "location": "The Kosei Gym",
+      "present": [
+        "Dai Okonkwo",
+        "Kai Sumire",
+        "Jun Hasabe",
+        "Ena Torakawa",
+        "Bo Ferrand",
+        "Nori Abe"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "jun",
+          "emotion": "neutral",
+          "url": "http://10.144.7.164:4000/media/story_last_five/jun_neutral?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_last_five/stage_kosei_gym?v=1&e=2",
+      "cards": [
+        "I take the ball and go straight at Jun.",
+        "I ask Jun what he thinks the criteria should be before we start.",
+        "I tell Coach I will show her the defense first."
+      ]
+    },
+    {
+      "turn": 2,
+      "how": "typed",
+      "firstBlockMs": 4215,
+      "fullMs": 7671,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 3,
+      "words": 166,
+      "time": "Day 1 · afternoon",
+      "location": "The Kosei Gym",
+      "present": [
+        "Dai Okonkwo",
+        "Kai Sumire",
+        "Jun Hasabe",
+        "Ena Torakawa",
+        "Bo Ferrand",
+        "Nori Abe"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "dai",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_last_five/dai_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_last_five/stage_kosei_gym?v=1&e=2",
+      "cards": [
+        "I take the ball and tell Jun to check it up.",
+        "I ask Coach whether she knew what happened.",
+        "I tell them I am not here to earn anyone’s trust."
+      ]
+    },
+    {
+      "turn": 3,
+      "how": "tapped",
+      "firstBlockMs": 2244,
+      "fullMs": 4946,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 3,
+      "words": 117,
+      "time": "Day 1 · afternoon",
+      "location": "The Kosei Gym",
+      "present": [
+        "Dai Okonkwo",
+        "Kai Sumire",
+        "Jun Hasabe",
+        "Ena Torakawa",
+        "Bo Ferrand",
+        "Nori Abe"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "kai",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_last_five/kai_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_last_five/stage_kosei_gym?v=1&e=2",
+      "cards": [
+        "I tell Dai exactly why I came here.",
+        "I pick up the ball and tell Jun to check it.",
+        "I leave the gym."
+      ]
+    },
+    {
+      "turn": 4,
+      "how": "typed",
+      "firstBlockMs": 2412,
+      "fullMs": 6195,
+      "streamedBlocks": 9,
+      "blocks": 9,
+      "attributed": 5,
+      "words": 156,
+      "time": "Day 1 · afternoon",
+      "location": "The Kosei Gym",
+      "present": [
+        "Dai Okonkwo",
+        "Kai Sumire",
+        "Jun Hasabe",
+        "Ena Torakawa",
+        "Bo Ferrand",
+        "Nori Abe"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "coach",
+          "emotion": "neutral",
+          "url": "http://10.144.7.164:4000/media/story_last_five/coach_neutral?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_last_five/stage_kosei_gym?v=1&e=2",
+      "cards": [
+        "I leave the gym.",
+        "I tell Coach what I actually came here for.",
+        "I pick up the ball and ask Jun for one possession."
+      ]
+    },
+    {
+      "turn": 5,
+      "how": "tapped",
+      "firstBlockMs": 2529,
+      "fullMs": 5287,
+      "streamedBlocks": 3,
+      "blocks": 3,
+      "attributed": 0,
+      "words": 117,
+      "time": "Day 1 · afternoon",
+      "location": "Kosei High",
+      "present": [],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_last_five/stage_kosei_school?v=1&e=2",
+      "cards": [
+        "I go back to the gym and ask Coach Torakawa what I would have to do to get another chance.",
+        "I head for the locker room to read the board’s notice for myself.",
+        "I spend the rest of the afternoon outside school and decide whether I am coming back."
+      ]
+    },
+    {
+      "turn": 6,
+      "how": "tapped",
+      "firstBlockMs": 3881,
+      "fullMs": 6390,
+      "streamedBlocks": 3,
+      "blocks": 3,
+      "attributed": 0,
+      "words": 126,
+      "time": "Day 1 · evening",
+      "location": "Kosei High",
+      "present": [],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_last_five/stage_kosei_school?v=1&e=2",
+      "cards": [
+        "I head home and leave Kosei behind.",
+        "I spend the next few days avoiding the gym and see whether anyone reaches out.",
+        "I go back to the gym doors, but I do not go inside."
+      ]
+    },
+    {
+      "turn": 7,
+      "how": "typed",
+      "firstBlockMs": 3635,
+      "fullMs": 4783,
+      "streamedBlocks": 1,
+      "blocks": 1,
+      "attributed": 0,
+      "words": 96,
+      "time": "Day 1 · evening",
+      "location": "Kosei High",
+      "present": [],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_last_five/stage_kosei_school?v=1&e=2",
+      "cards": [
+        "I go home without looking back.",
+        "I walk once around the school before I leave.",
+        "Over the next few days, I stay away from Kosei and see whether I miss it."
+      ]
+    },
+    {
+      "turn": 8,
+      "how": "tapped",
+      "firstBlockMs": 3451,
+      "fullMs": 6991,
+      "streamedBlocks": 3,
+      "blocks": 3,
+      "attributed": 0,
+      "words": 136,
+      "time": "Day 1 · evening",
+      "location": "Kosei High",
+      "present": [],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_last_five/stage_kosei_school?v=1&e=2",
+      "cards": [
+        "I go home and do not come back to Kosei.",
+        "Over the next few days, I stay away from the school and see whether leaving feels different.",
+        "I turn back toward the gym entrance before I get too far."
+      ]
+    },
+    {
+      "turn": 9,
+      "how": "tapped",
+      "firstBlockMs": 2246,
+      "fullMs": 5032,
+      "streamedBlocks": 3,
+      "blocks": 3,
+      "attributed": 0,
+      "words": 134,
+      "time": "Day 1 · evening",
+      "location": "Kosei High",
+      "present": [],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_last_five/stage_kosei_school?v=1&e=2",
+      "cards": [
+        "I press the intercom and ask if anyone is still inside.",
+        "I head around to the rear service gate.",
+        "I leave the school for real."
+      ]
+    },
+    {
+      "turn": 10,
+      "how": "typed",
+      "firstBlockMs": 5517,
+      "fullMs": 6583,
+      "streamedBlocks": 1,
+      "blocks": 1,
+      "attributed": 0,
+      "words": 192,
+      "time": "Day 1 · evening",
+      "location": "Kosei High",
+      "present": [],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_last_five/stage_kosei_school?v=1&e=2",
+      "cards": [
+        "I press the intercom and ask if anyone is still inside.",
+        "I walk around to the rear service gate.",
+        "I leave without trying to get back in."
+      ]
+    }
+  ]
+}

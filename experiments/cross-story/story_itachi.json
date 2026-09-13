@@ -1,0 +1,280 @@
+{
+  "storyId": "story_itachi",
+  "sessionId": "sess_59904726-3723-4496-9564-59918e83cf19",
+  "log": [
+    {
+      "turn": 1,
+      "how": "typed",
+      "firstBlockMs": 5260,
+      "fullMs": 11610,
+      "streamedBlocks": 10,
+      "blocks": 10,
+      "attributed": 6,
+      "words": 351,
+      "time": "Day 1 · evening",
+      "location": "The Cliff Over The River",
+      "present": [
+        "Shisui Uchiha"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "shisui",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_itachi/shisui_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_itachi/stage_nakano_cliff?v=1&e=2",
+      "cards": [
+        "I ask exactly what Danzo said when you told him.",
+        "I tell Shisui we need proof against Root on the Hokage's desk.",
+        "I tell him we speak to my father before anyone uses that eye."
+      ]
+    },
+    {
+      "turn": 2,
+      "how": "typed",
+      "firstBlockMs": 5144,
+      "fullMs": 14056,
+      "streamedBlocks": 13,
+      "blocks": 13,
+      "attributed": 4,
+      "words": 339,
+      "time": "Day 1 · evening",
+      "location": "The Shrine By The River",
+      "present": [
+        "Shisui Uchiha",
+        "Fugaku Uchiha"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "fugaku",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_itachi/fugaku_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_itachi/stage_naka_shrine?v=1&e=2",
+      "cards": [
+        "I give Father only the information he already expects.",
+        "I report that the tower has no terms, then ask who prepared the duty rosters.",
+        "I say the clan is treating an order as a formality, and that is how people die."
+      ]
+    },
+    {
+      "turn": 3,
+      "how": "typed",
+      "firstBlockMs": 4043,
+      "fullMs": 9340,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 4,
+      "words": 249,
+      "time": "Day 1 · evening",
+      "location": "The House On The Corner",
+      "present": [
+        "Sasuke Uchiha",
+        "Mikoto Uchiha"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "sasuke",
+          "emotion": "warm",
+          "url": "http://10.144.7.164:4000/media/story_itachi/sasuke_warm?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_itachi/stage_uchiha_house?v=1&e=2",
+      "cards": [
+        "I inspect Sasuke’s shuriken and give him the correction he earned.",
+        "I sit down to eat and tell them I am staying home tonight.",
+        "I ask Sasuke to show me exactly how he made nine hits."
+      ]
+    },
+    {
+      "turn": 4,
+      "how": "tapped",
+      "firstBlockMs": 2449,
+      "fullMs": 6978,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 4,
+      "words": 218,
+      "time": "Day 1 · evening",
+      "location": "The House On The Corner",
+      "present": [
+        "Sasuke Uchiha",
+        "Mikoto Uchiha"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "mikoto",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_itachi/mikoto_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_itachi/stage_uchiha_house?v=1&e=2",
+      "cards": [
+        "I tell Mother I walked out of Father’s meeting.",
+        "I tell her I do not know which place is safe anymore.",
+        "I tell Sasuke we will go to the posts after dinner."
+      ]
+    },
+    {
+      "turn": 5,
+      "how": "tapped",
+      "firstBlockMs": 3122,
+      "fullMs": 6729,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 147,
+      "time": "Day 1 · evening",
+      "location": "The House On The Corner",
+      "present": [
+        "Sasuke Uchiha",
+        "Mikoto Uchiha"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_itachi/stage_uchiha_house?v=1&e=2",
+      "cards": [
+        "I tell Mother why I left the shrine.",
+        "I ask Sasuke what he counted wrong.",
+        "I finish dinner and take Sasuke to the posts."
+      ]
+    },
+    {
+      "turn": 6,
+      "how": "tapped",
+      "firstBlockMs": 3327,
+      "fullMs": 7160,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 3,
+      "words": 198,
+      "time": "Day 1 · evening",
+      "location": "The House On The Corner",
+      "present": [
+        "Sasuke Uchiha",
+        "Mikoto Uchiha"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_itachi/stage_uchiha_house?v=1&e=2",
+      "cards": [
+        "I correct his grip honestly and tell him what we will work on.",
+        "I ask why he kept the chipped shuriken separate.",
+        "I answer Mother's question now."
+      ]
+    },
+    {
+      "turn": 7,
+      "how": "typed",
+      "firstBlockMs": 5155,
+      "fullMs": 8776,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 174,
+      "time": "Day 1 · evening",
+      "location": "The Shrine By The River",
+      "present": [
+        "Fugaku Uchiha"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "fugaku",
+          "emotion": "angry",
+          "url": "http://10.144.7.164:4000/media/story_itachi/fugaku_angry?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_itachi/stage_naka_shrine?v=1&e=2",
+      "cards": [
+        "I tell him I will not answer for a plan I was not allowed to shape.",
+        "I ask whether he can still control the men in this room.",
+        "I say nothing and leave."
+      ]
+    },
+    {
+      "turn": 8,
+      "how": "tapped",
+      "firstBlockMs": 3741,
+      "fullMs": 7915,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 4,
+      "words": 213,
+      "time": "Day 1 · evening",
+      "location": "The Shrine By The River",
+      "present": [
+        "Fugaku Uchiha"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_itachi/stage_naka_shrine?v=1&e=2",
+      "cards": [
+        "I tell him the clan needs terms on paper before anyone moves.",
+        "I tell him I do not have a plan yet, but his cannot go forward.",
+        "I ask him whether he can still stop the men who made their own roster."
+      ]
+    },
+    {
+      "turn": 9,
+      "how": "tapped",
+      "firstBlockMs": 1538,
+      "fullMs": 6555,
+      "streamedBlocks": 9,
+      "blocks": 9,
+      "attributed": 5,
+      "words": 213,
+      "time": "Day 1 · evening",
+      "location": "The Shrine By The River",
+      "present": [
+        "Fugaku Uchiha"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "fugaku",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_itachi/fugaku_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_itachi/stage_naka_shrine?v=1&e=2",
+      "cards": [
+        "I ask what terms he would accept from the village.",
+        "I tell him Yashiro already has a plan outside his control.",
+        "I leave and go find Shisui."
+      ]
+    },
+    {
+      "turn": 10,
+      "how": "tapped",
+      "firstBlockMs": 3984,
+      "fullMs": 7696,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 4,
+      "words": 205,
+      "time": "Day 1 · night",
+      "location": "The Roofs",
+      "present": [
+        "Shisui Uchiha"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "shisui",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_itachi/shisui_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_itachi/stage_the_rooftops?v=1&e=2",
+      "cards": [
+        "I tell Shisui exactly what my father gave me until tomorrow night.",
+        "I ask Shisui what Danzo knows about his eye.",
+        "I say we take the note to the Hokage tonight."
+      ]
+    }
+  ]
+}

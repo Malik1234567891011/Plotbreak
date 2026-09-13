@@ -4,6 +4,7 @@ import { charactersPresent, dayPart, deriveTurnSeed, outcomeLabel, formatCheckMa
 import { runTurn, runTurnPure } from '@plotbreak/director';
 import type { AppContext } from './context.js';
 import { reactionAssetKey } from '@plotbreak/contracts';
+import { assetExists } from './media-routes.js';
 import { resolveAssetUrl, toSceneState } from './projections.js';
 import type { SessionRecord, UserRecord } from './repo/types.js';
 import { InsufficientCreditsError, type Reservation } from './wallet.js';
@@ -292,12 +293,16 @@ async function processTurn(
         // of it cannot drift apart: `pure.reaction` is already what the player
         // should see, or null.
         const who = story.characters.find((c) => c.id === pure.reaction!.characterId);
-        if (who) {
+        const assetKey = who ? reactionAssetKey(story.storyId, who.id, pure.reaction.emotion) : null;
+        // Only if the picture actually exists. Ace has a full reaction deck so
+        // this never mattered there; ten launch stories have none at all, and
+        // those were being sent a url that 404s on most turns.
+        if (who && assetKey && assetExists(assetKey)) {
           hub.emit(turnId, 'reaction.ready', {
             characterId: who.id,
             name: who.name,
             emotion: pure.reaction.emotion,
-            url: resolveAssetUrl(reactionAssetKey(story.storyId, who.id, pure.reaction.emotion), story.version),
+            url: resolveAssetUrl(assetKey, story.version),
           });
         }
       }

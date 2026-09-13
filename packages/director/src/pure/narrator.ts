@@ -372,6 +372,24 @@ export function worldBrief(story: StoryVersion): string {
     '## Places',
     ...story.locations.map((l) => `- ${l.name} (id: ${l.id}): ${l.description}`),
     '',
+    // The objects a story is actually about. Only the ones authored as quest
+    // items, because those are the premise: Light's notebook and the rules on
+    // its inside cover were sitting in the bible unread, which left the
+    // storyteller running a story about a Death Note it had never been told
+    // existed. Ordinary scenery stays out of the prompt.
+    ...(() => {
+      const premise = story.items.filter((item) => item.questItem);
+      if (!premise.length) return [];
+      return [
+        '## Objects the story turns on',
+        'These exist whether or not anybody is holding them. Where they are, who has them and who knows',
+        'about them is the story\'s business, not a fixed fact.',
+        ...premise.map((item) =>
+          [`### ${item.name}`, item.description, item.loreText].filter(Boolean).join('\n'),
+        ),
+        '',
+      ];
+    })(),
     // Everything from here down is pressure, and the framing matters more than
     // the content: the same material read as a schedule produces a railroad.
     '## Forces in this world',

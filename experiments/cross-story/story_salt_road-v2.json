@@ -1,0 +1,192 @@
+{
+  "storyId": "story_salt_road",
+  "sessionId": "sess_465a99ec-e1cd-4dac-b8dc-0635eac65d8b",
+  "log": [
+    {
+      "turn": 1,
+      "how": "tapped",
+      "firstBlockMs": 4378,
+      "fullMs": 8421,
+      "streamedBlocks": 4,
+      "blocks": 4,
+      "attributed": 2,
+      "words": 171,
+      "time": "Day 1 · early morning",
+      "location": "Ossun Gate",
+      "present": [
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_ossun_gate?v=1&e=2",
+      "cards": [
+        "I ask Sabe why they are so determined to cross.",
+        "I wait for Ferrow and ask her again when she returns.",
+        "I check the notice board before we leave."
+      ]
+    },
+    {
+      "turn": 2,
+      "how": "typed",
+      "firstBlockMs": 3172,
+      "fullMs": 7480,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 174,
+      "time": "Day 1 · early morning",
+      "location": "Ossun Gate",
+      "present": [
+        "Ferrow",
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_ossun_gate?v=1&e=2",
+      "cards": [
+        "\"What are you carrying that can be left behind?\"",
+        "\"How much water does Sabe actually have?\"",
+        "\"I am keeping the case. Let’s go.\""
+      ]
+    },
+    {
+      "turn": 3,
+      "how": "typed",
+      "firstBlockMs": 1755,
+      "fullMs": 6210,
+      "streamedBlocks": 11,
+      "blocks": 11,
+      "attributed": 7,
+      "words": 166,
+      "time": "Day 1 · early morning",
+      "location": "Ossun Gate",
+      "present": [
+        "Ferrow",
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_ossun_gate?v=1&e=2",
+      "cards": [
+        "I ask Ferrow why seeing the recipient matters to her.",
+        "I tell them the case stays with me, and I am ready to leave.",
+        "I ask Sabe what they are carrying that they cannot explain."
+      ]
+    },
+    {
+      "turn": 4,
+      "how": "tapped",
+      "firstBlockMs": 1315,
+      "fullMs": 4725,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 5,
+      "words": 132,
+      "time": "Day 1 · early morning",
+      "location": "Ossun Gate",
+      "present": [
+        "Ferrow",
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_ossun_gate?v=1&e=2",
+      "cards": [
+        "I tell Sabe I will hold them to that promise.",
+        "I ask Ferrow what she is leaving behind.",
+        "I shoulder the case and step onto the salt road."
+      ]
+    },
+    {
+      "turn": 5,
+      "how": "tapped",
+      "firstBlockMs": 3390,
+      "fullMs": 7918,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 217,
+      "time": "Day 1 · morning",
+      "location": "The First Well",
+      "present": [
+        "Ferrow",
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_first_well?v=1&e=2",
+      "cards": [
+        "I fill every skin and inspect the other tracks around the well.",
+        "I ask Ferrow how much water she expects us to carry from here.",
+        "I spend the next few days following Ferrow’s rationing exactly and keeping the case close."
+      ]
+    },
+    {
+      "turn": 6,
+      "how": "tapped",
+      "firstBlockMs": 3034,
+      "fullMs": 8907,
+      "streamedBlocks": 11,
+      "blocks": 11,
+      "attributed": 6,
+      "words": 287,
+      "time": "Day 4 · morning",
+      "location": "The Second Well",
+      "present": [
+        "Ferrow",
+        "Oren",
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_second_well?v=1&e=2",
+      "cards": [
+        "I ask Oren why he wants to reach the coast with us.",
+        "I tell Ferrow we cannot afford another mouth.",
+        "I let Oren join us, but tell him the case is not his business."
+      ]
+    },
+    {
+      "turn": 7,
+      "how": "tapped",
+      "firstBlockMs": 2382,
+      "fullMs": 6609,
+      "streamedBlocks": 10,
+      "blocks": 10,
+      "attributed": 7,
+      "words": 183,
+      "time": "Day 4 · morning",
+      "location": "The Second Well",
+      "present": [
+        "Ferrow",
+        "Oren",
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_second_well?v=1&e=2",
+      "cards": [
+        "I tell Oren he can walk with us, but the case stays off limits.",
+        "I tell Oren his answer is not enough and leave him here.",
+        "I ask Ferrow what his supplies change in the numbers."
+      ]
+    },
+    {
+      "turn": 8,
+      "how": "tapped",
+      "firstBlockMs": 1581,
+      "fullMs": 6058,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 5,
+      "words": 191,
+      "time": "Day 4 · morning",
+      "location": "The Second Well",
+      "present": [
+        "Ferrow",
+        "Oren",
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_second_well?v=1&e=2",
+      "cards": [
+        "I use the ten minutes to inspect Oren’s gear and water.",
+        "I ask Ferrow for the exact ration plan if the third well is dry.",
+        "I spend the next few days keeping pace, watching Oren, and guarding the case."
+      ]
+    }
+  ]
+}

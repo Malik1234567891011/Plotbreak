@@ -1,0 +1,267 @@
+{
+  "storyId": "story_salt_road",
+  "sessionId": "sess_e7657fbe-3958-472f-a18e-addeba08b8c1",
+  "log": [
+    {
+      "turn": 1,
+      "how": "tapped",
+      "firstBlockMs": 6627,
+      "fullMs": 13614,
+      "streamedBlocks": 5,
+      "blocks": 5,
+      "attributed": 2,
+      "words": 229,
+      "time": "Day 1 · early morning",
+      "location": "Ossun Gate",
+      "present": [
+        "Sabe"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "sabe",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_salt_road/sabe_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_ossun_gate?v=1&e=2",
+      "cards": [
+        "I ask Sabe what is in the tin.",
+        "I leave the tin alone and tell Sabe what has to go.",
+        "I point out the single water skin and ask how they planned to cross eleven days."
+      ]
+    },
+    {
+      "turn": 2,
+      "how": "typed",
+      "firstBlockMs": 3162,
+      "fullMs": 5423,
+      "streamedBlocks": 4,
+      "blocks": 4,
+      "attributed": 1,
+      "words": 123,
+      "time": "Day 1 · early morning",
+      "location": "Ossun Gate",
+      "present": [
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_ossun_gate?v=1&e=2",
+      "cards": [
+        "I tell Sabe the blanket and candles stay, but the extra shirts and biscuits do not.",
+        "I ask Sabe how much water they actually brought.",
+        "I leave the pack as it is and pick up my case."
+      ]
+    },
+    {
+      "turn": 3,
+      "how": "typed",
+      "firstBlockMs": 1828,
+      "fullMs": 5109,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 3,
+      "words": 133,
+      "time": "Day 1 · early morning",
+      "location": "Ossun Gate",
+      "present": [
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_ossun_gate?v=1&e=2",
+      "cards": [
+        "I tell Sabe only that I was paid to deliver the case.",
+        "I ask who Sabe made that promise to.",
+        "I say I do not know what is at the coast, and that is the problem."
+      ]
+    },
+    {
+      "turn": 4,
+      "how": "tapped",
+      "firstBlockMs": 1792,
+      "fullMs": 4809,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 3,
+      "words": 117,
+      "time": "Day 1 · early morning",
+      "location": "Ossun Gate",
+      "present": [
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_ossun_gate?v=1&e=2",
+      "cards": [
+        "I tell Sabe the tin stays, but the blanket does not.",
+        "I ask how much water Sabe has besides that one skin.",
+        "I tell Sabe I am sorry for their brother."
+      ]
+    },
+    {
+      "turn": 5,
+      "how": "tapped",
+      "firstBlockMs": 2489,
+      "fullMs": 7305,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 4,
+      "words": 215,
+      "time": "Day 1 · early morning",
+      "location": "Ossun Gate",
+      "present": [
+        "Ferrow",
+        "Sabe"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "sabe",
+          "emotion": "warm",
+          "url": "http://10.144.7.164:4000/media/story_salt_road/sabe_warm?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_ossun_gate?v=1&e=2",
+      "cards": [
+        "I ask Ferrow how much water Sabe needs to carry.",
+        "I tell Sabe the blanket stays, but the biscuits and cheese do not.",
+        "I ask Ferrow what happens if the third well is dry."
+      ]
+    },
+    {
+      "turn": 6,
+      "how": "typed",
+      "firstBlockMs": 9227,
+      "fullMs": 14231,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 179,
+      "time": "Day 1 · afternoon",
+      "location": "The First Well",
+      "present": [
+        "Ferrow",
+        "Sabe"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "ferrow",
+          "emotion": "neutral",
+          "url": "http://10.144.7.164:4000/media/story_salt_road/ferrow_neutral?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_first_well?v=1&e=2",
+      "cards": [
+        "I fill my water carefully and ask Ferrow how much each of us is allowed tomorrow.",
+        "I offer to help Sabe repack now that we have stopped.",
+        "I ask Ferrow why she needs to see who receives the case."
+      ]
+    },
+    {
+      "turn": 7,
+      "how": "tapped",
+      "firstBlockMs": 3043,
+      "fullMs": 8063,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 3,
+      "words": 191,
+      "time": "Day 1 · afternoon",
+      "location": "The First Well",
+      "present": [
+        "Ferrow",
+        "Sabe"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "sabe",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_salt_road/sabe_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_first_well?v=1&e=2",
+      "cards": [
+        "I tell Sabe to leave the blanket here and take only what keeps them alive.",
+        "I help fit the blanket back in, then choose other things to leave behind.",
+        "I ask Ferrow exactly what Sabe needs to carry from here to the second well."
+      ]
+    },
+    {
+      "turn": 8,
+      "how": "tapped",
+      "firstBlockMs": 3449,
+      "fullMs": 8224,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 219,
+      "time": "Day 1 · afternoon",
+      "location": "The First Well",
+      "present": [
+        "Ferrow",
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_first_well?v=1&e=2",
+      "cards": [
+        "I shoulder my pack and set out with Ferrow and Sabe before the light goes.",
+        "I ask Ferrow exactly how much water each of us is allowed tomorrow.",
+        "Over the next two days, I keep the marching pace Ferrow sets and watch how the others use their water."
+      ]
+    },
+    {
+      "turn": 9,
+      "how": "typed",
+      "firstBlockMs": 3378,
+      "fullMs": 6521,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 3,
+      "words": 144,
+      "time": "Day 1 · afternoon",
+      "location": "The First Well",
+      "present": [
+        "Ferrow",
+        "Sabe"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_first_well?v=1&e=2",
+      "cards": [
+        "I tell them why I am keeping the skin.",
+        "I hand Sabe the water and apologize.",
+        "I tell Sabe they cannot cross with us."
+      ]
+    },
+    {
+      "turn": 10,
+      "how": "tapped",
+      "firstBlockMs": 4292,
+      "fullMs": 8053,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 3,
+      "words": 165,
+      "time": "Day 1 · afternoon",
+      "location": "The First Well",
+      "present": [
+        "Ferrow",
+        "Sabe"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "sabe",
+          "emotion": "annoyed",
+          "url": "http://10.144.7.164:4000/media/story_salt_road/sabe_annoyed?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_salt_road/stage_first_well?v=1&e=2",
+      "cards": [
+        "I tell Sabe I will not make them ask again.",
+        "I ask Ferrow how much water each of us is carrying after this stop.",
+        "I spend the next stretch walking under Ferrow's ration rules and keep my attention on the road."
+      ]
+    }
+  ]
+}

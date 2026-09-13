@@ -1,4 +1,4 @@
-import { createReadStream } from 'node:fs';
+import { createReadStream, existsSync } from 'node:fs';
 import { access, readFile, stat, mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -47,6 +47,30 @@ const ASSET_ROOT = process.env.ASSET_ROOT ?? SEED_ROOT;
  * the seed directory serves both from wherever each actually is.
  */
 const READ_ROOTS: readonly string[] = ASSET_ROOT === SEED_ROOT ? [ASSET_ROOT] : [ASSET_ROOT, SEED_ROOT];
+
+/**
+ * Whether a pre-generated asset actually exists on disk.
+ *
+ * Every story declares expressions for its cast, but declaring one is not the
+ * same as somebody having rendered it — Light names four expressions per
+ * character and ships none of them. Without this the server happily sent the
+ * client a reaction url for art that was never drawn, and the app put an empty
+ * full-bleed placeholder above the prose on most turns.
+ *
+ * Memoised because it is asked once per turn and the answer cannot change while
+ * the process is running.
+ */
+const assetExistsCache = new Map<string, boolean>();
+
+export function assetExists(assetKey: string): boolean {
+  const cached = assetExistsCache.get(assetKey);
+  if (cached !== undefined) return cached;
+  const found = READ_ROOTS.some((root) =>
+    ['webp', 'png', 'jpg'].some((ext) => existsSync(join(root, `${assetKey}.${ext}`))),
+  );
+  assetExistsCache.set(assetKey, found);
+  return found;
+}
 
 /** Spec §20.11 sets animation at 600; a still portrait is priced well below it. */
 export const PORTRAIT_COST_CREDITS = 150;

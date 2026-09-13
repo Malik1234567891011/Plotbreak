@@ -1,0 +1,189 @@
+{
+  "storyId": "story_light",
+  "sessionId": "sess_1b5f53c9-c016-4204-8d31-d1640af57fc9",
+  "log": [
+    {
+      "turn": 1,
+      "how": "tapped",
+      "firstBlockMs": 2133,
+      "fullMs": 6181,
+      "streamedBlocks": 5,
+      "blocks": 5,
+      "attributed": 0,
+      "words": 212,
+      "time": "Day 1 · afternoon",
+      "location": "Daikoku Private Academy",
+      "present": [
+        "Kaito Serizawa"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_daikoku_classroom?v=1&e=2",
+      "cards": [
+        "I read every rule before I take it anywhere.",
+        "I put it in my bag and go home.",
+        "I look for some harmless way to test whether any of this is real."
+      ]
+    },
+    {
+      "turn": 2,
+      "how": "typed",
+      "firstBlockMs": 3679,
+      "fullMs": 9646,
+      "streamedBlocks": 9,
+      "blocks": 9,
+      "attributed": 2,
+      "words": 278,
+      "time": "Day 1 · afternoon",
+      "location": "Daikoku Private Academy",
+      "present": [
+        "Kaito Serizawa",
+        "Ryuk"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_daikoku_classroom?v=1&e=2",
+      "cards": [
+        "I put the notebook away and tell Kaito I am fine.",
+        "I ask the creature exactly what it is.",
+        "I ask Kaito whether he saw anyone put this notebook in the yard."
+      ]
+    },
+    {
+      "turn": 3,
+      "how": "typed",
+      "firstBlockMs": 3692,
+      "fullMs": 9156,
+      "streamedBlocks": 10,
+      "blocks": 10,
+      "attributed": 6,
+      "words": 279,
+      "time": "Day 1 · evening",
+      "location": "The Yagami House",
+      "present": [
+        "Ryuk",
+        "Soichiro Yagami",
+        "Sayu Yagami",
+        "Sachiko Yagami"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_yagami_home?v=1&e=2",
+      "cards": [
+        "I ask Dad whether work has been difficult lately.",
+        "I help Sayu finish her maths and keep dinner ordinary.",
+        "I wait until everyone is asleep, then examine the notebook’s rules."
+      ]
+    },
+    {
+      "turn": 4,
+      "how": "tapped",
+      "firstBlockMs": 2832,
+      "fullMs": 8120,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 1,
+      "words": 283,
+      "time": "Day 1 · night",
+      "location": "Light’s Bedroom",
+      "present": [
+        "Ryuk"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_light_bedroom?v=1&e=2",
+      "cards": [
+        "I keep reading every rule before I do anything else.",
+        "I ask Ryuk what ownership of the notebook means.",
+        "I ask Ryuk whether anyone besides me can see him."
+      ]
+    },
+    {
+      "turn": 5,
+      "how": "tapped",
+      "firstBlockMs": 2318,
+      "fullMs": 5673,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 2,
+      "words": 143,
+      "time": "Day 1 · night",
+      "location": "Light’s Bedroom",
+      "present": [
+        "Ryuk"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_light_bedroom?v=1&e=2",
+      "cards": [
+        "I ask what ownership of the notebook means.",
+        "I keep reading the rules about ownership and the notebook itself.",
+        "I put the notebook away before anyone wakes."
+      ]
+    },
+    {
+      "turn": 6,
+      "how": "tapped",
+      "firstBlockMs": 2914,
+      "fullMs": 5618,
+      "streamedBlocks": 3,
+      "blocks": 3,
+      "attributed": 1,
+      "words": 115,
+      "time": "Day 1 · night",
+      "location": "Light’s Bedroom",
+      "present": [
+        "Ryuk"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_light_bedroom?v=1&e=2",
+      "cards": [
+        "I stay awake and work out a rule for when, if ever, I would use it again.",
+        "I go downstairs and read my father’s notes from the briefcase in the hall.",
+        "Over the next few days, I keep the notebook hidden and watch what the world says about the custody death."
+      ]
+    },
+    {
+      "turn": 7,
+      "how": "tapped",
+      "firstBlockMs": 3995,
+      "fullMs": 7812,
+      "streamedBlocks": 4,
+      "blocks": 4,
+      "attributed": 1,
+      "words": 202,
+      "time": "Day 2 · early morning",
+      "location": "Light’s Bedroom",
+      "present": [
+        "Ryuk"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_light_bedroom?v=1&e=2",
+      "cards": [
+        "I go to school as usual and keep the notebook out of my mind.",
+        "I spend the next few days watching the news and testing whether my rule ever identifies a real emergency.",
+        "I go downstairs early and help Sayu with her homework before school."
+      ]
+    },
+    {
+      "turn": 8,
+      "how": "tapped",
+      "firstBlockMs": 4579,
+      "fullMs": 10231,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 4,
+      "words": 272,
+      "time": "Day 2 · evening",
+      "location": "The Yagami House",
+      "present": [
+        "Ryuk",
+        "Soichiro Yagami",
+        "Sayu Yagami",
+        "Sachiko Yagami"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_yagami_home?v=1&e=2",
+      "cards": [
+        "I agree with my father and ask what an internal review can actually establish.",
+        "I change the subject and help Sayu with her homework after dinner.",
+        "I say nothing and listen to what everyone else thinks of the death."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "storyId": "story_light",
+  "sessionId": "sess_17721c98-e99a-4005-a544-6dc0da352e8b",
+  "log": [
+    {
+      "turn": 1,
+      "how": "tapped",
+      "firstBlockMs": 2385,
+      "fullMs": 7710,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 3,
+      "words": 220,
+      "time": "Day 1 · afternoon",
+      "location": "Daikoku Private Academy",
+      "present": [
+        "Kaito Serizawa"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "kaito",
+          "emotion": "amused",
+          "url": "http://10.144.7.164:4000/media/story_light/kaito_amused?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_daikoku_classroom?v=1&e=2",
+      "cards": [
+        "I tell Kaito he can copy the notes, then head out to pick it up.",
+        "I ask Kaito to wait here and go down alone.",
+        "I pick up the notebook first, then let Kaito see the cover."
+      ]
+    },
+    {
+      "turn": 2,
+      "how": "tapped",
+      "firstBlockMs": 2734,
+      "fullMs": 8366,
+      "streamedBlocks": 9,
+      "blocks": 9,
+      "attributed": 2,
+      "words": 242,
+      "time": "Day 1 · afternoon",
+      "location": "Daikoku Private Academy",
+      "present": [
+        "Kaito Serizawa",
+        "Ryuk"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_daikoku_classroom?v=1&e=2",
+      "cards": [
+        "I open the notebook and read every instruction.",
+        "I ask it what it is and how it knows my name.",
+        "I take the notebook back to Kaito without acknowledging what I saw."
+      ]
+    },
+    {
+      "turn": 3,
+      "how": "tapped",
+      "firstBlockMs": 4031,
+      "fullMs": 8079,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 169,
+      "time": "Day 1 · afternoon",
+      "location": "Daikoku Private Academy",
+      "present": [
+        "Kaito Serizawa",
+        "Ryuk"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_daikoku_classroom?v=1&e=2",
+      "cards": [
+        "I let Kaito look at the cover, but not open it.",
+        "I tell Kaito it is nothing and give him my notes instead.",
+        "I open the notebook myself and read the instructions."
+      ]
+    },
+    {
+      "turn": 4,
+      "how": "typed",
+      "firstBlockMs": 6867,
+      "fullMs": 13946,
+      "streamedBlocks": 12,
+      "blocks": 12,
+      "attributed": 4,
+      "words": 342,
+      "time": "Day 1 · afternoon",
+      "location": "Daikoku Private Academy",
+      "present": [
+        "Kaito Serizawa",
+        "Ryuk"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "ryuk",
+          "emotion": "amused",
+          "url": "http://10.144.7.164:4000/media/story_light/ryuk_amused?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_daikoku_classroom?v=1&e=2",
+      "cards": [
+        "I ask Ryuk exactly what he is and what he gets from this.",
+        "I read every instruction in the notebook before I write anything else.",
+        "I put the notebook away and go home as if nothing happened."
+      ]
+    },
+    {
+      "turn": 5,
+      "how": "tapped",
+      "firstBlockMs": 2407,
+      "fullMs": 6359,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 189,
+      "time": "Day 1 · afternoon",
+      "location": "Daikoku Private Academy",
+      "present": [
+        "Kaito Serizawa",
+        "Ryuk"
+      ],
+      "media": [],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_daikoku_classroom?v=1&e=2",
+      "cards": [
+        "I ask what rules the notebook has besides the ones I read.",
+        "I ask Ryuk whether anyone else can see him.",
+        "I put the notebook away and head home."
+      ]
+    },
+    {
+      "turn": 6,
+      "how": "typed",
+      "firstBlockMs": 3965,
+      "fullMs": 9523,
+      "streamedBlocks": 10,
+      "blocks": 10,
+      "attributed": 4,
+      "words": 307,
+      "time": "Day 1 · evening",
+      "location": "The Yagami House",
+      "present": [
+        "Ryuk",
+        "Soichiro Yagami",
+        "Sayu Yagami",
+        "Sachiko Yagami"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "soichiro",
+          "emotion": "neutral",
+          "url": "http://10.144.7.164:4000/media/story_light/soichiro_neutral?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_yagami_home?v=1&e=2",
+      "cards": [
+        "I tell him I spent the evening studying.",
+        "I ask Dad why he is home so late.",
+        "I help Sayu finish her maths and avoid the subject."
+      ]
+    },
+    {
+      "turn": 7,
+      "how": "typed",
+      "firstBlockMs": 7285,
+      "fullMs": 10257,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 3,
+      "words": 181,
+      "time": "Day 1 · evening",
+      "location": "The Yagami House",
+      "present": [
+        "Ryuk",
+        "Soichiro Yagami",
+        "Sayu Yagami",
+        "Sachiko Yagami"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "sayu",
+          "emotion": "confused",
+          "url": "http://10.144.7.164:4000/media/story_light/sayu_confused?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_yagami_home?v=1&e=2",
+      "cards": [
+        "“No one. I was thinking out loud.”",
+        "“School was fine. I studied after class.”",
+        "“Sayu, show me the next maths problem.”"
+      ]
+    },
+    {
+      "turn": 8,
+      "how": "typed",
+      "firstBlockMs": 2246,
+      "fullMs": 6468,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 201,
+      "time": "Day 1 · evening",
+      "location": "The Yagami House",
+      "present": [
+        "Ryuk",
+        "Soichiro Yagami",
+        "Sayu Yagami",
+        "Sachiko Yagami"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "sachiko",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_light/sachiko_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_yagami_home?v=1&e=2",
+      "cards": [
+        "I tell them I’m tired and go upstairs.",
+        "I answer my father’s question about school with the ordinary version.",
+        "I ask Dad whether anything unusual happened at work today."
+      ]
+    },
+    {
+      "turn": 9,
+      "how": "typed",
+      "firstBlockMs": 3254,
+      "fullMs": 7789,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 158,
+      "time": "Day 1 · evening",
+      "location": "The Yagami House",
+      "present": [
+        "Ryuk",
+        "Soichiro Yagami",
+        "Sayu Yagami",
+        "Sachiko Yagami"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "soichiro",
+          "emotion": "warm",
+          "url": "http://10.144.7.164:4000/media/story_light/soichiro_warm?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_yagami_home?v=1&e=2",
+      "cards": [
+        "I help Sayu with the rest of her maths before going upstairs.",
+        "I excuse myself and inspect the notebook in my room.",
+        "Over the next few days, I keep up my normal routine and quietly study the notebook’s rules."
+      ]
+    },
+    {
+      "turn": 10,
+      "how": "typed",
+      "firstBlockMs": 2832,
+      "fullMs": 8288,
+      "streamedBlocks": 10,
+      "blocks": 10,
+      "attributed": 5,
+      "words": 233,
+      "time": "Day 1 · evening",
+      "location": "The Yagami House",
+      "present": [
+        "Ryuk",
+        "Soichiro Yagami",
+        "Sayu Yagami",
+        "Sachiko Yagami"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "soichiro",
+          "emotion": "worried",
+          "url": "http://10.144.7.164:4000/media/story_light/soichiro_worried?v=1&e=2"
+        }
+      ],
+      "stage": "http://10.144.7.164:4000/media/story_light/stage_yagami_home?v=1&e=2",
+      "cards": [
+        "I ask my father what an internal review can actually determine.",
+        "I agree with Sayu that the man deserved it and watch Dad's response.",
+        "I say nothing and help Sayu with the next problem."
+      ]
+    }
+  ]
+}
