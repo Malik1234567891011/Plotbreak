@@ -1,6 +1,6 @@
 import type { GameState, StoryVersion, TurnRecord } from '@plotbreak/contracts';
 import { commitTurn } from '@plotbreak/engine';
-import type { ModelGateway } from '../gateway/types.js';
+import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 import { narratePure } from './narrator.js';
 
 /**
@@ -28,6 +28,10 @@ export interface PureTurnResult {
   readonly suggestions: Array<{ text: string; intentHint: string; resourceCostLabel: null }>;
   readonly state: GameState;
   readonly telemetry: { promptChars: number; historyTurns: number; ms: number };
+  /** What the provider billed and cached for this turn. */
+  readonly invocation: ModelInvocation;
+  /** Present when the provider compacted: store it and send it back next turn. */
+  readonly compaction?: unknown;
 }
 
 export async function runTurnPure(options: {
@@ -37,14 +41,30 @@ export async function runTurnPure(options: {
   readonly recentTurns: readonly TurnRecord[];
   readonly actionText: string;
   readonly turnId: string;
+  /** A stored compaction artifact replacing the turns before `recentTurns`. */
+  readonly prefixItems?: readonly unknown[];
+  /** Compact once the input passes this many tokens. */
+  readonly compactThreshold?: number;
+  /** Which endpoint to use. Defaults to `PLOTBREAK_PURE_API`. */
+  readonly api?: 'chat' | 'responses';
+  /** `null` opts out of prompt caching entirely, which only a control arm wants. */
+  readonly cacheKey?: string | null;
+  readonly cacheRetention?: '24h' | 'in-memory';
 }): Promise<PureTurnResult> {
   const started = Date.now();
   const { gateway, story, state, recentTurns, actionText, turnId } = options;
 
-  const { turn, promptChars, historyTurns } = await narratePure({
+  const { turn, promptChars, historyTurns, invocation } = await narratePure({
     gateway, story, state, recentTurns, actionText,
     // One cache per session: every turn of a session shares the whole prefix.
-    cacheKey: `pb:${state.sessionId ?? 'anon'}`,
+    cacheKey:
+      options.cacheKey === null
+        ? undefined
+        : (options.cacheKey ?? `pb:${state.sessionId ?? 'anon'}`),
+    api: options.api,
+    cacheRetention: options.cacheRetention,
+    prefixItems: options.prefixItems,
+    compactThreshold: options.compactThreshold,
   });
 
   const castIds = new Set(story.characters.map((c) => c.id));
@@ -96,6 +116,8 @@ export async function runTurnPure(options: {
     })),
     state: moved,
     telemetry: { promptChars, historyTurns, ms: Date.now() - started },
+    invocation,
+    compaction: invocation.compaction,
   };
 }
 

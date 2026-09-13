@@ -77,3 +77,73 @@ append-only, and the volatile `rightNow` block plus the action sit after it, so
 every earlier turn is a stable prefix. `cache_write_tokens` above proves the
 cache is being extended rather than pinned. Whether it keeps up at 40/80/120
 turns is what the long run measures.
+
+## The actual root cause of the cost curve — prompt caching is prefix-of-request
+
+The Phase 1 fix (moving volatile text out of the static prefix) raised the cache
+from 0% to the static block and no further. Reproduced exactly by the harness:
+cached pins at **7,014** — the CONSTITUTION plus the world brief — while input
+climbs. Probes in `infra/scripts/cache-*.mjs` pin down why.
+
+What does **not** explain it:
+
+| tried | result |
+|---|---|
+| message granularity (one message vs split vs one per turn) | identical, all pin at the static block |
+| per-turn growth of 55 vs 1,200 tokens | identical |
+| 30 s between calls | identical |
+| dropping `prompt_cache_key` | identical |
+
+What does. Two shapes, same content, same model:
+
+```
+pure append, no volatile tail        rebuilt rolling message (what Pure does today)
+ t1 cached=4009  write=1275           t1 cached=4009  uncached=55
+ t2 cached=5284  write=1275           t2 cached=4009  uncached=1090
+ t3 cached=6559  write=1275           t3 cached=4009  uncached=2125
+ t4 cached=7834  write=1275           t4 cached=4009  uncached=3160
+```
+
+**The cache matches the longest previous request that is an exact prefix of the
+current one.** Not a textual prefix — a request prefix. An identical request
+resent hits fully (12,484 of 12,487). A request that merely *contains* the last
+one's text as a substring hits only the static block, because no previous
+request is a prefix of it.
+
+Pure rebuilds one rolling user message every turn — history, then `## Right
+now`, then the action, then the standing instruction — so no previous request is
+ever a prefix of the next. Every turn pays for the whole transcript again. That
+is the O(n²) curve, and it is a prompt-assembly bug, not a context-size problem.
+
+### The fix, measured
+
+Same content, re-homed into an append-only conversation: static instructions
+once, then `[user(volatile + action), assistant(beat)]` appended and never
+rewritten.
+
+```
+append-only          rebuilt (today)
+ t1 uncached=49       t1 uncached=55
+ t2 uncached=1080     t2 uncached=1090
+ t3 uncached=1080     t3 uncached=2125
+ t4 uncached=1080     t4 uncached=3160
+ t5 uncached=1080     t5 uncached=4195
+ t6 uncached=1080     t6 uncached=5230
+```
+
+**Flat marginal cost, which is the success criterion in J/K, and it is available
+without compaction, without memory, and without dropping any history.**
+
+Two things must change for a request to stay a strict extension of the last:
+
+1. The volatile `## Right now` block is written into that turn's user message and
+   **left in history verbatim** rather than recomputed at the tail.
+2. The trailing schema instruction must stop being a trailing message — it sits
+   after the newest user message, so next turn that slot holds the assistant beat
+   instead and the prefix breaks. It moves out of the message array entirely,
+   into `text.format: json_schema` (strict:false, verified to accept our
+   open-ended records).
+
+Compaction is therefore not the lever it looked like. It is still needed
+eventually — for the model's context window, not for the bill — and the
+measurements below say when.

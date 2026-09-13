@@ -188,7 +188,13 @@ export class OpenAiGateway implements ModelGateway {
         model,
         max_output_tokens: options.maxTokens ?? 2048,
         input: [
-          ...messages.map((m) => ({ role: m.role, content: m.content })),
+          // Opaque items sit between the standing instructions and the turn:
+          // `messages` always ends with this turn's user message, so splicing
+          // before the last element puts a compaction artifact exactly where
+          // the history it replaced used to be.
+          ...messages.slice(0, -1).map((m) => ({ role: m.role, content: m.content })),
+          ...(options.prefixItems ?? []),
+          ...messages.slice(-1).map((m) => ({ role: m.role, content: m.content })),
           {
             role: 'system',
             content:
@@ -211,7 +217,12 @@ export class OpenAiGateway implements ModelGateway {
       id?: string;
       status?: string;
       incomplete_details?: { reason?: string };
-      output?: Array<{ type?: string; content?: Array<{ type?: string; text?: string }> }>;
+      output?: Array<{
+        type?: string;
+        id?: string;
+        encrypted_content?: string;
+        content?: Array<{ type?: string; text?: string }>;
+      }>;
       usage?: {
         input_tokens?: number;
         output_tokens?: number;
@@ -236,6 +247,7 @@ export class OpenAiGateway implements ModelGateway {
           cacheWriteTokens,
           outputTokens: usage.output_tokens ?? 0,
           reasoningTokens: usage.output_tokens_details?.reasoning_tokens ?? 0,
+          compacted: (payload.output ?? []).some((item) => item.type === 'compaction'),
           latencyMs: Math.round(performance.now() - started),
         }) + '\n',
       );
@@ -289,6 +301,7 @@ export class OpenAiGateway implements ModelGateway {
         cachedTokens,
         cacheWriteTokens,
         responseId: payload.id,
+        compaction: (payload.output ?? []).find((item) => item.type === 'compaction'),
       },
     };
   }

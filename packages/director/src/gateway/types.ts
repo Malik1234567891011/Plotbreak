@@ -55,6 +55,13 @@ export interface GenerateOptions {
   readonly compactThreshold?: number;
   /** Responses-only. How long the provider keeps this prefix cached. */
   readonly cacheRetention?: '24h' | 'in-memory';
+  /**
+   * Responses-only. Opaque provider items — a returned `compaction` artifact —
+   * spliced in immediately before the final message, i.e. after the standing
+   * instructions and before this turn's input. They stand in for the history
+   * they replace.
+   */
+  readonly prefixItems?: readonly unknown[];
 }
 
 export interface ModelInvocation {
@@ -74,6 +81,11 @@ export interface ModelInvocation {
   readonly cacheWriteTokens?: number;
   /** The provider-side id of this response, when the endpoint has one. */
   readonly responseId?: string;
+  /**
+   * The `compaction` item, when the provider compacted this call. Opaque and
+   * encrypted; the only thing to do with it is store it and send it back.
+   */
+  readonly compaction?: unknown;
 }
 
 export interface StructuredResult<T> {

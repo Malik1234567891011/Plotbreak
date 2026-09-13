@@ -228,6 +228,13 @@ export async function narratePure(options: {
   readonly api?: 'chat' | 'responses';
   /** Overrides `PLOTBREAK_PURE_COMPACT` for a single call. */
   readonly compactThreshold?: number;
+  /**
+   * A stored `compaction` artifact standing in for the turns it replaced. When
+   * present, `recentTurns` should hold only the turns *since* it was made.
+   */
+  readonly prefixItems?: readonly unknown[];
+  /** How long the provider should hold this prefix. */
+  readonly cacheRetention?: '24h' | 'in-memory';
 }): Promise<PureResult> {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
@@ -241,7 +248,7 @@ export async function narratePure(options: {
     {
       role: 'user' as const,
       content:
-        `## The story so far\n\n${history || '(this is the opening)'}\n\n` +
+        `## The story so far\n\n${history || (options.prefixItems?.length ? '(continues from the summary above)' : '(this is the opening)')}\n\n` +
         `${rightNow(story, state)}\n\n` +
         `## The player's action, verbatim\n\n${actionText}\n\n` +
         `Write the next beat. Use character ids from the cast for speakers. ` +
@@ -258,6 +265,8 @@ export async function narratePure(options: {
     promptCacheKey: options.cacheKey,
     api: options.api ?? apiChoice(),
     compactThreshold: options.compactThreshold ?? compactThreshold(),
+    prefixItems: options.prefixItems,
+    cacheRetention: options.cacheRetention,
   });
 
   return {

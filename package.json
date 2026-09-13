@@ -2,7 +2,7 @@
   "name": "plotbreak",
   "private": true,
   "version": "0.1.0",
-  "description": "Project ANIMA \u2014 anime roleplay RPG. The model interprets intent. The game engine determines truth. The AI director makes truth entertaining.",
+  "description": "Project ANIMA — anime roleplay RPG. The model interprets intent. The game engine determines truth. The AI director makes truth entertaining.",
   "engines": {
     "node": ">=22"
   },
@@ -40,7 +40,8 @@
     "fr:adapt": "tsx --env-file-if-exists=.env infra/scripts/fr-adapt.ts",
     "fr:qa": "tsx infra/scripts/fr-qa.ts",
     "fr:stale": "tsx infra/scripts/fr-stale.ts",
-    "fr:smoke": "tsx --env-file-if-exists=.env infra/scripts/fr-smoke.ts"
+    "fr:smoke": "tsx --env-file-if-exists=.env infra/scripts/fr-smoke.ts",
+    "context-run": "tsx --env-file-if-exists=.env infra/scripts/context-run.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
