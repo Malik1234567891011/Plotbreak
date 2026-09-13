@@ -1764,6 +1764,24 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       parsed.data.platform,
     );
 
+    // A verified purchase of something we do not sell. The store took the
+    // money and `reconcilePurchase` has nothing to credit, and returning 200
+    // with `credited: 0` told the client it had all gone fine — so the player
+    // is charged, receives nothing, and sees no error. It happens when a pack
+    // is added in App Store Connect before it exists in `STORE_OFFERS`.
+    if (!result.duplicate && result.credited === 0 && result.entry === null) {
+      request.log.error(
+        { userId: user.userId, productId: verdict.productId, platform: parsed.data.platform },
+        'verified purchase of an unknown product — money taken, nothing to credit',
+      );
+      return sendError(
+        reply,
+        422,
+        'PRODUCT_NOT_SOLD',
+        'That purchase went through but we could not match it to a credit pack. Contact support and nothing will be lost.',
+      );
+    }
+
     return {
       credited: result.credited,
       duplicate: result.duplicate,
