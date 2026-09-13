@@ -14,3 +14,5 @@ export * from './pipeline.js';
 export * from './model-stages.js';
 export * from './custom-build-stage.js';
 export { findAbsenceOfPresent, findPresenceOfAbsent, findUnlicensedTravel } from './present-absence.js';
+export { runTurnPure } from './pure/runtime.js';
+export { narratePure, PURE_CONSTITUTION } from './pure/narrator.js';

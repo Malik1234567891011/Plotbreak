@@ -44,6 +44,14 @@ export function createGatewayFromEnv(
       new OpenAiGateway({
         apiKey: env.OPENAI_API_KEY,
         ...(env.OPENAI_BASE_URL ? { baseUrl: env.OPENAI_BASE_URL } : {}),
+        // The experiment needs the story model to be a configuration value
+        // rather than a pinned constant, so an architecture can be tested
+        // against a newer model by changing one environment variable. Only
+        // the premium writer role is overridable, because that is the only
+        // call LLM_PURE makes.
+        ...(env.PLOTBREAK_STORY_MODEL
+          ? { models: { writer_premium: env.PLOTBREAK_STORY_MODEL } }
+          : {}),
       }),
     );
   }

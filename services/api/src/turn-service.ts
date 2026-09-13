@@ -1,7 +1,7 @@
 import type { GameState, QualityTier, StoryVersion, TurnRecord } from '@plotbreak/contracts';
 import { QUALITY_TIERS } from '@plotbreak/contracts';
 import { charactersPresent, dayPart, deriveTurnSeed, outcomeLabel, formatCheckMath, dcBandLabel } from '@plotbreak/engine';
-import { runTurn } from '@plotbreak/director';
+import { runTurn, runTurnPure } from '@plotbreak/director';
 import type { AppContext } from './context.js';
 import { resolveAssetUrl, toSceneState } from './projections.js';
 import type { SessionRecord, UserRecord } from './repo/types.js';
@@ -201,6 +201,79 @@ async function processTurn(
       .catch(() => undefined);
 
     const seed = deriveTurnSeed(session.sessionSeed, state.turnIndex, session.branchKey);
+    // LLM_PURE — the experimental narrative runtime.
+    //
+    // One frontier model reads the world, the full player-visible history and
+    // the player's words verbatim, and writes the turn. No parser, no resolver,
+    // no director, no checks, no state deltas. Off unless asked for, so the
+    // production path is byte-identical without the flag.
+    if (process.env.PLOTBREAK_NARRATIVE === 'llm_pure' && ctx.modelGateway) {
+      const priorTurns = await ctx.repo.listTurns(session.sessionId);
+      const pure = await runTurnPure({
+        gateway: ctx.modelGateway,
+        story,
+        state,
+        recentTurns: priorTurns,
+        actionText,
+        turnId,
+      });
+
+      const savedPure = await ctx.repo.saveState(session.sessionId, state.revision, pure.state);
+      if (!savedPure) throw new TurnFailedError('Session changed while the turn was resolving', 'REVISION_CONFLICT');
+
+      const pureRecord: TurnRecord = {
+        turnId,
+        sessionId: session.sessionId,
+        turnIndex: pure.state.turnIndex,
+        actionText,
+        qualityTier,
+        creditsCharged: reservation.amount,
+        sceneSummary: pure.sceneSummary,
+        blocks: pure.blocks as TurnRecord['blocks'],
+        checks: [],
+        stateDeltas: [],
+        mutations: [],
+        suggestions: pure.suggestions as TurnRecord['suggestions'],
+        endStatePrompt: pure.endStatePrompt,
+        mediaPlan: null,
+        heroAssetId: null,
+        heroImageUrl: null,
+        revisionAfter: pure.state.revision,
+        createdAt: new Date().toISOString(),
+        repairViolations: [],
+        resolution: null,
+        beatPlan: null,
+      } as TurnRecord;
+      await ctx.repo.appendTurn(pureRecord);
+      await ctx.wallet.finalize(reservation);
+      const balancePure = await ctx.wallet.getBalance(user.userId);
+
+      for (const [index, block] of pure.blocks.entries()) {
+        hub.emit(turnId, 'text.stream', { index, speakerId: block.speakerId, text: block.text });
+      }
+      hub.emit(turnId, 'turn.timings', {
+        narrative: pure.telemetry.ms,
+        promptChars: pure.telemetry.promptChars,
+        historyTurns: pure.telemetry.historyTurns,
+      });
+      hub.emit(
+        turnId,
+        'turn.completed',
+        {
+          turnId,
+          blocks: pure.blocks,
+          sceneSummary: pure.sceneSummary,
+          endStatePrompt: pure.endStatePrompt,
+          suggestions: pure.suggestions,
+          creditsCharged: reservation.amount,
+          balance: balancePure,
+          scene: toSceneState(story, pure.state),
+        },
+        pure.state.revision,
+      );
+      return;
+    }
+
     const result = await runTurn({
       // Spec §17.8 — the engine knows the answer about nine seconds before the
       // prose describing it exists. Measured: first readable text at a median
