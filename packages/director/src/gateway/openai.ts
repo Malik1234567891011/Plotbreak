@@ -180,6 +180,72 @@ export class OpenAiGateway implements ModelGateway {
     // open-ended objects, and several AI contracts carry `z.record(z.unknown())`
     // payloads by design. Function parameters accept general JSON Schema, and
     // `schema.safeParse` below is the actual guarantee either way.
+    // Reasoning models refuse function tools on this endpoint.
+    //
+    //   "Function tools with reasoning_effort are not supported for gpt-6-astra
+    //    in /v1/chat/completions."
+    //
+    // Rather than turn their reasoning off — which is most of why the
+    // experiment wants them — ask for JSON directly and keep `safeParse` as the
+    // guarantee it already was. Only the newer families take this path, so
+    // nothing about the current production models changes.
+    const reasoning = /^(gpt-[6-9]|gpt-5\.[3-9])/.test(model);
+    if (reasoning) {
+      const jsonResponse = await this.#post(
+        '/chat/completions',
+        {
+          model,
+          max_completion_tokens: options?.maxTokens ?? 2048,
+          messages: [
+            ...messages.map((m) => ({ role: m.role, content: m.content })),
+            {
+              role: 'system',
+              content:
+                'Reply with a single JSON object and nothing else — no prose around it, no code fence. ' +
+                `It must match this JSON Schema:\n${JSON.stringify(toJsonSchema(schema))}`,
+            },
+          ],
+          response_format: { type: 'json_object' },
+        },
+        options,
+      );
+      const jsonPayload = (await jsonResponse.json()) as {
+        choices?: Array<{ message?: { content?: string } }>;
+        usage?: { prompt_tokens?: number; completion_tokens?: number };
+      };
+      const raw = jsonPayload.choices?.[0]?.message?.content;
+      if (!raw) throw new ModelGatewayError('Provider returned no content', 'INVALID_JSON', true);
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(raw.replace(/^```(?:json)?\s*|\s*```$/g, ''));
+      } catch {
+        throw new ModelGatewayError('Provider returned unparseable JSON', 'INVALID_JSON', true);
+      }
+      const checked = schema.safeParse(parsed);
+      if (!checked.success) {
+        throw new ModelGatewayError(
+          `Structured output failed validation: ${checked.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`,
+          'SCHEMA_VIOLATION',
+          true,
+        );
+      }
+      return {
+        value: checked.data,
+        invocation: {
+          requestId,
+          role,
+          provider: this.name,
+          model,
+          inputTokens: jsonPayload.usage?.prompt_tokens ?? 0,
+          outputTokens: jsonPayload.usage?.completion_tokens ?? 0,
+          latencyMs: Math.round(performance.now() - started),
+          costUsd: costOf(model, jsonPayload.usage?.prompt_tokens ?? 0, jsonPayload.usage?.completion_tokens ?? 0),
+          ok: true,
+          errorCode: null,
+        },
+      };
+    }
+
     const response = await this.#post(
       '/chat/completions',
       {
