@@ -59,3 +59,20 @@ describe('story clock', () => {
     );
   });
 });
+
+describe('block length', () => {
+  it('splits a paragraph too long for the contract instead of losing the turn', async () => {
+    const { splitForContract } = await import('./runtime.js');
+    const long = `${'The slope gives under your heel and a bird goes up out of the ferns. '.repeat(40)}`;
+    const parts = splitForContract(long);
+    expect(parts.length).toBeGreaterThan(1);
+    for (const part of parts) expect(part.length).toBeLessThanOrEqual(1200);
+    // Nothing is thrown away — this is a split, not a truncation.
+    expect(parts.join(' ').replace(/\s+/g, ' ').trim()).toBe(long.replace(/\s+/g, ' ').trim());
+  });
+
+  it('leaves an ordinary paragraph alone', async () => {
+    const { splitForContract } = await import('./runtime.js');
+    expect(splitForContract('You step off the log.')).toEqual(['You step off the log.']);
+  });
+});

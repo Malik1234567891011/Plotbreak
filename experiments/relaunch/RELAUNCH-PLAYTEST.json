@@ -1,0 +1,593 @@
+{
+  "sessionId": "sess_7c1e7e53-5027-42f1-b123-df4e837b3953",
+  "log": [
+    {
+      "turn": 1,
+      "how": "tapped",
+      "words": 163,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 8
+    },
+    {
+      "turn": 2,
+      "how": "tapped",
+      "words": 156,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 8
+    },
+    {
+      "turn": 3,
+      "how": "tapped",
+      "words": 186,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 9
+    },
+    {
+      "turn": 4,
+      "how": "tapped",
+      "words": 169,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 10
+    },
+    {
+      "turn": 5,
+      "how": "tapped",
+      "words": 205,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 11
+    },
+    {
+      "turn": 6,
+      "how": "tapped",
+      "words": 191,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 7
+    },
+    {
+      "turn": 7,
+      "how": "tapped",
+      "words": 266,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 14
+    },
+    {
+      "turn": 8,
+      "how": "tapped",
+      "words": 188,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 10
+    },
+    {
+      "turn": 9,
+      "how": "typed/goal",
+      "words": 233,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 12
+    },
+    {
+      "turn": 10,
+      "how": "tapped",
+      "words": 175,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 11
+    },
+    {
+      "turn": 11,
+      "how": "tapped",
+      "words": 167,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 7
+    },
+    {
+      "turn": 12,
+      "how": "tapped",
+      "words": 212,
+      "time": "Day 1 · morning",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 12
+    },
+    {
+      "turn": 13,
+      "how": "typed/goal",
+      "words": 245,
+      "time": "Day 1 · morning",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 8
+    },
+    {
+      "turn": 14,
+      "how": "typed/quiet",
+      "words": 218,
+      "time": "Day 1 · morning",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 6
+    },
+    {
+      "turn": 15,
+      "how": "tapped",
+      "words": 219,
+      "time": "Day 1 · morning",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 13
+    },
+    {
+      "turn": 16,
+      "how": "tapped",
+      "words": 214,
+      "time": "Day 1 · morning",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 17
+    },
+    {
+      "turn": 17,
+      "how": "typed/social",
+      "words": 223,
+      "time": "Day 1 · morning",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 12
+    },
+    {
+      "turn": 18,
+      "how": "typed/refuse",
+      "words": 234,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 13
+    },
+    {
+      "turn": 19,
+      "how": "tapped",
+      "words": 169,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 8
+    },
+    {
+      "turn": 20,
+      "how": "tapped",
+      "words": 209,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 6
+    },
+    {
+      "turn": 21,
+      "how": "tapped",
+      "words": 290,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 14
+    },
+    {
+      "turn": 22,
+      "how": "tapped",
+      "words": 194,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 7
+    },
+    {
+      "turn": 23,
+      "how": "tapped",
+      "words": 303,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 10
+    },
+    {
+      "turn": 24,
+      "how": "typed/quiet",
+      "words": 230,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 9
+    },
+    {
+      "turn": 25,
+      "how": "tapped",
+      "words": 196,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 7
+    },
+    {
+      "turn": 26,
+      "how": "tapped",
+      "words": 207,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 9
+    },
+    {
+      "turn": 27,
+      "how": "typed/explore",
+      "words": 143,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 6
+    },
+    {
+      "turn": 28,
+      "how": "tapped",
+      "words": 236,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 7
+    },
+    {
+      "turn": 29,
+      "how": "tapped",
+      "words": 215,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 10
+    },
+    {
+      "turn": 30,
+      "how": "tapped",
+      "words": 170,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 8
+    },
+    {
+      "turn": 31,
+      "how": "tapped",
+      "words": 149,
+      "time": "Day 1 · morning",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan"
+      ],
+      "blocks": 9
+    },
+    {
+      "turn": 32,
+      "how": "tapped",
+      "words": 259,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 7
+    },
+    {
+      "turn": 33,
+      "how": "typed/social",
+      "words": 192,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 10
+    },
+    {
+      "turn": 34,
+      "how": "typed/risk",
+      "words": 212,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 8
+    },
+    {
+      "turn": 35,
+      "how": "typed/curious",
+      "words": 197,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 8
+    },
+    {
+      "turn": 36,
+      "how": "tapped",
+      "words": 185,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 9
+    },
+    {
+      "turn": 37,
+      "how": "tapped",
+      "words": 189,
+      "time": "Day 1 · morning",
+      "location": "The Treehouse",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 8
+    },
+    {
+      "turn": 38,
+      "how": "tapped",
+      "words": 250,
+      "time": "Day 1 · morning",
+      "location": "The Treehouse",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 13
+    },
+    {
+      "turn": 39,
+      "how": "typed/goal",
+      "words": 265,
+      "time": "Day 1 · morning",
+      "location": "The Treehouse",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 9
+    },
+    {
+      "turn": 40,
+      "how": "typed/goal",
+      "words": 246,
+      "time": "Day 1 · morning",
+      "location": "The Treehouse",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 13
+    },
+    {
+      "turn": 41,
+      "how": "tapped",
+      "words": 225,
+      "time": "Day 1 · midday",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 8
+    },
+    {
+      "turn": 42,
+      "how": "typed/curious",
+      "words": 180,
+      "time": "Day 1 · midday",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 13
+    },
+    {
+      "turn": 43,
+      "how": "tapped",
+      "words": 226,
+      "time": "Day 1 · midday",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 14
+    },
+    {
+      "turn": 44,
+      "how": "tapped",
+      "words": 235,
+      "time": "Day 1 · midday",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 12
+    },
+    {
+      "turn": 45,
+      "how": "tapped",
+      "words": 169,
+      "time": "Day 1 · midday",
+      "location": "The Dadan Family House",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo",
+        "Curly Dadan",
+        "Monkey D. Garp"
+      ],
+      "blocks": 11
+    }
+  ]
+}

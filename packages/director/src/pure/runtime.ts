@@ -81,13 +81,20 @@ export async function runTurnPure(options: {
   });
 
   const castIds = new Set(story.characters.map((c) => c.id));
-  const blocks = turn.narrative.map((b) => ({
-    type: b.speakerId && castIds.has(b.speakerId) ? 'DIALOGUE' : 'NARRATION',
-    speakerId: b.speakerId && castIds.has(b.speakerId) ? b.speakerId : null,
-    text: b.text,
-    visibility: 'GROUP',
-    voiceEligible: false,
-  }));
+  const blocks = turn.narrative.flatMap((b) =>
+    // A block is a paragraph, and the contract caps one at 1,200 characters.
+    // A longer one used to write to the database and then fail validation on
+    // the way back out, so the turn returned 500 for ever and the player never
+    // saw a beat the model had already been paid to write. Split rather than
+    // truncate: the prose is fine, it is just one paragraph too long.
+    splitForContract(b.text).map((text) => ({
+      type: b.speakerId && castIds.has(b.speakerId) ? 'DIALOGUE' : 'NARRATION',
+      speakerId: b.speakerId && castIds.has(b.speakerId) ? b.speakerId : null,
+      text,
+      visibility: 'GROUP',
+      voiceEligible: false,
+    })),
+  );
 
   // The model's own account of the scene it just wrote, applied as the new
   // state. A location it invented is ignored rather than trusted, because the
@@ -132,7 +139,9 @@ export async function runTurnPure(options: {
         ? { characterId: turn.reaction.characterId, emotion: turn.reaction.emotion }
         : null,
     suggestions: turn.suggestedResponses.map((text) => ({
-      text,
+      // 320 is the contract's ceiling for a card, and the same read-side
+      // validation that bricked a turn on a long paragraph applies here.
+      text: clampCard(text),
       intentHint: 'freeform',
       resourceCostLabel: null,
     })),
@@ -146,3 +155,43 @@ export async function runTurnPure(options: {
 
 /** Exported so the shim can keep the engine's commit bookkeeping if wanted. */
 export { commitTurn };
+
+/** The contract's per-block ceiling. Mirrored here so the split is honest. */
+const BLOCK_LIMIT = 1200;
+
+/**
+ * Breaks an over-long paragraph on a sentence boundary, falling back to a word
+ * boundary and finally to a hard cut, so the result always fits regardless of
+ * what the model wrote.
+ */
+export function splitForContract(text: string, limit: number = BLOCK_LIMIT): string[] {
+  if (text.length <= limit) return [text];
+  const out: string[] = [];
+  let rest = text;
+  while (rest.length > limit) {
+    const window = rest.slice(0, limit);
+    const sentence = Math.max(
+      window.lastIndexOf('. '),
+      window.lastIndexOf('! '),
+      window.lastIndexOf('? '),
+      window.lastIndexOf('." '),
+      window.lastIndexOf('!" '),
+      window.lastIndexOf('?" '),
+    );
+    const cut = sentence > limit * 0.4 ? sentence + 1 : window.lastIndexOf(' ');
+    const at = cut > 0 ? cut : limit;
+    out.push(rest.slice(0, at).trim());
+    rest = rest.slice(at).trim();
+  }
+  if (rest) out.push(rest);
+  return out;
+}
+
+/** The contract's ceiling for a suggestion. A card this long is already wrong. */
+const CARD_LIMIT = 320;
+
+function clampCard(text: string): string {
+  if (text.length <= CARD_LIMIT) return text;
+  const cut = text.slice(0, CARD_LIMIT).lastIndexOf(' ');
+  return `${text.slice(0, cut > 0 ? cut : CARD_LIMIT).trim()}…`;
+}
