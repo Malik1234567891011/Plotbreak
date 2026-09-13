@@ -15,27 +15,38 @@ import { readFileSync } from 'node:fs';
 
 const BASE = process.env.PLOTBREAK_API ?? 'http://localhost:4000';
 
-const CASES: Array<{ n: number; what: string; action: string }> = [
-  { n: 1, what: 'Playful gesture near a weapon — became an eight-turn brawl',
+const CASES: Array<{ n: string; what: string; setup?: string[]; action: string }> = [
+  { n: 'A', what: 'Gesture vs violence',
     action: 'I turn to Sabo with a smirk, swinging my pipe across my shoulders. "Think you can keep up with me this time, or are you just here for the scenery?"' },
-  { n: 2, what: 'Explicit movement — never committed',
+  { n: 'B', what: 'Straight movement',
     action: 'I’m done waiting. I walk to Dadan’s house.' },
-  { n: 3, what: 'Multi-clause movement + NPC request — refusal ate the move',
+  { n: 'C', what: 'Multi-clause agency',
     action: 'I head to Dadan’s house and tell Luffy to follow if he wants.' },
-  { n: 4, what: 'Delegated secret — produced "you say it" and undefined canon',
+  { n: 'D', what: 'Delegated secret',
     action: 'I tell Sabo something I have never told anyone.' },
-  { n: 5, what: 'Delegated action — same failure',
-    action: 'I do the thing everyone expects me not to do.' },
-  { n: 6, what: 'Social disagreement',
-    action: 'I tell Sabo he is wrong about the can and I am not letting him decide this one.' },
-  { n: 7, what: 'Physical danger',
-    action: 'I climb out along the thinnest branch until it starts to bend.' },
-  { n: 8, what: 'Ignoring the obvious objective',
-    action: 'I sit down against the tree and refuse to do anything at all.' },
-  { n: 9, what: 'Leaving the region',
-    action: 'I start down the mountain toward Gray Terminal on my own.' },
-  { n: 10, what: 'Inventing a plausible personal plan',
-    action: 'I decide we are going to steal a boat, and I start working out how.' },
+  { n: 'E', what: 'Delegated action',
+    action: 'I do the thing everyone here expects me not to do.' },
+  { n: 'F', what: 'Ambiguous reference to an established object',
+    setup: ['I kick through the leaves and turn up a rusted iron box half buried under the roots, with a broken padlock on it.'],
+    action: 'I go look at that properly.' },
+  { n: 'G', what: 'Physical mismatch — a ten-year-old against something far too heavy',
+    action: 'I get under the biggest fallen tree trunk here and try to lift it off the ground on my own.' },
+  { n: 'H', what: 'Social resistance — asking for what they will not give',
+    action: 'I tell Sabo to hand over the can of money and let me keep it from now on.' },
+  { n: 'I', what: 'Deception against contradictory evidence',
+    setup: ['I trip coming down the slope and go face first into the mud, right in front of Sabo and Luffy.'],
+    action: 'I tell them I did that on purpose and that I meant to do it.' },
+  { n: 'J', what: 'Dangerous action where clean success would be implausible',
+    action: 'I jump from this branch across to the next tree, the long gap, without checking it first.' },
+  { n: 'K', what: 'A settled emotional question, asked again',
+    setup: [
+      'I look at Luffy and tell him straight: "You can come with us. You do not have to keep asking."',
+      'I sit down next to Sabo and say nothing for a while.',
+    ],
+    action: 'I ask Luffy why he keeps following me everywhere.' },
+  { n: 'L', what: 'Object continuity after it was moved',
+    setup: ['I take the can out of its hiding place and give it to Sabo to carry.'],
+    action: 'I ask who has the can right now.' },
 ];
 
 async function main(): Promise<void> {
@@ -76,6 +87,7 @@ async function main(): Promise<void> {
       locale: 'en',
     });
     const sessionId = s.session.sessionId;
+    let revision = s.revision ?? 0;
 
     if (process.env.DATABASE_URL) {
       const pool = new Pool({ connectionString: process.env.DATABASE_URL });
@@ -85,16 +97,36 @@ async function main(): Promise<void> {
         if (rows[0]) {
           await pool.query(
             `INSERT INTO wallet_ledger (entry_id, account_id, type, amount, balance_after, reason_code, reference_id, idempotency_key, metadata, created_at)
-             VALUES ($1,$2,'PROMO_GRANT',600,$3,'PROMO_GRANT',NULL,$4,'{"source":"replay"}',now())`,
-            [`led_${crypto.randomUUID()}`, rows[0].account_id, Number(rows[0].balance_after) + 600, `replay:${crypto.randomUUID()}`]);
+             VALUES ($1,$2,'PROMO_GRANT',1200,$3,'PROMO_GRANT',NULL,$4,'{"source":"replay"}',now())`,
+            [`led_${crypto.randomUUID()}`, rows[0].account_id, Number(rows[0].balance_after) + 1200, `replay:${crypto.randomUUID()}`]);
         }
       } finally { await pool.end(); }
     }
 
-    md.push(`## Case ${c.n} — ${c.what}`, '', `**Player:** ${c.action}`, '');
+    md.push(`## Case ${c.n} — ${c.what}`, '');
+
+    // Context-dependent cases get their setup played first, so every model is
+    // probed from the same established situation rather than from the opening.
+    for (const setup of c.setup ?? []) {
+      md.push(`*setup:* ${setup}`, '');
+      const acc = await call<any>('POST', `/v1/sessions/${sessionId}/turns`,
+        { actionText: setup, qualityTier: 'VIVID', sessionRevision: revision, selectedSuggestionId: null, voicePreferred: false },
+        { 'idempotency-key': crypto.randomUUID() }).catch(() => null);
+      if (acc) {
+        for (let i = 0; i < 90; i += 1) {
+          const t = await call<any>('GET', `/v1/turns/${acc.turnId}`).catch(() => null);
+          if (t) break;
+          await new Promise((r) => setTimeout(r, 1000));
+        }
+        const fresh = await call<any>('GET', `/v1/sessions/${sessionId}`);
+        revision = fresh.revision ?? revision;
+      }
+    }
+
+    md.push(`**Player:** ${c.action}`, '');
     try {
       const accepted = await call<any>('POST', `/v1/sessions/${sessionId}/turns`,
-        { actionText: c.action, qualityTier: 'VIVID', sessionRevision: s.revision ?? 0, selectedSuggestionId: null, voicePreferred: false },
+        { actionText: c.action, qualityTier: 'VIVID', sessionRevision: revision, selectedSuggestionId: null, voicePreferred: false },
         { 'idempotency-key': crypto.randomUUID() });
       let turn: any = null;
       for (let i = 0; i < 90 && !turn; i += 1) {

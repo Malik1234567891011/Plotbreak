@@ -188,6 +188,7 @@ function typedAction(
     readonly blocks: readonly Block[];
     readonly objective: string | null;
     readonly rng: () => number;
+    readonly stress?: boolean;
   },
 ): string {
   const { present, blocks, objective, rng } = args;
@@ -221,10 +222,36 @@ function typedAction(
     'I do the thing everyone here is expecting me not to do.',
     'I sit down and refuse to move until somebody tells me the truth.',
   ];
+  /**
+   * Things that ought to be hard.
+   *
+   * `--stress` only. Nothing here tells the story anything — these are the
+   * player *attempting*, and the question is whether a runtime with no check
+   * engine independently produces refusal, failure, partial success,
+   * detection or injury when the attempt deserves one. A yes-man storyteller
+   * and a good one are indistinguishable until somebody tries to lift
+   * something too heavy.
+   */
+  const ambitious = who
+    ? [
+        `I tell ${who} to hand it over, and I take it out of their hands.`,
+        `I lie to ${who} about where I have been, and I make it sound good.`,
+        `I try to put ${who} on the ground before they see it coming.`,
+        `I ask ${who} for the one thing I know they will not give me.`,
+        'I take the shortcut everybody says is the dangerous one.',
+        'I try to lift the heaviest thing here on my own.',
+        'I take something while somebody is watching and act like I did not.',
+      ]
+    : [
+        'I take the shortcut everybody says is the dangerous one.',
+        'I try to lift the heaviest thing here on my own.',
+      ];
 
-  const pools = [talk, react, push, blunt].filter((p) => p.length > 0);
+  const pools = [talk, react, push, blunt, ...(args.stress ? [ambitious] : [])].filter(
+    (p) => p.length > 0,
+  );
   const weights = pools.map((p) =>
-    p === talk ? 4 : p === react ? 3 : p === push ? 2 : 1,
+    p === talk ? 4 : p === react ? 3 : p === push ? 2 : p === ambitious ? 3 : 1,
   );
   const pool = weighted(pools, weights, rng);
   return pool[Math.floor(rng() * pool.length)]!;
@@ -240,6 +267,7 @@ async function main(): Promise<void> {
   const pick = Number(flag('pick') ?? 1);
   const player = flag('player') ?? 'first';
   const resumeSession = flag('session') ?? null;
+  const stress = argv.includes('--stress');
   const asUser = flag('user') ?? null;
   const rng = seeded(flag('seed') ?? 'casual-1');
   const out = flag('out') ?? `/tmp/transcript-${storyId}.md`;
@@ -430,7 +458,7 @@ async function main(): Promise<void> {
         chosenIndex = weighted([0, 1, 2], [45, 33, 22], rng);
         if (chosenIndex >= cards.length) chosenIndex = cards.length - 1;
       } else {
-        typed = typedAction({ present, blocks: lastBlocks, objective, rng });
+        typed = typedAction({ present, blocks: lastBlocks, objective, rng, stress });
       }
     }
 

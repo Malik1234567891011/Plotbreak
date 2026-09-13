@@ -81,7 +81,7 @@ const PureTurn = z
         }),
       )
       .min(1)
-      .max(14),
+      .max(30),
     /** Where the beat ends. An id from the locations given. */
     locationId: z.string(),
     /** Who is physically present at the end of the beat. Ids from the cast. */
