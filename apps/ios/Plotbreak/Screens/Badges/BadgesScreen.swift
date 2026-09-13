@@ -14,6 +14,9 @@ import SwiftUI
 // becomes a screen you have to remember to check.
 
 struct BadgesScreen: View {
+    /// Drawn as a root tab (a title, no back chevron) rather than as a sheet.
+    var asTab: Bool = false
+
     @Environment(AppStore.self) private var store
     @Environment(Router.self) private var router
     @Environment(\.translator) private var t
@@ -28,12 +31,11 @@ struct BadgesScreen: View {
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                HStack(spacing: Theme.Spacing.md) {
-                    IconButton(t("story.back"), glyph: "‹") { router.dismissSheet() }
-                    Txt(t("profile.badges"), .h2)
-                    Spacer(minLength: 0)
+                if asTab {
+                    TabHeader(t("profile.badges"))
+                } else {
+                    ScreenHeader(title: t("profile.badges"), backLabel: t("story.back"), onBack: { router.dismissSheet() })
                 }
-                .padding(.horizontal, Theme.Spacing.sm)
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: Theme.Spacing.xxl) {
@@ -49,10 +51,12 @@ struct BadgesScreen: View {
                                         Button {
                                             Task { await claim(badge) }
                                         } label: {
-                                            Txt(t("badges.claim", ["credits": badge.creditReward]), .caption, color: Theme.Colors.textOnAccent)
-                                                .padding(.horizontal, Theme.Spacing.md)
-                                                .padding(.vertical, Theme.Spacing.xs)
-                                                .background(Theme.Colors.accentPrimary, in: RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
+                                            Text(t("badges.claim", ["credits": badge.creditReward]))
+                                                .font(.system(size: 14, weight: .medium))
+                                                .foregroundStyle(Theme.Colors.textOnLight)
+                                                .padding(.horizontal, Theme.Spacing.lg)
+                                                .padding(.vertical, 9)
+                                                .background(Theme.Colors.light, in: Capsule())
                                         }
                                         .buttonStyle(PressScaleStyle())
                                         .disabled(claiming == badge.id)
@@ -76,12 +80,15 @@ struct BadgesScreen: View {
                             }
                         }
                     }
-                    .padding(Theme.gutter)
+                    .padding(Theme.pageGutter)
+                    .padding(.top, Theme.Spacing.xs)
+                    .padding(.bottom, Theme.Spacing.giant)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         }
         .task { await load() }
+        .onChange(of: store.isGuest) { _, _ in Task { await load() } }
     }
 
     private func load() async {

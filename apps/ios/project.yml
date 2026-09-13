@@ -25,6 +25,15 @@ settings:
     CURRENT_PROJECT_VERSION: 1
     TARGETED_DEVICE_FAMILY: "1,2"
     ENABLE_USER_SCRIPT_SANDBOXING: false
+packages:
+  GoogleSignIn:
+    url: https://github.com/google/GoogleSignIn-iOS
+    from: 9.0.0
+  # Ad attribution (AppsFlyer): one SDK that reports installs, sign-ups and
+  # purchases back to Meta, TikTok and Google Ads. See docs/ads/README.md.
+  AppsFlyerLib:
+    url: https://github.com/AppsFlyerSDK/AppsFlyerFramework
+    from: 7.0.2
 targets:
   Plotbreak:
     type: application
@@ -33,6 +42,11 @@ targets:
       - path: Plotbreak
         excludes:
           - "Config/*.xcconfig"
+    dependencies:
+      - package: GoogleSignIn
+        product: GoogleSignIn
+      - package: AppsFlyerLib
+        product: AppsFlyerLib
     entitlements:
       path: Plotbreak/Plotbreak.entitlements
       properties:
@@ -46,13 +60,15 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UILaunchScreen:
           UIColorName: LaunchBackground
-          UIImageName: SplashIcon
+          UIImageName: LaunchLogo
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
         UIUserInterfaceStyle: Dark
         ITSAppUsesNonExemptEncryption: false
         CFBundleURLTypes:
           - CFBundleURLSchemes: [plotbreak]
+          # Google Sign-In returns to the app on the reversed client id.
+          - CFBundleURLSchemes: [$(PLOTBREAK_GOOGLE_URL_SCHEME)]
         NSAppTransportSecurity:
           NSAllowsLocalNetworking: true
         # Filled from the xcconfig so Debug talks to localhost and Release to Railway.
@@ -60,6 +76,24 @@ targets:
         PLOTBREAK_SUPABASE_URL: $(PLOTBREAK_SUPABASE_URL)
         PLOTBREAK_SUPABASE_ANON_KEY: $(PLOTBREAK_SUPABASE_ANON_KEY)
         PLOTBREAK_LEGAL_BASE_URL: $(PLOTBREAK_LEGAL_BASE_URL)
+        PLOTBREAK_GOOGLE_CLIENT_ID: $(PLOTBREAK_GOOGLE_CLIENT_ID)
+        PLOTBREAK_APPSFLYER_DEV_KEY: $(PLOTBREAK_APPSFLYER_DEV_KEY)
+        PLOTBREAK_APPLE_APP_ID: $(PLOTBREAK_APPLE_APP_ID)
+        # The App Tracking Transparency prompt. Asked once, after the first
+        # story beat (Attribution.swift), never at launch.
+        NSUserTrackingUsageDescription: Lets us see which ads bring in players who enjoy Plotbreak, so we can make more stories like the ones you play.
+        # The ad networks Apple's SKAdNetwork may credit for an install. Each
+        # network publishes its own ids; a network missing from this list can
+        # never be credited, however much it is spending.
+        SKAdNetworkItems:
+          # Meta (Facebook + Instagram)
+          - SKAdNetworkIdentifier: v9wttpbfk9.skadnetwork
+          - SKAdNetworkIdentifier: n38lu8286q.skadnetwork
+          # TikTok
+          - SKAdNetworkIdentifier: 238da6jt44.skadnetwork
+          - SKAdNetworkIdentifier: 22mmun2rn5.skadnetwork
+          # Google Ads
+          - SKAdNetworkIdentifier: cstr6suwn9.skadnetwork
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.plotbreak.app

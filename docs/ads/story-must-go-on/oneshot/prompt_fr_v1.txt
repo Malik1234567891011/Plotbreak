@@ -1,0 +1,30 @@
+30-second 16:9 widescreen anime comedy ad, cinematic modern anime film style, fast-paced, continuous flow, no on-screen text, no captions, no logos, no subtitles. NO black frames and NO fade-to-black anywhere before the final second; every shot change is a smooth motion-matched transition (whip pan, push-through, light flare or strobe wash, match cut on movement). The image must never go dark between shots.
+
+NARRATION SCRIPT (French, standard France French, neutral accent, no regional accent, no slang). NARRATOR: male, mid-low pitch, dry deadpan delivery, slightly amused, unhurried, like someone calmly reading out what they are typing. Two characters also speak one line each: the DEMON KING (deep, booming, indignant) and the DRAGON GIRL (high, bright, panicked). The voices speak these 10 lines in this exact order, each line exactly once, never repeated, never overlapping, nothing added, no narration after line 10:
+1. NARRATOR: « Fin de l'histoire. »
+2. NARRATOR: « Non. Pas celle-là. »
+3. NARRATOR: « Un roi démon qui a préparé sa vengeance pendant mille ans... »
+4. NARRATOR: « ...se réveille dans un lycée. »
+5. DEMON KING: « Quoi ?! »
+6. NARRATOR: « Une dragonne légendaire... »
+7. NARRATOR: « ...qui a le vertige. »
+8. DRAGON GIRL: « Non non non ! »
+9. NARRATOR: « Fais-les tomber amoureux. »
+10. NARRATOR: « Ton histoire. Écris-la. »
+
+MUSIC: opens as a slow, sad orchestral "end credits" string theme, cut short by a record-scratch and a low bass boom at line 2; then a punchy, playful cinematic hybrid beat with big drum hits on each new character reveal (4.2s, 13.5s), a comedic sting at line 5 and line 8, softens into a warm romantic swell at 20s, builds into an energetic electronic rise for the grid at 24s, then the tail fades to silence over the final black.
+
+SHOTS (timestamps, explicit hold, reference image, action):
+0.0-1.2s (hold 1.2s) @e06a77a9-a81b-48c0-bf21-eeb753d95b74.png — Slow push-in on a lone horned armored figure walking away down a misty moonlit mountain path toward a huge full moon, grey-blue near-monochrome, fog drifting, sad "the end" mood. Line 1. Transition: sudden fast rush forward toward the figure.
+1.2-4.2s (hold 3.0s) @63ea58cb-856c-4624-b391-de052838ece5.png — The demon king stops mid-step and snaps his head back over his shoulder toward the camera, eyes flaring bright crimson, hair whipping, defiant smirk. SFX: record scratch, low bass boom. Line 2. Transition: the crimson glow of his eyes floods the whole frame into deep red.
+4.2-7.2s (hold 3.0s) @9065b03b-edce-408d-8828-47c847b9c678.png — Close-up of the demon king in his volcanic lava throne hall, embers drifting, slow push-in on his menacing calm face, deep red and black. Line 3. Transition: the lava glow brightens into white sunlight and the lair dissolves around his face into a sunny classroom (match cut on his face).
+7.2-10.5s (hold 3.3s) @29a2f4bf-1090-40e7-8cf1-99573aff13a4.png — Bright sunny Japanese high school classroom: the demon king in a black gakuran school uniform sits at a small student desk, looks down at himself in confusion, then around the room; the teenage students around him stare wide-eyed, one drops a textbook, cherry blossoms outside. SFX: chalk, a book hitting the floor, a collective gasp. Line 4, then line 5 as he roars. Transition: fast push-in on his face.
+10.5-13.5s (hold 3.0s) @1b31c171-9629-4921-8d36-ddccc22ad007.png — Extreme close-up of the demon king's shocked face, eyes wide, pupils tiny, sweat drop, he snaps the pencil in his fist, worksheet crumples. SFX: pencil snap, music hit. No narration. Transition: whip pan straight up into a bright blue sky.
+13.5-16.5s (hold 3.0s) @5204c405-ad2c-415b-acf3-0784deb153db.png — The dragon girl floats proudly in a bright blue sky above white clouds, wings spread wide, arms crossed, hair blowing, sun flare, sky blue and gold. Line 6. Transition: fast tilt down and push through the clouds to a sunny street.
+16.5-20.0s (hold 3.5s) @9ef89cfd-eafe-4f64-a120-f9ce0bdadf14.png — Low angle on a sunny school street with cherry blossoms: the dragon girl clings to a lamppost only one metre above the ground, wings flapping frantically, tail coiled around the pole, eyes shut, tears flying, trembling, terrified of the tiny height. SFX: frantic wing flaps, a squeak. Line 7, then line 8 as she wails. Transition: a gust of cherry petals sweeps across the frame into warm golden sunset light.
+20.0-24.0s (hold 4.0s) @216d757c-22cf-4a3d-a0c1-603dc32f15b7.png — School rooftop at golden-hour sunset: the demon king in his gakuran uniform and the dragon girl now in a sailor school uniform stand face to face very close, holding hands; she blushes hard and looks up at him, he looks away awkwardly with a faint blush, wind in their hair, chain-link fence, city skyline, warm orange and pink. Slow push-in. Line 9. Transition: the frame splits along thin dark seams into a grid.
+24.0-27.5s (hold 3.5s) @e05440d5-26b4-45f2-bc9a-ecfc21dc103e.png — The rooftop shot becomes one tile in a grid of many different anime worlds (samurai duel, mecha, magical girl, space battle, cafe romance, cyberpunk street, pirate ship...), the camera pulls back as tiles multiply, everything washed in soft violet #7C6CFF light, tiles subtly animate. Line 10. Transition: a bright violet light flare swells from the centre.
+27.5-29.0s (hold 1.5s) — Violet #7C6CFF light flare fills the frame over the grid, then settles. No narration.
+29.0-30.0s — The final shot fades to full black over the last 1.0s, no narration, music tail fades out.
+
+Keep the demon king (long black hair, large curved black horns, crimson eyes, pale grey skin) and the dragon girl (silver-white hair with pale blue tips, small golden horns, blue and gold wings, scaled tail, golden eyes) with faces, hair, horns, wings and outfits identical to the reference images throughout, one consistent anime art style, smooth quick motion-matched transitions, momentum carried through every cut, no black frames between shots, no text of any kind.

@@ -295,6 +295,15 @@ final class SessionModel {
         store?.saveDraft(sessionId: sessionId, text: text)
     }
 
+    /// The player asked for the bottom of the story (the round arrow button).
+    ///
+    /// Deliberate, and the counterpart to the relaunch's scrolling change: a
+    /// finished turn no longer drags the reader down to the cards, so the way
+    /// to get there is to ask.
+    func scrollToLatest() {
+        requestScroll(animated: true)
+    }
+
     private func requestScroll(animated: Bool, anchor: ScrollRequest.Anchor = .bottom) {
         scrollRequest = ScrollRequest(id: scrollRequest.id + 1, animated: animated, anchor: anchor)
     }
@@ -460,6 +469,7 @@ final class SessionModel {
             pending?.deltas.append(data["label"]?.stringValue ?? "")
 
         case .turnCompleted:
+            Attribution.firstBeatCompleted(sessionId: sessionId)
             if let balance = data["balance"]?.intValue { store.setBalance(balance) }
             if let next = data["suggestions"]?.decoded(as: [SuggestedAction].self) { suggestions = next }
             if let next = data["scene"]?.decoded(as: SessionSceneState.self) { scene = next }

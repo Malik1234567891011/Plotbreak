@@ -2,18 +2,21 @@ import SwiftUI
 
 // MARK: - Router
 //
-// Spec §5 — information architecture. Three root tabs outside a session; a
+// Spec §5 — information architecture. Four root tabs outside a session; a
 // dedicated immersive shell inside one, with the tab bar hidden (§5.1).
 // Scoped tasks are sheets (§25.10). Twin of `apps/mobile/src/navigation.tsx`.
 
 enum Tab: Hashable, CaseIterable {
-    case discover, library, profile
+    case discover, library, badges, profile
 
-    var glyph: String {
+    /// SF Symbols, outlined when idle and filled when selected — the way the
+    /// reference draws the bar.
+    func symbol(selected: Bool) -> String {
         switch self {
-        case .discover: return "◈"
-        case .library: return "▤"
-        case .profile: return "◉"
+        case .discover: return selected ? "house.fill" : "house"
+        case .library: return selected ? "books.vertical.fill" : "books.vertical"
+        case .badges: return selected ? "bolt.fill" : "bolt"
+        case .profile: return selected ? "person.fill" : "person"
         }
     }
 
@@ -21,6 +24,7 @@ enum Tab: Hashable, CaseIterable {
         switch self {
         case .discover: return "nav.discover"
         case .library: return "nav.library"
+        case .badges: return "nav.badges"
         case .profile: return "nav.profile"
         }
     }
@@ -50,6 +54,7 @@ enum SheetRoute: Identifiable, Hashable {
     case personalization
     case myInformation
     case comments(storyId: String)
+    case savedWorlds
 
     var id: String {
         switch self {
@@ -67,6 +72,7 @@ enum SheetRoute: Identifiable, Hashable {
         case .personalization: return "personalization"
         case .myInformation: return "myInformation"
         case .comments(let storyId): return "comments:\(storyId)"
+        case .savedWorlds: return "savedWorlds"
         }
     }
 }
@@ -126,9 +132,13 @@ final class Router {
 
 // MARK: - Root
 
+/// The onboarding walk: sign in, birth date, display name, audience and
+/// genres, showcase. Four steps carry the progress bar; the sign-in screen
+/// sits before them and the showcase closes them.
 struct RootView: View {
     @Environment(AppStore.self) private var store
     @State private var router = Router()
+    @State private var nameDone = false
     @State private var tasteDone = false
     @State private var showcaseDone = false
     @State private var openStoryId: String?
@@ -136,15 +146,23 @@ struct RootView: View {
     var body: some View {
         Group {
             if !store.ready {
-                // OB-01 — no artificial delay; the splash lasts exactly as long as boot.
+                // OB-01 — no artificial delay. The splash is the launch
+                // screen's logo, continued; it lasts exactly as long as boot,
+                // which no longer waits on the network.
                 SplashScreen()
+            } else if !store.signInSeen, store.isGuest {
+                // 01 — sign in. Asked once; a guest may pass.
+                SignInScreen(embedded: true)
             } else if !store.ageVerified {
-                // OB-02 — before any personalized content.
-                AgeGateScreen()
-            } else if store.onboardingComplete, !(tasteDone || store.onboarded) {
-                // OB-03 — optional and skippable.
-                TasteScreen(onDone: { tasteDone = true })
-            } else if store.onboardingComplete, !(showcaseDone || store.onboarded) {
+                // 02/03 — before any personalized content.
+                BirthDateScreen()
+            } else if !store.onboarded, !nameDone, store.displayName == nil {
+                // 04 — what characters call you.
+                DisplayNameScreen(onDone: { nameDone = true })
+            } else if !store.onboarded, !tasteDone {
+                // 05 — optional and skippable.
+                AudienceGenresScreen(onDone: { tasteDone = true }, onBack: { nameDone = false })
+            } else if !store.onboarded, !showcaseDone {
                 // OB-04 — five worlds and a way in.
                 ShowcaseScreen(
                     onSeeAll: finishOnboarding,
@@ -241,6 +259,7 @@ struct SheetHost: View {
             case .personalization: PersonalizationScreen()
             case .myInformation: MyInformationScreen()
             case .comments(let storyId): CommentsScreen(storyId: storyId)
+            case .savedWorlds: SavedWorldsScreen()
             }
         }
         .preferredColorScheme(.dark)
@@ -261,22 +280,28 @@ struct TabBarShell: View {
                 switch router.tab {
                 case .discover: DiscoverScreen()
                 case .library: LibraryScreen()
+                case .badges: BadgesScreen(asTab: true)
                 case .profile: ProfileScreen()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             // Spec §27.2 — the bar clears the home indicator.
-            HStack {
+            HStack(spacing: 0) {
                 ForEach(Tab.allCases, id: \.self) { tab in
                     let selected = router.tab == tab
                     Button {
                         Haptic.play(.light)
                         router.tab = tab
                     } label: {
-                        VStack(spacing: 2) {
-                            Text(tab.glyph).font(Theme.TypeStyle.h3.font())
-                            Text(t(tab.labelKey)).font(.system(size: 11, weight: .medium))
+                        VStack(spacing: 5) {
+                            Image(systemName: tab.symbol(selected: selected))
+                                .font(.system(size: 22, weight: .regular))
+                                .frame(height: 26)
+                            Text(t(tab.labelKey))
+                                .font(.system(size: 11, weight: selected ? .medium : .regular))
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
                         }
                         .foregroundStyle(selected ? Theme.Colors.accentPrimary : Theme.Colors.textMuted)
                         .frame(maxWidth: .infinity, minHeight: 50)
@@ -287,7 +312,7 @@ struct TabBarShell: View {
                     .accessibilityAddTraits(selected ? [.isSelected, .isButton] : .isButton)
                 }
             }
-            .padding(.top, Theme.Spacing.sm)
+            .padding(.top, 10)
             .background(Theme.Colors.bgElevated)
             .overlay(alignment: .top) { PBDivider() }
         }

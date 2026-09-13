@@ -21,7 +21,7 @@ const ASSET_DIR = join(ROOT, 'infra/seed/assets');
  * cannot see.
  */
 const TARGET_WIDTH: Array<{ match: RegExp; width: number }> = [
-  { match: /\/cover$/, width: 900 },
+  { match: /\/cover(\.[a-z]{2})?$/, width: 900 },
   { match: /\/key$/, width: 1200 },
   { match: /\/stage_/, width: 1200 },
   { match: /^player\//, width: 800 },

@@ -1,8 +1,22 @@
 import SwiftUI
+import GoogleSignIn
 
 @main
 struct PlotbreakApp: App {
     @State private var store = AppStore()
+
+    init() {
+        Attribution.configure()
+        // Covers come back with `cache-control: immutable`, and AsyncImage
+        // reads them through the shared URL cache. The default cache is a few
+        // megabytes, so seventy-odd 90 KB covers evicted each other and every
+        // launch downloaded the shelf again. This is the size at which a
+        // relaunch draws the covers from disk instead.
+        URLCache.shared = URLCache(
+            memoryCapacity: 50 * 1024 * 1024,
+            diskCapacity: 500 * 1024 * 1024
+        )
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -11,6 +25,7 @@ struct PlotbreakApp: App {
                 .environment(\.translator, store.t)
                 .preferredColorScheme(.dark)
                 .task { await store.boot() }
+                .onOpenURL { url in _ = GIDSignIn.sharedInstance.handle(url) }
         }
     }
 }

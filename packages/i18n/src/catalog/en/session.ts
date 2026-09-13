@@ -313,4 +313,14 @@ export const session = {
    * not at the start of a sentence.
    */
   'session.not_enough': 'not enough',
+  /** The composer, empty. Ellipsis character U+2026. */
+  'session.composer_placeholder': 'Say or do anything…',
+  /** Under the composer: the tier, its cost, and how far the balance goes. */
+  'session.status_line': '{tier} · {cost, plural, one {# credit} other {# credits}} · {turns, plural, one {# turn left} other {# turns left}}',
+  /** The sheet behind the sparkle button: three responses. */
+  'session.suggestions_title': 'Suggestions',
+  /** Accessible name of the round arrow button. */
+  'session.scroll_to_latest': 'Jump to latest',
+  /** Accessible name of the round photo button. */
+  'session.latest_image_a11y': 'Open latest image',
 } as const;

@@ -21,6 +21,14 @@ enum AppConfig {
     /// rather than pointing them at nothing.
     static let legalBaseURL: URL? = plist("PLOTBREAK_LEGAL_BASE_URL").flatMap(URL.init(string:))
 
+    /// The iOS OAuth client from Google Cloud. Nil hides the Google button.
+    static let googleClientID: String? = plist("PLOTBREAK_GOOGLE_CLIENT_ID")
+
+    /// AppsFlyer ad attribution. Nil disables the SDK entirely.
+    static let appsFlyerDevKey: String? = plist("PLOTBREAK_APPSFLYER_DEV_KEY")
+    /// The numeric App Store id, without the `id` prefix.
+    static let appleAppID: String? = plist("PLOTBREAK_APPLE_APP_ID")
+
     static let appVersion: String = plist("CFBundleShortVersionString") ?? "1.0.0"
 
     static var authConfigured: Bool { supabaseURL != nil && supabaseAnonKey != nil }

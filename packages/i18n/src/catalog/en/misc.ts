@@ -164,4 +164,12 @@ export const misc = {
    */
   'misc.create_opening': 'Opening',
   'misc.create_opening_body': '50 to 150 words that reach a decision.',
+  /** Under the wordmark on the sign-in screen. Upper case by design. */
+  'misc.sign_in_tagline': 'THE PLAYABLE RPG',
+  /** The bubble above the provider buttons. 600 is GRANT_NEW_USER. */
+  'misc.sign_in_bonus': 'Sign up and get 600 credits!',
+  /** Google, through the hosted sign-in page. First button on the sign-in screen. */
+  'misc.continue_with_google': 'Continue with Google',
+  /** Shown when the player closes the provider's page without finishing. */
+  'misc.sign_in_cancelled': 'Sign-in was cancelled.',
 } as const;

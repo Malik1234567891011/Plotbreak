@@ -23,16 +23,35 @@ struct SessionFeed: View {
                     recap
                     history
                     liveSlot
-                    suggestions
                     errorCard
                     Color.clear.frame(height: 1).id(Self.bottomAnchor)
                 }
                 .padding(.horizontal, Theme.gutter)
-                .padding(.top, Theme.gutter)
+                .padding(.top, 22)
                 .padding(.bottom, Theme.Spacing.xxl)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .scrollDismissesKeyboard(.interactively)
+            // The stage art, as a wash behind the words rather than a frame
+            // above them: fourteen percent, fading to the page at the bottom.
+            .background {
+                ZStack {
+                    if let stage = model.scene?.stageImage {
+                        RemoteImage(stage.assetURL) { Color.clear }
+                            .opacity(0.14)
+                    }
+                    LinearGradient(
+                        stops: [
+                            .init(color: Theme.Colors.bgBase.opacity(0.35), location: 0),
+                            .init(color: Theme.Colors.bgBase, location: 0.78),
+                        ],
+                        startPoint: .top, endPoint: .bottom
+                    )
+                }
+                .clipped()
+                .allowsHitTesting(false)
+                .accessibilityHidden(true)
+            }
             .onChange(of: model.scrollRequest) { _, request in
                 // Removing the three response cards shrinks the feed by their
                 // whole stack, and the scroll offset is absolute — follow the
@@ -164,26 +183,6 @@ struct SessionFeed: View {
         }
 
         StateDeltaRow(deltas: model.visibleDeltas)
-    }
-
-    // MARK: Suggestions
-
-    /// Three responses, at the end of the story rather than pinned above the
-    /// composer. Hidden entirely while a turn resolves.
-    @ViewBuilder private var suggestions: some View {
-        if !model.suggestions.isEmpty, model.pending == nil {
-            VStack(spacing: Theme.Spacing.sm) {
-                ForEach(Array(model.suggestions.enumerated()), id: \.offset) { _, item in
-                    ActionSuggestion(
-                        suggestion: item,
-                        editLabel: t("ui.edit_response_a11y"),
-                        onPress: { model.choose(item) },
-                        onEdit: { model.edit(item) }
-                    )
-                }
-            }
-            .padding(.top, Theme.Spacing.sm)
-        }
     }
 
     // MARK: Error

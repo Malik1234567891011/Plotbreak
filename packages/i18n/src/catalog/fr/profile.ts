@@ -117,4 +117,13 @@ export const profile = {
   'settings.age_range': 'Tranche d’âge',
   'settings.age_unknown': 'Non renseignée',
   'settings.age_hint': 'Tu nous l’as dit une fois, pour choisir les mondes à te montrer.',
+  'profile.stats_line': '{worlds, plural, one {# monde} other {# mondes}} · {turns, plural, one {# tour} other {# tours}} · {badges, plural, one {# badge} other {# badges}}',
+  'profile.add_credits': 'Ajouter des crédits',
+  'profile.benefits': 'Avantages',
+  'profile.session_settings': 'Réglages de session',
+  'profile.saved_worlds': 'Mondes enregistrés',
+  'profile.saved_empty_title': 'Rien d’enregistré pour l’instant',
+  'profile.saved_empty_body': 'Appuie longuement sur un monde dans Découvrir puis sur Enregistrer : il t’attendra ici.',
+  'profile.badges_to_collect': '{count, plural, one {# à récupérer} other {# à récupérer}}',
+  'profile.display_name': 'Nom affiché',
 } as const;

@@ -29,3 +29,6 @@ apps/ios/build/
 apps/ios/DerivedData/
 *.xcuserstate
 xcuserdata/
+
+# Cover v4 masters (6MB PNGs); only READMEs, briefs and contact sheets are tracked
+docs/covers-v4/**/*.png

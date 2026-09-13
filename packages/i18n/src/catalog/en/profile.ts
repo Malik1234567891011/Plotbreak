@@ -68,4 +68,22 @@ export const profile = {
   'settings.age_range': 'Age range',
   'settings.age_unknown': 'Not set',
   'settings.age_hint': 'You told us this once, to decide which worlds to show.',
+  /** Under the name on the identity card. */
+  'profile.stats_line': '{worlds, plural, one {# world} other {# worlds}} · {turns, plural, one {# turn} other {# turns}} · {badges, plural, one {# badge} other {# badges}}',
+  /** The white pill on the identity card; opens the wallet. */
+  'profile.add_credits': 'Add credits',
+  /** Section label over Badges and Wallet. */
+  'profile.benefits': 'Benefits',
+  /** Row that opens Settings. */
+  'profile.session_settings': 'Session settings',
+  /** Row and screen title for bookmarked worlds. */
+  'profile.saved_worlds': 'Saved worlds',
+  /** Empty state title. */
+  'profile.saved_empty_title': 'Nothing saved yet',
+  /** Empty state body. */
+  'profile.saved_empty_body': 'Hold a world on Discover and tap Save, and it will wait here.',
+  /** Trailing note on the Badges row. */
+  'profile.badges_to_collect': '{count, plural, one {# to collect} other {# to collect}}',
+  /** Label over the name field in Settings. */
+  'profile.display_name': 'Display name',
 } as const;

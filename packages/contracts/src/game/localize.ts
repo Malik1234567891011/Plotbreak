@@ -76,6 +76,14 @@ export function localizeStory(story: StoryVersion, locale: Locale): StoryVersion
   // catalogue for every session in the process.
   const next = structuredClone(story) as unknown as Mutable;
 
+  // The cover carries its title drawn into the art (cover v4, 2026-09-13), so
+  // a French shelf needs a French cover. `story_x/cover` becomes
+  // `story_x/cover.fr`; `/media/*` serves `cover.fr.webp` and falls back to
+  // the English cover when no localised one has been made yet.
+  if (typeof next.coverImage === 'string' && next.coverImage.length > 0) {
+    next.coverImage = `${next.coverImage}.${locale}`;
+  }
+
   for (const [path, value] of Object.entries(world.text)) {
     const segments = path.split('.');
     let cursor: unknown = next;

@@ -271,7 +271,13 @@ struct NarrationBlock: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-            Txt(shown, .body, serif: true)
+            // 17pt serif at 1.6 leading, in the secondary grey: prose that
+            // reads as a page, not as a chat bubble.
+            Text(shown)
+                .font(.system(size: 17, weight: .regular, design: .serif))
+                .lineSpacing(6.5)
+                .foregroundStyle(Theme.Colors.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: 640, alignment: .leading)
             if long {
                 Button {
@@ -537,20 +543,64 @@ struct CreditBalance: View {
             Haptic.play(.light)
             onPress?()
         } label: {
-            HStack(spacing: Theme.Spacing.xs) {
-                Text("◈").font(Theme.TypeStyle.caption.font()).foregroundStyle(Theme.Colors.warning)
+            HStack(spacing: Theme.Spacing.sm) {
+                CreditGlyph(size: 21)
                 Text(Format.credits(balance, compact: compact, locale: locale))
-                    .font(Theme.TypeStyle.caption.font())
-                    .monospacedDigit()
+                    .font(.system(size: 15, weight: .semibold, design: .monospaced))
                     .foregroundStyle(Theme.Colors.textPrimary)
             }
-            .padding(.horizontal, Theme.Spacing.md)
-            .padding(.vertical, Theme.Spacing.sm)
-            .background(Theme.Colors.bgRaised, in: Capsule())
-            .overlay { Capsule().strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5) }
+            .padding(.horizontal, Theme.Spacing.sm)
+            .frame(minHeight: Theme.minTouchTarget - 8)
+            .contentShape(Rectangle())
         }
         .buttonStyle(PressOpacityStyle())
         .disabled(onPress == nil)
+    }
+}
+
+// MARK: ContinueCard
+
+/// A run in progress: a 44×58 cover, the title, and how far in you are.
+struct ContinueRunCard: View {
+    let title: String
+    let storyId: String
+    let coverImage: String?
+    let turnsLine: String
+    var width: CGFloat? = nil
+    let onPress: () -> Void
+
+    var body: some View {
+        Button {
+            Haptic.play(.light)
+            onPress()
+        } label: {
+            HStack(spacing: Theme.Spacing.md) {
+                StoryArt(seed: storyId, title: title, uri: coverImage)
+                    .frame(width: 44, height: 58)
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.system(size: 14))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .lineLimit(1)
+                    Text(turnsLine)
+                        .font(.system(size: 12))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                        .lineLimit(1)
+                }
+                Spacer(minLength: 0)
+            }
+            .padding(10)
+            .frame(width: width)
+            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous)
+                    .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressScaleStyle())
+        .accessibilityLabel("\(title). \(turnsLine)")
     }
 }
 
@@ -623,5 +673,87 @@ struct InlineError: View {
             RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
                 .strokeBorder(Theme.Colors.danger.opacity(0.4), lineWidth: 0.5)
         }
+    }
+}
+
+// MARK: PortraitStoryCard
+
+/// The home shelf card: a 2:3 cover with an ORIGINAL pill top-right and, on a
+/// ranked shelf, the rank in a dark square top-left; under it the title on two
+/// lines and a muted line of runs and creator.
+struct PortraitStoryCard: View {
+    @Environment(\.translator) private var t
+
+    let story: StorySummary
+    var width: CGFloat = 98
+    var rank: Int? = nil
+    var locale: AppLocale = .en
+    var onPress: () -> Void
+    var onLongPress: (() -> Void)? = nil
+
+    private var metaLine: String {
+        var parts: [String] = []
+        if story.runs > 0 { parts.append(Format.credits(story.runs, compact: true, locale: locale)) }
+        if !story.creatorName.isEmpty { parts.append(story.creatorName) }
+        return parts.joined(separator: " · ")
+    }
+
+    var body: some View {
+        Button(action: onPress) {
+            VStack(alignment: .leading, spacing: 0) {
+                StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
+                    .frame(width: width, height: (width * 1.5).rounded())
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .strokeBorder(Theme.Colors.textPrimary.opacity(0.25), lineWidth: 0.5)
+                    }
+                    .overlay(alignment: .topLeading) {
+                        if let rank {
+                            Text(String(rank))
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundStyle(Theme.Colors.textPrimary)
+                                .frame(width: 22, height: 22)
+                                .background(Theme.Colors.scrim, in: RoundedRectangle(cornerRadius: 5, style: .continuous))
+                                .padding(4)
+                        }
+                    }
+                    .overlay(alignment: .topTrailing) {
+                        if story.official {
+                            Text(t("discover.official_badge"))
+                                .font(.system(size: 8, weight: .semibold, design: .monospaced))
+                                .kerning(0.5)
+                                .foregroundStyle(Theme.Colors.textPrimary)
+                                .padding(.horizontal, 5)
+                                .padding(.vertical, 3)
+                                .background(Theme.Colors.scrim, in: RoundedRectangle(cornerRadius: 4, style: .continuous))
+                                .padding(4)
+                        }
+                    }
+                Text(story.title)
+                    .font(.system(size: 15))
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, 10)
+                if !metaLine.isEmpty {
+                    Text(metaLine)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                        .lineLimit(1)
+                        .padding(.top, 4)
+                }
+            }
+            .frame(width: width, alignment: .leading)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressScaleStyle())
+        .simultaneousGesture(LongPressGesture(minimumDuration: 0.45).onEnded { _ in
+            guard let onLongPress else { return }
+            Haptic.play(.medium)
+            onLongPress()
+        })
+        .accessibilityLabel([story.title, story.fantasyLabel].filter { !$0.isEmpty }.joined(separator: ". "))
     }
 }

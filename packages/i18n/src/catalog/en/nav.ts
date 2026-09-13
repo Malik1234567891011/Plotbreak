@@ -4,4 +4,6 @@ export const nav = {
   'nav.library': 'Library',
   'nav.characters': 'Characters',
   'nav.profile': 'Profile',
+  /** The badges tab. */
+  'nav.badges': 'Badges',
 } as const;

@@ -8,6 +8,10 @@ import SwiftUI
 // expectations. §8.3: one primary CTA in the first viewport, two taps to start,
 // and content descriptors visible before entry.
 
+private enum DetailTab: CaseIterable {
+    case information, comments
+}
+
 struct StoryDetailScreen: View {
     let storyId: String
 
@@ -21,29 +25,24 @@ struct StoryDetailScreen: View {
     @State private var liked = false
     @State private var likes = 0
     @State private var castMember: CastMember?
-    @State private var scrollY: CGFloat = 0
-
-    /// The key art is deliberately edge-to-edge under the status bar. Once the
-    /// page scrolls past it, body content would otherwise run under the clock
-    /// unclipped, so a scrim fades in to give the status bar something opaque
-    /// to sit on. Matches RN's `interpolate([0, 160, 220] → [0, 0, 1])`.
-    private var scrimOpacity: Double {
-        min(1, max(0, (scrollY - 160) / 60))
-    }
+    @State private var tab: DetailTab = .information
 
     var body: some View {
         Screen {
-            if let detail {
-                loaded(detail)
-            } else if let loadError {
-                VStack(spacing: Theme.Spacing.lg) {
-                    ScreenHeader(backLabel: t("story.back")) { router.pop() }
-                    InlineError(message: loadError)
-                        .padding(.horizontal, Theme.gutter)
-                    Spacer()
+            GeometryReader { geo in
+                VStack(spacing: 0) {
+                    header
+                    tabs
+                    if let detail {
+                        loaded(detail, width: geo.size.width)
+                    } else if let loadError {
+                        InlineError(message: loadError)
+                            .padding(Theme.pageGutter)
+                        Spacer()
+                    } else {
+                        skeleton
+                    }
                 }
-            } else {
-                skeleton
             }
         }
         .task(id: storyId) { await load() }
@@ -54,17 +53,59 @@ struct StoryDetailScreen: View {
         }
     }
 
+    // MARK: Chrome
+
+    /// Back, the page's name, and the like — the one social gesture that
+    /// deserves the header.
+    private var header: some View {
+        ScreenHeader(title: t("story.info_title"), backLabel: t("story.back"), onBack: { router.pop() }) {
+            if let story = detail?.story {
+                IconButton(liked ? t("story.unlike") : t("story.like"), action: { toggleLiked(story) }) {
+                    Image(systemName: liked ? "hand.thumbsup.fill" : "hand.thumbsup")
+                        .font(.system(size: 20, weight: .regular))
+                        .foregroundStyle(liked ? Theme.Colors.accentPrimary : Theme.Colors.textSecondary)
+                }
+                .accessibilityAddTraits(liked ? .isSelected : [])
+            }
+        }
+    }
+
+    /// Information · Comments, as two halves with the active one underlined.
+    private var tabs: some View {
+        HStack(spacing: 0) {
+            ForEach(DetailTab.allCases, id: \.self) { item in
+                let active = tab == item
+                Button {
+                    Haptic.play(.light)
+                    withAnimation(.easeOut(duration: Theme.Durations.short)) { tab = item }
+                } label: {
+                    Text(item == .information ? t("story.tab_information") : t("story.tab_comments"))
+                        .font(.system(size: 17, weight: active ? .medium : .regular))
+                        .foregroundStyle(active ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
+                        .frame(maxWidth: .infinity, minHeight: 48)
+                        .overlay(alignment: .bottom) {
+                            Rectangle().fill(active ? Theme.Colors.textPrimary : Color.clear).frame(height: 2)
+                        }
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(PressOpacityStyle())
+                .accessibilityAddTraits(active ? [.isButton, .isSelected] : .isButton)
+            }
+        }
+        .overlay(alignment: .bottom) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
+    }
+
     // MARK: Loading
 
     private var skeleton: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
-            Skeleton(height: 220, radius: Theme.Radius.large)
+            HStack { Spacer(); Skeleton(width: 166, height: 249, radius: Theme.Radius.field); Spacer() }
+                .padding(.vertical, 50)
             Skeleton(height: 28, radius: 6).frame(maxWidth: 260, alignment: .leading)
             Skeleton(height: 18, radius: 6).frame(maxWidth: 330, alignment: .leading)
-            Skeleton(height: 50, radius: Theme.Radius.control)
             Spacer()
         }
-        .padding(Theme.gutter)
+        .padding(Theme.pageGutter)
     }
 
     private func load() async {
@@ -82,155 +123,262 @@ struct StoryDetailScreen: View {
     // MARK: Loaded
 
     @ViewBuilder
-    private func loaded(_ detail: StoryDetailResponse) -> some View {
+    private func loaded(_ detail: StoryDetailResponse, width: CGFloat) -> some View {
         let story = detail.story
+        switch tab {
+        case .comments:
+            CommentsView(
+                storyId: story.storyId,
+                signedIn: !store.isGuest,
+                variant: .full,
+                onSeeAll: {},
+                onSignIn: { router.present(.signIn) }
+            )
+        case .information:
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    coverBlock(story, width: width)
 
-        GeometryReader { geo in
-            ZStack(alignment: .top) {
-                ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
-                        StoryArt(seed: story.storyId, title: story.title, uri: story.keyArt)
-                            .aspectRatio(4 / 3, contentMode: .fit)
-                            .frame(maxWidth: .infinity)
+                        titleRow(story)
+                        creatorChip(story)
+                            .padding(.top, 14)
+                        chipsRow(story, detail: detail)
+                            .padding(.top, 14)
 
-                        VStack(alignment: .leading, spacing: Theme.Spacing.xxl) {
-                            titleBlock(story)
-                            ctaBlock(detail)
-                            socialRow(story)
-                            if !detail.sessions.isEmpty { sessionsBlock(detail.sessions) }
-                            statsCard(detail.stats)
+                        Text(t("story.description_heading"))
+                            .font(.system(size: 22, weight: .semibold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .padding(.top, 28)
+                            .accessibilityAddTraits(.isHeader)
+                        // The hook, unless the premise opens with the same
+                        // words — then it would read twice in a row.
+                        if !detail.premise.hasPrefix(String(story.hook.prefix(40))) {
+                            Text(story.hook)
+                                .font(.system(size: 17))
+                                .lineSpacing(4)
+                                .foregroundStyle(Theme.Colors.textSecondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .padding(.top, 12)
+                        }
+                        // A premise is 200+ words and it is the one thing a
+                        // player reads before committing, so the authored
+                        // paragraph breaks get real spacing.
+                        ForEach(Array(detail.premise.paragraphs.enumerated()), id: \.offset) { _, paragraph in
+                            Txt(paragraph, .body, color: Theme.Colors.textSecondary, serif: true)
+                                .padding(.top, 12)
+                        }
+                        if !story.tags.isEmpty {
+                            Text(story.tags.map { "#" + $0.replacingOccurrences(of: " ", with: "") }.joined(separator: " "))
+                                .font(.system(size: 17))
+                                .foregroundStyle(Theme.Colors.textMuted)
+                                .padding(.top, 14)
+                        }
+                        statsRow(story, stats: detail.stats)
+                            .padding(.top, 16)
 
-                            // A shelf, not the whole section — see `CommentsView`.
-                            CommentsView(
-                                storyId: story.storyId,
-                                signedIn: !store.isGuest,
-                                variant: .preview,
-                                onSeeAll: { router.present(.comments(storyId: story.storyId)) },
-                                onSignIn: { router.present(.signIn) }
-                            )
-
-                            mechanicsBlock(story)
-                            premiseBlock(detail.premise)
-                            if !detail.cast.isEmpty { castBlock(detail.cast) }
+                        // Spec §8.3 — descriptors are visible before entry.
+                        if !story.contentDescriptors.isEmpty {
                             descriptorsBlock(story)
-                            if !detail.creatorNote.isEmpty { creatorNote(detail.creatorNote) }
-                            if !detail.related.isEmpty { relatedBlock(detail.related) }
+                                .padding(.top, 28)
                         }
-                        .padding(Theme.gutter)
-                        .padding(.top, -Theme.Spacing.xxl)
+                        if !detail.sessions.isEmpty {
+                            sessionsBlock(detail.sessions)
+                                .padding(.top, 28)
+                        }
+                        if !detail.cast.isEmpty {
+                            castBlock(detail.cast)
+                                .padding(.top, 28)
+                        }
+                        if !detail.creatorNote.isEmpty {
+                            creatorNote(detail.creatorNote)
+                                .padding(.top, 28)
+                        }
+                        if !detail.related.isEmpty {
+                            relatedBlock(detail.related)
+                                .padding(.top, 28)
+                        }
                     }
-                    // Every horizontal shelf below claims exactly this, so the
-                    // column can never be widened from inside — see railWidth().
-                    .environment(\.railWidth, geo.size.width - Theme.gutter * 2)
-                    .frame(width: geo.size.width, alignment: .leading)
-                    .padding(.bottom, Theme.Spacing.giant)
-                    .background(
-                        GeometryReader { inner in
-                            Color.clear.preference(key: ScrollOffsetKey.self, value: -inner.frame(in: .named("storyDetailScroll")).minY)
-                        }
-                    )
+                    .padding(.horizontal, Theme.pageGutter)
+                    .padding(.top, 18)
                 }
-                .coordinateSpace(name: "storyDetailScroll")
-                .ignoresSafeArea(edges: .top)
-                .onPreferenceChange(ScrollOffsetKey.self) { scrollY = $0 }
-
-                Theme.Colors.bgBase
-                    .frame(height: geo.safeAreaInsets.top)
-                    .offset(y: -geo.safeAreaInsets.top)
-                    .opacity(scrimOpacity)
-                    .allowsHitTesting(false)
-
-                HStack {
-                    IconButton(t("story.back"), action: { router.pop() }) {
-                        Txt("‹", .h2)
-                    }
-                    Spacer()
-                    HStack(spacing: Theme.Spacing.sm) {
-                        IconButton(saved ? t("story.remove_from_saved") : t("story.save_story"), action: { toggleSaved(story) }) {
-                            Txt(saved ? "★" : "☆", .h3, color: saved ? Theme.Colors.accentPrimary : Theme.Colors.textPrimary)
-                        }
-                        IconButton(t("story.report_story"), action: {
-                            router.present(.report(targetType: "STORY", targetId: story.storyId))
-                        }) {
-                            Txt("⋯", .h3)
-                        }
-                    }
-                }
-                .padding(.horizontal, Theme.gutter)
+                // Every horizontal shelf below claims exactly this, so the
+                // column can never be widened from inside — see railWidth().
+                .environment(\.railWidth, width - Theme.pageGutter * 2)
+                .frame(width: width, alignment: .leading)
+                .padding(.bottom, Theme.Spacing.xxl)
             }
+            .safeAreaInset(edge: .bottom, spacing: 0) { ctaBar(detail) }
         }
     }
 
     // MARK: Sections
 
-    private func titleBlock(_ story: StorySummary) -> some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-            HStack(spacing: Theme.Spacing.xs) {
-                if story.official {
-                    Chip(t("story.badge_official"), tone: .accent)
-                } else {
-                    Chip(t("story.badge_community"))
+    /// The cover, centred on a soft glow of its own colours.
+    private func coverBlock(_ story: StorySummary, width: CGFloat) -> some View {
+        ZStack {
+            RemoteImage((story.keyArt ?? story.coverImage)?.assetURL) { Color.clear }
+                .frame(width: width, height: 350)
+                .blur(radius: 50)
+                .opacity(0.35)
+                .clipped()
+            LinearGradient(
+                stops: [.init(color: Theme.Colors.bgBase.opacity(0.2), location: 0), .init(color: Theme.Colors.bgBase, location: 1)],
+                startPoint: .top, endPoint: .bottom
+            )
+            StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
+                .frame(width: 166, height: 249)
+                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous)
+                        .strokeBorder(Theme.Colors.textPrimary.opacity(0.4), lineWidth: 0.5)
                 }
+                .overlay(alignment: .topTrailing) {
+                    if story.official {
+                        Text(t("discover.official_badge"))
+                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                            .kerning(0.5)
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 5)
+                            .background(Theme.Colors.scrim, in: RoundedRectangle(cornerRadius: 6, style: .continuous))
+                            .padding(8)
+                    }
+                }
+                .shadow(color: .black.opacity(0.5), radius: 24, y: 12)
+        }
+        .frame(height: 350)
+        .clipped()
+        .accessibilityHidden(true)
+    }
+
+    private func titleRow(_ story: StorySummary) -> some View {
+        HStack(alignment: .top, spacing: Theme.Spacing.md) {
+            Text(story.title)
+                .font(.system(size: 26, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityAddTraits(.isHeader)
+            Spacer(minLength: 0)
+            Menu {
+                Button {
+                    toggleSaved(story)
+                } label: {
+                    Label(saved ? t("story.remove_from_saved") : t("story.save_story"), systemImage: saved ? "bookmark.slash" : "bookmark")
+                }
+                Button(role: .destructive) {
+                    router.present(.report(targetType: "STORY", targetId: story.storyId))
+                } label: {
+                    Label(t("story.report_story"), systemImage: "flag")
+                }
+            } label: {
+                Image(systemName: "ellipsis")
+                    .font(.system(size: 20, weight: .medium))
+                    .rotationEffect(.degrees(90))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
+                    .contentShape(Rectangle())
             }
-            Txt(story.title, .display)
-            Txt(t("story.by_creator", ["name": story.creatorName]), .bodyCompact, color: Theme.Colors.textSecondary)
-            Txt(story.hook, .body)
-                .padding(.top, Theme.Spacing.sm)
+            .accessibilityLabel(t("story.more_a11y"))
         }
     }
 
-    /// Spec §8.3 — one primary CTA above the fold, and exactly one.
-    ///
-    /// When there is a run to return to, Continue is that CTA and New session
-    /// sits beside it as a secondary. Starting a new one leaves the old one
-    /// entirely alone — they are separate rows, and the list below shows both.
-    private func ctaBlock(_ detail: StoryDetailResponse) -> some View {
-        let continuing = detail.activeSessionId != nil
-        return VStack(spacing: Theme.Spacing.sm) {
-            PBButton(continuing ? t("story.continue") : t("story.start"), haptic: .medium) {
-                if let sessionId = detail.activeSessionId {
-                    router.push(.session(sessionId: sessionId))
-                } else {
-                    router.push(.characterSetup(storyId: detail.story.storyId))
-                }
-            }
-            if continuing {
-                PBButton(t("story.new_session"), variant: .secondary) {
-                    router.push(.characterSetup(storyId: detail.story.storyId))
+    private func creatorChip(_ story: StorySummary) -> some View {
+        Text(t("story.creator_handle", ["name": story.creatorName]))
+            .font(.system(size: 17))
+            .foregroundStyle(Theme.Colors.textSecondary)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .overlay { RoundedRectangle(cornerRadius: 8, style: .continuous).strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5) }
+    }
+
+    /// Genre, shape and intensity, then what you can actually do here (§8.2).
+    private func chipsRow(_ story: StorySummary, detail: StoryDetailResponse) -> some View {
+        let words = [shapeWord(detail.stats.medianDepthLabel), intensityWord(detail.stats.intensity)]
+            + story.tags.prefix(2).map { t.category($0, fallback: $0) }
+            + story.mechanicsChips
+        var seen = Set<String>()
+        let unique = words.filter { !$0.isEmpty && seen.insert($0).inserted }
+        return ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: Theme.Spacing.sm) {
+                ForEach(unique, id: \.self) { word in
+                    Text(word)
+                        .font(.system(size: 17))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .overlay { RoundedRectangle(cornerRadius: 8, style: .continuous).strokeBorder(Theme.Colors.borderStrong, lineWidth: 0.5) }
                 }
             }
         }
+        .railWidth()
     }
 
-    /// Like and comment count, together, because they answer the same
-    /// question: is this worth my evening.
-    private func socialRow(_ story: StorySummary) -> some View {
-        HStack(spacing: Theme.Spacing.md) {
+    /// Runs, likes, comments — the honest numbers, no fake ratings (§8.2).
+    private func statsRow(_ story: StorySummary, stats: StoryStats) -> some View {
+        HStack(spacing: 22) {
+            statItem("person.2", Format.credits(stats.runs, compact: true, locale: store.locale), label: t("story.stat_players"))
             Button {
                 toggleLiked(story)
             } label: {
-                HStack(spacing: Theme.Spacing.xs) {
-                    Txt(liked ? "♥" : "♡", .h3, color: liked ? Theme.Colors.accentPrimary : Theme.Colors.textSecondary)
-                    Txt(Format.credits(likes, compact: true, locale: store.locale), .bodyCompact, color: Theme.Colors.textSecondary)
-                }
+                statItem(liked ? "hand.thumbsup.fill" : "hand.thumbsup", Format.credits(likes, compact: true, locale: store.locale), label: liked ? t("story.unlike") : t("story.like"))
             }
             .buttonStyle(PressOpacityStyle())
-            .accessibilityLabel(liked ? t("story.unlike") : t("story.like"))
-            .accessibilityAddTraits(liked ? .isSelected : [])
-
-            HStack(spacing: Theme.Spacing.xs) {
-                Txt("\u{1F4AC}", .h3, color: Theme.Colors.textSecondary)
-                Txt(Format.credits(story.comments, compact: true, locale: store.locale), .bodyCompact, color: Theme.Colors.textSecondary)
+            Button {
+                tab = .comments
+            } label: {
+                statItem("text.bubble", Format.credits(story.comments, compact: true, locale: store.locale), label: t("story.tab_comments"))
             }
+            .buttonStyle(PressOpacityStyle())
         }
     }
 
-    /// Every run of this world, newest first. Below the CTAs rather than beside
-    /// them: somebody who wants to get back in taps Continue and never reads
-    /// this, and somebody who wants a specific earlier run is looking for it.
+    private func statItem(_ symbol: String, _ value: String, label: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: symbol)
+                .font(.system(size: 16, weight: .regular))
+            Text(value)
+                .font(.system(size: 17))
+        }
+        .foregroundStyle(Theme.Colors.textMuted)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(label): \(value)")
+    }
+
+    /// Spec §8.3 — one primary CTA, pinned. Continue when there is a run to
+    /// return to; New session beside it, because starting over leaves the old
+    /// run entirely alone.
+    private func ctaBar(_ detail: StoryDetailResponse) -> some View {
+        let continuing = detail.activeSessionId != nil
+        return VStack(spacing: 10) {
+            if continuing {
+                PBButton(t("story.continue"), variant: .light, size: .medium, haptic: .medium) {
+                    if let sessionId = detail.activeSessionId { router.push(.session(sessionId: sessionId)) }
+                }
+                PBButton(t("story.new_session"), variant: .outline, size: .medium) {
+                    router.push(.characterSetup(storyId: detail.story.storyId))
+                }
+            } else {
+                PBButton(t("story.new_session"), variant: .light, haptic: .medium) {
+                    router.push(.characterSetup(storyId: detail.story.storyId))
+                }
+            }
+        }
+        .padding(.horizontal, Theme.pageGutter)
+        .padding(.top, 14)
+        .padding(.bottom, Theme.Spacing.sm)
+        .background(Theme.Colors.bgBase)
+        .overlay(alignment: .top) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
+    }
+
+    /// Every run of this world, newest first.
     private func sessionsBlock(_ sessions: [StoryRun]) -> some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Txt(t("story.sessions_heading"), .h3)
+            Text(t("story.sessions_heading"))
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
             ForEach(Array(sessions.enumerated()), id: \.element.sessionId) { index, session in
                 Card {
                     HStack(alignment: .center, spacing: Theme.Spacing.md) {
@@ -263,58 +411,14 @@ struct StoryDetailScreen: View {
         return t("story.session_line", ["count": session.turnCount, "date": date])
     }
 
-    /// Spec §8.2 item 6 — compact honest stats, no fake ratings.
-    private func statsCard(_ stats: StoryStats) -> some View {
-        Card {
-            HStack {
-                stat(t("story.stat_players"), Format.credits(stats.runs, compact: false, locale: store.locale))
-                Spacer()
-                stat(t("story.stat_shape"), shapeWord(stats.medianDepthLabel))
-                Spacer()
-                stat(t("story.stat_intensity"), intensityWord(stats.intensity))
-            }
-        }
-    }
-
-    private func stat(_ label: String, _ value: String) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Txt(label.uppercased(), .micro, color: Theme.Colors.textMuted)
-            Txt(value, .bodyStrong)
-        }
-    }
-
-    /// Spec §8.2 item 7 — what you can actually do here.
-    private func mechanicsBlock(_ story: StorySummary) -> some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Txt(t("story.mechanics_heading"), .h3)
-            FlowLayout(spacing: Theme.Spacing.sm) {
-                ForEach(story.mechanicsChips, id: \.self) { chip in
-                    Chip(chip, tone: .accent)
-                }
-            }
-        }
-    }
-
-    /// A premise is 200+ words and it is the one thing a player reads before
-    /// committing. Rendered as one block it is a wall nobody finishes, so the
-    /// authored paragraph breaks get real spacing.
-    private func premiseBlock(_ premise: String) -> some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Txt(t("story.premise_heading"), .h3)
-            VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                ForEach(Array(premise.paragraphs.enumerated()), id: \.offset) { _, paragraph in
-                    Txt(paragraph, .body, color: Theme.Colors.textSecondary, serif: true)
-                }
-            }
-        }
-    }
-
     /// The carousel has to truncate, so the truncation has to be one tap from
-    /// the whole thing. A face a player is curious about is the strongest
-    /// signal they have about whether they want this world at all.
+    /// the whole thing.
     private func castBlock(_ cast: [CastMember]) -> some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Txt(t("story.cast_heading"), .h3)
+            Text(t("story.cast_heading"))
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: Theme.Spacing.lg) {
                     ForEach(cast) { member in
@@ -322,15 +426,12 @@ struct StoryDetailScreen: View {
                             castMember = member
                         } label: {
                             VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                                CharacterPortrait(name: member.name, uri: member.portrait, size: 148)
+                                CharacterPortrait(name: member.name, uri: member.portrait, size: 120)
                                 Txt(member.name, .bodyCompact, lineLimit: 1)
-                                // Story function leads; the job title is secondary.
                                 Txt(member.cardBlurb.isEmpty ? member.role : member.cardBlurb, .caption,
                                     color: Theme.Colors.textSecondary, lineLimit: 3)
-                                Txt(member.cardBlurb.isEmpty ? t("story.cast_tap_for_more") : member.role, .micro,
-                                    color: Theme.Colors.textMuted, lineLimit: 1)
                             }
-                            .frame(width: 148, alignment: .leading)
+                            .frame(width: 120, alignment: .leading)
                         }
                         .buttonStyle(PressOpacityStyle(pressed: 0.8))
                         .accessibilityLabel(t("story.cast_a11y", ["name": member.name, "role": member.role]))
@@ -344,7 +445,7 @@ struct StoryDetailScreen: View {
     /// Spec §8.3 — descriptors are visible before entry, never after.
     private func descriptorsBlock(_ story: StorySummary) -> some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Txt(t("story.content_heading"), .h3)
+            SectionLabel(t("story.content_heading"))
             FlowLayout(spacing: Theme.Spacing.sm) {
                 ForEach(story.contentDescriptors, id: \.self) { descriptor in
                     Chip(descriptorLabel(descriptor), tone: descriptor == .PERMANENT_DEATH ? .warning : .neutral)
@@ -364,12 +465,14 @@ struct StoryDetailScreen: View {
 
     private func relatedBlock(_ related: [StorySummary]) -> some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            PBDivider()
-            Txt(t("story.related_heading"), .h3)
+            Text(t("story.related_heading"))
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: Theme.Spacing.md) {
                     ForEach(related) { item in
-                        StoryCoverCard(story: item, width: 140, locale: store.locale) {
+                        PortraitStoryCard(story: item, width: 98, locale: store.locale) {
                             router.push(.storyDetail(storyId: item.storyId))
                         }
                     }
@@ -501,11 +604,4 @@ private struct CastSheet: View {
         .presentationDragIndicator(.visible)
         .presentationBackground(Theme.Colors.bgRaised)
     }
-}
-
-// MARK: - Helpers
-
-private struct ScrollOffsetKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
 }

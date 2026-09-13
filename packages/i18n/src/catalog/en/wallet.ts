@@ -317,4 +317,22 @@ export const wallet = {
   'wallet.badge_first_purchase': 'First purchase',
   /** The one button that spends money, under the pack the player picked. */
   'wallet.buy_now': 'Buy now',
+  /** The wallet's title. */
+  'wallet.my_credits': 'My credits',
+  /** Second tab. */
+  'wallet.tab_daily': 'Daily',
+  /** Third tab. */
+  'wallet.tab_how': 'How it works',
+  /** The outline button on the balance card. */
+  'wallet.history_short': 'History',
+  /** The ledger, empty. */
+  'wallet.history_empty': 'No activity yet',
+  /** Beside Restore purchases under Buy now. */
+  'wallet.no_expiry': 'Credits do not expire',
+  /** A pack's size, with the number already formatted. */
+  'wallet.credits_count': '{credits} credits',
+  /** Daily tab while a claim is available. */
+  'wallet.daily_ready_body': 'Your daily credits are waiting. Claim them above.',
+  /** Daily tab while the next claim is counting down. */
+  'wallet.daily_body': 'Come back once a day for free credits. They never expire.',
 } as const;

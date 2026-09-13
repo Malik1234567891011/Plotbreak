@@ -66,4 +66,42 @@ export const onboarding = {
   'onboarding.showcase_body': 'We picked a few to start you off.',
   'onboarding.showcase_card_a11y': '{title}. Start this story.',
   'onboarding.see_all_stories': 'See all stories',
+  /** Step 1 of 4 — the age gate, asked as a date. Only the band is kept. */
+  'onboarding.birth_date_title': 'Enter birth date',
+  /** The empty date field. */
+  'onboarding.birth_date_placeholder': 'Pick a date',
+  /** The wheel picker's button. */
+  'onboarding.birth_date_confirm': 'Confirm',
+  /** Advance one onboarding step. */
+  'onboarding.next': 'Next',
+  /** Go back one onboarding step. */
+  'onboarding.previous': 'Previous',
+  /** First line of the legal footer; the links follow on the next line. */
+  'onboarding.legal_footer': 'By clicking continue, you agree to our',
+  /** The linked document's name. */
+  'onboarding.terms_of_service': 'Terms of Service',
+  /** The linked document's name. */
+  'onboarding.privacy_policy': 'Privacy Policy',
+  /** Between the two legal links. */
+  'onboarding.legal_and': 'and',
+  /** Step 2 of 4 — the display name. */
+  'onboarding.name_title': 'What should characters call you?',
+  /** Under the title; the path names two screens the way they are labelled. */
+  'onboarding.name_hint': 'You can change it anytime in Profile › Session settings.',
+  /** The empty name field. */
+  'onboarding.name_placeholder': 'Your name',
+  /** Accessible name of the cross in the field. */
+  'onboarding.name_clear_a11y': 'Clear name',
+  /** Step 3 of 4, first question. */
+  'onboarding.audience_title': 'Want to filter by audience?',
+  /** Audience radio card. */
+  'onboarding.audience_male': 'Male',
+  /** Audience radio card. */
+  'onboarding.audience_female': 'Female',
+  /** Audience radio card — no lean either way. */
+  'onboarding.audience_neutral': 'Neutral',
+  /** Step 3 of 4, second question. */
+  'onboarding.genres_title': 'Choose genres you are interested in',
+  /** Accessible name of the progress bar. */
+  'onboarding.step_a11y': 'Step {step} of {total}',
 } as const;

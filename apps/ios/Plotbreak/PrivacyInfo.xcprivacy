@@ -18,17 +18,49 @@
   - The prose a player types and the worlds they play, which are their content
     and are stored against their account so a run survives a reinstall.
 
-  Nothing is used for tracking, and there are no tracking domains. The refresh
-  token lives in the keychain, which is not a required-reason API.
+  Tracking: the app asks App Tracking Transparency once (after the first story
+  beat) so AppsFlyer can attribute installs and purchases to the ad that led
+  to them. That is tracking in Apple's sense, so NSPrivacyTracking is true and
+  the device id and purchase history are listed with tracking on. AppsFlyer's
+  SDK ships its own manifest with its tracking domains; Apple merges the two.
+  The App Store privacy label in App Store Connect has to say the same thing.
+
+  The refresh token lives in the keychain, which is not a required-reason API.
 -->
 <plist version="1.0">
 <dict>
   <key>NSPrivacyTracking</key>
-  <false/>
+  <true/>
   <key>NSPrivacyTrackingDomains</key>
   <array/>
   <key>NSPrivacyCollectedDataTypes</key>
   <array>
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypeDeviceID</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <true/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <true/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeThirdPartyAdvertising</string>
+        <string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
+      </array>
+    </dict>
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypePurchaseHistory</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <true/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <true/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeThirdPartyAdvertising</string>
+        <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+      </array>
+    </dict>
     <dict>
       <key>NSPrivacyCollectedDataType</key>
       <string>NSPrivacyCollectedDataTypeEmailAddress</string>
