@@ -330,18 +330,53 @@ function conversation(recentTurns: readonly TurnRecord[], cast: Map<string, stri
  * Where the player is and who is with them now lives at the tail, next to the
  * action, where it belongs.
  */
-export function worldBrief(story: StoryVersion): string {
+export function worldBrief(story: StoryVersion, archetypeId?: string | null): string {
   return [
     `# ${story.title}`,
     story.premise,
     '',
     '## Tone',
     story.rules.toneGuide,
+    ...(story.rules.hardCanon.length
+      ? [
+          '',
+          '## True before the story starts',
+          'Facts, not suggestions. They hold in every session and in every language, they were decided by',
+          'the author rather than by you, and nothing in play may quietly contradict one. Where a fact',
+          'names somebody or something, that is its name.',
+          ...story.rules.hardCanon.map((fact) => `- ${fact}`),
+        ]
+      : []),
     '',
     '## The player',
     story.protagonist.kind === 'NAMED'
       ? `${story.protagonist.name} (${story.protagonist.pronouns}). ${story.protagonist.description}`
       : 'The player names themselves; see the scene block below.',
+    // The authored options, and which one this player is.
+    //
+    // Not just the chosen one: in a story where the archetypes *are* the three
+    // creatures Morel grew, the two the player did not bond with still exist,
+    // still have names and still have natures. Sending only the chosen one left
+    // the other two to be invented, and they came out differently in English
+    // and in French.
+    ...(story.archetypes.length
+      ? [
+          '',
+          '## Who the player could be, and is',
+          'Authored, and true whoever the player picked. The others still exist in the world.',
+          ...story.archetypes.map((option) =>
+            [
+              `### ${option.name}${option.id === archetypeId ? '  ← the player is this one' : ''}`,
+              option.role,
+              option.summary,
+              option.blurb,
+              option.playstyle.length ? `Plays as: ${option.playstyle.join(', ')}` : '',
+            ]
+              .filter(Boolean)
+              .join('\n'),
+          ),
+        ]
+      : []),
     '',
     '## Cast',
     'Everything below is yours to play. A character is the whole of this, not the loudest line of it.',
@@ -514,7 +549,7 @@ export async function narratePure(options: {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
 
-  const world = worldBrief(story);
+  const world = worldBrief(story, state.player.identity.archetypeId);
   const history = conversation(recentTurns, cast);
 
   // The standing instruction. In `rebuilt` it trails the turn; in `append` it
