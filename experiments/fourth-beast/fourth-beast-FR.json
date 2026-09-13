@@ -1,0 +1,504 @@
+{
+  "storyId": "story_fourth_beast",
+  "sessionId": "sess_d294b752-45a5-432c-9e72-15c3dd25a71a",
+  "log": [
+    {
+      "turn": 1,
+      "how": "tapped",
+      "firstBlockMs": 4761,
+      "fullMs": 12349,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 5,
+      "words": 281,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "morel",
+          "emotion": "worried",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/morel_worried?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je regarde les trois habitats. « Montrez-moi comment chacun réagit à nous. Après, je choisis. »",
+        "Je fixe Morel. « Combien en sont morts avant eux ? Je veux le chiffre avant de prendre quoi que ce soit. »",
+        "Je secoue la tête. « J’ai pas assez pour choisir une vie comme ça. Je touche à personne ce soir. »"
+      ]
+    },
+    {
+      "turn": 2,
+      "how": "typed",
+      "firstBlockMs": 3280,
+      "fullMs": 12606,
+      "streamedBlocks": 9,
+      "blocks": 9,
+      "attributed": 6,
+      "words": 271,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "annoyed",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_annoyed?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je m’approche du petit sombre sans le toucher. « Lui. Comment il s’appelle, et qu’est-ce qu’il fait quand il a peur ? »",
+        "Je regarde Morel. « Tu dis qu’ils peuvent blesser. Montre-moi ce que ça veut dire avant de me demander d’en prendre un. »",
+        "Je garde mes distances. « Camille, choisis d’abord. Je veux voir ce que ça fait à l’un d’eux avec toi. »"
+      ]
+    },
+    {
+      "turn": 3,
+      "how": "tapped",
+      "firstBlockMs": 4918,
+      "fullMs": 12258,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 5,
+      "words": 272,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je tends un doigt vers Nox, sans franchir le rebord. « Tu peux me dire avant de partir, au moins ? »",
+        "Je retire ma main et je regarde Morel. « Qu’est-ce qui le calme, à part moi ? »",
+        "Je me tourne vers Camille. « Tu prendrais lequel, toi ? »"
+      ]
+    },
+    {
+      "turn": 4,
+      "how": "typed",
+      "firstBlockMs": 5371,
+      "fullMs": 12614,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 4,
+      "words": 280,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je tends la main près du rebord de Mica, sans entrer dans l’habitat. « Qu’est-ce qui la calme ? »",
+        "Je regarde Morel. « Tu leur donnes quoi à manger, au juste ? »",
+        "Je me relève et je vais voir le deuxième habitat. « Et celui qui creuse, il s’appelle comment ? »"
+      ]
+    },
+    {
+      "turn": 5,
+      "how": "typed",
+      "firstBlockMs": 4004,
+      "fullMs": 12049,
+      "streamedBlocks": 10,
+      "blocks": 10,
+      "attributed": 6,
+      "words": 299,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je regarde Morel. « Et le deuxième, il fait quoi quand il a peur ? »",
+        "Je reste devant Mica. « Montre-moi comment tu la calmes avant de me demander de la choisir. »",
+        "Je me tourne vers Camille. « Tu prendrais laquelle, toi, si t’avais le premier choix ? »"
+      ]
+    },
+    {
+      "turn": 6,
+      "how": "typed",
+      "firstBlockMs": 3570,
+      "fullMs": 9519,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 3,
+      "words": 203,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je regarde Camille. « Tu prends lequel, toi ? Dis-le franchement. »",
+        "Je reviens près de Nox et je tends la main, paume ouverte, sans le toucher.",
+        "Je me tourne vers Morel. « Tu dis leurs noms et leurs peurs depuis dix minutes. Maintenant, dis-moi ce qu’ils peuvent faire quand ils sont calmes. »"
+      ]
+    },
+    {
+      "turn": 7,
+      "how": "tapped",
+      "firstBlockMs": 2610,
+      "fullMs": 11636,
+      "streamedBlocks": 11,
+      "blocks": 11,
+      "attributed": 7,
+      "words": 276,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "morel",
+          "emotion": "worried",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/morel_worried?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je regarde Nox. « Je te laisse pas là parce que t’es le plus voyant. J’ai besoin de savoir ce qui te calme. »",
+        "Je m’approche de Bram sans entrer dans son habitat. « Tu peux sentir les tunnels sous Paris, c’est ça ? »",
+        "Je regarde Camille. « Prends Mica. Je choisis Nox. Mais Morel nous montre comment les ramener vivants avant qu’on sorte d’ici. »"
+      ]
+    },
+    {
+      "turn": 8,
+      "how": "typed",
+      "firstBlockMs": 6479,
+      "fullMs": 12152,
+      "streamedBlocks": 5,
+      "blocks": 5,
+      "attributed": 3,
+      "words": 297,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "annoyed",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_annoyed?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je me lève devant l’habitat de Nox. « Je prends Nox. »",
+        "Je regarde Camille. « Prends Mica. Moi, je prends Bram. »",
+        "Je secoue la tête. « Je vais pas choisir une vie à l’aveugle. Morel, tu nous dis comment on fait pour les calmer, maintenant. »"
+      ]
+    },
+    {
+      "turn": 9,
+      "how": "typed",
+      "firstBlockMs": 6853,
+      "fullMs": 12581,
+      "streamedBlocks": 5,
+      "blocks": 5,
+      "attributed": 3,
+      "words": 190,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "confused",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_confused?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je regarde Morel. « Donne-moi les dates et les rues. C’est quoi, le détail que personne n’a relié au reste ? »",
+        "Je montre Nox. « Je le prends. Camille prend Mica, et Bram reste ici avec toi. »",
+        "Je pousse la porte. « Je vais à la Préfecture. Je reviens pas avec des suppositions, je reviens avec une piste. »"
+      ]
+    },
+    {
+      "turn": 10,
+      "how": "typed",
+      "firstBlockMs": 2551,
+      "fullMs": 12827,
+      "streamedBlocks": 12,
+      "blocks": 12,
+      "attributed": 8,
+      "words": 352,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "angry",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_angry?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je regarde Morel. « Tu me donnes tout ce que tu as sur Marot. Ses horaires, ses adresses, les gens autour de lui. »",
+        "Je me tourne vers Camille. « Si tu prends Mica, je prends Nox. On arrête d’attendre et on se prépare à aller voir Marot. »",
+        "Je recule de la porte. « Non. Avant Marot, je veux savoir pourquoi toi, tu as laissé ce type continuer pendant onze ans. »"
+      ]
+    },
+    {
+      "turn": 11,
+      "how": "typed",
+      "firstBlockMs": 4664,
+      "fullMs": 11236,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 4,
+      "words": 232,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je redescends vers Nox. « Je le prends. Montre-moi comment on fait sans lui faire peur. »",
+        "Je regarde Camille. « Prends Mica. Moi, je vais voir ce que Bram cherche dans les murs. »",
+        "Je serre la rampe. « Je pars sans animal. Donne-moi tout ce que tu as sur les lieux où ce tissu a été trouvé. »"
+      ]
+    },
+    {
+      "turn": 12,
+      "how": "tapped",
+      "firstBlockMs": 5367,
+      "fullMs": 14174,
+      "streamedBlocks": 6,
+      "blocks": 6,
+      "attributed": 3,
+      "words": 311,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "morel",
+          "emotion": "worried",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/morel_worried?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "Je prends le sac contre moi et je demande à Morel : « Qu’est-ce qui peut le faire paniquer dehors ? »",
+        "Je m’accroupis près du sac et je parle doucement à Nox : « On sort d’ici. Tu restes avec moi. »",
+        "Je regarde Camille s’approcher de Mica. « Tu veux qu’on fasse ça chacun notre tour, ou tu préfères que je reste là ? »"
+      ]
+    },
+    {
+      "turn": 13,
+      "how": "tapped",
+      "firstBlockMs": 2892,
+      "fullMs": 10205,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 4,
+      "words": 231,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "neutral",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_neutral?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "« Je vais d’abord chez moi. Il faut que Nox ait un endroit calme avant tout le reste. »",
+        "« Je vais chercher ce que Morel sait sur les scènes liées à Lucien Marot. Pas lui, pas encore. »",
+        "Je regarde Camille et Morel. « On échange nos numéros. Si l’un de ces deux-là panique, on ne joue pas aux héros tout seuls. »"
+      ]
+    },
+    {
+      "turn": 14,
+      "how": "tapped",
+      "firstBlockMs": 3993,
+      "fullMs": 13162,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 4,
+      "words": 325,
+      "time": "Day 1 · evening",
+      "location": "La pièce sous l’Institut",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "« D’accord. Une heure. Je prends la cour du dixième et je t’écris dès que je trouve quelque chose. »",
+        "« Je viens avec toi à Bichat. On compare ce que tu as pris là-bas avec ce que Morel vient de noter. »",
+        "« On fixe le rendez-vous au canal Saint-Martin. Je vais d’abord voir si les trois scènes dessinent vraiment le même trajet. »"
+      ]
+    },
+    {
+      "turn": 15,
+      "how": "tapped",
+      "firstBlockMs": 9506,
+      "fullMs": 15704,
+      "streamedBlocks": 5,
+      "blocks": 5,
+      "attributed": 2,
+      "words": 202,
+      "time": "Day 1 · evening",
+      "location": "Le Cinquième",
+      "present": [],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_latin_quarter?v=23",
+      "cards": [
+        "Je pars vers la cour du 18, rue du Buisson-Saint-Louis, en gardant une main sur le sac de Nox.",
+        "Je reste une minute devant l’Institut et je relis les dates de Morel pour voir ce qui relie vraiment les trois scènes.",
+        "Pendant l’heure qui vient, je rejoins la cour du dixième sans prendre le métro et je laisse Nox s’habituer au bruit de la ville."
+      ]
+    },
+    {
+      "turn": 16,
+      "how": "tapped",
+      "firstBlockMs": 6326,
+      "fullMs": 12458,
+      "streamedBlocks": 3,
+      "blocks": 3,
+      "attributed": 0,
+      "words": 243,
+      "time": "Day 1 · evening",
+      "location": "Belleville",
+      "present": [],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_belleville?v=23",
+      "cards": [
+        "Je m’approche de l’interphone et j’essaie de lire les noms sans secouer le sac.",
+        "Je regarde la caméra de près et je cherche qui a pu la tourner.",
+        "Je longe le passage pour voir s’il existe une autre entrée vers la cour."
+      ]
+    },
+    {
+      "turn": 17,
+      "how": "tapped",
+      "firstBlockMs": 5470,
+      "fullMs": 9635,
+      "streamedBlocks": 3,
+      "blocks": 3,
+      "attributed": 0,
+      "words": 131,
+      "time": "Day 1 · evening",
+      "location": "Belleville",
+      "present": [],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_belleville?v=23",
+      "cards": [
+        "Je regarde de près la trace grise sous les boutons, sans toucher le sac.",
+        "Je sonne chez D. Aubry et j’attends de voir qui répond.",
+        "Je lève les yeux vers la fenêtre éclairée et je cherche un autre accès à la cour."
+      ]
+    },
+    {
+      "turn": 18,
+      "how": "tapped",
+      "firstBlockMs": 7725,
+      "fullMs": 9989,
+      "streamedBlocks": 1,
+      "blocks": 1,
+      "attributed": 0,
+      "words": 169,
+      "time": "Day 1 · evening",
+      "location": "Belleville",
+      "present": [],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_belleville?v=23",
+      "cards": [
+        "Je sors mon téléphone et je prends la trace et la caméra en photo sans toucher à rien.",
+        "J’appuie sur le bouton de l’appartement dont l’étiquette manque et j’attends.",
+        "Je m’éloigne du portail avec Nox et je cherche un endroit d’où observer la cour sans rester sous la caméra."
+      ]
+    },
+    {
+      "turn": 19,
+      "how": "tapped",
+      "firstBlockMs": 5395,
+      "fullMs": 7470,
+      "streamedBlocks": 1,
+      "blocks": 1,
+      "attributed": 0,
+      "words": 81,
+      "time": "Day 1 · evening",
+      "location": "Belleville",
+      "present": [],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_belleville?v=23",
+      "cards": [
+        "Je colle mon visage près du vitrage et j’essaie de voir qui vient d’ouvrir la porte dans la cour.",
+        "Je sonne chez L. Delmas et j’écoute qui répond.",
+        "Je quitte le portail et je cherche un commerce encore ouvert pour emprunter un téléphone."
+      ]
+    },
+    {
+      "turn": 20,
+      "how": "tapped",
+      "firstBlockMs": 9029,
+      "fullMs": 14884,
+      "streamedBlocks": 3,
+      "blocks": 3,
+      "attributed": 0,
+      "words": 169,
+      "time": "Day 1 · evening",
+      "location": "Belleville",
+      "present": [],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_belleville?v=23",
+      "cards": [
+        "Je compose le numéro de Camille. « J’ai trouvé une trace grise sur l’interphone, et la caméra est tournée vers la rue. La cour n’est pas filmée. »",
+        "Je garde le combiné en main et j’appelle Morel. « Nox a réagi à un résidu gris. Dis-moi ce que je dois surtout pas faire. »",
+        "Je rends le téléphone et je reviens vers le portail pour regarder la cour depuis l’autre côté de la rue."
+      ]
+    }
+  ]
+}

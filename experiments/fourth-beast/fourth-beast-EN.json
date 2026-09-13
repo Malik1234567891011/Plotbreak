@@ -1,0 +1,543 @@
+{
+  "storyId": "story_fourth_beast",
+  "sessionId": "sess_052bcfe8-51f4-4288-9d5a-8ba06a3ec53e",
+  "log": [
+    {
+      "turn": 1,
+      "how": "typed",
+      "firstBlockMs": 5497,
+      "fullMs": 11714,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 4,
+      "words": 223,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "annoyed",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_annoyed?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Morel what “destabilise” looks like before I choose.",
+        "I choose Nox.",
+        "I ask Camille which one she would take if she had first choice."
+      ]
+    },
+    {
+      "turn": 2,
+      "how": "tapped",
+      "firstBlockMs": 4027,
+      "fullMs": 9014,
+      "streamedBlocks": 9,
+      "blocks": 9,
+      "attributed": 6,
+      "words": 218,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "morel",
+          "emotion": "worried",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/morel_worried?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I choose Bramble.",
+        "I ask Morel what happens if I take Vire.",
+        "I tell Camille she should take the one she wants."
+      ]
+    },
+    {
+      "turn": 3,
+      "how": "typed",
+      "firstBlockMs": 4962,
+      "fullMs": 10809,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 3,
+      "words": 251,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "worried",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_worried?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Morel what that grey growth is doing.",
+        "I hold my hand near Vire and see whether it wants contact.",
+        "I tell Camille we need to choose now."
+      ]
+    },
+    {
+      "turn": 4,
+      "how": "typed",
+      "firstBlockMs": 2219,
+      "fullMs": 8784,
+      "streamedBlocks": 9,
+      "blocks": 9,
+      "attributed": 5,
+      "words": 251,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Morel what Nox and Bramble can do instead.",
+        "I tell Camille she can take Bramble if she still wants it.",
+        "I ask Vire whether it can understand me."
+      ]
+    },
+    {
+      "turn": 5,
+      "how": "tapped",
+      "firstBlockMs": 3214,
+      "fullMs": 10240,
+      "streamedBlocks": 9,
+      "blocks": 9,
+      "attributed": 6,
+      "words": 265,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Morel how he tested any of this.",
+        "I go over to Nox and see whether it reacts to me.",
+        "I tell Camille she can have Bramble if she still wants it."
+      ]
+    },
+    {
+      "turn": 6,
+      "how": "typed",
+      "firstBlockMs": 3135,
+      "fullMs": 6654,
+      "streamedBlocks": 4,
+      "blocks": 4,
+      "attributed": 2,
+      "words": 98,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "morel",
+          "emotion": "confused",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/morel_confused?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Morel exactly how he tested them against Marot.",
+        "I tell them why I asked about Lina.",
+        "I ask Camille what she knows about the disappearances."
+      ]
+    },
+    {
+      "turn": 7,
+      "how": "tapped",
+      "firstBlockMs": 3252,
+      "fullMs": 8658,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 4,
+      "words": 221,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I write down every detail I can recall about Lina and that night.",
+        "I ask Morel what he saw when he tested these animals against Marot.",
+        "I ask Camille what she is carrying in her jacket."
+      ]
+    },
+    {
+      "turn": 8,
+      "how": "tapped",
+      "firstBlockMs": 2605,
+      "fullMs": 9452,
+      "streamedBlocks": 11,
+      "blocks": 11,
+      "attributed": 7,
+      "words": 246,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "angry",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_angry?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Morel what happened at rue Bichat.",
+        "I ask Camille what she knows about that scene.",
+        "I tell Morel I want to see the recovered tissue before I choose."
+      ]
+    },
+    {
+      "turn": 9,
+      "how": "tapped",
+      "firstBlockMs": 2411,
+      "fullMs": 10775,
+      "streamedBlocks": 14,
+      "blocks": 14,
+      "attributed": 10,
+      "words": 278,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Camille why she kept the slide from Morel.",
+        "I ask Morel whether the animals are reacting to Camille’s sample.",
+        "I examine the slide without touching it."
+      ]
+    },
+    {
+      "turn": 10,
+      "how": "tapped",
+      "firstBlockMs": 2261,
+      "fullMs": 9045,
+      "streamedBlocks": 11,
+      "blocks": 11,
+      "attributed": 8,
+      "words": 236,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "morel",
+          "emotion": "worried",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/morel_worried?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Morel exactly what work he and Lucien published together.",
+        "I ask Camille if the slide has ever reacted like this before.",
+        "I tell Morel he should have said Lucien’s name at the beginning."
+      ]
+    },
+    {
+      "turn": 11,
+      "how": "tapped",
+      "firstBlockMs": 2070,
+      "fullMs": 8639,
+      "streamedBlocks": 10,
+      "blocks": 10,
+      "attributed": 6,
+      "words": 241,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "worried",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_worried?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Morel what that seam is becoming.",
+        "I tell Camille to put the slide away, now.",
+        "I move closer to Vire and see whether it will let me touch the stone."
+      ]
+    },
+    {
+      "turn": 12,
+      "how": "tapped",
+      "firstBlockMs": 2964,
+      "fullMs": 8334,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 5,
+      "words": 191,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I choose Bramble.",
+        "I choose Nox.",
+        "I ask Morel what happens if neither of us takes one tonight."
+      ]
+    },
+    {
+      "turn": 13,
+      "how": "tapped",
+      "firstBlockMs": 2571,
+      "fullMs": 12632,
+      "streamedBlocks": 13,
+      "blocks": 13,
+      "attributed": 8,
+      "words": 357,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Morel exactly what Nox eats and where I am meant to keep it tonight.",
+        "I tell Camille we should compare everything we know about Lucien before we leave.",
+        "I ask Morel what he has not told us about the eleven animals that died."
+      ]
+    },
+    {
+      "turn": 14,
+      "how": "typed",
+      "firstBlockMs": 3658,
+      "fullMs": 11602,
+      "streamedBlocks": 9,
+      "blocks": 9,
+      "attributed": 3,
+      "words": 337,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I ask Morel what Nox is feeling through the bond.",
+        "I move closer to Vire’s habitat and inspect the seam without touching it.",
+        "I tell Camille we need to leave before this gets worse."
+      ]
+    },
+    {
+      "turn": 15,
+      "how": "tapped",
+      "firstBlockMs": 2073,
+      "fullMs": 8389,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 4,
+      "words": 225,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "morel",
+          "emotion": "worried",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/morel_worried?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I take Nox and step back from Vire’s habitat.",
+        "I ask Morel what change Nox is waiting for.",
+        "I tell Camille to get Bramble away from that seam."
+      ]
+    },
+    {
+      "turn": 16,
+      "how": "tapped",
+      "firstBlockMs": 5003,
+      "fullMs": 11345,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 4,
+      "words": 252,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "neutral",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_neutral?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I tell Camille where I am taking Nox.",
+        "I ask Morel what Nox can eat and what warning signs I need to watch for.",
+        "I ask Camille if I can come to Belleville with her and Bramble tonight."
+      ]
+    },
+    {
+      "turn": 17,
+      "how": "tapped",
+      "firstBlockMs": 5251,
+      "fullMs": 12017,
+      "streamedBlocks": 7,
+      "blocks": 7,
+      "attributed": 4,
+      "words": 209,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I take the food and leave for my flat with Nox.",
+        "I ask Morel for his number and the full instructions before I go.",
+        "Over the next few days, I keep Nox hidden, fed, and away from the Métro while I learn its routines."
+      ]
+    },
+    {
+      "turn": 18,
+      "how": "tapped",
+      "firstBlockMs": 1948,
+      "fullMs": 10142,
+      "streamedBlocks": 10,
+      "blocks": 10,
+      "attributed": 6,
+      "words": 318,
+      "time": "Day 1 · evening",
+      "location": "The Room Under The Institute",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_beraud_lab?v=23",
+      "cards": [
+        "I send Camille my address and ask for hers.",
+        "I ask Morel what he means by unfamiliar memories.",
+        "I take Nox and leave for the Fifth."
+      ]
+    },
+    {
+      "turn": 19,
+      "how": "typed",
+      "firstBlockMs": 4596,
+      "fullMs": 11622,
+      "streamedBlocks": 8,
+      "blocks": 8,
+      "attributed": 4,
+      "words": 249,
+      "time": "Day 1 · evening",
+      "location": "The Fifth",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "camille",
+          "emotion": "annoyed",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/camille_annoyed?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_latin_quarter?v=23",
+      "cards": [
+        "I insist Camille leave the slide with Morel before we go.",
+        "I head out with Camille toward rue Bichat.",
+        "I ask Morel what exact route the old quarry line takes."
+      ]
+    },
+    {
+      "turn": 20,
+      "how": "typed",
+      "firstBlockMs": 2748,
+      "fullMs": 9989,
+      "streamedBlocks": 11,
+      "blocks": 11,
+      "attributed": 8,
+      "words": 276,
+      "time": "Day 1 · evening",
+      "location": "The Fifth",
+      "present": [
+        "Camille Laurent",
+        "Étienne Morel"
+      ],
+      "media": [
+        {
+          "ev": "reaction.ready",
+          "id": "morel",
+          "emotion": "worried",
+          "url": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/morel_worried?v=23"
+        }
+      ],
+      "stage": "https://plotbreak-api-production.up.railway.app/media/story_fourth_beast/stage_latin_quarter?v=23",
+      "cards": [
+        "I press Morel on what Lucien wanted from their old research.",
+        "I ask Camille what she knows about Commandante Ravel.",
+        "I start walking toward rue Bichat with Nox."
+      ]
+    }
+  ]
+}
