@@ -1,0 +1,252 @@
+[
+  {
+    "turn": 1,
+    "marks": [
+      {
+        "label": "A accepted (loading state)",
+        "ms": 623
+      },
+      {
+        "label": "D reaction.ready",
+        "ms": 8160,
+        "detail": "sabo/surprised"
+      },
+      {
+        "label": "B first text",
+        "ms": 8160
+      },
+      {
+        "label": "C readable prose (250 chars)",
+        "ms": 8160
+      },
+      {
+        "label": "I full narrative delivered",
+        "ms": 8160
+      },
+      {
+        "label": "J cards available",
+        "ms": 8160,
+        "detail": "3 cards"
+      },
+      {
+        "label": "L turn.completed / input re-enabled",
+        "ms": 8160
+      },
+      {
+        "label": "E reaction bytes complete",
+        "ms": 8168,
+        "detail": "52430 B in 8 ms"
+      },
+      {
+        "label": "H scene image bytes complete",
+        "ms": 8199,
+        "detail": "333522 B in 3 ms"
+      }
+    ]
+  },
+  {
+    "turn": 2,
+    "marks": [
+      {
+        "label": "A accepted (loading state)",
+        "ms": 435
+      },
+      {
+        "label": "D reaction.ready",
+        "ms": 6686,
+        "detail": "luffy/neutral"
+      },
+      {
+        "label": "B first text",
+        "ms": 6686
+      },
+      {
+        "label": "C readable prose (250 chars)",
+        "ms": 6686
+      },
+      {
+        "label": "I full narrative delivered",
+        "ms": 6686
+      },
+      {
+        "label": "J cards available",
+        "ms": 6686,
+        "detail": "3 cards"
+      },
+      {
+        "label": "L turn.completed / input re-enabled",
+        "ms": 6686
+      },
+      {
+        "label": "E reaction bytes complete",
+        "ms": 6688,
+        "detail": "64168 B in 2 ms"
+      },
+      {
+        "label": "H scene image bytes complete",
+        "ms": 6701,
+        "detail": "333522 B in 1 ms"
+      }
+    ]
+  },
+  {
+    "turn": 3,
+    "marks": [
+      {
+        "label": "A accepted (loading state)",
+        "ms": 158
+      },
+      {
+        "label": "D reaction.ready",
+        "ms": 7795,
+        "detail": "sabo/worried"
+      },
+      {
+        "label": "B first text",
+        "ms": 7795
+      },
+      {
+        "label": "C readable prose (250 chars)",
+        "ms": 7795
+      },
+      {
+        "label": "I full narrative delivered",
+        "ms": 7795
+      },
+      {
+        "label": "J cards available",
+        "ms": 7795,
+        "detail": "3 cards"
+      },
+      {
+        "label": "L turn.completed / input re-enabled",
+        "ms": 7795
+      },
+      {
+        "label": "E reaction bytes complete",
+        "ms": 7799,
+        "detail": "61646 B in 4 ms"
+      },
+      {
+        "label": "H scene image bytes complete",
+        "ms": 7828,
+        "detail": "333522 B in 3 ms"
+      }
+    ]
+  },
+  {
+    "turn": 4,
+    "marks": [
+      {
+        "label": "A accepted (loading state)",
+        "ms": 167
+      },
+      {
+        "label": "B first text",
+        "ms": 4949
+      },
+      {
+        "label": "C readable prose (250 chars)",
+        "ms": 4949
+      },
+      {
+        "label": "I full narrative delivered",
+        "ms": 4949
+      },
+      {
+        "label": "J cards available",
+        "ms": 4949,
+        "detail": "3 cards"
+      },
+      {
+        "label": "L turn.completed / input re-enabled",
+        "ms": 4949
+      },
+      {
+        "label": "H scene image bytes complete",
+        "ms": 4984,
+        "detail": "333522 B in 4 ms"
+      }
+    ]
+  },
+  {
+    "turn": 5,
+    "marks": [
+      {
+        "label": "A accepted (loading state)",
+        "ms": 176
+      },
+      {
+        "label": "D reaction.ready",
+        "ms": 6031,
+        "detail": "luffy/worried"
+      },
+      {
+        "label": "B first text",
+        "ms": 6031
+      },
+      {
+        "label": "C readable prose (250 chars)",
+        "ms": 6031
+      },
+      {
+        "label": "I full narrative delivered",
+        "ms": 6031
+      },
+      {
+        "label": "J cards available",
+        "ms": 6031,
+        "detail": "3 cards"
+      },
+      {
+        "label": "L turn.completed / input re-enabled",
+        "ms": 6031
+      },
+      {
+        "label": "E reaction bytes complete",
+        "ms": 6038,
+        "detail": "58794 B in 6 ms"
+      },
+      {
+        "label": "H scene image bytes complete",
+        "ms": 6076,
+        "detail": "333522 B in 2 ms"
+      }
+    ]
+  },
+  {
+    "turn": 6,
+    "marks": [
+      {
+        "label": "A accepted (loading state)",
+        "ms": 409
+      },
+      {
+        "label": "B first text",
+        "ms": 5936
+      },
+      {
+        "label": "C readable prose (250 chars)",
+        "ms": 5936
+      },
+      {
+        "label": "I full narrative delivered",
+        "ms": 5936
+      },
+      {
+        "label": "J cards available",
+        "ms": 5936,
+        "detail": "3 cards"
+      },
+      {
+        "label": "L turn.completed / input re-enabled",
+        "ms": 5936
+      },
+      {
+        "label": "H scene image bytes complete",
+        "ms": 5953,
+        "detail": "333522 B in 2 ms"
+      }
+    ]
+  }
+]

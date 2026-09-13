@@ -1,0 +1,57 @@
+══ T1–T20 MEDIA TIMELINE (replayed through the shipped selector) ══
+
+T 1  reaction: story_ace/luffy_annoyed                          first use
+     scene:    story_ace/stage_mt_colubo                        first use
+T 2  reaction: story_ace/sabo_amused                            first use
+     scene:    —                                                
+T 3  reaction: story_ace/luffy_worried                          first use
+     scene:    —                                                
+T 4  reaction: — (suppressed sabo/amused)                       
+     scene:    —                                                
+T 5  reaction: — (suppressed luffy/warm)                        
+     scene:    —                                                
+T 6  reaction: story_ace/sabo_worried                           first use
+     scene:    —                                                
+T 7  reaction: — (suppressed sabo/worried)                      
+     scene:    —                                                
+T 8  reaction: — (suppressed sabo/worried)                      
+     scene:    —                                                
+T 9  reaction: — (suppressed sabo/worried)                      
+     scene:    —                                                
+T10  reaction: — (suppressed sabo/worried)                      
+     scene:    —                                                
+T11  reaction: —                                                
+     scene:    —                                                
+T12  reaction: — (suppressed sabo/worried)                      
+     scene:    —                                                
+T13  reaction: —                                                
+     scene:    —                                                
+T14  reaction: story_ace/luffy_worried                          repeat, 11 turns since
+     scene:    story_ace/stage_asl_treehouse                    first use
+T15  reaction: story_ace/sabo_worried                           repeat, 9 turns since
+     scene:    —                                                
+T16  reaction: — (suppressed luffy/worried)                     
+     scene:    —                                                
+T17  reaction: — (suppressed sabo/worried)                      
+     scene:    —                                                
+T18  reaction: — (suppressed sabo/worried)                      
+     scene:    —                                                
+T19  reaction: — (suppressed luffy/worried)                     
+     scene:    —                                                
+T20  reaction: — (suppressed sabo/worried)                      
+     scene:    story_ace/stage_gray_terminal                    first use
+
+══ REACTION CADENCE ══
+  proposed by the storyteller : 18/20
+  actually shown              : 6/20 (30%)
+  exact-asset repeats         : 2
+  longest same-character streak: 1
+  median gap 1, longest no-reaction gap 8
+  distribution: luffy:3, sabo:3
+
+══ SCENE IMAGE CADENCE ══
+  shown on 3/20 turns (15%)
+  turns: 1, 14, 20
+  repeats: 0
+  median gap 13, longest gap 13
+  distinct locations: 3
