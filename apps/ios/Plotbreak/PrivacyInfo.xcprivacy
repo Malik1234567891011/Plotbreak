@@ -31,8 +31,16 @@
 <dict>
   <key>NSPrivacyTracking</key>
   <true/>
-  <key>NSPrivacyTrackingDomains</key>
-  <array/>
+  <!--
+    NSPrivacyTrackingDomains is deliberately absent, not empty.
+
+    Apple rejects a manifest that declares tracking and then supplies an empty
+    domains array (ITMS-91064, build 2). The domains belong to whoever actually
+    talks to them: AppsFlyer's framework ships its own manifest listing
+    att.attr.whappsflyer.com and the rest, and Apple merges the two at submission.
+    This app's own code contacts no tracking domain of its own, so it has none to
+    declare — and an empty array is not the way to say that.
+  -->
   <key>NSPrivacyCollectedDataTypes</key>
   <array>
     <dict>
@@ -59,6 +67,19 @@
       <array>
         <string>NSPrivacyCollectedDataTypePurposeThirdPartyAdvertising</string>
         <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+      </array>
+    </dict>
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypeProductInteraction</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <true/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <true/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeThirdPartyAdvertising</string>
+        <string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
       </array>
     </dict>
     <dict>
