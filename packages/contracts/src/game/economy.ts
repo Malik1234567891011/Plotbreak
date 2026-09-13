@@ -205,12 +205,16 @@ export type StoreOffer = z.infer<typeof StoreOffer>;
  * credits, because turns are the unit anybody actually reasons in.
  *
  * The default tier costs 60. A new account gets ten turns to find out whether
- * it likes this, and seven a day after that — enough for a scene, not enough to
+ * it likes this, and five a day after that — enough for a scene, not enough to
  * finish a session on, which is the shape the daily grant is supposed to have.
+ *
+ * Both are counted in Vivid turns, which is what the default resolves to. Now
+ * that the tiers run different models the same grant buys twenty turns on Quick
+ * and three on Apex, so "five a day" is the floor rather than the whole story.
  */
 const DEFAULT_TURN_COST = 60;
 export const GRANT_NEW_USER = 10 * DEFAULT_TURN_COST;
-export const GRANT_DAILY = 7 * DEFAULT_TURN_COST;
+export const GRANT_DAILY = 5 * DEFAULT_TURN_COST;
 export const FORK_COST_CREDITS = 120;
 export const ANIMATION_COST_CREDITS = 600;
 
