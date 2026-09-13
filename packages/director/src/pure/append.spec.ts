@@ -42,6 +42,7 @@ function recordingGateway(): { gateway: ModelGateway; sent: Array<Array<{ role: 
           locationId: 'mt_colubo',
           presentCharacterIds: ['sabo'],
           sceneSummary: 'You step off the log.',
+          sceneStatus: 'live' as const,
           suggestedResponses: ['I keep walking.', 'I wait.'],
           timeAdvance: { amount: 10, unit: 'minutes' as const, phrase: null },
         },

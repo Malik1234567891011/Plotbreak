@@ -116,10 +116,20 @@ const CONSTITUTION = [
   '',
   'THE SUGGESTIONS are three things this player could do next, in their own voice, first person, short',
   'enough to tap. They follow from the scene you just wrote, they mean genuinely different things, and',
-  'they never reach for a person or an object that is not there. When a situation has actually finished,',
-  'one of them should be the player choosing to leave it — go, sleep, wait for another day, get on with',
-  'the thing they are actually trying to do. A player who is only ever offered the next five minutes can',
-  'never do anything else.',
+  'they never reach for a person or an object that is not there.',
+  '',
+  'DECIDE EACH BEAT WHETHER THE MOMENT IS STILL RUNNING, and say so in sceneStatus. It is `live` while',
+  'somebody is mid-swing or mid-argument, while a question is sitting there waiting for the player to',
+  'answer, or while a decision is on the table. It is `settled` once that has played out and what comes',
+  'next is a stretch — training, saving up, learning something, working, waiting on somebody else to',
+  'move. A larger thread still being open does not make a scene live; half the point of waiting is to',
+  'find out.',
+  '',
+  'WHEN sceneStatus IS `settled`, ONE OF THE THREE SUGGESTIONS OFFERS TO LET TIME PASS. Not the next',
+  'five minutes — the stretch: "Over the next few weeks I keep at the reading and put every berry into',
+  'the boat fund." "I spend the next few days helping around the mountain and wait to see what Goa does',
+  'next." It is an ordinary action like any other and the player can ignore it. When the scene is `live`,',
+  'all three stay in the moment. Never offer one as a way to reach an event you wanted to get to.',
   '',
   'This is a 13+ product. Fantasy violence and dark themes are fine. No sexual content. Never break the',
   'fiction to address the player directly.',
@@ -131,8 +141,17 @@ const PureTurn = z
     narrative: z
       .array(
         z.object({
-          /** A character id from the cast when somebody is speaking, else null. */
-          speakerId: z.string().nullable(),
+          /**
+           * Who is saying this: a cast id, or `narration` for prose, or
+           * `unknown` for a voice the player cannot place.
+           *
+           * A required choice rather than a nullable id, and that is the whole
+           * point. Asked for an optional `speakerId`, the model wrote four-way
+           * arguments with every line correct and only one of them attributed —
+           * it knew who was talking and simply did not fill the field in. A
+           * closed list with no null in it has to be answered for every block.
+           */
+          speaker: z.string(),
           text: z.string(),
         }),
       )
@@ -162,6 +181,19 @@ const PureTurn = z
     /** One short line for the recap. */
     sceneSummary: z.string(),
     /**
+     * Whether the moment in front of the player is still running.
+     *
+     * `live` — somebody is mid-swing or mid-argument, a question is waiting on
+     * an answer, a decision is on the table. `settled` — the scene has run its
+     * course and what comes next is a stretch of time rather than the next
+     * five minutes.
+     *
+     * Required, and asked for explicitly for the same reason `speaker` is: left
+     * implicit, the judgement never got made and the story stayed inside one
+     * afternoon for forty-five turns.
+     */
+    sceneStatus: z.enum(['live', 'settled']),
+    /**
      * Whose face to show, chosen from art that already exists. This never
      * causes an image to be generated — it picks one of eight pre-rendered
      * expressions per character, and an unknown value falls back to neutral.
@@ -179,6 +211,66 @@ const PureTurn = z
   .strict();
 
 export type PureTurn = z.infer<typeof PureTurn>;
+
+/** Reserved speakers, which are never character ids. */
+export const NARRATION = 'narration';
+export const UNKNOWN_SPEAKER = 'unknown';
+
+/**
+ * The schema the model is actually shown, with this story's cast as an enum.
+ *
+ * Built per story so `speaker` is a closed list the provider enforces rather
+ * than a free string the model can leave blank.
+ */
+/**
+ * Maps whatever the model called somebody onto a cast id.
+ *
+ * The enum is advertised but not enforced by the provider, and a turn was lost
+ * to `"monkey d. luffy"` — the right character, the wrong label. Names and
+ * called-names resolve to ids; anything still unrecognised becomes narration
+ * rather than a guess, because a wrong portrait is worse than none.
+ */
+function speakerNormalizer(story: StoryVersion): (raw: unknown) => unknown {
+  const byLabel = new Map<string, string>();
+  for (const character of story.characters) {
+    byLabel.set(character.id.toLowerCase(), character.id);
+    byLabel.set(character.name.toLowerCase(), character.id);
+    if (character.calledName) byLabel.set(character.calledName.toLowerCase(), character.id);
+    // "Monkey D. Luffy" is also reached for as "Luffy".
+    const last = character.name.split(/\s+/).at(-1);
+    if (last && last.length > 2 && !byLabel.has(last.toLowerCase())) byLabel.set(last.toLowerCase(), character.id);
+  }
+  return (raw) => {
+    if (!raw || typeof raw !== 'object') return raw;
+    const turn = raw as { narrative?: unknown };
+    if (!Array.isArray(turn.narrative)) return raw;
+    return {
+      ...turn,
+      narrative: turn.narrative.map((block) => {
+        if (!block || typeof block !== 'object') return block;
+        const item = block as { speaker?: unknown };
+        if (typeof item.speaker !== 'string') return { ...item, speaker: NARRATION };
+        const key = item.speaker.trim().toLowerCase();
+        if (key === NARRATION || key === UNKNOWN_SPEAKER) return { ...item, speaker: key };
+        return { ...item, speaker: byLabel.get(key) ?? NARRATION };
+      }),
+    };
+  };
+}
+
+function schemaFor(story: StoryVersion): typeof PureTurn {
+  const speakers: [string, ...string[]] = [
+    NARRATION,
+    UNKNOWN_SPEAKER,
+    ...story.characters.map((c) => c.id),
+  ];
+  return PureTurn.extend({
+    narrative: z
+      .array(z.object({ speaker: z.enum(speakers), text: z.string() }))
+      .min(1)
+      .max(80),
+  }) as unknown as typeof PureTurn;
+}
 
 /**
  * The whole player-visible story so far, verbatim.
@@ -385,11 +477,22 @@ export async function narratePure(options: {
   // has to live in the static header, because anything after the newest user
   // message occupies the slot next turn's assistant beat will take.
   const HOW =
-    `Write the next beat. Use character ids from the cast for speakers. ` +
-    `Pick locationId from the places listed. presentCharacterIds is who is physically there when ` +
-    `the beat ends. Suggested responses are in the player's own voice, first person, and follow ` +
-    `directly from what you just wrote. Set reaction to the one character whose face the player should ` +
-    `see on this beat and the expression it wears, or null when nobody's reaction is the point.`;
+    `Write the next beat as a list of blocks.\n\n` +
+    `ONE BLOCK PER SPOKEN LINE. Every time a character from the cast says something out loud, that ` +
+    `speech is its own block with speakerId set to their id. Never put a character's spoken words ` +
+    `inside a narration block, and never leave speakerId null on a line somebody is saying — a shout, ` +
+    `an interruption, a mutter, one word, a line called from offscreen by somebody the player can ` +
+    `recognise, all of it. speakerId is null only for narration, or for a voice the player genuinely ` +
+    `cannot identify. The player's own speech is narration: it is written to them in second person, ` +
+    `not attributed to a cast id.\n\n` +
+    `presentCharacterIds is who is physically in the scene at the END of this beat, standing where ` +
+    `the player is. Not who was here when it started, not somebody who stayed behind, walked off, or ` +
+    `was left at the house, not somebody nearby or just mentioned, not somebody being talked about. ` +
+    `If you wrote them leaving or staying put while the player moved, they are not in the list.\n\n` +
+    `Pick locationId from the places listed. Suggested responses are in the player's own voice, first ` +
+    `person, and follow directly from what you just wrote. Set reaction to the one character whose ` +
+    `face the player should see on this beat and the expression it wears, or null when nobody's ` +
+    `reaction is the point.`;
 
   const shape = options.shape ?? 'rebuilt';
 
@@ -425,7 +528,7 @@ export async function narratePure(options: {
           },
         ];
 
-  const result = await gateway.generateStructured('writer_premium', PureTurn, messages, {
+  const result = await gateway.generateStructured('writer_premium', schemaFor(story), messages, {
     maxTokens: 4000,
     temperature: 0.9,
     timeoutMs: 120_000,
@@ -435,6 +538,7 @@ export async function narratePure(options: {
     prefixItems: options.prefixItems,
     cacheRetention: options.cacheRetention,
     nativeSchema: shape === 'append',
+    normalize: speakerNormalizer(story),
   });
 
   // Trim to what the client renders. Parsing succeeded; the beat is good even
@@ -462,6 +566,8 @@ export async function narratePure(options: {
 }
 
 export const PURE_CONSTITUTION = CONSTITUTION;
+/** Exported for the regression that proves a display name still maps to an id. */
+export const PURE_SPEAKER_NORMALIZER = speakerNormalizer;
 
 /**
  * The assistant's half of a turn, replayed on every later request.
@@ -472,7 +578,7 @@ export const PURE_CONSTITUTION = CONSTITUTION;
  */
 export function renderBeat(turn: PureTurn, cast: Map<string, string>, timeLabel: string): string {
   const lines = turn.narrative.map((block) => {
-    const who = block.speakerId ? (cast.get(block.speakerId) ?? block.speakerId) : null;
+    const who = cast.get(block.speaker) ?? null;
     return who ? `${who}: ${block.text}` : block.text;
   });
   return [

@@ -69,6 +69,13 @@ export interface GenerateOptions {
    * every request from being a strict extension of the last one.
    */
   readonly nativeSchema?: boolean;
+  /**
+   * Runs on the parsed JSON before validation. For repairing answers that are
+   * right but not in the requested vocabulary — a speaker given as "Monkey D.
+   * Luffy" rather than `luffy` — so a good turn is not thrown away over a
+   * label. It must never change meaning, only spelling.
+   */
+  readonly normalize?: (raw: unknown) => unknown;
 }
 
 export interface ModelInvocation {

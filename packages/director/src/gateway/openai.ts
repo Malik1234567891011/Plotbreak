@@ -306,7 +306,7 @@ export class OpenAiGateway implements ModelGateway {
     } catch {
       throw new ModelGatewayError('Provider returned unparseable JSON', 'INVALID_JSON', true);
     }
-    const checked = schema.safeParse(parsed);
+    const checked = schema.safeParse(options.normalize ? options.normalize(parsed) : parsed);
     if (!checked.success) {
       throw new ModelGatewayError(
         `Structured output failed validation: ${checked.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`,

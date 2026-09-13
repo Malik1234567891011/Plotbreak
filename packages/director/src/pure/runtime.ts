@@ -27,6 +27,8 @@ export interface PureTurnResult {
   readonly endStatePrompt: string;
   /** Shown above the beat when the story jumped. Null when the scene continued. */
   readonly transition: string | null;
+  /** The model's own read on whether the moment is still running. */
+  readonly sceneStatus: 'live' | 'settled';
   /** Which pre-generated expression to show, if any. Never triggers generation. */
   readonly reaction: { readonly characterId: string; readonly emotion: string } | null;
   readonly suggestions: Array<{ text: string; intentHint: string; resourceCostLabel: null }>;
@@ -88,8 +90,8 @@ export async function runTurnPure(options: {
     // saw a beat the model had already been paid to write. Split rather than
     // truncate: the prose is fine, it is just one paragraph too long.
     splitForContract(b.text).map((text) => ({
-      type: b.speakerId && castIds.has(b.speakerId) ? 'DIALOGUE' : 'NARRATION',
-      speakerId: b.speakerId && castIds.has(b.speakerId) ? b.speakerId : null,
+      type: castIds.has(b.speaker) ? 'DIALOGUE' : 'NARRATION',
+      speakerId: castIds.has(b.speaker) ? b.speaker : null,
       text,
       visibility: 'GROUP',
       voiceEligible: false,
@@ -132,6 +134,7 @@ export async function runTurnPure(options: {
     sceneSummary: turn.sceneSummary,
     endStatePrompt: timeLabel,
     transition,
+    sceneStatus: turn.sceneStatus,
     // Only for somebody actually in the cast and actually in the scene: a face
     // belonging to a character who just left would be worse than no face.
     reaction:
