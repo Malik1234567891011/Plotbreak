@@ -38,6 +38,18 @@ const SCRIPTS: Record<string, string[]> = {
     'I go through what we actually know so far, out loud.',
     'I try to fix the thing everyone has been avoiding.',
   ],
+  // Investigation/thriller: press people, look at things properly, refuse once,
+  // and take one risk. Paris, a killer nobody can shoot, three animals that can.
+  story_fourth_beast: [
+    'I ask Camille what exactly she grew down here, in plain words.',
+    'I go and look at the place the last one was taken from, properly.',
+    'I tell them I am not letting it out until somebody explains what it does.',
+    'I ask Lina what she saw that night that she has not put in a report.',
+    'I sit with it for a moment and watch how they react to each other.',
+    'I follow the thing the police have decided is a coincidence.',
+    'I ask who the man in the pale coat actually is, and who already knows.',
+    'I take the risk and go up onto the roofline after it.',
+  ],
   story_salt_road: [
     'I check the case is still where I left it, without making a show of it.',
     'I ask what is really on the other end of this road.',
@@ -68,6 +80,7 @@ async function main(): Promise<void> {
   const arg = (k: string, d: string) => argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
   const storyId = arg('story', 'story_light');
   const turns = Number(arg('turns', '10'));
+  const locale = arg('locale', 'en');
   const out = arg('out', `/tmp/${storyId}.md`);
   const rng = seeded(arg('seed', `${storyId}-cross`));
   const pool = [...(SCRIPTS[storyId] ?? [])];
@@ -100,7 +113,7 @@ async function main(): Promise<void> {
       archetypeId: detail.archetypes?.[0]?.id ?? null,
       advanced: {},
     },
-    locale: 'en',
+    locale,
   });
   const sessionId = session.session.sessionId;
   let revision = session.revision ?? 0;
@@ -123,7 +136,12 @@ async function main(): Promise<void> {
   const name = (id: string | null) =>
     id ? ((detail.cast ?? []).find((c: any) => (c.characterId ?? c.id) === id)?.name ?? id) : null;
 
-  const md: string[] = [`# ${detail.title ?? storyId} — cross-story smoke`, '', `${turns} turns · session \`${sessionId}\``, ''];
+  const md: string[] = [
+    `# ${detail.title ?? storyId} — ${locale.toUpperCase()} playtest`,
+    '',
+    `${turns} turns · locale \`${locale}\` · session \`${sessionId}\``,
+    '',
+  ];
   const log: any[] = [];
 
   for (let i = 0; i < turns; i += 1) {

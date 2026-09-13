@@ -5,6 +5,7 @@ import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 import { formatStoryTime, minutesFor, transitionLabel } from './clock.js';
 import { chooseReaction, parseShown, type ShownReaction } from './reaction.js';
 import { NarrativeStreamParser, type StreamedBlock } from './stream-parse.js';
+import { RESPONSE_POLICY_FR, SAFETY_POLICY_FR, WRITER_POLICY_FR } from '../policies-fr.js';
 
 /**
  * LLM_PURE — the experiment.
@@ -554,10 +555,33 @@ export async function narratePure(options: {
     // one cached line per turn and keeps the constraints next to the output.
     `(JSON only. At most 3 suggestedResponses.)`;
 
+  // French is a first-class locale, and the LLM-first path had no notion of it
+  // at all — a French session narrated in English. The prose rules come from
+  // `policies-fr.ts`, which is authored in French rather than translated,
+  // because a translated example teaches the rhythm of the language it was
+  // written in. The structural rules above stay as they are: they are facts
+  // about the product, not about a language.
+  const language =
+    (state.locale ?? 'en') === 'fr'
+      ? [
+          '',
+          '## LANGUE',
+          'Tu écris en français de France. Tout le texte visible par le joueur — la prose, les répliques,',
+          'sceneSummary et les trois suggestions — est en français. Les identifiants (speaker, locationId,',
+          'presentCharacterIds, unit) restent tels quels.',
+          '',
+          WRITER_POLICY_FR,
+          '',
+          RESPONSE_POLICY_FR,
+          '',
+          SAFETY_POLICY_FR,
+        ].join('\n')
+      : '';
+
   const messages =
     shape === 'append'
       ? [
-          { role: 'system' as const, content: `${CONSTITUTION}\n\n${HOW}` },
+          { role: 'system' as const, content: `${CONSTITUTION}\n\n${HOW}${language}` },
           { role: 'system' as const, content: world },
           ...(options.rendered ?? []).flatMap((turn) => [
             { role: 'user' as const, content: turn.user },
@@ -566,7 +590,7 @@ export async function narratePure(options: {
           { role: 'user' as const, content: userTurn },
         ]
       : [
-          { role: 'system' as const, content: CONSTITUTION },
+          { role: 'system' as const, content: `${CONSTITUTION}${language}` },
           { role: 'system' as const, content: world },
           {
             role: 'user' as const,
