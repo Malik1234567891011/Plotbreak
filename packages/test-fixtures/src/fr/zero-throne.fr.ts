@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_zero_throne",
   text: {
+    // A · 5591832b4871
+    "title": "Trône Zéro",
     // A · c8eeba0d80f0
     "fantasyLabel": "Il s’est agenouillé. Toutes les caméras ont vu qu’il t’a choisi.",
     // A · 19ced6a1d716

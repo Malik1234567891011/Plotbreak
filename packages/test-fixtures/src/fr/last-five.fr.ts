@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_last_five",
   text: {
+    // A · 8a39bd60a0c8
+    "title": "Les Cinq Derniers",
     // A · 9ae612c79d10
     "fantasyLabel": "Reconstruis l’équipe. Bats les cinq qui sont partis.",
     // A · ffd207d4756f

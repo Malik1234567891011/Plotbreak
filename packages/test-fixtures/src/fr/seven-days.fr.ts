@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_seven_days",
   text: {
+    // A · 6460ef79cc0b
+    "title": "Sept Jours avant Minuit",
     // A · 9b65bc3c8f97
     "fantasyLabel": "La ville s’arrête dimanche. Toi seul t’en souviens.",
     // A · ccccdcad81be

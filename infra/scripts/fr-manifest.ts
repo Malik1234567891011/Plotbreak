@@ -69,6 +69,9 @@ export interface ManifestField {
  * trait is how the cast carousel describes somebody.
  */
 const TIER_A = [
+  // The title travels since cover v4 (2026-09-13): covers are made per locale
+  // with the French title drawn in, so the label must say what the art says.
+  /^title$/,
   /^hook$/,
   /^fantasyLabel$/,
   /^premise$/,
@@ -112,20 +115,8 @@ const TIER_B = [
  * unreachable, which is worse than leaving both.
  */
 const TIER_C = [
-  /**
-   * The title.
-   *
-   * `STORY_AUDIT.md` §2 marked this "recommendation pending approval" and the
-   * batch translated it anyway, inconsistently: `La Prophétie Vide` and
-   * `Bonjour, Mari` moved while `Blackwake` and `Hush House` did not.
-   *
-   * The decision is that it does not move, and the reason is the art. Every
-   * cover has the English title painted into it — `ZERO THRONE` is part of the
-   * image. A French label under English key art is not a localization, it is
-   * two names for one thing on the same screen. It can be revisited the day
-   * covers are generated per locale.
-   */
-  /^title$/,
+  // The title used to live here while every cover had the English title
+  // painted in. Covers are per locale since 2026-09-13; it is tier A now.
   /(^|\.)id$/,
   /Id$/,
   /(^|\.)assetKey$/,

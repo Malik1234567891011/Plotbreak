@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_ninth_archive",
   text: {
+    // A · d5fb18b2a4c9
+    "title": "La Neuvième Archive",
     // A · 8b39256ed232
     "fantasyLabel": "L’académie affirme que ton admission n’a jamais eu lieu.",
     // A · 02b737a017d4

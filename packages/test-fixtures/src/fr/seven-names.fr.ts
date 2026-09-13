@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_seven_names",
   text: {
+    // A · f11d1daecf7b
+    "title": "Sept Noms",
     // A · 4c15675c6e59
     "fantasyLabel": "Tu seras pendu à l’aube. Sauf si tu t’en vas maintenant.",
     // A · 10a57b9f6c11

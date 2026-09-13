@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_good_morning_husband",
   text: {
+    // A · f0ee9cbad4ad
+    "title": "Bonjour, Mon Mari",
     // A · 8961573ce5ab
     "fantasyLabel": "Quatre ans de mariage. Tu viens de la rencontrer.",
     // A · d9add0d8726a

@@ -30,10 +30,9 @@ describe('the French overlay', () => {
     expect(localizeStory(en, 'en')).toBe(en);
   });
 
-  it('never touches a person’s name, or the world’s', () => {
+  it('never touches a person’s name', () => {
     // A translated proper noun is how a world stops being the same world. Juno
-    // Vale is Juno Vale in Paris.
-    expect(fr.title).toBe(en.title);
+    // Vale is Juno Vale in Paris. (The world's title does travel: see below.)
     for (const [index, character] of fr.characters.entries()) {
       expect(character.name).toBe(en.characters[index]!.name);
       expect(character.id).toBe(en.characters[index]!.id);
@@ -125,15 +124,13 @@ describe('every path in the overlay resolves', () => {
 });
 
 describe('the title', () => {
-  it('never travels, because the cover art carries it', () => {
-    // Every cover has the English title painted into the image — `ZERO THRONE`
-    // is part of the picture. A French label under English key art is not a
-    // localization, it is two names for one thing on the same screen.
-    //
-    // The batch translated 22 of them before this was noticed, and
-    // inconsistently: `La Prophétie Vide` moved, `Blackwake` did not. Revisit
-    // the day covers are generated per locale.
-    expect(fr.title).toBe(en.title);
+  it('travels, because the cover art is now made per locale', () => {
+    // Until cover v4 the English title was painted into one shared cover, so a
+    // French label under English key art would have been two names for one
+    // thing. Covers are now generated per locale with the French title drawn
+    // in, and the label under the card has to say the same thing the picture
+    // does. `Nine Weeks` is `Neuf Semaines` on both.
+    expect(fr.title).toBe('Neuf Semaines');
   });
 });
 
