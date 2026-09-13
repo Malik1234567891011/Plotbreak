@@ -41,7 +41,8 @@
     "fr:qa": "tsx infra/scripts/fr-qa.ts",
     "fr:stale": "tsx infra/scripts/fr-stale.ts",
     "fr:smoke": "tsx --env-file-if-exists=.env infra/scripts/fr-smoke.ts",
-    "context-run": "tsx --env-file-if-exists=.env infra/scripts/context-run.ts"
+    "context-run": "tsx --env-file-if-exists=.env infra/scripts/context-run.ts",
+    "relaunch-playtest": "tsx --env-file-if-exists=.env infra/scripts/relaunch-playtest.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

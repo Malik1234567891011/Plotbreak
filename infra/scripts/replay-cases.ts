@@ -47,6 +47,14 @@ const CASES: Array<{ n: string; what: string; setup?: string[]; action: string }
   { n: 'L', what: 'Object continuity after it was moved',
     setup: ['I take the can out of its hiding place and give it to Sabo to carry.'],
     action: 'I ask who has the can right now.' },
+  { n: 'M', what: 'Explicitly withheld secret — the content is NOT the model\'s to invent',
+    action: 'Something is bothering me and I do not want to say what. I tell Sabo only that it is not about him.' },
+  { n: 'N', what: 'Absent character — talking to somebody who left',
+    setup: ['I watch Sabo take the path down toward Gray Terminal on his own, until he is out of sight.'],
+    action: 'I turn to Sabo and ask him what he thinks we should do next.' },
+  { n: 'O', what: 'Harmless factual mismatch — right intention, wrong incidental detail',
+    setup: ['I lift the flat stone by the treehouse ladder, take the tin can out of the hole under it, and put the stone back.'],
+    action: 'I get the can from under the treehouse floorboards and count what is in it.' },
 ];
 
 async function main(): Promise<void> {

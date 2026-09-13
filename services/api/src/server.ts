@@ -243,10 +243,13 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       // Which narrative runtime is live. Two replay files came back identical
       // because the experiment flag was not actually on in the API process and
       // nothing said so.
-      narrative: process.env.PLOTBREAK_NARRATIVE === 'llm_pure' ? 'llm_pure' : 'engine',
-      storyModel: process.env.PLOTBREAK_STORY_MODEL ?? null,
-      pureApi: process.env.PLOTBREAK_PURE_API === 'responses' ? 'responses' : 'chat',
-      pureCompact: process.env.PLOTBREAK_PURE_COMPACT ?? null,
+      narrative: process.env.PLOTBREAK_NARRATIVE === 'engine' ? 'engine' : 'llm_first',
+      storyModel: process.env.PLOTBREAK_STORY_MODEL ?? 'gpt-5.6-terra',
+      // The relaunch path always uses the Responses API with an append-only
+      // conversation. Reported rather than inferred, because two replay files
+      // once came back identical from what were supposed to be different arms.
+      conversation: process.env.PLOTBREAK_NARRATIVE === 'engine' ? 'n/a' : 'append-only',
+      imageGeneration: process.env.PLOTBREAK_NO_IMAGE_GEN ? 'blocked' : 'premium-only',
       modelProvider: ctx.modelProvider ?? 'rule-based',
       contractVersion: CONTRACT_VERSION,
       persistence: ctx.repo.constructor.name === 'PostgresRepository' ? 'postgres' : 'in-process',
