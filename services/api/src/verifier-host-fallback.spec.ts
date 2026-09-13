@@ -65,6 +65,7 @@ describe('App Store host fallback', () => {
     const { verifier } = verifierAnswering({ production: 401, sandbox: 401 });
     const result = await verifier.verify(input);
     expect(result.valid).toBe(false);
+    if (result.valid) throw new Error('unreachable');
     expect(result.reason).toMatch(/accepted the key/i);
     expect(result.retryable).toBe(false);
   });

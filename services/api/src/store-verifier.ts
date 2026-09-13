@@ -168,10 +168,19 @@ export class AppStoreVerifier implements StoreVerifier {
       return { valid: false, reason: 'Transaction belongs to a different app.', retryable: false };
     }
 
+    // No falling back to what the client sent. The endpoint's whole premise is
+    // that the store decides what was bought, and `?? input.productId` quietly
+    // handed that back to the caller for any payload Apple did not fill in.
+    // Apple always sends both of these; if one is missing the payload is not
+    // one we understand, and refusing is the only answer that cannot be gamed.
+    if (typeof claims.productId !== 'string' || typeof claims.originalTransactionId !== 'string') {
+      return { valid: false, reason: 'Transaction payload named no product.', retryable: false };
+    }
+
     return {
       valid: true,
-      productId: String(claims.productId ?? input.productId),
-      originalTransactionId: String(claims.originalTransactionId ?? input.storeTransactionId),
+      productId: claims.productId,
+      originalTransactionId: claims.originalTransactionId,
       purchasedAt: new Date(Number(claims.purchaseDate ?? Date.now())).toISOString(),
       environment: claims.environment === 'Sandbox' ? 'SANDBOX' : 'PRODUCTION',
     };
