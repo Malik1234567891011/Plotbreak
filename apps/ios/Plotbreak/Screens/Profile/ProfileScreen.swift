@@ -2,14 +2,13 @@ import SwiftUI
 
 // MARK: - Profile
 //
-// PR-01 / PR-02 / PR-03 — public and private cleanly separated. Twin of
-// `ProfileScreen` in `apps/mobile/src/screens/LibraryProfile.tsx`.
-
-/// The languages, in their own language. Never translated — a language picker
-/// that says "French" to someone looking for "Français" is the one string in
-/// the app that must not be localized.
-// i18n-exempt: each language named in its own language — see the note above
-private let languageNames: [AppLocale: String] = [.en: "English", .fr: "Français"]
+// Screen 07 of the redesign. PR-01 / PR-02 / PR-03 — public and private
+// cleanly separated. Twin of `ProfileScreen` in
+// `apps/mobile/src/screens/LibraryProfile.tsx`.
+//
+// One identity card (who you are, what you have done, what you have to spend),
+// then two short lists: Service, and Benefits. Language, sign-out and account
+// deletion live behind the gear.
 
 /// `BADGES.length` in `@plotbreak/contracts` — the set is fixed and known
 /// without asking the server, so a guest sees "0 of 12" rather than "0 of 0".
@@ -23,9 +22,6 @@ struct ProfileScreen: View {
     @State private var me: MeResponse?
     @State private var characters: [PlayerCharacterCard] = []
     @State private var badges: [BadgeView] = []
-    @State private var confirmSignOut = false
-    @State private var confirmDeleteAccount = false
-    @State private var accountDeleted = false
 
     private var badgeCount: Int { badges.filter { $0.unlockedAt != nil }.count }
     private var badgeTotal: Int { badges.isEmpty ? badgeCatalogueCount : badges.count }
@@ -33,205 +29,142 @@ struct ProfileScreen: View {
 
     var body: some View {
         Screen {
-            ScrollView {
-                VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
-                    header
-                    identityCard
-                    if let me { stats(me) }
-                    if !characters.isEmpty { charactersRail }
-                    PBDivider()
-                    language
-                    badgesCard
-                    VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                        Txt(t("profile.service"), .h3)
-                        LinkRow(t("settings.personalization")) { router.present(.personalization) }
+            VStack(spacing: 0) {
+                TabHeader(t("profile.title")) {
+                    IconButton(t("settings.a11y"), action: { router.present(.settings) }) {
+                        Image(systemName: "gearshape")
+                            .font(.system(size: 22, weight: .regular))
+                            .foregroundStyle(Theme.Colors.textSecondary)
                     }
-                    PBDivider()
-                    VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                        Txt(t("profile.privacy_safety"), .h3)
-                        LinkRow(t("profile.report_history")) { router.present(.reportHistory) }
-                        LinkRow(t("profile.creator_teaser")) { router.present(.create) }
-                        LinkRow(t("profile.wallet")) { router.present(.wallet(shortfall: nil)) }
-                    }
-                    PBDivider()
-                    account
                 }
-                .padding(Theme.gutter)
-                .padding(.bottom, Theme.Spacing.giant)
+
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 0) {
+                        identityCard
+
+                        SectionLabel(t("profile.service"))
+                            .padding(.top, Theme.Spacing.xxxl)
+                        VStack(spacing: 0) {
+                            SettingsRow(t("profile.session_settings"), icon: "bubble.left") { router.present(.settings) }
+                            SettingsRow(t("settings.personalization"), icon: "person.crop.circle.badge.checkmark") { router.present(.personalization) }
+                            SettingsRow(t("profile.saved_worlds"), icon: "bookmark") { router.present(.savedWorlds) }
+                            SettingsRow(t("profile.report_history"), icon: "checkmark.shield") { router.present(.reportHistory) }
+                        }
+                        .padding(.top, 6)
+
+                        SectionLabel(t("profile.benefits"))
+                            .padding(.top, 30)
+                        VStack(spacing: 0) {
+                            SettingsRow(
+                                t("profile.badges"),
+                                icon: "star",
+                                note: unclaimed > 0 ? t("profile.badges_to_collect", ["count": unclaimed]) : nil
+                            ) { router.tab = .badges }
+                            SettingsRow(t("profile.wallet"), icon: "creditcard") { router.present(.wallet(shortfall: nil)) }
+                        }
+                        .padding(.top, 6)
+                    }
+                    .padding(.horizontal, Theme.pageGutter)
+                    .padding(.top, 18)
+                    .padding(.bottom, Theme.Spacing.giant)
+                }
             }
         }
         .task { await load() }
         .onChange(of: router.sheet) { _, sheet in if sheet == nil { Task { await load() } } }
         .onChange(of: store.isGuest) { _, _ in Task { await load() } }
-        .alert(t("profile.sign_out_confirm_title"), isPresented: $confirmSignOut) {
-            Button(t("library.sign_out_stay"), role: .cancel) {}
-            Button(t("profile.sign_out")) { Task { await store.signOut() } }
-        } message: {
-            Text(t("library.sign_out_confirm_body"))
-        }
-        .alert(t("library.delete_account_confirm_title"), isPresented: $confirmDeleteAccount) {
-            Button(t("library.delete_account_keep"), role: .cancel) {}
-            Button(t("library.delete_account_confirm"), role: .destructive) {
-                Task {
-                    if (try? await store.api.deleteAccount()) != nil { accountDeleted = true }
+    }
+
+    // MARK: Identity card
+
+    /// The face, the name, one line of what you have done, and the balance
+    /// with the way to add to it. A guest's chevron opens sign-in; a member's
+    /// opens their information.
+    private var identityCard: some View {
+        VStack(spacing: Theme.Spacing.xl) {
+            Button {
+                Haptic.play(.light)
+                router.present(store.isGuest ? .signIn : .myInformation)
+            } label: {
+                HStack(spacing: Theme.Spacing.lg) {
+                    avatar
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(store.displayName ?? me?.displayName ?? t("profile.guest"))
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .lineLimit(1)
+                        Text(statsLine)
+                            .font(.system(size: 13))
+                            .foregroundStyle(Theme.Colors.textDim)
+                            .lineLimit(2)
+                    }
+                    Spacer(minLength: Theme.Spacing.sm)
+                    ChevronGlyph()
                 }
+                .contentShape(Rectangle())
             }
-        } message: {
-            Text(t("library.delete_account_confirm_body"))
+            .buttonStyle(PressOpacityStyle())
+            .accessibilityLabel(store.isGuest ? t("profile.sign_in") : t("settings.my_information"))
+
+            HStack {
+                HStack(spacing: 9) {
+                    CreditGlyph(size: 21)
+                    Text(Format.credits(store.balance, locale: store.locale))
+                        .font(.system(size: 18, weight: .semibold, design: .monospaced))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                }
+                .accessibilityElement(children: .combine)
+                Spacer(minLength: Theme.Spacing.md)
+                Button {
+                    Haptic.play(.light)
+                    router.present(.wallet(shortfall: nil))
+                } label: {
+                    Text(t("profile.add_credits"))
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(Theme.Colors.textOnLight)
+                        .padding(.horizontal, Theme.Spacing.lg)
+                        .padding(.vertical, 9)
+                        .background(Theme.Colors.light, in: Capsule())
+                }
+                .buttonStyle(PressScaleStyle())
+            }
         }
-        .alert(t("library.account_deleted_title"), isPresented: $accountDeleted) {} message: {
-            Text(t("library.account_deleted_body"))
+        .padding(18)
+        .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
+                .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
         }
     }
 
-    // MARK: Sections
-
-    private var header: some View {
-        HStack(alignment: .center) {
-            Txt(t("profile.title"), .h1)
-                .accessibilityAddTraits(.isHeader)
-            Spacer(minLength: Theme.Spacing.sm)
-            CreditBalance(balance: store.balance, locale: store.locale) {
-                router.present(.wallet(shortfall: nil))
-            }
-            IconButton(t("settings.a11y"), action: { router.present(.settings) }) {
-                Image(systemName: "gearshape.fill")
-                    .font(.system(size: 20, weight: .medium))
+    /// The account's avatar, or the most recent character's portrait, or
+    /// initials — the first face this player has, in that order.
+    private var avatar: some View {
+        let name = store.displayName ?? me?.displayName ?? ""
+        let portrait = me?.avatarUrl ?? characters.first?.portraitUrl
+        return ZStack {
+            Circle().fill(Theme.Colors.wheelBand)
+            RemoteImage(portrait?.assetURL) {
+                Text(String(name.prefix(1)).uppercased())
+                    .font(.system(size: 22, weight: .semibold))
                     .foregroundStyle(Theme.Colors.textSecondary)
             }
         }
+        .frame(width: 58, height: 58)
+        .clipShape(Circle())
+        .overlay { Circle().strokeBorder(Theme.Colors.borderStrong, lineWidth: 0.5) }
+        .accessibilityHidden(true)
     }
 
-    private var identityCard: some View {
-        Card {
-            VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                Txt(me?.displayName ?? t("profile.guest"), .h3)
-                if store.isGuest {
-                    Txt(t("profile.guest_explainer"), .caption, color: Theme.Colors.textSecondary)
-                    PBButton(t("profile.sign_in"), variant: .secondary) { router.present(.signIn) }
-                        .padding(.top, Theme.Spacing.sm)
-                } else {
-                    Txt(me?.email ?? me?.handle ?? store.email ?? "", .caption, color: Theme.Colors.textSecondary)
-                    PBButton(t("profile.sign_out"), variant: .tertiary, full: false) { confirmSignOut = true }
-                        .padding(.top, Theme.Spacing.sm)
-                }
-            }
-        }
-    }
-
-    /// What a *player* has done. `worldsCreated` is deliberately absent —
-    /// creator publishing is not a thing we ship, and a permanent `0 CREATED`
-    /// tells the player about a feature they cannot have.
-    private func stats(_ me: MeResponse) -> some View {
-        HStack {
-            Spacer()
-            Stat(label: t("library.stat_worlds"), value: me.stats.storiesPlayed)
-            Spacer()
-            Stat(label: t("library.stat_turns"), value: me.stats.turnsPlayed)
-            Spacer()
-            Stat(label: t("library.stat_badges"), value: badgeCount)
-            Spacer()
-        }
-    }
-
-    /// Who you have been, across worlds. Spec §9.3 portraits live here.
-    private var charactersRail: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            HStack {
-                Txt(t("library.your_characters"), .h3)
-                Spacer()
-                Button { router.present(.characters) } label: {
-                    Txt(t("library.see_all"), .caption, color: Theme.Colors.accentPrimary)
-                }
-                .buttonStyle(PressOpacityStyle())
-            }
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top, spacing: Theme.Spacing.md) {
-                    ForEach(characters) { character in
-                        Button {
-                            Haptic.play(.light)
-                            router.present(.characters)
-                        } label: {
-                            VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                                Group {
-                                    if let portrait = character.portraitUrl {
-                                        RemoteImage(portrait.assetURL)
-                                    } else {
-                                        StoryArt(seed: character.sessionId, title: character.displayName, uri: nil) {
-                                            Txt(t("library.tap_to_draw"), .micro, color: Theme.Colors.textMuted, center: true)
-                                                .padding(Theme.Spacing.xs)
-                                        }
-                                    }
-                                }
-                                .frame(width: 108, height: 135)
-                                .background(Theme.Colors.bgRaised)
-                                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
-
-                                Txt(character.displayName, .caption, lineLimit: 1)
-                                Txt(character.storyTitle, .micro, color: Theme.Colors.textMuted, lineLimit: 1)
-                            }
-                            .frame(width: 108, alignment: .leading)
-                        }
-                        .buttonStyle(PressOpacityStyle())
-                        .accessibilityLabel(t("library.character_in_story_a11y", ["name": character.displayName, "story": character.storyTitle]))
-                    }
-                }
-            }
-        }
-    }
-
-    private var language: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Txt(t("profile.language"), .h3)
-            Txt(t("profile.language_hint"), .micro, color: Theme.Colors.textMuted)
-            HStack(spacing: Theme.Spacing.sm) {
-                Chip(t("profile.language_device"), selected: store.localeChoice == nil) {
-                    Task { await store.setLocale(nil) }
-                }
-                ForEach(AppLocale.allCases, id: \.self) { code in
-                    Chip(languageNames[code] ?? code.rawValue, selected: store.localeChoice == code) {
-                        Task { await store.setLocale(code) }
-                    }
-                }
-            }
-            Txt(t("profile.language_current", ["name": languageNames[store.locale] ?? store.locale.rawValue]), .micro, color: Theme.Colors.textMuted)
-        }
-    }
-
-    /// Badges, with what is waiting to be collected said plainly.
-    private var badgesCard: some View {
-        Button {
-            Haptic.play(.light)
-            router.present(.badges)
-        } label: {
-            Card {
-                HStack(alignment: .center) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Txt(t("profile.badges"), .body)
-                        Txt(
-                            unclaimed > 0
-                                ? t("profile.badges_unclaimed", ["count": unclaimed])
-                                : t("profile.badges_summary", ["earned": badgeCount, "total": badgeTotal]),
-                            .micro, color: Theme.Colors.textMuted
-                        )
-                    }
-                    Spacer()
-                    Txt("›", .h3, color: Theme.Colors.textMuted)
-                }
-            }
-        }
-        .buttonStyle(PressOpacityStyle())
-    }
-
-    /// PR-03 — deletion is available from inside the app (§23.3). Spec §25.8:
-    /// one primary per region, and an irreversible action is not it.
-    private var account: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Txt(t("profile.account"), .h3)
-            PBButton(t("library.delete_account"), variant: .dangerQuiet, full: false, haptic: .warning) {
-                confirmDeleteAccount = true
-            }
-        }
+    /// "14 worlds · 212 turns · 6 badges". `worldsCreated` is deliberately
+    /// absent — creator publishing is not a thing we ship.
+    private var statsLine: String {
+        if store.isGuest, me == nil { return t("profile.guest_explainer") }
+        return t("profile.stats_line", [
+            "worlds": me?.stats.storiesPlayed ?? 0,
+            "turns": me?.stats.turnsPlayed ?? 0,
+            "badges": badgeCount,
+        ])
     }
 
     // MARK: Data
@@ -256,20 +189,8 @@ struct ProfileScreen: View {
 
 // MARK: - Pieces
 
-private struct Stat: View {
-    @Environment(AppStore.self) private var store
-    let label: String
-    let value: Int
-
-    var body: some View {
-        VStack(spacing: 2) {
-            Txt(Format.number(value, locale: store.locale), .h2)
-            Txt(label.uppercased(), .micro, color: Theme.Colors.textMuted)
-        }
-    }
-}
-
-/// A settings-style row with a chevron. Shared by Profile and Settings.
+/// A settings-style row with a chevron and no icon. Kept for the screens
+/// that predate `SettingsRow`.
 struct LinkRow: View {
     let label: String
     let action: () -> Void
@@ -280,19 +201,6 @@ struct LinkRow: View {
     }
 
     var body: some View {
-        Button {
-            Haptic.play(.light)
-            action()
-        } label: {
-            HStack {
-                Txt(label, .bodyCompact)
-                Spacer()
-                Txt("›", .body, color: Theme.Colors.textMuted)
-            }
-            .padding(.vertical, Theme.Spacing.sm)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(PressOpacityStyle())
-        .accessibilityLabel(label)
+        SettingsRow(label, action: action)
     }
 }

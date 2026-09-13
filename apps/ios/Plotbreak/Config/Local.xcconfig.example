@@ -1,3 +1,9 @@
 // Copy to Local.xcconfig. The Supabase anon key is public by design, but it
 // still lives outside git so a fork does not inherit our project.
 PLOTBREAK_SUPABASE_ANON_KEY = 
+
+// Google Sign-In: the iOS OAuth client from Google Cloud (bundle id
+// com.plotbreak.app), and the same id reversed as the URL scheme it returns
+// on. Both empty hides the Google button.
+PLOTBREAK_GOOGLE_CLIENT_ID = 
+PLOTBREAK_GOOGLE_URL_SCHEME = 

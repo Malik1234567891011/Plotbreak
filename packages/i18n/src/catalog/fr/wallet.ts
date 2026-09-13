@@ -354,4 +354,13 @@ export const wallet = {
   'wallet.badge_first_purchase': 'Premier achat',
   /** Le seul bouton qui dépense, sous le pack choisi. */
   'wallet.buy_now': 'Acheter',
+  'wallet.my_credits': 'Mes crédits',
+  'wallet.tab_daily': 'Quotidien',
+  'wallet.tab_how': 'Comment ça marche',
+  'wallet.history_short': 'Historique',
+  'wallet.history_empty': 'Aucune activité pour l’instant',
+  'wallet.no_expiry': 'Les crédits n’expirent pas',
+  'wallet.credits_count': '{credits} crédits',
+  'wallet.daily_ready_body': 'Tes crédits quotidiens t’attendent. Récupère-les ci-dessus.',
+  'wallet.daily_body': 'Reviens une fois par jour pour des crédits gratuits. Ils n’expirent jamais.',
 } as const;

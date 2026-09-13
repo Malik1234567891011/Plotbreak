@@ -152,4 +152,16 @@ export const story = {
   /** The comment shelf on a story page, and its way in. */
   'story.comments_see_all': 'See all {count}',
   'story.comment_likes': '{count, plural, one {# like} other {# likes}}',
+  /** The detail page's header. */
+  'story.info_title': 'Story Information',
+  /** First tab on the detail page. */
+  'story.tab_information': 'Information',
+  /** Second tab on the detail page. */
+  'story.tab_comments': 'Comments',
+  /** Heading over the hook and premise. */
+  'story.description_heading': 'Description',
+  /** The creator chip under the title. */
+  'story.creator_handle': '@ {name}',
+  /** The ⋮ next to the title: save, report. */
+  'story.more_a11y': 'More options',
 } as const;

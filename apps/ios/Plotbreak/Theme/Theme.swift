@@ -28,6 +28,26 @@ enum Theme {
 
         static let borderSubtle = Color(hex: 0x262C39)
         static let borderStrong = Color(hex: 0x333B4C)
+        /// The half-point rule between list rows and under headers.
+        static let borderHairline = Color(hex: 0x1B2030)
+
+        /// The redesign's second grey: hints, counters, subtitles under a title.
+        static let textDim = Color(hex: 0x8A909C)
+        /// An inactive title in a header tab pair ("Worlds · Characters").
+        static let textInactive = Color(hex: 0x5A6070)
+
+        /// The near-white fill of a "light" primary button, and its ink.
+        static let light = Color(hex: 0xFBFBFB)
+        static let textOnLight = Color(hex: 0x0B0D12)
+        /// A neutral, art-agnostic button (Continue with Apple, the quality pill).
+        static let surfaceButton = Color(hex: 0x1B1E26)
+        /// The disabled primary button.
+        static let disabledFill = Color(hex: 0x3A3F4B)
+        static let disabledText = Color(hex: 0x8A909C)
+        /// The empty track behind a progress bar.
+        static let track = Color(hex: 0x2A2F3B)
+        /// The selected band of a wheel picker, and an unselected radio's fill.
+        static let wheelBand = Color(hex: 0x1E2330)
 
         /// Scrim behind sheets and full-screen media.
         static let scrim = Color(red: 4 / 255, green: 6 / 255, blue: 11 / 255, opacity: 0.72)
@@ -52,10 +72,16 @@ enum Theme {
     /// Spec §25.5 — do not round every container into a floating bubble.
     enum Radius {
         static let control: CGFloat = 10
+        /// Inputs, selectable cards and the small cover thumbnails.
+        static let field: CGFloat = 12
         static let card: CGFloat = 14
         static let large: CGFloat = 20
         static let pill: CGFloat = 999
     }
+
+    /// The redesign's horizontal page gutter: 14pt, a touch tighter than the
+    /// 16pt grid so a 393pt phone fits two 178pt cards side by side.
+    static let pageGutter: CGFloat = 14
 
     /// Spec §25.3. Body is 17pt because gameplay dialogue must be readable at
     /// arm's length. Sizes scale with Dynamic Type through `relativeTo`.

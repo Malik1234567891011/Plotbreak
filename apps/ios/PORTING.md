@@ -19,6 +19,24 @@ which `build.sh` runs for you.
 
 Requirements: Xcode 16+, iOS 17 deployment target, Swift 5 language mode.
 
+
+### Google Sign-In
+
+The Google button uses Google's SDK (`GoogleSignIn-iOS`, pulled in by
+`project.yml`) and hands the ID token to Supabase, the same way Apple does.
+It needs two things, or the button stays hidden:
+
+1. An **iOS** OAuth client in Google Cloud (Google Auth Platform → Clients →
+   Create) with bundle id `com.plotbreak.app` and team id `Q7ZLXMG4SB`. Put its
+   client id in `Local.xcconfig` as `PLOTBREAK_GOOGLE_CLIENT_ID`, and the same
+   id reversed (`com.googleusercontent.apps.<number>-<hash>`) as
+   `PLOTBREAK_GOOGLE_URL_SCHEME`. Release builds need the same in
+   `Release.xcconfig`.
+2. In Supabase → Authentication → Providers → Google: enable it, and add the
+   iOS client id to **Authorized Client IDs**. That is what lets Supabase
+   accept the token the SDK produces. The web client id and secret are only
+   needed if the web redirect flow is ever used.
+
 ## Layout
 
 | Folder | What | Twin of |
@@ -111,6 +129,17 @@ Two things about the local setup that look like app bugs and are not:
   empties and the balance resets to 600. Nothing is wrong with the app; move
   `Local.xcconfig` aside to test persistence on the stable `guest_…` path, or
   point the build at a real API.
+
+### The simulator can skip onboarding on a fresh install
+
+`xcrun simctl uninstall` removes the app container, but not a
+`com.plotbreak.app` defaults domain written at the simulator-user level
+(`xcrun simctl spawn <udid> defaults write com.plotbreak.app ...`, which a
+past session used to skip the age gate). `UserDefaults.standard` reads that
+domain too, so a fresh install boots with `ageVerified` and `onboarded`
+already true and lands on Discover. Check with
+`xcrun simctl spawn <udid> defaults read com.plotbreak.app`; clear it with
+`... defaults delete com.plotbreak.app`.
 
 ## Payments
 

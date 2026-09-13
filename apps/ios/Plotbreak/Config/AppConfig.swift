@@ -21,6 +21,9 @@ enum AppConfig {
     /// rather than pointing them at nothing.
     static let legalBaseURL: URL? = plist("PLOTBREAK_LEGAL_BASE_URL").flatMap(URL.init(string:))
 
+    /// The iOS OAuth client from Google Cloud. Nil hides the Google button.
+    static let googleClientID: String? = plist("PLOTBREAK_GOOGLE_CLIENT_ID")
+
     static let appVersion: String = plist("CFBundleShortVersionString") ?? "1.0.0"
 
     static var authConfigured: Bool { supabaseURL != nil && supabaseAnonKey != nil }

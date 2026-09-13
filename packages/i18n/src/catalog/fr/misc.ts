@@ -301,4 +301,8 @@ export const misc = {
    */
   'misc.create_opening': 'Ouverture',
   'misc.create_opening_body': 'De 50 à 150 mots qui mènent à une décision.',
+  'misc.sign_in_tagline': 'LE RPG JOUABLE',
+  'misc.sign_in_bonus': 'Inscris-toi et reçois 600 crédits !',
+  'misc.continue_with_google': 'Continuer avec Google',
+  'misc.sign_in_cancelled': 'Connexion annulée.',
 } as const;

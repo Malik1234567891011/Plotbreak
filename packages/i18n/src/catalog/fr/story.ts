@@ -225,4 +225,10 @@ export const story = {
   /** L’étagère de commentaires et son entrée. « j’aime » est invariable. */
   'story.comments_see_all': 'Voir les {count}',
   'story.comment_likes': '{count, plural, one {# j’aime} other {# j’aime}}',
+  'story.info_title': 'Infos sur l’histoire',
+  'story.tab_information': 'Infos',
+  'story.tab_comments': 'Commentaires',
+  'story.description_heading': 'Description',
+  'story.creator_handle': '@ {name}',
+  'story.more_a11y': 'Plus d’options',
 } as const;

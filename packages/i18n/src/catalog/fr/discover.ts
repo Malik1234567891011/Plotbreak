@@ -161,4 +161,14 @@ export const discover = {
    * la même chose et se lit tout seul. Zéro prend le singulier.
    */
   'discover.continue_turns_in': '{count, plural, one {# tour joué} other {# tours joués}}',
+  'discover.tab_worlds': 'Mondes',
+  'discover.category_main': 'Principal',
+  'discover.daily_ready': 'Tes crédits quotidiens t’attendent',
+  'discover.dismiss_a11y': 'Fermer',
+  'discover.official_badge': 'ORIGINAL',
+  'discover.search_placeholder_short': 'Cherche un monde ou un personnage',
+  'discover.search_recent': 'Récentes',
+  'discover.search_delete_all': 'Tout effacer',
+  'discover.search_popular': 'Populaires',
+  'discover.search_remove_a11y': 'Retirer {term}',
 } as const;

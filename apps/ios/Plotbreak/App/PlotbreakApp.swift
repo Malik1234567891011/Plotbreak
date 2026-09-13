@@ -1,4 +1,5 @@
 import SwiftUI
+import GoogleSignIn
 
 @main
 struct PlotbreakApp: App {
@@ -23,6 +24,7 @@ struct PlotbreakApp: App {
                 .environment(\.translator, store.t)
                 .preferredColorScheme(.dark)
                 .task { await store.boot() }
+                .onOpenURL { url in _ = GIDSignIn.sharedInstance.handle(url) }
         }
     }
 }

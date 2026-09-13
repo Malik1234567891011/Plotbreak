@@ -23,12 +23,13 @@ struct LibraryScreen: View {
         Screen {
             ZStack(alignment: .bottom) {
                 VStack(spacing: 0) {
-                    HStack {
-                        Txt(t("library.title"), .h1)
-                        Spacer(minLength: 0)
+                    TabHeader(t("library.title")) {
+                        IconButton(t("discover.search_worlds"), action: { router.present(.search) }) {
+                            Image(systemName: "magnifyingglass")
+                                .font(.system(size: 21, weight: .medium))
+                                .foregroundStyle(Theme.Colors.textPrimary)
+                        }
                     }
-                    .padding(.horizontal, Theme.gutter)
-                    .padding(.bottom, Theme.Spacing.md)
 
                     content
                 }
@@ -96,7 +97,8 @@ struct LibraryScreen: View {
                         section(t("library.section_finished"), finished)
                     }
                 }
-                .padding(Theme.gutter)
+                .padding(Theme.pageGutter)
+                .padding(.top, 18)
                 .padding(.bottom, Theme.Spacing.giant)
             }
         }
@@ -104,7 +106,7 @@ struct LibraryScreen: View {
 
     private func section(_ title: String, _ items: [SessionSummary]) -> some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Txt(title, .caption, color: Theme.Colors.textMuted)
+            SectionLabel(title)
             ForEach(items) { session in
                 SessionCard(
                     session: session,

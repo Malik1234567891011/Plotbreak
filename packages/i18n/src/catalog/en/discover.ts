@@ -102,4 +102,24 @@ export const discover = {
    * the same sentence in the vertical card.
    */
   'discover.continue_turns_in': '{count, plural, one {# turn} other {# turns}} in',
+  /** The Discover header's first title; `nav.characters` is the second. */
+  'discover.tab_worlds': 'Worlds',
+  /** The first filter chip: the default shelf, no category. */
+  'discover.category_main': 'Main',
+  /** The banner under the filter row; tapping it opens the wallet. */
+  'discover.daily_ready': 'Daily credits are ready to claim',
+  /** Accessible name of the banner's cross. */
+  'discover.dismiss_a11y': 'Dismiss',
+  /** The pill on a shelf card. Upper case by design. */
+  'discover.official_badge': 'ORIGINAL',
+  /** The search field. */
+  'discover.search_placeholder_short': 'Search worlds or characters',
+  /** Heading over the player's last search terms. */
+  'discover.search_recent': 'Recent',
+  /** Forgets every recent term. */
+  'discover.search_delete_all': 'Delete all',
+  /** Heading over the ranked list of what people look for. */
+  'discover.search_popular': 'Popular',
+  /** Accessible name of a recent term's cross. */
+  'discover.search_remove_a11y': 'Remove {term}',
 } as const;

@@ -2,31 +2,27 @@ import SwiftUI
 
 // MARK: - DS-01 Discover home
 //
-// Twin of `apps/mobile/src/screens/Discover.tsx`.
-//
-// Spec §7.1 — Discover sells fantasies, not AI capabilities. It should read
-// like a premium storefront, not a feed of chatbot cards.
+// Twin of `apps/mobile/src/screens/Discover.tsx`, laid out the way the
+// reference home is: the credits and search up top, the filter row, a wide
+// banner for the featured worlds, then every shelf as a row of portrait
+// covers with the title and creator under each, and the full catalogue as a
+// grid so nothing is hidden. Spec §7.1 — a storefront, not a feed.
 
-/// The height the floating header reserves, so the page can start under it.
-private let headerHeight: CGFloat = 48
-
-/// Card sizing, measured off the device rather than fixed at 150pt.
+/// Card sizing, measured off the device rather than fixed.
 ///
-/// On a 393pt phone a two-column grid gives 170pt cards — the art is the
-/// subject and the title is comfortably readable — while the rails run at 2.4
-/// cards visible, so the row is obviously scrollable without a chevron telling
-/// you so. Continue is deliberately the smallest shelf on the page: it is the
-/// only rail selling something the player has already chosen.
+/// Shelf covers run at ~98pt so 3.4 of them show on a 393pt phone — the row
+/// is obviously scrollable. The full catalogue is a three-column grid of the
+/// same card. Continue cards are two across.
 private struct CardWidths {
-    let grid: CGFloat
     let rail: CGFloat
+    let grid: CGFloat
     let `continue`: CGFloat
 
     init(screenWidth: CGFloat) {
-        let usable = screenWidth - Theme.gutter * 2
-        grid = floor((usable - Theme.Spacing.md) / 2)
-        rail = floor((usable - Theme.Spacing.md * 1.4) / 2.4)
-        `continue` = floor((usable - Theme.Spacing.md * 2.4) / 3.6)
+        let usable = screenWidth - Theme.pageGutter * 2
+        rail = floor((usable - Theme.Spacing.md * 3) / 3.4)
+        grid = floor((usable - Theme.Spacing.md * 2) / 3)
+        `continue` = floor((usable - Theme.Spacing.md) / 2)
     }
 }
 
@@ -39,9 +35,6 @@ struct DiscoverScreen: View {
     @State private var errorMessage: String?
     @State private var preview: StorySummary?
     @State private var category: String?
-    /// How opaque the floating header's background is: transparent over the
-    /// hero art, solid once the page has scrolled up under it.
-    @State private var headerFade: Double = 0
     @State private var loadedOnce = false
     /// Whether the player has scrolled since this screen last came into view.
     /// A fresh shelf that arrives after that is held (`pending`) rather than
@@ -62,15 +55,13 @@ struct DiscoverScreen: View {
         Screen {
             GeometryReader { proxy in
                 let widths = CardWidths(screenWidth: proxy.size.width)
-                // Not `proxy.safeAreaInsets.top`: this reader ignores the top
-                // safe area (so the hero can paint under the status bar), and a
-                // reader inside that region reports zero.
-                let topInset = Theme.topSafeAreaInset
 
-                ZStack(alignment: .top) {
+                VStack(spacing: 0) {
+                    header
+
                     ScrollView {
-                        VStack(alignment: .leading, spacing: Theme.Spacing.xxl) {
-                            // Scroll offset, for the header's ramp.
+                        VStack(alignment: .leading, spacing: 0) {
+                            // Scroll offset, so a shelf is not swapped mid-read.
                             GeometryReader { inner in
                                 Color.clear.preference(
                                     key: ScrollOffsetKey.self,
@@ -79,16 +70,37 @@ struct DiscoverScreen: View {
                             }
                             .frame(height: 0)
 
+                            // The filter row. Categories come from the server,
+                            // which only ever offers one that has worlds in it.
+                            if let data, !data.categories.isEmpty {
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 10) {
+                                        Chip(t("discover.category_main"), selected: category == nil, style: .outlined) {
+                                            category = nil
+                                        }
+                                        ForEach(data.categories) { item in
+                                            Chip(t.category(item.id, fallback: item.label), selected: category == item.id, style: .outlined) {
+                                                category = item.id
+                                            }
+                                        }
+                                    }
+                                    .padding(.horizontal, Theme.pageGutter)
+                                }
+                                .padding(.top, Theme.Spacing.sm)
+                            }
+
                             if store.offline || showingStaleShelf {
                                 Txt(t("discover.offline_banner"), .caption, color: Theme.Colors.warning)
                                     .padding(Theme.Spacing.md)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
-                                    .padding(.horizontal, Theme.gutter)
+                                    .padding(.horizontal, Theme.pageGutter)
+                                    .padding(.top, Theme.Spacing.lg)
                             }
 
                             if data == nil, errorMessage == nil {
                                 DiscoverSkeleton()
+                                    .padding(.top, Theme.Spacing.lg)
                             }
 
                             if let errorMessage, data == nil {
@@ -100,67 +112,43 @@ struct DiscoverScreen: View {
                                 )
                             }
 
-                            // One featured world, sized so it sells that world
-                            // without being the entire first screen.
+                            // The featured worlds as a wide banner you page through.
                             if !hero.isEmpty, data?.activeCategory == nil {
-                                HeroCarousel(
-                                    stories: hero,
-                                    onOpen: { storyId in router.push(.storyDetail(storyId: storyId)) },
-                                    backdropExtendTop: topInset + headerHeight
-                                )
-                            }
-
-                            // The browse rail, directly under the hero. Art
-                            // first, then the ways to cut it. Categories come
-                            // from the server, which only ever offers one that
-                            // has worlds in it.
-                            if let data, !data.categories.isEmpty {
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: Theme.Spacing.sm) {
-                                        Chip(t("discover.category_all"), selected: category == nil, tone: category == nil ? .accent : .neutral) {
-                                            category = nil
-                                        }
-                                        ForEach(data.categories) { item in
-                                            Chip(
-                                                t.category(item.id, fallback: item.label),
-                                                selected: category == item.id,
-                                                tone: category == item.id ? .accent : .neutral
-                                            ) {
-                                                category = item.id
-                                            }
-                                        }
-                                    }
-                                    .padding(.horizontal, Theme.gutter)
+                                FeaturedBanner(stories: hero, width: proxy.size.width - Theme.pageGutter * 2) { storyId in
+                                    router.push(.storyDetail(storyId: storyId))
                                 }
+                                .padding(.horizontal, Theme.pageGutter)
+                                .padding(.top, Theme.Spacing.lg)
                             }
 
                             // Spec §7.2 item 3 — Continue, only when there is
-                            // something to continue. A rail like the others,
-                            // because it is a shelf like the others, at a
-                            // smaller width.
+                            // something to continue.
                             if let data, !data.continueCards.isEmpty {
-                                VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                                    SectionHeader(title: t("discover.continue"))
+                                VStack(alignment: .leading, spacing: 14) {
+                                    shelfTitle(t("discover.continue"))
                                     ScrollView(.horizontal, showsIndicators: false) {
-                                        HStack(alignment: .top, spacing: Theme.Spacing.md) {
+                                        HStack(spacing: Theme.Spacing.md) {
                                             ForEach(data.continueCards) { card in
-                                                StoryCoverCard(
-                                                    story: .continueShelf(card, fantasyLabel: t("discover.continue_turns_in", ["count": card.turnCount])),
+                                                ContinueRunCard(
+                                                    title: card.title,
+                                                    storyId: card.storyId,
+                                                    coverImage: card.coverImage,
+                                                    turnsLine: t("discover.continue_turns_in", ["count": card.turnCount]),
                                                     width: widths.continue,
-                                                    showLikes: false,
-                                                    locale: store.locale,
                                                     onPress: { router.push(.session(sessionId: card.sessionId)) }
                                                 )
                                             }
                                         }
-                                        .padding(.horizontal, Theme.gutter)
+                                        .padding(.horizontal, Theme.pageGutter)
                                     }
                                 }
+                                .padding(.top, 28)
                             }
 
                             if let data {
                                 ForEach(data.rails.filter { $0.kind != .HERO && $0.kind != .CONTINUE && !$0.stories.isEmpty }) { rail in
                                     railSection(rail, widths: widths)
+                                        .padding(.top, 28)
                                 }
 
                                 if data.rails.allSatisfy({ $0.stories.isEmpty }) {
@@ -172,30 +160,26 @@ struct DiscoverScreen: View {
                                     )
                                 }
                             }
+
+                            // Daily credits, as the promo card at the foot of
+                            // the page. Tapping it opens the wallet, where the
+                            // claim button is.
+                            if store.wallet?.dailyClaimAvailable == true {
+                                dailyCard
+                                    .padding(.horizontal, Theme.pageGutter)
+                                    .padding(.top, 28)
+                            }
                         }
-                        .padding(.top, topInset + headerHeight)
                         .padding(.bottom, Theme.Spacing.giant)
                     }
                     .coordinateSpace(name: "discover.scroll")
-                    .ignoresSafeArea(edges: .top)
                     .refreshable { await load(force: true) }
                     .onPreferenceChange(ScrollOffsetKey.self) { y in
-                        // A short ramp: the header is solid by the time
-                        // anything reaches it.
-                        headerFade = max(0, min(1, y / 120))
                         // Anything past a nudge counts as reading the shelf.
                         if y > 8 { hasScrolled = true }
                     }
-
-                    // Spec §7.2 item 1 — the header, floated rather than
-                    // stacked, so it paints over the hero's blurred art.
-                    header
-                        .frame(height: headerHeight)
-                        .padding(.top, topInset)
-                        .background { Theme.Colors.bgBase.opacity(headerFade) }
                 }
             }
-            .ignoresSafeArea(edges: .top)
             .overlay {
                 // DS-04 — long-press quick preview.
                 if let story = preview {
@@ -245,45 +229,101 @@ struct DiscoverScreen: View {
         }
     }
 
+    // MARK: Header
+
+    /// Credits and search, right-aligned. The filter row underneath is the
+    /// page's own title.
     private var header: some View {
-        HStack {
-            Text("PLOTBREAK")
-                .font(Theme.TypeStyle.h2.font())
-                .kerning(3)
-                .foregroundStyle(Theme.Colors.textPrimary)
+        HStack(spacing: Theme.Spacing.xs) {
             Spacer(minLength: 0)
-            HStack(spacing: Theme.Spacing.sm) {
-                IconButton(t("discover.search_worlds"), action: { router.present(.search) }) {
-                    SearchIcon()
-                }
-                CreditBalance(balance: store.balance, locale: store.locale) {
-                    router.present(.wallet(shortfall: nil))
-                }
+            IconButton(t("wallet.title"), action: { router.present(.wallet(shortfall: nil)) }) {
+                CreditGlyph(size: 22)
+            }
+            IconButton(t("discover.search_worlds"), action: { router.present(.search) }) {
+                Image(systemName: "magnifyingglass")
+                    .font(.system(size: 22, weight: .medium))
+                    .foregroundStyle(Theme.Colors.textPrimary)
             }
         }
-        .padding(.horizontal, Theme.gutter)
+        .padding(.horizontal, Theme.Spacing.xs)
+        .frame(height: 48)
     }
+
+    private func shelfTitle(_ title: String, action: (() -> Void)? = nil, actionLabel: String? = nil) -> some View {
+        HStack(alignment: .center) {
+            Text(title)
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
+            Spacer(minLength: Theme.Spacing.md)
+            if let action, let actionLabel {
+                Button(action: action) {
+                    ChevronGlyph(size: 24)
+                        .frame(minWidth: Theme.minTouchTarget, minHeight: Theme.minTouchTarget - 12)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(PressOpacityStyle())
+                .accessibilityLabel(actionLabel)
+            }
+        }
+        .padding(.horizontal, Theme.pageGutter)
+    }
+
+    private var dailyCard: some View {
+        Button {
+            Haptic.play(.light)
+            router.present(.wallet(shortfall: nil))
+        } label: {
+            HStack(spacing: 14) {
+                Image(systemName: "sparkles")
+                    .font(.system(size: 24, weight: .regular))
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .frame(width: 32)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(t("wallet.claim_daily"))
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                    Text(t("discover.daily_ready"))
+                        .font(.system(size: 14))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                }
+                Spacer(minLength: Theme.Spacing.sm)
+                ChevronGlyph()
+            }
+            .padding(.horizontal, 18)
+            .padding(.vertical, 16)
+            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
+                    .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressScaleStyle())
+    }
+
+    // MARK: Shelves
 
     @ViewBuilder
     private func railSection(_ rail: DiscoverRail, widths: CardWidths) -> some View {
         // A curated row is a sample and reads best as a rail you can flick
-        // through. The full catalogue is not a sample — it gets a grid, the
-        // only layout that says "there is a lot here" without shrinking the
-        // covers to nothing.
+        // through. The full catalogue is not a sample — it gets a grid, so
+        // every world is on the page.
         let asGrid = rail.id == "all" || rail.id == "category"
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            SectionHeader(
-                title: t.serverKey(rail.titleKey, fallback: rail.title),
-                subtitle: rail.subtitle.map { t.serverKey(rail.subtitleKey, fallback: $0, params: rail.subtitleParams) }
+        VStack(alignment: .leading, spacing: 14) {
+            shelfTitle(
+                t.serverKey(rail.titleKey, fallback: rail.title),
+                action: asGrid ? nil : { router.present(.search) },
+                actionLabel: asGrid ? nil : t("discover.search_worlds")
             )
             if asGrid {
-                LazyVGrid(columns: [GridItem(.fixed(widths.grid), spacing: Theme.Spacing.md), GridItem(.fixed(widths.grid))],
-                          alignment: .leading, spacing: Theme.Spacing.md) {
+                LazyVGrid(columns: Array(repeating: GridItem(.fixed(widths.grid), spacing: Theme.Spacing.md, alignment: .top), count: 3),
+                          alignment: .leading, spacing: Theme.Spacing.xl) {
                     ForEach(rail.stories) { story in
                         card(story, width: widths.grid, rank: nil)
                     }
                 }
-                .padding(.horizontal, Theme.gutter)
+                .padding(.horizontal, Theme.pageGutter)
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .top, spacing: Theme.Spacing.md) {
@@ -292,14 +332,14 @@ struct DiscoverScreen: View {
                             card(story, width: widths.rail, rank: rail.kind == .TOP_RANKED ? index + 1 : nil)
                         }
                     }
-                    .padding(.horizontal, Theme.gutter)
+                    .padding(.horizontal, Theme.pageGutter)
                 }
             }
         }
     }
 
     private func card(_ story: StorySummary, width: CGFloat, rank: Int?) -> some View {
-        StoryCoverCard(
+        PortraitStoryCard(
             story: story,
             width: width,
             rank: rank,
@@ -308,6 +348,8 @@ struct DiscoverScreen: View {
             onLongPress: { preview = story }
         )
     }
+
+    // MARK: Data
 
     /// Fetches the shelf. `force` swaps the result in regardless of scrolling:
     /// pull-to-refresh asked for exactly that.
@@ -354,58 +396,85 @@ struct DiscoverScreen: View {
     }
 }
 
+// MARK: - Featured banner
+
+/// The featured worlds as one wide strip you page through: key art, a scrim,
+/// the title and the fantasy line. Rotates every six seconds until touched.
+private struct FeaturedBanner: View {
+    let stories: [StorySummary]
+    let width: CGFloat
+    let onOpen: (String) -> Void
+
+    @Environment(\.translator) private var t
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var position: String?
+    @State private var driving = false
+    @State private var autoTarget: String?
+
+    private var height: CGFloat { (width * 0.42).rounded() }
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: Theme.Spacing.md) {
+                ForEach(stories) { story in
+                    Button {
+                        Haptic.play(.light)
+                        onOpen(story.storyId)
+                    } label: {
+                        StoryArt(seed: story.storyId, title: story.title, uri: story.keyArt ?? story.coverImage)
+                            .frame(width: width, height: height)
+                            .overlay(alignment: .bottomLeading) {
+                                LinearGradient(
+                                    stops: [.init(color: .clear, location: 0.3), .init(color: Theme.Colors.bgBase.opacity(0.9), location: 1)],
+                                    startPoint: .top, endPoint: .bottom
+                                )
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(story.title)
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .foregroundStyle(Theme.Colors.textPrimary)
+                                        .lineLimit(1)
+                                    Text(story.fantasyLabel)
+                                        .font(.system(size: 13))
+                                        .foregroundStyle(Theme.Colors.textSecondary)
+                                        .lineLimit(1)
+                                }
+                                .padding(14)
+                            }
+                            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(PressOpacityStyle(pressed: 0.9))
+                    .accessibilityLabel(t("discover.hero_a11y", ["title": story.title, "fantasy": story.fantasyLabel]))
+                    .id(story.storyId)
+                }
+            }
+            .scrollTargetLayout()
+        }
+        .scrollTargetBehavior(.viewAligned)
+        .scrollPosition(id: $position)
+        .scrollClipDisabled()
+        .frame(height: height)
+        .onAppear { if position == nil { position = stories.first?.storyId } }
+        .onChange(of: position) { _, newValue in
+            if let newValue, newValue != autoTarget { driving = true }
+        }
+        .task(id: "\(driving)-\(stories.count)") {
+            guard !driving, !reduceMotion, stories.count >= 2 else { return }
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: 6_000_000_000)
+                guard !Task.isCancelled else { return }
+                let index = stories.firstIndex(where: { $0.storyId == position }) ?? 0
+                let target = stories[(index + 1) % stories.count].storyId
+                autoTarget = target
+                withAnimation(.easeInOut(duration: Theme.Durations.sheet)) { position = target }
+            }
+        }
+    }
+}
+
 private struct ScrollOffsetKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
-}
-
-/// A magnifier, drawn: a ring and a handle. `⌕` at body size on a dark
-/// background reads as a smudge rather than a control.
-private struct SearchIcon: View {
-    var body: some View {
-        ZStack {
-            Circle()
-                .strokeBorder(Theme.Colors.textPrimary, lineWidth: 2)
-                .frame(width: 17, height: 17)
-                .offset(x: -2, y: -2)
-            Capsule()
-                .fill(Theme.Colors.textPrimary)
-                .frame(width: 2, height: 8)
-                .rotationEffect(.degrees(-45))
-                .offset(x: 6, y: 6)
-        }
-        .frame(width: 26, height: 26)
-    }
-}
-
-private extension StorySummary {
-    /// The Continue shelf reuses the cover card for a run the player is already
-    /// in. No creator byline, no official pill, no run count: you have already
-    /// chosen this one. The second line is "8 turns in".
-    static func continueShelf(_ card: ContinueCard, fantasyLabel: String) -> StorySummary {
-        StorySummary(
-            storyId: card.storyId,
-            storyVersionId: "",
-            title: card.title,
-            fantasyLabel: fantasyLabel,
-            hook: "",
-            creatorName: "",
-            official: false,
-            coverImage: card.coverImage,
-            keyArt: nil,
-            tags: [],
-            mechanicsChips: [],
-            contentDescriptors: [],
-            intensity: .MODERATE,
-            runs: 0,
-            likes: 0,
-            comments: 0,
-            likedByMe: false,
-            saved: false,
-            badges: [],
-            updatedAt: card.lastPlayedAt
-        )
-    }
 }
 
 // MARK: - DS-04 Quick preview
@@ -452,7 +521,7 @@ private struct QuickPreviewSheet: View {
                     }
                 }
 
-                PBButton(t("discover.preview_open"), action: onOpen)
+                PBButton(t("discover.preview_open"), variant: .light, action: onOpen)
 
                 HStack(spacing: Theme.Spacing.md) {
                     Chip(saved ? t("discover.saved") : t("discover.save"), selected: saved) {
@@ -469,7 +538,8 @@ private struct QuickPreviewSheet: View {
                     Chip(t("discover.report"), tone: .danger, action: onReport)
                 }
             }
-            .padding(Theme.gutter)
+            .padding(Theme.pageGutter)
+            .padding(.bottom, Theme.Spacing.sm)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(
                 Theme.Colors.bgElevated,
@@ -484,18 +554,18 @@ private struct QuickPreviewSheet: View {
 private struct DiscoverSkeleton: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.xxl) {
-            Skeleton(height: 240, radius: Theme.Radius.large)
-                .padding(.horizontal, Theme.gutter)
+            Skeleton(height: 150, radius: Theme.Radius.field)
+                .padding(.horizontal, Theme.pageGutter)
             ForEach(0..<2, id: \.self) { _ in
                 VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                    Skeleton(width: 140, height: 22, radius: 6)
-                        .padding(.horizontal, Theme.gutter)
+                    Skeleton(width: 160, height: 24, radius: 6)
+                        .padding(.horizontal, Theme.pageGutter)
                     HStack(spacing: Theme.Spacing.md) {
-                        ForEach(0..<3, id: \.self) { _ in
-                            Skeleton(width: 150, height: 225)
+                        ForEach(0..<4, id: \.self) { _ in
+                            Skeleton(width: 98, height: 147, radius: 8)
                         }
                     }
-                    .padding(.horizontal, Theme.gutter)
+                    .padding(.horizontal, Theme.pageGutter)
                 }
             }
         }

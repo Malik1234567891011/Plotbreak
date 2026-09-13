@@ -25,6 +25,10 @@ settings:
     CURRENT_PROJECT_VERSION: 1
     TARGETED_DEVICE_FAMILY: "1,2"
     ENABLE_USER_SCRIPT_SANDBOXING: false
+packages:
+  GoogleSignIn:
+    url: https://github.com/google/GoogleSignIn-iOS
+    from: 9.0.0
 targets:
   Plotbreak:
     type: application
@@ -33,6 +37,9 @@ targets:
       - path: Plotbreak
         excludes:
           - "Config/*.xcconfig"
+    dependencies:
+      - package: GoogleSignIn
+        product: GoogleSignIn
     entitlements:
       path: Plotbreak/Plotbreak.entitlements
       properties:
@@ -53,6 +60,8 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         CFBundleURLTypes:
           - CFBundleURLSchemes: [plotbreak]
+          # Google Sign-In returns to the app on the reversed client id.
+          - CFBundleURLSchemes: [$(PLOTBREAK_GOOGLE_URL_SCHEME)]
         NSAppTransportSecurity:
           NSAllowsLocalNetworking: true
         # Filled from the xcconfig so Debug talks to localhost and Release to Railway.
@@ -60,6 +69,7 @@ targets:
         PLOTBREAK_SUPABASE_URL: $(PLOTBREAK_SUPABASE_URL)
         PLOTBREAK_SUPABASE_ANON_KEY: $(PLOTBREAK_SUPABASE_ANON_KEY)
         PLOTBREAK_LEGAL_BASE_URL: $(PLOTBREAK_LEGAL_BASE_URL)
+        PLOTBREAK_GOOGLE_CLIENT_ID: $(PLOTBREAK_GOOGLE_CLIENT_ID)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.plotbreak.app

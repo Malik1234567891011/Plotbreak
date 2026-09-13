@@ -275,4 +275,9 @@ export const session = {
   'session.turns_left': '{count, plural, one {# tour restant} other {# tours restants}}',
   /** Minuscule : la chaîne se lit sous un nombre de crédits, pas en début de phrase. */
   'session.not_enough': 'pas assez',
+  'session.composer_placeholder': 'Dis ou fais ce que tu veux…',
+  'session.status_line': '{tier} · {cost, plural, one {# crédit} other {# crédits}} · {turns, plural, one {# tour restant} other {# tours restants}}',
+  'session.suggestions_title': 'Suggestions',
+  'session.scroll_to_latest': 'Aller au dernier tour',
+  'session.latest_image_a11y': 'Ouvrir la dernière image',
 } as const;

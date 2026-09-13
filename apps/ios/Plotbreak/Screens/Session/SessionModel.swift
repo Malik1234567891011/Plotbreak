@@ -253,6 +253,11 @@ final class SessionModel {
         store?.saveDraft(sessionId: sessionId, text: text)
     }
 
+    /// The player asked for the bottom of the story (the round arrow button).
+    func scrollToLatest() {
+        requestScroll(animated: true)
+    }
+
     private func requestScroll(animated: Bool) {
         scrollRequest = ScrollRequest(id: scrollRequest.id + 1, animated: animated)
     }

@@ -2,31 +2,17 @@ import SwiftUI
 
 // MARK: - Onboarding
 //
-// Screens OB-01 to OB-04, twins of `apps/mobile/src/screens/Onboarding.tsx`.
+// Screens 02–05 of the 2026-09 redesign, plus the splash and the showcase.
+// Twins of `apps/mobile/src/screens/Onboarding.tsx`.
 //
 // Spec §6.1 — the player reaches their first meaningful choice within 60
-// seconds, and there is no account wall in front of it.
+// seconds. Four steps carry a progress bar: birth date, display name,
+// audience and genres, and the showcase that ends it.
 //
 // These are shown by `RootView` before the `Router` exists, so nothing here
 // may read `Router` from the environment: `AppStore` and `\.translator` only.
 
-// MARK: Legal links
-
-/// The privacy policy and terms live wherever they are published, which is not
-/// something the app gets to invent. Nil hides the links rather than pointing
-/// them at nothing — a dead link on the age gate is the first thing App Store
-/// review taps.
-private enum Legal {
-    static var configured: Bool { AppConfig.legalBaseURL != nil }
-
-    static func url(_ page: String) -> URL? {
-        guard let base = AppConfig.legalBaseURL else { return nil }
-        // A URL, not copy — the localized page is chosen by the site.
-        var text = base.absoluteString
-        while text.hasSuffix("/") { text.removeLast() }
-        return URL(string: "\(text)/\(page)")
-    }
-}
+private let onboardingSteps = 4
 
 // MARK: - OB-01 Splash
 
@@ -44,6 +30,7 @@ struct SplashScreen: View {
         ZStack {
             Theme.Colors.bgBase.ignoresSafeArea()
             Image("LaunchLogo")
+                // i18n-exempt: the product name is the same word in every language
                 .accessibilityLabel("Plotbreak")
             if showProgress {
                 VStack {
@@ -61,135 +48,283 @@ struct SplashScreen: View {
     }
 }
 
-// MARK: - OB-02 Age gate
+// MARK: - 02 / 03 Birth date
 
-/// Shown once, before any personalized content.
-struct AgeGateScreen: View {
+/// Step 1 of 4. A date, picked on a wheel in a sheet, decides the age band;
+/// the date itself is not kept. Under 13 is told so, warmly, and cannot go on.
+struct BirthDateScreen: View {
     @Environment(AppStore.self) private var store
     @Environment(\.translator) private var t
-    @Environment(\.openURL) private var openURL
-    @State private var band: String?
+
+    @State private var birthDate: Date?
+    @State private var picking = false
     @State private var confirming = false
 
-    private var bands: [(id: String, label: String)] {
-        [
-            ("under13", t("onboarding.age_band_under_13")),
-            ("13_17", t("onboarding.age_band_13_17")),
-            ("18_24", t("onboarding.age_band_18_24")),
-            ("25plus", t("onboarding.age_band_25_plus")),
-        ]
+    private var tooYoung: Bool {
+        birthDate.map { AppStore.ageBand(birthDate: $0) == "under13" } ?? false
     }
 
-    private var tooYoung: Bool { band == "under13" }
-
     var body: some View {
-        Screen {
-            VStack(alignment: .leading, spacing: Theme.Spacing.xxl) {
-                Spacer(minLength: 0)
+        OnboardingFrame(step: 1, total: onboardingSteps) {
+            OnboardingTitle(t("onboarding.birth_date_title"))
+                .padding(.bottom, Theme.Spacing.xxxl)
 
-                VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    Txt(t("onboarding.age_gate_title"), .display)
-                    Txt(t("onboarding.age_gate_body"), .body, color: Theme.Colors.textSecondary)
+            Button {
+                Haptic.play(.light)
+                picking = true
+            } label: {
+                HStack(spacing: 14) {
+                    Image(systemName: "calendar")
+                        .font(.system(size: 20, weight: .regular))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                    Text(birthDate.map(formatted) ?? t("onboarding.birth_date_placeholder"))
+                        .font(.system(size: 17))
+                        .foregroundStyle(birthDate == nil ? Theme.Colors.textMuted : Theme.Colors.textPrimary)
+                    Spacer(minLength: 0)
                 }
-
-                VStack(spacing: Theme.Spacing.md) {
-                    ForEach(bands, id: \.id) { option in
-                        BandOption(label: option.label, selected: band == option.id) {
-                            band = option.id
-                        }
-                    }
-                }
-
-                if tooYoung {
-                    Txt(t("onboarding.age_too_young"), .bodyCompact, color: Theme.Colors.warning)
-                }
-
-                VStack(spacing: Theme.Spacing.md) {
-                    PBButton(t("onboarding.continue"), loading: confirming, disabled: band == nil || tooYoung) {
-                        guard let band else { return }
-                        confirming = true
-                        Task {
-                            await store.confirmAge(band: band)
-                            confirming = false
-                        }
-                    }
-                    // Only shown once they point somewhere.
-                    if Legal.configured {
-                        HStack(spacing: Theme.Spacing.lg) {
-                            legalLink(t("onboarding.privacy"), page: "privacy")
-                            legalLink(t("onboarding.terms"), page: "terms")
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                }
-
-                Spacer(minLength: 0)
+                .fieldStyle()
+                .contentShape(Rectangle())
             }
-            .padding(Theme.gutter)
+            .buttonStyle(PressOpacityStyle(pressed: 0.8))
+            .accessibilityLabel(t("onboarding.birth_date_title"))
+            .accessibilityValue(birthDate.map(formatted) ?? t("onboarding.birth_date_placeholder"))
+
+            if tooYoung {
+                Txt(t("onboarding.age_too_young"), .bodyCompact, color: Theme.Colors.warning)
+                    .padding(.top, Theme.Spacing.lg)
+            }
+        } footer: {
+            LegalFooter()
+            PBButton(t("onboarding.next"), variant: .light, size: .medium, loading: confirming, disabled: birthDate == nil || tooYoung) {
+                guard let birthDate else { return }
+                confirming = true
+                Task {
+                    await store.confirmAge(birthDate: birthDate)
+                    confirming = false
+                }
+            }
+        }
+        .sheet(isPresented: $picking) {
+            BirthDatePickerSheet(initial: birthDate ?? Self.defaultDate) { date in
+                birthDate = date
+                picking = false
+            }
+            .presentationDetents([.height(400)])
+            .presentationDragIndicator(.hidden)
+            .presentationBackground(Theme.Colors.bgElevated)
+            .presentationCornerRadius(Theme.Radius.large)
         }
     }
 
-    private func legalLink(_ label: String, page: String) -> some View {
-        Button {
-            if let url = Legal.url(page) { openURL(url) }
-        } label: {
-            Txt(label, .caption, color: Theme.Colors.textMuted)
-        }
-        .buttonStyle(PressOpacityStyle())
+    /// Where the wheel opens: a plausible adult, not today's date.
+    private static var defaultDate: Date {
+        Calendar.current.date(byAdding: .year, value: -20, to: Date()) ?? Date()
+    }
+
+    private func formatted(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = store.locale.foundation
+        formatter.dateStyle = .long
+        return formatter.string(from: date)
     }
 }
 
-/// A full-width, taller `Chip`: the RN screen restyles the chip with vertical
-/// padding and a centred label, which the Swift `Chip` does not expose.
-private struct BandOption: View {
-    let label: String
-    let selected: Bool
-    let action: () -> Void
+/// 03 — the wheel. A grabber, the title, the wheel in the elevated sheet, and
+/// one white Confirm.
+private struct BirthDatePickerSheet: View {
+    let initial: Date
+    let onConfirm: (Date) -> Void
+    @Environment(\.translator) private var t
+    @Environment(AppStore.self) private var store
+    @State private var date: Date
+
+    init(initial: Date, onConfirm: @escaping (Date) -> Void) {
+        self.initial = initial
+        self.onConfirm = onConfirm
+        _date = State(initialValue: initial)
+    }
+
+    private var range: ClosedRange<Date> {
+        let calendar = Calendar.current
+        let earliest = calendar.date(byAdding: .year, value: -120, to: Date()) ?? Date()
+        return earliest...Date()
+    }
 
     var body: some View {
-        Button {
-            Haptic.play(.light)
-            action()
-        } label: {
-            Text(label)
-                .font(Theme.TypeStyle.caption.font())
-                .lineLimit(1)
-                .foregroundStyle(selected ? Theme.Colors.textOnAccent : Theme.Colors.textSecondary)
-                .padding(.horizontal, Theme.Spacing.md)
-                .padding(.vertical, Theme.Spacing.lg)
-                .frame(maxWidth: .infinity)
-                .background(selected ? Theme.Colors.accentPrimary : Theme.Colors.bgRaised, in: Capsule())
-                .overlay { Capsule().strokeBorder(selected ? Theme.Colors.accentPrimary : Theme.Colors.borderSubtle, lineWidth: 0.5) }
-                .contentShape(Capsule())
+        VStack(spacing: 0) {
+            Capsule()
+                .fill(Theme.Colors.borderStrong)
+                .frame(width: 88, height: 6)
+                .padding(.top, Theme.Spacing.md)
+                .padding(.bottom, Theme.Spacing.xl)
+
+            Text(t("onboarding.birth_date_title"))
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, Theme.Spacing.xl)
+                .padding(.bottom, Theme.Spacing.xl)
+
+            DatePicker("", selection: $date, in: range, displayedComponents: .date)
+                .datePickerStyle(.wheel)
+                .labelsHidden()
+                .environment(\.locale, store.locale.foundation)
+                .frame(height: 220)
+                .clipped()
+                .accessibilityLabel(t("onboarding.birth_date_title"))
+
+            PBButton(t("onboarding.birth_date_confirm"), variant: .light, size: .medium) { onConfirm(date) }
+                .padding(.horizontal, Theme.pageGutter)
+                .padding(.top, Theme.Spacing.xl)
+                .padding(.bottom, Theme.Spacing.xxl)
         }
-        .buttonStyle(PressOpacityStyle(pressed: 0.7))
-        .accessibilityLabel(label)
-        .accessibilityAddTraits(selected ? .isSelected : [])
+        .preferredColorScheme(.dark)
     }
 }
 
-// MARK: - OB-03 Taste
+// MARK: - 04 Display name
 
-/// Optional, skippable, one screen. Must not delay play (§6.2).
-struct TasteScreen: View {
+/// Step 2 of 4. Up to 24 characters; a counter and a clear button in the field.
+struct DisplayNameScreen: View {
+    @Environment(AppStore.self) private var store
+    @Environment(\.translator) private var t
+    let onDone: () -> Void
+
+    @State private var name = ""
+    @State private var saving = false
+    @FocusState private var focused: Bool
+
+    private static let limit = 24
+    private var trimmed: String { name.trimmingCharacters(in: .whitespacesAndNewlines) }
+
+    var body: some View {
+        OnboardingFrame(step: 2, total: onboardingSteps) {
+            OnboardingTitle(t("onboarding.name_title"))
+                .padding(.bottom, Theme.Spacing.md)
+            Text(t("onboarding.name_hint"))
+                .font(.system(size: 15))
+                .lineSpacing(3)
+                .foregroundStyle(Theme.Colors.textDim)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.bottom, Theme.Spacing.xxxl)
+
+            HStack(spacing: Theme.Spacing.md) {
+                TextField(t("onboarding.name_placeholder"), text: $name)
+                    .font(.system(size: 17))
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .tint(Theme.Colors.accentPrimary)
+                    .textInputAutocapitalization(.words)
+                    .autocorrectionDisabled()
+                    .submitLabel(.done)
+                    .focused($focused)
+                    .onChange(of: name) { _, value in
+                        if value.count > Self.limit { name = String(value.prefix(Self.limit)) }
+                    }
+                    .onSubmit { if !trimmed.isEmpty { save() } }
+                    .accessibilityLabel(t("onboarding.name_title"))
+                Text("\(name.count)/\(Self.limit)")
+                    .font(.system(size: 13, design: .monospaced))
+                    .foregroundStyle(Theme.Colors.textDim)
+                    .accessibilityHidden(true)
+                if !name.isEmpty {
+                    Button {
+                        name = ""
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                            .font(.system(size: 22, weight: .regular))
+                            .foregroundStyle(Theme.Colors.textDim)
+                            .frame(width: 32, height: 32)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(PressOpacityStyle())
+                    .accessibilityLabel(t("onboarding.name_clear_a11y"))
+                }
+            }
+            .fieldStyle(focused: focused)
+        } footer: {
+            PBButton(t("onboarding.next"), variant: .light, size: .medium, loading: saving, disabled: trimmed.isEmpty) { save() }
+        }
+        .onAppear {
+            if name.isEmpty, let existing = store.displayName { name = existing }
+            focused = true
+        }
+    }
+
+    private func save() {
+        saving = true
+        Task {
+            await store.setDisplayName(trimmed)
+            saving = false
+            onDone()
+        }
+    }
+}
+
+// MARK: - 05 Audience + genres
+
+/// Step 3 of 4, and the body of Personalization: the audience filter and the
+/// genre picker, on one screen. `Previous` steps back; `Next` saves.
+struct AudienceGenresScreen: View {
     @Environment(AppStore.self) private var store
     @Environment(\.translator) private var t
 
     let onDone: () -> Void
-    /// Preselected genres. Onboarding starts empty; Personalization does not.
-    var initial: [String] = []
-    var heading: String? = nil
-    var ctaLabel: String? = nil
+    var onBack: (() -> Void)? = nil
 
-    @State private var picked: [String]
+    @State private var audience: String?
+    @State private var picked: [String] = []
+    @State private var seeded = false
     @State private var refreshed = false
 
-    init(onDone: @escaping () -> Void, initial: [String] = [], heading: String? = nil, ctaLabel: String? = nil) {
-        self.onDone = onDone
-        self.initial = initial
-        self.heading = heading
-        self.ctaLabel = ctaLabel
-        _picked = State(initialValue: initial)
+    var body: some View {
+        OnboardingFrame(step: 3, total: onboardingSteps, onClose: { finish(skip: true) }) {
+            AudienceGenresPicker(audience: $audience, picked: $picked)
+        } footer: {
+            LegalFooter()
+            // Two equal halves, the way the reference splits Previous and Next.
+            HStack(spacing: Theme.Spacing.md) {
+                if let onBack {
+                    PBButton(t("onboarding.previous"), variant: .outline, size: .medium, action: onBack)
+                }
+                PBButton(t("onboarding.next"), size: .medium) { finish(skip: false) }
+            }
+        }
+        .task {
+            if !seeded {
+                audience = store.audience
+                picked = store.tastes
+                seeded = true
+            }
+            // Fetch them again if boot did not get them. Once — a retry loop on
+            // an empty catalogue would hammer the API.
+            guard (store.bootstrap?.genres ?? []).isEmpty, !refreshed else { return }
+            refreshed = true
+            await store.refreshBootstrap()
+        }
+    }
+
+    private func finish(skip: Bool) {
+        let tastes = skip ? [] : picked
+        let chosen = skip ? nil : audience
+        store.setTastes(tastes)
+        Task { await store.setAudience(chosen) }
+        onDone()
+    }
+}
+
+/// The two questions, shared by onboarding and by Personalization.
+struct AudienceGenresPicker: View {
+    @Binding var audience: String?
+    @Binding var picked: [String]
+    @Environment(AppStore.self) private var store
+    @Environment(\.translator) private var t
+
+    private var audiences: [(id: String, label: String)] {
+        [
+            ("male", t("onboarding.audience_male")),
+            ("female", t("onboarding.audience_female")),
+            ("neutral", t("onboarding.audience_neutral")),
+        ]
     }
 
     // From the catalogue, not from a hand-written list. The label is the
@@ -198,55 +333,41 @@ struct TasteScreen: View {
     private var genres: [Genre] { store.bootstrap?.genres ?? [] }
 
     var body: some View {
-        Screen {
-            GeometryReader { proxy in
-            ScrollView {
-                VStack(alignment: .leading, spacing: Theme.Spacing.xxl) {
-                    VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                        Txt(heading ?? t("onboarding.taste_title"), .display)
-                        Txt(t("onboarding.taste_body"), .body, color: Theme.Colors.textSecondary)
-                    }
-                    .padding(.top, Theme.Spacing.xxxl)
+        OnboardingTitle(t("onboarding.audience_title"), size: 22)
+            .padding(.bottom, Theme.Spacing.xl)
 
-                    // Chip-shaped placeholders while the catalogue is still
-                    // coming. An empty space under a heading that says "pick
-                    // anything you'd actually play" reads as broken.
-                    FlowLayout(spacing: Theme.Spacing.md) {
-                        if genres.isEmpty {
-                            ForEach(Array([96, 120, 104, 88, 112, 92].enumerated()), id: \.offset) { _, width in
-                                Skeleton(width: CGFloat(width), height: 44, radius: Theme.Radius.pill)
-                            }
-                        } else {
-                            ForEach(genres) { genre in
-                                Chip(t.category(genre.id, fallback: genre.label), selected: picked.contains(genre.label)) {
-                                    toggle(genre.label)
-                                }
-                            }
-                        }
-                    }
-
-                    Spacer(minLength: Theme.Spacing.xxl)
-
-                    VStack(spacing: Theme.Spacing.md) {
-                        PBButton(ctaLabel ?? t("onboarding.continue")) { finish(picked) }
-                        // Skipping is an onboarding idea. Reached from
-                        // Personalization, the way out is the back arrow.
-                        if ctaLabel == nil {
-                            PBButton(t("onboarding.skip"), variant: .tertiary) { finish([]) }
-                        }
-                    }
+        HStack(spacing: 10) {
+            ForEach(audiences, id: \.id) { option in
+                let selected = audience == option.id
+                RadioCard(selected: selected, centered: true, action: { audience = selected ? nil : option.id }) {
+                    Text(option.label)
+                        .font(.system(size: selected ? 15 : 16, weight: selected ? .medium : .regular))
+                        .foregroundStyle(selected ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
                 }
-                .padding(Theme.gutter)
-                .frame(maxWidth: .infinity, minHeight: proxy.size.height, alignment: .topLeading)
-            }
+                .accessibilityLabel(option.label)
             }
         }
-        .task {
-            // Fetch them again if boot did not get them. Once — a retry loop on
-            // an empty catalogue would hammer the API.
-            guard genres.isEmpty, !refreshed else { return }
-            refreshed = true
-            await store.refreshBootstrap()
+        .padding(.bottom, 44)
+
+        OnboardingTitle(t("onboarding.genres_title"), size: 22)
+            .padding(.bottom, Theme.Spacing.xl)
+
+        // Chip-shaped placeholders while the catalogue is still coming. An
+        // empty space under a heading that says "pick genres" reads as broken.
+        FlowLayout(spacing: Theme.Spacing.md) {
+            if genres.isEmpty {
+                ForEach(Array([96, 120, 104, 88, 112, 92].enumerated()), id: \.offset) { _, width in
+                    Skeleton(width: CGFloat(width), height: 38, radius: Theme.Radius.pill)
+                }
+            } else {
+                ForEach(genres) { genre in
+                    Chip(t.category(genre.id, fallback: genre.label), selected: picked.contains(genre.label)) {
+                        toggle(genre.label)
+                    }
+                }
+            }
         }
     }
 
@@ -257,11 +378,6 @@ struct TasteScreen: View {
             // Spec §6.2 — select 0 to 5.
             picked.append(genre)
         }
-    }
-
-    private func finish(_ tastes: [String]) {
-        store.setTastes(tastes)
-        onDone()
     }
 }
 
@@ -288,51 +404,71 @@ struct ShowcaseScreen: View {
 
     var body: some View {
         Screen {
-            GeometryReader { proxy in
-                // A card wide enough that the next one peeks in at the edge,
-                // which is what says "these swipe" without a hint or dots.
-                let cardWidth = min(proxy.size.width * 0.62, 260)
+            VStack(spacing: 0) {
+                HStack {
+                    Spacer(minLength: 0)
+                    Color.clear.frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
+                }
+                .padding(.horizontal, Theme.Spacing.sm)
+                .padding(.top, Theme.Spacing.xs)
 
-                VStack(alignment: .leading, spacing: 0) {
-                    VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                        Txt(t("onboarding.showcase_title"), .display)
-                        Txt(t("onboarding.showcase_body"), .body, color: Theme.Colors.textSecondary)
-                    }
-                    .padding(.horizontal, Theme.gutter)
-                    .padding(.top, Theme.Spacing.xxxl)
+                ProgressBar(fraction: 1)
+                    .padding(.horizontal, Theme.pageGutter)
+                    .padding(.top, Theme.Spacing.md)
+                    .accessibilityLabel(t("onboarding.step_a11y", ["step": onboardingSteps, "total": onboardingSteps]))
 
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(alignment: .top, spacing: Theme.Spacing.md) {
-                            ForEach(stories) { story in
-                                Button {
-                                    Haptic.play(.light)
-                                    onOpen(story.storyId)
-                                } label: {
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
-                                            .frame(width: cardWidth, height: cardWidth * 1.5)
-                                            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
-                                            .padding(.bottom, Theme.Spacing.md)
-                                        Txt(story.title, .h3, lineLimit: 2)
-                                        // i18n-exempt: the studio name; a brand is the same word in every language
-                                        Txt("Plotbreak", .caption, color: Theme.Colors.textMuted)
-                                    }
-                                    .frame(width: cardWidth, alignment: .leading)
-                                    .contentShape(Rectangle())
-                                }
-                                .buttonStyle(PressOpacityStyle(pressed: 0.85))
-                                .accessibilityLabel(t("onboarding.showcase_card_a11y", ["title": story.title]))
-                            }
+                GeometryReader { proxy in
+                    // A card wide enough that the next one peeks in at the edge,
+                    // which is what says "these swipe" without a hint or dots.
+                    let cardWidth = min(proxy.size.width * 0.62, 260)
+
+                    VStack(alignment: .leading, spacing: 0) {
+                        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                            OnboardingTitle(t("onboarding.showcase_title"))
+                            Text(t("onboarding.showcase_body"))
+                                .font(.system(size: 15))
+                                .foregroundStyle(Theme.Colors.textDim)
                         }
-                        .padding(.horizontal, Theme.gutter)
-                        .scrollTargetLayout()
-                    }
-                    .scrollTargetBehavior(.viewAligned)
-                    .frame(maxHeight: .infinity)
+                        .padding(.horizontal, Theme.pageGutter)
+                        .padding(.top, 44)
 
-                    PBButton(t("onboarding.see_all_stories"), variant: .secondary, action: onSeeAll)
-                        .padding(.horizontal, Theme.gutter)
-                        .padding(.bottom, Theme.Spacing.lg)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(alignment: .top, spacing: Theme.Spacing.md) {
+                                ForEach(stories) { story in
+                                    Button {
+                                        Haptic.play(.light)
+                                        onOpen(story.storyId)
+                                    } label: {
+                                        VStack(alignment: .leading, spacing: 2) {
+                                            StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
+                                                .frame(width: cardWidth, height: cardWidth * 1.5)
+                                                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
+                                                .overlay {
+                                                    RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous)
+                                                        .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
+                                                }
+                                                .padding(.bottom, Theme.Spacing.md)
+                                            Txt(story.title, .h3, lineLimit: 2)
+                                            Txt(story.fantasyLabel, .caption, color: Theme.Colors.textDim, lineLimit: 2)
+                                        }
+                                        .frame(width: cardWidth, alignment: .leading)
+                                        .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(PressOpacityStyle(pressed: 0.85))
+                                    .accessibilityLabel(t("onboarding.showcase_card_a11y", ["title": story.title]))
+                                }
+                            }
+                            .padding(.horizontal, Theme.pageGutter)
+                            .padding(.top, Theme.Spacing.xxl)
+                            .scrollTargetLayout()
+                        }
+                        .scrollTargetBehavior(.viewAligned)
+                        .frame(maxHeight: .infinity)
+
+                        PBButton(t("onboarding.see_all_stories"), variant: .light, size: .medium, action: onSeeAll)
+                            .padding(.horizontal, Theme.pageGutter)
+                            .padding(.bottom, Theme.Spacing.md)
+                    }
                 }
             }
         }

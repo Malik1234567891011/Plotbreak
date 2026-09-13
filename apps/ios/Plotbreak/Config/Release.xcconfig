@@ -5,4 +5,12 @@ PLOTBREAK_SUPABASE_URL = https:/$()/qscmokjkflkrspqjjooa.supabase.co
 PLOTBREAK_SUPABASE_ANON_KEY = 
 PLOTBREAK_LEGAL_BASE_URL = https:/$()/www.plotbreak.com
 
+// Google Sign-In: the iOS OAuth client id from Google Cloud, and the same id
+// reversed for the URL scheme it returns on. Example:
+//   PLOTBREAK_GOOGLE_CLIENT_ID = 1234-abcd.apps.googleusercontent.com
+//   PLOTBREAK_GOOGLE_URL_SCHEME = com.googleusercontent.apps.1234-abcd
+// Empty hides the Google button.
+PLOTBREAK_GOOGLE_CLIENT_ID = 564080718924-u51v214cbu96op08hnmfv8e3e70nss79.apps.googleusercontent.com
+PLOTBREAK_GOOGLE_URL_SCHEME = com.googleusercontent.apps.564080718924-u51v214cbu96op08hnmfv8e3e70nss79
+
 #include? "Local.xcconfig"

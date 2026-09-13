@@ -6,6 +6,10 @@ import SwiftUI
 // top, packs, restore, history, and an honest explanation of how credits work.
 // Spec §3.8: never fake scarcity or prices.
 
+private enum WalletTab: CaseIterable {
+    case packs, daily, how
+}
+
 struct WalletScreen: View {
     let shortfall: Int?
 
@@ -19,6 +23,7 @@ struct WalletScreen: View {
     @State private var ledgerCursor: String?
     @State private var ledgerLoading = false
     @State private var showHistory = false
+    @State private var tab: WalletTab = .packs
     /// `daily`, `restore`, or the product id being bought.
     @State private var busy: String?
     /// Which pack the player has picked, bought with one deliberate button.
@@ -33,12 +38,15 @@ struct WalletScreen: View {
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                HStack {
-                    Txt(t("wallet.title"), .h2)
-                    Spacer(minLength: 0)
-                    IconButton(t("wallet.close"), glyph: "✕") { router.dismissSheet() }
+                ScreenHeader(title: t("wallet.my_credits"), backLabel: t("wallet.close"), onBack: { router.dismissSheet() }) {
+                    IconButton(t("wallet.how_it_works"), action: { withAnimation { showHistory = false; tab = .how } }) {
+                        Image(systemName: "questionmark.circle")
+                            .font(.system(size: 20, weight: .regular))
+                            .foregroundStyle(Theme.Colors.textMuted)
+                    }
                 }
-                .padding(.horizontal, Theme.gutter)
+                .padding(.bottom, Theme.Spacing.xs)
+                .overlay(alignment: .bottom) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
 
                 // Pinned, not inline. Restore sits at the very bottom of a page
                 // taller than the screen, so a notice in the scroll flow is a
@@ -47,24 +55,34 @@ struct WalletScreen: View {
                     Card {
                         Txt(notice, .bodyCompact)
                     }
-                    .padding(.horizontal, Theme.gutter)
+                    .padding(.horizontal, Theme.pageGutter)
                     .padding(.top, Theme.Spacing.md)
                     .accessibilityAddTraits(.updatesFrequently)
                 }
 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
+                    VStack(alignment: .leading, spacing: 0) {
                         shortfallBanner
                         balance
                         daily
-                        packs
-                        PBDivider()
-                        history
-                        PBDivider()
-                        howItWorks
+                        if showHistory {
+                            history
+                        } else {
+                            tabs
+                            switch tab {
+                            case .packs: packs
+                            case .daily: dailyTab
+                            case .how: howItWorks
+                            }
+                        }
                     }
-                    .padding(Theme.gutter)
-                    .padding(.bottom, Theme.Spacing.giant)
+                    .padding(.horizontal, Theme.pageGutter)
+                    .padding(.top, Theme.Spacing.lg)
+                    .padding(.bottom, Theme.Spacing.xxl)
+                }
+
+                if !showHistory, tab == .packs {
+                    footer
                 }
             }
         }
@@ -93,45 +111,133 @@ struct WalletScreen: View {
                 RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
                     .strokeBorder(Theme.Colors.warning, lineWidth: 1)
             }
+            .padding(.bottom, Theme.Spacing.md)
         }
     }
 
+    /// Spec §26.10 — the wallet always shows the full number.
     @ViewBuilder
     private var balance: some View {
         if let wallet {
-            VStack(spacing: Theme.Spacing.xs) {
-                Txt(t("wallet.balance_label"), .micro, color: Theme.Colors.textMuted)
-                // Spec §26.10 — the wallet always shows the full number.
-                HStack(alignment: .firstTextBaseline, spacing: Theme.Spacing.sm) {
-                    Txt(Format.credits(wallet.balance, locale: store.locale), .display)
-                    Txt(t("wallet.credits_unit"), .body, color: Theme.Colors.textMuted)
+            HStack {
+                HStack(spacing: 10) {
+                    CreditGlyph(size: 24)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(Format.credits(wallet.balance, locale: store.locale))
+                            .font(.system(size: 22, weight: .semibold, design: .monospaced))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                        if wallet.reserved > 0 {
+                            Txt(t("wallet.reserved_held", ["count": wallet.reserved]), .micro, color: Theme.Colors.textMuted)
+                        }
+                    }
                 }
-                if wallet.reserved > 0 {
-                    Txt(t("wallet.reserved_held", ["count": wallet.reserved]), .caption, color: Theme.Colors.textMuted)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("\(Format.credits(wallet.balance, locale: store.locale)) \(t("wallet.credits_unit"))")
+                Spacer(minLength: Theme.Spacing.md)
+                Button {
+                    Haptic.play(.light)
+                    withAnimation(.easeOut(duration: Theme.Durations.short)) { showHistory.toggle() }
+                    if showHistory, ledger.isEmpty {
+                        Task { await loadLedger(reset: true) }
+                    }
+                } label: {
+                    Text(showHistory ? t("wallet.packs_title") : t("wallet.history_short"))
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 9)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous)
+                                .strokeBorder(Theme.Colors.borderStrong, lineWidth: 0.5)
+                        }
                 }
+                .buttonStyle(PressOpacityStyle())
+                .accessibilityLabel(showHistory ? t("wallet.packs_title") : t("wallet.history"))
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, Theme.Spacing.lg)
+            .padding(Theme.Spacing.xl)
+            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
+                    .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
+            }
         } else {
-            Skeleton(height: 100)
+            Skeleton(height: 84)
         }
     }
 
+    /// The daily claim, in the warning gold: a row that is the button.
     @ViewBuilder
     private var daily: some View {
         if wallet?.dailyClaimAvailable == true {
-            PBButton(t("wallet.claim_daily"), loadingLabel: t("wallet.claiming"), variant: .secondary, loading: busy == "daily") {
+            Button {
+                Haptic.play(.light)
                 Task { await claimDaily() }
+            } label: {
+                HStack {
+                    Text(busy == "daily" ? t("wallet.claiming") : t("wallet.claim_daily"))
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundStyle(Theme.Colors.warning)
+                        .multilineTextAlignment(.leading)
+                    Spacer(minLength: Theme.Spacing.md)
+                    if busy == "daily" {
+                        ProgressView().tint(Theme.Colors.warning)
+                    } else {
+                        ChevronGlyph(color: Theme.Colors.warning)
+                    }
+                }
+                .padding(.horizontal, Theme.Spacing.xl)
+                .padding(.vertical, 18)
+                .background(Theme.Colors.warning.opacity(0.1), in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
+                        .strokeBorder(Theme.Colors.warning.opacity(0.28), lineWidth: 0.5)
+                }
+                .contentShape(Rectangle())
             }
-        } else if let next = wallet?.nextDailyClaimAt {
-            Txt(t("wallet.next_daily", ["when": relativeTime(next)]), .caption, color: Theme.Colors.textMuted, center: true)
+            .buttonStyle(PressOpacityStyle())
+            .disabled(busy != nil)
+            .padding(.top, Theme.Spacing.md)
+        }
+    }
+
+    /// Credit packs · Daily · How it works, underlined like a segmented title.
+    private var tabs: some View {
+        HStack(spacing: 0) {
+            ForEach(WalletTab.allCases, id: \.self) { item in
+                let active = tab == item
+                Button {
+                    Haptic.play(.light)
+                    withAnimation(.easeOut(duration: Theme.Durations.short)) { tab = item }
+                } label: {
+                    Text(tabLabel(item))
+                        .font(.system(size: 15, weight: active ? .semibold : .regular))
+                        .foregroundStyle(active ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
+                        .frame(maxWidth: .infinity, minHeight: Theme.minTouchTarget)
+                        .overlay(alignment: .bottom) {
+                            Rectangle().fill(active ? Theme.Colors.textPrimary : Color.clear).frame(height: 2)
+                        }
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(PressOpacityStyle())
+                .accessibilityAddTraits(active ? [.isButton, .isSelected] : .isButton)
+            }
+        }
+        .overlay(alignment: .bottom) { PBDivider() }
+        .padding(.top, 26)
+    }
+
+    private func tabLabel(_ item: WalletTab) -> String {
+        switch item {
+        case .packs: return t("wallet.packs_title")
+        case .daily: return t("wallet.tab_daily")
+        case .how: return t("wallet.tab_how")
         }
     }
 
     private var packs: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Txt(t("wallet.packs_title"), .h3)
-
+        VStack(alignment: .leading, spacing: 9) {
             ForEach(offers) { offer in
                 OfferCard(
                     offer: offer,
@@ -153,93 +259,123 @@ struct WalletScreen: View {
                 ]))
             }
 
-            // One button, for the pack that is selected.
+            if offers.isEmpty {
+                ForEach(0..<3, id: \.self) { _ in Skeleton(height: 56, radius: Theme.Radius.field) }
+            }
+
+            if let storeUnavailable {
+                Txt(storeUnavailable, .micro, color: Theme.Colors.warning)
+                    .padding(.top, Theme.Spacing.sm)
+            } else if storePrices.isEmpty {
+                Txt(t("wallet.reference_prices_note"), .micro, color: Theme.Colors.textMuted)
+                    .padding(.top, Theme.Spacing.sm)
+            } else {
+                Txt(t("wallet.price_confirmed_note"), .micro, color: Theme.Colors.textMuted)
+                    .padding(.top, Theme.Spacing.sm)
+            }
+        }
+        .padding(.top, 18)
+    }
+
+    /// Pinned under the packs: one button, for the pack that is selected, and
+    /// the restore link. Spec §20.6 — restore is required, and the only way
+    /// back from a charge whose reconciliation did not land.
+    private var footer: some View {
+        VStack(spacing: 11) {
             PBButton(
                 t("wallet.buy_now"),
                 loadingLabel: t("wallet.claiming"),
-                loading: busy != nil && busy != "daily",
+                variant: .light,
+                loading: busy != nil && busy != "daily" && busy != "restore",
                 disabled: selected == nil || busy != nil
             ) {
                 if let offer = offers.first(where: { $0.productId == selected }) {
                     Task { await purchase(offer) }
                 }
             }
-
-            if let storeUnavailable {
-                Txt(storeUnavailable, .micro, color: Theme.Colors.warning)
-            } else if storePrices.isEmpty {
-                Txt(t("wallet.reference_prices_note"), .micro, color: Theme.Colors.textMuted)
-            } else {
-                Txt(t("wallet.price_confirmed_note"), .micro, color: Theme.Colors.textMuted)
-            }
-
-            // Spec §20.6 — required, and the only way back from a charge whose
-            // reconciliation did not land.
-            PBButton(
-                t("wallet.restore"),
-                loadingLabel: t("wallet.restore_loading"),
-                variant: .tertiary,
-                loading: busy == "restore",
-                disabled: busy != nil && busy != "restore"
-            ) {
-                Task { await restore() }
+            HStack(spacing: Theme.Spacing.sm) {
+                Button {
+                    Task { await restore() }
+                } label: {
+                    Text(busy == "restore" ? t("wallet.restore_loading") : t("wallet.restore"))
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .frame(minHeight: Theme.minTouchTarget - 16)
+                }
+                .buttonStyle(PressOpacityStyle())
+                .disabled(busy != nil)
+                Text("·").foregroundStyle(Theme.Colors.borderStrong)
+                Text(t("wallet.no_expiry"))
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
             }
         }
+        .padding(.horizontal, Theme.pageGutter)
+        .padding(.top, 14)
+        .padding(.bottom, Theme.Spacing.sm)
+        .background(Theme.Colors.bgBase)
+        .overlay(alignment: .top) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
+    }
+
+    /// The daily grant: when the next one comes, and what it is.
+    private var dailyTab: some View {
+        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+            if wallet?.dailyClaimAvailable == true {
+                Txt(t("wallet.daily_ready_body"), .bodyCompact, color: Theme.Colors.textSecondary)
+            } else if let next = wallet?.nextDailyClaimAt {
+                Txt(t("wallet.next_daily", ["when": relativeTime(next)]), .bodyStrong)
+                Txt(t("wallet.daily_body"), .bodyCompact, color: Theme.Colors.textSecondary)
+            } else {
+                Txt(t("wallet.daily_sign_in"), .bodyCompact, color: Theme.Colors.textSecondary)
+                if store.isGuest {
+                    PBButton(t("profile.sign_in"), variant: .light) { router.present(.signIn) }
+                        .padding(.top, Theme.Spacing.sm)
+                }
+            }
+        }
+        .padding(.top, 18)
     }
 
     private var history: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Button {
-                showHistory.toggle()
-                if showHistory, ledger.isEmpty {
-                    Task { await loadLedger(reset: true) }
-                }
-            } label: {
-                HStack {
-                    Txt(t("wallet.history"), .h3)
-                    Spacer(minLength: 0)
-                    Txt(showHistory ? "−" : "+", .body, color: Theme.Colors.textMuted)
-                }
-                .contentShape(Rectangle())
+            Txt(t("wallet.history"), .h3)
+                .padding(.top, 26)
+            if ledger.isEmpty, !ledgerLoading {
+                Txt(t("wallet.history_empty"), .bodyCompact, color: Theme.Colors.textMuted)
             }
-            .buttonStyle(PressOpacityStyle())
-            .accessibilityAddTraits(.isButton)
-
-            if showHistory {
-                ForEach(ledger) { entry in
-                    HStack(alignment: .top) {
-                        VStack(alignment: .leading, spacing: 0) {
-                            Txt(ledgerLabel(entry.type), .bodyCompact)
-                            Txt(dateTime(entry.createdAt), .micro, color: Theme.Colors.textMuted)
-                        }
-                        Spacer(minLength: Theme.Spacing.md)
-                        Txt(
-                            "\(entry.amount > 0 ? "+" : "")\(entry.amount)",
-                            .bodyCompact,
-                            color: entry.amount >= 0 ? Theme.Colors.success : Theme.Colors.textSecondary
-                        )
+            ForEach(ledger) { entry in
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Txt(ledgerLabel(entry.type), .bodyCompact)
+                        Txt(dateTime(entry.createdAt), .micro, color: Theme.Colors.textMuted)
                     }
-                    .onAppear {
-                        // Cursor pagination: the last row in view asks for the next page.
-                        if entry.id == ledger.last?.id, ledgerCursor != nil {
-                            Task { await loadLedger(reset: false) }
-                        }
+                    Spacer(minLength: Theme.Spacing.md)
+                    Text("\(entry.amount > 0 ? "+" : "")\(Format.number(entry.amount, locale: store.locale))")
+                        .font(.system(size: 15, weight: .medium, design: .monospaced))
+                        .foregroundStyle(entry.amount >= 0 ? Theme.Colors.success : Theme.Colors.textSecondary)
+                }
+                .padding(.vertical, Theme.Spacing.sm)
+                .overlay(alignment: .bottom) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
+                .onAppear {
+                    // Cursor pagination: the last row in view asks for the next page.
+                    if entry.id == ledger.last?.id, ledgerCursor != nil {
+                        Task { await loadLedger(reset: false) }
                     }
                 }
-                if ledgerLoading {
-                    ProgressView().tint(Theme.Colors.textMuted).frame(maxWidth: .infinity)
-                }
+            }
+            if ledgerLoading {
+                ProgressView().tint(Theme.Colors.textMuted).frame(maxWidth: .infinity)
             }
         }
     }
 
     private var howItWorks: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-            Txt(t("wallet.how_it_works"), .h3)
+        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
             Txt(t("wallet.how_it_works_richer"), .bodyCompact, color: Theme.Colors.textSecondary)
             Txt(t("wallet.how_it_works_fair"), .bodyCompact, color: Theme.Colors.textSecondary)
             Txt(t("wallet.how_it_works_refund"), .bodyCompact, color: Theme.Colors.textSecondary)
         }
+        .padding(.top, 18)
     }
 
     // MARK: Loading
@@ -435,7 +571,8 @@ struct WalletScreen: View {
 
 // MARK: - Offer card
 
-/// One credit pack. Selecting is its own gesture; spending is the button below.
+/// One credit pack: a radio dot, the credits, the bonus under it, a badge and
+/// the price. Selecting is its own gesture; spending is the button below.
 private struct OfferCard: View {
     let offer: StoreOffer
     let price: String
@@ -448,66 +585,38 @@ private struct OfferCard: View {
 
     @Environment(\.translator) private var t
 
-    private var borderColor: Color {
-        selected || offer.firstPurchaseOnly ? Theme.Colors.accentPrimary : Theme.Colors.borderSubtle
-    }
-
     var body: some View {
-        Button {
-            Haptic.play(.light)
-            action()
-        } label: {
-            Card {
-                HStack(alignment: .top) {
-                    HStack(alignment: .top, spacing: Theme.Spacing.md) {
-                        RadioDot(selected: selected)
-                        VStack(alignment: .leading, spacing: 2) {
-                            HStack(spacing: Theme.Spacing.sm) {
-                                Txt(Format.credits(offer.credits, locale: locale), .bodyStrong)
-                                if offer.bonusCredits > 0 {
-                                    Txt(t("wallet.bonus_badge", ["bonus": Format.credits(offer.bonusCredits, locale: locale)]),
-                                        .caption, color: Theme.Colors.success)
-                                }
-                            }
-                            if let badge {
-                                Chip(badge, tone: .accent)
-                            }
-                            if let ends {
-                                Txt(ends, .micro, color: Theme.Colors.warning)
-                            }
-                        }
-                    }
-                    Spacer(minLength: Theme.Spacing.md)
-                    // The store's own localised price once it has answered.
-                    Txt(price, .bodyStrong, color: Theme.Colors.accentPrimary)
+        RadioCard(selected: selected, accent: Theme.Colors.textPrimary, action: action) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(t("wallet.credits_count", ["credits": Format.credits(offer.credits, locale: locale)]))
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                if offer.bonusCredits > 0 {
+                    Text(t("wallet.bonus_badge", ["bonus": Format.credits(offer.bonusCredits, locale: locale)]))
+                        .font(.system(size: 12))
+                        .foregroundStyle(Theme.Colors.textDim)
+                }
+                if let ends {
+                    Txt(ends, .micro, color: Theme.Colors.warning)
                 }
             }
-            .overlay {
-                RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
-                    .strokeBorder(borderColor, lineWidth: selected ? 2 : 1)
-            }
-            .opacity(dimmed ? 0.5 : 1)
-        }
-        .buttonStyle(PressOpacityStyle(pressed: 0.8))
-        .accessibilityAddTraits(selected ? [.isButton, .isSelected] : .isButton)
-    }
-}
-
-/// The selection dot on a credit pack. Two circles, matching the ring in
-/// Discover's search icon rather than introducing an icon set for one glyph.
-private struct RadioDot: View {
-    let selected: Bool
-
-    var body: some View {
-        ZStack {
-            Circle()
-                .strokeBorder(selected ? Theme.Colors.accentPrimary : Theme.Colors.borderSubtle, lineWidth: 2)
-                .frame(width: 22, height: 22)
-            if selected {
-                Circle().fill(Theme.Colors.accentPrimary).frame(width: 10, height: 10)
+            Spacer(minLength: Theme.Spacing.sm)
+            HStack(spacing: 9) {
+                if let badge {
+                    Text(badge.uppercased())
+                        .font(.system(size: 10, weight: .semibold, design: .monospaced))
+                        .kerning(0.6)
+                        .foregroundStyle(Theme.Colors.textOnAccent)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 4)
+                        .background(Theme.Colors.accentPrimary, in: RoundedRectangle(cornerRadius: 5, style: .continuous))
+                }
+                // The store's own localised price once it has answered.
+                Text(price)
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundStyle(Theme.Colors.textPrimary)
             }
         }
-        .padding(.top, 2)
-        .accessibilityHidden(true)
+        .opacity(dimmed ? 0.5 : 1)
     }
 }
