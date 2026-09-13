@@ -15,4 +15,5 @@ export * from './model-stages.js';
 export * from './custom-build-stage.js';
 export { findAbsenceOfPresent, findPresenceOfAbsent, findUnlicensedTravel } from './present-absence.js';
 export { runTurnPure } from './pure/runtime.js';
-export { narratePure, PURE_CONSTITUTION } from './pure/narrator.js';
+export { narratePure, PURE_CONSTITUTION, renderBeat, worldBrief, type RenderedTurn, type PureTurn } from './pure/narrator.js';
+export { formatStoryTime, minutesFor, transitionLabel, isSkip, DEFAULT_BEAT_MINUTES, type TimeAdvance, type TimeUnit } from './pure/clock.js';

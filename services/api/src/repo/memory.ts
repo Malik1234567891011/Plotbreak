@@ -20,6 +20,7 @@ import type {
   StorySignals,
   UserBadgeRow,
   UserRecord,
+  PureMessage,
 } from './types.js';
 import { AUTO_HIDE_REPORTS } from './types.js';
 
@@ -46,6 +47,7 @@ export class MemoryRepository implements Repository {
   readonly #snapshots = new Map<string, Map<number, GameState>>();
   readonly #turns = new Map<string, TurnRecord[]>();
   readonly #turnsById = new Map<string, TurnRecord>();
+  readonly #pureMessages = new Map<string, PureMessage[]>();
   readonly #events = new Map<string, GameEvent[]>();
   readonly #memories = new Map<string, MemoryFact[]>();
   readonly #ledger = new Map<string, LedgerEntry[]>();
@@ -439,6 +441,20 @@ export class MemoryRepository implements Repository {
 
   async listTurns(sessionId: string): Promise<TurnRecord[]> {
     return [...(this.#turns.get(sessionId) ?? [])];
+  }
+
+  async appendPureMessage(sessionId: string, turnIndex: number, message: PureMessage): Promise<void> {
+    const list = this.#pureMessages.get(sessionId) ?? [];
+    if (list[turnIndex]) return;
+    list[turnIndex] = message;
+    this.#pureMessages.set(sessionId, list);
+  }
+
+  async listPureMessages(sessionId: string): Promise<PureMessage[]> {
+    // Holes would mean a turn was persisted without its message, which should
+    // not happen; dropping them keeps the replay contiguous rather than sending
+    // `undefined` into a prompt.
+    return [...(this.#pureMessages.get(sessionId) ?? [])].filter(Boolean);
   }
 
   async appendEvents(events: readonly GameEvent[]): Promise<void> {

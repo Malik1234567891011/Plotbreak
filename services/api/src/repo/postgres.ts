@@ -21,6 +21,7 @@ import type {
   StorySignals,
   UserBadgeRow,
   UserRecord,
+  PureMessage,
 } from './types.js';
 import { EMPTY_SIGNALS, AUTO_HIDE_REPORTS } from './types.js';
 
@@ -972,6 +973,27 @@ export class PostgresRepository implements Repository {
       [sessionId],
     );
     return rows.map(toTurnRecord);
+  }
+
+  async appendPureMessage(sessionId: string, turnIndex: number, message: PureMessage): Promise<void> {
+    // DO NOTHING rather than DO UPDATE. A retry must not rewrite a message the
+    // model has already been shown, because that is exactly what breaks the
+    // cached prefix for every remaining turn of the session.
+    await this.#pool.query(
+      `INSERT INTO pure_conversation (session_id, turn_index, user_text, assistant_text)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (session_id, turn_index) DO NOTHING`,
+      [sessionId, turnIndex, message.user, message.assistant],
+    );
+  }
+
+  async listPureMessages(sessionId: string): Promise<PureMessage[]> {
+    const { rows } = await this.#pool.query<{ user_text: string; assistant_text: string }>(
+      `SELECT user_text, assistant_text FROM pure_conversation
+       WHERE session_id = $1 ORDER BY turn_index ASC`,
+      [sessionId],
+    );
+    return rows.map((row) => ({ user: row.user_text, assistant: row.assistant_text }));
   }
 
   async appendEvents(events: readonly GameEvent[]): Promise<void> {

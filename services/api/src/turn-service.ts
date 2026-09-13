@@ -3,6 +3,7 @@ import { QUALITY_TIERS } from '@plotbreak/contracts';
 import { charactersPresent, dayPart, deriveTurnSeed, outcomeLabel, formatCheckMath, dcBandLabel } from '@plotbreak/engine';
 import { runTurn, runTurnPure } from '@plotbreak/director';
 import type { AppContext } from './context.js';
+import { reactionAssetKey } from '@plotbreak/contracts';
 import { resolveAssetUrl, toSceneState } from './projections.js';
 import type { SessionRecord, UserRecord } from './repo/types.js';
 import { InsufficientCreditsError, type Reservation } from './wallet.js';
@@ -201,19 +202,28 @@ async function processTurn(
       .catch(() => undefined);
 
     const seed = deriveTurnSeed(session.sessionSeed, state.turnIndex, session.branchKey);
-    // LLM_PURE — the experimental narrative runtime.
+    // The narrative runtime.
     //
-    // One frontier model reads the world, the full player-visible history and
-    // the player's words verbatim, and writes the turn. No parser, no resolver,
-    // no director, no checks, no state deltas. Off unless asked for, so the
-    // production path is byte-identical without the flag.
-    if (process.env.PLOTBREAK_NARRATIVE === 'llm_pure' && ctx.modelGateway) {
-      const priorTurns = await ctx.repo.listTurns(session.sessionId);
+    // One frontier model reads the world, the conversation so far and the
+    // player's words verbatim, and writes the turn. No parser, no resolver, no
+    // director, no checks, no state deltas — measured against all of them and
+    // better without. `PLOTBREAK_NARRATIVE=engine` still reaches the old
+    // pipeline below for debugging; nothing in production sets it.
+    if (process.env.PLOTBREAK_NARRATIVE !== 'engine' && ctx.modelGateway) {
+      // The conversation exactly as it was sent, not re-rendered from `turns`.
+      // Byte-identical replay is the whole of the cache saving: a reformatted
+      // historical message costs every cached token for the rest of the session.
+      const priorMessages = await ctx.repo.listPureMessages(session.sessionId);
       const pure = await runTurnPure({
         gateway: ctx.modelGateway,
         story,
         state,
-        recentTurns: priorTurns,
+        recentTurns: [],
+        rendered: priorMessages,
+        shape: 'append',
+        api: 'responses',
+        cacheRetention: '24h',
+        cacheKey: `pb:${session.sessionId}`,
         actionText,
         turnId,
       });
@@ -245,8 +255,25 @@ async function processTurn(
         beatPlan: null,
       } as TurnRecord;
       await ctx.repo.appendTurn(pureRecord);
+      await ctx.repo.appendPureMessage(session.sessionId, pure.state.turnIndex, pure.rendered);
       await ctx.wallet.finalize(reservation);
       const balancePure = await ctx.wallet.getBalance(user.userId);
+
+      // Pre-generated art only. This selects one of the expressions already
+      // rendered for this character and resolves it to a CDN url; it never
+      // enqueues a media job and never reaches an image provider. If the asset
+      // does not exist the client simply shows no reaction.
+      if (pure.reaction) {
+        const who = story.characters.find((c) => c.id === pure.reaction!.characterId);
+        if (who) {
+          hub.emit(turnId, 'reaction.ready', {
+            characterId: who.id,
+            name: who.name,
+            emotion: pure.reaction.emotion,
+            url: resolveAssetUrl(reactionAssetKey(story.storyId, who.id, pure.reaction.emotion), story.version),
+          });
+        }
+      }
 
       for (const [index, block] of pure.blocks.entries()) {
         hub.emit(turnId, 'text.stream', { index, speakerId: block.speakerId, text: block.text });
@@ -264,6 +291,7 @@ async function processTurn(
           blocks: pure.blocks,
           sceneSummary: pure.sceneSummary,
           endStatePrompt: pure.endStatePrompt,
+          transition: pure.transition,
           suggestions: pure.suggestions,
           creditsCharged: reservation.amount,
           balance: balancePure,

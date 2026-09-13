@@ -25,6 +25,10 @@ export interface PureTurnResult {
   readonly blocks: Array<{ type: string; speakerId: string | null; text: string; visibility: string; voiceEligible: boolean }>;
   readonly sceneSummary: string;
   readonly endStatePrompt: string;
+  /** Shown above the beat when the story jumped. Null when the scene continued. */
+  readonly transition: string | null;
+  /** Which pre-generated expression to show, if any. Never triggers generation. */
+  readonly reaction: { readonly characterId: string; readonly emotion: string } | null;
   readonly suggestions: Array<{ text: string; intentHint: string; resourceCostLabel: null }>;
   readonly state: GameState;
   readonly telemetry: { promptChars: number; historyTurns: number; ms: number };
@@ -60,7 +64,8 @@ export async function runTurnPure(options: {
   const started = Date.now();
   const { gateway, story, state, recentTurns, actionText, turnId } = options;
 
-  const { turn, promptChars, historyTurns, invocation, rendered } = await narratePure({
+  const { turn, promptChars, historyTurns, invocation, rendered, nextWorldMinute, timeLabel, transition } =
+    await narratePure({
     gateway, story, state, recentTurns, actionText,
     // One cache per session: every turn of a session shares the whole prefix.
     cacheKey:
@@ -106,9 +111,11 @@ export async function runTurnPure(options: {
       }
       return c;
     }),
-    // Time moves because the story says it did; there is no clock arithmetic
-    // here and the header shows the model's own phrase.
-    worldMinute: state.worldMinute + 6,
+    // Time moves because the story says it did — by the amount it says, not by
+    // a flat six minutes a turn. The prose used to pass into morning while the
+    // header still read "Day 1 · 5:34 PM"; the model now reports the jump it
+    // narrated and the clock applies it.
+    worldMinute: nextWorldMinute,
     turnIndex: state.turnIndex + 1,
     revision: state.revision + 1,
   } as GameState;
@@ -116,7 +123,14 @@ export async function runTurnPure(options: {
   return {
     blocks,
     sceneSummary: turn.sceneSummary,
-    endStatePrompt: turn.timeDisplay,
+    endStatePrompt: timeLabel,
+    transition,
+    // Only for somebody actually in the cast and actually in the scene: a face
+    // belonging to a character who just left would be worse than no face.
+    reaction:
+      turn.reaction && castIds.has(turn.reaction.characterId) && present.has(turn.reaction.characterId)
+        ? { characterId: turn.reaction.characterId, emotion: turn.reaction.emotion }
+        : null,
     suggestions: turn.suggestedResponses.map((text) => ({
       text,
       intentHint: 'freeform',

@@ -1,3 +1,9 @@
+/** One turn of the model conversation, exactly as it went over the wire. */
+export interface PureMessage {
+  readonly user: string;
+  readonly assistant: string;
+}
+
 import type {
   GameEvent,
   NarrativeTurn,
@@ -260,6 +266,16 @@ export interface Repository {
   ): Promise<void>;
   getTurn(turnId: string): Promise<TurnRecord | null>;
   listTurns(sessionId: string): Promise<TurnRecord[]>;
+
+  // --- The model conversation, stored verbatim ---
+  /**
+   * What was actually sent for one turn. Append-only and never updated: a
+   * rewritten historical message invalidates the prompt cache for the whole
+   * session from that point on.
+   */
+  appendPureMessage(sessionId: string, turnIndex: number, message: PureMessage): Promise<void>;
+  /** The whole conversation for a session, oldest first. */
+  listPureMessages(sessionId: string): Promise<PureMessage[]>;
   appendEvents(events: readonly GameEvent[]): Promise<void>;
   listEvents(sessionId: string): Promise<GameEvent[]>;
 

@@ -74,6 +74,15 @@ export class OpenAiImageGateway implements MediaGateway {
   }
 
   async generateImage(spec: ImagePromptSpec): Promise<GeneratedAsset> {
+    // A tripwire, not a feature flag. Standard turns must never reach a paid
+    // image provider — art on a normal turn is selected from what already
+    // exists — so a test run can set this and find out loudly rather than
+    // discovering it on the bill.
+    if (process.env.PLOTBREAK_NO_IMAGE_GEN) {
+      throw new Error(
+        `Dynamic image generation was called with PLOTBREAK_NO_IMAGE_GEN set (${spec.kind ?? 'image'}). Standard turns must use pre-generated art.`,
+      );
+    }
     const started = Date.now();
     const model = this.#config.model ?? 'gpt-image-2';
     const { size, width, height } = SIZES[spec.aspect];

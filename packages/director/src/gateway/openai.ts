@@ -40,7 +40,9 @@ const DEFAULT_MODELS: Record<ModelRole, string> = {
   director_premium: 'gpt-4.1',
   writer_fast: 'gpt-4.1-mini',
   writer_standard: 'gpt-4.1',
-  writer_premium: 'gpt-4.1',
+  // The relaunch storyteller. Everything else stays where it was: these roles
+  // are the old pipeline's, which is no longer the production path.
+  writer_premium: 'gpt-5.6-terra',
   validator_fast: 'gpt-4.1-mini',
   moderation: 'omni-moderation-latest',
   embeddings: 'text-embedding-3-small',
@@ -48,6 +50,7 @@ const DEFAULT_MODELS: Record<ModelRole, string> = {
 
 /** USD per million tokens, for the cost telemetry the spec requires (§20.12). */
 const PRICING: Record<string, { input: number; output: number }> = {
+  'gpt-5.6-terra': { input: 1.25, output: 10 },
   'gpt-4.1': { input: 2, output: 8 },
   'gpt-4.1-mini': { input: 0.4, output: 1.6 },
   'text-embedding-3-small': { input: 0.02, output: 0 },
