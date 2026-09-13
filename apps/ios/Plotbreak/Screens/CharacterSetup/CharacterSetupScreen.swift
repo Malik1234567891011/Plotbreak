@@ -52,6 +52,8 @@ struct CharacterSetupScreen: View {
     @State private var about = ""
     @State private var appearance = ""
     @State private var archetypeId: String?
+    /// When this player arrived at setup, for `session_started.setupDurationMs`.
+    @State private var setupStartedAt = Date()
     @State private var customArchetype = ""
     @State private var choices: [String: String] = [:]
     @State private var customChoices: [String: String] = [:]
@@ -128,6 +130,10 @@ struct CharacterSetupScreen: View {
             }
         }
         .task(id: storyId) {
+            // §9.1's 90-second target is only measurable if the clock starts
+            // where setup does.
+            setupStartedAt = Date()
+            Telemetry.track(.characterSetupStarted, ["storyId": storyId])
             detail = try? await store.api.storyDetail(storyId)
         }
     }
@@ -433,9 +439,29 @@ struct CharacterSetupScreen: View {
 
         do {
             let session = try await store.api.createSession(storyId: storyId, request)
+            // §37.1 — emitted here rather than server-side because the two
+            // properties that make it useful are measured on this clock: how
+            // long setup took, and whether the player used the quick path.
+            // The server never sees when setup began.
+            Telemetry.track(.sessionStarted, sessionId: session.session.sessionId, [
+                "storyId": storyId,
+                "storyVersionId": session.session.storyVersionId,
+                "archetypeId": identity.archetypeId ?? NSNull(),
+                "usedQuickSetup": !advanced,
+                "setupDurationMs": Int(Date().timeIntervalSince(setupStartedAt) * 1000),
+            ])
             router.replaceTopWithSession(session.session.sessionId)
         } catch {
             if let api = error as? APIError, api.isInsufficientCredits {
+                // §37.3 — the paywall moment, recorded where the player meets
+                // it. The server returned 402 and knows the numbers, but only
+                // the client knows the sheet was actually put in front of them.
+                Telemetry.track(.insufficientCreditsShown, [
+                    "required": api.requiredCredits ?? 0,
+                    "balance": api.balanceCredits ?? 0,
+                    "shortfall": api.shortfall ?? 0,
+                    "qualityTier": "SESSION_START",
+                ])
                 router.present(.wallet(shortfall: api.shortfall))
             }
             self.error = error is APIError ? error.playerMessage : t("setup.could_not_start")

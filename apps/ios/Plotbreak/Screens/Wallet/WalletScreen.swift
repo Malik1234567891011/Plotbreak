@@ -92,6 +92,15 @@ struct WalletScreen: View {
             store.purchases.connect()
             store.purchases.translator = t
             await load()
+            // §37.3 — after the balance is loaded, so the number reported is
+            // the one the player is looking at. `trigger` is what sent them
+            // here: a shortfall means the paywall pushed them, anything else
+            // means they came of their own accord, and those convert nothing
+            // alike.
+            Telemetry.track(.walletOpened, [
+                "balance": store.wallet?.balance ?? 0,
+                "trigger": shortfall == nil ? "browse" : "shortfall",
+            ])
         }
     }
 
@@ -422,6 +431,15 @@ struct WalletScreen: View {
     private func purchase(_ offer: StoreOffer) async {
         busy = offer.productId
         setNotice(nil)
+
+        // §37.3 — before StoreKit takes over. `purchase_completed` is the
+        // server's, emitted only once the store has been verified; this one is
+        // the denominator, and counts the sheet being opened at all. The gap
+        // between them is how many players change their mind at Apple's prompt.
+        Telemetry.track(.purchaseStarted, [
+            "productId": offer.productId,
+            "firstPurchase": store.wallet?.firstPurchaseOfferExpiresAt != nil,
+        ])
 
         let outcome = await store.purchases.buy(offer.productId)
 

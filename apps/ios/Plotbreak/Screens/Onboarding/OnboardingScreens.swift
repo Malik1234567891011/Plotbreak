@@ -101,6 +101,11 @@ struct BirthDateScreen: View {
                 Task {
                     await store.confirmAge(birthDate: birthDate)
                     confirming = false
+                    // §37.1 — the band, never the date. An age band answers
+                    // every product question a birthday would, and a birthday
+                    // is personal data we have no reason to hand a vendor
+                    // (§30.2).
+                    Telemetry.track(.ageGateCompleted, ["ageBand": AppStore.ageBand(birthDate: birthDate)])
                 }
             }
         }
@@ -306,6 +311,7 @@ struct AudienceGenresScreen: View {
     private func finish(skip: Bool) {
         let tastes = skip ? [] : picked
         let chosen = skip ? nil : audience
+        Telemetry.track(.tasteCalibrationCompleted, ["genreCount": tastes.count, "skipped": skip])
         store.setTastes(tastes)
         Task { await store.setAudience(chosen) }
         onDone()

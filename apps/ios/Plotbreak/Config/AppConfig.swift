@@ -29,6 +29,27 @@ enum AppConfig {
     /// The numeric App Store id, without the `id` prefix.
     static let appleAppID: String? = plist("PLOTBREAK_APPLE_APP_ID")
 
+    /// PostHog product analytics (§37). Nil disables the SDK, which is the
+    /// default for Debug: a developer's own taps should not land in the same
+    /// funnel the launch targets are measured against.
+    static let postHogKey: String? = plist("PLOTBREAK_POSTHOG_KEY")
+    static let postHogHost: String = plist("PLOTBREAK_POSTHOG_HOST") ?? "https://us.i.posthog.com"
+
+    /// This install, as an id.
+    ///
+    /// Per §37 it is per-install and not per-person: it lives in UserDefaults
+    /// rather than the Keychain precisely so a reinstall produces a new one.
+    /// The same value goes out on `x-device-id`, which is what lets an event
+    /// the server emitted and an event the app emitted land on one person
+    /// before there is an account to join them by.
+    static let deviceId: String = {
+        let key = "plotbreak.deviceId"
+        if let existing = UserDefaults.standard.string(forKey: key) { return existing }
+        let fresh = UUID().uuidString
+        UserDefaults.standard.set(fresh, forKey: key)
+        return fresh
+    }()
+
     static let appVersion: String = plist("CFBundleShortVersionString") ?? "1.0.0"
 
     static var authConfigured: Bool { supabaseURL != nil && supabaseAnonKey != nil }

@@ -1,5 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { CONTRACT_VERSION } from '@plotbreak/contracts';
+import { createSinkFromEnv, type AnalyticsSink } from '@plotbreak/analytics';
 import type { ModelGateway } from '@plotbreak/director';
 import { createGatewayFromEnv, createModerator, ModelDirector, ModelIntentParser, ModelWriter, createDefaultPipeline, type Moderator, type TurnPipelineDeps } from '@plotbreak/director';
 import { createMediaGatewayFromEnv } from '@plotbreak/director';
@@ -107,6 +108,14 @@ export interface AppContext {
    * money on every call, so this is a cost control before it is anything else.
    */
   readonly rateLimiter: RateLimiter;
+  /**
+   * Spec §37 — where product events go. PostHog when POSTHOG_KEY names a
+   * project, the console in development, silence under test.
+   *
+   * Held as the sink rather than as an `Analytics`, because the base properties
+   * are per-request: `services/api/src/analytics.ts` binds one to the caller.
+   */
+  readonly analytics: AnalyticsSink;
 }
 
 /**
@@ -196,6 +205,7 @@ export function createAppContext(overrides: Partial<AppContext> = {}): AppContex
     auth: overrides.auth ?? createTokenVerifierFromEnv(config),
     moderator: overrides.moderator ?? createModerator(gateway),
     rateLimiter: overrides.rateLimiter ?? new SlidingWindowRateLimiter(),
+    analytics: overrides.analytics ?? createSinkFromEnv(),
   };
 }
 

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PostHogSink } from './posthog.js';
 
 /**
  * Spec §37 — the analytics contract.
@@ -196,6 +197,15 @@ export interface AnalyticsEvent<K extends EventName = EventName> {
 export interface AnalyticsSink {
   capture<K extends EventName>(event: AnalyticsEvent<K>): void;
   flush(): Promise<void>;
+  /**
+   * Spec §6.5 — declare that a guest and an account are the same person.
+   *
+   * Optional because only a real vendor can merge identities; the console and
+   * noop sinks have nothing to merge. Callers reach it as `sink.aliasGuest?.()`.
+   */
+  aliasGuest?(guestId: string, userId: string): void;
+  /** Drain and stop. Optional for the same reason. */
+  shutdown?(timeoutMs?: number): Promise<void>;
 }
 
 export class NoopSink implements AnalyticsSink {
@@ -302,4 +312,54 @@ export const COST_CEILINGS_USD = {
 
 export function isTurnOverBudget(qualityTier: keyof typeof COST_CEILINGS_USD, costUsd: number): boolean {
   return costUsd > COST_CEILINGS_USD[qualityTier];
+}
+
+export { PostHogSink } from './posthog.js';
+export type { PostHogSinkOptions } from './posthog.js';
+
+/**
+ * Who an event is about, minus the clock.
+ *
+ * Split out from `BaseProperties` because `occurredAt` is the one field a
+ * caller must never supply: an event stamped by the code that emits it is
+ * stamped when it happened, and an event stamped by the caller is stamped
+ * whenever they remembered to.
+ */
+export type EventSource = Omit<BaseProperties, 'occurredAt' | 'sessionId'> & {
+  readonly sessionId?: string | null;
+};
+
+/**
+ * An emitter bound to one player, one device and one request.
+ *
+ * Server routes build one of these per request rather than holding a global
+ * `Analytics`, because the base properties are per-caller: the platform and app
+ * version come off the request headers, and the user comes off the token.
+ */
+export function analyticsFor(sink: AnalyticsSink, source: EventSource): Analytics {
+  return new Analytics(sink, () => ({
+    anonymousId: source.anonymousId,
+    userId: source.userId,
+    isGuest: source.isGuest,
+    sessionId: source.sessionId ?? null,
+    platform: source.platform,
+    appVersion: source.appVersion,
+    contractVersion: source.contractVersion,
+    environment: source.environment,
+    occurredAt: new Date().toISOString(),
+  }));
+}
+
+/**
+ * The sink this process should use, decided by the environment.
+ *
+ * No `POSTHOG_KEY` means no PostHog — which is a supported mode, not a broken
+ * one. Development prints the funnel to the console so a developer can see the
+ * events they are about to ship without a vendor account, and tests get silence
+ * so a suite never opens a socket to an analytics vendor.
+ */
+export function createSinkFromEnv(env: NodeJS.ProcessEnv = process.env): AnalyticsSink {
+  const apiKey = env.POSTHOG_KEY;
+  if (!apiKey) return env.NODE_ENV === 'test' ? new NoopSink() : new ConsoleSink();
+  return new PostHogSink({ apiKey, host: env.POSTHOG_HOST });
 }

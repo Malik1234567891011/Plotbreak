@@ -45,7 +45,12 @@ enum SheetRoute: Identifiable, Hashable {
     case signIn
     case create
     /// SH-01 — everything the card needs is passed in, so it composes offline.
-    case share(storyTitle: String, actionText: String?, sceneText: String, heroImageUrl: String?, displayName: String?)
+    /// `storyId` is optional because the world-sheet timeline can share a
+    /// moment without one: that screen is built from the sheet and the
+    /// timeline, neither of which carries the story's id. §37's
+    /// `share_created` reports `unknown` there rather than an empty string
+    /// that would read as a real id on a chart.
+    case share(storyId: String?, storyTitle: String, actionText: String?, sceneText: String, heroImageUrl: String?, displayName: String?)
     case report(targetType: String, targetId: String)
     case reportHistory
     case characters
@@ -63,7 +68,7 @@ enum SheetRoute: Identifiable, Hashable {
         case .wallet(let shortfall): return "wallet:\(shortfall ?? 0)"
         case .signIn: return "signIn"
         case .create: return "create"
-        case .share(let title, _, _, _, _): return "share:\(title)"
+        case .share(_, let title, _, _, _, _): return "share:\(title)"
         case .report(let type, let id): return "report:\(type):\(id)"
         case .reportHistory: return "reportHistory"
         case .characters: return "characters"
@@ -249,8 +254,8 @@ struct SheetHost: View {
             case .wallet(let shortfall): WalletScreen(shortfall: shortfall)
             case .signIn: SignInScreen()
             case .create: CreateScreen()
-            case .share(let title, let action, let scene, let hero, let name):
-                ShareScreen(storyTitle: title, actionText: action, sceneText: scene, heroImageUrl: hero, displayName: name)
+            case .share(let storyId, let title, let action, let scene, let hero, let name):
+                ShareScreen(storyId: storyId, storyTitle: title, actionText: action, sceneText: scene, heroImageUrl: hero, displayName: name)
             case .report(let type, let id): ReportScreen(targetType: type, targetId: id)
             case .reportHistory: ReportHistoryScreen()
             case .characters: CharactersScreen()

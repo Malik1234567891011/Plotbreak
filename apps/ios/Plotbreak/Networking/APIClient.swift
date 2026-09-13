@@ -13,6 +13,10 @@ struct APIError: Error, LocalizedError {
 
     /// Spec WL-03 — the wallet sheet shows the exact shortfall.
     var shortfall: Int? { details?["shortfall"]?.intValue }
+    /// The other two halves of the same 402, which §37.3's
+    /// `insufficient_credits_shown` reports alongside it.
+    var requiredCredits: Int? { details?["required"]?.intValue }
+    var balanceCredits: Int? { details?["balance"]?.intValue }
     var currentRevision: Int? { details?["currentRevision"]?.intValue }
     var isOffline: Bool { code == "OFFLINE" }
     var isInsufficientCredits: Bool { code == "INSUFFICIENT_CREDITS" }
@@ -104,6 +108,11 @@ actor APIClient {
         urlRequest.setValue("application/json", forHTTPHeaderField: "accept")
         urlRequest.setValue(locale.rawValue, forHTTPHeaderField: "accept-language")
         urlRequest.setValue(AppConfig.appVersion, forHTTPHeaderField: "x-app-version")
+        // §37 — the install id and the platform, so events the server emits for
+        // this call land on the same person as the ones the app emits. Without
+        // the device id a signed-out player is two people to the funnel.
+        urlRequest.setValue(AppConfig.deviceId, forHTTPHeaderField: "x-device-id")
+        urlRequest.setValue("ios", forHTTPHeaderField: "x-platform")
         for (key, value) in headers { urlRequest.setValue(value, forHTTPHeaderField: key) }
         if let body {
             urlRequest.setValue("application/json", forHTTPHeaderField: "content-type")

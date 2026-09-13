@@ -115,6 +115,14 @@ struct StoryDetailScreen: View {
             saved = response.story.saved
             liked = response.story.likedByMe
             likes = response.story.likes
+            // §37.1 — the step between the shelf and setup, and the one that
+            // says whether a cover is doing its job. `official` separates our
+            // own worlds from community ones, which convert nothing alike.
+            Telemetry.track(.storyDetailViewed, [
+                "storyId": storyId,
+                "official": response.story.official,
+                "source": "detail",
+            ])
         } catch {
             loadError = error.playerMessage
         }

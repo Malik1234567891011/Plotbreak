@@ -45,6 +45,20 @@ ready
 
 for (const signal of ['SIGINT', 'SIGTERM'] as const) {
   process.on(signal, () => {
-    void app.close().then(() => process.exit(0));
+    // §37 — drain the analytics buffer before the process goes.
+    //
+    // The sink batches to memory and sends on a timer, so a deploy that
+    // restarts the API mid-interval would drop whatever had not gone yet.
+    // Bounded, and never allowed to hold the shutdown open: a stuck analytics
+    // vendor must not be able to stop us from restarting.
+    //
+    // Wrapped rather than chained off `?.`: optional call short-circuits the
+    // whole chain, so with a sink that has no `shutdown` — the console one, in
+    // development — `app.close()` would never run and the process would hang on
+    // Ctrl-C.
+    void Promise.resolve(app.ctx.analytics.shutdown?.(3_000))
+      .catch(() => undefined)
+      .then(() => app.close())
+      .then(() => process.exit(0));
   });
 }

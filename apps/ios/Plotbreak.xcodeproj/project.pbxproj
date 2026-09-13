@@ -33,6 +33,7 @@
 		60260E454762F25FEB19151D /* SessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D0CAC196C2DCEC41F99970 /* SessionModel.swift */; };
 		65339CE03E19AC9950D6104E /* SavedWorldsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B36CCDCF6DD559DBE9CC62 /* SavedWorldsScreen.swift */; };
 		657C06DB381139619A7FABC5 /* WorldSheetTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10F4B0504E735DBEEBBAAD /* WorldSheetTimeline.swift */; };
+		68ED749D61D833B734EE3437 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20B109EA025F57C61FF770E /* Telemetry.swift */; };
 		6C4131B354E4F2747CF676D8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7DDD29992AB9AE65700D7E /* Theme.swift */; };
 		6E106894C3BA678CFE4541F3 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264076B95959AD348524732 /* ProfileScreen.swift */; };
 		6E54F937D1FD8A812A09D98A /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48CB6CC290F5414ACB6B130 /* AppStore.swift */; };
@@ -43,6 +44,7 @@
 		9040C6871F3903E3DD13B986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E0E7A559F500F64D4CF09B /* Assets.xcassets */; };
 		9E4F94CC781194F9D58142DC /* ShareScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030E28875DB8277118DA99D2 /* ShareScreen.swift */; };
 		A05A8A3E2B6B59C2FAB43741 /* CreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39AE6951289000142FA95B7 /* CreateScreen.swift */; };
+		A0657242650858F28DE0776E /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = 4EEC5F8372C2F1E3577DDD40 /* PostHog */; };
 		A0DDC93C1AE0EE44754CD171 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95A968ED6D13C7F254C0D62 /* Components.swift */; };
 		A93FAAD69574D053433C9B5E /* WorldSheetScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D14252E2C11E3331091356D /* WorldSheetScreen.swift */; };
 		A9553C250F50AA849DE6B8A2 /* Attribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868B9206CD1F1F86A579B82A /* Attribution.swift */; };
@@ -52,6 +54,7 @@
 		BF9A179A793B5AA8788804FC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DB67F33A34525413EFA20C /* Router.swift */; };
 		C118EC4184A283AEA85AB2C8 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A475BDD57B6822FDD318083 /* SettingsScreen.swift */; };
 		C1F13E3B9BBBCF85E31138AE /* Plotbreak.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B228FF2F329E502F2D858D7D /* Plotbreak.storekit */; };
+		C509A7B6E5EBAF4CD62C6F36 /* GeneratedEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA024198D0AC8C9F05F092F /* GeneratedEvents.swift */; };
 		C70B2DDEF2404F6EEEBFFF1F /* SessionComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D2BBC375F3042A1C42AF2 /* SessionComposer.swift */; };
 		C94CA7E0E8AA203FCAA13896 /* ReportScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BCA703A641B0752F567C68 /* ReportScreen.swift */; };
 		CA96F809A47D0ACAC2130D55 /* MyInformationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF3CA9088AD6E7AFC6991BE /* MyInformationScreen.swift */; };
@@ -106,6 +109,7 @@
 		7062C42A778A06C894C39944 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		748A3B47451A87C277670444 /* DiscoverScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverScreen.swift; sourceTree = "<group>"; };
 		74E8243255B5DED5FA9D6E33 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		7EA024198D0AC8C9F05F092F /* GeneratedEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedEvents.swift; sourceTree = "<group>"; };
 		868B9206CD1F1F86A579B82A /* Attribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribution.swift; sourceTree = "<group>"; };
 		87D520DD1346F266F41E2225 /* Local.xcconfig.example */ = {isa = PBXFileReference; path = Local.xcconfig.example; sourceTree = "<group>"; };
 		8B46E121F869C497A6CABA0E /* Plotbreak.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Plotbreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +129,7 @@
 		BA90A154FFF4439F0E8FB8A4 /* DiscoverSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSnapshotTests.swift; sourceTree = "<group>"; };
 		C19F3E9125D2BFC4B79BDCA7 /* PersonalizationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationScreen.swift; sourceTree = "<group>"; };
 		C208C9F72C78893FD833371D /* FoundationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationTests.swift; sourceTree = "<group>"; };
+		C20B109EA025F57C61FF770E /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
 		C264076B95959AD348524732 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		C38AA23B8FC8D95DA7F15C1A /* CommentsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsScreen.swift; sourceTree = "<group>"; };
 		C3E0E7A559F500F64D4CF09B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -147,6 +152,7 @@
 			files = (
 				F53C0AD2A89F261070AA2B0B /* GoogleSignIn in Frameworks */,
 				FC377CAB5205A851990919C4 /* AppsFlyerLib in Frameworks */,
+				A0657242650858F28DE0776E /* PostHog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				868B9206CD1F1F86A579B82A /* Attribution.swift */,
+				7EA024198D0AC8C9F05F092F /* GeneratedEvents.swift */,
+				C20B109EA025F57C61FF770E /* Telemetry.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -495,6 +503,7 @@
 			buildConfigurationList = 5C1C30F53A8D959E728580F3 /* Build configuration list for PBXNativeTarget "Plotbreak" */;
 			buildPhases = (
 				8BB89537866B55447EFD93AD /* Export i18n catalog */,
+				5A33694A87157C6F0C23ADA4 /* Export analytics events */,
 				CF34DCFA4CA6F651D74DB470 /* Sources */,
 				B084247E63AB17216DCF4FE7 /* Resources */,
 				EABBBAE9C4DB1BCCA44AD41E /* Frameworks */,
@@ -507,6 +516,7 @@
 			packageProductDependencies = (
 				EB321C91A034368F072506DE /* GoogleSignIn */,
 				0B226F9B7345A3A03C4F9693 /* AppsFlyerLib */,
+				4EEC5F8372C2F1E3577DDD40 /* PostHog */,
 			);
 			productName = Plotbreak;
 			productReference = 8B46E121F869C497A6CABA0E /* Plotbreak.app */;
@@ -543,6 +553,7 @@
 			packageReferences = (
 				14819C7CD5A1335CE058412E /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */,
 				FD8A8F1F4A0647BF7FC6FD9B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				EF3C90BBF7A106F654787396 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0A50A0166437F257165B27CF /* Products */;
@@ -579,6 +590,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5A33694A87157C6F0C23ADA4 /* Export analytics events */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Export analytics events";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/../..\"\nif command -v node >/dev/null 2>&1 && [ -d node_modules ]; then\n  node apps/ios/scripts/export-events.mjs || echo \"warning: event export failed, using committed Swift\"\nfi\n";
+		};
 		8BB89537866B55447EFD93AD /* Export i18n catalog */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -632,6 +662,7 @@
 				DF3566E4DA4DB88B778C0CA9 /* DiscoverScreen.swift in Sources */,
 				0E44409BA62A8F55FA9B2290 /* DiscoverSnapshot.swift in Sources */,
 				EA4CBEE11F2EFD2979523D13 /* FlowLayout.swift in Sources */,
+				C509A7B6E5EBAF4CD62C6F36 /* GeneratedEvents.swift in Sources */,
 				D3A020B8146E23B6690E0A23 /* LibraryScreen.swift in Sources */,
 				4892C91138FCDC0EF6CCE904 /* Models.swift in Sources */,
 				CA96F809A47D0ACAC2130D55 /* MyInformationScreen.swift in Sources */,
@@ -655,6 +686,7 @@
 				9E4F94CC781194F9D58142DC /* ShareScreen.swift in Sources */,
 				201028673A30D60B32A9BBD5 /* SignInScreen.swift in Sources */,
 				36154ABB18E0291129EDC45B /* StoryDetailScreen.swift in Sources */,
+				68ED749D61D833B734EE3437 /* Telemetry.swift in Sources */,
 				6C4131B354E4F2747CF676D8 /* Theme.swift in Sources */,
 				8D0CCE9FDAD25563F973C40A /* Translator.swift in Sources */,
 				508FA1801463B9DEEA4CBE1F /* WalletScreen.swift in Sources */,
@@ -921,6 +953,14 @@
 				minimumVersion = 7.0.2;
 			};
 		};
+		EF3C90BBF7A106F654787396 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PostHog/posthog-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.74.0;
+			};
+		};
 		FD8A8F1F4A0647BF7FC6FD9B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -936,6 +976,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14819C7CD5A1335CE058412E /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */;
 			productName = AppsFlyerLib;
+		};
+		4EEC5F8372C2F1E3577DDD40 /* PostHog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF3C90BBF7A106F654787396 /* XCRemoteSwiftPackageReference "posthog-ios" */;
+			productName = PostHog;
 		};
 		EB321C91A034368F072506DE /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

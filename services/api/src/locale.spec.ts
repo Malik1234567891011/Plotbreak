@@ -13,6 +13,7 @@ import { createStoreVerifierFromEnv } from './store-verifier.js';
 import type { AppContext } from './context.js';
 import type { TurnStreamHub } from './stream.js';
 import { newUserRecord } from './context.js';
+import { NoopSink } from '@plotbreak/analytics';
 
 /**
  * Step 2's gate: **an `fr` session round-trips through the API and the
@@ -38,6 +39,9 @@ function makeContext(now: () => Date = () => new Date()): AppContext {
     modelProvider: null,
     // No model in tests, so the engine's deterministic derivation is what runs.
     modelGateway: null,
+    // §37 — silence. A test suite must never open a socket to an analytics
+    // vendor, and asserting on emitted events is the emitter's own job.
+    analytics: new NoopSink(),
     // No handlers registered, so media jobs are inert in tests.
     jobs: new JobQueue(),
     // The development verifier: the token is the user id. Production cannot

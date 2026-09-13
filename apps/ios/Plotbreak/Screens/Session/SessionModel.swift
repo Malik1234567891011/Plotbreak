@@ -153,6 +153,10 @@ final class SessionModel {
     /// Turn ids whose hero frame is queued and has not landed. See `isAwaitingHero`.
     private var awaitingFrames: Set<String> = []
     private(set) var suggestions: [SuggestedAction] = []
+    /// Guards the two one-shot session events below, which `load()` and `send()`
+    /// can both otherwise reach more than once per screen.
+    private var resumeReported = false
+    private var firstTurnReported = false
     var draft = "" {
         didSet { if draft != oldValue { scheduleDraftSave() } }
     }
@@ -261,6 +265,7 @@ final class SessionModel {
             suggestions = response.suggestions
             revision = response.revision
             error = nil
+            reportResumeOnce(response)
         } catch {
             let message = (error as? APIError)?.message ?? t("session.load_failed")
             self.error = SessionError(message: message, retry: true)
@@ -321,6 +326,15 @@ final class SessionModel {
         // what opens the wallet, with the exact shortfall.
         guard affordable else {
             Haptic.play(.warning)
+            // §37.3 — the paywall, counted where the player meets it. This
+            // branch never reaches the server at all, so if it were not
+            // emitted here it would not be counted anywhere.
+            Telemetry.track(.insufficientCreditsShown, sessionId: sessionId, [
+                "required": tier.costCredits,
+                "balance": balance,
+                "shortfall": tier.costCredits - balance,
+                "qualityTier": tier.id.rawValue,
+            ])
             router.present(.wallet(shortfall: tier.costCredits - balance))
             return
         }
@@ -362,6 +376,18 @@ final class SessionModel {
             store.setBalance(accepted.balanceAfterReserve)
             pending?.turnId = accepted.turnId
 
+            // §37.1 — the activation moment §6.1 puts a 60-second target on.
+            // `turn_submitted` itself is the server's, emitted at the reserve;
+            // this one exists only for the clock the server cannot see, which
+            // starts when the app opened and not when this request arrived.
+            if isFirstPlayerTurn {
+                firstTurnReported = true
+                Telemetry.track(.firstTurnSubmitted, sessionId: sessionId, [
+                    "storyId": detail?.session.storyId ?? "",
+                    "secondsSinceAppOpen": Int(Date().timeIntervalSince(Telemetry.processStartedAt)),
+                ])
+            }
+
             await consumeStream(turnId: accepted.turnId, streamToken: accepted.streamToken, actionText: text)
         } catch {
             // Nothing was committed, so the words come back to the composer
@@ -371,6 +397,14 @@ final class SessionModel {
             saveDraftNow(text)
 
             if let api = error as? APIError, api.isInsufficientCredits {
+                // The race the guard above cannot catch: affordable when Send
+                // was pressed, not affordable by the time the server looked.
+                Telemetry.track(.insufficientCreditsShown, sessionId: sessionId, [
+                    "required": api.requiredCredits ?? tier.costCredits,
+                    "balance": api.balanceCredits ?? balance,
+                    "shortfall": api.shortfall ?? tier.costCredits,
+                    "qualityTier": tier.id.rawValue,
+                ])
                 router.present(.wallet(shortfall: api.shortfall ?? tier.costCredits))
             } else if let api = error as? APIError, api.isStaleRevision {
                 // Spec §17.4 — refresh and let the player resend deliberately.
@@ -588,6 +622,7 @@ final class SessionModel {
         guard let latest, let router else { return }
         showTurnMenu = false
         router.present(.share(
+            storyId: detail?.session.storyId,
             storyTitle: detail?.session.title ?? "",
             actionText: latest.actionText,
             sceneText: latest.blocks.map(\.text).joined(separator: " "),
@@ -600,7 +635,15 @@ final class SessionModel {
 
     /// Tapping sends. The card's hint goes up with it: a tapped response was
     /// written by a stage that knew who it was addressed to.
-    func choose(_ suggestion: SuggestedAction) {
+    func choose(_ suggestion: SuggestedAction, position: Int = 0) {
+        // §37 — the hint and the risk band, never the card's prose. What the
+        // card said is story text (§30.2); which kind of card it was is the
+        // product question.
+        Telemetry.track(.suggestionTapped, sessionId: sessionId, [
+            "intentHint": suggestion.intentHint,
+            "risk": suggestion.risk?.rawValue ?? "UNKNOWN",
+            "position": position,
+        ])
         suggestions = []
         Task { await send(suggestion.text, intentHint: suggestion.intentHint) }
     }
@@ -614,4 +657,58 @@ final class SessionModel {
         store?.setQualityTier(tier)
         showQuality = false
     }
+}
+
+
+// MARK: - Telemetry (§37)
+
+extension SessionModel {
+    /// True while this run has no player turn yet.
+    ///
+    /// The opening beat is a turn record too, so "no turns" is not the test —
+    /// the authored opening is index 0 and the player's first action produces
+    /// index 1.
+    var isFirstPlayerTurn: Bool {
+        !firstTurnReported && turns.filter { $0.turnIndex > 0 }.isEmpty
+    }
+
+    /// §37 — a return to a run that already existed, once per screen.
+    ///
+    /// A fresh session's first load is not a resume, so a run with only its
+    /// authored opening is skipped; and `load()` runs again after every turn
+    /// to re-read the transcript, which is why this is one-shot.
+    fileprivate func reportResumeOnce(_ response: SessionDetailResponse) {
+        guard !resumeReported else { return }
+        resumeReported = true
+        guard response.recentTurns.contains(where: { $0.turnIndex > 0 }) else { return }
+
+        let lastPlayed = ISO8601DateFormatter.plotbreak.date(from: response.session.lastPlayedAt)
+        Telemetry.track(.sessionResumed, sessionId: sessionId, [
+            "storyId": response.session.storyId,
+            "hoursAway": lastPlayed.map { Date().timeIntervalSince($0) / 3600 } ?? 0,
+            // §11.5 — the recap is what makes a long gap survivable, so
+            // "did they see one" belongs next to "how long were they away".
+            "sawRecap": response.recap != nil,
+        ])
+    }
+
+    /// §37 — leaving a run. Emitted from the screen's `onDisappear`, so it
+    /// counts a player who put the story down rather than one who finished it.
+    func reportAbandoned() {
+        Telemetry.track(.sessionAbandoned, sessionId: sessionId, [
+            "storyId": detail?.session.storyId ?? "",
+            "turnCount": turns.filter { $0.turnIndex > 0 }.count,
+        ])
+    }
+}
+
+extension ISO8601DateFormatter {
+    /// The server writes timestamps with fractional seconds; the default
+    /// formatter rejects them and returns nil, which would have made every
+    /// `hoursAway` read zero.
+    static let plotbreak: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
 }

@@ -33,6 +33,7 @@ private enum ShareArtifact: String, CaseIterable, Identifiable {
 }
 
 struct ShareScreen: View {
+    let storyId: String?
     let storyTitle: String
     let actionText: String?
     let sceneText: String
@@ -182,6 +183,10 @@ struct ShareScreen: View {
         do {
             try png.write(to: url, options: .atomic)
             exported = ShareFile(url: url)
+            // §37 — the card was rendered and handed to the system sheet. What
+            // the player then did with it is iOS's business and not ours to
+            // watch.
+            Telemetry.track(.shareCreated, ["kind": "beat_card", "storyId": storyId ?? "unknown"])
         } catch {
             self.error = t("share.failed")
         }

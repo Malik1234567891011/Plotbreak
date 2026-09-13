@@ -2,6 +2,7 @@ import type { GameState, QualityTier, StoryVersion, TurnRecord } from '@plotbrea
 import { QUALITY_TIERS } from '@plotbreak/contracts';
 import { charactersPresent, dayPart, deriveTurnSeed, outcomeLabel, formatCheckMath, dcBandLabel } from '@plotbreak/engine';
 import { runTurn, runTurnPure } from '@plotbreak/director';
+import type { Analytics } from '@plotbreak/analytics';
 import type { AppContext } from './context.js';
 import { reactionAssetKey } from '@plotbreak/contracts';
 import { assetExists } from './media-routes.js';
@@ -60,6 +61,16 @@ export interface SubmitTurnArgs {
    * card's own prose very often does not.
    */
   readonly selectedIntentHint?: string | null;
+  /**
+   * Spec §37 — the turn's emitter, already bound to this player and device.
+   *
+   * Detached from the request on purpose. The turn is accepted on one request
+   * and finishes on a background promise minutes later, by which point the
+   * `FastifyRequest` is gone; binding at accept time is what keeps
+   * `turn_completed` carrying the same device and app version as the
+   * `turn_submitted` it belongs to.
+   */
+  readonly track: Analytics;
 }
 
 export interface AcceptedTurn {
@@ -165,6 +176,21 @@ export async function submitTurn(args: SubmitTurnArgs): Promise<AcceptedTurn> {
   const { token } = hub.open(turnId, user.userId);
   hub.emit(turnId, 'turn.accepted', { turnId, qualityTier, reservedCredits: cost }, state.revision);
 
+  // §37.1 — emitted at the reserve, not at the commit, so the denominator of
+  // the turn failure rate counts every turn a player actually paid attention
+  // to. A turn that dies in the writer must still appear as one that started.
+  args.track.track('turn_submitted', {
+    storyId: story.storyId,
+    turnIndex: state.turnIndex,
+    qualityTier,
+    creditsReserved: cost,
+    fromSuggestion: (args.selectedIntentHint ?? null) !== null,
+    // The length, never the text (§30.2). "How long are the actions players
+    // type" is a real product question; the actions themselves are not ours to
+    // ship to a vendor.
+    actionLength: actionText.length,
+  });
+
   const completion = processTurn({ ...args, turnId, reservation, state, profile }).catch(() => {
     // Errors are already surfaced as `turn.failed`; this keeps a background
     // rejection from becoming an unhandled promise.
@@ -196,6 +222,11 @@ async function processTurn(
 ): Promise<void> {
   const { ctx, hub, user, session, story, actionText, qualityTier, turnId, reservation, state, profile } = args;
   const selectedIntentHint = args.selectedIntentHint ?? null;
+  const track = args.track;
+  // Wall clock for the turn, which is the number the §17.8 latency budget is
+  // written against. The per-stage timings below are the model's own; this is
+  // what the player waited.
+  const startedAt = Date.now();
 
   try {
     const memories = await ctx.repo.listMemories(session.sessionId);
@@ -406,6 +437,32 @@ async function processTurn(
         },
         pure.state.revision,
       );
+
+      // §37.1 / §20.12. The narrative runtime is one model call, so the
+      // per-stage budget collapses into the writer: there is no parser, no
+      // engine and no director to attribute time to, and reporting a made-up
+      // split across them would be worse than reporting the truth. `totalMs`
+      // stays the number §17.8 is written against.
+      track.track('turn_completed', {
+        storyId: story.storyId,
+        turnIndex: pure.state.turnIndex,
+        qualityTier,
+        creditsCharged: reservation.amount,
+        parseMs: 0,
+        engineMs: 0,
+        directorMs: 0,
+        writerMs: pure.telemetry.ms,
+        totalMs: Date.now() - startedAt,
+        checkCount: 0,
+        mutationCount: 0,
+        repaired: false,
+        // What the provider actually billed, straight off the invocation. This
+        // is the only honest input to the §20.12 margin, and computing it from
+        // a tier's list price instead would hide exactly the turns that blew
+        // through the ceiling.
+        providerCostUsd: pure.invocation.costUsd,
+      });
+      trackTurnTen(track, story.storyId, session, pure.state.turnIndex);
       return;
     }
 
@@ -677,6 +734,46 @@ async function processTurn(
       },
       result.state.revision,
     );
+
+    // §37.4 — every violation, not just the ones that forced a repair. The
+    // repair rate alone says how often the validator fired; the codes say what
+    // the writer keeps getting wrong, which is the part that can be fixed.
+    for (const violation of result.report.violations) {
+      track.track('consistency_violation', {
+        storyId: story.storyId,
+        code: violation.code,
+        severity: violation.severity,
+        repaired: result.repaired,
+      });
+    }
+    if (result.repaired) {
+      track.track('turn_repaired', {
+        storyId: story.storyId,
+        violationCount: result.report.violations.length,
+      });
+    }
+
+    track.track('turn_completed', {
+      storyId: story.storyId,
+      turnIndex: result.state.turnIndex,
+      qualityTier,
+      creditsCharged: reservation.amount,
+      parseMs: Math.round(result.timings.parse ?? 0),
+      engineMs: Math.round(result.timings.engine ?? 0),
+      directorMs: Math.round(result.timings.director ?? 0),
+      writerMs: Math.round(result.timings.writer ?? 0),
+      totalMs: Date.now() - startedAt,
+      checkCount: result.resolution.checks.length,
+      mutationCount: result.resolution.mutations.length,
+      repaired: result.repaired,
+      // The staged pipeline spreads its spend across four model calls and does
+      // not total them, so this reports zero rather than a guess. Only
+      // `PLOTBREAK_NARRATIVE=engine` reaches this path and nothing in
+      // production sets it, so no cost chart is missing anything; if that ever
+      // stops being true, this is the line that has to be plumbed first.
+      providerCostUsd: 0,
+    });
+    trackTurnTen(track, story.storyId, session, result.state.turnIndex);
   } catch (error) {
     // A failed turn used to leave no trace on the server. The player got
     // `turn.failed` on the stream, but `GET /v1/turns/<id>` kept answering 404
@@ -690,6 +787,18 @@ async function processTurn(
     await ctx.wallet.release(reservation, 'TURN_FAILED');
 
     const code = error instanceof TurnFailedError ? error.code : 'GENERATION_FAILED';
+
+    // §37.1 — the numerator of the failure rate §17.8 caps at 1%. The stage is
+    // a coarse guess from the code, because by the time the error reaches here
+    // the only thing that survived the throw is the code itself.
+    track.track('turn_failed', {
+      storyId: story.storyId,
+      turnIndex: state.turnIndex,
+      code,
+      creditsReleased: reservation.amount,
+      stage: failedStage(code),
+    });
+
     hub.emit(turnId, 'turn.failed', {
       code,
       // Spec §10.8 — plain copy, no policy jargon, and an explicit reassurance
@@ -716,4 +825,51 @@ function playerCondition(state: GameState): string {
   if (ratio > 0.75) return 'unhurt';
   if (ratio > 0.4) return 'hurt';
   return 'badly hurt';
+}
+
+
+/**
+ * §37.1 — turn 10 is the activation moment the launch targets are written
+ * against (35% of started sessions), and it is a one-shot event: emitted on the
+ * turn that crosses the line and never again, so the rate is a count of
+ * sessions and not a count of turns past ten.
+ */
+function trackTurnTen(
+  track: Analytics,
+  storyId: string,
+  session: SessionRecord,
+  turnIndex: number,
+): void {
+  if (turnIndex !== 10) return;
+  track.track('turn_10_reached', {
+    storyId,
+    minutesToReach: Math.max(
+      0,
+      Math.round((Date.now() - new Date(session.createdAt).getTime()) / 60_000),
+    ),
+  });
+}
+
+/**
+ * Which stage a failure code came from.
+ *
+ * Deliberately coarse. The alternative — threading a stage label through every
+ * throw in the pipeline — would put analytics plumbing in the path of the code
+ * that is already having a bad day, and `UNKNOWN` on a chart is honest in a way
+ * that a confidently wrong stage is not.
+ */
+function failedStage(code: string): 'PARSE' | 'ENGINE' | 'DIRECTOR' | 'WRITER' | 'VALIDATE' | 'COMMIT' | 'UNKNOWN' {
+  switch (code) {
+    case 'REVISION_CONFLICT':
+      return 'COMMIT';
+    case 'PARSE_FAILED':
+      return 'PARSE';
+    case 'WRITER_FAILED':
+    case 'GENERATION_FAILED':
+      return 'WRITER';
+    case 'VALIDATION_FAILED':
+      return 'VALIDATE';
+    default:
+      return 'UNKNOWN';
+  }
 }

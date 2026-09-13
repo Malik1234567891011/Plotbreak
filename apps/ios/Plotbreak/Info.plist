@@ -54,6 +54,10 @@
 	<string>$(PLOTBREAK_GOOGLE_CLIENT_ID)</string>
 	<key>PLOTBREAK_LEGAL_BASE_URL</key>
 	<string>$(PLOTBREAK_LEGAL_BASE_URL)</string>
+	<key>PLOTBREAK_POSTHOG_HOST</key>
+	<string>$(PLOTBREAK_POSTHOG_HOST)</string>
+	<key>PLOTBREAK_POSTHOG_KEY</key>
+	<string>$(PLOTBREAK_POSTHOG_KEY)</string>
 	<key>PLOTBREAK_SUPABASE_ANON_KEY</key>
 	<string>$(PLOTBREAK_SUPABASE_ANON_KEY)</string>
 	<key>PLOTBREAK_SUPABASE_URL</key>

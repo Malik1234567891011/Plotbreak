@@ -15,6 +15,7 @@ import { DevTokenVerifier, SupabaseJwtVerifier, devUserId } from './auth.js';
 import { RATE_LIMITS, SlidingWindowRateLimiter } from './rate-limit.js';
 import { NoVerifierError, createStoreVerifierFromEnv } from './store-verifier.js';
 import type { TurnStreamHub } from './stream.js';
+import { NoopSink } from '@plotbreak/analytics';
 
 type Server = FastifyInstance & { ctx: AppContext; hub: TurnStreamHub };
 
@@ -37,6 +38,9 @@ function makeContext(now: () => Date = () => new Date()): AppContext {
     modelProvider: null,
     // No model in tests, so the engine's deterministic derivation is what runs.
     modelGateway: null,
+    // §37 — silence. A test suite must never open a socket to an analytics
+    // vendor, and asserting on emitted events is the emitter's own job.
+    analytics: new NoopSink(),
     // No handlers registered, so media jobs are inert in tests.
     jobs: new JobQueue(),
     // The development verifier: the token is the user id. Production cannot

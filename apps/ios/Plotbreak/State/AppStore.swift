@@ -145,6 +145,10 @@ final class AppStore {
         email = identity?.email
         isGuest = identity?.isGuest ?? true
         Attribution.identify(userId: identity?.userId)
+        // §6.5 — links everything this device did signed out to the account.
+        // The sign-up funnel is only readable if before and after are one
+        // person.
+        Telemetry.identify(userId: identity?.userId, isGuest: identity?.isGuest ?? true)
     }
 
     private func applyBootstrap(_ response: BootstrapResponse) {
@@ -164,7 +168,10 @@ final class AppStore {
         }
         forgetPersonalCaches()
         apply(identity: identity)
-        if !identity.isGuest { Attribution.signedUp(userId: identity.userId, method: method) }
+        if !identity.isGuest {
+            Attribution.signedUp(userId: identity.userId, method: method)
+            Telemetry.track(.signInCompleted, ["provider": method])
+        }
         if let response = try? await api.bootstrap() { applyBootstrap(response) }
     }
 
@@ -176,6 +183,11 @@ final class AppStore {
     }
 
     func sendEmailCode(_ email: String) async throws {
+        // §6.5. `trigger` is coarse — it says the player was on the auth
+        // screen, not what sent them there. Threading the real reason (the
+        // wallet, the library gate, a share link) through the presenters is
+        // worth doing and is not done yet.
+        Telemetry.track(.signInStarted, ["provider": "email", "trigger": "auth_screen"])
         try await auth.sendEmailCode(email)
     }
 
@@ -188,6 +200,11 @@ final class AppStore {
     /// Sign in with Apple. Takes the credential the native button produced and
     /// the raw nonce the request was made with.
     func signInWithApple(credential: ASAuthorizationAppleIDCredential, rawNonce: String) async throws {
+        // §6.5. `trigger` is coarse — it says the player was on the auth
+        // screen, not what sent them there. Threading the real reason (the
+        // wallet, the library gate, a share link) through the presenters is
+        // worth doing and is not done yet.
+        Telemetry.track(.signInStarted, ["provider": "apple", "trigger": "auth_screen"])
         guard let tokenData = credential.identityToken, let idToken = String(data: tokenData, encoding: .utf8) else {
             throw AuthError(message: t("error.apple_no_token"), code: "NO_IDENTITY_TOKEN")
         }
@@ -202,6 +219,11 @@ final class AppStore {
     /// Sign in with Google through Google's own SDK: the native account
     /// sheet, then the ID token goes to Supabase the same way Apple's does.
     func signInWithGoogle() async throws {
+        // §6.5. `trigger` is coarse — it says the player was on the auth
+        // screen, not what sent them there. Threading the real reason (the
+        // wallet, the library gate, a share link) through the presenters is
+        // worth doing and is not done yet.
+        Telemetry.track(.signInStarted, ["provider": "google", "trigger": "auth_screen"])
         guard let clientID = AppConfig.googleClientID else {
             throw AuthError(message: t("error.sign_in_not_configured"), code: "NOT_CONFIGURED")
         }

@@ -203,11 +203,14 @@ struct SessionFeed: View {
     @ViewBuilder private var suggestions: some View {
         if !model.suggestions.isEmpty, model.pending == nil {
             VStack(spacing: Theme.Spacing.sm) {
-                ForEach(Array(model.suggestions.enumerated()), id: \.offset) { _, item in
+                ForEach(Array(model.suggestions.enumerated()), id: \.offset) { index, item in
                     ActionSuggestion(
                         suggestion: item,
                         editLabel: t("ui.edit_response_a11y"),
-                        onPress: { model.choose(item) },
+                        // The position matters: §37 asks whether players take
+                        // the first card or read all of them, which decides how
+                        // many are worth generating.
+                        onPress: { model.choose(item, position: index) },
                         onEdit: { model.edit(item) }
                     )
                 }

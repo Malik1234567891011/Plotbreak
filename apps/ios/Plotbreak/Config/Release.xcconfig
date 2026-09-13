@@ -19,4 +19,10 @@ PLOTBREAK_GOOGLE_URL_SCHEME = com.googleusercontent.apps.564080718924-u51v214cbu
 PLOTBREAK_APPSFLYER_DEV_KEY = 5P3wuiiJm9Y6R7RG3eSLf7
 PLOTBREAK_APPLE_APP_ID = 6811307049
 
+// PostHog product analytics (§37). The project key ships inside the binary by
+// design — it is write-only and identifies the project, it cannot read from it.
+// Empty disables the SDK entirely, which is what tests and local runs want.
+PLOTBREAK_POSTHOG_KEY = phc_oVoU4BZ93vmNppEpDcrdekzcUFitN5TADZbTwiaT7ChT
+PLOTBREAK_POSTHOG_HOST = https:/$()/us.i.posthog.com
+
 #include? "Local.xcconfig"

@@ -14,6 +14,7 @@ import { relationshipLabel } from '@plotbreak/engine';
 import type { AppContext } from './context.js';
 import { requireUser, sendError } from './context.js';
 import { InsufficientCreditsError } from './wallet.js';
+import { tracker } from './analytics.js';
 
 /**
  * Media serving and player-portrait generation (spec §9.3, §19, §32.6).
@@ -250,6 +251,15 @@ export function registerMediaRoutes(app: FastifyInstance, ctx: AppContext): void
         }
 
         await ctx.wallet.finalize(reservation, 'MEDIA_FINALIZE');
+
+        // §37.3 — after the charge is real. A portrait that failed moderation
+        // or never attached was refunded, and counting it here would make the
+        // spend look like it bought something.
+        tracker(ctx, request, user, session.sessionId).track('portrait_generated', {
+          storyId: story.storyId,
+          variant,
+          cost: PORTRAIT_COST_CREDITS,
+        });
 
         void reply.code(201);
         return {

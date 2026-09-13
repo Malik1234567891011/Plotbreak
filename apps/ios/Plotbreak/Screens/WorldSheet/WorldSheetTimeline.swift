@@ -98,6 +98,7 @@ struct WorldSheetTimelineTab: View {
                     // WS-07 — share the moment, spoiler-safe, from where it sits.
                     textButton(t("worldsheet.share"), color: Theme.Colors.textSecondary, a11y: t("worldsheet.share_a11y", ["text": entry.text])) {
                         router.present(.share(
+                            storyId: nil,
                             storyTitle: storyTitle,
                             actionText: entry.group == .CHOICE ? entry.text : nil,
                             sceneText: entry.text,

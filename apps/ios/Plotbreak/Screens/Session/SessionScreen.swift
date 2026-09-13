@@ -55,7 +55,12 @@ struct SessionScreen: View {
         .onChange(of: router.sheet == nil) { _, closed in
             if closed { Task { await model.refreshPlayerPortrait() } }
         }
-        .onDisappear { model.stopStreaming() }
+        .onDisappear {
+            model.stopStreaming()
+            // §37 — put down, not finished. Paired with `turn_10_reached` from
+            // the server, this is where the drop-off curve comes from.
+            model.reportAbandoned()
+        }
         .animation(.easeOut(duration: Theme.Durations.short), value: model.showTurnMenu)
         .animation(.easeOut(duration: Theme.Durations.short), value: model.showQuality)
         .animation(.easeOut(duration: Theme.Durations.short), value: model.fullScreenImage)

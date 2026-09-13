@@ -319,8 +319,8 @@ struct DiscoverScreen: View {
             if asGrid {
                 LazyVGrid(columns: Array(repeating: GridItem(.fixed(widths.grid), spacing: Theme.Spacing.md, alignment: .top), count: 3),
                           alignment: .leading, spacing: Theme.Spacing.xl) {
-                    ForEach(rail.stories) { story in
-                        card(story, width: widths.grid, rank: nil)
+                    ForEach(Array(rail.stories.enumerated()), id: \.element.storyId) { index, story in
+                        card(story, width: widths.grid, rank: nil, railId: rail.id, position: index)
                     }
                 }
                 .padding(.horizontal, Theme.pageGutter)
@@ -329,7 +329,7 @@ struct DiscoverScreen: View {
                     HStack(alignment: .top, spacing: Theme.Spacing.md) {
                         ForEach(Array(rail.stories.enumerated()), id: \.element.storyId) { index, story in
                             // The rank only on the shelf that is about ranking.
-                            card(story, width: widths.rail, rank: rail.kind == .TOP_RANKED ? index + 1 : nil)
+                            card(story, width: widths.rail, rank: rail.kind == .TOP_RANKED ? index + 1 : nil, railId: rail.id, position: index)
                         }
                     }
                     .padding(.horizontal, Theme.pageGutter)
@@ -338,7 +338,7 @@ struct DiscoverScreen: View {
         }
     }
 
-    private func card(_ story: StorySummary, width: CGFloat, rank: Int?) -> some View {
+    private func card(_ story: StorySummary, width: CGFloat, rank: Int?, railId: String, position: Int) -> some View {
         PortraitStoryCard(
             story: story,
             width: width,
@@ -347,6 +347,17 @@ struct DiscoverScreen: View {
             onPress: { router.push(.storyDetail(storyId: story.storyId)) },
             onLongPress: { preview = story }
         )
+        // §37.1 — the impression. `LazyVGrid` and the lazy `HStack` only build
+        // a card when it is about to be on screen, so this fires on what was
+        // actually shown rather than on everything the rail holds. Deduped per
+        // run, because a player flicking a shelf back and forth saw one card.
+        .onAppear {
+            Telemetry.trackOnce(
+                .storyCardViewed,
+                key: "\(railId)|\(story.storyId)",
+                ["storyId": story.storyId, "railId": railId, "position": position]
+            )
+        }
     }
 
     // MARK: Data
@@ -393,6 +404,14 @@ struct DiscoverScreen: View {
         errorMessage = nil
         showingStaleShelf = false
         if fresh.activeCategory == nil { store.discoverSnapshot.save(fresh) }
+        // §37.1 — on the shelf the player can actually see. Emitting in `load`
+        // would count a fetch that was parked in `pending` and never drawn.
+        // `hasContinue` is the one that matters: a Discover with a Continue
+        // rail is a returning player, and the two behave nothing alike.
+        Telemetry.track(.discoverViewed, [
+            "railCount": fresh.rails.count,
+            "hasContinue": !fresh.continueCards.isEmpty,
+        ])
     }
 }
 

@@ -96,7 +96,19 @@ struct WorldSheetScreen: View {
                 }
             }
         }
-        .task(id: sessionId) { await load() }
+        .task(id: sessionId) {
+            await load()
+            // §37 — which tab, and how far into the run. A sheet opened on turn
+            // 3 is orientation; the same sheet on turn 30 is a player who has
+            // lost the thread, and only one of those is a content problem.
+            Telemetry.track(.worldSheetOpened, sessionId: sessionId, [
+                "tab": tab.rawValue,
+                // The world sheet itself is a snapshot with no turn on it;
+                // the timeline it loads alongside is stamped per turn, so its
+                // latest entry is where the run has got to.
+                "turnIndex": timeline.map(\.turnIndex).max() ?? 0,
+            ])
+        }
     }
 
     private func load() async {

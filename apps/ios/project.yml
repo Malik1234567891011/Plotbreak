@@ -34,6 +34,12 @@ packages:
   AppsFlyerLib:
     url: https://github.com/AppsFlyerSDK/AppsFlyerFramework
     from: 7.0.2
+  # Product analytics (PostHog): the §37 event contract. Distinct from
+  # AppsFlyer above, which answers "which ad brought this install"; this
+  # answers "what did they then do". docs/analytics.md is the map.
+  PostHog:
+    url: https://github.com/PostHog/posthog-ios
+    from: 3.74.0
 targets:
   Plotbreak:
     type: application
@@ -47,6 +53,8 @@ targets:
         product: GoogleSignIn
       - package: AppsFlyerLib
         product: AppsFlyerLib
+      - package: PostHog
+        product: PostHog
     entitlements:
       path: Plotbreak/Plotbreak.entitlements
       properties:
@@ -79,6 +87,8 @@ targets:
         PLOTBREAK_GOOGLE_CLIENT_ID: $(PLOTBREAK_GOOGLE_CLIENT_ID)
         PLOTBREAK_APPSFLYER_DEV_KEY: $(PLOTBREAK_APPSFLYER_DEV_KEY)
         PLOTBREAK_APPLE_APP_ID: $(PLOTBREAK_APPLE_APP_ID)
+        PLOTBREAK_POSTHOG_KEY: $(PLOTBREAK_POSTHOG_KEY)
+        PLOTBREAK_POSTHOG_HOST: $(PLOTBREAK_POSTHOG_HOST)
         # The App Tracking Transparency prompt. Asked once, after the first
         # story beat (Attribution.swift), never at launch.
         NSUserTrackingUsageDescription: Lets us see which ads bring in players who enjoy Plotbreak, so we can make more stories like the ones you play.
@@ -105,6 +115,15 @@ targets:
           cd "$SRCROOT/../.."
           if command -v node >/dev/null 2>&1 && [ -d node_modules ]; then
             node apps/ios/scripts/export-catalog.mjs || echo "warning: catalog export failed, using committed JSON"
+          fi
+        basedOnDependencyAnalysis: false
+      # Regenerates PlotbreakEvent from packages/analytics, so a renamed event
+      # breaks the build here rather than going quiet on a dashboard.
+      - name: Export analytics events
+        script: |
+          cd "$SRCROOT/../.."
+          if command -v node >/dev/null 2>&1 && [ -d node_modules ]; then
+            node apps/ios/scripts/export-events.mjs || echo "warning: event export failed, using committed Swift"
           fi
         basedOnDependencyAnalysis: false
   PlotbreakTests:

@@ -47,6 +47,7 @@ import {
   type AppContext,
 } from './context.js';
 import { NoVerifierError } from './store-verifier.js';
+import { detach, detachedTracker, tracker } from './analytics.js';
 import { TurnStreamHub, formatSse } from './stream.js';
 import { RATE_LIMITS, ruleFor } from './rate-limit.js';
 import {
@@ -719,6 +720,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (!user) return reply;
     await ctx.repo.setSaved(user.userId, request.params.storyId, true);
     await ctx.repo.bumpSignal(request.params.storyId, 'saves', 1);
+    tracker(ctx, request, user).track('story_saved', { storyId: request.params.storyId, saved: true });
     return { saved: true };
   });
 
@@ -727,6 +729,10 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (!user) return reply;
     await ctx.repo.setSaved(user.userId, request.params.storyId, false);
     await ctx.repo.bumpSignal(request.params.storyId, 'saves', -1);
+    // The unsave is the same event with the flag flipped, not a second name.
+    // Two names would make "how many saves are there" a subtraction nobody
+    // remembers to do.
+    tracker(ctx, request, user).track('story_saved', { storyId: request.params.storyId, saved: false });
     return { saved: false };
   });
 
@@ -998,6 +1004,14 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (!user) return reply;
     await ctx.repo.setHidden(user.userId, request.params.storyId, true);
     await ctx.repo.bumpSignal(request.params.storyId, 'hides', 1);
+    // §37.4 — the tags, not just the id. "Which story gets hidden" is a
+    // curation question; "which kind of story gets hidden" is the one that
+    // changes what we commission. Worth one extra read on a rare action.
+    const hiddenStory = await ctx.repo.getStoryByStoryId(request.params.storyId);
+    tracker(ctx, request, user).track('story_hidden', {
+      storyId: request.params.storyId,
+      tags: hiddenStory?.tags ?? [],
+    });
     return { hidden: true };
   });
 
@@ -1260,13 +1274,18 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
   app.post<{ Params: { sessionId: string } }>('/v1/sessions/:sessionId/canon-corrections', async (request, reply) => {
     const loaded = await loadSession(request.params.sessionId, request, reply);
     if (!loaded) return reply;
-    const { session, story, state } = loaded;
+    const { session, story, state, user } = loaded;
+    const track = tracker(ctx, request, user, session.sessionId);
 
     const parsed = CanonCorrectionRequest.safeParse(request.body);
     if (!parsed.success) return sendError(reply, 400, 'INVALID_REQUEST', 'Correction is malformed.');
 
     const conflict = checkCorrectionConflict(parsed.data.correctedText, state, story);
     if (conflict) {
+      // §37.4 — a refusal is the interesting half. A correction the engine
+      // turns down is a player telling us the world contradicted itself and
+      // being told no, which is the worst version of that exchange.
+      track.track('canon_correction_refused', { storyId: story.storyId, reason: 'CONFLICT' });
       return { accepted: false, conflictExplanation: conflict, offerFork: true, fact: null };
     }
 
@@ -1281,6 +1300,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (!result) return sendError(reply, 404, 'NOT_FOUND', 'That memory is not in this timeline.');
 
     await ctx.repo.replaceMemories(session.sessionId, result.updated);
+    track.track('canon_correction_submitted', { storyId: story.storyId });
     return { accepted: true, conflictExplanation: null, offerFork: false, fact: result.fact };
   });
 
@@ -1366,6 +1386,15 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
         }));
       for (const turn of inherited) await ctx.repo.appendTurn(turn);
 
+      // §37.3 — after the charge and after the branch exists, so this counts
+      // forks that happened rather than forks that were attempted. The refund
+      // path below is a failure, and a failure is not a fork.
+      tracker(ctx, request, user, session.sessionId).track('timeline_forked', {
+        storyId: story.storyId,
+        atTurnIndex,
+        cost,
+      });
+
       void reply.code(201);
       return {
         session: toSessionSummary(record, story, forked, inherited.length),
@@ -1430,6 +1459,9 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
         // The tapped card's own intent hint. Typed input sends null and is
         // parsed from the words, unchanged.
         selectedIntentHint: parsed.data.selectedSuggestionId,
+        // Spec §37 — bound to the caller now, because the turn outlives this
+        // request and the headers do not.
+        track: detachedTracker(ctx, detach(request, user), session.sessionId),
       });
 
       const body = {
@@ -1694,6 +1726,17 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       return sendError(reply, 403, 'SIGN_IN_REQUIRED', 'Sign in to claim your daily credits.');
     }
     const result = await ctx.wallet.claimDaily(user.userId);
+    if (result.granted) {
+      tracker(ctx, request, user).track('daily_grant_claimed', {
+        amount: result.entry?.amount ?? 0,
+        // Always zero, and deliberately so: §20.5 grants per server day and
+        // never runs a streak that punishes a missed one, so there is no streak
+        // to report. The property stays in the contract because the question
+        // "should we add one" is a live one, and a column of zeros is the
+        // honest answer until we do.
+        streakDays: 0,
+      });
+    }
     return {
       granted: result.granted,
       amount: result.entry?.amount ?? 0,
@@ -1741,6 +1784,11 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
         { userId: user.userId, platform: parsed.data.platform, reason: verdict.reason },
         'purchase verification failed',
       );
+      tracker(ctx, request, user).track('purchase_failed', {
+        // What the client claimed, because the store never vouched for it.
+        productId: parsed.data.productId ?? 'unknown',
+        code: verdict.retryable ? 'STORE_UNAVAILABLE' : 'NOT_VERIFIED',
+      });
       return verdict.retryable
         ? sendError(
             reply,
@@ -1755,6 +1803,13 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
             'The store could not confirm that purchase. If you were charged, contact support and nothing will be lost.',
           );
     }
+
+    // Read before the credit lands, because afterwards it is too late to know
+    // whether this was their first. The live first-purchase offer is the proxy:
+    // it is what §20.4 shows a player who has never bought, so its presence and
+    // a first purchase are the same fact everywhere except the rare account
+    // whose offer expired unused.
+    const walletBefore = await ctx.wallet.getSummary(user.userId);
 
     const result = await ctx.wallet.reconcilePurchase(
       user.userId,
@@ -1774,12 +1829,35 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
         { userId: user.userId, productId: verdict.productId, platform: parsed.data.platform },
         'verified purchase of an unknown product — money taken, nothing to credit',
       );
+      // The worst outcome in the economy: the store charged and we have
+      // nothing to give. It needs to be on a chart, not only in a log line.
+      tracker(ctx, request, user).track('purchase_failed', {
+        productId: verdict.productId,
+        code: 'PRODUCT_NOT_SOLD',
+      });
       return sendError(
         reply,
         422,
         'PRODUCT_NOT_SOLD',
         'That purchase went through but we could not match it to a credit pack. Contact support and nothing will be lost.',
       );
+    }
+
+    // Never on a duplicate. A restore or a retried sync replays a transaction
+    // that already credited, and counting it again would inflate revenue by
+    // however many times a flaky network made the client try.
+    if (!result.duplicate) {
+      const offer = STORE_OFFERS.find((entry) => entry.productId === verdict.productId);
+      tracker(ctx, request, user).track('purchase_completed', {
+        productId: verdict.productId,
+        creditsGranted: result.credited,
+        firstPurchase: Boolean(walletBefore.firstPurchaseOfferExpiresAt),
+        // The reference price, not what the player was charged: StoreKit bills
+        // in their own currency at Apple's price point, and that number never
+        // reaches this process. Good enough to rank packs, wrong for revenue —
+        // the store's own reporting is the source for that.
+        priceUsd: offer?.referencePriceUsd ?? 0,
+      });
     }
 
     return {
@@ -1929,6 +2007,13 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       await ctx.repo.bumpSignal(parsed.data.targetId, 'reports', 1);
     }
 
+    // §37.4 — the type and the reason, never the target id or the free-text
+    // details. Who was reported is a moderation record, not an analytics one.
+    tracker(ctx, request, user).track('report_submitted', {
+      targetType: parsed.data.targetType,
+      reason: parsed.data.reason,
+    });
+
     void reply.code(201);
     return { reportId: report.reportId, caseReference: report.reportId.slice(-8).toUpperCase() };
   });
@@ -1999,6 +2084,17 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (typeof body.ageVerified === 'boolean') patch.ageVerified = body.ageVerified;
     if (body.settings && typeof body.settings === 'object') patch.settings = body.settings;
 
+    // §37.3 — only on an actual change. A settings PATCH resends the whole
+    // object, so emitting on every write would report a tier change every time
+    // the player toggled haptics.
+    const nextTier = (body.settings as { defaultQualityTier?: unknown } | undefined)?.defaultQualityTier;
+    if (typeof nextTier === 'string' && nextTier !== user.settings.defaultQualityTier) {
+      tracker(ctx, request, user).track('quality_tier_changed', {
+        from: user.settings.defaultQualityTier,
+        to: nextTier,
+      });
+    }
+
     const updated = await ctx.repo.updateUser(user.userId, patch);
     return updated;
   });
@@ -2045,6 +2141,15 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       // new account already received its own.
       await ctx.repo.updateUser(auth.user.userId, { migratedFromGuestId: guestUserId });
       await ctx.repo.deleteUser(guestUserId);
+
+      // §6.5 — tell the vendor these two ids are one person, before the event
+      // that says so. Without the merge every chart breaks exactly here: the
+      // trial belongs to `guest_…` and the account to the real id, and no
+      // retention or conversion query can see across the moment that matters.
+      ctx.analytics.aliasGuest?.(guestUserId, auth.user.userId);
+      tracker(ctx, request, user).track('guest_account_migrated', {
+        sessionsMoved: sessions.length,
+      });
 
       return { migrated: true, sessionsMoved: sessions.length };
     },
