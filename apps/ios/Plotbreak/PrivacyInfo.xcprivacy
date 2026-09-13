@@ -32,15 +32,38 @@
   <key>NSPrivacyTracking</key>
   <true/>
   <!--
-    NSPrivacyTrackingDomains is deliberately absent, not empty.
+    Every domain the app reaches that engages in tracking.
 
-    Apple rejects a manifest that declares tracking and then supplies an empty
-    domains array (ITMS-91064, build 2). The domains belong to whoever actually
-    talks to them: AppsFlyer's framework ships its own manifest listing
-    att.attr.whappsflyer.com and the rest, and Apple merges the two at submission.
-    This app's own code contacts no tracking domain of its own, so it has none to
-    declare — and an empty array is not the way to say that.
+    Apple's own error text for ITMS-91064 states the rule backwards — it says
+    NSPrivacyTracking must be true if the domains are non-empty. The check that
+    actually fails is the converse: declare tracking and you must name at least
+    one domain. An empty array fails it, and so does omitting the key; builds 2
+    and 3 were rejected for exactly those two variants.
+
+    These are AppsFlyer's ATT-gated endpoints, copied from the manifest inside
+    AppsFlyerLib.framework so the two cannot disagree. If AppsFlyer is ever
+    removed, NSPrivacyTracking goes false and this array goes with it — nothing
+    else in the app talks to a tracking domain.
   -->
+  <key>NSPrivacyTrackingDomains</key>
+  <array>
+    <string>att.attr.whappsflyer.com</string>
+    <string>att.attr.appsflyer-cn.com</string>
+    <string>att.attr.hevents.appsflyer-cn.com</string>
+    <string>att.launches.whappsflyer.com</string>
+    <string>att.launches.appsflyer-cn.com</string>
+    <string>att.launches.hevents.appsflyer-cn.com</string>
+    <string>att.conversions.hevents.appsflyer-cn.com</string>
+    <string>att.conversions.appsflyer-cn.com</string>
+    <string>att.conversions.whappsflyer.com</string>
+    <string>att.dlsdk.hevents.appsflyer-cn.com</string>
+    <string>att.dlsdk.appsflyer-cn.com</string>
+    <string>att.dlsdk.whappsflyer.com</string>
+    <string>att.dlsdk.appsflyersdk.com</string>
+    <string>att.conversions.appsflyersdk.com</string>
+    <string>att.launches.appsflyersdk.com</string>
+    <string>att.attr.appsflyersdk.com</string>
+  </array>
   <key>NSPrivacyCollectedDataTypes</key>
   <array>
     <dict>
