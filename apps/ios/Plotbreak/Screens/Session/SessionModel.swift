@@ -333,12 +333,20 @@ final class SessionModel {
         let qualityTier = store.qualityTier
         let sessionRevision = revision
 
-        // The player's own words go up before the network is touched.
+        // The player's own words go up before the network is touched, and the
+        // view parks on them rather than chasing the bottom.
+        //
+        // Chasing the bottom made sense when the responses lived in a sheet.
+        // Now they sit at the end of the prose, so tapping one scrolled past
+        // the beat that was about to arrive and the reader had to climb back up
+        // to read it. Their action goes to the top instead and the story
+        // streams in underneath, which is the direction they are already
+        // reading in.
         draft = ""
         saveDraftNow("")
         lastReaction = nil
         pending = PendingTurn(actionText: text)
-        requestScroll(animated: true)
+        requestScroll(animated: true, anchor: .latestBeat)
 
         defer {
             sending = false
@@ -459,11 +467,10 @@ final class SessionModel {
                 voiceEligible: data["voiceEligible"]?.boolValue ?? false
             )
             pending?.blocks.append(block)
-            // Blocks now genuinely arrive over several seconds. Put the start
-            // of the new beat at the top of the view once, when the first one
-            // lands, and let the rest fill downward under the reader. Following
-            // every block would drag them along a paragraph at a time.
-            if pending?.blocks.count == 1 { requestScroll(animated: true, anchor: .latestBeat) }
+            // No scroll. The beat was parked when the turn was sent and the
+            // prose fills in underneath it, so there is nothing left to move —
+            // and a reader who has scrolled somewhere of their own accord while
+            // the turn generates should not be dragged out of it.
 
         case .stateDelta:
             pending?.deltas.append(data["label"]?.stringValue ?? "")
