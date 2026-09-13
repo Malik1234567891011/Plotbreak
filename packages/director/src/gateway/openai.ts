@@ -1,3 +1,4 @@
+import { appendFileSync } from 'node:fs';
 import type { z } from 'zod';
 import { toJsonSchema } from './anthropic.js';
 import {
@@ -211,8 +212,33 @@ export class OpenAiGateway implements ModelGateway {
       );
       const jsonPayload = (await jsonResponse.json()) as {
         choices?: Array<{ message?: { content?: string } }>;
-        usage?: { prompt_tokens?: number; completion_tokens?: number };
+        usage?: {
+          prompt_tokens?: number;
+          completion_tokens?: number;
+          prompt_tokens_details?: { cached_tokens?: number };
+          completion_tokens_details?: { reasoning_tokens?: number };
+        };
       };
+      // Real usage, not an estimate. Written where the experiment can read it:
+      // the cost question for a full-history architecture is whether caching
+      // actually hits as the transcript grows, and that is only answerable
+      // from what the provider reports.
+      if (process.env.PLOTBREAK_USAGE_LOG) {
+        const u = jsonPayload.usage ?? {};
+        appendFileSync(
+          process.env.PLOTBREAK_USAGE_LOG,
+          JSON.stringify({
+            at: new Date().toISOString(),
+            model,
+            role,
+            inputTokens: u.prompt_tokens ?? 0,
+            cachedTokens: u.prompt_tokens_details?.cached_tokens ?? 0,
+            outputTokens: u.completion_tokens ?? 0,
+            reasoningTokens: u.completion_tokens_details?.reasoning_tokens ?? 0,
+            latencyMs: Math.round(performance.now() - started),
+          }) + '\n',
+        );
+      }
       const raw = jsonPayload.choices?.[0]?.message?.content;
       if (!raw) throw new ModelGatewayError('Provider returned no content', 'INVALID_JSON', true);
       let parsed: unknown;
