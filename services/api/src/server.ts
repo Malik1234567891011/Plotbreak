@@ -240,6 +240,11 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     return {
       ok: true,
       environment: ctx.config.environment,
+      // Which narrative runtime is live. Two replay files came back identical
+      // because the experiment flag was not actually on in the API process and
+      // nothing said so.
+      narrative: process.env.PLOTBREAK_NARRATIVE === 'llm_pure' ? 'llm_pure' : 'engine',
+      storyModel: process.env.PLOTBREAK_STORY_MODEL ?? null,
       modelProvider: ctx.modelProvider ?? 'rule-based',
       contractVersion: CONTRACT_VERSION,
       persistence: ctx.repo.constructor.name === 'PostgresRepository' ? 'postgres' : 'in-process',
