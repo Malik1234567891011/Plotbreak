@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_unbound",
   text: {
+    // A · b4a9815a3e27
+    "title": "Les Déliés",
     // A · 0ec7247d723e
     "fantasyLabel": "Ton école a été dissoute. Pas toi.",
     // A · 80cd2e8046ca

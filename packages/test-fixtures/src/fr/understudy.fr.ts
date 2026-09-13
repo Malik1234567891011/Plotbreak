@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_understudy",
   text: {
+    // A · 80e9fee9546d
+    "title": "La Doublure",
     // A · 42d8c6bfa8f8
     "fantasyLabel": "Tu connais le rôle. Tu es le second choix.",
     // A · b603856ad6ca

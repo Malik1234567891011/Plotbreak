@@ -65,3 +65,23 @@ Logo overlay START 29.08s (blackdetect 29.08-30.0). Logo scaled 640x640, padded 
 Timing on the sheet (fps=4): valley 0-3.75 (planned 1.2), turn 3.75-6.5, red flood 6.5-7.25, lair 7.5-9.5 (planned 3.0), classroom 9.5-13, shock 13-14.75 (planned 3.0), sky 15.25-17 (planned 3.0), lamppost 17.75-20.25, rooftop 20.5-24.75, grid 24.75-28.5, flare, black 29.08.
 If re-rolling: the opener still stretches to ~3.75s; give the lair, shock and sky beats 3.5s each in the prompt to compensate.
 Credits: 9:16 false start 16 (4 images; 5 cancelled) + 36 images + 320 video = ~404 Dare. Balance after: 1090. Another 30s roll costs 320 at 720p.
+
+## v2 (2026-09-13) — 46s, two Seedance parts joined, deep narrator, typed prompt-box overlay
+Feedback on v1: wanted the original's length (~46s), a much deeper narrator, the "type a prompt -> see the result" mechanic on screen, and "Fin" was read as "fine" (line 1 now « L'histoire est terminée. »).
+Seedance caps at 30s, so: Part A 22s (gen 3JGNURRdMlGDldsaIr6DGrTVr6g, 240 cr, prompt oneshot/prompt_fr_v2_partA.txt) ends on full white; Part B 24s (gen 3JGNWaZtsA01DTVWKXDTBEKcyNB, 260 cr, prompt_fr_v2_partB.txt) opens from full white on a drum hit. Joined with ffmpeg concat + 0.08s audio crossfade -> oneshot/seedance_fr_v2_joined_raw.mp4 (46.08s). Seam at 22.04s, white-to-white.
+Typed prompt boxes: overlay/make_overlay.py renders a transparent PNG sequence (Poppins Medium, dark pill, typewriter text with pauses, blinking cursor, play button, like the OOC UI); windows in overlay/windows_v2.json:
+  9.2-16.8   "Un roi démon qui a préparé sa vengeance pendant mille ans... se réveille dans un lycée." (pause after "ans...")
+  23.0-29.6  "Une dragonne légendaire qui a le vertige" (pause after "légendaire")
+  33.6-38.0  "Fais-les tomber amoureux"
+  38.5-43.0  empty box, blinking cursor (the "your turn" beat over the grid)
+Logo: logo-stacked-fr on the black tail from 44.25s. Output oneshot/seedance_fr_v2.mp4. Check frames: oneshot/check_v2.jpg, sheets sheet_v2_partA/B.jpg.
+Timing on the sheets: A valley 0-5.0 (planned 1.5), turn 5.5-8, lair 9-12.3, classroom 12.8-17.5, shock 17.8-20, whip/sky/white 20.3-22. B dragon 0.5-7.75, lamppost 8-11, rooftop 11.5-16, grid 16-21, flare, black 22.2.
+Rebuild after editing windows_v2.json: python3 overlay/make_overlay.py overlay/frames_v2 24 46.1 overlay/windows_v2.json, then the overlay+logo ffmpeg (see session).
+Credits: 500 for v2 renders. Balance after: ~590.
+
+## v3 (2026-09-13) — back to one 28s render (v2 felt too slow/long)
+seedance-2-5, 28s, 16:9, 720p, audio on, 300 credits. Prompt oneshot/prompt_fr_v3.txt. Gen 3JHsSJwq0nraJ1cd9cKdByz0c5F. Deep narrator, « L'histoire est terminée » opener, typing SFX under the prompt lines; typed-box overlay (overlay/make_overlay.py) and FR logo card added after, windows in overlay/windows_v3.json set from the contact sheet.
+v3 result: oneshot/seedance_fr_v3.mp4 (raw seedance_fr_v3_raw.mp4, sheet sheet_v3.jpg, check check_v3.jpg). Black from 27.17s, logo overlay START 27.17. No black frames before the tail; fade goes white->grey->black.
+Timing on the sheet: valley 0-2.25, turn 2.5-4.25, red wash 4.5-6, lair 6-9, white dissolve 9.25-9.5, classroom 9.75-12, shock close-up 12-13.5, whip up 13.5, dragon 14.5-16.75, street/lamppost 17.25-20, petals 20-20.25, rooftop 20.5-23.75, grid 23.75-26, flare 26-26.75, black 27.17.
+Overlay windows (overlay/windows_v3.json): demon prompt 6.2-12.0 (pause 0.6s after "ans..."), dragon prompt 14.5-18.0 (pause 0.4s after "légendaire"), "Fais-les tomber amoureux" 20.7-23.6, empty cursor box 24.0-26.0.
+Credits: 300. Balance after v3: 953 (a grant landed between v2 and v3).

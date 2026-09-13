@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_primal_crown",
   text: {
+    // A · aa00e7207489
+    "title": "La Couronne Primale",
     // A · ef3ef7e6161b
     "fantasyLabel": "Les troupeaux avancent trop tôt. Quelqu’un va perdre.",
     // A · bcb77bbf27f4

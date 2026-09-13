@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_pink_tide",
   text: {
+    // A · cbe9e5f92ce3
+    "title": "Marée Rose",
     // A · 7430a3c5f4f0
     "fantasyLabel": "Paradis. Une semaine. Un homme disparu.",
     // A · 3aa503884587

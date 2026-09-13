@@ -34,6 +34,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: 'story_nine_weeks',
   text: {
+    // A · de6f0d8555eb
+    "title": "Neuf Semaines",
     hook: 'Tu reviens faire la même saison. Juno aussi. Et Juno n’est pas revenu seul.',
     fantasyLabel: 'Tu es revenu. Juno aussi.',
 

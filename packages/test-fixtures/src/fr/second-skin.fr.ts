@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_second_skin",
   text: {
+    // A · aae503e9c0c4
+    "title": "Seconde Peau",
     // A · 407dc6c7a256
     "fantasyLabel": "Un corps. Une forme. Choisie à seize ans.",
     // A · baa461e645dd

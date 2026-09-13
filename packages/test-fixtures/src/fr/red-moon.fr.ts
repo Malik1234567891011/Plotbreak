@@ -14,6 +14,8 @@ import { registerWorldText } from '@plotbreak/contracts';
 registerWorldText('fr', {
   storyId: "story_red_moon",
   text: {
+    // A · 6ad7535d2cae
+    "title": "La Brigade de la Lune Rouge",
     // A · f2ac598f5cbe
     "fantasyLabel": "Tu chasses les monstres. Tu deviens l’un d’eux.",
     // A · fc51a2e91df4

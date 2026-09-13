@@ -84,7 +84,7 @@ describe('decoding a real App Store transaction', () => {
     answering({ ...APPLE, bundleId: 'com.someone.else' });
     const result = await verifier().verify(input);
     expect(result.valid).toBe(false);
-    if (result.valid) throw new Error('unreachable');
+    if (result.valid) throw new Error('expected an invalid result');
     expect(result.reason).toMatch(/different app/i);
   });
 
@@ -101,7 +101,7 @@ describe('decoding a real App Store transaction', () => {
     answering(withoutProduct);
     const result = await verifier().verify(input);
     expect(result.valid).toBe(false);
-    if (result.valid) throw new Error('unreachable');
+    if (result.valid) throw new Error('expected an invalid result');
     expect(result.reason).toMatch(/named no product/i);
   });
 
