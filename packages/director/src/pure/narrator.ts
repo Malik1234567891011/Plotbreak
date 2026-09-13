@@ -492,7 +492,10 @@ export async function narratePure(options: {
     `Pick locationId from the places listed. Suggested responses are in the player's own voice, first ` +
     `person, and follow directly from what you just wrote. Set reaction to the one character whose ` +
     `face the player should see on this beat and the expression it wears, or null when nobody's ` +
-    `reaction is the point.`;
+    `reaction is the point. The end of each past beat records whose face was shown. Do not pick the ` +
+    `same person two beats running unless their expression has genuinely changed, and leave it null on ` +
+    `a beat that is mostly action or nobody's reaction in particular — a face on every single turn, ` +
+    `usually the same one, reads as a tic rather than a reaction.`;
 
   const shape = options.shape ?? 'rebuilt';
 
@@ -584,6 +587,7 @@ export function renderBeat(turn: PureTurn, cast: Map<string, string>, timeLabel:
   return [
     ...lines,
     '',
-    `[${timeLabel} · ${turn.locationId} · present: ${turn.presentCharacterIds.join(', ') || 'nobody'}]`,
+    `[${timeLabel} · ${turn.locationId} · present: ${turn.presentCharacterIds.join(', ') || 'nobody'}` +
+      `${turn.reaction ? ` · shown: ${turn.reaction.characterId}/${turn.reaction.emotion}` : ' · shown: nobody'}]`,
   ].join('\n');
 }
