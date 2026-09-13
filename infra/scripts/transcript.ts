@@ -5,6 +5,12 @@
  *   npm run transcript -- --story=story_light --turns=20 --locale=fr
  *   npm run transcript -- --story=story_ace --turns=20 --out=/tmp/ace.md
  *
+ * `--session=<id> --user=<uuid>` carries on an existing run instead of
+ * starting one, which is how a forty-turn session becomes an eighty-turn
+ * session. It needs the API in dev-token mode — where the bearer *is* the user
+ * id — because the anonymous account the first half was played on signed up
+ * once and its token is long gone.
+ *
  * `playthrough.ts` exists already and logs the media plan, the beat plan, the
  * mutations, the check arithmetic and the resource movements — everything you
  * need to debug the engine. This is the opposite tool: it logs the screen.
@@ -233,12 +239,14 @@ async function main(): Promise<void> {
   const locale = flag('locale') ?? 'en';
   const pick = Number(flag('pick') ?? 1);
   const player = flag('player') ?? 'first';
+  const resumeSession = flag('session') ?? null;
+  const asUser = flag('user') ?? null;
   const rng = seeded(flag('seed') ?? 'casual-1');
   const out = flag('out') ?? `/tmp/transcript-${storyId}.md`;
   const tier = flag('tier') ?? 'VIVID';
 
   const auth = {
-    authorization: `Bearer ${await token()}`,
+    authorization: `Bearer ${asUser ?? (await token())}`,
     'content-type': 'application/json',
     'accept-language': locale,
   };
@@ -309,18 +317,24 @@ async function main(): Promise<void> {
     say();
   }
 
-  const session = await call<any>('POST', `/v1/stories/${storyId}/sessions`, {
-    identity: {
-      displayName: named ? detail.protagonist.name : 'Tester',
-      pronouns: named ? detail.protagonist.pronouns : 'they/them',
-      archetypeId: archetypes[0]?.id ?? null,
-      advanced: {},
-      ...(locale === 'fr' ? { grammar: { gender: 'MASCULINE', thirdPerson: 'il' } } : {}),
-    },
-    locale,
-  });
+  // Carrying on, or starting fresh.
+  const session = resumeSession
+    ? await call<any>('GET', `/v1/sessions/${resumeSession}`)
+    : await call<any>('POST', `/v1/stories/${storyId}/sessions`, {
+        identity: {
+          displayName: named ? detail.protagonist.name : 'Tester',
+          pronouns: named ? detail.protagonist.pronouns : 'they/them',
+          archetypeId: archetypes[0]?.id ?? null,
+          advanced: {},
+          ...(locale === 'fr' ? { grammar: { gender: 'MASCULINE', thirdPerson: 'il' } } : {}),
+        },
+        locale,
+      });
 
-  const sessionId = session.session.sessionId;
+  const sessionId = resumeSession ?? session.session.sessionId;
+  // Where the story already is, so the transcript's turn numbers continue the
+  // ones the first half used rather than starting again at one.
+  const startedAt = resumeSession ? (session.recentTurns?.at(-1)?.turnIndex ?? 0) : 0;
 
   // A fresh guest gets 600 credits and a VIVID turn costs 60, so an untouched
   // wallet buys exactly ten turns and a twenty-turn run dies at eleven with a
@@ -328,9 +342,19 @@ async function main(): Promise<void> {
   if (process.env.DATABASE_URL) {
     const pool = new Pool({ connectionString: process.env.DATABASE_URL });
     try {
-      const { rows } = await pool.query<{ account_id: string; balance_after: string }>(
-        `SELECT account_id, balance_after FROM wallet_ledger ORDER BY created_at DESC LIMIT 1`,
-      );
+      // The account this run actually spends from. Picking the newest ledger
+      // row is right for a fresh guest and wrong for a resumed session, which
+      // may not have been the last account to move.
+      const { rows } = asUser
+        ? await pool.query<{ account_id: string; balance_after: string }>(
+            `SELECT account_id, balance_after FROM wallet_ledger
+             WHERE account_id = (SELECT account_id FROM wallet_accounts WHERE user_id = $1 LIMIT 1)
+             ORDER BY created_at DESC LIMIT 1`,
+            [asUser],
+          )
+        : await pool.query<{ account_id: string; balance_after: string }>(
+            `SELECT account_id, balance_after FROM wallet_ledger ORDER BY created_at DESC LIMIT 1`,
+          );
       const account = rows[0];
       if (account) {
         const grant = turns * 200;
@@ -356,10 +380,17 @@ async function main(): Promise<void> {
 
   say('---');
   say();
-  say('## Opening');
-  say();
-  for (const para of String(detail.opening).split('\n\n')) say(`> ${para}`);
-  say();
+  if (resumeSession) {
+    say(`## Carrying on from turn ${startedAt}`);
+    say();
+    say(`> ${session.scene?.locationName ?? ''} · ${session.scene?.worldTimeLabel ?? ''}`);
+    say();
+  } else {
+    say('## Opening');
+    say();
+    for (const para of String(detail.opening).split('\n\n')) say(`> ${para}`);
+    say();
+  }
 
   let cardsSeen = 0;
   let typesTapped = 0;
@@ -378,7 +409,7 @@ async function main(): Promise<void> {
       cards = fresh.suggestions ?? [];
     }
     if (cards.length === 0) {
-      say(`## Turn ${t}`);
+      say(`## Turn ${startedAt + t}`);
       say();
       say('**No cards offered. A tap-only player is stuck here.**');
       say();
@@ -403,7 +434,7 @@ async function main(): Promise<void> {
       }
     }
 
-    say(`## Turn ${t}`);
+    say(`## Turn ${startedAt + t}`);
     say();
     say('**Offered:**');
     say();
