@@ -66,7 +66,7 @@ export async function runTurnPure(options: {
   const started = Date.now();
   const { gateway, story, state, recentTurns, actionText, turnId } = options;
 
-  const { turn, promptChars, historyTurns, invocation, rendered, nextWorldMinute, timeLabel, transition } =
+  const { turn, promptChars, historyTurns, invocation, rendered, nextWorldMinute, timeLabel, transition, shown } =
     await narratePure({
     gateway, story, state, recentTurns, actionText,
     // One cache per session: every turn of a session shares the whole prefix.
@@ -138,8 +138,8 @@ export async function runTurnPure(options: {
     // Only for somebody actually in the cast and actually in the scene: a face
     // belonging to a character who just left would be worse than no face.
     reaction:
-      turn.reaction && castIds.has(turn.reaction.characterId) && present.has(turn.reaction.characterId)
-        ? { characterId: turn.reaction.characterId, emotion: turn.reaction.emotion }
+      shown && castIds.has(shown.characterId) && present.has(shown.characterId)
+        ? { characterId: shown.characterId, emotion: shown.emotion }
         : null,
     suggestions: turn.suggestedResponses.map((text) => ({
       // 320 is the contract's ceiling for a card, and the same read-side

@@ -259,20 +259,20 @@ async function processTurn(
       await ctx.wallet.finalize(reservation);
       const balancePure = await ctx.wallet.getBalance(user.userId);
 
-      // Pre-generated art only. This selects one of the expressions already
-      // rendered for this character and resolves it to a CDN url; it never
-      // enqueues a media job and never reaches an image provider. If the asset
-      // does not exist the client simply shows no reaction.
+      for (const [index, block] of pure.blocks.entries()) {
+        hub.emit(turnId, 'text.stream', { index, speakerId: block.speakerId, text: block.text });
+      }
+      // Pre-generated art only, and after the prose on purpose. Emitted first,
+      // the portrait arrived a beat before the words it belongs to, which reads
+      // as the app reacting to something the player has not read yet. This
+      // selects an expression that already exists and resolves it to a url; it
+      // never enqueues a job and never reaches an image provider. A missing
+      // asset simply shows nothing.
       if (pure.reaction) {
-        // Short repeat suppression. The same face with the same expression two
-        // beats running reads as a stuck image rather than a reaction, and a
-        // measured run put one character up thirteen turns out of twenty. The
-        // previous choice is recorded at the end of the last assistant message,
-        // so this costs no storage and no extra query.
-        const lastShown = priorMessages.at(-1)?.assistant.match(/· shown: (\S+?)\/(\S+?)\]/);
-        const repeat =
-          lastShown?.[1] === pure.reaction.characterId && lastShown?.[2] === pure.reaction.emotion;
-        const who = repeat ? undefined : story.characters.find((c) => c.id === pure.reaction!.characterId);
+        // Suppression lives in the director now, so the decision and the record
+        // of it cannot drift apart: `pure.reaction` is already what the player
+        // should see, or null.
+        const who = story.characters.find((c) => c.id === pure.reaction!.characterId);
         if (who) {
           hub.emit(turnId, 'reaction.ready', {
             characterId: who.id,
@@ -283,9 +283,6 @@ async function processTurn(
         }
       }
 
-      for (const [index, block] of pure.blocks.entries()) {
-        hub.emit(turnId, 'text.stream', { index, speakerId: block.speakerId, text: block.text });
-      }
       hub.emit(turnId, 'turn.timings', {
         narrative: pure.telemetry.ms,
         promptChars: pure.telemetry.promptChars,

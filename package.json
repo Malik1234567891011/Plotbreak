@@ -46,7 +46,8 @@
     "timeskip-probe": "tsx --env-file-if-exists=.env infra/scripts/timeskip-probe.ts",
     "reaction-probe": "tsx --env-file-if-exists=.env infra/scripts/reaction-probe.ts",
     "attribution-probe": "tsx --env-file-if-exists=.env infra/scripts/attribution-probe.ts",
-    "zoom-probe": "tsx --env-file-if-exists=.env infra/scripts/zoom-probe.ts"
+    "zoom-probe": "tsx --env-file-if-exists=.env infra/scripts/zoom-probe.ts",
+    "latency-probe": "tsx --env-file-if-exists=.env infra/scripts/latency-probe.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

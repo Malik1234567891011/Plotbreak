@@ -17,3 +17,4 @@ export { findAbsenceOfPresent, findPresenceOfAbsent, findUnlicensedTravel } from
 export { runTurnPure } from './pure/runtime.js';
 export { narratePure, PURE_CONSTITUTION, renderBeat, worldBrief, type RenderedTurn, type PureTurn } from './pure/narrator.js';
 export { formatStoryTime, minutesFor, transitionLabel, isSkip, DEFAULT_BEAT_MINUTES, type TimeAdvance, type TimeUnit } from './pure/clock.js';
+export { chooseReaction, parseShown, type ShownReaction } from './pure/reaction.js';

@@ -12,6 +12,9 @@ struct SessionFeed: View {
     @Environment(\.translator) private var t
 
     private static let bottomAnchor = "session.feed.bottom"
+    /// The top of the newest beat, which is where a reader wants to be when a
+    /// turn lands — not below it, looking at the cards.
+    static let latestAnchor = "session.feed.latest"
 
     var body: some View {
         ScrollViewReader { proxy in
@@ -89,8 +92,10 @@ struct SessionFeed: View {
 
         if let pending {
             SessionPlayerAction(text: pending.actionText)
+                .id(Self.latestAnchor)
         } else if let action = latest?.actionText, !action.isEmpty {
             SessionPlayerAction(text: action)
+                .id(Self.latestAnchor)
         }
 
         if let check = pending?.check, worthRevealing(label: check.label, math: check.math) {
@@ -122,7 +127,9 @@ struct SessionFeed: View {
         }
 
         // Spec §19.7 — the face, edge to edge, the way a scene would cut to it.
-        if let reaction = pending?.reaction, let url = reaction.url {
+        // `lastReaction` keeps it there once the turn commits; without it the
+        // image appeared and disappeared inside the same second.
+        if let reaction = pending?.reaction ?? model.lastReaction, let url = reaction.url {
             Button {
                 model.fullScreenImage = url
             } label: {

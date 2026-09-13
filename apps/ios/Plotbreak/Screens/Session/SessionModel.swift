@@ -130,8 +130,14 @@ struct SessionError: Hashable {
 }
 
 struct ScrollRequest: Equatable {
+    /// Where a scroll wants to land. Sending follows the bottom so the player
+    /// watches their own line land; an arriving turn parks the top of the new
+    /// beat under the reader rather than dropping them at the cards below it.
+    enum Anchor { case bottom, latestBeat }
+
     var id = 0
     var animated = true
+    var anchor: Anchor = .bottom
 }
 
 // MARK: - Model
@@ -161,6 +167,15 @@ final class SessionModel {
     var fullScreenImage: String?
     /// Bumped whenever the feed should follow the bottom.
     private(set) var scrollRequest = ScrollRequest()
+
+    /// The face shown on the beat that just landed.
+    ///
+    /// The live slot's reaction lives on `pending`, and committed turns do not
+    /// carry one, so the image appeared while the turn was in flight and then
+    /// vanished the instant the server's copy arrived — a full-bleed portrait
+    /// flashing on and straight back off. Holding the last one keeps it under
+    /// the beat it belongs to until the player moves on.
+    private(set) var lastReaction: PendingReaction?
 
     private var store: AppStore?
     private var router: Router?
@@ -280,8 +295,8 @@ final class SessionModel {
         store?.saveDraft(sessionId: sessionId, text: text)
     }
 
-    private func requestScroll(animated: Bool) {
-        scrollRequest = ScrollRequest(id: scrollRequest.id + 1, animated: animated)
+    private func requestScroll(animated: Bool, anchor: ScrollRequest.Anchor = .bottom) {
+        scrollRequest = ScrollRequest(id: scrollRequest.id + 1, animated: animated, anchor: anchor)
     }
 
     // MARK: Sending
@@ -312,6 +327,7 @@ final class SessionModel {
         // The player's own words go up before the network is touched.
         draft = ""
         saveDraftNow("")
+        lastReaction = nil
         pending = PendingTurn(actionText: text)
         requestScroll(animated: true)
 
@@ -413,7 +429,8 @@ final class SessionModel {
             break
 
         case .reactionReady:
-            // Lands roughly a second and a half before the first sentence.
+            // Now emitted after the prose, so it lands under words the player
+            // is already reading rather than ahead of them.
             pending?.reaction = PendingReaction(
                 name: data["name"]?.stringValue ?? "",
                 url: data["url"]?.stringValue,
@@ -433,7 +450,10 @@ final class SessionModel {
                 voiceEligible: data["voiceEligible"]?.boolValue ?? false
             )
             pending?.blocks.append(block)
-            requestScroll(animated: true)
+            // The narrative arrives as a burst of blocks rather than a token
+            // stream, so following each one queued a dozen animated scrolls for
+            // a single turn. Only the first one needs to move the view.
+            if pending?.blocks.count == 1 { requestScroll(animated: true) }
 
         case .stateDelta:
             pending?.deltas.append(data["label"]?.stringValue ?? "")
@@ -447,12 +467,16 @@ final class SessionModel {
             Task { [weak self] in
                 guard let self, let store = self.store else { return }
                 if let response = try? await store.api.session(self.sessionId) {
+                    // Carried across the commit so the portrait does not blink
+                    // out the moment the server's copy of the turn arrives.
+                    self.lastReaction = self.pending?.reaction
                     self.turns = response.recentTurns
                     self.revision = response.revision
                     self.pending = nil
-                    // Streaming had the reader at the bottom; put them back
-                    // there once the server's copy has laid out.
-                    self.requestScroll(animated: false)
+                    // Park the reader at the start of the beat that just
+                    // arrived. Scrolling to the bottom here put them below the
+                    // prose they had not read, at the cards.
+                    self.requestScroll(animated: false, anchor: .latestBeat)
                 }
             }
 

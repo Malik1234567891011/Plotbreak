@@ -374,7 +374,7 @@ const raw = {
       questItem: true,
       droppable: false,
       rarity: null,
-      description: 'A biscuit tin, buried, containing five million berries in notes that have been counted more often than they have been added to.',
+      description: 'A biscuit tin containing five million berries in notes that have been counted more often than they have been added to. It is buried at the foot of the treehouse under a flat stone — never under any floor.',
       loreText:
         'The plan is a ship. Not a specific ship — a ship. Sabo did the arithmetic on what one costs and neither of them has questioned the figure since, because questioning it would mean admitting neither of them knows. It is the first thing in Ace’s life that belongs to more than one person, and if Luffy is ever told where it is buried, that means something that no conversation could.',
       icon: null,
@@ -1005,7 +1005,7 @@ const raw = {
         // Under the floor, in a tin. Her secret says she has never shown it to
         // anybody, and `dadan_shows_the_notice` is the gate that changes that —
         // but the object has to be somewhere for the gate to have a referent.
-        { itemId: 'roger_record', qty: 1, ownerId: 'dadan', aka: ['the paper', 'the tin', 'under the floor', 'the notice'] },
+        { itemId: 'roger_record', qty: 1, ownerId: 'dadan', aka: ['the notice', 'the paper Garp left', 'Dadan’s tin', 'the tin under Dadan’s floor'] },
       ],
     },
     {
@@ -1024,7 +1024,7 @@ const raw = {
       discoveredByDefault: true,
       mapPosition: { x: 8, y: 34 },
       ambientSfx: ['creaking rope', 'distant surf', 'leaves'],
-      takeableItems: [{ itemId: 'ship_fund', qty: 1, ownerId: null, aka: ['the can', 'the money', 'the tin', 'our money'] }],
+      takeableItems: [{ itemId: 'ship_fund', qty: 1, ownerId: null, aka: ['the can', 'the money', 'our money', 'the ship money', 'the can under the flat stone'] }],
     },
     {
       id: 'gray_terminal',
@@ -1174,7 +1174,7 @@ const raw = {
       discoveredByDefault: false,
       mapPosition: { x: 72, y: 34 },
       ambientSfx: ['wind and sand', 'market', 'heat'],
-      takeableItems: [{ itemId: 'vivre_card', qty: 1, ownerId: null, aka: ['the card', 'vivre card', 'the paper'] }],
+      takeableItems: [{ itemId: 'vivre_card', qty: 1, ownerId: null, aka: ['the card', 'vivre card', 'the scrap of living paper'] }],
     },
     {
       id: 'whitebeard_medical',
@@ -1209,7 +1209,7 @@ const raw = {
       discoveredByDefault: false,
       mapPosition: { x: 72, y: 34 },
       ambientSfx: ['wind and sand', 'market', 'heat'],
-      takeableItems: [{ itemId: 'vivre_card', qty: 1, ownerId: null, aka: ['the card', 'vivre card', 'the paper'] }],
+      takeableItems: [{ itemId: 'vivre_card', qty: 1, ownerId: null, aka: ['the card', 'vivre card', 'the scrap of living paper'] }],
     },
     {
       id: 'banaro',
@@ -1582,7 +1582,7 @@ const raw = {
       secrets: [
         {
           id: 'dadan_kept_the_notice',
-          fact: 'She has the paper Garp left with the boy — a name, a date, and no father on it — folded in a tin under the floor, and she has never shown anybody.',
+          fact: 'She has the paper Garp left with the boy — a name, a date, and no father on it — folded in a tin under the floorboards of her own house, which is a different tin from the boys’ money can, and she has never shown anybody.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She will not be asked into it. She produces it herself, once, on a night when she has decided he is about to find out worse from somebody else.',
         },

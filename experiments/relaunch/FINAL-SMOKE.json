@@ -1,0 +1,467 @@
+{
+  "sessionId": "sess_a2847acf-d12b-485f-be26-e82c723db715",
+  "log": [
+    {
+      "turn": 1,
+      "how": "tapped",
+      "words": 195,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 8,
+      "attributed": 4,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"luffy\",\"name\":\"Monkey D. Luffy\",\"emotion\":\"annoyed\",\"url\":\"http://10.144.7.164:4000/media/story_ace/luffy_annoyed?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I grab Luffy by the vest and start looking for a tree.",
+        "I tell Sabo to stop laughing and back me up.",
+        "I keep walking toward the treehouse and ignore Luffy."
+      ]
+    },
+    {
+      "turn": 2,
+      "how": "tapped",
+      "words": 166,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 10,
+      "attributed": 6,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"amused\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_amused?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I tell Sabo this is his fault and start for the treehouse.",
+        "I grab Luffy by the vest and drag him toward home.",
+        "I ask Luffy why he will not leave us alone."
+      ]
+    },
+    {
+      "turn": 3,
+      "how": "typed/risk",
+      "words": 160,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 8,
+      "attributed": 4,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"luffy\",\"name\":\"Monkey D. Luffy\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/luffy_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I grab Luffy’s wrists and haul him up.",
+        "I tell Sabo to get Luffy’s hat while I wait.",
+        "I tell Luffy to climb up by himself."
+      ]
+    },
+    {
+      "turn": 4,
+      "how": "tapped",
+      "words": 167,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 8,
+      "attributed": 4,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"amused\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_amused?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I tell Sabo to let him go get it.",
+        "I tell Luffy I’ll throw the hat across if he stays put.",
+        "I keep walking toward the treehouse."
+      ]
+    },
+    {
+      "turn": 5,
+      "how": "tapped",
+      "words": 150,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 8,
+      "attributed": 4,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"luffy\",\"name\":\"Monkey D. Luffy\",\"emotion\":\"warm\",\"url\":\"http://10.144.7.164:4000/media/story_ace/luffy_warm?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I tell Luffy he can come with us, but he follows the rules.",
+        "I tell Luffy to stay here while Sabo and I go on.",
+        "I tell Sabo we are leaving before Luffy changes his mind."
+      ]
+    },
+    {
+      "turn": 6,
+      "how": "typed/explore",
+      "words": 142,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Sabo"
+      ],
+      "blocks": 5,
+      "attributed": 2,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I check the boot prints by the river.",
+        "I call out to whoever made the fire.",
+        "I search the canvas pack."
+      ]
+    },
+    {
+      "turn": 7,
+      "how": "tapped",
+      "words": 190,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Sabo"
+      ],
+      "blocks": 6,
+      "attributed": 2,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I hide the paper and get behind the rocks.",
+        "I confront whoever is coming up the trail.",
+        "I ask Sabo what he knows about East Terminal Access."
+      ]
+    },
+    {
+      "turn": 8,
+      "how": "typed/goal",
+      "words": 230,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Sabo"
+      ],
+      "blocks": 7,
+      "attributed": 3,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I grab the paper and hide with Sabo.",
+        "I stay by the fire and wait for whoever is coming.",
+        "I tell Sabo we need to find out what the collection crews are doing."
+      ]
+    },
+    {
+      "turn": 9,
+      "how": "tapped",
+      "words": 177,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Sabo"
+      ],
+      "blocks": 7,
+      "attributed": 1,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I step out and ask what the order is for.",
+        "I stay hidden and wait for him to leave.",
+        "I rush him with my pipe before he can search properly."
+      ]
+    },
+    {
+      "turn": 10,
+      "how": "tapped",
+      "words": 180,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Sabo"
+      ],
+      "blocks": 10,
+      "attributed": 2,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I press him on what “clear” means.",
+        "I tell him we are keeping the order.",
+        "I ask who is coming to Goa."
+      ]
+    },
+    {
+      "turn": 11,
+      "how": "tapped",
+      "words": 182,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Sabo"
+      ],
+      "blocks": 8,
+      "attributed": 1,
+      "media": [],
+      "cards": [
+        "I demand to know what “make the piles ready” means.",
+        "I tell him we are keeping the order and back away with Sabo.",
+        "I ask Sabo whether he knew anything about this."
+      ]
+    },
+    {
+      "turn": 12,
+      "how": "typed/explore",
+      "words": 228,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Sabo"
+      ],
+      "blocks": 7,
+      "attributed": 2,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I climb down and demand the worker tell us what the marked streets are for.",
+        "I stay in the tree and study the collection points more closely.",
+        "I tell Sabo we need to get Luffy and go to Gray Terminal."
+      ]
+    },
+    {
+      "turn": 13,
+      "how": "typed/explore",
+      "words": 226,
+      "time": "Day 1 · morning",
+      "location": "Mount Colubo",
+      "present": [
+        "Sabo"
+      ],
+      "blocks": 7,
+      "attributed": 2,
+      "media": [],
+      "cards": [
+        "I inspect the skiff for anything useful before we run.",
+        "I go back up and make the worker answer us.",
+        "I tell Sabo we are leaving now and head for the treehouse."
+      ]
+    },
+    {
+      "turn": 14,
+      "how": "tapped",
+      "words": 221,
+      "time": "Day 1 · morning",
+      "location": "The Treehouse",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 9,
+      "attributed": 5,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"luffy\",\"name\":\"Monkey D. Luffy\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/luffy_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I get us into the treehouse and show Sabo the order.",
+        "I tell Luffy to stay hidden while Sabo and I watch the forest.",
+        "I head straight for Dadan’s house instead."
+      ]
+    },
+    {
+      "turn": 15,
+      "how": "typed/social",
+      "words": 278,
+      "time": "Day 1 · morning",
+      "location": "The Treehouse",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 9,
+      "attributed": 5,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I climb up and read the whole order with Sabo.",
+        "I tell Sabo we warn Gray Terminal before anyone else.",
+        "I tell Luffy he is staying here while Sabo and I handle this."
+      ]
+    },
+    {
+      "turn": 16,
+      "how": "tapped",
+      "words": 261,
+      "time": "Day 1 · morning",
+      "location": "The Treehouse",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 10,
+      "attributed": 4,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"luffy\",\"name\":\"Monkey D. Luffy\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/luffy_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I tell them we are warning Gray Terminal.",
+        "I say we hide until the searchers pass, then make a plan.",
+        "I ask Sabo how we get past the guards."
+      ]
+    },
+    {
+      "turn": 17,
+      "how": "tapped",
+      "words": 245,
+      "time": "Day 1 · morning",
+      "location": "The Treehouse",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 9,
+      "attributed": 2,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I say we go to Gray Terminal and warn whoever we can.",
+        "I ask Sabo what routes get us past Goa’s guards.",
+        "I tell Luffy to stay here while Sabo and I make the plan."
+      ]
+    },
+    {
+      "turn": 18,
+      "how": "tapped",
+      "words": 215,
+      "time": "Day 1 · morning",
+      "location": "The Treehouse",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 8,
+      "attributed": 5,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I tell Sabo we warn them, then get out before the guards close in.",
+        "I tell Sabo I’m staying until the people in those streets are safe.",
+        "I tell them to move and lead them down the western ravine."
+      ]
+    },
+    {
+      "turn": 19,
+      "how": "tapped",
+      "words": 255,
+      "time": "Day 1 · morning",
+      "location": "The Treehouse",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 11,
+      "attributed": 6,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"luffy\",\"name\":\"Monkey D. Luffy\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/luffy_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I tell Sabo we take the western ravine now.",
+        "I ask Sabo where we can hide people once we warn them.",
+        "I tell Luffy exactly what he has to do if guards see us."
+      ]
+    },
+    {
+      "turn": 20,
+      "how": "tapped",
+      "words": 281,
+      "time": "Day 1 · midday",
+      "location": "Gray Terminal",
+      "present": [
+        "Monkey D. Luffy",
+        "Sabo"
+      ],
+      "blocks": 8,
+      "attributed": 4,
+      "media": [
+        {
+          "kind": "reaction.ready",
+          "detail": "{\"characterId\":\"sabo\",\"name\":\"Sabo\",\"emotion\":\"worried\",\"url\":\"http://10.144.7.164:4000/media/story_ace/sabo_worried?v=1&e=2\"}"
+        }
+      ],
+      "cards": [
+        "I tell Sabo we warn the families quietly, starting with the woman and her children.",
+        "I tell Luffy to slip down and pull people aside while Sabo and I watch for guards.",
+        "I look for a way to stop or steal the oil carts before they reach the streets."
+      ]
+    }
+  ]
+}

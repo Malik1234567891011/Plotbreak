@@ -3,6 +3,7 @@ import type { GameState, StoryVersion, TurnRecord } from '@plotbreak/contracts';
 import { charactersPresent } from '@plotbreak/engine';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 import { formatStoryTime, minutesFor, transitionLabel } from './clock.js';
+import { chooseReaction, parseShown, type ShownReaction } from './reaction.js';
 
 /**
  * LLM_PURE — the experiment.
@@ -415,6 +416,8 @@ export interface PureResult {
   readonly timeLabel: string;
   /** Shown above the beat when time actually jumped. Null when it did not. */
   readonly transition: string | null;
+  /** The face to show, after suppression. Null means show nothing. */
+  readonly shown: ShownReaction | null;
 }
 
 /** A turn as it was actually sent, replayed verbatim on every later request. */
@@ -556,6 +559,14 @@ export async function narratePure(options: {
   const nextWorldMinute = state.worldMinute + minutesFor(turn.timeAdvance);
   const timeLabel = formatStoryTime(nextWorldMinute);
 
+  // Decided here rather than in the API, so the marker written into history is
+  // what the player actually saw. Recording the proposal instead would let a
+  // suppressed face keep suppressing its own successors.
+  const shown = chooseReaction(
+    turn.reaction ?? null,
+    [...(options.rendered ?? [])].reverse().map((past) => parseShown(past.assistant)),
+  );
+
   return {
     turn,
     nextWorldMinute,
@@ -564,7 +575,8 @@ export async function narratePure(options: {
     promptChars: JSON.stringify(messages).length,
     historyTurns: shape === 'append' ? (options.rendered?.length ?? 0) : recentTurns.length,
     invocation: result.invocation,
-    rendered: { user: userTurn, assistant: renderBeat(turn, cast, timeLabel) },
+    shown,
+    rendered: { user: userTurn, assistant: renderBeat(turn, cast, timeLabel, shown) },
   };
 }
 
@@ -579,7 +591,12 @@ export const PURE_SPEAKER_NORMALIZER = speakerNormalizer;
  * stored by the caller, so the string is guaranteed byte-identical next turn —
  * the whole append-only cache saving rests on that.
  */
-export function renderBeat(turn: PureTurn, cast: Map<string, string>, timeLabel: string): string {
+export function renderBeat(
+  turn: PureTurn,
+  cast: Map<string, string>,
+  timeLabel: string,
+  shown: ShownReaction | null,
+): string {
   const lines = turn.narrative.map((block) => {
     const who = cast.get(block.speaker) ?? null;
     return who ? `${who}: ${block.text}` : block.text;
@@ -588,6 +605,6 @@ export function renderBeat(turn: PureTurn, cast: Map<string, string>, timeLabel:
     ...lines,
     '',
     `[${timeLabel} · ${turn.locationId} · present: ${turn.presentCharacterIds.join(', ') || 'nobody'}` +
-      `${turn.reaction ? ` · shown: ${turn.reaction.characterId}/${turn.reaction.emotion}` : ' · shown: nobody'}]`,
+      `${shown ? ` · shown: ${shown.characterId}/${shown.emotion}` : ' · shown: nobody'}]`,
   ].join('\n');
 }
