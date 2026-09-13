@@ -340,10 +340,12 @@ export function worldBrief(story: StoryVersion, archetypeId?: string | null): st
     ...(story.rules.hardCanon.length
       ? [
           '',
-          '## True before the story starts',
-          'Facts, not suggestions. They hold in every session and in every language, they were decided by',
-          'the author rather than by you, and nothing in play may quietly contradict one. Where a fact',
-          'names somebody or something, that is its name.',
+          '## True when the story begins',
+          'The author decided these, not you, and they are the same in every session and every language.',
+          'Where one names somebody or something, that is its name, and no session may quietly rename it.',
+          'They describe the world the player walks into — not a script for how it ends. What the player',
+          'does can change any of it afterwards: somebody alive at the start may die, a grudge may become',
+          'something else. A fact about how things stood is not a promise about how they stay.',
           ...story.rules.hardCanon.map((fact) => `- ${fact}`),
         ]
       : []),
@@ -352,31 +354,64 @@ export function worldBrief(story: StoryVersion, archetypeId?: string | null): st
     story.protagonist.kind === 'NAMED'
       ? `${story.protagonist.name} (${story.protagonist.pronouns}). ${story.protagonist.description}`
       : 'The player names themselves; see the scene block below.',
-    // The authored options, and which one this player is.
+    // Who the player is, and — only sometimes — who else exists.
     //
-    // Not just the chosen one: in a story where the archetypes *are* the three
-    // creatures Morel grew, the two the player did not bond with still exist,
-    // still have names and still have natures. Sending only the chosen one left
-    // the other two to be invented, and they came out differently in English
-    // and in French.
-    ...(story.archetypes.length
-      ? [
-          '',
-          '## Who the player could be, and is',
-          'Authored, and true whoever the player picked. The others still exist in the world.',
-          ...story.archetypes.map((option) =>
-            [
-              `### ${option.name}${option.id === archetypeId ? '  ← the player is this one' : ''}`,
-              option.role,
-              option.summary,
-              option.blurb,
-              option.playstyle.length ? `Plays as: ${option.playstyle.join(', ')}` : '',
-            ]
-              .filter(Boolean)
-              .join('\n'),
-          ),
+    // For most stories the archetypes are mutually exclusive player origins:
+    // Itachi's are "You Gave Him Water" and "You Looked Away", and asserting all
+    // four would hand the storyteller four contradictory pasts as authored
+    // truth. For a few they are real, coexisting things in the world: Fourth
+    // Beast's are the three creatures Morel grew, and the two the player did not
+    // bond with still exist and still have names.
+    //
+    // The difference is already in the authoring rather than in a list of story
+    // ids: when the author has independently asserted the options as facts —
+    // named them in hard canon, the premise, or the cast — they are world
+    // entities. When they appear nowhere but the character-creation screen, they
+    // are one player's history and only the chosen one is true.
+    ...(() => {
+      const chosen = archetypeId ? story.archetypes.find((a) => a.id === archetypeId) : null;
+      const asFact = (name: string) =>
+        new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(assertedElsewhere);
+      const assertedElsewhere = [
+        ...story.rules.hardCanon,
+        story.premise,
+        ...story.characters.map((c) => c.name),
+      ].join('\n');
+      const named = story.archetypes.filter((a) => asFact(a.name));
+      // Two or more is the signal. One is usually a word that happens to appear.
+      const coexist = named.length >= 2 ? named : [];
+      const show = [...new Set([...(chosen ? [chosen] : []), ...coexist])];
+      if (!show.length) return [];
+
+      const describe = (option: (typeof story.archetypes)[number]) =>
+        [
+          `### ${option.name}${option.id === archetypeId ? '  ← the player is this one' : ''}`,
+          option.role,
+          option.summary,
+          option.blurb,
+          option.playstyle.length ? `Plays as: ${option.playstyle.join(', ')}` : '',
+          // What the option can actually do, which is authored separately and
+          // was never sent — so "Nox puts heat into things" arrived without the
+          // ability that says what that means.
+          ...option.startingAbilities
+            .map((id) => story.abilities.find((a) => a.id === id))
+            .filter((ability): ability is NonNullable<typeof ability> => Boolean(ability))
+            .map((ability) => `Can: ${ability.name} — ${ability.description}`),
         ]
-      : []),
+          .filter(Boolean)
+          .join('\n');
+
+      return [
+        '',
+        coexist.length
+          ? '## The three of them, and which one is the player’s'
+          : '## Who the player is',
+        coexist.length
+          ? 'All of these exist in the world whoever the player chose.'
+          : 'One player, one history. The other options on the character screen are not real and are not mentioned.',
+        ...show.map(describe),
+      ];
+    })(),
     '',
     '## Cast',
     'Everything below is yours to play. A character is the whole of this, not the loudest line of it.',
@@ -405,6 +440,13 @@ export function worldBrief(story: StoryVersion, archetypeId?: string | null): st
         .join('\n'),
     ),
     '',
+    // What the player has already read. The opening beat is turn zero, it has
+    // no conversation row, and so the storyteller was writing the second beat
+    // of a scene it had never seen. Static per story, so it caches with the
+    // rest of the header.
+    ...(story.opening
+      ? ['## How this story opened', 'The player has read this. It happened.', story.opening, '']
+      : []),
     '## Places',
     ...story.locations.map((l) => `- ${l.name} (id: ${l.id}): ${l.description}`),
     '',

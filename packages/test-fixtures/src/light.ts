@@ -1250,7 +1250,7 @@ const raw = {
       discoveredByDefault: false,
       mapPosition: { x: 90, y: 78 },
       ambientSfx: ['rain through a roof', 'footsteps on steel', 'a very large empty space'],
-      takeableItems: [{ itemId: 'fake_note', qty: 1, ownerId: null, aka: ['the notebook', 'the other notebook', 'the fake'] }],
+      takeableItems: [{ itemId: 'fake_note', qty: 1, ownerId: null, aka: ['the other notebook', 'the fake', 'the decoy notebook', 'the substitute'] }],
     },
   ],
   factions: [

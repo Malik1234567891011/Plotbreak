@@ -49,7 +49,9 @@
     "zoom-probe": "tsx --env-file-if-exists=.env infra/scripts/zoom-probe.ts",
     "latency-probe": "tsx --env-file-if-exists=.env infra/scripts/latency-probe.ts",
     "context-audit": "tsx --env-file-if-exists=.env infra/scripts/context-audit.ts",
-    "cross-story": "tsx --env-file-if-exists=.env infra/scripts/cross-story.ts"
+    "cross-story": "tsx --env-file-if-exists=.env infra/scripts/cross-story.ts",
+    "context-coverage": "tsx --env-file-if-exists=.env infra/scripts/context-coverage.ts",
+    "canon-audit": "tsx --env-file-if-exists=.env infra/scripts/canon-audit.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
