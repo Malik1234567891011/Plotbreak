@@ -347,3 +347,35 @@ describe('it survives the thing that used to erase it', () => {
     expect(after.generated.locations).toHaveLength(1);
   });
 });
+
+/**
+ * A place found on the way out of somewhere looks like the somewhere.
+ *
+ * Generated locations shipped with an empty `artDirection`, and a hero frame's
+ * only grounding in a place is that string plus its name. So "Beyond The
+ * Treehouse" produced a prompt with a style, a framing and nothing else, and
+ * the generator filled the gap from the source material: once a busy coastal
+ * village full of people, for a beat whose own words were "out here, nobody",
+ * and once a shipwreck, for a beat about tripping on a hot forest path.
+ */
+describe('a place the story found still has to look like somewhere', () => {
+  it('inherits the art direction of the place it was found from', () => {
+    const s = state();
+    const origin = NINTH_ARCHIVE.locations.find((l) => l.id === s.player.locationId)!;
+    const promoted = promoteLocation(s, 'The Long Stair', 'went there', 20, nextId, NINTH_ARCHIVE).location!;
+    expect(promoted.artDirection).toBe(origin.artDirection);
+    expect(promoted.artDirection.length).toBeGreaterThan(0);
+  });
+
+  it('says where it is, so the name is not the only grounding', () => {
+    const s = state();
+    const origin = NINTH_ARCHIVE.locations.find((l) => l.id === s.player.locationId)!;
+    const promoted = promoteLocation(s, 'The Long Stair', 'went there', 20, nextId, NINTH_ARCHIVE).location!;
+    expect(promoted.description).toContain(origin.name);
+  });
+
+  it('still works when no world is handed in', () => {
+    const promoted = promoteLocation(state(), 'The Long Stair', 'went there', 20, nextId).location!;
+    expect(promoted.artDirection).toBe('');
+  });
+});

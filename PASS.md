@@ -64,3 +64,24 @@ Order is by what it costs a player, not by the order in the brief.
 Parser fidelity, invented history, relationship coherence, world movement.
 `packages/director/src/playful-challenge.spec.ts`,
 `invented-history.spec.ts`, `speech-tics.spec.ts`, `scene-progress.spec.ts`.
+
+## Found during the re-test: `calledName` was never live
+
+The chips still said "Monkey is afraid of you" after the fix that was supposed
+to make them say "Luffy". Not a code fault — `calledName` is **data**, and the
+published Ace version did not have it. Five versions existed, newest at 19:21,
+and `luffy.calledName` was null in every one: the last `migrate` before this
+pass ran from a tree that did not carry the field.
+
+So the naming fix has never been live in any playtest, including the two I
+reported on. `migrate` republished Ace as v6 with the field present and it is
+live now.
+
+Two things this changes about what I said earlier. My audit of the production
+catalogue reported "6 of 25 newest versions carry calledName" and I assumed Ace
+was one of them; it was not, and I did not check per world. And the second
+playtest's "Monkey" labels were evidence of a data gap, not of the fix failing.
+
+A session is pinned to the story version it started on, so the re-test running
+now is on v5 and will still show the old labels. Everything else in this pass is
+code-side and applies to it regardless.

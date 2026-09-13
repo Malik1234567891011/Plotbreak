@@ -932,7 +932,7 @@ function resolveTravel(args: ResolveActionArgs): ActionOutcome {
     const spoken = `${action.method} ${action.declaredOutcome ?? ''} ${target?.displayName ?? ''}`;
     const mentioned = matchMention(spoken, state);
     if (mentioned) {
-      const promotion = promoteLocation(state, mentioned, 'went there', TRAVEL_TO_NEW_MINUTES, nextMutationId);
+      const promotion = promoteLocation(state, mentioned, 'went there', TRAVEL_TO_NEW_MINUTES, nextMutationId, story);
       return {
         checks: [],
         mutations: [
@@ -2521,7 +2521,7 @@ function resolveDeparture(args: ResolveActionArgs): ActionOutcome {
       // French player walked off the map and arrived somewhere called
       // "Beyond Les", which is neither language.
       const name = beyondName(here?.name ?? null, state.locale);
-      const promotion = promoteLocation(state, name, 'left', TRAVEL_TO_NEW_MINUTES, nextMutationId);
+      const promotion = promoteLocation(state, name, 'left', TRAVEL_TO_NEW_MINUTES, nextMutationId, story);
 
       return {
         checks: [],

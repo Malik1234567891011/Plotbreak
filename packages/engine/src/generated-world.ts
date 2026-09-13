@@ -410,16 +410,34 @@ export function promoteLocation(
   reason: string,
   travelMinutes: number,
   nextMutationId: () => string,
+  /** The world it is being found in, so the new place can look like it. */
+  story?: StoryVersion,
 ): Promotion {
   const id = generatedId('loc', name);
   const from = state.player.locationId;
 
+  // A place found on the way out of somewhere looks like the somewhere.
+  //
+  // These shipped with an empty `artDirection`, and a hero frame's only
+  // grounding in a place is that string plus its name. So a generated location
+  // produced a prompt with a style, a framing and nothing else, and the
+  // generator filled the gap from the source material: "Beyond The Treehouse"
+  // came back once as a busy coastal village full of people, for a beat whose
+  // own words were "out here, nobody", and once as a shipwreck, for a beat
+  // about tripping on a hot forest path.
+  //
+  // Inheriting from the place it was found off is both free and right — it is
+  // the same island, the same hour and the same weather, and the authored
+  // direction is the best description of that that exists.
+  const origin = story?.locations.find((l) => l.id === from);
   const location: LocationDef = {
     id,
     name,
     shortName: name.split(/\s+/).slice(0, 2).join(' '),
-    description: `${name}. Somewhere this story found rather than started with.`,
-    artDirection: '',
+    description: origin
+      ? `${name}. Somewhere this story found rather than started with, a short walk from ${origin.name}.`
+      : `${name}. Somewhere this story found rather than started with.`,
+    artDirection: origin?.artDirection ?? '',
     stageImage: null,
     // Two-way, so the player can get back to where they came from. A generated
     // place the player cannot leave is a trap they built themselves.
