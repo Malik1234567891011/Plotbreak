@@ -73,16 +73,47 @@ describe('somebody walking into the scene', () => {
     expect(context.departures).toEqual([]);
   });
 
-  it('does not report the player’s own travel as somebody arriving', () => {
-    // The player walking into a room is not three people appearing in it.
+  it('reports the room when the player is the one who walked in', () => {
+    // This used to assert the opposite, on the reasoning that the player
+    // walking into a room is not three people appearing in it. Turn 54 of the
+    // eighty-turn session is the evidence against that: the player arrived at
+    // Mount Colubo where Luffy, Dadan and Garp were standing, having last seen
+    // them twenty turns earlier, and the beat did not mention meeting any of
+    // them. From the player's side, walking in is the same event.
     const s = state();
     const context = contextWith(s, [turn([move('player', s.player.locationId)])]);
-    expect(context.arrivals).toEqual([]);
+    expect(context.arrivals.length).toBeGreaterThan(0);
   });
 
   it('says nothing on the opening, which has no previous beat', () => {
     const context = contextWith(state(), []);
     expect(context.arrivals).toEqual([]);
     expect(context.departures).toEqual([]);
+  });
+});
+
+/**
+ * Walking into a room is an arrival too.
+ *
+ * Turn 53 of the eighty-turn session had the player alone at the treehouse and
+ * said so. Turn 54 travelled to Mount Colubo, where Luffy, Dadan and Garp were
+ * standing, and the beat did not mention meeting any of them. The engine was
+ * right both times; what was missing was the meeting.
+ */
+describe('the player walking in', () => {
+  it('treats everybody in the new room as an arrival', () => {
+    const s = state();
+    const context = contextWith(s, [turn([move('player', s.player.locationId)])]);
+    expect(context.arrivals.map((a) => a.name)).toContain('Sabo');
+    expect(context.arrivals.map((a) => a.name)).toContain('Monkey D. Luffy');
+  });
+
+  it('does not double-count somebody who walked in as the player did', () => {
+    const s = state();
+    const context = contextWith(s, [
+      turn([move('player', s.player.locationId), move('sabo', s.player.locationId)]),
+    ]);
+    const sabo = context.arrivals.filter((a) => a.id === 'sabo');
+    expect(sabo).toHaveLength(1);
   });
 });

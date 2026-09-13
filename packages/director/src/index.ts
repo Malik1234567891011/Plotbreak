@@ -13,3 +13,4 @@ export * from './choice-clarity.js';
 export * from './pipeline.js';
 export * from './model-stages.js';
 export * from './custom-build-stage.js';
+export { findAbsenceOfPresent, findPresenceOfAbsent, findUnlicensedTravel } from './present-absence.js';

@@ -680,6 +680,26 @@ function movementSinceLastBeat(
   const arrivals: { id: string; name: string }[] = [];
   const departures: { id: string; name: string }[] = [];
 
+  // The player walking into a room full of people.
+  //
+  // Turn 54 of the eighty-turn session: turn 53 correctly had the player alone
+  // at the treehouse — "Sabo isn't here. Neither is Dadan, and Luffy's nowhere
+  // in sight" — and turn 54 travelled to Mount Colubo, where Luffy, Dadan and
+  // Garp were standing. Nobody teleported and the engine was right both times.
+  // What was missing is the meeting: three people the player had not seen for
+  // twenty turns were simply there, unremarked. From the player's side of it,
+  // walking into a room is every bit as much an arrival as somebody walking
+  // into theirs.
+  const playerMoved = (last.mutations ?? []).some(
+    (m) => m.type === 'LOCATION_CHANGE' && m.subjectId === 'player',
+  );
+  if (playerMoved) {
+    for (const runtime of charactersPresent(state)) {
+      const def = story.characters.find((c) => c.id === runtime.characterId);
+      if (def) arrivals.push({ id: def.id, name: def.name });
+    }
+  }
+
   for (const mutation of last.mutations ?? []) {
     if (mutation.type !== 'LOCATION_CHANGE') continue;
     if (mutation.subjectId === 'player') continue;
@@ -687,7 +707,9 @@ function movementSinceLastBeat(
     if (!def) continue;
     const to = (mutation.payload as { locationId?: unknown }).locationId;
     if (typeof to !== 'string') continue;
-    if (to === here && present.has(def.id)) arrivals.push({ id: def.id, name: def.name });
+    if (to === here && present.has(def.id) && !arrivals.some((a) => a.id === def.id)) {
+      arrivals.push({ id: def.id, name: def.name });
+    }
     else if (to !== here && !present.has(def.id)) departures.push({ id: def.id, name: def.name });
   }
 

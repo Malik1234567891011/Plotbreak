@@ -135,3 +135,22 @@ silently dropped them **and their checks**. The same skip explains 35/41 versus
 
 No engine behaviour changed between the two reports. The instrument did. This is
 why there is now one committed report tool instead of a script per question.
+
+## One instrument
+
+`npm run report -- <sessionId> [--from --to]` is now the only source of
+playtest numbers. On the session above, turns 1–40:
+
+    ## Checks — 13
+    ## Movement
+      turns whose text mentions going somewhere: 7
+      turns with a committed travel/move action:  0
+      beats that narrate leaving with no travel:  1
+      distinct locations: mt_colubo
+
+Seven turns said they were going somewhere and none of them moved. That is the
+whole thesis in two lines, from one tool.
+
+It also prints `20 without a state snapshot (presence/location skipped for
+those)` rather than dropping those turns, which is the exact bug that made the
+earlier two reports disagree.

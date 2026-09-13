@@ -31,6 +31,7 @@
     "media:trace": "tsx --env-file-if-exists=.env infra/scripts/media-trace.ts",
     "crashes": "tsx --env-file-if-exists=.env infra/scripts/crashes.ts",
     "playtest": "node infra/scripts/playtest-read.mjs",
+    "report": "tsx --env-file-if-exists=.env infra/scripts/report.ts",
     "transcript": "tsx --env-file-if-exists=.env infra/scripts/transcript.ts",
     "playthrough": "tsx --env-file-if-exists=.env infra/scripts/playthrough.ts",
     "seed:social": "tsx --env-file-if-exists=.env infra/scripts/seed-social.ts",

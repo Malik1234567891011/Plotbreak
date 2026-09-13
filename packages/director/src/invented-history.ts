@@ -60,7 +60,7 @@ const INJURY =
  * stops the positional test below reading the agent as the casualty.
  */
 const HARM_BY_PLAYER =
-  /\b(?:the (?:print|mark) of your (?:last )?(?:hit|blow|punch)|where you (?:hit|caught|landed)|you landed (?:the|a|your)|landed (?:the|a) (?:last )?(?:hit|blow|punch)|knocked (?:him|her|them) (?:down|flat|out)|you (?:hit|struck|caught) (?:him|her|them) (?:hard|clean|square))\b/i;
+  /\b(?:the (?:print|mark) of your (?:last )?(?:hit|blow|punch|swing)|where you (?:hit|caught|landed)|you landed (?:the|a|your)|landed (?:the|a) (?:last )?(?:hit|blow|punch)|knocked (?:him|her|them) (?:down|flat|out)|you (?:hit|struck|caught) (?:him|her|them) (?:hard|clean|square)|your (?:last )?(?:swing|blow|hit|punch|strike) (?:caught|landed|got|connected)|the (?:gouge|cut|graze) you left|rubbing (?:the|that) spot where)\b/i;
 
 const HARM_BY_PLAYER_FR =
   /\b(?:la marque de ton (?:dernier )?coup|là où tu (?:l['’]as )?(?:frappé|touché|atteint)|ton dernier coup|le coup que tu (?:lui )?as (?:mis|porté)|tu (?:l['’]as|les as) (?:touché|frappé|eu))\b/iu;

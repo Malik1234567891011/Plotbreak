@@ -138,3 +138,35 @@ describe('it holds in French', () => {
     expect(find('Sabo a la lèvre fendue.', fighting('sabo'))).toEqual([]);
   });
 });
+
+/**
+ * The exact sentences that grew a forty-turn injury out of a clean miss.
+ *
+ * Turn 2 of the eighty-turn session resolved `Strike Sabo · FAILURE` and the
+ * engine's own fact was **"Your strike misses Sabo."** Turn 3's beat then said
+ * Sabo was "still rubbing the spot where your last swing caught him", and every
+ * later beat built on that: a gouge in his sleeve, a nearly-broken nose, blood
+ * on his shirt, a knockdown, and by turn 28 a tooth Ace had broken.
+ *
+ * None of it had an event. The guard existed and did not catch these, because
+ * the phrasings are possessive — *your swing caught him* rather than *you hit
+ * him* — and were not in the pattern.
+ */
+describe('a miss stays a miss, however the sentence is arranged', () => {
+  it('catches the possessive phrasings the first version missed', () => {
+    const s = fighting('none');
+    for (const text of [
+      'Sabo is still rubbing the spot where your last swing caught him.',
+      'His hand is pressed flat over the gouge you left in his sleeve earlier.',
+      'Your last blow landed harder than you meant it to.',
+      'The mark of your swing is coming up along his jaw.',
+    ]) {
+      expect(find(text, s).length, text).toBeGreaterThan(0);
+    }
+  });
+
+  it('still says nothing once a blow has actually landed', () => {
+    const s = fighting('sabo');
+    expect(find('Sabo is still rubbing the spot where your last swing caught him.', s)).toEqual([]);
+  });
+});
