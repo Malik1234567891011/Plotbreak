@@ -81,17 +81,21 @@ const PureTurn = z
         }),
       )
       .min(1)
-      .max(30),
+      // Generous on purpose. A cap that rejects threw away 29 of 40 good Terra
+      // turns once already; over-long output is trimmed after parsing instead,
+      // never refused. The bound cannot be a Zod transform — `toJsonSchema`
+      // renders one as a bare string and the model then returns one.
+      .max(80),
     /** Where the beat ends. An id from the locations given. */
     locationId: z.string(),
     /** Who is physically present at the end of the beat. Ids from the cast. */
-    presentCharacterIds: z.array(z.string()).max(8),
+    presentCharacterIds: z.array(z.string()).max(20),
     /** "Day 1 · late morning" — free text, for the header. */
     timeDisplay: z.string(),
     /** One short line for the recap. */
     sceneSummary: z.string(),
     /** Three things this player might plausibly do next, in their own voice, first person. */
-    suggestedResponses: z.array(z.string()).min(2).max(3),
+    suggestedResponses: z.array(z.string()).min(1).max(10),
   })
   .strict();
 
@@ -198,6 +202,19 @@ export interface PureResult {
   readonly historyTurns: number;
   /** What the provider actually billed and cached, straight through. */
   readonly invocation: ModelInvocation;
+  /**
+   * Exactly what was sent as this turn's user message and what should be replayed
+   * as the assistant's. Append-only caching depends on these two strings coming
+   * back byte-identical on every later turn, so the caller stores them rather
+   * than re-deriving them and hoping.
+   */
+  readonly rendered: { readonly user: string; readonly assistant: string };
+}
+
+/** A turn as it was actually sent, replayed verbatim on every later request. */
+export interface RenderedTurn {
+  readonly user: string;
+  readonly assistant: string;
 }
 
 /**
@@ -235,6 +252,14 @@ export async function narratePure(options: {
   readonly prefixItems?: readonly unknown[];
   /** How long the provider should hold this prefix. */
   readonly cacheRetention?: '24h' | 'in-memory';
+  /**
+   * `rebuilt` re-assembles one rolling user message every turn, which is what
+   * Pure has always done and what makes every request uncacheable. `append`
+   * sends the same content as a conversation that only ever grows.
+   */
+  readonly shape?: 'rebuilt' | 'append';
+  /** Required by `append`: the previous turns exactly as they were sent. */
+  readonly rendered?: readonly RenderedTurn[];
 }): Promise<PureResult> {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
@@ -242,21 +267,48 @@ export async function narratePure(options: {
   const world = worldBrief(story);
   const history = conversation(recentTurns, cast);
 
-  const messages = [
-    { role: 'system' as const, content: CONSTITUTION },
-    { role: 'system' as const, content: world },
-    {
-      role: 'user' as const,
-      content:
-        `## The story so far\n\n${history || (options.prefixItems?.length ? '(continues from the summary above)' : '(this is the opening)')}\n\n` +
-        `${rightNow(story, state)}\n\n` +
-        `## The player's action, verbatim\n\n${actionText}\n\n` +
-        `Write the next beat. Use character ids from the cast for speakers. ` +
-        `Pick locationId from the places listed. presentCharacterIds is who is physically there when ` +
-        `the beat ends. Suggested responses are in the player's own voice, first person, and follow ` +
-        `directly from what you just wrote.`,
-    },
-  ];
+  // The standing instruction. In `rebuilt` it trails the turn; in `append` it
+  // has to live in the static header, because anything after the newest user
+  // message occupies the slot next turn's assistant beat will take.
+  const HOW =
+    `Write the next beat. Use character ids from the cast for speakers. ` +
+    `Pick locationId from the places listed. presentCharacterIds is who is physically there when ` +
+    `the beat ends. Suggested responses are in the player's own voice, first person, and follow ` +
+    `directly from what you just wrote.`;
+
+  const shape = options.shape ?? 'rebuilt';
+
+  // This turn's user message. Identical text in both shapes; the difference is
+  // only whether the transcript is concatenated in front of it.
+  const userTurn =
+    `${rightNow(story, state)}\n\n` +
+    `## The player's action, verbatim\n\n${actionText}\n\n` +
+    // Short enough to repeat, and it stays in history byte-for-byte, so it costs
+    // one cached line per turn and keeps the constraints next to the output.
+    `(JSON only. At most 3 suggestedResponses.)`;
+
+  const messages =
+    shape === 'append'
+      ? [
+          { role: 'system' as const, content: `${CONSTITUTION}\n\n${HOW}` },
+          { role: 'system' as const, content: world },
+          ...(options.rendered ?? []).flatMap((turn) => [
+            { role: 'user' as const, content: turn.user },
+            { role: 'assistant' as const, content: turn.assistant },
+          ]),
+          { role: 'user' as const, content: userTurn },
+        ]
+      : [
+          { role: 'system' as const, content: CONSTITUTION },
+          { role: 'system' as const, content: world },
+          {
+            role: 'user' as const,
+            content:
+              `## The story so far\n\n${history || (options.prefixItems?.length ? '(continues from the summary above)' : '(this is the opening)')}\n\n` +
+              `${userTurn}\n\n` +
+              HOW,
+          },
+        ];
 
   const result = await gateway.generateStructured('writer_premium', PureTurn, messages, {
     maxTokens: 4000,
@@ -267,14 +319,44 @@ export async function narratePure(options: {
     compactThreshold: options.compactThreshold ?? compactThreshold(),
     prefixItems: options.prefixItems,
     cacheRetention: options.cacheRetention,
+    nativeSchema: shape === 'append',
   });
 
+  // Trim to what the client renders. Parsing succeeded; the beat is good even
+  // when the model offered a fourth option nobody asked for.
+  const turn: PureTurn = {
+    ...result.value,
+    narrative: result.value.narrative.slice(0, 40),
+    presentCharacterIds: result.value.presentCharacterIds.slice(0, 8),
+    suggestedResponses: result.value.suggestedResponses.slice(0, 3),
+  };
+
   return {
-    turn: result.value,
+    turn,
     promptChars: JSON.stringify(messages).length,
-    historyTurns: recentTurns.length,
+    historyTurns: shape === 'append' ? (options.rendered?.length ?? 0) : recentTurns.length,
     invocation: result.invocation,
+    rendered: { user: userTurn, assistant: renderBeat(turn, cast) },
   };
 }
 
 export const PURE_CONSTITUTION = CONSTITUTION;
+
+/**
+ * The assistant's half of a turn, replayed on every later request.
+ *
+ * Rendered from the model's own output rather than from stored blocks, and
+ * stored by the caller, so the string is guaranteed byte-identical next turn —
+ * the whole append-only cache saving rests on that.
+ */
+export function renderBeat(turn: PureTurn, cast: Map<string, string>): string {
+  const lines = turn.narrative.map((block) => {
+    const who = block.speakerId ? (cast.get(block.speakerId) ?? block.speakerId) : null;
+    return who ? `${who}: ${block.text}` : block.text;
+  });
+  return [
+    ...lines,
+    '',
+    `[${turn.timeDisplay} · ${turn.locationId} · present: ${turn.presentCharacterIds.join(', ') || 'nobody'}]`,
+  ].join('\n');
+}

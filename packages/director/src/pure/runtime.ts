@@ -1,7 +1,7 @@
 import type { GameState, StoryVersion, TurnRecord } from '@plotbreak/contracts';
 import { commitTurn } from '@plotbreak/engine';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
-import { narratePure } from './narrator.js';
+import { narratePure, type RenderedTurn } from './narrator.js';
 
 /**
  * The LLM_PURE turn, shaped so the existing API, database and client can carry
@@ -32,6 +32,8 @@ export interface PureTurnResult {
   readonly invocation: ModelInvocation;
   /** Present when the provider compacted: store it and send it back next turn. */
   readonly compaction?: unknown;
+  /** Store this verbatim; `append` replays it on every later turn. */
+  readonly rendered: RenderedTurn;
 }
 
 export async function runTurnPure(options: {
@@ -50,11 +52,15 @@ export async function runTurnPure(options: {
   /** `null` opts out of prompt caching entirely, which only a control arm wants. */
   readonly cacheKey?: string | null;
   readonly cacheRetention?: '24h' | 'in-memory';
+  /** `append` keeps every request a strict extension of the last one. */
+  readonly shape?: 'rebuilt' | 'append';
+  /** Required by `append`: previous turns exactly as they were sent. */
+  readonly rendered?: readonly RenderedTurn[];
 }): Promise<PureTurnResult> {
   const started = Date.now();
   const { gateway, story, state, recentTurns, actionText, turnId } = options;
 
-  const { turn, promptChars, historyTurns, invocation } = await narratePure({
+  const { turn, promptChars, historyTurns, invocation, rendered } = await narratePure({
     gateway, story, state, recentTurns, actionText,
     // One cache per session: every turn of a session shares the whole prefix.
     cacheKey:
@@ -63,6 +69,8 @@ export async function runTurnPure(options: {
         : (options.cacheKey ?? `pb:${state.sessionId ?? 'anon'}`),
     api: options.api,
     cacheRetention: options.cacheRetention,
+    shape: options.shape,
+    rendered: options.rendered,
     prefixItems: options.prefixItems,
     compactThreshold: options.compactThreshold,
   });
@@ -118,6 +126,7 @@ export async function runTurnPure(options: {
     telemetry: { promptChars, historyTurns, ms: Date.now() - started },
     invocation,
     compaction: invocation.compaction,
+    rendered,
   };
 }
 

@@ -5,10 +5,12 @@
  * product path, not a parallel implementation — and records what the provider
  * billed on every single turn. Four arms differ only in how context is carried:
  *
- *   full     full history, no prompt cache at all. The control: O(n²) as billed.
- *   cache    full history, prompt_cache_key + 24h retention.
- *   auto     cache + provider-side compaction at a fixed threshold.
- *   explicit cache + compaction forced on a fixed cadence instead.
+ *   full            full history, no prompt cache at all. The control: O(n²) as billed.
+ *   cache           full history, prompt_cache_key + 24h retention.
+ *   auto            cache + provider-side compaction at a fixed threshold.
+ *   explicit        cache + compaction forced on a fixed cadence instead.
+ *   append          full history as an append-only conversation. No compaction.
+ *   append-compact  append-only *and* compaction, for the context-window ceiling.
  *
  * Both compaction arms carry the returned artifact forward and stop sending the
  * turns it covers, which is the only way compaction is worth anything to a
@@ -23,7 +25,7 @@ import { runTurnPure, OpenAiGateway } from '@plotbreak/director';
 import type { GameState, TurnRecord } from '@plotbreak/contracts';
 import { SCRIPT, isProbe } from './context-script.js';
 
-type Arm = 'full' | 'cache' | 'auto' | 'explicit';
+type Arm = 'full' | 'cache' | 'auto' | 'explicit' | 'append' | 'append-compact';
 
 const argv = process.argv.slice(2);
 const arg = (k: string, d?: string) => argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3) ?? d;
@@ -42,6 +44,7 @@ function policy(turnNo: number): {
   cacheKey?: string | null;
   cacheRetention?: '24h';
   compactThreshold?: number;
+  shape?: 'append';
 } {
   switch (arm) {
     case 'full':
@@ -57,6 +60,15 @@ function policy(turnNo: number): {
         api: 'responses',
         cacheRetention: '24h',
         ...(turnNo > 0 && turnNo % EXPLICIT_EVERY === 0 ? { compactThreshold: 1 } : {}),
+      };
+    case 'append':
+      return { api: 'responses', cacheRetention: '24h', shape: 'append' };
+    case 'append-compact':
+      return {
+        api: 'responses',
+        cacheRetention: '24h',
+        shape: 'append',
+        compactThreshold: AUTO_THRESHOLD,
       };
   }
 }
@@ -87,6 +99,8 @@ async function main(): Promise<void> {
   });
 
   const history: TurnRecord[] = [];
+  /** The append arms replay these verbatim; that is the whole cache saving. */
+  const rendered: Array<{ user: string; assistant: string }> = [];
   /** Turns already covered by `prefixItems`; they stop being sent. */
   let compactedThrough = 0;
   let prefixItems: unknown[] | undefined;
@@ -104,22 +118,32 @@ async function main(): Promise<void> {
     const actionText = SCRIPT(i);
     const sent = history.slice(compactedThrough);
     let result;
-    try {
-      result = await runTurnPure({
-        gateway,
-        story: ACE,
-        state,
-        recentTurns: sent,
-        actionText,
-        turnId: `${sessionId}-${i}`,
-        prefixItems,
-        ...policy(i),
-      });
-    } catch (error) {
+    let lastError: unknown;
+    // Three tries. A transient schema wobble or a 429 should not end a run that
+    // is otherwise 150 turns from the thing it was built to measure.
+    for (let attempt = 0; attempt < 3 && !result; attempt++) {
+      try {
+        result = await runTurnPure({
+          gateway,
+          story: ACE,
+          state,
+          recentTurns: sent,
+          actionText,
+          turnId: `${sessionId}-${i}`,
+          prefixItems,
+          rendered: rendered.slice(compactedThrough),
+          ...policy(i),
+        });
+      } catch (error) {
+        lastError = error;
+        await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
+      }
+    }
+    if (!result) {
       // A run that dies at turn 97 still answers the question up to turn 96,
       // so record the failure and stop rather than losing everything.
-      appendFileSync(metrics, JSON.stringify({ turn: i + 1, error: String(error).slice(0, 300) }) + '\n');
-      md.push(`## Turn ${i + 1} — FAILED`, '', '```', String(error).slice(0, 600), '```', '');
+      appendFileSync(metrics, JSON.stringify({ turn: i + 1, error: String(lastError).slice(0, 300) }) + '\n');
+      md.push(`## Turn ${i + 1} — FAILED`, '', '```', String(lastError).slice(0, 600), '```', '');
       break;
     }
 
@@ -129,6 +153,7 @@ async function main(): Promise<void> {
       prefixItems = [result.compaction];
       compactedThrough = history.length;
     }
+    rendered.push(result.rendered);
 
     appendFileSync(
       metrics,
@@ -141,7 +166,7 @@ async function main(): Promise<void> {
         cacheWriteTokens: inv.cacheWriteTokens ?? 0,
         outputTokens: inv.outputTokens,
         uncachedInput: inv.inputTokens - (inv.cachedTokens ?? 0),
-        historyTurnsSent: sent.length,
+        historyTurnsSent: arm.startsWith('append') ? rendered.length - 1 - compactedThrough : sent.length,
         compacted,
         compactedThrough,
         latencyMs: inv.latencyMs,

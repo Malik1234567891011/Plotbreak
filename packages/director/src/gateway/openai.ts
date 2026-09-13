@@ -182,6 +182,19 @@ export class OpenAiGateway implements ModelGateway {
     requestId: string,
     started: number,
   ): Promise<StructuredResult<T>> {
+    const schemaInstruction = {
+      role: 'system' as const,
+      content:
+        'Reply with a single JSON object and nothing else — no prose around it, no code fence. ' +
+        `It must match this JSON Schema:\n${JSON.stringify(toJsonSchema(schema))}`,
+    };
+    // The leading run of system messages is the static header. Splitting here
+    // lets the schema instruction sit inside it instead of after the turn.
+    const headerEnd = messages.findIndex((m) => m.role !== 'system');
+    const cut = headerEnd === -1 ? messages.length : headerEnd;
+    const leading = options.nativeSchema ? messages.slice(0, cut) : [];
+    const rest = options.nativeSchema ? messages.slice(cut) : messages;
+
     const response = await this.#post(
       '/responses',
       {
@@ -192,17 +205,31 @@ export class OpenAiGateway implements ModelGateway {
           // `messages` always ends with this turn's user message, so splicing
           // before the last element puts a compaction artifact exactly where
           // the history it replaced used to be.
-          ...messages.slice(0, -1).map((m) => ({ role: m.role, content: m.content })),
+          ...leading.map((m) => ({ role: m.role, content: m.content })),
+          // `text.format` with strict:false gets the shape right but does not
+          // enforce bounds — a `maxItems: 3` came back with four — so the schema
+          // is still stated in words. It goes *after the standing instructions
+          // and before the transcript* rather than at the tail: same text, but
+          // in the part of the request that never changes, so it cannot break
+          // the prefix the way a trailing message does.
+          ...(options.nativeSchema ? [schemaInstruction] : []),
+          ...rest.slice(0, -1).map((m) => ({ role: m.role, content: m.content })),
           ...(options.prefixItems ?? []),
-          ...messages.slice(-1).map((m) => ({ role: m.role, content: m.content })),
-          {
-            role: 'system',
-            content:
-              'Reply with a single JSON object and nothing else — no prose around it, no code fence. ' +
-              `It must match this JSON Schema:\n${JSON.stringify(toJsonSchema(schema))}`,
-          },
+          ...rest.slice(-1).map((m) => ({ role: m.role, content: m.content })),
+          ...(options.nativeSchema ? [] : [schemaInstruction]),
         ],
-        text: { format: { type: 'json_object' } },
+        text: options.nativeSchema
+          ? {
+              // `strict` must be sent explicitly — omitting it is an error, not a
+              // default — and false is what lets the open-ended records through.
+              format: {
+                type: 'json_schema',
+                name: 'turn',
+                strict: false,
+                schema: toJsonSchema(schema),
+              },
+            }
+          : { format: { type: 'json_object' } },
         store: false,
         ...(options.promptCacheKey ? { prompt_cache_key: options.promptCacheKey } : {}),
         ...(options.cacheRetention ? { prompt_cache_retention: options.cacheRetention } : {}),

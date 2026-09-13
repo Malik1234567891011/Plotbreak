@@ -62,6 +62,13 @@ export interface GenerateOptions {
    * they replace.
    */
   readonly prefixItems?: readonly unknown[];
+  /**
+   * Responses-only. Ask for the schema through `text.format` instead of a
+   * trailing instruction message. Required for an append-only conversation: a
+   * trailing message sits where next turn's assistant beat will go, so it stops
+   * every request from being a strict extension of the last one.
+   */
+  readonly nativeSchema?: boolean;
 }
 
 export interface ModelInvocation {
