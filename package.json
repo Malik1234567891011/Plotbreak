@@ -51,7 +51,8 @@
     "context-audit": "tsx --env-file-if-exists=.env infra/scripts/context-audit.ts",
     "cross-story": "tsx --env-file-if-exists=.env infra/scripts/cross-story.ts",
     "context-coverage": "tsx --env-file-if-exists=.env infra/scripts/context-coverage.ts",
-    "canon-audit": "tsx --env-file-if-exists=.env infra/scripts/canon-audit.ts"
+    "canon-audit": "tsx --env-file-if-exists=.env infra/scripts/canon-audit.ts",
+    "tier-bench": "tsx --env-file-if-exists=.env infra/scripts/tier-bench.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

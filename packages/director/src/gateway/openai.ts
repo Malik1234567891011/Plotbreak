@@ -204,6 +204,7 @@ export class OpenAiGateway implements ModelGateway {
       {
         model,
         ...(streaming ? { stream: true } : {}),
+        ...(options.reasoningEffort ? { reasoning: { effort: options.reasoningEffort } } : {}),
         max_output_tokens: options.maxTokens ?? 2048,
         input: [
           // Opaque items sit between the standing instructions and the turn:
@@ -281,6 +282,7 @@ export class OpenAiGateway implements ModelGateway {
           cacheWriteTokens,
           outputTokens: usage.output_tokens ?? 0,
           reasoningTokens: usage.output_tokens_details?.reasoning_tokens ?? 0,
+          reasoningEffort: options.reasoningEffort ?? null,
           compacted: (payload.output ?? []).some((item) => item.type === 'compaction'),
           latencyMs: Math.round(performance.now() - started),
         }) + '\n',
@@ -348,7 +350,7 @@ export class OpenAiGateway implements ModelGateway {
   ): Promise<StructuredResult<T>> {
     const started = performance.now();
     const requestId = options?.requestId ?? crypto.randomUUID();
-    const model = this.#modelFor(role);
+    const model = options?.model ?? this.#modelFor(role);
 
     // A single forced function call, mirroring the Anthropic adapter.
     //

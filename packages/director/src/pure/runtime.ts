@@ -29,6 +29,11 @@ export interface PureTurnResult {
   readonly transition: string | null;
   /** The model's own read on whether the moment is still running. */
   readonly sceneStatus: 'live' | 'settled';
+  /**
+   * The model's own nomination of a moment worth drawing, or null. Whether it
+   * is acted on is the tier's decision, not the storyteller's.
+   */
+  readonly heroImage: { readonly shotType: string; readonly subject: string } | null;
   /** Which pre-generated expression to show, if any. Never triggers generation. */
   readonly reaction: { readonly characterId: string; readonly emotion: string } | null;
   readonly suggestions: Array<{ text: string; intentHint: string; resourceCostLabel: null }>;
@@ -57,6 +62,11 @@ export async function runTurnPure(options: {
   readonly api?: 'chat' | 'responses';
   /** `null` opts out of prompt caching entirely, which only a control arm wants. */
   readonly cacheKey?: string | null;
+  /** The storyteller, its effort, and how long the beat should run. */
+  readonly model?: string;
+  readonly reasoningEffort?: 'none' | 'low' | 'medium' | 'high';
+  readonly wordTarget?: { readonly low: number; readonly high: number };
+  readonly maxTokens?: number;
   readonly cacheRetention?: '24h' | 'in-memory';
   /** `append` keeps every request a strict extension of the last one. */
   readonly shape?: 'rebuilt' | 'append';
@@ -91,6 +101,10 @@ export async function runTurnPure(options: {
         ? undefined
         : (options.cacheKey ?? `pb:${state.sessionId ?? 'anon'}`),
     api: options.api,
+    model: options.model,
+    reasoningEffort: options.reasoningEffort,
+    wordTarget: options.wordTarget,
+    maxTokens: options.maxTokens,
     ...(options.onBlock
       ? {
           onBlock: (block) => {
@@ -158,6 +172,7 @@ export async function runTurnPure(options: {
     endStatePrompt: timeLabel,
     transition,
     sceneStatus: turn.sceneStatus,
+    heroImage: turn.heroImage ?? null,
     // Only for somebody actually in the cast and actually in the scene: a face
     // belonging to a character who just left would be worse than no face.
     reaction:

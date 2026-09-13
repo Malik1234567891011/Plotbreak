@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { GameState, StoryVersion, TurnRecord } from '@plotbreak/contracts';
 import { charactersPresent } from '@plotbreak/engine';
+import { toReactionEmotion } from '@plotbreak/contracts';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 import { formatStoryTime, minutesFor, transitionLabel } from './clock.js';
 import { chooseReaction, parseShown, type ShownReaction } from './reaction.js';
@@ -184,6 +185,23 @@ const PureTurn = z
     /** One short line for the recap. */
     sceneSummary: z.string(),
     /**
+     * A moment worth a drawn frame, or null.
+     *
+     * Null on almost every turn. Set it only when the beat contains something
+     * a reader would want to see: arriving somewhere that looks unlike
+     * anywhere they have been, a character's entrance, a confrontation at its
+     * height, a transformation, a discovery that is visually striking. An
+     * ordinary conversation is not one of these, and a picture of one is worse
+     * than no picture. `subject` is one sentence saying what the frame shows.
+     */
+    heroImage: z
+      .object({
+        shotType: z.enum(['ESTABLISHING', 'PORTRAIT', 'TWO_SHOT', 'ACTION']),
+        subject: z.string(),
+      })
+      .nullable()
+      .optional(),
+    /**
      * Whether the moment in front of the player is still running.
      *
      * `live` — somebody is mid-swing or mid-argument, a question is waiting on
@@ -259,10 +277,23 @@ function speakerNormalizer(story: StoryVersion): (raw: unknown) => unknown {
   const byLabel = speakerLabels(story);
   return (raw) => {
     if (!raw || typeof raw !== 'object') return raw;
-    const turn = raw as { narrative?: unknown };
+    const turn = raw as { narrative?: unknown; reaction?: unknown };
     if (!Array.isArray(turn.narrative)) return raw;
+    // The eight expressions are the ones that have art. A model reaching for a
+    // ninth — "curious" — is describing the same face, not asking for a new
+    // asset, and losing the whole turn over the label is the cap-that-rejects
+    // mistake again. `toReactionEmotion` already maps the synonyms; anything it
+    // cannot place becomes no reaction rather than a wrong one.
+    const reaction = (() => {
+      const proposed = turn.reaction as { characterId?: unknown; emotion?: unknown } | null | undefined;
+      if (!proposed || typeof proposed.characterId !== 'string' || typeof proposed.emotion !== 'string') {
+        return null;
+      }
+      return { characterId: proposed.characterId, emotion: toReactionEmotion(proposed.emotion) };
+    })();
     return {
       ...turn,
+      reaction,
       narrative: turn.narrative.map((block) => {
         if (!block || typeof block !== 'object') return block;
         const item = block as { speaker?: unknown };
@@ -558,7 +589,6 @@ export async function narratePure(options: {
   readonly state: GameState;
   readonly recentTurns: readonly TurnRecord[];
   readonly actionText: string;
-  readonly model?: string;
   /** Routes the request to the cache that already holds this session's prefix. */
   readonly cacheKey?: string;
   /** Overrides `PLOTBREAK_PURE_API` for a single call, which the A/B harness needs. */
@@ -572,6 +602,14 @@ export async function narratePure(options: {
   readonly prefixItems?: readonly unknown[];
   /** How long the provider should hold this prefix. */
   readonly cacheRetention?: '24h' | 'in-memory';
+  /** The storyteller for this turn. Quality tiers choose it per turn. */
+  readonly model?: string;
+  /** How hard it should think. */
+  readonly reasoningEffort?: 'none' | 'low' | 'medium' | 'high';
+  /** A soft prose target for this turn only, in visible words. */
+  readonly wordTarget?: { readonly low: number; readonly high: number };
+  /** Ceiling on output tokens. Must leave room to close the schema. */
+  readonly maxTokens?: number;
   /**
    * `rebuilt` re-assembles one rolling user message every turn, which is what
    * Pure has always done and what makes every request uncacheable. `append`
@@ -613,7 +651,11 @@ export async function narratePure(options: {
     `Pick locationId from the places listed. Suggested responses are in the player's own voice, first ` +
     `person, and follow directly from what you just wrote. Set reaction to the one character whose ` +
     `face the player should see on this beat and the expression it wears, or null when nobody's ` +
-    `reaction is the point. The end of each past beat records whose face was shown. Do not pick the ` +
+    `reaction is the point. Set heroImage on a beat that would be worth drawing: arriving somewhere ` +
+    `the player has not been, a character's entrance, a confrontation at its height, a transformation, ` +
+    `a discovery worth looking at. An arrival at a new locationId is usually one of these. Leave it ` +
+    `null for conversation, small movement and ordinary business, which is most turns. ` +
+    `The end of each past beat records whose face was shown. Do not pick the ` +
     `same person two beats running unless their expression has genuinely changed, and leave it null on ` +
     `a beat that is mostly action or nobody's reaction in particular — a face on every single turn, ` +
     `usually the same one, reads as a tic rather than a reaction.`;
@@ -630,7 +672,8 @@ export async function narratePure(options: {
     `## The player's action, verbatim\n\n${actionText}\n\n` +
     // Short enough to repeat, and it stays in history byte-for-byte, so it costs
     // one cached line per turn and keeps the constraints next to the output.
-    `(JSON only. At most 3 suggestedResponses.)`;
+    `(JSON only. At most 3 suggestedResponses.` +
+    `${options.wordTarget ? ` Aim for roughly ${options.wordTarget.low}-${options.wordTarget.high} words of prose in this beat; a quiet moment may be shorter and a large one longer.` : ''})`;
 
   // French is a first-class locale, and the LLM-first path had no notion of it
   // at all — a French session narrated in English. The prose rules come from
@@ -679,7 +722,9 @@ export async function narratePure(options: {
         ];
 
   const result = await gateway.generateStructured('writer_premium', schemaFor(story), messages, {
-    maxTokens: 4000,
+    maxTokens: options.maxTokens ?? 4000,
+    model: options.model,
+    reasoningEffort: options.reasoningEffort,
     temperature: 0.9,
     timeoutMs: 120_000,
     promptCacheKey: options.cacheKey,

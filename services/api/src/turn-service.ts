@@ -154,7 +154,10 @@ export async function submitTurn(args: SubmitTurnArgs): Promise<AcceptedTurn> {
   }
 
   const turnId = `turn_${crypto.randomUUID()}`;
-  const cost = QUALITY_TIERS[qualityTier].costCredits;
+  // One object decides what this turn costs and how it is generated, so the
+  // backend cannot bill Apex and quietly run the Vivid profile.
+  const profile = QUALITY_TIERS[qualityTier];
+  const cost = profile.costCredits;
 
   // Spec §17.1 step 3 — reserve before any generation work begins.
   const reservation = await ctx.wallet.reserve(user.userId, cost, turnId);
@@ -162,7 +165,7 @@ export async function submitTurn(args: SubmitTurnArgs): Promise<AcceptedTurn> {
   const { token } = hub.open(turnId, user.userId);
   hub.emit(turnId, 'turn.accepted', { turnId, qualityTier, reservedCredits: cost }, state.revision);
 
-  const completion = processTurn({ ...args, turnId, reservation, state }).catch(() => {
+  const completion = processTurn({ ...args, turnId, reservation, state, profile }).catch(() => {
     // Errors are already surfaced as `turn.failed`; this keeps a background
     // rejection from becoming an unhandled promise.
   });
@@ -183,9 +186,15 @@ async function processTurn(
     turnId: string;
     reservation: Reservation;
     state: NonNullable<Awaited<ReturnType<AppContext['repo']['getState']>>>;
+    /**
+     * Resolved once, where the credits were reserved, and carried here rather
+     * than looked up again — so the profile that was charged for is provably
+     * the profile that generates.
+     */
+    profile: (typeof QUALITY_TIERS)[QualityTier];
   },
 ): Promise<void> {
-  const { ctx, hub, user, session, story, actionText, qualityTier, turnId, reservation, state } = args;
+  const { ctx, hub, user, session, story, actionText, qualityTier, turnId, reservation, state, profile } = args;
   const selectedIntentHint = args.selectedIntentHint ?? null;
 
   try {
@@ -229,6 +238,11 @@ async function processTurn(
         api: 'responses',
         cacheRetention: '24h',
         cacheKey: `pb:${session.sessionId}`,
+        // The tier, resolved once above and used for both halves of the turn.
+        model: profile.model,
+        reasoningEffort: profile.reasoningEffort,
+        wordTarget: profile.words,
+        maxTokens: profile.maxOutputTokens,
         actionText,
         turnId,
         onBlock: (block) => {
@@ -275,6 +289,43 @@ async function processTurn(
       // Only what the stream did not already deliver. The streamed blocks are
       // built by the same code that builds these, so the live sequence is a
       // prefix of the committed one and this is a plain slice — never a resend.
+      // A drawn frame, when the tier pays for one and the beat earned one.
+      //
+      // Enqueued rather than awaited: the prose has already streamed and the
+      // cards are about to land, so the player reads while it renders. A frame
+      // that fails, is refused, or never arrives changes nothing about the turn
+      // — the story is already told and already paid for.
+      if (profile.heroImageEligible && pure.heroImage && ctx.jobs) {
+        hub.expectMedia(turnId);
+        ctx.jobs.enqueue(
+          'turn-media-image',
+          {
+            turnId,
+            sessionId: session.sessionId,
+            storyVersionId: session.storyVersionId,
+            locationId: pure.state.player.locationId,
+            presentCharacterIds: heroCast(pure.state, pure.reaction ? [pure.reaction.characterId] : []),
+            absentCharacterIds: absentNotables(pure.state, story),
+            shotType: pure.heroImage.shotType,
+            // What the frame is of, in the storyteller's own words. The engine
+            // path had to assemble this from a resolution; here the model that
+            // wrote the beat says what the picture shows.
+            sceneFacts: [pure.heroImage.subject],
+            player: {
+              name: story.protagonist.kind === 'NAMED' ? story.protagonist.name : undefined,
+              appearance:
+                story.protagonist.kind === 'NAMED' ? story.protagonist.description : undefined,
+            },
+          },
+          `hero:${turnId}`,
+        );
+        hub.emit(turnId, 'media.queued', {
+          kind: 'HERO_IMAGE',
+          shotType: pure.heroImage.shotType,
+          reason: pure.heroImage.subject.slice(0, 120),
+        });
+      }
+
       for (const [offset, block] of pure.blocks.slice(streamedBlocks).entries()) {
         hub.emit(turnId, 'text.stream', {
           index: streamedBlocks + offset,
@@ -306,6 +357,33 @@ async function processTurn(
           });
         }
       }
+
+      // Everything needed to answer, later, whether anyone pays for Apex and
+      // whether it is profitable. No narrative text: the tier questions are all
+      // answerable from counts.
+      // A structured line on stdout, which is the shape the app's logger emits
+      // and what the platform collects. `turn-service` runs outside a request
+      // scope, so there is no `request.log` to reach for here.
+      console.info(
+        JSON.stringify({
+          level: 30,
+          event: 'turn.generated',
+          sessionId: session.sessionId,
+          turnId,
+          requestedTier: qualityTier,
+          effectiveModel: pure.invocation.model,
+          reasoningEffort: profile.reasoningEffort ?? null,
+          creditsCharged: reservation.amount,
+          inputTokens: pure.invocation.inputTokens,
+          cachedTokens: pure.invocation.cachedTokens ?? 0,
+          outputTokens: pure.invocation.outputTokens,
+          latencyMs: pure.invocation.latencyMs,
+          words: pure.blocks.reduce((total, block) => total + block.text.split(/\s+/).length, 0),
+          heroImageEligible: profile.heroImageEligible,
+          heroImageRequested: Boolean(profile.heroImageEligible && pure.heroImage),
+          heroImageNominated: Boolean(pure.heroImage),
+        }),
+      );
 
       hub.emit(turnId, 'turn.timings', {
         narrative: pure.telemetry.ms,

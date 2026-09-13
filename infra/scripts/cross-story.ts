@@ -81,6 +81,8 @@ async function main(): Promise<void> {
   const storyId = arg('story', 'story_light');
   const turns = Number(arg('turns', '10'));
   const locale = arg('locale', 'en');
+  // A tier per turn, cycled. Lets one session walk the whole ladder.
+  const tiers = arg('tiers', 'VIVID').split(',');
   const out = arg('out', `/tmp/${storyId}.md`);
   const rng = seeded(arg('seed', `${storyId}-cross`));
   const pool = [...(SCRIPTS[storyId] ?? [])];
@@ -161,7 +163,7 @@ async function main(): Promise<void> {
 
     const t0 = Date.now();
     const accepted = await call<any>('POST', `/v1/sessions/${sessionId}/turns`,
-      { actionText, qualityTier: 'VIVID', sessionRevision: revision, selectedSuggestionId: null, voicePreferred: false },
+      { actionText, qualityTier: tiers[i % tiers.length], sessionRevision: revision, selectedSuggestionId: null, voicePreferred: false },
       { 'idempotency-key': crypto.randomUUID() }).catch((e) => { md.push(`## Turn ${i + 1} — FAILED`, '', String(e).slice(0, 400), ''); return null; });
     if (!accepted) break;
 
@@ -208,7 +210,7 @@ async function main(): Promise<void> {
 
     const attributed = (turn.blocks ?? []).filter((b: any) => b.speakerId).length;
     log.push({
-      turn: i + 1, how, firstBlockMs, fullMs, streamedBlocks: blocks,
+      turn: i + 1, tier: tiers[i % tiers.length], how, firstBlockMs, fullMs, streamedBlocks: blocks,
       blocks: (turn.blocks ?? []).length, attributed,
       words: (turn.blocks ?? []).reduce((a: number, b: any) => a + String(b.text).split(/\s+/).length, 0),
       time: turn.endStatePrompt, location: after.scene?.locationName,
@@ -218,7 +220,7 @@ async function main(): Promise<void> {
       cards: cards.map((c: any) => c.text),
     });
 
-    md.push(`## Turn ${i + 1} — ${how}`, '', `**Player:** ${actionText}`, '');
+    md.push(`## Turn ${i + 1} — ${tiers[i % tiers.length]} · ${how}`, '', `**Player:** ${actionText}`, '');
     for (const b of turn.blocks ?? []) {
       const who = name(b.speakerId);
       md.push(who ? `> **${who}.** ${b.text}` : `> ${b.text}`, '');

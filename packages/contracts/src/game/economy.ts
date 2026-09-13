@@ -11,11 +11,44 @@ export interface QualityTierConfig {
   readonly costCredits: number;
   /** Player-facing promise. Must describe presentation, never dice. §20.3. */
   readonly promise: string;
+
+  // --- What the tier actually changes ---
+  //
+  // These four are the whole difference between the tiers, and billing reads
+  // `costCredits` from this same object, so it is not possible to charge for
+  // one profile and generate with another.
+
+  /** The storyteller. Chosen per tier from measured quality, latency and cost. */
+  readonly model: string;
+  /** How hard it thinks. Undefined leaves the model's own default. */
+  readonly reasoningEffort?: 'none' | 'low' | 'medium' | 'high';
+  /** A soft prose target in visible words. Never enforced by truncation. */
+  readonly words: { readonly low: number; readonly high: number };
+  /** Output ceiling. Must leave room to close the schema, not to clip prose. */
+  readonly maxOutputTokens: number;
+  /** Whether a turn on this tier may earn a generated hero image. */
+  readonly heroImageEligible: boolean;
+
+  // --- The old engine's dials ---
+  //
+  // Read only by the legacy pipeline, which is no longer the production path.
+  // `memoryBudget` in particular must never come back: every tier sees the
+  // whole conversation, because continuity is the product rather than an
+  // upsell.
   readonly wordBudget: number;
   readonly memoryBudget: number;
-  readonly heroImageEligible: boolean;
   readonly directorRole: 'director_standard' | 'director_premium';
   readonly writerRole: 'writer_fast' | 'writer_standard' | 'writer_premium';
+}
+
+/**
+ * The generation profile for a tier.
+ *
+ * One accessor so that nothing has to remember which fields are live. Billing
+ * and generation both resolve from here.
+ */
+export function profileFor(tier: QualityTier): QualityTierConfig {
+  return QUALITY_TIERS[tier];
 }
 
 /**
@@ -43,6 +76,10 @@ export const QUALITY_TIERS: Record<QualityTier, QualityTierConfig> = {
     label: 'Quick',
     costCredits: 30,
     promise: 'Fast, concise turn',
+    model: 'gpt-5.6-luna',
+    reasoningEffort: 'none',
+    words: { low: 100, high: 180 },
+    maxOutputTokens: 3000,
     wordBudget: 140,
     memoryBudget: 4,
     heroImageEligible: false,
@@ -54,6 +91,9 @@ export const QUALITY_TIERS: Record<QualityTier, QualityTierConfig> = {
     label: 'Vivid',
     costCredits: 60,
     promise: 'Richer dialogue and direction',
+    model: 'gpt-5.6-terra',
+    words: { low: 150, high: 300 },
+    maxOutputTokens: 4000,
     wordBudget: 260,
     memoryBudget: 8,
     heroImageEligible: false,
@@ -65,6 +105,10 @@ export const QUALITY_TIERS: Record<QualityTier, QualityTierConfig> = {
     label: 'Cinematic',
     costCredits: 90,
     promise: 'Best balance of immersion and speed',
+    model: 'gpt-5.6-terra',
+    reasoningEffort: 'high',
+    words: { low: 200, high: 350 },
+    maxOutputTokens: 5000,
     wordBudget: 360,
     memoryBudget: 14,
     heroImageEligible: true,
@@ -76,6 +120,10 @@ export const QUALITY_TIERS: Record<QualityTier, QualityTierConfig> = {
     label: 'Apex',
     costCredits: 195,
     promise: 'Deepest reasoning and premium storytelling',
+    model: 'gpt-5.6-sol',
+    reasoningEffort: 'medium',
+    words: { low: 250, high: 450 },
+    maxOutputTokens: 6000,
     wordBudget: 430,
     memoryBudget: 20,
     heroImageEligible: true,

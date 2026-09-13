@@ -83,6 +83,17 @@ export interface GenerateOptions {
    * what is ultimately returned.
    */
   readonly onTextDelta?: (delta: string) => void;
+  /**
+   * Overrides the model this role would otherwise resolve to. Quality tiers
+   * pick the model per turn, so the role is no longer the whole answer.
+   */
+  readonly model?: string;
+  /**
+   * How hard the model should think before answering. Only the reasoning
+   * families accept it, and it is the main dial a tier has that is not simply
+   * a bigger model.
+   */
+  readonly reasoningEffort?: 'none' | 'low' | 'medium' | 'high';
 }
 
 export interface ModelInvocation {

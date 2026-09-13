@@ -84,7 +84,10 @@ export class OpenAiImageGateway implements MediaGateway {
       );
     }
     const started = Date.now();
-    const model = this.#config.model ?? 'gpt-image-2';
+    // Flare and Sunburst bill identically (same output tokens, $30/M), and
+    // Flare came back 25-30% faster on both benchmark scenes at comparable
+    // quality — the story is waiting on this, so speed breaks the tie.
+    const model = this.#config.model ?? 'gpt-image-2.5-flare';
     const { size, width, height } = SIZES[spec.aspect];
 
     const controller = new AbortController();
