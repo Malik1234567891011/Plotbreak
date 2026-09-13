@@ -23,6 +23,7 @@ struct SessionFeed: View {
                     recap
                     history
                     liveSlot
+                    suggestions
                     errorCard
                     Color.clear.frame(height: 1).id(Self.bottomAnchor)
                 }
@@ -186,6 +187,34 @@ struct SessionFeed: View {
     }
 
     // MARK: Error
+
+    // MARK: Responses
+
+    /// The three responses, directly under the beat they follow from.
+    ///
+    /// They used to sit behind a sparkle in the composer, which meant a tap to
+    /// find out what the options were and a second tap to take one. They are
+    /// the primary way the game is played, so they belong where the reader's
+    /// eye already is — at the end of the prose.
+    ///
+    /// Only while the turn is settled: mid-turn they would be stale, and a
+    /// stale card is one the player can tap for something the story has moved
+    /// past.
+    @ViewBuilder private var suggestions: some View {
+        if !model.suggestions.isEmpty, model.pending == nil {
+            VStack(spacing: Theme.Spacing.sm) {
+                ForEach(Array(model.suggestions.enumerated()), id: \.offset) { _, item in
+                    ActionSuggestion(
+                        suggestion: item,
+                        editLabel: t("ui.edit_response_a11y"),
+                        onPress: { model.choose(item) },
+                        onEdit: { model.edit(item) }
+                    )
+                }
+            }
+            .transition(.opacity)
+        }
+    }
 
     @ViewBuilder private var errorCard: some View {
         if let error = model.error {

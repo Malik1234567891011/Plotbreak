@@ -8,7 +8,6 @@ import SwiftUI
 struct SessionComposer: View {
     @Bindable var model: SessionModel
     /// Opens the three suggested responses (the sparkle button).
-    var onSuggestions: () -> Void = {}
     /// Jumps to the newest beat (the round arrow on the right).
     var onScrollToLatest: () -> Void = {}
     @Environment(\.translator) private var t
@@ -54,28 +53,6 @@ struct SessionComposer: View {
                     .padding(.vertical, Theme.Spacing.md)
                     .disabled(isPending)
                     .accessibilityLabel(t("session.what_do_you_do"))
-
-                Button {
-                    Haptic.play(.light)
-                    onSuggestions()
-                } label: {
-                    Image(systemName: "sparkles")
-                        .font(.system(size: 20, weight: .regular))
-                        .foregroundStyle(model.suggestions.isEmpty ? Theme.Colors.textMuted : Theme.Colors.textSecondary)
-                        .frame(width: 32, height: 32)
-                        .overlay(alignment: .topTrailing) {
-                            if !model.suggestions.isEmpty, !isPending {
-                                Circle().fill(Theme.Colors.accentPrimary).frame(width: 6, height: 6).offset(x: -2, y: 4)
-                            }
-                        }
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(PressOpacityStyle())
-                .disabled(model.suggestions.isEmpty || isPending)
-                .accessibilityLabel(t("session.suggestions_title"))
-
-                Rectangle().fill(Theme.Colors.borderSubtle).frame(width: 1, height: 26)
-
                 Button {
                     if isPending {
                         // Spec §10.2 D — Stop cancels client rendering only.
@@ -192,29 +169,6 @@ private struct RoundAction: View {
 }
 
 // MARK: - Suggestions sheet
-
-/// The three responses, behind the sparkle rather than in the feed, so the
-/// story stays prose. Each one says its risk and its cost before it is taken.
-struct SessionSuggestionsSheet: View {
-    let suggestions: [SuggestedAction]
-    let onChoose: (SuggestedAction) -> Void
-    let onEdit: (SuggestedAction) -> Void
-    let onClose: () -> Void
-    @Environment(\.translator) private var t
-
-    var body: some View {
-        SessionSheet(title: t("session.suggestions_title"), onClose: onClose) {
-            ForEach(Array(suggestions.enumerated()), id: \.offset) { _, item in
-                ActionSuggestion(
-                    suggestion: item,
-                    editLabel: t("ui.edit_response_a11y"),
-                    onPress: { onChoose(item) },
-                    onEdit: { onEdit(item) }
-                )
-            }
-        }
-    }
-}
 
 // MARK: - Bottom sheet shell
 

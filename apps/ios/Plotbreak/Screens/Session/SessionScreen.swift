@@ -11,7 +11,6 @@ import SwiftUI
 struct SessionScreen: View {
     let sessionId: String
     @State private var model: SessionModel
-    @State private var showSuggestions = false
     /// The tier's promise, shown under the pill for a few seconds on entry.
     @State private var showTierHint = false
     @Environment(AppStore.self) private var store
@@ -33,7 +32,6 @@ struct SessionScreen: View {
                 SessionFeed(model: model)
                 SessionComposer(
                     model: model,
-                    onSuggestions: { showSuggestions = true },
                     onScrollToLatest: { model.scrollToLatest() }
                 )
             }
@@ -61,7 +59,6 @@ struct SessionScreen: View {
         .animation(.easeOut(duration: Theme.Durations.short), value: model.showTurnMenu)
         .animation(.easeOut(duration: Theme.Durations.short), value: model.showQuality)
         .animation(.easeOut(duration: Theme.Durations.short), value: model.fullScreenImage)
-        .animation(.easeOut(duration: Theme.Durations.short), value: showSuggestions)
     }
 
     // MARK: A. Session header — 56pt plus safe area (§10.2 A)
@@ -170,19 +167,5 @@ struct SessionScreen: View {
             )
         }
 
-        if showSuggestions {
-            SessionSuggestionsSheet(
-                suggestions: model.suggestions,
-                onChoose: { item in
-                    showSuggestions = false
-                    model.choose(item)
-                },
-                onEdit: { item in
-                    showSuggestions = false
-                    model.edit(item)
-                },
-                onClose: { showSuggestions = false }
-            )
-        }
     }
 }
