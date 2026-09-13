@@ -10,7 +10,7 @@ import { LAUNCH_CATALOG } from './index.js';
  * that resolves to nothing. They are cheap, static, and they run without a
  * model.
  */
-const stories = LAUNCH_CATALOG as any[];
+const stories = LAUNCH_CATALOG as unknown as any[];
 
 describe('launch catalogue authoring', () => {
   it('never lets two different items in a story answer to the same words', () => {
