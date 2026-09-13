@@ -65,7 +65,7 @@ describe('the French overlay', () => {
     expect(fr.quests.map((q) => q.id)).toEqual(en.quests.map((q) => q.id));
     expect(fr.rules.startingLocationId).toBe(en.rules.startingLocationId);
     expect(fr.rules.startWorldMinute).toBe(en.rules.startWorldMinute);
-    expect(fr.coverImage).toBe(en.coverImage);
+    expect(fr.keyArt).toBe(en.keyArt);
   });
 
   it('keeps `artDirection` in English, because it is a prompt for an image model', () => {
@@ -134,5 +134,12 @@ describe('the title', () => {
     // inconsistently: `La Prophétie Vide` moved, `Blackwake` did not. Revisit
     // the day covers are generated per locale.
     expect(fr.title).toBe(en.title);
+  });
+});
+
+describe('localised cover', () => {
+  it('points a French story at the French cover key', () => {
+    expect(en.coverImage).toBeTruthy();
+    expect(fr.coverImage).toBe(`${en.coverImage}.fr`);
   });
 });

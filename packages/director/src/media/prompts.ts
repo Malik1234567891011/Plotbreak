@@ -142,8 +142,15 @@ const COVER_STYLE_SPINE = [
   'Large expressive anime eyes with visible highlights. Clean simplified features.',
 ].join(' ');
 
-/** The character-forward cover standard. Everything new is made under this. */
-export const COVER_DIRECTION_VERSION = 'plotbreak-cover-v3-anime';
+/**
+ * The cover standard. `v4-titled` covers are not made by `generate-art.ts` at
+ * all: they are Seedream key visuals with the title drawn into the art, made
+ * through Dare by the recipe in `docs/covers-v4/RECIPE.md` and installed by
+ * `infra/scripts/install-covers-v4.ts`. The constant is bumped so a
+ * `generate-art` run sees the manifest as current and leaves them alone;
+ * `coverPrompt` below is the v3 fallback for a world with no v4 cover yet.
+ */
+export const COVER_DIRECTION_VERSION = 'plotbreak-cover-v4-titled';
 
 /**
  * Kept, and no longer used by `coverPrompt`. Covers are not plated.

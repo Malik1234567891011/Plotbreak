@@ -4,18 +4,13 @@
     "file": "story_blackwake/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Blackwake: A broken ship. Nobody knows your name.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "ea3598cd-4eed-469f-b793-c05094af1268",
-      "promptHash": "c10018d9f73e8478cdb01be631aac515",
-      "seed": "sv_blackwake_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.21952,
-      "latencyMs": 95743,
-      "createdAt": "2026-09-10T21:55:04.652Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:04:36.915Z"
     }
   },
   "story_blackwake/harrow_bell": {
@@ -270,18 +265,13 @@
     "file": "story_blank_prophecy/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Blank Prophecy: They read your future. It was empty.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "8b527b22-204d-4416-b644-ffb204fe64c3",
-      "promptHash": "7d1698d24d6fd6ea04e320cfb9793ad1",
-      "seed": "sv_blank_prophecy_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 37269,
-      "createdAt": "2026-09-10T22:12:52.802Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:12:09.161Z"
     }
   },
   "story_blank_prophecy/despina": {
@@ -1771,18 +1761,13 @@
     "file": "story_fourth_beast/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Fourth Beast: Three beasts. Two people. You chose first.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "b1ff51d5-a74e-49a2-bfa3-dc7beda9bdd7",
-      "promptHash": "1255987ed0921a5e849e7c972a130bab",
-      "seed": "sv_fourth_beast_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 38005,
-      "createdAt": "2026-09-10T22:11:59.770Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:11:58.885Z"
     }
   },
   "story_fourth_beast/key": {
@@ -2930,18 +2915,13 @@
     "file": "story_good_morning_husband/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Good Morning, Husband: Four years married. You just met her.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "89ddbb22-e88f-43be-9801-27c7a98b784a",
-      "promptHash": "4778d2a68f198601de1978ad71119c99",
-      "seed": "sv_good_morning_husband_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 34893,
-      "createdAt": "2026-09-10T22:17:59.017Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:10:49.382Z"
     }
   },
   "story_good_morning_husband/emi": {
@@ -4203,18 +4183,13 @@
     "file": "story_hush_house/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Hush House: Do not open the door at 2:13 a.m.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "f8ee70c5-95ef-44b8-95b8-1435c406ad47",
-      "promptHash": "159c3c19c52f956a6ca13b8994108d0c",
-      "seed": "sv_hush_house_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 33675,
-      "createdAt": "2026-09-10T22:16:17.123Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:10:48.377Z"
     }
   },
   "story_hush_house/key": {
@@ -5212,16 +5187,11 @@
     "alt": "Cover art for Itachi: Both sides already think you are theirs.",
     "width": 1024,
     "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "53e73c34-df21-42ca-b71d-59c5db44c6c3",
-      "promptHash": "85ba65d7b566c8267a8fcc455aaa2087",
-      "seed": "sv_itachi_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.21952,
-      "latencyMs": 92428,
-      "createdAt": "2026-09-10T22:03:19.070Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:15:02.742Z"
     }
   },
   "story_itachi/danzo": {
@@ -7224,18 +7194,13 @@
     "file": "story_last_five/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Last Five: Rebuild the team. Beat the five who left.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "88fe3781-08bb-4ff2-89bf-0b833857e09f",
-      "promptHash": "7787fe172e4765d6b8212440cec72620",
-      "seed": "sv_last_five_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 34195,
-      "createdAt": "2026-09-10T21:55:54.765Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:10:47.906Z"
     }
   },
   "story_last_five/dai": {
@@ -10454,18 +10419,13 @@
     "file": "story_nine_weeks/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Nine Weeks: You came back. So did they.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "9c66f247-874a-4908-94b5-fdd1ec637fed",
-      "promptHash": "774858d9590446db1645a8c8cc6ac078",
-      "seed": "sv_nine_weeks_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.21952,
-      "latencyMs": 92975,
-      "createdAt": "2026-09-10T21:53:13.090Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:04:34.842Z"
     }
   },
   "story_nine_weeks/juno": {
@@ -10701,18 +10661,13 @@
     "file": "story_ninth_archive/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Ninth Archive: The school says you were never admitted.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "cdec3190-532b-4e2d-8f2a-1ab85345101c",
-      "promptHash": "753d77426d57fb7629b95d8a69aff5f8",
-      "seed": "sv_ninth_archive_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 35705,
-      "createdAt": "2026-09-10T21:46:57.568Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T06:46:04.254Z"
     }
   },
   "story_ninth_archive/kael": {
@@ -10948,18 +10903,13 @@
     "file": "story_primal_crown/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Primal Crown: The herds moved early. Somebody loses.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "5f980c4f-e3f0-47b9-b38e-dd21800dabb2",
-      "promptHash": "a4e40b7b88d935048946f957a11dab14",
-      "seed": "sv_primal_crown_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.21952,
-      "latencyMs": 105297,
-      "createdAt": "2026-09-10T22:10:12.768Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:11:57.844Z"
     }
   },
   "story_primal_crown/ilya": {
@@ -12430,18 +12380,13 @@
     "file": "story_red_floor/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Red Floor: No cameras. No records. Step on or do not.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "0b38f571-2e22-4d9a-96de-66f14015736d",
-      "promptHash": "a4678cac07c607cbc61209df5a88bcd7",
-      "seed": "sv_red_floor_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 35585,
-      "createdAt": "2026-09-10T22:13:44.208Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:08:24.945Z"
     }
   },
   "story_red_floor/daigo": {
@@ -13741,18 +13686,13 @@
     "file": "story_red_moon/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Red Moon Brigade: You hunt monsters. You are becoming one.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "7cc4c72f-5548-45df-92cd-6b83707d2437",
-      "promptHash": "5990b2bb60baa76171970cef78a2bd0c",
-      "seed": "sv_red_moon_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 36801,
-      "createdAt": "2026-09-10T21:56:47.273Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:04:35.458Z"
     }
   },
   "story_red_moon/elian": {
@@ -14121,18 +14061,13 @@
     "file": "story_salt_road/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Salt Road: Eleven days of road. Nine days of water.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "6ab4072a-f2fd-4f27-952b-7611515e6424",
-      "promptHash": "d5efd39412ed30aee89dfa3e72d83ee6",
-      "seed": "sv_salt_road_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.21952,
-      "latencyMs": 97098,
-      "createdAt": "2026-09-10T21:49:42.543Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:03:32.533Z"
     }
   },
   "story_salt_road/ferrow": {
@@ -14311,18 +14246,13 @@
     "file": "story_second_skin/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Second Skin: One body. One shape. Choose at sixteen.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "bf46f6a3-193a-40e0-8074-219e020eacea",
-      "promptHash": "48b45f43163a02c511148497355cd19f",
-      "seed": "sv_second_skin_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 37957,
-      "createdAt": "2026-09-10T22:14:38.001Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:08:25.447Z"
     }
   },
   "story_second_skin/edran": {
@@ -15793,18 +15723,13 @@
     "file": "story_seven_days/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Seven Days to Midnight: The city ends Sunday. Only you remember.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "f2b9923c-109b-461c-807c-94597855c6da",
-      "promptHash": "0fd9036a22601855f7d0f52c5806d67d",
-      "seed": "sv_seven_days_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 38825,
-      "createdAt": "2026-09-10T21:57:41.782Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:04:36.069Z"
     }
   },
   "story_seven_days/elias": {
@@ -16458,18 +16383,13 @@
     "file": "story_seven_names/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Seven Names: You hang at dawn. Unless you go now.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "717b6ede-0ab2-42bb-a163-17398e5d6707",
-      "promptHash": "f146a94cb849140790c4e4b6c6919ade",
-      "seed": "sv_seven_names_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 34028,
-      "createdAt": "2026-09-10T22:15:27.715Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:08:24.436Z"
     }
   },
   "story_seven_names/key": {
@@ -17712,18 +17632,13 @@
     "file": "story_tidewall/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Tidewall: Your sister died holding the wall.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "45cf5564-022f-4400-a7da-237785d30b6e",
-      "promptHash": "d632f76e02c57b11aa9ea03cf997052e",
-      "seed": "sv_tidewall_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 35988,
-      "createdAt": "2026-09-10T21:50:34.277Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:03:33.046Z"
     }
   },
   "story_tidewall/hollis": {
@@ -17940,18 +17855,13 @@
     "file": "story_unbound/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Unbound: Your school was dissolved. You were not.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "b7d2408f-6182-4644-ac7e-656da58f3c4d",
-      "promptHash": "ed317dbf97adcd371e87750e71b23578",
-      "seed": "sv_unbound_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 34258,
-      "createdAt": "2026-09-10T21:51:24.310Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:03:33.554Z"
     }
   },
   "story_unbound/key": {
@@ -18168,18 +18078,13 @@
     "file": "story_understudy/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Understudy: You know the part. You are second choice.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "5e427a65-6d06-4961-9e53-8ce0ede75a2d",
-      "promptHash": "0435a73ad64329963dd04f95162c4c7b",
-      "seed": "sv_understudy_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 36356,
-      "createdAt": "2026-09-10T21:47:49.734Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:03:32.030Z"
     }
   },
   "story_understudy/key": {
@@ -18529,18 +18434,13 @@
     "file": "story_window_seven/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Window Seven: Seven nights. One window. She waved.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "a19902e9-eecf-45c7-aa64-f71dea37800b",
-      "promptHash": "68a6f7eb9bb913aea685747cfeef2663",
-      "seed": "sv_window_seven_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 35582,
-      "createdAt": "2026-09-10T22:17:08.408Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:10:48.874Z"
     }
   },
   "story_window_seven/halden": {
@@ -19441,18 +19341,13 @@
     "file": "story_zero_throne/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Zero Throne: It knelt. Every camera saw it choose you.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "775019a2-1ded-48cc-b09b-6ada358d3ca0",
-      "promptHash": "d412120d35159e97c1d37c97945b65dc",
-      "seed": "sv_zero_throne_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 37658,
-      "createdAt": "2026-09-10T22:11:06.019Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:11:58.347Z"
     }
   },
   "story_zero_throne/eli": {
@@ -20923,18 +20818,13 @@
     "file": "story_last_service/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Last Service: Thirty seats. Thirty days. One kitchen.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "6029a5d9-500a-4491-9dbd-bcf9f4996d34",
-      "promptHash": "47700ef77e7cf62d81d855f01a6642c7",
-      "seed": "sv_last_service_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 35010,
-      "createdAt": "2026-09-10T22:18:49.723Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:07:48.174Z"
     }
   },
   "story_pink_tide/cover": {
@@ -20942,18 +20832,13 @@
     "file": "story_pink_tide/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Pink Tide: Paradise. One week. One missing man.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "58c68847-4ab1-406f-9ded-5df3b77f38c7",
-      "promptHash": "9e458cc9f6f88a2687849b04d3ad1cf9",
-      "seed": "sv_pink_tide_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 35143,
-      "createdAt": "2026-09-12T19:31:43.890Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:07:48.691Z"
     }
   },
   "story_pink_tide/key": {
@@ -22842,18 +22727,13 @@
     "file": "story_light/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Light: Everyone thinks they could beat L.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "a87b741f-828f-4fd7-b05c-00390a9e36a1",
-      "promptHash": "ca5e525a40f35c79bde68c4cc69c7bbc",
-      "seed": "sv_light_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.05488,
-      "latencyMs": 35267,
-      "createdAt": "2026-09-12T19:31:44.015Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:07:49.204Z"
     }
   },
   "story_ace/cover": {
@@ -22861,18 +22741,13 @@
     "file": "story_ace/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Ace: You were born already sentenced.",
-    "width": 1024,
-    "height": 1536,
-    "styleVersion": "plotbreak-cover-v3-anime",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
-      "provider": "openai",
-      "model": "gpt-image-2",
-      "requestId": "a5d9d1ac-2e5b-4b69-808f-68d6b879b8c6",
-      "promptHash": "705e690cbeaff812007f1c0e0fc0e6d4",
-      "seed": "sv_ace_1:cover:plotbreak-cover-v3-anime",
-      "costUsd": 0.21952,
-      "latencyMs": 96687,
-      "createdAt": "2026-09-12T19:36:07.521Z"
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-09-13T07:11:57.315Z"
     }
   },
   "story_last_service/stage_keiko_flat": {
@@ -24564,6 +24439,356 @@
       "costUsd": 0.01372,
       "latencyMs": 19048,
       "createdAt": "2026-09-12T20:34:07.902Z"
+    }
+  },
+  "story_ninth_archive/cover.fr": {
+    "assetKey": "story_ninth_archive/cover.fr",
+    "file": "story_ninth_archive/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for The Ninth Archive: The school says you were never admitted.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T06:46:04.380Z"
+    }
+  },
+  "story_understudy/cover.fr": {
+    "assetKey": "story_understudy/cover.fr",
+    "file": "story_understudy/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for The Understudy: You know the part. You are second choice.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:03:32.147Z"
+    }
+  },
+  "story_salt_road/cover.fr": {
+    "assetKey": "story_salt_road/cover.fr",
+    "file": "story_salt_road/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for The Salt Road: Eleven days of road. Nine days of water.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:03:32.668Z"
+    }
+  },
+  "story_tidewall/cover.fr": {
+    "assetKey": "story_tidewall/cover.fr",
+    "file": "story_tidewall/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for The Tidewall: Your sister died holding the wall.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:03:33.173Z"
+    }
+  },
+  "story_unbound/cover.fr": {
+    "assetKey": "story_unbound/cover.fr",
+    "file": "story_unbound/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for The Unbound: Your school was dissolved. You were not.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:03:33.747Z"
+    }
+  },
+  "story_nine_weeks/cover.fr": {
+    "assetKey": "story_nine_weeks/cover.fr",
+    "file": "story_nine_weeks/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Nine Weeks: You came back. So did they.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:04:35.033Z"
+    }
+  },
+  "story_red_moon/cover.fr": {
+    "assetKey": "story_red_moon/cover.fr",
+    "file": "story_red_moon/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Red Moon Brigade: You hunt monsters. You are becoming one.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:04:35.588Z"
+    }
+  },
+  "story_seven_days/cover.fr": {
+    "assetKey": "story_seven_days/cover.fr",
+    "file": "story_seven_days/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Seven Days to Midnight: The city ends Sunday. Only you remember.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:04:36.217Z"
+    }
+  },
+  "story_blackwake/cover.fr": {
+    "assetKey": "story_blackwake/cover.fr",
+    "file": "story_blackwake/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Blackwake: A broken ship. Nobody knows your name.",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:04:37.151Z"
+    }
+  },
+  "story_last_service/cover.fr": {
+    "assetKey": "story_last_service/cover.fr",
+    "file": "story_last_service/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Last Service: Thirty seats. Thirty days. One kitchen.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:07:48.309Z"
+    }
+  },
+  "story_pink_tide/cover.fr": {
+    "assetKey": "story_pink_tide/cover.fr",
+    "file": "story_pink_tide/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Pink Tide: Paradise. One week. One missing man.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:07:48.826Z"
+    }
+  },
+  "story_light/cover.fr": {
+    "assetKey": "story_light/cover.fr",
+    "file": "story_light/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Light: Everyone thinks they could beat L.",
+    "width": 1640,
+    "height": 2456,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:07:49.326Z"
+    }
+  },
+  "story_seven_names/cover.fr": {
+    "assetKey": "story_seven_names/cover.fr",
+    "file": "story_seven_names/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Seven Names: You hang at dawn. Unless you go now.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:08:24.572Z"
+    }
+  },
+  "story_red_floor/cover.fr": {
+    "assetKey": "story_red_floor/cover.fr",
+    "file": "story_red_floor/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for The Red Floor: No cameras. No records. Step on or do not.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:08:25.065Z"
+    }
+  },
+  "story_second_skin/cover.fr": {
+    "assetKey": "story_second_skin/cover.fr",
+    "file": "story_second_skin/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Second Skin: One body. One shape. Choose at sixteen.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:08:25.576Z"
+    }
+  },
+  "story_last_five/cover.fr": {
+    "assetKey": "story_last_five/cover.fr",
+    "file": "story_last_five/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Last Five: Rebuild the team. Beat the five who left.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:10:48.034Z"
+    }
+  },
+  "story_hush_house/cover.fr": {
+    "assetKey": "story_hush_house/cover.fr",
+    "file": "story_hush_house/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Hush House: Do not open the door at 2:13 a.m.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:10:48.495Z"
+    }
+  },
+  "story_window_seven/cover.fr": {
+    "assetKey": "story_window_seven/cover.fr",
+    "file": "story_window_seven/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Window Seven: Seven nights. One window. She waved.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:10:49.002Z"
+    }
+  },
+  "story_good_morning_husband/cover.fr": {
+    "assetKey": "story_good_morning_husband/cover.fr",
+    "file": "story_good_morning_husband/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Good Morning, Husband: Four years married. You just met her.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:10:49.512Z"
+    }
+  },
+  "story_ace/cover.fr": {
+    "assetKey": "story_ace/cover.fr",
+    "file": "story_ace/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Ace: You were born already sentenced.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:11:57.477Z"
+    }
+  },
+  "story_primal_crown/cover.fr": {
+    "assetKey": "story_primal_crown/cover.fr",
+    "file": "story_primal_crown/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Primal Crown: The herds moved early. Somebody loses.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:11:57.966Z"
+    }
+  },
+  "story_zero_throne/cover.fr": {
+    "assetKey": "story_zero_throne/cover.fr",
+    "file": "story_zero_throne/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Zero Throne: It knelt. Every camera saw it choose you.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:11:58.486Z"
+    }
+  },
+  "story_fourth_beast/cover.fr": {
+    "assetKey": "story_fourth_beast/cover.fr",
+    "file": "story_fourth_beast/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for The Fourth Beast: Three beasts. Two people. You chose first.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:11:59.023Z"
+    }
+  },
+  "story_blank_prophecy/cover.fr": {
+    "assetKey": "story_blank_prophecy/cover.fr",
+    "file": "story_blank_prophecy/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for The Blank Prophecy: They read your future. It was empty.",
+    "width": 1696,
+    "height": 2528,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:12:09.295Z"
+    }
+  },
+  "story_itachi/cover.fr": {
+    "assetKey": "story_itachi/cover.fr",
+    "file": "story_itachi/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for Itachi: Both sides already think you are theirs.",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-09-13T07:15:02.850Z"
     }
   }
 }

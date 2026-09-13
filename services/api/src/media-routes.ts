@@ -80,8 +80,11 @@ export function registerMediaRoutes(app: FastifyInstance, ctx: AppContext): void
       }
 
       const base = candidate.replace(/\.(webp|png)$/, '');
-      for (const extension of ['.webp', '.png'] as const) {
-        const path = `${base}${extension}`;
+      // A localised cover (`cover.fr`) falls back to the unlocalised one, so a
+      // world whose French cover has not been made yet still shows a cover.
+      const bases = /\.[a-z]{2}$/.test(base) ? [base, base.replace(/\.[a-z]{2}$/, '')] : [base];
+      for (const [b, extension] of bases.flatMap((b) => (['.webp', '.png'] as const).map((e) => [b, e] as const))) {
+        const path = `${b}${extension}`;
         try {
           const info = await stat(path);
           if (!info.isFile()) continue;
