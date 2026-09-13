@@ -794,6 +794,9 @@ enum TurnStreamEventName: String, LenientEnum {
     case turnTimings = "turn.timings"
     case mediaQueued = "media.queued"
     case mediaCompleted = "media.completed"
+    /// The frame could not be drawn. The placeholder has to come down, or the
+    /// beat keeps a hole in it for the rest of the session.
+    case mediaFailed = "media.failed"
     case turnFailed = "turn.failed"
     case unknown
     static var fallback: TurnStreamEventName { .unknown }

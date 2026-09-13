@@ -109,6 +109,16 @@ struct PendingTurn: Hashable {
     var reaction: PendingReaction?
     /// Spec §19.1 — arrives after the turn, never blocking it.
     var heroImageUrl: String?
+    /// A frame was planned for this beat and has not arrived.
+    ///
+    /// A hero frame takes about a minute and the prose takes ten seconds, so
+    /// by the time it lands the player has read on and the feed has scrolled
+    /// past the slot. The image then appears silently above something they
+    /// already read, which is indistinguishable from a bug. The React Native
+    /// screen grew a placeholder for exactly this and the port did not carry
+    /// it, because `media.queued` — the event that says a frame is coming —
+    /// was in the ignored list.
+    var awaitingHero = false
     var blocks: [NarrativeBlock] = []
     var check: PendingCheck?
     var deltas: [String] = []
@@ -134,6 +144,8 @@ final class SessionModel {
     private(set) var detail: SessionDetailResponse?
     private(set) var scene: SessionSceneState?
     private(set) var turns: [PlayerTurnRecord] = []
+    /// Turn ids whose hero frame is queued and has not landed. See `isAwaitingHero`.
+    private var awaitingFrames: Set<String> = []
     private(set) var suggestions: [SuggestedAction] = []
     var draft = "" {
         didSet { if draft != oldValue { scheduleDraftSave() } }
@@ -178,6 +190,21 @@ final class SessionModel {
     var historyTurns: [PlayerTurnRecord] { pending == nil ? Array(turns.dropLast()) : turns }
 
     var heroImageUrl: String? { pending != nil ? pending?.heroImageUrl : latest?.heroImageUrl }
+    /// Whether the beat on screen is still waiting for its picture.
+    var awaitingHero: Bool {
+        if let pending { return pending.awaitingHero }
+        guard let latest else { return false }
+        return latest.heroImageUrl == nil && awaitingFrames.contains(latest.turnId)
+    }
+
+    /// Beats whose frame has been queued and has not arrived.
+    ///
+    /// A client fact, not a server one: `PlayerTurnRecord` is the contract and
+    /// does not carry it. Keyed by turn id so a frame that lands two beats
+    /// later still fills the right slot.
+    func isAwaitingHero(_ turn: PlayerTurnRecord) -> Bool {
+        turn.heroImageUrl == nil && awaitingFrames.contains(turn.turnId)
+    }
     var visibleBlocks: [NarrativeBlock] { pending?.blocks ?? latest?.blocks ?? [] }
     var visibleDeltas: [StateDeltaPresentation] {
         if let pending {
@@ -434,7 +461,11 @@ final class SessionModel {
             // and only onto the beat that asked for it, which may no longer be
             // the pending one.
             if let url = data["url"]?.stringValue {
-                if pending?.turnId == turnId { pending?.heroImageUrl = url }
+                if pending?.turnId == turnId {
+                    pending?.heroImageUrl = url
+                    pending?.awaitingHero = false
+                }
+                awaitingFrames.remove(turnId)
                 turns = turns.map { turn in
                     var turn = turn
                     if turn.turnId == turnId { turn.heroImageUrl = url }
@@ -450,7 +481,17 @@ final class SessionModel {
             error = SessionError(message: data["message"]?.stringValue ?? t("session.turn_failed"), retry: true)
             Task { await store.refreshWallet() }
 
-        case .turnAccepted, .turnTimings, .mediaQueued, .unknown:
+        case .mediaQueued:
+            // The frame is coming. Claim the space now, at the size it will
+            // be, so nothing moves when it lands.
+            if pending?.turnId == turnId { pending?.awaitingHero = true }
+            awaitingFrames.insert(turnId)
+
+        case .mediaFailed:
+            if pending?.turnId == turnId { pending?.awaitingHero = false }
+            awaitingFrames.remove(turnId)
+
+        case .turnAccepted, .turnTimings, .unknown:
             break
         }
     }

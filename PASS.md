@@ -12,7 +12,12 @@ Order is by what it costs a player, not by the order in the brief.
       *not* blocking — every "I hit him" fires it. An in-fiction threat to an
       NPC is the same class of thing. Two fixes: drop that category, and never
       moderate text the engine itself just offered.
-- [ ] 12. Swift: tapping a card does not send. Core interaction.
+- [x] 12. **My audit was wrong again.** Tapping a card *does* send —
+      `SessionModel.choose` calls `send(suggestion.text, ...)`, and retested in
+      the simulator the wallet goes 540 → 480 and the turn runs. What I saw the
+      first time was the 401 from the missing `Local.xcconfig`, which made every
+      write fail silently, including the one I blamed on the card. The real
+      lesson is the silence: a failed send showed the player nothing at all.
 - [ ] 12b. Swift: no pending-frame placeholder; art lands ~60s later, above
       content already scrolled past.
 - [x] 11. **My audit was wrong.** I read `media_plan.reaction`, and `MediaPlan`

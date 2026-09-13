@@ -71,6 +71,8 @@ struct SessionFeed: View {
                 // The frame belongs to the beat that earned it.
                 if let hero = turn.heroImageUrl {
                     SessionHeroFrame(uri: hero) { model.fullScreenImage = hero }
+                } else if model.isAwaitingHero(turn) {
+                    SessionHeroFramePending()
                 }
                 ForEach(Array(turn.blocks.enumerated()), id: \.offset) { _, block in
                     SessionBlock(block: block, scene: model.scene)
@@ -115,6 +117,8 @@ struct SessionFeed: View {
         // Spec §19.1 tier 2 — a hero frame for a beat that earned one.
         if let hero = model.heroImageUrl {
             SessionHeroFrame(uri: hero) { model.fullScreenImage = hero }
+        } else if model.awaitingHero {
+            SessionHeroFramePending()
         }
 
         // Spec §19.7 — the face, edge to edge, the way a scene would cut to it.
@@ -246,6 +250,37 @@ struct SessionHeroFrame: View {
         }
         .buttonStyle(PressOpacityStyle(pressed: 0.9))
         .accessibilityLabel(t("session.scene_image_a11y"))
+    }
+}
+
+/// The slot a frame is going to land in.
+///
+/// A hero frame takes about a minute; the prose takes ten seconds. Without
+/// this the player reads on, the feed scrolls past the empty space, and the
+/// picture appears silently above a beat they have already finished — which
+/// reads as the app being broken rather than as a drawing being slow.
+///
+/// Exactly the dimensions of `SessionHeroFrame`, so nothing moves when the
+/// real image replaces it. The React Native screen had this and the port did
+/// not carry it, because `media.queued` was in the ignored list.
+struct SessionHeroFramePending: View {
+    @Environment(\.translator) private var t
+    @State private var breathing = false
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
+            .fill(Theme.Colors.bgElevated)
+            .aspectRatio(3 / 2, contentMode: .fit)
+            .frame(maxWidth: .infinity)
+            .overlay {
+                Image(systemName: "photo")
+                    .font(.system(size: 22))
+                    .foregroundStyle(Theme.Colors.textMuted)
+            }
+            .opacity(breathing ? 0.55 : 1)
+            .animation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true), value: breathing)
+            .onAppear { breathing = true }
+            .accessibilityLabel(t("session.scene_image_pending_a11y"))
     }
 }
 
