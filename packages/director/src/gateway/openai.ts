@@ -165,6 +165,134 @@ export class OpenAiGateway implements ModelGateway {
     }
   }
 
+  /**
+   * The Responses-API twin of the JSON path above (§32.5 unchanged).
+   *
+   * Only the transport differs. The extra fields it accepts — `context_management`
+   * for provider-side compaction, `prompt_cache_retention` — are opt-in and off
+   * unless a caller asks, so an unconfigured call is byte-for-byte the same
+   * request the Chat Completions path would have made.
+   */
+  async #generateViaResponses<T>(
+    role: ModelRole,
+    schema: z.ZodType<T, z.ZodTypeDef, unknown>,
+    messages: readonly ModelMessage[],
+    options: GenerateOptions,
+    model: string,
+    requestId: string,
+    started: number,
+  ): Promise<StructuredResult<T>> {
+    const response = await this.#post(
+      '/responses',
+      {
+        model,
+        max_output_tokens: options.maxTokens ?? 2048,
+        input: [
+          ...messages.map((m) => ({ role: m.role, content: m.content })),
+          {
+            role: 'system',
+            content:
+              'Reply with a single JSON object and nothing else — no prose around it, no code fence. ' +
+              `It must match this JSON Schema:\n${JSON.stringify(toJsonSchema(schema))}`,
+          },
+        ],
+        text: { format: { type: 'json_object' } },
+        store: false,
+        ...(options.promptCacheKey ? { prompt_cache_key: options.promptCacheKey } : {}),
+        ...(options.cacheRetention ? { prompt_cache_retention: options.cacheRetention } : {}),
+        ...(options.compactThreshold
+          ? { context_management: [{ type: 'compaction', compact_threshold: options.compactThreshold }] }
+          : {}),
+      },
+      options,
+    );
+
+    const payload = (await response.json()) as {
+      id?: string;
+      status?: string;
+      incomplete_details?: { reason?: string };
+      output?: Array<{ type?: string; content?: Array<{ type?: string; text?: string }> }>;
+      usage?: {
+        input_tokens?: number;
+        output_tokens?: number;
+        input_tokens_details?: { cached_tokens?: number; cache_write_tokens?: number };
+        output_tokens_details?: { reasoning_tokens?: number };
+      };
+    };
+
+    const usage = payload.usage ?? {};
+    const cachedTokens = usage.input_tokens_details?.cached_tokens ?? 0;
+    const cacheWriteTokens = usage.input_tokens_details?.cache_write_tokens ?? 0;
+    if (process.env.PLOTBREAK_USAGE_LOG) {
+      appendFileSync(
+        process.env.PLOTBREAK_USAGE_LOG,
+        JSON.stringify({
+          at: new Date().toISOString(),
+          api: 'responses',
+          model,
+          role,
+          inputTokens: usage.input_tokens ?? 0,
+          cachedTokens,
+          cacheWriteTokens,
+          outputTokens: usage.output_tokens ?? 0,
+          reasoningTokens: usage.output_tokens_details?.reasoning_tokens ?? 0,
+          latencyMs: Math.round(performance.now() - started),
+        }) + '\n',
+      );
+    }
+
+    // A truncated response is not a schema violation, and reporting it as one
+    // sent us chasing the wrong bug the last time an output cap was too low.
+    if (payload.status && payload.status !== 'completed') {
+      throw new ModelGatewayError(
+        `Provider returned status ${payload.status}${payload.incomplete_details?.reason ? ` (${payload.incomplete_details.reason})` : ''}`,
+        'PROVIDER_ERROR',
+        true,
+      );
+    }
+
+    const raw = (payload.output ?? [])
+      .flatMap((item) => item.content ?? [])
+      .map((part) => part.text)
+      .filter((text): text is string => typeof text === 'string' && text.length > 0)
+      .join('');
+    if (!raw) throw new ModelGatewayError('Provider returned no content', 'INVALID_JSON', true);
+
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(raw.replace(/^```(?:json)?\s*|\s*```$/g, ''));
+    } catch {
+      throw new ModelGatewayError('Provider returned unparseable JSON', 'INVALID_JSON', true);
+    }
+    const checked = schema.safeParse(parsed);
+    if (!checked.success) {
+      throw new ModelGatewayError(
+        `Structured output failed validation: ${checked.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`,
+        'SCHEMA_VIOLATION',
+        true,
+      );
+    }
+
+    return {
+      value: checked.data,
+      invocation: {
+        requestId,
+        role,
+        provider: this.name,
+        model,
+        inputTokens: usage.input_tokens ?? 0,
+        outputTokens: usage.output_tokens ?? 0,
+        latencyMs: Math.round(performance.now() - started),
+        costUsd: costOf(model, usage.input_tokens ?? 0, usage.output_tokens ?? 0),
+        ok: true,
+        errorCode: null,
+        cachedTokens,
+        cacheWriteTokens,
+        responseId: payload.id,
+      },
+    };
+  }
+
   async generateStructured<T>(
     role: ModelRole,
     schema: z.ZodType<T, z.ZodTypeDef, unknown>,
@@ -191,6 +319,18 @@ export class OpenAiGateway implements ModelGateway {
     // guarantee it already was. Only the newer families take this path, so
     // nothing about the current production models changes.
     const reasoning = /^(gpt-[6-9]|gpt-5\.[3-9])/.test(model);
+
+    // Same messages, different endpoint. /responses is the only place the
+    // provider offers context management and cache-write accounting, and the
+    // migration is deliberately behaviour-neutral: identical message array,
+    // identical trailing schema instruction, identical `safeParse` guarantee.
+    // `text.format: json_object` rather than a native `json_schema` for exactly
+    // that reason — a server-enforced schema would change what the model sees
+    // and stop this being a parity test. That upgrade is available later.
+    if (options?.api === 'responses') {
+      return this.#generateViaResponses(role, schema, messages, options, model, requestId, started);
+    }
+
     if (reasoning) {
       const jsonResponse = await this.#post(
         '/chat/completions',

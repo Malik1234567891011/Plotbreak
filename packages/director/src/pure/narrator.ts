@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { GameState, StoryVersion, TurnRecord } from '@plotbreak/contracts';
 import { charactersPresent } from '@plotbreak/engine';
-import type { ModelGateway } from '../gateway/types.js';
+import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 
 /**
  * LLM_PURE — the experiment.
@@ -196,6 +196,23 @@ export interface PureResult {
   readonly turn: PureTurn;
   readonly promptChars: number;
   readonly historyTurns: number;
+  /** What the provider actually billed and cached, straight through. */
+  readonly invocation: ModelInvocation;
+}
+
+/**
+ * Which endpoint Pure talks to. Chat Completions stays the default until the
+ * Responses path is shown to produce the same story, because the only thing
+ * worse than an unmigrated API is a migration that quietly changed the prose.
+ */
+function apiChoice(): 'chat' | 'responses' {
+  return process.env.PLOTBREAK_PURE_API === 'responses' ? 'responses' : 'chat';
+}
+
+/** Provider-side compaction threshold in tokens. Unset means no compaction. */
+function compactThreshold(): number | undefined {
+  const raw = Number(process.env.PLOTBREAK_PURE_COMPACT);
+  return Number.isFinite(raw) && raw > 0 ? raw : undefined;
 }
 
 export async function narratePure(options: {
@@ -207,6 +224,10 @@ export async function narratePure(options: {
   readonly model?: string;
   /** Routes the request to the cache that already holds this session's prefix. */
   readonly cacheKey?: string;
+  /** Overrides `PLOTBREAK_PURE_API` for a single call, which the A/B harness needs. */
+  readonly api?: 'chat' | 'responses';
+  /** Overrides `PLOTBREAK_PURE_COMPACT` for a single call. */
+  readonly compactThreshold?: number;
 }): Promise<PureResult> {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
@@ -235,12 +256,15 @@ export async function narratePure(options: {
     temperature: 0.9,
     timeoutMs: 120_000,
     promptCacheKey: options.cacheKey,
+    api: options.api ?? apiChoice(),
+    compactThreshold: options.compactThreshold ?? compactThreshold(),
   });
 
   return {
     turn: result.value,
     promptChars: JSON.stringify(messages).length,
     historyTurns: recentTurns.length,
+    invocation: result.invocation,
   };
 }
 

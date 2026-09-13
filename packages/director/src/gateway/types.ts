@@ -42,6 +42,19 @@ export interface GenerateOptions {
    * Optional on the newer families and free to send.
    */
   readonly promptCacheKey?: string;
+  /**
+   * Opt into the Responses API for this call. The Chat Completions path stays
+   * the default until parity is verified; both build the identical messages.
+   */
+  readonly api?: 'chat' | 'responses';
+  /**
+   * Responses-only. Hands context management to the provider: once the input
+   * passes this many tokens it compacts the older turns itself. Ignored on the
+   * Chat Completions path, which has no equivalent.
+   */
+  readonly compactThreshold?: number;
+  /** Responses-only. How long the provider keeps this prefix cached. */
+  readonly cacheRetention?: '24h' | 'in-memory';
 }
 
 export interface ModelInvocation {
@@ -55,6 +68,12 @@ export interface ModelInvocation {
   readonly latencyMs: number;
   readonly ok: boolean;
   readonly errorCode: string | null;
+  /** Prefix tokens served from the provider's cache, when it reports them. */
+  readonly cachedTokens?: number;
+  /** Prefix tokens written *into* the cache. Only the Responses API reports this. */
+  readonly cacheWriteTokens?: number;
+  /** The provider-side id of this response, when the endpoint has one. */
+  readonly responseId?: string;
 }
 
 export interface StructuredResult<T> {
