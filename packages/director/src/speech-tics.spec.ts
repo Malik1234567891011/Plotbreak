@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { findSpeechTics, stripOpener } from './speech-tics.js';
+import { burnedOpeners, findSpeechTics, stripOpener } from './speech-tics.js';
 
 /**
  * Measured over twenty turns of Ace: Sabo opened seventeen of twenty-one lines
@@ -91,5 +91,32 @@ describe('the repair takes the tic, not the line', () => {
     expect(stripOpener('No, listen. You didn’t pick your father.', ['Ace'])).toBe(
       'No, listen. You didn’t pick your father.',
     );
+  });
+});
+
+/**
+ * The repair strips a tic after the fact, which fixes the line and leaves the
+ * habit. Telling the writer which openers are spent is the half that stops it
+ * being written.
+ */
+describe('openers a character has already spent', () => {
+  const nameOf = (id: string) => ({ sabo: 'Sabo', luffy: 'Monkey D. Luffy' })[id] ?? id;
+
+  it('reports an opener used twice, per character', () => {
+    const spent = burnedOpeners(
+      [...said('sabo', 'Look, nobody checks.', 'Look, I said no.'), ...said('luffy', 'Ace! I got it.')],
+      nameOf,
+    );
+    expect(spent['Sabo']).toContain('look');
+    expect(spent['Monkey D. Luffy']).toBeUndefined();
+  });
+
+  it('keeps one character’s habit off another', () => {
+    const spent = burnedOpeners(said('sabo', 'Look, nobody checks.', 'Look, I said no.'), nameOf);
+    expect(Object.keys(spent)).toEqual(['Sabo']);
+  });
+
+  it('says nothing when nobody has a habit yet', () => {
+    expect(burnedOpeners(said('sabo', 'Look, nobody checks.'), nameOf)).toEqual({});
   });
 });

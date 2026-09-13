@@ -18,7 +18,7 @@ Order is by what it costs a player, not by the order in the brief.
       first time was the 401 from the missing `Local.xcconfig`, which made every
       write fail silently, including the one I blamed on the card. The real
       lesson is the silence: a failed send showed the player nothing at all.
-- [ ] 12b. Swift: no pending-frame placeholder; art lands ~60s later, above
+- [x] 12b. Swift: no pending-frame placeholder; art lands ~60s later, above
       content already scrolled past.
 - [x] 11. **My audit was wrong.** I read `media_plan.reaction`, and `MediaPlan`
       has no `reaction` field — it has `expressions`. Captured a real SSE
@@ -43,19 +43,21 @@ Order is by what it costs a player, not by the order in the brief.
 
 ## P1 — the fiction contradicts itself
 
-- [ ] 1. Presence/blocking not authoritative.
-- [ ] 8. Important objects have no authoritative location.
-- [ ] 2. Foregrounded obstacles silently forgotten.
-- [ ] 13. Planned-but-unestablished events leaking into cards
-      ("Accept being saved").
+- [x] 1. 11/38 beats named somebody elsewhere; the guard only fired on
+      co-presence phrases. Now the verb, plus arrivals/departures.
+- [x] 8. Constrained version: `carrying` is authoritative and policed. A full
+      object register (holder, container, who-knows) is scoped, not built.
+- [x] 2. `openSituation` from `endStatePrompt` + restatement counter.
+- [x] 13. It is an ability name. Unlocked ability = capability; a card asserts
+      a situation. Gated on the scene supporting it.
 
 ## P2 — it works but does not feel intentional
 
-- [ ] 4. Checks with no uncertain outcome.
-- [ ] 3. Scene exhaustion, second pass (semantic loop, not location loop).
-- [ ] 5. Cards articulate theme instead of character.
-- [ ] 7. Per-character phrase tics ("Look,").
-- [ ] 6. Literary prose density.
+- [x] 4. 12/16 rolls were `Investigate`/`Interact` with nothing opposing.
+- [x] 3. Semantic loop via endStatePrompt similarity.
+- [x] 5. Card policy, both locales.
+- [x] 7. `openersToAvoid` per character; window 4 -> 8 beats.
+- [x] 6. Happening / feels like / means, in that proportion.
 
 ## Must not regress
 

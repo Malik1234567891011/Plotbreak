@@ -563,7 +563,10 @@ export function buildTurnContext(options: BuildContextOptions): TurnContext {
       sceneSummary: t.sceneSummary,
     })),
     recentDialogue: recentTurns
-      .slice(-4)
+      // Eight beats, not four. A habit that resets every four turns is a habit
+      // that never gets counted: Sabo opened six of twenty-nine lines with
+      // "Look," in a run where the window kept forgetting.
+      .slice(-8)
       .flatMap((t) =>
         (t.blocks ?? [])
           .filter((b) => b.type === 'DIALOGUE' && b.speakerId && b.speakerId !== 'player')

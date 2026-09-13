@@ -14,6 +14,7 @@ import { RuleBasedIntentParser, type IntentParser, type ParseContext } from './p
 import { RuleBasedDirector, type Director } from './director.js';
 import { TemplateWriter, buildDeltas, type Writer } from './writer.js';
 import type { TurnContext } from './context.js';
+import { burnedOpeners } from './speech-tics.js';
 import { speakerBrief } from './speaker-brief.js';
 import { stateBands, STATE_BAND_RULES } from './state-bands.js';
 
@@ -439,7 +440,18 @@ function directorPayload(context: TurnContext): Record<string, unknown> {
      * model matched the most recent example of the voice, which was itself.
      * Showing the lines makes the repetition visible to the thing repeating.
      */
-    recentlySaid: context.recentDialogue.slice(-8),
+    recentlySaid: context.recentDialogue.slice(-10),
+    /**
+     * Per character, the openers they have already spent.
+     *
+     * The repair strips a tic after the fact, which fixes the line and leaves
+     * the habit. This is the half that stops it being written. Per character
+     * on purpose: "Look," is Sabo's, and forbidding it to everybody would cost
+     * more than the tic does.
+     */
+    openersToAvoid: burnedOpeners(context.recentDialogue, (id) =>
+      context.story.characters.find((c) => c.id === id)?.name ?? id,
+    ),
     /**
      * Images the last few beats already spent.
      *
@@ -549,6 +561,21 @@ export const WRITER_POLICY = [
   'intrudes, a reason to stay expires, or one of the people here stops going along with it. Use what the',
   'world actually contains — a character with somewhere to be, an obligation coming due, a place on the',
   'map — and end the beat somewhere the next turn cannot be the same turn again.',
+  '',
+  'A voice is rhythm, confidence, what somebody notices and how they disagree — not a word they keep',
+  'saying. `openersToAvoid` lists, per character, the openers they have already spent: do not start their',
+  'next line with one. Sabo opened seventeen of twenty-one lines with "Look," in one run and six of',
+  'twenty-nine in the next; that is not a voice, it is a stuck key. The same goes for a character who',
+  'says the player\'s name every time they speak. Somebody simple is simple in what they want and how',
+  'fast they commit to it, not in having a vocabulary of forty words.',
+  '',
+  'MOST PARAGRAPHS SAY WHAT IS HAPPENING. Some say what it feels like. Very few say what it means, and',
+  'those are earned by the beat rather than applied to it. A turn that ends with the mountain watching,',
+  'the sea daring somebody, the horizon standing for freedom or the sky refusing to answer is a good',
+  'paragraph; twenty of them in a row is a mannerism, and it is the thing that makes forty turns read as',
+  'one long turn. Prefer the ordinary physical life of the world — running, falling, eating, stealing,',
+  'scraped knees, stupid jokes, arguments, being out of breath, dropping something. An anime about',
+  'children on a mountain should be loud and specific far more often than it is profound.',
   '',
   'You can see what the cast just said in `recentlySaid` and what the last beats already used in',
   '`alreadyUsedRecently`. Do not open a character’s line the way their last line opened. Do not reach',

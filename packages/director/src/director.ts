@@ -1,4 +1,5 @@
 import type {
+  AbilityDef,
   BeatPlan,
   BeatType,
   MediaPlan,
@@ -8,6 +9,7 @@ import type {
 } from '@plotbreak/contracts';
 import type { ReactionEmotion } from '@plotbreak/contracts';
 import { QUALITY_TIERS, calledName } from '@plotbreak/contracts';
+import { lexicalSimilarity } from './memory.js';
 import { isSuccess, outcomeLabel, estimateRisk, attributeModifier } from '@plotbreak/engine';
 import { type HostileVerb, type StructuredFact } from './memory-facts.js';
 import type { TurnContext, PresentCharacterContext } from './context.js';
@@ -352,6 +354,49 @@ function chooseReveals(context: TurnContext): string[] {
 const SOCIAL_VERBS = new Set(['speak', 'persuade', 'deceive', 'threaten', 'help', 'oppose', 'custom']);
 const SOCIAL_HINTS = new Set(['persuade', 'speak_to', 'deceive', 'threaten']);
 
+
+/**
+ * Whether the scene is one this ability could be used in.
+ *
+ * An unlocked ability is a *capability*. Offering it as a card asserts a
+ * *situation*, and those are not the same thing. Ace has `ab_let_them_carry_you`
+ * — affordance "accept being saved" — unlocked from turn one, and on turn 17 of
+ * the forty-turn run the game offered the player **"Accept being saved"** while
+ * he stood alone on a beach looking at the sea. Nothing had happened to him.
+ * Nobody was carrying him. The card was the engine reading its own ability list
+ * out loud and inviting the player to respond to an event that existed only as
+ * a possibility.
+ *
+ * This is the same class as inventing history, arrived at from the other
+ * direction: planned-or-possible is not established, and a choice may only
+ * reference what the fiction has actually put in front of the player.
+ *
+ * The test is deliberately permissive — any overlap between what the ability is
+ * for and what the scene is about. A combat ability during a fight passes on
+ * the encounter alone. Something with a target in the room passes. What fails
+ * is the case this exists for: an ability about a situation nothing in the
+ * scene resembles.
+ */
+function situationSupports(ability: AbilityDef, context: TurnContext): boolean {
+  const { state } = context;
+
+  // A fight is a situation, and combat abilities are what it is for.
+  if (state.encounter || state.contest) return true;
+
+  // Anything aimed at somebody is supported by that somebody being here.
+  if (ability.targetRule !== 'SELF' && context.presentCharacters.length > 0) return true;
+
+  const about = [ability.name, ...ability.affordances, ability.description].join(' ');
+  const scene = [
+    context.playerAction,
+    context.sceneProgress.openSituation ?? '',
+    ...context.recentTurns.slice(-2).map((t) => t.sceneSummary),
+    ...context.resolution.observableFacts,
+  ].join(' ');
+  if (scene.trim().length === 0) return true;
+  return lexicalSimilarity(about, scene) > 0.08;
+}
+
 function buildSuggestions(context: TurnContext): SuggestedAction[] {
   const { story, state, resolution } = context;
   const suggestions: SuggestedAction[] = [];
@@ -503,7 +548,8 @@ function buildSuggestions(context: TurnContext): SuggestedAction[] {
   const eligibleAbilities = opportunities
     .filter((o) => o.startsWith('use_ability:'))
     .map((o) => story.abilities.find((a) => a.id === o.slice('use_ability:'.length)))
-    .filter((a): a is NonNullable<typeof a> => !!a);
+    .filter((a): a is NonNullable<typeof a> => !!a)
+    .filter((a) => situationSupports(a, context));
 
   // Rotate deterministically. A player who tried a drive last turn should be
   // shown something else this turn, and the same state must always produce the

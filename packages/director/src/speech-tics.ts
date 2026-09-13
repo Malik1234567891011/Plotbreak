@@ -55,6 +55,39 @@ function openerOf(text: string): string | null {
   return match[1]!.toLowerCase();
 }
 
+/**
+ * Openers a character has leant on lately, so the writer can be told which
+ * ones are spent.
+ *
+ * The repair takes a tic off after the fact, which fixes the line and does
+ * nothing about the habit. Telling the writer up front is what stops it being
+ * written — and per character, because that is how the habit forms. Sabo's
+ * "Look," is Sabo's, and banning it for everybody would be a worse trade than
+ * the tic.
+ */
+export function burnedOpeners(
+  recentDialogue: ReadonlyArray<{ speakerId: string; text: string }>,
+  nameOf: (speakerId: string) => string,
+): Record<string, string[]> {
+  const counts = new Map<string, Map<string, number>>();
+  for (const line of recentDialogue) {
+    const opener = openerOf(line.text);
+    if (!opener) continue;
+    const per = counts.get(line.speakerId) ?? new Map<string, number>();
+    per.set(opener, (per.get(opener) ?? 0) + 1);
+    counts.set(line.speakerId, per);
+  }
+  const out: Record<string, string[]> = {};
+  for (const [speakerId, per] of counts) {
+    const spent = [...per.entries()]
+      .filter(([, n]) => n >= TIC_THRESHOLD)
+      .sort((a, b) => b[1] - a[1])
+      .map(([opener]) => opener);
+    if (spent.length > 0) out[nameOf(speakerId)] = spent.slice(0, 4);
+  }
+  return out;
+}
+
 export interface SpeechTic {
   readonly blockIndex: number;
   readonly speakerId: string;
