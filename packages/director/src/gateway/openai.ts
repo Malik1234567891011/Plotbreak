@@ -207,6 +207,7 @@ export class OpenAiGateway implements ModelGateway {
             },
           ],
           response_format: { type: 'json_object' },
+          ...(options?.promptCacheKey ? { prompt_cache_key: options.promptCacheKey } : {}),
         },
         options,
       );

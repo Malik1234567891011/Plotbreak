@@ -37,6 +37,11 @@ export interface GenerateOptions {
   readonly requestId?: string;
   /** Deterministic providers use this so a turn replays identically. */
   readonly seed?: string;
+  /**
+   * Groups requests that share a prompt prefix, so they land on the same cache.
+   * Optional on the newer families and free to send.
+   */
+  readonly promptCacheKey?: string;
 }
 
 export interface ModelInvocation {

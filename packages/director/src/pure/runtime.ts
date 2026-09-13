@@ -43,6 +43,8 @@ export async function runTurnPure(options: {
 
   const { turn, promptChars, historyTurns } = await narratePure({
     gateway, story, state, recentTurns, actionText,
+    // One cache per session: every turn of a session shares the whole prefix.
+    cacheKey: `pb:${state.sessionId ?? 'anon'}`,
   });
 
   const castIds = new Set(story.characters.map((c) => c.id));

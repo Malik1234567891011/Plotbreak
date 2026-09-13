@@ -118,10 +118,27 @@ function conversation(recentTurns: readonly TurnRecord[], cast: Map<string, stri
   return out.join('\n\n');
 }
 
-/** Everything about the world worth knowing, straight from the bible. */
-function worldBrief(story: StoryVersion, state: GameState): string {
-  const here = story.locations.find((l) => l.id === state.player.locationId);
-  const present = new Set(charactersPresent(state).map((c) => c.characterId));
+/**
+ * Everything about the world worth knowing, straight from the bible.
+ *
+ * **Nothing in here may change between turns.** This block sits in the cached
+ * prefix, and the docs are explicit that a content change before a breakpoint
+ * prevents prefix matching — so one volatile word here costs the cache for
+ * every token after it, which is the whole transcript.
+ *
+ * That is exactly what was happening: this function used to mark present
+ * characters with "— HERE NOW" inside the cast list and end with a "## Right
+ * now" block naming the location. Measured on the Astra run, caching stopped
+ * dead at 7,066 tokens — the constitution plus the cast list up to the first
+ * volatile marker — for every one of forty turns. A controlled probe confirmed
+ * the mechanism: identical information with the volatile part moved after the
+ * history caches 97% from the second request onward, and left in the prefix it
+ * caches nothing except when the volatile string happens to repeat.
+ *
+ * Where the player is and who is with them now lives at the tail, next to the
+ * action, where it belongs.
+ */
+function worldBrief(story: StoryVersion): string {
   return [
     `# ${story.title}`,
     story.premise,
@@ -132,12 +149,12 @@ function worldBrief(story: StoryVersion, state: GameState): string {
     '## The player',
     story.protagonist.kind === 'NAMED'
       ? `${story.protagonist.name} (${story.protagonist.pronouns}). ${story.protagonist.description}`
-      : `${state.player.identity.displayName} (${state.player.identity.pronouns}).`,
+      : 'The player names themselves; see the scene block below.',
     '',
     '## Cast',
     ...story.characters.map((c) =>
       [
-        `### ${c.name} (id: ${c.id})${present.has(c.id) ? ' — HERE NOW' : ''}`,
+        `### ${c.name} (id: ${c.id})`,
         c.role,
         c.appearance ? `Looks: ${c.appearance}` : '',
         c.speechStyle ? `Speaks: ${c.speechStyle}` : '',
@@ -156,10 +173,22 @@ function worldBrief(story: StoryVersion, state: GameState): string {
     '',
     '## Where this could go',
     ...story.endings.slice(0, 12).map((e) => `- ${e.name}: ${e.condition ?? ''}`),
-    '',
+  ].join('\n');
+}
+
+/** The volatile half, kept out of the cached prefix. */
+function rightNow(story: StoryVersion, state: GameState): string {
+  const here = story.locations.find((l) => l.id === state.player.locationId);
+  const present = charactersPresent(state).map(
+    (c) => story.characters.find((d) => d.id === c.characterId)?.name ?? c.characterId,
+  );
+  return [
     '## Right now',
+    ...(story.protagonist.kind === 'NAMED'
+      ? []
+      : [`You are ${state.player.identity.displayName} (${state.player.identity.pronouns}).`]),
     `The player is at ${here?.name ?? state.player.locationId}.`,
-    `Present: ${[...present].map((id) => story.characters.find((c) => c.id === id)?.name ?? id).join(', ') || 'nobody'}.`,
+    `Present: ${present.join(', ') || 'nobody'}.`,
   ].join('\n');
 }
 
@@ -176,11 +205,13 @@ export async function narratePure(options: {
   readonly recentTurns: readonly TurnRecord[];
   readonly actionText: string;
   readonly model?: string;
+  /** Routes the request to the cache that already holds this session's prefix. */
+  readonly cacheKey?: string;
 }): Promise<PureResult> {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
 
-  const world = worldBrief(story, state);
+  const world = worldBrief(story);
   const history = conversation(recentTurns, cast);
 
   const messages = [
@@ -190,6 +221,7 @@ export async function narratePure(options: {
       role: 'user' as const,
       content:
         `## The story so far\n\n${history || '(this is the opening)'}\n\n` +
+        `${rightNow(story, state)}\n\n` +
         `## The player's action, verbatim\n\n${actionText}\n\n` +
         `Write the next beat. Use character ids from the cast for speakers. ` +
         `Pick locationId from the places listed. presentCharacterIds is who is physically there when ` +
@@ -202,6 +234,7 @@ export async function narratePure(options: {
     maxTokens: 4000,
     temperature: 0.9,
     timeoutMs: 120_000,
+    promptCacheKey: options.cacheKey,
   });
 
   return {
