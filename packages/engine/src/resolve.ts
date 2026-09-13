@@ -2013,6 +2013,12 @@ const IMPOSSIBLE: Array<{ pattern: RegExp; inWorld: string; directive: string }>
  * ordinary thing, and it simply happens. The prose is then free to be about
  * how it lands rather than about whether it worked.
  */
+/**
+ * Verbs whose whole difficulty is the opposition. With none, nothing is being
+ * resolved and the action simply happened.
+ */
+const UNCONTESTED_VERBS = new Set(['custom', 'inspect', 'interact']);
+
 function nothingOpposes(args: ResolveActionArgs): boolean {
   const { story, state, action } = args;
 
@@ -2061,7 +2067,22 @@ function resolveGenericCheck(args: ResolveActionArgs): ActionOutcome {
   // Nothing is in the way, so there is nothing to roll. The action is what
   // happened; `undertaking` is how the writer is told to realise it rather
   // than adjudicate it.
-  if (action.verb === 'custom' && nothingOpposes(args)) {
+  //
+  // This used to apply to `custom` alone, and `custom` is only the sentences
+  // the parser could not name. The same argument holds for every verb whose
+  // difficulty comes entirely from what is standing in the way, and across
+  // forty turns of Ace those produced twelve of sixteen rolls: eight
+  // `Investigate` and four `Interact`, on things like "let's check the
+  // treehouse" and "I'm mastering this mountain". There is no sentence that
+  // finishes "this roll is resolving whether the player can ___" for any of
+  // them. A check has to be *about* something, and looking at a thing you can
+  // reach in a room nobody is contesting is not about anything.
+  //
+  // Deliberately not `persuade`: somebody agreeing is a real outcome and a
+  // real refusal is one of the few things these worlds do well. That a
+  // persuade fires when the target already wants the thing is true and is a
+  // judgement the engine cannot make from state — noted rather than guessed at.
+  if (UNCONTESTED_VERBS.has(action.verb) && nothingOpposes(args)) {
     return {
       checks: [],
       mutations: [],

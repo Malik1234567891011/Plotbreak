@@ -1,4 +1,5 @@
 import type { GameState, StateMutation, TurnRecord } from '@plotbreak/contracts';
+import { lexicalSimilarity } from './memory.js';
 
 /**
  * Whether anything has actually happened lately.
@@ -21,6 +22,27 @@ import type { GameState, StateMutation, TurnRecord } from '@plotbreak/contracts'
  */
 
 export interface SceneProgress {
+  /**
+   * Where the last beat left things, in the writer's own words.
+   *
+   * `endStatePrompt` is the one sentence a beat writes about what is now
+   * hanging, so it is the closest thing the engine has to a register of the
+   * foreground situation — and it costs nothing, because it is already
+   * written and already stored.
+   */
+  readonly openSituation: string | null;
+  /**
+   * How many consecutive recent beats have restated the same situation
+   * instead of moving it.
+   *
+   * The forty-turn Ace run exposed a subtler loop than the first one. Gray
+   * Terminal introduced a blocked shortcut with two older boys controlling it,
+   * Sabo laid out four options, and the story then drifted onto ships and
+   * freedom and the wall while the boys evaporated. Nothing was repeated
+   * word-for-word and nothing was in one place too long, so neither existing
+   * counter saw it: what repeated was the *subject*.
+   */
+  readonly turnsSituationUnchanged: number;
   /** Consecutive recent turns spent in the location the player is in now. */
   readonly turnsHere: number;
   /** Turns since anything the player could point at changed. */
@@ -35,6 +57,23 @@ export interface SceneProgress {
 
 const STALE_TURNS_IN_PLACE = 6;
 const STALE_TURNS_WITHOUT_CHANGE = 4;
+
+/**
+ * How alike two statements of where a beat left things have to be before the
+ * story is going round rather than forward.
+ *
+ * The same threshold the card filter uses across turns, and for the same
+ * reason: measured on real output, paraphrase of the same idea sits above it
+ * and genuinely different ideas sit well below.
+ */
+const SAME_SITUATION = 0.4;
+/**
+ * Two *restatements*, which is three beats on the same thing — the count is of
+ * beats that repeated the one before, so the first statement is not a repeat.
+ * Three is where the brief puts it and where the Gray Terminal drift became
+ * obvious to read.
+ */
+const STALE_TURNS_ON_ONE_QUESTION = 2;
 
 /**
  * Flags that record that somebody was spoken to or seen, which every turn
@@ -97,11 +136,34 @@ export function sceneProgress(
     turnsSinceSomethingChanged += 1;
   }
 
+  // How long the story has been restating the same situation.
+  const prompts = window
+    .map((t) => t.endStatePrompt ?? '')
+    .filter((p) => p.trim().length > 0);
+  const openSituation = prompts.at(-1) ?? null;
+  let turnsSituationUnchanged = 0;
+  if (openSituation) {
+    for (let i = prompts.length - 2; i >= 0; i -= 1) {
+      if (lexicalSimilarity(openSituation, prompts[i]!) < SAME_SITUATION) break;
+      turnsSituationUnchanged += 1;
+    }
+  }
+
   return {
     turnsHere,
     turnsSinceSomethingChanged,
+    openSituation,
+    turnsSituationUnchanged,
+    // Two different stalls, and either one is a stall.
+    //
+    // The first is the room: six turns in one place with nothing changing,
+    // which is the loop the first Ace playtest had. The second is the
+    // question: three beats that keep arriving at the same place, which is
+    // the loop the second one had — a scene whose point has been reached and
+    // which carries on being about it.
     stalled:
-      turnsHere >= STALE_TURNS_IN_PLACE &&
-      turnsSinceSomethingChanged >= STALE_TURNS_WITHOUT_CHANGE,
+      (turnsHere >= STALE_TURNS_IN_PLACE &&
+        turnsSinceSomethingChanged >= STALE_TURNS_WITHOUT_CHANGE) ||
+      turnsSituationUnchanged >= STALE_TURNS_ON_ONE_QUESTION,
   };
 }

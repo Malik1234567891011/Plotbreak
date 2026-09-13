@@ -456,6 +456,25 @@ function directorPayload(context: TurnContext): Record<string, unknown> {
      * this necessary.
      */
     sceneProgress: context.sceneProgress,
+    /**
+     * Who has just walked in and who has just walked out.
+     *
+     * Schedules and world events move people at commit, after the writer has
+     * run, so the beat that should have shown somebody arriving never knew.
+     * Turn 33 of the Ace log had three people arrive and one leave in a single
+     * turn with none of it on the page.
+     */
+    arrivals: context.arrivals.map((a) => a.name),
+    departures: context.departures.map((d) => d.name),
+    /**
+     * Exactly what the player has on them.
+     *
+     * The engine knows this precisely and the writer was never told, so prose
+     * could act as though a quest object were in hand while it sat where the
+     * player left it. Ace's can of money is buried at the treehouse and turns
+     * in Gray Terminal talked about it as if it were reachable from there.
+     */
+    carrying: context.player.inventoryNames,
     retrievedFacts: context.retrievedFacts.map((f) => f.fact.text),
     arc: context.arc,
     // Where this run could end up from here. Destinations, never a route —
@@ -497,6 +516,26 @@ export const WRITER_POLICY = [
   'got a different game.',
   'Never grant items, levels, or knowledge that is not in the mutations.',
   'Characters have their own goals and may disagree with the player.',
+  '',
+  'THE PLAYER HAS EXACTLY WHAT `carrying` SAYS AND NOTHING ELSE. An object that is not on that list is',
+  'not in their hands, not in their pocket, and cannot be produced, handed over, spent, opened or used.',
+  'It is wherever it was left. If they want it they have to go and get it, and that is a turn. This holds',
+  'hardest for the things a story is about — money, a weapon, a letter, a key, a fruit — because those',
+  'are the ones a scene most wants to reach for.',
+  '',
+  'A SITUATION STAYS A SITUATION UNTIL SOMETHING HAPPENS TO IT. If a beat put a concrete obstacle in',
+  'front of the player — somebody blocking the way, a locked door, a deadline, a pursuit, a person who',
+  'wants an answer — the next beats do not get to drift off it. It resolves, it gets worse, the player',
+  'walks away from it on purpose, or it turns into a different problem. It does not quietly stop',
+  'existing because the conversation found a more interesting subject. `sceneProgress.openSituation` is',
+  'where the last beat left things, and `turnsSituationUnchanged` counts how many beats have restated it',
+  'instead of moving it: at two or more, this beat moves it.',
+  '',
+  'ARRIVALS AND DEPARTURES HAPPEN ON THE PAGE. If `arrivals` has anybody in it, they were not here last',
+  'beat and they are here now: show them getting here — coming up the path, pushing through the door,',
+  'dropping out of a tree — before they say or do anything else. If `departures` has anybody, they were',
+  'here and are not now: show them going. Nobody in these stories teleports, and a character who is',
+  'simply present in one paragraph having been elsewhere in the last one reads as the game losing track.',
   '',
   'Everybody in `presentCharacters` is physically here. `turnsSinceMentioned` says how many beats ago the',
   'prose last acknowledged them: at two or more, they have effectively vanished, and the player is',

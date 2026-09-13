@@ -70,3 +70,47 @@ describe('a scene that has stopped moving', () => {
     expect(sceneProgress(s, turns).stalled).toBe(false);
   });
 });
+
+/**
+ * The second Ace run's loop was subtler than the first's.
+ *
+ * Gray Terminal introduced a blocked shortcut with two older boys on it, Sabo
+ * laid out four options, and the story then drifted onto ships and freedom
+ * while the boys evaporated. Nothing repeated word-for-word and nothing stayed
+ * in one place too long, so neither existing counter saw it. What repeated was
+ * the subject.
+ */
+describe('a scene that keeps arriving at the same place', () => {
+  const ending = (endStatePrompt: string): TurnRecord =>
+    ({ turnId: `t${(n += 1)}`, mutations: [], endStatePrompt }) as unknown as TurnRecord;
+
+  it('counts beats that restate where things stand', () => {
+    const p = sceneProgress(state(), [
+      ending('Ace and Sabo agree they want a ship and will leave the island.'),
+      ending('Ace and Sabo want a ship. They are going to leave this island.'),
+      ending('They want the ship, and they are leaving the island, and they mean it.'),
+    ]);
+    expect(p.turnsSituationUnchanged).toBeGreaterThanOrEqual(2);
+    expect(p.stalled).toBe(true);
+  });
+
+  it('carries the open situation forward for the writer', () => {
+    const p = sceneProgress(state(), [ending('Two older boys are holding the shortcut.')]);
+    expect(p.openSituation).toBe('Two older boys are holding the shortcut.');
+    expect(p.turnsSituationUnchanged).toBe(0);
+  });
+
+  it('does not call a moving story stalled', () => {
+    const p = sceneProgress(state(), [
+      ending('Two older boys are holding the shortcut.'),
+      ending('The shortcut is clear but one of them ran to tell somebody.'),
+      ending('You are being followed through the east piles.'),
+    ]);
+    expect(p.turnsSituationUnchanged).toBe(0);
+    expect(p.stalled).toBe(false);
+  });
+
+  it('says nothing when no beat has written one', () => {
+    expect(sceneProgress(state(), [talking()]).openSituation).toBeNull();
+  });
+});

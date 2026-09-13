@@ -285,3 +285,61 @@ describe('a character in two places in one beat', () => {
     ).toHaveLength(1);
   });
 });
+
+/**
+ * Eleven of the forty-turn Ace run's thirty-eight beats named somebody the
+ * engine had somewhere else. Almost none of them used a co-presence phrase —
+ * they used a name and a verb, which is all it takes to put a person in a
+ * room.
+ */
+describe('an absent character cannot act in the scene', () => {
+  const AWAY = [
+    { id: 'sabo', name: 'Sabo' },
+    { id: 'luffy', name: 'Monkey D. Luffy' },
+    { id: 'dadan', name: 'Curly Dadan' },
+  ];
+
+  it('catches a name doing something', () => {
+    for (const text of [
+      'Sabo jogs to keep up, the pipe knocking against his shoulder.',
+      'Luffy laughs and throws a rock at the water.',
+      'Dadan shouts something from the doorway about the food.',
+      'Sabo is climbing the nearest tree before you finish the sentence.',
+      'Sabo already grins at that.',
+    ]) {
+      expect(findPresenceOfAbsent([{ text }], AWAY), text).toHaveLength(1);
+    }
+  });
+
+  it('leaves the past tense alone, because that is somebody remembering', () => {
+    // The line between a contradiction and a memory is tense, and this engine
+    // writes its scenes in the present.
+    for (const text of [
+      'Sabo said he would meet you at the Terminal.',
+      'Luffy laughed about it for a week afterwards.',
+      'Dadan shouted at all three of you until the rain started.',
+    ]) {
+      expect(findPresenceOfAbsent([{ text }], AWAY), text).toEqual([]);
+    }
+  });
+
+  it('leaves a name that is not doing anything', () => {
+    for (const text of [
+      'Everything up here reminds you of Sabo.',
+      'You wonder where Luffy went.',
+      'Sabo’s pipe is still leaning against the tree where he left it.',
+      'You shout for Sabo and nothing answers.',
+    ]) {
+      expect(findPresenceOfAbsent([{ text }], AWAY), text).toEqual([]);
+    }
+  });
+
+  it('still lets the writer say they are not here', () => {
+    for (const text of [
+      'Sabo is not here, and the quiet is the proof.',
+      'Luffy never comes this far down.',
+    ]) {
+      expect(findPresenceOfAbsent([{ text }], AWAY), text).toEqual([]);
+    }
+  });
+});

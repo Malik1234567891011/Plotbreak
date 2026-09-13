@@ -135,9 +135,13 @@ describe('an action something does oppose', () => {
     expect(resolution.checks.length).toBeGreaterThan(0);
   });
 
-  it('leaves every verb the parser did understand exactly as it was', () => {
-    // The change is scoped to `custom`. A verb with its own resolver keeps its
-    // own rules, including the ones that can fail.
+  it('does not roll on looking at a room nobody is contesting', () => {
+    // This test used to assert the opposite, and said so: "The change is
+    // scoped to `custom`." That scope was too narrow. Across forty turns of
+    // Ace it produced twelve rolls out of sixteen — eight `Investigate` and
+    // four `Interact` — on things like "let's check the treehouse" and "I'm
+    // mastering this mountain", and there is no sentence that finishes "this
+    // roll is resolving whether the player can ___" for any of them.
     const story = LAST_FIVE as unknown as StoryVersion;
     const state = world(story);
     const resolution = resolveIntent({
@@ -148,6 +152,48 @@ describe('an action something does oppose', () => {
         actions: [{
           verb: 'inspect', actor: { entityType: 'player', entityId: 'player' },
           targets: [], method: 'search the room', declaredOutcome: '', timeIntent: 'NOW',
+        }],
+      },
+    });
+    expect(resolution.checks).toHaveLength(0);
+  });
+
+  it('still rolls when the player says how it turns out', () => {
+    // A declared outcome is the one thing a player never gets for free, and it
+    // is what a check is for. The uncontested path must not become a way to
+    // assert results.
+    const story = LAST_FIVE as unknown as StoryVersion;
+    const state = world(story);
+    const resolution = resolveIntent({
+      story, state, turnId: 't', seed: 'seed-declared',
+      intent: {
+        schemaVersion: '1.0', intentId: 'i', rawAction: 'search the room and find the key',
+        dialogue: [], confidence: 0.9, ambiguities: [], unsafeOrMetaRequests: [],
+        actions: [{
+          verb: 'inspect', actor: { entityType: 'player', entityId: 'player' },
+          targets: [], method: 'search the room', declaredOutcome: 'and I find the key',
+          timeIntent: 'NOW',
+        }],
+      },
+    });
+    expect(resolution.checks.length).toBeGreaterThan(0);
+  });
+
+  it('leaves a verb outside the set exactly as it was', () => {
+    // Somebody agreeing is a real outcome and a refusal is one of the few
+    // things these worlds do well, so `persuade` keeps its dice.
+    const story = LAST_FIVE as unknown as StoryVersion;
+    const state = world(story);
+    const target = charactersPresent(state)[0]!;
+    const resolution = resolveIntent({
+      story, state, turnId: 't', seed: 'seed-persuade',
+      intent: {
+        schemaVersion: '1.0', intentId: 'i', rawAction: 'talk them into it',
+        dialogue: [], confidence: 0.9, ambiguities: [], unsafeOrMetaRequests: [],
+        actions: [{
+          verb: 'persuade', actor: { entityType: 'player', entityId: 'player' },
+          targets: [{ entityType: 'npc', entityId: target.characterId, displayName: 'them' }],
+          method: 'talk them into it', declaredOutcome: '', timeIntent: 'NOW',
         }],
       },
     });

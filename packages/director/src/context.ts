@@ -227,6 +227,25 @@ export interface TurnContext {
   readonly recentSuggestions: readonly string[];
 
   /**
+   * Who walked into this scene, and who walked out, since the last beat.
+   *
+   * Schedules and world events move people at **commit**, which is after the
+   * writer has run — so a character put in the room by the clock is invisible
+   * to the beat that should have shown them arriving, and simply exists in the
+   * next one. Turn 33 of the forty-turn Ace run had Luffy, Dadan *and* Garp
+   * arrive on Mount Colubo and Sabo leave, in a single turn, none of it
+   * narrated. Garp is a Marine vice-admiral and the player's grandfather; he
+   * appeared standing there.
+   *
+   * Derived from the previous beat's `LOCATION_CHANGE` mutations rather than
+   * from a stored roster, so nothing new has to be persisted: whoever the last
+   * turn moved into the room the player is standing in has just arrived, and
+   * whoever it moved out of it has just gone.
+   */
+  readonly arrivals: readonly { id: string; name: string }[];
+  readonly departures: readonly { id: string; name: string }[];
+
+  /**
    * Whether the scene has stopped moving. See `scene-progress.ts`.
    *
    * Twenty turns of Ace never left Mount Colubo and advanced the world clock
@@ -553,6 +572,7 @@ export function buildTurnContext(options: BuildContextOptions): TurnContext {
     recentSuggestions: recentTurns.slice(-2).flatMap((t) => (t.suggestions ?? []).map((sug) => sug.text)),
     recentMotifs: recentMotifs(recentTurns.slice(-3)),
     sceneProgress: sceneProgress(state, recentTurns),
+    ...movementSinceLastBeat(story, state, recentTurns),
     retrievedFacts,
     arc: {
       episode: state.arc.episode,
@@ -636,6 +656,41 @@ const MOTIF_STOPWORDS = new Set([
  * name is checked, the same way `nameKeys` is used everywhere else, so "Curly
  * Dadan" is found when the prose writes "Dadan".
  */
+/**
+ * Arrivals and departures the player has not been told about yet.
+ *
+ * Only the beat immediately before this one, because an arrival is news for
+ * exactly one turn. Only people the story has a name for, because the point is
+ * that the writer can say "Garp comes up the path" rather than that something
+ * changed in a table.
+ */
+function movementSinceLastBeat(
+  story: StoryVersion,
+  state: GameState,
+  recentTurns: readonly TurnRecord[],
+): { arrivals: { id: string; name: string }[]; departures: { id: string; name: string }[] } {
+  const last = recentTurns.at(-1);
+  if (!last) return { arrivals: [], departures: [] };
+
+  const here = state.player.locationId;
+  const present = new Set(charactersPresent(state).map((c) => c.characterId));
+  const arrivals: { id: string; name: string }[] = [];
+  const departures: { id: string; name: string }[] = [];
+
+  for (const mutation of last.mutations ?? []) {
+    if (mutation.type !== 'LOCATION_CHANGE') continue;
+    if (mutation.subjectId === 'player') continue;
+    const def = story.characters.find((c) => c.id === mutation.subjectId);
+    if (!def) continue;
+    const to = (mutation.payload as { locationId?: unknown }).locationId;
+    if (typeof to !== 'string') continue;
+    if (to === here && present.has(def.id)) arrivals.push({ id: def.id, name: def.name });
+    else if (to !== here && !present.has(def.id)) departures.push({ id: def.id, name: def.name });
+  }
+
+  return { arrivals, departures };
+}
+
 function turnsSinceMentioned(def: CharacterDef, recentTurns: readonly TurnRecord[]): number | null {
   const keys = nameKeys(def.name).map((k) => k.toLowerCase());
   const window = recentTurns.slice(-6);

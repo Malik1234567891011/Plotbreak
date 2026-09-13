@@ -222,6 +222,58 @@ const NEGATED = /(?:n['’]t|\b(?:not|never|nothing|no\s+longer|without)\b)/i;
 const pairedWithYou = (name: string): RegExp =>
   new RegExp(`\\byou\\s+and\\s+${escape(name)}\\b|\\b${escape(name)}\\s+and\\s+you\\b`, 'i');
 
+
+/**
+ * A character doing something, right here, right now.
+ *
+ * `CO_PRESENCE` only caught an absent person being *positioned* next to the
+ * player — "beside you", "joins you", "you both". That is one way prose puts
+ * somebody in a room and not the common one. Measured across the forty-turn
+ * Ace run, **eleven of thirty-eight beats named somebody the engine had
+ * somewhere else**, and almost none of them used a co-presence phrase. They
+ * said *"Sabo jogs to keep up"*, *"Luffy laughs"*, *"Dadan shouts from the
+ * doorway"* — a name and a verb, which is all it takes.
+ *
+ * So the test is the verb. Present tense is the register this engine writes
+ * in — "You break into a run", "Sabo has already climbed" — which makes tense
+ * a clean discriminator rather than a guess: a present-tense action verb after
+ * a name is that person acting in this scene, and the past tense is somebody
+ * remembering or reporting. That is exactly the line the existing allowances
+ * draw. "Juno said they'd be at the bar" and "Cass says Juno ducked out" are
+ * both about somebody who is not here, and both stay legal.
+ *
+ * A list rather than a part-of-speech test because the list can be read and
+ * argued with, and because the failure mode of a missing verb is one missed
+ * contradiction rather than a wrongly deleted beat.
+ */
+const SCENE_VERBS = [
+  'jogs', 'runs', 'walks', 'steps', 'climbs', 'sits', 'stands', 'leans', 'turns', 'looks',
+  'watches', 'grins', 'laughs', 'smiles', 'frowns', 'shrugs', 'nods', 'shakes', 'points',
+  'reaches', 'grabs', 'takes', 'holds', 'drops', 'throws', 'catches', 'pulls', 'pushes',
+  'says', 'asks', 'answers', 'replies', 'shouts', 'calls', 'mutters', 'whispers', 'snorts',
+  'sighs', 'adds', 'tells', 'follows', 'keeps', 'moves', 'crouches', 'kneels', 'rolls',
+  'swings', 'jumps', 'lands', 'ducks', 'waves', 'waits', 'breathes', 'blinks', 'stares',
+  'glances', 'gestures', 'taps', 'kicks', 'hits', 'arrives', 'appears', 'joins', 'comes',
+  'goes', 'leads', 'drags', 'carries', 'lifts', 'sets', 'puts', 'opens', 'closes', 'hops',
+  'scrambles', 'sprints', 'vaults', 'crosses', 'settles', 'straightens', 'tilts', 'cocks',
+];
+
+/**
+ * `Sabo jogs`, `Sabo already jogs`, `Sabo is jogging`.
+ *
+ * One optional adverb between the name and the verb, because that is how far
+ * prose puts one, and the progressive form because it is as much a claim about
+ * now as the simple present is. The adverbs are listed rather than matched as
+ * `\w+ly`, which missed the commonest one of all: "Sabo already grins".
+ */
+const ADVERB = '(?:\\w+ly|already|still|just|then|now|almost|nearly|barely|only|half|finally)';
+const actsHere = (name: string): RegExp =>
+  new RegExp(
+    `\\b${escape(name)}\\b\\s+(?:${ADVERB}\\s+)?(?:${SCENE_VERBS.join('|')})\\b` +
+      `|\\b${escape(name)}\\b\\s+(?:is|are)\\s+(?:${ADVERB}\\s+)?\\w+ing\\b`,
+    'i',
+  );
+
 export function findPresenceOfAbsent(
   blocks: readonly { readonly text: string }[],
   absent: readonly { readonly id: string; readonly name: string }[],
@@ -245,7 +297,8 @@ export function findPresenceOfAbsent(
         if (NEGATED.test(candidate)) return false;
         return (
           CO_PRESENCE.some((pattern) => pattern.test(candidate)) ||
-          names.some((name) => pairedWithYou(name).test(candidate))
+          names.some((name) => pairedWithYou(name).test(candidate)) ||
+          names.some((name) => actsHere(name).test(candidate))
         );
       });
       if (!sentence) continue;
