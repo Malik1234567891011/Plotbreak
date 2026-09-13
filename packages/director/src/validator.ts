@@ -7,7 +7,7 @@ import { countItem, isSuccess } from '@plotbreak/engine';
 import type { TurnContext } from './context.js';
 import { findFourthWallBreaks, fourthWallRepairNote } from './fourth-wall.js';
 import { findEmptyConsequences, stripEmptyConsequences } from './empty-consequence.js';
-import { findAbsenceOfPresent, findPresenceOfAbsent } from './present-absence.js';
+import { findAbsenceOfPresent, findPresenceOfAbsent, findUnlicensedTravel } from './present-absence.js';
 import { findInventedHistory } from './invented-history.js';
 import { findSpeechTics, SPEECH_TIC_MARKER, stripOpener } from './speech-tics.js';
 
@@ -267,6 +267,26 @@ export function validateNarrative({ context, turn }: ValidateOptions): Consisten
       'ERROR',
       `${INVENTED_HISTORY_MARKER}: ${hit.reason} "${hit.sentence}"`,
       hit.blockIndex,
+    );
+  }
+
+  // --- LOCATION_CONTRADICTION: the beat leaves and the world does not ---
+  //
+  // Turn 49 of the eighty-turn session: the player typed "I decide I am done
+  // standing here, and start walking", the beat walked them down the ladder and
+  // onto the trail, and the footer still said The Treehouse. Turn 50 had them
+  // back on the boards. If the world did not move, the prose does not get to
+  // say it did.
+  for (const claim of findUnlicensedTravel(turn.blocks, {
+    travelled: resolution.normalizedActions.some(
+      (a) => (a as { verb?: string }).verb === 'travel' || (a as { verb?: string }).verb === 'move',
+    ),
+  })) {
+    push(
+      'LOCATION_CONTRADICTION',
+      'ERROR',
+      `The beat leaves ${context.scene.locationName} and nothing moved the player: "${claim.sentence}"`,
+      claim.blockIndex,
     );
   }
 

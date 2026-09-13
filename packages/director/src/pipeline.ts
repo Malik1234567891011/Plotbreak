@@ -19,7 +19,7 @@ import { TemplateWriter, type Writer } from './writer.js';
 import { isRepairable, repairNarrative, validateNarrative } from './validator.js';
 import { materializeProposals } from './memory.js';
 import { classifyClaim, directorNoteFor, proposalFor } from './player-canon.js';
-import { detectOutOfScope, stripInventedViolence } from './entity-resolution.js';
+import { detectOutOfScope, ensureTravelIntent, stripInventedViolence } from './entity-resolution.js';
 import { findFourthWallBreaks, fourthWallRepairNote } from './fourth-wall.js';
 import { expandElliptical } from './elliptical.js';
 import { writeStreaming } from './fast-writer.js';
@@ -211,9 +211,12 @@ export async function runTurn(options: RunTurnOptions): Promise<TurnPipelineResu
   // them, so a third implementation cannot arrive without it. The rule parser
   // already satisfies it by construction — its `attack` patterns all require a
   // violent word — so this only ever changes what the model parser returned.
-  const parsed = stripInventedViolence(
-    needsModelParse(quick) ? await deps.parser.parse(ellipsis.text, parseContext) : quick,
-    { text: ellipsis.text, locale: state.locale },
+  const parsed = ensureTravelIntent(
+    stripInventedViolence(
+      needsModelParse(quick) ? await deps.parser.parse(ellipsis.text, parseContext) : quick,
+      { text: ellipsis.text, locale: state.locale },
+    ),
+    { story, state, text: ellipsis.text },
   );
   const intent = annotateScope(
     ellipsis.expanded && ellipsis.note

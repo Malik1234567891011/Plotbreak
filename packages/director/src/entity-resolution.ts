@@ -480,3 +480,83 @@ export function stripInventedViolence(
     ),
   };
 }
+
+
+// --- Travel the player asked for and did not get ------------------------------
+
+/**
+ * Movement language, anywhere in the sentence.
+ *
+ * Deliberately not the travel lexicon. That one has to decide a clause's verb
+ * and so has to be careful about position; this one only has to notice that the
+ * player said something about going somewhere.
+ */
+const GOING =
+  /\b(go|goes|going|went|head|heads|heading|headed|walk|walks|walking|walked|run|runs|running|ran|march|marches|marching|marched|climb|climbs|climbing|climbed|descend|descends|leave|leaves|leaving|left|set off|set out|make my way|making my way|on my way|start(?:s|ed|ing)? (?:to )?(?:walk|walking|moving|heading|going)|move|moves|moving|moved|travel|travels|travelling|traveling|ride|rides|riding|rode|back to|off to|over to|down to|up to)\b/i;
+
+/**
+ * The player said they were going somewhere, and no clause says they went.
+ *
+ * The single most common way this engine loses a player's intent. Across one
+ * eighty-turn session, three separate turns narrated the player walking to a
+ * named place and left them standing where they started — turn 10 parsed as a
+ * rejected ability, turn 12 as an interaction, turn 49 as an interaction —
+ * because the verb lexicon has to pick a clause's verb from a regex over free
+ * text, and free text does not cooperate. The writer then narrated the walk,
+ * because the writer reads the player's words too.
+ *
+ * So the guarantee does not live in the lexicon, where it depends on clause
+ * splitting and word order. It lives here, after every parser: **if the player
+ * used movement language and named a place they can actually reach from here,
+ * the turn contains a travel clause.** Whichever parser ran, whatever it
+ * decided, however the sentence was cut up.
+ *
+ * Conservative in the two ways that matter. The destination has to be somewhere
+ * *connected to where they are standing*, so naming a distant place in
+ * conversation does not teleport anybody. And an existing travel clause is left
+ * exactly as it is.
+ */
+export function ensureTravelIntent(
+  intent: ActionIntent,
+  options: { readonly story: StoryVersion; readonly state: GameState; readonly text: string },
+): ActionIntent {
+  const { story, state, text } = options;
+  if (intent.actions.some((a) => a.verb === 'travel' || a.verb === 'move')) return intent;
+  if (!GOING.test(text)) return intent;
+
+  const here = story.locations.find((l) => l.id === state.player.locationId);
+  if (!here) return intent;
+
+  const lower = text.toLowerCase();
+  // Only somewhere they could walk to from where they are.
+  const reachable = here.connections
+    .map((c) => story.locations.find((l) => l.id === c.to))
+    .filter((l): l is NonNullable<typeof l> => !!l);
+
+  const named = reachable.find((l) =>
+    [l.name, l.shortName]
+      .filter((n): n is string => !!n && n.length > 2)
+      .some((n) => lower.includes(n.toLowerCase())),
+  );
+  if (!named) return intent;
+
+  // Added rather than substituted: whatever else the player did in the same
+  // breath — speaking, picking something up — still happened.
+  return {
+    ...intent,
+    actions: [
+      ...intent.actions,
+      {
+        verb: 'travel',
+        actor: { entityType: 'player', entityId: 'player' },
+        targets: [{ entityType: 'location', entityId: named.id, displayName: named.name }],
+        method: text.slice(0, 300),
+        declaredOutcome: null,
+        abilityId: null,
+        timeIntent: 'NOW',
+      } as ActionIntent['actions'][number],
+    ],
+  };
+}
+
+export { findUnlicensedTravel } from './present-absence.js';

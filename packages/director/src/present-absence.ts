@@ -313,3 +313,63 @@ export function findPresenceOfAbsent(
 
   return claims;
 }
+
+
+// --- Travel the beat narrates and the world did not do -----------------------
+
+/**
+ * Prose that moves the player out of the room.
+ *
+ * Leaving is the claim, not walking: a beat may have somebody cross a clearing,
+ * climb a tree or pace a deck without going anywhere. What this looks for is
+ * the player being described as *gone from here* — down the ladder and onto the
+ * trail, off along the path, out through the door.
+ */
+const LEAVES_HERE = [
+  /\byou (?:leave|left|walk out of|step out of|head out of|climb down (?:from|out of))\b/i,
+  /\byou (?:start|set off|head)(?:ed|s)? (?:down|up|off|out|back) (?:the |a |towards? |for )/i,
+  /\byou (?:are|'re) (?:moving|walking|heading|going) (?:down|up|off|out|away|back|towards?)\b/i,
+  /\byou (?:reach|arrive at|come out (?:on|onto)|make it to) the (?!edge|top of the ladder)/i,
+  /\bbehind you, (?:the )?\w+ (?:falls|drops|fades|shrinks)\b/i,
+];
+
+export interface TravelClaim {
+  readonly blockIndex: number;
+  readonly sentence: string;
+}
+
+/**
+ * Beats that walk the player out of a location the engine did not move them
+ * out of.
+ *
+ * This is the second half of the product's first promise, and the eighty-turn
+ * session broke it three times. Turn 49 is the cleanest: the player typed "I
+ * decide I am done standing here, and start walking", the beat had them climb
+ * down the rope ladder, reach the forest floor and start along the trail — and
+ * the footer still said The Treehouse, because no travel clause existed for the
+ * engine to commit. Turn 50 then had them standing on the treehouse boards
+ * again.
+ *
+ * `ensureTravelIntent` fixes the case where the player named somewhere. It
+ * cannot fix this one, because "start walking" names nowhere and the engine has
+ * no way to know which way they went. So the rule is the other way round: if
+ * the world did not move, the prose does not get to say it did. The beat can
+ * have them stand up, turn, look at the trail, want to go. It cannot have them
+ * arrive.
+ */
+export function findUnlicensedTravel(
+  blocks: readonly { readonly type: string; readonly text: string }[],
+  options: { readonly travelled: boolean },
+): TravelClaim[] {
+  if (options.travelled) return [];
+  const claims: TravelClaim[] = [];
+  blocks.forEach((block, blockIndex) => {
+    if (block.type === 'DIALOGUE') return; // somebody *saying* they will go is fine
+    for (const sentence of block.text.split(/(?<=[.!?…])\s+/)) {
+      if (!LEAVES_HERE.some((pattern) => pattern.test(sentence))) continue;
+      claims.push({ blockIndex, sentence: sentence.trim().slice(0, 140) });
+      break;
+    }
+  });
+  return claims;
+}

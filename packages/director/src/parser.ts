@@ -73,6 +73,21 @@ const AGGRESSION_AT_A_PERSON =
   /\b(?:deck|floor|beat|hit|kick|jump|smack|slap)\s+(?:him|her|them|me|us|his|their|(?:the|that|this|a|an)\s+(?:\w+\s+)?(?:man|woman|guy|girl|boy|kid|lad|fellow|bastard|guard|sailor|soldier|officer|captain|coach|stranger|thug|drunk|clerk|driver|bouncer)|the\s+\p{Lu}[\p{Ll}\p{M}'’-]+|\p{Lu}[\p{Ll}\p{M}'’-]{2,})\b/u;
 
 const VERB_LEXICON: Array<{ verb: Verb; patterns: RegExp[] }> = [
+  /**
+   * Going somewhere, stated plainly.
+   *
+   * Deliberately still bare stems and a following preposition. Widening this to
+   * every progressive form looked right and was not: "nobody is **going to**
+   * make me" is the future auxiliary, not movement, and the broadened pattern
+   * read it as travel. A lexicon has to pick a clause's verb from a regex over
+   * free text and has no way to tell those apart.
+   *
+   * The loose phrasings — "start walking toward the house", "heading to the
+   * Treehouse" — are handled by `ensureTravelIntent` in the pipeline instead,
+   * which can afford to be generous about the verb because it **requires a
+   * named destination the player can actually reach from here**. That is the
+   * part this pattern cannot check and the part that makes the difference safe.
+   */
   { verb: 'travel', patterns: [/\b(go|head|walk|travel|move|return|climb|descend|enter|leave|exit)\s+(to|into|for|toward|towards|back|up|down|out|in)\b/i, /\b(go|head|travel)\s+to\b/i] },
   {
     verb: 'attack',
@@ -86,7 +101,22 @@ const VERB_LEXICON: Array<{ verb: Verb; patterns: RegExp[] }> = [
       /\b(kill|murder|stab|shoot|execute|finish off)\b/i,
       // Continuations. A player mid-fight says "keep going", not "I attack
       // Kael for the third time", and the engine resolves who that means.
-      /\b(fights?|fighting|swinging|swings)\b/i,
+      //
+      // `swinging` and `swings` used to be here bare, and that is the single
+      // pattern that poisoned an entire eighty-turn session. Turn 2 of it read
+      // *"I turn to Sabo with a smirk, swinging my pipe across my shoulders"* —
+      // a boy slinging a pipe over his shoulders to talk — as an assault. It
+      // opened an encounter that ran for eight turns, hit the player three
+      // times, and gave Sabo injuries that were still being referenced forty
+      // turns later.
+      //
+      // A swing is only violence when it is aimed at somebody. "Swing at him"
+      // is a strike; "swinging it across my shoulders", "swinging my legs",
+      // "swinging the gate shut" are not. The preposition is the whole
+      // difference, so the preposition is in the pattern.
+      /\bfights?\b|\bfighting\b/i,
+      /\bswing(?:s|ing)?\s+(?:\w+\s+){0,3}?(?:at|into|for)\s+(?:him|her|them|me|us|the\s+\p{Lu}|\p{Lu})/u,
+      /\bswing(?:s|ing)?\s+(?:at|into)\b/i,
       /\b(keep|carry on|press|continue)\s+(going|at it|fighting|the attack|attacking|pressing)\b/i,
       /\bagain\b.*\b(hit|swing|strike)\b|\b(hit|swing|strike)\b.*\bagain\b/i,
       // Violence only when it lands on somebody.
