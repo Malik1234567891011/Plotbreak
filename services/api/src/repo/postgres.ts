@@ -3,6 +3,7 @@ import { isLocale } from '@plotbreak/i18n';
 import {
   GameEvent,
   GameState,
+  StoryDraft,
   LedgerEntry,
   MemoryFact,
   StoryVersion,
@@ -177,8 +178,14 @@ export class PostgresRepository implements Repository {
       version: number;
       definition: unknown;
     }>(
-      `SELECT DISTINCT ON (story_id) story_id, version, definition FROM story_versions
-       ORDER BY story_id, version DESC`,
+      // PUBLISHED only. A creator's own world is reachable by id the moment
+      // they publish it, but it does not enter Discover until they make it
+      // public — and a world they have taken down must leave.
+      `SELECT DISTINCT ON (v.story_id) v.story_id, v.version, v.definition
+         FROM story_versions v
+         JOIN stories s ON s.story_id = v.story_id
+        WHERE s.status = 'PUBLISHED' AND s.deleted_at IS NULL
+        ORDER BY v.story_id, v.version DESC`,
     );
     const stories: StoryVersion[] = [];
     for (const row of rows) {
@@ -1301,6 +1308,185 @@ export class PostgresRepository implements Repository {
       lastSeen: r.last_seen.toISOString(),
       appVersions: r.app_versions ?? '',
     }));
+  }
+
+  // --- Create mode ---------------------------------------------------------
+
+  #draftRow(row: {
+    document: unknown;
+    story_id: string | null;
+    published_version_id: string | null;
+    published_at: Date | null;
+    visibility: string;
+    updated_at: Date;
+  }): StoryDraft {
+    // The document is the truth for everything the creator typed; the columns
+    // are the truth for everything the server owns. Parsing them together means
+    // a hand-edited row cannot claim to be published when the join says it is
+    // not.
+    return StoryDraft.parse({
+      ...(row.document as object),
+      storyId: row.story_id,
+      publishedVersionId: row.published_version_id,
+      publishedAt: row.published_at ? row.published_at.toISOString() : null,
+      visibility: row.visibility,
+      updatedAt: row.updated_at.toISOString(),
+    });
+  }
+
+  async listDrafts(ownerId: string): Promise<StoryDraft[]> {
+    const { rows } = await this.#pool.query(
+      `SELECT document, story_id, published_version_id, published_at, visibility, updated_at
+         FROM story_drafts WHERE owner_id = $1 ORDER BY updated_at DESC`,
+      [ownerId],
+    );
+    return rows.map((row) => this.#draftRow(row));
+  }
+
+  async getDraft(draftId: string): Promise<StoryDraft | null> {
+    const { rows } = await this.#pool.query(
+      `SELECT document, story_id, published_version_id, published_at, visibility, updated_at
+         FROM story_drafts WHERE draft_id = $1`,
+      [draftId],
+    );
+    return rows[0] ? this.#draftRow(rows[0]) : null;
+  }
+
+  async putDraft(draft: StoryDraft): Promise<void> {
+    await this.#pool.query(
+      `INSERT INTO story_drafts
+         (draft_id, owner_id, story_id, published_version_id, document, title, visibility, published_at, created_at, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+       ON CONFLICT (draft_id) DO UPDATE SET
+         document = EXCLUDED.document,
+         title = EXCLUDED.title,
+         visibility = EXCLUDED.visibility,
+         updated_at = EXCLUDED.updated_at`,
+      [
+        draft.draftId,
+        draft.ownerId,
+        draft.storyId,
+        draft.publishedVersionId,
+        JSON.stringify(draft),
+        draft.title,
+        draft.visibility,
+        draft.publishedAt,
+        draft.createdAt,
+        draft.updatedAt,
+      ],
+    );
+  }
+
+  async deleteDraft(draftId: string, ownerId: string): Promise<boolean> {
+    const { rowCount } = await this.#pool.query(
+      `DELETE FROM story_drafts WHERE draft_id = $1 AND owner_id = $2`,
+      [draftId, ownerId],
+    );
+    return (rowCount ?? 0) > 0;
+  }
+
+  async publishDraft(input: {
+    readonly draft: StoryDraft;
+    readonly story: StoryVersion;
+    readonly slug: string;
+    readonly visibility: 'PRIVATE' | 'UNLISTED' | 'PUBLIC';
+    readonly at: string;
+  }): Promise<StoryDraft> {
+    const status =
+      input.visibility === 'PUBLIC'
+        ? 'PUBLISHED'
+        : input.visibility === 'UNLISTED'
+          ? 'UNLISTED'
+          : 'DRAFT';
+
+    return this.#tx(async (client) => {
+      // A stories row with no version, or a version nothing points at, is a
+      // world that exists and cannot be played. All of this lands or none of it.
+      await client.query(
+        `INSERT INTO stories (story_id, slug, creator_id, official, status)
+         VALUES ($1,$2,$3,false,$4)
+         ON CONFLICT (story_id) DO UPDATE SET status = EXCLUDED.status, updated_at = now()`,
+        [input.story.storyId, input.slug, input.draft.ownerId, status],
+      );
+      await client.query(
+        `INSERT INTO story_versions
+           (story_version_id, story_id, version, definition, title, fantasy_label, hook,
+            intensity, content_descriptors, clarity_passed, published_at)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,true,$10)`,
+        [
+          input.story.id,
+          input.story.storyId,
+          input.story.version,
+          JSON.stringify(input.story),
+          input.story.title,
+          input.story.fantasyLabel,
+          input.story.hook,
+          input.story.intensity,
+          input.story.contentDescriptors,
+          input.at,
+        ],
+      );
+      await client.query(`UPDATE stories SET published_version_id = $2 WHERE story_id = $1`, [
+        input.story.storyId,
+        input.story.id,
+      ]);
+      await client.query(
+        `INSERT INTO story_signals (story_id) VALUES ($1) ON CONFLICT DO NOTHING`,
+        [input.story.storyId],
+      );
+      const next: StoryDraft = {
+        ...input.draft,
+        storyId: input.story.storyId,
+        publishedVersionId: input.story.id,
+        publishedAt: input.at,
+        visibility: input.visibility,
+        updatedAt: input.at,
+      };
+      await client.query(
+        `UPDATE story_drafts
+            SET story_id = $2, published_version_id = $3, published_at = $4,
+                visibility = $5, document = $6, title = $7, updated_at = $4
+          WHERE draft_id = $1`,
+        [
+          next.draftId,
+          next.storyId,
+          next.publishedVersionId,
+          input.at,
+          next.visibility,
+          JSON.stringify(next),
+          next.title,
+        ],
+      );
+      this.#catalogue = null;
+      return next;
+    });
+  }
+
+  async setStoryVisibility(
+    storyId: string,
+    ownerId: string,
+    visibility: 'PRIVATE' | 'UNLISTED' | 'PUBLIC',
+  ): Promise<boolean> {
+    const status =
+      visibility === 'PUBLIC' ? 'PUBLISHED' : visibility === 'UNLISTED' ? 'UNLISTED' : 'DRAFT';
+    return this.#tx(async (client) => {
+      const { rowCount } = await client.query(
+        `UPDATE stories SET status = $3, updated_at = now()
+          WHERE story_id = $1 AND creator_id = $2`,
+        [storyId, ownerId, status],
+      );
+      if ((rowCount ?? 0) === 0) return false;
+      await client.query(
+        `UPDATE story_drafts
+            SET visibility = $3,
+                document = jsonb_set(document, '{visibility}', to_jsonb($3::text)),
+                updated_at = now()
+          WHERE story_id = $1 AND owner_id = $2`,
+        [storyId, ownerId, visibility],
+      );
+      this.#catalogue = null;
+      return true;
+    });
   }
 
   async createReport(report: ReportRecord): Promise<void> {
