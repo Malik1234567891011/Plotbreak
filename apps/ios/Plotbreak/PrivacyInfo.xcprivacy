@@ -18,9 +18,9 @@
   - The prose a player types and the worlds they play, which are their content
     and are stored against their account so a run survives a reinstall.
 
-  Tracking: the app asks App Tracking Transparency once (after the first story
-  beat) so AppsFlyer can attribute installs and purchases to the ad that led
-  to them. That is tracking in Apple's sense, so NSPrivacyTracking is true and
+  Tracking: the app asks App Tracking Transparency once, at launch and before
+  AppsFlyer starts, so AppsFlyer can attribute installs and purchases to the
+  ad that led to them. That is tracking in Apple's sense, so NSPrivacyTracking is true and
   the device id and purchase history are listed with tracking on. AppsFlyer's
   SDK ships its own manifest with its tracking domains; Apple merges the two.
   The App Store privacy label in App Store Connect has to say the same thing.

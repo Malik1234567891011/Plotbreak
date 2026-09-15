@@ -15,7 +15,7 @@ never show up as installs.
 | --- | --- | --- | --- |
 | Install | (automatic) | first launch on a device | `Attribution.configure` |
 | Sign-up | `af_complete_registration` | first real account per user id, with `af_registration_method` = email / apple / google. Guests do not count | `AppStore.adopt` |
-| First beat | `af_tutorial_completion` | first completed story turn on the device. The tracking prompt is asked right after | `SessionModel` on `turnCompleted` |
+| First beat | `af_tutorial_completion` | first completed story turn on the device | `SessionModel` on `turnCompleted` |
 | Purchase | `af_purchase` | a StoreKit purchase the server credited, with `af_revenue` and `af_currency` from the store | `Purchases.handle` |
 
 The networks should optimise on **first beat**, with purchase as the value
@@ -35,12 +35,13 @@ event. Sign-up is there for the funnel view.
 
 ## Tracking prompt
 
-`NSUserTrackingUsageDescription` in `project.yml`. Asked once, after the first
-beat, not at launch. Cost of that choice: the install itself is attributed by
-SKAdNetwork and probabilistic matching only. The device id joins in later
-events for the ~25% who accept. To ask at launch instead, move the
-`requestTrackingConsent` call into the session-ready listener in
-`Attribution.configure`, before `start()`.
+`NSUserTrackingUsageDescription` in `project.yml`. Asked once, at launch,
+inside AppsFlyer's session-ready listener and before `start()`, so the SDK
+sends nothing until the player has answered. It used to be asked after the
+first beat; App Review rejected build 4 (Guideline 2.1, 2026-09-15) because
+the reviewer never reached a beat and so never saw the prompt. Apple also
+wants it before any data that could track the user leaves the device, which
+the listener ordering guarantees. Do not move it later again.
 
 The App Store privacy label in App Store Connect must say Device ID and
 Purchase History are used for tracking. `PrivacyInfo.xcprivacy` already does.
