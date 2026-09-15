@@ -965,6 +965,21 @@ export const StoryRules = z
     /** In-fiction rules the director may never contradict. */
     hardCanon: z.array(z.string()).default([]),
     toneGuide: z.string().default(''),
+    /**
+     * A note from the author to the player, shown once and never sent to the
+     * model. Content warnings, how the world expects to be played, what the
+     * author would like you to try. Empty on every official world so far.
+     */
+    playGuide: z.string().default(''),
+    /**
+     * Up to three prose samples that set the voice.
+     *
+     * Everything else in a story bible describes the world; this describes the
+     * writing. It is the cheapest control a creator has over how their story
+     * sounds, and telling a model what good looks like beats any number of
+     * adjectives about tone.
+     */
+    styleExamples: z.array(z.string()).max(3).default([]),
     /** Fork price in credits. Spec §20.10 default 120. */
     forkCostCredits: z.number().int().min(0).default(120),
     /** Set on a world that starts again. Null on every world that does not. */

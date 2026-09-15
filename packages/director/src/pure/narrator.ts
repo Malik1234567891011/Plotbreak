@@ -478,6 +478,18 @@ export function worldBrief(story: StoryVersion, archetypeId?: string | null): st
     ...(story.opening
       ? ['## How this story opened', 'The player has read this. It happened.', story.opening, '']
       : []),
+    // What good sounds like, in this world, in the author's own prose. A
+    // sample beats any number of adjectives about tone, and it is the one
+    // control a creator has over voice that does not require them to be able
+    // to describe their own voice.
+    ...(story.rules.styleExamples.length
+      ? [
+          '## How this story sounds',
+          'The author wrote these. Match the rhythm, the distance and the diction — not the events.',
+          ...story.rules.styleExamples.map((sample) => `> ${sample.replace(/\n/g, '\n> ')}`),
+          '',
+        ]
+      : []),
     '## Places',
     ...story.locations.map((l) => `- ${l.name} (id: ${l.id}): ${l.description}`),
     '',
