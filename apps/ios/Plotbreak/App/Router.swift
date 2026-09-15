@@ -7,7 +7,7 @@ import SwiftUI
 // Scoped tasks are sheets (§25.10). Twin of `apps/mobile/src/navigation.tsx`.
 
 enum Tab: Hashable, CaseIterable {
-    case discover, library, badges, profile
+    case discover, library, create, badges, profile
 
     /// SF Symbols, outlined when idle and filled when selected — the way the
     /// reference draws the bar.
@@ -15,6 +15,7 @@ enum Tab: Hashable, CaseIterable {
         switch self {
         case .discover: return selected ? "house.fill" : "house"
         case .library: return selected ? "books.vertical.fill" : "books.vertical"
+        case .create: return selected ? "wand.and.stars" : "wand.and.stars.inverse"
         case .badges: return selected ? "bolt.fill" : "bolt"
         case .profile: return selected ? "person.fill" : "person"
         }
@@ -24,6 +25,7 @@ enum Tab: Hashable, CaseIterable {
         switch self {
         case .discover: return "nav.discover"
         case .library: return "nav.library"
+        case .create: return "nav.create"
         case .badges: return "nav.badges"
         case .profile: return "nav.profile"
         }
@@ -33,6 +35,10 @@ enum Tab: Hashable, CaseIterable {
 /// Pushed destinations (slide from right; Session fades and cannot be swiped back).
 enum Route: Hashable {
     case storyDetail(storyId: String)
+    /// The one field a new story starts from.
+    case pitch(draftId: String)
+    /// The stepper. Reached from the pitch, or straight from a title card.
+    case storyBuilder(draftId: String)
     case characterSetup(storyId: String)
     case session(sessionId: String)
 }
@@ -43,7 +49,6 @@ enum SheetRoute: Identifiable, Hashable {
     case worldSheet(sessionId: String, tab: String?)
     case wallet(shortfall: Int?)
     case signIn
-    case create
     /// SH-01 — everything the card needs is passed in, so it composes offline.
     /// `storyId` is optional because the world-sheet timeline can share a
     /// moment without one: that screen is built from the sheet and the
@@ -67,7 +72,6 @@ enum SheetRoute: Identifiable, Hashable {
         case .worldSheet(let sessionId, let tab): return "worldSheet:\(sessionId):\(tab ?? "")"
         case .wallet(let shortfall): return "wallet:\(shortfall ?? 0)"
         case .signIn: return "signIn"
-        case .create: return "create"
         case .share(_, let title, _, _, _, _): return "share:\(title)"
         case .report(let type, let id): return "report:\(type):\(id)"
         case .reportHistory: return "reportHistory"
@@ -132,6 +136,14 @@ final class Router {
     func replaceTopWithSession(_ sessionId: String) {
         _ = path.popLast()
         path.append(.session(sessionId: sessionId))
+    }
+
+    /// Swaps the top of the stack. The pitch screen becomes the builder, so
+    /// backing out of the builder returns to the dashboard rather than to a
+    /// pitch that has already been compiled.
+    func replaceTop(_ route: Route) {
+        _ = path.popLast()
+        path.append(route)
     }
 }
 
@@ -234,6 +246,10 @@ struct MainShell: View {
             StoryDetailScreen(storyId: storyId)
         case .characterSetup(let storyId):
             CharacterSetupScreen(storyId: storyId)
+        case .pitch(let draftId):
+            PitchScreen(draftId: draftId)
+        case .storyBuilder(let draftId):
+            StoryBuilderScreen(draftId: draftId)
         case .session(let sessionId):
             SessionScreen(sessionId: sessionId)
                 .navigationBarBackButtonHidden(true)
@@ -253,7 +269,6 @@ struct SheetHost: View {
             case .worldSheet(let sessionId, let tab): WorldSheetScreen(sessionId: sessionId, initialTab: tab)
             case .wallet(let shortfall): WalletScreen(shortfall: shortfall)
             case .signIn: SignInScreen()
-            case .create: CreateScreen()
             case .share(let storyId, let title, let action, let scene, let hero, let name):
                 ShareScreen(storyId: storyId, storyTitle: title, actionText: action, sceneText: scene, heroImageUrl: hero, displayName: name)
             case .report(let type, let id): ReportScreen(targetType: type, targetId: id)
@@ -285,6 +300,7 @@ struct TabBarShell: View {
                 switch router.tab {
                 case .discover: DiscoverScreen()
                 case .library: LibraryScreen()
+                case .create: CreateTabScreen()
                 case .badges: BadgesScreen(asTab: true)
                 case .profile: ProfileScreen()
                 }

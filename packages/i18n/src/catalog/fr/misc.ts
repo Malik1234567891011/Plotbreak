@@ -253,54 +253,29 @@ export const misc = {
   /* ---------------------------------------------------------------------- */
 
   /** An activity, so an infinitive — French titles a screen the way Apple does. */
-  'misc.create_title': 'Créer des mondes',
-  'misc.create_coming_title': 'L’éditeur de mondes arrive',
-  'misc.create_coming_body':
-    'Tu construiras tes mondes avec des outils structurés, pas en collant un prompt géant : des personnages qui ont de vraies motivations, des lieux reliés entre eux, des quêtes avec de vraies conditions de victoire et des systèmes que le moteur fait respecter.',
-  'misc.create_credits_body':
-    'Chaque monde que tu crées tourne sur le même moteur déterministe que les mondes officiels, avec des crédits gratuits et illimités pendant que tu le testes.',
   /** French says it in the present. The future here would be English grammar. */
-  'misc.create_what_you_define': 'Ce que tu définis',
-  'misc.create_concept': 'Concept',
   /**
    * `the fantasy` is `la promesse` here and `Le rôle du joueur` below. It is
    * never `le fantasme`: in French that word is first and mainly sexual, and
    * this is a 13+ product.
    */
-  'misc.create_concept_body': 'Le titre, la promesse, et pour qui c’est.',
-  'misc.create_player_fantasy': 'Le rôle du joueur',
   /**
    * `on` rather than `il` — the player being described has no gender the app
    * knows, and `on` is how French says this anyway.
    */
-  'misc.create_player_fantasy_body': 'Qui on est en arrivant, et ce qu’on peut faire.',
-  'misc.create_world_rules': 'Règles du monde',
   /** `le canon` is the frozen word; `canon dur` for "hard canon" is not French. */
-  'misc.create_world_rules_body': 'Ce qui est canon et que l’histoire ne peut jamais contredire.',
   /** `Systèmes` alone is ambiguous in French UI (systems as in settings). */
-  'misc.create_systems': 'Systèmes de jeu',
-  'misc.create_systems_body':
-    'Les attributs, les compétences, les ressources et ce qui se passe quand on perd.',
   /** The frozen word for the cast, taken together. Never `le casting`. */
-  'misc.create_cast': 'Personnages',
   /** `limites` is what a character will never do — `frontières` would be a map. */
-  'misc.create_cast_body': 'Traits, motivations, limites, secrets et emplois du temps.',
-  'misc.create_locations': 'Lieux',
-  'misc.create_locations_body':
-    'Une carte où les lieux se rejoignent, avec des temps de trajet et des verrous.',
-  'misc.create_progression': 'Progression',
   /**
    * `des prédicats, pas au feeling` keeps the English joke — the engine word
    * against the vague one — and `au feeling` is real spoken French, not a
    * borrowing invented for this string.
    */
-  'misc.create_progression_body': 'Des quêtes avec des prédicats, pas au feeling.',
   /**
    * The opening passage. `Incipit` is the exact French literary term and is
    * exactly the wrong register for a UI label — RULE 7, simple in the UI.
    */
-  'misc.create_opening': 'Ouverture',
-  'misc.create_opening_body': 'De 50 à 150 mots qui mènent à une décision.',
   'misc.sign_in_tagline': 'LE RPG JOUABLE',
   'misc.sign_in_bonus': 'Inscris-toi et reçois 600 crédits !',
   'misc.continue_with_google': 'Continuer avec Google',
