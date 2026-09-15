@@ -14,5 +14,4 @@ export const nav = {
   'nav.library': 'Bibliothèque',
   'nav.characters': 'Personnages',
   'nav.profile': 'Profil',
-  'nav.badges': 'Badges',
 } as const;

@@ -5,5 +5,4 @@ export const nav = {
   'nav.characters': 'Characters',
   'nav.profile': 'Profile',
   /** The badges tab. */
-  'nav.badges': 'Badges',
 } as const;

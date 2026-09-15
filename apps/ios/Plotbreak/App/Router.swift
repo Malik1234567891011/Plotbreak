@@ -7,7 +7,7 @@ import SwiftUI
 // Scoped tasks are sheets (§25.10). Twin of `apps/mobile/src/navigation.tsx`.
 
 enum Tab: Hashable, CaseIterable {
-    case discover, library, create, badges, profile
+    case discover, library, create, profile
 
     /// SF Symbols, outlined when idle and filled when selected — the way the
     /// reference draws the bar.
@@ -16,7 +16,6 @@ enum Tab: Hashable, CaseIterable {
         case .discover: return selected ? "house.fill" : "house"
         case .library: return selected ? "books.vertical.fill" : "books.vertical"
         case .create: return selected ? "wand.and.stars" : "wand.and.stars.inverse"
-        case .badges: return selected ? "bolt.fill" : "bolt"
         case .profile: return selected ? "person.fill" : "person"
         }
     }
@@ -26,7 +25,6 @@ enum Tab: Hashable, CaseIterable {
         case .discover: return "nav.discover"
         case .library: return "nav.library"
         case .create: return "nav.create"
-        case .badges: return "nav.badges"
         case .profile: return "nav.profile"
         }
     }
@@ -301,7 +299,6 @@ struct TabBarShell: View {
                 case .discover: DiscoverScreen()
                 case .library: LibraryScreen()
                 case .create: CreateTabScreen()
-                case .badges: BadgesScreen(asTab: true)
                 case .profile: ProfileScreen()
                 }
             }
