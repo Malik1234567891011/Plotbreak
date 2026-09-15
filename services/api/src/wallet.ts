@@ -239,8 +239,21 @@ export class WalletService {
   }
 
   /** Spec §20.5 — 900 credits on account creation, once. */
+  /**
+   * The opening grant.
+   *
+   * `PLOTBREAK_DEV_GRANT` overrides it, and is refused unless the process is
+   * also running on the in-process store — a playtest harness needs forty
+   * turns in one account, and nothing that can mint credits should be one
+   * environment variable away from doing it against a real database.
+   */
   async grantNewUser(accountId: string): Promise<LedgerEntry> {
-    return this.grant(accountId, 'NEW_USER_GRANT', GRANT_NEW_USER, `new_user:${accountId}`);
+    const override = Number(process.env.PLOTBREAK_DEV_GRANT);
+    const amount =
+      Number.isFinite(override) && override > 0 && !process.env.DATABASE_URL
+        ? Math.trunc(override)
+        : GRANT_NEW_USER;
+    return this.grant(accountId, 'NEW_USER_GRANT', amount, `new_user:${accountId}`);
   }
 
   /**

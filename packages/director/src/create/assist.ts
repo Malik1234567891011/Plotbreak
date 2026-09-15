@@ -1,7 +1,14 @@
 import { z } from 'zod';
-import { StoryDraft, StoryDraftPatch, draftId, type StoryDraftPatch as Patch } from '@plotbreak/contracts';
+import {
+  StoryDraft,
+  StoryDraftPatch,
+  draftId,
+  padPlaystyle,
+  type StoryDraftPatch as Patch,
+} from '@plotbreak/contracts';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 import { SAFETY_POLICY } from '../model-stages.js';
+import { clip, languageName } from './compile.js';
 
 /**
  * Auto-generate, field by field.
@@ -135,7 +142,7 @@ const EndingsOut = z
 const INSTRUCTION: Record<AssistTarget, string> = {
   title: 'Write the story\'s title. Two to five words. Not a sentence and not a tagline.',
   fantasyLabel:
-    'Write the card\'s one-line fantasy: what the player gets to be, in second person, 42 characters or fewer.',
+    'Write the card\'s fantasy in the second person: what the player gets to be. Never a genre label. 42 characters or fewer, counted.',
   hook: 'Write one sentence that makes somebody tap this story. Concrete, not atmospheric.',
   coverDirection:
     'Write the cover art direction in one sentence: subject, staging, palette, mood. No text in the image.',
@@ -158,7 +165,7 @@ const INSTRUCTION: Record<AssistTarget, string> = {
   styleExamples:
     'Write up to three short prose samples in this story\'s voice — thirty to sixty words each. Not scenes from the story: samples of how it sounds.',
   origins:
-    'Write two or three player origins. Different pasts, not different classes: each one changes who the player already was when the story starts. playstyle is two to four scannable tags.',
+    'Write two or three player origins. Different pasts, not different classes: each one changes who the player already was when the story starts. name is 28 characters or fewer, role is two to four ordinary words under 40 characters, summary is one sentence under 220, and playstyle is two to four tags of 24 characters or fewer.',
   factions:
     'Write two to four groups with their own aims, which move whether or not the player is looking.',
   threads:
@@ -168,7 +175,7 @@ const INSTRUCTION: Record<AssistTarget, string> = {
   objects:
     'Write one to three objects the story turns on. Ordinary scenery does not belong here — only things the premise depends on.',
   endings:
-    'Write four to six places this story could end up. rarity is how far off the common path it is, not how good it is. condition is when this is the right ending, said as a person would say it. Never below turn 10.',
+    'Write four to six places this story could end up. rarity is how far off the common path it is, not how good it is. condition is when this is the right ending, said as a person would say it. Never below turn 10. hint is one short line under 80 characters.',
   description:
     'Write the store listing: what this story is, to somebody deciding whether to play it. Three or four sentences. Never spoil an ending.',
   tags: 'Write three to six lowercase genre tags.',
@@ -176,18 +183,23 @@ const INSTRUCTION: Record<AssistTarget, string> = {
     'Write two to four "what you can do here" chips. Three words or fewer each, and each one something the player actually does.',
 };
 
-const HOUSE = [
+function house(language: string): string {
+  return [
   'You are a story architect for an interactive anime fiction app, rewriting one field of a world a',
   'creator is building.',
   '',
-  'Answer in the language the rest of the story is written in.',
+  `WRITE IN ${language.toUpperCase()}, whatever language the material below happens to be in.`,
   'Match what already exists. This field belongs to this story, not to stories in general.',
   'Concrete beats evocative: every line should give a storyteller something to do.',
   'Never write a field that assumes the player will do a particular thing or reach a particular scene.',
   '',
+  'Respect the length limit in the instruction. A field cut off mid-word is worse than a shorter one you',
+  'wrote deliberately.',
+  '',
   SAFETY_POLICY,
   'This product is all-ages. Never write sexual content or sexualise a minor.',
-].join('\n');
+  ].join('\n');
+}
 
 /** Everything the model needs to make this field belong to this story. */
 function context(draft: StoryDraft): string {
@@ -243,10 +255,14 @@ export async function assistField(input: {
   readonly model?: string;
   readonly reasoningEffort?: 'none' | 'low' | 'medium' | 'high';
   readonly requestId?: string;
+  /** The creator's locale. Decides the language of the rewritten field. */
+  readonly locale?: string;
 }): Promise<AssistResult> {
   const { gateway, draft, target } = input;
+  const system = house(languageName(input.locale));
   const options = {
     maxTokens: 4000,
+    timeoutMs: 120_000,
     model: input.model,
     reasoningEffort: input.reasoningEffort ?? ('medium' as const),
     requestId: input.requestId,
@@ -261,7 +277,7 @@ export async function assistField(input: {
 
   const call = <T>(schema: z.ZodType<T, z.ZodTypeDef, unknown>, extra?: string) =>
     gateway.generateStructured('writer_premium', schema, [
-      { role: 'system', content: HOUSE },
+      { role: 'system', content: system },
       { role: 'user', content: ask(extra) },
     ], options);
 
@@ -276,7 +292,10 @@ export async function assistField(input: {
     case 'playGuide':
     case 'description': {
       const out = await call(Str);
-      return { patch: patchOne(target, out.value.value), invocation: out.invocation };
+      const caps: Partial<Record<AssistTarget, number>> = { title: 50, fantasyLabel: 42 };
+      const cap = caps[target];
+      const value = cap ? clip(out.value.value, cap) : out.value.value;
+      return { patch: patchOne(target, value), invocation: out.invocation };
     }
     case 'hardCanon':
     case 'openingSuggestions':
@@ -332,14 +351,31 @@ export async function assistField(input: {
     }
     case 'origins': {
       const out = await call(OriginsOut);
-      return { patch: patchOne('origins', reId('origin', out.value.value)), invocation: out.invocation };
+      return {
+        patch: patchOne(
+          'origins',
+          reId('origin', out.value.value).map((o) => ({
+            ...o,
+            name: clip(o.name, 28),
+            role: clip(o.role, 40),
+            summary: clip(o.summary, 220),
+            playstyle: padPlaystyle(o.playstyle.map((tag) => clip(tag, 24))),
+          })),
+        ),
+        invocation: out.invocation,
+      };
     }
     case 'endings': {
       const out = await call(EndingsOut);
       return {
         patch: patchOne(
           'endings',
-          reId('ending', out.value.value).map((e) => ({ ...e, minTurn: Math.max(10, e.minTurn) })),
+          reId('ending', out.value.value).map((e) => ({
+            ...e,
+            name: clip(e.name, 60),
+            hint: clip(e.hint, 80),
+            minTurn: Math.max(10, e.minTurn),
+          })),
         ),
         invocation: out.invocation,
       };

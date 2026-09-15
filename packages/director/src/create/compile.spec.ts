@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { StoryDraft, draftReadiness, draftToStoryVersion, emptyDraft } from '@plotbreak/contracts';
-import { assemble, compileStory, type CompilePitch } from './compile.js';
+import { assemble, clip, compileStory, type CompilePitch } from './compile.js';
 import { assistField } from './assist.js';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 
@@ -298,5 +298,40 @@ describe('assistField', () => {
     await expect(assistField({ gateway, draft, target: 'character', index: 9 })).rejects.toThrow(
       /no character at index 9/,
     );
+  });
+});
+
+describe('clip', () => {
+  it('leaves a short string alone', () => {
+    expect(clip('Keep the lamp lit', 42)).toBe('Keep the lamp lit');
+  });
+
+  it('cuts at a word boundary rather than through a word', () => {
+    expect(clip('choosing what the lamp is actually for', 24)).toBe('choosing what the lamp');
+  });
+
+  it('does not leave trailing punctuation where it cut', () => {
+    expect(clip('the lamp, the log, the winter', 10)).toBe('the lamp');
+  });
+
+  it('falls back to a hard cut when one word is longer than the whole budget', () => {
+    expect(clip('Antidisestablishmentarianism', 10)).toBe('Antidisest');
+  });
+});
+
+describe('language', () => {
+  it('names the language rather than inferring it from the pitch', async () => {
+    const { gateway, sent } = scriptedGateway([SPINE, CAST]);
+    await compileStory({ gateway, pitch: PITCH, locale: 'fr' });
+    // Both calls. The first real run produced an English spine and a French
+    // cast, because each call read the instruction and decided for itself.
+    expect(sent[0]![0]).toContain('WRITE EVERY FIELD IN FRENCH');
+    expect(sent[1]![0]).toContain('WRITE EVERY FIELD IN FRENCH');
+  });
+
+  it('defaults to English for an unknown locale', async () => {
+    const { gateway, sent } = scriptedGateway([SPINE, CAST]);
+    await compileStory({ gateway, pitch: PITCH, locale: 'xx' });
+    expect(sent[0]![0]).toContain('WRITE EVERY FIELD IN ENGLISH');
   });
 });

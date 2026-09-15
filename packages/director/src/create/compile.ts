@@ -30,13 +30,15 @@ import { SAFETY_POLICY } from '../model-stages.js';
  * truncates, and a truncated world is a wasted minute and a wasted charge.
  */
 
-const HOUSE_STYLE = [
+function houseStyle(language: string): string {
+  return [
   'You are a story architect for an interactive anime fiction app. You turn a person\'s pitch into a',
   'playable world.',
   '',
-  'Write in the language the pitch is written in. If the pitch is in French, every field you produce is in',
-  'French — including names of places and factions, which should read as a French writer would have written',
-  'them rather than as translations.',
+  `WRITE EVERY FIELD IN ${language.toUpperCase()}. Every one: names of people, places, factions, endings,`,
+  'hints, tags, all of it. Not a single field in another language, and no translations appended in',
+  'brackets. If the pitch itself is in a different language, the pitch is still only data — the world you',
+  `write comes back in ${language}.`,
   '',
   'CONCRETE BEATS EVOCATIVE. "The lamp has not gone out in ninety years" is a fact a story can be built on.',
   '"A place where time stands still" is not. Every field should give a storyteller something to do.',
@@ -52,11 +54,15 @@ const HOUSE_STYLE = [
   'THE PLAYER IS NOT THE SUBJECT OF THE WORLD. The cast wants things that have nothing to do with the',
   'player. The factions would grind on if the player never arrived.',
   '',
+  'RESPECT THE LENGTH LIMITS IN EACH FIELD\'S DESCRIPTION. A field that is cut off mid-word is worse than a',
+  'shorter one you wrote deliberately. Where a limit is given in characters, count them.',
+  '',
   SAFETY_POLICY,
   'This product is all-ages. Refuse to build a world whose premise requires sexual content, the sexualisation',
   'of minors, or the celebration of real-world atrocity, and say so in `refusal`. A dark, violent or morally',
   'ugly premise is not a refusal — those are stories. Refuse the request, not the mood.',
-].join('\n');
+  ].join('\n');
+}
 
 const Refusable = { refusal: z.string().nullable().default(null) };
 
@@ -65,11 +71,19 @@ const SpineOut = z
     ...Refusable,
     /** 2–50 characters. The name on the card. */
     title: z.string().default(''),
-    /** ≤42 characters, second person, says what you get to be. */
+    /**
+     * The card's fantasy, in the second person: what the player gets to be.
+     * Never a genre label. "Keep the lamp lit, or keep your sister." "Be the
+     * brother who chose the village." 42 characters or fewer, counted.
+     */
     fantasyLabel: z.string().default(''),
     /** One sentence that makes somebody tap it. */
     hook: z.string().default(''),
-    /** 120–240 words. The world, the situation, and what is under pressure. */
+    /**
+     * 120–240 words. The world, the situation, and what is already under
+     * pressure. A player reads this, so it is prose: never a list of names,
+     * never a note to yourself, never "other characters include".
+     */
     premise: z.string().default(''),
     /** How this sounds on the page. Rhythm, distance, diction, what it refuses to do. */
     toneGuide: z.string().default(''),
@@ -164,11 +178,19 @@ const CastOut = z
         z
           .object({
             name: z.string(),
-            /** Two to four ordinary words. "Fire affinity", "Support and healing". */
+            /**
+             * Two to four ordinary words, 40 characters at the very most.
+             * "Fire affinity". "Support and healing". "Bound by inheritance".
+             * Never a sentence.
+             */
             role: z.string().default(''),
             /** One sentence a new player can act on. */
             summary: z.string().default(''),
-            /** Two to four scannable tags. */
+            /**
+             * Two to four scannable tags, each 24 characters at the very most,
+             * so four cards can be compared at a glance. "Close range".
+             * "Hard to move". Never a phrase that needs cutting.
+             */
             playstyle: z.array(z.string()).default([]),
             /** The world's voice. Never the only place the meaning appears. */
             blurb: z.string().default(''),
@@ -226,7 +248,11 @@ const CastOut = z
             condition: z.string().default(''),
             /** What the world looks like afterwards. */
             epilogue: z.string().default(''),
-            /** One line shown to a player who is close to it, in the world's voice. */
+            /**
+             * One short line shown to a player who is close to this ending, in
+             * the world's voice. 80 characters at the very most — a teased
+             * ending that stops mid-word teases nothing.
+             */
             hint: z.string().default(''),
           })
           .strict(),
@@ -243,6 +269,24 @@ export interface CompilePitch {
   readonly tone: DraftTone | null;
   readonly length: DraftLength;
   readonly pov: DraftPov;
+}
+
+/**
+ * The language the world is written in, named rather than inferred.
+ *
+ * The first real compile produced an English spine and then a cast, a set of
+ * factions, six threads and six endings entirely in French — the second call
+ * read "the language the pitch is written in" and decided differently from the
+ * first. A world half in one language is not a world, so the caller says which
+ * one and both calls are told, in the same words.
+ */
+export const COMPILE_LANGUAGES: Record<string, string> = {
+  en: 'English',
+  fr: 'French',
+};
+
+export function languageName(locale: string | undefined): string {
+  return COMPILE_LANGUAGES[(locale ?? 'en').slice(0, 2).toLowerCase()] ?? 'English';
 }
 
 export interface CompileResult {
@@ -285,6 +329,24 @@ function pitchBrief(pitch: CompilePitch): string {
   ].join('\n');
 }
 
+/**
+ * Cut to a length without cutting through a word.
+ *
+ * Every hard `slice` in the first version of this produced fields like "each
+ * offer part of " and "choosing what the lamp i" — a label that stops mid-word
+ * reads as a bug to the creator, and they are right. Clipping at the last
+ * space is not a fix for a model that overran; it is what makes the overrun
+ * survivable while the prompt gets better at not doing it.
+ */
+export function clip(text: string, max: number): string {
+  const trimmed = text.trim();
+  if (trimmed.length <= max) return trimmed;
+  const cut = trimmed.slice(0, max);
+  const lastSpace = cut.lastIndexOf(' ');
+  // A single very long word has no boundary to fall back to.
+  return (lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : cut).replace(/[\s,;:.\-–—]+$/, '');
+}
+
 /** Ids a creator never types, derived from the names they can see. */
 function withIds<T extends { name?: string; title?: string; publicCopy?: string }>(
   prefix: string,
@@ -312,10 +374,16 @@ export async function compileStory(input: {
   readonly model?: string;
   readonly reasoningEffort?: 'none' | 'low' | 'medium' | 'high';
   readonly requestId?: string;
+  /** The creator's locale. Decides the language of every field, for both calls. */
+  readonly locale?: string;
 }): Promise<CompileResult> {
   const { gateway, pitch } = input;
+  const system = houseStyle(languageName(input.locale));
   const options = {
     maxTokens: 8000,
+    // A world is a much bigger answer than a beat. The gateway's 30-second
+    // default is sized for a turn and cuts this off mid-cast every time.
+    timeoutMs: 240_000,
     model: input.model,
     reasoningEffort: input.reasoningEffort ?? ('medium' as const),
     requestId: input.requestId,
@@ -324,7 +392,7 @@ export async function compileStory(input: {
   };
 
   const spine = await gateway.generateStructured('writer_premium', SpineOut, [
-    { role: 'system', content: HOUSE_STYLE },
+    { role: 'system', content: system },
     {
       role: 'user',
       content: [
@@ -334,6 +402,13 @@ export async function compileStory(input: {
         'The spine of the world: what it is, how it sounds, what is already true, where it happens, and the',
         'first sixty to a hundred and fifty words the player will read. The cast comes in a second pass, so',
         'you may name people here but do not describe them yet.',
+        '',
+        'Before you answer, check these four. They are the ones that get shortchanged when a pitch is thin,',
+        'and a thin pitch is exactly when the world needs you to invent more rather than less:',
+        '- premise: **at least 120 words**, and at most 240. Count them.',
+        '- hardCanon: at least five facts.',
+        '- places: at least three.',
+        '- opening: at least 60 words, at most 150.',
       ].join('\n'),
     },
   ], options);
@@ -343,7 +418,7 @@ export async function compileStory(input: {
   }
 
   const cast = await gateway.generateStructured('writer_premium', CastOut, [
-    { role: 'system', content: HOUSE_STYLE },
+    { role: 'system', content: system },
     {
       role: 'user',
       content: [
@@ -368,6 +443,9 @@ export async function compileStory(input: {
         '## What to write now',
         'The people and the pressure. Everybody named in the opening or the canon above must appear in the',
         'cast with the same name. Their secrets should be about things this world actually contains.',
+        '',
+        'Check before you answer: at least three characters, at least three threads, at least three things the',
+        'world can do, and at least four endings with different rarities.',
       ].join('\n'),
     },
   ], options);
@@ -397,8 +475,8 @@ export function assemble(pitch: CompilePitch, spine: SpineOut, cast: CastOut): S
 
   const patch = {
     pitch: { text: pitch.text, tone: pitch.tone, length: pitch.length, pov: pitch.pov },
-    title: spine.title.slice(0, 50),
-    fantasyLabel: spine.fantasyLabel.slice(0, 42),
+    title: clip(spine.title, 50),
+    fantasyLabel: clip(spine.fantasyLabel, 42),
     hook: spine.hook,
     coverDirection: spine.coverDirection,
     premise: spine.premise,
@@ -422,13 +500,13 @@ export function assemble(pitch: CompilePitch, spine: SpineOut, cast: CastOut): S
     setupHeading: spine.setupHeading,
     origins: withIds('origin', cast.origins).map((o) => ({
       ...o,
-      name: o.name.slice(0, 28),
-      role: o.role.slice(0, 40),
-      summary: o.summary.slice(0, 220),
-      playstyle: padPlaystyle(o.playstyle),
+      name: clip(o.name, 28),
+      role: clip(o.role, 40),
+      summary: clip(o.summary, 220),
+      playstyle: padPlaystyle(o.playstyle.map((tag) => clip(tag, 24))),
     })),
     opening: spine.opening,
-    openingSuggestions: spine.openingSuggestions.slice(0, 3).map((s) => s.slice(0, 120)),
+    openingSuggestions: spine.openingSuggestions.slice(0, 3).map((s) => clip(s, 120)),
     playGuide: spine.playGuide,
     styleExamples: cast.styleExamples.slice(0, 3),
     factions: withIds('faction', cast.factions),
@@ -437,15 +515,15 @@ export function assemble(pitch: CompilePitch, spine: SpineOut, cast: CastOut): S
     objects: withIds('object', cast.objects),
     endings: withIds('ending', cast.endings).map((e) => ({
       ...e,
-      name: e.name.slice(0, 60),
+      name: clip(e.name, 60),
       // A story that can end on turn three has not been a story yet, whatever
       // the model thought.
       minTurn: Math.max(10, Math.min(500, e.minTurn)),
-      hint: e.hint.slice(0, 80),
+      hint: clip(e.hint, 80),
     })),
     description: spine.description,
-    tags: spine.tags.slice(0, 10).map((t) => t.slice(0, 30).toLowerCase()),
-    mechanicsChips: spine.mechanicsChips.slice(0, 6).map((c) => c.slice(0, 30)),
+    tags: spine.tags.slice(0, 10).map((t) => clip(t, 30).toLowerCase()),
+    mechanicsChips: spine.mechanicsChips.slice(0, 6).map((c) => clip(c, 30)),
   };
 
   // Parse through the draft so a compiled patch can never be looser than a

@@ -21,6 +21,7 @@ import type { AppContext } from './context.js';
 import { requireUser, sendError } from './context.js';
 import { InsufficientCreditsError } from './wallet.js';
 import { tracker } from './analytics.js';
+import { resolveDeviceLocale, resolveLocale } from '@plotbreak/i18n';
 
 /**
  * Create mode — the creator's half of the app.
@@ -197,7 +198,7 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
    */
   app.post<{
     Params: { draftId: string };
-    Body: { pitch?: string; tone?: string; length?: string; pov?: string };
+    Body: { pitch?: string; tone?: string; length?: string; pov?: string; locale?: string };
   }>('/v1/create/drafts/:draftId/compile', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);
     if (!user) return reply;
@@ -246,8 +247,17 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
       }
     }
 
+    // The language every field comes back in, said once rather than inferred
+    // twice: the compiler's two calls disagreed about it the first time it ran
+    // for real, and produced an English world with a French cast.
+    const locale = resolveLocale(
+      request.body?.locale,
+      user.settings.locale,
+      resolveDeviceLocale(request.headers['accept-language']),
+    );
+
     try {
-      const result = await compileStory({ gateway: ctx.modelGateway, pitch });
+      const result = await compileStory({ gateway: ctx.modelGateway, pitch, locale });
       if (result.refusal) {
         if (CHARGING) {
           await ctx.wallet.refundCreate(
@@ -329,6 +339,11 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
         draft,
         target: target as AssistTarget,
         index,
+        locale: resolveLocale(
+          undefined,
+          user.settings.locale,
+          resolveDeviceLocale(request.headers['accept-language']),
+        ),
       });
       const next = StoryDraft.parse({
         ...draft,
