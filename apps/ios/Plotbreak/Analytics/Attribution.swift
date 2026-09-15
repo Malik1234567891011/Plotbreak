@@ -32,6 +32,14 @@ enum Attribution {
 
     /// Call once, from `App.init`. SDK 7 wants `start()` inside its readiness
     /// listener, which fires on the main queue once per foreground.
+    ///
+    /// The App Tracking Transparency prompt is asked inside that listener,
+    /// before `start()`, so the SDK sends nothing until the player has
+    /// answered. Apple's 2.1 rejection of build 4 (2026-09-15) was for asking
+    /// it after the first story beat: the reviewer never reached a beat, saw
+    /// no prompt, and could not confirm it existed. The listener runs once the
+    /// app is active, which the prompt requires; asked earlier it returns
+    /// `.notDetermined` without showing anything.
     static func configure() {
         #if DEBUG
         // The id AppsFlyer's "Register your test device" form asks for
@@ -45,7 +53,15 @@ enum Attribution {
         #if DEBUG
         lib.isDebug = true
         #endif
-        lib.registerSessionReadyListener { lib.start() }
+        lib.registerSessionReadyListener {
+            Task { @MainActor in
+                await requestTrackingConsent()
+                // In an async context Swift picks the SDK's throwing
+                // `start()` overload; the sync closure pins the plain one.
+                let start = { lib.start() }
+                start()
+            }
+        }
     }
 
     /// Ties AppsFlyer's device record to our user id, so the dashboard and
@@ -69,8 +85,6 @@ enum Attribution {
 
     /// The first story beat on this device. The ad networks optimise on this
     /// one, so it is the event that decides who they show the ad to next.
-    /// It is also where the tracking prompt is asked: the player has just
-    /// seen what the app is, which is the moment the question makes sense.
     static func firstBeatCompleted(sessionId: String) {
         guard enabled, !defaults.bool(forKey: Keys.firstBeatSent) else { return }
         defaults.set(true, forKey: Keys.firstBeatSent)
@@ -78,7 +92,6 @@ enum Attribution {
             AFEventParamContentId: sessionId,
             AFEventParamSuccess: true,
         ])
-        Task { await requestTrackingConsent() }
     }
 
     /// A purchase our server has credited. Revenue in the store's currency,
@@ -96,10 +109,12 @@ enum Attribution {
     }
 
     /// The App Tracking Transparency prompt. iOS shows it once; every later
-    /// call returns the stored answer without UI.
+    /// call returns the stored answer without UI. Asked whenever the framework
+    /// is linked, not only when AppsFlyer is enabled: App Review checks for the
+    /// prompt on every build that links it, whatever the build's config says.
     @MainActor
     static func requestTrackingConsent() async {
-        guard enabled, ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
+        guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
         _ = await ATTrackingManager.requestTrackingAuthorization()
     }
 }
