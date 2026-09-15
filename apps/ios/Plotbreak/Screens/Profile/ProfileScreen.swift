@@ -59,7 +59,7 @@ struct ProfileScreen: View {
                                 t("profile.badges"),
                                 icon: "star",
                                 note: unclaimed > 0 ? t("profile.badges_to_collect", ["count": unclaimed]) : nil
-                            ) { router.tab = .badges }
+                            ) { router.present(.badges) }
                             SettingsRow(t("profile.wallet"), icon: "creditcard") { router.present(.wallet(shortfall: nil)) }
                         }
                         .padding(.top, 6)

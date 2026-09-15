@@ -61,7 +61,10 @@ actor APIClient {
         self.baseURL = baseURL
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 60
-        configuration.timeoutIntervalForResource = 180
+        // The ceiling for a whole request, which a per-request timeoutInterval
+        // cannot raise above. Compiling a world is the one call that needs the
+        // headroom; everything else is bounded by the 60 above.
+        configuration.timeoutIntervalForResource = 300
         configuration.waitsForConnectivity = false
         self.session = URLSession(configuration: configuration)
     }
@@ -101,10 +104,15 @@ actor APIClient {
         body: (any Encodable)? = nil,
         headers: [String: String] = [:],
         retryOnExpiry: Bool = true,
-        useToken: String? = nil
+        useToken: String? = nil,
+        timeout: TimeInterval? = nil
     ) async throws -> T {
         var urlRequest = URLRequest(url: URL(string: path, relativeTo: baseURL)!.absoluteURL)
         urlRequest.httpMethod = method
+        // Everything here answers well inside the session's 60 seconds except
+        // compiling a world, which is two large generations and takes two
+        // minutes on a bad day.
+        if let timeout { urlRequest.timeoutInterval = timeout }
         urlRequest.setValue("application/json", forHTTPHeaderField: "accept")
         urlRequest.setValue(locale.rawValue, forHTTPHeaderField: "accept-language")
         urlRequest.setValue(AppConfig.appVersion, forHTTPHeaderField: "x-app-version")
@@ -159,7 +167,7 @@ actor APIClient {
             if response.statusCode == 401, recoverable, retryOnExpiry {
                 token = nil
                 if let renewed = await authorization(force: true) {
-                    return try await request(method, path, body: body, headers: headers, retryOnExpiry: false, useToken: renewed)
+                    return try await request(method, path, body: body, headers: headers, retryOnExpiry: false, useToken: renewed, timeout: timeout)
                 }
             }
 
@@ -499,5 +507,76 @@ actor APIClient {
 
     func deleteAccount() async throws -> DeletedResponse {
         try await request("POST", "/v1/account/deletion-request")
+    }
+
+    // MARK: Create mode
+
+    /// The vocabulary the builder renders — tones, lengths, visibilities, costs.
+    func createOptions() async throws -> CreateOptionsResponse {
+        try await request("GET", "/v1/create/options")
+    }
+
+    /// This creator's titles: drafts and published worlds together, newest first.
+    func creatorTitles() async throws -> CreateTitlesResponse {
+        try await request("GET", "/v1/create/titles")
+    }
+
+    func newDraft() async throws -> DraftResponse {
+        struct Body: Encodable {}
+        return try await request("POST", "/v1/create/drafts", body: Body())
+    }
+
+    func draft(_ draftId: String) async throws -> DraftResponse {
+        try await request("GET", "/v1/create/drafts/\(draftId)")
+    }
+
+    /// A partial update. Only the keys present are changed.
+    func patchDraft(_ draftId: String, _ patch: [String: JSONValue]) async throws -> DraftResponse {
+        try await request("PATCH", "/v1/create/drafts/\(draftId)", body: patch)
+    }
+
+    func deleteDraft(_ draftId: String) async throws -> DeletedResponse {
+        try await request("DELETE", "/v1/create/drafts/\(draftId)")
+    }
+
+    /// The pitch, compiled into a world. Two large generations server-side, so
+    /// this is the one call in the app that is allowed to take a minute or two.
+    func compileDraft(
+        _ draftId: String,
+        pitch: String,
+        tone: DraftTone?,
+        length: DraftLength,
+        pov: DraftPov,
+        locale: AppLocale
+    ) async throws -> DraftResponse {
+        struct Body: Encodable {
+            let pitch: String
+            let tone: String?
+            let length: String
+            let pov: String
+            let locale: String
+        }
+        return try await request(
+            "POST",
+            "/v1/create/drafts/\(draftId)/compile",
+            body: Body(pitch: pitch, tone: tone?.rawValue, length: length.rawValue, pov: pov.rawValue, locale: locale.rawValue),
+            timeout: 300
+        )
+    }
+
+    /// Auto-generate, one field or one entity at a time.
+    func assistDraft(_ draftId: String, target: AssistTarget, index: Int? = nil) async throws -> DraftResponse {
+        struct Body: Encodable { let target: String; let index: Int? }
+        return try await request("POST", "/v1/create/drafts/\(draftId)/assist", body: Body(target: target.rawValue, index: index), timeout: 180)
+    }
+
+    func publishDraft(_ draftId: String, visibility: DraftVisibility) async throws -> PublishDraftResponse {
+        struct Body: Encodable { let visibility: String }
+        return try await request("POST", "/v1/create/drafts/\(draftId)/publish", body: Body(visibility: visibility.rawValue))
+    }
+
+    func setDraftVisibility(_ draftId: String, visibility: DraftVisibility) async throws -> DraftResponse {
+        struct Body: Encodable { let visibility: String }
+        return try await request("POST", "/v1/create/drafts/\(draftId)/visibility", body: Body(visibility: visibility.rawValue))
     }
 }

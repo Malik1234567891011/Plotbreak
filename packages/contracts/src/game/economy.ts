@@ -151,6 +151,7 @@ export const LedgerEntryType = z.enum([
   'CREATOR_GRANT',
   'PROMO_GRANT',
   'FORK_FEE',
+  'CREATE_FEE',
 ]);
 export type LedgerEntryType = z.infer<typeof LedgerEntryType>;
 
@@ -217,6 +218,21 @@ export const GRANT_NEW_USER = 10 * DEFAULT_TURN_COST;
 export const GRANT_DAILY = 5 * DEFAULT_TURN_COST;
 export const FORK_COST_CREDITS = 120;
 export const ANIMATION_COST_CREDITS = 600;
+
+/**
+ * Making a world.
+ *
+ * Compiling a pitch is two large structured generations — the spine and then
+ * the cast with the spine in front of it — which lands near a Cinematic turn in
+ * tokens. It is priced like one, doubled, because what it produces is not a
+ * beat: it is an asset the creator can play forever and hand to other people.
+ *
+ * Re-rolling a single field is small and is meant to be used freely; a creator
+ * who is pressing Auto-generate ten times is a creator who is still trying, and
+ * charging them out of the flow is how you end up with a catalogue of drafts.
+ */
+export const CREATE_COMPILE_COST_CREDITS = 180;
+export const CREATE_ASSIST_COST_CREDITS = 15;
 
 /**
  * The credit ladder, matched to the reference app the owner is benchmarking.

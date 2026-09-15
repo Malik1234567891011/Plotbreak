@@ -5,6 +5,7 @@ export interface PureMessage {
 }
 
 import type {
+  StoryDraft,
   GameEvent,
   NarrativeTurn,
   GameState,
@@ -350,6 +351,37 @@ export interface Repository {
   upsertBadge(row: UserBadgeRow): Promise<void>;
   /** Claims exactly once. False means somebody already claimed it. */
   claimBadge(userId: string, badgeId: string, at: string): Promise<boolean>;
+
+  // --- Create mode -----------------------------------------------------
+
+  /** This creator's titles, newest first. Drafts and published, together. */
+  listDrafts(ownerId: string): Promise<StoryDraft[]>;
+  getDraft(draftId: string): Promise<StoryDraft | null>;
+  /** Insert or replace. The caller owns `updatedAt`. */
+  putDraft(draft: StoryDraft): Promise<void>;
+  /** False when it was not theirs, or was not there. */
+  deleteDraft(draftId: string, ownerId: string): Promise<boolean>;
+  /**
+   * Publish a draft as a new version of its story, creating the story on the
+   * first publish.
+   *
+   * One call rather than three because it has to be atomic: a `stories` row
+   * with no version, or a version nothing points at, is a world that exists
+   * and cannot be played. Returns the draft as it now stands.
+   */
+  publishDraft(input: {
+    readonly draft: StoryDraft;
+    readonly story: StoryVersion;
+    readonly slug: string;
+    readonly visibility: 'PRIVATE' | 'UNLISTED' | 'PUBLIC';
+    readonly at: string;
+  }): Promise<StoryDraft>;
+  /** Moves a published story between Discover, link-only and nobody. */
+  setStoryVisibility(
+    storyId: string,
+    ownerId: string,
+    visibility: 'PRIVATE' | 'UNLISTED' | 'PUBLIC',
+  ): Promise<boolean>;
 
   // --- Safety ---
   createReport(report: ReportRecord): Promise<void>;

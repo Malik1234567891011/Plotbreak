@@ -15,7 +15,6 @@ import SwiftUI
 
 struct BadgesScreen: View {
     /// Drawn as a root tab (a title, no back chevron) rather than as a sheet.
-    var asTab: Bool = false
 
     @Environment(AppStore.self) private var store
     @Environment(Router.self) private var router
@@ -31,11 +30,7 @@ struct BadgesScreen: View {
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                if asTab {
-                    TabHeader(t("profile.badges"))
-                } else {
-                    ScreenHeader(title: t("profile.badges"), backLabel: t("story.back"), onBack: { router.dismissSheet() })
-                }
+                ScreenHeader(title: t("profile.badges"), backLabel: t("story.back"), onBack: { router.dismissSheet() })
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: Theme.Spacing.xxl) {

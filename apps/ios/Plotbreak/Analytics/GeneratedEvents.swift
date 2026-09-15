@@ -47,6 +47,9 @@ enum PlotbreakEvent: String, CaseIterable, Sendable {
     case sessionAbandoned = "session_abandoned"
     case storySaved = "story_saved"
     case shareCreated = "share_created"
+    case createDraftStarted = "create_draft_started"
+    case createCompiled = "create_compiled"
+    case createPublished = "create_published"
 }
 
 /// The API contract this build was generated against, so an event can say which

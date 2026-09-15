@@ -7,4 +7,5 @@ export * from './game/state.js';
 export * from './game/economy.js';
 export * from './game/badges.js';
 export * from './game/localize.js';
+export * from './create/draft.js';
 export * from './api/index.js';

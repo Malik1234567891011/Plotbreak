@@ -239,8 +239,21 @@ export class WalletService {
   }
 
   /** Spec §20.5 — 900 credits on account creation, once. */
+  /**
+   * The opening grant.
+   *
+   * `PLOTBREAK_DEV_GRANT` overrides it, and is refused unless the process is
+   * also running on the in-process store — a playtest harness needs forty
+   * turns in one account, and nothing that can mint credits should be one
+   * environment variable away from doing it against a real database.
+   */
   async grantNewUser(accountId: string): Promise<LedgerEntry> {
-    return this.grant(accountId, 'NEW_USER_GRANT', GRANT_NEW_USER, `new_user:${accountId}`);
+    const override = Number(process.env.PLOTBREAK_DEV_GRANT);
+    const amount =
+      Number.isFinite(override) && override > 0 && !process.env.DATABASE_URL
+        ? Math.trunc(override)
+        : GRANT_NEW_USER;
+    return this.grant(accountId, 'NEW_USER_GRANT', amount, `new_user:${accountId}`);
   }
 
   /**
@@ -341,6 +354,41 @@ export class WalletService {
       amount,
       'TIMELINE_FORK_FAILED',
       sessionId,
+      `refund:${idempotencyKey}`,
+    );
+  }
+
+  /**
+   * Charge for compiling a world or re-rolling one of its fields.
+   *
+   * Single-phase like the fork fee, and for the same reason: there is nothing
+   * to meter afterwards. If the generation throws, `refundCreate` is the only
+   * way back, so every caller that charges must also be prepared to give it up.
+   */
+  async chargeCreate(
+    accountId: string,
+    draftId: string,
+    amount: number,
+    idempotencyKey: string,
+    reasonCode: 'STORY_COMPILE' | 'STORY_ASSIST',
+  ): Promise<LedgerEntry> {
+    const balance = await this.getBalance(accountId);
+    if (balance < amount) throw new InsufficientCreditsError(amount, balance);
+    return this.#append(accountId, 'CREATE_FEE', -amount, reasonCode, draftId, idempotencyKey);
+  }
+
+  async refundCreate(
+    accountId: string,
+    draftId: string,
+    amount: number,
+    idempotencyKey: string,
+  ): Promise<LedgerEntry> {
+    return this.#append(
+      accountId,
+      'REFUND',
+      amount,
+      'STORY_GENERATION_FAILED',
+      draftId,
       `refund:${idempotencyKey}`,
     );
   }

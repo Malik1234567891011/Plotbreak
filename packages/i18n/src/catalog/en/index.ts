@@ -1,4 +1,5 @@
 import { check } from './check.js';
+import { create } from './create.js';
 import { category } from './category.js';
 import { characters } from './characters.js';
 import { discover } from './discover.js';
@@ -58,6 +59,7 @@ export const en = {
   ...library,
   ...profile,
   ...check,
+  ...create,
   ...category,
   ...characters,
   ...wallet,

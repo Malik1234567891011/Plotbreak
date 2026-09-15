@@ -1,4 +1,5 @@
 import type {
+  StoryDraft,
   GameEvent,
   GameState,
   LedgerEntry,
@@ -56,6 +57,9 @@ export class MemoryRepository implements Repository {
   readonly #hides = new Map<string, Set<string>>();
   readonly #blocks = new Map<string, Set<string>>();
   readonly #reports = new Map<string, ReportRecord[]>();
+  readonly #drafts = new Map<string, StoryDraft>();
+  /** Which worlds are reachable from Discover. Absent means official, i.e. public. */
+  readonly #visibility = new Map<string, 'PRIVATE' | 'UNLISTED' | 'PUBLIC'>();
 
   constructor(stories: readonly StoryVersion[] = [...LAUNCH_CATALOG]) {
     // Seeded so a fresh install shows a plausible catalog rather than a wall of
@@ -79,7 +83,11 @@ export class MemoryRepository implements Repository {
   // --- Catalog ---
 
   async listStories(): Promise<StoryVersion[]> {
-    return [...this.#stories.values()];
+    // Discover, not "every row". A creator's own draft-published world is
+    // reachable by id and must not appear here until they say so.
+    return [...this.#stories.values()].filter(
+      (story) => (this.#visibility.get(story.storyId) ?? 'PUBLIC') === 'PUBLIC',
+    );
   }
 
   async getStoryVersion(storyVersionId: string): Promise<StoryVersion | null> {
@@ -578,6 +586,69 @@ export class MemoryRepository implements Repository {
       })
       .sort((a, b) => b.devices - a.devices || b.count - a.count)
       .slice(0, limit);
+  }
+
+  // --- Create mode ---
+
+  async listDrafts(ownerId: string): Promise<StoryDraft[]> {
+    return [...this.#drafts.values()]
+      .filter((draft) => draft.ownerId === ownerId)
+      .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  }
+
+  async getDraft(draftId: string): Promise<StoryDraft | null> {
+    return this.#drafts.get(draftId) ?? null;
+  }
+
+  async putDraft(draft: StoryDraft): Promise<void> {
+    this.#drafts.set(draft.draftId, draft);
+  }
+
+  async deleteDraft(draftId: string, ownerId: string): Promise<boolean> {
+    const draft = this.#drafts.get(draftId);
+    if (!draft || draft.ownerId !== ownerId) return false;
+    this.#drafts.delete(draftId);
+    return true;
+  }
+
+  async publishDraft(input: {
+    readonly draft: StoryDraft;
+    readonly story: StoryVersion;
+    readonly slug: string;
+    readonly visibility: 'PRIVATE' | 'UNLISTED' | 'PUBLIC';
+    readonly at: string;
+  }): Promise<StoryDraft> {
+    this.#stories.set(input.story.id, input.story);
+    this.#visibility.set(input.story.storyId, input.visibility);
+    if (!this.#signals.has(input.story.storyId)) {
+      this.#signals.set(input.story.storyId, {
+        runs: 0, likes: 0, saves: 0, hides: 0, reports: 0, impressions: 0,
+      });
+    }
+    const next: StoryDraft = {
+      ...input.draft,
+      storyId: input.story.storyId,
+      publishedVersionId: input.story.id,
+      publishedAt: input.at,
+      visibility: input.visibility,
+      updatedAt: input.at,
+    };
+    this.#drafts.set(next.draftId, next);
+    return next;
+  }
+
+  async setStoryVisibility(
+    storyId: string,
+    ownerId: string,
+    visibility: 'PRIVATE' | 'UNLISTED' | 'PUBLIC',
+  ): Promise<boolean> {
+    const draft = [...this.#drafts.values()].find(
+      (d) => d.storyId === storyId && d.ownerId === ownerId,
+    );
+    if (!draft) return false;
+    this.#visibility.set(storyId, visibility);
+    this.#drafts.set(draft.draftId, { ...draft, visibility });
+    return true;
   }
 
   async createReport(report: ReportRecord): Promise<void> {
