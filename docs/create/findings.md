@@ -116,3 +116,51 @@ escapes", "Read mechanisms and". Two changes rather than a fourth rewording:
 The `role` field is left as a word-boundary clip. It occasionally reads as a
 sentence fragment, it is on an optional step, and it is the only thing on this
 list still worth another look.
+
+## On a phone, end to end
+
+Walked in the simulator against the local API and the live model, 2026-09-15:
+
+1. **Create tab → `+`** — the dashboard's empty state, then the pitch screen.
+2. **Typed a pitch** ("A bakery on the last inhabited floor of a flooded city.
+   My grandmother left me the ovens and a list of names I am supposed to feed
+   for free, and I do not know what any of them did for her."), chose
+   *Dreamlike* and *Full*, tapped **Build my story**. The wait screen moved
+   through its four phases; the compile returned in about two minutes.
+3. **Landed in the builder** on Profile, everything filled in: *Bread Above the
+   Waterline*, a hook, a cover direction, counters, a red-free stepper, and
+   "Saved" in the header. (`shots/builder-profile-step.jpg`)
+4. **Tapped Auto-generate** on the fantasy field. "Flooded City Bakery Dream
+   Fantasy" became **"You are the last baker above the flood"** (38/42) — the
+   assist path working live, and the evidence that pointed at the schema bug
+   above, since the assist instruction lives in the prompt and the compile's
+   lived in a comment.
+5. **A published world in Discover.** *The Brass Door — "Open the vault that
+   stole your brother."*, credited to **@ Player** rather than Plotbreak
+   Studios, sitting in the shelf beside the official four.
+6. **Character setup** rendered the compiled origins with the model's own setup
+   heading — "What did Elodie swear never to steal again?" — their playstyle
+   tags and their blurbs.
+7. **Played it.** ("Hide the brass key.")
+
+> You do not close your fist around the key. A closed hand advertises value.
+> Instead, you turn toward the bench as if the rain has made you remember a
+> tool […] Hidden is not gone; hidden is merely waiting to be found by the
+> wrong person.
+
+Moreau, Mireille, Theo and Bellac all behave as the compiled cast says they
+should. (`shots/playing-a-made-story.jpg`)
+
+Three sentences in, a playable world out, in the app.
+
+### Two notes from the walk
+
+- **The simulator's own Apple Account sheet** blocks the first simulator this
+  was tried on and cannot be dismissed. Nothing to do with the app; using a
+  different device is the whole fix.
+- **Sign-in is unskippable in a Debug build** because `Debug.xcconfig` ships an
+  empty Supabase anon key, so the only button on the screen is Continue with
+  Apple and the simulator has no Apple account. Getting past it means writing
+  `plotbreak.signInSeen` into the app's defaults with `simctl spawn … defaults
+  write` — `PlistBuddy` on the container does not work, because `cfprefsd`
+  holds the cache and overwrites it. Worth a launch flag one day.
