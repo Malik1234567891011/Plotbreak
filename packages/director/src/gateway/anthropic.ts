@@ -302,6 +302,43 @@ function costOf(model: string, inputTokens: number, outputTokens: number): numbe
  * converter, and an unsupported shape fails loudly at development time.
  */
 export function toJsonSchema(schema: z.ZodType<unknown>): Record<string, unknown> {
+  const described = describe(schema, convert(schema));
+  return described;
+}
+
+/**
+ * Carry a field's `.describe()` into the schema the model is shown.
+ *
+ * This was dropped, and dropping it is expensive in a way that is invisible:
+ * the Create compiler had careful per-field instructions — "never a genre
+ * label", "42 characters, counted" — written as TypeScript comments beside
+ * each field, which of course reach nobody, and would still have reached
+ * nobody written as `.describe()`. The first real compile produced a fantasy
+ * label reading "Winter Gothic Mystery", and the fix looked like a prompt
+ * problem until the schema was printed.
+ *
+ * A description on a field is the cheapest instruction there is: it sits
+ * exactly where the model is deciding what to write, and it costs a handful of
+ * tokens once per request rather than a paragraph of prose the model has to
+ * carry back to the right field itself.
+ *
+ * `.default()` and `.optional()` wrap the described type, so the description
+ * is looked for through those wrappers as well as on the type itself.
+ */
+function describe(schema: z.ZodType<unknown>, out: Record<string, unknown>): Record<string, unknown> {
+  let current: unknown = schema;
+  for (let depth = 0; depth < 4; depth += 1) {
+    const def = (current as { _def?: Record<string, unknown> })?._def;
+    if (!def) break;
+    if (typeof def.description === 'string' && def.description.length > 0) {
+      return { ...out, description: def.description };
+    }
+    current = def.innerType;
+  }
+  return out;
+}
+
+function convert(schema: z.ZodType<unknown>): Record<string, unknown> {
   const def = (schema as unknown as { _def: Record<string, unknown> })._def;
   const typeName = def?.typeName as string | undefined;
 

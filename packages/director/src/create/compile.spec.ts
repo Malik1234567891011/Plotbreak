@@ -335,3 +335,27 @@ describe('language', () => {
     expect(sent[0]![0]).toContain('WRITE EVERY FIELD IN ENGLISH');
   });
 });
+
+describe('clip and dangling words', () => {
+  it('does not leave a phrase pointing at a word that is not there', () => {
+    expect(clip('Read mechanisms and find the give', 24)).toBe('Read mechanisms');
+    expect(clip('Protect the shop and the people in it', 24)).toBe('Protect the shop');
+  });
+
+  it('sheds a trailing preposition as readily as a conjunction', () => {
+    expect(clip('Choose protection over the truth', 24)).toBe('Choose protection');
+    expect(clip('Pressure witnesses with what you know', 24)).toBe('Pressure witnesses');
+  });
+
+  it('does the same in French, since both languages are authored', () => {
+    expect(clip('Lire les mécanismes et trouver la faille', 24)).toBe('Lire les mécanismes');
+  });
+
+  it('leaves a phrase that ends on a real word alone', () => {
+    expect(clip('Close range brawling forever', 24)).toBe('Close range brawling');
+  });
+
+  it('never strips a phrase down to nothing', () => {
+    expect(clip('and', 2)).toBe('an');
+  });
+});

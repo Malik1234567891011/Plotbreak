@@ -69,26 +69,46 @@ const Refusable = { refusal: z.string().nullable().default(null) };
 const SpineOut = z
   .object({
     ...Refusable,
-    /** 2–50 characters. The name on the card. */
-    title: z.string().default(''),
-    /**
-     * The card's fantasy, in the second person: what the player gets to be.
-     * Never a genre label. "Keep the lamp lit, or keep your sister." "Be the
-     * brother who chose the village." 42 characters or fewer, counted.
-     */
-    fantasyLabel: z.string().default(''),
-    /** One sentence that makes somebody tap it. */
-    hook: z.string().default(''),
-    /**
-     * 120–240 words. The world, the situation, and what is already under
-     * pressure. A player reads this, so it is prose: never a list of names,
-     * never a note to yourself, never "other characters include".
-     */
-    premise: z.string().default(''),
-    /** How this sounds on the page. Rhythm, distance, diction, what it refuses to do. */
-    toneGuide: z.string().default(''),
-    /** 3–8 facts that are true when the story begins and that the storyteller may never contradict. */
-    hardCanon: z.array(z.string()).default([]),
+    title: z
+      .string()
+      .describe('The story\'s title. Two to five words, 50 characters or fewer. Not a sentence and not a tagline.')
+      .default(''),
+    fantasyLabel: z
+      .string()
+      .max(42)
+      .describe(
+        'What the player gets to BE, addressed to them, 42 characters or fewer — count them. ' +
+          'Examples: "Keep the lamp lit, or keep your sister." "Be the brother who chose the village." ' +
+          '"You are the last baker above the flood." ' +
+          'NEVER a genre or category. "Winter Gothic Mystery" and "School Sports Drama" are both wrong.',
+      )
+      .default(''),
+    hook: z
+      .string()
+      .describe('One sentence that makes somebody tap this story. Concrete, not atmospheric. Under 200 characters.')
+      .default(''),
+    premise: z
+      .string()
+      .describe(
+        '120 to 240 words — count them. The world, the situation, and what is already under pressure. ' +
+          'A player reads this, so it is prose: never a list of names, never a note to yourself, and never ' +
+          'a sentence beginning "other characters include".',
+      )
+      .default(''),
+    toneGuide: z
+      .string()
+      .describe(
+        'How this sounds on the page, addressed to the storyteller: rhythm, distance, diction, and what the ' +
+          'prose refuses to do. Three or four sentences.',
+      )
+      .default(''),
+    hardCanon: z
+      .array(z.string())
+      .describe(
+        'Five to eight facts that are true when the story begins and that the storyteller may never ' +
+          'contradict. Each one concrete and checkable. Nothing about what the player will do.',
+      )
+      .default([]),
     intensity: z.enum(['LIGHT', 'MODERATE', 'INTENSE']).default('MODERATE'),
     contentDescriptors: z
       .array(
@@ -109,28 +129,50 @@ const SpineOut = z
     protagonistName: z.string().default(''),
     protagonistPronouns: z.string().default(''),
     protagonistDescription: z.string().default(''),
-    /** The question the setup screen asks instead of "Who are you?". */
-    setupHeading: z.string().default(''),
-    /** 3–8 places, each with something in it a scene could happen over. */
+    setupHeading: z
+      .string()
+      .describe('The question the setup screen asks instead of "Who are you?". One short line.')
+      .default(''),
     places: z
       .array(z.object({ name: z.string(), description: z.string() }).strict())
+      .describe('Three to eight places, each with something in it a scene could happen over.')
       .default([]),
-    /** The name of the place the story opens in. Must be one of `places`. */
-    startingPlaceName: z.string().default(''),
-    /** 60–150 words, second person, ending on a moment the player must answer. */
-    opening: z.string().default(''),
-    /** Up to 3 things a player might do first. Short, concrete, in the player's voice. */
-    openingSuggestions: z.array(z.string()).default([]),
+    startingPlaceName: z
+      .string()
+      .describe('The name of the place the story opens in. Must be exactly one of the names in places.')
+      .default(''),
+    opening: z
+      .string()
+      .describe(
+        'The opening beat. 60 to 150 words, second person, present tense, ending on a moment the player has ' +
+          'to answer. Do not ask them a question; put them in a situation.',
+      )
+      .default(''),
+    openingSuggestions: z
+      .array(z.string())
+      .describe(
+        'Up to three things a player might do first. Short, concrete, in the player\'s own voice. Never ' +
+          '"explore" or "look around".',
+      )
+      .default([]),
     /** A note from the author to the player. Never sent to the storyteller. May be empty. */
     playGuide: z.string().default(''),
-    /** Art direction for the cover: subject, staging, palette, mood. One sentence. */
-    coverDirection: z.string().default(''),
-    /** The store listing. What this story is, to somebody deciding whether to play it. */
-    description: z.string().default(''),
-    /** 3–6 lowercase genre tags. */
-    tags: z.array(z.string()).default([]),
-    /** 2–4 "what you can do here" chips, three words or fewer each. */
-    mechanicsChips: z.array(z.string()).default([]),
+    coverDirection: z
+      .string()
+      .describe('Cover art direction in one sentence: subject, staging, palette, mood. No text in the image.')
+      .default(''),
+    description: z
+      .string()
+      .describe(
+        'The store listing: what this story is, to somebody deciding whether to play it. Three or four ' +
+          'sentences. Never spoil an ending.',
+      )
+      .default(''),
+    tags: z.array(z.string()).describe('Three to six lowercase genre tags.').default([]),
+    mechanicsChips: z
+      .array(z.string())
+      .describe('Two to four "what you can do here" chips, three words or fewer each, each one something the player does.')
+      .default([]),
   })
   .strict();
 type SpineOut = z.infer<typeof SpineOut>;
@@ -138,7 +180,6 @@ type SpineOut = z.infer<typeof SpineOut>;
 const CastOut = z
   .object({
     ...Refusable,
-    /** 3–6 people. Not all of them are on the player's side. */
     characters: z
       .array(
         z
@@ -171,13 +212,20 @@ const CastOut = z
           })
           .strict(),
       )
+      .describe("Three to six people. Not all of them are on the player's side.")
       .default([]),
-    /** 0–3 player origins. Different pasts, not different classes. Empty is fine. */
     origins: z
       .array(
         z
           .object({
-            name: z.string(),
+            name: z
+              .string()
+              .max(28)
+              .describe(
+                'A HARD LIMIT of 28 characters, spaces included — count them before you answer. ' +
+                  '"The Keeper" (10). "The One Who Stayed" (18). "The Black Key" (13). A name that has to ' +
+                  'be cut is a name nobody reads.',
+              ),
             /**
              * Two to four ordinary words, 40 characters at the very most.
              * "Fire affinity". "Support and healing". "Bound by inheritance".
@@ -197,16 +245,22 @@ const CastOut = z
           })
           .strict(),
       )
+      .describe(
+        'Two or three player origins: different pasts, not different classes. Each one changes who the ' +
+          'player already was when the story starts.',
+      )
       .default([]),
-    /** 0–4 groups with their own aims, which move whether or not the player is looking. */
     factions: z
       .array(z.object({ name: z.string(), description: z.string() }).strict())
+      .describe('Two to four groups with their own aims, which move whether or not the player is looking.')
       .default([]),
-    /** 3–6 live questions with pressure behind them. Never a checklist. */
     threads: z
       .array(z.object({ title: z.string(), summary: z.string() }).strict())
+      .describe(
+        'Four to six live questions with pressure behind them. Not objectives and never a checklist — ' +
+          'things a scene can be pulled towards when it has run out of road.',
+      )
       .default([]),
-    /** 3–6 things this world is capable of doing. Possibilities, never a schedule. */
     worldEvents: z
       .array(
         z
@@ -218,8 +272,8 @@ const CastOut = z
           })
           .strict(),
       )
+      .describe('Four to six things this world is capable of doing on its own. Possibilities, never a schedule.')
       .default([]),
-    /** 0–3 objects the story turns on. Ordinary scenery does not belong here. */
     objects: z
       .array(
         z
@@ -230,6 +284,7 @@ const CastOut = z
           })
           .strict(),
       )
+      .describe('One to three objects the story turns on. Ordinary scenery does not belong here.')
       .default([]),
     /**
      * 4–6 places this could end up. Rarity is how far off the common path it is,
@@ -248,18 +303,24 @@ const CastOut = z
             condition: z.string().default(''),
             /** What the world looks like afterwards. */
             epilogue: z.string().default(''),
-            /**
-             * One short line shown to a player who is close to this ending, in
-             * the world's voice. 80 characters at the very most — a teased
-             * ending that stops mid-word teases nothing.
-             */
-            hint: z.string().default(''),
+            hint: z
+              .string()
+              .describe(
+                "One short line shown to a player who is close to this ending, in the world's voice. " +
+                  '80 characters at the very most — a teased ending that stops mid-word teases nothing.',
+              )
+              .default(''),
           })
           .strict(),
       )
       .default([]),
-    /** Up to 3 short prose samples in this story's voice. Not scenes — samples. */
-    styleExamples: z.array(z.string()).default([]),
+    styleExamples: z
+      .array(z.string())
+      .describe(
+        "Up to three short prose samples in this story's voice, thirty to sixty words each. Not scenes " +
+          'from the story: samples of how it sounds.',
+      )
+      .default([]),
   })
   .strict();
 type CastOut = z.infer<typeof CastOut>;
@@ -344,8 +405,31 @@ export function clip(text: string, max: number): string {
   const cut = trimmed.slice(0, max);
   const lastSpace = cut.lastIndexOf(' ');
   // A single very long word has no boundary to fall back to.
-  return (lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : cut).replace(/[\s,;:.\-–—]+$/, '');
+  let out = (lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : cut).replace(TRAILING_PUNCTUATION, '');
+  // A clipped phrase that ends on a conjunction or a preposition is worse than
+  // the shorter phrase underneath it: "Read mechanisms and" and "Protect the
+  // shop and" both read as bugs, because they are the visible half of a
+  // sentence the model was told not to write. Shed those words until it stops
+  // pointing at something that is not there.
+  let guard = 0;
+  while (guard++ < 4) {
+    const words = out.split(' ');
+    const last = words.at(-1)?.toLowerCase() ?? '';
+    if (words.length < 2 || !DANGLING.has(last)) break;
+    out = words.slice(0, -1).join(' ').replace(TRAILING_PUNCTUATION, '');
+  }
+  return out;
 }
+
+const TRAILING_PUNCTUATION = /[\s,;:.\-–—]+$/;
+
+/** Words that promise another word. English and French, since both are authored. */
+const DANGLING = new Set([
+  'and', 'or', 'but', 'with', 'without', 'of', 'to', 'for', 'from', 'over', 'under', 'through',
+  'into', 'onto', 'about', 'against', 'between', 'the', 'a', 'an', 'in', 'on', 'at', 'by', 'as',
+  'et', 'ou', 'mais', 'avec', 'sans', 'de', 'du', 'des', 'la', 'le', 'les', 'un', 'une', 'pour',
+  'par', 'sur', 'sous', 'dans', 'vers', 'entre', 'contre', 'chez', 'que', 'qui',
+]);
 
 /** Ids a creator never types, derived from the names they can see. */
 function withIds<T extends { name?: string; title?: string; publicCopy?: string }>(
@@ -503,7 +587,7 @@ export function assemble(pitch: CompilePitch, spine: SpineOut, cast: CastOut): S
       name: clip(o.name, 28),
       role: clip(o.role, 40),
       summary: clip(o.summary, 220),
-      playstyle: padPlaystyle(o.playstyle.map((tag) => clip(tag, 24))),
+      playstyle: padPlaystyle(o.playstyle),
     })),
     opening: spine.opening,
     openingSuggestions: spine.openingSuggestions.slice(0, 3).map((s) => clip(s, 120)),

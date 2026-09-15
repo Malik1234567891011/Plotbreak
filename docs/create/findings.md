@@ -70,3 +70,49 @@ sized for a beat and was cutting a world off mid-cast every time.
 Measured across the six compiles run here: roughly 9–13k input and 6–9k output
 tokens for the pair. On Terra that is about $0.10–0.13 a world. Priced at 180
 credits, which is three Vivid turns, for an asset the creator plays forever.
+
+## The bug the simulator found
+
+Running the builder on a phone turned up something the unit tests could not:
+**`toJsonSchema` was dropping every field description**, so none of the
+per-field guidance in the compiler reached the model at all.
+
+It had been written as TypeScript comments beside each field — which of course
+reach nobody — and would have reached nobody written as `.describe()` either,
+because the converter never emitted `description`. So the fantasy label kept
+coming back as a genre ("Winter Gothic Mystery", "Flooded City Bakery Dream
+Fantasy") no matter how the prompt was reworded, and it read as a prompt
+problem right up until the schema was printed.
+
+Fixed in `gateway/anthropic.ts`: `toJsonSchema` now carries `.describe()`
+through, including through `.default()`, `.optional()` and `.nullable()`, which
+is where nearly all of ours sit. Six tests pin it. This is a capability the
+whole codebase gets, not just Create — a description sits exactly where the
+model is deciding what to write, and costs a handful of tokens rather than a
+paragraph of prose the model has to carry back to the right field itself.
+
+Then the compiler's guidance moved into `.describe()`, and the same pitch
+recompiled:
+
+| field | before | after |
+|---|---|---|
+| fantasy label | "Historical Heist Thriller" | "Open the door that ruined your brother." |
+| ending hint | "each offer part of " | "The best key is the one no hand can keep." |
+| origin name | "The Sister Who Kept Every" | "The Sister Who Wrote Back" |
+
+### Where it stopped
+
+Origin `role` and `playstyle` still overran after three attempts at teaching
+the model to count to 40 and to 24 — "Pursue legal contradicti", "Plan entries,
+escapes", "Read mechanisms and". Two changes rather than a fourth rewording:
+
+- `clip()` now sheds a trailing conjunction or preposition, in English and
+  French, because a phrase ending on "and" is the visible half of a sentence
+  and reads as a bug.
+- `padPlaystyle()` **throws away** a tag that would have to be cut instead of
+  shipping half of one, and backfills to the floor of two. A card with two good
+  tags beats a card with four broken ones.
+
+The `role` field is left as a word-boundary clip. It occasionally reads as a
+sentence fragment, it is on an optional step, and it is the only thing on this
+list still worth another look.

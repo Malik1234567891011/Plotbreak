@@ -438,7 +438,11 @@ export function draftId(prefix: string, name: string, index: number): string {
  * bridge still pads, as the last line of defence for a hand-edited origin.
  */
 export function padPlaystyle(tags: readonly string[]): string[] {
-  const kept = tags.map((tag) => tag.trim().slice(0, 24)).filter(Boolean);
+  // A tag that does not fit is thrown away rather than cut. Three attempts at
+  // teaching a model to count to 24 produced "Pursue legal contradicti" and
+  // "Plan entries, escapes", and a card carrying those is worse than a card
+  // carrying two good tags — which is what the floor below guarantees.
+  const kept = tags.map((tag) => tag.trim()).filter((tag) => tag.length > 0 && tag.length <= 24);
   const filler = ['Balanced', 'Flexible'].filter((f) => !kept.includes(f));
   return [...kept, ...filler].slice(0, Math.max(2, Math.min(4, kept.length)));
 }

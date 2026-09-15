@@ -359,7 +359,7 @@ export async function assistField(input: {
             name: clip(o.name, 28),
             role: clip(o.role, 40),
             summary: clip(o.summary, 220),
-            playstyle: padPlaystyle(o.playstyle.map((tag) => clip(tag, 24))),
+            playstyle: padPlaystyle(o.playstyle),
           })),
         ),
         invocation: out.invocation,

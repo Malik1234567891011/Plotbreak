@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { StoryVersion } from '../game/story.js';
 import {
   draftReadiness,
+  padPlaystyle,
   draftToStoryVersion,
   emptyDraft,
   StoryDraft,
@@ -243,5 +244,28 @@ describe('draftToStoryVersion', () => {
     );
     expect(story.rules.playGuide).toBe('Take your time.');
     expect(story.rules.styleExamples).toEqual(['The lamp turned. Nobody spoke.']);
+  });
+});
+
+
+describe('padPlaystyle', () => {
+  it('keeps tags that fit', () => {
+    expect(padPlaystyle(['Close range', 'Hard to move'])).toEqual(['Close range', 'Hard to move']);
+  });
+
+  it('throws away a tag that would have to be cut, rather than shipping half of one', () => {
+    expect(padPlaystyle(['Close range', 'Pursue legal contradictions and gaps'])).toEqual([
+      'Close range',
+      'Balanced',
+    ]);
+  });
+
+  it('never leaves fewer than two, because four cards nobody can compare is four nobody reads', () => {
+    expect(padPlaystyle([]).length).toBe(2);
+    expect(padPlaystyle(['Steady'])).toEqual(['Steady', 'Balanced']);
+  });
+
+  it('never gives more than four', () => {
+    expect(padPlaystyle(['a', 'b', 'c', 'd', 'e']).length).toBe(4);
   });
 });
