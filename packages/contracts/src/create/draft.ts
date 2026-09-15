@@ -429,6 +429,20 @@ export function draftId(prefix: string, name: string, index: number): string {
   return slug || `${prefix}_${index + 1}`;
 }
 
+/**
+ * Two tags, because four cards a player cannot compare at a glance is four
+ * cards nobody reads.
+ *
+ * Exported so the compiler pads where the creator can see it and edit it,
+ * rather than having the bridge quietly invent a word at publish time. The
+ * bridge still pads, as the last line of defence for a hand-edited origin.
+ */
+export function padPlaystyle(tags: readonly string[]): string[] {
+  const kept = tags.map((tag) => tag.trim().slice(0, 24)).filter(Boolean);
+  const filler = ['Balanced', 'Flexible'].filter((f) => !kept.includes(f));
+  return [...kept, ...filler].slice(0, Math.max(2, Math.min(4, kept.length)));
+}
+
 export interface CompileOptions {
   readonly storyId: string;
   readonly storyVersionId: string;
@@ -613,11 +627,7 @@ export function draftToStoryVersion(draft: StoryDraft, options: CompileOptions):
       name: o.name.slice(0, 28),
       role: o.role.slice(0, 40),
       summary: o.summary.slice(0, 220),
-      // Two is the floor the contract sets, because four cards a player cannot
-      // compare at a glance is four cards nobody reads.
-      playstyle: (o.playstyle.length >= 2 ? o.playstyle : [...o.playstyle, 'Balanced', 'Flexible'])
-        .slice(0, 4)
-        .map((tag) => tag.slice(0, 24)),
+      playstyle: padPlaystyle(o.playstyle),
       blurb: o.blurb,
     })),
     setupFields: [],
