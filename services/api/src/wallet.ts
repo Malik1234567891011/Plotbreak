@@ -345,6 +345,41 @@ export class WalletService {
     );
   }
 
+  /**
+   * Charge for compiling a world or re-rolling one of its fields.
+   *
+   * Single-phase like the fork fee, and for the same reason: there is nothing
+   * to meter afterwards. If the generation throws, `refundCreate` is the only
+   * way back, so every caller that charges must also be prepared to give it up.
+   */
+  async chargeCreate(
+    accountId: string,
+    draftId: string,
+    amount: number,
+    idempotencyKey: string,
+    reasonCode: 'STORY_COMPILE' | 'STORY_ASSIST',
+  ): Promise<LedgerEntry> {
+    const balance = await this.getBalance(accountId);
+    if (balance < amount) throw new InsufficientCreditsError(amount, balance);
+    return this.#append(accountId, 'CREATE_FEE', -amount, reasonCode, draftId, idempotencyKey);
+  }
+
+  async refundCreate(
+    accountId: string,
+    draftId: string,
+    amount: number,
+    idempotencyKey: string,
+  ): Promise<LedgerEntry> {
+    return this.#append(
+      accountId,
+      'REFUND',
+      amount,
+      'STORY_GENERATION_FAILED',
+      draftId,
+      `refund:${idempotencyKey}`,
+    );
+  }
+
   async listLedger(accountId: string, limit = 50, cursor?: string): Promise<{ entries: LedgerEntry[]; nextCursor: string | null }> {
     const all = (await this.#repo.listLedger(accountId)).slice().reverse();
     const start = cursor ? all.findIndex((e) => e.id === cursor) + 1 : 0;

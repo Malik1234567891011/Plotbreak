@@ -38,3 +38,14 @@ CREATE UNIQUE INDEX IF NOT EXISTS story_drafts_story_idx
 -- Reached only through the API, which checks ownership on every call. No
 -- policies, same as every other table here.
 ALTER TABLE story_drafts ENABLE ROW LEVEL SECURITY;
+
+-- Compiling a world and re-rolling a field are the only things in Create that
+-- cost money, and they are not turns. A separate entry type so a creator can
+-- see where their credits went, and so "how much has this person spent playing"
+-- stays answerable.
+ALTER TABLE wallet_ledger DROP CONSTRAINT IF EXISTS wallet_ledger_type_check;
+ALTER TABLE wallet_ledger ADD CONSTRAINT wallet_ledger_type_check CHECK (type IN (
+  'PURCHASE','BONUS','DAILY_GRANT','NEW_USER_GRANT',
+  'TURN_RESERVE','TURN_FINALIZE','TURN_RELEASE',
+  'MEDIA_RESERVE','MEDIA_FINALIZE','MEDIA_RELEASE',
+  'REFUND','ADMIN_ADJUST','CREATOR_GRANT','PROMO_GRANT','FORK_FEE','CREATE_FEE'));

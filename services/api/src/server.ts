@@ -69,6 +69,7 @@ import {
 import { deriveCustomBuildWithModel } from '@plotbreak/director';
 import { availableCategories, categoriesFor, searchCatalog } from './catalog-taxonomy.js';
 import { registerMediaRoutes } from './media-routes.js';
+import { registerCreateRoutes } from './create-routes.js';
 import type { SessionRecord, StorySignals } from './repo/types.js';
 import { EMPTY_SIGNALS } from './repo/types.js';
 
@@ -233,6 +234,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
   });
 
   registerMediaRoutes(app, ctx);
+  registerCreateRoutes(app, ctx);
 
   // --- Health ---
 

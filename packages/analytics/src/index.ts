@@ -56,6 +56,12 @@ export const EVENT_NAMES = [
   'session_abandoned',
   'story_saved',
   'share_created',
+  // create mode — the creator funnel, which is a different funnel from the
+  // player one: started, built, published, and how far a world got before it
+  // was abandoned.
+  'create_draft_started',
+  'create_compiled',
+  'create_published',
 ] as const;
 
 export type EventName = (typeof EVENT_NAMES)[number];
@@ -178,6 +184,20 @@ export const EventProperties = {
   session_abandoned: z.object({ storyId: z.string(), turnCount: z.number().int() }),
   story_saved: z.object({ storyId: z.string(), saved: z.boolean() }),
   share_created: z.object({ kind: z.string(), storyId: z.string() }),
+
+  create_draft_started: z.object({ draftId: z.string() }),
+  create_compiled: z.object({
+    draftId: z.string(),
+    characters: z.number().int(),
+    places: z.number().int(),
+    endings: z.number().int(),
+  }),
+  create_published: z.object({
+    draftId: z.string(),
+    storyId: z.string(),
+    version: z.number().int(),
+    visibility: z.string(),
+  }),
 } as const satisfies Record<EventName, z.ZodType>;
 
 export type EventPropertiesMap = {
