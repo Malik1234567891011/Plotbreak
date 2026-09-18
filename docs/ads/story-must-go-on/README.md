@@ -85,3 +85,9 @@ v3 result: oneshot/seedance_fr_v3.mp4 (raw seedance_fr_v3_raw.mp4, sheet sheet_v
 Timing on the sheet: valley 0-2.25, turn 2.5-4.25, red wash 4.5-6, lair 6-9, white dissolve 9.25-9.5, classroom 9.75-12, shock close-up 12-13.5, whip up 13.5, dragon 14.5-16.75, street/lamppost 17.25-20, petals 20-20.25, rooftop 20.5-23.75, grid 23.75-26, flare 26-26.75, black 27.17.
 Overlay windows (overlay/windows_v3.json): demon prompt 6.2-12.0 (pause 0.6s after "ans..."), dragon prompt 14.5-18.0 (pause 0.4s after "légendaire"), "Fais-les tomber amoureux" 20.7-23.6, empty cursor box 24.0-26.0.
 Credits: 300. Balance after v3: 953 (a grant landed between v2 and v3).
+
+## v4 (2026-09-13) — Omar's own re-roll, edited only
+Omar rendered seedance_fr_v4_raw.mp4 himself (28s, 1280x720) and sent it for the edit pass. Same overlay + logo treatment as v3, done in the cloud container (Poppins + make_overlay.py + logo-stacked-fr.png). Black from 27.25s, logo START 27.25.
+Timing on the sheet: valley 0-2, turn 2-4.5, red flare 4.75-5.25, lair 5.25-9, fire burst 9.0, classroom 9.5-11.5, shock 11.75-13, whip/sky 13-13.75, dragon 14-16.5, lamppost 17-20, petals 20-20.25, rooftop 20.5-24, grid 24-26.25, flare 26.25-27, black 27.25.
+Windows (overlay/windows_v4.json): demon prompt 5.5-11.5 (pause 1.0s after "ans..."), dragon prompt 14.1-17.3 (pause 0.4s), "Fais-les tomber amoureux" 20.7-23.8, empty cursor box 24.2-26.2.
+Output oneshot/seedance_fr_v4.mp4, sheet oneshot/sheet_v4.jpg. No Dare credits spent (raw render was his).
