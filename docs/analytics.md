@@ -68,7 +68,8 @@ when a guest signs up.
 `character_setup_started`, `session_started`, `first_turn_submitted`,
 `sign_in_started`, `sign_in_completed`, `wallet_opened`,
 `insufficient_credits_shown`, `purchase_started`, `world_sheet_opened`,
-`suggestion_tapped`, `session_resumed`, `session_abandoned`, `share_created`.
+`suggestion_tapped`, `session_resumed`, `session_abandoned`, `share_created`,
+`community_invite_shown`, `community_invite_tapped`.
 
 `session_started` and `first_turn_submitted` are client-side because their
 properties (`setupDurationMs`, `secondsSinceAppOpen`) are measured against the

@@ -225,6 +225,7 @@ struct MainShell: View {
                 }
         }
         .tint(Theme.Colors.accentPrimary)
+        .discordPrompt()
         .sheet(item: $router.sheet) { route in
             SheetHost(route: route)
                 .environment(router)

@@ -64,6 +64,11 @@ struct ProfileScreen: View {
                             SettingsRow(t("profile.wallet"), icon: "creditcard") { router.present(.wallet(shortfall: nil)) }
                         }
                         .padding(.top, 6)
+
+                        SectionLabel(t("community.section"))
+                            .padding(.top, 30)
+                        DiscordButton(label: t("community.join_discord"), source: "profile")
+                            .padding(.top, Theme.Spacing.md)
                     }
                     .padding(.horizontal, Theme.pageGutter)
                     .padding(.top, 18)

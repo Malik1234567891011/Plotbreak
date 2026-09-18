@@ -56,6 +56,9 @@ export const EVENT_NAMES = [
   'session_abandoned',
   'story_saved',
   'share_created',
+  // community — the Discord invite: where it was shown, and whether it was taken
+  'community_invite_shown',
+  'community_invite_tapped',
   // create mode — the creator funnel, which is a different funnel from the
   // player one: started, built, published, and how far a world got before it
   // was abandoned.
@@ -184,6 +187,9 @@ export const EventProperties = {
   session_abandoned: z.object({ storyId: z.string(), turnCount: z.number().int() }),
   story_saved: z.object({ storyId: z.string(), saved: z.boolean() }),
   share_created: z.object({ kind: z.string(), storyId: z.string() }),
+  /** `source` is `prompt`, `settings` or `profile`. Shown is only sent for the prompt. */
+  community_invite_shown: z.object({ source: z.string(), timesShown: z.number().int() }),
+  community_invite_tapped: z.object({ source: z.string() }),
 
   create_draft_started: z.object({ draftId: z.string() }),
   create_compiled: z.object({

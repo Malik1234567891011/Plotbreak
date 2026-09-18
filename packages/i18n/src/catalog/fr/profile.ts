@@ -179,4 +179,12 @@ export const profile = {
   'badge.rare_ending.body': 'Trouve une fin que presque personne ne trouve.',
   'badges.secret_title': '???',
   'badges.secret_body': 'Certaines fins sont plus dures à trouver que d’autres.',
+  /** Voir `en/profile.ts` : le serveur Discord. */
+  'community.section': 'Communauté',
+  'community.join_discord': 'Rejoindre notre Discord',
+  'community.join_discord_a11y': 'Rejoindre le serveur Discord de Plotbreak',
+  'community.prompt_title': 'Viens traîner sur notre Discord',
+  'community.prompt_body': 'Partage tes moments les plus fous, découvre ce que les autres ont trouvé, et dis-nous quel monde créer ensuite.',
+  'community.prompt_join': 'Rejoindre le Discord',
+  'community.prompt_later': 'Plus tard',
 } as const;

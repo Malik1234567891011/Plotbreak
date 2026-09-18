@@ -76,6 +76,11 @@ struct SettingsScreen: View {
                         Txt(t("profile.language_current", ["name": languageNames[store.locale] ?? store.locale.rawValue]), .micro, color: Theme.Colors.textMuted)
                             .padding(.top, Theme.Spacing.sm)
 
+                        SectionLabel(t("community.section"))
+                            .padding(.top, 30)
+                        DiscordButton(label: t("community.join_discord"), source: "settings")
+                            .padding(.top, Theme.Spacing.md)
+
                         SectionLabel(t("profile.account"))
                             .padding(.top, 30)
                         VStack(spacing: 0) {

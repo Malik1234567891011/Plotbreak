@@ -141,4 +141,15 @@ export const profile = {
   'badge.rare_ending.body': 'Find an ending almost nobody finds.',
   'badges.secret_title': '???',
   'badges.secret_body': 'Some endings are harder to find than others.',
+  /**
+   * The Discord server: a button in Settings and Profile, and a prompt that
+   * shows a few times at most. "Discord" is a name in every language.
+   */
+  'community.section': 'Community',
+  'community.join_discord': 'Join our Discord',
+  'community.join_discord_a11y': 'Join the Plotbreak Discord server',
+  'community.prompt_title': 'Come hang out on Discord',
+  'community.prompt_body': 'Share your wildest moments, see what other players found, and tell us which world to build next.',
+  'community.prompt_join': 'Join the Discord',
+  'community.prompt_later': 'Not now',
 } as const;
