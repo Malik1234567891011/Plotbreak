@@ -9,8 +9,9 @@ import SwiftUI
 
 // MARK: StoryArt
 
-/// Cover art, or a deterministic gradient seeded from the story id when the
-/// world has no art yet. The seed keeps a placeholder stable across renders.
+/// Cover art, a skeleton while it loads, or a deterministic gradient seeded
+/// from the story id when the world has no art (or it failed to load). The
+/// seed keeps that fallback stable across renders.
 struct StoryArt<Overlay: View>: View {
     let seed: String
     let title: String
@@ -31,18 +32,27 @@ struct StoryArt<Overlay: View>: View {
 
     var body: some View {
         ZStack {
-            LinearGradient(
-                colors: [Color(hue: hue, saturation: 0.55, brightness: 0.45), Theme.Colors.bgRaised],
-                startPoint: .topLeading, endPoint: .bottomTrailing
-            )
-            RemoteImage(uri?.assetURL) {
-                Text(String(title.prefix(1)).uppercased())
-                    .font(.system(size: 40, weight: .bold, design: .serif))
-                    .foregroundStyle(Theme.Colors.textPrimary.opacity(0.7))
+            if let url = uri?.assetURL {
+                AsyncImage(url: url, transaction: Transaction(animation: .easeOut(duration: Theme.Durations.short))) { phase in
+                    switch phase {
+                    case .success(let image): image.resizable().aspectRatio(contentMode: .fill)
+                    case .failure: fallback
+                    default: Skeleton(radius: 0)
+                    }
+                }
+            } else {
+                fallback
             }
             overlay()
         }
         .clipped()
+    }
+
+    private var fallback: some View {
+        LinearGradient(
+            colors: [Color(hue: hue, saturation: 0.55, brightness: 0.45), Theme.Colors.bgRaised],
+            startPoint: .topLeading, endPoint: .bottomTrailing
+        )
     }
 }
 

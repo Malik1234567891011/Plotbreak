@@ -382,9 +382,11 @@ struct EmptyState: View {
 
 // MARK: Skeleton
 
+/// A pulsing block. With no height it fills whatever it is given — a cover
+/// that is still loading, say.
 struct Skeleton: View {
     var width: CGFloat? = nil
-    var height: CGFloat
+    var height: CGFloat? = nil
     var radius: CGFloat = Theme.Radius.card
     @State private var pulse = false
 
