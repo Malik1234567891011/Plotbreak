@@ -571,6 +571,13 @@ final class SessionModel {
                     // well past the top of it by now. Cards appear below what
                     // they are reading, so nothing above them moves, and a
                     // scroll at this point would only fight the reader.
+                    if let turnIndex = response.recentTurns.map(\.turnIndex).max() {
+                        await ReviewPrompt.turnCommitted(turnIndex: turnIndex) { [weak self] in
+                            guard let self, let router = self.router else { return false }
+                            return self.pending == nil && !self.sending && router.sheet == nil
+                                && router.path.last == .session(sessionId: self.sessionId)
+                        }
+                    }
                 }
             }
 
