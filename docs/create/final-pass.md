@@ -91,3 +91,97 @@ streaming, no failures.
 - **A compile is ~100 seconds.** Covered with phased copy rather than a spinner.
 - **`PLOTBREAK_CREATE` is unset in Railway**, so Create works and charges
   nothing. Setting it to `on` turns on 180/15 credit pricing.
+
+---
+
+# Round two
+
+## Why Create failed on a phone
+
+Not the env var — `PLOTBREAK_CREATE=on` was live. Everything was correct
+except the assumption underneath it: **a hundred-second synchronous HTTP
+request from a handset does not survive.** Backgrounding the app kills the
+task, and something between the phone and Railway drops a connection that has
+sent no bytes for a minute. Against localhost none of that happens, which is
+exactly why it looked fine in the simulator.
+
+Two bugs made it unreadable rather than merely broken:
+
+1. **The client mapped every network failure to `OFFLINE`**, so a timeout told
+   somebody with four bars they had no connection. That was the message.
+2. **`URLSessionConfiguration.timeoutIntervalForRequest` is an idle timeout
+   applied to every task in the session and takes precedence over
+   `URLRequest.timeoutInterval`.** The 300 seconds set per-request did nothing;
+   the real limit was always the session's 60.
+
+Fixed by making compile asynchronous. `POST …/compile` answers **202 in ~325ms**
+and the work writes its outcome to `draft.compile`; the client polls the draft
+it was already polling. A second tap is refused rather than charged twice, a
+dead process's `running` goes stale after six minutes so the draft can be
+retried, and a failed compile refunds and stays editable. Auto-generate, which
+still holds its request, got a second URLSession that is actually allowed to
+wait.
+
+And the wait screen stops lying: *"You can leave the app; it will be here"* was
+false when it was written and is true now.
+
+## The failing tests
+
+Neither the polyfill nor the test. **The root `vitest.config.ts` is empty, and
+an empty root config does not mean "use each package's config" — it means the
+per-package configs are never read.** `packages/i18n/vitest.config.ts` has
+declared the CLDR polyfill as a `setupFiles` entry all along, and running the
+suite the way everybody runs it silently skipped it. From inside the package it
+was always 31/31.
+
+The two failures were the smaller half. The other **thirty** expectations were
+passing against whatever `Intl` the machine's Node happened to ship — precisely
+the divergence the polyfill exists to remove. A suite whose job is to pin one
+CLDR across every engine was conforming to the wrong implementation, quietly,
+on every machine.
+
+A `vitest.workspace.ts` fixes it. 122 files, 2,568 tests, nothing dropped, zero
+failures.
+
+## Uploading a picture
+
+The cover and every character can take one from the camera roll. Almost all the
+work is refusing to trust it.
+
+`moderateMedia` only ever checked that a PNG was a plausible PNG — fine for art
+we generated, nowhere near enough for a stranger's photograph going onto a card
+other people browse. So `moderateImage` is a second gateway method with a far
+wider blocking list: prose gets a narrow one because fiction is the product, and
+a photograph is not making a point about anything. Anthropic's implementation
+refuses everything, because the safe answer to a missing check is no.
+
+Order is deliberate — moderate the bytes as they arrived, *then* write anything
+to disk. Then three things that each matter:
+
+- **the metadata is dropped.** A phone photo carries GPS; iOS says so itself in
+  the picker ("Location Is Included"). A creator publishing their cover has not
+  thought about telling strangers where they live.
+- **it is re-encoded** to a plain JPEG at card size, which normalises away
+  anything hiding in the container and turns 8 MB into something a card loads.
+- **it is stored under a hash of the owner's id**, so a takedown finds
+  everything one person uploaded and a public URL never carries a user id.
+
+`coverImage` left the patch surface entirely, and portraits are restored from
+storage on every patch — the cast arrives as a whole array, so a client editing
+a name could otherwise point a portrait anywhere.
+
+On the phone, `PhotosPicker` with no `photoLibrary:` argument: the app is handed
+the one chosen image and never library access, so there is no prompt and no
+Info.plist string. It transcodes and shrinks before sending, because the upload
+happens on somebody's data plan.
+
+Verified in production: 13/13, EXIF stripped, resized to 1005×1490, upload
+surviving a subsequent compile.
+
+## What is still not proven
+
+**The photo-picking leg itself.** `PHPickerViewController` runs out of process,
+so the automation cannot tap a thumbnail in it. What is proven: the picker opens
+on the zero-permission path, the client transcode has six unit tests, and the
+whole server path has fifteen. The untested link is `loadTransferable` handing
+back `Data` — ordinary Swift, and the one thing to try by hand.
