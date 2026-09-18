@@ -56,17 +56,28 @@ actor APIClient {
     private var token: String?
     private var locale: AppLocale = .en
     private var translator = Translator(locale: .en)
+    /// For requests measured in minutes. See `init`.
+    private let longSession: URLSession
 
     init(baseURL: URL = AppConfig.apiURL) {
         self.baseURL = baseURL
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 60
-        // The ceiling for a whole request, which a per-request timeoutInterval
-        // cannot raise above. Compiling a world is the one call that needs the
-        // headroom; everything else is bounded by the 60 above.
-        configuration.timeoutIntervalForResource = 300
+        configuration.timeoutIntervalForResource = 120
         configuration.waitsForConnectivity = false
         self.session = URLSession(configuration: configuration)
+
+        // A second session, for the two calls that genuinely take longer than
+        // a minute. `URLSessionConfiguration.timeoutIntervalForRequest` is an
+        // *idle* timeout applied to every task in the session and it takes
+        // precedence over `URLRequest.timeoutInterval` — so raising the latter
+        // did nothing, and Auto-generate died at exactly sixty seconds
+        // against a real server while appearing to work against localhost.
+        let patient = URLSessionConfiguration.default
+        patient.timeoutIntervalForRequest = 240
+        patient.timeoutIntervalForResource = 300
+        patient.waitsForConnectivity = false
+        self.longSession = URLSession(configuration: patient)
     }
 
     /// Installed once at boot by the app store.
@@ -105,14 +116,11 @@ actor APIClient {
         headers: [String: String] = [:],
         retryOnExpiry: Bool = true,
         useToken: String? = nil,
-        timeout: TimeInterval? = nil
+        long: Bool = false
     ) async throws -> T {
         var urlRequest = URLRequest(url: URL(string: path, relativeTo: baseURL)!.absoluteURL)
         urlRequest.httpMethod = method
-        // Everything here answers well inside the session's 60 seconds except
-        // compiling a world, which is two large generations and takes two
-        // minutes on a bad day.
-        if let timeout { urlRequest.timeoutInterval = timeout }
+
         urlRequest.setValue("application/json", forHTTPHeaderField: "accept")
         urlRequest.setValue(locale.rawValue, forHTTPHeaderField: "accept-language")
         urlRequest.setValue(AppConfig.appVersion, forHTTPHeaderField: "x-app-version")
@@ -137,7 +145,7 @@ actor APIClient {
         let data: Data
         let response: HTTPURLResponse
         do {
-            let (received, raw) = try await session.data(for: urlRequest)
+            let (received, raw) = try await (long ? longSession : session).data(for: urlRequest)
             guard let http = raw as? HTTPURLResponse else {
                 throw APIError(status: 0, code: "OFFLINE", message: translator("error.offline_action_saved"), details: nil)
             }
@@ -146,9 +154,18 @@ actor APIClient {
         } catch let error as APIError {
             throw error
         } catch {
-            // Spec §10.8 — offline is a first-class state with plain copy.
-            throw APIError(status: 0, code: "OFFLINE", message: translator("error.offline_action_saved"),
-                           details: ["cause": .string(String(describing: error))])
+            // Every network failure used to come back as OFFLINE, so a request
+            // that timed out told somebody with four bars that they had no
+            // connection. Spec §10.8 — offline is a first-class state, but it
+            // has to actually be offline.
+            let urlError = error as? URLError
+            let timedOut = urlError?.code == .timedOut
+            throw APIError(
+                status: 0,
+                code: timedOut ? "TIMEOUT" : "OFFLINE",
+                message: translator(timedOut ? "error.request_timeout" : "error.offline_action_saved"),
+                details: ["cause": .string(String(describing: error))]
+            )
         }
 
         if response.statusCode == 204 || (data.isEmpty && T.self == Empty.self) {
@@ -167,7 +184,7 @@ actor APIClient {
             if response.statusCode == 401, recoverable, retryOnExpiry {
                 token = nil
                 if let renewed = await authorization(force: true) {
-                    return try await request(method, path, body: body, headers: headers, retryOnExpiry: false, useToken: renewed, timeout: timeout)
+                    return try await request(method, path, body: body, headers: headers, retryOnExpiry: false, useToken: renewed, long: long)
                 }
             }
 
@@ -575,15 +592,19 @@ actor APIClient {
         return try await request(
             "POST",
             "/v1/create/drafts/\(draftId)/compile",
-            body: Body(pitch: pitch, tone: tone?.rawValue, length: length.rawValue, pov: pov.rawValue, locale: locale.rawValue),
-            timeout: 300
+            body: Body(pitch: pitch, tone: tone?.rawValue, length: length.rawValue, pov: pov.rawValue, locale: locale.rawValue)
         )
     }
 
     /// Auto-generate, one field or one entity at a time.
     func assistDraft(_ draftId: String, target: AssistTarget, index: Int? = nil) async throws -> DraftResponse {
         struct Body: Encodable { let target: String; let index: Int? }
-        return try await request("POST", "/v1/create/drafts/\(draftId)/assist", body: Body(target: target.rawValue, index: index), timeout: 180)
+        return try await request(
+            "POST",
+            "/v1/create/drafts/\(draftId)/assist",
+            body: Body(target: target.rawValue, index: index),
+            long: true
+        )
     }
 
     func publishDraft(_ draftId: String, visibility: DraftVisibility) async throws -> PublishDraftResponse {

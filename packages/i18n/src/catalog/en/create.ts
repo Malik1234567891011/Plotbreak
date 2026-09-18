@@ -73,7 +73,8 @@ export const create = {
   'create.compiling_world': 'Writing the world, the places and the opening…',
   'create.compiling_cast': 'Casting the people and setting things in motion…',
   'create.compiling_finishing': 'Nearly there…',
-  'create.compiling_wait': 'This takes a minute or two. You can leave the app; it will be here.',
+  'create.compiling_wait':
+    'This takes a minute or two. It carries on without you — leave the app, or come back later, and it will be waiting.',
   'create.refused_title': 'Not this one',
 
   /* --- The builder shell ------------------------------------------------- */
@@ -304,4 +305,5 @@ export const create = {
   'create.issue_ending_condition_missing_n': 'Ending {n} does not say when it happens.',
   'create.issue_description_missing': 'Write the description.',
   'create.issue_need_one_tag': 'Add at least one tag.',
+  'create.err_already_compiling': 'This story is already being built. Give it a moment.',
 } as const;

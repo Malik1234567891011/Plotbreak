@@ -171,6 +171,24 @@ async function newDraft(): Promise<string> {
   return response.json().draft.draftId;
 }
 
+/**
+ * Wait for the detached compile to land.
+ *
+ * Compiling answers 202 and finishes in its own time, so a test that wants the
+ * finished world has to wait for it the same way the client does. The scripted
+ * gateway resolves immediately, so this is a handful of ticks rather than a
+ * sleep.
+ */
+async function settled(draftId: string): Promise<any> {
+  for (let attempt = 0; attempt < 200; attempt += 1) {
+    const response = await app.inject({ method: 'GET', url: `/v1/create/drafts/${draftId}`, headers: auth });
+    const body = response.json();
+    if (body.draft.compile.status !== 'running') return body;
+    await new Promise((resolve) => setTimeout(resolve, 5));
+  }
+  throw new Error('compile never settled');
+}
+
 async function compiled(): Promise<string> {
   const draftId = await newDraft();
   const response = await app.inject({
@@ -179,7 +197,11 @@ async function compiled(): Promise<string> {
     headers: auth,
     payload: { pitch: 'Two sisters keep a lighthouse through a winter that will not end.' },
   });
-  expect(response.statusCode).toBe(200);
+  // Accepted, not finished.
+  expect(response.statusCode).toBe(202);
+  expect(response.json().draft.compile.status).toBe('running');
+  const done = await settled(draftId);
+  expect(done.draft.compile.status).toBe('done');
   return draftId;
 }
 
@@ -256,17 +278,55 @@ describe('create mode', () => {
     expect(response.json().code).toBe('PITCH_TOO_SHORT');
   });
 
-  it('passes a refusal through as a refusal, not an error', async () => {
+  it('records a refusal on the draft, as a refusal rather than a failure', async () => {
     start(scriptedGateway([{ ...SPINE, refusal: 'I will not build that.' }]));
     const draftId = await newDraft();
-    const response = await app.inject({
+    const accepted = await app.inject({
       method: 'POST',
       url: `/v1/create/drafts/${draftId}/compile`,
       headers: auth,
       payload: { pitch: 'Something this product does not make.' },
     });
-    expect(response.statusCode).toBe(422);
-    expect(response.json()).toMatchObject({ code: 'PITCH_REFUSED', message: 'I will not build that.' });
+    expect(accepted.statusCode).toBe(202);
+    const done = await settled(draftId);
+    expect(done.draft.compile).toMatchObject({
+      status: 'refused',
+      message: 'I will not build that.',
+    });
+  });
+
+  it('refuses a second compile while one is already running', async () => {
+    // Two taps would charge twice and race each other's writes.
+    const draftId = await newDraft();
+    const payload = { pitch: 'Two sisters keep a lighthouse through a winter that will not end.' };
+    const first = await app.inject({
+      method: 'POST', url: `/v1/create/drafts/${draftId}/compile`, headers: auth, payload,
+    });
+    expect(first.statusCode).toBe(202);
+    const second = await app.inject({
+      method: 'POST', url: `/v1/create/drafts/${draftId}/compile`, headers: auth, payload,
+    });
+    expect([409, 202]).toContain(second.statusCode);
+    await settled(draftId);
+  });
+
+  it('marks the draft failed and keeps it editable when the model throws', async () => {
+    start(scriptedGateway([new Error('provider exploded')]));
+    const draftId = await newDraft();
+    const accepted = await app.inject({
+      method: 'POST',
+      url: `/v1/create/drafts/${draftId}/compile`,
+      headers: auth,
+      payload: { pitch: 'Two sisters keep a lighthouse through a winter that will not end.' },
+    });
+    expect(accepted.statusCode).toBe(202);
+    const done = await settled(draftId);
+    expect(done.draft.compile.status).toBe('failed');
+    // Still theirs, still editable — a failed compile must not strand a draft.
+    const patched = await app.inject({
+      method: 'PATCH', url: `/v1/create/drafts/${draftId}`, headers: auth, payload: { title: 'By hand' },
+    });
+    expect(patched.json().draft.title).toBe('By hand');
   });
 
   it('rewrites a single field with auto-generate', async () => {

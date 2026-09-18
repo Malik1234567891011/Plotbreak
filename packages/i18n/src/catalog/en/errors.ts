@@ -134,4 +134,5 @@ export const errors = {
 
   /** Apple's sheet returned without the token, which is a retry, not a refusal. */
   'error.apple_no_token': 'Apple did not return a sign-in token. Try again.',
+  'error.request_timeout': 'That took longer than expected. Nothing was lost — try again.',
 } as const;

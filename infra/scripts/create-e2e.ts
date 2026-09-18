@@ -122,13 +122,29 @@ async function main(): Promise<void> {
   const draftId = started.draft.draftId;
 
   const t0 = Date.now();
-  const compiled = await call<any>('POST', `/v1/create/drafts/${draftId}/compile`, {
+  // Compiling answers 202 and finishes in its own time; the client watches the
+  // draft. Same thing here.
+  await call<any>('POST', `/v1/create/drafts/${draftId}/compile`, {
     pitch: pitch.text,
     tone: pitch.tone,
     length: pitch.length,
     pov: pitch.pov,
     locale,
   });
+  let compiled: any = null;
+  for (let attempt = 0; attempt < 200; attempt += 1) {
+    await new Promise((r) => setTimeout(r, 3000));
+    const seen = await call<any>('GET', `/v1/create/drafts/${draftId}`);
+    if (seen.draft.compile.status !== 'running') {
+      compiled = seen;
+      break;
+    }
+  }
+  if (!compiled) throw new Error('compile never settled');
+  if (compiled.draft.compile.status !== 'done') {
+    console.log(`\n${compiled.draft.compile.status}: ${compiled.draft.compile.message}`);
+    return;
+  }
   const compileMs = Date.now() - t0;
   const d = compiled.draft;
 

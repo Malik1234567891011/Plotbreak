@@ -10,6 +10,7 @@ import {
   DRAFT_VISIBILITIES,
   StoryDraft,
   StoryDraftPatch,
+  compileIsStale,
   draftReadiness,
   draftToStoryVersion,
   emptyDraft,
@@ -190,11 +191,17 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
   });
 
   /**
-   * The pitch, compiled into a world.
+   * Start compiling the pitch into a world.
    *
-   * The one place a creator waits, and the one worth waiting for. Charged
-   * before the call and refunded on any failure, because there is nothing to
-   * meter afterwards.
+   * Returns as soon as the work is under way rather than holding the
+   * connection for the hundred seconds it takes. A phone cannot hold that:
+   * backgrounding the app kills the task, an idle connection gets dropped
+   * somewhere between the handset and here, and the client reported every one
+   * of those as "you are offline" to somebody who was not.
+   *
+   * So this charges, marks the draft, kicks the work off and answers 202. The
+   * work writes its own result onto `draft.compile`, which the client is
+   * already polling because it polls the draft.
    */
   app.post<{
     Params: { draftId: string };
@@ -206,6 +213,11 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
     if (!draft) return reply;
     if (!ctx.modelGateway) {
       return sendError(reply, 503, 'NO_MODEL', 'Story building is unavailable right now.');
+    }
+    // Two taps on one draft would charge twice and race each other's writes.
+    // A compile whose process died is not running, whatever the draft says.
+    if (draft.compile.status === 'running' && !compileIsStale(draft.compile)) {
+      return sendError(reply, 409, 'ALREADY_COMPILING', 'This story is already being built.');
     }
 
     const body = request.body ?? {};
@@ -224,6 +236,15 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
     if (pitch.text.trim().length < 20) {
       return sendError(reply, 400, 'PITCH_TOO_SHORT', 'Tell me a little more about your story first.');
     }
+
+    // The language every field comes back in, said once rather than inferred
+    // twice: the compiler's two calls disagreed about it the first time it ran
+    // for real, and produced an English world with a French cast.
+    const locale = resolveLocale(
+      body.locale,
+      user.settings.locale,
+      resolveDeviceLocale(request.headers['accept-language']),
+    );
 
     const idempotencyKey = `compile:${draft.draftId}:${randomUUID()}`;
     if (CHARGING) {
@@ -247,49 +268,72 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
       }
     }
 
-    // The language every field comes back in, said once rather than inferred
-    // twice: the compiler's two calls disagreed about it the first time it ran
-    // for real, and produced an English world with a French cast.
-    const locale = resolveLocale(
-      request.body?.locale,
-      user.settings.locale,
-      resolveDeviceLocale(request.headers['accept-language']),
-    );
+    const started = StoryDraft.parse({
+      ...draft,
+      pitch,
+      compile: { status: 'running', startedAt: new Date().toISOString(), message: '' },
+      updatedAt: new Date().toISOString(),
+    });
+    await ctx.repo.putDraft(started);
 
-    try {
-      const result = await compileStory({ gateway: ctx.modelGateway, pitch, locale });
-      if (result.refusal) {
-        if (CHARGING) {
-          await ctx.wallet.refundCreate(
-            user.userId,
-            draft.draftId,
-            CREATE_COMPILE_COST_CREDITS,
-            idempotencyKey,
+    // Deliberately not awaited. The reply has already gone; this finishes in
+    // its own time and the only thing that reads the outcome is the draft.
+    void (async () => {
+      try {
+        const result = await compileStory({ gateway: ctx.modelGateway!, pitch, locale });
+        // Re-read: the creator may have edited the draft while this ran, and
+        // their typing outranks a field the compiler is about to overwrite.
+        const current = (await ctx.repo.getDraft(draft.draftId)) ?? started;
+        if (result.refusal) {
+          if (CHARGING) {
+            await ctx.wallet
+              .refundCreate(user.userId, draft.draftId, CREATE_COMPILE_COST_CREDITS, idempotencyKey)
+              .catch(() => undefined);
+          }
+          await ctx.repo.putDraft(
+            StoryDraft.parse({
+              ...current,
+              compile: { status: 'refused', startedAt: null, message: result.refusal },
+              updatedAt: new Date().toISOString(),
+            }),
           );
+          return;
         }
-        return sendError(reply, 422, 'PITCH_REFUSED', result.refusal);
-      }
-      const next = StoryDraft.parse({
-        ...draft,
-        ...result.patch,
-        updatedAt: new Date().toISOString(),
-      });
-      await ctx.repo.putDraft(next);
-      tracker(ctx, request, user).track('create_compiled', {
-        draftId: draft.draftId,
-        characters: next.characters.length,
-        places: next.places.length,
-        endings: next.endings.length,
-      });
-      return { draft: next, readiness: draftReadiness(next) };
-    } catch (error) {
-      if (CHARGING) {
-        await ctx.wallet
-          .refundCreate(user.userId, draft.draftId, CREATE_COMPILE_COST_CREDITS, idempotencyKey)
+        const next = StoryDraft.parse({
+          ...current,
+          ...result.patch,
+          compile: { status: 'done', startedAt: null, message: '' },
+          updatedAt: new Date().toISOString(),
+        });
+        await ctx.repo.putDraft(next);
+        tracker(ctx, request, user).track('create_compiled', {
+          draftId: draft.draftId,
+          characters: next.characters.length,
+          places: next.places.length,
+          endings: next.endings.length,
+        });
+      } catch (error) {
+        request.log.error({ err: error, draftId: draft.draftId }, 'compile failed');
+        if (CHARGING) {
+          await ctx.wallet
+            .refundCreate(user.userId, draft.draftId, CREATE_COMPILE_COST_CREDITS, idempotencyKey)
+            .catch(() => undefined);
+        }
+        const current = (await ctx.repo.getDraft(draft.draftId)) ?? started;
+        await ctx.repo
+          .putDraft(
+            StoryDraft.parse({
+              ...current,
+              compile: { status: 'failed', startedAt: null, message: '' },
+              updatedAt: new Date().toISOString(),
+            }),
+          )
           .catch(() => undefined);
       }
-      throw error;
-    }
+    })();
+
+    void reply.code(202);
+    return { draft: started, readiness: draftReadiness(started) };
   });
 
   /** Auto-generate, one field at a time. */

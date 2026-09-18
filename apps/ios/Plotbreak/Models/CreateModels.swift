@@ -167,6 +167,20 @@ struct DraftPitch: Codable, Hashable {
     @Default<Fallback<DraftPov>> var pov: DraftPov
 }
 
+/// Twin of `CompileState`. `status` stays a String rather than an enum so a
+/// value the server adds later cannot fail the whole draft's decode.
+struct CompileState: Codable, Hashable {
+    @Default<CompileIdle> var status: String
+    var startedAt: String?
+    @Default<EmptyString> var message: String
+
+    var isRunning: Bool { status == "running" }
+}
+
+enum CompileIdle: DefaultValueProvider {
+    static var defaultValue: String { "idle" }
+}
+
 // MARK: The draft
 
 struct StoryDraft: Codable, Hashable, Identifiable {
@@ -182,6 +196,9 @@ struct StoryDraft: Codable, Hashable, Identifiable {
     var isPublished: Bool { publishedVersionId != nil }
 
     var pitch: DraftPitch
+    /// Where a compile has got to. The client watches this rather than holding
+    /// a two-minute request open.
+    var compile: CompileState
 
     // Profile
     @Default<EmptyString> var title: String

@@ -163,4 +163,5 @@ export const errors = {
    * un refus, et la phrase le dit.
    */
   'error.apple_no_token': 'Apple n’a pas renvoyé de jeton de connexion. Réessaie.',
+  'error.request_timeout': 'Ça a pris plus de temps que prévu. Rien n’est perdu, réessaie.',
 } as const;

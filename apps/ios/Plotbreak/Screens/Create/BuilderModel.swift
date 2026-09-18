@@ -132,27 +132,70 @@ final class BuilderModel {
 
     // MARK: Model work
 
+    /// Start the compile, then watch the draft until it finishes.
+    ///
+    /// The request returns as soon as the work is under way, so nothing here
+    /// depends on a connection staying open for two minutes — which is what
+    /// made this fail on a real phone while appearing to work against
+    /// localhost, and what made the wait screen's "you can leave the app" a
+    /// lie rather than a promise.
     func compile(pitch: String, tone: DraftTone?, length: DraftLength, pov: DraftPov) async {
         guard !busy else { return }
         work = .compiling
         errorMessage = nil
         refusal = nil
-        defer { work = .idle }
         do {
-            let response = try await api.compileDraft(
+            let started = try await api.compileDraft(
                 draft.draftId, pitch: pitch, tone: tone, length: length, pov: pov, locale: locale
             )
-            draft = response.draft
-            readiness = response.readiness
+            draft = started.draft
+            readiness = started.readiness
             pending = [:]
             dirty = false
-            step = .profile
+            await watchCompile()
         } catch let error as APIError {
-            // A refusal is the model's own sentence, written in the creator's
-            // language by the compiler, so it is shown as it came back.
-            if error.code == "PITCH_REFUSED" { refusal = error.message } else { errorMessage = message(for: error) }
+            work = .idle
+            errorMessage = message(for: error)
         } catch {
-            errorMessage = nil
+            work = .idle
+        }
+    }
+
+    /// Poll until the compile lands.
+    ///
+    /// Safe to re-enter, and called on appear as well as after starting one, so
+    /// reopening a draft whose compile is still running rejoins the wait rather
+    /// than showing a half-built story.
+    func watchCompile() async {
+        guard draft.compile.isRunning else {
+            work = .idle
+            return
+        }
+        work = .compiling
+        defer { work = .idle }
+        while !Task.isCancelled {
+            // Long enough that a two-minute wait is forty requests rather than
+            // four hundred; short enough that the screen does not sit there on
+            // a story that is already finished.
+            try? await Task.sleep(for: .seconds(3))
+            guard !Task.isCancelled else { return }
+            guard let response = try? await api.draft(draft.draftId) else { continue }
+            draft = response.draft
+            readiness = response.readiness
+            switch response.draft.compile.status {
+            case "running":
+                continue
+            case "refused":
+                // The compiler's own sentence, already in the creator's language.
+                refusal = response.draft.compile.message
+                return
+            case "failed":
+                errorMessage = t("create.err_compile_failed")
+                return
+            default:
+                step = .profile
+                return
+            }
         }
     }
 
@@ -344,6 +387,7 @@ func createErrorText(_ error: APIError, _ t: Translator) -> String {
     case "NOT_PUBLISHED": return t("create.err_not_published")
     case "NO_MODEL": return t("create.err_no_model")
     case "COMPILE_FAILED": return t("create.err_compile_failed")
+    case "ALREADY_COMPILING": return t("create.err_already_compiling")
     case "NOT_THERE", "UNKNOWN_TARGET": return t("create.err_not_there")
     case "INVALID_PATCH", "INVALID_VISIBILITY": return t("create.err_invalid_patch")
     default: return error.message

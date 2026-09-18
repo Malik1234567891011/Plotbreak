@@ -81,7 +81,7 @@ export const create = {
   'create.compiling_cast': 'Distribution des rôles, et mise en route…',
   'create.compiling_finishing': 'Presque fini…',
   'create.compiling_wait':
-    'Ça prend une ou deux minutes. Tu peux quitter l’app, ce sera là à ton retour.',
+    'Ça prend une ou deux minutes. Ça continue sans toi — quitte l’app ou reviens plus tard, ce sera prêt.',
   'create.refused_title': 'Pas celle-là',
 
   /* --- L’éditeur --------------------------------------------------------- */
@@ -321,4 +321,5 @@ export const create = {
   'create.issue_ending_condition_missing_n': 'La fin {n} ne dit pas quand elle arrive.',
   'create.issue_description_missing': 'Écris la description.',
   'create.issue_need_one_tag': 'Ajoute au moins une étiquette.',
+  'create.err_already_compiling': 'Cette histoire est déjà en construction. Laisse-lui un instant.',
 } as const;

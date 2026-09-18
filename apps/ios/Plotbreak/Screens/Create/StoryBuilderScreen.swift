@@ -24,7 +24,9 @@ struct StoryBuilderScreen: View {
 
     var body: some View {
         Screen {
-            if let model {
+            if let model, model.compiling {
+                CompilingView()
+            } else if let model {
                 content(model)
             } else if loadFailed {
                 EmptyState(title: t("create.not_found"), message: t("create.not_found_body"),
@@ -33,7 +35,13 @@ struct StoryBuilderScreen: View {
                 ProgressView().tint(Theme.Colors.accentPrimary).frame(maxHeight: .infinity)
             }
         }
-        .task { await load() }
+        .task {
+            await load()
+            // Reopening a draft whose compile is still running rejoins the
+            // wait. Without this, leaving the app mid-build and coming back
+            // showed an empty story that was about to fill itself in.
+            await model?.watchCompile()
+        }
         .sheet(isPresented: $publishing) {
             if let model {
                 PublishSheet(model: model) { storyId in

@@ -198,6 +198,47 @@ export const DraftPitch = z
   .default({ text: '', tone: null, length: 'medium', pov: 'blank' });
 export type DraftPitch = z.infer<typeof DraftPitch>;
 
+/**
+ * Where a compile has got to.
+ *
+ * Compiling takes a hundred seconds, and holding an HTTP request open for a
+ * hundred seconds from a phone does not work: backgrounding the app kills the
+ * task, a tunnel between the handset and the server drops an idle connection,
+ * and the client's own error handling reported all of it as "you are offline"
+ * to somebody who was not. So the request starts the work and returns, the
+ * work writes its result here, and the client watches this field.
+ *
+ * Lives on the draft rather than in a job table because it is a property of
+ * the draft — there is at most one compile per draft, ever — and because the
+ * client already polls the draft.
+ */
+export const CompileState = z
+  .object({
+    status: z.enum(['idle', 'running', 'done', 'refused', 'failed']).default('idle'),
+    startedAt: z.string().nullable().default(null),
+    /** The refusal, or what went wrong. Empty otherwise. */
+    message: z.string().max(2000).default(''),
+  })
+  .strict()
+  .default({ status: 'idle', startedAt: null, message: '' });
+export type CompileState = z.infer<typeof CompileState>;
+
+/**
+ * How long a `running` compile is believed before it is treated as lost.
+ *
+ * Nothing resumes a compile whose process died holding it, so without this a
+ * Railway restart at the wrong moment leaves a draft that says "building…"
+ * forever and cannot be retried. Generous, because the honest failure is a
+ * creator waiting two minutes too long rather than one told to start again
+ * while the work is still running.
+ */
+export const COMPILE_STALE_MS = 6 * 60 * 1000;
+
+export function compileIsStale(compile: CompileState, now = Date.now()): boolean {
+  if (compile.status !== 'running' || !compile.startedAt) return false;
+  return now - new Date(compile.startedAt).getTime() > COMPILE_STALE_MS;
+}
+
 export const StoryDraft = z
   .object({
     draftId: z.string(),
@@ -210,6 +251,7 @@ export const StoryDraft = z
     updatedAt: z.string(),
 
     pitch: DraftPitch,
+    compile: CompileState,
 
     // 1. Profile
     title: z.string().max(50).default(''),
