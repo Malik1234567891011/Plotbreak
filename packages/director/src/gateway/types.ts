@@ -162,6 +162,17 @@ export interface ModelGateway {
   embed(texts: readonly string[]): Promise<number[][]>;
 
   moderate(input: string): Promise<ModerationResult>;
+
+  /**
+   * Whether a picture somebody uploaded may be published.
+   *
+   * Separate from `moderate` because the bar is not the same one. Story prose
+   * is fiction and gets a narrow blocking list — fantasy violence is the
+   * product. A photograph out of a stranger's camera roll is not fiction, it
+   * is going into a catalogue other people browse, and almost every category
+   * the moderator reports is disqualifying.
+   */
+  moderateImage(dataUrl: string): Promise<ModerationResult>;
 }
 
 export class ModelGatewayError extends Error {

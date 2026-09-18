@@ -612,6 +612,33 @@ actor APIClient {
         return try await request("POST", "/v1/create/drafts/\(draftId)/publish", body: Body(visibility: visibility.rawValue))
     }
 
+    /// Send a picture for a cover or a character.
+    ///
+    /// Base64 in a JSON body rather than multipart: the client already speaks
+    /// JSON everywhere, an 8 MB cap makes the 33% encoding overhead bounded and
+    /// irrelevant, and multipart would be the only form in the whole API.
+    /// Goes through the patient session — moderating and re-encoding a photo
+    /// takes longer than a minute on a bad connection.
+    func uploadDraftImage(
+        _ draftId: String,
+        kind: DraftImageKind,
+        index: Int? = nil,
+        jpeg: Data
+    ) async throws -> DraftImageResponse {
+        struct Body: Encodable { let kind: String; let index: Int?; let data: String }
+        return try await request(
+            "POST",
+            "/v1/create/drafts/\(draftId)/image",
+            body: Body(kind: kind.rawValue, index: index, data: jpeg.base64EncodedString()),
+            long: true
+        )
+    }
+
+    func removeDraftImage(_ draftId: String, kind: DraftImageKind, index: Int? = nil) async throws -> DraftResponse {
+        let query = index == nil ? "?kind=\(kind.rawValue)" : "?kind=\(kind.rawValue)&index=\(index!)"
+        return try await request("DELETE", "/v1/create/drafts/\(draftId)/image" + query)
+    }
+
     func setDraftVisibility(_ draftId: String, visibility: DraftVisibility) async throws -> DraftResponse {
         struct Body: Encodable { let visibility: String }
         return try await request("POST", "/v1/create/drafts/\(draftId)/visibility", body: Body(visibility: visibility.rawValue))

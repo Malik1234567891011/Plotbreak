@@ -322,4 +322,18 @@ export const create = {
   'create.issue_description_missing': 'Écris la description.',
   'create.issue_need_one_tag': 'Ajoute au moins une étiquette.',
   'create.err_already_compiling': 'Cette histoire est déjà en construction. Laisse-lui un instant.',
+  'create.image_choose': 'Choisir une image',
+  'create.image_checking': 'Vérification…',
+  'create.image_yours': 'Ton image',
+  'create.image_replace': 'Remplacer',
+  'create.image_remove': 'Retirer',
+  'create.image_too_big': 'Cette image est trop lourde. Reste sous 8 Mo.',
+  'create.f_cover_image': 'Image de couverture',
+  'create.f_cover_image_help':
+    'Facultatif. Si tu en choisis une, on l’utilise telle quelle ; sinon on la dessine à partir de la description ci-dessous.',
+  'create.f_portrait': 'Son image',
+  'create.f_portrait_help': 'Facultatif. Sinon on le ou la dessine à partir de la description.',
+  'create.err_image_rejected': 'Cette image ne peut pas être utilisée ici. Essaie une autre.',
+  'create.err_image_format': 'Utilise un JPEG ou un PNG.',
+  'create.err_image_failed': 'Cette image n’a pas pu être enregistrée. Réessaie.',
 } as const;

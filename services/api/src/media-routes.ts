@@ -104,11 +104,17 @@ export function registerMediaRoutes(app: FastifyInstance, ctx: AppContext): void
         return sendError(reply, 400, 'INVALID_PATH', 'Bad asset path.');
       }
 
-      const base = candidate.replace(/\.(webp|png)$/, '');
+      const base = candidate.replace(/\.(webp|png|jpg)$/, '');
       // A localised cover (`cover.fr`) falls back to the unlocalised one, so a
       // world whose French cover has not been made yet still shows a cover.
       const bases = /\.[a-z]{2}$/.test(base) ? [base, base.replace(/\.[a-z]{2}$/, '')] : [base];
-      for (const [b, extension] of bases.flatMap((b) => (['.webp', '.png'] as const).map((e) => [b, e] as const))) {
+      // `.jpg` last, and only reached by an upload asking for it: our own art
+      // is PNG with a WebP derivative, and a creator's photo is a JPEG because
+      // that is what a phone produces and re-encoding it to PNG would triple
+      // it for nothing.
+      for (const [b, extension] of bases.flatMap((b) =>
+        (['.webp', '.png', '.jpg'] as const).map((e) => [b, e] as const),
+      )) {
         const path = `${b}${extension}`;
         try {
           const info = await stat(path);

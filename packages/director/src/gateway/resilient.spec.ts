@@ -17,6 +17,7 @@ function gateway(impl: () => Promise<unknown>): ModelGateway {
     streamText: async function* () {},
     embed: async () => [],
     moderate: async () => ({ flagged: false, categories: [], playerFacingMessage: null }),
+    moderateImage: async () => ({ flagged: false, categories: [], playerFacingMessage: null }),
   } as ModelGateway;
 }
 

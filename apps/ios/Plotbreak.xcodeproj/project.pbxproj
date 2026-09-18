@@ -46,6 +46,7 @@
 		89DB08437441C705BB948737 /* AuthRestoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503CCD8AC8A5D5907DD14A9D /* AuthRestoreTests.swift */; };
 		8D0CCE9FDAD25563F973C40A /* Translator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA54D00F6EC27CB276F4FD20 /* Translator.swift */; };
 		9040C6871F3903E3DD13B986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E0E7A559F500F64D4CF09B /* Assets.xcassets */; };
+		91C1BB03532C74BD94D9AD83 /* ImageTranscodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2568D20FC0154BACE15775 /* ImageTranscodeTests.swift */; };
 		9E4F94CC781194F9D58142DC /* ShareScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030E28875DB8277118DA99D2 /* ShareScreen.swift */; };
 		A0657242650858F28DE0776E /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = 4EEC5F8372C2F1E3577DDD40 /* PostHog */; };
 		A0DDC93C1AE0EE44754CD171 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95A968ED6D13C7F254C0D62 /* Components.swift */; };
@@ -68,6 +69,7 @@
 		DC5E34C974AC88FC2C4E4CB0 /* CreateModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7447ABD392C7DEA8623BFD /* CreateModels.swift */; };
 		DDE90FB50E0FE3240A9BB2E3 /* SessionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E8EF9CDE7EB8B53453459 /* SessionScreen.swift */; };
 		DF3566E4DA4DB88B778C0CA9 /* DiscoverScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748A3B47451A87C277670444 /* DiscoverScreen.swift */; };
+		E41A1D49C21ADB1B76DAFFDC /* ImagePickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78022B888795DB01DFBAC500 /* ImagePickerField.swift */; };
 		EA4CBEE11F2EFD2979523D13 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0211E01F516253ADF946344D /* FlowLayout.swift */; };
 		F53C0AD2A89F261070AA2B0B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = EB321C91A034368F072506DE /* GoogleSignIn */; };
 		FBC98F24A8C946047B10EAC1 /* DiscoverSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90A154FFF4439F0E8FB8A4 /* DiscoverSnapshotTests.swift */; };
@@ -121,6 +123,7 @@
 		7062C42A778A06C894C39944 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		748A3B47451A87C277670444 /* DiscoverScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverScreen.swift; sourceTree = "<group>"; };
 		74E8243255B5DED5FA9D6E33 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		78022B888795DB01DFBAC500 /* ImagePickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerField.swift; sourceTree = "<group>"; };
 		7E7447ABD392C7DEA8623BFD /* CreateModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateModels.swift; sourceTree = "<group>"; };
 		7EA024198D0AC8C9F05F092F /* GeneratedEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedEvents.swift; sourceTree = "<group>"; };
 		868B9206CD1F1F86A579B82A /* Attribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribution.swift; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 		CE82608187E8284B5DF1DBFE /* PurchaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseTests.swift; sourceTree = "<group>"; };
 		D75EC8949A240D64D0B650E9 /* Diagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagnostics.swift; sourceTree = "<group>"; };
 		D971192A0E678F7F100B4E6B /* Plotbreak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Plotbreak.entitlements; sourceTree = "<group>"; };
+		DA2568D20FC0154BACE15775 /* ImageTranscodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTranscodeTests.swift; sourceTree = "<group>"; };
 		E0BFBA0CD80BADAEAE409E44 /* Purchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
 		E0DB67F33A34525413EFA20C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		E48CB6CC290F5414ACB6B130 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
@@ -256,6 +260,7 @@
 				503CCD8AC8A5D5907DD14A9D /* AuthRestoreTests.swift */,
 				BA90A154FFF4439F0E8FB8A4 /* DiscoverSnapshotTests.swift */,
 				C208C9F72C78893FD833371D /* FoundationTests.swift */,
+				DA2568D20FC0154BACE15775 /* ImageTranscodeTests.swift */,
 				CE82608187E8284B5DF1DBFE /* PurchaseTests.swift */,
 			);
 			path = PlotbreakTests;
@@ -268,6 +273,7 @@
 				96785D1CDA5C556CA2ADA666 /* BuilderModel.swift */,
 				0BB3BFDB423F3BCBDAA25047 /* BuilderSteps.swift */,
 				4152384023FFA3BFCEB0EFE8 /* CreateTabScreen.swift */,
+				78022B888795DB01DFBAC500 /* ImagePickerField.swift */,
 				321AA777134BA0D59A888A7F /* PitchScreen.swift */,
 				10E0D2EC12DFF3D36484BBAF /* StoryBuilderScreen.swift */,
 			);
@@ -667,6 +673,7 @@
 				89DB08437441C705BB948737 /* AuthRestoreTests.swift in Sources */,
 				FBC98F24A8C946047B10EAC1 /* DiscoverSnapshotTests.swift in Sources */,
 				1E3AD14F7D3FF1BAB6DF449A /* FoundationTests.swift in Sources */,
+				91C1BB03532C74BD94D9AD83 /* ImageTranscodeTests.swift in Sources */,
 				2B5A58DDB491D4F748A85C7D /* PurchaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -697,6 +704,7 @@
 				0E44409BA62A8F55FA9B2290 /* DiscoverSnapshot.swift in Sources */,
 				EA4CBEE11F2EFD2979523D13 /* FlowLayout.swift in Sources */,
 				C509A7B6E5EBAF4CD62C6F36 /* GeneratedEvents.swift in Sources */,
+				E41A1D49C21ADB1B76DAFFDC /* ImagePickerField.swift in Sources */,
 				D3A020B8146E23B6690E0A23 /* LibraryScreen.swift in Sources */,
 				4892C91138FCDC0EF6CCE904 /* Models.swift in Sources */,
 				CA96F809A47D0ACAC2130D55 /* MyInformationScreen.swift in Sources */,

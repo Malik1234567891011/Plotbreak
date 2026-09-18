@@ -261,6 +261,22 @@ export class AnthropicGateway implements ModelGateway {
     );
   }
 
+  /**
+   * Refuses, always.
+   *
+   * There is no image moderation here, and the safe behaviour for a missing
+   * check on user-uploaded pictures is to decline rather than to wave them
+   * through. If this provider ever becomes the one serving uploads, this has
+   * to be implemented before the feature works, which is the correct way round.
+   */
+  async moderateImage(): Promise<ModerationResult> {
+    return {
+      flagged: true,
+      categories: ['unavailable'],
+      playerFacingMessage: 'Pictures cannot be checked right now. Try again later.',
+    };
+  }
+
   async moderate(input: string): Promise<ModerationResult> {
     const schema = {
       safeParse: (value: unknown) => ({ success: true as const, data: value as { flagged: boolean; categories: string[] } }),

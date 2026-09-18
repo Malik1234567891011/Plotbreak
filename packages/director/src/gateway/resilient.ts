@@ -71,6 +71,10 @@ export class ResilientGateway implements ModelGateway {
     return this.#inner.embed(texts);
   }
 
+  async moderateImage(dataUrl: string): Promise<ModerationResult> {
+    return this.#attempt('moderation', () => this.#inner.moderateImage(dataUrl));
+  }
+
   async moderate(input: string): Promise<ModerationResult> {
     return this.#attempt('moderation', () => this.#inner.moderate(input));
   }

@@ -306,4 +306,18 @@ export const create = {
   'create.issue_description_missing': 'Write the description.',
   'create.issue_need_one_tag': 'Add at least one tag.',
   'create.err_already_compiling': 'This story is already being built. Give it a moment.',
+  'create.image_choose': 'Choose a picture',
+  'create.image_checking': 'Checking it…',
+  'create.image_yours': 'Your picture',
+  'create.image_replace': 'Replace',
+  'create.image_remove': 'Remove',
+  'create.image_too_big': 'That picture is too large. Keep it under 8 MB.',
+  'create.f_cover_image': 'Cover picture',
+  'create.f_cover_image_help':
+    'Optional. Choose one and we use it as-is; leave it and we draw one from the description below.',
+  'create.f_portrait': 'Their picture',
+  'create.f_portrait_help': 'Optional. Leave it and we draw them from the description.',
+  'create.err_image_rejected': 'That picture cannot be used here. Try a different one.',
+  'create.err_image_format': 'Use a JPEG or a PNG.',
+  'create.err_image_failed': 'That picture could not be saved. Try again.',
 } as const;

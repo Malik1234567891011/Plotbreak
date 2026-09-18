@@ -3,6 +3,7 @@ import { StoryVersion } from '../game/story.js';
 import {
   draftReadiness,
   padPlaystyle,
+  preserveUploads,
   draftToStoryVersion,
   emptyDraft,
   StoryDraft,
@@ -267,5 +268,57 @@ describe('padPlaystyle', () => {
 
   it('never gives more than four', () => {
     expect(padPlaystyle(['a', 'b', 'c', 'd', 'e']).length).toBe(4);
+  });
+});
+
+describe('preserveUploads', () => {
+  const withImages = (draft: Draft): Draft => ({
+    ...draft,
+    coverImage: '/media/uploads/abc/cover_1.jpg',
+    characters: draft.characters.map((c, i) =>
+      i === 0 ? { ...c, portrait: '/media/uploads/abc/character_1.jpg' } : c,
+    ),
+  });
+
+  it('ignores a cover url a patch tried to set', () => {
+    const stored = withImages(filled());
+    const patched = { ...stored, coverImage: 'https://evil.example/x.jpg' };
+    expect(preserveUploads(stored, patched).coverImage).toBe('/media/uploads/abc/cover_1.jpg');
+  });
+
+  it('ignores a portrait a patch tried to set', () => {
+    const stored = withImages(filled());
+    const patched = {
+      ...stored,
+      characters: stored.characters.map((c) => ({ ...c, portrait: 'https://evil.example/y.jpg' })),
+    };
+    const next = preserveUploads(stored, patched);
+    expect(next.characters[0]!.portrait).toBe('/media/uploads/abc/character_1.jpg');
+    expect(next.characters[1]!.portrait).toBeNull();
+  });
+
+  it('keeps every other edit in the patch', () => {
+    const stored = withImages(filled());
+    const patched = { ...stored, title: 'Renamed', characters: stored.characters.map((c) => ({ ...c, name: `${c.name}!` })) };
+    const next = preserveUploads(stored, patched);
+    expect(next.title).toBe('Renamed');
+    expect(next.characters[0]!.name).toBe('Mira!');
+  });
+
+  it('matches portraits by id, not position, so reordering cannot move one', () => {
+    const stored = withImages(filled());
+    const reversed = { ...stored, characters: [stored.characters[1]!, stored.characters[0]!] };
+    const next = preserveUploads(stored, reversed);
+    expect(next.characters.find((c) => c.id === 'mira')!.portrait).toBe('/media/uploads/abc/character_1.jpg');
+    expect(next.characters.find((c) => c.id === 'ansel')!.portrait).toBeNull();
+  });
+
+  it('drops a portrait on a character the patch invented', () => {
+    const stored = withImages(filled());
+    const added = {
+      ...stored,
+      characters: [...stored.characters, { ...stored.characters[0]!, id: 'new', portrait: '/media/uploads/abc/cover_1.jpg' }],
+    };
+    expect(preserveUploads(stored, added).characters[2]!.portrait).toBeNull();
   });
 });

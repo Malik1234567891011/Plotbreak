@@ -61,6 +61,14 @@ export const DraftCharacter = z
     role: short(120),
     /** One line for the cast card. */
     cardBlurb: short(240),
+    /**
+     * A picture the creator chose, or null for one we draw.
+     *
+     * Set by the upload route, never by a client patch: the URL has to name an
+     * asset that exists and passed moderation, and a field a client can write
+     * freely is a field a client can point at anything.
+     */
+    portrait: z.string().nullable().default(null),
     appearance: short(600),
     speechStyle: short(300),
     socialStyle: short(300),
@@ -259,6 +267,8 @@ export const StoryDraft = z
     fantasyLabel: z.string().max(42).default(''),
     hook: short(200),
     coverDirection: short(600),
+    /** An uploaded cover. Null means the art direction above is used instead. */
+    coverImage: z.string().nullable().default(null),
 
     // 2. World
     premise: short(2400),
@@ -311,6 +321,16 @@ export const StoryDraft = z
 export type StoryDraft = z.infer<typeof StoryDraft>;
 
 /** Everything a client may send to `PATCH /v1/create/drafts/:id`. */
+/**
+ * Everything a client may send to `PATCH /v1/create/drafts/:id`.
+ *
+ * `coverImage` is absent on purpose. An image URL has to name an asset that
+ * exists and that passed moderation, so it is written by the upload route and
+ * nowhere else — a field a client can set freely is a field a client can point
+ * at anything. Character portraits are inside `characters`, which a patch does
+ * carry, so the route re-reads the stored portrait rather than trusting the
+ * one that came back. See `preserveUploads`.
+ */
 export const StoryDraftPatch = StoryDraft.omit({
   draftId: true,
   ownerId: true,
@@ -319,7 +339,29 @@ export const StoryDraftPatch = StoryDraft.omit({
   publishedAt: true,
   createdAt: true,
   updatedAt: true,
+  compile: true,
+  coverImage: true,
 }).partial();
+
+/**
+ * Put the stored portraits back over whatever a patch claimed.
+ *
+ * The cast arrives as a whole array, so a client editing a name also sends
+ * every portrait — and could send any string it liked in one. Matching on id
+ * and taking the server's value means the only way a portrait changes is
+ * through the upload route that moderated it.
+ */
+export function preserveUploads(stored: StoryDraft, patched: StoryDraft): StoryDraft {
+  const portraits = new Map(stored.characters.map((c) => [c.id, c.portrait]));
+  return {
+    ...patched,
+    coverImage: stored.coverImage,
+    characters: patched.characters.map((c) => ({
+      ...c,
+      portrait: portraits.get(c.id) ?? null,
+    })),
+  };
+}
 export type StoryDraftPatch = z.infer<typeof StoryDraftPatch>;
 
 export function emptyDraft(input: {
@@ -566,7 +608,7 @@ export function draftToStoryVersion(draft: StoryDraft, options: CompileOptions):
     creatorId: options.creatorId,
     creatorName: options.creatorName,
     official: false,
-    coverImage: null,
+    coverImage: draft.coverImage,
     keyArt: null,
     tags: draft.tags,
     mechanicsChips: draft.mechanicsChips,
@@ -642,6 +684,7 @@ export function draftToStoryVersion(draft: StoryDraft, options: CompileOptions):
       speechStyle: c.speechStyle,
       voiceSamples: c.voiceSamples,
       appearance: c.appearance,
+      portrait: c.portrait,
       homeLocationId: startingLocationId,
     })),
     factions: draft.factions.map((f) => ({

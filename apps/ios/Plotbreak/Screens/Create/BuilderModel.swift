@@ -23,6 +23,9 @@ final class BuilderModel {
         case assisting(AssistTarget, Int?)
         case publishing
         case saving
+        /// A picture being checked and stored. `Int?` is the character index,
+        /// nil for the cover, so only the field being uploaded to spins.
+        case uploading(Int?)
     }
 
     private let api: APIClient
@@ -57,6 +60,8 @@ final class BuilderModel {
     func isAssisting(_ target: AssistTarget, _ index: Int? = nil) -> Bool {
         work == .assisting(target, index)
     }
+
+    func isUploading(_ index: Int? = nil) -> Bool { work == .uploading(index) }
 
     func blocked(_ step: CreateStep) -> Bool { readiness.blockedSteps.contains(step) }
 
@@ -246,6 +251,46 @@ final class BuilderModel {
         }
     }
 
+    /// Send a picture for the cover, or for one character.
+    ///
+    /// Not optimistic: nothing appears until the server has moderated it and
+    /// handed back a URL, because a picture that shows up and then vanishes is
+    /// worse than one that takes three seconds to show up at all.
+    func upload(_ jpeg: Data, character index: Int? = nil) async {
+        guard !busy else { return }
+        await flush()
+        work = .uploading(index)
+        errorMessage = nil
+        defer { work = .idle }
+        do {
+            let response = try await api.uploadDraftImage(
+                draft.draftId,
+                kind: index == nil ? .cover : .character,
+                index: index,
+                jpeg: jpeg
+            )
+            draft = response.draft
+            readiness = response.readiness
+        } catch let error as APIError {
+            errorMessage = message(for: error)
+        } catch {
+            errorMessage = nil
+        }
+    }
+
+    func removeImage(character index: Int? = nil) async {
+        guard !busy else { return }
+        work = .uploading(index)
+        defer { work = .idle }
+        guard
+            let response = try? await api.removeDraftImage(
+                draft.draftId, kind: index == nil ? .cover : .character, index: index
+            )
+        else { return }
+        draft = response.draft
+        readiness = response.readiness
+    }
+
     func setVisibility(_ visibility: DraftVisibility) async {
         guard !busy else { return }
         let previous = draft.visibility
@@ -388,6 +433,10 @@ func createErrorText(_ error: APIError, _ t: Translator) -> String {
     case "NO_MODEL": return t("create.err_no_model")
     case "COMPILE_FAILED": return t("create.err_compile_failed")
     case "ALREADY_COMPILING": return t("create.err_already_compiling")
+    case "IMAGE_REJECTED": return t("create.err_image_rejected")
+    case "IMAGE_FORMAT": return t("create.err_image_format")
+    case "IMAGE_TOO_BIG": return t("create.image_too_big")
+    case "IMAGE_FAILED", "NO_IMAGE": return t("create.err_image_failed")
     case "NOT_THERE", "UNKNOWN_TARGET": return t("create.err_not_there")
     case "INVALID_PATCH", "INVALID_VISIBILITY": return t("create.err_invalid_patch")
     default: return error.message

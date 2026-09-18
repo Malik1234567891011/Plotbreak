@@ -34,12 +34,27 @@ struct ProfileStep: View {
                 text: model.binding("hook", \.hook)
             )
 
-            BuilderTextArea(
-                label: t("create.f_cover"), help: t("create.f_cover_help"),
-                placeholder: t("create.f_cover_ph"), minHeight: 80,
-                assist: .coverDirection, model: model,
-                text: model.binding("coverDirection", \.coverDirection)
+            ImagePickerField(
+                label: t("create.f_cover_image"),
+                help: t("create.f_cover_image_help"),
+                aspect: 1005.0 / 1490.0,
+                url: model.draft.coverImage,
+                uploading: model.isUploading(nil),
+                onPick: { data in Task { await model.upload(data) } },
+                onRemove: { Task { await model.removeImage() } }
             )
+
+            // Only worth asking for when there is no picture: art direction
+            // describes a cover we would draw, and we do not draw one over a
+            // photograph somebody chose.
+            if model.draft.coverImage == nil {
+                BuilderTextArea(
+                    label: t("create.f_cover"), help: t("create.f_cover_help"),
+                    placeholder: t("create.f_cover_ph"), minHeight: 80,
+                    assist: .coverDirection, model: model,
+                    text: model.binding("coverDirection", \.coverDirection)
+                )
+            }
         }
     }
 }
@@ -153,6 +168,15 @@ struct CharacterFields: View {
             BuilderTextArea(label: t("create.f_blurb"), required: true, help: t("create.f_blurb_help"),
                             minHeight: 70, limit: 240,
                             text: text(\.cardBlurb) { $0.cardBlurb = $1 })
+            ImagePickerField(
+                label: t("create.f_portrait"),
+                help: t("create.f_portrait_help"),
+                aspect: 1,
+                url: character.portrait,
+                uploading: model.isUploading(index),
+                onPick: { data in Task { await model.upload(data, character: index) } },
+                onRemove: { Task { await model.removeImage(character: index) } }
+            )
             BuilderTextArea(label: t("create.f_appearance"), minHeight: 80, limit: 600,
                             text: text(\.appearance) { $0.appearance = $1 })
             BuilderTextArea(label: t("create.f_speech"), help: t("create.f_speech_help"), minHeight: 70, limit: 300,

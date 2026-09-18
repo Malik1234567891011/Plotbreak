@@ -73,6 +73,8 @@ struct DraftCharacter: Codable, Hashable, Identifiable {
     @Default<TheyThem> var pronouns: String
     @Default<EmptyString> var role: String
     @Default<EmptyString> var cardBlurb: String
+    /// A picture the creator chose. Null for one we draw.
+    var portrait: String?
     @Default<EmptyString> var appearance: String
     @Default<EmptyString> var speechStyle: String
     @Default<EmptyString> var socialStyle: String
@@ -94,6 +96,7 @@ struct DraftCharacter: Codable, Hashable, Identifiable {
     static func blank(_ id: String) -> DraftCharacter {
         DraftCharacter(
             id: id, name: "", calledName: "", pronouns: "they/them", role: "", cardBlurb: "",
+            portrait: nil,
             appearance: "", speechStyle: "", socialStyle: "", publicTraits: [], values: [],
             goals: [], fears: [], boundaries: [], hiddenDrives: [], secrets: [], voiceSamples: []
         )
@@ -205,6 +208,8 @@ struct StoryDraft: Codable, Hashable, Identifiable {
     @Default<EmptyString> var fantasyLabel: String
     @Default<EmptyString> var hook: String
     @Default<EmptyString> var coverDirection: String
+    /// An uploaded cover, or null to use the art direction above.
+    var coverImage: String?
 
     // World
     @Default<EmptyString> var premise: String
@@ -306,6 +311,16 @@ struct CreatorTitle: Codable, Hashable, Identifiable {
 
 struct CreateTitlesResponse: Codable {
     @Default<EmptyArray<CreatorTitle>> var titles: [CreatorTitle]
+}
+
+enum DraftImageKind: String, Codable {
+    case cover, character
+}
+
+struct DraftImageResponse: Codable {
+    var draft: StoryDraft
+    var readiness: DraftReadiness
+    @Default<EmptyString> var url: String
 }
 
 struct DraftResponse: Codable {

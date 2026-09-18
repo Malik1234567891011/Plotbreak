@@ -99,6 +99,31 @@ const BLOCKING_CATEGORIES = new Set([
   'illicit/violent',
 ]);
 
+/**
+ * What disqualifies an uploaded picture.
+ *
+ * Nearly everything, and deliberately far wider than the prose list above. A
+ * story may be about violence because a story is fiction; a photograph on a
+ * card in a catalogue other people browse is not making a point about
+ * anything. The asymmetry is the whole reason this is a second set rather
+ * than a reused one.
+ */
+const BLOCKING_IMAGE_CATEGORIES = new Set([
+  'sexual',
+  'sexual/minors',
+  'harassment',
+  'harassment/threatening',
+  'hate',
+  'hate/threatening',
+  'illicit',
+  'illicit/violent',
+  'self-harm',
+  'self-harm/instructions',
+  'self-harm/intent',
+  'violence',
+  'violence/graphic',
+]);
+
 export class OpenAiGateway implements ModelGateway {
   readonly name = 'openai';
   readonly #config: OpenAiConfig;
@@ -603,6 +628,35 @@ export class OpenAiGateway implements ModelGateway {
     const out: number[][] = new Array<number[]>(texts.length);
     for (const row of rows) out[row.index] = row.embedding;
     return out;
+  }
+
+  async moderateImage(dataUrl: string): Promise<ModerationResult> {
+    const response = await this.#post(
+      '/moderations',
+      {
+        model: this.#modelFor('moderation'),
+        input: [{ type: 'image_url', image_url: { url: dataUrl } }],
+      },
+      { timeoutMs: 20_000 },
+    );
+
+    const payload = (await response.json()) as {
+      results?: Array<{ flagged?: boolean; categories?: Record<string, boolean> }>;
+    };
+    const result = payload.results?.[0];
+    const categories = Object.entries(result?.categories ?? {})
+      .filter(([, hit]) => hit)
+      .map(([name]) => name);
+    const blocking = categories.filter((name) => BLOCKING_IMAGE_CATEGORIES.has(name));
+
+    return {
+      flagged: blocking.length > 0,
+      categories,
+      // Never the category. Telling somebody which rule their photo tripped is
+      // a description of how to get one past it, and the honest answer is the
+      // same either way: choose another picture.
+      playerFacingMessage: blocking.length > 0 ? 'That picture cannot be used here.' : null,
+    };
   }
 
   async moderate(input: string): Promise<ModerationResult> {

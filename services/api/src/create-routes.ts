@@ -11,6 +11,7 @@ import {
   StoryDraft,
   StoryDraftPatch,
   compileIsStale,
+  preserveUploads,
   draftReadiness,
   draftToStoryVersion,
   emptyDraft,
@@ -22,6 +23,7 @@ import type { AppContext } from './context.js';
 import { requireUser, sendError } from './context.js';
 import { InsufficientCreditsError } from './wallet.js';
 import { tracker } from './analytics.js';
+import { MAX_IMAGE_BYTES, imageFormat, ownerFolder, storeUpload } from './create-uploads.js';
 import { resolveDeviceLocale, resolveLocale } from '@plotbreak/i18n';
 
 /**
@@ -162,11 +164,14 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
         issues: parsed.error.issues.slice(0, 8),
       });
     }
-    const next = StoryDraft.parse({
-      ...draft,
-      ...parsed.data,
-      updatedAt: new Date().toISOString(),
-    });
+    const next = preserveUploads(
+      draft,
+      StoryDraft.parse({
+        ...draft,
+        ...parsed.data,
+        updatedAt: new Date().toISOString(),
+      }),
+    );
     await ctx.repo.putDraft(next);
     return { draft: next, readiness: draftReadiness(next) };
   });
@@ -335,6 +340,131 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
     void reply.code(202);
     return { draft: started, readiness: draftReadiness(started) };
   });
+
+
+  /**
+   * A picture out of somebody's camera roll.
+   *
+   * The riskiest surface in the product, and the one with the least room for
+   * "we will add checks later": these end up on cards other people browse. So
+   * every upload is moderated before it is stored, and the order matters —
+   * nothing untrusted is written to disk until it has passed.
+   *
+   * Three things happen besides moderation, and each is load-bearing:
+   *
+   *  - **the metadata is dropped.** A phone photo carries GPS. Publishing one
+   *    with EXIF intact tells strangers where the creator lives, and they will
+   *    not have thought about it. `sharp` strips it unless asked not to.
+   *  - **it is re-encoded.** Whatever arrives becomes a plain JPEG at a sane
+   *    size, which normalises away anything clever hiding in the container and
+   *    turns an 8 MB photo into something a card can load.
+   *  - **it is stored under the owner's id**, so a takedown can find every
+   *    picture one person uploaded without a second index.
+   */
+  app.post<{
+    Params: { draftId: string };
+    Body: { kind?: string; index?: number; data?: string };
+  }>('/v1/create/drafts/:draftId/image', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    const draft = await owned(request, reply, user.userId);
+    if (!draft) return reply;
+    if (!ctx.modelGateway) {
+      return sendError(reply, 503, 'NO_MODEL', 'Pictures cannot be checked right now.');
+    }
+
+    const kind = request.body?.kind === 'character' ? 'character' : 'cover';
+    const index = Number.isInteger(request.body?.index) ? Number(request.body?.index) : -1;
+    if (kind === 'character' && !draft.characters[index]) {
+      return sendError(reply, 400, 'NOT_THERE', 'There is nobody there to give a picture to.');
+    }
+
+    const raw = String(request.body?.data ?? '');
+    const base64 = raw.includes(',') ? raw.slice(raw.indexOf(',') + 1) : raw;
+    if (base64.length === 0) return sendError(reply, 400, 'NO_IMAGE', 'No picture arrived.');
+    // Before decoding: a base64 string is about 4/3 of the bytes it carries,
+    // so this bounds the allocation rather than checking it afterwards.
+    if (base64.length > (MAX_IMAGE_BYTES * 4) / 3 + 1024) {
+      return sendError(reply, 413, 'IMAGE_TOO_BIG', 'That picture is too large. Keep it under 8 MB.');
+    }
+    const bytes = Buffer.from(base64, 'base64');
+    if (bytes.length < 1024) return sendError(reply, 400, 'NO_IMAGE', 'That file is not a picture.');
+
+    const format = imageFormat(bytes);
+    if (!format) {
+      return sendError(reply, 415, 'IMAGE_FORMAT', 'Use a JPEG or a PNG.');
+    }
+
+    // Moderated first, and on the bytes as they arrived rather than on the
+    // re-encoded copy: the check should see what the creator actually sent.
+    const verdict = await ctx.modelGateway.moderateImage(
+      `data:${format};base64,${bytes.toString('base64')}`,
+    );
+    if (verdict.flagged) {
+      request.log.warn(
+        { draftId: draft.draftId, userId: user.userId, categories: verdict.categories },
+        'upload rejected by moderation',
+      );
+      return sendError(
+        reply,
+        422,
+        'IMAGE_REJECTED',
+        verdict.playerFacingMessage ?? 'That picture cannot be used here.',
+      );
+    }
+
+    let stored: { url: string };
+    try {
+      stored = await storeUpload(bytes, {
+        // Hashed, so a public URL never carries a user id.
+        ownerId: ownerFolder(user.userId),
+        kind,
+      });
+    } catch (error) {
+      request.log.error({ err: error, draftId: draft.draftId }, 'upload could not be stored');
+      return sendError(reply, 500, 'IMAGE_FAILED', 'That picture could not be saved. Try again.');
+    }
+
+    const next = StoryDraft.parse({
+      ...draft,
+      ...(kind === 'cover'
+        ? { coverImage: stored.url }
+        : {
+            characters: draft.characters.map((character, at) =>
+              at === index ? { ...character, portrait: stored.url } : character,
+            ),
+          }),
+      updatedAt: new Date().toISOString(),
+    });
+    await ctx.repo.putDraft(next);
+    return { draft: next, readiness: draftReadiness(next), url: stored.url };
+  });
+
+  /** Take a picture back off, which is the only way to undo an upload. */
+  app.delete<{ Params: { draftId: string }; Querystring: { kind?: string; index?: string } }>(
+    '/v1/create/drafts/:draftId/image',
+    async (request, reply) => {
+      const user = await requireUser(ctx, request, reply);
+      if (!user) return reply;
+      const draft = await owned(request, reply, user.userId);
+      if (!draft) return reply;
+      const kind = request.query.kind === 'character' ? 'character' : 'cover';
+      const index = Number(request.query.index ?? -1);
+      const next = StoryDraft.parse({
+        ...draft,
+        ...(kind === 'cover'
+          ? { coverImage: null }
+          : {
+              characters: draft.characters.map((character, at) =>
+                at === index ? { ...character, portrait: null } : character,
+              ),
+            }),
+        updatedAt: new Date().toISOString(),
+      });
+      await ctx.repo.putDraft(next);
+      return { draft: next, readiness: draftReadiness(next) };
+    },
+  );
 
   /** Auto-generate, one field at a time. */
   app.post<{
