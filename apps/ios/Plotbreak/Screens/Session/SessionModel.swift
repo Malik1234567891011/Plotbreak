@@ -103,8 +103,10 @@ struct PendingTurn: Hashable {
     var turnId = ""
     /// What the player typed, shown the instant they hit send.
     var actionText: String
-    /// Sentences as the writer produces them, before the turn commits.
-    var streamed: [String] = []
+    /// Blocks as the writer finishes them, before the turn commits. Typed
+    /// like the committed ones, so a line of dialogue is drawn as dialogue
+    /// from the moment it arrives rather than reflowing into it at the commit.
+    var streamed: [NarrativeBlock] = []
     /// Spec §19.7 — the cached face, which arrives before any prose.
     var reaction: PendingReaction?
     /// Spec §19.1 — arrives after the turn, never blocking it.
@@ -169,8 +171,12 @@ final class SessionModel {
     private(set) var revision = 0
     private(set) var playerPortraitUrl: String?
     var fullScreenImage: String?
-    /// Bumped whenever the feed should follow the bottom.
+    /// Bumped whenever the feed should scroll.
     private(set) var scrollRequest = ScrollRequest()
+    /// Whether the current beat is held open to a screen's height, so sending
+    /// can park the player's action at the top. Off until the first send, so a
+    /// player who only reads never sees the empty room.
+    private(set) var holdsBeatOpen = false
 
     /// The face shown on the beat that just landed.
     ///
@@ -224,7 +230,12 @@ final class SessionModel {
     func isAwaitingHero(_ turn: PlayerTurnRecord) -> Bool {
         turn.heroImageUrl == nil && awaitingFrames.contains(turn.turnId)
     }
-    var visibleBlocks: [NarrativeBlock] { pending?.blocks ?? latest?.blocks ?? [] }
+    /// The engine path streams sentences and then replaces them with its
+    /// blocks; the narrative runtime streams the blocks themselves.
+    var visibleBlocks: [NarrativeBlock] {
+        if let pending { return pending.blocks.isEmpty ? pending.streamed : pending.blocks }
+        return latest?.blocks ?? []
+    }
     var visibleDeltas: [StateDeltaPresentation] {
         if let pending {
             return pending.deltas.enumerated().map { StateDeltaPresentation(mutationId: "pending_\($0.offset)", label: $0.element) }
@@ -341,26 +352,28 @@ final class SessionModel {
 
         sending = true
         error = nil
-        Haptic.play(.light)
+        Haptic.play(.send)
 
         let idempotencyKey = UUID().uuidString
         let qualityTier = store.qualityTier
         let sessionRevision = revision
 
-        // The player's own words go up before the network is touched. The view
-        // does not move.
+        // The player's own words go up before the network is touched, and
+        // they go to the top of the view: the one scroll a turn makes.
         //
-        // It used to follow the bottom, then park the new beat at the top;
-        // both dragged the reader. The second was subtler: at send time the
-        // action is the last thing in the feed, and scrolling to it with a top
-        // anchor has nothing below to scroll past, so SwiftUI goes as far as it
-        // can — the bottom. The responses are already where the reader is
-        // looking, so their action appears right there and the prose grows
-        // downward from it. Nothing needs to move at all.
+        // Leaving the view still did not keep it still. The cards vanish from
+        // under the reader, which drops everything above them, and the prose
+        // then grows below the bottom edge where it has to be chased. Parking
+        // the action at the top once failed because nothing below it was tall
+        // enough to scroll past; the feed now holds the beat open to a screen's
+        // height, so the prose, the pictures and the cards all fill space that
+        // is already there, and nothing moves after this.
         draft = ""
         saveDraftNow("")
         lastReaction = nil
         pending = PendingTurn(actionText: text)
+        holdsBeatOpen = true
+        requestScroll(animated: true, anchor: .latestBeat)
 
         defer {
             sending = false
@@ -489,8 +502,19 @@ final class SessionModel {
             )
 
         case .textStream:
-            let sentence = (data["text"]?.stringValue ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
-            if !sentence.isEmpty { pending?.streamed.append(sentence) }
+            let text = (data["text"]?.stringValue ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !text.isEmpty else { break }
+            if awaitingFirstLine { Haptic.play(.arrive) }
+            // The runtime sends a speaker only for a cast member's line, which
+            // is exactly when it types the committed block as dialogue.
+            let speakerId = data["speakerId"]?.stringValue
+            pending?.streamed.append(NarrativeBlock(
+                type: speakerId == nil ? .NARRATION : .DIALOGUE,
+                speakerId: speakerId,
+                text: text,
+                visibility: "GROUP",
+                voiceEligible: false
+            ))
 
         case .textDelta:
             let block = NarrativeBlock(
@@ -500,6 +524,7 @@ final class SessionModel {
                 visibility: "GROUP",
                 voiceEligible: data["voiceEligible"]?.boolValue ?? false
             )
+            if awaitingFirstLine { Haptic.play(.arrive) }
             pending?.blocks.append(block)
             // No scroll. The beat was parked when the turn was sent and the
             // prose fills in underneath it, so there is nothing left to move —
@@ -571,6 +596,13 @@ final class SessionModel {
         case .turnAccepted, .turnTimings, .unknown:
             break
         }
+    }
+
+    /// True until the turn in flight has put any words on screen — the moment
+    /// the dot gives way to the story, which is when the reply is felt.
+    private var awaitingFirstLine: Bool {
+        guard let pending else { return false }
+        return pending.streamed.isEmpty && pending.blocks.isEmpty
     }
 
     /// Spec §10.2 D — Stop cancels client rendering only. A turn that already

@@ -12,8 +12,7 @@ struct SessionFeed: View {
     @Environment(\.translator) private var t
 
     private static let bottomAnchor = "session.feed.bottom"
-    /// The top of the newest beat, which is where a reader wants to be when a
-    /// turn lands — not below it, looking at the cards.
+    /// The top of the newest beat, where sending parks the player's action.
     static let latestAnchor = "session.feed.latest"
 
     var body: some View {
@@ -22,9 +21,7 @@ struct SessionFeed: View {
                 VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
                     recap
                     history
-                    liveSlot
-                    suggestions
-                    errorCard
+                    currentBeat
                     Color.clear.frame(height: 1).id(Self.bottomAnchor)
                 }
                 .padding(.horizontal, Theme.gutter)
@@ -54,14 +51,19 @@ struct SessionFeed: View {
                 .accessibilityHidden(true)
             }
             .onChange(of: model.scrollRequest) { _, request in
-                // Removing the three response cards shrinks the feed by their
-                // whole stack, and the scroll offset is absolute — follow the
-                // bottom, where the new text is.
+                // Next runloop, so the beat being scrolled to has been laid out
+                // at its held-open height first.
                 DispatchQueue.main.async {
+                    let scroll = {
+                        switch request.anchor {
+                        case .bottom: proxy.scrollTo(Self.bottomAnchor, anchor: .bottom)
+                        case .latestBeat: proxy.scrollTo(Self.latestAnchor, anchor: .top)
+                        }
+                    }
                     if request.animated {
-                        withAnimation(.easeOut(duration: Theme.Durations.short)) { proxy.scrollTo(Self.bottomAnchor, anchor: .bottom) }
+                        withAnimation(.easeOut(duration: Theme.Durations.short)) { scroll() }
                     } else {
-                        proxy.scrollTo(Self.bottomAnchor, anchor: .bottom)
+                        scroll()
                     }
                 }
             }
@@ -91,17 +93,50 @@ struct SessionFeed: View {
                 if let action = turn.actionText, !action.isEmpty {
                     SessionPlayerAction(text: action)
                 }
-                // The frame belongs to the beat that earned it.
+                ForEach(Array(turn.blocks.enumerated()), id: \.offset) { _, block in
+                    SessionBlock(block: block, scene: model.scene)
+                }
+                // The frame belongs to the beat that earned it, under its
+                // prose — the same place the live slot put it.
                 if let hero = turn.heroImageUrl {
                     SessionHeroFrame(uri: hero) { model.fullScreenImage = hero }
                 } else if model.isAwaitingHero(turn) {
                     SessionHeroFramePending()
                 }
-                ForEach(Array(turn.blocks.enumerated()), id: \.offset) { _, block in
-                    SessionBlock(block: block, scene: model.scene)
-                }
             }
         }
+    }
+
+    // MARK: Current beat
+
+    /// The live slot, its responses and any error, held open to at least a
+    /// screen tall once the player has acted here.
+    ///
+    /// Sending parks the player's action at the top of the view. That only
+    /// works if there is a screen's worth of feed below it to scroll past —
+    /// without it SwiftUI stops at the bottom, which is why parking was once
+    /// abandoned. With the space held, the prose, the pictures and the cards
+    /// all land in room that already exists, and nothing the reader is looking
+    /// at moves.
+    private var currentBeat: some View {
+        HStack(alignment: .top, spacing: 0) {
+            if model.holdsBeatOpen {
+                // Less the spacing and padding below the beat, which the feed
+                // already scrolls past.
+                Color.clear
+                    .frame(width: 0)
+                    .containerRelativeFrame(.vertical) { height, _ in
+                        max(0, height - Theme.Spacing.lg - Theme.Spacing.xxl)
+                    }
+            }
+            VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
+                liveSlot
+                suggestions
+                errorCard
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .id(Self.latestAnchor)
     }
 
     // MARK: Live slot
@@ -112,10 +147,8 @@ struct SessionFeed: View {
 
         if let pending {
             SessionPlayerAction(text: pending.actionText)
-                .id(Self.latestAnchor)
         } else if let action = latest?.actionText, !action.isEmpty {
             SessionPlayerAction(text: action)
-                .id(Self.latestAnchor)
         }
 
         if let check = pending?.check, worthRevealing(label: check.label, math: check.math) {
@@ -139,11 +172,32 @@ struct SessionFeed: View {
             )
         }
 
+        // One list for the streamed blocks and the committed ones, so the
+        // commit updates these rows in place instead of swapping in new ones —
+        // the same words, with the same speakers, ten seconds early.
+        ForEach(Array(model.visibleBlocks.enumerated()), id: \.offset) { _, block in
+            SessionBlock(block: block, scene: model.scene)
+                .fadesIn()
+        }
+
+        if let pending, pending.blocks.isEmpty, pending.streamed.isEmpty {
+            SessionThinkingDot()
+                .fadesIn()
+        }
+
+        StateDeltaRow(deltas: model.visibleDeltas)
+
+        // The pictures go under the prose, never above it. Both arrive after
+        // the last sentence, and above it they pushed the words the player was
+        // reading down the screen — by a full-bleed portrait's height.
+
         // Spec §19.1 tier 2 — a hero frame for a beat that earned one.
         if let hero = model.heroImageUrl {
             SessionHeroFrame(uri: hero) { model.fullScreenImage = hero }
+                .fadesIn()
         } else if model.awaitingHero {
             SessionHeroFramePending()
+                .fadesIn()
         }
 
         // Spec §19.7 — the face, edge to edge, the way a scene would cut to it.
@@ -161,29 +215,8 @@ struct SessionFeed: View {
             .buttonStyle(PressOpacityStyle(pressed: 0.9))
             .padding(.horizontal, -Theme.gutter)
             .accessibilityLabel(t("session.reaction_image_a11y", ["name": reaction.name, "emotion": reaction.emotion]))
+            .fadesIn()
         }
-
-        ForEach(Array(model.visibleBlocks.enumerated()), id: \.offset) { _, block in
-            SessionBlock(block: block, scene: model.scene)
-        }
-
-        // Sentences as they are written. Replaced by the committed blocks the
-        // moment the turn lands — the same words, ten seconds early.
-        if let pending, pending.blocks.isEmpty, !pending.streamed.isEmpty {
-            ForEach(Array(pending.streamed.enumerated()), id: \.offset) { _, sentence in
-                NarrationBlock(text: sentence, t: t)
-            }
-        }
-
-        if let pending, pending.blocks.isEmpty, pending.streamed.isEmpty {
-            HStack(spacing: Theme.Spacing.sm) {
-                ProgressView().tint(Theme.Colors.textMuted).controlSize(.small)
-                // Spec §25.12 — an honest state, not theatrical loading copy.
-                Txt(t("session.resolving"), .caption, color: Theme.Colors.textMuted)
-            }
-        }
-
-        StateDeltaRow(deltas: model.visibleDeltas)
     }
 
     // MARK: Error
@@ -215,7 +248,7 @@ struct SessionFeed: View {
                     )
                 }
             }
-            .transition(.opacity)
+            .fadesIn()
         }
     }
 
@@ -295,7 +328,7 @@ struct SessionHeroFrame: View {
 ///
 /// A hero frame takes about a minute; the prose takes ten seconds. Without
 /// this the player reads on, the feed scrolls past the empty space, and the
-/// picture appears silently above a beat they have already finished — which
+/// picture appears silently under a beat they have already finished — which
 /// reads as the app being broken rather than as a drawing being slow.
 ///
 /// Exactly the dimensions of `SessionHeroFrame`, so nothing moves when the
@@ -319,6 +352,58 @@ struct SessionHeroFramePending: View {
             .animation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true), value: breathing)
             .onAppear { breathing = true }
             .accessibilityLabel(t("session.scene_image_pending_a11y"))
+    }
+}
+
+// MARK: - Fade in
+
+/// Whatever the turn brings — a line, a picture, the cards — fades up rather
+/// than popping in.
+///
+/// Opacity only, driven from the view's own appearance. Animating the state
+/// change instead would animate the layout with it, and a row sliding while
+/// the one above it fades is exactly the movement this screen is rid of. The
+/// commit updates rows in place, so nothing fades twice.
+private struct FadeInOnAppear: ViewModifier {
+    @State private var shown = false
+
+    func body(content: Content) -> some View {
+        content
+            .opacity(shown ? 1 : 0)
+            .onAppear {
+                withAnimation(.easeOut(duration: Theme.Durations.fadeIn)) { shown = true }
+            }
+    }
+}
+
+private extension View {
+    func fadesIn() -> some View { modifier(FadeInOnAppear()) }
+}
+
+// MARK: - Thinking dot
+
+/// The beat is being written: one dot, breathing, where the first line will
+/// land. Replaces a spinner and a caption, which was two things to read for a
+/// state that says nothing but "wait".
+///
+/// Spec §25.12 still holds — no theatrical copy on screen, and VoiceOver hears
+/// the honest one.
+struct SessionThinkingDot: View {
+    @Environment(\.translator) private var t
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var breathing = false
+
+    var body: some View {
+        Circle()
+            .fill(Theme.Colors.textPrimary)
+            .frame(width: 13, height: 13)
+            .scaleEffect(breathing && !reduceMotion ? 1 : 0.6)
+            .opacity(breathing ? 1 : 0.55)
+            .animation(.easeInOut(duration: 0.75).repeatForever(autoreverses: true), value: breathing)
+            .frame(height: 22)
+            .onAppear { breathing = true }
+            .accessibilityElement()
+            .accessibilityLabel(t("session.resolving"))
     }
 }
 

@@ -169,6 +169,8 @@ enum Theme {
     enum Durations {
         static let instant: Double = 0.12
         static let short: Double = 0.2
+        /// New story arriving: long enough to read as a fade, not a blink.
+        static let fadeIn: Double = 0.45
         /// Spec §26.8 — check reveal is 550–900ms and always skippable.
         static let checkReveal: Double = 0.7
         static let sheet: Double = 0.28
@@ -206,6 +208,10 @@ enum Theme {
 
 enum HapticKind {
     case light, medium, warning, error, success
+    /// Sending a turn: short and crisp. `.light` was too faint to notice.
+    case send
+    /// The first line of the reply landing: gentler than the send.
+    case arrive
 }
 
 enum Haptic {
@@ -216,6 +222,8 @@ enum Haptic {
         switch kind {
         case .light: UIImpactFeedbackGenerator(style: .light).impactOccurred()
         case .medium: UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        case .send: UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+        case .arrive: UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         case .warning: UINotificationFeedbackGenerator().notificationOccurred(.warning)
         case .error: UINotificationFeedbackGenerator().notificationOccurred(.error)
         case .success: UINotificationFeedbackGenerator().notificationOccurred(.success)

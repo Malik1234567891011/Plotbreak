@@ -2,8 +2,8 @@ import SwiftUI
 
 // MARK: - Composer dock (§10.2 D)
 //
-// Persistent, above the keyboard. The input, Send/Stop, the quality pill, the
-// shortfall warning and the last-turn menu button.
+// Persistent, above the keyboard. The round actions, then the input with
+// Send/Stop. The tier and its cost live in the header's quality pill.
 
 struct SessionComposer: View {
     @Bindable var model: SessionModel
@@ -13,6 +13,7 @@ struct SessionComposer: View {
     @Environment(\.translator) private var t
     @Environment(AppStore.self) private var store
     @FocusState private var focused: Bool
+    @Namespace private var sendSlot
 
     private var draftEmpty: Bool { model.draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     private var isPending: Bool { model.pending != nil }
@@ -42,98 +43,106 @@ struct SessionComposer: View {
             // Autocorrect rewrote what the player actually typed, in a game
             // whose entire input is prose full of invented proper nouns.
             // Spell check stays on; what stops is the silent replacement.
-            HStack(spacing: 10) {
-                TextField(t("session.composer_placeholder"), text: $model.draft, axis: .vertical)
+            //
+            // One row at rest; two while typing, the send button dropping to
+            // its own row under the words. The field stays first in the first
+            // row either way — moving it would rebuild it and drop the focus.
+            VStack(alignment: .trailing, spacing: 4) {
+                HStack(spacing: 10) {
+                    TextField(
+                        t("session.composer_placeholder"),
+                        text: $model.draft,
+                        prompt: Text(t("session.composer_placeholder")).foregroundStyle(Box.placeholder),
+                        axis: .vertical
+                    )
                     .lineLimit(1...5)
                     .font(.system(size: 15))
                     .foregroundStyle(Theme.Colors.textPrimary)
                     .tint(Theme.Colors.accentPrimary)
                     .autocorrectionDisabled(true)
                     .focused($focused)
-                    .padding(.vertical, Theme.Spacing.md)
+                    .padding(.vertical, 13)
                     .disabled(isPending)
-                    .accessibilityLabel(t("session.what_do_you_do"))
-                Button {
-                    if isPending {
-                        // Spec §10.2 D — Stop cancels client rendering only.
-                        model.stop()
-                    } else {
-                        Task { await model.send() }
+                    // Disabling the field hides the keyboard but leaves the
+                    // focus state set, so SwiftUI handed the focus back the
+                    // moment the turn finished — and the keyboard came up over
+                    // the story the player was reading. Let go of it on send;
+                    // a tap on the field is how it comes back.
+                    .onChange(of: isPending) { _, pending in
+                        if pending { focused = false }
                     }
-                } label: {
-                    Image(systemName: isPending ? "stop.fill" : "arrow.up")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundStyle(isPending || draftEmpty ? Theme.Colors.textMuted : Theme.Colors.textOnAccent)
-                        .frame(width: 42, height: 42)
-                        .background(
-                            isPending || draftEmpty ? Theme.Colors.bgRaised : Theme.Colors.accentPrimary,
-                            in: RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous)
-                        )
+                    .accessibilityLabel(t("session.what_do_you_do"))
+                    if !focused { sendButton }
                 }
-                .buttonStyle(PressScaleStyle())
-                .disabled(draftEmpty && !isPending)
-                .accessibilityLabel(isPending ? t("session.stop") : t("session.send_action"))
+                .padding(.leading, 14)
+                .padding(.trailing, focused ? 14 : 10)
+                if focused {
+                    sendButton
+                        .padding(.trailing, 11)
+                        .padding(.bottom, 12)
+                }
             }
-            .padding(.leading, 18)
-            .padding(.trailing, 3)
-            .frame(minHeight: 48)
-            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
+            .frame(minHeight: 44)
+            .background(Box.fill, in: RoundedRectangle(cornerRadius: Box.radius, style: .continuous))
             .overlay {
-                RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous)
-                    .strokeBorder(focused ? Theme.Colors.accentPrimary : Theme.Colors.borderSubtle, lineWidth: focused ? 1 : 0.5)
+                RoundedRectangle(cornerRadius: Box.radius, style: .continuous)
+                    .strokeBorder(Box.border, lineWidth: 1)
             }
+            // The focus ring sits outside the box rather than eating into it,
+            // so the words do not shift when it appears.
+            .overlay {
+                if focused {
+                    RoundedRectangle(cornerRadius: Box.radius + Box.ring / 2, style: .continuous)
+                        .stroke(Box.focusRing, lineWidth: Box.ring)
+                        .padding(-Box.ring / 2)
+                }
+            }
+            // The whole box is the field: the empty half of the typing state
+            // included.
+            .contentShape(RoundedRectangle(cornerRadius: Box.radius, style: .continuous))
+            .onTapGesture { if !isPending { focused = true } }
+            .animation(.easeOut(duration: Theme.Durations.short), value: focused)
             .padding(.horizontal, Theme.gutter)
             .padding(.top, 14)
-
-            // "Vivid · 60 credits · 10 turns left", and the last-turn menu.
-            HStack {
-                Button {
-                    Haptic.play(.light)
-                    model.showQuality = true
-                } label: {
-                    Text(statusLine)
-                        .font(.system(size: 13))
-                        .foregroundStyle(model.affordable ? Theme.Colors.textMuted : Theme.Colors.warning)
-                        .lineLimit(1)
-                        .frame(minHeight: Theme.minTouchTarget - 16)
-                }
-                .buttonStyle(PressOpacityStyle())
-                .accessibilityLabel(t("session.turn_quality"))
-                .accessibilityValue(statusLine)
-                Spacer()
-                // GP-04. In the dock rather than in the transcript: at the
-                // end of a scroll region its frame sits behind this bar.
-                if canRetry {
-                    Button {
-                        Haptic.play(.light)
-                        model.showTurnMenu = true
-                    } label: {
-                        Text(t("session.last_turn"))
-                            .font(.system(size: 13))
-                            .foregroundStyle(Theme.Colors.textMuted)
-                            .frame(minHeight: Theme.minTouchTarget - 16)
-                            .contentShape(Rectangle())
-                    }
-                    .buttonStyle(PressOpacityStyle())
-                    .accessibilityLabel(t("session.turn_options"))
-                }
-            }
-            .padding(.horizontal, Theme.gutter)
-            .padding(.top, 10)
             .padding(.bottom, Theme.Spacing.md)
         }
         .background(Theme.Colors.bgBase)
     }
 
-    private var statusLine: String {
-        if !model.affordable {
-            return t("session.more_credits_needed", ["count": model.tier.costCredits - model.balance])
+    /// Send, or Stop while a turn is in flight. White with a black glyph,
+    /// empty draft or not.
+    private var sendButton: some View {
+        Button {
+            if isPending {
+                // Spec §10.2 D — Stop cancels client rendering only.
+                model.stop()
+            } else {
+                Task { await model.send() }
+            }
+        } label: {
+            Image(systemName: isPending ? "stop.fill" : "play.fill")
+                .font(.system(size: 12, weight: .bold))
+                .foregroundStyle(Box.sendGlyph)
+                .frame(width: 32, height: 32)
+                .background(Box.sendFill, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
         }
-        return t("session.status_line", [
-            "tier": t(TierCopy.labelKey(model.tier.id)),
-            "cost": model.tier.costCredits,
-            "turns": model.tier.costCredits > 0 ? model.balance / model.tier.costCredits : 0,
-        ])
+        .buttonStyle(PressScaleStyle())
+        .disabled(draftEmpty && !isPending)
+        .matchedGeometryEffect(id: "send", in: sendSlot)
+        .accessibilityLabel(isPending ? t("session.stop") : t("session.send_action"))
+    }
+
+    /// The input box, measured off the reference screenshots: neutral greys
+    /// rather than the app's blue-black, and a white send key.
+    private enum Box {
+        static let fill = Color(hex: 0x1C1C1C)
+        static let border = Color(hex: 0x2B2B2B)
+        static let focusRing = Color(hex: 0x747476)
+        static let placeholder = Color(hex: 0xB8B8B8)
+        static let sendFill = Color.white
+        static let sendGlyph = Color.black
+        static let radius: CGFloat = 8
+        static let ring: CGFloat = 3
     }
 }
 
