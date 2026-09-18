@@ -132,7 +132,7 @@ export const profile = {
   'profile.blocked_empty_body': 'Les personnes que tu bloques depuis une histoire apparaîtront ici, et tu pourras annuler.',
   'profile.blocked_unknown': 'Quelqu’un',
   'profile.unblock': 'Débloquer',
-  'badges.reward_a11y': 'Vaut {credits} crédits.',
+  'badges.reward_a11y': 'Vaut {credits, plural, one {# crédit} other {# crédits}}.',
 
   /* --- Noms des badges -----------------------------------------------------
    *

@@ -46,7 +46,7 @@ struct CreateTabScreen: View {
             VStack(spacing: 0) {
                 TabHeader(t("nav.create")) {
                     if !titles.isEmpty {
-                        Txt(t("create.title_count", ["count": String(titles.count)]), .micro, color: Theme.Colors.textMuted)
+                        Txt(t("create.title_count", ["count": titles.count]), .micro, color: Theme.Colors.textMuted)
                     }
                 }
 
@@ -209,6 +209,7 @@ struct CreatorTitleCard: View {
     let onPlay: () -> Void
     let onDelete: () -> Void
 
+    @Environment(AppStore.self) private var store
     @Environment(\.translator) private var t
 
     private var statusTone: ChipTone {
@@ -268,7 +269,11 @@ struct CreatorTitleCard: View {
     private func metric(_ symbol: String, _ value: Int, _ label: String) -> some View {
         HStack(spacing: 5) {
             Image(systemName: symbol).font(.system(size: 11))
-            Text("\(value)").font(.system(size: 12, weight: .medium))
+            // verbatim, and formatted against the app's language: an
+            // interpolated LocalizedStringKey takes the device's locale, which
+            // is how a French screen ends up reading "1,000".
+            Text(verbatim: Format.credits(value, locale: store.locale))
+                .font(.system(size: 12, weight: .medium))
         }
         .foregroundStyle(Theme.Colors.textMuted)
         .accessibilityLabel("\(value) \(label)")

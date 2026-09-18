@@ -20,7 +20,7 @@ export const create = {
 
   /* --- Le tableau de bord ------------------------------------------------ */
 
-  'create.title_count': '{count} histoires',
+  'create.title_count': '{count, plural, one {# histoire} other {# histoires}}',
   'create.filter_all': 'Tout',
   'create.filter_drafts': 'Brouillons',
   'create.filter_published': 'Publiées',

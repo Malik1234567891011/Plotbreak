@@ -196,8 +196,8 @@ struct BadgeMark: View {
         }
         // Locked marks are dimmed rather than greyed: the colour is the reward,
         // and a desaturated one stops reading as a thing worth having.
-        .opacity(earned ? 1 : 0.4)
-        .saturation(earned ? 1 : 0.55)
+        .opacity(earned ? 1 : 0.62)
+        .saturation(earned ? 1 : 0.7)
         .accessibilityHidden(true)
     }
 }
@@ -209,13 +209,18 @@ struct BadgeReward: View {
     let earned: Bool
     let claimed: Bool
 
+    @Environment(AppStore.self) private var store
     @Environment(\.translator) private var t
 
     var body: some View {
         if credits > 0, !claimed {
             HStack(spacing: 3) {
                 CreditGlyph(size: 11, color: earned ? Theme.Colors.accentPrimary : Theme.Colors.textMuted)
-                Text("\(credits)")
+                // `Text("\(credits)")` resolves to a LocalizedStringKey, which
+                // formats the number with the *device* locale — so a French
+                // player on an English phone read "1,000" instead of "1 000".
+                // Formatted against the app's own language instead.
+                Text(verbatim: Format.credits(credits, locale: store.locale))
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(earned ? Theme.Colors.accentPrimary : Theme.Colors.textMuted)
             }

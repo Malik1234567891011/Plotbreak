@@ -92,7 +92,7 @@ export const profile = {
   'profile.blocked_empty_body': 'Anyone you block from a story will appear here, and you can undo it.',
   'profile.blocked_unknown': 'Someone',
   'profile.unblock': 'Unblock',
-  'badges.reward_a11y': 'Worth {credits} credits.',
+  'badges.reward_a11y': 'Worth {credits, plural, one {# credit} other {# credits}}.',
 
   /* --- Badge names ---------------------------------------------------------
    *

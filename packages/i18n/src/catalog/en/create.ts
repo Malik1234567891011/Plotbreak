@@ -13,7 +13,7 @@ export const create = {
 
   /* --- The dashboard ----------------------------------------------------- */
 
-  'create.title_count': '{count} stories',
+  'create.title_count': '{count, plural, one {# story} other {# stories}}',
   'create.filter_all': 'All',
   'create.filter_drafts': 'Drafts',
   'create.filter_published': 'Published',
