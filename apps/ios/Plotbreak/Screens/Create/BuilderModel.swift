@@ -27,6 +27,7 @@ final class BuilderModel {
 
     private let api: APIClient
     private let locale: AppLocale
+    private var t: Translator { Translator(locale: locale) }
 
     private(set) var draft: StoryDraft
     private(set) var readiness = DraftReadiness.unknown
@@ -118,7 +119,7 @@ final class BuilderModel {
         } catch {
             // Put it back, so the next edit retries it rather than dropping it.
             pending.merge(patch) { mine, _ in mine }
-            errorMessage = (error as? APIError)?.message
+            if let api = error as? APIError { errorMessage = message(for: api) }
             dirty = true
         }
     }
@@ -147,7 +148,9 @@ final class BuilderModel {
             dirty = false
             step = .profile
         } catch let error as APIError {
-            if error.code == "PITCH_REFUSED" { refusal = error.message } else { errorMessage = error.message }
+            // A refusal is the model's own sentence, written in the creator's
+            // language by the compiler, so it is shown as it came back.
+            if error.code == "PITCH_REFUSED" { refusal = error.message } else { errorMessage = message(for: error) }
         } catch {
             errorMessage = nil
         }
@@ -166,7 +169,7 @@ final class BuilderModel {
             draft = response.draft
             readiness = response.readiness
         } catch let error as APIError {
-            errorMessage = error.message
+            errorMessage = message(for: error)
         } catch {
             errorMessage = nil
         }
@@ -193,7 +196,7 @@ final class BuilderModel {
                     step = target
                 }
             }
-            errorMessage = error.message
+            errorMessage = message(for: error)
             return nil
         } catch {
             return nil
@@ -216,7 +219,7 @@ final class BuilderModel {
             readiness = response.readiness
         } catch let error as APIError {
             draft.visibility = previous
-            errorMessage = error.message
+            errorMessage = message(for: error)
         } catch {
             draft.visibility = previous
         }
@@ -226,6 +229,16 @@ final class BuilderModel {
         errorMessage = nil
         refusal = nil
     }
+
+    /// The words for a failed call.
+    ///
+    /// Every server string in this product is English — that is a known,
+    /// deferred piece of the localisation plan — so a French creator who taps
+    /// Publish on an unfinished story was reading an English sentence next to
+    /// six French ones. The server sends a stable code; the client owns the
+    /// words. Anything unrecognised falls back to the server's own text, which
+    /// is still better than nothing.
+    func message(for error: APIError) -> String { createErrorText(error, t) }
 
     // MARK: List editing
     //
@@ -309,5 +322,30 @@ final class BuilderModel {
               let decoded = try? JSONDecoder.plotbreak.decode(JSONValue.self, from: data)
         else { return .null }
         return decoded
+    }
+}
+
+
+/// The words for a failed Create call.
+///
+/// Every server string in this product is English — a known, deferred piece of
+/// the localisation plan — so a French creator who tapped Publish on an
+/// unfinished story read one English sentence sitting next to six French ones.
+/// The server sends a stable code; the client owns the words. Anything
+/// unrecognised falls back to the server's own text, which still beats nothing.
+func createErrorText(_ error: APIError, _ t: Translator) -> String {
+    switch error.code {
+    case "PITCH_TOO_SHORT": return t("create.err_pitch_too_short")
+    case "NOT_READY": return t("create.err_not_ready")
+    case "INSUFFICIENT_CREDITS": return t("create.err_insufficient_credits")
+    case "DRAFT_NOT_FOUND": return t("create.err_draft_not_found")
+    case "TOO_MANY_DRAFTS": return t("create.err_too_many_drafts")
+    case "PUBLISHED_STORY": return t("create.err_published_story")
+    case "NOT_PUBLISHED": return t("create.err_not_published")
+    case "NO_MODEL": return t("create.err_no_model")
+    case "COMPILE_FAILED": return t("create.err_compile_failed")
+    case "NOT_THERE", "UNKNOWN_TARGET": return t("create.err_not_there")
+    case "INVALID_PATCH", "INVALID_VISIBILITY": return t("create.err_invalid_patch")
+    default: return error.message
     }
 }

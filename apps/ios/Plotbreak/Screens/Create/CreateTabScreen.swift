@@ -166,7 +166,7 @@ struct CreateTabScreen: View {
             titles = try await store.api.creatorTitles().titles
             errorMessage = nil
         } catch let error as APIError {
-            errorMessage = error.message
+            errorMessage = createErrorText(error, t)
         } catch {
             errorMessage = nil
         }
@@ -182,7 +182,7 @@ struct CreateTabScreen: View {
             await load()
             router.push(.pitch(draftId: response.draft.draftId))
         } catch let error as APIError {
-            errorMessage = error.message
+            errorMessage = createErrorText(error, t)
         } catch {
             errorMessage = nil
         }
@@ -194,7 +194,7 @@ struct CreateTabScreen: View {
             _ = try await store.api.deleteDraft(title.draftId)
             titles.removeAll { $0.draftId == title.draftId }
         } catch let error as APIError {
-            errorMessage = error.message
+            errorMessage = createErrorText(error, t)
         } catch {
             errorMessage = nil
         }

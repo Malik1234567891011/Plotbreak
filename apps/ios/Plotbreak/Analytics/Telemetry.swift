@@ -115,6 +115,7 @@ enum Telemetry {
     static func track(_ event: PlotbreakEvent, _ properties: [String: Any] = [:]) {
         guard enabled else {
             #if DEBUG
+            // i18n-exempt: a DEBUG console line so the funnel is visible locally, never shown
             print("[telemetry] \(event.rawValue) \(properties)")
             #endif
             return

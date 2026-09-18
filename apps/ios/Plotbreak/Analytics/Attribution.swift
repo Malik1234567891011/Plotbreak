@@ -45,6 +45,7 @@ enum Attribution {
         // The id AppsFlyer's "Register your test device" form asks for
         // (type: IDFV). Search the Xcode console for "attribution".
         let idfv = UIDevice.current.identifierForVendor?.uuidString ?? "unavailable"
+        // i18n-exempt: a DEBUG console line for the AppsFlyer test-device form, never shown
         print("[attribution] enabled=\(enabled) IDFV=\(idfv)")
         #endif
         guard enabled, let devKey = AppConfig.appsFlyerDevKey, let appID = AppConfig.appleAppID else { return }

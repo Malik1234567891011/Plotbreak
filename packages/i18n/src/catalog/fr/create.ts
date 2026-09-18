@@ -271,6 +271,29 @@ export const create = {
     'Ton histoire est en ligne. Tu peux continuer à la modifier et republier quand tu veux.',
   'create.keep_editing': 'Continuer à modifier',
 
+  /* --- Quand un appel échoue ----------------------------------------------
+   *
+   * Le serveur envoie un code stable et une phrase ; la phrase est en anglais,
+   * comme toutes les chaînes serveur de ce produit. Voici les mots que le
+   * client affiche à la place, pour qu’une créatrice francophone ne lise pas
+   * des excuses en anglais.
+   */
+
+  'create.err_pitch_too_short': 'Raconte-m’en un peu plus d’abord.',
+  'create.err_not_ready': 'Il manque encore deux ou trois choses. Elles sont signalées ci-dessous.',
+  'create.err_insufficient_credits': 'Pas assez de crédits pour ça.',
+  'create.err_draft_not_found': 'Cette histoire n’est plus ici.',
+  'create.err_too_many_drafts':
+    'Tu as beaucoup d’histoires en cours. Termines-en une ou supprimes-en une d’abord.',
+  'create.err_published_story':
+    'Cette histoire est publiée. Passe-la en privé, puis supprime-la.',
+  'create.err_not_published': 'Publie cette histoire avant de la partager.',
+  'create.err_no_model':
+    'La construction d’histoires est indisponible pour le moment. Réessaie dans un instant.',
+  'create.err_compile_failed': 'Quelque chose dans cette histoire n’est pas passé. On regarde.',
+  'create.err_not_there': 'Il n’y a rien à écrire là.',
+  'create.err_invalid_patch': 'Cette modification n’a pas été enregistrée. Réessaie.',
+
   /* --- Pourquoi une histoire n’est pas prête ----------------------------- */
 
   'create.issue_title_too_short': 'Donne-lui un titre.',

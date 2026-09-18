@@ -257,6 +257,26 @@ export const create = {
   'create.published_body': 'Your story is live. You can keep editing and publish again whenever you like.',
   'create.keep_editing': 'Keep editing',
 
+  /* --- When a call fails --------------------------------------------------
+   *
+   * The server sends a stable code and a sentence; the sentence is English,
+   * because every server string in this product is. These are the words the
+   * client shows instead, so a French creator does not read an English
+   * apology. Anything not listed here falls back to the server's own text.
+   */
+
+  'create.err_pitch_too_short': 'Tell me a little more about your story first.',
+  'create.err_not_ready': 'A few things are still missing. They are marked below.',
+  'create.err_insufficient_credits': 'Not enough credits for that.',
+  'create.err_draft_not_found': 'That story is not here any more.',
+  'create.err_too_many_drafts': 'You have a lot of stories on the go. Finish or delete one first.',
+  'create.err_published_story': 'This story is published. Make it private first, then delete it.',
+  'create.err_not_published': 'Publish this story before you share it.',
+  'create.err_no_model': 'Story building is unavailable right now. Try again in a moment.',
+  'create.err_compile_failed': 'Something in this story did not fit. We are looking at it.',
+  'create.err_not_there': 'There is nothing to write there.',
+  'create.err_invalid_patch': 'That change did not save. Try again.',
+
   /* --- Why a story is not ready ------------------------------------------ */
 
   'create.issue_title_too_short': 'Give it a title.',
