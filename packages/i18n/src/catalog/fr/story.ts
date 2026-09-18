@@ -231,4 +231,8 @@ export const story = {
   'story.description_heading': 'Description',
   'story.creator_handle': '@ {name}',
   'story.more_a11y': 'Plus d’options',
+  'story.block_creator': 'Bloquer {name}',
+  'story.block_creator_title': 'Bloquer {name} ?',
+  'story.block_creator_body': 'Tu ne verras plus rien de ce qu’elle ou il a créé. Tu peux annuler ça depuis ton profil.',
+  'story.block_confirm': 'Bloquer',
 } as const;

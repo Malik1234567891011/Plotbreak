@@ -86,4 +86,11 @@ export const profile = {
   'profile.badges_to_collect': '{count, plural, one {# to collect} other {# to collect}}',
   /** Label over the name field in Settings. */
   'profile.display_name': 'Display name',
+  'profile.blocked': 'Blocked people',
+  'profile.blocked_body': 'You do not see their worlds or their comments.',
+  'profile.blocked_empty': 'Nobody blocked',
+  'profile.blocked_empty_body': 'Anyone you block from a story will appear here, and you can undo it.',
+  'profile.blocked_unknown': 'Someone',
+  'profile.unblock': 'Unblock',
+  'badges.reward_a11y': 'Worth {credits} credits.',
 } as const;

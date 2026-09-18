@@ -164,4 +164,8 @@ export const story = {
   'story.creator_handle': '@ {name}',
   /** The ⋮ next to the title: save, report. */
   'story.more_a11y': 'More options',
+  'story.block_creator': 'Block {name}',
+  'story.block_creator_title': 'Block {name}?',
+  'story.block_creator_body': 'You will not see anything they have made. You can undo this in your profile.',
+  'story.block_confirm': 'Block',
 } as const;

@@ -1,182 +1,121 @@
 /**
- * Read the moderation queue, and act on it.
+ * Take a world off the shelves, or put it back.
  *
- *   npm run moderate                        # everything waiting on a person
- *   npm run moderate -- --uphold rep_1a2b   # the report was right; leave it down
- *   npm run moderate -- --dismiss rep_1a2b  # it was not; put it back
- *   npm run moderate -- --restore cmt_9f8e  # put a comment back up
+ * The mechanism behind the report button. Reporting wrote a row and bumped a
+ * counter and that was the end of it — `stories.status = 'REMOVED'` had been in
+ * the schema since the first migration and nothing in the product ever set it,
+ * so a published story had no way off Discover no matter how many people
+ * flagged it.
  *
- * There is no admin app. There was going to be one — `apps/admin/` exists and
- * is empty — and for two people shipping a first version, a web console with
- * its own auth, its own deploy and its own attack surface is a worse use of a
- * week than this file.
+ * A script rather than an API route on purpose: there is no admin identity in
+ * this product yet, and inventing one so a button can exist is a worse answer
+ * than a command run by somebody holding the database credentials.
  *
- * What keeps the app compliant is not this script. It is `AUTO_HIDE_REPORTS`,
- * which takes a comment down the moment three different people report it,
- * without waiting for anybody to wake up and run a CLI. This is the review
- * that happens afterwards: restoring what was hidden wrongly, and reading the
- * reports no threshold covers — a story, an image, an account.
- *
- * Requires DATABASE_URL. Read-only unless you pass an action flag.
+ *   npm run moderate -- --list
+ *   npm run moderate -- --story=story_user_abc123 --reason="sexual content involving minors"
+ *   npm run moderate -- --restore=story_user_abc123
  */
 import { Pool } from 'pg';
 
-const RESET = '\u001b[0m';
-const DIM = '\u001b[2m';
-const BOLD = '\u001b[1m';
-const RED = '\u001b[31m';
-
-interface Row {
-  kind: string;
-  id: string;
-  subject_type: string;
-  subject_id: string;
-  detail: string;
-  reports: string;
-  created_at: Date;
-}
-
-function ago(then: Date): string {
-  const mins = Math.floor((Date.now() - then.getTime()) / 60_000);
-  if (mins < 60) return `${mins}m`;
-  if (mins < 1440) return `${Math.floor(mins / 60)}h`;
-  return `${Math.floor(mins / 1440)}d`;
-}
-
-/**
- * Two tables feed one queue.
- *
- * `moderation_cases` is what the threshold opens when it hides something;
- * `reports` is what a player files against a story, a turn, an image or an
- * account. Different shapes, same question — is anyone going to look at this —
- * so they arrive as one list, newest first.
- */
-const OPEN_QUEUE = `
-  SELECT 'CASE' AS kind, c.case_id AS id, c.subject_type, c.subject_id,
-         COALESCE(s.body, '(comment deleted)') AS detail,
-         (SELECT COUNT(*)::text FROM comment_reports r WHERE r.comment_id = c.subject_id) AS reports,
-         c.created_at
-    FROM moderation_cases c
-    LEFT JOIN story_comments s ON s.comment_id = c.subject_id
-   WHERE c.status = 'OPEN'
-   UNION ALL
-  SELECT 'REPORT', report_id, target_type, target_id,
-         reason || CASE WHEN details = '' THEN '' ELSE ' - ' || details END,
-         '1', created_at
-    FROM reports
-   WHERE status = 'OPEN'
-   ORDER BY created_at DESC
-   LIMIT 200`;
-
 async function main(): Promise<void> {
-  if (!process.env.DATABASE_URL) {
-    console.error(
-      'No database configured. Set DATABASE_URL (Supabase -> Connect -> Session pooler),\n' +
-        'or run it as `npm run moderate`, which loads .env for you.',
-    );
-    process.exit(1);
-  }
-
-  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
   const argv = process.argv.slice(2);
-  const flag = (name: string): string | undefined => {
-    const inline = argv.find((a) => a.startsWith(`--${name}=`));
-    if (inline) return inline.slice(name.length + 3);
-    const i = argv.indexOf(`--${name}`);
-    return i >= 0 ? argv[i + 1] : undefined;
-  };
+  const arg = (k: string) => argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3);
+  const url = process.env.DATABASE_URL;
+  if (!url) throw new Error('DATABASE_URL is not set.');
 
+  const pool = new Pool({ connectionString: url });
   try {
-    const restore = flag('restore');
+    if (argv.includes('--list')) {
+      // Everything a person would want to look at first: user worlds with
+      // reports against them, worst first, and whatever is already removed.
+      const { rows } = await pool.query(
+        `SELECT s.story_id, s.status, v.title, p.display_name AS creator,
+                COALESCE(g.reports, 0) AS reports, COALESCE(g.runs, 0) AS runs
+           FROM stories s
+           JOIN story_versions v ON v.story_version_id = s.published_version_id
+           LEFT JOIN story_signals g ON g.story_id = s.story_id
+           LEFT JOIN profiles p ON p.user_id = s.creator_id
+          WHERE s.official = false AND s.deleted_at IS NULL
+          ORDER BY COALESCE(g.reports, 0) DESC, s.updated_at DESC
+          LIMIT 50`,
+      );
+      if (rows.length === 0) {
+        console.log('No player-made worlds yet.');
+        return;
+      }
+      console.log('reports  runs   status      story                        title');
+      for (const row of rows) {
+        console.log(
+          String(row.reports).padStart(7),
+          String(row.runs).padStart(5),
+          String(row.status).padEnd(11),
+          String(row.story_id).padEnd(28),
+          `${row.title} — ${row.creator ?? 'unknown'}`,
+        );
+      }
+      return;
+    }
+
+    const restore = arg('restore');
     if (restore) {
-      const r = await pool.query<{ body: string }>(
-        `UPDATE story_comments SET deleted_at = NULL WHERE comment_id = $1 RETURNING body`,
+      const { rowCount } = await pool.query(
+        `UPDATE stories SET status = 'PUBLISHED', updated_at = now()
+          WHERE story_id = $1 AND status = 'REMOVED'`,
         [restore],
       );
-      if (r.rowCount === 0) {
-        console.log(`No comment ${restore}.`);
-        return;
-      }
-      // Resolve its case too, or the queue keeps handing back something you
-      // have already decided about.
-      await pool.query(
-        `UPDATE moderation_cases SET status = 'RESOLVED', resolved_at = now()
-          WHERE subject_id = $1 AND status = 'OPEN'`,
-        [restore],
+      console.log(rowCount ? `Restored ${restore}.` : `${restore} was not removed.`);
+      return;
+    }
+
+    const storyId = arg('story');
+    const reason = arg('reason');
+    if (!storyId || !reason) {
+      console.log('Usage: --list | --story=<id> --reason="<why>" | --restore=<id>');
+      console.log('A reason is required. A takedown with no reason is not a record.');
+      process.exitCode = 1;
+      return;
+    }
+
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN');
+      const { rowCount } = await client.query(
+        `UPDATE stories SET status = 'REMOVED', updated_at = now()
+          WHERE story_id = $1 AND official = false`,
+        [storyId],
       );
-      console.log(`Restored: ${String(r.rows[0]?.body ?? '').slice(0, 80)}`);
-      return;
-    }
-
-    for (const [name, upheld] of [
-      ['uphold', true],
-      ['dismiss', false],
-    ] as const) {
-      const id = flag(name);
-      if (!id) continue;
-
-      if (id.startsWith('rep_')) {
-        const r = await pool.query(`UPDATE reports SET status = $2 WHERE report_id = $1`, [
-          id,
-          upheld ? 'ACTIONED' : 'DISMISSED',
-        ]);
-        console.log(r.rowCount ? `${id}: ${upheld ? 'actioned' : 'dismissed'}` : `No report ${id}.`);
+      if (!rowCount) {
+        await client.query('ROLLBACK');
+        console.log(`${storyId} is not a player-made world, or does not exist.`);
+        process.exitCode = 1;
         return;
       }
-
-      const r = await pool.query<{ subject_id: string }>(
-        `UPDATE moderation_cases SET status = 'RESOLVED', resolved_at = now()
-          WHERE case_id = $1 RETURNING subject_id`,
-        [id],
+      await client.query(
+        `INSERT INTO moderation_cases
+           (case_id, subject_type, subject_id, severity, reason, status, created_at, resolved_at)
+         VALUES ($1,'STORY',$2,'HIGH',$3,'RESOLVED',now(),now())`,
+        [`case_${crypto.randomUUID()}`, storyId, reason],
       );
-      if (r.rowCount === 0) {
-        console.log(`No case ${id}.`);
-        return;
-      }
-      // Dismissing a case means the takedown was wrong, so undo it. Upholding
-      // leaves the comment hidden, which it already is.
-      if (!upheld) {
-        await pool.query(`UPDATE story_comments SET deleted_at = NULL WHERE comment_id = $1`, [
-          r.rows[0]!.subject_id,
-        ]);
-      }
-      console.log(`${id}: ${upheld ? 'upheld, stays hidden' : 'dismissed, comment restored'}`);
-      return;
+      await client.query(
+        `UPDATE reports SET status = 'ACTIONED'
+          WHERE target_type = 'STORY' AND target_id = $1 AND status = 'OPEN'`,
+        [storyId],
+      );
+      await client.query('COMMIT');
+      console.log(`Removed ${storyId}: ${reason}`);
+      console.log('Live sessions keep playing the version they started. It leaves Discover within a minute.');
+    } catch (error) {
+      await client.query('ROLLBACK').catch(() => undefined);
+      throw error;
+    } finally {
+      client.release();
     }
-
-    const { rows } = await pool.query<Row>(OPEN_QUEUE);
-
-    if (rows.length === 0) {
-      console.log('Queue is empty.');
-      return;
-    }
-
-    const cases = rows.filter((r) => r.kind === 'CASE');
-    console.log(
-      `\n${BOLD}${rows.length} open${RESET} - ${cases.length} auto-hidden awaiting review, ` +
-        `${rows.length - cases.length} player report(s)\n`,
-    );
-
-    for (const row of rows) {
-      const tag =
-        row.kind === 'CASE'
-          ? `${RED}HIDDEN${RESET} ${row.reports} reports`
-          : row.subject_type.toLowerCase();
-      console.log(`${BOLD}${row.id}${RESET}  ${tag}  ${DIM}${ago(row.created_at)} ago${RESET}`);
-      console.log(`  ${row.detail.replace(/\s+/g, ' ').slice(0, 160)}`);
-      console.log(`  ${DIM}${row.subject_id}${RESET}\n`);
-    }
-
-    console.log(
-      `${DIM}--uphold <id> leaves it down. --dismiss <id> puts it back.\n` +
-        `--restore <comment-id> puts a comment back without touching its case.${RESET}`,
-    );
   } finally {
     await pool.end();
   }
 }
 
-void main().catch((error) => {
+main().catch((error) => {
   console.error(error);
   process.exit(1);
 });

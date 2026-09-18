@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { Pool, type PoolClient } from 'pg';
 import { isLocale } from '@plotbreak/i18n';
 import {
@@ -1460,6 +1461,38 @@ export class PostgresRepository implements Repository {
       this.#catalogue = null;
       return next;
     });
+  }
+
+  async removeStory(storyId: string, reason: string): Promise<boolean> {
+    return this.#tx(async (client) => {
+      const { rowCount } = await client.query(
+        // Official worlds are not takedown-able through this path. If one of
+        // ours is wrong, we fix the fixture and migrate.
+        `UPDATE stories SET status = 'REMOVED', updated_at = now()
+          WHERE story_id = $1 AND official = false`,
+        [storyId],
+      );
+      if ((rowCount ?? 0) === 0) return false;
+      await client.query(
+        `INSERT INTO moderation_cases
+           (case_id, subject_type, subject_id, severity, reason, status, created_at, resolved_at)
+         VALUES ($1,'STORY',$2,'HIGH',$3,'RESOLVED',now(),now())`,
+        [`case_${randomUUID()}`, storyId, reason],
+      );
+      this.#catalogue = null;
+      return true;
+    });
+  }
+
+  async restoreStory(storyId: string): Promise<boolean> {
+    const { rowCount } = await this.#pool.query(
+      `UPDATE stories SET status = 'PUBLISHED', updated_at = now()
+        WHERE story_id = $1 AND status = 'REMOVED'`,
+      [storyId],
+    );
+    if ((rowCount ?? 0) === 0) return false;
+    this.#catalogue = null;
+    return true;
   }
 
   async setStoryVisibility(

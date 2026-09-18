@@ -53,7 +53,8 @@
     "context-coverage": "tsx --env-file-if-exists=.env infra/scripts/context-coverage.ts",
     "canon-audit": "tsx --env-file-if-exists=.env infra/scripts/canon-audit.ts",
     "tier-bench": "tsx --env-file-if-exists=.env infra/scripts/tier-bench.ts",
-    "create-e2e": "tsx --env-file-if-exists=.env infra/scripts/create-e2e.ts"
+    "create-e2e": "tsx --env-file-if-exists=.env infra/scripts/create-e2e.ts",
+    "badge-art": "tsx --env-file-if-exists=.env infra/scripts/badge-art.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

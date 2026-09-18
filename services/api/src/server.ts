@@ -70,6 +70,7 @@ import { deriveCustomBuildWithModel } from '@plotbreak/director';
 import { availableCategories, categoriesFor, searchCatalog } from './catalog-taxonomy.js';
 import { registerMediaRoutes } from './media-routes.js';
 import { registerCreateRoutes } from './create-routes.js';
+import { visibilityContext, visibleStories } from './catalogue-visibility.js';
 import type { SessionRecord, StorySignals } from './repo/types.js';
 import { EMPTY_SIGNALS } from './repo/types.js';
 
@@ -387,7 +388,6 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       localizeStory(story, locale),
     );
     const saved = user ? await ctx.repo.getSaves(user.userId) : [];
-    const hidden = user ? await ctx.repo.getHidden(user.userId) : [];
 
     // The browse rail is built from the whole catalog, not from the filtered
     // view — otherwise selecting "Sports" would leave you with only "Sports"
@@ -401,8 +401,17 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     // One query for every world's signals rather than one per world. This was
     // `for … await getSignals(...)`, so the round trips ran end to end and the
     // response grew a full database round trip for every world added.
-    const visible = stories.filter((story) => !hidden.includes(story.storyId));
-    const signalsById = await ctx.repo.getSignalsFor(visible.map((story) => story.storyId));
+    //
+    // Fetched before the filter rather than after, because the report count is
+    // now part of whether a card appears at all and not just what number is
+    // printed on it.
+    const visibility = await visibilityContext(
+      ctx.repo,
+      user?.userId ?? null,
+      stories.map((story) => story.storyId),
+    );
+    const visible = visibleStories(stories, visibility);
+    const signalsById = visibility.signals;
 
     // The social numbers, gathered in three queries for the whole shelf rather
     // than per card.
@@ -612,6 +621,24 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     let stories = (await ctx.repo.listStories()).map((story) => localizeStory(story, locale));
     if (category) stories = stories.filter((story) => categoriesFor(story).includes(category));
 
+    // Blocking and reporting *are* applied here, unlike hiding. Hiding is a
+    // statement about recommendations; blocking somebody is a statement about
+    // them, and content a room full of people has reported should not be
+    // reachable by typing its name either.
+    const searchVisibility = await visibilityContext(
+      {
+        // Bound explicitly rather than spread: the repository is a class, so
+        // `{...repo}` copies its fields and none of its methods, and every
+        // call through it came back undefined.
+        listBlocks: (id) => ctx.repo.listBlocks(id),
+        getSignalsFor: (ids) => ctx.repo.getSignalsFor(ids),
+        getHidden: async () => [],
+      },
+      user?.userId ?? null,
+      stories.map((story) => story.storyId),
+    );
+    stories = visibleStories(stories, searchVisibility);
+
     // Spec §7.5 — title, creator, tags, premise, character names, mechanics.
     // Scored and token-based rather than one substring test over a joined
     // blob, so "magic school" reaches a world tagged "Magic academy" and
@@ -652,16 +679,22 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
 
     // "Hide this from my recommendations" has to mean everywhere a
     // recommendation appears, not only the Discover rails. A story the player
-    // just reported and hid was still being offered two taps later.
-    const hidden = user ? await ctx.repo.getHidden(user.userId) : [];
-
+    // just reported and hid was still being offered two taps later. The same
+    // now goes for a creator they blocked.
+    //
     // Opening one world walked the whole catalogue a query at a time to build
     // the related strip underneath it, which is why tapping a card felt slow
     // in a way that had nothing to do with the card.
-    const others = (await ctx.repo.listStories()).filter(
-      (other) => other.storyId !== story.storyId && !hidden.includes(other.storyId),
+    const candidates = (await ctx.repo.listStories()).filter(
+      (other) => other.storyId !== story.storyId,
     );
-    const relatedSignals = await ctx.repo.getSignalsFor(others.map((other) => other.storyId));
+    const relatedVisibility = await visibilityContext(
+      ctx.repo,
+      user?.userId ?? null,
+      candidates.map((other) => other.storyId),
+    );
+    const others = visibleStories(candidates, relatedVisibility);
+    const relatedSignals = relatedVisibility.signals;
 
     const related: StorySummary[] = others.map((other) =>
       toStorySummary(other, relatedSignals.get(other.storyId) ?? EMPTY_SIGNALS, saved.includes(other.storyId)),
@@ -2042,10 +2075,24 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     return { blocked: false };
   });
 
+  /**
+   * Who this person has blocked, with names.
+   *
+   * Ids alone were enough while the only reader was the comment filter. A
+   * screen where somebody undoes a mis-tap needs to say who they blocked, and
+   * a list of uuids does not.
+   */
   app.get('/v1/blocks', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);
     if (!user) return reply;
-    return { blocked: await ctx.repo.listBlocks(user.userId) };
+    const ids = await ctx.repo.listBlocks(user.userId);
+    const people = await Promise.all(
+      ids.map(async (id) => ({
+        userId: id,
+        displayName: (await ctx.repo.getUser(id))?.displayName ?? '',
+      })),
+    );
+    return { blocked: ids, people };
   });
 
   // --- Account (§33.9) ---

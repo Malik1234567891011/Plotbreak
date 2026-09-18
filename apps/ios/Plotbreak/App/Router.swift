@@ -56,6 +56,7 @@ enum SheetRoute: Identifiable, Hashable {
     case share(storyId: String?, storyTitle: String, actionText: String?, sceneText: String, heroImageUrl: String?, displayName: String?)
     case report(targetType: String, targetId: String)
     case reportHistory
+    case blockedPeople
     case characters
     case badges
     case settings
@@ -73,6 +74,7 @@ enum SheetRoute: Identifiable, Hashable {
         case .share(_, let title, _, _, _, _): return "share:\(title)"
         case .report(let type, let id): return "report:\(type):\(id)"
         case .reportHistory: return "reportHistory"
+        case .blockedPeople: return "blockedPeople"
         case .characters: return "characters"
         case .badges: return "badges"
         case .settings: return "settings"
@@ -271,6 +273,7 @@ struct SheetHost: View {
                 ShareScreen(storyId: storyId, storyTitle: title, actionText: action, sceneText: scene, heroImageUrl: hero, displayName: name)
             case .report(let type, let id): ReportScreen(targetType: type, targetId: id)
             case .reportHistory: ReportHistoryScreen()
+            case .blockedPeople: BlockedPeopleScreen()
             case .characters: CharactersScreen()
             case .badges: BadgesScreen()
             case .settings: SettingsScreen()

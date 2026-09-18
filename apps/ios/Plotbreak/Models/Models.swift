@@ -281,6 +281,8 @@ struct StorySummary: Codable, Hashable, Identifiable {
     var fantasyLabel: String
     var hook: String
     var creatorName: String
+    /// Empty for the official catalogue. What "block this creator" aims at.
+    @Default<EmptyString> var creatorId: String
     var official: Bool
     var coverImage: String?
     var keyArt: String?
@@ -1247,4 +1249,24 @@ struct PinResponse: Codable, Hashable {
 struct GuestMigrateResponse: Codable, Hashable {
     var migrated: Bool
     var sessionsMoved: Int
+}
+
+
+// MARK: - Blocking
+
+struct BlockedResponse: Codable, Hashable {
+    @Default<False> var blocked: Bool
+}
+
+/// One person this player has blocked. The name is what makes the list
+/// usable — a column of uuids is not somewhere anybody undoes a mis-tap.
+struct BlockedPerson: Codable, Hashable, Identifiable {
+    var userId: String
+    @Default<EmptyString> var displayName: String
+    var id: String { userId }
+}
+
+struct BlockedListResponse: Codable {
+    @Default<EmptyArray<String>> var blocked: [String]
+    @Default<EmptyArray<BlockedPerson>> var people: [BlockedPerson]
 }

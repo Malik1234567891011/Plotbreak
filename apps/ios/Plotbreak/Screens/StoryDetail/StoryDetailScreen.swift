@@ -26,6 +26,10 @@ struct StoryDetailScreen: View {
     @State private var likes = 0
     @State private var castMember: CastMember?
     @State private var tab: DetailTab = .information
+    /// The world whose creator is about to be blocked. Confirmed first, because
+    /// blocking removes everything they have made from this person's app, and
+    /// they should not find that out by having already done it.
+    @State private var blockTarget: StorySummary?
 
     var body: some View {
         Screen {
@@ -51,6 +55,28 @@ struct StoryDetailScreen: View {
                 .environment(store)
                 .environment(\.translator, t)
         }
+        .alert(
+            t("story.block_creator_title", ["name": blockTarget?.creatorName ?? ""]),
+            isPresented: Binding(get: { blockTarget != nil }, set: { if !$0 { blockTarget = nil } })
+        ) {
+            Button(t("misc.cancel"), role: .cancel) { blockTarget = nil }
+            Button(t("story.block_confirm"), role: .destructive) {
+                if let target = blockTarget { Task { await block(target) } }
+            }
+        } message: {
+            Txt(t("story.block_creator_body"), .bodyCompact)
+        }
+    }
+
+    /// Block the person who wrote this, then leave — every card of theirs has
+    /// just disappeared from the shelves, so standing on one of them is wrong.
+    private func block(_ story: StorySummary) async {
+        let creatorId = story.creatorId
+        blockTarget = nil
+        guard !creatorId.isEmpty else { return }
+        _ = try? await store.api.blockUser(creatorId)
+        Haptic.play(.success)
+        router.pop()
     }
 
     // MARK: Chrome
@@ -278,6 +304,15 @@ struct StoryDetailScreen: View {
                     router.present(.report(targetType: "STORY", targetId: story.storyId))
                 } label: {
                     Label(t("story.report_story"), systemImage: "flag")
+                }
+                // Only for a world a person wrote. There is nobody to block
+                // behind an official one, and offering it would be nonsense.
+                if !story.official, !story.creatorId.isEmpty {
+                    Button(role: .destructive) {
+                        blockTarget = story
+                    } label: {
+                        Label(t("story.block_creator", ["name": story.creatorName]), systemImage: "person.slash")
+                    }
                 }
             } label: {
                 Image(systemName: "ellipsis")

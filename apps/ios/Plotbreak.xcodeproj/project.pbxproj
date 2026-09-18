@@ -10,6 +10,7 @@
 		0606CD376ED4FED9712641E0 /* fr.json in Resources */ = {isa = PBXBuildFile; fileRef = 35ADB173300E4A438F29547D /* fr.json */; };
 		0E44409BA62A8F55FA9B2290 /* DiscoverSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F0B12843CFCE2E02E8FDB7 /* DiscoverSnapshot.swift */; };
 		11B87E8E644C37CF8769953E /* BuilderFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C82CA54AB051DB9F2D284D0 /* BuilderFields.swift */; };
+		140D38138F79E31A17A2BB71 /* BlockedPeopleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75A14202C28029ADA7A13F /* BlockedPeopleScreen.swift */; };
 		1617C47830EC40777FFC78D5 /* SearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5005D04B8F30B42225FD9468 /* SearchScreen.swift */; };
 		1829C3F4C973CE2EC54A05B9 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9396267E53B1B3461FC0C577 /* CommentsView.swift */; };
 		1E3AD14F7D3FF1BAB6DF449A /* FoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C208C9F72C78893FD833371D /* FoundationTests.swift */; };
@@ -133,6 +134,7 @@
 		A46E24C78BE4F30C595646D0 /* BadgesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesScreen.swift; sourceTree = "<group>"; };
 		A62D4263C15FF137B7C9758D /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		AD4F35EE658A2D295F02D843 /* CharactersScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersScreen.swift; sourceTree = "<group>"; };
+		AE75A14202C28029ADA7A13F /* BlockedPeopleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedPeopleScreen.swift; sourceTree = "<group>"; };
 		B07870FFBF281DB3DBF2DA3E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		B228FF2F329E502F2D858D7D /* Plotbreak.storekit */ = {isa = PBXFileReference; path = Plotbreak.storekit; sourceTree = "<group>"; };
 		B49BD1B8083B098126F1FAB5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 		B19D9FEE3CACC85703946C27 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				AE75A14202C28029ADA7A13F /* BlockedPeopleScreen.swift */,
 				C264076B95959AD348524732 /* ProfileScreen.swift */,
 				39B36CCDCF6DD559DBE9CC62 /* SavedWorldsScreen.swift */,
 			);
@@ -678,6 +681,7 @@
 				A9553C250F50AA849DE6B8A2 /* Attribution.swift in Sources */,
 				303B74DAFB6D11C316E66447 /* Auth.swift in Sources */,
 				CB92ACAF2246F48C6954675E /* BadgesScreen.swift in Sources */,
+				140D38138F79E31A17A2BB71 /* BlockedPeopleScreen.swift in Sources */,
 				11B87E8E644C37CF8769953E /* BuilderFields.swift in Sources */,
 				C4AC8C70BA2142038858BBA3 /* BuilderModel.swift in Sources */,
 				42E365141371CD1820D8DFEA /* BuilderSteps.swift in Sources */,

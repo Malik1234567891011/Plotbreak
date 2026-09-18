@@ -49,6 +49,7 @@ function progressFor(badge: Badge, record: PlayerRecord): number {
     case 'say_anything':
       return record.hasFreeformed ? 1 : 0;
     case 'ten_turns':
+    case 'twenty_turns':
       return turnsTotal;
     case 'back_for_more':
       return record.hasReturned ? 1 : 0;

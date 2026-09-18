@@ -60,6 +60,8 @@ export class MemoryRepository implements Repository {
   readonly #drafts = new Map<string, StoryDraft>();
   /** Which worlds are reachable from Discover. Absent means official, i.e. public. */
   readonly #visibility = new Map<string, 'PRIVATE' | 'UNLISTED' | 'PUBLIC'>();
+  /** Worlds taken down by moderation, and why. */
+  readonly #removed = new Map<string, string>();
 
   constructor(stories: readonly StoryVersion[] = [...LAUNCH_CATALOG]) {
     // Seeded so a fresh install shows a plausible catalog rather than a wall of
@@ -635,6 +637,21 @@ export class MemoryRepository implements Repository {
     };
     this.#drafts.set(next.draftId, next);
     return next;
+  }
+
+  async removeStory(storyId: string, reason: string): Promise<boolean> {
+    const known = [...this.#stories.values()].some((story) => story.storyId === storyId);
+    if (!known) return false;
+    this.#removed.set(storyId, reason);
+    this.#visibility.set(storyId, 'PRIVATE');
+    return true;
+  }
+
+  async restoreStory(storyId: string): Promise<boolean> {
+    if (!this.#removed.has(storyId)) return false;
+    this.#removed.delete(storyId);
+    this.#visibility.set(storyId, 'PUBLIC');
+    return true;
   }
 
   async setStoryVisibility(

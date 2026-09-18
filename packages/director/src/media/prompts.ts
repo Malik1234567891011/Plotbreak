@@ -61,7 +61,13 @@ export type ShotKind =
   | 'LOCATION_STAGE'
   | 'CHARACTER_PORTRAIT'
   | 'PLAYER_PORTRAIT'
-  | 'HERO_FRAME';
+  | 'HERO_FRAME'
+  /**
+   * App chrome rather than story art: the badge marks, drawn once by
+   * `npm run badge-art` and shipped in the bundle. Listed here so the
+   * provenance a generated asset carries is the same shape for all of them.
+   */
+  | 'BADGE';
 
 export interface ImagePromptSpec {
   readonly assetKey: string;

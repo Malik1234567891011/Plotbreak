@@ -134,6 +134,8 @@ export function toStorySummary(
     storyVersionId: story.id,
     title: story.title,
     fantasyLabel: story.fantasyLabel,
+    // Never for an official world: there is nobody to block.
+    creatorId: story.official ? '' : story.creatorId,
     hook: story.hook,
     creatorName: story.creatorName,
     official: story.official,

@@ -49,6 +49,7 @@ struct ProfileScreen: View {
                             SettingsRow(t("settings.personalization"), icon: "person.crop.circle.badge.checkmark") { router.present(.personalization) }
                             SettingsRow(t("profile.saved_worlds"), icon: "bookmark") { router.present(.savedWorlds) }
                             SettingsRow(t("profile.report_history"), icon: "checkmark.shield") { router.present(.reportHistory) }
+                            SettingsRow(t("profile.blocked"), icon: "person.slash") { router.present(.blockedPeople) }
                         }
                         .padding(.top, 6)
 

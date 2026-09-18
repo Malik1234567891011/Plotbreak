@@ -111,9 +111,29 @@ describe('the launch set itself', () => {
     }
   });
 
-  it('pays little enough not to replace buying credits', () => {
-    const total = [...BADGES_BY_ID.values()].reduce((sum, b) => sum + b.creditReward, 0);
-    // A VIVID turn is 60. The whole set is worth about twenty of them.
+  /**
+   * The set now contains one deliberate subsidy — `twenty_turns` pays 1,000,
+   * which is most of what twenty Vivid turns cost — so "the whole set is small"
+   * is no longer the invariant. The invariant is that it is the *only* one:
+   * a second badge at that size, or a drift upward in the ordinary ones, turns
+   * the reward into the price.
+   */
+  it('keeps the onboarding subsidy to exactly one badge', () => {
+    const large = [...BADGES_BY_ID.values()].filter((b) => b.creditReward > 60 * 5);
+    expect(large.map((b) => b.id)).toEqual(['twenty_turns']);
+  });
+
+  it('pays little enough, everywhere else, not to replace buying credits', () => {
+    const ordinary = [...BADGES_BY_ID.values()].filter((b) => b.id !== 'twenty_turns');
+    const total = ordinary.reduce((sum, b) => sum + b.creditReward, 0);
+    // A VIVID turn is 60. Everything but the subsidy is worth about twenty.
     expect(total).toBeLessThan(60 * 25);
+  });
+
+  it('subsidises the first twenty turns without quite paying for them', () => {
+    // If a badge ever pays more than the turns it asks for, playing becomes
+    // free and the economy stops existing.
+    const badge = BADGES_BY_ID.get('twenty_turns')!;
+    expect(badge.creditReward).toBeLessThan(badge.target * 60);
   });
 });

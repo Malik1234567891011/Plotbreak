@@ -376,6 +376,18 @@ export interface Repository {
     readonly visibility: 'PRIVATE' | 'UNLISTED' | 'PUBLIC';
     readonly at: string;
   }): Promise<StoryDraft>;
+  /**
+   * Take a world off the shelves for everybody, not just one reader.
+   *
+   * The moderation half of `setStoryVisibility`: that one is the creator's own
+   * choice and is scoped to stories they own, which is exactly wrong for a
+   * takedown. `status = 'REMOVED'` was in the schema from the start and
+   * nothing ever set it, so until now a published story could be reported by
+   * any number of people and still had no way off Discover.
+   */
+  removeStory(storyId: string, reason: string): Promise<boolean>;
+  /** Puts back a world removed in error. A takedown that cannot be undone is a liability. */
+  restoreStory(storyId: string): Promise<boolean>;
   /** Moves a published story between Discover, link-only and nobody. */
   setStoryVisibility(
     storyId: string,

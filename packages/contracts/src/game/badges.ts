@@ -18,11 +18,14 @@ import { z } from 'zod';
  *
  * ## Why the rewards are small
  *
- * A VIVID turn costs 60. The whole launch set pays 1,150 — about nineteen
- * turns, spread across behaviour that takes days to produce. It is enough to
- * feel like a gift and not enough to replace buying credits, which is the only
- * balance worth having: a reward large enough to substitute for the economy
- * stops being a reward and becomes the price.
+ * A VIVID turn costs 60. The set pays 2,150 — about thirty-six turns, spread
+ * across behaviour that takes days to produce, and 1,000 of it is one badge:
+ * `twenty_turns`, which exists to get somebody past the point where they know
+ * whether they like this.
+ *
+ * The rest stay small on purpose. A reward large enough to substitute for the
+ * economy stops being a reward and becomes the price, so the subsidy is spent
+ * once, early, on the only thing worth buying — a second session.
  */
 export const BadgeTier = z.enum(['BRONZE', 'SILVER', 'GOLD']);
 export type BadgeTier = z.infer<typeof BadgeTier>;
@@ -85,6 +88,25 @@ export const BADGES: readonly Badge[] = [
     tier: 'BRONZE',
     target: 10,
     creditReward: 50,
+    secret: false,
+  },
+  {
+    /**
+     * The one badge that pays like a purchase.
+     *
+     * Everything else here is a gift; this is a deliberate subsidy of the
+     * habit that decides whether somebody has a second session. Twenty turns
+     * at Vivid costs 1,200, so 1,000 back makes the first twenty turns very
+     * nearly free — which is the point, and is also why there is exactly one
+     * of these and why it can only be claimed once.
+     */
+    id: 'twenty_turns',
+    title: 'Twenty Turns',
+    description: 'Play twenty turns. We will cover most of them.',
+    icon: '⚡️',
+    tier: 'SILVER',
+    target: 20,
+    creditReward: 1000,
     secret: false,
   },
   {

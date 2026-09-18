@@ -126,4 +126,11 @@ export const profile = {
   'profile.saved_empty_body': 'Appuie longuement sur un monde dans Découvrir puis sur Enregistrer : il t’attendra ici.',
   'profile.badges_to_collect': '{count, plural, one {# à récupérer} other {# à récupérer}}',
   'profile.display_name': 'Nom affiché',
+  'profile.blocked': 'Personnes bloquées',
+  'profile.blocked_body': 'Tu ne vois ni leurs mondes ni leurs commentaires.',
+  'profile.blocked_empty': 'Personne de bloqué',
+  'profile.blocked_empty_body': 'Les personnes que tu bloques depuis une histoire apparaîtront ici, et tu pourras annuler.',
+  'profile.blocked_unknown': 'Quelqu’un',
+  'profile.unblock': 'Débloquer',
+  'badges.reward_a11y': 'Vaut {credits} crédits.',
 } as const;

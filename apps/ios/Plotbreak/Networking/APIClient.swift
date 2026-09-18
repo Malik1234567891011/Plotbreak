@@ -500,6 +500,22 @@ actor APIClient {
         try await request("GET", "/v1/report-history")
     }
 
+    /// Stop seeing anything by this person — their worlds as well as their
+    /// comments. The server filters both; before Create there was nothing but
+    /// comments to filter.
+    func blockUser(_ userId: String) async throws -> BlockedResponse {
+        struct Body: Encodable { let targetId: String }
+        return try await request("POST", "/v1/blocks", body: Body(targetId: userId))
+    }
+
+    func unblockUser(_ userId: String) async throws -> BlockedResponse {
+        try await request("DELETE", "/v1/blocks/\(userId)")
+    }
+
+    func blockedPeople() async throws -> BlockedListResponse {
+        try await request("GET", "/v1/blocks")
+    }
+
     func migrateGuest(guestUserId: String, displayName: String) async throws -> GuestMigrateResponse {
         struct Body: Encodable { let guestUserId: String; let displayName: String }
         return try await request("POST", "/v1/auth/guest-migrate", body: Body(guestUserId: guestUserId, displayName: displayName))

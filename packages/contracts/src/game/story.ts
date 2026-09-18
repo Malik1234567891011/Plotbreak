@@ -1164,6 +1164,16 @@ export const StorySummary = z
     fantasyLabel: z.string(),
     hook: z.string(),
     creatorName: z.string(),
+    /**
+     * Who wrote it, so a reader can block them.
+     *
+     * Empty for the official catalogue, which has no person behind it. This is
+     * the only reason the id leaves the server: a card carried the creator's
+     * *name* and nothing else, so "block this creator" had nothing to aim at
+     * and could not be built — which is a requirement rather than a nicety the
+     * moment strangers can publish.
+     */
+    creatorId: z.string().default(''),
     official: z.boolean(),
     coverImage: z.string().nullable(),
     keyArt: z.string().nullable(),

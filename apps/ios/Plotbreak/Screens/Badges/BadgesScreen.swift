@@ -128,8 +128,7 @@ struct BadgeRow<Action: View>: View {
     var body: some View {
         Card {
             HStack(spacing: Theme.Spacing.md) {
-                Txt(badge.icon, .h2)
-                    .opacity(earned ? 1 : 0.35)
+                BadgeMark(badge: badge, earned: earned)
                 VStack(alignment: .leading, spacing: 2) {
                     Txt(badge.title, .bodyStrong, color: earned ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
                     Txt(badge.description, .caption, color: Theme.Colors.textMuted)
@@ -149,9 +148,66 @@ struct BadgeRow<Action: View>: View {
                         .padding(.top, Theme.Spacing.xs)
                     }
                 }
-                Spacer(minLength: 0)
+                Spacer(minLength: Theme.Spacing.sm)
+                // The reward, on every row rather than only on the ones that
+                // are ready to claim. A badge screen that does not say what a
+                // badge is worth is a list of chores: the number is the reason
+                // to go and do it, and it belongs where the eye lands last.
+                BadgeReward(credits: badge.creditReward, earned: earned, claimed: badge.claimedAt != nil)
                 action()
             }
+        }
+    }
+}
+
+/// The badge's mark, drawn by `npm run badge-art` and shipped in the bundle.
+///
+/// Falls back to the emoji the definition still carries. Not defensiveness for
+/// its own sake: the contract is shared with a web client that has no asset
+/// catalogue, and a badge added in code before its art is drawn should appear
+/// as a slightly cheap row rather than an empty one.
+struct BadgeMark: View {
+    let badge: BadgeView
+    let earned: Bool
+
+    private var art: Image? {
+        UIImage(named: "badge_\(badge.id)").map { Image(uiImage: $0) }
+    }
+
+    var body: some View {
+        Group {
+            if let art {
+                art.resizable().scaledToFit().frame(width: 40, height: 40)
+            } else {
+                Txt(badge.icon, .h2)
+            }
+        }
+        // Locked marks are dimmed rather than greyed: the colour is the reward,
+        // and a desaturated one stops reading as a thing worth having.
+        .opacity(earned ? 1 : 0.4)
+        .saturation(earned ? 1 : 0.55)
+        .accessibilityHidden(true)
+    }
+}
+
+/// What a badge pays, in the accent when it is still out there to be won and
+/// dimmed once it has been collected.
+struct BadgeReward: View {
+    let credits: Int
+    let earned: Bool
+    let claimed: Bool
+
+    @Environment(\.translator) private var t
+
+    var body: some View {
+        if credits > 0, !claimed {
+            HStack(spacing: 3) {
+                CreditGlyph(size: 11, color: earned ? Theme.Colors.accentPrimary : Theme.Colors.textMuted)
+                Text("\(credits)")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(earned ? Theme.Colors.accentPrimary : Theme.Colors.textMuted)
+            }
+            .accessibilityLabel(t("badges.reward_a11y", ["credits": credits]))
         }
     }
 }
