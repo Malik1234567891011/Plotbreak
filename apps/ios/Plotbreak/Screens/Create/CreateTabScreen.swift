@@ -230,6 +230,14 @@ struct CreatorTitleCard: View {
             Card {
                 VStack(alignment: .leading, spacing: Theme.Spacing.md) {
                     HStack(alignment: .top, spacing: Theme.Spacing.md) {
+                        // The cover, when they have chosen one. A card that
+                        // will not show the picture somebody just uploaded is
+                        // how you conclude the upload failed.
+                        if let cover = title.coverImage, !cover.isEmpty {
+                            RemoteImage(cover.assetKeyURL) { Theme.Colors.bgRaised }
+                                .frame(width: 44, height: 66)
+                                .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+                        }
                         VStack(alignment: .leading, spacing: 4) {
                             Txt(title.title.isEmpty ? t("create.untitled") : title.title, .h3, lineLimit: 2)
                             if !title.hook.isEmpty {

@@ -78,12 +78,18 @@ export async function storeUpload(
 
   // Owner first, so every picture one person uploaded can be found by prefix
   // when one of them has to go.
-  const assetKey = `uploads/${options.ownerId}/${options.kind}_${randomUUID().slice(0, 12)}.jpg`;
-  const path = join(ASSET_ROOT, assetKey);
+  //
+  // The key carries **no extension**, because that is what the rest of the
+  // product means by an asset key: `localizeStory` appends `.fr` to it and
+  // `/media/*` appends `.webp`, `.png` or `.jpg` looking for the file. An
+  // upload that stored its own URL instead came out the other side as
+  // `<cdn>//media/…/cover.jpg.en` and rendered as no cover at all.
+  const assetKey = `uploads/${options.ownerId}/${options.kind}_${randomUUID().slice(0, 12)}`;
+  const path = join(ASSET_ROOT, `${assetKey}.jpg`);
   await mkdir(dirname(path), { recursive: true });
   await writeFile(path, encoded);
 
-  return { url: `/media/${assetKey}`, assetKey, bytes: encoded.length };
+  return { assetKey, url: `/media/${assetKey}.jpg`, bytes: encoded.length };
 }
 
 /** A stable, non-reversible folder per person, so a path never carries a user id. */

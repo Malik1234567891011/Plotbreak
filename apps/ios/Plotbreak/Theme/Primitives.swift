@@ -601,6 +601,21 @@ extension String {
         if hasPrefix("http://") || hasPrefix("https://") || hasPrefix("data:") { return URL(string: self) }
         return URL(string: self, relativeTo: AppConfig.apiURL)?.absoluteURL
     }
+
+    /// Resolves a bare **asset key** — `uploads/abc/cover_1` — into something
+    /// renderable.
+    ///
+    /// A key has no extension and no `/media` prefix, because the rest of the
+    /// product appends both: `localizeStory` adds `.fr`, and `/media/*` tries
+    /// `.webp`, `.png` and `.jpg` in turn. Everywhere a *published* story is
+    /// drawn, the server has already turned the key into a URL for us. The
+    /// builder is the one place holding a raw key, because it is looking at a
+    /// draft rather than at a projection.
+    var assetKeyURL: URL? {
+        if isEmpty { return nil }
+        if hasPrefix("http://") || hasPrefix("https://") || hasPrefix("/media/") { return assetURL }
+        return "/media/\(self).jpg".assetURL
+    }
 }
 
 // MARK: - Redesign primitives

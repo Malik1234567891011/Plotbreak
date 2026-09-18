@@ -51,7 +51,7 @@ function title(draft: StoryDraft, ready: boolean, signals: { runs: number; likes
     storyId: draft.storyId,
     title: draft.title,
     hook: draft.hook,
-    coverImage: null,
+    coverImage: draft.coverImage,
     status: draft.publishedVersionId ? 'PUBLISHED' : 'DRAFT',
     visibility: draft.visibility,
     ready,
@@ -413,7 +413,7 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
       );
     }
 
-    let stored: { url: string };
+    let stored: { assetKey: string; url: string };
     try {
       stored = await storeUpload(bytes, {
         // Hashed, so a public URL never carries a user id.
@@ -427,17 +427,19 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
 
     const next = StoryDraft.parse({
       ...draft,
+      // The key, not the url. Everything downstream — localisation, cache
+      // busting, the CDN prefix — operates on a key.
       ...(kind === 'cover'
-        ? { coverImage: stored.url }
+        ? { coverImage: stored.assetKey }
         : {
             characters: draft.characters.map((character, at) =>
-              at === index ? { ...character, portrait: stored.url } : character,
+              at === index ? { ...character, portrait: stored.assetKey } : character,
             ),
           }),
       updatedAt: new Date().toISOString(),
     });
     await ctx.repo.putDraft(next);
-    return { draft: next, readiness: draftReadiness(next), url: stored.url };
+    return { draft: next, readiness: draftReadiness(next), url: stored.url, assetKey: stored.assetKey };
   });
 
   /** Take a picture back off, which is the only way to undo an upload. */

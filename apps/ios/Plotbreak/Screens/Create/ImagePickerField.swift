@@ -81,7 +81,7 @@ struct ImagePickerField: View {
 
     private func chosen(_ url: String) -> some View {
         HStack(alignment: .top, spacing: Theme.Spacing.md) {
-            RemoteImage(url.assetURL) {
+            RemoteImage(url.assetKeyURL) {
                 Theme.Colors.bgRaised
             }
             .frame(width: 96, height: 96 / aspect)
