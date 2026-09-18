@@ -76,3 +76,42 @@ describe('block length', () => {
     expect(splitForContract('You step off the log.')).toEqual(['You step off the log.']);
   });
 });
+
+describe('the clock a French player reads', () => {
+  it('names the day and the time of day in French', () => {
+    expect(formatStoryTime(8 * 60, 'fr')).toBe('Jour 1 · matin');
+    expect(formatStoryTime(22 * 60, 'fr')).toBe('Jour 1 · nuit');
+    expect(formatStoryTime(6 * 60, 'fr')).toBe('Jour 1 · petit matin');
+  });
+
+  it('coarsens in French the same way it does in English', () => {
+    const weeks = 20 * 24 * 60 + 9 * 60;
+    expect(formatStoryTime(weeks, 'en')).toMatch(/^Week 3 · morning$/);
+    expect(formatStoryTime(weeks, 'fr')).toMatch(/^Semaine 3 · matin$/);
+    const months = 100 * 24 * 60 + 9 * 60;
+    expect(formatStoryTime(months, 'fr')).toMatch(/^Mois 4 · matin$/);
+    const years = 800 * 24 * 60 + 9 * 60;
+    expect(formatStoryTime(years, 'fr')).toMatch(/^An 3 · matin$/);
+  });
+
+  it('defaults to English when nobody says otherwise', () => {
+    expect(formatStoryTime(8 * 60)).toBe('Day 1 · morning');
+  });
+
+  it('prefers the storyteller’s own phrase over any fallback', () => {
+    // It wrote that phrase in the story's language already.
+    expect(transitionLabel({ amount: 3, unit: 'days', phrase: 'trois jours plus tard' }, 'fr'))
+      .toBe('Trois jours plus tard');
+  });
+
+  it('falls back in the right language, and gets the plural right', () => {
+    expect(transitionLabel({ amount: 1, unit: 'days', phrase: '' }, 'fr')).toBe('1 jour plus tard');
+    expect(transitionLabel({ amount: 3, unit: 'days', phrase: '' }, 'fr')).toBe('3 jours plus tard');
+    expect(transitionLabel({ amount: 1, unit: 'days', phrase: '' }, 'en')).toBe('1 day later');
+    expect(transitionLabel({ amount: 3, unit: 'days', phrase: '' }, 'en')).toBe('3 days later');
+  });
+
+  it('still says nothing when the scene simply continued', () => {
+    expect(transitionLabel({ amount: 5, unit: 'minutes', phrase: '' }, 'fr')).toBeNull();
+  });
+});

@@ -1,5 +1,6 @@
 import type { TranslationKey } from '../en/index.js';
 import { check } from './check.js';
+import { clock } from './clock.js';
 import { create } from './create.js';
 import { category } from './category.js';
 import { characters } from './characters.js';
@@ -57,6 +58,7 @@ export const fr: Partial<Record<TranslationKey, string>> = {
   ...library,
   ...profile,
   ...check,
+  ...clock,
   ...create,
   ...category,
   ...characters,

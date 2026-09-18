@@ -547,6 +547,8 @@ function rightNow(story: StoryVersion, state: GameState): string {
       : [`You are ${state.player.identity.displayName} (${state.player.identity.pronouns}).`]),
     `The player is at ${here?.name ?? state.player.locationId}.`,
     `Present: ${present.join(', ') || 'nobody'}.`,
+    // English on purpose. The whole scaffold is, and the storyteller is told
+    // separately which language to write in.
     `It is ${formatStoryTime(state.worldMinute)}.`,
   ].join('\n');
 }
@@ -775,7 +777,8 @@ export async function narratePure(options: {
   };
 
   const nextWorldMinute = state.worldMinute + minutesFor(turn.timeAdvance);
-  const timeLabel = formatStoryTime(nextWorldMinute);
+  // The label the player reads, in the language the run is being told in.
+  const timeLabel = formatStoryTime(nextWorldMinute, state.locale);
 
   // Decided here rather than in the API, so the marker written into history is
   // what the player actually saw. Recording the proposal instead would let a
@@ -789,7 +792,7 @@ export async function narratePure(options: {
     turn,
     nextWorldMinute,
     timeLabel,
-    transition: transitionLabel(turn.timeAdvance),
+    transition: transitionLabel(turn.timeAdvance, state.locale),
     promptChars: JSON.stringify(messages).length,
     historyTurns: shape === 'append' ? (options.rendered?.length ?? 0) : recentTurns.length,
     invocation: result.invocation,

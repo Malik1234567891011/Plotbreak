@@ -1,3 +1,4 @@
+import { translatorFor, type Locale, type TranslationKey } from '@plotbreak/i18n';
 /**
  * Story time.
  *
@@ -50,7 +51,7 @@ export function isSkip(advance: TimeAdvance | undefined): boolean {
 function partOfDay(minuteOfDay: number): string {
   const hour = Math.floor(minuteOfDay / 60);
   if (hour < 5) return 'night';
-  if (hour < 8) return 'early morning';
+  if (hour < 8) return 'early_morning';
   if (hour < 12) return 'morning';
   if (hour < 14) return 'midday';
   if (hour < 18) return 'afternoon';
@@ -65,25 +66,32 @@ function partOfDay(minuteOfDay: number): string {
  * asked for; after a couple of months the honest unit is months, and the story
  * says the rest.
  */
-export function formatStoryTime(worldMinute: number): string {
+export function formatStoryTime(worldMinute: number, locale: Locale = 'en'): string {
+  const t = translatorFor(locale);
   const minute = Math.max(0, Math.round(worldMinute));
   const dayIndex = Math.floor(minute / DAY);
-  const when = partOfDay(minute % DAY);
+  const when = t(`clock.${partOfDay(minute % DAY)}` as TranslationKey);
 
-  if (dayIndex < 14) return `Day ${dayIndex + 1} · ${when}`;
-  if (dayIndex < 56) return `Week ${Math.floor(dayIndex / 7) + 1} · ${when}`;
-  if (dayIndex < 730) return `Month ${Math.floor(dayIndex / 30) + 1} · ${when}`;
-  return `Year ${Math.floor(dayIndex / 365) + 1} · ${when}`;
+  if (dayIndex < 14) return t('clock.day', { n: dayIndex + 1, when });
+  if (dayIndex < 56) return t('clock.week', { n: Math.floor(dayIndex / 7) + 1, when });
+  if (dayIndex < 730) return t('clock.month', { n: Math.floor(dayIndex / 30) + 1, when });
+  return t('clock.year', { n: Math.floor(dayIndex / 365) + 1, when });
 }
 
 /**
  * The line shown above a beat that jumped. Null when the scene just continued,
  * so the UI only ever marks a real transition.
  */
-export function transitionLabel(advance: TimeAdvance | undefined): string | null {
+export function transitionLabel(
+  advance: TimeAdvance | undefined,
+  locale: Locale = 'en',
+): string | null {
   if (!advance || !isSkip(advance)) return null;
+  // The storyteller's own phrase, which it wrote in the story's language.
   const phrase = advance.phrase?.trim();
   if (phrase) return phrase.charAt(0).toUpperCase() + phrase.slice(1);
-  const plural = advance.amount === 1 ? advance.unit.replace(/s$/, '') : advance.unit;
-  return `${advance.amount} ${plural} later`;
+  // The fallback, which used to be English whatever the story was in.
+  const t = translatorFor(locale);
+  const key = `clock.later_${advance.unit}` as TranslationKey;
+  return t(key, { n: advance.amount });
 }
