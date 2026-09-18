@@ -22,7 +22,7 @@ settings:
     DEVELOPMENT_TEAM: Q7ZLXMG4SB
     CODE_SIGN_STYLE: Automatic
     MARKETING_VERSION: "1.0.1"
-    CURRENT_PROJECT_VERSION: 6
+    CURRENT_PROJECT_VERSION: 7
     TARGETED_DEVICE_FAMILY: "1,2"
     ENABLE_USER_SCRIPT_SANDBOXING: false
 packages:
@@ -64,6 +64,9 @@ targets:
       properties:
         CFBundleDisplayName: Plotbreak
         CFBundleName: Plotbreak
+        # The strings live in Resources/i18n/*.json, not in .lproj folders, so
+        # the App Store cannot see French unless the bundle declares it.
+        CFBundleLocalizations: [en, fr]
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UILaunchScreen:
