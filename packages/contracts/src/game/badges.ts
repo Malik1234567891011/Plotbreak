@@ -42,6 +42,16 @@ export const Badge = z
     target: z.number().int().min(1),
     creditReward: z.number().int().min(0),
     /**
+     * The fewest credits anybody could spend and still earn this.
+     *
+     * Authored rather than derived, because it is not a function of `target`:
+     * thirty different days needs thirty turns, twenty finished runs needs
+     * about two hundred, and fifty turns at Apex needs fifty turns at 195 each.
+     * It exists so the one rule that matters is checkable — a badge must pay
+     * less than the play it asks for, or it is not a reward, it is the price.
+     */
+    minimumCredits: z.number().int().min(0),
+    /**
      * Hidden until earned.
      *
      * Only for badges whose text would spoil something — the rare ending is
@@ -54,10 +64,13 @@ export const Badge = z
 export type Badge = z.infer<typeof Badge>;
 
 /**
- * The launch set. Twelve, deliberately.
+ * The set, in roughly the order a player meets them.
  *
- * Enough that there is always one in reach and few enough that the screen can
- * be read in one go. Ordered roughly by when a player will meet them.
+ * Two groups. The first thirteen are reachable in a week and pay small; they
+ * exist so there is always one in reach. The last five take months, and they
+ * are where the real credits are — which is the only arrangement that is not
+ * giving money away, because each is unreachable without having played far
+ * more than it returns.
  */
 export const BADGES: readonly Badge[] = [
   {
@@ -68,6 +81,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'BRONZE',
     target: 1,
     creditReward: 50,
+    minimumCredits: 30,
     secret: false,
   },
   {
@@ -78,6 +92,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'BRONZE',
     target: 1,
     creditReward: 50,
+    minimumCredits: 30,
     secret: false,
   },
   {
@@ -88,6 +103,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'BRONZE',
     target: 10,
     creditReward: 50,
+    minimumCredits: 300,
     secret: false,
   },
   {
@@ -107,6 +123,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'SILVER',
     target: 20,
     creditReward: 1000,
+    minimumCredits: 600,
     secret: false,
   },
   {
@@ -117,6 +134,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'BRONZE',
     target: 1,
     creditReward: 60,
+    minimumCredits: 60,
     secret: false,
   },
   {
@@ -127,6 +145,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'SILVER',
     target: 1,
     creditReward: 100,
+    minimumCredits: 300,
     secret: false,
   },
   {
@@ -137,6 +156,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'SILVER',
     target: 3,
     creditReward: 100,
+    minimumCredits: 90,
     secret: false,
   },
   {
@@ -147,6 +167,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'SILVER',
     target: 3,
     creditReward: 100,
+    minimumCredits: 90,
     secret: false,
   },
   {
@@ -157,6 +178,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'SILVER',
     target: 5,
     creditReward: 120,
+    minimumCredits: 150,
     secret: false,
   },
   {
@@ -167,6 +189,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'GOLD',
     target: 50,
     creditReward: 150,
+    minimumCredits: 1500,
     secret: false,
   },
   {
@@ -177,6 +200,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'GOLD',
     target: 5,
     creditReward: 200,
+    minimumCredits: 1500,
     secret: false,
   },
   {
@@ -187,6 +211,79 @@ export const BADGES: readonly Badge[] = [
     tier: 'GOLD',
     target: 100,
     creditReward: 200,
+    minimumCredits: 3000,
+    secret: false,
+  },
+  /* ---------------------------------------------------------------------- */
+  /* The long game.                                                          */
+  /*                                                                         */
+  /* Everything above is reachable in a week. These five are not, and that is */
+  /* the point: each one is only paid for by play somebody has genuinely done,*/
+  /* and the credits behind it cost far more than the badge returns. Two are  */
+  /* gated on money without ever mentioning it — fifty turns at Apex is 9,750 */
+  /* credits and a thousand turns is thirty thousand at the cheapest tier, so */
+  /* neither is reachable on daily grants inside a year.                      */
+  /*                                                                         */
+  /* Deliberately different *kinds* of hard, so they cannot all land on the   */
+  /* same afternoon: one needs depth in a single run, one needs breadth, one  */
+  /* needs the calendar, and the calendar cannot be rushed at any price.      */
+  /* ---------------------------------------------------------------------- */
+  {
+    id: 'apex_run',
+    title: 'No Expense Spared',
+    description: 'Play fifty turns at the very highest quality.',
+    icon: '👑',
+    tier: 'GOLD',
+    target: 50,
+    creditReward: 2500,
+    // Fifty Apex turns is 9,750. There is no cheaper path to this one.
+    minimumCredits: 9750,
+    secret: false,
+  },
+  {
+    id: 'one_world_deep',
+    title: 'Three Hundred',
+    description: 'Reach three hundred turns inside a single world.',
+    icon: '🕯️',
+    tier: 'GOLD',
+    target: 300,
+    creditReward: 2500,
+    minimumCredits: 9000,
+    secret: false,
+  },
+  {
+    id: 'ending_collector',
+    title: 'Completionist',
+    description: 'Finish twenty separate runs.',
+    icon: '🗝️',
+    tier: 'GOLD',
+    target: 20,
+    creditReward: 2500,
+    // An ending cannot be offered before turn ten, so twenty runs is two
+    // hundred turns at the absolute floor.
+    minimumCredits: 6000,
+    secret: false,
+  },
+  {
+    id: 'month_of_nights',
+    title: 'Thirty Nights',
+    description: 'Play on thirty different days.',
+    icon: '🌗',
+    tier: 'GOLD',
+    target: 30,
+    creditReward: 800,
+    minimumCredits: 900,
+    secret: false,
+  },
+  {
+    id: 'marathon',
+    title: 'One Thousand',
+    description: 'Play a thousand turns.',
+    icon: '🜲',
+    tier: 'GOLD',
+    target: 1000,
+    creditReward: 5000,
+    minimumCredits: 30000,
     secret: false,
   },
   {
@@ -197,6 +294,7 @@ export const BADGES: readonly Badge[] = [
     tier: 'GOLD',
     target: 1,
     creditReward: 250,
+    minimumCredits: 300,
     // The only hidden one: naming it would say there is something to look for
     // and roughly where.
     secret: true,

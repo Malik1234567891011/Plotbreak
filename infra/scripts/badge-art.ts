@@ -66,6 +66,13 @@ const SUBJECTS: Record<string, string> = {
   ending_hunter: 'a laurel wreath closed around an empty centre',
   long_night: 'a crescent moon with one star inside its curve',
   rare_ending: 'a faceted gemstone throwing a hard highlight',
+  // The long game. Heavier, more ornate marks than the starter set, so the
+  // screen shows at a glance which ones are worth months.
+  apex_run: 'an ornate crown seen straight on, with one gem at its centre',
+  one_world_deep: 'a tall lit candle burned most of the way down, one flame',
+  ending_collector: 'a ring of three antique keys hung together',
+  month_of_nights: 'a row of three moons waxing from crescent to full',
+  marathon: 'a tall obelisk with a single band of light around its top',
 };
 
 async function main(): Promise<void> {

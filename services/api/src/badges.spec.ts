@@ -5,7 +5,7 @@ import { MemoryRepository } from './repo/memory.js';
 
 const empty: PlayerRecord = {
   runs: [], genresPlayed: 0, daysPlayed: 0, endingsReached: 0, rareEndings: 0,
-  hasFreeformed: false, hasReturned: false,
+  hasFreeformed: false, hasReturned: false, apexTurns: 0,
 };
 
 const find = (rows: ReturnType<typeof evaluateBadges>, id: string) =>
@@ -112,28 +112,65 @@ describe('the launch set itself', () => {
   });
 
   /**
-   * The set now contains one deliberate subsidy — `twenty_turns` pays 1,000,
-   * which is most of what twenty Vivid turns cost — so "the whole set is small"
-   * is no longer the invariant. The invariant is that it is the *only* one:
-   * a second badge at that size, or a drift upward in the ordinary ones, turns
-   * the reward into the price.
+   * The rule that matters, stated the way it is actually true.
+   *
+   * The small badges at the top are welcome gifts and several of them pay more
+   * than the one or two turns they ask for — 50 credits for starting a world,
+   * against a 30-credit floor. That is deliberate and it is harmless, because
+   * the whole starter group is worth a handful of turns.
+   *
+   * It stops being harmless the moment a badge pays real money. So: anything
+   * paying 500 or more must pay **less** than the cheapest play that earns it,
+   * or it is not a reward, it is a way to print credits and somebody will find
+   * it. `minimumCredits` is authored per badge so this is checkable rather
+   * than a claim in a comment.
    */
-  it('keeps the onboarding subsidy to exactly one badge', () => {
-    const large = [...BADGES_BY_ID.values()].filter((b) => b.creditReward > 60 * 5);
-    expect(large.map((b) => b.id)).toEqual(['twenty_turns']);
+  const SERIOUS_MONEY = 500;
+
+  it('never pays real money for less play than it costs', () => {
+    const printers = [...BADGES_BY_ID.values()]
+      .filter((b) => b.creditReward >= SERIOUS_MONEY && b.id !== 'twenty_turns')
+      .filter((b) => b.creditReward >= b.minimumCredits)
+      .map((b) => `${b.id} pays ${b.creditReward} for ${b.minimumCredits}`);
+    expect(printers).toEqual([]);
   });
 
-  it('pays little enough, everywhere else, not to replace buying credits', () => {
-    const ordinary = [...BADGES_BY_ID.values()].filter((b) => b.id !== 'twenty_turns');
-    const total = ordinary.reduce((sum, b) => sum + b.creditReward, 0);
-    // A VIVID turn is 60. Everything but the subsidy is worth about twenty.
-    expect(total).toBeLessThan(60 * 25);
+  it('allows exactly one deliberate exception, and names it', () => {
+    // Twenty Turns pays 1,000 against a 600-credit floor: the onboarding
+    // subsidy, spent once, on the only thing worth buying — a second session.
+    // A *second* badge shaped like that would be a mistake, not a decision.
+    const exceptions = [...BADGES_BY_ID.values()]
+      .filter((b) => b.creditReward >= SERIOUS_MONEY && b.creditReward >= b.minimumCredits)
+      .map((b) => b.id);
+    expect(exceptions).toEqual(['twenty_turns']);
   });
 
-  it('subsidises the first twenty turns without quite paying for them', () => {
-    // If a badge ever pays more than the turns it asks for, playing becomes
-    // free and the economy stops existing.
-    const badge = BADGES_BY_ID.get('twenty_turns')!;
-    expect(badge.creditReward).toBeLessThan(badge.target * 60);
+  it('keeps the welcome gifts to a handful of turns in total', () => {
+    const gifts = [...BADGES_BY_ID.values()].filter((b) => b.creditReward < SERIOUS_MONEY);
+    const total = gifts.reduce((sum, b) => sum + b.creditReward, 0);
+    expect(total).toBeLessThan(60 * 30);
+  });
+
+  it('puts the real money behind months of play, not days', () => {
+    const rich = [...BADGES_BY_ID.values()].filter((b) => b.creditReward >= 2000);
+    // Each one costs at least 6,000 credits of play to reach, which no amount
+    // of daily grants covers inside a year.
+    for (const badge of rich) expect(badge.minimumCredits).toBeGreaterThanOrEqual(6000);
+    expect(rich.length).toBeGreaterThanOrEqual(4);
+  });
+
+  it('cannot all be earned on the same afternoon', () => {
+    // The hard set is deliberately several different kinds of hard. If every
+    // one of them counted total turns, a single long session would pay out the
+    // lot — so at least three distinct measures have to be involved.
+    const hard = [...BADGES_BY_ID.values()].filter((b) => b.creditReward >= 800 && b.id !== 'twenty_turns');
+    const record: PlayerRecord = {
+      runs: [{ storyId: 'a', turns: 5000 }],
+      genresPlayed: 9, daysPlayed: 1, endingsReached: 1, rareEndings: 1,
+      hasFreeformed: true, hasReturned: true, apexTurns: 0,
+    };
+    const rows = evaluateBadges(record, []);
+    const earned = hard.filter((b) => find(rows, b.id).unlockedAt !== null);
+    expect(earned.length).toBeLessThan(hard.length);
   });
 });

@@ -47,6 +47,17 @@ struct Translator {
         return self(key, params ?? [:])
     }
 
+    /// A badge's name and description.
+    ///
+    /// The definitions are content and ship in `@plotbreak/contracts` with
+    /// English text, so the server sends English. The words live here as keys
+    /// instead, and a badge whose copy has not been written yet falls back to
+    /// what the server sent rather than showing a key.
+    func badge(_ id: String, _ part: String, fallback: String) -> String {
+        let key = "badge.\(id).\(part)"
+        return Self.has(key) ? self(key) : fallback
+    }
+
     /// The word for a browse category, or the server's own label when the id is new.
     func category(_ id: String, fallback: String) -> String {
         let key = "category.\(id)"

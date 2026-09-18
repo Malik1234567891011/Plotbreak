@@ -908,6 +908,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     let endings = 0;
     let freeformed = false;
     let returned = false;
+    let apexTurns = 0;
 
     for (const session of sessions) {
       const turns = await ctx.repo.listTurns(session.sessionId);
@@ -916,6 +917,10 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       days.add(session.createdAt.slice(0, 10));
       if (session.createdAt.slice(0, 10) !== session.lastPlayedAt.slice(0, 10)) returned = true;
       if (session.status === 'COMPLETED') endings += 1;
+      // Read off the turn rather than the session: a run is played at whatever
+      // tier each turn was sent at, and somebody who spent on ten of them in a
+      // Quick run has still spent on ten of them.
+      apexTurns += turns.filter((turn) => turn.qualityTier === 'APEX').length;
       // A turn the player typed rather than tapped.
       //
       // Derived, because nothing records which it was: a turn is freeform when
@@ -946,6 +951,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       rareEndings: 0,
       hasFreeformed: freeformed,
       hasReturned: returned,
+      apexTurns,
     };
   };
 

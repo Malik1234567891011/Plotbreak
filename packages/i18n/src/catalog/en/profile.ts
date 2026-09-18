@@ -93,4 +93,52 @@ export const profile = {
   'profile.blocked_unknown': 'Someone',
   'profile.unblock': 'Unblock',
   'badges.reward_a11y': 'Worth {credits} credits.',
+
+  /* --- Badge names ---------------------------------------------------------
+   *
+   * The definitions in `@plotbreak/contracts` carry an English title and
+   * description because a badge is content and content ships with releases.
+   * These are the same words as keys, so the screen is not the one place in
+   * the app that stays English — the client prefers a key and falls back to
+   * the contract string for a badge whose copy has not been written yet.
+   */
+
+  'badge.first_break.title': 'First Break',
+  'badge.first_break.body': 'Start your first world.',
+  'badge.say_anything.title': 'Say Anything',
+  'badge.say_anything.body': 'Type something of your own instead of tapping a card.',
+  'badge.ten_turns.title': 'Ten Turns',
+  'badge.ten_turns.body': 'Play ten turns, anywhere.',
+  'badge.twenty_turns.title': 'Twenty Turns',
+  'badge.twenty_turns.body': 'Play twenty turns. We will cover most of them.',
+  'badge.back_for_more.title': 'Back For More',
+  'badge.back_for_more.body': 'Return to a world you had left.',
+  'badge.ending_found.title': 'Ending Found',
+  'badge.ending_found.body': 'Reach an ending.',
+  'badge.genre_hopper.title': 'Genre Hopper',
+  'badge.genre_hopper.body': 'Play worlds in three different genres.',
+  'badge.three_day_run.title': 'Three Day Run',
+  'badge.three_day_run.body': 'Play on three different days.',
+  'badge.world_hopper.title': 'World Hopper',
+  'badge.world_hopper.body': 'Start five different worlds.',
+  'badge.deep_in.title': 'Deep In',
+  'badge.deep_in.body': 'Reach fifty turns in a single run.',
+  'badge.ending_hunter.title': 'Ending Hunter',
+  'badge.ending_hunter.body': 'Reach five different endings.',
+  'badge.long_night.title': 'Long Night',
+  'badge.long_night.body': 'Play a hundred turns in one world.',
+  'badge.apex_run.title': 'No Expense Spared',
+  'badge.apex_run.body': 'Play fifty turns at the very highest quality.',
+  'badge.one_world_deep.title': 'Three Hundred',
+  'badge.one_world_deep.body': 'Reach three hundred turns inside a single world.',
+  'badge.ending_collector.title': 'Completionist',
+  'badge.ending_collector.body': 'Finish twenty separate runs.',
+  'badge.month_of_nights.title': 'Thirty Nights',
+  'badge.month_of_nights.body': 'Play on thirty different days.',
+  'badge.marathon.title': 'One Thousand',
+  'badge.marathon.body': 'Play a thousand turns.',
+  'badge.rare_ending.title': 'Rare Ending',
+  'badge.rare_ending.body': 'Find an ending almost nobody finds.',
+  'badges.secret_title': '???',
+  'badges.secret_body': 'Some endings are harder to find than others.',
 } as const;

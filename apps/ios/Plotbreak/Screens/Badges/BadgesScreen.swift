@@ -119,6 +119,14 @@ struct BadgeRow<Action: View>: View {
     }
 
     private var earned: Bool { badge.unlockedAt != nil }
+    /// Masked while a secret badge is still locked, in both languages.
+    private var hidden: Bool { badge.secret && !earned }
+    private var title: String {
+        hidden ? t("badges.secret_title") : t.badge(badge.id, "title", fallback: badge.title)
+    }
+    private var blurb: String {
+        hidden ? t("badges.secret_body") : t.badge(badge.id, "body", fallback: badge.description)
+    }
     // Only worth drawing while there is something to fill. A bar at 0% on a
     // badge nobody has started is decoration.
     private var fraction: Double {
@@ -130,8 +138,12 @@ struct BadgeRow<Action: View>: View {
             HStack(spacing: Theme.Spacing.md) {
                 BadgeMark(badge: badge, earned: earned)
                 VStack(alignment: .leading, spacing: 2) {
-                    Txt(badge.title, .bodyStrong, color: earned ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
-                    Txt(badge.description, .caption, color: Theme.Colors.textMuted)
+                    // The server sends English; the words are ours. But a
+                    // locked secret badge arrives already masked, and looking
+                    // its name up by id would hand back the real one — which
+                    // is the whole thing the mask exists to prevent.
+                    Txt(title, .bodyStrong, color: earned ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
+                    Txt(blurb, .caption, color: Theme.Colors.textMuted)
                     if !earned, fraction > 0 {
                         VStack(alignment: .leading, spacing: 2) {
                             GeometryReader { proxy in

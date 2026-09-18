@@ -36,6 +36,15 @@ export interface PlayerRecord {
   readonly hasFreeformed: boolean;
   /** Have they resumed a world on a later day than they left it. */
   readonly hasReturned: boolean;
+  /**
+   * Turns taken at the top tier.
+   *
+   * The one thing here that money buys. Apex is 195 credits a turn, so fifty
+   * of them is 9,750 — thirty-two days of daily grants spent on nothing else —
+   * which makes this the badge that says somebody paid without a word of the
+   * set ever mentioning payment.
+   */
+  readonly apexTurns: number;
 }
 
 function progressFor(badge: Badge, record: PlayerRecord): number {
@@ -50,7 +59,16 @@ function progressFor(badge: Badge, record: PlayerRecord): number {
       return record.hasFreeformed ? 1 : 0;
     case 'ten_turns':
     case 'twenty_turns':
+    case 'marathon':
       return turnsTotal;
+    case 'apex_run':
+      return record.apexTurns;
+    case 'one_world_deep':
+      return deepest;
+    case 'ending_collector':
+      return record.endingsReached;
+    case 'month_of_nights':
+      return record.daysPlayed;
     case 'back_for_more':
       return record.hasReturned ? 1 : 0;
     case 'ending_found':

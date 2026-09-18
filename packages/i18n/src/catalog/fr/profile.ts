@@ -133,4 +133,50 @@ export const profile = {
   'profile.blocked_unknown': 'Quelqu’un',
   'profile.unblock': 'Débloquer',
   'badges.reward_a11y': 'Vaut {credits} crédits.',
+
+  /* --- Noms des badges -----------------------------------------------------
+   *
+   * Écrits, pas traduits. `tour` pour un turn — le mot que l’écran de partie
+   * emploie déjà — et `partie` pour une run, pas `manche`, qui est un round de
+   * jeu et pas une traversée d’histoire.
+   */
+
+  'badge.first_break.title': 'Premier pas',
+  'badge.first_break.body': 'Lance ton premier monde.',
+  'badge.say_anything.title': 'Dis ce que tu veux',
+  'badge.say_anything.body': 'Écris quelque chose de toi au lieu d’appuyer sur une carte.',
+  'badge.ten_turns.title': 'Dix tours',
+  'badge.ten_turns.body': 'Joue dix tours, où que ce soit.',
+  'badge.twenty_turns.title': 'Vingt tours',
+  'badge.twenty_turns.body': 'Joue vingt tours. On en couvre presque tout.',
+  'badge.back_for_more.title': 'Retour aux sources',
+  'badge.back_for_more.body': 'Reviens dans un monde que tu avais quitté.',
+  'badge.ending_found.title': 'Une fin trouvée',
+  'badge.ending_found.body': 'Atteins une fin.',
+  'badge.genre_hopper.title': 'Touche-à-tout',
+  'badge.genre_hopper.body': 'Joue des mondes dans trois genres différents.',
+  'badge.three_day_run.title': 'Trois jours de suite',
+  'badge.three_day_run.body': 'Joue sur trois jours différents.',
+  'badge.world_hopper.title': 'Explorateur',
+  'badge.world_hopper.body': 'Lance cinq mondes différents.',
+  'badge.deep_in.title': 'Bien engagé',
+  'badge.deep_in.body': 'Atteins cinquante tours dans une seule partie.',
+  'badge.ending_hunter.title': 'Chasseur de fins',
+  'badge.ending_hunter.body': 'Atteins cinq fins différentes.',
+  'badge.long_night.title': 'Longue nuit',
+  'badge.long_night.body': 'Joue cent tours dans un même monde.',
+  'badge.apex_run.title': 'Sans regarder à la dépense',
+  'badge.apex_run.body': 'Joue cinquante tours à la toute meilleure qualité.',
+  'badge.one_world_deep.title': 'Trois cents',
+  'badge.one_world_deep.body': 'Atteins trois cents tours dans un seul monde.',
+  'badge.ending_collector.title': 'Collectionneuse',
+  'badge.ending_collector.body': 'Termine vingt parties différentes.',
+  'badge.month_of_nights.title': 'Trente nuits',
+  'badge.month_of_nights.body': 'Joue sur trente jours différents.',
+  'badge.marathon.title': 'Mille',
+  'badge.marathon.body': 'Joue mille tours.',
+  'badge.rare_ending.title': 'Fin rare',
+  'badge.rare_ending.body': 'Trouve une fin que presque personne ne trouve.',
+  'badges.secret_title': '???',
+  'badges.secret_body': 'Certaines fins sont plus dures à trouver que d’autres.',
 } as const;

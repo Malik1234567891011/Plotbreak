@@ -54,7 +54,8 @@
     "canon-audit": "tsx --env-file-if-exists=.env infra/scripts/canon-audit.ts",
     "tier-bench": "tsx --env-file-if-exists=.env infra/scripts/tier-bench.ts",
     "create-e2e": "tsx --env-file-if-exists=.env infra/scripts/create-e2e.ts",
-    "badge-art": "tsx --env-file-if-exists=.env infra/scripts/badge-art.ts"
+    "badge-art": "tsx --env-file-if-exists=.env infra/scripts/badge-art.ts",
+    "create-edges": "tsx --env-file-if-exists=.env infra/scripts/create-edges.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
