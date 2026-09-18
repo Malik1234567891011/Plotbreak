@@ -10,8 +10,17 @@ import UIKit
 /// away is a bad trade, and a HEIC the server does not accept is a round trip
 /// wasted to learn something the phone already knew.
 final class ImageTranscodeTests: XCTestCase {
+    /// A fixture whose pixels match its points.
+    ///
+    /// `UIGraphicsImageRenderer` defaults to the screen's scale, so an
+    /// unpinned "800x600" fixture is really 1600x1200 — which is what the
+    /// first run of this file proved, by failing on the one case where that
+    /// difference changes the answer.
     private func image(width: CGFloat, height: CGFloat) -> Data {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = 1
+        format.opaque = true
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height), format: format)
         let drawn = renderer.image { context in
             UIColor.systemIndigo.setFill()
             context.fill(CGRect(x: 0, y: 0, width: width, height: height))
