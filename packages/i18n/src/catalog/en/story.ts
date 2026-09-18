@@ -34,7 +34,7 @@ export const story = {
   'story.start': 'Start story',
 
   /** Stat label: how many people have played this world. Not "player characters". */
-  'story.stat_players': 'Players',
+  'story.stat_views': 'Views',
   /**
    * Stat label. **The shape of the story's structure** — how a typical run
    * branches and how deep it runs — not a geometric shape and not physical

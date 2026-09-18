@@ -150,6 +150,8 @@ export interface StorySignals {
   hides: number;
   reports: number;
   impressions: number;
+  /** The curated view floor. Shown added to `impressions`, never alone. */
+  views: number;
 }
 
 /** A world nobody has touched yet. One definition, shared by every repository. */
@@ -160,6 +162,7 @@ export const EMPTY_SIGNALS: StorySignals = {
   hides: 0,
   reports: 0,
   impressions: 0,
+  views: 0,
 };
 
 export interface StoryComment {

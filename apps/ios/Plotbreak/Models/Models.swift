@@ -291,6 +291,7 @@ struct StorySummary: Codable, Hashable, Identifiable {
     @Default<EmptyArray<ContentDescriptor>> var contentDescriptors: [ContentDescriptor]
     var intensity: Intensity
     var runs: Int
+    @Default<Zero> var views: Int
     var likes: Int
     @Default<Zero> var comments: Int
     @Default<False> var likedByMe: Bool

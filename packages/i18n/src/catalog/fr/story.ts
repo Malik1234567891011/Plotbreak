@@ -65,7 +65,7 @@ export const story = {
    * qu’elle est décidée en anglais ; si l’anglais tranche pour la vérité du
    * chiffre, ce sera `Parties`.
    */
-  'story.stat_players': 'Joueurs',
+  'story.stat_views': 'Vues',
   /**
    * `Shape` — l’ambiguïté nommée dans UI_AUDIT §3, et la seule étiquette de ce
    * fichier qui ne se règle pas avec un mot.

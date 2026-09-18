@@ -23,7 +23,7 @@ import type {
   UserRecord,
   PureMessage,
 } from './types.js';
-import { AUTO_HIDE_REPORTS } from './types.js';
+import { AUTO_HIDE_REPORTS, EMPTY_SIGNALS } from './types.js';
 
 /**
  * In-process repository.
@@ -68,16 +68,16 @@ export class MemoryRepository implements Repository {
     // zeroes, and varied so the ranking has something real to sort on. Replaced
     // by the offline rollup job in production.
     const seeded: Record<string, StorySignals> = {
-      story_ninth_archive: { runs: 12_400, likes: 5_460, saves: 3_910, hides: 61, reports: 3, impressions: 86_000 },
-      story_understudy: { runs: 7_850, likes: 2_610, saves: 1_720, hides: 44, reports: 1, impressions: 51_000 },
-      story_salt_road: { runs: 4_120, likes: 1_190, saves: 880, hides: 96, reports: 5, impressions: 38_000 },
+      story_ninth_archive: { runs: 12_400, likes: 5_460, saves: 3_910, hides: 61, reports: 3, impressions: 86_000, views: 0 },
+      story_understudy: { runs: 7_850, likes: 2_610, saves: 1_720, hides: 44, reports: 1, impressions: 51_000, views: 0 },
+      story_salt_road: { runs: 4_120, likes: 1_190, saves: 880, hides: 96, reports: 5, impressions: 38_000, views: 0 },
     };
 
     for (const story of stories) {
       this.#stories.set(story.id, story);
       this.#signals.set(
         story.storyId,
-        seeded[story.storyId] ?? { runs: 0, likes: 0, saves: 0, hides: 0, reports: 0, impressions: 0 },
+        seeded[story.storyId] ?? { ...EMPTY_SIGNALS },
       );
     }
   }
@@ -105,11 +105,7 @@ export class MemoryRepository implements Repository {
   }
 
   async getSignals(storyId: string): Promise<StorySignals> {
-    return (
-      this.#signals.get(storyId) ?? {
-        runs: 0, likes: 0, saves: 0, hides: 0, reports: 0, impressions: 0,
-      }
-    );
+    return this.#signals.get(storyId) ?? { ...EMPTY_SIGNALS };
   }
 
   async getSignalsFor(storyIds: readonly string[]): Promise<Map<string, StorySignals>> {
@@ -623,9 +619,7 @@ export class MemoryRepository implements Repository {
     this.#stories.set(input.story.id, input.story);
     this.#visibility.set(input.story.storyId, input.visibility);
     if (!this.#signals.has(input.story.storyId)) {
-      this.#signals.set(input.story.storyId, {
-        runs: 0, likes: 0, saves: 0, hides: 0, reports: 0, impressions: 0,
-      });
+      this.#signals.set(input.story.storyId, { ...EMPTY_SIGNALS });
     }
     const next: StoryDraft = {
       ...input.draft,

@@ -270,7 +270,7 @@ export class PostgresRepository implements Repository {
 
   async getSignals(storyId: string): Promise<StorySignals> {
     const { rows } = await this.#pool.query<StorySignals>(
-      `SELECT runs, likes, saves, hides, reports, impressions
+      `SELECT runs, likes, saves, hides, reports, impressions, views
          FROM story_signals WHERE story_id = $1`,
       [storyId],
     );
@@ -281,7 +281,7 @@ export class PostgresRepository implements Repository {
     const found = new Map<string, StorySignals>();
     if (storyIds.length === 0) return found;
     const { rows } = await this.#pool.query<StorySignals & { story_id: string }>(
-      `SELECT story_id, runs, likes, saves, hides, reports, impressions
+      `SELECT story_id, runs, likes, saves, hides, reports, impressions, views
          FROM story_signals WHERE story_id = ANY($1)`,
       [[...storyIds]],
     );

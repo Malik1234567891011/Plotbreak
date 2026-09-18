@@ -208,7 +208,7 @@ struct StoryDetailScreen: View {
                                 .foregroundStyle(Theme.Colors.textMuted)
                                 .padding(.top, 14)
                         }
-                        statsRow(story, stats: detail.stats)
+                        statsRow(story)
                             .padding(.top, 16)
 
                         // Spec §8.3 — descriptors are visible before entry.
@@ -358,10 +358,10 @@ struct StoryDetailScreen: View {
         .railWidth()
     }
 
-    /// Runs, likes, comments — the honest numbers, no fake ratings (§8.2).
-    private func statsRow(_ story: StorySummary, stats: StoryStats) -> some View {
+    /// Views, likes, comments. No star ratings (§8.2).
+    private func statsRow(_ story: StorySummary) -> some View {
         HStack(spacing: 22) {
-            statItem("person.2", Format.credits(stats.runs, compact: true, locale: store.locale), label: t("story.stat_players"))
+            statItem("eye", Format.credits(story.views, compact: true, locale: store.locale), label: t("story.stat_views"))
             Button {
                 toggleLiked(story)
             } label: {

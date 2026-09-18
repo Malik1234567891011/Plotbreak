@@ -1182,6 +1182,8 @@ export const StorySummary = z
     contentDescriptors: z.array(ContentDescriptor),
     intensity: z.enum(['LIGHT', 'MODERATE', 'INTENSE']),
     runs: z.number().int(),
+    /** Story-page opens: the curated launch floor plus real ones. */
+    views: z.number().int().default(0),
     likes: z.number().int(),
     /** Comments on the world. Real rows plus curated launch content. */
     comments: z.number().int().default(0),

@@ -146,6 +146,8 @@ export function toStorySummary(
     contentDescriptors: story.contentDescriptors,
     intensity: story.intensity,
     runs: signals.runs,
+    // The curated floor plus every real open of the story page.
+    views: signals.views + signals.impressions,
     likes: social?.likes ?? signals.likes,
     comments: social?.comments ?? 0,
     likedByMe: social?.likedByMe ?? false,
