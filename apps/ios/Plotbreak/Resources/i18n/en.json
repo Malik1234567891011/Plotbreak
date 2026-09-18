@@ -644,6 +644,7 @@
   "session.last_turn": "··· Last turn",
   "session.latest_image_a11y": "Open latest image",
   "session.load_failed": "Could not load this story.",
+  "session.loading": "Loading…",
   "session.more_credits_needed": "{count, plural, one {# more credit needed} other {# more credits needed}}",
   "session.name_list": "{others} and {last}",
   "session.nobody_else_here": "Nobody else here.",

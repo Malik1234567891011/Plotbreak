@@ -34,6 +34,9 @@ struct WalletScreen: View {
     /// price is the placeholder until the store answers.
     @State private var storePrices: [String: String] = [:]
     @State private var storeUnavailable: String?
+    /// How many credits just landed, while the burst is on screen. Set only
+    /// after the server confirmed and the balance reloaded (WL-02).
+    @State private var celebrating: Int?
 
     var body: some View {
         Screen {
@@ -86,6 +89,14 @@ struct WalletScreen: View {
                 }
             }
         }
+        .overlay {
+            if let celebrating {
+                CreditCelebration(credits: celebrating, locale: store.locale) {
+                    self.celebrating = nil
+                }
+                .transition(.opacity)
+            }
+        }
         .task {
             // One billing connection for the app; it outlives this screen so a
             // transaction StoreKit redelivers from a previous launch still lands.
@@ -135,6 +146,11 @@ struct WalletScreen: View {
                         Text(Format.credits(wallet.balance, locale: store.locale))
                             .font(.system(size: 22, weight: .semibold, design: .monospaced))
                             .foregroundStyle(Theme.Colors.textPrimary)
+                            // Credits arriving should be visible as the number
+                            // moving, not as a different number being there
+                            // when the burst clears.
+                            .contentTransition(.numericText())
+                            .animation(.snappy(duration: Theme.Durations.fadeIn), value: wallet.balance)
                         if wallet.reserved > 0 {
                             Txt(t("wallet.reserved_held", ["count": wallet.reserved]), .micro, color: Theme.Colors.textMuted)
                         }
@@ -449,6 +465,9 @@ struct WalletScreen: View {
             await store.refreshWallet()
             Haptic.play(.success)
             setNotice(t("wallet.credits_added", ["count": credits, "credits": Format.credits(credits, locale: store.locale)]))
+            // Last, and only here: the balance behind the burst is already the
+            // new one, and the notice has already been announced to VoiceOver.
+            withAnimation(.easeOut(duration: Theme.Durations.instant)) { celebrating = credits }
         case .alreadyCredited:
             await load()
             await store.refreshWallet()

@@ -14,6 +14,9 @@ struct SessionFeed: View {
     private static let bottomAnchor = "session.feed.bottom"
     /// The top of the newest beat, where sending parks the player's action.
     static let latestAnchor = "session.feed.latest"
+    /// Room under the last line for the floating button, so the end of the
+    /// story can always be scrolled clear of it.
+    private static let bottomClearance: CGFloat = Theme.minTouchTarget + Theme.Spacing.md * 2
 
     var body: some View {
         ScrollViewReader { proxy in
@@ -26,10 +29,19 @@ struct SessionFeed: View {
                 }
                 .padding(.horizontal, Theme.gutter)
                 .padding(.top, 22)
-                .padding(.bottom, Theme.Spacing.xxl)
+                .padding(.bottom, Self.bottomClearance)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .scrollDismissesKeyboard(.interactively)
+            // Over the story rather than in a row of its own above the
+            // composer: it costs the reader no height.
+            .overlay(alignment: .bottomTrailing) {
+                // Less the tap area's margin, so the circle itself lines up
+                // with the gutter and the text box's edge.
+                ScrollToLatestButton { model.scrollToLatest() }
+                    .padding(.trailing, Theme.gutter - ScrollToLatestButton.hitMargin)
+                    .padding(.bottom, Theme.Spacing.md - ScrollToLatestButton.hitMargin)
+            }
             // The stage art, as a wash behind the words rather than a frame
             // above them: fourteen percent, fading to the page at the bottom.
             .background {
@@ -126,7 +138,7 @@ struct SessionFeed: View {
                 Color.clear
                     .frame(width: 0)
                     .containerRelativeFrame(.vertical) { height, _ in
-                        max(0, height - Theme.Spacing.lg - Theme.Spacing.xxl)
+                        max(0, height - Theme.Spacing.lg - Self.bottomClearance)
                     }
             }
             VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
@@ -378,6 +390,39 @@ private struct FadeInOnAppear: ViewModifier {
 
 private extension View {
     func fadesIn() -> some View { modifier(FadeInOnAppear()) }
+}
+
+// MARK: - Scroll to latest
+
+/// The way back to the newest beat: a white circle floating over the feed.
+struct ScrollToLatestButton: View {
+    /// The reference screenshot's size.
+    static let size: CGFloat = 32
+    static let hitMargin: CGFloat = (Theme.minTouchTarget - size) / 2
+    let action: () -> Void
+    @Environment(\.translator) private var t
+
+    var body: some View {
+        Button {
+            Haptic.play(.light)
+            action()
+        } label: {
+            // Down: the newest beat is at the bottom of the feed.
+            Image(systemName: "chevron.down")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textOnLight)
+                .frame(width: Self.size, height: Self.size)
+                .background(Theme.Colors.light, in: Circle())
+                // It sits on top of prose now, so it needs to read as
+                // floating rather than as part of the page.
+                .shadow(color: .black.opacity(0.35), radius: 8, y: 2)
+                // Small to look at, full size to hit.
+                .frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(PressOpacityStyle())
+        .accessibilityLabel(t("session.scroll_to_latest"))
+    }
 }
 
 // MARK: - Thinking dot

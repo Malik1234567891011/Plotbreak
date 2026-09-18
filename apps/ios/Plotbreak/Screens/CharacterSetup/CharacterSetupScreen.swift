@@ -134,6 +134,7 @@ struct CharacterSetupScreen: View {
             // where setup does.
             setupStartedAt = Date()
             Telemetry.track(.characterSetupStarted, ["storyId": storyId])
+            prefill()
             detail = try? await store.api.storyDetail(storyId)
         }
     }
@@ -390,6 +391,23 @@ struct CharacterSetupScreen: View {
 
     // MARK: Actions
 
+    /// §9.1 setup fatigue: a player who has entered a story before has already
+    /// said who they are, so the fields start from that answer, falling back to
+    /// the name onboarding asked for. Only empty fields are filled, so coming
+    /// back to this screen never overwrites something typed.
+    private func prefill() {
+        let hero = store.lastHero
+        if displayName.isEmpty {
+            displayName = String((hero.name.isEmpty ? store.displayName ?? "" : hero.name).prefix(40))
+        }
+        if pronouns.isEmpty { pronouns = String(hero.pronouns.prefix(24)) }
+        // Only where the question is asked: an English run must keep sending
+        // `UNSPECIFIED`.
+        if store.locale == .fr, grammarGender == .UNSPECIFIED, let grammar = hero.grammar {
+            grammarGender = grammar
+        }
+    }
+
     private func binding(for fieldId: String) -> Binding<String> {
         Binding(
             get: { customChoices[fieldId] ?? "" },
@@ -439,6 +457,15 @@ struct CharacterSetupScreen: View {
 
         do {
             let session = try await store.api.createSession(storyId: storyId, request)
+            // A world that named you is its answer, not yours to reuse. An
+            // English run leaves the last French grammar answer where it was.
+            if !named {
+                store.rememberHero(HeroDefaults(
+                    name: effectiveName,
+                    pronouns: pronouns.trimmingCharacters(in: .whitespacesAndNewlines),
+                    grammar: asksGrammar ? grammarGender : store.lastHero.grammar
+                ))
+            }
             // §37.1 — emitted here rather than server-side because the two
             // properties that make it useful are measured on this clock: how
             // long setup took, and whether the player used the quick path.

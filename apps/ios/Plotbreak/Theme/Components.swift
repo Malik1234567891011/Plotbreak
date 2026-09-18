@@ -392,38 +392,45 @@ struct ActionSuggestion: View {
             Haptic.play(.light)
             onPress()
         } label: {
-            HStack(alignment: .top, spacing: Theme.Spacing.md) {
-                Circle()
-                    .fill(Theme.riskColor(suggestion.risk))
-                    .frame(width: 8, height: 8)
-                    .padding(.top, 8)
+            HStack(alignment: .center, spacing: Theme.Spacing.md) {
                 VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                    Txt(suggestion.text, .bodyCompact)
+                    // The story's own serif, in the primary white: a line the
+                    // player could say next, set like the page it continues.
+                    Text(suggestion.text)
+                        .font(.system(size: 17, weight: .regular, design: .serif))
+                        .lineSpacing(4)
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
                     if let cost = suggestion.resourceCostLabel, !cost.isEmpty {
                         Txt(cost, .micro, color: Theme.Colors.textMuted)
                     }
                 }
-                Spacer(minLength: 0)
-                if let onEdit {
-                    Button(action: onEdit) {
-                        Image(systemName: "pencil")
-                            .font(.system(size: 13))
-                            .foregroundStyle(Theme.Colors.textMuted)
-                            .frame(width: 32, height: 32)
-                    }
-                    .buttonStyle(PressOpacityStyle())
-                    .accessibilityLabel(editLabel)
-                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                // Says what a tap does. The whole card is the button.
+                Image(systemName: "arrow.up")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .frame(width: 32, height: 32)
+                    .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .accessibilityHidden(true)
             }
-            .padding(Theme.Spacing.md)
+            .padding(.leading, Theme.Spacing.lg)
+            .padding(.trailing, Theme.Spacing.md)
+            .padding(.vertical, Theme.Spacing.lg)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
-                    .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
-            }
+            .contentShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
         }
         .buttonStyle(PressScaleStyle())
+        // Editing moved off the card face and behind a long press, so the
+        // card reads as one thing to tap.
+        .contextMenu {
+            if let onEdit {
+                Button(editLabel, systemImage: "pencil", action: onEdit)
+            }
+        }
+        .accessibilityAction(named: Text(editLabel)) { onEdit?() }
     }
 }
 
@@ -570,13 +577,17 @@ struct CreditBalance: View {
 
 // MARK: ContinueCard
 
-/// A run in progress: a 44×58 cover, the title, and how far in you are.
+/// A run already in progress, laid out the way the reference home lays out
+/// recently played: a tight row of small covers with the name under each and
+/// nothing else. It replaced a two-across bordered pill carrying a "3 turns in"
+/// line, which read as a list of settings rows rather than as somewhere to go
+/// back into.
 struct ContinueRunCard: View {
     let title: String
     let storyId: String
     let coverImage: String?
     let turnsLine: String
-    var width: CGFloat? = nil
+    var width: CGFloat = 64
     let onPress: () -> Void
 
     var body: some View {
@@ -584,32 +595,26 @@ struct ContinueRunCard: View {
             Haptic.play(.light)
             onPress()
         } label: {
-            HStack(spacing: Theme.Spacing.md) {
+            VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
                 StoryArt(seed: storyId, title: title, uri: coverImage)
-                    .frame(width: 44, height: 58)
-                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title)
-                        .font(.system(size: 14))
-                        .foregroundStyle(Theme.Colors.textPrimary)
-                        .lineLimit(1)
-                    Text(turnsLine)
-                        .font(.system(size: 12))
-                        .foregroundStyle(Theme.Colors.textMuted)
-                        .lineLimit(1)
-                }
-                Spacer(minLength: 0)
-            }
-            .padding(10)
-            .frame(width: width)
-            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous)
-                    .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
+                    .frame(width: width, height: width * 3 / 2)
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
+                    }
+                Text(title)
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .frame(width: width, alignment: .leading)
             }
             .contentShape(Rectangle())
         }
         .buttonStyle(PressScaleStyle())
+        // The turn count no longer has a line of its own, but it is the one
+        // thing that says how far into a run this is, so VoiceOver keeps it.
         .accessibilityLabel("\(title). \(turnsLine)")
     }
 }
@@ -767,3 +772,4 @@ struct PortraitStoryCard: View {
         .accessibilityLabel([story.title, story.fantasyLabel].filter { !$0.isEmpty }.joined(separator: ". "))
     }
 }
+

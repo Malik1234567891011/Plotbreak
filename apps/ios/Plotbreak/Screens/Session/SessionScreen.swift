@@ -22,18 +22,25 @@ struct SessionScreen: View {
         _model = State(initialValue: SessionModel(sessionId: sessionId))
     }
 
+    /// The run has not answered yet, and has not failed either: a failure
+    /// shows in the feed, with its retry.
+    private var loading: Bool { model.detail == nil && model.error == nil }
+
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                header
-                if let scene = model.scene {
-                    SessionContextStrip(scene: scene)
+                if loading {
+                    loadingHeader
+                    SessionLoading()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    header
+                    if let scene = model.scene {
+                        SessionContextStrip(scene: scene)
+                    }
+                    SessionFeed(model: model)
                 }
-                SessionFeed(model: model)
-                SessionComposer(
-                    model: model,
-                    onScrollToLatest: { model.scrollToLatest() }
-                )
+                SessionComposer(model: model)
             }
             .overlay(alignment: .top) { tierHint }
             .overlay { overlays }
@@ -42,8 +49,10 @@ struct SessionScreen: View {
             model.attach(store: store, router: router)
             await model.start()
         }
-        .task {
+        .task(id: loading) {
             // A hint, not a tutorial: it says what the tier buys, then goes.
+            // Not over a placeholder: it waits for the real pill.
+            guard !loading else { return }
             showTierHint = true
             try? await Task.sleep(nanoseconds: 4_000_000_000)
             withAnimation(.easeOut(duration: Theme.Durations.short)) { showTierHint = false }
@@ -75,13 +84,34 @@ struct SessionScreen: View {
         return title.isEmpty ? scene.locationName : "\(title) · \(scene.locationName)"
     }
 
+    private var backButton: some View {
+        IconButton(t("session.back_to_library"), action: { router.exitSession() }) {
+            Image(systemName: "chevron.left")
+                .font(.system(size: 22, weight: .medium))
+                .foregroundStyle(Theme.Colors.textPrimary)
+        }
+    }
+
+    /// The header's shape while the run loads. Back works; the rest are
+    /// placeholders where the title, the quality pill and the menu will land,
+    /// so nothing moves when they do.
+    private var loadingHeader: some View {
+        HStack(spacing: Theme.Spacing.sm) {
+            backButton
+            Skeleton(width: 140, height: 14, radius: 7)
+            Spacer(minLength: 0)
+            Skeleton(width: 104, height: 36, radius: Theme.Radius.control)
+            Skeleton(width: 26, height: 26, radius: 13)
+                .frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
+        }
+        .padding(.leading, Theme.Spacing.sm)
+        .padding(.trailing, Theme.Spacing.xs)
+        .frame(height: 56)
+    }
+
     private var header: some View {
         HStack(spacing: Theme.Spacing.sm) {
-            IconButton(t("session.back_to_library"), action: { router.exitSession() }) {
-                Image(systemName: "chevron.left")
-                    .font(.system(size: 22, weight: .medium))
-                    .foregroundStyle(Theme.Colors.textPrimary)
-            }
+            backButton
             Text(headerTitle)
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundStyle(Theme.Colors.textPrimary)
@@ -172,5 +202,35 @@ struct SessionScreen: View {
             )
         }
 
+    }
+}
+
+// MARK: - Loading
+
+/// While a run opens: a turning arc, and one word under it.
+///
+/// Turned by a timeline, not a repeating `withAnimation`: that one also
+/// animates the first layout pass, and the arc drifts in from the corner.
+private struct SessionLoading: View {
+    /// Seconds per turn.
+    private static let period = 0.9
+    @Environment(\.translator) private var t
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        VStack(spacing: Theme.Spacing.md) {
+            TimelineView(.animation(paused: reduceMotion)) { context in
+                let turn = context.date.timeIntervalSinceReferenceDate
+                    .truncatingRemainder(dividingBy: Self.period) / Self.period
+                Circle()
+                    .trim(from: 0, to: 0.22)
+                    .stroke(Theme.Colors.textPrimary, style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
+                    .rotationEffect(.degrees(turn * 360 - 90))
+            }
+            .frame(width: 24, height: 24)
+            Txt(t("session.loading"), .bodyCompact)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(t("session.loading"))
     }
 }

@@ -259,6 +259,22 @@ final class SessionModel {
         async let wallet: Void = store.refreshWallet()
         async let portrait: Void = refreshPlayerPortrait()
         _ = await (session, wallet, portrait)
+
+        // Opening a run that already has a story lands at the end of it. A
+        // player tapping Continue is asking for where they left off, not for
+        // chapter one, and scrolling back a few beats is one gesture where
+        // scrolling forward through forty is not. A brand new session has no
+        // turns yet, so it is unaffected and still opens at its first line.
+        guard !turns.isEmpty else { return }
+        requestScroll(animated: false)
+        // Again once the images have had a moment. Hero frames and portraits
+        // arrive after the text and grow the feed under the reader, so a single
+        // scroll at load time lands short of the end by however much art the
+        // run happens to carry.
+        Task { [weak self] in
+            try? await Task.sleep(for: .milliseconds(350))
+            self?.requestScroll(animated: false)
+        }
     }
 
     func stopStreaming() {

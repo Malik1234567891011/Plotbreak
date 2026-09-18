@@ -43,6 +43,10 @@ final class AppStore {
     private(set) var displayName: String?
     /// `male` | `female` | `neutral`, or nil for no filter.
     private(set) var audience: String?
+    /// Who the player last walked into a story as, so the next setup screen
+    /// starts filled in instead of asking again. Only what they typed or
+    /// picked, never inferred. Per device, like `displayName`.
+    private(set) var lastHero = HeroDefaults()
     /// Search terms the player has used, newest first, at most eight.
     private(set) var recentSearches: [String] = []
     private(set) var bootstrap: BootstrapResponse?
@@ -74,6 +78,9 @@ final class AppStore {
         static let displayName = "plotbreak.displayName"
         static let audience = "plotbreak.audience"
         static let recentSearches = "plotbreak.recentSearches"
+        static let heroName = "plotbreak.hero.name"
+        static let heroPronouns = "plotbreak.hero.pronouns"
+        static let heroGrammar = "plotbreak.hero.grammar"
     }
 
     private let defaults = UserDefaults.standard
@@ -114,6 +121,11 @@ final class AppStore {
         signInSeen = defaults.bool(forKey: Keys.signInSeen)
         displayName = defaults.string(forKey: Keys.displayName)
         audience = defaults.string(forKey: Keys.audience)
+        lastHero = HeroDefaults(
+            name: defaults.string(forKey: Keys.heroName) ?? "",
+            pronouns: defaults.string(forKey: Keys.heroPronouns) ?? "",
+            grammar: defaults.string(forKey: Keys.heroGrammar).flatMap(GrammaticalGender.init(rawValue:))
+        )
         recentSearches = defaults.stringArray(forKey: Keys.recentSearches) ?? []
         if let stored = defaults.string(forKey: Keys.quality), let tier = QualityTier(rawValue: stored) {
             qualityTier = tier
@@ -311,6 +323,15 @@ final class AppStore {
         _ = try? await api.updateMe(["displayName": .string(trimmed)])
     }
 
+    /// Called once a session has actually started, so an abandoned setup
+    /// never becomes the next one's default.
+    func rememberHero(_ hero: HeroDefaults) {
+        defaults.set(hero.name, forKey: Keys.heroName)
+        defaults.set(hero.pronouns, forKey: Keys.heroPronouns)
+        if let grammar = hero.grammar { defaults.set(grammar.rawValue, forKey: Keys.heroGrammar) }
+        lastHero = hero
+    }
+
     func setAudience(_ audience: String?) async {
         if let audience { defaults.set(audience, forKey: Keys.audience) } else { defaults.removeObject(forKey: Keys.audience) }
         self.audience = audience
@@ -389,6 +410,17 @@ final class AppStore {
     func loadDraft(sessionId: String) -> String {
         drafts[sessionId] ?? ""
     }
+}
+
+// MARK: - HeroDefaults
+
+/// The answers character setup starts from. `pronouns` is the field as typed,
+/// empty included, not the `they/them` the request falls back to. `grammar` is
+/// nil until the player has answered the French-only question once.
+struct HeroDefaults: Equatable {
+    var name = ""
+    var pronouns = ""
+    var grammar: GrammaticalGender?
 }
 
 // MARK: - Sign in with Apple nonce

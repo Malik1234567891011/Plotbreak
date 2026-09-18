@@ -239,8 +239,15 @@ struct MainShell: View {
         }
     }
 
-    @ViewBuilder
     private func destination(_ route: Route) -> some View {
+        Group {
+            pushed(route)
+        }
+        .swipeBackEnabled()
+    }
+
+    @ViewBuilder
+    private func pushed(_ route: Route) -> some View {
         switch route {
         case .storyDetail(let storyId):
             StoryDetailScreen(storyId: storyId)

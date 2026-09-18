@@ -38,6 +38,7 @@
 		65339CE03E19AC9950D6104E /* SavedWorldsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B36CCDCF6DD559DBE9CC62 /* SavedWorldsScreen.swift */; };
 		657C06DB381139619A7FABC5 /* WorldSheetTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10F4B0504E735DBEEBBAAD /* WorldSheetTimeline.swift */; };
 		68ED749D61D833B734EE3437 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20B109EA025F57C61FF770E /* Telemetry.swift */; };
+		6A17F1B39AB488B5CC76DAAB /* CreditCelebration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8B194E8CEBEA5F9940A992 /* CreditCelebration.swift */; };
 		6C4131B354E4F2747CF676D8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7DDD29992AB9AE65700D7E /* Theme.swift */; };
 		6E106894C3BA678CFE4541F3 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264076B95959AD348524732 /* ProfileScreen.swift */; };
 		6E54F937D1FD8A812A09D98A /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48CB6CC290F5414ACB6B130 /* AppStore.swift */; };
@@ -66,6 +67,7 @@
 		CB92ACAF2246F48C6954675E /* BadgesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46E24C78BE4F30C595646D0 /* BadgesScreen.swift */; };
 		CC38AAE38610FC231B5E0C63 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BFBA0CD80BADAEAE409E44 /* Purchases.swift */; };
 		D3A020B8146E23B6690E0A23 /* LibraryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AE93E2B965AEA2B633130F /* LibraryScreen.swift */; };
+		DA49DA3A9E1EBF033C600678 /* SwipeBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456FBF33A0FD5D6FC74ABEFB /* SwipeBack.swift */; };
 		DC5E34C974AC88FC2C4E4CB0 /* CreateModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7447ABD392C7DEA8623BFD /* CreateModels.swift */; };
 		DDE90FB50E0FE3240A9BB2E3 /* SessionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E8EF9CDE7EB8B53453459 /* SessionScreen.swift */; };
 		DF3566E4DA4DB88B778C0CA9 /* DiscoverScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748A3B47451A87C277670444 /* DiscoverScreen.swift */; };
@@ -97,6 +99,7 @@
 		1706C60F3BB502765ABC8DC0 /* PlotbreakTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PlotbreakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0CAC196C2DCEC41F99970 /* SessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionModel.swift; sourceTree = "<group>"; };
 		28C3930AEC1E8C6C8589F81C /* CharacterSetupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSetupScreen.swift; sourceTree = "<group>"; };
+		2D8B194E8CEBEA5F9940A992 /* CreditCelebration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCelebration.swift; sourceTree = "<group>"; };
 		321AA777134BA0D59A888A7F /* PitchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchScreen.swift; sourceTree = "<group>"; };
 		3364C351DFD9C104926F4EC2 /* Primitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitives.swift; sourceTree = "<group>"; };
 		345C47ED68A6A47E1E098590 /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
@@ -108,6 +111,7 @@
 		3D8D6292B9D75DC1D12ADEC1 /* ReportHistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportHistoryScreen.swift; sourceTree = "<group>"; };
 		3FF3CA9088AD6E7AFC6991BE /* MyInformationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInformationScreen.swift; sourceTree = "<group>"; };
 		4152384023FFA3BFCEB0EFE8 /* CreateTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTabScreen.swift; sourceTree = "<group>"; };
+		456FBF33A0FD5D6FC74ABEFB /* SwipeBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBack.swift; sourceTree = "<group>"; };
 		45F0B12843CFCE2E02E8FDB7 /* DiscoverSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSnapshot.swift; sourceTree = "<group>"; };
 		4E10F4B0504E735DBEEBBAAD /* WorldSheetTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldSheetTimeline.swift; sourceTree = "<group>"; };
 		5005D04B8F30B42225FD9468 /* SearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreen.swift; sourceTree = "<group>"; };
@@ -463,6 +467,7 @@
 			children = (
 				EECB01063DDAE883DB345014 /* PlotbreakApp.swift */,
 				E0DB67F33A34525413EFA20C /* Router.swift */,
+				456FBF33A0FD5D6FC74ABEFB /* SwipeBack.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -470,6 +475,7 @@
 		D8D1BC45B4C7848CED56A825 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				2D8B194E8CEBEA5F9940A992 /* CreditCelebration.swift */,
 				6B31D5789C5DB71F78EC2A60 /* WalletScreen.swift */,
 			);
 			path = Wallet;
@@ -699,6 +705,7 @@
 				A0DDC93C1AE0EE44754CD171 /* Components.swift in Sources */,
 				DC5E34C974AC88FC2C4E4CB0 /* CreateModels.swift in Sources */,
 				FE417DD4357C58426F3E0C88 /* CreateTabScreen.swift in Sources */,
+				6A17F1B39AB488B5CC76DAAB /* CreditCelebration.swift in Sources */,
 				4EED9BB22557588FF1B123EA /* Diagnostics.swift in Sources */,
 				DF3566E4DA4DB88B778C0CA9 /* DiscoverScreen.swift in Sources */,
 				0E44409BA62A8F55FA9B2290 /* DiscoverSnapshot.swift in Sources */,
@@ -730,6 +737,7 @@
 				201028673A30D60B32A9BBD5 /* SignInScreen.swift in Sources */,
 				FC6593C5C4DBCE5ACCA8038D /* StoryBuilderScreen.swift in Sources */,
 				36154ABB18E0291129EDC45B /* StoryDetailScreen.swift in Sources */,
+				DA49DA3A9E1EBF033C600678 /* SwipeBack.swift in Sources */,
 				68ED749D61D833B734EE3437 /* Telemetry.swift in Sources */,
 				6C4131B354E4F2747CF676D8 /* Theme.swift in Sources */,
 				8D0CCE9FDAD25563F973C40A /* Translator.swift in Sources */,
@@ -787,7 +795,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Q7ZLXMG4SB;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -910,7 +918,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Q7ZLXMG4SB;
 				ENABLE_NS_ASSERTIONS = NO;

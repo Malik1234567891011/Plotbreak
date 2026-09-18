@@ -2,14 +2,12 @@ import SwiftUI
 
 // MARK: - Composer dock (§10.2 D)
 //
-// Persistent, above the keyboard. The round actions, then the input with
-// Send/Stop. The tier and its cost live in the header's quality pill.
+// Persistent, above the keyboard: the input with Send/Stop, and nothing else.
+// The tier and its cost live in the header's quality pill; the way back to the
+// newest beat floats over the feed.
 
 struct SessionComposer: View {
     @Bindable var model: SessionModel
-    /// Opens the three suggested responses (the sparkle button).
-    /// Jumps to the newest beat (the round arrow on the right).
-    var onScrollToLatest: () -> Void = {}
     @Environment(\.translator) private var t
     @Environment(AppStore.self) private var store
     @FocusState private var focused: Bool
@@ -17,29 +15,9 @@ struct SessionComposer: View {
 
     private var draftEmpty: Bool { model.draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     private var isPending: Bool { model.pending != nil }
-    private var latestImage: String? { model.heroImageUrl ?? model.turns.last(where: { $0.heroImageUrl != nil })?.heroImageUrl }
-    private var canRetry: Bool { !isPending && !(model.latest?.actionText ?? "").isEmpty }
 
     var body: some View {
         VStack(spacing: 0) {
-            // The round buttons: the latest image, retry, the turn menu, and
-            // on the right the way back to the newest beat.
-            HStack(spacing: 10) {
-                RoundAction(symbol: "photo", label: t("session.latest_image_a11y"), disabled: latestImage == nil) {
-                    if let latestImage { model.fullScreenImage = latestImage }
-                }
-                RoundAction(symbol: "arrow.clockwise", label: t("session.retry", ["cost": model.tier.costCredits]), disabled: !canRetry) {
-                    model.retryLatest()
-                }
-                RoundAction(symbol: "ellipsis", label: t("session.turn_options"), disabled: !canRetry, rotate: true) {
-                    model.showTurnMenu = true
-                }
-                Spacer(minLength: 0)
-                RoundAction(symbol: "chevron.up", label: t("session.scroll_to_latest"), filled: true, action: onScrollToLatest)
-            }
-            .padding(.horizontal, Theme.gutter)
-            .padding(.top, 14)
-
             // Autocorrect rewrote what the player actually typed, in a game
             // whose entire input is prose full of invented proper nouns.
             // Spell check stays on; what stops is the silent replacement.
@@ -103,7 +81,7 @@ struct SessionComposer: View {
             .onTapGesture { if !isPending { focused = true } }
             .animation(.easeOut(duration: Theme.Durations.short), value: focused)
             .padding(.horizontal, Theme.gutter)
-            .padding(.top, 14)
+            .padding(.top, Theme.Spacing.sm)
             .padding(.bottom, Theme.Spacing.md)
         }
         .background(Theme.Colors.bgBase)
@@ -143,37 +121,6 @@ struct SessionComposer: View {
         static let sendGlyph = Color.black
         static let radius: CGFloat = 8
         static let ring: CGFloat = 3
-    }
-}
-
-/// A 48pt circle with one symbol in it: outlined and grey, or filled white
-/// for the one that leads somewhere.
-private struct RoundAction: View {
-    let symbol: String
-    let label: String
-    var disabled: Bool = false
-    var filled: Bool = false
-    var rotate: Bool = false
-    let action: () -> Void
-
-    var body: some View {
-        Button {
-            Haptic.play(.light)
-            action()
-        } label: {
-            Image(systemName: symbol)
-                .font(.system(size: 18, weight: filled ? .bold : .regular))
-                .rotationEffect(.degrees(rotate ? 90 : 0))
-                .foregroundStyle(filled ? Theme.Colors.textOnLight : Theme.Colors.textSecondary)
-                .frame(width: 48, height: 48)
-                .background(filled ? Theme.Colors.light : Color.clear, in: Circle())
-                .overlay { if !filled { Circle().strokeBorder(Theme.Colors.borderStrong, lineWidth: 0.5) } }
-                .opacity(disabled ? 0.4 : 1)
-                .contentShape(Circle())
-        }
-        .buttonStyle(PressOpacityStyle())
-        .disabled(disabled)
-        .accessibilityLabel(label)
     }
 }
 

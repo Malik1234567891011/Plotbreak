@@ -54,6 +54,7 @@ export const session = {
   /* ---------------------------------------------------------------------- */
 
   'session.back_to_library': 'Retour à la bibliothèque',
+  'session.loading': 'Chargement…',
   /**
    * `la fiche du monde` — the word French RPGs use for a reference sheet
    * (`fiche de personnage`), and already the phrasing `world.ts` uses for this

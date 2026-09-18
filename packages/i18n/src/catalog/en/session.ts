@@ -6,6 +6,8 @@ export const session = {
 
   /** Screen-reader label on the `‹` button. "Library" is the shelf of saved runs. */
   'session.back_to_library': 'Back to library',
+  /** Under the spinner while a run opens, before its header and story arrive. */
+  'session.loading': 'Loading…',
   /**
    * Screen-reader label on the `☰` button. "World Sheet" is the name of a
    * screen — the reference panel for the open run — and is capitalised because

@@ -644,6 +644,7 @@
   "session.last_turn": "··· Le tour précédent",
   "session.latest_image_a11y": "Ouvrir la dernière image",
   "session.load_failed": "Impossible de charger cette histoire.",
+  "session.loading": "Chargement…",
   "session.more_credits_needed": "{count, plural, one {Il te manque # crédit} other {Il te manque # crédits}}",
   "session.name_list": "{others} et {last}",
   "session.nobody_else_here": "Il n’y a personne d’autre.",

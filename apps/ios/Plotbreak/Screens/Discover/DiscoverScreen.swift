@@ -12,7 +12,9 @@ import SwiftUI
 ///
 /// Shelf covers run at ~98pt so 3.4 of them show on a 393pt phone — the row
 /// is obviously scrollable. The full catalogue is a three-column grid of the
-/// same card. Continue cards are two across.
+/// same card. Continue covers are the compact ones: ~5.6 across, small enough
+/// that the shelf reads as a history strip rather than as a second storefront
+/// competing with the shelves under it.
 private struct CardWidths {
     let rail: CGFloat
     let grid: CGFloat
@@ -22,7 +24,7 @@ private struct CardWidths {
         let usable = screenWidth - Theme.pageGutter * 2
         rail = floor((usable - Theme.Spacing.md * 3) / 3.4)
         grid = floor((usable - Theme.Spacing.md * 2) / 3)
-        `continue` = floor((usable - Theme.Spacing.md) / 2)
+        `continue` = min(72, floor((usable - Theme.Spacing.md * 4) / 5.6))
     }
 }
 
