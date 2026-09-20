@@ -7,3 +7,4 @@
 5. **RANK ZERO** — progression power fantasy. Everyone awakens into a permanent Rank; your official Rank is zero, but your hidden Core is the only power in the world that can keep evolving.
 6. **THE RED FLOOR** — martial-arts/gym drama. Beneath a neighborhood fight gym, champions from different disciplines meet without cameras, rankings or weight classes; every fighter has a different answer to what strength is for.
 7. **SECOND SKIN** — beastfolk coming-of-age fantasy. At sixteen, everyone chooses one Beast Affinity for life; your ceremony is crashed by an adult snow-leopard woman visibly carrying a forbidden second Affinity.
+8. **UNCOUNTED** — isekai progression fantasy / dark-power mystery / beast taming. Everyone in Orenne carries a readable number that is their power, their rank and their legal personhood; you wake at eighteen and the stone stays dark, so nothing you do is written down.
