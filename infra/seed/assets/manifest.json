@@ -26120,5 +26120,1737 @@
       "latencyMs": 19215,
       "createdAt": "2026-09-10T16:30:16.686Z"
     }
+  },
+  "story_uncounted/cover": {
+    "styleVersion": "plotbreak-cover-v4-titled"
+  },
+  "story_uncounted/stage_sablecourt": {
+    "assetKey": "story_uncounted/stage_sablecourt",
+    "file": "story_uncounted/stage_sablecourt.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Sablecourt: Forty thousand people on a grey-and-gold river, built around the largest Weighing House on the continent.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "e8d784e0-0375-42fd-836f-6fb04c91ee65",
+      "promptHash": "4a136bb11958943e6bfb1d96910db878",
+      "seed": "sv_uncounted_1:loc:sablecourt:anima-v1",
+      "costUsd": 0.05488,
+      "latencyMs": 20839,
+      "createdAt": "2026-09-20T07:40:16.435Z"
+    }
+  },
+  "story_uncounted/stage_underbridge": {
+    "assetKey": "story_uncounted/stage_underbridge",
+    "file": "story_uncounted/stage_underbridge.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Underbridge: Where the Unrated live, under and alongside the great bridge.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "678ec935-21e5-4b4b-802c-94a70caff5c2",
+      "promptHash": "bbe90bae56d7917079146fc80c83258e",
+      "seed": "sv_uncounted_1:loc:underbridge:anima-v1",
+      "costUsd": 0.05488,
+      "latencyMs": 20861,
+      "createdAt": "2026-09-20T07:40:16.458Z"
+    }
+  },
+  "story_uncounted/stage_weighing_house": {
+    "assetKey": "story_uncounted/stage_weighing_house",
+    "file": "story_uncounted/stage_weighing_house.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Weighing House: A domed hall of pale stone with a black assessing stone at its centre, worn concave by a century of hands.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "babf57a9-72b7-47e1-87e8-e28987db79e9",
+      "promptHash": "68dae6985f321fc538d91f3886f8ca79",
+      "seed": "sv_uncounted_1:loc:weighing_house:anima-v1",
+      "costUsd": 0.05488,
+      "latencyMs": 21585,
+      "createdAt": "2026-09-20T07:40:17.152Z"
+    }
+  },
+  "story_uncounted/key": {
+    "assetKey": "story_uncounted/key",
+    "file": "story_uncounted/key.png",
+    "kind": "KEY_ART",
+    "alt": "Key art for Uncounted",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "e71dfbef-3d26-4e24-a7ca-a6f29f081b02",
+      "promptHash": "179f108f3ddf8572ecd12da201d24e2f",
+      "seed": "sv_uncounted_1:key:anima-v1",
+      "costUsd": 0.05488,
+      "latencyMs": 22241,
+      "createdAt": "2026-09-20T07:40:17.835Z"
+    }
+  },
+  "story_uncounted/stage_southern_road": {
+    "assetKey": "story_uncounted/stage_southern_road",
+    "file": "story_uncounted/stage_southern_road.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Southern Road: Aurelian’s wardenship, and the best-kept road on the continent: milestones, cut verges, a waystone every league with the current warden’s mark on it.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "7efd0ec0-5b5c-41cd-b067-3c235f0f038b",
+      "promptHash": "aa47e23986906dfa3935af324094f349",
+      "seed": "sv_uncounted_1:loc:southern_road:anima-v1",
+      "costUsd": 0.01372,
+      "latencyMs": 13210,
+      "createdAt": "2026-09-20T07:40:30.371Z"
+    }
+  },
+  "story_uncounted/stage_chalk_downs": {
+    "assetKey": "story_uncounted/stage_chalk_downs",
+    "file": "story_uncounted/stage_chalk_downs.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Chalk Downs: The shallow edge of the Unkept, where the Assize gave up pricing and the grass gets long.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "e2db8ebc-263a-4fa6-ac52-a9bb6520e5d5",
+      "promptHash": "11e35ec406421dff7ad0ff5b37bf68a0",
+      "seed": "sv_uncounted_1:loc:chalk_downs:anima-v1",
+      "costUsd": 0.01372,
+      "latencyMs": 13776,
+      "createdAt": "2026-09-20T07:40:31.627Z"
+    }
+  },
+  "story_uncounted/stage_gilt_yard": {
+    "assetKey": "story_uncounted/stage_gilt_yard",
+    "file": "story_uncounted/stage_gilt_yard.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Gilt Yard: Where the Warden of the Southern March keeps his horses when he is in the city, and where Grace sleeps, in a pen with a rail she could step over and has never once stepped over.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "be5c33f4-69ff-44a3-ba22-677ed584b3d0",
+      "promptHash": "bb3d90b64a22b92e4bb022196e88df64",
+      "seed": "sv_uncounted_1:loc:gilt_yard:anima-v1",
+      "costUsd": 0.05488,
+      "latencyMs": 20976,
+      "createdAt": "2026-09-20T07:40:37.439Z"
+    }
+  },
+  "story_uncounted/stage_quill_row": {
+    "assetKey": "story_uncounted/stage_quill_row",
+    "file": "story_uncounted/stage_quill_row.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Quill Row: Notaries, scriveners, seal-cutters, and — four doors down, above a chandler’s — a very good woman named Bett who can make an Unrated into a Ninth for eleven silver and a favour.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "8094bbb2-05c8-4ba0-b6f9-301ba5f340e0",
+      "promptHash": "ced54dba2ea242d413e37ff74f9ff5b7",
+      "seed": "sv_uncounted_1:loc:quill_row:anima-v1",
+      "costUsd": 0.05488,
+      "latencyMs": 22004,
+      "createdAt": "2026-09-20T07:40:38.446Z"
+    }
+  },
+  "story_uncounted/stage_flooded_fen": {
+    "assetKey": "story_uncounted/stage_flooded_fen",
+    "file": "story_uncounted/stage_flooded_fen.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Flooded Fen: Deep Unkept.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "526ee22c-3ad1-4e7b-aa60-b8bb80ad15ec",
+      "promptHash": "3ffa29e49600a7706587f01a27ba58f3",
+      "seed": "sv_uncounted_1:loc:flooded_fen:anima-v1",
+      "costUsd": 0.00632,
+      "latencyMs": 11862,
+      "createdAt": "2026-09-20T07:40:42.241Z"
+    }
+  },
+  "story_uncounted/stage_halloway": {
+    "assetKey": "story_uncounted/stage_halloway",
+    "file": "story_uncounted/stage_halloway.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Halloway: A village of two hundred on the southern road with no warden since Perrin Alder’s uncle died in the spring.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "11a310be-5819-44c2-b933-c9236e3b7b77",
+      "promptHash": "55a82507645cefd756e3e67ad231c343",
+      "seed": "sv_uncounted_1:loc:halloway:anima-v1",
+      "costUsd": 0.05488,
+      "latencyMs": 23087,
+      "createdAt": "2026-09-20T07:40:54.726Z"
+    }
+  },
+  "story_uncounted/marrin": {
+    "assetKey": "story_uncounted/marrin",
+    "file": "story_uncounted/marrin.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Voss Marrin, Assessor of Sablecourt. Thirty-one years at the stone",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "f55f2a3e-6081-45e2-a065-939023f96293",
+      "promptHash": "397eb25659267cb198a0a9c4d8b13f06",
+      "seed": "uncounted-marrin-01",
+      "costUsd": 0.02404,
+      "latencyMs": 14811,
+      "createdAt": "2026-09-20T07:40:57.065Z"
+    }
+  },
+  "story_uncounted/tsukasa": {
+    "assetKey": "story_uncounted/tsukasa",
+    "file": "story_uncounted/tsukasa.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Tsukasa, The Hollow. The only other person in the history of the Ledger to read dark on the stone",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "5a116adb-8abf-4bb5-96fd-23a0a10c1a23",
+      "promptHash": "928305d6da6a6c0dcf2743ed785e8f39",
+      "seed": "uncounted-tsukasa-01",
+      "costUsd": 0.05488,
+      "latencyMs": 19465,
+      "createdAt": "2026-09-20T07:40:57.917Z"
+    }
+  },
+  "story_uncounted/grace": {
+    "assetKey": "story_uncounted/grace",
+    "file": "story_uncounted/grace.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grace, A tiger three times the size of any tiger that has ever lived, and the best-loved animal in Orenne",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "960695d8-c4fb-4e40-8fef-76d7c0abd752",
+      "promptHash": "bbd1fcecbe4ee4a9c1e5539ea262f625",
+      "seed": "uncounted-grace-01",
+      "costUsd": 0.00632,
+      "latencyMs": 17035,
+      "createdAt": "2026-09-20T07:40:58.635Z"
+    }
+  },
+  "story_uncounted/hale": {
+    "assetKey": "story_uncounted/hale",
+    "file": "story_uncounted/hale.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Cardew Hale, Assize officer, Reconciliations. The man they send when a page does not balance",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "03ae81a3-8821-491b-9eb9-e74fc756d07e",
+      "promptHash": "97b9801c7a63a0c23441f22b0dead123",
+      "seed": "uncounted-hale-01",
+      "costUsd": 0.00632,
+      "latencyMs": 12026,
+      "createdAt": "2026-09-20T07:41:06.767Z"
+    }
+  },
+  "story_uncounted/perrin": {
+    "assetKey": "story_uncounted/perrin",
+    "file": "story_uncounted/perrin.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Perrin Alder, Weighed Ninth, declared Hand, and told nobody why",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "83ac7ace-4e33-4cae-94ba-d83f9cdcf650",
+      "promptHash": "ed59b498ce00cb0e8509d24cf2a097bc",
+      "seed": "uncounted-perrin-01",
+      "costUsd": 0.00632,
+      "latencyMs": 13025,
+      "createdAt": "2026-09-20T07:41:11.673Z"
+    }
+  },
+  "story_uncounted/beck": {
+    "assetKey": "story_uncounted/beck",
+    "file": "story_uncounted/beck.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Beck Ardry, Weighed Ninth the same morning you did not weigh at all. Blade",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "72d2e9b3-7b39-4e0b-873a-646aed7cc23f",
+      "promptHash": "980b3d120c1c6b63da2fc629ec26e4bf",
+      "seed": "uncounted-beck-01",
+      "costUsd": 0.05488,
+      "latencyMs": 20683,
+      "createdAt": "2026-09-20T07:41:17.758Z"
+    }
+  },
+  "story_uncounted/rill_neutral": {
+    "assetKey": "story_uncounted/rill_neutral",
+    "file": "story_uncounted/rill_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Amaryllis Quist, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "c45553a5-a7e5-4881-b63d-cf1ecd23f7ef",
+      "promptHash": "34992777929df1e3b37a660ff56cf280",
+      "seed": "uncounted-rill-01:neutral",
+      "costUsd": 0.01372,
+      "latencyMs": 14851,
+      "createdAt": "2026-09-20T07:41:21.626Z"
+    }
+  },
+  "story_uncounted/ithra": {
+    "assetKey": "story_uncounted/ithra",
+    "file": "story_uncounted/ithra.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ithra Sen, Weighed Seventh, declared Staff, Assize-track and unbearable about it",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "7928760c-be46-4767-b052-b837bd82d343",
+      "promptHash": "d221a72b5b5d93522739715f9fc8da37",
+      "seed": "uncounted-ithra-01",
+      "costUsd": 0.05488,
+      "latencyMs": 26802,
+      "createdAt": "2026-09-20T07:41:24.730Z"
+    }
+  },
+  "story_uncounted/rill_warm": {
+    "assetKey": "story_uncounted/rill_warm",
+    "file": "story_uncounted/rill_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Amaryllis Quist, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "48771a13-88c6-4145-a1fa-7f1fb7c9de2f",
+      "promptHash": "95d0812a0239f88b9cffca8fc1fb41f3",
+      "seed": "uncounted-rill-01:warm",
+      "costUsd": 0.05488,
+      "latencyMs": 25970,
+      "createdAt": "2026-09-20T07:41:37.651Z"
+    }
+  },
+  "story_uncounted/rill_amused": {
+    "assetKey": "story_uncounted/rill_amused",
+    "file": "story_uncounted/rill_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Amaryllis Quist, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "d8c0a95b-efbc-4a40-85c1-d452e157098c",
+      "promptHash": "64df26cf06aa32b3eb20c5d1f02175d4",
+      "seed": "uncounted-rill-01:amused",
+      "costUsd": 0.05488,
+      "latencyMs": 22479,
+      "createdAt": "2026-09-20T07:41:40.250Z"
+    }
+  },
+  "story_uncounted/rill_surprised": {
+    "assetKey": "story_uncounted/rill_surprised",
+    "file": "story_uncounted/rill_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Amaryllis Quist, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "7b47ce60-acc1-480b-8123-52567971c06e",
+      "promptHash": "b8c11e5a48aaf84ab685884612b2b417",
+      "seed": "uncounted-rill-01:surprised",
+      "costUsd": 0.05488,
+      "latencyMs": 20444,
+      "createdAt": "2026-09-20T07:41:42.084Z"
+    }
+  },
+  "story_uncounted/rill_confused": {
+    "assetKey": "story_uncounted/rill_confused",
+    "file": "story_uncounted/rill_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Amaryllis Quist, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "be1e3313-a983-4174-abb4-482579afbec9",
+      "promptHash": "ab7e66ce6f1c150cb90a906654906b28",
+      "seed": "uncounted-rill-01:confused",
+      "costUsd": 0.05488,
+      "latencyMs": 21996,
+      "createdAt": "2026-09-20T07:41:46.744Z"
+    }
+  },
+  "story_uncounted/rill_angry": {
+    "assetKey": "story_uncounted/rill_angry",
+    "file": "story_uncounted/rill_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Amaryllis Quist, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "61347476-5f32-401c-9191-19d861e10788",
+      "promptHash": "04abcdb796585cb62d6e5a1aac01f2f5",
+      "seed": "uncounted-rill-01:angry",
+      "costUsd": 0.02404,
+      "latencyMs": 14690,
+      "createdAt": "2026-09-20T07:41:54.955Z"
+    }
+  },
+  "story_uncounted/rill_worried": {
+    "assetKey": "story_uncounted/rill_worried",
+    "file": "story_uncounted/rill_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Amaryllis Quist, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "fcefa1db-897f-4c89-a456-00167260fdd5",
+      "promptHash": "4581a887815e8f3d3158619917dc6860",
+      "seed": "uncounted-rill-01:worried",
+      "costUsd": 0.01372,
+      "latencyMs": 14262,
+      "createdAt": "2026-09-20T07:41:56.362Z"
+    }
+  },
+  "story_uncounted/rill_annoyed": {
+    "assetKey": "story_uncounted/rill_annoyed",
+    "file": "story_uncounted/rill_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Amaryllis Quist, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "1ecb8a38-7953-4cb8-94cf-9f94216db77c",
+      "promptHash": "d8e9f799528d9f39c872eaf0dee06e32",
+      "seed": "uncounted-rill-01:annoyed",
+      "costUsd": 0.05488,
+      "latencyMs": 20668,
+      "createdAt": "2026-09-20T07:41:58.325Z"
+    }
+  },
+  "story_uncounted/tsukasa_neutral": {
+    "assetKey": "story_uncounted/tsukasa_neutral",
+    "file": "story_uncounted/tsukasa_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Tsukasa, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "f71c242e-10da-4cd8-904a-f5315dc4a4da",
+      "promptHash": "df79e1933ac789d7b88eecd54e05fea2",
+      "seed": "uncounted-tsukasa-01:neutral",
+      "costUsd": 0.01372,
+      "latencyMs": 13307,
+      "createdAt": "2026-09-20T07:42:00.057Z"
+    }
+  },
+  "story_uncounted/tsukasa_warm": {
+    "assetKey": "story_uncounted/tsukasa_warm",
+    "file": "story_uncounted/tsukasa_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Tsukasa, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "764e36d8-e352-4b2b-91b9-bf663be162a3",
+      "promptHash": "512b17e8a726a5a25bac37c6c08fc112",
+      "seed": "uncounted-tsukasa-01:warm",
+      "costUsd": 0.00632,
+      "latencyMs": 12135,
+      "createdAt": "2026-09-20T07:42:07.102Z"
+    }
+  },
+  "story_uncounted/tsukasa_surprised": {
+    "assetKey": "story_uncounted/tsukasa_surprised",
+    "file": "story_uncounted/tsukasa_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Tsukasa, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "1d27d94f-07d3-4d6e-8247-79102347d131",
+      "promptHash": "a096e5b046745a1a5cec16dc913eacd3",
+      "seed": "uncounted-tsukasa-01:surprised",
+      "costUsd": 0.00632,
+      "latencyMs": 11396,
+      "createdAt": "2026-09-20T07:42:09.737Z"
+    }
+  },
+  "story_uncounted/tsukasa_amused": {
+    "assetKey": "story_uncounted/tsukasa_amused",
+    "file": "story_uncounted/tsukasa_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Tsukasa, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "8490234c-263f-421b-b393-7469181f0149",
+      "promptHash": "572f48330023d0de79a05d74c1a9c76b",
+      "seed": "uncounted-tsukasa-01:amused",
+      "costUsd": 0.01372,
+      "latencyMs": 13810,
+      "createdAt": "2026-09-20T07:42:10.183Z"
+    }
+  },
+  "story_uncounted/tsukasa_confused": {
+    "assetKey": "story_uncounted/tsukasa_confused",
+    "file": "story_uncounted/tsukasa_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Tsukasa, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "df3ceb70-a862-481d-a80b-db0795bbadf2",
+      "promptHash": "b135f4043d685750d5c3e7140d1de2c7",
+      "seed": "uncounted-tsukasa-01:confused",
+      "costUsd": 0.01372,
+      "latencyMs": 13851,
+      "createdAt": "2026-09-20T07:42:13.918Z"
+    }
+  },
+  "story_uncounted/tsukasa_angry": {
+    "assetKey": "story_uncounted/tsukasa_angry",
+    "file": "story_uncounted/tsukasa_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Tsukasa, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "d429086f-5489-4767-b47c-b9acf89fba58",
+      "promptHash": "6702c442125114040dc89fc84fffee9f",
+      "seed": "uncounted-tsukasa-01:angry",
+      "costUsd": 0.00632,
+      "latencyMs": 11399,
+      "createdAt": "2026-09-20T07:42:21.143Z"
+    }
+  },
+  "story_uncounted/tsukasa_worried": {
+    "assetKey": "story_uncounted/tsukasa_worried",
+    "file": "story_uncounted/tsukasa_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Tsukasa, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "8f55f0cd-f8ce-4a34-8886-782f2c65ad3d",
+      "promptHash": "199452e8347ecadae171bffb9483567f",
+      "seed": "uncounted-tsukasa-01:worried",
+      "costUsd": 0.00632,
+      "latencyMs": 13048,
+      "createdAt": "2026-09-20T07:42:23.247Z"
+    }
+  },
+  "story_uncounted/tsukasa_annoyed": {
+    "assetKey": "story_uncounted/tsukasa_annoyed",
+    "file": "story_uncounted/tsukasa_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Tsukasa, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "59fa55cd-a97f-4ec9-96e4-027bf18f8c62",
+      "promptHash": "80cb43f768af68246a35dd6e7b258638",
+      "seed": "uncounted-tsukasa-01:annoyed",
+      "costUsd": 0.01372,
+      "latencyMs": 16514,
+      "createdAt": "2026-09-20T07:42:23.627Z"
+    }
+  },
+  "story_uncounted/aurelian_neutral": {
+    "assetKey": "story_uncounted/aurelian_neutral",
+    "file": "story_uncounted/aurelian_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Aurelian, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "b8caa3e7-b044-4ecf-ab9a-0ba58b6e17f9",
+      "promptHash": "ccb1e4b5af5491fedfa044398d3733be",
+      "seed": "uncounted-aurelian-01:neutral",
+      "costUsd": 0.05488,
+      "latencyMs": 20004,
+      "createdAt": "2026-09-20T07:42:33.935Z"
+    }
+  },
+  "story_uncounted/aurelian_amused": {
+    "assetKey": "story_uncounted/aurelian_amused",
+    "file": "story_uncounted/aurelian_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Aurelian, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "f4048348-a8db-4144-9cf2-ba724bd434af",
+      "promptHash": "59eaeb79f176e2a66ec95296f50a016f",
+      "seed": "uncounted-aurelian-01:amused",
+      "costUsd": 0.00632,
+      "latencyMs": 11051,
+      "createdAt": "2026-09-20T07:42:34.308Z"
+    }
+  },
+  "story_uncounted/aurelian_surprised": {
+    "assetKey": "story_uncounted/aurelian_surprised",
+    "file": "story_uncounted/aurelian_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Aurelian, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "2c96c92b-f8ea-434e-8c15-eb4eba93f7c8",
+      "promptHash": "bebe118713713351bc11a4ac877998a6",
+      "seed": "uncounted-aurelian-01:surprised",
+      "costUsd": 0.01372,
+      "latencyMs": 13239,
+      "createdAt": "2026-09-20T07:42:36.880Z"
+    }
+  },
+  "story_uncounted/aurelian_warm": {
+    "assetKey": "story_uncounted/aurelian_warm",
+    "file": "story_uncounted/aurelian_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Aurelian, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "1d44b67f-92ea-4ffe-8a25-cb5a4946b4e9",
+      "promptHash": "36d33a59d8c0e71a3560144fed0e3436",
+      "seed": "uncounted-aurelian-01:warm",
+      "costUsd": 0.05488,
+      "latencyMs": 18682,
+      "createdAt": "2026-09-20T07:42:39.836Z"
+    }
+  },
+  "story_uncounted/aurelian_confused": {
+    "assetKey": "story_uncounted/aurelian_confused",
+    "file": "story_uncounted/aurelian_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Aurelian, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "1826484d-4466-4d8b-8c2e-d633a26a53cd",
+      "promptHash": "64f2ad68da8abff7ac2dc75b4048b94d",
+      "seed": "uncounted-aurelian-01:confused",
+      "costUsd": 0.00632,
+      "latencyMs": 12054,
+      "createdAt": "2026-09-20T07:42:45.994Z"
+    }
+  },
+  "story_uncounted/aurelian_angry": {
+    "assetKey": "story_uncounted/aurelian_angry",
+    "file": "story_uncounted/aurelian_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Aurelian, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "a60c4488-a927-4611-a727-c4405272ed46",
+      "promptHash": "ed5d75b0c6698477c6b2dff003158eab",
+      "seed": "uncounted-aurelian-01:angry",
+      "costUsd": 0.01372,
+      "latencyMs": 13346,
+      "createdAt": "2026-09-20T07:42:50.238Z"
+    }
+  },
+  "story_uncounted/aurelian_annoyed": {
+    "assetKey": "story_uncounted/aurelian_annoyed",
+    "file": "story_uncounted/aurelian_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Aurelian, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "20701065-92cc-4263-b51c-bf2b49ef32d2",
+      "promptHash": "b7dafa9bce3d1de4b209028530982f2e",
+      "seed": "uncounted-aurelian-01:annoyed",
+      "costUsd": 0.05488,
+      "latencyMs": 18866,
+      "createdAt": "2026-09-20T07:42:53.182Z"
+    }
+  },
+  "story_uncounted/grace_neutral": {
+    "assetKey": "story_uncounted/grace_neutral",
+    "file": "story_uncounted/grace_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grace, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "0a36c347-84cc-4a33-9260-3a34476915d4",
+      "promptHash": "342f20d037e1040110049288a6c49108",
+      "seed": "uncounted-grace-01:neutral",
+      "costUsd": 0.00632,
+      "latencyMs": 12883,
+      "createdAt": "2026-09-20T07:42:58.891Z"
+    }
+  },
+  "story_uncounted/aurelian_worried": {
+    "assetKey": "story_uncounted/aurelian_worried",
+    "file": "story_uncounted/aurelian_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Aurelian, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "810c84cb-36c3-4b39-897a-aa0e54225d40",
+      "promptHash": "a3416bc90704bf7b1186d37720e493fa",
+      "seed": "uncounted-aurelian-01:worried",
+      "costUsd": 0.05488,
+      "latencyMs": 19371,
+      "createdAt": "2026-09-20T07:42:59.214Z"
+    }
+  },
+  "story_uncounted/grace_warm": {
+    "assetKey": "story_uncounted/grace_warm",
+    "file": "story_uncounted/grace_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grace, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "a07f2c9c-d163-421e-b73c-79f921f8a74a",
+      "promptHash": "5b4dde70866b53c8cf2f77555839bedf",
+      "seed": "uncounted-grace-01:warm",
+      "costUsd": 0.00632,
+      "latencyMs": 12572,
+      "createdAt": "2026-09-20T07:43:02.819Z"
+    }
+  },
+  "story_uncounted/grace_amused": {
+    "assetKey": "story_uncounted/grace_amused",
+    "file": "story_uncounted/grace_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grace, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "b5f9a152-6309-4977-b94e-6eef8b1e1509",
+      "promptHash": "7e7d7e30620458dc8ddfce265d83cb49",
+      "seed": "uncounted-grace-01:amused",
+      "costUsd": 0.00632,
+      "latencyMs": 16818,
+      "createdAt": "2026-09-20T07:43:10.007Z"
+    }
+  },
+  "story_uncounted/grace_surprised": {
+    "assetKey": "story_uncounted/grace_surprised",
+    "file": "story_uncounted/grace_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grace, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "4cbad694-0c3a-4b54-bd61-6a8cfd2cb67a",
+      "promptHash": "8eaf7a8547369d3abb369d0bc3057fd5",
+      "seed": "uncounted-grace-01:surprised",
+      "costUsd": 0.00632,
+      "latencyMs": 12850,
+      "createdAt": "2026-09-20T07:43:11.753Z"
+    }
+  },
+  "story_uncounted/grace_confused": {
+    "assetKey": "story_uncounted/grace_confused",
+    "file": "story_uncounted/grace_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grace, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "6aaaad4a-0550-4ed7-aee9-f9be55064c72",
+      "promptHash": "abdd085261e0995311ebd9146242a247",
+      "seed": "uncounted-grace-01:confused",
+      "costUsd": 0.01372,
+      "latencyMs": 13111,
+      "createdAt": "2026-09-20T07:43:12.334Z"
+    }
+  },
+  "story_uncounted/grace_annoyed": {
+    "assetKey": "story_uncounted/grace_annoyed",
+    "file": "story_uncounted/grace_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grace, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "a813bad0-cc21-4690-8418-90e69e351905",
+      "promptHash": "8cf274fdc403eb3bf3f04633040dfd2c",
+      "seed": "uncounted-grace-01:annoyed",
+      "costUsd": 0.01372,
+      "latencyMs": 13595,
+      "createdAt": "2026-09-20T07:43:16.425Z"
+    }
+  },
+  "story_uncounted/grace_angry": {
+    "assetKey": "story_uncounted/grace_angry",
+    "file": "story_uncounted/grace_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grace, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "95d20316-113d-46b2-b05b-7532a1508bb6",
+      "promptHash": "bb8515a0cd87b0a5bab7854da7599ba5",
+      "seed": "uncounted-grace-01:angry",
+      "costUsd": 0.01372,
+      "latencyMs": 13765,
+      "createdAt": "2026-09-20T07:43:23.786Z"
+    }
+  },
+  "story_uncounted/grace_worried": {
+    "assetKey": "story_uncounted/grace_worried",
+    "file": "story_uncounted/grace_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grace, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "ca383bd0-3d5d-421f-94f8-c1975e4424e8",
+      "promptHash": "75cf0265ddf4bb1062680c1b19b17a18",
+      "seed": "uncounted-grace-01:worried",
+      "costUsd": 0.00632,
+      "latencyMs": 12433,
+      "createdAt": "2026-09-20T07:43:24.193Z"
+    }
+  },
+  "story_uncounted/marrin_neutral": {
+    "assetKey": "story_uncounted/marrin_neutral",
+    "file": "story_uncounted/marrin_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Voss Marrin, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "6218a042-96d8-4fb1-b8da-979875de03e5",
+      "promptHash": "3b31c9c345b493753c91334568b0e42b",
+      "seed": "uncounted-marrin-01:neutral",
+      "costUsd": 0.05488,
+      "latencyMs": 20620,
+      "createdAt": "2026-09-20T07:43:32.966Z"
+    }
+  },
+  "story_uncounted/marrin_warm": {
+    "assetKey": "story_uncounted/marrin_warm",
+    "file": "story_uncounted/marrin_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Voss Marrin, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "ebc5bae7-99d0-42d8-8630-07824feeb7ea",
+      "promptHash": "a53c8e21e6d30a84793d165359558f54",
+      "seed": "uncounted-marrin-01:warm",
+      "costUsd": 0.05488,
+      "latencyMs": 20563,
+      "createdAt": "2026-09-20T07:43:36.998Z"
+    }
+  },
+  "story_uncounted/marrin_amused": {
+    "assetKey": "story_uncounted/marrin_amused",
+    "file": "story_uncounted/marrin_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Voss Marrin, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "017927b5-b4c5-475b-b872-2f0f125c5a09",
+      "promptHash": "7ce2c39a2b4dd3e30d435d1a0012758b",
+      "seed": "uncounted-marrin-01:amused",
+      "costUsd": 0.05488,
+      "latencyMs": 19433,
+      "createdAt": "2026-09-20T07:43:43.230Z"
+    }
+  },
+  "story_uncounted/marrin_surprised": {
+    "assetKey": "story_uncounted/marrin_surprised",
+    "file": "story_uncounted/marrin_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Voss Marrin, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "f6f5399c-19fc-45ab-9768-48ba046724c4",
+      "promptHash": "fb72ea5e48bec53fd63067a483aeb50b",
+      "seed": "uncounted-marrin-01:surprised",
+      "costUsd": 0.05488,
+      "latencyMs": 19326,
+      "createdAt": "2026-09-20T07:43:43.534Z"
+    }
+  },
+  "story_uncounted/marrin_confused": {
+    "assetKey": "story_uncounted/marrin_confused",
+    "file": "story_uncounted/marrin_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Voss Marrin, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "c3cc5b75-4b8c-4dbe-9564-4c96529168a3",
+      "promptHash": "6beee7d26539aa5c8a27ebc8f9524726",
+      "seed": "uncounted-marrin-01:confused",
+      "costUsd": 0.01372,
+      "latencyMs": 14295,
+      "createdAt": "2026-09-20T07:43:47.279Z"
+    }
+  },
+  "story_uncounted/marrin_annoyed": {
+    "assetKey": "story_uncounted/marrin_annoyed",
+    "file": "story_uncounted/marrin_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Voss Marrin, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "89c3cbb4-0c0a-468a-8351-94a4229864b5",
+      "promptHash": "0c576b2752985556cdb619705b5b1551",
+      "seed": "uncounted-marrin-01:annoyed",
+      "costUsd": 0.01372,
+      "latencyMs": 12618,
+      "createdAt": "2026-09-20T07:43:49.628Z"
+    }
+  },
+  "story_uncounted/hale_neutral": {
+    "assetKey": "story_uncounted/hale_neutral",
+    "file": "story_uncounted/hale_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Cardew Hale, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "4ad7205b-16c1-4d5e-b07f-c287aef6eaf8",
+      "promptHash": "0cf5735e0e5dd08c7060d0010e4e8540",
+      "seed": "uncounted-hale-01:neutral",
+      "costUsd": 0.00632,
+      "latencyMs": 12106,
+      "createdAt": "2026-09-20T07:43:59.398Z"
+    }
+  },
+  "story_uncounted/hale_warm": {
+    "assetKey": "story_uncounted/hale_warm",
+    "file": "story_uncounted/hale_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Cardew Hale, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "f7cd5327-8763-45e0-9dae-83f6a9a9cbf7",
+      "promptHash": "fc1ccea9641eef81825631c01403b9c1",
+      "seed": "uncounted-hale-01:warm",
+      "costUsd": 0.00632,
+      "latencyMs": 12010,
+      "createdAt": "2026-09-20T07:44:01.656Z"
+    }
+  },
+  "story_uncounted/marrin_angry": {
+    "assetKey": "story_uncounted/marrin_angry",
+    "file": "story_uncounted/marrin_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Voss Marrin, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "afbe45c5-f964-4bee-a842-36f39feb3a86",
+      "promptHash": "079b135f35f8ff2b9055ab367f649164",
+      "seed": "uncounted-marrin-01:angry",
+      "costUsd": 0.05488,
+      "latencyMs": 19369,
+      "createdAt": "2026-09-20T07:44:02.612Z"
+    }
+  },
+  "story_uncounted/marrin_worried": {
+    "assetKey": "story_uncounted/marrin_worried",
+    "file": "story_uncounted/marrin_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Voss Marrin, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "bc75271e-ffcb-4bc3-88e1-dab4f33bd5d3",
+      "promptHash": "ba29616614d2a2e6ec305de6be58f558",
+      "seed": "uncounted-marrin-01:worried",
+      "costUsd": 0.05488,
+      "latencyMs": 20031,
+      "createdAt": "2026-09-20T07:44:03.573Z"
+    }
+  },
+  "story_uncounted/hale_surprised": {
+    "assetKey": "story_uncounted/hale_surprised",
+    "file": "story_uncounted/hale_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Cardew Hale, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "1a52c2a3-099a-49b7-8c45-cb8a2d38fc50",
+      "promptHash": "9dbb4e6cb1c4cacade4d72fe3aea4a29",
+      "seed": "uncounted-hale-01:surprised",
+      "costUsd": 0.01372,
+      "latencyMs": 12429,
+      "createdAt": "2026-09-20T07:44:14.098Z"
+    }
+  },
+  "story_uncounted/hale_amused": {
+    "assetKey": "story_uncounted/hale_amused",
+    "file": "story_uncounted/hale_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Cardew Hale, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "634405a4-42b0-450e-8063-c2fffdef4104",
+      "promptHash": "e524b12cc8cb28f6212fa787a71d7d19",
+      "seed": "uncounted-hale-01:amused",
+      "costUsd": 0.02404,
+      "latencyMs": 14828,
+      "createdAt": "2026-09-20T07:44:14.240Z"
+    }
+  },
+  "story_uncounted/hale_confused": {
+    "assetKey": "story_uncounted/hale_confused",
+    "file": "story_uncounted/hale_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Cardew Hale, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "af789da3-b06f-45b2-b0a0-158f21ace285",
+      "promptHash": "1618aae1af72192aaa144b1658561041",
+      "seed": "uncounted-hale-01:confused",
+      "costUsd": 0.05488,
+      "latencyMs": 19118,
+      "createdAt": "2026-09-20T07:44:21.740Z"
+    }
+  },
+  "story_uncounted/hale_annoyed": {
+    "assetKey": "story_uncounted/hale_annoyed",
+    "file": "story_uncounted/hale_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Cardew Hale, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "0e5458a1-bdd2-46ed-9130-9d7ce261ae08",
+      "promptHash": "6cfcfd151ebb9531159b91218a1a1294",
+      "seed": "uncounted-hale-01:annoyed",
+      "costUsd": 0.05488,
+      "latencyMs": 18271,
+      "createdAt": "2026-09-20T07:44:21.855Z"
+    }
+  },
+  "story_uncounted/hale_worried": {
+    "assetKey": "story_uncounted/hale_worried",
+    "file": "story_uncounted/hale_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Cardew Hale, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "272966ab-277b-4a5e-ac4f-7225c131c87c",
+      "promptHash": "9941739039dc76933fa31c57b512b83c",
+      "seed": "uncounted-hale-01:worried",
+      "costUsd": 0.01372,
+      "latencyMs": 13400,
+      "createdAt": "2026-09-20T07:44:27.653Z"
+    }
+  },
+  "story_uncounted/hale_angry": {
+    "assetKey": "story_uncounted/hale_angry",
+    "file": "story_uncounted/hale_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Cardew Hale, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "5c63c875-98f5-4e76-a3f4-a60a3c51ddcd",
+      "promptHash": "f529c3d90a7a9c5afe6867df239700a0",
+      "seed": "uncounted-hale-01:angry",
+      "costUsd": 0.05488,
+      "latencyMs": 18831,
+      "createdAt": "2026-09-20T07:44:32.944Z"
+    }
+  },
+  "story_uncounted/beck_neutral": {
+    "assetKey": "story_uncounted/beck_neutral",
+    "file": "story_uncounted/beck_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Beck Ardry, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "73e807db-1b10-4c86-8770-2cad2431ff98",
+      "promptHash": "2172450f0d681fc4a3c6457ec684f437",
+      "seed": "uncounted-beck-01:neutral",
+      "costUsd": 0.00632,
+      "latencyMs": 13101,
+      "createdAt": "2026-09-20T07:44:34.856Z"
+    }
+  },
+  "story_uncounted/beck_warm": {
+    "assetKey": "story_uncounted/beck_warm",
+    "file": "story_uncounted/beck_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Beck Ardry, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "1337ec2e-65eb-4924-b1f6-e0ac83589caf",
+      "promptHash": "d12d2ac5522ef64f983815a782f92329",
+      "seed": "uncounted-beck-01:warm",
+      "costUsd": 0.01372,
+      "latencyMs": 14408,
+      "createdAt": "2026-09-20T07:44:36.278Z"
+    }
+  },
+  "story_uncounted/beck_amused": {
+    "assetKey": "story_uncounted/beck_amused",
+    "file": "story_uncounted/beck_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Beck Ardry, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "f318c975-6bb7-4112-bbe7-de64ced47645",
+      "promptHash": "03ceae7dff19fddef97aa386ac4ddeab",
+      "seed": "uncounted-beck-01:amused",
+      "costUsd": 0.00632,
+      "latencyMs": 15638,
+      "createdAt": "2026-09-20T07:44:43.308Z"
+    }
+  },
+  "story_uncounted/beck_surprised": {
+    "assetKey": "story_uncounted/beck_surprised",
+    "file": "story_uncounted/beck_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Beck Ardry, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "d0f1fd81-7251-4199-be6a-c491eb165688",
+      "promptHash": "a56622f572ee1c80a84b0fe8697e0414",
+      "seed": "uncounted-beck-01:surprised",
+      "costUsd": 0.01372,
+      "latencyMs": 15325,
+      "createdAt": "2026-09-20T07:44:48.278Z"
+    }
+  },
+  "story_uncounted/beck_confused": {
+    "assetKey": "story_uncounted/beck_confused",
+    "file": "story_uncounted/beck_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Beck Ardry, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "e711cd66-5e97-4ff9-9363-e8f3ca70b7e1",
+      "promptHash": "fb66c00e9407065dafd11e3682ca2f6c",
+      "seed": "uncounted-beck-01:confused",
+      "costUsd": 0.01372,
+      "latencyMs": 14124,
+      "createdAt": "2026-09-20T07:44:48.988Z"
+    }
+  },
+  "story_uncounted/beck_annoyed": {
+    "assetKey": "story_uncounted/beck_annoyed",
+    "file": "story_uncounted/beck_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Beck Ardry, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "44d4b239-6e4f-4447-a71b-c8372137cf23",
+      "promptHash": "551a68fd4a1443fd6323335ea08125d7",
+      "seed": "uncounted-beck-01:annoyed",
+      "costUsd": 0.00632,
+      "latencyMs": 12755,
+      "createdAt": "2026-09-20T07:44:49.044Z"
+    }
+  },
+  "story_uncounted/beck_angry": {
+    "assetKey": "story_uncounted/beck_angry",
+    "file": "story_uncounted/beck_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Beck Ardry, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "1ac362b2-f4b7-47b2-a04b-d006afc40ed3",
+      "promptHash": "d2f6f9928951ee6739d2b8e44ef995a1",
+      "seed": "uncounted-beck-01:angry",
+      "costUsd": 0.00632,
+      "latencyMs": 13789,
+      "createdAt": "2026-09-20T07:44:57.110Z"
+    }
+  },
+  "story_uncounted/ithra_warm": {
+    "assetKey": "story_uncounted/ithra_warm",
+    "file": "story_uncounted/ithra_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ithra Sen, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "f7dcf98c-6ff5-4dbf-94f8-b436b1886917",
+      "promptHash": "2c6aa7bbcffaaec82ef1884a3bfcb96a",
+      "seed": "uncounted-ithra-01:warm",
+      "costUsd": 0.01372,
+      "latencyMs": 13438,
+      "createdAt": "2026-09-20T07:45:02.491Z"
+    }
+  },
+  "story_uncounted/beck_worried": {
+    "assetKey": "story_uncounted/beck_worried",
+    "file": "story_uncounted/beck_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Beck Ardry, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "a3a7879c-44f8-4936-b34f-c1003a315a29",
+      "promptHash": "b612928b4fec91f820c07495c5388024",
+      "seed": "uncounted-beck-01:worried",
+      "costUsd": 0.01372,
+      "latencyMs": 14513,
+      "createdAt": "2026-09-20T07:45:02.802Z"
+    }
+  },
+  "story_uncounted/ithra_neutral": {
+    "assetKey": "story_uncounted/ithra_neutral",
+    "file": "story_uncounted/ithra_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ithra Sen, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "ba6ec5dc-8a5b-4766-b906-817fdc6c0521",
+      "promptHash": "a2ae4bce042c5f39549a2fc93cfc857a",
+      "seed": "uncounted-ithra-01:neutral",
+      "costUsd": 0.05488,
+      "latencyMs": 18355,
+      "createdAt": "2026-09-20T07:45:07.358Z"
+    }
+  },
+  "story_uncounted/ithra_amused": {
+    "assetKey": "story_uncounted/ithra_amused",
+    "file": "story_uncounted/ithra_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ithra Sen, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "adaa46e4-d07c-4f12-b16a-b1cf0f71323a",
+      "promptHash": "abf19237bbaea06dd3d735658235c18b",
+      "seed": "uncounted-ithra-01:amused",
+      "costUsd": 0.01372,
+      "latencyMs": 13625,
+      "createdAt": "2026-09-20T07:45:10.745Z"
+    }
+  },
+  "story_uncounted/ithra_surprised": {
+    "assetKey": "story_uncounted/ithra_surprised",
+    "file": "story_uncounted/ithra_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ithra Sen, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "3002a907-d5ce-451d-84d1-1cca4b73fd4b",
+      "promptHash": "d8588b9b8277342fa2aad80e1d0dceff",
+      "seed": "uncounted-ithra-01:surprised",
+      "costUsd": 0.00632,
+      "latencyMs": 12773,
+      "createdAt": "2026-09-20T07:45:15.277Z"
+    }
+  },
+  "story_uncounted/ithra_confused": {
+    "assetKey": "story_uncounted/ithra_confused",
+    "file": "story_uncounted/ithra_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ithra Sen, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "3adce88c-0f4d-4498-93a5-9d052d6d3ed9",
+      "promptHash": "05bf1d15bf4eb52b90bb1da954eebb0f",
+      "seed": "uncounted-ithra-01:confused",
+      "costUsd": 0.05488,
+      "latencyMs": 19123,
+      "createdAt": "2026-09-20T07:45:21.935Z"
+    }
+  },
+  "story_uncounted/ithra_angry": {
+    "assetKey": "story_uncounted/ithra_angry",
+    "file": "story_uncounted/ithra_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ithra Sen, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "3386e437-371b-46de-91e2-46f71500baa9",
+      "promptHash": "6ef530ce0384ebd8b54cabce04430fbe",
+      "seed": "uncounted-ithra-01:angry",
+      "costUsd": 0.00632,
+      "latencyMs": 11447,
+      "createdAt": "2026-09-20T07:45:22.204Z"
+    }
+  },
+  "story_uncounted/ithra_annoyed": {
+    "assetKey": "story_uncounted/ithra_annoyed",
+    "file": "story_uncounted/ithra_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ithra Sen, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "b9fcd5e8-dd78-40aa-80fc-c2bd35f30c11",
+      "promptHash": "f04da5a428a37cac86b2e6ac6b1c9a00",
+      "seed": "uncounted-ithra-01:annoyed",
+      "costUsd": 0.05488,
+      "latencyMs": 19634,
+      "createdAt": "2026-09-20T07:45:27.003Z"
+    }
+  },
+  "story_uncounted/perrin_neutral": {
+    "assetKey": "story_uncounted/perrin_neutral",
+    "file": "story_uncounted/perrin_neutral.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Perrin Alder, neutral",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "882ac73b-b4c9-4f9d-aa83-fa32579e7222",
+      "promptHash": "286453254644be4d22ee24d56b461580",
+      "seed": "uncounted-perrin-01:neutral",
+      "costUsd": 0.00632,
+      "latencyMs": 10973,
+      "createdAt": "2026-09-20T07:45:32.918Z"
+    }
+  },
+  "story_uncounted/ithra_worried": {
+    "assetKey": "story_uncounted/ithra_worried",
+    "file": "story_uncounted/ithra_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ithra Sen, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "ba03e4fc-78d5-4221-ab75-d86c3c679c5e",
+      "promptHash": "a2c3b29c043f26100980a9a3e0081d3d",
+      "seed": "uncounted-ithra-01:worried",
+      "costUsd": 0.05488,
+      "latencyMs": 22470,
+      "createdAt": "2026-09-20T07:45:37.759Z"
+    }
+  },
+  "story_uncounted/perrin_amused": {
+    "assetKey": "story_uncounted/perrin_amused",
+    "file": "story_uncounted/perrin_amused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Perrin Alder, amused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "e099a411-d859-4f5f-a556-3fef64305691",
+      "promptHash": "3b672802a59f0e423a14eced4eeff04b",
+      "seed": "uncounted-perrin-01:amused",
+      "costUsd": 0.01372,
+      "latencyMs": 13835,
+      "createdAt": "2026-09-20T07:45:40.852Z"
+    }
+  },
+  "story_uncounted/perrin_warm": {
+    "assetKey": "story_uncounted/perrin_warm",
+    "file": "story_uncounted/perrin_warm.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Perrin Alder, warm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "e0cd943b-e80b-4d08-aa71-a561791ee705",
+      "promptHash": "50eb27b09a9c55269afa5070a2b2943b",
+      "seed": "uncounted-perrin-01:warm",
+      "costUsd": 0.05488,
+      "latencyMs": 25984,
+      "createdAt": "2026-09-20T07:45:48.201Z"
+    }
+  },
+  "story_uncounted/perrin_confused": {
+    "assetKey": "story_uncounted/perrin_confused",
+    "file": "story_uncounted/perrin_confused.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Perrin Alder, confused",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "d44bd133-d457-4b9a-93d7-36e2794d890c",
+      "promptHash": "f2afda45db9f3c7ce076dafc7930dccd",
+      "seed": "uncounted-perrin-01:confused",
+      "costUsd": 0.01372,
+      "latencyMs": 11826,
+      "createdAt": "2026-09-20T07:45:49.592Z"
+    }
+  },
+  "story_uncounted/perrin_surprised": {
+    "assetKey": "story_uncounted/perrin_surprised",
+    "file": "story_uncounted/perrin_surprised.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Perrin Alder, surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "1846c601-20e9-4746-8420-c6eca5ae8f5e",
+      "promptHash": "237f256baa26dd8aa3d7b32de3f844f1",
+      "seed": "uncounted-perrin-01:surprised",
+      "costUsd": 0.05488,
+      "latencyMs": 21238,
+      "createdAt": "2026-09-20T07:45:54.172Z"
+    }
+  },
+  "story_uncounted/perrin_annoyed": {
+    "assetKey": "story_uncounted/perrin_annoyed",
+    "file": "story_uncounted/perrin_annoyed.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Perrin Alder, annoyed",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "855eb106-6ab2-4bf7-9c1b-8ccf6b304914",
+      "promptHash": "8e5b753db7472ade97e10a42f9014d42",
+      "seed": "uncounted-perrin-01:annoyed",
+      "costUsd": 0.01372,
+      "latencyMs": 13523,
+      "createdAt": "2026-09-20T07:45:54.388Z"
+    }
+  },
+  "story_uncounted/perrin_worried": {
+    "assetKey": "story_uncounted/perrin_worried",
+    "file": "story_uncounted/perrin_worried.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Perrin Alder, worried",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "6e2034f5-b9f9-4993-8ea4-7bf11d5631f0",
+      "promptHash": "584264cf637b918c0ba4d2f78f6bb6d5",
+      "seed": "uncounted-perrin-01:worried",
+      "costUsd": 0.00632,
+      "latencyMs": 10311,
+      "createdAt": "2026-09-20T07:45:59.910Z"
+    }
+  },
+  "story_uncounted/perrin_angry": {
+    "assetKey": "story_uncounted/perrin_angry",
+    "file": "story_uncounted/perrin_angry.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Perrin Alder, angry",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "7f7d1066-86d9-451a-b142-685f78f70910",
+      "promptHash": "4104d303f404d382662d191343b1e25a",
+      "seed": "uncounted-perrin-01:angry",
+      "costUsd": 0.01372,
+      "latencyMs": 13945,
+      "createdAt": "2026-09-20T07:46:02.160Z"
+    }
+  },
+  "story_uncounted/aurelian": {
+    "assetKey": "story_uncounted/aurelian",
+    "file": "story_uncounted/aurelian.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Aurelian, First Rank. Warden of the Southern March. The most loved person in Orenne",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "bb6dfef7-9a65-4b00-b2f4-0e0d996fe2b4",
+      "promptHash": "82e8936fe4d00e0e93963734c083db30",
+      "seed": "uncounted-aurelian-01",
+      "costUsd": 0.05488,
+      "latencyMs": 20438,
+      "createdAt": "2026-09-20T07:46:41.474Z"
+    }
+  },
+  "story_uncounted/rill": {
+    "assetKey": "story_uncounted/rill",
+    "file": "story_uncounted/rill.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Amaryllis Quist, Assize-licensed healer, on certification duty because nobody wants to be in a room with her",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "eca4e77d-026f-441d-94d4-0375063d041d",
+      "promptHash": "f3d0357fe1bba8ad6e6f6f66eb17f3b9",
+      "seed": "uncounted-rill-01",
+      "costUsd": 0.05488,
+      "latencyMs": 25841,
+      "createdAt": "2026-09-20T07:46:46.849Z"
+    }
   }
 }

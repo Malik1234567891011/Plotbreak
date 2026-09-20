@@ -25,6 +25,7 @@ import { SEVEN_NAMES as SEVEN_NAMES_RAW } from './seven-names.js';
 import { BLANK_PROPHECY as BLANK_PROPHECY_RAW } from './blank-prophecy.js';
 import { RED_FLOOR as RED_FLOOR_RAW } from './red-floor.js';
 import { SECOND_SKIN as SECOND_SKIN_RAW } from './second-skin.js';
+import { UNCOUNTED as UNCOUNTED_RAW } from './uncounted.js';
 import { LAST_SERVICE as LAST_SERVICE_RAW } from './last-service.js';
 import { PINK_TIDE as PINK_TIDE_RAW } from './pink-tide.js';
 
@@ -51,6 +52,7 @@ export const SEVEN_NAMES = withDerivedAssetKeys(SEVEN_NAMES_RAW);
 export const BLANK_PROPHECY = withDerivedAssetKeys(BLANK_PROPHECY_RAW);
 export const RED_FLOOR = withDerivedAssetKeys(RED_FLOOR_RAW);
 export const SECOND_SKIN = withDerivedAssetKeys(SECOND_SKIN_RAW);
+export const UNCOUNTED = withDerivedAssetKeys(UNCOUNTED_RAW);
 export const LAST_SERVICE = withDerivedAssetKeys(LAST_SERVICE_RAW);
 export const PINK_TIDE = withDerivedAssetKeys(PINK_TIDE_RAW);
 
@@ -141,6 +143,7 @@ export const LAUNCH_CATALOG = [
   SECOND_SKIN,
   LAST_SERVICE,
   PINK_TIDE,
+  UNCOUNTED,
   ACE,
   LIGHT,
 ] as const;

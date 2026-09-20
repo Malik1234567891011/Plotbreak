@@ -21,7 +21,9 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { createMediaGatewayFromEnv } from '@plotbreak/director';
-import { titleMatches } from '../../services/api/src/create-art.js';
+import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
+import { localizeStory } from '@plotbreak/contracts';
+import { reletterCover, titleMatches } from '../../services/api/src/create-art.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -29,12 +31,59 @@ function arg(name: string): string | null {
   return process.argv.find((a) => a.startsWith(`--${name}=`))?.slice(name.length + 3) ?? null;
 }
 
+/**
+ * The French cover, which is the English one re-lettered.
+ *
+ * `docs/covers-v4/RECIPE.md` makes it by handing the finished cover back to an
+ * image model with one instruction — same characters, same light, different
+ * words. Two generations from text give two different pictures, which is not
+ * what the shelf looks like.
+ */
+async function reletter(storyId: string, locale: string): Promise<void> {
+  const gateway = createMediaGatewayFromEnv();
+  if (!gateway) throw new Error('No image provider configured. Set OPENAI_API_KEY.');
+
+  const story = LAUNCH_CATALOG.find((world) => world.storyId === storyId);
+  if (!story) throw new Error(`${storyId} is not in LAUNCH_CATALOG; build the fixture first.`);
+
+  const localized = localizeStory(story, locale as 'en' | 'fr');
+  if (localized.title.trim() === story.title.trim()) {
+    console.log(`${locale}: the title is unchanged, so the ${story.sourceLocale} cover already serves it.`);
+    return;
+  }
+
+  const sourceKey = `${storyId}/cover`;
+  const assetKey = `${sourceKey}.${locale}`;
+  console.log(`re-lettering "${story.title}" \u2192 "${localized.title}"\u2026`);
+
+  const bytes = await reletterCover({
+    gateway,
+    story,
+    sourceKey,
+    from: story.title,
+    to: localized.title,
+    assetKey,
+  });
+  if (!bytes) throw new Error('could not re-letter it: the words never came back right.');
+
+  const out = join(ROOT, 'docs/covers-v4', storyId);
+  await mkdir(out, { recursive: true });
+  await writeFile(join(out, `${locale}.png`), bytes);
+  const webp = await sharp(bytes).resize({ width: 900, withoutEnlargement: true }).webp({ quality: 82, effort: 5 }).toBuffer();
+  await writeFile(join(ROOT, 'infra/seed/assets', `${assetKey}.webp`), webp);
+  console.log(`  shipped infra/seed/assets/${assetKey}.webp (${Math.round(webp.length / 1024)} KB)`);
+}
+
 async function main(): Promise<void> {
   const storyId = arg('story');
   const promptPath = arg('prompt');
   const title = arg('title');
+  const locale = arg('reletter');
+
+  if (storyId && locale) return reletter(storyId, locale);
+
   if (!storyId || !promptPath) {
-    throw new Error('need --story=story_x and --prompt=path/to/prompt.txt');
+    throw new Error('need --story=story_x with either --prompt=path/to/prompt.txt or --reletter=fr');
   }
 
   const gateway = createMediaGatewayFromEnv();
