@@ -1,4 +1,6 @@
+import UIKit
 import SwiftUI
+import UserNotifications
 
 // MARK: - Settings
 //
@@ -18,10 +20,20 @@ struct SettingsScreen: View {
     @Environment(Router.self) private var router
     @Environment(\.translator) private var t
     @Environment(\.openURL) private var openURL
+    @Environment(\.scenePhase) private var scenePhase
 
     @State private var name = ""
     @State private var seeded = false
     @State private var confirmSignOut = false
+    /// Mirrors of `ReminderSettings`, so the switches move when tapped. The
+    /// store is the truth; these exist because SwiftUI needs something
+    /// observable to bind to.
+    @State private var dailyReminder = ReminderSettings.standard.dailyCredits
+    @State private var storyReminder = ReminderSettings.standard.storyWaiting
+    /// What iOS says about notifications. `notDetermined` is its own case and
+    /// not a synonym for "off": somebody who has never been asked still has
+    /// working switches, and flipping one on is what asks them.
+    @State private var notificationStatus: UNAuthorizationStatus = .notDetermined
     @State private var confirmDeleteAccount = false
     @State private var accountDeleted = false
     @FocusState private var nameFocused: Bool
@@ -75,6 +87,10 @@ struct SettingsScreen: View {
                         .padding(.top, Theme.Spacing.md)
                         Txt(t("profile.language_current", ["name": languageNames[store.locale] ?? store.locale.rawValue]), .micro, color: Theme.Colors.textMuted)
                             .padding(.top, Theme.Spacing.sm)
+
+                        SectionLabel(t("notifications.section"))
+                            .padding(.top, 30)
+                        remindersSection
 
                         SectionLabel(t("community.section"))
                             .padding(.top, 30)
@@ -153,6 +169,82 @@ struct SettingsScreen: View {
         }
         .alert(t("library.account_deleted_title"), isPresented: $accountDeleted) {} message: {
             Text(t("library.account_deleted_body"))
+        }
+    }
+
+    // MARK: Reminders
+
+    /// Two switches and, when iOS has the last word, a way to go change it.
+    ///
+    /// Flipping either one re-arms immediately rather than on the next launch:
+    /// somebody who just turned the story reminder off should not get one
+    /// tomorrow morning because the app had not been relaunched.
+    private var remindersSection: some View {
+        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+            // Only when iOS has actually refused. Saying this to somebody who
+            // has simply never been asked would be telling them to go fix
+            // something that is not broken.
+            if notificationStatus == .denied {
+                VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
+                    Txt(t("notifications.denied"), .bodyCompact, color: Theme.Colors.textMuted)
+                    Button(t("notifications.open_settings")) {
+                        if let url = URL(string: UIApplication.openSettingsURLString) { openURL(url) }
+                    }
+                    .font(.system(size: 15))
+                    .foregroundStyle(Theme.Colors.accentPrimary)
+                }
+            }
+
+            reminderToggle(
+                label: t("notifications.daily_toggle"),
+                help: t("notifications.daily_toggle_help"),
+                isOn: $dailyReminder
+            ) { ReminderSettings.standard.dailyCredits = $0 }
+
+            reminderToggle(
+                label: t("notifications.story_toggle"),
+                help: t("notifications.story_toggle_help"),
+                isOn: $storyReminder
+            ) { ReminderSettings.standard.storyWaiting = $0 }
+        }
+        .padding(.top, Theme.Spacing.md)
+        .task { notificationStatus = await Reminders.authorizationStatus() }
+        // Coming back from iOS Settings having turned notifications on is the
+        // whole point of the link above, and `.task` does not run again for it.
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active else { return }
+            Task {
+                notificationStatus = await Reminders.authorizationStatus()
+                await store.refreshReminders()
+            }
+        }
+    }
+
+    private func reminderToggle(
+        label: String,
+        help: String,
+        isOn: Binding<Bool>,
+        save: @escaping (Bool) -> Void
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Toggle(isOn: isOn) { Txt(label, .bodyCompact) }
+                .tint(Theme.Colors.accentPrimary)
+                .accessibilityLabel(label)
+                .disabled(notificationStatus == .denied)
+            Txt(help, .micro, color: Theme.Colors.textMuted)
+        }
+        .onChange(of: isOn.wrappedValue) { _, value in
+            save(value)
+            Task {
+                // Turning one on before iOS has ever been asked is a clearer
+                // yes than any pre-prompt, so it is the moment to ask.
+                if value, notificationStatus == .notDetermined {
+                    ReminderSettings.standard.hasAsked = true
+                    await Reminders.requestAuthorization()
+                    notificationStatus = await Reminders.authorizationStatus()
+                }
+                await store.refreshReminders()
+            }
         }
     }
 

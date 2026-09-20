@@ -1,6 +1,7 @@
 import { buildServer } from './server.js';
 import { assertProductionReady, loadConfig } from './context.js';
 import { PostgresRepository } from './repo/postgres.js';
+import { sweepPendingTranslations } from './translate-story.js';
 
 const config = loadConfig();
 
@@ -25,8 +26,30 @@ const ready =
       })
     : Promise.resolve();
 
+/**
+ * Pick up translations that were never finished.
+ *
+ * A publish starts the work in the background and a deploy in the middle of one
+ * leaves a `pending` row with nothing to resume it. Here rather than in
+ * `buildServer` so the test suite, which builds servers by the dozen, never
+ * starts a timer — and `unref`'d so it can never hold the process open on
+ * shutdown.
+ */
+const TRANSLATION_SWEEP_MS = 10 * 60 * 1000;
+
 ready
   .then(() => app.listen({ port: config.port, host: config.host }))
+  .then(() => {
+    const sweep = setInterval(() => {
+      void sweepPendingTranslations(app.ctx).then(
+        (done) => {
+          if (done > 0) app.log.info({ done }, 'finished translations that were owed');
+        },
+        (error: unknown) => app.log.warn(error, 'translation sweep failed'),
+      );
+    }, TRANSLATION_SWEEP_MS);
+    sweep.unref();
+  })
   .then(() => {
     app.log.info(
       {

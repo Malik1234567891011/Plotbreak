@@ -41,6 +41,10 @@ struct StoryBuilderScreen: View {
             // wait. Without this, leaving the app mid-build and coming back
             // showed an empty story that was about to fill itself in.
             await model?.watchCompile()
+            // Same for a cover being drawn: it outlives the screen, so reopening
+            // the draft rejoins the wait rather than offering to start a second
+            // draw over the top of the first.
+            await model?.watchDraw()
         }
         .sheet(isPresented: $publishing) {
             if let model {

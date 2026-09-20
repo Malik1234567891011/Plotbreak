@@ -5,7 +5,6 @@ import { fileURLToPath } from 'node:url';
 import type { FastifyInstance } from 'fastify';
 import type { GameState, StoryVersion } from '@plotbreak/contracts';
 import {
-  createMediaGatewayFromEnv,
   playerPortraitPrompt,
   MediaGatewayError,
   type MediaGateway,
@@ -83,7 +82,10 @@ const CONTENT_TYPES: Record<string, string> = {
 };
 
 export function registerMediaRoutes(app: FastifyInstance, ctx: AppContext): void {
-  const gateway: MediaGateway | null = createMediaGatewayFromEnv();
+  // From the context, so a test can hand this route a gateway and so the
+  // portrait path and the cover path can never disagree about whether image
+  // generation is configured.
+  const gateway: MediaGateway | null = ctx.mediaGateway;
 
   /**
    * Serves a generated asset. Prefers the optimized WebP derivative and falls

@@ -10,6 +10,9 @@ struct PlotbreakApp: App {
     init() {
         Attribution.configure()
         Telemetry.configure()
+        // Before any window exists, so a reminder tapped from a cold launch is
+        // caught rather than delivered to nobody.
+        ReminderTaps.install()
         // Covers come back with `cache-control: immutable`, and AsyncImage
         // reads them through the shared URL cache. The default cache is a few
         // megabytes, so seventy-odd 90 KB covers evicted each other and every

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { Pool, type PoolClient } from 'pg';
-import { isLocale } from '@plotbreak/i18n';
+import { isLocale, type Locale } from '@plotbreak/i18n';
 import {
   GameEvent,
   GameState,
@@ -9,6 +9,7 @@ import {
   MemoryFact,
   StoryVersion,
   TurnRecord,
+  registerWorldText,
 } from '@plotbreak/contracts';
 import type {
   IdempotencyRecord,
@@ -21,11 +22,33 @@ import type {
   StoryComment,
   StoryEditorial,
   StorySignals,
+  StoryTextRow,
   UserBadgeRow,
   UserRecord,
   PureMessage,
 } from './types.js';
 import { EMPTY_SIGNALS, AUTO_HIDE_REPORTS } from './types.js';
+
+/** A `story_version_text` row, in the shape the rest of the service uses. */
+function storyTextRow(row: {
+  story_version_id: string;
+  locale: string;
+  status: string;
+  text: unknown;
+  missing: string[] | null;
+  attempts: number;
+  error: string | null;
+}): StoryTextRow {
+  return {
+    storyVersionId: row.story_version_id,
+    locale: row.locale as 'en' | 'fr',
+    status: row.status as StoryTextRow['status'],
+    text: (row.text ?? {}) as Record<string, string | readonly string[]>,
+    missing: row.missing ?? [],
+    attempts: row.attempts,
+    error: row.error,
+  };
+}
 
 /**
  * The production persistence adapter (spec §34, §35).
@@ -165,6 +188,96 @@ export class PostgresRepository implements Repository {
   static readonly CATALOGUE_TTL_MS = 60_000;
 
 
+  /**
+   * Version ids whose overlay rows have already been looked up.
+   *
+   * Without it, a world with no translation yet is a database round trip on
+   * every single load — and the common case at launch is exactly that.
+   */
+  readonly #textLoaded = new Set<string>();
+
+  /**
+   * Put a player-made world's translations where `localizeStory` will find them.
+   *
+   * Registered under the **version id**, which is the key `localizeStory` tries
+   * first. `WorldText.storyId` therefore carries a version id here; the field
+   * is the registry's key rather than a claim about which story this is, and
+   * the fixtures keep using it the other way for official worlds.
+   */
+  async #registerText(stories: readonly StoryVersion[]): Promise<void> {
+    // Official worlds' French is compiled into the bundle by the fixture
+    // modules. Going to the database for it would be a query that can only
+    // ever return nothing.
+    const wanted = stories.filter((story) => !story.official && !this.#textLoaded.has(story.id));
+    if (wanted.length === 0) return;
+
+    const ids = wanted.map((story) => story.id);
+    try {
+      const { rows } = await this.#pool.query<{ story_version_id: string; locale: Locale; text: unknown }>(
+        `SELECT story_version_id, locale, text FROM story_version_text
+          WHERE story_version_id = ANY($1::text[]) AND status = 'ready'`,
+        [ids],
+      );
+      for (const row of rows) {
+        registerWorldText(row.locale, {
+          storyId: row.story_version_id,
+          text: (row.text ?? {}) as Record<string, string | readonly string[]>,
+        });
+      }
+      for (const id of ids) this.#textLoaded.add(id);
+    } catch (error) {
+      // A world reads in its source language rather than not at all. Worth a
+      // line in the log, never worth failing the catalogue for.
+      console.warn(`story_version_text: could not load overlays. ${(error as Error).message}`);
+    }
+  }
+
+  async getStoryText(storyVersionId: string): Promise<StoryTextRow[]> {
+    const { rows } = await this.#pool.query(
+      `SELECT story_version_id, locale, status, text, missing, attempts, error
+         FROM story_version_text WHERE story_version_id = $1`,
+      [storyVersionId],
+    );
+    return rows.map(storyTextRow);
+  }
+
+  async putStoryText(entry: StoryTextRow): Promise<void> {
+    await this.#pool.query(
+      `INSERT INTO story_version_text
+         (story_version_id, locale, text, status, missing, attempts, error, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7, now())
+       ON CONFLICT (story_version_id, locale) DO UPDATE
+         SET text = EXCLUDED.text, status = EXCLUDED.status, missing = EXCLUDED.missing,
+             attempts = EXCLUDED.attempts, error = EXCLUDED.error, updated_at = now()`,
+      [
+        entry.storyVersionId,
+        entry.locale,
+        JSON.stringify(entry.text),
+        entry.status,
+        entry.missing,
+        entry.attempts,
+        entry.error,
+      ],
+    );
+    // The next load has to see it rather than the empty answer cached earlier.
+    this.#textLoaded.delete(entry.storyVersionId);
+    if (entry.status === 'ready') {
+      registerWorldText(entry.locale, { storyId: entry.storyVersionId, text: entry.text });
+    }
+  }
+
+  async listPendingStoryText(limit: number): Promise<StoryTextRow[]> {
+    const { rows } = await this.#pool.query(
+      `SELECT story_version_id, locale, status, text, missing, attempts, error
+         FROM story_version_text
+        WHERE status <> 'ready'
+        ORDER BY updated_at
+        LIMIT $1`,
+      [limit],
+    );
+    return rows.map(storyTextRow);
+  }
+
   async listStories(): Promise<StoryVersion[]> {
     const fresh =
       this.#catalogue && Date.now() - this.#catalogue.at < PostgresRepository.CATALOGUE_TTL_MS;
@@ -193,6 +306,7 @@ export class PostgresRepository implements Repository {
       const story = await this.#parseOrFallBack(row);
       if (story) stories.push(story);
     }
+    await this.#registerText(stories);
     this.#catalogue = { at: Date.now(), stories };
     return stories;
   }
@@ -244,7 +358,10 @@ export class PostgresRepository implements Repository {
       `SELECT definition FROM story_versions WHERE story_version_id = $1`,
       [storyVersionId],
     );
-    return rows[0] ? StoryVersion.parse(rows[0].definition) : null;
+    if (!rows[0]) return null;
+    const story = StoryVersion.parse(rows[0].definition);
+    await this.#registerText([story]);
+    return story;
   }
 
   async getStoryByStoryId(storyId: string): Promise<StoryVersion | null> {
@@ -265,7 +382,10 @@ export class PostgresRepository implements Repository {
        WHERE story_id = $1 ORDER BY version DESC LIMIT 1`,
       [storyId],
     );
-    return rows[0] ? this.#parseOrFallBack(rows[0]) : null;
+    if (!rows[0]) return null;
+    const story = await this.#parseOrFallBack(rows[0]);
+    if (story) await this.#registerText([story]);
+    return story;
   }
 
   async getSignals(storyId: string): Promise<StorySignals> {

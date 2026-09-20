@@ -7,6 +7,7 @@ import type {
   StoryVersion,
   TurnRecord,
 } from '@plotbreak/contracts';
+import { registerWorldText } from '@plotbreak/contracts';
 import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
 import type {
   IdempotencyRecord,
@@ -19,6 +20,7 @@ import type {
   StoryComment,
   StoryEditorial,
   StorySignals,
+  StoryTextRow,
   UserBadgeRow,
   UserRecord,
   PureMessage,
@@ -83,6 +85,24 @@ export class MemoryRepository implements Repository {
   }
 
   // --- Catalog ---
+
+  /** `story_version_text`, in memory. Keyed `<versionId>:<locale>`. */
+  readonly #storyText = new Map<string, StoryTextRow>();
+
+  async putStoryText(entry: StoryTextRow): Promise<void> {
+    this.#storyText.set(`${entry.storyVersionId}:${entry.locale}`, entry);
+    if (entry.status === 'ready') {
+      registerWorldText(entry.locale, { storyId: entry.storyVersionId, text: entry.text });
+    }
+  }
+
+  async getStoryText(storyVersionId: string): Promise<StoryTextRow[]> {
+    return [...this.#storyText.values()].filter((row) => row.storyVersionId === storyVersionId);
+  }
+
+  async listPendingStoryText(limit: number): Promise<StoryTextRow[]> {
+    return [...this.#storyText.values()].filter((row) => row.status !== 'ready').slice(0, limit);
+  }
 
   async listStories(): Promise<StoryVersion[]> {
     // Discover, not "every row". A creator's own draft-published world is

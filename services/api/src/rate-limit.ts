@@ -106,7 +106,9 @@ export function ruleFor(method: string, path: string): keyof typeof RATE_LIMITS 
   if (/\/turns\b/.test(path) && method === 'POST') return 'turn';
   if (/\/sessions$/.test(path) && method === 'POST') return 'session';
   if (/\/fork$/.test(path) && method === 'POST') return 'session';
-  if (/\/(portrait|images|media)\b/.test(path) && method === 'POST') return 'media';
+  // `art` is a creator asking for a cover and a banner to be drawn: two image
+  // generations, so the most expensive call in the product after a portrait.
+  if (/\/(portrait|images|media|art)\b/.test(path) && method === 'POST') return 'media';
   if (path === '/v1/client-errors' && method === 'POST') return 'diagnostics';
   return method === 'GET' ? 'read' : 'write';
 }

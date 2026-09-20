@@ -1105,6 +1105,17 @@ export const StoryVersion = z
     creatorId: z.string(),
     creatorName: z.string(),
     official: z.boolean().default(false),
+    /**
+     * The language this world was written in.
+     *
+     * Not a preference — the fact everything else about localising it depends
+     * on. A player-made world is authored in whatever language its creator
+     * types, and until this existed the product had no way to know, so a French
+     * world sat on the English shelf reading as French to everybody. `en` is
+     * the default because every world that predates this field is an official
+     * one, and those are authored in English.
+     */
+    sourceLocale: z.enum(['en', 'fr']).default('en'),
     coverImage: z.string().nullable().default(null),
     keyArt: z.string().nullable().default(null),
     tags: z.array(z.string()).default([]),

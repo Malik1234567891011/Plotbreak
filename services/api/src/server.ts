@@ -3,7 +3,7 @@ import { readdir, stat } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { BADGES, BADGES_BY_ID } from '@plotbreak/contracts';
-import { localizeStory } from '@plotbreak/contracts';
+import { hasWorldText, localizeStory } from '@plotbreak/contracts';
 import { syncBadges, type PlayerRecord } from './badges.js';
 import { rankTopRanked, rankTrending, trendingScore } from './ranking.js';
 import Fastify, { type FastifyInstance } from 'fastify';
@@ -71,6 +71,7 @@ import { availableCategories, categoriesFor, searchCatalog } from './catalog-tax
 import { registerMediaRoutes } from './media-routes.js';
 import { registerCreateRoutes } from './create-routes.js';
 import { visibilityContext, visibleStories } from './catalogue-visibility.js';
+import type { StoryVersion } from '@plotbreak/contracts';
 import type { SessionRecord, StorySignals } from './repo/types.js';
 import { EMPTY_SIGNALS } from './repo/types.js';
 
@@ -95,6 +96,26 @@ import { EMPTY_SIGNALS } from './repo/types.js';
  * Spec §7.2 item 3 — this only ever renders when there is genuinely something
  * to continue, so it is built here and the client decides nothing.
  */
+/**
+ * Whether a world belongs on this language's shelf.
+ *
+ * A player-made world is written in one language and published to everybody, so
+ * until it has been written into the other one it would sit on that shelf in a
+ * language its reader did not ask for. It stays off until its translation
+ * lands — which is minutes after publishing, and the creator sees their world
+ * go live immediately either way.
+ *
+ * Official worlds are always in: their French is authored into the fixtures and
+ * registered at import. And this is only about the *shelf* — a direct link to a
+ * world still opens it, in whatever language it has, because somebody who was
+ * handed a link is asking for that world specifically.
+ */
+function readableIn(story: StoryVersion, locale: Locale): boolean {
+  if (story.official) return true;
+  if (story.sourceLocale === locale) return true;
+  return hasWorldText(locale, story.id) || hasWorldText(locale, story.storyId);
+}
+
 function labelFor(categories: readonly { id: string; label: string }[], id: string): string {
   return categories.find((c) => c.id === id)?.label ?? id;
 }
@@ -384,9 +405,9 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     // fantasy label are the two lines that sell a world, and they were English
     // on a French Discover — the first thing a French player sees, and the
     // thing they judge the whole app by.
-    const allStories = (await ctx.repo.listStories()).map((story) =>
-      localizeStory(story, locale),
-    );
+    const allStories = (await ctx.repo.listStories())
+      .filter((story) => readableIn(story, locale))
+      .map((story) => localizeStory(story, locale));
     const saved = user ? await ctx.repo.getSaves(user.userId) : [];
 
     // The browse rail is built from the whole catalog, not from the filtered
@@ -618,7 +639,9 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     // in French; titles and author tags stay English because they are Tier C,
     // so searching either language still finds a world.
     const locale = interfaceLocale(user, request);
-    let stories = (await ctx.repo.listStories()).map((story) => localizeStory(story, locale));
+    let stories = (await ctx.repo.listStories())
+      .filter((story) => readableIn(story, locale))
+      .map((story) => localizeStory(story, locale));
     if (category) stories = stories.filter((story) => categoriesFor(story).includes(category));
 
     // Blocking and reporting *are* applied here, unlike hiding. Hiding is a

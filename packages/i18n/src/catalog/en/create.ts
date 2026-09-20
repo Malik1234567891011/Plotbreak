@@ -305,6 +305,7 @@ export const create = {
   'create.issue_ending_condition_missing_n': 'Ending {n} does not say when it happens.',
   'create.issue_description_missing': 'Write the description.',
   'create.issue_need_one_tag': 'Add at least one tag.',
+  'create.issue_cover_missing': 'A story in Découvrir needs a cover. Choose a picture, or have one drawn.',
   'create.err_already_compiling': 'This story is already being built. Give it a moment.',
   'create.image_choose': 'Choose a picture',
   'create.image_checking': 'Checking it…',
@@ -314,7 +315,20 @@ export const create = {
   'create.image_too_big': 'That picture is too large. Keep it under 8 MB.',
   'create.f_cover_image': 'Cover picture',
   'create.f_cover_image_help':
-    'Optional. Choose one and we use it as-is; leave it and we draw one from the description below.',
+    'Choose one and we use it as-is, or have one drawn from your story. Anything shared with everyone needs a cover.',
+
+  /* --- Having a cover drawn ---------------------------------------------- */
+
+  'create.cover_draw': 'Draw one for me',
+  'create.cover_redraw': 'Draw another',
+  'create.cover_drawing': 'Drawing your cover…',
+  'create.cover_drawing_help': 'A minute or two. You can keep writing while it works.',
+  'create.cover_drawn': 'Drawn from your story.',
+  'create.err_no_media': 'Cover art cannot be drawn right now. Try again in a moment.',
+  'create.err_already_drawing': 'A cover is already being drawn. Give it a moment.',
+  'create.err_not_enough_world':
+    'Finish the world first — a cover is drawn from the story it belongs to.',
+  'create.err_cover_draw_failed': 'That cover did not come through. Try again.',
   'create.f_portrait': 'Their picture',
   'create.f_portrait_help': 'Optional. Leave it and we draw them from the description.',
   'create.err_image_rejected': 'That picture cannot be used here. Try a different one.',

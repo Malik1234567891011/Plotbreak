@@ -51,6 +51,7 @@ enum PlotbreakEvent: String, CaseIterable, Sendable {
     case communityInviteTapped = "community_invite_tapped"
     case createDraftStarted = "create_draft_started"
     case createCompiled = "create_compiled"
+    case createArtDrawn = "create_art_drawn"
     case createPublished = "create_published"
 }
 

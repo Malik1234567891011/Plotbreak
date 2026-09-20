@@ -29,19 +29,33 @@ struct ImagePickerField: View {
     let uploading: Bool
     let onPick: (Data) -> Void
     let onRemove: () -> Void
+    /// Offered for the cover only. Nil on a character portrait, which is drawn
+    /// from its description at generation time rather than on request.
+    var onDraw: (() -> Void)? = nil
+    /// True while a drawn cover is on its way. Separate from `uploading`,
+    /// because a draw takes minutes and a creator may keep editing through it.
+    var drawing: Bool = false
 
     @Environment(\.translator) private var t
     @State private var selection: PhotosPickerItem?
     @State private var tooLarge = false
 
+    /// Drawn art is written under `generated/`; an upload under `uploads/`.
+    /// Only the label differs, but "your picture" over a picture the creator
+    /// did not choose reads as a bug.
+    private var drawn: Bool { url?.hasPrefix("generated/") == true }
+
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
             FieldHeader(label: label, help: help)
 
-            if let url, !url.isEmpty {
+            if drawing {
+                drawingState
+            } else if let url, !url.isEmpty {
                 chosen(url)
             } else {
                 picker
+                if let onDraw { drawOffer(onDraw) }
             }
 
             if tooLarge {
@@ -79,6 +93,37 @@ struct ImagePickerField: View {
         .disabled(uploading)
     }
 
+    /// "…or have one drawn." Offered under the picker rather than beside it,
+    /// because choosing your own picture is the better outcome when the creator
+    /// has one, and this is the way out when they do not.
+    private func drawOffer(_ action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                Image(systemName: "wand.and.stars").font(.system(size: 13, weight: .medium))
+                Txt(t("create.cover_draw"), .bodyCompact, color: Theme.Colors.accentPrimary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, Theme.Spacing.sm)
+        }
+        .buttonStyle(PressOpacityStyle())
+        .disabled(uploading)
+    }
+
+    /// Minutes, not seconds, so it says so and says the creator may leave.
+    private var drawingState: some View {
+        HStack(spacing: Theme.Spacing.md) {
+            ProgressView().tint(Theme.Colors.accentPrimary)
+            VStack(alignment: .leading, spacing: 2) {
+                Txt(t("create.cover_drawing"), .bodyCompact)
+                Txt(t("create.cover_drawing_help"), .micro, color: Theme.Colors.textMuted)
+            }
+            Spacer(minLength: 0)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(Theme.Spacing.md)
+        .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
+    }
+
     private func chosen(_ url: String) -> some View {
         HStack(alignment: .top, spacing: Theme.Spacing.md) {
             RemoteImage(url.assetKeyURL) {
@@ -88,7 +133,7 @@ struct ImagePickerField: View {
             .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
 
             VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                Txt(t("create.image_yours"), .micro, color: Theme.Colors.textMuted)
+                Txt(drawn ? t("create.cover_drawn") : t("create.image_yours"), .micro, color: Theme.Colors.textMuted)
                 HStack(spacing: Theme.Spacing.sm) {
                     PhotosPicker(selection: $selection, matching: .images) {
                         Txt(t("create.image_replace"), .bodyCompact, color: Theme.Colors.accentPrimary)
@@ -97,6 +142,13 @@ struct ImagePickerField: View {
                     Text("·").foregroundStyle(Theme.Colors.textMuted)
                     Button(action: onRemove) {
                         Txt(t("create.image_remove"), .bodyCompact, color: Theme.Colors.textMuted)
+                    }
+                    .buttonStyle(PressOpacityStyle())
+                    .disabled(uploading)
+                }
+                if let onDraw {
+                    Button(action: onDraw) {
+                        Txt(t("create.cover_redraw"), .bodyCompact, color: Theme.Colors.textMuted)
                     }
                     .buttonStyle(PressOpacityStyle())
                     .disabled(uploading)

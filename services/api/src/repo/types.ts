@@ -192,10 +192,33 @@ export interface UserBadgeRow {
   readonly claimedAt: string | null;
 }
 
+/** One language's overlay for one published version. Mirrors `story_version_text`. */
+export interface StoryTextRow {
+  readonly storyVersionId: string;
+  readonly locale: 'en' | 'fr';
+  readonly status: 'pending' | 'ready' | 'failed';
+  readonly text: Readonly<Record<string, string | readonly string[]>>;
+  /** Paths the model did not return; they fall back to the source language. */
+  readonly missing: readonly string[];
+  readonly attempts: number;
+  readonly error: string | null;
+}
+
 export interface Repository {
   // --- Catalog ---
   listStories(): Promise<StoryVersion[]>;
+  /**
+   * Record where a version's translation into one language has got to.
+   *
+   * `pending` is written the moment a version is published, so the retry sweep
+   * can find what is still owed rather than having to diff the catalogue.
+   */
+  putStoryText(entry: StoryTextRow): Promise<void>;
+  /** Translations that were never finished, oldest first. */
+  listPendingStoryText(limit: number): Promise<StoryTextRow[]>;
   getStoryVersion(storyVersionId: string): Promise<StoryVersion | null>;
+  /** The overlay rows for one version, whatever state they are in. */
+  getStoryText(storyVersionId: string): Promise<StoryTextRow[]>;
   getStoryByStoryId(storyId: string): Promise<StoryVersion | null>;
   getSignals(storyId: string): Promise<StorySignals>;
   /**

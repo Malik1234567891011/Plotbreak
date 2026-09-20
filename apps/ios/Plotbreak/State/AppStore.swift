@@ -85,6 +85,9 @@ final class AppStore {
 
     private let defaults = UserDefaults.standard
     private var hydrating = false
+    /// When the reminders were last re-armed. In memory, not UserDefaults: it
+    /// only exists to collapse a burst of calls within one run of the app.
+    private var remindersArmedAt: Date?
 
     /// The last Discover shelf, for the next launch's first frame. Personal, so
     /// it is forgotten whenever the account changes (see `forgetPersonalCaches`).
@@ -167,6 +170,11 @@ final class AppStore {
         bootstrap = response
         wallet = response.wallet
         offline = false
+        // Every launch re-arms the reminders. They are scheduled a week ahead,
+        // so this is what keeps somebody who opens the app weekly from running
+        // out of them — and what moves the story reminder onto whatever they
+        // played last.
+        Task { await refreshReminders() }
     }
 
     // MARK: Sign-in (§6.4 — no password is ever created)
@@ -377,13 +385,63 @@ final class AppStore {
     // MARK: Wallet
 
     func refreshWallet() async {
+        let claimWas = wallet?.nextDailyClaimAt
         if let response = try? await api.wallet() { wallet = response.wallet }
+        // Claiming the daily grant is exactly the moment tonight's reminder
+        // should stop being scheduled, so a claim re-arms immediately. Every
+        // other wallet refresh — and Discover asks for one every time it
+        // appears — goes through the throttle instead.
+        await refreshReminders(force: wallet?.nextDailyClaimAt != claimWas)
     }
 
     func setBalance(_ balance: Int) {
         guard var wallet else { return }
         wallet.balance = balance
         self.wallet = wallet
+    }
+
+    // MARK: Reminders
+
+    /// Re-arm the two daily reminders from what is currently true.
+    ///
+    /// Cheap and idempotent, so it is called from everywhere a fact behind them
+    /// changes rather than from one carefully chosen place. The session list is
+    /// fetched here rather than held, because nothing else in the store needs
+    /// it and a reminder built from a stale copy names the wrong story.
+    func refreshReminders(force: Bool = true) async {
+        guard await Reminders.authorizationStatus() == .authorized else {
+            await Reminders.cancelAll()
+            return
+        }
+        // Throttled, because this fetches the session list and the things that
+        // ask for it are not rare: Discover refreshes the wallet every time it
+        // appears, which is every tab switch. Re-arming is idempotent, so a
+        // skipped call costs nothing — the next one schedules the same week.
+        if !force, let last = remindersArmedAt, Date().timeIntervalSince(last) < 300 { return }
+        remindersArmedAt = Date()
+
+        let nextClaimAt = wallet?.dailyClaimAvailable == true
+            ? nil
+            : wallet?.nextDailyClaimAt.flatMap(ISO8601.date(from:))
+
+        // The run they are most likely to want back: most recently played,
+        // still open, and actually started. A session with no turns in it is
+        // one somebody opened and left, not a story waiting on them.
+        var session: (sessionId: String, title: String, lastPlayedAt: Date)?
+        if let response = try? await api.listSessions() {
+            let candidate = response.sessions
+                .filter { $0.status == .ACTIVE && $0.turnCount >= 1 }
+                .compactMap { summary -> (String, String, Date)? in
+                    guard let played = ISO8601.date(from: summary.lastPlayedAt) else { return nil }
+                    return (summary.sessionId, summary.title, played)
+                }
+                .max(by: { $0.2 < $1.2 })
+            if let candidate {
+                session = (sessionId: candidate.0, title: candidate.1, lastPlayedAt: candidate.2)
+            }
+        }
+
+        await Reminders.refresh(nextClaimAt: nextClaimAt, session: session, translator: t)
     }
 
     func refreshBootstrap() async {

@@ -26,6 +26,9 @@ final class BuilderModel {
         /// A picture being checked and stored. `Int?` is the character index,
         /// nil for the cover, so only the field being uploaded to spins.
         case uploading(Int?)
+        /// A cover and a banner being drawn. Minutes, like `compiling`, but it
+        /// does not take over the screen — the creator keeps writing.
+        case drawing
     }
 
     private let api: APIClient
@@ -62,6 +65,10 @@ final class BuilderModel {
     }
 
     func isUploading(_ index: Int? = nil) -> Bool { work == .uploading(index) }
+
+    /// True while a cover is being drawn, whoever started it — including a draw
+    /// still running from before this screen was opened.
+    var drawing: Bool { work == .drawing || draft.art.isRunning }
 
     func blocked(_ step: CreateStep) -> Bool { readiness.blockedSteps.contains(step) }
 
@@ -199,6 +206,66 @@ final class BuilderModel {
                 return
             default:
                 step = .profile
+                return
+            }
+        }
+    }
+
+    /// Ask for a cover and a banner to be drawn from the world as written.
+    ///
+    /// The other half of "every public story has a cover". A creator who does
+    /// not want to choose a picture taps this instead, and the gate on Publish
+    /// stops being in their way.
+    func drawCover() async {
+        guard !busy, !draft.art.isRunning else { return }
+        // Anything typed and not yet sent has to land first: the cover is drawn
+        // from the story on the server, not the one on this screen.
+        await flush()
+        work = .drawing
+        errorMessage = nil
+        do {
+            let started = try await api.drawDraftArt(draft.draftId)
+            draft = started.draft
+            readiness = started.readiness
+            await watchDraw()
+        } catch let error as APIError {
+            work = .idle
+            errorMessage = message(for: error)
+        } catch {
+            work = .idle
+        }
+    }
+
+    /// Poll until the draw lands.
+    ///
+    /// Called on appear as well as after starting one, so reopening a draft
+    /// whose cover is still being drawn rejoins the wait instead of offering to
+    /// start a second one.
+    func watchDraw() async {
+        guard draft.art.isRunning else {
+            if work == .drawing { work = .idle }
+            return
+        }
+        work = .drawing
+        defer { if work == .drawing { work = .idle } }
+        while !Task.isCancelled {
+            try? await Task.sleep(for: .seconds(3))
+            guard !Task.isCancelled else { return }
+            guard let response = try? await api.draft(draft.draftId) else { continue }
+            // Only the fields the draw owns. The creator has very likely been
+            // typing while this ran, and their words outrank a stale copy of
+            // the draft this poll happens to be holding.
+            draft.art = response.draft.art
+            draft.coverImage = response.draft.coverImage
+            draft.keyArtImage = response.draft.keyArtImage
+            readiness = response.readiness
+            switch response.draft.art.status {
+            case "running":
+                continue
+            case "failed":
+                errorMessage = t("create.err_cover_draw_failed")
+                return
+            default:
                 return
             }
         }
@@ -433,6 +500,9 @@ func createErrorText(_ error: APIError, _ t: Translator) -> String {
     case "NO_MODEL": return t("create.err_no_model")
     case "COMPILE_FAILED": return t("create.err_compile_failed")
     case "ALREADY_COMPILING": return t("create.err_already_compiling")
+    case "NO_MEDIA": return t("create.err_no_media")
+    case "ALREADY_DRAWING": return t("create.err_already_drawing")
+    case "NOT_ENOUGH_WORLD": return t("create.err_not_enough_world")
     case "IMAGE_REJECTED": return t("create.err_image_rejected")
     case "IMAGE_FORMAT": return t("create.err_image_format")
     case "IMAGE_TOO_BIG": return t("create.image_too_big")

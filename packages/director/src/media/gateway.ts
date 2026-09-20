@@ -30,6 +30,25 @@ export interface GeneratedAsset {
 export interface MediaGateway {
   readonly name: string;
   generateImage(spec: ImagePromptSpec): Promise<GeneratedAsset>;
+  /**
+   * Re-draw an existing image under a new instruction.
+   *
+   * What makes a French cover possible at all. `docs/covers-v4/RECIPE.md` makes
+   * one by handing the English cover back to an image model and asking for the
+   * lettering swapped — same characters, same poses, same light, different
+   * words. Generating twice from text instead gives two different pictures,
+   * which is not what the shelf looks like.
+   */
+  editImage(spec: ImagePromptSpec, source: Uint8Array): Promise<GeneratedAsset>;
+  /**
+   * What lettering is actually in this picture.
+   *
+   * The recipe's last step is "verify every output by viewing it: title spelled
+   * exactly, accents present". That is a person, once, for twenty-five covers.
+   * For a world a stranger publishes at two in the morning it has to be the
+   * machine, so this reads the words back and the caller compares them.
+   */
+  readText(bytes: Uint8Array): Promise<string>;
   /** Spec §19.5 — the acceptance pipeline gate. */
   moderateMedia(asset: GeneratedAsset): Promise<{ approved: boolean; reason: string | null }>;
 }
@@ -58,6 +77,8 @@ const COST_PER_MILLION_OUTPUT_TOKENS = 40;
 export interface OpenAiImageConfig {
   readonly apiKey: string;
   readonly model?: string;
+  /** Reads lettering back off a finished cover. A small vision model is plenty. */
+  readonly visionModel?: string;
   readonly baseUrl?: string;
   readonly timeoutMs?: number;
   readonly fetchImpl?: typeof fetch;
@@ -175,6 +196,158 @@ export class OpenAiImageGateway implements MediaGateway {
     } finally {
       clearTimeout(timeout);
     }
+  }
+
+  /**
+   * The same picture, re-lettered.
+   *
+   * `/v1/images/edits` rather than `/v1/images/generations`, because the whole
+   * point is that the art does not change — `docs/covers-v4/RECIPE.md` makes
+   * the French cover by handing the English one back with one instruction, and
+   * two separate generations give two separate worlds.
+   *
+   * Multipart rather than JSON: the edits endpoint takes the source image as a
+   * file part, so this is the one call in the gateway that is not a JSON body.
+   */
+  async editImage(spec: ImagePromptSpec, source: Uint8Array): Promise<GeneratedAsset> {
+    if (process.env.PLOTBREAK_NO_IMAGE_GEN) {
+      throw new Error(
+        `Image editing was called with PLOTBREAK_NO_IMAGE_GEN set (${spec.kind ?? 'image'}).`,
+      );
+    }
+    const started = Date.now();
+    const model = this.#config.model ?? 'gpt-image-2.5-flare';
+    const { size, width, height } = SIZES[spec.aspect];
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), this.#config.timeoutMs ?? 180_000);
+
+    try {
+      const form = new FormData();
+      form.append('model', model);
+      form.append('prompt', spec.prompt);
+      form.append('size', size);
+      form.append('n', '1');
+      // `Buffer` is not a `BlobPart` the way a `Uint8Array` is; copying into a
+      // fresh view keeps this honest across Node versions.
+      form.append(
+        'image',
+        new Blob([new Uint8Array(source)], { type: 'image/png' }),
+        'cover.png',
+      );
+
+      const response = await this.#fetch(`${this.#config.baseUrl ?? 'https://api.openai.com'}/v1/images/edits`, {
+        method: 'POST',
+        headers: { authorization: `Bearer ${this.#config.apiKey}` },
+        body: form,
+        signal: controller.signal,
+      });
+
+      if (response.status === 429) {
+        throw new MediaGatewayError('Image provider rate limited', 'RATE_LIMITED', true);
+      }
+      if (!response.ok) {
+        const text = await response.text().catch(() => '');
+        const rejected = response.status === 400;
+        throw new MediaGatewayError(
+          `Image provider returned ${response.status}: ${text.slice(0, 300)}`,
+          rejected ? 'REJECTED' : 'PROVIDER_ERROR',
+          !rejected && response.status >= 500,
+        );
+      }
+
+      const payload = (await response.json()) as {
+        data: Array<{ b64_json?: string; url?: string }>;
+        usage?: { output_tokens?: number };
+      };
+      const item = payload.data[0];
+      if (!item) throw new MediaGatewayError('Image provider returned no image', 'PROVIDER_ERROR', true);
+
+      let bytes: Uint8Array;
+      if (item.b64_json) {
+        bytes = Uint8Array.from(Buffer.from(item.b64_json, 'base64'));
+      } else if (item.url) {
+        const download = await this.#fetch(item.url);
+        bytes = new Uint8Array(await download.arrayBuffer());
+      } else {
+        throw new MediaGatewayError('Image provider returned neither bytes nor a URL', 'PROVIDER_ERROR', true);
+      }
+
+      return {
+        assetKey: spec.assetKey,
+        bytes,
+        contentType: 'image/png',
+        width,
+        height,
+        alt: spec.alt,
+        provenance: {
+          provider: this.name,
+          model,
+          requestId: crypto.randomUUID(),
+          promptHash: await hashPrompt(spec.prompt),
+          seed: spec.seed,
+          costUsd: ((payload.usage?.output_tokens ?? 0) * COST_PER_MILLION_OUTPUT_TOKENS) / 1_000_000,
+          latencyMs: Date.now() - started,
+          createdAt: new Date().toISOString(),
+        },
+      };
+    } catch (error) {
+      if (error instanceof MediaGatewayError) throw error;
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw new MediaGatewayError('Image provider timed out', 'TIMEOUT', true);
+      }
+      throw new MediaGatewayError(String(error), 'PROVIDER_ERROR', true);
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  /**
+   * Read the lettering back off a picture.
+   *
+   * Image models still cannot spell reliably, and a cover with a misspelt title
+   * is not something anybody notices until a player does. Cheap, and the only
+   * thing standing where a person stood in the recipe.
+   */
+  async readText(bytes: Uint8Array): Promise<string> {
+    const dataUrl = `data:image/png;base64,${Buffer.from(bytes).toString('base64')}`;
+    const response = await this.#fetch(
+      `${this.#config.baseUrl ?? 'https://api.openai.com'}/v1/chat/completions`,
+      {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Bearer ${this.#config.apiKey}`,
+        },
+        body: JSON.stringify({
+          model: this.#config.visionModel ?? 'gpt-4.1-mini',
+          messages: [
+            {
+              role: 'user',
+              content: [
+                {
+                  type: 'text',
+                  text:
+                    'Transcribe every word of lettering visible in this image, exactly as written, ' +
+                    'including accents. Reply with the words only and nothing else. ' +
+                    'If there is no lettering at all, reply with the single word NONE.',
+                },
+                { type: 'image_url', image_url: { url: dataUrl } },
+              ],
+            },
+          ],
+          max_tokens: 100,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new MediaGatewayError(`Could not read the cover back: ${response.status}`, 'PROVIDER_ERROR', true);
+    }
+    const payload = (await response.json()) as {
+      choices?: Array<{ message?: { content?: string } }>;
+    };
+    return payload.choices?.[0]?.message?.content?.trim() ?? '';
   }
 
   /**

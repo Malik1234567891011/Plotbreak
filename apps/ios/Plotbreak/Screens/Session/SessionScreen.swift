@@ -64,6 +64,24 @@ struct SessionScreen: View {
         .onChange(of: router.sheet == nil) { _, closed in
             if closed { Task { await model.refreshPlayerPortrait() } }
         }
+        // Our own ask before the system's, once, after the first finished turn.
+        // iOS grants one prompt per install and "Not now" here keeps it, so a
+        // player who is not interested today can still be asked by the switches
+        // in Settings later.
+        .alert(t("notifications.ask_title"), isPresented: $model.offerReminders) {
+            Button(t("notifications.ask_yes")) {
+                ReminderSettings.standard.hasAsked = true
+                Task {
+                    await Reminders.requestAuthorization()
+                    await store.refreshReminders()
+                }
+            }
+            Button(t("notifications.ask_no"), role: .cancel) {
+                ReminderSettings.standard.hasAsked = true
+            }
+        } message: {
+            Text(t("notifications.ask_body"))
+        }
         .onDisappear {
             model.stopStreaming()
             // §37 — put down, not finished. Paired with `turn_10_reached` from

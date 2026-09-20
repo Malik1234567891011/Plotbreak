@@ -416,6 +416,155 @@ export function coverPrompt(story: StoryVersion): ImagePromptSpec {
 }
 
 /**
+ * The cover standard a world we draw at runtime is held to.
+ *
+ * `coverPrompt` above is the v3 fallback: flat cel shading, no title. Nothing
+ * on the shelf looks like that. The twenty-five official covers are **v4** —
+ * glossy light-novel key visuals with the story's name **drawn into the art**
+ * as a bespoke logo, made to `docs/covers-v4/RECIPE.md`, and their French
+ * twins are the same picture handed back to an image model with the lettering
+ * swapped.
+ *
+ * This is that recipe, run without a person in it. The one thing the recipe
+ * ends with — "verify every output by viewing it: title spelled exactly,
+ * accents present" — is a person checking twenty-five covers once, and cannot
+ * be a person for a world a stranger publishes at two in the morning. So the
+ * caller reads the lettering back off the finished image and compares it, and
+ * that is what `MediaGateway.readText` is for.
+ */
+const GENERATED_COVER_SPINE = [
+  'Anime light-novel / mobile-game cover illustration, portrait 2:3, premium polished Japanese anime',
+  'key visual quality, like a modern seasonal anime poster or a Webtoon original cover.',
+  'Glossy, detailed digital anime painting with clean lineart, luminous eyes, soft rim light and rich',
+  'colour depth. Not flat, not sketchy, not a western cartoon.',
+].join(' ');
+
+export const GENERATED_COVER_VERSION = 'plotbreak-cover-v4-generated';
+
+/**
+ * How the title should be lettered, by what kind of story it is.
+ *
+ * Straight out of the recipe's rules: "Title logo style should fit the genre
+ * (sports = bold italic athletic; romance = soft rounded script; horror =
+ * cracked / dripping; pirates = weathered brass)". One treatment for every
+ * world is what made the v1 covers feel like a template.
+ */
+function coverLogoStyle(story: StoryVersion): string {
+  const tags = new Set(story.tags.map((tag) => tag.toLowerCase()));
+  const has = (...names: string[]): boolean => names.some((name) => tags.has(name));
+
+  if (has('horror', 'body horror')) {
+    return 'cracked, weathered capitals with a dripping edge and a sickly glow behind them';
+  }
+  if (has('romance', 'slice of life')) {
+    return 'soft rounded lettering with a gentle inner light and a delicate serif accent';
+  }
+  if (has('sports', 'team')) {
+    return 'bold italic athletic block capitals with a hard shadow, leaning into the motion';
+  }
+  if (has('fantasy', 'myth', 'magic')) {
+    return 'ornate serif capitals with fine gold filigree and a faint arcane shimmer';
+  }
+  if (has('sci-fi', 'cyberpunk', 'tech')) {
+    return 'tight geometric capitals with a thin neon underglow and a subtle scanline break';
+  }
+  if (has('mystery', 'thriller', 'crime')) {
+    return 'tall condensed capitals, hard-edged, with one letter partly in shadow';
+  }
+  return 'confident modern capitals with a bespoke flourish drawn from the story itself';
+}
+
+/**
+ * A cover for a world nobody drew one for.
+ *
+ * Same subject rules as `coverPrompt` — the cast large and frontal, readable at
+ * thumbnail size — under the v4 art direction, with the title lettered into the
+ * lower third as part of the illustration.
+ */
+export function generatedCoverPrompt(story: StoryVersion, title: string): ImagePromptSpec {
+  const hero = story.locations.find((l) => l.id === story.rules.startingLocationId);
+  const wordmark = title.trim().toUpperCase();
+
+  return {
+    assetKey: coverAssetKey(story.storyId),
+    kind: 'COVER',
+    aspect: 'PORTRAIT',
+    seed: `${story.id}:cover:${GENERATED_COVER_VERSION}`,
+    alt: `Cover art for ${story.title}: ${story.fantasyLabel}`,
+    styleVersion: GENERATED_COVER_VERSION,
+    // Nothing is composited over these: the lettering is in the picture.
+    titleSafeArea: null,
+    prompt: compose([
+      GENERATED_COVER_SPINE,
+      // Stated first and in the recipe's own words, because it is the thing
+      // most likely to be dropped if the prompt runs long.
+      `THE TITLE IS PART OF THE ART. Render the words "${wordmark}" as a bespoke stylized logo ` +
+        `integrated into the illustration: ${coverLogoStyle(story)}, placed in the lower third of ` +
+        `the cover, large and perfectly legible, spelled exactly "${wordmark}". ` +
+        'No other text anywhere.',
+      'FRAMING: the characters fill the frame. They occupy at least three quarters of the image and ' +
+        'are cropped by its edges. Faces are large — a head is roughly a fifth of the picture height. ' +
+        'Shot from the front, near eye level, looking at or just past the viewer. The setting is a ' +
+        'backdrop behind them, never the subject.',
+      'The characters must pop off the background: strong silhouette separation, rim light or a clean outline.',
+      story.coverDirection
+        ? story.coverDirection
+        : compose([
+            coverComposition(story),
+            pickBy(COVER_STAGINGS, story.storyId),
+            pickBy(COVER_COLOUR_KEYS, `${story.storyId}:colour`),
+            coverCast(story),
+            hero ? `Setting behind them: ${hero.artDirection}` : null,
+          ]),
+      CAST_APPEAL,
+      `It must read at a glance as: ${story.fantasyLabel}`,
+      `Mood: ${story.rules.toneGuide}`,
+      'Faces large enough and contrast high enough that the characters are still readable at thumbnail size.',
+      'Keep the lower third clear enough of busy detail that the title reads cleanly over it.',
+      'No watermark, no signature, no speech bubbles, no borders, and no text other than the title.',
+      COVER_NEGATIVES,
+      NEGATIVES,
+    ]),
+  };
+}
+
+/**
+ * The same cover, in another language.
+ *
+ * Verbatim in shape from `docs/covers-v4/RECIPE.md`, including the fix that
+ * batch A needed: when the new title is longer, the model tends to leave the
+ * old glyphs underneath, so the old words are named and forbidden explicitly.
+ */
+export function coverTitleSwapPrompt(
+  story: StoryVersion,
+  from: string,
+  to: string,
+): ImagePromptSpec {
+  const oldWords = from.trim().toUpperCase();
+  const newWords = to.trim().toUpperCase();
+
+  return {
+    assetKey: coverAssetKey(story.storyId),
+    kind: 'COVER',
+    aspect: 'PORTRAIT',
+    seed: `${story.id}:cover-swap:${GENERATED_COVER_VERSION}`,
+    alt: `Cover art for ${story.title}`,
+    styleVersion: GENERATED_COVER_VERSION,
+    titleSafeArea: null,
+    prompt: compose([
+      'Use the supplied image as the exact reference. Reproduce this anime cover illustration ' +
+        'identically — same characters, poses, faces, hair, clothing, same background, colours, ' +
+        'lighting and composition — with ONE change:',
+      `replace the title lettering "${oldWords}" with "${newWords}", drawn in the same bespoke logo ` +
+        'style, with the same glow, the same treatment and the same position, large and perfectly ' +
+        `legible, spelled exactly "${newWords}" with correct accents.`,
+      `Completely remove the old lettering. The words ${oldWords} must not appear anywhere.`,
+      'No other text anywhere. Do not change anything else.',
+    ]),
+  };
+}
+
+/**
  * Extra things a cover in particular must not be.
  *
  * Every one of these is a specific way a set of generated covers collapses into

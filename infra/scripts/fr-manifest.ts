@@ -40,6 +40,7 @@ import { writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
 import { worldTextCoverage } from '@plotbreak/contracts';
+import { TIER_A, TIER_B } from '@plotbreak/director';
 
 export type Tier = 'A' | 'B' | 'C';
 
@@ -68,40 +69,13 @@ export interface ManifestField {
  * verbatim — a topic is a noun phrase a character will actually say, and a
  * trait is how the cast carousel describes somebody.
  */
-const TIER_A = [
-  // The title travels since cover v4 (2026-09-13): covers are made per locale
-  // with the French title drawn in, so the label must say what the art says.
-  /^title$/,
-  /^hook$/,
-  /^fantasyLabel$/,
-  /^premise$/,
-  /^creatorNote$/,
-  /^opening$/,
-  /^openingSuggestions$/,
-  /^rules\.toneGuide$/,
-  /^characters\.[^.]+\.(speechStyle|socialStyle|voiceSamples|cardBlurb|publicTraits|topics|role)$/,
-  /^archetypes\.[^.]+\.(name|blurb|summary|playstyle)$/,
-  /^endings\.[^.]+\.(title|epilogue|summary)$/,
-  /^abilities\.[^.]+\.name$/,
-  /^locations\.[^.]+\.(name|shortName)$/,
-  /^items\.[^.]+\.name$/,
-  /^mechanicsChips$/,
-];
-
 /**
- * Semantic. The model needs the meaning; nothing here shapes a voice.
+ * The tiers now live in `packages/director/src/create/translate.ts`, because
+ * the API needs them too: a world a stranger publishes is translated at publish
+ * by the same classification the official catalogue is adapted under. Two lists
+ * would mean the two halves of the catalogue disagreed about what a
+ * `speechStyle` is for.
  */
-const TIER_B = [
-  /^rules\.hardCanon$/,
-  /^characters\.[^.]+\.(hiddenDrives|values|fears|boundaries|goals|appearance|visualHook)$/,
-  /^characters\.[^.]+\.secrets\.[^.]+\.(fact|revealHint)$/,
-  /^locations\.[^.]+\.description$/,
-  /^items\.[^.]+\.description$/,
-  /^abilities\.[^.]+\.description$/,
-  /^skills\.[^.]+\.(name|description)$/,
-  /^quests\.[^.]+\./,
-  /^factions\.[^.]+\./,
-];
 
 /**
  * Language-neutral, and deliberately left alone.

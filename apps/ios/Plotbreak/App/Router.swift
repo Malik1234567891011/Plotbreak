@@ -159,6 +159,7 @@ struct RootView: View {
     @State private var tasteDone = false
     @State private var showcaseDone = false
     @State private var openStoryId: String?
+    private var taps: ReminderTaps { ReminderTaps.shared }
 
     var body: some View {
         Group {
@@ -196,11 +197,36 @@ struct RootView: View {
                             router.push(.storyDetail(storyId: storyId))
                             openStoryId = nil
                         }
+                        // A reminder tapped from a cold launch arrives long
+                        // before there is a router, so it waits here rather
+                        // than being dropped.
+                        openTappedReminder()
+                    }
+                    .onChange(of: taps.pending) { _, tap in
+                        if tap != nil { openTappedReminder() }
                     }
             }
         }
         .environment(\.translator, store.t)
         .background(Theme.Colors.bgBase.ignoresSafeArea())
+    }
+
+    /// Take the player where the reminder said they were going.
+    ///
+    /// The daily one opens the wallet, which is where the claim button is; the
+    /// story one opens the run itself, not its detail page, because the beat
+    /// they left is the thing being promised.
+    private func openTappedReminder() {
+        guard let tap = taps.pending else { return }
+        taps.pending = nil
+        switch tap.kind {
+        case .dailyCredits:
+            router.present(.wallet(shortfall: nil))
+        case .storyWaiting:
+            guard let sessionId = tap.sessionId else { return }
+            router.tab = .library
+            router.push(.session(sessionId: sessionId))
+        }
     }
 
     private func finishOnboarding() {

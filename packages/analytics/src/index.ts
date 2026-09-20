@@ -64,6 +64,7 @@ export const EVENT_NAMES = [
   // was abandoned.
   'create_draft_started',
   'create_compiled',
+  'create_art_drawn',
   'create_published',
 ] as const;
 
@@ -198,6 +199,8 @@ export const EventProperties = {
     places: z.number().int(),
     endings: z.number().int(),
   }),
+  /** `banner` is false when the cover was drawn and the wide banner was not. */
+  create_art_drawn: z.object({ draftId: z.string(), banner: z.boolean() }),
   create_published: z.object({
     draftId: z.string(),
     storyId: z.string(),

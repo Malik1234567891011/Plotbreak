@@ -20,3 +20,12 @@ export { formatStoryTime, minutesFor, transitionLabel, isSkip, DEFAULT_BEAT_MINU
 export { chooseReaction, parseShown, type ShownReaction } from './pure/reaction.js';
 export { compileStory, assemble, COMPILE_TONES, COMPILE_LENGTHS, type CompilePitch, type CompileResult } from './create/compile.js';
 export { assistField, ASSIST_TARGETS, AssistTarget, type AssistResult } from './create/assist.js';
+export {
+  translateStory,
+  translatableFields,
+  tierFor,
+  TIER_A,
+  TIER_B,
+  type TranslatableField,
+  type TranslationResult,
+} from './create/translate.js';

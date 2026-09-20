@@ -189,6 +189,8 @@ export const create = {
   'create.f_hero_pronouns': 'Ses pronoms',
   'create.f_hero_desc': 'Qui c’est',
   'create.f_setup_heading': 'La question de départ',
+  // A quoted question, so the capital is the quotation's, not Title Case.
+  // fr-lint-disable-next-line FRC002
   'create.f_setup_heading_help': 'Ce que le monde demande au lieu de « Qui es-tu ? »',
   'create.f_setup_heading_ph': 'Quelle gardienne es-tu ?',
   'create.f_opening': 'L’ouverture',
@@ -255,8 +257,12 @@ export const create = {
   'create.visibility_private': 'Moi seulement',
   'create.visibility_private_body': 'Personne d’autre ne peut la trouver ni l’ouvrir.',
   'create.visibility_unlisted': 'Toute personne ayant le lien',
+  // Découvrir is the tab's name, not Title Case.
+  // fr-lint-disable-next-line FRC002
   'create.visibility_unlisted_body': 'Absente de Découvrir, mais partageable.',
   'create.visibility_public': 'Tout le monde',
+  // Découvrir is the tab's name, not Title Case.
+  // fr-lint-disable-next-line FRC002
   'create.visibility_public_body': 'Elle peut apparaître dans Découvrir.',
 
   /* --- Publication ------------------------------------------------------- */
@@ -321,6 +327,10 @@ export const create = {
   'create.issue_ending_condition_missing_n': 'La fin {n} ne dit pas quand elle arrive.',
   'create.issue_description_missing': 'Écris la description.',
   'create.issue_need_one_tag': 'Ajoute au moins une étiquette.',
+  // Découvrir is the tab's name, not Title Case.
+  // fr-lint-disable-next-line FRC002
+  'create.issue_cover_missing':
+    'Une histoire dans Découvrir a besoin d’une couverture. Choisis une image, ou fais-en dessiner une.',
   'create.err_already_compiling': 'Cette histoire est déjà en construction. Laisse-lui un instant.',
   'create.image_choose': 'Choisir une image',
   'create.image_checking': 'Vérification…',
@@ -330,7 +340,20 @@ export const create = {
   'create.image_too_big': 'Cette image est trop lourde. Reste sous 8 Mo.',
   'create.f_cover_image': 'Image de couverture',
   'create.f_cover_image_help':
-    'Facultatif. Si tu en choisis une, on l’utilise telle quelle ; sinon on la dessine à partir de la description ci-dessous.',
+    'Choisis-en une et on l’utilise telle quelle, ou fais-en dessiner une à partir de ton histoire. Tout ce qui est partagé avec tout le monde a besoin d’une couverture.',
+
+  /* --- Faire dessiner une couverture ------------------------------------- */
+
+  'create.cover_draw': 'Dessine-m’en une',
+  'create.cover_redraw': 'En dessiner une autre',
+  'create.cover_drawing': 'On dessine ta couverture…',
+  'create.cover_drawing_help': 'Une minute ou deux. Tu peux continuer à écrire pendant ce temps.',
+  'create.cover_drawn': 'Dessinée à partir de ton histoire.',
+  'create.err_no_media': 'Impossible de dessiner une couverture pour l’instant. Réessaie dans un moment.',
+  'create.err_already_drawing': 'Une couverture est déjà en train d’être dessinée. Laisse-lui un instant.',
+  'create.err_not_enough_world':
+    'Termine le monde d’abord — une couverture se dessine à partir de l’histoire à laquelle elle appartient.',
+  'create.err_cover_draw_failed': 'Cette couverture n’est pas arrivée. Réessaie.',
   'create.f_portrait': 'Son image',
   'create.f_portrait_help': 'Facultatif. Sinon on le ou la dessine à partir de la description.',
   'create.err_image_rejected': 'Cette image ne peut pas être utilisée ici. Essaie une autre.',

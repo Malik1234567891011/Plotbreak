@@ -41,7 +41,9 @@ struct ProfileStep: View {
                 url: model.draft.coverImage,
                 uploading: model.isUploading(nil),
                 onPick: { data in Task { await model.upload(data) } },
-                onRemove: { Task { await model.removeImage() } }
+                onRemove: { Task { await model.removeImage() } },
+                onDraw: { Task { await model.drawCover() } },
+                drawing: model.drawing
             )
 
             // Only worth asking for when there is no picture: art direction

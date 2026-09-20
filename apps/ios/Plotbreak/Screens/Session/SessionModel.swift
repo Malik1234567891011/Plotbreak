@@ -189,6 +189,9 @@ final class SessionModel {
 
     private var store: AppStore?
     private var router: Router?
+    /// Set when a finished turn is the moment to offer reminders. The screen
+    /// owns the alert; the model only decides when it is due.
+    var offerReminders = false
     private var streamTask: Task<Void, Never>?
     private var draftSaveTask: Task<Void, Never>?
     private var started = false
@@ -572,6 +575,12 @@ final class SessionModel {
                     // they are reading, so nothing above them moves, and a
                     // scroll at this point would only fight the reader.
                     if let turnIndex = response.recentTurns.map(\.turnIndex).max() {
+                        // The second finished turn — `turnIndex` is
+                        // zero-based — is when offering to remind them is an
+                        // offer rather than a stranger's request. Turns 10, 25
+                        // and 50 belong to `ReviewPrompt`, so the two never
+                        // land on the same beat.
+                        if Reminders.shouldAsk(turnIndex: turnIndex) { offerReminders = true }
                         await ReviewPrompt.turnCommitted(turnIndex: turnIndex) { [weak self] in
                             guard let self, let router = self.router else { return false }
                             return self.pending == nil && !self.sending && router.sheet == nil

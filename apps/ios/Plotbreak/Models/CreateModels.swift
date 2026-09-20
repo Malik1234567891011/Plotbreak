@@ -184,6 +184,32 @@ enum CompileIdle: DefaultValueProvider {
     static var defaultValue: String { "idle" }
 }
 
+/// Twin of `ArtState` — where a cover-and-banner draw has got to.
+///
+/// Same shape and same reason as `CompileState`: two images is minutes, so the
+/// client starts the work and watches this rather than holding the request.
+struct ArtState: Codable, Hashable {
+    @Default<CompileIdle> var status: String
+    var startedAt: String?
+    @Default<EmptyString> var message: String
+
+    /// Spelled out because the property wrappers mean there is no usable
+    /// memberwise initialiser, and `IdleArt` needs to build one of these
+    /// without going through a decoder.
+    init(status: String = "idle", startedAt: String? = nil, message: String = "") {
+        self.status = status
+        self.startedAt = startedAt
+        self.message = message
+    }
+
+    var isRunning: Bool { status == "running" }
+    var failed: Bool { status == "failed" }
+}
+
+enum IdleArt: DefaultValueProvider {
+    static var defaultValue: ArtState { ArtState() }
+}
+
 // MARK: The draft
 
 struct StoryDraft: Codable, Hashable, Identifiable {
@@ -202,14 +228,20 @@ struct StoryDraft: Codable, Hashable, Identifiable {
     /// Where a compile has got to. The client watches this rather than holding
     /// a two-minute request open.
     var compile: CompileState
+    /// Where a cover draw has got to. Defaulted rather than required, because
+    /// every draft written before this field existed has a document without it.
+    @Default<IdleArt> var art: ArtState
 
     // Profile
     @Default<EmptyString> var title: String
     @Default<EmptyString> var fantasyLabel: String
     @Default<EmptyString> var hook: String
     @Default<EmptyString> var coverDirection: String
-    /// An uploaded cover, or null to use the art direction above.
+    /// The cover: a picture the creator chose, or one drawn for them.
     var coverImage: String?
+    /// The wide banner behind the story page's header. Drawn alongside the
+    /// cover, never uploaded.
+    var keyArtImage: String?
 
     // World
     @Default<EmptyString> var premise: String

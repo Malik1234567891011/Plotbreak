@@ -10,6 +10,7 @@ import { library } from './library.js';
 import { memory } from './memory.js';
 import { misc } from './misc.js';
 import { nav } from './nav.js';
+import { notifications } from './notifications.js';
 import { onboarding } from './onboarding.js';
 import { profile } from './profile.js';
 import { rails } from './rails.js';
@@ -69,4 +70,5 @@ export const fr: Partial<Record<TranslationKey, string>> = {
   ...ui,
   ...world,
   ...memory,
+  ...notifications,
 };

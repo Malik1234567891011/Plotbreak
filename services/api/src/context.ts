@@ -3,7 +3,7 @@ import { CONTRACT_VERSION } from '@plotbreak/contracts';
 import { createSinkFromEnv, type AnalyticsSink } from '@plotbreak/analytics';
 import type { ModelGateway } from '@plotbreak/director';
 import { createGatewayFromEnv, createModerator, ModelDirector, ModelIntentParser, ModelWriter, createDefaultPipeline, type Moderator, type TurnPipelineDeps } from '@plotbreak/director';
-import { createMediaGatewayFromEnv } from '@plotbreak/director';
+import { createMediaGatewayFromEnv, type MediaGateway } from '@plotbreak/director';
 import { JobQueue, registerHandlers } from '@plotbreak/worker';
 import { MemoryRepository } from './repo/memory.js';
 import { PostgresRepository } from './repo/postgres.js';
@@ -75,6 +75,16 @@ export function assertProductionReady(
 export interface AppContext {
   /** Spec §9.4 — used once per session, at character creation. */
   readonly modelGateway: ModelGateway | null;
+  /**
+   * Draws pictures. Null when no image provider is configured.
+   *
+   * On the context rather than fetched from the environment inside each route,
+   * because the two routes that draw — a player's portrait and a creator's
+   * cover — are the only untested paths left in this service, and they are
+   * untested precisely because `createMediaGatewayFromEnv()` gives a test no
+   * way in that does not involve a real API key and a real bill.
+   */
+  readonly mediaGateway: MediaGateway | null;
   readonly config: AppConfig;
   readonly repo: Repository;
   readonly wallet: WalletService;
@@ -175,11 +185,12 @@ export function createAppContext(overrides: Partial<AppContext> = {}): AppContex
         }
       : createDefaultPipeline());
 
+  const mediaGateway = overrides.mediaGateway ?? createMediaGatewayFromEnv();
+
   const jobs = overrides.jobs ?? new JobQueue();
   if (!overrides.jobs) {
-    const media = createMediaGatewayFromEnv();
     registerHandlers(jobs, {
-      media,
+      media: mediaGateway,
       getStory: (storyVersionId) => repo.getStoryVersion(storyVersionId),
       attachAsset: async ({ turnId, url }) => {
         const turn = await repo.getTurn(turnId);
@@ -200,6 +211,7 @@ export function createAppContext(overrides: Partial<AppContext> = {}): AppContex
     // background the player wrote, once, at character creation — can reach it
     // without another factory. Spec §9.4.
     modelGateway: gateway ?? null,
+    mediaGateway,
     jobs,
     storeVerifier: overrides.storeVerifier ?? createStoreVerifierFromEnv(config),
     auth: overrides.auth ?? createTokenVerifierFromEnv(config),

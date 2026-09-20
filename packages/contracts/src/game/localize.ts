@@ -44,11 +44,31 @@ export interface WorldText {
 
 const REGISTRY = new Map<string, Map<string, WorldText>>();
 
-/** Register a world's text for a locale. Called by the fixture modules. */
+/**
+ * Register a world's text for a locale.
+ *
+ * Two kinds of caller, keyed differently on purpose:
+ *
+ *  - **The fixture modules**, at import time, under the `storyId`. An official
+ *    world's French is authored once and is true of every version of it.
+ *  - **The repository**, when it loads a player-made version, under that
+ *    **version's id**. A published version is immutable and a run pins one, so
+ *    a session that started on v1 has to keep reading v1's French after the
+ *    creator publishes v2 — otherwise the prose changes under somebody
+ *    mid-story.
+ *
+ * `localizeStory` looks for the version first and falls back to the story, so
+ * neither caller has to know about the other.
+ */
 export function registerWorldText(locale: Locale, world: WorldText): void {
   const byStory = REGISTRY.get(locale) ?? new Map<string, WorldText>();
   REGISTRY.set(locale, byStory);
   byStory.set(world.storyId, world);
+}
+
+/** Whether a locale already has text registered under this key. */
+export function hasWorldText(locale: Locale, key: string): boolean {
+  return REGISTRY.get(locale)?.has(key) === true;
 }
 
 /** How much of a world exists in a locale, for the gate. */
@@ -66,8 +86,13 @@ type Mutable = Record<string, unknown>;
  * take a world off the shelf. `npm run fr:worlds` reports them.
  */
 export function localizeStory(story: StoryVersion, locale: Locale): StoryVersion {
-  if (locale === 'en') return story;
-  const world = REGISTRY.get(locale)?.get(story.storyId);
+  // A world is already in its own language. Officially that has always meant
+  // English; a player-made world says which language it is in, and asking for
+  // that one is a no-op rather than a lookup that finds nothing.
+  if (locale === story.sourceLocale) return story;
+  const byLocale = REGISTRY.get(locale);
+  // The version's own text first — see `registerWorldText`.
+  const world = byLocale?.get(story.id) ?? byLocale?.get(story.storyId);
   if (!world) return story;
 
   // One clone, then written into. `structuredClone` rather than a spread,

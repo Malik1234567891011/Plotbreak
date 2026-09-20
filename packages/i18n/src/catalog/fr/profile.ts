@@ -123,6 +123,8 @@ export const profile = {
   'profile.session_settings': 'Réglages de session',
   'profile.saved_worlds': 'Mondes enregistrés',
   'profile.saved_empty_title': 'Rien d’enregistré pour l’instant',
+  // Découvrir is the tab's name, not Title Case.
+  // fr-lint-disable-next-line FRC002
   'profile.saved_empty_body': 'Appuie longuement sur un monde dans Découvrir puis sur Enregistrer : il t’attendra ici.',
   'profile.badges_to_collect': '{count, plural, one {# à récupérer} other {# à récupérer}}',
   'profile.display_name': 'Nom affiché',
@@ -181,10 +183,18 @@ export const profile = {
   'badges.secret_body': 'Certaines fins sont plus dures à trouver que d’autres.',
   /** Voir `en/profile.ts` : le serveur Discord. */
   'community.section': 'Communauté',
+  // Discord is the product's name.
+  // fr-lint-disable-next-line FRC002
   'community.join_discord': 'Rejoindre notre Discord',
+  // Discord is the product's name.
+  // fr-lint-disable-next-line FRC002
   'community.join_discord_a11y': 'Rejoindre le serveur Discord de Plotbreak',
+  // Discord is the product's name.
+  // fr-lint-disable-next-line FRC002
   'community.prompt_title': 'Viens traîner sur notre Discord',
   'community.prompt_body': 'Partage tes moments les plus fous, découvre ce que les autres ont trouvé, et dis-nous quel monde créer ensuite.',
+  // Discord is the product's name.
+  // fr-lint-disable-next-line FRC002
   'community.prompt_join': 'Rejoindre le Discord',
   'community.prompt_later': 'Plus tard',
 } as const;

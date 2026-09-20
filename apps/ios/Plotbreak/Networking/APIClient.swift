@@ -596,6 +596,14 @@ actor APIClient {
         )
     }
 
+    /// Have a cover and a banner drawn from the world the creator wrote.
+    ///
+    /// Answers 202 and finishes in its own time, exactly like `compileDraft`;
+    /// the caller watches `draft.art`.
+    func drawDraftArt(_ draftId: String) async throws -> DraftResponse {
+        try await request("POST", "/v1/create/drafts/\(draftId)/art")
+    }
+
     /// Auto-generate, one field or one entity at a time.
     func assistDraft(_ draftId: String, target: AssistTarget, index: Int? = nil) async throws -> DraftResponse {
         struct Body: Encodable { let target: String; let index: Int? }

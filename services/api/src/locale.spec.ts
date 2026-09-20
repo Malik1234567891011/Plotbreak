@@ -39,6 +39,7 @@ function makeContext(now: () => Date = () => new Date()): AppContext {
     modelProvider: null,
     // No model in tests, so the engine's deterministic derivation is what runs.
     modelGateway: null,
+    mediaGateway: null,
     // §37 — silence. A test suite must never open a socket to an analytics
     // vendor, and asserting on emitted events is the emitter's own job.
     analytics: new NoopSink(),

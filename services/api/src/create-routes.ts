@@ -10,6 +10,7 @@ import {
   DRAFT_VISIBILITIES,
   StoryDraft,
   StoryDraftPatch,
+  artIsStale,
   compileIsStale,
   preserveUploads,
   draftReadiness,
@@ -24,6 +25,8 @@ import { requireUser, sendError } from './context.js';
 import { InsufficientCreditsError } from './wallet.js';
 import { tracker } from './analytics.js';
 import { MAX_IMAGE_BYTES, imageFormat, ownerFolder, storeUpload } from './create-uploads.js';
+import { drawDraftArt } from './create-art.js';
+import { markTranslationsPending, translateInBackground } from './translate-story.js';
 import { resolveDeviceLocale, resolveLocale } from '@plotbreak/i18n';
 
 /**
@@ -118,10 +121,20 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
     if (existing.length >= MAX_DRAFTS) {
       return sendError(reply, 409, 'TOO_MANY_DRAFTS', `You already have ${MAX_DRAFTS} stories in progress.`);
     }
-    const draft = emptyDraft({
-      draftId: randomUUID(),
-      ownerId: user.userId,
-      now: new Date().toISOString(),
+    const draft = StoryDraft.parse({
+      ...emptyDraft({
+        draftId: randomUUID(),
+        ownerId: user.userId,
+        now: new Date().toISOString(),
+      }),
+      // The language this world will be written in, from the creator's own
+      // setting. Everything about translating it afterwards depends on knowing
+      // it, and asking later means guessing from the prose.
+      locale: resolveLocale(
+        undefined,
+        user.settings.locale,
+        resolveDeviceLocale(request.headers['accept-language']),
+      ),
     });
     await ctx.repo.putDraft(draft);
     tracker(ctx, request, user).track('create_draft_started', { draftId: draft.draftId });
@@ -276,6 +289,10 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
     const started = StoryDraft.parse({
       ...draft,
       pitch,
+      // The compiler was told which language to write in, so this is what the
+      // world will actually say — better evidence than the setting the draft
+      // was created under, which may have changed since.
+      locale,
       compile: { status: 'running', startedAt: new Date().toISOString(), message: '' },
       updatedAt: new Date().toISOString(),
     });
@@ -430,7 +447,10 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
       // The key, not the url. Everything downstream — localisation, cache
       // busting, the CDN prefix — operates on a key.
       ...(kind === 'cover'
-        ? { coverImage: stored.assetKey }
+        ? // The banner goes with it. It was drawn to match a cover that is
+          // being replaced, and a story page showing the art a creator just
+          // rejected is worse than one falling back to the picture they chose.
+          { coverImage: stored.assetKey, keyArtImage: null }
         : {
             characters: draft.characters.map((character, at) =>
               at === index ? { ...character, portrait: stored.assetKey } : character,
@@ -455,7 +475,7 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
       const next = StoryDraft.parse({
         ...draft,
         ...(kind === 'cover'
-          ? { coverImage: null }
+          ? { coverImage: null, keyArtImage: null }
           : {
               characters: draft.characters.map((character, at) =>
                 at === index ? { ...character, portrait: null } : character,
@@ -542,6 +562,140 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
   });
 
   /**
+   * Draw a cover and a banner for a world that has none.
+   *
+   * The other half of "every public story has a cover": the gate refuses a
+   * publish without one, and this is how a creator who does not want to make a
+   * picture gets past it without making one. Same async shape as `compile`,
+   * for the same reason — two images is minutes, not seconds.
+   *
+   * Free. Compiling already costs 180 and a cover is now required to publish,
+   * so charging here would quietly turn "publish" into a paid action. The
+   * control on the cost is the `media` rate budget this route draws on, not
+   * credits.
+   */
+  app.post<{ Params: { draftId: string } }>(
+    '/v1/create/drafts/:draftId/art',
+    async (request, reply) => {
+      const user = await requireUser(ctx, request, reply);
+      if (!user) return reply;
+      const draft = await owned(request, reply, user.userId);
+      if (!draft) return reply;
+      if (!ctx.mediaGateway) {
+        return sendError(reply, 503, 'NO_MEDIA', 'Cover art cannot be drawn right now.');
+      }
+      // Two taps would race each other's writes and pay for four images.
+      if (draft.art.status === 'running' && !artIsStale(draft.art)) {
+        return sendError(reply, 409, 'ALREADY_DRAWING', 'A cover is already being drawn.');
+      }
+
+      // A cover is drawn *from* the world — cast, tone, tags, the fantasy it
+      // sells. An empty draft compiles perfectly well, because every field
+      // defaults, so "does it compile" is not the question. The question is
+      // whether there is a story here yet, and readiness already answers it.
+      //
+      // Judged at PRIVATE so the cover rule itself is excluded: needing a
+      // cover to be allowed to draw a cover is not a gate, it is a deadlock.
+      const written = draftReadiness(draft, { visibility: 'PRIVATE' });
+      if (!written.ready) {
+        return sendError(
+          reply,
+          422,
+          'NOT_ENOUGH_WORLD',
+          'Finish the world first — a cover is drawn from the story it belongs to.',
+          { issues: written.issues, blockedSteps: written.blockedSteps },
+        );
+      }
+
+      // And it still has to survive the bridge, because that is what builds
+      // the prompt. Checked here, while there is a request to answer, rather
+      // than discovered by the background task and reported as a mystery.
+      try {
+        draftToStoryVersion(draft, {
+          storyId: draft.storyId ?? `story_draft_${draft.draftId}`,
+          storyVersionId: 'sv_probe',
+          version: 1,
+          creatorId: user.userId,
+          creatorName: user.displayName,
+          publishedAt: new Date().toISOString(),
+        });
+      } catch (error) {
+        // Readiness said yes and the contract said no — a bug in the bridge
+        // rather than something the creator did, which is what the publish
+        // route already calls COMPILE_FAILED. Same code, so the client says
+        // the same localised sentence for the same situation.
+        request.log.error({ err: error, draftId: draft.draftId }, 'draft failed to compile for art');
+        return sendError(
+          reply,
+          500,
+          'COMPILE_FAILED',
+          'Something in this story did not fit. We are looking at it.',
+        );
+      }
+
+      const started = StoryDraft.parse({
+        ...draft,
+        art: { status: 'running', startedAt: new Date().toISOString(), message: '' },
+        updatedAt: new Date().toISOString(),
+      });
+      await ctx.repo.putDraft(started);
+
+      // Deliberately not awaited; the client watches `draft.art`.
+      void (async () => {
+        try {
+          const art = await drawDraftArt({
+            draft: started,
+            gateway: ctx.mediaGateway!,
+            creatorId: user.userId,
+            creatorName: user.displayName,
+          });
+          // Re-read: the creator kept editing while this ran, and their typing
+          // outranks every field except the two this owns.
+          //
+          // Gone means gone. Falling back to the snapshot this task started
+          // with would write a draft the creator deleted back into existence,
+          // with a cover on it.
+          const current = await ctx.repo.getDraft(draft.draftId);
+          if (!current) return;
+          await ctx.repo.putDraft(
+            StoryDraft.parse({
+              ...current,
+              coverImage: art.coverImage,
+              keyArtImage: art.keyArtImage,
+              art: { status: 'done', startedAt: started.art.startedAt, message: '' },
+              updatedAt: new Date().toISOString(),
+            }),
+          );
+          tracker(ctx, request, user).track('create_art_drawn', {
+            draftId: draft.draftId,
+            banner: art.keyArtImage !== null,
+          });
+        } catch (error) {
+          request.log.error({ err: error, draftId: draft.draftId }, 'cover could not be drawn');
+          const current = await ctx.repo.getDraft(draft.draftId);
+          if (!current) return;
+          await ctx.repo
+            .putDraft(
+              StoryDraft.parse({
+                ...current,
+                art: {
+                  status: 'failed',
+                  startedAt: started.art.startedAt,
+                  message: 'That cover did not come through. Try again.',
+                },
+                updatedAt: new Date().toISOString(),
+              }),
+            )
+            .catch(() => undefined);
+        }
+      })();
+
+      void reply.code(202);
+      return { draft: started, readiness: draftReadiness(started) };
+    },
+  );
+
+  /**
    * Publish.
    *
    * `draftReadiness` is the friendly gate and `StoryVersion.parse` inside
@@ -557,19 +711,23 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
       const draft = await owned(request, reply, user.userId);
       if (!draft) return reply;
 
-      const readiness = draftReadiness(draft);
+      // Read the destination *before* judging readiness. The body's visibility
+      // wins over the draft's, so checking the draft's first would let a
+      // PRIVATE draft pass a gate that only applies to PUBLIC and then publish
+      // straight to Discover without the cover that gate exists to require.
+      const visibility = ((DRAFT_VISIBILITIES as readonly string[]).includes(
+        String(request.body?.visibility),
+      )
+        ? request.body!.visibility
+        : draft.visibility) as DraftVisibility;
+
+      const readiness = draftReadiness(draft, { visibility });
       if (!readiness.ready) {
         return sendError(reply, 422, 'NOT_READY', 'This story is not finished yet.', {
           issues: readiness.issues,
           blockedSteps: readiness.blockedSteps,
         });
       }
-
-      const visibility = ((DRAFT_VISIBILITIES as readonly string[]).includes(
-        String(request.body?.visibility),
-      )
-        ? request.body!.visibility
-        : draft.visibility) as DraftVisibility;
 
       const storyId = draft.storyId ?? `story_user_${randomUUID().replace(/-/g, '').slice(0, 16)}`;
       // A published version is immutable, so republishing makes the next one
@@ -603,6 +761,16 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
         visibility,
         at,
       });
+      // Only a world on the public shelf is worth translating. A private draft
+      // or a link somebody hands to one friend has exactly one reader, in the
+      // language it was written in, and paying a model to write it into a
+      // language nobody is going to read it in is waste. Making it public later
+      // goes through the visibility route, which queues it there.
+      if (visibility === 'PUBLIC') {
+        await markTranslationsPending(ctx, story);
+        translateInBackground(ctx, story);
+      }
+
       tracker(ctx, request, user).track('create_published', {
         draftId: draft.draftId,
         storyId,
@@ -628,8 +796,33 @@ export function registerCreateRoutes(app: FastifyInstance, ctx: AppContext): voi
         return sendError(reply, 400, 'INVALID_VISIBILITY', 'That is not a way to share a story.');
       }
       const visibility = request.body!.visibility as DraftVisibility;
+      // The other door into Discover. Publishing UNLISTED and then switching to
+      // Everyone would otherwise walk a coverless world straight past the gate
+      // on the publish route.
+      const readiness = draftReadiness(draft, { visibility });
+      if (!readiness.ready) {
+        return sendError(reply, 422, 'NOT_READY', 'This story is not ready to be shared yet.', {
+          issues: readiness.issues,
+          blockedSteps: readiness.blockedSteps,
+        });
+      }
       const changed = await ctx.repo.setStoryVisibility(draft.storyId, user.userId, visibility);
       if (!changed) return sendError(reply, 404, 'DRAFT_NOT_FOUND', 'That story is not here.');
+
+      // Reaching the public shelf is what earns a world its other language, and
+      // this is the other way of getting there. Nothing happens twice: the
+      // pending row is upserted, and a version already translated is skipped.
+      if (visibility === 'PUBLIC' && draft.publishedVersionId) {
+        const story = await ctx.repo.getStoryVersion(draft.publishedVersionId);
+        if (story) {
+          const already = await ctx.repo.getStoryText(story.id).catch(() => []);
+          if (already.length === 0) {
+            await markTranslationsPending(ctx, story);
+            translateInBackground(ctx, story);
+          }
+        }
+      }
+
       const next = (await ctx.repo.getDraft(draft.draftId))!;
       return { draft: next, readiness: draftReadiness(next) };
     },

@@ -247,6 +247,39 @@ export function compileIsStale(compile: CompileState, now = Date.now()): boolean
   return now - new Date(compile.startedAt).getTime() > COMPILE_STALE_MS;
 }
 
+/**
+ * Where a cover-and-banner draw has got to.
+ *
+ * Same shape and same reasoning as `CompileState`: two images at up to three
+ * minutes each is not something a phone can hold a request open for, so the
+ * request starts the work and the client watches this field.
+ *
+ * Kept separate from `compile` rather than folded into it because the two
+ * genuinely are separate — a creator who wrote their world by hand never
+ * compiles but may still want a cover drawn, and a creator who compiled may
+ * upload their own picture and never draw one.
+ */
+export const ArtState = z
+  .object({
+    status: z.enum(['idle', 'running', 'done', 'failed']).default('idle'),
+    startedAt: z.string().nullable().default(null),
+    message: z.string().max(2000).default(''),
+  })
+  .strict()
+  .default({ status: 'idle', startedAt: null, message: '' });
+export type ArtState = z.infer<typeof ArtState>;
+
+/**
+ * Longer than a compile's, because this is two image generations back to back
+ * and the gateway alone allows three minutes for each.
+ */
+export const ART_STALE_MS = 9 * 60 * 1000;
+
+export function artIsStale(art: ArtState, now = Date.now()): boolean {
+  if (art.status !== 'running' || !art.startedAt) return false;
+  return now - new Date(art.startedAt).getTime() > ART_STALE_MS;
+}
+
 export const StoryDraft = z
   .object({
     draftId: z.string(),
@@ -260,6 +293,7 @@ export const StoryDraft = z
 
     pitch: DraftPitch,
     compile: CompileState,
+    art: ArtState,
 
     // 1. Profile
     title: z.string().max(50).default(''),
@@ -269,6 +303,16 @@ export const StoryDraft = z
     coverDirection: short(600),
     /** An uploaded cover. Null means the art direction above is used instead. */
     coverImage: z.string().nullable().default(null),
+    /**
+     * The wide banner behind the story page's header.
+     *
+     * Drawn for the creator rather than uploaded: the story page falls back to
+     * the cover when this is null, and a 2:3 cover stretched across a wide slot
+     * is exactly how a player-made world looks cheaper than an official one.
+     * Written by the art route, never by a patch, for the same reason
+     * `coverImage` is.
+     */
+    keyArtImage: z.string().nullable().default(null),
 
     // 2. World
     premise: short(2400),
@@ -316,6 +360,15 @@ export const StoryDraft = z
     /** What the creator thinks this is meant to be played at. The player still chooses. */
     recommendedTier: QualityTier.default('VIVID'),
     visibility: DraftVisibility.default('PRIVATE'),
+    /**
+     * The language the creator is writing in.
+     *
+     * Set when the draft is made and again when it is compiled, from the same
+     * locale the compiler was told to write in — so it is what the world
+     * actually says rather than what the phone's settings claim. Everything
+     * about translating the world afterwards depends on knowing this.
+     */
+    locale: z.enum(['en', 'fr']).default('en'),
   })
   .strict();
 export type StoryDraft = z.infer<typeof StoryDraft>;
@@ -340,7 +393,9 @@ export const StoryDraftPatch = StoryDraft.omit({
   createdAt: true,
   updatedAt: true,
   compile: true,
+  art: true,
   coverImage: true,
+  keyArtImage: true,
 }).partial();
 
 /**
@@ -356,6 +411,7 @@ export function preserveUploads(stored: StoryDraft, patched: StoryDraft): StoryD
   return {
     ...patched,
     coverImage: stored.coverImage,
+    keyArtImage: stored.keyArtImage,
     characters: patched.characters.map((c) => ({
       ...c,
       portrait: portraits.get(c.id) ?? null,
@@ -428,8 +484,18 @@ const words = (text: string) => text.trim().split(/\s+/).filter(Boolean).length;
  * places the narrator reads, not that every optional field is full. The strict
  * gate is `draftToStoryVersion` plus `StoryVersion.parse`, which runs at
  * publish and cannot be talked out of anything.
+ *
+ * `visibility` is the one the draft is about to be published *at*, which is not
+ * always the one stored on it: `POST /publish` takes a visibility in its body
+ * and that wins. Readiness has to judge the destination rather than the draft's
+ * last saved intent, or a private draft answers "ready" and then goes public
+ * without the cover a public world is required to have.
  */
-export function draftReadiness(draft: StoryDraft): DraftReadiness {
+export function draftReadiness(
+  draft: StoryDraft,
+  options: { readonly visibility?: DraftVisibility } = {},
+): DraftReadiness {
+  const visibility = options.visibility ?? draft.visibility;
   const issues: DraftIssue[] = [];
   const need = (ok: boolean, step: CreateStep, code: string, index?: number) => {
     if (!ok) issues.push(index === undefined ? { step, code } : { step, code, index });
@@ -482,6 +548,16 @@ export function draftReadiness(draft: StoryDraft): DraftReadiness {
 
   need(draft.description.trim().length > 0, 'publish', 'description_missing');
   need(draft.tags.length >= 1, 'publish', 'need_one_tag');
+
+  // A world in Discover has a cover. Not a house-style preference: the card is
+  // the only thing a stranger sees before deciding, and one without art reads
+  // as broken next to twenty-five that have it.
+  //
+  // PUBLIC only. `UNLISTED` is a link the creator hands to someone who already
+  // wants it, and `PRIVATE` is nobody — neither is on a shelf, so neither is
+  // worth blocking. There is always a way through: upload one, or have one
+  // drawn.
+  need(visibility !== 'PUBLIC' || Boolean(draft.coverImage), 'publish', 'cover_missing');
 
   const blocked = CREATE_STEPS.filter((step) => issues.some((issue) => issue.step === step));
   return { ready: issues.length === 0, issues, blockedSteps: blocked };
@@ -608,8 +684,9 @@ export function draftToStoryVersion(draft: StoryDraft, options: CompileOptions):
     creatorId: options.creatorId,
     creatorName: options.creatorName,
     official: false,
+    sourceLocale: draft.locale,
     coverImage: draft.coverImage,
-    keyArt: null,
+    keyArt: draft.keyArtImage,
     tags: draft.tags,
     mechanicsChips: draft.mechanicsChips,
     contentDescriptors: draft.contentDescriptors,
