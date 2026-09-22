@@ -1881,6 +1881,9 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       verdict.productId,
       verdict.originalTransactionId,
       parsed.data.platform,
+      // What the store charged, for `purchase_transactions`. The client's copy
+      // is never used here for the same reason the product id is not.
+      { priceLocal: verdict.priceLocal, currency: verdict.currency },
     );
 
     // A verified purchase of something we do not sell. The store took the
@@ -1977,6 +1980,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
         verdict.productId,
         verdict.originalTransactionId,
         transaction.platform,
+        { priceLocal: verdict.priceLocal, currency: verdict.currency },
       );
       if (!result.duplicate && result.credited > 0) {
         restored += 1;

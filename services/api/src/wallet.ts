@@ -5,7 +5,7 @@ import {
   GRANT_NEW_USER,
   STORE_OFFERS,
 } from '@plotbreak/contracts';
-import type { Repository } from './repo/types.js';
+import type { PurchaseTransaction, Repository } from './repo/types.js';
 
 /**
  * Spec §20.7/§20.8 — the wallet service.
@@ -153,6 +153,45 @@ export class WalletService {
     return entry;
   }
 
+  /**
+   * `#append`, but the entry and its purchase record commit together.
+   *
+   * Same balance stamping and same idempotency as `#append`; the only
+   * difference is the repo call, which the port makes atomic. A PURCHASE entry
+   * that exists without its `purchase_transactions` row is unreconcilable, so
+   * the two are never written separately.
+   */
+  async #appendPurchase(
+    accountId: string,
+    draft: {
+      type: LedgerEntryType;
+      amount: number;
+      reasonCode: string;
+      referenceId: string | null;
+      idempotencyKey: string;
+      metadata: Record<string, unknown>;
+    },
+    purchase: PurchaseTransaction,
+  ): Promise<LedgerEntry> {
+    const existing = await this.#repo.findLedgerEntryByIdempotencyKey(accountId, draft.idempotencyKey);
+    if (existing) return existing;
+
+    const entry: LedgerEntry = {
+      id: `led_${crypto.randomUUID()}`,
+      accountId,
+      type: draft.type,
+      amount: draft.amount,
+      balanceAfter: (await this.getBalance(accountId)) + draft.amount,
+      reasonCode: draft.reasonCode,
+      referenceId: draft.referenceId,
+      idempotencyKey: draft.idempotencyKey,
+      createdAt: this.#now().toISOString(),
+      metadata: draft.metadata,
+    };
+    await this.#repo.appendPurchase(entry, purchase);
+    return entry;
+  }
+
   /** Spec §20.8 phase 1. Throws rather than allowing a negative balance. */
   async reserve(
     accountId: string,
@@ -282,7 +321,8 @@ export class WalletService {
     accountId: string,
     productId: string,
     storeTransactionId: string,
-    platform: string,
+    platform: PurchaseTransaction['platform'],
+    charged: { priceLocal: number | null; currency: string | null } = { priceLocal: null, currency: null },
   ): Promise<{ credited: number; duplicate: boolean; entry: LedgerEntry | null }> {
     const offer =
       STORE_OFFERS.find((o) => o.productId === productId) ??
@@ -293,14 +333,35 @@ export class WalletService {
     const existing = await this.#repo.findLedgerEntryByIdempotencyKey(accountId, key);
     if (existing) return { credited: 0, duplicate: true, entry: existing };
 
-    const entry = await this.#append(
+    // The credit and the receipt, written in one transaction. §33.5 wants a
+    // `purchase_transactions` row per purchase so the money can be reconciled
+    // against the store's own reports; going through `#append` instead wrote
+    // the ledger alone and left that table empty through two releases, which
+    // is invisible until the first chargeback nobody can trace.
+    const entry = await this.#appendPurchase(
       accountId,
-      'PURCHASE',
-      offer.credits,
-      'STORE_PURCHASE',
-      storeTransactionId,
-      key,
-      { productId, platform, referencePriceUsd: offer.referencePriceUsd },
+      {
+        type: 'PURCHASE',
+        amount: offer.credits,
+        reasonCode: 'STORE_PURCHASE',
+        referenceId: storeTransactionId,
+        idempotencyKey: key,
+        metadata: { productId, platform, referencePriceUsd: offer.referencePriceUsd },
+      },
+      {
+        transactionId: `pt_${crypto.randomUUID()}`,
+        accountId,
+        platform,
+        storeTransactionId,
+        productId,
+        creditsGranted: offer.credits,
+        bonusGranted: offer.bonusCredits,
+        priceLocal: charged.priceLocal,
+        currency: charged.currency,
+        // The route only reaches here on a verdict the store signed off on.
+        status: 'VERIFIED',
+        createdAt: this.#now().toISOString(),
+      },
     );
 
     if (offer.bonusCredits > 0) {

@@ -24,6 +24,7 @@ import type {
   UserBadgeRow,
   UserRecord,
   PureMessage,
+  PurchaseTransaction,
 } from './types.js';
 import { AUTO_HIDE_REPORTS, EMPTY_SIGNALS } from './types.js';
 
@@ -54,6 +55,7 @@ export class MemoryRepository implements Repository {
   readonly #events = new Map<string, GameEvent[]>();
   readonly #memories = new Map<string, MemoryFact[]>();
   readonly #ledger = new Map<string, LedgerEntry[]>();
+  readonly #purchases = new Map<string, PurchaseTransaction[]>();
   readonly #idempotency = new Map<string, IdempotencyRecord>();
   readonly #saves = new Map<string, Set<string>>();
   readonly #hides = new Map<string, Set<string>>();
@@ -534,6 +536,23 @@ export class MemoryRepository implements Repository {
 
   async findLedgerEntryByIdempotencyKey(accountId: string, key: string): Promise<LedgerEntry | null> {
     return (this.#ledger.get(accountId) ?? []).find((e) => e.idempotencyKey === key) ?? null;
+  }
+
+  /** Both writes together, as the Postgres implementation does them. */
+  async appendPurchase(entry: LedgerEntry, purchase: PurchaseTransaction): Promise<void> {
+    await this.appendLedgerEntry(entry);
+    const list = this.#purchases.get(purchase.accountId) ?? [];
+    // `(platform, store_transaction_id)` is unique in the schema; a replayed
+    // sync must not add a second row here either.
+    const already = list.some(
+      (p) => p.platform === purchase.platform && p.storeTransactionId === purchase.storeTransactionId,
+    );
+    if (!already) list.push(purchase);
+    this.#purchases.set(purchase.accountId, list);
+  }
+
+  async listPurchaseTransactions(accountId: string): Promise<PurchaseTransaction[]> {
+    return [...(this.#purchases.get(accountId) ?? [])];
   }
 
   // --- Idempotency ---

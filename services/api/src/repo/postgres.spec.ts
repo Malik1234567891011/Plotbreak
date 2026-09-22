@@ -4,7 +4,7 @@ import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
 import { createInitialState } from '@plotbreak/engine';
 import type { GameState, LedgerEntry, TurnRecord } from '@plotbreak/contracts';
 import { PostgresRepository } from './postgres.js';
-import type { SessionRecord, UserRecord } from './types.js';
+import type { PurchaseTransaction, SessionRecord, UserRecord } from './types.js';
 
 /**
  * The persistence tests that matter are the ones an in-process store cannot
@@ -320,6 +320,47 @@ describe.skipIf(!URL)('PostgresRepository', () => {
     expect(await repo.findLedgerEntryByIdempotencyKey(accountId, 'store:txn_1')).toMatchObject({
       amount: 500,
     });
+  });
+
+  it('commits the credit and its purchase row together, once per transaction', async () => {
+    const user = await makeUser();
+    const accountId = `acct_${user.userId}`;
+    const storeTransactionId = `txn_${uuid()}`;
+    const entry: LedgerEntry = {
+      id: `led_${uuid()}`,
+      accountId,
+      type: 'PURCHASE',
+      amount: 2_000,
+      balanceAfter: 2_000,
+      reasonCode: 'STORE_PURCHASE',
+      referenceId: storeTransactionId,
+      idempotencyKey: `purchase:APP_STORE:${storeTransactionId}`,
+      createdAt: new Date().toISOString(),
+      metadata: {},
+    };
+    const purchase: PurchaseTransaction = {
+      transactionId: `pt_${uuid()}`,
+      accountId,
+      platform: 'APP_STORE',
+      storeTransactionId,
+      productId: 'crd_2000',
+      creditsGranted: 2_000,
+      bonusGranted: 0,
+      priceLocal: 2.99,
+      currency: 'CAD',
+      status: 'VERIFIED',
+      createdAt: new Date().toISOString(),
+    };
+
+    await repo.appendPurchase(entry, purchase);
+    // A replayed sync: both unique keys hold, so neither table grows.
+    await repo.appendPurchase({ ...entry, id: `led_${uuid()}` }, { ...purchase, transactionId: `pt_${uuid()}` });
+
+    const rows = await repo.listPurchaseTransactions(accountId);
+    expect(rows).toHaveLength(1);
+    // `numeric` round-trips as a number, not pg's string.
+    expect(rows[0]).toMatchObject({ productId: 'crd_2000', creditsGranted: 2_000, priceLocal: 2.99, currency: 'CAD' });
+    expect((await repo.listLedger(accountId)).filter((e) => e.type === 'PURCHASE')).toHaveLength(1);
   });
 
   it('keeps an idempotency record so a retried turn returns the first answer', async () => {

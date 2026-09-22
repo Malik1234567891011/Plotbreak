@@ -26,6 +26,7 @@ import type {
   UserBadgeRow,
   UserRecord,
   PureMessage,
+  PurchaseTransaction,
 } from './types.js';
 import { EMPTY_SIGNALS, AUTO_HIDE_REPORTS } from './types.js';
 
@@ -1272,6 +1273,71 @@ export class PostgresRepository implements Repository {
     return rows[0] ? toLedgerEntry(rows[0]) : null;
   }
 
+  /**
+   * The credit and the receipt it came from, in one transaction.
+   *
+   * Both inserts are `ON CONFLICT DO NOTHING` against their own unique key —
+   * the ledger's idempotency key, and `(platform, store_transaction_id)` here —
+   * so a retried sync commits nothing twice. The account row comes first
+   * because `purchase_transactions.account_id` is a foreign key to it, and on a
+   * player's very first purchase neither row exists yet.
+   */
+  async appendPurchase(entry: LedgerEntry, purchase: PurchaseTransaction): Promise<void> {
+    await this.#tx(async (client) => {
+      await client.query(
+        `INSERT INTO wallet_accounts (account_id, user_id)
+         SELECT $1, $2 WHERE NOT EXISTS (SELECT 1 FROM wallet_accounts WHERE account_id = $1)`,
+        [entry.accountId, userIdForAccount(entry.accountId)],
+      );
+      await client.query(
+        `INSERT INTO wallet_ledger (entry_id, account_id, type, amount, balance_after, reason_code,
+                                    reference_id, idempotency_key, metadata, created_at)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+         ON CONFLICT DO NOTHING`,
+        [
+          entry.id,
+          entry.accountId,
+          entry.type,
+          entry.amount,
+          entry.balanceAfter,
+          entry.reasonCode,
+          entry.referenceId,
+          entry.idempotencyKey,
+          JSON.stringify(entry.metadata),
+          entry.createdAt,
+        ],
+      );
+      await client.query(
+        `INSERT INTO purchase_transactions (transaction_id, account_id, platform, store_transaction_id,
+                                            product_id, credits_granted, bonus_granted, price_local,
+                                            currency, status, created_at)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+         ON CONFLICT (platform, store_transaction_id) DO NOTHING`,
+        [
+          purchase.transactionId,
+          purchase.accountId,
+          purchase.platform,
+          purchase.storeTransactionId,
+          purchase.productId,
+          purchase.creditsGranted,
+          purchase.bonusGranted,
+          purchase.priceLocal,
+          purchase.currency,
+          purchase.status,
+          purchase.createdAt,
+        ],
+      );
+    });
+  }
+
+  async listPurchaseTransactions(accountId: string): Promise<PurchaseTransaction[]> {
+    const { rows } = await this.#pool.query<Record<string, unknown>>(
+      `SELECT * FROM purchase_transactions WHERE account_id = $1 ORDER BY created_at ASC`,
+      [accountId],
+    );
+    return rows.map(toPurchaseTransaction);
+  }
+
   // --- Idempotency ---------------------------------------------------------
 
   async getIdempotency(key: string): Promise<IdempotencyRecord | null> {
@@ -1868,6 +1934,24 @@ function toLedgerEntry(row: Record<string, unknown>): LedgerEntry {
     createdAt: iso(row.created_at),
     metadata: row.metadata ?? {},
   });
+}
+
+function toPurchaseTransaction(row: Record<string, unknown>): PurchaseTransaction {
+  return {
+    transactionId: String(row.transaction_id),
+    accountId: String(row.account_id),
+    platform: row.platform as PurchaseTransaction['platform'],
+    storeTransactionId: String(row.store_transaction_id),
+    productId: String(row.product_id),
+    creditsGranted: Number(row.credits_granted),
+    bonusGranted: Number(row.bonus_granted),
+    // `numeric` comes back from pg as a string so no precision is lost on the
+    // way out. Parsing it here keeps the port's shape a number everywhere.
+    priceLocal: row.price_local === null || row.price_local === undefined ? null : Number(row.price_local),
+    currency: row.currency === null || row.currency === undefined ? null : String(row.currency),
+    status: row.status as PurchaseTransaction['status'],
+    createdAt: iso(row.created_at),
+  };
 }
 
 function toIdempotency(row: Record<string, unknown>): IdempotencyRecord {

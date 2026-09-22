@@ -338,6 +338,41 @@ describe('wallet (spec §20.7, §20.8)', () => {
     expect(await ctx.wallet.getBalance(GUEST)).toBe(before + 10_300);
   });
 
+  it('records a purchase_transactions row beside the credit (spec §33.5)', async () => {
+    // The table was empty through 1.0.2 and 1.0.3 while the ledger filled up:
+    // `reconcilePurchase` granted credits and wrote nothing reconcilable, so a
+    // real purchase had no row to match against App Store Connect. The ledger
+    // says the balance moved; only this row says what the store charged for.
+    await app.inject({ method: 'GET', url: '/v1/wallet', headers: auth });
+    const payload = {
+      productId: 'crd_2000',
+      storeTransactionId: 'sandbox_txn_receipt',
+      platform: 'SANDBOX',
+      receipt: null,
+    };
+
+    await app.inject({ method: 'POST', url: '/v1/store/purchases/sync', headers: auth, payload });
+
+    const rows = await ctx.repo.listPurchaseTransactions(GUEST);
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({
+      platform: 'SANDBOX',
+      productId: 'crd_2000',
+      creditsGranted: 2_000,
+      status: 'VERIFIED',
+      // The sandbox took no money, so there is no local price. Null, never 0 —
+      // a zero here would read as a purchase that cost nothing.
+      priceLocal: null,
+      currency: null,
+    });
+    // The store's id, not the client's claim.
+    expect(rows[0]?.storeTransactionId).toContain('sandbox_txn_receipt');
+
+    // A replayed sync is one purchase, so it stays one row.
+    await app.inject({ method: 'POST', url: '/v1/store/purchases/sync', headers: auth, payload });
+    expect(await ctx.repo.listPurchaseTransactions(GUEST)).toHaveLength(1);
+  });
+
   it('refuses a purchase the store cannot confirm (spec §33.5)', async () => {
     // The body is well-formed and the product is real. The only thing wrong
     // with it is that no store ever saw it, which is the whole point.

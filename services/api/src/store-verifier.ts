@@ -35,6 +35,15 @@ export type VerificationResult =
       readonly originalTransactionId: string;
       readonly purchasedAt: string;
       readonly environment: 'PRODUCTION' | 'SANDBOX';
+      /**
+       * What the store actually charged, in the player's own currency, for
+       * `purchase_transactions`. Null whenever the store did not say: Google's
+       * verifier never reports it, and Apple only sends `price`/`currency` on
+       * transactions from recent StoreKit. A null here is a missing number, not
+       * a free purchase, so nothing downstream may read it as zero.
+       */
+      readonly priceLocal: number | null;
+      readonly currency: string | null;
     }
   | {
       readonly valid: false;
@@ -77,6 +86,9 @@ export class SandboxStoreVerifier implements StoreVerifier {
       originalTransactionId: `${input.userId}:${input.storeTransactionId}`,
       purchasedAt: new Date().toISOString(),
       environment: 'SANDBOX',
+      // No money moved, so there is no local price to record.
+      priceLocal: null,
+      currency: null,
     };
   }
 }
@@ -183,6 +195,12 @@ export class AppStoreVerifier implements StoreVerifier {
       originalTransactionId: claims.originalTransactionId,
       purchasedAt: new Date(Number(claims.purchaseDate ?? Date.now())).toISOString(),
       environment: claims.environment === 'Sandbox' ? 'SANDBOX' : 'PRODUCTION',
+      // Apple sends `price` in milliunits of `currency` — 2990 is 2.99, not
+      // 2990 — and omits both on older transactions. Dividing a missing value
+      // would record every one of those as a free purchase, so absence stays
+      // null all the way into the column.
+      priceLocal: typeof claims.price === 'number' ? claims.price / 1000 : null,
+      currency: typeof claims.currency === 'string' ? claims.currency : null,
     };
   }
 
@@ -260,6 +278,10 @@ export class PlayStoreVerifier implements StoreVerifier {
       originalTransactionId: body.orderId ?? input.storeTransactionId,
       purchasedAt: new Date(Number(body.purchaseTimeMillis ?? Date.now())).toISOString(),
       environment: 'PRODUCTION',
+      // Play's purchases.products resource carries no price. Reconciling a
+      // Play purchase means going to Play Console for the amount.
+      priceLocal: null,
+      currency: null,
     };
   }
 }

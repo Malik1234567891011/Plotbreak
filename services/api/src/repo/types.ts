@@ -18,6 +18,31 @@ import type {
 } from '@plotbreak/contracts';
 
 /**
+ * Spec §33.5 — one row per purchase the store actually took money for.
+ *
+ * Separate from the ledger on purpose. The ledger says what the player's
+ * balance did; this says what Apple or Google charged, in their currency, under
+ * their transaction id, which is the only thing App Store Connect's reports can
+ * be matched against. `priceLocal` and `currency` are null whenever the store
+ * did not tell us — Google's verifier never does, and Apple only started
+ * sending price on the transaction payload recently.
+ */
+export interface PurchaseTransaction {
+  readonly transactionId: string;
+  readonly accountId: string;
+  readonly platform: 'APP_STORE' | 'PLAY_STORE' | 'SANDBOX';
+  /** The store's own id. Reconciliation is idempotent on it (§33.5). */
+  readonly storeTransactionId: string;
+  readonly productId: string;
+  readonly creditsGranted: number;
+  readonly bonusGranted: number;
+  readonly priceLocal: number | null;
+  readonly currency: string | null;
+  readonly status: 'PENDING' | 'VERIFIED' | 'REFUNDED' | 'FAILED';
+  readonly createdAt: string;
+}
+
+/**
  * The persistence port.
  *
  * `MemoryRepository` implements it in-process so the API runs with zero
@@ -322,6 +347,19 @@ export interface Repository {
   listLedger(accountId: string): Promise<LedgerEntry[]>;
   appendLedgerEntry(entry: LedgerEntry): Promise<void>;
   findLedgerEntryByIdempotencyKey(accountId: string, key: string): Promise<LedgerEntry | null>;
+  /**
+   * The credit grant and the purchase record it came from, written together.
+   *
+   * Two writes, one transaction, deliberately. `purchase_transactions` is the
+   * only row that can be reconciled against App Store Connect — the ledger
+   * knows credits landed but not what the store charged for them — and for two
+   * releases nothing wrote it at all, so the table was empty while the ledger
+   * filled up. Splitting them into separate calls would put that gap back the
+   * first time the second write failed, so the schema's promise is enforced
+   * here: a PURCHASE entry never exists without its transaction row.
+   */
+  appendPurchase(entry: LedgerEntry, purchase: PurchaseTransaction): Promise<void>;
+  listPurchaseTransactions(accountId: string): Promise<PurchaseTransaction[]>;
 
   // --- Idempotency ---
   getIdempotency(key: string): Promise<IdempotencyRecord | null>;
