@@ -228,6 +228,15 @@ const PureTurn = z
       .optional(),
     /** Three things this player might plausibly do next, in their own voice, first person. */
     suggestedResponses: z.array(z.string()).min(1).max(10),
+    /**
+     * Threads this beat brought to a finish, by id. Empty on almost every turn.
+     *
+     * Optional for the same reason `timeAdvance` is: a missing field is not
+     * worth failing a good turn over. It describes the beat, never steers it —
+     * the runtime records it and product analytics reads it, and nothing in the
+     * prompt makes finishing a thread a goal.
+     */
+    completedQuestIds: z.array(z.string()).max(6).optional(),
   })
   .strict();
 
@@ -520,7 +529,7 @@ export function worldBrief(story: StoryVersion, archetypeId?: string | null): st
     '## Threads with pressure behind them',
     'Live questions, not a checklist. Any of them can be pulled on when a scene has run out of road,',
     'and any of them can be made permanently impossible by what the player does.',
-    ...story.quests.map((q) => `- ${q.title}: ${q.summary}`),
+    ...story.quests.map((q) => `- ${q.title} (id: ${q.id}): ${q.summary}`),
     '',
     '## Things this world is capable of doing',
     'Possibilities, **not a schedule**. No timing is given because none is fixed. Some need conditions',
@@ -672,7 +681,10 @@ export async function narratePure(options: {
     `The end of each past beat records whose face was shown. Do not pick the ` +
     `same person two beats running unless their expression has genuinely changed, and leave it null on ` +
     `a beat that is mostly action or nobody's reaction in particular — a face on every single turn, ` +
-    `usually the same one, reads as a tic rather than a reaction.`;
+    `usually the same one, reads as a tic rather than a reaction. ` +
+    `Set completedQuestIds to the ids of any threads this beat actually brought to a finish — the ` +
+    `question answered, the thing done, on the page in this beat. Leave it empty otherwise, which is ` +
+    `nearly every turn, and never list a thread because it moved closer.`;
 
   const shape = options.shape ?? 'rebuilt';
   const normalizeSpeakers = speakerNormalizer(story);

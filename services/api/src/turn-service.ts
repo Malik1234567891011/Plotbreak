@@ -463,6 +463,7 @@ async function processTurn(
         providerCostUsd: pure.invocation.costUsd,
       });
       trackTurnTen(track, story.storyId, session, pure.state.turnIndex);
+      trackQuestsCompleted(track, story.storyId, pure.completedQuestIds, pure.state.turnIndex);
       return;
     }
 
@@ -777,6 +778,15 @@ async function processTurn(
       providerCostUsd: 0,
     });
     trackTurnTen(track, story.storyId, session, result.state.turnIndex);
+    trackQuestsCompleted(
+      track,
+      story.storyId,
+      result.state.quests
+        .filter((q) => q.status === 'COMPLETED')
+        .filter((q) => !state.quests.some((before) => before.questId === q.questId && before.status === 'COMPLETED'))
+        .map((q) => q.questId),
+      result.state.turnIndex,
+    );
   } catch (error) {
     // A failed turn used to leave no trace on the server. The player got
     // `turn.failed` on the stream, but `GET /v1/turns/<id>` kept answering 404
@@ -851,6 +861,19 @@ function trackTurnTen(
       Math.round((Date.now() - new Date(session.createdAt).getTime()) / 60_000),
     ),
   });
+}
+
+/**
+ * Who finished which quest. Each id is reported once per session: both turn
+ * paths only pass quests whose status became COMPLETED on this turn.
+ */
+function trackQuestsCompleted(
+  track: Analytics,
+  storyId: string,
+  questIds: readonly string[],
+  turnIndex: number,
+): void {
+  for (const questId of questIds) track.track('quest_completed', { storyId, questId, turnIndex });
 }
 
 /**

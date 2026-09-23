@@ -28,6 +28,7 @@ export const EVENT_NAMES = [
   'turn_completed',
   'turn_failed',
   'turn_10_reached',
+  'quest_completed',
   // §6.5 identity
   'sign_in_started',
   'sign_in_completed',
@@ -59,6 +60,8 @@ export const EVENT_NAMES = [
   // community — the Discord invite: where it was shown, and whether it was taken
   'community_invite_shown',
   'community_invite_tapped',
+  'discord_linked',
+  'badge_claimed',
   // create mode — the creator funnel, which is a different funnel from the
   // player one: started, built, published, and how far a world got before it
   // was abandoned.
@@ -145,6 +148,8 @@ export const EventProperties = {
     stage: z.enum(['PARSE', 'ENGINE', 'DIRECTOR', 'WRITER', 'VALIDATE', 'COMMIT', 'UNKNOWN']),
   }),
   turn_10_reached: z.object({ storyId: z.string(), minutesToReach: z.number().int() }),
+  /** Once per quest per session, on the turn that finished it. Ids only — no quest copy. */
+  quest_completed: z.object({ storyId: z.string(), questId: z.string(), turnIndex: z.number().int() }),
 
   sign_in_started: z.object({ provider: z.string(), trigger: z.string() }),
   sign_in_completed: z.object({ provider: z.string() }),
@@ -191,6 +196,9 @@ export const EventProperties = {
   /** `source` is `prompt`, `settings` or `profile`. Shown is only sent for the prompt. */
   community_invite_shown: z.object({ source: z.string(), timesShown: z.number().int() }),
   community_invite_tapped: z.object({ source: z.string() }),
+  /** The bot saw a player's code in the server. Server-side; see docs/discord-quest.md. */
+  discord_linked: z.object({ discordAccountAgeDays: z.number().int() }),
+  badge_claimed: z.object({ badgeId: z.string(), creditReward: z.number().int() }),
 
   create_draft_started: z.object({ draftId: z.string() }),
   create_compiled: z.object({

@@ -37,6 +37,8 @@ export interface PureTurnResult {
   /** Which pre-generated expression to show, if any. Never triggers generation. */
   readonly reaction: { readonly characterId: string; readonly emotion: string } | null;
   readonly suggestions: Array<{ text: string; intentHint: string; resourceCostLabel: null }>;
+  /** Quests this beat finished for the first time. Already applied to `state`. */
+  readonly completedQuestIds: readonly string[];
   readonly state: GameState;
   readonly telemetry: { promptChars: number; historyTurns: number; ms: number };
   /** What the provider billed and cached for this turn. */
@@ -143,8 +145,25 @@ export async function runTurnPure(options: {
     : state.player.locationId;
   const present = new Set(turn.presentCharacterIds.filter((id) => castIds.has(id)));
 
+  const completedQuestIds = newlyCompleted(story, state, turn.completedQuestIds ?? []);
+  const done = new Set(completedQuestIds);
+
   const moved: GameState = {
     ...state,
+    quests: [
+      ...state.quests.map((q) => (done.has(q.questId) ? { ...q, status: 'COMPLETED' as const } : q)),
+      // A quest the session never tracked still gets a record, or the next
+      // turn would report it as newly finished all over again.
+      ...completedQuestIds
+        .filter((id) => !state.quests.some((q) => q.questId === id))
+        .map((questId) => ({
+          questId,
+          status: 'COMPLETED' as const,
+          currentStepId: null,
+          completedStepIds: [],
+          startedAtWorldMinute: null,
+        })),
+    ],
     player: { ...state.player, locationId: nextLocation },
     characters: state.characters.map((c) => {
       if (present.has(c.characterId)) return { ...c, locationId: nextLocation };
@@ -186,12 +205,36 @@ export async function runTurnPure(options: {
       intentHint: 'freeform',
       resourceCostLabel: null,
     })),
+    completedQuestIds,
     state: moved,
     telemetry: { promptChars, historyTurns, ms: Date.now() - started },
     invocation,
     compaction: invocation.compaction,
     rendered,
   };
+}
+
+/**
+ * The model's claimed completions, reduced to ones that count.
+ *
+ * An id the story does not define is dropped rather than guessed at, a title
+ * is accepted in place of an id because the model reaches for the label it
+ * was shown, and a quest already completed is not completed twice — otherwise
+ * one thread would be counted every time the model mentioned it again.
+ */
+function newlyCompleted(story: StoryVersion, state: GameState, claimed: readonly string[]): string[] {
+  const byLabel = new Map<string, string>();
+  for (const quest of story.quests) {
+    byLabel.set(quest.id.toLowerCase(), quest.id);
+    byLabel.set(quest.title.toLowerCase(), quest.id);
+  }
+  const already = new Set(state.quests.filter((q) => q.status === 'COMPLETED').map((q) => q.questId));
+  const out: string[] = [];
+  for (const raw of claimed) {
+    const id = byLabel.get(raw.trim().toLowerCase());
+    if (id && !already.has(id) && !out.includes(id)) out.push(id);
+  }
+  return out;
 }
 
 /** Exported so the shim can keep the engine's commit bookkeeping if wanted. */
