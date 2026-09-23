@@ -92,12 +92,14 @@ describe('reply language', () => {
   it('is French for the Français role, however it is spelled', () => {
     expect(localeFromRoles(['Français'])).toBe('fr');
     expect(localeFromRoles(['francais', 'Member'])).toBe('fr');
+    expect(localeFromRoles(['🛡️ Moderator', '🇫🇷 Français'])).toBe('fr');
   });
 
   it('is English for the English role, no role, or both roles', () => {
     expect(localeFromRoles(['English'])).toBe('en');
     expect(localeFromRoles([])).toBe('en');
     expect(localeFromRoles(['Français', 'English'])).toBe('en');
+    expect(localeFromRoles(['🇫🇷 Français', '🇬🇧 English'])).toBe('en');
   });
 
   it('answers in the language it is given', async () => {

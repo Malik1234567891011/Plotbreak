@@ -41,9 +41,12 @@ export type DiscordLocale = 'en' | 'fr';
  * The reply language, from the member's roles. A `Français` role (with or
  * without the ç, any case) means French; everyone else, including somebody
  * holding both roles, gets English.
+ *
+ * Only the letters of a role name count: the server's roles are named
+ * `🇫🇷 Français` and `🇬🇧 English`, and the flag made an exact match miss.
  */
 export function localeFromRoles(roleNames: readonly string[]): DiscordLocale {
-  const names = roleNames.map((n) => n.normalize('NFD').replace(/\p{M}/gu, '').trim().toLowerCase());
+  const names = roleNames.map((n) => n.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^a-z]/g, ''));
   return names.includes('francais') && !names.includes('english') ? 'fr' : 'en';
 }
 
