@@ -22,6 +22,8 @@ import type {
   StorySignals,
   StoryTextRow,
   UserBadgeRow,
+  DiscordLinkRow,
+  DiscordLinkResult,
   UserRecord,
   PureMessage,
   PurchaseTransaction,
@@ -157,6 +159,7 @@ export class MemoryRepository implements Repository {
   #resolved = new Set<string>();
   #editorial: StoryEditorial[] = [];
   #badges = new Map<string, UserBadgeRow>();
+  #discordLinks = new Map<string, DiscordLinkRow>();
 
   async setLiked(userId: string, storyId: string, liked: boolean): Promise<boolean> {
     const set = this.#likes.get(storyId) ?? new Set<string>();
@@ -309,6 +312,24 @@ export class MemoryRepository implements Repository {
     if (!existing?.unlockedAt || existing.claimedAt) return false;
     this.#badges.set(key, { ...existing, claimedAt: at });
     return true;
+  }
+
+  async getOrCreateDiscordCode(userId: string, candidate: string): Promise<DiscordLinkRow> {
+    const existing = this.#discordLinks.get(userId);
+    if (existing) return existing;
+    const row: DiscordLinkRow = { userId, code: candidate, discordUserId: null, linkedAt: null };
+    this.#discordLinks.set(userId, row);
+    return row;
+  }
+
+  async linkDiscord(code: string, discordUserId: string, at: string): Promise<DiscordLinkResult> {
+    const rows = [...this.#discordLinks.values()];
+    const row = rows.find((r) => r.code === code);
+    if (!row) return { status: 'UNKNOWN_CODE' };
+    if (row.discordUserId) return { status: 'CODE_USED', sameDiscordUser: row.discordUserId === discordUserId };
+    if (rows.some((r) => r.discordUserId === discordUserId)) return { status: 'DISCORD_TAKEN' };
+    this.#discordLinks.set(row.userId, { ...row, discordUserId, linkedAt: at });
+    return { status: 'LINKED', userId: row.userId };
   }
 
   // --- Users ---

@@ -131,8 +131,13 @@ async function seedCatalog(client: Client): Promise<void> {
     if (current) {
       // Compare the way Postgres will: jsonb normalises key order, so a
       // round-tripped definition is only "different" when it really is.
+      //
+      // Minus `id` and `version`: a revision is stored with both rewritten
+      // (`story_ace_12`, 12), so comparing them against the fixture's own made
+      // every revised story "changed" on every run — 25 identical versions
+      // were published on 2026-09-23 that way.
       const { rows: diff } = await client.query<{ changed: boolean }>(
-        `SELECT ($1::jsonb IS DISTINCT FROM $2::jsonb) AS changed`,
+        `SELECT (($1::jsonb - 'id' - 'version') IS DISTINCT FROM ($2::jsonb - 'id' - 'version')) AS changed`,
         [JSON.stringify(current.definition), JSON.stringify(story)],
       );
       if (!diff[0]?.changed) {

@@ -11,7 +11,10 @@ import { z } from 'zod';
  * ## What these deliberately do not reward
  *
  * Nothing here pays for spending money, for buying credits, for following
- * anybody, or for publishing. Those are the achievements that turn a product
+ * anybody, or for publishing. The one badge that is not about play is
+ * `discord_hello`, and it is there on purpose: somebody in the community
+ * server keeps coming back, so it pays for a person, not a click. The bot has
+ * to see them post in the server before it unlocks. Those are the achievements that turn a product
  * into a chore list, and two of them describe features we have not built. Every
  * badge below says the same thing in a different way: **play more, go further,
  * try something else**.
@@ -298,6 +301,19 @@ export const BADGES: readonly Badge[] = [
     // The only hidden one: naming it would say there is something to look for
     // and roughly where.
     secret: true,
+  },
+  {
+    id: 'discord_hello',
+    title: 'Say Hi on Discord',
+    description: 'Join the Plotbreak Discord and post your code there.',
+    icon: '💬',
+    tier: 'BRONZE',
+    target: 1,
+    creditReward: 250,
+    // Costs no play at all. Allowed because it is a welcome gift under the
+    // SERIOUS_MONEY line, and the bot refuses new and already-used Discord accounts.
+    minimumCredits: 0,
+    secret: false,
   },
 ];
 

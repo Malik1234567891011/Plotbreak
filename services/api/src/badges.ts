@@ -92,6 +92,10 @@ function progressFor(badge: Badge, record: PlayerRecord): number {
         .reduce((max, n) => Math.max(max, n), 0);
     case 'rare_ending':
       return Math.min(record.rareEndings, 1);
+    case 'discord_hello':
+      // Nothing in the play record says this. The Discord bot writes
+      // progress 1 straight to the row, and `evaluateBadges` never lowers it.
+      return 0;
     default:
       return 0;
   }

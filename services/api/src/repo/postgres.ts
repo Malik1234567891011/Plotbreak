@@ -24,6 +24,8 @@ import type {
   StorySignals,
   StoryTextRow,
   UserBadgeRow,
+  DiscordLinkRow,
+  DiscordLinkResult,
   UserRecord,
   PureMessage,
   PurchaseTransaction,
@@ -747,6 +749,46 @@ export class PostgresRepository implements Repository {
       [userId, badgeId, at],
     );
     return (rowCount ?? 0) > 0;
+  }
+
+  // --- Discord quest -------------------------------------------------------
+
+  async getOrCreateDiscordCode(userId: string, candidate: string): Promise<DiscordLinkRow> {
+    // DO UPDATE with a no-op rather than DO NOTHING, so RETURNING hands back
+    // the row that was already there instead of nothing.
+    const { rows } = await this.#pool.query<{
+      code: string; discord_user_id: string | null; linked_at: Date | null;
+    }>(
+      `INSERT INTO discord_links (user_id, code) VALUES ($1, $2)
+       ON CONFLICT (user_id) DO UPDATE SET user_id = discord_links.user_id
+       RETURNING code, discord_user_id, linked_at`,
+      [userId, candidate],
+    );
+    const r = rows[0]!;
+    return { userId, code: r.code, discordUserId: r.discord_user_id, linkedAt: r.linked_at?.toISOString() ?? null };
+  }
+
+  async linkDiscord(code: string, discordUserId: string, at: string): Promise<DiscordLinkResult> {
+    // The `discord_user_id IS NULL` guard makes two racing posts of one code
+    // link once; the unique index makes one Discord account link once.
+    try {
+      const { rows } = await this.#pool.query<{ user_id: string }>(
+        `UPDATE discord_links SET discord_user_id = $2, linked_at = $3
+          WHERE code = $1 AND discord_user_id IS NULL
+          RETURNING user_id`,
+        [code, discordUserId, at],
+      );
+      if (rows[0]) return { status: 'LINKED', userId: rows[0].user_id };
+    } catch (error) {
+      if ((error as { code?: string }).code === '23505') return { status: 'DISCORD_TAKEN' };
+      throw error;
+    }
+    const { rows } = await this.#pool.query<{ discord_user_id: string | null }>(
+      `SELECT discord_user_id FROM discord_links WHERE code = $1`,
+      [code],
+    );
+    if (!rows[0]) return { status: 'UNKNOWN_CODE' };
+    return { status: 'CODE_USED', sameDiscordUser: rows[0].discord_user_id === discordUserId };
   }
 
   // --- Users ---------------------------------------------------------------

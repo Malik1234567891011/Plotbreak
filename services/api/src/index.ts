@@ -2,6 +2,7 @@ import { buildServer } from './server.js';
 import { assertProductionReady, loadConfig } from './context.js';
 import { PostgresRepository } from './repo/postgres.js';
 import { sweepPendingTranslations } from './translate-story.js';
+import { startDiscordBot } from './discord-bot.js';
 
 const config = loadConfig();
 
@@ -49,6 +50,9 @@ ready
       );
     }, TRANSLATION_SWEEP_MS);
     sweep.unref();
+    // The Discord quest bot. Here, not in `buildServer`, for the same reason
+    // as the sweep: the test suite must never open a gateway connection.
+    void startDiscordBot(app.ctx, app.log);
   })
   .then(() => {
     app.log.info(

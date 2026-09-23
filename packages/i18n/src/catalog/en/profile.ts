@@ -139,6 +139,13 @@ export const profile = {
   'badge.marathon.body': 'Play a thousand turns.',
   'badge.rare_ending.title': 'Rare Ending',
   'badge.rare_ending.body': 'Find an ending almost nobody finds.',
+  'badge.discord_hello.title': 'Say Hi on Discord',
+  'badge.discord_hello.body': 'Join the Plotbreak Discord and post your code there.',
+  'badges.discord_code_label': 'Your code',
+  'badges.discord_copy': 'Copy',
+  'badges.discord_copied': 'Copied',
+  'badges.discord_copy_a11y': 'Copy your code, {code}',
+  'badges.discord_open': 'Open Discord',
   'badges.secret_title': '???',
   'badges.secret_body': 'Some endings are harder to find than others.',
   /**

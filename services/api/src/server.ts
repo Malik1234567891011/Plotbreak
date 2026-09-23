@@ -48,6 +48,7 @@ import {
 } from './context.js';
 import { NoVerifierError } from './store-verifier.js';
 import { detach, detachedTracker, tracker } from './analytics.js';
+import { newDiscordCode } from './discord-bot.js';
 import { TurnStreamHub, formatSse } from './stream.js';
 import { RATE_LIMITS, ruleFor } from './rate-limit.js';
 import {
@@ -1018,8 +1019,25 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     // badge itself — so even if this route is somehow called twice, the grant
     // cannot land twice.
     await ctx.wallet.grant(user.userId, 'PROMO_GRANT', badge.creditReward, `badge:${user.userId}:${badge.id}`);
+    tracker(ctx, request, user).track('badge_claimed', { badgeId: badge.id, creditReward: badge.creditReward });
     const balance = await ctx.wallet.getBalance(user.userId);
     return { claimed: true, credited: badge.creditReward, balance };
+  });
+
+  // The Discord quest's code (docs/discord-quest.md). Made on first ask and
+  // stable after, so the code a player copied last week still works.
+  app.get('/v1/community/discord', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    let row;
+    try {
+      row = await ctx.repo.getOrCreateDiscordCode(user.userId, newDiscordCode());
+    } catch {
+      // A fresh code collided with somebody else's. One retry makes that a
+      // one-in-a-billion-squared event.
+      row = await ctx.repo.getOrCreateDiscordCode(user.userId, newDiscordCode());
+    }
+    return { code: row.code, linked: row.discordUserId !== null };
   });
 
   app.delete<{ Params: { commentId: string } }>('/v1/comments/:commentId', async (request, reply) => {

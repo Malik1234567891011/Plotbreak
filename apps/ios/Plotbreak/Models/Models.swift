@@ -1114,6 +1114,11 @@ struct BadgesResponse: Codable, Hashable {
     @Default<EmptyArray<String>> var newlyUnlocked: [String]
 }
 
+struct DiscordQuestResponse: Codable, Hashable {
+    var code: String
+    var linked: Bool
+}
+
 struct ClaimBadgeResponse: Codable, Hashable {
     var claimed: Bool
     var credited: Int

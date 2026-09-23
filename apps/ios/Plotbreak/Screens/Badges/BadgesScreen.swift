@@ -20,8 +20,12 @@ struct BadgesScreen: View {
     @Environment(Router.self) private var router
     @Environment(\.translator) private var t
 
+    @Environment(\.scenePhase) private var scenePhase
+
     @State private var badges: [BadgeView] = []
     @State private var claiming: String?
+    /// The Discord quest's code, fetched only while that badge is still open.
+    @State private var discordCode: String?
 
     private var claimable: [BadgeView] { badges.filter { $0.unlockedAt != nil && $0.claimedAt == nil } }
     private var inProgress: [BadgeView] { badges.filter { $0.unlockedAt == nil } }
@@ -64,7 +68,12 @@ struct BadgesScreen: View {
                         if !inProgress.isEmpty {
                             VStack(alignment: .leading, spacing: Theme.Spacing.md) {
                                 Txt(t("badges.in_progress"), .h3)
-                                ForEach(inProgress) { badge in BadgeRow(badge: badge) }
+                                ForEach(inProgress) { badge in
+                                    BadgeRow(badge: badge)
+                                    if badge.id == DiscordQuestPanel.badgeId, let discordCode {
+                                        DiscordQuestPanel(code: discordCode)
+                                    }
+                                }
                             }
                         }
 
@@ -84,10 +93,16 @@ struct BadgesScreen: View {
         }
         .task { await load() }
         .onChange(of: store.isGuest) { _, _ in Task { await load() } }
+        // Back from Discord after posting the code: the badge is likely ready.
+        .onChange(of: scenePhase) { _, phase in if phase == .active { Task { await load() } } }
     }
 
     private func load() async {
         if let response = try? await store.api.badges() { badges = response.badges }
+        let discordOpen = badges.contains { $0.id == DiscordQuestPanel.badgeId && $0.unlockedAt == nil }
+        if discordOpen, discordCode == nil {
+            discordCode = try? await store.api.discordQuest().code
+        }
     }
 
     private func claim(_ badge: BadgeView) async {
@@ -102,6 +117,51 @@ struct BadgesScreen: View {
             // Already collected, or offline. Reloading shows the truth either way.
         }
         await load()
+    }
+}
+
+// MARK: - Discord quest
+
+/// The code to post in the server, and the way there. The bot unlocks the
+/// badge when it sees the code; the claim is the ordinary one above.
+struct DiscordQuestPanel: View {
+    static let badgeId = "discord_hello"
+
+    let code: String
+
+    @Environment(\.translator) private var t
+    @State private var copied = false
+
+    var body: some View {
+        Card {
+            VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                HStack(spacing: Theme.Spacing.md) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Txt(t("badges.discord_code_label"), .micro, color: Theme.Colors.textMuted)
+                        Text(code)
+                            .font(.system(size: 20, weight: .semibold, design: .monospaced))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .textSelection(.enabled)
+                    }
+                    Spacer(minLength: Theme.Spacing.sm)
+                    Button {
+                        UIPasteboard.general.string = code
+                        Haptic.play(.success)
+                        copied = true
+                    } label: {
+                        Text(copied ? t("badges.discord_copied") : t("badges.discord_copy"))
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(Theme.Colors.textOnLight)
+                            .padding(.horizontal, Theme.Spacing.lg)
+                            .padding(.vertical, 9)
+                            .background(Theme.Colors.light, in: Capsule())
+                    }
+                    .buttonStyle(PressScaleStyle())
+                    .accessibilityLabel(t("badges.discord_copy_a11y", ["code": code]))
+                }
+                DiscordButton(label: t("badges.discord_open"), source: "badges")
+            }
+        }
     }
 }
 

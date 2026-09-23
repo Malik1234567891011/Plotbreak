@@ -209,6 +209,21 @@ export interface StoryEditorial {
   readonly staffPick: boolean;
 }
 
+export interface DiscordLinkRow {
+  readonly userId: string;
+  readonly code: string;
+  readonly discordUserId: string | null;
+  readonly linkedAt: string | null;
+}
+
+export type DiscordLinkResult =
+  | { readonly status: 'LINKED'; readonly userId: string }
+  | { readonly status: 'UNKNOWN_CODE' }
+  /** This code already belongs to a linked Discord account (maybe this one). */
+  | { readonly status: 'CODE_USED'; readonly sameDiscordUser: boolean }
+  /** This Discord account already linked a different Plotbreak account. */
+  | { readonly status: 'DISCORD_TAKEN' };
+
 export interface UserBadgeRow {
   readonly userId: string;
   readonly badgeId: string;
@@ -415,6 +430,13 @@ export interface Repository {
   upsertBadge(row: UserBadgeRow): Promise<void>;
   /** Claims exactly once. False means somebody already claimed it. */
   claimBadge(userId: string, badgeId: string, at: string): Promise<boolean>;
+
+  // --- Discord quest (docs/discord-quest.md) ---------------------------
+
+  /** The player's code, stored as `candidate` if they have none yet. */
+  getOrCreateDiscordCode(userId: string, candidate: string): Promise<DiscordLinkRow>;
+  /** Links a Discord account to whoever owns `code`. Each side links once. */
+  linkDiscord(code: string, discordUserId: string, at: string): Promise<DiscordLinkResult>;
 
   // --- Create mode -----------------------------------------------------
 

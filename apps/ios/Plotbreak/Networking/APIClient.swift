@@ -302,6 +302,11 @@ actor APIClient {
         try await request("POST", "/v1/badges/\(badgeId)/claim")
     }
 
+    /// The player's code for the Discord quest. See docs/discord-quest.md.
+    func discordQuest() async throws -> DiscordQuestResponse {
+        try await request("GET", "/v1/community/discord")
+    }
+
     // MARK: Sessions
 
     func createSession(storyId: String, _ body: CreateSessionRequest) async throws -> SessionDetailResponse {
