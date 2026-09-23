@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { NoopSink } from '@plotbreak/analytics';
-import { discordAccountCreatedAt, handleDiscordMessage, newDiscordCode } from './discord-bot.js';
+import { discordAccountCreatedAt, handleDiscordMessage, localeFromRoles, newDiscordCode } from './discord-bot.js';
 import { syncBadges, type PlayerRecord } from './badges.js';
 import { MemoryRepository } from './repo/memory.js';
 import type { AppContext } from './context.js';
@@ -20,7 +20,8 @@ const empty: PlayerRecord = {
 function setup() {
   const repo = new MemoryRepository();
   const ctx = { repo, analytics: new NoopSink(), config: { environment: 'dev' } } as unknown as AppContext;
-  const say = (authorId: string, content: string) => handleDiscordMessage(ctx, { authorId, content }, NOW);
+  const say = (authorId: string, content: string, locale?: 'en' | 'fr') =>
+    handleDiscordMessage(ctx, { authorId, content, locale }, NOW);
   return { repo, say };
 }
 
@@ -84,5 +85,24 @@ describe('the Discord quest bot', () => {
     await say(OLD, 'PB-AAAAAA');
     expect((await say(OLD, 'PB-AAAAAA'))?.reaction).toBe('✅');
     expect((await say(OTHER_OLD, 'PB-AAAAAA'))?.reaction).toBe('❌');
+  });
+});
+
+describe('reply language', () => {
+  it('is French for the Français role, however it is spelled', () => {
+    expect(localeFromRoles(['Français'])).toBe('fr');
+    expect(localeFromRoles(['francais', 'Member'])).toBe('fr');
+  });
+
+  it('is English for the English role, no role, or both roles', () => {
+    expect(localeFromRoles(['English'])).toBe('en');
+    expect(localeFromRoles([])).toBe('en');
+    expect(localeFromRoles(['Français', 'English'])).toBe('en');
+  });
+
+  it('answers in the language it is given', async () => {
+    const { say } = setup();
+    expect((await say(OLD, 'PB-QQQQQQ', 'fr'))?.text).toMatch(/^Je ne reconnais pas/);
+    expect((await say(OLD, 'PB-QQQQQQ'))?.text).toMatch(/^I don't recognise/);
   });
 });

@@ -35,6 +35,37 @@ export function discordAccountCreatedAt(discordUserId: string): Date {
   return new Date(Number(BigInt(discordUserId) >> 22n) + DISCORD_EPOCH_MS);
 }
 
+export type DiscordLocale = 'en' | 'fr';
+
+/**
+ * The reply language, from the member's roles. A `Français` role (with or
+ * without the ç, any case) means French; everyone else, including somebody
+ * holding both roles, gets English.
+ */
+export function localeFromRoles(roleNames: readonly string[]): DiscordLocale {
+  const names = roleNames.map((n) => n.normalize('NFD').replace(/\p{M}/gu, '').trim().toLowerCase());
+  return names.includes('francais') && !names.includes('english') ? 'fr' : 'en';
+}
+
+const REPLIES = {
+  en: {
+    tooNew: (days: number) => `This Discord account is too new to claim the reward. Try again once it is ${days} days old.`,
+    unknown: 'I don\'t recognise that code. Copy it from Profile → Badges in Plotbreak.',
+    alreadyYours: 'You\'re already linked. Open Plotbreak → Badges to claim your credits.',
+    usedByOther: 'That code has already been used by someone else.',
+    discordTaken: 'This Discord account is already linked to another Plotbreak account.',
+    linked: 'Welcome in! Open Plotbreak → Badges and claim your 250 credits.',
+  },
+  fr: {
+    tooNew: (days: number) => `Ce compte Discord est trop récent pour la récompense. Réessaie quand il aura ${days} jours.`,
+    unknown: 'Je ne reconnais pas ce code. Copie-le depuis Profil → Badges dans Plotbreak.',
+    alreadyYours: 'Ton compte est déjà lié. Ouvre Plotbreak → Badges pour récupérer tes crédits.',
+    usedByOther: 'Ce code a déjà été utilisé par quelqu’un d’autre.',
+    discordTaken: 'Ce compte Discord est déjà lié à un autre compte Plotbreak.',
+    linked: 'Bienvenue ! Ouvre Plotbreak → Badges et récupère tes 250 crédits.',
+  },
+} as const;
+
 export interface DiscordReply {
   readonly reaction: string;
   readonly text: string;
@@ -46,31 +77,29 @@ export interface DiscordReply {
  */
 export async function handleDiscordMessage(
   ctx: Pick<AppContext, 'repo' | 'analytics' | 'config'>,
-  message: { readonly authorId: string; readonly content: string },
+  message: { readonly authorId: string; readonly content: string; readonly locale?: DiscordLocale },
   now: Date = new Date(),
 ): Promise<DiscordReply | null> {
   const match = CODE_PATTERN.exec(message.content);
   if (!match) return null;
+  const say = REPLIES[message.locale ?? 'en'];
   const code = `PB-${match[1]!.toUpperCase()}`;
 
   const ageDays = (now.getTime() - discordAccountCreatedAt(message.authorId).getTime()) / 86_400_000;
   if (ageDays < MIN_DISCORD_ACCOUNT_AGE_DAYS) {
-    return {
-      reaction: '⏳',
-      text: `This Discord account is too new to claim the reward. Try again once it is ${MIN_DISCORD_ACCOUNT_AGE_DAYS} days old.`,
-    };
+    return { reaction: '⏳', text: say.tooNew(MIN_DISCORD_ACCOUNT_AGE_DAYS) };
   }
 
   const result = await ctx.repo.linkDiscord(code, message.authorId, now.toISOString());
   switch (result.status) {
     case 'UNKNOWN_CODE':
-      return { reaction: '❓', text: 'I don\'t recognise that code. Copy it from Profile → Badges in Plotbreak.' };
+      return { reaction: '❓', text: say.unknown };
     case 'CODE_USED':
       return result.sameDiscordUser
-        ? { reaction: '✅', text: 'You\'re already linked. Open Plotbreak → Badges to claim your credits.' }
-        : { reaction: '❌', text: 'That code has already been used by someone else.' };
+        ? { reaction: '✅', text: say.alreadyYours }
+        : { reaction: '❌', text: say.usedByOther };
     case 'DISCORD_TAKEN':
-      return { reaction: '❌', text: 'This Discord account is already linked to another Plotbreak account.' };
+      return { reaction: '❌', text: say.discordTaken };
     case 'LINKED': {
       await ctx.repo.upsertBadge({
         userId: result.userId,
@@ -91,7 +120,7 @@ export async function handleDiscordMessage(
         contractVersion: CONTRACT_VERSION,
         environment: ctx.config.environment,
       }).track('discord_linked', { discordAccountAgeDays: Math.floor(ageDays) });
-      return { reaction: '✅', text: 'Welcome in! Open Plotbreak → Badges and claim your 250 credits.' };
+      return { reaction: '✅', text: say.linked };
     }
   }
 }
@@ -119,7 +148,11 @@ export async function startDiscordBot(
   client.on(Events.MessageCreate, (message) => {
     if (message.author.bot) return;
     if (channelId && message.channelId !== channelId) return;
-    void handleDiscordMessage(ctx, { authorId: message.author.id, content: message.content })
+    // Role names come from the guild's role cache, which the Guilds intent
+    // already fills, so this needs no extra (privileged) members intent.
+    const roleNames = message.member?.roles.cache.map((role) => role.name) ?? [];
+    const locale = localeFromRoles(roleNames);
+    void handleDiscordMessage(ctx, { authorId: message.author.id, content: message.content, locale })
       .then(async (reply) => {
         if (!reply) return;
         await message.react(reply.reaction).catch(() => undefined);
