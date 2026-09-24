@@ -49,6 +49,9 @@ private struct Spark: Identifiable {
 struct CreditCelebration: View {
     let credits: Int
     let locale: AppLocale
+    /// A collected badge: its mark replaces the coin and its name sits above
+    /// the number. Nil for a purchase.
+    var badge: BadgeView? = nil
     let onDone: () -> Void
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -110,11 +113,22 @@ struct CreditCelebration: View {
                         }
                     }
 
-                    CreditGlyph(size: 64)
-                        .scaleEffect(glyph)
-                        .shadow(color: Theme.Colors.warning.opacity(0.45), radius: 22)
+                    Group {
+                        if let badge {
+                            BadgeMark(badge: badge, earned: true, size: 72)
+                        } else {
+                            CreditGlyph(size: 64)
+                        }
+                    }
+                    .scaleEffect(glyph)
+                    .shadow(color: Theme.Colors.warning.opacity(0.45), radius: 22)
                 }
                 .frame(width: 240, height: 200)
+
+                if let badge {
+                    Txt(t.badge(badge.id, "title", fallback: badge.title), .h3)
+                        .opacity(scrim)
+                }
 
                 Text(amount)
                     .font(.system(size: 40, weight: .bold, design: .monospaced))

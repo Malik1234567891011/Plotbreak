@@ -73,6 +73,8 @@ const SUBJECTS: Record<string, string> = {
   ending_collector: 'a ring of three antique keys hung together',
   month_of_nights: 'a row of three moons waxing from crescent to full',
   marathon: 'a tall obelisk with a single band of light around its top',
+  // Community. Not Discord's own logo: a mark of ours, about saying hello.
+  discord_hello: 'a rounded speech bubble with a small waving hand inside it',
 };
 
 async function main(): Promise<void> {

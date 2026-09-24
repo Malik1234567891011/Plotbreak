@@ -24,6 +24,8 @@ struct BadgesScreen: View {
 
     @State private var badges: [BadgeView] = []
     @State private var claiming: String?
+    /// The badge just collected, while its burst plays.
+    @State private var celebrating: BadgeView?
     /// The Discord quest's code, fetched only while that badge is still open.
     @State private var discordCode: String?
 
@@ -91,6 +93,14 @@ struct BadgesScreen: View {
                 }
             }
         }
+        .overlay {
+            if let celebrating {
+                CreditCelebration(credits: celebrating.creditReward, locale: store.locale, badge: celebrating) {
+                    self.celebrating = nil
+                }
+                .transition(.opacity)
+            }
+        }
         .task { await load() }
         .onChange(of: store.isGuest) { _, _ in Task { await load() } }
         // Back from Discord after posting the code: the badge is likely ready.
@@ -113,6 +123,9 @@ struct BadgesScreen: View {
             let response = try await store.api.claimBadge(badge.id)
             store.setBalance(response.balance)
             Haptic.play(.success)
+            // Only after the server has paid, so the burst never celebrates
+            // credits that did not land.
+            celebrating = badge
         } catch {
             // Already collected, or offline. Reloading shows the truth either way.
         }
@@ -241,6 +254,7 @@ struct BadgeRow<Action: View>: View {
 struct BadgeMark: View {
     let badge: BadgeView
     let earned: Bool
+    var size: CGFloat = 40
 
     private var art: Image? {
         UIImage(named: "badge_\(badge.id)").map { Image(uiImage: $0) }
@@ -249,9 +263,9 @@ struct BadgeMark: View {
     var body: some View {
         Group {
             if let art {
-                art.resizable().scaledToFit().frame(width: 40, height: 40)
+                art.resizable().scaledToFit().frame(width: size, height: size)
             } else {
-                Txt(badge.icon, .h2)
+                Text(badge.icon).font(.system(size: size * 0.8))
             }
         }
         // Locked marks are dimmed rather than greyed: the colour is the reward,
