@@ -37,7 +37,7 @@ Real joins log `Discord welcome sent` with `preview: false`; previews have
 `preview: true`. Delivery errors log `Discord welcome failed` (or the preview
 variant) without stopping the rewards bot or API.
 
-Disable Discord's built-in random join messages in Server Settings → Overview
+Disable Discord's built-in random join messages in Server Settings → Engagement
 if the custom welcome should be the only greeting. This is independent of the
 welcome channel and the bot.
 

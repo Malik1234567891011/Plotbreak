@@ -36,22 +36,22 @@ export function welcomeMessage(member: WelcomeMember, preview = false): MessageC
         {
           name: '🇬🇧 Welcome to the playable anime!',
           value: [
-            `Read <#${channels.rules}>, then say hi in <#${channels.english}>. Share your adventures, meet other players, and help shape Plotbreak.`,
-            `**250 free credits:** in the app, open **Profile → Badges → Say Hi on Discord**. Copy your code and post it in <#${channels.english}>. Once I confirm with ✅, return to Badges and tap **Collect 250**.`,
-            `One-time reward; your Discord account must be at least 7 days old. Need a hand? <#${channels.support}>.`,
+            `You’re in! Say hi in <#${channels.english}>, read <#${channels.rules}>, and share your next adventure.`,
+            `🎁 **250 free credits:** find your code in **Profile → Badges**. See the pinned guide in <#${channels.rules}> for steps and eligibility.`,
+            `🛟 Need help? <#${channels.support}>.`,
           ].join('\n\n'),
         },
         {
           name: '🇫🇷 Bienvenue dans l’anime jouable !',
           value: [
-            `Lis <#${channels.rules}>, puis présente-toi dans <#${channels.french}>. Raconte tes aventures, rencontre d’autres joueurs et aide-nous à faire évoluer Plotbreak.`,
-            `**250 crédits gratuits :** dans l’app, ouvre **Profil → Badges → Salut sur Discord**. Copie ton code et poste-le dans <#${channels.english}>. Après ma confirmation ✅, retourne dans Badges et touche **Récupérer 250**.`,
-            `Récompense unique ; ton compte Discord doit avoir au moins 7 jours. Besoin d’aide ? <#${channels.aide}>.`,
+            `Te voilà ! Présente-toi dans <#${channels.french}>, lis <#${channels.rules}> et raconte ta prochaine aventure.`,
+            `🎁 **250 crédits gratuits :** trouve ton code dans **Profil → Badges**. Les étapes et conditions sont dans le guide épinglé de <#${channels.rules}>.`,
+            `🛟 Besoin d’aide ? <#${channels.aide}>.`,
           ].join('\n\n'),
         },
       ],
       image: { url: `attachment://${ART_NAME}` },
-      footer: { text: 'PLOTBREAK • Make the story yours. / À toi d’écrire la suite. • Art generated with AI / Illustration générée par IA' },
+      footer: { text: 'PLOTBREAK • AI-generated art / Illustration générée par IA' },
     }],
     files: [{ attachment: WELCOME_ART_PATH, name: ART_NAME, description: 'Plotbreak: Welcome / Bienvenue — anime city and violet portal, AI-generated illustration.' }],
     // Discord deduplicates repeated events and overlapping deploys for this join.
