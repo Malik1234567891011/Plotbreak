@@ -13,6 +13,7 @@ import { randomInt } from 'node:crypto';
 import { analyticsFor } from '@plotbreak/analytics';
 import { CONTRACT_VERSION } from '@plotbreak/contracts';
 import type { AppContext } from './context.js';
+import { registerDiscordWelcome } from './discord-welcome.js';
 
 export const DISCORD_BADGE_ID = 'discord_hello';
 
@@ -141,12 +142,19 @@ export async function startDiscordBot(
   const token = env.DISCORD_BOT_TOKEN;
   if (!token) return null;
   const channelId = env.DISCORD_CLAIM_CHANNEL_ID || null;
+  const welcomeChannelId = env.DISCORD_WELCOME_CHANNEL_ID || null;
 
   // Loaded only when configured, so a process without a token never pays for it.
   const { Client, Events, GatewayIntentBits } = await import('discord.js');
   const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
+    intents: [
+      GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent,
+      // Enable Server Members Intent in the portal before setting this variable.
+      ...(welcomeChannelId ? [GatewayIntentBits.GuildMembers] : []),
+    ],
   });
+
+  if (welcomeChannelId) registerDiscordWelcome(client, welcomeChannelId, log);
 
   client.on(Events.MessageCreate, (message) => {
     if (message.author.bot) return;
@@ -163,7 +171,7 @@ export async function startDiscordBot(
       })
       .catch((error: unknown) => log.warn(error, 'discord quest message failed'));
   });
-  client.once(Events.ClientReady, (ready) => log.info({ bot: ready.user.tag, channelId }, 'Discord quest bot ready'));
+  client.once(Events.ClientReady, (ready) => log.info({ bot: ready.user.tag, channelId, welcomeChannelId }, 'Discord quest bot ready'));
 
   try {
     await client.login(token);
