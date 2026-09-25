@@ -39,4 +39,7 @@ export const notifications = {
   'notifications.story_toggle_help': 'Once a day, about the run you left unfinished.',
   'notifications.denied': 'Notifications are turned off for Plotbreak.',
   'notifications.open_settings': 'Open Settings',
+  /** The badge-credits reminder: money already earned and never collected. */
+  'notifications.badges_title': 'Credits waiting in your badges',
+  'notifications.badges_body': 'You have earned credits you have not collected yet. Tap to claim them.',
 } as const;

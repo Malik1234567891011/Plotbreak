@@ -267,13 +267,22 @@ struct WalletScreen: View {
                 OfferCard(
                     offer: offer,
                     price: price(for: offer),
-                    badge: offer.badge.map(badgeWord),
+                    badge: rungWord(offer),
                     ends: offer.expiresAt.map { t("wallet.ends", ["when": relativeTime($0)]) },
                     selected: selected == offer.productId,
                     dimmed: busy != nil && busy != offer.productId,
-                    locale: store.locale
+                    locale: store.locale,
+                    turnCost: turnCost
                 ) {
                     selected = offer.productId
+                    Telemetry.track(.offerSelected, [
+                        "productId": offer.productId,
+                        "tier": offer.tier?.rawValue ?? "UNKNOWN",
+                        "turnsOffered": (offer.credits + offer.bonusCredits) / max(1, turnCost),
+                        "balance": store.balance,
+                        "firstPurchase": wallet?.firstPurchaseBonusAvailable ?? false,
+                        "trigger": shortfall == nil ? "organic" : "wall",
+                    ])
                 }
                 .disabled(busy != nil)
                 .accessibilityLabel(t("wallet.offer_a11y", [
@@ -454,7 +463,9 @@ struct WalletScreen: View {
         // between them is how many players change their mind at Apple's prompt.
         Telemetry.track(.purchaseStarted, [
             "productId": offer.productId,
-            "firstPurchase": store.wallet?.firstPurchaseOfferExpiresAt != nil,
+            "firstPurchase": wallet?.firstPurchaseBonusAvailable ?? false,
+            "balance": store.balance,
+            "trigger": shortfall == nil ? "organic" : "wall",
         ])
 
         let outcome = await store.purchases.buy(offer.productId)
@@ -547,6 +558,22 @@ struct WalletScreen: View {
     /// `STORE_OFFERS` carries the badge as an English literal; the catalogue
     /// decides how to say it. A badge nobody has keyed yet falls back to what
     /// the offer sent.
+    /// What a turn costs at the tier this player is on.
+    private var turnCost: Int {
+        max(1, TierCopy.info(store.qualityTier, bootstrap: store.bootstrap).costCredits)
+    }
+
+    /// The rung's label, chosen from the enum so it can be translated. Falls
+    /// back to the server's English string for a payload that predates `tier`.
+    private func rungWord(_ offer: StoreOffer) -> String? {
+        if offer.firstPurchaseOnly || offer.bonusCredits > 0 { return t("wallet.badge_first_purchase") }
+        switch offer.tier {
+        case .POPULAR: return t("wallet.badge_popular")
+        case .BEST_VALUE: return t("wallet.badge_best_value")
+        case .STARTER, .UNKNOWN, .none: return offer.badge.map(badgeWord)
+        }
+    }
+
     private func badgeWord(_ badge: String) -> String {
         switch badge {
         case "Popular": return t("wallet.badge_popular")  // i18n-exempt: the offer's value, matched to pick its key
@@ -618,20 +645,30 @@ private struct OfferCard: View {
     let selected: Bool
     let dimmed: Bool
     let locale: AppLocale
+    /// What a turn costs this player, so the pack can be priced in turns.
+    let turnCost: Int
     let action: () -> Void
 
     @Environment(\.translator) private var t
 
+    /// Turns first, credits second. A new player cannot answer "is 2,000 a
+    /// lot?", and making them do that arithmetic at the moment of purchase is
+    /// most of why the store reads as a spreadsheet.
+    private var turns: Int { (offer.credits + offer.bonusCredits) / max(1, turnCost) }
+
     var body: some View {
         RadioCard(selected: selected, accent: Theme.Colors.textPrimary, action: action) {
             VStack(alignment: .leading, spacing: 2) {
-                Text(t("wallet.credits_count", ["credits": Format.credits(offer.credits, locale: locale)]))
+                Text(t("wallet.turns_count", ["count": turns]))
                     .font(.system(size: 15, weight: .medium))
                     .foregroundStyle(Theme.Colors.textPrimary)
+                Text(t("wallet.credits_count", ["credits": Format.credits(offer.credits + offer.bonusCredits, locale: locale)]))
+                    .font(.system(size: 12))
+                    .foregroundStyle(Theme.Colors.textDim)
                 if offer.bonusCredits > 0 {
                     Text(t("wallet.bonus_badge", ["bonus": Format.credits(offer.bonusCredits, locale: locale)]))
                         .font(.system(size: 12))
-                        .foregroundStyle(Theme.Colors.textDim)
+                        .foregroundStyle(Theme.Colors.accentPrimary)
                 }
                 if let ends {
                     Txt(ends, .micro, color: Theme.Colors.warning)

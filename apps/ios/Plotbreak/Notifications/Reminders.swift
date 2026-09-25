@@ -44,6 +44,8 @@ enum ISO8601 {
 enum ReminderKind: String, CaseIterable, Sendable {
     case dailyCredits
     case storyWaiting
+    /// Credits the player has already earned from badges and never collected.
+    case badgeCredits
 
     /// Prefix on every request id we own, so cancelling ours never cancels
     /// something else that happens to be scheduled.
@@ -51,6 +53,7 @@ enum ReminderKind: String, CaseIterable, Sendable {
         switch self {
         case .dailyCredits: return "plotbreak.reminder.daily"
         case .storyWaiting: return "plotbreak.reminder.story"
+        case .badgeCredits: return "plotbreak.reminder.badges"
         }
     }
 }
@@ -63,6 +66,8 @@ struct ReminderPlan: Equatable, Sendable {
     var sessionId: String?
     /// The story's name, which is the notification's title.
     var storyTitle: String?
+    /// How many credits are waiting, for `badgeCredits`.
+    var badgeCredits: Int?
 
     var requestId: String {
         "\(kind.prefix).\(Int(fireAt.timeIntervalSince1970))"
@@ -79,6 +84,8 @@ struct ReminderSchedule: Equatable, Sendable {
     static let creditsHour = 19
     /// Late morning, so the two reminders are never the same buzz twice.
     static let storyHour = 11
+    /// Mid-afternoon, clear of both of the above.
+    static let badgesHour = 16
     /// How many days ahead to arm.
     ///
     /// Local notifications are a standing arrangement rather than a queue we
@@ -133,6 +140,18 @@ struct ReminderSchedule: Equatable, Sendable {
         return occurrences(hour: Self.storyHour, after: earliest)
     }
 
+    /// When to mention credits sitting unclaimed in the badges screen.
+    ///
+    /// **One occurrence, not a week of them.** The other two reminders describe
+    /// something that renews daily; this describes a fact that stays true until
+    /// the player acts on it, so arming seven of them would be the same
+    /// sentence seven afternoons running. It re-arms on the next launch while
+    /// the credits are still unclaimed, and stops the moment they are — which
+    /// also keeps the app's promise of two notifications a day.
+    func badgeCredits(now: Date) -> [Date] {
+        Array(occurrences(hour: Self.badgesHour, after: now).prefix(1))
+    }
+
     /// Everything to schedule, from what the app already knows.
     ///
     /// `session` is the most recently played unfinished run, or nil when there
@@ -143,6 +162,7 @@ struct ReminderSchedule: Equatable, Sendable {
         session: (sessionId: String, title: String, lastPlayedAt: Date)?,
         wantsDailyCredits: Bool,
         wantsStoryWaiting: Bool,
+        claimableBadgeCredits: Int = 0,
         now: Date
     ) -> [ReminderPlan] {
         var plans: [ReminderPlan] = []
@@ -160,6 +180,13 @@ struct ReminderSchedule: Equatable, Sendable {
                         storyTitle: session.title
                     )
                 }
+        }
+        // Gated on the credits toggle rather than on a third switch: it is the
+        // same promise the player already agreed to — we will tell you when
+        // there are credits — and one more row in Settings buys nothing.
+        if wantsDailyCredits, claimableBadgeCredits > 0 {
+            plans += badgeCredits(now: now)
+                .map { ReminderPlan(kind: .badgeCredits, fireAt: $0, badgeCredits: claimableBadgeCredits) }
         }
         return plans
     }
@@ -228,6 +255,7 @@ enum Reminders {
     static func refresh(
         nextClaimAt: Date?,
         session: (sessionId: String, title: String, lastPlayedAt: Date)?,
+        claimableBadgeCredits: Int = 0,
         translator: Translator,
         settings: ReminderSettings = .standard,
         schedule: ReminderSchedule = ReminderSchedule(),
@@ -249,6 +277,7 @@ enum Reminders {
             session: session,
             wantsDailyCredits: settings.dailyCredits,
             wantsStoryWaiting: settings.storyWaiting,
+            claimableBadgeCredits: claimableBadgeCredits,
             now: now
         )
 
@@ -263,6 +292,9 @@ enum Reminders {
                 // thing we can say, and the reason to open the app.
                 content.title = plan.storyTitle ?? translator("nav.library")
                 content.body = translator("notifications.story_body")
+            case .badgeCredits:
+                content.title = translator("notifications.badges_title")
+                content.body = translator("notifications.badges_body")
             }
             content.sound = .default
             var info: [String: Any] = [kindKey: plan.kind.rawValue]

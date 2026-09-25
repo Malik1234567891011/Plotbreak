@@ -221,6 +221,11 @@ struct WalletSummary: Codable, Hashable {
     var dailyClaimAvailable: Bool
     var nextDailyClaimAt: String?
     var firstPurchaseOfferExpiresAt: String?
+    /// Whether this account's next purchase is still its first, and doubled.
+    /// Replaces reading a countdown off `firstPurchaseOfferExpiresAt`, which
+    /// expired 48 hours after signup and so was always gone by the time
+    /// somebody reached the wall.
+    @Default<False> var firstPurchaseBonusAvailable: Bool
 }
 
 struct StoreOffer: Codable, Hashable, Identifiable {
@@ -229,9 +234,18 @@ struct StoreOffer: Codable, Hashable, Identifiable {
     var credits: Int
     @Default<Zero> var bonusCredits: Int
     var referencePriceUsd: Double
+    /// The server's English label. Kept for older payloads; the rung below is
+    /// what this app renders, so the words can be in the player's language.
     var badge: String?
+    var tier: StoreOfferTier?
     @Default<False> var firstPurchaseOnly: Bool
     var expiresAt: String?
+}
+
+enum StoreOfferTier: String, LenientEnum {
+    case STARTER, POPULAR, BEST_VALUE
+    case UNKNOWN
+    static var fallback: StoreOfferTier { .UNKNOWN }
 }
 
 enum LedgerEntryType: String, LenientEnum {
@@ -524,6 +538,21 @@ struct PlayerIdentity: Codable, Hashable {
     @Default<EmptyString> var worldKnowsAboutYou: String = ""
     @Default<EmptyStringMap> var advanced: [String: String] = [:]
     var portraitAssetId: String?
+}
+
+/// A patch to the player's own identity, mid-run. Omitted fields are untouched,
+/// so this encodes only what the player actually changed.
+struct UpdateIdentityBody: Codable, Hashable {
+    var displayName: String?
+    var pronouns: String?
+    var grammar: PlayerGrammar?
+    var archetypeId: String?
+    var worldKnowsAboutYou: String?
+}
+
+struct UpdateIdentityResponse: Codable, Hashable {
+    var identity: PlayerIdentity
+    var revision: Int
 }
 
 struct CreateSessionRequest: Codable, Hashable {

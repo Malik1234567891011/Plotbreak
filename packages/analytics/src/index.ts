@@ -36,6 +36,9 @@ export const EVENT_NAMES = [
   // §37.3 economy
   'wallet_opened',
   'insufficient_credits_shown',
+  'paywall_shown',
+  'offer_selected',
+  'paywall_dismissed',
   'purchase_started',
   'purchase_completed',
   'purchase_failed',
@@ -112,9 +115,27 @@ export const EventProperties = {
     usedQuickSetup: z.boolean(),
     /** §9.1 — the 90-second target is only measurable if it is measured. */
     setupDurationMs: z.number().int(),
+    /**
+     * Which door this run came through.
+     *
+     * `instant` — the player pressed Play and the story started with a default
+     * identity. `customized` — they went through character setup.
+     *
+     * The reason the whole activation change is measurable. Story detail →
+     * first turn was 64%, and the mandatory setup screen sat in the middle of
+     * it; splitting the funnel by this property is what says whether removing
+     * the toll produced players or only sessions. Optional so that a build
+     * that predates it still validates.
+     */
+    startPath: z.enum(['instant', 'customized']).optional(),
   }),
 
-  first_turn_submitted: z.object({ storyId: z.string(), secondsSinceAppOpen: z.number().int() }),
+  first_turn_submitted: z.object({
+    storyId: z.string(),
+    secondsSinceAppOpen: z.number().int(),
+    /** Carried through from `session_started`, so the join is one query. */
+    startPath: z.enum(['instant', 'customized']).optional(),
+  }),
   turn_submitted: z.object({
     storyId: z.string(),
     turnIndex: z.number().int(),
@@ -155,14 +176,86 @@ export const EventProperties = {
   sign_in_completed: z.object({ provider: z.string() }),
   guest_account_migrated: z.object({ sessionsMoved: z.number().int() }),
 
-  wallet_opened: z.object({ balance: z.number().int(), trigger: z.string() }),
+  wallet_opened: z.object({
+    balance: z.number().int(),
+    trigger: z.string(),
+    /** Turns on the run that sent them here, when one did. */
+    turnsPlayed: z.number().int().optional(),
+    storyId: z.string().optional(),
+  }),
+  /**
+   * The wall, counted where the player meets it.
+   *
+   * The extra properties exist to separate four explanations of the same
+   * number that currently look identical on a chart: they do not want the
+   * offer, they cannot understand it, they are waiting for tomorrow's free
+   * credits, or checkout is broken. `wallCount` and `firstWall` in particular
+   * say whether somebody is refusing once or refusing repeatedly — 23 of the
+   * 29 players at 10–14 turns hit this and none of them bought anything, and
+   * we cannot presently tell how many times each of them saw it.
+   */
   insufficient_credits_shown: z.object({
     required: z.number().int(),
     balance: z.number().int(),
     shortfall: z.number().int(),
     qualityTier: z.string(),
+    storyId: z.string().optional(),
+    turnsPlayed: z.number().int().optional(),
+    /** How many walls this player has hit, ever, including this one. */
+    wallCount: z.number().int().optional(),
+    firstWall: z.boolean().optional(),
   }),
-  purchase_started: z.object({ productId: z.string(), firstPurchase: z.boolean() }),
+  /**
+   * The continuation offer was put in front of somebody, and what it said.
+   *
+   * Distinct from `wallet_opened`: this is the sheet that knows which story is
+   * waiting, and it is the denominator for every conversion question worth
+   * asking.
+   */
+  paywall_shown: z.object({
+    /** `wall` — they ran out mid-action. `organic` — they came looking. */
+    trigger: z.enum(['wall', 'organic']),
+    storyId: z.string().optional(),
+    sessionId: z.string().optional(),
+    balance: z.number().int(),
+    shortfall: z.number().int(),
+    turnsPlayed: z.number().int().optional(),
+    wallCount: z.number().int().optional(),
+    /** Whether the doubled first purchase was on offer. */
+    firstPurchaseBonus: z.boolean(),
+    /** The headline offer's id, so "what did they see" is answerable. */
+    offerShown: z.string(),
+    /** Turns the headline offer buys at the tier they are playing. */
+    turnsOffered: z.number().int(),
+  }),
+  /** A pack was tapped. Precedes Apple's sheet, and may never reach it. */
+  offer_selected: z.object({
+    productId: z.string(),
+    tier: z.string(),
+    turnsOffered: z.number().int(),
+    balance: z.number().int(),
+    firstPurchase: z.boolean(),
+    trigger: z.enum(['wall', 'organic']),
+  }),
+  /**
+   * They left without buying. The other half of `paywall_shown`, and the event
+   * that turns "nobody converts" into "this many looked and walked".
+   */
+  paywall_dismissed: z.object({
+    trigger: z.enum(['wall', 'organic']),
+    balance: z.number().int(),
+    /** Whether a pack was ever tapped before they left. */
+    offerSelected: z.boolean(),
+    /** Whether Apple's payment sheet was reached. */
+    reachedCheckout: z.boolean(),
+  }),
+  purchase_started: z.object({
+    productId: z.string(),
+    firstPurchase: z.boolean(),
+    balance: z.number().int().optional(),
+    turnsPlayed: z.number().int().optional(),
+    trigger: z.enum(['wall', 'organic']).optional(),
+  }),
   purchase_completed: z.object({
     productId: z.string(),
     creditsGranted: z.number().int(),

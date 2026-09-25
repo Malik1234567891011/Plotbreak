@@ -179,12 +179,15 @@ export const profile = {
   'badge.marathon.body': 'Joue mille tours.',
   'badge.rare_ending.title': 'Fin rare',
   'badge.rare_ending.body': 'Trouve une fin que presque personne ne trouve.',
+  // fr-lint-disable-next-line FRC002 — «Discord» est un nom propre.
   'badge.discord_hello.title': 'Salut sur Discord',
+  // fr-lint-disable-next-line FRC002 — «Discord» est un nom propre.
   'badge.discord_hello.body': 'Rejoins le Discord de Plotbreak et poste ton code.',
   'badges.discord_code_label': 'Ton code',
   'badges.discord_copy': 'Copier',
   'badges.discord_copied': 'Copié',
   'badges.discord_copy_a11y': 'Copier ton code, {code}',
+  // fr-lint-disable-next-line FRC002 — «Discord» est un nom propre.
   'badges.discord_open': 'Ouvrir Discord',
   'badges.secret_title': '???',
   'badges.secret_body': 'Certaines fins sont plus dures à trouver que d’autres.',

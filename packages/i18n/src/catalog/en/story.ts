@@ -32,6 +32,20 @@ export const story = {
   'story.continue': 'Continue',
   /** The primary CTA when there is no run yet. Begin playing, not "start a file". */
   'story.start': 'Start story',
+  /**
+   * The primary CTA now: one tap from the shelf into the story, with a default
+   * identity. One word, because the distance between wanting to play and
+   * playing is the thing this whole screen is being measured on.
+   */
+  'story.play': 'Play',
+  /** While the session is being created. Present continuous, not "Loading". */
+  'story.starting': 'Starting…',
+  /**
+   * The secondary action beside Play. Named for what it gives — a character of
+   * your own — rather than for the form it opens, and never worded as a step
+   * to skip: the people this is for actively want it.
+   */
+  'story.customize_character': 'Customize character',
 
   /** Stat label: how many people have played this world. Not "player characters". */
   'story.stat_views': 'Views',

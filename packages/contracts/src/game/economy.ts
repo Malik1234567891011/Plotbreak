@@ -183,9 +183,32 @@ export const WalletSummary = z
     dailyClaimAvailable: z.boolean(),
     nextDailyClaimAt: z.string().nullable(),
     firstPurchaseOfferExpiresAt: z.string().nullable(),
+    /**
+     * Whether this account's next purchase is still its first, and therefore
+     * doubled.
+     *
+     * Replaces reading a countdown off `firstPurchaseOfferExpiresAt`. That
+     * field gated the first-purchase offer on 48 hours from signup, which put
+     * it in front of people who had played nothing and had expired for
+     * everybody by the time they hit the wall at turn 10 — the one moment they
+     * were actually considering it. The bonus is now a fact about the account,
+     * not a timer, so it is there whenever the player gets there.
+     */
+    firstPurchaseBonusAvailable: z.boolean().default(false),
   })
   .strict();
 export type WalletSummary = z.infer<typeof WalletSummary>;
+
+/**
+ * Where an offer sits on the ladder, as a value rather than as a label.
+ *
+ * `badge` below is an English string the server writes, which is wrong in a
+ * product where French is first-class — "Popular" reached a French wallet
+ * untranslated. The rung is the fact; what it is called is the client's to
+ * decide, in the player's own language.
+ */
+export const StoreOfferTier = z.enum(['STARTER', 'POPULAR', 'BEST_VALUE']);
+export type StoreOfferTier = z.infer<typeof StoreOfferTier>;
 
 export const StoreOffer = z
   .object({
@@ -195,6 +218,8 @@ export const StoreOffer = z
     /** Reference price only — the store is the source of truth at purchase. */
     referencePriceUsd: z.number(),
     badge: z.string().nullable().default(null),
+    /** Which rung this is. Null for an offer that is not on the ladder. */
+    tier: StoreOfferTier.nullable().default(null),
     firstPurchaseOnly: z.boolean().default(false),
     expiresAt: z.string().nullable().default(null),
   })
@@ -216,6 +241,23 @@ export type StoreOffer = z.infer<typeof StoreOffer>;
 const DEFAULT_TURN_COST = 60;
 export const GRANT_NEW_USER = 10 * DEFAULT_TURN_COST;
 export const GRANT_DAILY = 5 * DEFAULT_TURN_COST;
+
+/**
+ * Credits, in the unit a player actually reasons in.
+ *
+ * "2,000 credits" asks somebody who has never seen our economy to work out
+ * whether that is a lot. "About 33 more turns" does not. Every price surface
+ * leads with this number and keeps the credits as the small print.
+ *
+ * Counted at the tier the player is actually on, because the same pack is 66
+ * turns on Quick and 10 on Apex, and quoting the Vivid figure to somebody
+ * playing Apex is a promise we would break within the hour. Rounded down: a
+ * player who was told "about 33" and got 34 is pleased, and the reverse is a
+ * complaint.
+ */
+export function turnsForCredits(credits: number, tier: QualityTier = 'VIVID'): number {
+  return Math.floor(credits / QUALITY_TIERS[tier].costCredits);
+}
 export const FORK_COST_CREDITS = 120;
 export const ANIMATION_COST_CREDITS = 600;
 
@@ -235,31 +277,112 @@ export const CREATE_COMPILE_COST_CREDITS = 180;
 export const CREATE_ASSIST_COST_CREDITS = 15;
 
 /**
- * The credit ladder, matched to the reference app the owner is benchmarking.
+ * The credit ladder: three rungs, on Apple's own price points.
  *
  * ⚠️ `referencePriceUsd` is a **display fallback only** — what a player is
  * actually charged comes from StoreKit, which is the source of truth and shows
- * their local currency. Each `productId` below therefore needs a matching
- * consumable in App Store Connect, priced on one of Apple's price points. Some
- * of these figures (2.89, 71.00) are copied from an app that does not appear to
- * bill through Apple, so the nearest available point may differ by a few cents;
- * when it does, the store's number wins on screen and this one is only ever
- * seen before products load.
+ * their local currency. Each `productId` below needs a matching consumable in
+ * App Store Connect; until one exists, the product simply does not load and the
+ * rung is hidden rather than sold at a price we invented.
+ *
+ * The old ladder had five rungs from $2.89 to $142.99 and they read as one
+ * undifferentiated column of numbers. Worse, the cheapest way into the product
+ * was $2.89 and the offer we pushed at a first-time buyer was **$19.99** — an
+ * order of magnitude above the only first purchase anybody has actually made.
+ * Our one genuine payer spent $2.89 and then played 98 turns; the evidence we
+ * have says the first transaction wants to be small.
+ *
+ * Three rungs, each answering a different sentence:
+ *
+ * | rung | the player's thought | credits/$ |
+ * |---|---|---|
+ * | Starter $0.99 | "I just want to keep playing." | 707 |
+ * | Popular $4.99 | "I play this pretty regularly." | 761 |
+ * | Best value $9.99 | "I know I like this." | 821 |
+ *
+ * Value rises with size, which is the only honest reason to offer a bigger
+ * pack. The old rungs are not deleted — see `LEGACY_STORE_OFFERS`.
  */
 export const STORE_OFFERS: readonly z.infer<typeof StoreOffer>[] = [
-  { productId: 'crd_2000', credits: 2000, bonusCredits: 0, referencePriceUsd: 2.89, badge: null, firstPurchaseOnly: false, expiresAt: null },
-  { productId: 'crd_10000', credits: 10000, bonusCredits: 300, referencePriceUsd: 14.49, badge: 'Popular', firstPurchaseOnly: false, expiresAt: null },
-  { productId: 'crd_20000', credits: 20000, bonusCredits: 1000, referencePriceUsd: 28.49, badge: null, firstPurchaseOnly: false, expiresAt: null },
-  { productId: 'crd_50000', credits: 50000, bonusCredits: 3500, referencePriceUsd: 71.0, badge: 'Best value', firstPurchaseOnly: false, expiresAt: null },
-  { productId: 'crd_100000', credits: 100000, bonusCredits: 10000, referencePriceUsd: 142.99, badge: null, firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_starter_700', credits: 700, bonusCredits: 0, referencePriceUsd: 0.99, badge: null, tier: 'STARTER', firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_3800', credits: 3800, bonusCredits: 0, referencePriceUsd: 4.99, badge: 'Popular', tier: 'POPULAR', firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_8200', credits: 8200, bonusCredits: 0, referencePriceUsd: 9.99, badge: 'Best value', tier: 'BEST_VALUE', firstPurchaseOnly: false, expiresAt: null },
 ];
 
+/**
+ * Rungs we no longer show, kept so that money already in flight still lands.
+ *
+ * A player on an older build is looking at the old ladder right now, and a
+ * StoreKit transaction can be redelivered days after it was made. Dropping
+ * these from the lookup would take Apple's money and grant nothing — so they
+ * stay resolvable forever, and only stop being *offered*.
+ */
+export const LEGACY_STORE_OFFERS: readonly z.infer<typeof StoreOffer>[] = [
+  { productId: 'crd_2000', credits: 2000, bonusCredits: 0, referencePriceUsd: 2.89, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_10000', credits: 10000, bonusCredits: 300, referencePriceUsd: 14.49, badge: 'Popular', tier: null, firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_20000', credits: 20000, bonusCredits: 1000, referencePriceUsd: 28.49, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_50000', credits: 50000, bonusCredits: 3500, referencePriceUsd: 71.0, badge: 'Best value', tier: null, firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_100000', credits: 100000, bonusCredits: 10000, referencePriceUsd: 142.99, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_first_21000', credits: 21000, bonusCredits: 0, referencePriceUsd: 19.99, badge: 'First purchase', tier: null, firstPurchaseOnly: true, expiresAt: null },
+];
+
+/**
+ * The first purchase, which is a different decision from every one after it.
+ *
+ * Same $0.99 product as the starter rung, with its credits doubled by
+ * `bonusCredits`. That is a real doubling of a real pack rather than a
+ * manufactured discount off a price nobody was going to pay — the player can
+ * check it against the rung sitting directly below, and it survives §3.8's ban
+ * on fake scarcity because nothing about it is fake and nothing expires.
+ *
+ * The point of purchase #1 is not the 99 cents. It is moving somebody from
+ * "free player" to "payer", which is the threshold that predicts everything
+ * after it.
+ */
 export const FIRST_PURCHASE_OFFER: z.infer<typeof StoreOffer> = {
-  productId: 'crd_first_21000',
-  credits: 21000,
-  bonusCredits: 0,
-  referencePriceUsd: 19.99,
+  productId: 'crd_starter_700',
+  credits: 700,
+  bonusCredits: 700,
+  referencePriceUsd: 0.99,
   badge: 'First purchase',
+  tier: 'STARTER',
   firstPurchaseOnly: true,
   expiresAt: null,
 };
+
+/**
+ * Every product we will ever honour, current or retired.
+ *
+ * One lookup for the grant path, so that adding a rung to the ladder can never
+ * quietly become "we stopped crediting the old one".
+ */
+export function offerForProduct(productId: string): z.infer<typeof StoreOffer> | null {
+  return (
+    STORE_OFFERS.find((offer) => offer.productId === productId) ??
+    LEGACY_STORE_OFFERS.find((offer) => offer.productId === productId) ??
+    null
+  );
+}
+
+/**
+ * The extra credits a purchase earns for being the account's first.
+ *
+ * Decided here, from account state, rather than from which product was bought
+ * — the starter rung and the first-purchase offer are deliberately the *same*
+ * App Store product, so that a first-time buyer taps one $0.99 button and gets
+ * double, and everybody else taps the same button and gets the pack. Encoding
+ * the bonus in a second product id would mean two SKUs at one price and a way
+ * for a returning buyer to claim the wrong one.
+ *
+ * Only the starter rung doubles. The bonus exists to make purchase #1 small and
+ * obvious, not to discount the whole catalogue for whoever happens to arrive
+ * with $9.99 in mind.
+ */
+export function firstPurchaseBonusFor(
+  offer: z.infer<typeof StoreOffer>,
+  alreadyPurchased: boolean,
+): number {
+  if (alreadyPurchased) return 0;
+  if (offer.tier !== 'STARTER') return 0;
+  return offer.credits;
+}

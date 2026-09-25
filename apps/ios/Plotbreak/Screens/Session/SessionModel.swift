@@ -339,6 +339,37 @@ final class SessionModel {
         requestScroll(animated: true)
     }
 
+    /// The credit wall, from wherever it was reached.
+    ///
+    /// Both callers used to `present(.wallet(...))`, which dropped somebody who
+    /// was mid-sentence into a currency store with a balance and five packs of
+    /// numbers. They go to the continuation sheet instead: it knows which story
+    /// stopped, prices the offer in turns, and shows the free routes.
+    private func reachWall(shortfall: Int, required: Int, balance overrideBalance: Int? = nil) {
+        guard let store, let router else { return }
+        let seen = store.recordWall()
+        let shown = overrideBalance ?? balance
+
+        Telemetry.track(.insufficientCreditsShown, sessionId: sessionId, [
+            "required": required,
+            "balance": shown,
+            "shortfall": shortfall,
+            "qualityTier": tier.id.rawValue,
+            "storyId": detail?.session.storyId ?? "",
+            "turnsPlayed": turns.count,
+            "wallCount": seen,
+            "firstWall": seen == 1,
+        ])
+
+        router.present(.continueStory(
+            sessionId: sessionId,
+            storyId: detail?.session.storyId ?? "",
+            storyTitle: detail?.session.title ?? "",
+            shortfall: max(0, shortfall),
+            turnsPlayed: turns.count
+        ))
+    }
+
     private func requestScroll(animated: Bool, anchor: ScrollRequest.Anchor = .bottom) {
         scrollRequest = ScrollRequest(id: scrollRequest.id + 1, animated: animated, anchor: anchor)
     }
@@ -356,16 +387,13 @@ final class SessionModel {
         // what opens the wallet, with the exact shortfall.
         guard affordable else {
             Haptic.play(.warning)
-            // §37.3 — the paywall, counted where the player meets it. This
-            // branch never reaches the server at all, so if it were not
-            // emitted here it would not be counted anywhere.
-            Telemetry.track(.insufficientCreditsShown, sessionId: sessionId, [
-                "required": tier.costCredits,
-                "balance": balance,
-                "shortfall": tier.costCredits - balance,
-                "qualityTier": tier.id.rawValue,
-            ])
-            router.present(.wallet(shortfall: tier.costCredits - balance))
+            // The player's words are kept, not dropped: they came back to the
+            // composer on the failure path below and they should survive the
+            // wall too, so that buying credits returns them to the sentence
+            // they had already written rather than to an empty box.
+            draft = text
+            saveDraftNow(text)
+            reachWall(shortfall: tier.costCredits - balance, required: tier.costCredits)
             return
         }
 
@@ -431,13 +459,11 @@ final class SessionModel {
             if let api = error as? APIError, api.isInsufficientCredits {
                 // The race the guard above cannot catch: affordable when Send
                 // was pressed, not affordable by the time the server looked.
-                Telemetry.track(.insufficientCreditsShown, sessionId: sessionId, [
-                    "required": api.requiredCredits ?? tier.costCredits,
-                    "balance": api.balanceCredits ?? balance,
-                    "shortfall": api.shortfall ?? tier.costCredits,
-                    "qualityTier": tier.id.rawValue,
-                ])
-                router.present(.wallet(shortfall: api.shortfall ?? tier.costCredits))
+                reachWall(
+                    shortfall: api.shortfall ?? tier.costCredits,
+                    required: api.requiredCredits ?? tier.costCredits,
+                    balance: api.balanceCredits
+                )
             } else if let api = error as? APIError, api.isStaleRevision {
                 // Spec §17.4 — refresh and let the player resend deliberately.
                 await load()

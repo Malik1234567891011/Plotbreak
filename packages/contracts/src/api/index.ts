@@ -20,6 +20,7 @@ import {
   FactionState,
   GameEvent,
   MemoryFact,
+  PlayerGrammar,
   PlayerIdentity,
   QuestProgress,
   RelationshipState,
@@ -681,6 +682,29 @@ export const TimelineResponse = z
   .object({ entries: z.array(TimelineEntry) })
   .strict();
 export type TimelineResponse = z.infer<typeof TimelineResponse>;
+
+/**
+ * Personalising a character partway through a run.
+ *
+ * `Play` starts a story with a default identity so that nobody has to fill in a
+ * form before they have read a word. The decision still deserves to exist — it
+ * is just better asked of somebody who has met the cast, which is what this is
+ * for. Every field is optional; an omitted one is left exactly as it was.
+ *
+ * Deliberately narrow. It cannot reach `advanced`, `portraitAssetId` or
+ * anything the engine derives, because this is a player editing themselves and
+ * not a second character-creation API.
+ */
+export const UpdateIdentityRequest = z
+  .object({
+    displayName: z.string().min(1).max(40).optional(),
+    pronouns: z.string().max(24).optional(),
+    grammar: PlayerGrammar.optional(),
+    archetypeId: z.string().nullable().optional(),
+    worldKnowsAboutYou: z.string().max(300).optional(),
+  })
+  .strict();
+export type UpdateIdentityRequest = z.infer<typeof UpdateIdentityRequest>;
 
 export const CanonCorrectionRequest = z
   .object({

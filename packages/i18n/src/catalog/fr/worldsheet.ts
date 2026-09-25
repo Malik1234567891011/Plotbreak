@@ -314,4 +314,12 @@ export const worldsheet = {
    * passif est proscrit, et la promesse est plus claire à l'endroit.
    */
   'worldsheet.fork_explainer': 'Bifurquer copie ce monde au moment choisi. La branche d’origine reste intacte.',
+  'identity.title': 'Tu es qui ?',
+  'identity.blurb': 'Tu peux changer ça quand tu veux. Ça change la façon dont l’histoire te voit à partir de maintenant.',
+  'identity.background': 'Ton passé',
+  'identity.background_hint': 'D’où tu viens, du point de vue de ce monde.',
+  'identity.edit': 'Modifier',
+  'identity.save': 'Enregistrer',
+  'identity.saving': 'Enregistrement…',
+  'identity.applies_next': 'Ça prend effet au prochain passage. Rien de ce que tu as déjà lu ne change.',
 } as const;

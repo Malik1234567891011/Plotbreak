@@ -329,6 +329,15 @@ actor APIClient {
         try await request("GET", "/v1/sessions/\(sessionId)/world-sheet")
     }
 
+    /// Change who the player is, from inside the run.
+    ///
+    /// Every field is optional and an omitted one is left alone, so this is a
+    /// patch rather than a second character-creation call. It takes effect from
+    /// the next beat; nothing already written is rewritten.
+    func updateIdentity(_ sessionId: String, _ body: UpdateIdentityBody) async throws -> UpdateIdentityResponse {
+        try await request("PATCH", "/v1/sessions/\(sessionId)/identity", body: body)
+    }
+
     func timeline(_ sessionId: String) async throws -> TimelineResponse {
         try await request("GET", "/v1/sessions/\(sessionId)/timeline")
     }

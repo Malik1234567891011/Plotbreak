@@ -3,6 +3,51 @@
   "nonRenewingSubscriptions": [],
   "products": [
     {
+      "displayPrice": "0.99",
+      "familyShareable": false,
+      "internalID": "908202784",
+      "localizations": [
+        {
+          "description": "700 credits \u2014 about 11 more turns.",
+          "displayName": "Starter pack",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "crd_starter_700",
+      "referenceName": "Starter pack",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "4.99",
+      "familyShareable": false,
+      "internalID": "820666748",
+      "localizations": [
+        {
+          "description": "3,800 credits \u2014 about 63 more turns.",
+          "displayName": "3,800 credits",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "crd_3800",
+      "referenceName": "3,800 credits",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "9.99",
+      "familyShareable": false,
+      "internalID": "372410197",
+      "localizations": [
+        {
+          "description": "8,200 credits \u2014 about 136 more turns.",
+          "displayName": "8,200 credits",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "crd_8200",
+      "referenceName": "8,200 credits",
+      "type": "Consumable"
+    },
+    {
       "displayPrice": "2.89",
       "familyShareable": false,
       "internalID": "157445149",

@@ -1,9 +1,9 @@
 import type { LedgerEntry, LedgerEntryType, WalletSummary } from '@plotbreak/contracts';
 import {
-  FIRST_PURCHASE_OFFER,
   GRANT_DAILY,
   GRANT_NEW_USER,
-  STORE_OFFERS,
+  firstPurchaseBonusFor,
+  offerForProduct,
 } from '@plotbreak/contracts';
 import type { PurchaseTransaction, Repository } from './repo/types.js';
 
@@ -99,11 +99,6 @@ export class WalletService {
     const dailyClaimAvailable = !nextDaily || this.#now() >= nextDaily;
 
     const hasPurchased = entries.some((e) => e.type === 'PURCHASE');
-    const created = entries[0]?.createdAt ? new Date(entries[0].createdAt) : this.#now();
-    // Spec §20.4 — a real 48-hour window, server-authoritative, never reset by
-    // reinstalling.
-    const offerExpiry = new Date(created.getTime() + 48 * 3600 * 1000);
-    const offerLive = !hasPurchased && this.#now() < offerExpiry;
 
     return {
       accountId,
@@ -113,7 +108,13 @@ export class WalletService {
       lifetimeSpent,
       dailyClaimAvailable,
       nextDailyClaimAt: nextDaily?.toISOString() ?? null,
-      firstPurchaseOfferExpiresAt: offerLive ? offerExpiry.toISOString() : null,
+      // Nothing expires any more. The 48-hour window this used to carry was
+      // counted from signup, so it was spent on people who had not played yet
+      // and was always gone by the wall at turn 10 — see
+      // `firstPurchaseBonusAvailable` on the contract. Kept on the wire as null
+      // so an older client reads "no countdown" rather than a missing field.
+      firstPurchaseOfferExpiresAt: null,
+      firstPurchaseBonusAvailable: !hasPurchased,
     };
   }
 
@@ -324,14 +325,20 @@ export class WalletService {
     platform: PurchaseTransaction['platform'],
     charged: { priceLocal: number | null; currency: string | null } = { priceLocal: null, currency: null },
   ): Promise<{ credited: number; duplicate: boolean; entry: LedgerEntry | null }> {
-    const offer =
-      STORE_OFFERS.find((o) => o.productId === productId) ??
-      (FIRST_PURCHASE_OFFER.productId === productId ? FIRST_PURCHASE_OFFER : null);
+    const offer = offerForProduct(productId);
     if (!offer) return { credited: 0, duplicate: false, entry: null };
 
     const key = `purchase:${platform}:${storeTransactionId}`;
     const existing = await this.#repo.findLedgerEntryByIdempotencyKey(accountId, key);
     if (existing) return { credited: 0, duplicate: true, entry: existing };
+
+    // Whether this is the account's first purchase, read *before* the ledger
+    // write below — the row this call is about to append is itself a PURCHASE,
+    // so asking afterwards would always answer "no" and the bonus would never
+    // be paid to anyone.
+    const ledger = await this.#repo.listLedger(accountId);
+    const alreadyPurchased = ledger.some((entry) => entry.type === 'PURCHASE');
+    const bonusCredits = offer.bonusCredits + firstPurchaseBonusFor(offer, alreadyPurchased);
 
     // The credit and the receipt, written in one transaction. §33.5 wants a
     // `purchase_transactions` row per purchase so the money can be reconciled
@@ -355,7 +362,7 @@ export class WalletService {
         storeTransactionId,
         productId,
         creditsGranted: offer.credits,
-        bonusGranted: offer.bonusCredits,
+        bonusGranted: bonusCredits,
         priceLocal: charged.priceLocal,
         currency: charged.currency,
         // The route only reaches here on a verdict the store signed off on.
@@ -364,11 +371,11 @@ export class WalletService {
       },
     );
 
-    if (offer.bonusCredits > 0) {
+    if (bonusCredits > 0) {
       await this.#append(
         accountId,
         'BONUS',
-        offer.bonusCredits,
+        bonusCredits,
         'STORE_PURCHASE_BONUS',
         storeTransactionId,
         `${key}:bonus`,
@@ -376,7 +383,7 @@ export class WalletService {
       );
     }
 
-    return { credited: offer.credits + offer.bonusCredits, duplicate: false, entry };
+    return { credited: offer.credits + bonusCredits, duplicate: false, entry };
   }
 
   /**

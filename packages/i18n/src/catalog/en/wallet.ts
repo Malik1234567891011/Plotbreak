@@ -335,4 +335,31 @@ export const wallet = {
   'wallet.daily_ready_body': 'Your daily credits are waiting. Claim them above.',
   /** Daily tab while the next claim is counting down. */
   'wallet.daily_body': 'Come back once a day for free credits. They never expire.',
+
+  // --- The continuation sheet (the credit wall) ---
+  //
+  // Everything here sells the next beat of a story somebody is already in,
+  // never a quantity of currency. The turns are the headline and the credits
+  // are the receipt, because a new player cannot answer "is 2,000 a lot?".
+  /** Sheet title. Deliberately not "Wallet" or "Store". */
+  'continue.title': 'Keep playing',
+  'continue.heading': 'Your story is waiting',
+  /** {title} is the world's own name — what is waiting, said specifically. */
+  'continue.subheading': 'You are out of credits partway through {title}.',
+  /** The headline number. Turns, not credits. */
+  'continue.turns_headline': '{count, plural, one {# more turn} other {# more turns}}',
+  /** The small print under it, for anyone who does want the number. */
+  'continue.credits_detail': '{credits} credits',
+  /** Primary button. The price is the store's own localised string. */
+  'continue.cta': 'Continue story · {price}',
+  'continue.working': 'One moment…',
+  /** Free route, when tonight's grant is already claimable. */
+  'continue.claim_daily': 'Claim your free daily credits',
+  /** Free route, when it is not. {when} is "in 5 hours" or "in 2 days". */
+  'continue.free_tomorrow': 'More free credits {when}',
+  /** Free route: credits already earned from badges and never collected. */
+  'continue.badge_credits': '{credits} credits waiting in your badges',
+  'continue.see_all_packs': 'See all credit packs',
+  /** A pack's size in the unit players reason in. Credits are the second line. */
+  'wallet.turns_count': '{count, plural, one {# turn} other {# turns}}',
 } as const;

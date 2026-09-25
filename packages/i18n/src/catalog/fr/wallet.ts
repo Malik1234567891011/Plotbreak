@@ -363,4 +363,18 @@ export const wallet = {
   'wallet.credits_count': '{credits} crédits',
   'wallet.daily_ready_body': 'Tes crédits quotidiens t’attendent. Récupère-les ci-dessus.',
   'wallet.daily_body': 'Reviens une fois par jour pour des crédits gratuits. Ils n’expirent jamais.',
+
+  // --- La feuille de continuation (le mur de crédits) ---
+  'continue.title': 'Continue à jouer',
+  'continue.heading': 'Ton histoire t’attend',
+  'continue.subheading': 'Tu n’as plus de crédits en plein milieu de {title}.',
+  'continue.turns_headline': '{count, plural, one {# tour de plus} other {# tours de plus}}',
+  'continue.credits_detail': '{credits} crédits',
+  'continue.cta': 'Continue l’histoire · {price}',
+  'continue.working': 'Un instant…',
+  'continue.claim_daily': 'Récupère tes crédits gratuits du jour',
+  'continue.free_tomorrow': 'D’autres crédits gratuits {when}',
+  'continue.badge_credits': '{credits} crédits t’attendent dans tes badges',
+  'continue.see_all_packs': 'Voir tous les packs de crédits',
+  'wallet.turns_count': '{count, plural, one {# tour} other {# tours}}',
 } as const;

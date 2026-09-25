@@ -57,6 +57,9 @@ export const story = {
    */
   'story.continue': 'Continue l’histoire',
   'story.start': 'Commence l’histoire',
+  'story.play': 'Jouer',
+  'story.starting': 'Ça commence…',
+  'story.customize_character': 'Personnalise ton personnage',
 
   /**
    * Combien de personnes ont joué ce monde. ⚠️ Côté anglais, l’étiquette dit

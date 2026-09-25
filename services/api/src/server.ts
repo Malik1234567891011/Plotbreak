@@ -15,7 +15,9 @@ import {
   DEFAULT_QUALITY_TIER,
   FIRST_PURCHASE_OFFER,
   FORK_COST_CREDITS,
+  offerForProduct,
   PurchaseRestoreRequest,
+  UpdateIdentityRequest,
   PurchaseSyncRequest,
   QUALITY_TIERS,
   STORE_OFFERS,
@@ -111,6 +113,23 @@ import { EMPTY_SIGNALS } from './repo/types.js';
  * world still opens it, in whatever language it has, because somebody who was
  * handed a link is asking for that world specifically.
  */
+/**
+ * The three rungs, with the starter doubled when the player has never bought.
+ *
+ * One function so the authenticated wallet and the public offers list can never
+ * disagree about what is being sold. The first-purchase offer replaces the
+ * starter rung in place rather than being prepended as a fourth card: the old
+ * shape showed a $19.99 offer *above* a ladder that started at $2.89, so the
+ * first thing a first-time buyer saw was the most expensive thing we sell.
+ */
+function ladderFor(firstPurchaseBonusAvailable: boolean) {
+  return STORE_OFFERS.map((offer) =>
+    firstPurchaseBonusAvailable && offer.tier === FIRST_PURCHASE_OFFER.tier
+      ? { ...FIRST_PURCHASE_OFFER }
+      : offer,
+  );
+}
+
 function readableIn(story: StoryVersion, locale: Locale): boolean {
   if (story.official) return true;
   if (story.sourceLocale === locale) return true;
@@ -1294,6 +1313,70 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     };
   });
 
+  /**
+   * Who the player is, decided or revised from inside the story.
+   *
+   * `Play` starts a run with a default identity rather than making everybody
+   * fill in a form first, so this is where that decision actually gets made —
+   * by somebody who has read a scene and has an opinion, rather than by
+   * somebody looking at a world they have never seen.
+   *
+   * Free, and not a turn. It changes what the storyteller is told about the
+   * player from the next beat onwards; it never rewrites the beats already
+   * written, because those are what happened and the transcript is replayed
+   * verbatim on every later request.
+   */
+  app.patch<{ Params: { sessionId: string } }>('/v1/sessions/:sessionId/identity', async (request, reply) => {
+    const loaded = await loadSession(request.params.sessionId, request, reply);
+    if (!loaded) return reply;
+    const { session, story, state } = loaded;
+
+    const parsed = UpdateIdentityRequest.safeParse(request.body ?? {});
+    if (!parsed.success) {
+      return sendError(reply, 400, 'INVALID_REQUEST', 'That character change is malformed.');
+    }
+    const patch = parsed.data;
+
+    // A world that names its own protagonist is not up for renaming. Itachi's
+    // premise says who you are; letting a player call themselves something else
+    // contradicts prose the story has already printed.
+    if (story.protagonist.kind === 'NAMED' && (patch.displayName !== undefined || patch.pronouns !== undefined)) {
+      return sendError(reply, 409, 'PROTAGONIST_IS_NAMED', 'This world already knows who you are.');
+    }
+
+    if (patch.archetypeId !== undefined && patch.archetypeId !== null) {
+      if (!story.archetypes.some((a) => a.id === patch.archetypeId)) {
+        return sendError(reply, 400, 'INVALID_REQUEST', 'That is not one of this world’s backgrounds.', {
+          archetypeId: patch.archetypeId,
+          available: story.archetypes.map((a) => a.id),
+        });
+      }
+    }
+
+    const identity = {
+      ...state.player.identity,
+      ...(patch.displayName !== undefined ? { displayName: patch.displayName.trim() } : {}),
+      ...(patch.pronouns !== undefined ? { pronouns: patch.pronouns.trim() || 'they/them' } : {}),
+      ...(patch.grammar !== undefined ? { grammar: patch.grammar } : {}),
+      ...(patch.archetypeId !== undefined ? { archetypeId: patch.archetypeId } : {}),
+      ...(patch.worldKnowsAboutYou !== undefined ? { worldKnowsAboutYou: patch.worldKnowsAboutYou } : {}),
+    };
+
+    const next = { ...state, player: { ...state.player, identity } };
+    const saved = await ctx.repo.saveState(session.sessionId, state.revision, next);
+    if (!saved) {
+      return sendError(reply, 409, 'REVISION_CONFLICT', 'The story moved while you were editing. Try again.');
+    }
+    // The session row carries the name the library lists a run under, so it
+    // moves too — otherwise the story calls them one thing and the shelf calls
+    // them another.
+    if (patch.displayName !== undefined) {
+      await ctx.repo.updateSession(session.sessionId, { displayName: identity.displayName });
+    }
+
+    return { identity, revision: next.revision };
+  });
+
   app.delete<{ Params: { sessionId: string } }>('/v1/sessions/:sessionId', async (request, reply) => {
     const loaded = await loadSession(request.params.sessionId, request, reply);
     if (!loaded) return reply;
@@ -1786,10 +1869,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (!user) return reply;
 
     const wallet = await ctx.wallet.getSummary(user.userId);
-    const offers = wallet.firstPurchaseOfferExpiresAt
-      ? [{ ...FIRST_PURCHASE_OFFER, expiresAt: wallet.firstPurchaseOfferExpiresAt }, ...STORE_OFFERS]
-      : [...STORE_OFFERS];
-    return { wallet, offers };
+    return { wallet, offers: ladderFor(wallet.firstPurchaseBonusAvailable) };
   });
 
   app.get<{ Querystring: { cursor?: string; limit?: string } }>('/v1/wallet/ledger', async (request, reply) => {
@@ -1798,7 +1878,9 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     return ctx.wallet.listLedger(user.userId, Number(request.query.limit ?? 50), request.query.cursor);
   });
 
-  app.get('/v1/store/offers', async () => ({ offers: STORE_OFFERS }));
+  // Unauthenticated, so it cannot know whose first purchase this is. It shows
+  // the plain ladder; `/v1/wallet` is what carries the doubled starter.
+  app.get('/v1/store/offers', async () => ({ offers: ladderFor(false) }));
 
   app.post('/v1/wallet/daily-claim', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);
@@ -1932,11 +2014,11 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     // that already credited, and counting it again would inflate revenue by
     // however many times a flaky network made the client try.
     if (!result.duplicate) {
-      const offer = STORE_OFFERS.find((entry) => entry.productId === verdict.productId);
+      const offer = offerForProduct(verdict.productId);
       tracker(ctx, request, user).track('purchase_completed', {
         productId: verdict.productId,
         creditsGranted: result.credited,
-        firstPurchase: Boolean(walletBefore.firstPurchaseOfferExpiresAt),
+        firstPurchase: walletBefore.firstPurchaseBonusAvailable,
         // The reference price, not what the player was charged: StoreKit bills
         // in their own currency at Apple's price point, and that number never
         // reaches this process. Good enough to rank packs, wrong for revenue —
