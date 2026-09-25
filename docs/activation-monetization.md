@@ -109,4 +109,47 @@ of its transactions days later.
 - [x] iOS: continuation wall, wallet ladder in turns
 - [x] Badges surfacing + reminder
 - [x] App Store Connect products
-- [ ] Gates, sim, device
+- [x] Gates: typecheck 0, vitest 2669 pass, fr-lint 1164/1164 0 violations
+- [x] Simulator: played end to end against a dev API
+- [ ] Device: installed, launch blocked on a locked phone
+
+## What the simulator run showed
+
+Against an API in dev-token mode with the in-memory repo (production Postgres
+deliberately untouched), on a fresh guest:
+
+- **Play** goes from the story page into a live opening scene in one tap, and
+  the default identity reaches the prose — the storyteller wrote *"your name,
+  Malik, remains stubbornly legible"* without anyone filling in a form.
+- Story detail shows `Play` / `Customize character`, and `Continue` /
+  `New session` / `Customize character` once a run exists.
+- The wall opens the continuation sheet: *"Your story is waiting / You are out
+  of credits partway through The Ninth Archive"*, **first purchase**, **7 more
+  turns**, 1,400 credits, `Continue story · $0.99`, and both free routes —
+  the daily grant and *"150 credits waiting in your badges"*.
+- The turns figure is tier-aware: 7 at Apex, and the wallet's rungs read
+  7 / 19 / 42 turns at the same tier.
+- `PATCH /v1/sessions/:id/identity` renames a run, moves the library's name with
+  it, refuses an archetype the world does not have, and refuses to rename a
+  world that names its own protagonist.
+
+**One bug found and fixed on the way:** a guest tapping *Claim your free daily
+credits* got a 403 the sheet swallowed, so the row did nothing. It now says
+*"Sign in to claim your daily credits."*
+
+## Not verified
+
+- **The purchase itself.** `simctl launch` does not apply the scheme's StoreKit
+  configuration, so the sandbox asks for a real Apple Account. Run from Xcode to
+  exercise it against `Plotbreak.storekit`, which now carries all three rungs.
+- **The device.** Built, signed and installed on the connected phone as
+  `com.plotbreak.app` pointing at `10.144.7.178:4000`; it would not launch
+  because the phone was locked.
+
+## Local testing note
+
+`apps/ios/Plotbreak/Config/Local.xcconfig` is currently overridden to point at
+the Mac's LAN address rather than `localhost`, because Local.app squats
+`127.0.0.1:4000` on this machine and wins the more specific bind. The original
+is backed up in this session's scratchpad. Restore it before building anything
+that should talk to Supabase.
