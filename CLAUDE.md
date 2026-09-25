@@ -21,11 +21,39 @@ writes the beat.
   Xcode fiddling. `./test.sh` runs the unit tests. Read `apps/ios/PORTING.md`
   first — it documents two local-setup traps that look like app bugs.
 
+## What production actually runs
+
+**Not the engine.** Since `94117af` the production turn path is `runTurnPure`:
+one frontier model that gets the world bible, the verbatim transcript and the
+player's words, and writes the beat. No parser, no `resolveIntent`, no checks,
+no dice, no relationship arithmetic. `PLOTBREAK_NARRATIVE=engine` still reaches
+the old pipeline and nothing in production sets it.
+
+The rest of this file, `README.md` and `docs/architecture.md` describe the
+deterministic engine as authoritative. For the shape of the system that is still
+the right mental model; for *what happens when a player types something today*
+it is not. `packages/engine` is now scaffolding — `commitTurn`,
+`charactersPresent`, the clock. A rule added to `resolveIntent` does not change
+play. `CONTEXT.md` and `FORENSICS.md` are why.
+
+One consequence worth knowing before touching character setup: the only player
+identity the storyteller ever reads is `archetypeId`, plus `displayName` and
+`pronouns` for a `BLANK` protagonist. `worldKnowsAboutYou` reaches only the
+legacy engine path, and `appearance` only the portrait generator.
+
 ## Things that have bitten us more than once
 
 - **Two implementations of every AI stage, and the fast/streaming one is what
   production runs.** A rule added to the non-streaming path does nothing. Hit
   six-plus times. Check both.
+- **`Release.xcconfig` includes `Local.xcconfig`.** A local `PLOTBREAK_API_URL`
+  reaches an App Store build, not just Debug, and `Local.xcconfig` is gitignored
+  so review never sees it. Always read the archive back:
+  `plutil -extract PLOTBREAK_API_URL raw <App>/Info.plist`.
+- **The shelf order is seeded, and dev seeds it differently.** Top Ranked is
+  likes descending; `seed:social` curates those likes in production (Itachi at
+  158k, featured #1). `MemoryRepository` hardcodes three old stories and zero
+  for everything else, so a local build looks reordered when nothing is wrong.
 - **`npm run typecheck` is a separate gate from `npm test`.** Vitest passes
   while tsc fails. Run both before committing, and do not pipe `check.sh`
   through `tail` — it hides the exit code.
