@@ -65,6 +65,35 @@ Direction A, chosen by Malik.
 
 ## 2. Sell continuation, not currency
 
+**Revised 2026-09-24 after Malik's review.** The first pass replaced the five
+standing packs with a three-rung ladder. That capped what anybody could spend at
+$9.99 and removed the packs our only real payer has ever bought from — a bigger,
+less reversible bet than the evidence supports. The five are back and unchanged;
+the offers sit *on top* of them.
+
+| | credits/$ |
+|---|---|
+| first purchase — $0.99 → 1,400, once per account | 1,414 |
+| flash window — $9.99 → 16,400, 12h, weekly at most | 1,642 |
+| the five standing packs, $2.89–$142.99 | 692–769 |
+
+Both value-adds are about twice the best standing rate, which is what makes them
+read as offers rather than as more rows, and a test fails if a standing pack
+ever beats one of them.
+
+The countdown is real, which is the only way to have one without breaking §3.8:
+running out mid-story opens it, the open is a zero-amount `PROMO_GRANT` in the
+append-only ledger, and the deadline is computed from that row server-side — so
+it survives a reinstall, does not move with the device clock, and cannot reopen
+for seven days. Most walls never reach the server, so `POST
+/v1/wallet/credit-wall` is where the client reports one.
+
+Turn counts are quoted at **Vivid** everywhere and say so. They used to follow
+the quality pill, so the same pack read 23 turns on Vivid and 7 on Apex; a
+number that moves under the player is worse than one that is occasionally
+generous.
+
+
 - The wall becomes a continuation moment, not a shop: what it costs to keep
   going, what that buys **in turns**, and the free routes (tomorrow's grant,
   and unclaimed badge credits) stated plainly rather than hidden.
