@@ -690,6 +690,7 @@
   "prologue.begin": "Begin",
   "prologue.ready": "Your move.",
   "prologue.ready_sub": "Type anything. The story goes where you take it.",
+  "prologue.scroll_hint": "Swipe up",
   "prologue.skip": "Skip",
   "prologue.skip_a11y": "Skip the opening and start playing",
   "rail.all": "All worlds",

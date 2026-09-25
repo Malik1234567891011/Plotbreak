@@ -281,6 +281,7 @@ export const session = {
   'session.suggestions_title': 'Suggestions',
   'session.scroll_to_latest': 'Aller au dernier tour',
   'session.latest_image_a11y': 'Ouvrir la dernière image',
+  'prologue.scroll_hint': 'Fais glisser vers le haut',
   'prologue.skip': 'Passer',
   'prologue.skip_a11y': 'Passer l’introduction et commencer à jouer',
   'prologue.ready': 'À toi.',

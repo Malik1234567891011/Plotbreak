@@ -32,12 +32,19 @@ struct PrologueView: View {
     @Environment(\.translator) private var t
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    /// Which panel is filling the screen, for the dots and for telemetry.
-    @State private var current = 0
+    /// Which panel is actually filling the screen.
+    ///
+    /// Driven by `scrollPosition`, not by `onAppear`. A `LazyVStack` builds the
+    /// next row before it is visible, so an `onAppear` hook reports panel 1 the
+    /// instant panel 0 is on screen — which advanced the dots on their own and
+    /// hid the scroll hint before anybody had scrolled.
+    @State private var visibleIndex: Int?
+    private var current: Int { visibleIndex ?? 0 }
     /// Panels already reported, so scrolling back and forth does not inflate
     /// the per-panel counts.
     @State private var reported: Set<Int> = []
     @State private var appeared = false
+    @State private var hintBob = false
 
     var body: some View {
         GeometryReader { geo in
@@ -49,7 +56,7 @@ struct PrologueView: View {
                         ForEach(Array(panels.enumerated()), id: \.offset) { index, panel in
                             panelView(panel, index: index, size: geo.size)
                                 .frame(width: geo.size.width, height: geo.size.height)
-                                .onAppear { reach(index) }
+                                .id(index)
                         }
 
                         // The handoff. A last short screen so the cinematic ends
@@ -57,7 +64,7 @@ struct PrologueView: View {
                         // the composer mid-scroll.
                         endCard
                             .frame(width: geo.size.width, height: geo.size.height)
-                            .onAppear { reach(panels.count) }
+                            .id(panels.count)
                     }
                     // Per-item snapping. Without this the paging behaviour
                     // measures the container rather than the panels and every
@@ -66,17 +73,29 @@ struct PrologueView: View {
                     .scrollTargetLayout()
                 }
                 .scrollTargetBehavior(.paging)
+                .scrollPosition(id: $visibleIndex)
 
                 header
+
+                // Nothing about a full-bleed picture says "there are two more
+                // of these underneath". Without this the first frame reads as
+                // a loading screen and the player waits.
+                if current == 0 {
+                    scrollHint
+                }
             }
         }
         // On the reader, so `geo.size` is the whole screen. Measured inside the
         // safe area instead, every panel is shorter than the page it is snapped
         // to and the next one peeks out from under the caption.
         .ignoresSafeArea()
+        .onChange(of: visibleIndex) { _, index in
+            if let index { reach(index) }
+        }
         .onAppear {
             guard !appeared else { return }
             appeared = true
+            reach(0)
             Telemetry.track(.prologueShown, [
                 "storyTitle": storyTitle,
                 "panelCount": panels.count,
@@ -85,6 +104,30 @@ struct PrologueView: View {
     }
 
     // MARK: Pieces
+
+    private var scrollHint: some View {
+        VStack(spacing: 6) {
+            Txt(t("prologue.scroll_hint"), .caption, color: .white.opacity(0.9))
+            Image(systemName: "chevron.down")
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(.white.opacity(0.9))
+                .offset(y: hintBob ? 4 : -2)
+        }
+        .padding(.horizontal, Theme.Spacing.md)
+        .padding(.vertical, Theme.Spacing.sm)
+        .background(.black.opacity(0.4), in: Capsule())
+        .frame(maxHeight: .infinity, alignment: .bottom)
+        .padding(.bottom, 44)
+        .allowsHitTesting(false)
+        .transition(.opacity)
+        .onAppear {
+            guard !reduceMotion else { return }
+            withAnimation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true)) {
+                hintBob = true
+            }
+        }
+        .accessibilityHidden(true)
+    }
 
     private var header: some View {
         HStack(spacing: Theme.Spacing.sm) {
@@ -170,7 +213,6 @@ struct PrologueView: View {
 
     /// One event per panel actually seen, once each.
     private func reach(_ index: Int) {
-        current = min(index, max(0, panels.count - 1))
         guard index < panels.count, !reported.contains(index) else { return }
         reported.insert(index)
         Telemetry.track(.prologuePanelViewed, [

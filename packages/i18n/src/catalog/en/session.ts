@@ -327,6 +327,8 @@ export const session = {
   'session.latest_image_a11y': 'Open latest image',
   // --- The opening cinematic (three frames before the first beat) ---
   /** Always visible, from the first frame. Nobody is held in a title sequence. */
+  /** On the first frame only: a full-bleed picture does not say there is more below it. */
+  'prologue.scroll_hint': 'Swipe up',
   'prologue.skip': 'Skip',
   'prologue.skip_a11y': 'Skip the opening and start playing',
   /** The handoff screen: the cinematic ends on a deliberate tap. */

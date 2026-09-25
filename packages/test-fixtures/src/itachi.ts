@@ -2721,19 +2721,19 @@ const raw = {
       assetKey: 'story_itachi/prologue/1',
       headline: 'The village is asleep.',
       subline: 'You have been awake for hours.',
-      alt: 'A hidden village of tiled roofs at night under a huge moon, with a small figure standing on a rooftop above it.',
+      alt: 'The Hidden Leaf at night under a huge moon, the Hokage faces carved into the cliff behind it, and Itachi small on a rooftop above the Uchiha compound.',
     },
     {
       assetKey: 'story_itachi/prologue/2',
       headline: 'Two people are waiting on you tonight.',
       subline: 'Neither of them knows about the other.',
-      alt: 'A narrow lantern-lit lane at night, a figure walking away with a porcelain mask showing at the top of their bag.',
+      alt: 'A lantern-lit lane in the Uchiha compound at night, Itachi walking away with an ANBU mask showing in his bag.',
     },
     {
       assetKey: 'story_itachi/prologue/3',
       headline: 'Sasuke has been on the step for two hours.',
-      subline: 'He is still holding one out for you.',
-      alt: 'A child on a doorstep holding out a throwing star handle-first, while an older figure pauses and looks back.',
+      subline: 'He is holding a shuriken out to you, handle first.',
+      alt: 'Sasuke sits on the doorstep holding a shuriken out handle-first, while Itachi pauses on the step behind him and looks back.',
     },
   ],
   opening:
