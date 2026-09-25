@@ -61,6 +61,7 @@ import {
   InsufficientCreditsError,
 } from './turn-service.js';
 import {
+  resolveAssetUrl,
   toContinueCard,
   toPlayerTurn,
   toSceneState,
@@ -1305,9 +1306,27 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       : 0;
     const recap = hoursAway > 8 ? buildRecap(story, state, turns) : null;
 
+    // The opening cinematic, and only at the opening.
+    //
+    // `turns` holds the authored opening beat and nothing else on a run nobody
+    // has played yet, so `<= 1` is "they have not typed anything". A player
+    // forty turns deep reopening the app gets their story back, not a title
+    // sequence. Sent resolved to urls so the client has no asset keys to
+    // understand, and empty for the twenty-five worlds that have no prologue.
+    const prologue =
+      turns.length <= 1
+        ? story.prologue.map((panel) => ({
+            imageUrl: resolveAssetUrl(panel.assetKey, story.version),
+            headline: panel.headline,
+            subline: panel.subline,
+            alt: panel.alt,
+          }))
+        : [];
+
     return {
       session: toSessionSummary(session, story, state, turns.length),
       scene: toSceneState(story, state, last),
+      prologue,
       // Spec §10.2 C — recent beats only; history is paged separately.
       // Projected, so the exact DC and the raw mutations stay server-side.
       recentTurns: turns.slice(-8).map((turn) => toPlayerTurn(story, turn, state.locale)),

@@ -2703,6 +2703,39 @@ const raw = {
       hint: '',
     },
   ],
+  /**
+   * The opening cinematic: three frames before a word of prose.
+   *
+   * Wide, then closer, then somebody looking back — world, pressure, and a
+   * person who has been waiting for you. The shape is a hook; the content is
+   * this story's own, because in this world the player *is* Itachi and the
+   * first thing that happens is his brother on the step, not a stranger with a
+   * drawn sword.
+   *
+   * The text is two short lines a panel on purpose. The pictures are the
+   * narration here, which is what buys the opening beat the right to be four
+   * lines and a question instead of a wall of scene-setting.
+   */
+  prologue: [
+    {
+      assetKey: 'story_itachi/prologue/1',
+      headline: 'The village is asleep.',
+      subline: 'You have been awake for hours.',
+      alt: 'A hidden village of tiled roofs at night under a huge moon, with a small figure standing on a rooftop above it.',
+    },
+    {
+      assetKey: 'story_itachi/prologue/2',
+      headline: 'Two people are waiting on you tonight.',
+      subline: 'Neither of them knows about the other.',
+      alt: 'A narrow lantern-lit lane at night, a figure walking away with a porcelain mask showing at the top of their bag.',
+    },
+    {
+      assetKey: 'story_itachi/prologue/3',
+      headline: 'Sasuke has been on the step for two hours.',
+      subline: 'He is still holding one out for you.',
+      alt: 'A child on a doorstep holding out a throwing star handle-first, while an older figure pauses and looks back.',
+    },
+  ],
   opening:
     'Sasuke is on the step, and has been for two hours.\n\n' +
     'You can tell because the shuriken beside him are laid out in the dirt in a row, ordered by how good he thought the throw was, and the pile he is proudest of has eleven in it.\n\n' +

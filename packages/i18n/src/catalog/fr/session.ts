@@ -281,4 +281,9 @@ export const session = {
   'session.suggestions_title': 'Suggestions',
   'session.scroll_to_latest': 'Aller au dernier tour',
   'session.latest_image_a11y': 'Ouvrir la dernière image',
+  'prologue.skip': 'Passer',
+  'prologue.skip_a11y': 'Passer l’introduction et commencer à jouer',
+  'prologue.ready': 'À toi.',
+  'prologue.ready_sub': 'Écris ce que tu veux. L’histoire va où tu l’emmènes.',
+  'prologue.begin': 'Commencer',
 } as const;

@@ -82,6 +82,7 @@
 		DF3566E4DA4DB88B778C0CA9 /* DiscoverScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748A3B47451A87C277670444 /* DiscoverScreen.swift */; };
 		E41A1D49C21ADB1B76DAFFDC /* ImagePickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78022B888795DB01DFBAC500 /* ImagePickerField.swift */; };
 		EA4CBEE11F2EFD2979523D13 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0211E01F516253ADF946344D /* FlowLayout.swift */; };
+		EFD2E29B35C126B6339814C7 /* PrologueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F499BF5AF0001280B3375B /* PrologueView.swift */; };
 		F53C0AD2A89F261070AA2B0B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = EB321C91A034368F072506DE /* GoogleSignIn */; };
 		FBC98F24A8C946047B10EAC1 /* DiscoverSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA90A154FFF4439F0E8FB8A4 /* DiscoverSnapshotTests.swift */; };
 		FC377CAB5205A851990919C4 /* AppsFlyerLib in Frameworks */ = {isa = PBXBuildFile; productRef = 0B226F9B7345A3A03C4F9693 /* AppsFlyerLib */; };
@@ -102,6 +103,7 @@
 /* Begin PBXFileReference section */
 		0211E01F516253ADF946344D /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		030E28875DB8277118DA99D2 /* ShareScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareScreen.swift; sourceTree = "<group>"; };
+		05F499BF5AF0001280B3375B /* PrologueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrologueView.swift; sourceTree = "<group>"; };
 		0BB3BFDB423F3BCBDAA25047 /* BuilderSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderSteps.swift; sourceTree = "<group>"; };
 		0D7DDD29992AB9AE65700D7E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		10E0D2EC12DFF3D36484BBAF /* StoryBuilderScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryBuilderScreen.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 		75F55F0265517857C0FE2E07 /* Session */ = {
 			isa = PBXGroup;
 			children = (
+				05F499BF5AF0001280B3375B /* PrologueView.swift */,
 				8D9D2BBC375F3042A1C42AF2 /* SessionComposer.swift */,
 				CC3242AF9AE411E98BBDC63F /* SessionFeed.swift */,
 				24D0CAC196C2DCEC41F99970 /* SessionModel.swift */,
@@ -771,6 +774,7 @@
 				AF06B25A7FEE72D0079C9F6A /* PlotbreakApp.swift in Sources */,
 				419F2DC7F041BE8845B8B3B6 /* Primitives.swift in Sources */,
 				6E106894C3BA678CFE4541F3 /* ProfileScreen.swift in Sources */,
+				EFD2E29B35C126B6339814C7 /* PrologueView.swift in Sources */,
 				CC38AAE38610FC231B5E0C63 /* Purchases.swift in Sources */,
 				416C0667CD717CB7CAFA4A39 /* Reminders.swift in Sources */,
 				44BB002C8BBD56EC5DFB9B1F /* ReportHistoryScreen.swift in Sources */,

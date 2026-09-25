@@ -500,10 +500,28 @@ export const PlayerTurnRecord = z
   .strict();
 export type PlayerTurnRecord = z.infer<typeof PlayerTurnRecord>;
 
+/** A prologue panel with its picture resolved, which is all a client needs. */
+export const ProloguePanelView = z
+  .object({
+    imageUrl: z.string().nullable(),
+    headline: z.string(),
+    subline: z.string(),
+    alt: z.string(),
+  })
+  .strict();
+export type ProloguePanelView = z.infer<typeof ProloguePanelView>;
+
 export const SessionDetailResponse = z
   .object({
     session: SessionSummary,
     scene: SessionSceneState,
+    /**
+     * The opening cinematic, when this story has one and this run has not
+     * started yet. Empty for every story that does not, and for every run
+     * already in progress — a player who is forty turns deep does not want a
+     * title sequence when they reopen the app.
+     */
+    prologue: z.array(ProloguePanelView).default([]),
     recentTurns: z.array(PlayerTurnRecord),
     suggestions: z.array(SuggestedAction),
     /** Spec §16.6 — shown when returning after >8h. */

@@ -152,12 +152,13 @@ struct ContinueStoryScreen: View {
                 }
                 // Turns first, and large. This is the number the player can
                 // actually reason about; the credits are the receipt.
-                Txt(t("continue.turns_headline", ["count": turns(offer)]), .h1)
-                // Which quality that count is at. The same pack is 23 turns on
-                // Vivid and 7 on Apex, so an unlabelled number is a promise we
-                // would break the moment the player moved the pill.
-                Txt(t("continue.credits_detail", [
+                // Credits lead here too, so the sheet and the wallet agree about
+                // what the headline number is.
+                Txt(t("continue.credits_headline", [
                     "credits": Format.credits(offer.credits + offer.bonusCredits, locale: store.locale),
+                ]), .h1)
+                Txt(t("continue.turns_detail", [
+                    "count": turns(offer),
                     "tier": t(TierCopy.labelKey(.VIVID)),
                 ]), .caption, color: Theme.Colors.textMuted)
 
@@ -236,7 +237,19 @@ struct ContinueStoryScreen: View {
         do {
             // POST, not GET: this is what tells the server somebody actually
             // ran out, which is the only thing that opens the limited window.
-            let response = try await store.api.creditWall()
+            //
+            // Falls back to the plain wallet when the server has not got this
+            // route yet. The app and the API deploy separately, so for a while
+            // after this ships there are phones calling an endpoint that 404s,
+            // and the credit wall is the last screen that should break over it:
+            // they would see an error instead of anything to buy. Same class of
+            // mistake as shipping data before the schema that reads it.
+            let response: WalletResponse
+            if let reported = try? await store.api.creditWall() {
+                response = reported
+            } else {
+                response = try await store.api.wallet()
+            }
             wallet = response.wallet
             offers = response.offers
             store.setBalance(response.wallet.balance)

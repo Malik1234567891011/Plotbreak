@@ -26,6 +26,10 @@ const TARGET_WIDTH: Array<{ match: RegExp; width: number }> = [
   { match: /\/stage_/, width: 1200 },
   { match: /^player\//, width: 800 },
   { match: /^hero\//, width: 1200 },
+  // A prologue panel is full-bleed and vertical, so it is the widest thing on
+  // screen rather than a card. The 700px default would show visibly soft on a
+  // 3x phone, which is the one place we are trying to look expensive.
+  { match: /\/prologue\//, width: 1200 },
 ];
 
 function widthFor(assetKey: string): number {

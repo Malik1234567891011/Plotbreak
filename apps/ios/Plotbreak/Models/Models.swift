@@ -773,9 +773,20 @@ struct SessionRecap: Codable, Hashable {
     var objective: String?
 }
 
+struct ProloguePanelView: Codable, Hashable, Identifiable {
+    var id: String { imageUrl ?? headline }
+    var imageUrl: String?
+    @Default<EmptyString> var headline: String
+    @Default<EmptyString> var subline: String
+    @Default<EmptyString> var alt: String
+}
+
 struct SessionDetailResponse: Codable, Hashable {
     var session: SessionSummary
     var scene: SessionSceneState
+    /// The opening cinematic. Empty for every story without one, and for any
+    /// run that is already under way.
+    @Default<EmptyArray<ProloguePanelView>> var prologue: [ProloguePanelView]
     @Default<EmptyArray<PlayerTurnRecord>> var recentTurns: [PlayerTurnRecord]
     @Default<EmptyArray<SuggestedAction>> var suggestions: [SuggestedAction]
     var recap: SessionRecap?

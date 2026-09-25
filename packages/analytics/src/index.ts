@@ -24,6 +24,9 @@ export const EVENT_NAMES = [
   'character_setup_started',
   'session_started',
   'first_turn_submitted',
+  'prologue_shown',
+  'prologue_panel_viewed',
+  'prologue_finished',
   'turn_submitted',
   'turn_completed',
   'turn_failed',
@@ -128,6 +131,25 @@ export const EventProperties = {
      * that predates it still validates.
      */
     startPath: z.enum(['instant', 'customized']).optional(),
+  }),
+
+  /**
+   * The opening cinematic, which is the newest thing standing between a player
+   * and their first turn — so it is instrumented as carefully as the setup
+   * screen it was meant to replace.
+   *
+   * The question these three answer together: does a player who watched it
+   * reach turn 1 more often than one who skipped it, and is three panels the
+   * right number or is the third one where people leave?
+   */
+  prologue_shown: z.object({ storyTitle: z.string(), panelCount: z.number().int() }),
+  prologue_panel_viewed: z.object({ storyTitle: z.string(), panelIndex: z.number().int() }),
+  prologue_finished: z.object({
+    storyTitle: z.string(),
+    /** False when they skipped, which is the more interesting half. */
+    completed: z.boolean(),
+    panelsSeen: z.number().int(),
+    panelCount: z.number().int(),
   }),
 
   first_turn_submitted: z.object({

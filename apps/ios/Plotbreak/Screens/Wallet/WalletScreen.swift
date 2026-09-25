@@ -671,10 +671,14 @@ private struct OfferCard: View {
     var body: some View {
         RadioCard(selected: selected, accent: Theme.Colors.textPrimary, action: action) {
             VStack(alignment: .leading, spacing: 2) {
-                Text(t("wallet.turns_count", ["count": turns]))
+                // Credits lead, turns explain. The pack's size is the thing the
+                // player is buying and the thing the receipt will say; the turn
+                // count is what makes that number mean something, which is a
+                // job for the second line.
+                Text(t("wallet.credits_count", ["credits": Format.credits(offer.credits + offer.bonusCredits, locale: locale)]))
                     .font(.system(size: 15, weight: .medium))
                     .foregroundStyle(Theme.Colors.textPrimary)
-                Text(t("wallet.credits_count", ["credits": Format.credits(offer.credits + offer.bonusCredits, locale: locale)]))
+                Text(t("wallet.turns_count", ["count": turns]))
                     .font(.system(size: 12))
                     .foregroundStyle(Theme.Colors.textDim)
                 if offer.bonusCredits > 0 {
