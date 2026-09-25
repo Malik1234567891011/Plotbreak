@@ -379,7 +379,10 @@ final class SessionModel {
     /// `override` is how the turn menu re-sends an action that is no longer in
     /// the composer. GP-04 retry is a new turn, not a rewind.
     func send(_ override: String? = nil, intentHint: String? = nil) async {
-        guard let store, let router else { return }
+        // `router` is no longer needed here: the wall is the only thing that
+        // reached for it, and that moved into `reachWall`, which guards for
+        // itself.
+        guard let store else { return }
         let text = (override ?? draft).trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty, !sending else { return }
 
