@@ -32,3 +32,14 @@ xcuserdata/
 
 # Cover v4 masters (6MB PNGs); only READMEs, briefs and contact sheets are tracked
 docs/covers-v4/**/*.png
+
+# Ad renders. `docs/ads/<campaign>/README.md` and `briefs/` are the work worth
+# keeping; `cut/`, `ui/`, `vo/` and `ref/` are 164 MB of video and audio output
+# from Seedance/ElevenLabs and do not belong in the repo. Ignored explicitly
+# rather than left untracked, because untracked is one `git add .` from being
+# committed for good.
+docs/ads/**/cut/
+docs/ads/**/ui/
+docs/ads/**/vo/
+docs/ads/**/ref/
+docs/ads/**/sfx/
