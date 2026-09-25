@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import {
   FIRST_PURCHASE_OFFER,
-  LEGACY_STORE_OFFERS,
+  FLASH_OFFER,
   STORE_OFFERS,
+  UNLISTED_STORE_OFFERS,
   firstPurchaseBonusFor,
+  flashBonusFor,
   offerForProduct,
 } from '@plotbreak/contracts';
 
@@ -41,13 +43,15 @@ describe('purchase of a product we do not sell', () => {
 
   it('credits and bonuses are what the packs advertise', () => {
     const byId = Object.fromEntries(
-      [...STORE_OFFERS, ...LEGACY_STORE_OFFERS].map((o) => [o.productId, o]),
+      [...STORE_OFFERS, ...UNLISTED_STORE_OFFERS].map((o) => [o.productId, o]),
     );
-    // The ladder.
+    // The value-add products, at their plain worth. Any bonus is added from
+    // account state, never read off the product.
     expect(byId.crd_starter_700!.credits).toBe(700);
-    expect(byId.crd_3800!.credits).toBe(3800);
+    expect(byId.crd_starter_700!.bonusCredits).toBe(0);
     expect(byId.crd_8200!.credits).toBe(8200);
-    // Retired, and still worth exactly what they were sold for.
+    expect(byId.crd_8200!.bonusCredits).toBe(0);
+    // The five standing packs, worth exactly what they have always been worth.
     expect(byId.crd_2000!.credits + byId.crd_2000!.bonusCredits).toBe(2000);
     expect(byId.crd_10000!.credits + byId.crd_10000!.bonusCredits).toBe(10300);
     expect(byId.crd_20000!.credits + byId.crd_20000!.bonusCredits).toBe(21000);
@@ -56,35 +60,48 @@ describe('purchase of a product we do not sell', () => {
     expect(byId.crd_first_21000!.credits + byId.crd_first_21000!.bonusCredits).toBe(21000);
   });
 
-  it('value per dollar rises with the size of the pack', () => {
-    // The only honest reason to sell a bigger pack. If a middle rung is ever
-    // priced worse than the one below it, the ladder is lying to the player.
-    const perDollar = STORE_OFFERS.map((o) => (o.credits + o.bonusCredits) / o.referencePriceUsd);
-    for (let i = 1; i < perDollar.length; i += 1) {
-      expect(perDollar[i]!).toBeGreaterThan(perDollar[i - 1]!);
+  it('the ladder is ordered by price', () => {
+    const prices = STORE_OFFERS.map((o) => o.referencePriceUsd);
+    for (let i = 1; i < prices.length; i += 1) {
+      expect(prices[i]!).toBeGreaterThan(prices[i - 1]!);
     }
   });
 
-  it('doubles the first purchase, and only on the starter rung', () => {
-    const starter = STORE_OFFERS.find((o) => o.tier === 'STARTER')!;
-    const popular = STORE_OFFERS.find((o) => o.tier === 'POPULAR')!;
-
-    expect(firstPurchaseBonusFor(starter, false)).toBe(starter.credits);
-    expect(firstPurchaseBonusFor(starter, true)).toBe(0);
-    // A first-time buyer who goes straight for a bigger pack gets that pack,
-    // not a doubled one. The bonus exists to make purchase #1 cheap.
-    expect(firstPurchaseBonusFor(popular, false)).toBe(0);
+  it('both value-adds beat every standing pack on credits per dollar', () => {
+    // The whole point of them. If a standing pack were ever the better deal,
+    // the offer is not an offer and the badge on it is a lie.
+    const best = Math.max(
+      ...STORE_OFFERS.map((o) => (o.credits + o.bonusCredits) / o.referencePriceUsd),
+    );
+    const first = (FIRST_PURCHASE_OFFER.credits + FIRST_PURCHASE_OFFER.bonusCredits)
+      / FIRST_PURCHASE_OFFER.referencePriceUsd;
+    const flash = (FLASH_OFFER.credits + FLASH_OFFER.bonusCredits) / FLASH_OFFER.referencePriceUsd;
+    expect(first).toBeGreaterThan(best);
+    expect(flash).toBeGreaterThan(best);
   });
 
-  it('the first-purchase offer is the starter product, doubled', () => {
-    const starter = STORE_OFFERS.find((o) => o.tier === 'STARTER')!;
-    // Same App Store product deliberately: one $0.99 button, and the server
-    // decides what it is worth. Two SKUs at one price is how a returning buyer
-    // ends up claiming a first-purchase deal.
-    expect(FIRST_PURCHASE_OFFER.productId).toBe(starter.productId);
+  it('doubles the flash pack only while a window is open', () => {
+    const pack = offerForProduct(FLASH_OFFER.productId)!;
+    expect(flashBonusFor(pack, true)).toBe(pack.credits);
+    expect(flashBonusFor(pack, false)).toBe(0);
+    // And never touches anything else, whatever the clock says.
+    expect(flashBonusFor(offerForProduct('crd_50000')!, true)).toBe(0);
+  });
+
+  it('doubles the first purchase, and only that product', () => {
+    const starter = offerForProduct(FIRST_PURCHASE_OFFER.productId)!;
+    expect(firstPurchaseBonusFor(starter, false)).toBe(starter.credits);
+    expect(firstPurchaseBonusFor(starter, true)).toBe(0);
+    // A first-time buyer who goes straight for a big pack gets that pack, not a
+    // doubled one. The bonus exists to make purchase #1 cheap, once.
+    expect(firstPurchaseBonusFor(offerForProduct('crd_50000')!, false)).toBe(0);
+  });
+
+  it('the first-purchase offer is the $0.99 product, doubled, and never expires', () => {
+    const starter = offerForProduct(FIRST_PURCHASE_OFFER.productId)!;
     expect(FIRST_PURCHASE_OFFER.credits + FIRST_PURCHASE_OFFER.bonusCredits).toBe(starter.credits * 2);
-    // Nothing about it expires. §3.8, and the reason the old 48-hour window was
-    // always gone by the time a player reached the wall.
+    // §3.8, and the reason the old 48-hour window was always gone by the time
+    // a player reached the wall.
     expect(FIRST_PURCHASE_OFFER.expiresAt).toBeNull();
   });
 });

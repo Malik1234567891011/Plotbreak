@@ -14,6 +14,7 @@ import {
   CreateSessionRequest,
   DEFAULT_QUALITY_TIER,
   FIRST_PURCHASE_OFFER,
+  FLASH_OFFER,
   FORK_COST_CREDITS,
   offerForProduct,
   PurchaseRestoreRequest,
@@ -114,20 +115,23 @@ import { EMPTY_SIGNALS } from './repo/types.js';
  * handed a link is asking for that world specifically.
  */
 /**
- * The three rungs, with the starter doubled when the player has never bought.
+ * What this account can buy right now: the five standing packs, plus whichever
+ * of the two value-adds it has earned.
  *
- * One function so the authenticated wallet and the public offers list can never
- * disagree about what is being sold. The first-purchase offer replaces the
- * starter rung in place rather than being prepended as a fourth card: the old
- * shape showed a $19.99 offer *above* a ladder that started at $2.89, so the
- * first thing a first-time buyer saw was the most expensive thing we sell.
+ * The value-adds go **first** because they are the better deal and burying a
+ * better deal under five worse ones is just a worse shop. Everything after them
+ * is the ordinary ladder, unchanged — they are meant to read as exceptions to
+ * it, which only works while it stays put.
+ *
+ * One function, so the authenticated wallet and the public offers list can
+ * never disagree about what is on sale.
  */
-function ladderFor(firstPurchaseBonusAvailable: boolean) {
-  return STORE_OFFERS.map((offer) =>
-    firstPurchaseBonusAvailable && offer.tier === FIRST_PURCHASE_OFFER.tier
-      ? { ...FIRST_PURCHASE_OFFER }
-      : offer,
-  );
+function ladderFor(options: { firstPurchaseBonusAvailable: boolean; flashExpiresAt: string | null }) {
+  const extras = [
+    ...(options.firstPurchaseBonusAvailable ? [{ ...FIRST_PURCHASE_OFFER }] : []),
+    ...(options.flashExpiresAt ? [{ ...FLASH_OFFER, expiresAt: options.flashExpiresAt }] : []),
+  ];
+  return [...extras, ...STORE_OFFERS];
 }
 
 function readableIn(story: StoryVersion, locale: Locale): boolean {
@@ -1657,11 +1661,17 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       return body;
     } catch (error) {
       if (error instanceof InsufficientCreditsError) {
+        // Running out mid-story is the moment the flash window is about, so it
+        // is the only place one opens. Idempotent and cooldown-gated inside the
+        // wallet: hitting the wall twice in an evening re-shows the same
+        // countdown instead of restarting it, and it cannot reopen for a week.
+        const flashExpiresAt = await ctx.wallet.openFlashOffer(user.userId).catch(() => null);
         // Spec §26.7 / WL-03 — the exact shortfall, so the wallet sheet can show it.
         return sendError(reply, 402, 'INSUFFICIENT_CREDITS', 'You need more credits for this turn.', {
           required: error.required,
           balance: error.balance,
           shortfall: error.shortfall,
+          flashOfferExpiresAt: flashExpiresAt?.toISOString() ?? null,
         });
       }
       if (error instanceof ContentBlockedError) {
@@ -1869,7 +1879,40 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (!user) return reply;
 
     const wallet = await ctx.wallet.getSummary(user.userId);
-    return { wallet, offers: ladderFor(wallet.firstPurchaseBonusAvailable) };
+    return {
+      wallet,
+      offers: ladderFor({
+        firstPurchaseBonusAvailable: wallet.firstPurchaseBonusAvailable,
+        flashExpiresAt: wallet.flashOfferExpiresAt,
+      }),
+    };
+  });
+
+  /**
+   * The player just ran out mid-story.
+   *
+   * A POST rather than a flag on `GET /v1/wallet`, because it has a side
+   * effect: it is what opens the flash window. Most walls never reach the
+   * server at all — the client knows the balance and stops the send before any
+   * request — so without somewhere to report it, the one offer that exists for
+   * this exact moment would only ever fire on the rare race.
+   *
+   * Idempotent. The wallet decides whether a window is earned, and hitting the
+   * wall three times in an evening re-shows one countdown.
+   */
+  app.post('/v1/wallet/credit-wall', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+
+    await ctx.wallet.openFlashOffer(user.userId).catch(() => null);
+    const wallet = await ctx.wallet.getSummary(user.userId);
+    return {
+      wallet,
+      offers: ladderFor({
+        firstPurchaseBonusAvailable: wallet.firstPurchaseBonusAvailable,
+        flashExpiresAt: wallet.flashOfferExpiresAt,
+      }),
+    };
   });
 
   app.get<{ Querystring: { cursor?: string; limit?: string } }>('/v1/wallet/ledger', async (request, reply) => {
@@ -1880,7 +1923,9 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
 
   // Unauthenticated, so it cannot know whose first purchase this is. It shows
   // the plain ladder; `/v1/wallet` is what carries the doubled starter.
-  app.get('/v1/store/offers', async () => ({ offers: ladderFor(false) }));
+  app.get('/v1/store/offers', async () => ({
+    offers: ladderFor({ firstPurchaseBonusAvailable: false, flashExpiresAt: null }),
+  }));
 
   app.post('/v1/wallet/daily-claim', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);

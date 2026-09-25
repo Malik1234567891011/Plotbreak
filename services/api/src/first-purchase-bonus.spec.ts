@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { STORE_OFFERS } from '@plotbreak/contracts';
+import { FIRST_PURCHASE_OFFER, offerForProduct } from '@plotbreak/contracts';
 import { MemoryRepository } from './repo/memory.js';
 import { WalletService } from './wallet.js';
 
@@ -12,8 +12,10 @@ import { WalletService } from './wallet.js';
  * test here exists because getting that wrong is invisible until somebody is
  * charged and under-credited.
  */
-const STARTER = STORE_OFFERS.find((o) => o.tier === 'STARTER')!;
-const POPULAR = STORE_OFFERS.find((o) => o.tier === 'POPULAR')!;
+/** The $0.99 product, at its plain worth — the bonus comes from account state. */
+const STARTER = offerForProduct(FIRST_PURCHASE_OFFER.productId)!;
+/** Any standing pack, which must never be doubled. */
+const STANDING = offerForProduct('crd_10000')!;
 
 async function walletWith(): Promise<{ wallet: WalletService; userId: string }> {
   const repo = new MemoryRepository();
@@ -41,8 +43,8 @@ describe('the first purchase is doubled', () => {
     // The bonus exists to make purchase #1 small and obvious, not to discount
     // the catalogue for whoever arrives with $9.99 already in mind.
     const { wallet, userId } = await walletWith();
-    const result = await wallet.reconcilePurchase(userId, POPULAR.productId, 'tx_1', 'SANDBOX');
-    expect(result.credited).toBe(POPULAR.credits + POPULAR.bonusCredits);
+    const result = await wallet.reconcilePurchase(userId, STANDING.productId, 'tx_1', 'SANDBOX');
+    expect(result.credited).toBe(STANDING.credits + STANDING.bonusCredits);
   });
 
   it('still honours a pack we have retired', async () => {

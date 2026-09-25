@@ -1,8 +1,12 @@
 import type { LedgerEntry, LedgerEntryType, WalletSummary } from '@plotbreak/contracts';
 import {
+  FLASH_OFFER_COOLDOWN_DAYS,
+  FLASH_OFFER_REASON,
+  FLASH_OFFER_WINDOW_HOURS,
   GRANT_DAILY,
   GRANT_NEW_USER,
   firstPurchaseBonusFor,
+  flashBonusFor,
   offerForProduct,
 } from '@plotbreak/contracts';
 import type { PurchaseTransaction, Repository } from './repo/types.js';
@@ -78,6 +82,64 @@ export class WalletService {
       .reduce((sum, entry) => sum + Math.abs(entry.amount), 0);
   }
 
+  /**
+   * When this account's flash window opened, if one ever has.
+   *
+   * Recorded as a zero-amount `PROMO_GRANT` so the deadline lives in the same
+   * append-only ledger everything else does: it survives a reinstall, it cannot
+   * be moved by the device clock, and every window that ever opened is
+   * auditable afterwards. A timer the player cannot trust us on is exactly the
+   * fake urgency §3.8 rules out, so the timer is a real row.
+   */
+  async #lastFlashOpenedAt(accountId: string): Promise<Date | null> {
+    const entries = await this.#repo.listLedger(accountId);
+    const opens = entries
+      .filter((entry) => entry.reasonCode === FLASH_OFFER_REASON)
+      .map((entry) => new Date(entry.createdAt))
+      .sort((a, b) => b.getTime() - a.getTime());
+    return opens[0] ?? null;
+  }
+
+  /** The live deadline, or null when no window is running. */
+  async flashOfferExpiresAt(accountId: string): Promise<Date | null> {
+    const opened = await this.#lastFlashOpenedAt(accountId);
+    if (!opened) return null;
+    const expires = new Date(opened.getTime() + FLASH_OFFER_WINDOW_HOURS * 3600 * 1000);
+    return this.#now() < expires ? expires : null;
+  }
+
+  /**
+   * Start a window, if the player has earned one and is not in cooldown.
+   *
+   * Called when somebody actually runs out mid-story — the moment the offer is
+   * about, and the only moment it opens. Returns the deadline either way, so a
+   * second wall inside a live window re-shows the same countdown rather than
+   * restarting it.
+   */
+  async openFlashOffer(accountId: string): Promise<Date | null> {
+    const live = await this.flashOfferExpiresAt(accountId);
+    if (live) return live;
+
+    const opened = await this.#lastFlashOpenedAt(accountId);
+    if (opened) {
+      const nextEligible = new Date(opened.getTime() + FLASH_OFFER_COOLDOWN_DAYS * 24 * 3600 * 1000);
+      if (this.#now() < nextEligible) return null;
+    }
+
+    const now = this.#now();
+    await this.#append(
+      accountId,
+      'PROMO_GRANT',
+      0,
+      FLASH_OFFER_REASON,
+      null,
+      // One window per hour at most, so a burst of failed sends cannot open
+      // several and leave the audit trail lying about when it started.
+      `flash:${now.toISOString().slice(0, 13)}`,
+    );
+    return new Date(now.getTime() + FLASH_OFFER_WINDOW_HOURS * 3600 * 1000);
+  }
+
   async getSummary(accountId: string): Promise<WalletSummary> {
     const entries = await this.#repo.listLedger(accountId);
     const balance = entries.reduce((sum, e) => sum + e.amount, 0);
@@ -99,6 +161,7 @@ export class WalletService {
     const dailyClaimAvailable = !nextDaily || this.#now() >= nextDaily;
 
     const hasPurchased = entries.some((e) => e.type === 'PURCHASE');
+    const flashExpiresAt = await this.flashOfferExpiresAt(accountId);
 
     return {
       accountId,
@@ -115,6 +178,7 @@ export class WalletService {
       // so an older client reads "no countdown" rather than a missing field.
       firstPurchaseOfferExpiresAt: null,
       firstPurchaseBonusAvailable: !hasPurchased,
+      flashOfferExpiresAt: flashExpiresAt?.toISOString() ?? null,
     };
   }
 
@@ -338,7 +402,13 @@ export class WalletService {
     // be paid to anyone.
     const ledger = await this.#repo.listLedger(accountId);
     const alreadyPurchased = ledger.some((entry) => entry.type === 'PURCHASE');
-    const bonusCredits = offer.bonusCredits + firstPurchaseBonusFor(offer, alreadyPurchased);
+    // Both bonuses are facts about the account, never about the product, so
+    // they are resolved here and the pack itself stays at its plain worth.
+    const flashOpen = (await this.flashOfferExpiresAt(accountId)) !== null;
+    const bonusCredits =
+      offer.bonusCredits +
+      firstPurchaseBonusFor(offer, alreadyPurchased) +
+      flashBonusFor(offer, flashOpen);
 
     // The credit and the receipt, written in one transaction. §33.5 wants a
     // `purchase_transactions` row per purchase so the money can be reconciled

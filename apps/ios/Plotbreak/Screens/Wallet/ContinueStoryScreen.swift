@@ -41,17 +41,33 @@ struct ContinueStoryScreen: View {
     @State private var reachedCheckout = false
     @State private var purchased = false
 
-    /// The rung this screen leads with: the cheapest way back into the story,
-    /// which is the only question the player is actually asking.
+    /// The one offer this screen leads with.
+    ///
+    /// The first purchase if they have never bought — the cheapest possible way
+    /// back into the story, and the threshold worth crossing. Otherwise the
+    /// flash deal while its window is open. Failing both, the smallest standing
+    /// pack, because the question at a wall is "what is the least I can do to
+    /// keep going".
     private var headline: StoreOffer? {
-        offers.first { $0.tier == .STARTER } ?? offers.first
+        offers.first { $0.firstPurchaseOnly }
+            ?? offers.first { $0.tier == .FLASH }
+            ?? offers.min { $0.referencePriceUsd < $1.referencePriceUsd }
     }
 
-    /// What a turn costs this player, at the tier they are actually playing.
-    /// Quoting the Vivid figure to somebody on Apex is a promise we would break
-    /// within the hour.
+    /// Seconds left on the window, for the countdown line.
+    private var flashDeadline: Date? {
+        offers.first { $0.tier == .FLASH }?.expiresAt.flatMap(Format.parseISO)
+    }
+
+    /// Turn counts are always quoted at Vivid, the default quality.
+    ///
+    /// They used to follow whichever pill the player had selected, so the same
+    /// pack read 23 turns on Vivid and 7 on Apex and the number moved under
+    /// them. One stable figure is easier to trust and easier to remember; the
+    /// copy says which quality it assumes, and a player on Quick simply gets
+    /// more than promised, which is the right direction to be wrong in.
     private var turnCost: Int {
-        max(1, TierCopy.info(store.qualityTier, bootstrap: store.bootstrap).costCredits)
+        max(1, TierCopy.info(.VIVID, bootstrap: store.bootstrap).costCredits)
     }
 
     private func turns(_ offer: StoreOffer) -> Int {
@@ -118,17 +134,31 @@ struct ContinueStoryScreen: View {
     }
 
     private func offerCard(_ offer: StoreOffer) -> some View {
-        let doubled = offer.bonusCredits > 0
+        let doubled = offer.firstPurchaseOnly
+        let flash = offer.tier == .FLASH
         return Card {
             VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                if doubled {
+                if flash {
+                    Chip(t("wallet.badge_flash"), tone: .accent)
+                } else if doubled {
                     Chip(t("wallet.badge_first_purchase"), tone: .accent)
+                }
+                // The deadline, spelled out. It is a real row in the ledger and
+                // it really does lapse, so saying so is a fact rather than the
+                // manufactured urgency §3.8 rules out.
+                if flash, let deadline = flashDeadline {
+                    Txt(t("continue.flash_ends", ["when": countdown(to: deadline)]),
+                        .caption, color: Theme.Colors.warning)
                 }
                 // Turns first, and large. This is the number the player can
                 // actually reason about; the credits are the receipt.
                 Txt(t("continue.turns_headline", ["count": turns(offer)]), .h1)
+                // Which quality that count is at. The same pack is 23 turns on
+                // Vivid and 7 on Apex, so an unlabelled number is a promise we
+                // would break the moment the player moved the pill.
                 Txt(t("continue.credits_detail", [
                     "credits": Format.credits(offer.credits + offer.bonusCredits, locale: store.locale),
+                    "tier": t(TierCopy.labelKey(.VIVID)),
                 ]), .caption, color: Theme.Colors.textMuted)
 
                 PBButton(
@@ -204,7 +234,9 @@ struct ContinueStoryScreen: View {
 
     private func load() async {
         do {
-            let response = try await store.api.wallet()
+            // POST, not GET: this is what tells the server somebody actually
+            // ran out, which is the only thing that opens the limited window.
+            let response = try await store.api.creditWall()
             wallet = response.wallet
             offers = response.offers
             store.setBalance(response.wallet.balance)
@@ -325,6 +357,17 @@ struct ContinueStoryScreen: View {
 
     private func price(for offer: StoreOffer) -> String {
         storePrices[offer.productId] ?? String(format: "$%.2f", offer.referencePriceUsd)
+    }
+
+    /// Whole hours and minutes left, which is what a twelve-hour window needs;
+    /// "in 11 hours" would hide the last fifty-nine minutes of it.
+    private func countdown(to deadline: Date) -> String {
+        let seconds = max(0, Int(deadline.timeIntervalSinceNow))
+        let hours = seconds / 3600
+        let minutes = (seconds % 3600) / 60
+        return hours > 0
+            ? t("continue.countdown_hm", ["hours": hours, "minutes": minutes])
+            : t("continue.countdown_m", ["minutes": max(1, minutes)])
     }
 
     /// Hours or days, never a timestamp. Mirrors `WalletScreen.relativeTime`.

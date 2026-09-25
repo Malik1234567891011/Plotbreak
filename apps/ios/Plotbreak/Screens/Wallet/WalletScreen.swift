@@ -297,6 +297,13 @@ struct WalletScreen: View {
                 ForEach(0..<3, id: \.self) { _ in Skeleton(height: 56, radius: Theme.Radius.field) }
             }
 
+            // Said once under the ladder rather than on every row: the turn
+            // counts above are at the quality this player is on, and the same
+            // pack buys four times as many Quick turns as Apex ones.
+            Txt(t("wallet.turns_at_tier", ["tier": t(TierCopy.labelKey(.VIVID))]),
+                .micro, color: Theme.Colors.textMuted)
+                .padding(.top, Theme.Spacing.sm)
+
             if let storeUnavailable {
                 Txt(storeUnavailable, .micro, color: Theme.Colors.warning)
                     .padding(.top, Theme.Spacing.sm)
@@ -558,19 +565,24 @@ struct WalletScreen: View {
     /// `STORE_OFFERS` carries the badge as an English literal; the catalogue
     /// decides how to say it. A badge nobody has keyed yet falls back to what
     /// the offer sent.
-    /// What a turn costs at the tier this player is on.
+    /// Turn counts are quoted at Vivid, the default quality, so the same pack
+    /// does not read as a different size every time the player moves the pill.
     private var turnCost: Int {
-        max(1, TierCopy.info(store.qualityTier, bootstrap: store.bootstrap).costCredits)
+        max(1, TierCopy.info(.VIVID, bootstrap: store.bootstrap).costCredits)
     }
 
     /// The rung's label, chosen from the enum so it can be translated. Falls
     /// back to the server's English string for a payload that predates `tier`.
     private func rungWord(_ offer: StoreOffer) -> String? {
-        if offer.firstPurchaseOnly || offer.bonusCredits > 0 { return t("wallet.badge_first_purchase") }
+        if offer.tier == .FLASH { return t("wallet.badge_flash") }
+        // `firstPurchaseOnly` and nothing else. Keying this off `bonusCredits`
+        // stamped FIRST PURCHASE on all five standing packs, because every one
+        // of them carries a small bonus of its own.
+        if offer.firstPurchaseOnly { return t("wallet.badge_first_purchase") }
         switch offer.tier {
         case .POPULAR: return t("wallet.badge_popular")
         case .BEST_VALUE: return t("wallet.badge_best_value")
-        case .STARTER, .UNKNOWN, .none: return offer.badge.map(badgeWord)
+        case .STARTER, .FLASH, .UNKNOWN, .none: return offer.badge.map(badgeWord)
         }
     }
 

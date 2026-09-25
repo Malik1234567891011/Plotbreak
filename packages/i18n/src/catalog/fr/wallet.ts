@@ -369,7 +369,10 @@ export const wallet = {
   'continue.heading': 'Ton histoire t’attend',
   'continue.subheading': 'Tu n’as plus de crédits en plein milieu de {title}.',
   'continue.turns_headline': '{count, plural, one {# tour de plus} other {# tours de plus}}',
-  'continue.credits_detail': '{credits} crédits',
+  'continue.credits_detail': '{credits} crédits · tours comptés en qualité {tier}',
+  'continue.flash_ends': 'Se termine dans {when}',
+  'continue.countdown_hm': '{hours} h {minutes} min',
+  'continue.countdown_m': '{minutes} min',
   'continue.cta': 'Continue l’histoire · {price}',
   'continue.working': 'Un instant…',
   'continue.claim_daily': 'Récupère tes crédits gratuits du jour',
@@ -377,4 +380,6 @@ export const wallet = {
   'continue.badge_credits': '{credits} crédits t’attendent dans tes badges',
   'continue.see_all_packs': 'Voir tous les packs de crédits',
   'wallet.turns_count': '{count, plural, one {# tour} other {# tours}}',
+  'wallet.turns_at_tier': 'Tours comptés en qualité {tier}. Une qualité plus basse fait durer les mêmes crédits ; une plus haute les consomme plus vite.',
+  'wallet.badge_flash': 'Durée limitée',
 } as const;

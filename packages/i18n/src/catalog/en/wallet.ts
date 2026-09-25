@@ -348,8 +348,16 @@ export const wallet = {
   'continue.subheading': 'You are out of credits partway through {title}.',
   /** The headline number. Turns, not credits. */
   'continue.turns_headline': '{count, plural, one {# more turn} other {# more turns}}',
-  /** The small print under it, for anyone who does want the number. */
-  'continue.credits_detail': '{credits} credits',
+  /**
+   * The small print under the headline. It names the quality the turn count
+   * was worked out at, because the same pack is 23 turns on Vivid and 7 on
+   * Apex and an unlabelled number is a promise waiting to be broken.
+   */
+  'continue.credits_detail': '{credits} credits · turns counted at {tier} quality',
+  /** The real deadline on the limited offer. */
+  'continue.flash_ends': 'Ends in {when}',
+  'continue.countdown_hm': '{hours}h {minutes}m',
+  'continue.countdown_m': '{minutes}m',
   /** Primary button. The price is the store's own localised string. */
   'continue.cta': 'Continue story · {price}',
   'continue.working': 'One moment…',
@@ -362,4 +370,8 @@ export const wallet = {
   'continue.see_all_packs': 'See all credit packs',
   /** A pack's size in the unit players reason in. Credits are the second line. */
   'wallet.turns_count': '{count, plural, one {# turn} other {# turns}}',
+  /** Said once under the ladder: which quality those turn counts assume. */
+  'wallet.turns_at_tier': 'Turns counted at {tier} quality. A lower quality stretches the same credits further; a higher one uses them faster.',
+  /** The rung label for the limited-time deal. */
+  'wallet.badge_flash': 'Limited time',
 } as const;

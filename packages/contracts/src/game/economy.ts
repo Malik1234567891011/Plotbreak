@@ -195,6 +195,13 @@ export const WalletSummary = z
      * not a timer, so it is there whenever the player gets there.
      */
     firstPurchaseBonusAvailable: z.boolean().default(false),
+    /**
+     * When this account's flash window closes, or null when none is running.
+     *
+     * Server-computed from the ledger row that opened it, so the countdown the
+     * client draws is the real deadline rather than a number the app invented.
+     */
+    flashOfferExpiresAt: z.string().nullable().default(null),
   })
   .strict();
 export type WalletSummary = z.infer<typeof WalletSummary>;
@@ -207,7 +214,7 @@ export type WalletSummary = z.infer<typeof WalletSummary>;
  * untranslated. The rung is the fact; what it is called is the client's to
  * decide, in the player's own language.
  */
-export const StoreOfferTier = z.enum(['STARTER', 'POPULAR', 'BEST_VALUE']);
+export const StoreOfferTier = z.enum(['STARTER', 'POPULAR', 'BEST_VALUE', 'FLASH']);
 export type StoreOfferTier = z.infer<typeof StoreOfferTier>;
 
 export const StoreOffer = z
@@ -277,67 +284,56 @@ export const CREATE_COMPILE_COST_CREDITS = 180;
 export const CREATE_ASSIST_COST_CREDITS = 15;
 
 /**
- * The credit ladder: three rungs, on Apple's own price points.
+ * The credit ladder. Five packs, and they are the product's actual prices.
  *
  * ⚠️ `referencePriceUsd` is a **display fallback only** — what a player is
  * actually charged comes from StoreKit, which is the source of truth and shows
- * their local currency. Each `productId` below needs a matching consumable in
- * App Store Connect; until one exists, the product simply does not load and the
- * rung is hidden rather than sold at a price we invented.
+ * their local currency.
  *
- * The old ladder had five rungs from $2.89 to $142.99 and they read as one
- * undifferentiated column of numbers. Worse, the cheapest way into the product
- * was $2.89 and the offer we pushed at a first-time buyer was **$19.99** — an
- * order of magnitude above the only first purchase anybody has actually made.
- * Our one genuine payer spent $2.89 and then played 98 turns; the evidence we
- * have says the first transaction wants to be small.
- *
- * Three rungs, each answering a different sentence:
- *
- * | rung | the player's thought | credits/$ |
- * |---|---|---|
- * | Starter $0.99 | "I just want to keep playing." | 707 |
- * | Popular $4.99 | "I play this pretty regularly." | 761 |
- * | Best value $9.99 | "I know I like this." | 821 |
- *
- * Value rises with size, which is the only honest reason to offer a bigger
- * pack. The old rungs are not deleted — see `LEGACY_STORE_OFFERS`.
+ * These are deliberately the standing prices rather than a re-priced ladder.
+ * The two offers below sit *on top* of them and are meant to look like a
+ * noticeably better deal than anything here, which only works if "anything
+ * here" stays put.
  */
 export const STORE_OFFERS: readonly z.infer<typeof StoreOffer>[] = [
-  { productId: 'crd_starter_700', credits: 700, bonusCredits: 0, referencePriceUsd: 0.99, badge: null, tier: 'STARTER', firstPurchaseOnly: false, expiresAt: null },
-  { productId: 'crd_3800', credits: 3800, bonusCredits: 0, referencePriceUsd: 4.99, badge: 'Popular', tier: 'POPULAR', firstPurchaseOnly: false, expiresAt: null },
-  { productId: 'crd_8200', credits: 8200, bonusCredits: 0, referencePriceUsd: 9.99, badge: 'Best value', tier: 'BEST_VALUE', firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_2000', credits: 2000, bonusCredits: 0, referencePriceUsd: 2.89, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_10000', credits: 10000, bonusCredits: 300, referencePriceUsd: 14.49, badge: 'Popular', tier: 'POPULAR', firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_20000', credits: 20000, bonusCredits: 1000, referencePriceUsd: 28.49, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_50000', credits: 50000, bonusCredits: 3500, referencePriceUsd: 71.0, badge: 'Best value', tier: 'BEST_VALUE', firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_100000', credits: 100000, bonusCredits: 10000, referencePriceUsd: 142.99, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
 ];
 
 /**
- * Rungs we no longer show, kept so that money already in flight still lands.
+ * Products we sell but never list on the ladder.
  *
- * A player on an older build is looking at the old ladder right now, and a
- * StoreKit transaction can be redelivered days after it was made. Dropping
- * these from the lookup would take Apple's money and grant nothing — so they
- * stay resolvable forever, and only stop being *offered*.
+ * `crd_3800` was cut from the shelf and is kept resolvable because it exists in
+ * App Store Connect; `crd_first_21000` is the retired $19.99 first-purchase
+ * pack, and somebody on an older build may still be looking at it. Dropping
+ * either from the lookup would take Apple's money and grant nothing.
  */
-export const LEGACY_STORE_OFFERS: readonly z.infer<typeof StoreOffer>[] = [
-  { productId: 'crd_2000', credits: 2000, bonusCredits: 0, referencePriceUsd: 2.89, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
-  { productId: 'crd_10000', credits: 10000, bonusCredits: 300, referencePriceUsd: 14.49, badge: 'Popular', tier: null, firstPurchaseOnly: false, expiresAt: null },
-  { productId: 'crd_20000', credits: 20000, bonusCredits: 1000, referencePriceUsd: 28.49, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
-  { productId: 'crd_50000', credits: 50000, bonusCredits: 3500, referencePriceUsd: 71.0, badge: 'Best value', tier: null, firstPurchaseOnly: false, expiresAt: null },
-  { productId: 'crd_100000', credits: 100000, bonusCredits: 10000, referencePriceUsd: 142.99, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
+export const UNLISTED_STORE_OFFERS: readonly z.infer<typeof StoreOffer>[] = [
+  // The two value-add products, at their **plain** worth. Every bonus is
+  // decided from account state in `firstPurchaseBonusFor` / `flashBonusFor`,
+  // never read off the product — otherwise a pack whose display object already
+  // carries a bonus gets it applied twice and we over-credit silently.
+  { productId: 'crd_starter_700', credits: 700, bonusCredits: 0, referencePriceUsd: 0.99, badge: null, tier: 'STARTER', firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_8200', credits: 8200, bonusCredits: 0, referencePriceUsd: 9.99, badge: null, tier: 'FLASH', firstPurchaseOnly: false, expiresAt: null },
+  { productId: 'crd_3800', credits: 3800, bonusCredits: 0, referencePriceUsd: 4.99, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
   { productId: 'crd_first_21000', credits: 21000, bonusCredits: 0, referencePriceUsd: 19.99, badge: 'First purchase', tier: null, firstPurchaseOnly: true, expiresAt: null },
 ];
 
 /**
- * The first purchase, which is a different decision from every one after it.
+ * Value-add one: the first purchase, and only ever the first.
  *
- * Same $0.99 product as the starter rung, with its credits doubled by
- * `bonusCredits`. That is a real doubling of a real pack rather than a
- * manufactured discount off a price nobody was going to pay — the player can
- * check it against the rung sitting directly below, and it survives §3.8's ban
- * on fake scarcity because nothing about it is fake and nothing expires.
+ * 700 credits doubled to 1,400 for $0.99. Against the $2.89 base pack that is
+ * roughly double the credits per dollar, which is the point — it exists to move
+ * somebody across the line from "free player" to "payer", once. It disappears
+ * the moment anything has been bought, and the server decides that from the
+ * ledger rather than trusting the client.
  *
- * The point of purchase #1 is not the 99 cents. It is moving somebody from
- * "free player" to "payer", which is the threshold that predicts everything
- * after it.
+ * Nothing about it expires. The old version was gated on 48 hours from signup,
+ * so it was spent on people who had not played yet and had always lapsed by the
+ * time they hit the wall at turn 10 — the one moment they were considering it.
  */
 export const FIRST_PURCHASE_OFFER: z.infer<typeof StoreOffer> = {
   productId: 'crd_starter_700',
@@ -351,15 +347,49 @@ export const FIRST_PURCHASE_OFFER: z.infer<typeof StoreOffer> = {
 };
 
 /**
- * Every product we will ever honour, current or retired.
+ * Value-add two: a genuinely limited, genuinely better deal.
  *
- * One lookup for the grant path, so that adding a rung to the ladder can never
- * quietly become "we stopped crediting the old one".
+ * Double credits on the $9.99 pack — 16,400 instead of 8,200, which is about
+ * 2.3× the credits per dollar of any standing rung. It opens when a player
+ * actually runs out mid-story, runs for twelve hours, and cannot reopen for a
+ * week.
+ *
+ * **The window is real.** §3.8 forbids fake scarcity, and the way to respect
+ * that while still having a timer is for the timer to be true: the open is
+ * written to the append-only ledger, the deadline is computed from that row on
+ * the server, and reinstalling the app or changing the device clock does not
+ * move it. When it lapses the price goes back up and stays up for seven days.
+ */
+export const FLASH_OFFER: z.infer<typeof StoreOffer> = {
+  productId: 'crd_8200',
+  credits: 8200,
+  bonusCredits: 8200,
+  referencePriceUsd: 9.99,
+  badge: 'Ends soon',
+  tier: 'FLASH',
+  firstPurchaseOnly: false,
+  // Filled in per account from the ledger; null here means "not running".
+  expiresAt: null,
+};
+
+/** How long a flash window stays open once it has been triggered. */
+export const FLASH_OFFER_WINDOW_HOURS = 12;
+/** How long before a player can be shown another one. */
+export const FLASH_OFFER_COOLDOWN_DAYS = 7;
+/** The ledger reason code that records a window opening. */
+export const FLASH_OFFER_REASON = 'FLASH_OFFER_OPENED';
+
+/**
+ * Every product we will ever honour, listed or not.
+ *
+ * One lookup for the grant path, so that changing the shelf can never quietly
+ * become "we stopped crediting the one they bought". Returns the pack at its
+ * plain worth; bonuses are added by the two functions below.
  */
 export function offerForProduct(productId: string): z.infer<typeof StoreOffer> | null {
   return (
     STORE_OFFERS.find((offer) => offer.productId === productId) ??
-    LEGACY_STORE_OFFERS.find((offer) => offer.productId === productId) ??
+    UNLISTED_STORE_OFFERS.find((offer) => offer.productId === productId) ??
     null
   );
 }
@@ -367,22 +397,35 @@ export function offerForProduct(productId: string): z.infer<typeof StoreOffer> |
 /**
  * The extra credits a purchase earns for being the account's first.
  *
- * Decided here, from account state, rather than from which product was bought
- * — the starter rung and the first-purchase offer are deliberately the *same*
- * App Store product, so that a first-time buyer taps one $0.99 button and gets
- * double, and everybody else taps the same button and gets the pack. Encoding
- * the bonus in a second product id would mean two SKUs at one price and a way
- * for a returning buyer to claim the wrong one.
- *
- * Only the starter rung doubles. The bonus exists to make purchase #1 small and
- * obvious, not to discount the whole catalogue for whoever happens to arrive
- * with $9.99 in mind.
+ * Decided from account state rather than from which product was bought. The
+ * starter rung and the first-purchase offer are deliberately the *same* App
+ * Store product, so a first-time buyer taps one $0.99 button and gets double
+ * and everybody else taps the same button and gets 700. Encoding the bonus in a
+ * second product id would mean two SKUs at one price and a way for a returning
+ * buyer to claim the wrong one.
  */
 export function firstPurchaseBonusFor(
   offer: z.infer<typeof StoreOffer>,
   alreadyPurchased: boolean,
 ): number {
   if (alreadyPurchased) return 0;
-  if (offer.tier !== 'STARTER') return 0;
+  if (offer.productId !== FIRST_PURCHASE_OFFER.productId) return 0;
+  return offer.credits;
+}
+
+/**
+ * The extra credits the flash window is worth, while it is open.
+ *
+ * Same rule: the deal is a fact about the account's clock, not about the
+ * product. Buying `crd_8200` outside a window is an ordinary 8,200-credit pack
+ * at the ordinary price, and the server is the only thing that decides which
+ * of those two a given tap was.
+ */
+export function flashBonusFor(
+  offer: z.infer<typeof StoreOffer>,
+  windowOpen: boolean,
+): number {
+  if (!windowOpen) return 0;
+  if (offer.productId !== FLASH_OFFER.productId) return 0;
   return offer.credits;
 }

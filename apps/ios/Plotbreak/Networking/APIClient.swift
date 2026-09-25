@@ -334,6 +334,15 @@ actor APIClient {
     /// Every field is optional and an omitted one is left alone, so this is a
     /// patch rather than a second character-creation call. It takes effect from
     /// the next beat; nothing already written is rewritten.
+    /// Report that the player ran out mid-story, and get back what they can buy.
+    ///
+    /// A POST because it has a side effect on the server: it is what opens the
+    /// limited window. Most walls never reach the server otherwise — the client
+    /// knows the balance and stops the send before any request.
+    func creditWall() async throws -> WalletResponse {
+        try await request("POST", "/v1/wallet/credit-wall")
+    }
+
     func updateIdentity(_ sessionId: String, _ body: UpdateIdentityBody) async throws -> UpdateIdentityResponse {
         try await request("PATCH", "/v1/sessions/\(sessionId)/identity", body: body)
     }

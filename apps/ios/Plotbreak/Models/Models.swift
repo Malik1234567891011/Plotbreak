@@ -226,6 +226,10 @@ struct WalletSummary: Codable, Hashable {
     /// expired 48 hours after signup and so was always gone by the time
     /// somebody reached the wall.
     @Default<False> var firstPurchaseBonusAvailable: Bool
+    /// When the flash window closes, or nil when none is running. Server
+    /// computed from the ledger row that opened it, so the countdown the app
+    /// draws is the real deadline.
+    var flashOfferExpiresAt: String?
 }
 
 struct StoreOffer: Codable, Hashable, Identifiable {
@@ -243,7 +247,7 @@ struct StoreOffer: Codable, Hashable, Identifiable {
 }
 
 enum StoreOfferTier: String, LenientEnum {
-    case STARTER, POPULAR, BEST_VALUE
+    case STARTER, POPULAR, BEST_VALUE, FLASH
     case UNKNOWN
     static var fallback: StoreOfferTier { .UNKNOWN }
 }
