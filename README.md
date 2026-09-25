@@ -74,6 +74,12 @@ Unit tests pin the rules; this plays the game.
 
 ## Docs
 
-- [`docs/architecture.md`](docs/architecture.md) — turn pipeline and package boundaries
+- [`docs/handoff-2026-09-25.md`](docs/handoff-2026-09-25.md) — **start here.** Running it
+  locally without tripping over the three traps that look like app bugs, giving a story
+  an opening cinematic, and the ordering rules that have already cost money
+- [`docs/architecture.md`](docs/architecture.md) — turn pipeline and package boundaries.
+  Describes the deterministic engine, which is no longer the production path; see `CLAUDE.md`
 - [`docs/engine.md`](docs/engine.md) — check maths, outcome bands, mutation rules
-- [`docs/status.md`](docs/status.md) — what is built vs. what the spec still wants
+- [`docs/activation-monetization.md`](docs/activation-monetization.md) — why Play skips setup,
+  and how the credit wall and the two offers work
+- [`docs/status.md`](docs/status.md) — from 2026-09-10. History, not state
