@@ -45,12 +45,39 @@ async function* walk(dir: string): AsyncGenerator<string> {
 }
 
 async function main(): Promise<void> {
+  const force = process.argv.includes('--force');
   let masterBytes = 0;
   let deliveryBytes = 0;
   let count = 0;
+  let skipped = 0;
 
   for await (const path of walk(ASSET_DIR)) {
     const assetKey = relative(ASSET_DIR, path).replace(/\.png$/, '');
+    const outPath = path.replace(/\.png$/, '.webp');
+
+    // Never overwrite a .webp that is newer than its .png.
+    //
+    // This script assumes the .png is the master and the .webp is a derived
+    // artefact. For the v4 titled covers that is backwards: the wordmark is
+    // composited into the .webp, the .webp *is* the master, and the .png left
+    // on a dev machine is the older untitled render. Running this to shrink
+    // three unrelated frames therefore regenerated 25 covers from stale
+    // masters, stripped every wordmark, and shipped them — `git add -A` did
+    // the rest. The mtime check is the cheap version of "is the thing I am
+    // about to destroy more recent than the thing I am making it from".
+    //
+    // `--force` is the escape hatch for a genuine re-encode.
+    if (!force) {
+      const [master, derived] = await Promise.all([
+        stat(path).catch(() => null),
+        stat(outPath).catch(() => null),
+      ]);
+      if (master && derived && derived.mtimeMs > master.mtimeMs) {
+        skipped += 1;
+        continue;
+      }
+    }
+
     const input = await readFile(path);
     masterBytes += input.length;
 
@@ -59,7 +86,6 @@ async function main(): Promise<void> {
       .webp({ quality: 82, effort: 5 })
       .toBuffer();
 
-    const outPath = path.replace(/\.png$/, '.webp');
     await writeFile(outPath, webp);
     deliveryBytes += webp.length;
     count++;
@@ -69,10 +95,17 @@ async function main(): Promise<void> {
     );
   }
 
+  const shrink = masterBytes > 0 ? Math.round((1 - deliveryBytes / masterBytes) * 100) : 0;
   console.log(
     `\n${count} assets. Masters ${(masterBytes / 1_048_576).toFixed(1)}MB → delivery ${(deliveryBytes / 1_048_576).toFixed(1)}MB ` +
-      `(${Math.round((1 - deliveryBytes / masterBytes) * 100)}% smaller).`,
+      `(${shrink}% smaller).`,
   );
+  if (skipped > 0) {
+    console.log(
+      `${skipped} left alone: their .webp is newer than the .png beside it, so the .webp is the master ` +
+        `(a titled cover, say) and regenerating it would throw work away. Pass --force if you mean it.`,
+    );
+  }
 }
 
 void main();
