@@ -172,4 +172,15 @@ export const worldsheet = {
   /** "Branch" here is the branch of the timeline, not a tree branch or an office. */
   'worldsheet.fork_explainer':
     'Forking copies this world at the chosen moment. The original branch is never destroyed.',
+  // --- Editing who you are, from inside the run ---
+  /** The sheet's title. A question, because that is what it is asking. */
+  'identity.title': 'Who are you?',
+  'identity.blurb': 'You can change this at any time. It shapes how the story sees you from here on.',
+  'identity.background': 'Your background',
+  'identity.background_hint': 'Where you came from, as far as this world is concerned.',
+  'identity.edit': 'Edit',
+  'identity.save': 'Save',
+  'identity.saving': 'Saving…',
+  /** The reassurance that matters: nothing already written is rewritten. */
+  'identity.applies_next': 'Takes effect from the next beat. Nothing you have already read changes.',
 } as const;

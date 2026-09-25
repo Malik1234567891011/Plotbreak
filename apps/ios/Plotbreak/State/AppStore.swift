@@ -81,6 +81,7 @@ final class AppStore {
         static let heroName = "plotbreak.hero.name"
         static let heroPronouns = "plotbreak.hero.pronouns"
         static let heroGrammar = "plotbreak.hero.grammar"
+        static let wallCount = "plotbreak.wallCount"
     }
 
     private let defaults = UserDefaults.standard
@@ -333,6 +334,25 @@ final class AppStore {
 
     /// Called once a session has actually started, so an abandoned setup
     /// never becomes the next one's default.
+    // MARK: The credit wall
+
+    /// How many times this player has run out mid-action, ever.
+    ///
+    /// On the device because it is a property of the person, not of a run, and
+    /// the server cannot see the wall the client raises without ever sending a
+    /// request. The difference between refusing an offer once and refusing it
+    /// six times is the difference between "too expensive" and "not for me",
+    /// and the funnel currently cannot tell them apart.
+    var wallCount: Int { defaults.integer(forKey: Keys.wallCount) }
+
+    /// Counts this wall and answers with the new total.
+    @discardableResult
+    func recordWall() -> Int {
+        let next = wallCount + 1
+        defaults.set(next, forKey: Keys.wallCount)
+        return next
+    }
+
     func rememberHero(_ hero: HeroDefaults) {
         defaults.set(hero.name, forKey: Keys.heroName)
         defaults.set(hero.pronouns, forKey: Keys.heroPronouns)
@@ -441,7 +461,22 @@ final class AppStore {
             }
         }
 
-        await Reminders.refresh(nextClaimAt: nextClaimAt, session: session, translator: t)
+        // Credits the player has already earned and not collected. Asked for
+        // here rather than in the badges screen because a reminder is only
+        // worth arming for somebody who is not looking at the app.
+        var claimableBadgeCredits = 0
+        if let badges = try? await api.badges() {
+            claimableBadgeCredits = badges.badges
+                .filter { $0.unlockedAt != nil && $0.claimedAt == nil }
+                .reduce(0) { $0 + $1.creditReward }
+        }
+
+        await Reminders.refresh(
+            nextClaimAt: nextClaimAt,
+            session: session,
+            claimableBadgeCredits: claimableBadgeCredits,
+            translator: t
+        )
     }
 
     func refreshBootstrap() async {

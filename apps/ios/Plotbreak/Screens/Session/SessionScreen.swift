@@ -17,6 +17,10 @@ struct SessionScreen: View {
     @Environment(Router.self) private var router
     @Environment(\.translator) private var t
 
+    /// Set the moment the cinematic finishes, so the session appears without
+    /// waiting on a round trip.
+    @State private var prologueDone = false
+
     init(sessionId: String) {
         self.sessionId = sessionId
         _model = State(initialValue: SessionModel(sessionId: sessionId))
@@ -25,6 +29,19 @@ struct SessionScreen: View {
     /// The run has not answered yet, and has not failed either: a failure
     /// shows in the feed, with its retry.
     private var loading: Bool { model.detail == nil && model.error == nil }
+
+    /// Whether to play the opening cinematic over the session.
+    ///
+    /// The server only sends panels for a run nobody has played yet, and
+    /// `prologueSeen` remembers this session on this device — so it plays once,
+    /// for a new run, on a story that has one, and never for the twenty-five
+    /// that do not. Somebody forty turns deep reopening the app gets their
+    /// story, not a title sequence.
+    private var prologue: [ProloguePanelView] {
+        guard !prologueDone, let detail = model.detail else { return [] }
+        guard !SessionPrologueSeen.wasSeen(sessionId) else { return [] }
+        return detail.prologue
+    }
 
     var body: some View {
         Screen {
@@ -44,6 +61,22 @@ struct SessionScreen: View {
             }
             .overlay(alignment: .top) { tierHint }
             .overlay { overlays }
+            // Over the whole session, not instead of it: the feed is already
+            // loaded and waiting underneath, so `Begin` is instant.
+            .overlay {
+                if !prologue.isEmpty {
+                    PrologueView(
+                        panels: prologue,
+                        storyTitle: model.detail?.session.title ?? ""
+                    ) { _ in
+                        SessionPrologueSeen.markSeen(sessionId)
+                        withAnimation(.easeOut(duration: Theme.Durations.short)) {
+                            prologueDone = true
+                        }
+                    }
+                    .transition(.opacity)
+                }
+            }
         }
         .task {
             model.attach(store: store, router: router)

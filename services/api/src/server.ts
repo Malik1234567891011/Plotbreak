@@ -14,8 +14,11 @@ import {
   CreateSessionRequest,
   DEFAULT_QUALITY_TIER,
   FIRST_PURCHASE_OFFER,
+  FLASH_OFFER,
   FORK_COST_CREDITS,
+  offerForProduct,
   PurchaseRestoreRequest,
+  UpdateIdentityRequest,
   PurchaseSyncRequest,
   QUALITY_TIERS,
   STORE_OFFERS,
@@ -58,6 +61,7 @@ import {
   InsufficientCreditsError,
 } from './turn-service.js';
 import {
+  resolveAssetUrl,
   toContinueCard,
   toPlayerTurn,
   toSceneState,
@@ -111,6 +115,26 @@ import { EMPTY_SIGNALS } from './repo/types.js';
  * world still opens it, in whatever language it has, because somebody who was
  * handed a link is asking for that world specifically.
  */
+/**
+ * What this account can buy right now: the five standing packs, plus whichever
+ * of the two value-adds it has earned.
+ *
+ * The value-adds go **first** because they are the better deal and burying a
+ * better deal under five worse ones is just a worse shop. Everything after them
+ * is the ordinary ladder, unchanged — they are meant to read as exceptions to
+ * it, which only works while it stays put.
+ *
+ * One function, so the authenticated wallet and the public offers list can
+ * never disagree about what is on sale.
+ */
+function ladderFor(options: { firstPurchaseBonusAvailable: boolean; flashExpiresAt: string | null }) {
+  const extras = [
+    ...(options.firstPurchaseBonusAvailable ? [{ ...FIRST_PURCHASE_OFFER }] : []),
+    ...(options.flashExpiresAt ? [{ ...FLASH_OFFER, expiresAt: options.flashExpiresAt }] : []),
+  ];
+  return [...extras, ...STORE_OFFERS];
+}
+
 function readableIn(story: StoryVersion, locale: Locale): boolean {
   if (story.official) return true;
   if (story.sourceLocale === locale) return true;
@@ -1282,9 +1306,27 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       : 0;
     const recap = hoursAway > 8 ? buildRecap(story, state, turns) : null;
 
+    // The opening cinematic, and only at the opening.
+    //
+    // `turns` holds the authored opening beat and nothing else on a run nobody
+    // has played yet, so `<= 1` is "they have not typed anything". A player
+    // forty turns deep reopening the app gets their story back, not a title
+    // sequence. Sent resolved to urls so the client has no asset keys to
+    // understand, and empty for the twenty-five worlds that have no prologue.
+    const prologue =
+      turns.length <= 1
+        ? story.prologue.map((panel) => ({
+            imageUrl: resolveAssetUrl(panel.assetKey, story.version),
+            headline: panel.headline,
+            subline: panel.subline,
+            alt: panel.alt,
+          }))
+        : [];
+
     return {
       session: toSessionSummary(session, story, state, turns.length),
       scene: toSceneState(story, state, last),
+      prologue,
       // Spec §10.2 C — recent beats only; history is paged separately.
       // Projected, so the exact DC and the raw mutations stay server-side.
       recentTurns: turns.slice(-8).map((turn) => toPlayerTurn(story, turn, state.locale)),
@@ -1292,6 +1334,70 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       recap,
       revision: state.revision,
     };
+  });
+
+  /**
+   * Who the player is, decided or revised from inside the story.
+   *
+   * `Play` starts a run with a default identity rather than making everybody
+   * fill in a form first, so this is where that decision actually gets made —
+   * by somebody who has read a scene and has an opinion, rather than by
+   * somebody looking at a world they have never seen.
+   *
+   * Free, and not a turn. It changes what the storyteller is told about the
+   * player from the next beat onwards; it never rewrites the beats already
+   * written, because those are what happened and the transcript is replayed
+   * verbatim on every later request.
+   */
+  app.patch<{ Params: { sessionId: string } }>('/v1/sessions/:sessionId/identity', async (request, reply) => {
+    const loaded = await loadSession(request.params.sessionId, request, reply);
+    if (!loaded) return reply;
+    const { session, story, state } = loaded;
+
+    const parsed = UpdateIdentityRequest.safeParse(request.body ?? {});
+    if (!parsed.success) {
+      return sendError(reply, 400, 'INVALID_REQUEST', 'That character change is malformed.');
+    }
+    const patch = parsed.data;
+
+    // A world that names its own protagonist is not up for renaming. Itachi's
+    // premise says who you are; letting a player call themselves something else
+    // contradicts prose the story has already printed.
+    if (story.protagonist.kind === 'NAMED' && (patch.displayName !== undefined || patch.pronouns !== undefined)) {
+      return sendError(reply, 409, 'PROTAGONIST_IS_NAMED', 'This world already knows who you are.');
+    }
+
+    if (patch.archetypeId !== undefined && patch.archetypeId !== null) {
+      if (!story.archetypes.some((a) => a.id === patch.archetypeId)) {
+        return sendError(reply, 400, 'INVALID_REQUEST', 'That is not one of this world’s backgrounds.', {
+          archetypeId: patch.archetypeId,
+          available: story.archetypes.map((a) => a.id),
+        });
+      }
+    }
+
+    const identity = {
+      ...state.player.identity,
+      ...(patch.displayName !== undefined ? { displayName: patch.displayName.trim() } : {}),
+      ...(patch.pronouns !== undefined ? { pronouns: patch.pronouns.trim() || 'they/them' } : {}),
+      ...(patch.grammar !== undefined ? { grammar: patch.grammar } : {}),
+      ...(patch.archetypeId !== undefined ? { archetypeId: patch.archetypeId } : {}),
+      ...(patch.worldKnowsAboutYou !== undefined ? { worldKnowsAboutYou: patch.worldKnowsAboutYou } : {}),
+    };
+
+    const next = { ...state, player: { ...state.player, identity } };
+    const saved = await ctx.repo.saveState(session.sessionId, state.revision, next);
+    if (!saved) {
+      return sendError(reply, 409, 'REVISION_CONFLICT', 'The story moved while you were editing. Try again.');
+    }
+    // The session row carries the name the library lists a run under, so it
+    // moves too — otherwise the story calls them one thing and the shelf calls
+    // them another.
+    if (patch.displayName !== undefined) {
+      await ctx.repo.updateSession(session.sessionId, { displayName: identity.displayName });
+    }
+
+    return { identity, revision: next.revision };
   });
 
   app.delete<{ Params: { sessionId: string } }>('/v1/sessions/:sessionId', async (request, reply) => {
@@ -1574,11 +1680,17 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       return body;
     } catch (error) {
       if (error instanceof InsufficientCreditsError) {
+        // Running out mid-story is the moment the flash window is about, so it
+        // is the only place one opens. Idempotent and cooldown-gated inside the
+        // wallet: hitting the wall twice in an evening re-shows the same
+        // countdown instead of restarting it, and it cannot reopen for a week.
+        const flashExpiresAt = await ctx.wallet.openFlashOffer(user.userId).catch(() => null);
         // Spec §26.7 / WL-03 — the exact shortfall, so the wallet sheet can show it.
         return sendError(reply, 402, 'INSUFFICIENT_CREDITS', 'You need more credits for this turn.', {
           required: error.required,
           balance: error.balance,
           shortfall: error.shortfall,
+          flashOfferExpiresAt: flashExpiresAt?.toISOString() ?? null,
         });
       }
       if (error instanceof ContentBlockedError) {
@@ -1786,10 +1898,40 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (!user) return reply;
 
     const wallet = await ctx.wallet.getSummary(user.userId);
-    const offers = wallet.firstPurchaseOfferExpiresAt
-      ? [{ ...FIRST_PURCHASE_OFFER, expiresAt: wallet.firstPurchaseOfferExpiresAt }, ...STORE_OFFERS]
-      : [...STORE_OFFERS];
-    return { wallet, offers };
+    return {
+      wallet,
+      offers: ladderFor({
+        firstPurchaseBonusAvailable: wallet.firstPurchaseBonusAvailable,
+        flashExpiresAt: wallet.flashOfferExpiresAt,
+      }),
+    };
+  });
+
+  /**
+   * The player just ran out mid-story.
+   *
+   * A POST rather than a flag on `GET /v1/wallet`, because it has a side
+   * effect: it is what opens the flash window. Most walls never reach the
+   * server at all — the client knows the balance and stops the send before any
+   * request — so without somewhere to report it, the one offer that exists for
+   * this exact moment would only ever fire on the rare race.
+   *
+   * Idempotent. The wallet decides whether a window is earned, and hitting the
+   * wall three times in an evening re-shows one countdown.
+   */
+  app.post('/v1/wallet/credit-wall', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+
+    await ctx.wallet.openFlashOffer(user.userId).catch(() => null);
+    const wallet = await ctx.wallet.getSummary(user.userId);
+    return {
+      wallet,
+      offers: ladderFor({
+        firstPurchaseBonusAvailable: wallet.firstPurchaseBonusAvailable,
+        flashExpiresAt: wallet.flashOfferExpiresAt,
+      }),
+    };
   });
 
   app.get<{ Querystring: { cursor?: string; limit?: string } }>('/v1/wallet/ledger', async (request, reply) => {
@@ -1798,7 +1940,11 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     return ctx.wallet.listLedger(user.userId, Number(request.query.limit ?? 50), request.query.cursor);
   });
 
-  app.get('/v1/store/offers', async () => ({ offers: STORE_OFFERS }));
+  // Unauthenticated, so it cannot know whose first purchase this is. It shows
+  // the plain ladder; `/v1/wallet` is what carries the doubled starter.
+  app.get('/v1/store/offers', async () => ({
+    offers: ladderFor({ firstPurchaseBonusAvailable: false, flashExpiresAt: null }),
+  }));
 
   app.post('/v1/wallet/daily-claim', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);
@@ -1932,11 +2078,11 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     // that already credited, and counting it again would inflate revenue by
     // however many times a flaky network made the client try.
     if (!result.duplicate) {
-      const offer = STORE_OFFERS.find((entry) => entry.productId === verdict.productId);
+      const offer = offerForProduct(verdict.productId);
       tracker(ctx, request, user).track('purchase_completed', {
         productId: verdict.productId,
         creditsGranted: result.credited,
-        firstPurchase: Boolean(walletBefore.firstPurchaseOfferExpiresAt),
+        firstPurchase: walletBefore.firstPurchaseBonusAvailable,
         // The reference price, not what the player was charged: StoreKit bills
         // in their own currency at Apple's price point, and that number never
         // reaches this process. Good enough to rank packs, wrong for revenue —

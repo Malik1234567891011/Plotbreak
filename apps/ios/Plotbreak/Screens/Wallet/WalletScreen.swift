@@ -261,19 +261,47 @@ struct WalletScreen: View {
         }
     }
 
+    /// The offers this device can actually buy.
+    ///
+    /// The server decides what is on sale, but StoreKit decides what exists. A
+    /// pack the server lists and the store has never heard of renders with our
+    /// reference price, takes a tap, and fails at payment — and it is not
+    /// hypothetical: the API and the App Store approve on different clocks, so
+    /// a newly added product is live on the server for hours or days before
+    /// Apple has cleared it. During that window every player on the shipped
+    /// build would be looking at a button that cannot work.
+    ///
+    /// Only filtered once the store has answered with something. If StoreKit is
+    /// unreachable entirely the whole ladder shows with reference prices, which
+    /// is the existing behaviour and the right one — an offline player should
+    /// still see what is for sale.
+    private var buyableOffers: [StoreOffer] {
+        guard !storePrices.isEmpty else { return offers }
+        return offers.filter { storePrices[$0.productId] != nil }
+    }
+
     private var packs: some View {
         VStack(alignment: .leading, spacing: 9) {
-            ForEach(offers) { offer in
+            ForEach(buyableOffers) { offer in
                 OfferCard(
                     offer: offer,
                     price: price(for: offer),
-                    badge: offer.badge.map(badgeWord),
+                    badge: rungWord(offer),
                     ends: offer.expiresAt.map { t("wallet.ends", ["when": relativeTime($0)]) },
                     selected: selected == offer.productId,
                     dimmed: busy != nil && busy != offer.productId,
-                    locale: store.locale
+                    locale: store.locale,
+                    turnCost: turnCost
                 ) {
                     selected = offer.productId
+                    Telemetry.track(.offerSelected, [
+                        "productId": offer.productId,
+                        "tier": offer.tier?.rawValue ?? "UNKNOWN",
+                        "turnsOffered": (offer.credits + offer.bonusCredits) / max(1, turnCost),
+                        "balance": store.balance,
+                        "firstPurchase": wallet?.firstPurchaseBonusAvailable ?? false,
+                        "trigger": shortfall == nil ? "organic" : "wall",
+                    ])
                 }
                 .disabled(busy != nil)
                 .accessibilityLabel(t("wallet.offer_a11y", [
@@ -284,9 +312,16 @@ struct WalletScreen: View {
                 ]))
             }
 
-            if offers.isEmpty {
+            if buyableOffers.isEmpty {
                 ForEach(0..<3, id: \.self) { _ in Skeleton(height: 56, radius: Theme.Radius.field) }
             }
+
+            // Said once under the ladder rather than on every row: the turn
+            // counts above are at the quality this player is on, and the same
+            // pack buys four times as many Quick turns as Apex ones.
+            Txt(t("wallet.turns_at_tier", ["tier": t(TierCopy.labelKey(.VIVID))]),
+                .micro, color: Theme.Colors.textMuted)
+                .padding(.top, Theme.Spacing.sm)
 
             if let storeUnavailable {
                 Txt(storeUnavailable, .micro, color: Theme.Colors.warning)
@@ -454,7 +489,9 @@ struct WalletScreen: View {
         // between them is how many players change their mind at Apple's prompt.
         Telemetry.track(.purchaseStarted, [
             "productId": offer.productId,
-            "firstPurchase": store.wallet?.firstPurchaseOfferExpiresAt != nil,
+            "firstPurchase": wallet?.firstPurchaseBonusAvailable ?? false,
+            "balance": store.balance,
+            "trigger": shortfall == nil ? "organic" : "wall",
         ])
 
         let outcome = await store.purchases.buy(offer.productId)
@@ -547,6 +584,27 @@ struct WalletScreen: View {
     /// `STORE_OFFERS` carries the badge as an English literal; the catalogue
     /// decides how to say it. A badge nobody has keyed yet falls back to what
     /// the offer sent.
+    /// Turn counts are quoted at Vivid, the default quality, so the same pack
+    /// does not read as a different size every time the player moves the pill.
+    private var turnCost: Int {
+        max(1, TierCopy.info(.VIVID, bootstrap: store.bootstrap).costCredits)
+    }
+
+    /// The rung's label, chosen from the enum so it can be translated. Falls
+    /// back to the server's English string for a payload that predates `tier`.
+    private func rungWord(_ offer: StoreOffer) -> String? {
+        if offer.tier == .FLASH { return t("wallet.badge_flash") }
+        // `firstPurchaseOnly` and nothing else. Keying this off `bonusCredits`
+        // stamped FIRST PURCHASE on all five standing packs, because every one
+        // of them carries a small bonus of its own.
+        if offer.firstPurchaseOnly { return t("wallet.badge_first_purchase") }
+        switch offer.tier {
+        case .POPULAR: return t("wallet.badge_popular")
+        case .BEST_VALUE: return t("wallet.badge_best_value")
+        case .STARTER, .FLASH, .UNKNOWN, .none: return offer.badge.map(badgeWord)
+        }
+    }
+
     private func badgeWord(_ badge: String) -> String {
         switch badge {
         case "Popular": return t("wallet.badge_popular")  // i18n-exempt: the offer's value, matched to pick its key
@@ -618,20 +676,34 @@ private struct OfferCard: View {
     let selected: Bool
     let dimmed: Bool
     let locale: AppLocale
+    /// What a turn costs this player, so the pack can be priced in turns.
+    let turnCost: Int
     let action: () -> Void
 
     @Environment(\.translator) private var t
 
+    /// Turns first, credits second. A new player cannot answer "is 2,000 a
+    /// lot?", and making them do that arithmetic at the moment of purchase is
+    /// most of why the store reads as a spreadsheet.
+    private var turns: Int { (offer.credits + offer.bonusCredits) / max(1, turnCost) }
+
     var body: some View {
         RadioCard(selected: selected, accent: Theme.Colors.textPrimary, action: action) {
             VStack(alignment: .leading, spacing: 2) {
-                Text(t("wallet.credits_count", ["credits": Format.credits(offer.credits, locale: locale)]))
+                // Credits lead, turns explain. The pack's size is the thing the
+                // player is buying and the thing the receipt will say; the turn
+                // count is what makes that number mean something, which is a
+                // job for the second line.
+                Text(t("wallet.credits_count", ["credits": Format.credits(offer.credits + offer.bonusCredits, locale: locale)]))
                     .font(.system(size: 15, weight: .medium))
                     .foregroundStyle(Theme.Colors.textPrimary)
+                Text(t("wallet.turns_count", ["count": turns]))
+                    .font(.system(size: 12))
+                    .foregroundStyle(Theme.Colors.textDim)
                 if offer.bonusCredits > 0 {
                     Text(t("wallet.bonus_badge", ["bonus": Format.credits(offer.bonusCredits, locale: locale)]))
                         .font(.system(size: 12))
-                        .foregroundStyle(Theme.Colors.textDim)
+                        .foregroundStyle(Theme.Colors.accentPrimary)
                 }
                 if let ends {
                     Txt(ends, .micro, color: Theme.Colors.warning)

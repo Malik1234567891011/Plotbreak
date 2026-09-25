@@ -335,4 +335,46 @@ export const wallet = {
   'wallet.daily_ready_body': 'Your daily credits are waiting. Claim them above.',
   /** Daily tab while the next claim is counting down. */
   'wallet.daily_body': 'Come back once a day for free credits. They never expire.',
+
+  // --- The continuation sheet (the credit wall) ---
+  //
+  // Everything here sells the next beat of a story somebody is already in,
+  // never a quantity of currency. The turns are the headline and the credits
+  // are the receipt, because a new player cannot answer "is 2,000 a lot?".
+  /** Sheet title. Deliberately not "Wallet" or "Store". */
+  'continue.title': 'Keep playing',
+  'continue.heading': 'Your story is waiting',
+  /** {title} is the world's own name — what is waiting, said specifically. */
+  'continue.subheading': 'You are out of credits partway through {title}.',
+  /** The headline number. Turns, not credits. */
+  'continue.turns_headline': '{count, plural, one {# more turn} other {# more turns}}',
+  /**
+   * The small print under the headline. It names the quality the turn count
+   * was worked out at, because the same pack is 23 turns on Vivid and 7 on
+   * Apex and an unlabelled number is a promise waiting to be broken.
+   */
+  /** The headline on the continuation sheet: the pack, in credits. */
+  'continue.credits_headline': '{credits} credits',
+  /** What that buys, and at which quality. */
+  'continue.turns_detail': 'About {count, plural, one {# more turn} other {# more turns}} at {tier} quality',
+  /** The real deadline on the limited offer. */
+  'continue.flash_ends': 'Ends in {when}',
+  'continue.countdown_hm': '{hours}h {minutes}m',
+  'continue.countdown_m': '{minutes}m',
+  /** Primary button. The price is the store's own localised string. */
+  'continue.cta': 'Continue story · {price}',
+  'continue.working': 'One moment…',
+  /** Free route, when tonight's grant is already claimable. */
+  'continue.claim_daily': 'Claim your free daily credits',
+  /** Free route, when it is not. {when} is "in 5 hours" or "in 2 days". */
+  'continue.free_tomorrow': 'More free credits {when}',
+  /** Free route: credits already earned from badges and never collected. */
+  'continue.badge_credits': '{credits} credits waiting in your badges',
+  'continue.see_all_packs': 'See all credit packs',
+  /** A pack's size in the unit players reason in. Credits are the second line. */
+  'wallet.turns_count': '{count, plural, one {# turn} other {# turns}}',
+  /** Said once under the ladder: which quality those turn counts assume. */
+  'wallet.turns_at_tier': 'Turns counted at {tier} quality. A lower quality stretches the same credits further; a higher one uses them faster.',
+  /** The rung label for the limited-time deal. */
+  'wallet.badge_flash': 'Limited time',
 } as const;

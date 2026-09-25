@@ -20,6 +20,7 @@ import {
   FactionState,
   GameEvent,
   MemoryFact,
+  PlayerGrammar,
   PlayerIdentity,
   QuestProgress,
   RelationshipState,
@@ -499,10 +500,28 @@ export const PlayerTurnRecord = z
   .strict();
 export type PlayerTurnRecord = z.infer<typeof PlayerTurnRecord>;
 
+/** A prologue panel with its picture resolved, which is all a client needs. */
+export const ProloguePanelView = z
+  .object({
+    imageUrl: z.string().nullable(),
+    headline: z.string(),
+    subline: z.string(),
+    alt: z.string(),
+  })
+  .strict();
+export type ProloguePanelView = z.infer<typeof ProloguePanelView>;
+
 export const SessionDetailResponse = z
   .object({
     session: SessionSummary,
     scene: SessionSceneState,
+    /**
+     * The opening cinematic, when this story has one and this run has not
+     * started yet. Empty for every story that does not, and for every run
+     * already in progress — a player who is forty turns deep does not want a
+     * title sequence when they reopen the app.
+     */
+    prologue: z.array(ProloguePanelView).default([]),
     recentTurns: z.array(PlayerTurnRecord),
     suggestions: z.array(SuggestedAction),
     /** Spec §16.6 — shown when returning after >8h. */
@@ -681,6 +700,29 @@ export const TimelineResponse = z
   .object({ entries: z.array(TimelineEntry) })
   .strict();
 export type TimelineResponse = z.infer<typeof TimelineResponse>;
+
+/**
+ * Personalising a character partway through a run.
+ *
+ * `Play` starts a story with a default identity so that nobody has to fill in a
+ * form before they have read a word. The decision still deserves to exist — it
+ * is just better asked of somebody who has met the cast, which is what this is
+ * for. Every field is optional; an omitted one is left exactly as it was.
+ *
+ * Deliberately narrow. It cannot reach `advanced`, `portraitAssetId` or
+ * anything the engine derives, because this is a player editing themselves and
+ * not a second character-creation API.
+ */
+export const UpdateIdentityRequest = z
+  .object({
+    displayName: z.string().min(1).max(40).optional(),
+    pronouns: z.string().max(24).optional(),
+    grammar: PlayerGrammar.optional(),
+    archetypeId: z.string().nullable().optional(),
+    worldKnowsAboutYou: z.string().max(300).optional(),
+  })
+  .strict();
+export type UpdateIdentityRequest = z.infer<typeof UpdateIdentityRequest>;
 
 export const CanonCorrectionRequest = z
   .object({

@@ -67,7 +67,7 @@ struct WorldSheetScreen: View {
                         VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
                             switch tab {
                             case .overview: WorldSheetOverviewTab(sheet: sheet)
-                            case .character: WorldSheetCharacterTab(sheet: sheet)
+                            case .character: WorldSheetCharacterTab(sheet: sheet, sessionId: sessionId)
                             case .inventory: WorldSheetInventoryTab(sheet: sheet)
                             case .quests: WorldSheetQuestsTab(sheet: sheet)
                             case .relationships: WorldSheetRelationshipsTab(sheet: sheet)
@@ -203,19 +203,36 @@ struct WorldSheetOverviewTab: View {
 
 struct WorldSheetCharacterTab: View {
     let sheet: WorldSheetResponse
+    /// Needed so the player can change who they are from here. See
+    /// `IdentitySheet` for why this lives in the story rather than in front of
+    /// it.
+    var sessionId: String = ""
     @Environment(\.translator) private var t
     @State private var expanded: String?
+    @State private var editing = false
+    /// The edited identity, once saved, so the card updates without a reload.
+    @State private var edited: PlayerIdentity?
 
     private var character: WorldSheetCharacter { sheet.character }
+    private var identity: PlayerIdentity { edited ?? character.identity }
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
             Card {
                 VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                    Txt(character.identity.displayName, .h3)
-                    Txt(character.identity.pronouns, .caption, color: Theme.Colors.textSecondary)
-                    if !character.identity.worldKnowsAboutYou.isEmpty {
-                        Txt(character.identity.worldKnowsAboutYou, .bodyCompact, color: Theme.Colors.textSecondary)
+                    HStack(alignment: .firstTextBaseline) {
+                        Txt(identity.displayName, .h3)
+                        Spacer(minLength: Theme.Spacing.sm)
+                        if !sessionId.isEmpty {
+                            Button { editing = true } label: {
+                                Txt(t("identity.edit"), .bodyCompact, color: Theme.Colors.accentPrimary)
+                            }
+                            .buttonStyle(PressOpacityStyle())
+                        }
+                    }
+                    Txt(identity.pronouns, .caption, color: Theme.Colors.textSecondary)
+                    if !identity.worldKnowsAboutYou.isEmpty {
+                        Txt(identity.worldKnowsAboutYou, .bodyCompact, color: Theme.Colors.textSecondary)
                             .padding(.top, Theme.Spacing.sm)
                     }
                     HStack(spacing: Theme.Spacing.sm) {
@@ -311,6 +328,11 @@ struct WorldSheetCharacterTab: View {
                         }
                     }
                 }
+            }
+        }
+        .sheet(isPresented: $editing) {
+            IdentitySheet(sessionId: sessionId, identity: identity) { saved in
+                edited = saved
             }
         }
     }

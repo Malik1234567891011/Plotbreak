@@ -476,6 +476,7 @@ struct CharacterSetupScreen: View {
                 "archetypeId": identity.archetypeId ?? NSNull(),
                 "usedQuickSetup": !advanced,
                 "setupDurationMs": Int(Date().timeIntervalSince(setupStartedAt) * 1000),
+                "startPath": "customized",
             ])
             router.replaceTopWithSession(session.session.sessionId)
         } catch {
@@ -557,7 +558,9 @@ private struct GrantList: View {
 
 // MARK: - Field
 
-private struct SetupField: View {
+/// Shared with `IdentitySheet`, which asks the same three questions from inside
+/// the story. Internal rather than private for that reason alone.
+struct SetupField: View {
     let label: String
     var hint: String? = nil
     @Binding var value: String
@@ -617,7 +620,8 @@ private struct SetupInput: View {
 // `Card` with a border that answers to selection (and RN's dashed "write your
 // own" variant). File-private while screens are ported in parallel.
 
-private struct SelectableCard<Content: View>: View {
+/// Shared with `IdentitySheet`. See `SetupField`.
+struct SelectableCard<Content: View>: View {
     var selected: Bool
     var dashed: Bool = false
     @ViewBuilder let content: () -> Content

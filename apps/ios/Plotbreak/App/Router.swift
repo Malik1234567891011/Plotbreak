@@ -46,6 +46,16 @@ enum SheetRoute: Identifiable, Hashable {
     case search
     case worldSheet(sessionId: String, tab: String?)
     case wallet(shortfall: Int?)
+    /**
+     The credit wall, as a continuation rather than a shop.
+
+     Separate from `.wallet` on purpose. A player who ran out mid-sentence and
+     a player who tapped their balance are in completely different states of
+     mind, and the old flow sent both to the same store front — 41 of the 47
+     players who reached ten turns opened it and one of them bought anything.
+     This one knows which story is waiting and what it costs to carry on.
+     */
+    case continueStory(sessionId: String, storyId: String, storyTitle: String, shortfall: Int, turnsPlayed: Int)
     case signIn
     /// SH-01 — everything the card needs is passed in, so it composes offline.
     /// `storyId` is optional because the world-sheet timeline can share a
@@ -70,6 +80,7 @@ enum SheetRoute: Identifiable, Hashable {
         case .search: return "search"
         case .worldSheet(let sessionId, let tab): return "worldSheet:\(sessionId):\(tab ?? "")"
         case .wallet(let shortfall): return "wallet:\(shortfall ?? 0)"
+        case .continueStory(let sessionId, _, _, let shortfall, _): return "continue:\(sessionId):\(shortfall)"
         case .signIn: return "signIn"
         case .share(_, let title, _, _, _, _): return "share:\(title)"
         case .report(let type, let id): return "report:\(type):\(id)"
@@ -215,7 +226,8 @@ struct RootView: View {
     ///
     /// The daily one opens the wallet, which is where the claim button is; the
     /// story one opens the run itself, not its detail page, because the beat
-    /// they left is the thing being promised.
+    /// they left is the thing being promised; the badge one opens the badges,
+    /// where the credits it mentioned are actually collected.
     private func openTappedReminder() {
         guard let tap = taps.pending else { return }
         taps.pending = nil
@@ -226,6 +238,9 @@ struct RootView: View {
             guard let sessionId = tap.sessionId else { return }
             router.tab = .library
             router.push(.session(sessionId: sessionId))
+        case .badgeCredits:
+            // Straight to the badges, which is where the Claim buttons are.
+            router.present(.badges)
         }
     }
 
@@ -302,6 +317,9 @@ struct SheetHost: View {
             case .search: SearchScreen()
             case .worldSheet(let sessionId, let tab): WorldSheetScreen(sessionId: sessionId, initialTab: tab)
             case .wallet(let shortfall): WalletScreen(shortfall: shortfall)
+            case .continueStory(let sessionId, let storyId, let title, let shortfall, let turns):
+                ContinueStoryScreen(sessionId: sessionId, storyId: storyId, storyTitle: title,
+                                    shortfall: shortfall, turnsPlayed: turns)
             case .signIn: SignInScreen()
             case .share(let storyId, let title, let action, let scene, let hero, let name):
                 ShareScreen(storyId: storyId, storyTitle: title, actionText: action, sceneText: scene, heroImageUrl: hero, displayName: name)

@@ -26,4 +26,6 @@ export const notifications = {
   // fr-lint-disable-next-line FRC002
   'notifications.denied': 'Les notifications sont désactivées pour Plotbreak.',
   'notifications.open_settings': 'Ouvrir les réglages',
+  'notifications.badges_title': 'Des crédits t’attendent dans tes badges',
+  'notifications.badges_body': 'Tu as gagné des crédits que tu n’as pas encore récupérés. Touche pour les récupérer.',
 } as const;

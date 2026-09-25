@@ -1066,6 +1066,34 @@ export const Protagonist = z
   });
 export type Protagonist = z.infer<typeof Protagonist>;
 
+/**
+ * One frame of a story's opening cinematic.
+ *
+ * Three of these play before the first beat: a world, an escalation, and
+ * somebody noticing you. The point is that a player who just tapped Play meets
+ * an anime episode rather than a wall of prose — the pictures carry the setup,
+ * so the prose that follows can be two lines and a question instead of 250
+ * words of scene-setting.
+ *
+ * The text is deliberately tiny and deliberately *not* baked into the art:
+ * art cannot be localized or read aloud, and §41.1 bans lettering in generated
+ * images for exactly that reason. These two strings are ordinary story content
+ * and go through the same translation path as everything else.
+ */
+export const ProloguePanel = z
+  .object({
+    /** Resolved against the media route like any other asset key. */
+    assetKey: z.string(),
+    /** The line that lands first. A few words. */
+    headline: z.string().max(80),
+    /** The quieter second line, or empty. */
+    subline: z.string().max(120).default(''),
+    /** Alt text, because a picture carrying the setup has to be readable. */
+    alt: z.string().max(200).default(''),
+  })
+  .strict();
+export type ProloguePanel = z.infer<typeof ProloguePanel>;
+
 export const StoryVersion = z
   .object({
     id: z.string(),
@@ -1160,6 +1188,20 @@ export const StoryVersion = z
     coverDirection: z.string().default(''),
     /** 50–150 words. Spec §21.3 step 8 / §43.2. */
     opening: z.string(),
+    /**
+     * An optional cinematic that plays before the opening beat.
+     *
+     * **Defaulted, never required.** Every story version already published was
+     * written without it, and a strict schema that suddenly demands a new field
+     * rejects all of them — which is precisely how `calledName` took
+     * `/v1/discover` down to a 500 while `/health` said everything was fine.
+     * Empty means the story opens the way it always has.
+     *
+     * Capped at four because this is a hook, not a manga chapter: the research
+     * on onboarding is consistent that narrative earns attention only while it
+     * is moving the player toward acting, and a fifth panel is just a delay.
+     */
+    prologue: z.array(ProloguePanel).max(4).default([]),
     openingSuggestions: z.array(z.string()).max(3).default([]),
     publishedAt: z.string().nullable().default(null),
   })

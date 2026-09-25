@@ -30,6 +30,10 @@ struct StoryDetailScreen: View {
     /// blocking removes everything they have made from this person's app, and
     /// they should not find that out by having already done it.
     @State private var blockTarget: StorySummary?
+    /// Set while `Play` is creating a session, so the button can say so and
+    /// cannot be pressed twice into two sessions.
+    @State private var starting = false
+    @State private var startError: String?
 
     var body: some View {
         Screen {
@@ -152,6 +156,59 @@ struct StoryDetailScreen: View {
         } catch {
             loadError = error.playerMessage
         }
+    }
+
+    /// Start the story now, with an identity nobody had to fill in.
+    ///
+    /// The same `createSession` call the setup screen makes — this is not a
+    /// second, lesser way in. The only difference is where the identity came
+    /// from, and `usedQuickSetup` records that so the two paths can be told
+    /// apart in the funnel afterwards.
+    private func play(_ detail: StoryDetailResponse) async {
+        guard !starting else { return }
+        starting = true
+        startError = nil
+
+        let identity = DefaultIdentity.build(for: detail, store: store)
+        let request = CreateSessionRequest(identity: identity, usedQuickSetup: true, locale: store.locale)
+
+        do {
+            let session = try await store.api.createSession(storyId: detail.story.storyId, request)
+            // Remember the name for next time, exactly as setup does, so a
+            // player who later opens setup finds their own name already there.
+            if detail.protagonist?.kind != .NAMED {
+                store.rememberHero(HeroDefaults(
+                    name: identity.displayName,
+                    pronouns: identity.pronouns,
+                    grammar: store.lastHero.grammar
+                ))
+            }
+            // §37.1. `startPath` is the whole point of this change: without it
+            // the funnel cannot say whether the people who skipped setup went
+            // on to play, which is the only question that decides if this was
+            // a good idea. `setupDurationMs` is zero because there was none.
+            Telemetry.track(.sessionStarted, sessionId: session.session.sessionId, [
+                "storyId": detail.story.storyId,
+                "storyVersionId": session.session.storyVersionId,
+                "archetypeId": identity.archetypeId ?? NSNull(),
+                "usedQuickSetup": true,
+                "setupDurationMs": 0,
+                "startPath": "instant",
+            ])
+            router.push(.session(sessionId: session.session.sessionId))
+        } catch {
+            if let api = error as? APIError, api.isInsufficientCredits {
+                Telemetry.track(.insufficientCreditsShown, [
+                    "required": api.requiredCredits ?? 0,
+                    "balance": api.balanceCredits ?? 0,
+                    "shortfall": api.shortfall ?? 0,
+                    "qualityTier": "SESSION_START",
+                ])
+                router.present(.wallet(shortfall: api.shortfall))
+            }
+            startError = error is APIError ? error.playerMessage : t("setup.could_not_start")
+        }
+        starting = false
     }
 
     // MARK: Loaded
@@ -392,6 +449,12 @@ struct StoryDetailScreen: View {
     /// Spec §8.3 — one primary CTA, pinned. Continue when there is a run to
     /// return to; New session beside it, because starting over leaves the old
     /// run entirely alone.
+    ///
+    /// `Play` starts the story. It used to push the character-setup screen, so
+    /// the distance between wanting to play and playing was a form — and 53 of
+    /// the 197 people who reached that form never submitted a turn. Setup is
+    /// still here, one tap away, for the players it is actually for; it is no
+    /// longer the toll everybody pays. See `DefaultIdentity`.
     private func ctaBar(_ detail: StoryDetailResponse) -> some View {
         let continuing = detail.activeSessionId != nil
         return VStack(spacing: 10) {
@@ -399,13 +462,26 @@ struct StoryDetailScreen: View {
                 PBButton(t("story.continue"), variant: .light, size: .medium, haptic: .medium) {
                     if let sessionId = detail.activeSessionId { router.push(.session(sessionId: sessionId)) }
                 }
-                PBButton(t("story.new_session"), variant: .outline, size: .medium) {
-                    router.push(.characterSetup(storyId: detail.story.storyId))
+                PBButton(t("story.new_session"), loadingLabel: t("story.starting"),
+                         variant: .outline, size: .medium, loading: starting, disabled: starting,
+                         haptic: .medium) {
+                    Task { await play(detail) }
                 }
             } else {
-                PBButton(t("story.new_session"), variant: .light, haptic: .medium) {
-                    router.push(.characterSetup(storyId: detail.story.storyId))
+                PBButton(t("story.play"), loadingLabel: t("story.starting"),
+                         variant: .light, loading: starting, disabled: starting,
+                         haptic: .medium) {
+                    Task { await play(detail) }
                 }
+            }
+            // Secondary on purpose, and worded as what it gives rather than as
+            // what it costs: this is the door for somebody who wants to author
+            // a character, not a step to get past.
+            PBButton(t("story.customize_character"), variant: .tertiary, size: .medium, disabled: starting) {
+                router.push(.characterSetup(storyId: detail.story.storyId))
+            }
+            if let startError {
+                Txt(startError, .caption, color: Theme.Colors.danger, center: true)
             }
         }
         .padding(.horizontal, Theme.pageGutter)
