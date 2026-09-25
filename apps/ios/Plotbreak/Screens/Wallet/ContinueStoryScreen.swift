@@ -290,15 +290,25 @@ struct ContinueStoryScreen: View {
     private func claimDaily() async {
         busy = "daily"
         defer { busy = nil }
-        guard let response = try? await store.api.claimDaily(), response.granted else { return }
-        await store.refreshWallet()
-        wallet = try? await store.api.wallet().wallet
-        Telemetry.track(.dailyGrantClaimed, sessionId: sessionId, [
-            "amount": response.amount,
-            "streakDays": 0,
-        ])
-        Haptic.play(.success)
-        celebrating = response.amount
+        do {
+            let response = try await store.api.claimDaily()
+            await store.refreshWallet()
+            wallet = try? await store.api.wallet().wallet
+            guard response.granted else { return }
+            Telemetry.track(.dailyGrantClaimed, sessionId: sessionId, [
+                "amount": response.amount,
+                "streakDays": 0,
+            ])
+            Haptic.play(.success)
+            celebrating = response.amount
+        } catch {
+            // A guest cannot claim — the server answers 403 SIGN_IN_REQUIRED —
+            // and swallowing that left the player tapping a row that did
+            // nothing at all. Silence at the wall is the one thing this screen
+            // cannot afford; the same mistake cost us a whole audit once
+            // already (PASS.md #12).
+            notice = t("wallet.daily_sign_in")
+        }
     }
 
     private func dismiss(bought: Bool) {
