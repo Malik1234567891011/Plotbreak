@@ -49,9 +49,13 @@ struct ContinueStoryScreen: View {
     /// pack, because the question at a wall is "what is the least I can do to
     /// keep going".
     private var headline: StoreOffer? {
-        offers.first { $0.firstPurchaseOnly }
-            ?? offers.first { $0.tier == .FLASH }
-            ?? offers.min { $0.referencePriceUsd < $1.referencePriceUsd }
+        // Only something StoreKit actually knows about. Leading the wall with a
+        // product Apple has not cleared yet means the one button on the
+        // highest-intent screen in the product fails at payment.
+        let buyable = storePrices.isEmpty ? offers : offers.filter { storePrices[$0.productId] != nil }
+        return buyable.first { $0.firstPurchaseOnly }
+            ?? buyable.first { $0.tier == .FLASH }
+            ?? buyable.min { $0.referencePriceUsd < $1.referencePriceUsd }
     }
 
     /// Seconds left on the window, for the countdown line.

@@ -261,9 +261,28 @@ struct WalletScreen: View {
         }
     }
 
+    /// The offers this device can actually buy.
+    ///
+    /// The server decides what is on sale, but StoreKit decides what exists. A
+    /// pack the server lists and the store has never heard of renders with our
+    /// reference price, takes a tap, and fails at payment — and it is not
+    /// hypothetical: the API and the App Store approve on different clocks, so
+    /// a newly added product is live on the server for hours or days before
+    /// Apple has cleared it. During that window every player on the shipped
+    /// build would be looking at a button that cannot work.
+    ///
+    /// Only filtered once the store has answered with something. If StoreKit is
+    /// unreachable entirely the whole ladder shows with reference prices, which
+    /// is the existing behaviour and the right one — an offline player should
+    /// still see what is for sale.
+    private var buyableOffers: [StoreOffer] {
+        guard !storePrices.isEmpty else { return offers }
+        return offers.filter { storePrices[$0.productId] != nil }
+    }
+
     private var packs: some View {
         VStack(alignment: .leading, spacing: 9) {
-            ForEach(offers) { offer in
+            ForEach(buyableOffers) { offer in
                 OfferCard(
                     offer: offer,
                     price: price(for: offer),
@@ -293,7 +312,7 @@ struct WalletScreen: View {
                 ]))
             }
 
-            if offers.isEmpty {
+            if buyableOffers.isEmpty {
                 ForEach(0..<3, id: \.self) { _ in Skeleton(height: 56, radius: Theme.Radius.field) }
             }
 
