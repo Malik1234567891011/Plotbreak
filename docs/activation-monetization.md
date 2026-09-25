@@ -182,3 +182,66 @@ the Mac's LAN address rather than `localhost`, because Local.app squats
 `127.0.0.1:4000` on this machine and wins the more specific bind. The original
 is backed up in this session's scratchpad. Restore it before building anything
 that should talk to Supabase.
+
+---
+
+# Shipping this
+
+**Not yet.** In order, and the first two are the ones that actually bite.
+
+## 1. The three products are not submitted
+
+`crd_starter_700`, `crd_3800` and `crd_8200` sit at *Prepare for Submission*.
+Each needs a review screenshot and has to be attached to the version
+submission. Shipping the app without them is **worse than not shipping the
+offers at all**: the $0.99 first purchase and the $9.99 flash deal would render,
+be tapped, and fail at payment. Only Malik can do this.
+
+`crd_3800` is no longer listed anywhere. Delete it or leave it; it stays
+creditable either way.
+
+## 2. Deploy order: API, then migrate, then the app
+
+The client is written to survive an older server — `/v1/wallet/credit-wall`
+falls back to the plain wallet, and a payload with no `prologue`,
+`flashOfferExpiresAt` or `firstPurchaseBonusAvailable` reads as empty/false. One
+exception: `PATCH /v1/sessions/:sessionId/identity` has no fallback, so the
+"Who are you?" editor errors against an undeployed API.
+
+The prologue has a harder constraint. `StoryVersion.prologue` is defaulted, so
+old versions still parse — but a *new* Itachi version carrying it must not be
+published until the deployed API understands the field. That is the `calledName`
+ordering exactly: **the schema ships before the data that uses it, never
+after.** So:
+
+1. merge and deploy the API
+2. `npm run migrate` (publishes Itachi with its prologue; the webp are committed
+   under `infra/seed/assets/story_itachi/prologue/`)
+3. submit the app
+
+Do not run `migrate` against production from a branch whose contract changes are
+not deployed.
+
+## 3. Before the submission itself
+
+- **Bump the version.** `project.yml` still says 1.0.4 / build 12.
+- **Build the artifact the normal way.** A Release build through the MCP tooling
+  produced an `Info.plist` with no `PLOTBREAK_API_URL` and a default 1.0.0/1
+  version, so that path is not equivalent to an Xcode archive. Archive from
+  Xcode and read the `Info.plist` back before uploading.
+- **Release notes and review notes.** The timed offer is a countdown, and
+  countdowns draw review attention. It is worth saying plainly that the window
+  is server-authoritative, opens only after a player runs out mid-story, and
+  genuinely lapses — because it does.
+- **A full `npm run smoke`.** Only `--only=itachi --quick` was run, on the
+  grounds that nothing in this branch touches the narrative path. It flagged one
+  `NO_CONSEQUENCE` on unprovoked aggression, which belongs to the same family as
+  the already-open #31 / `FORGOT_VIOLENCE` items and was not shown to be new.
+
+## A hazard that was live and is now fixed
+
+`Release.xcconfig` ends with `#include? "Local.xcconfig"`, and local testing had
+put `PLOTBREAK_API_URL = http://10.144.7.178:4000` in that file. **An App Store
+build cut from this machine would have shipped pointing at a laptop on a home
+network.** Restored. Worth knowing the include exists: anything in
+`Local.xcconfig` reaches Release, not just Debug.
