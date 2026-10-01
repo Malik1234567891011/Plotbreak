@@ -700,6 +700,7 @@
   "rail.new": "New on Plotbreak",
   "rail.top_ranked": "Top ranked",
   "rail.trending": "Trending now",
+  "session.arc_label": "Arc {n}",
   "session.back_to_library": "Back to library",
   "session.close_image": "Close image",
   "session.close_sheet": "Close {title}",

@@ -23,6 +23,7 @@ export const session = {
    * Screen-reader label on the generated scene picture. "Tap to view full
    * screen" is the action, not a description of the image.
    */
+  'session.arc_label': 'Arc {n}',
   'session.scene_image_a11y': 'Scene image. Tap to view full screen.',
   /**
    * The frame's slot, before the frame.

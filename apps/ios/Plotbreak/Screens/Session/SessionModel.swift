@@ -155,6 +155,9 @@ final class SessionModel {
     /// Turn ids whose hero frame is queued and has not landed. See `isAwaitingHero`.
     private var awaitingFrames: Set<String> = []
     private(set) var suggestions: [SuggestedAction] = []
+    /// Closed arcs. Empty for every run that has not reached one, which is
+    /// almost all of them.
+    private(set) var arcs: [SessionArc] = []
     /// Guards the two one-shot session events below, which `load()` and `send()`
     /// can both otherwise reach more than once per screen.
     private var resumeReported = false
@@ -216,6 +219,11 @@ final class SessionModel {
     /// something is pending nothing in `turns` is live any more, so all of it
     /// belongs to the history.
     var historyTurns: [PlayerTurnRecord] { pending == nil ? Array(turns.dropLast()) : turns }
+
+    /// The arc that ended on this beat, if any. The card renders under it.
+    func arc(closingOn turnIndex: Int) -> SessionArc? {
+        arcs.first { $0.closedAtTurn == turnIndex }
+    }
 
     var heroImageUrl: String? { pending != nil ? pending?.heroImageUrl : latest?.heroImageUrl }
     /// Whether the beat on screen is still waiting for its picture.
@@ -292,6 +300,7 @@ final class SessionModel {
             detail = response
             scene = response.scene
             turns = response.recentTurns
+            arcs = response.arcs
             suggestions = response.suggestions
             revision = response.revision
             error = nil
@@ -596,6 +605,7 @@ final class SessionModel {
                     // out the moment the server's copy of the turn arrives.
                     self.lastReaction = self.pending?.reaction
                     self.turns = response.recentTurns
+                    self.arcs = response.arcs
                     self.revision = response.revision
                     self.pending = nil
                     // Deliberately no scroll here. The prose is already on

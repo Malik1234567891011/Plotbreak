@@ -116,6 +116,11 @@ struct SessionFeed: View {
                     SessionHeroFramePending()
                 }
             }
+            // An arc ends on a beat the story chose to rest on, so the card
+            // sits under that beat rather than above the next one.
+            if let arc = model.arc(closingOn: turn.turnIndex) {
+                SessionArcCard(arc: arc)
+            }
         }
     }
 
@@ -313,6 +318,68 @@ struct SessionBlock: View {
         case .NARRATION:
             NarrationBlock(text: block.text, t: t)
         }
+    }
+}
+
+// MARK: - Arc card
+
+/// The end of an arc.
+///
+/// Behind it, the run has grown long enough that re-sending the whole
+/// transcript every turn costs multiples of what the turn is worth, and the
+/// story has been compacted into a recap. The player is told none of that.
+/// What they get is a marker that a stretch of *their* story finished — placed
+/// on a beat the storyteller itself decided was a resting point, which is the
+/// only reason this reads as punctuation instead of an interruption.
+struct SessionArcCard: View {
+    let arc: SessionArc
+    @Environment(\.translator) private var t
+
+    private var numeral: String {
+        let numerals = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
+        return arc.arcIndex < numerals.count ? numerals[arc.arcIndex] : "\(arc.arcIndex)"
+    }
+
+    var body: some View {
+        VStack(spacing: Theme.Spacing.md) {
+            rule
+            heading
+            Txt(arc.recap, .body, color: Theme.Colors.textSecondary)
+                .multilineTextAlignment(.leading)
+            rule
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, Theme.Spacing.lg)
+        .padding(.horizontal, Theme.Spacing.md)
+        .background(card)
+        .padding(.vertical, Theme.Spacing.md)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(label)
+    }
+
+    private var heading: some View {
+        VStack(spacing: Theme.Spacing.xs) {
+            Txt(t("session.arc_label", ["n": numeral]).uppercased(), .caption, color: Theme.Colors.accentPrimary)
+                .tracking(3)
+            Txt(arc.title, .h3, color: Theme.Colors.textPrimary)
+                .multilineTextAlignment(.center)
+        }
+    }
+
+    private var card: some View {
+        RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
+            .fill(Theme.Colors.bgElevated)
+    }
+
+    private var label: String {
+        t("session.arc_label", ["n": numeral]) + ". " + arc.title + ". " + arc.recap
+    }
+
+    private var rule: some View {
+        Rectangle()
+            .fill(Theme.Colors.accentPrimary.opacity(0.35))
+            .frame(height: 1)
+            .frame(maxWidth: 120)
     }
 }
 

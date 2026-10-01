@@ -700,6 +700,7 @@
   "rail.new": "Nouveautés sur Plotbreak",
   "rail.top_ranked": "Les mieux notés",
   "rail.trending": "Tendances",
+  "session.arc_label": "Arc {n}",
   "session.back_to_library": "Retour à la bibliothèque",
   "session.close_image": "Fermer l’image",
   "session.close_sheet": "Fermer {title}",

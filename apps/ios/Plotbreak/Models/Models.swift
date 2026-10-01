@@ -781,12 +781,30 @@ struct ProloguePanelView: Codable, Hashable, Identifiable {
     @Default<EmptyString> var alt: String
 }
 
+/// A stretch of story that has been closed and compacted.
+///
+/// A long run re-sends its whole transcript on every turn, and past a certain
+/// size that costs multiples of what the turn is worth. Closing an arc swaps
+/// the transcript for a recap. The player is not told any of that: they get a
+/// card marking the end of a chunk of their own story, at a moment the story
+/// itself chose to pause.
+struct SessionArc: Codable, Hashable, Identifiable {
+    var id: Int { arcIndex }
+    @Default<Zero> var arcIndex: Int
+    @Default<EmptyString> var title: String
+    @Default<EmptyString> var recap: String
+    /// The turn this arc ended on. The card renders directly after it.
+    @Default<Zero> var closedAtTurn: Int
+}
+
 struct SessionDetailResponse: Codable, Hashable {
     var session: SessionSummary
     var scene: SessionSceneState
     /// The opening cinematic. Empty for every story without one, and for any
     /// run that is already under way.
     @Default<EmptyArray<ProloguePanelView>> var prologue: [ProloguePanelView]
+    /// Closed arcs, oldest first. Empty for every run that has not reached one.
+    @Default<EmptyArray<SessionArc>> var arcs: [SessionArc]
     @Default<EmptyArray<PlayerTurnRecord>> var recentTurns: [PlayerTurnRecord]
     @Default<EmptyArray<SuggestedAction>> var suggestions: [SuggestedAction]
     var recap: SessionRecap?

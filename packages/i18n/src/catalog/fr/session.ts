@@ -66,6 +66,7 @@ export const session = {
   /* C. Story beat / transcript                                              */
   /* ---------------------------------------------------------------------- */
 
+  'session.arc_label': 'Arc {n}',
   'session.scene_image_a11y': 'Image de la scène. Toucher pour afficher en plein écran.',
   /** « en cours de dessin » plutôt que « chargement » : rien n’est en train
       d’arriver, quelque chose est en train d’être fait. */
