@@ -1,7 +1,15 @@
 import type { GameState, QualityTier, StoryVersion, TurnRecord } from '@plotbreak/contracts';
 import { QUALITY_TIERS } from '@plotbreak/contracts';
 import { charactersPresent, dayPart, deriveTurnSeed, outcomeLabel, formatCheckMath, dcBandLabel } from '@plotbreak/engine';
-import { runTurn, runTurnPure } from '@plotbreak/director';
+import {
+  runTurn,
+  runTurnPure,
+  approxTokens,
+  arcDecision,
+  arcPrefix,
+  closeArc,
+  keepTurns,
+} from '@plotbreak/director';
 import type { Analytics } from '@plotbreak/analytics';
 import type { AppContext } from './context.js';
 import { reactionAssetKey } from '@plotbreak/contracts';
@@ -254,7 +262,24 @@ async function processTurn(
       // The conversation exactly as it was sent, not re-rendered from `turns`.
       // Byte-identical replay is the whole of the cache saving: a reformatted
       // historical message costs every cached token for the rest of the session.
-      const priorMessages = await ctx.repo.listPureMessages(session.sessionId);
+      // Arcs. Only the open arc replays verbatim; closed ones ride in the
+      // prefix as a recap. Nothing is deleted — unset the limits and
+      // `listPureMessagesFrom(…, 0)` is the old behaviour exactly.
+      const arcs = await ctx.repo.listArcs(session.sessionId);
+      const arcStart = arcs.length > 0 ? arcs[arcs.length - 1]!.toTurn + 1 : 0;
+      const priorMessages = await ctx.repo.listPureMessagesFrom(session.sessionId, arcStart);
+      const arcPrefixText = arcPrefix(arcs) ?? '';
+      const contextSoFar =
+        approxTokens(arcPrefixText) +
+        priorMessages.reduce((n, m) => n + approxTokens(m.user) + approxTokens(m.assistant), 0);
+      // Decided before the turn runs, from the turn before it: past the soft
+      // limit the storyteller is asked to start looking for a resting point.
+      // It is not told to end anything, and the player sees nothing.
+      const winding = arcDecision({
+        contextTokens: contextSoFar,
+        sceneStatus: 'live',
+        turnsSinceArcStart: priorMessages.length,
+      });
       // Blocks go out the moment they finish rather than after the whole
       // structured object lands. Without this the player watched a spinner for
       // six seconds and then received the entire turn at once.
@@ -271,6 +296,8 @@ async function processTurn(
         cacheKey: `pb:${session.sessionId}`,
         // The tier, resolved once above and used for both halves of the turn.
         model: profile.model,
+        arcs,
+        arcClosing: winding !== 'continue',
         reasoningEffort: profile.reasoningEffort,
         wordTarget: profile.words,
         maxTokens: profile.maxOutputTokens,
@@ -315,6 +342,22 @@ async function processTurn(
       await ctx.repo.appendTurn(pureRecord);
       await ctx.repo.appendPureMessage(session.sessionId, pure.state.turnIndex, pure.rendered);
       await ctx.wallet.finalize(reservation);
+      // The break fires on a beat the storyteller marked `settled`, which is a
+      // moment it chose. Never awaited into the player's turn and never fatal:
+      // a failed close just means the arc runs a little longer.
+      void maybeCloseArc({
+        ctx,
+        session,
+        story,
+        arcs,
+        arcStart,
+        priorMessages,
+        rendered: pure.rendered,
+        sceneStatus: pure.sceneStatus,
+        contextSoFar: contextSoFar + approxTokens(pure.rendered.user) + approxTokens(pure.rendered.assistant),
+        turnIndex: pure.state.turnIndex,
+        locale: pure.state.locale ?? 'en',
+      }).catch(() => undefined);
       const balancePure = await ctx.wallet.getBalance(user.userId);
 
       // Only what the stream did not already deliver. The streamed blocks are
@@ -898,4 +941,71 @@ function failedStage(code: string): 'PARSE' | 'ENGINE' | 'DIRECTOR' | 'WRITER' |
     default:
       return 'UNKNOWN';
   }
+}
+
+/**
+ * Close the arc, if the story just gave us a place to close it.
+ *
+ * Called after the turn is committed and never awaited into it: the player has
+ * already read their beat and already paid for it. If this fails, the arc
+ * simply runs on and the next settled beat gets another go — the only cost is
+ * a few more turns above the soft limit, and the hard limit is still 12k below
+ * the price step.
+ */
+async function maybeCloseArc(args: {
+  ctx: AppContext;
+  session: { sessionId: string; storyVersionId: string };
+  story: StoryVersion;
+  arcs: readonly import('@plotbreak/contracts').StoryArc[];
+  arcStart: number;
+  priorMessages: readonly { user: string; assistant: string }[];
+  rendered: { user: string; assistant: string };
+  sceneStatus: 'live' | 'settled';
+  contextSoFar: number;
+  turnIndex: number;
+  locale: string;
+}): Promise<void> {
+  const decision = arcDecision({
+    contextTokens: args.contextSoFar,
+    sceneStatus: args.sceneStatus,
+    turnsSinceArcStart: args.priorMessages.length + 1,
+  });
+  if (decision !== 'close-now') return;
+  if (!args.ctx.modelGateway) return;
+
+  // One line per beat for the whole arc, which is what the recap is written
+  // from. Already distilled, and ~8K tokens against ~200K of transcript.
+  const turns = await args.ctx.repo.listTurns(args.session.sessionId);
+  const sceneSummaries = turns
+    .filter((turn: TurnRecord) => turn.turnIndex >= args.arcStart && turn.turnIndex <= args.turnIndex)
+    .map((turn: TurnRecord) => turn.sceneSummary)
+    .filter((line: string | undefined): line is string => Boolean(line && line.trim()));
+  if (sceneSummaries.length === 0) return;
+
+  const everything = [...args.priorMessages, args.rendered];
+  const closing = await closeArc({
+    gateway: args.ctx.modelGateway,
+    storyTitle: args.story.title,
+    arcIndex: args.arcs.length + 1,
+    sceneSummaries,
+    tail: everything.slice(-keepTurns()),
+    earlier: args.arcs,
+    locale: args.locale,
+    // The cheap tier. This is a summarisation job, not a storytelling one, and
+    // paying Apex rates to compress a transcript would defeat the point.
+    model: QUALITY_TIERS.QUICK.model,
+  });
+
+  await args.ctx.repo.appendArc(
+    args.session.sessionId,
+    {
+      arcIndex: args.arcs.length + 1,
+      title: closing.title,
+      recap: closing.recap,
+      carried: closing.carried,
+      fromTurn: args.arcStart,
+      toTurn: args.turnIndex,
+    },
+    args.contextSoFar,
+  );
 }

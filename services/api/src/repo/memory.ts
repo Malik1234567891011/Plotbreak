@@ -6,6 +6,7 @@ import type {
   MemoryFact,
   StoryVersion,
   TurnRecord,
+  StoryArc,
 } from '@plotbreak/contracts';
 import { registerWorldText } from '@plotbreak/contracts';
 import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
@@ -492,6 +493,8 @@ export class MemoryRepository implements Repository {
     return [...(this.#turns.get(sessionId) ?? [])];
   }
 
+  readonly #arcs = new Map<string, StoryArc[]>();
+
   async appendPureMessage(sessionId: string, turnIndex: number, message: PureMessage): Promise<void> {
     const list = this.#pureMessages.get(sessionId) ?? [];
     if (list[turnIndex]) return;
@@ -504,6 +507,22 @@ export class MemoryRepository implements Repository {
     // not happen; dropping them keeps the replay contiguous rather than sending
     // `undefined` into a prompt.
     return [...(this.#pureMessages.get(sessionId) ?? [])].filter(Boolean);
+  }
+
+  async listPureMessagesFrom(sessionId: string, fromTurn: number): Promise<PureMessage[]> {
+    const list = this.#pureMessages.get(sessionId) ?? [];
+    return list.slice(fromTurn).filter(Boolean);
+  }
+
+  async listArcs(sessionId: string): Promise<StoryArc[]> {
+    return [...(this.#arcs.get(sessionId) ?? [])].sort((a, b) => a.arcIndex - b.arcIndex);
+  }
+
+  async appendArc(sessionId: string, arc: StoryArc, _closedAtTokens: number): Promise<void> {
+    const list = this.#arcs.get(sessionId) ?? [];
+    if (list.some((existing) => existing.arcIndex === arc.arcIndex)) return;
+    list.push(arc);
+    this.#arcs.set(sessionId, list);
   }
 
   async appendEvents(events: readonly GameEvent[]): Promise<void> {

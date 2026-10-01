@@ -1323,10 +1323,22 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
           }))
         : [];
 
+    // Closed arcs. Title and prose only: `carried` is continuity for the
+    // storyteller and is never shown to anybody. Few enough to send whole —
+    // one per few hundred turns — and the client places each card after the
+    // turn it closed on.
+    const arcs = (await ctx.repo.listArcs(session.sessionId)).map((arc) => ({
+      arcIndex: arc.arcIndex,
+      title: arc.title,
+      recap: arc.recap,
+      closedAtTurn: arc.toTurn,
+    }));
+
     return {
       session: toSessionSummary(session, story, state, turns.length),
       scene: toSceneState(story, state, last),
       prologue,
+      arcs,
       // Spec §10.2 C — recent beats only; history is paged separately.
       // Projected, so the exact DC and the raw mutations stay server-side.
       recentTurns: turns.slice(-8).map((turn) => toPlayerTurn(story, turn, state.locale)),

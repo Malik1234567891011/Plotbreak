@@ -9,6 +9,8 @@ import {
   MemoryFact,
   StoryVersion,
   TurnRecord,
+  ArcCarry,
+  type StoryArc,
   registerWorldText,
 } from '@plotbreak/contracts';
 import type {
@@ -1165,6 +1167,52 @@ export class PostgresRepository implements Repository {
       [sessionId],
     );
     return rows.map((row) => ({ user: row.user_text, assistant: row.assistant_text }));
+  }
+
+  async listPureMessagesFrom(sessionId: string, fromTurn: number): Promise<PureMessage[]> {
+    const { rows } = await this.#pool.query<{ user_text: string; assistant_text: string }>(
+      `SELECT user_text, assistant_text FROM pure_conversation
+       WHERE session_id = $1 AND turn_index >= $2 ORDER BY turn_index ASC`,
+      [sessionId, fromTurn],
+    );
+    return rows.map((row) => ({ user: row.user_text, assistant: row.assistant_text }));
+  }
+
+  async listArcs(sessionId: string): Promise<StoryArc[]> {
+    const { rows } = await this.#pool.query<{
+      arc_index: number;
+      title: string;
+      recap: string;
+      carried: unknown;
+      from_turn: number;
+      to_turn: number;
+    }>(
+      `SELECT arc_index, title, recap, carried, from_turn, to_turn FROM story_arcs
+       WHERE session_id = $1 ORDER BY arc_index ASC`,
+      [sessionId],
+    );
+    return rows.map((row) => ({
+      arcIndex: row.arc_index,
+      title: row.title,
+      recap: row.recap,
+      // Parsed rather than trusted: a recap written by an older shape must not
+      // throw on read and strand a live session.
+      carried: ArcCarry.parse(row.carried ?? {}),
+      fromTurn: row.from_turn,
+      toTurn: row.to_turn,
+    }));
+  }
+
+  async appendArc(sessionId: string, arc: StoryArc, closedAtTokens: number): Promise<void> {
+    // DO NOTHING on conflict for the same reason `appendPureMessage` does: a
+    // retry must never rewrite an arc the model has already been shown.
+    await this.#pool.query(
+      `INSERT INTO story_arcs
+         (session_id, arc_index, title, recap, carried, from_turn, to_turn, closed_at_tokens)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+       ON CONFLICT (session_id, arc_index) DO NOTHING`,
+      [sessionId, arc.arcIndex, arc.title, arc.recap, JSON.stringify(arc.carried), arc.fromTurn, arc.toTurn, closedAtTokens],
+    );
   }
 
   async appendEvents(events: readonly GameEvent[]): Promise<void> {

@@ -13,6 +13,7 @@ import type {
   Locale,
   MemoryFact,
   SessionSummary,
+  StoryArc,
   StoryVersion,
   TurnRecord,
 } from '@plotbreak/contracts';
@@ -343,6 +344,20 @@ export interface Repository {
   appendPureMessage(sessionId: string, turnIndex: number, message: PureMessage): Promise<void>;
   /** The whole conversation for a session, oldest first. */
   listPureMessages(sessionId: string): Promise<PureMessage[]>;
+  /**
+   * The conversation from `fromTurn` onward, oldest first.
+   *
+   * What an open arc replays. The rows before it are not deleted — they are
+   * covered by a `story_arcs` recap instead, so unsetting the arc limits
+   * restores full replay on the next turn with nothing lost.
+   */
+  listPureMessagesFrom(sessionId: string, fromTurn: number): Promise<PureMessage[]>;
+
+  // --- Arcs ---
+  /** Closed arcs for a session, oldest first. */
+  listArcs(sessionId: string): Promise<StoryArc[]>;
+  /** Record a closed arc. Idempotent on (session, arcIndex). */
+  appendArc(sessionId: string, arc: StoryArc, closedAtTokens: number): Promise<void>;
   appendEvents(events: readonly GameEvent[]): Promise<void>;
   listEvents(sessionId: string): Promise<GameEvent[]>;
 
