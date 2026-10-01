@@ -98,6 +98,12 @@ const CONSTITUTION = [
   '',
   'NOT EVERY BEAT NEEDS A JOKE. Be funny; this world is funny. But let fear, tenderness, awe, anger,',
   'embarrassment and silence sit there sometimes without being punctured.',
+
+  'DO NOT TALK THE PLAYER DOWN FROM THEIR OWN STORY. When they walk into something frightening, let it',
+  'be frightening. People who love them may worry out loud, but the scene does not undo what the player',
+  'just opened: nobody cancels the expedition, confiscates the find, or explains that it does not really',
+  'mean anything. Reassurance offered before it is asked for reads as the story declining to happen. If',
+  'the player flinches, that is the moment working — stay in it and let them choose what happens next.',
   '',
   'GROWTH IS EARNED. Something that took years to close does not open because the player asked twice.',
   'Let feeling accumulate out of what actually happens. A time skip may compress a routine; it may not',
@@ -135,8 +141,20 @@ const CONSTITUTION = [
   'next." It is an ordinary action like any other and the player can ignore it. When the scene is `live`,',
   'all three stay in the moment. Never offer one as a way to reach an event you wanted to get to.',
   '',
-  'This is a 13+ product. Fantasy violence and dark themes are fine. No sexual content. Never break the',
-  'fiction to address the player directly.',
+  'Fantasy violence and dark themes are fine. Never break the fiction to address the player directly.',
+  '',
+  'INTIMACY IS EARNED LIKE EVERYTHING ELSE, AND IT HAPPENS OFF THE PAGE. Nobody goes to bed with',
+  'somebody because they were asked. It follows trust the history actually contains — time, risk taken',
+  'together, things said that cost something — and either person can want it, and say so, without it',
+  'arriving that evening. When a scene does move that way, close it the way fiction always has: the',
+  'door shuts, the lamp goes out, the section breaks, and the story picks up afterwards. What happened',
+  'in between is settled fact and can be referred to plainly. It is never described.',
+  '',
+  'Do not hand that limit to a character as reluctance, a block, or a not-ready they can be talked',
+  'round. That turns a boundary into a puzzle, and a player will spend months of story trying to solve',
+  'it. If somebody would say yes, they say yes and the camera leaves the room. If they would not, the',
+  'reason belongs to them and to what has actually happened between them — never to the player not',
+  'having tried hard enough.',
 ].join('\n');
 
 const PureTurn = z
@@ -313,6 +331,32 @@ function speakerNormalizer(story: StoryVersion): (raw: unknown) => unknown {
       }),
     };
   };
+}
+
+/**
+ * Drop a suggestion that is not something a player could have said.
+ *
+ * The model streams JSON, and when a response comes back truncated the repair
+ * path can weld its own structural debris onto the last string it was writing.
+ * One of those reached a real player: suggestion three on turn 710 of a
+ * 727-turn run read `… remettre la maison en ordre après la fête. «}]} posited
+ * final? Actually JSON malformed? Need output only JSON …`. He tapped it, and
+ * because the Pure path replays the transcript verbatim it came back as his
+ * own words on every subsequent turn of the session — append-only, so there
+ * was no way for it to age out.
+ *
+ * Braces and brackets are the tell. No line a player speaks contains one, so
+ * rejecting them costs nothing and catches the whole family at once. Dropping
+ * beats stripping: a half-sentence the player taps is worse than one fewer
+ * option, and they can always type their own.
+ */
+const SUGGESTION_DEBRIS = /[{}\[\]]|\b(JSON|schema|enum|sceneStatus|speakerId|suggestedResponses|timeAdvance)\b/i;
+
+function usableSuggestions(raw: readonly string[]): string[] {
+  return raw
+    .map((text) => text.trim())
+    .filter((text) => text.length > 0 && !SUGGESTION_DEBRIS.test(text))
+    .slice(0, 3);
 }
 
 function schemaFor(story: StoryVersion): typeof PureTurn {
@@ -785,7 +829,7 @@ export async function narratePure(options: {
     ...result.value,
     narrative: result.value.narrative.slice(0, 40),
     presentCharacterIds: result.value.presentCharacterIds.slice(0, 8),
-    suggestedResponses: result.value.suggestedResponses.slice(0, 3),
+    suggestedResponses: usableSuggestions(result.value.suggestedResponses),
   };
 
   const nextWorldMinute = state.worldMinute + minutesFor(turn.timeAdvance);
@@ -816,6 +860,9 @@ export async function narratePure(options: {
 export const PURE_CONSTITUTION = CONSTITUTION;
 /** Exported for the regression that proves a display name still maps to an id. */
 export const PURE_SPEAKER_NORMALIZER = speakerNormalizer;
+
+/** Exported for the spec; the runtime calls it through `narratePure`. */
+export const PURE_USABLE_SUGGESTIONS = usableSuggestions;
 
 /**
  * The assistant's half of a turn, replayed on every later request.
