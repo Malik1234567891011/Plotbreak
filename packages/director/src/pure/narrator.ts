@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { GameState, StoryVersion, TurnRecord } from '@plotbreak/contracts';
+import type { GameState, StoryArc, StoryVersion, TurnRecord } from '@plotbreak/contracts';
 import { charactersPresent } from '@plotbreak/engine';
 import { toReactionEmotion } from '@plotbreak/contracts';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
@@ -7,6 +7,7 @@ import { formatStoryTime, minutesFor, transitionLabel } from './clock.js';
 import { chooseReaction, parseShown, type ShownReaction } from './reaction.js';
 import { NarrativeStreamParser, type StreamedBlock } from './stream-parse.js';
 import { RESPONSE_POLICY_FR, SAFETY_POLICY_FR, WRITER_POLICY_FR } from '../policies-fr.js';
+import { ARC_CLOSING_NOTE, arcPrefix } from './arc.js';
 
 /**
  * LLM_PURE — the experiment.
@@ -692,11 +693,20 @@ export async function narratePure(options: {
    * either way, and a listener that throws cannot fail the turn.
    */
   readonly onBlock?: (block: StreamedBlock) => void;
+  /**
+   * Arcs already closed on this session, oldest first. Rendered into the
+   * cached prefix; the caller is responsible for passing only the turns that
+   * belong to the *current* arc in `rendered`.
+   */
+  readonly arcs?: readonly StoryArc[];
+  /** True while this arc is winding down. Adds one line to this turn only. */
+  readonly arcClosing?: boolean;
 }): Promise<PureResult> {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
 
   const world = worldBrief(story, state.player.identity.archetypeId);
+  const earlierArcs = arcPrefix(options.arcs ?? []);
   const history = conversation(recentTurns, cast);
 
   // The standing instruction. In `rebuilt` it trails the turn; in `append` it
@@ -743,7 +753,11 @@ export async function narratePure(options: {
     // Short enough to repeat, and it stays in history byte-for-byte, so it costs
     // one cached line per turn and keeps the constraints next to the output.
     `(JSON only. At most 3 suggestedResponses.` +
-    `${options.wordTarget ? ` Aim for roughly ${options.wordTarget.low}-${options.wordTarget.high} words of prose in this beat; a quiet moment may be shorter and a large one longer.` : ''})`;
+    `${options.wordTarget ? ` Aim for roughly ${options.wordTarget.low}-${options.wordTarget.high} words of prose in this beat; a quiet moment may be shorter and a large one longer.` : ''})` +
+    // Appended to the turn rather than the constitution on purpose. The
+    // constitution is the first cached message; editing it while an arc winds
+    // down would miss the cache on every one of those turns.
+    `${options.arcClosing ? `\n${ARC_CLOSING_NOTE}` : ''}`;
 
   // French is a first-class locale, and the LLM-first path had no notion of it
   // at all — a French session narrated in English. The prose rules come from
@@ -773,6 +787,9 @@ export async function narratePure(options: {
       ? [
           { role: 'system' as const, content: `${CONSTITUTION}\n\n${HOW}${language}` },
           { role: 'system' as const, content: world },
+          // Context, not something anybody said, so it rides with the
+          // constitution and the world rather than faking an exchange.
+          ...(earlierArcs ? [{ role: 'system' as const, content: earlierArcs }] : []),
           ...(options.rendered ?? []).flatMap((turn) => [
             { role: 'user' as const, content: turn.user },
             { role: 'assistant' as const, content: turn.assistant },

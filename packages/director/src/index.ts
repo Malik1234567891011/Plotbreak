@@ -18,6 +18,18 @@ export { runTurnPure } from './pure/runtime.js';
 export { narratePure, PURE_CONSTITUTION, renderBeat, worldBrief, type RenderedTurn, type PureTurn } from './pure/narrator.js';
 export { formatStoryTime, minutesFor, transitionLabel, isSkip, DEFAULT_BEAT_MINUTES, type TimeAdvance, type TimeUnit } from './pure/clock.js';
 export { chooseReaction, parseShown, type ShownReaction } from './pure/reaction.js';
+export {
+  arcDecision,
+  arcPrefix,
+  closeArc,
+  contextTokens,
+  approxTokens,
+  ARC_CLOSING_NOTE,
+  softLimit,
+  hardLimit,
+  keepTurns,
+  type ArcDecision,
+} from './pure/arc.js';
 export { compileStory, assemble, COMPILE_TONES, COMPILE_LENGTHS, type CompilePitch, type CompileResult } from './create/compile.js';
 export { assistField, ASSIST_TARGETS, AssistTarget, type AssistResult } from './create/assist.js';
 export {
@@ -29,3 +41,5 @@ export {
   type TranslatableField,
   type TranslationResult,
 } from './create/translate.js';
+
+export { createGatewayFromEnv } from './gateway/index.js';

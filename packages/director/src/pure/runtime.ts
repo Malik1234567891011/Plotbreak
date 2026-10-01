@@ -1,4 +1,4 @@
-import type { GameState, StoryVersion, TurnRecord } from '@plotbreak/contracts';
+import type { GameState, StoryVersion, TurnRecord, StoryArc } from '@plotbreak/contracts';
 import { commitTurn } from '@plotbreak/engine';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 import { narratePure, type RenderedTurn } from './narrator.js';
@@ -68,6 +68,10 @@ export async function runTurnPure(options: {
   readonly model?: string;
   readonly reasoningEffort?: 'none' | 'low' | 'medium' | 'high';
   readonly wordTarget?: { readonly low: number; readonly high: number };
+  /** Arcs already closed on this session, oldest first. */
+  readonly arcs?: readonly StoryArc[];
+  /** True while this arc is winding down toward a resting point. */
+  readonly arcClosing?: boolean;
   readonly maxTokens?: number;
   readonly cacheRetention?: '24h' | 'in-memory';
   /** `append` keeps every request a strict extension of the last one. */
@@ -107,6 +111,8 @@ export async function runTurnPure(options: {
     reasoningEffort: options.reasoningEffort,
     wordTarget: options.wordTarget,
     maxTokens: options.maxTokens,
+    arcs: options.arcs,
+    arcClosing: options.arcClosing,
     ...(options.onBlock
       ? {
           onBlock: (block) => {
