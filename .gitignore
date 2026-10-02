@@ -43,3 +43,12 @@ docs/ads/**/ui/
 docs/ads/**/vo/
 docs/ads/**/ref/
 docs/ads/**/sfx/
+
+# Working notes that are not for a public repo.
+#
+# `deep-run-uncounted.md` quotes a paying player's private story at length and
+# carries their user id, session id and Apple transaction ids. `fundraising/`
+# holds investors' personal email addresses taken from a paid database. This
+# repository is public; neither belongs in it. Kept on disk, out of git.
+docs/deep-run-uncounted.md
+docs/fundraising/
