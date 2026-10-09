@@ -701,6 +701,13 @@ export async function narratePure(options: {
   readonly arcs?: readonly StoryArc[];
   /** True while this arc is winding down. Adds one line to this turn only. */
   readonly arcClosing?: boolean;
+  /**
+   * One-turn steering notes, appended after the player's action the same way
+   * the arc-closing note is. They ride in this turn's user message, so they
+   * stay in the replayed history byte-for-byte and never touch the cached
+   * prefix.
+   */
+  readonly notes?: readonly string[];
 }): Promise<PureResult> {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
@@ -757,7 +764,8 @@ export async function narratePure(options: {
     // Appended to the turn rather than the constitution on purpose. The
     // constitution is the first cached message; editing it while an arc winds
     // down would miss the cache on every one of those turns.
-    `${options.arcClosing ? `\n${ARC_CLOSING_NOTE}` : ''}`;
+    `${options.arcClosing ? `\n${ARC_CLOSING_NOTE}` : ''}` +
+    (options.notes ?? []).map((note) => `\n${note}`).join('');
 
   // French is a first-class locale, and the LLM-first path had no notion of it
   // at all — a French session narrated in English. The prose rules come from

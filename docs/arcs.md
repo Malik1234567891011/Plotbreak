@@ -90,7 +90,22 @@ size of the recap plus the new arc.
 | `PLOTBREAK_ARC_HARD_LIMIT` | 260000 | close at the next beat regardless |
 | `PLOTBREAK_ARC_KEEP_TURNS` | 12 | tail of the closed arc kept verbatim |
 
-Set either limit to `0` to disable entirely. Read per call rather than at
+Set either limit to `0` to disable entirely.
+
+### World pressure
+
+The other half of a long run: once an arc has closed, or a session is simply
+deep, a named unresolved thread is pushed back into the story on a cadence.
+Why code picks the thread instead of the model is in
+`docs/deep-run-pink-tide.md` §8; the logic is `packages/director/src/pure/pressure.ts`.
+
+| var | default | meaning |
+|---|---|---|
+| `PLOTBREAK_PRESSURE_EVERY` | 25 | beats between pushes; `0` turns pressure off |
+| `PLOTBREAK_PRESSURE_FIRST` | 40 | no push before this turn of a session |
+| `PLOTBREAK_PRESSURE_AFTER_BREAK` | 3 | the push this many beats into a new arc |
+
+Never sent while an arc is winding down. Read per call rather than at
 import: as module constants they were fixed by whichever module imported the
 file first, which made them untestable and made behaviour depend on import
 order.

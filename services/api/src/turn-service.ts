@@ -9,6 +9,7 @@ import {
   arcPrefix,
   closeArc,
   keepTurns,
+  pressureFor,
 } from '@plotbreak/director';
 import type { Analytics } from '@plotbreak/analytics';
 import type { AppContext } from './context.js';
@@ -280,6 +281,17 @@ async function processTurn(
         sceneStatus: 'live',
         turnsSinceArcStart: priorMessages.length,
       });
+      // A long run that has gone quiet gets one named unresolved thread pushed
+      // back into it, on a fixed cadence and never while an arc is landing.
+      // Code picks when and which; the storyteller picks how. See
+      // `docs/deep-run-pink-tide.md` for why the model is not asked to judge.
+      const pressure = pressureFor({
+        story,
+        state,
+        arcs,
+        priorUsers: priorMessages.map((m) => m.user),
+        arcClosing: winding !== 'continue',
+      });
       // Blocks go out the moment they finish rather than after the whole
       // structured object lands. Without this the player watched a spinner for
       // six seconds and then received the entire turn at once.
@@ -298,6 +310,7 @@ async function processTurn(
         model: profile.model,
         arcs,
         arcClosing: winding !== 'continue',
+        notes: pressure ? [pressure] : [],
         reasoningEffort: profile.reasoningEffort,
         wordTarget: profile.words,
         maxTokens: profile.maxOutputTokens,

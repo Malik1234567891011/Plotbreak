@@ -30,6 +30,16 @@ export {
   keepTurns,
   type ArcDecision,
 } from './pure/arc.js';
+export {
+  pressureFor,
+  pressureNote,
+  openThreads,
+  shouldPush,
+  chooseThread,
+  pressureEvery,
+  PRESSURE_MARKER,
+} from './pure/pressure.js';
+export { OFFSTAGE } from './pure/runtime.js';
 export { compileStory, assemble, COMPILE_TONES, COMPILE_LENGTHS, type CompilePitch, type CompileResult } from './create/compile.js';
 export { assistField, ASSIST_TARGETS, AssistTarget, type AssistResult } from './create/assist.js';
 export {

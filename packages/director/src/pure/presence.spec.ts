@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { ACE } from '@plotbreak/test-fixtures';
 import { createInitialState } from '@plotbreak/engine';
 import type { GameState } from '@plotbreak/contracts';
-import { runTurnPure } from './runtime.js';
+import { runTurnPure, OFFSTAGE } from './runtime.js';
 import type { ModelGateway } from '../gateway/types.js';
 
 /**
@@ -95,6 +95,47 @@ describe('presence metadata', () => {
   it('splits a group without dragging the other half along', async () => {
     const result = await run({ present: ['luffy'], locationId: 'asl_treehouse' });
     expect(here(result.state)).toEqual(['luffy']);
+  });
+
+  it('does not seat somebody at their home when the player walks in and the model left them out', async () => {
+    // Dadan lives at the house. Before this, walking into the house put her in
+    // the next header as present whatever the model said, and the model
+    // wrote her in. In production that brought a fugitive back to his desk.
+    const start = base();
+    expect(start.characters.find((c) => c.characterId === 'dadan')!.locationId).toBe('dadan_house');
+    const result = await run({ present: ['luffy'], locationId: 'dadan_house' }, start);
+    expect(result.state.player.locationId).toBe('dadan_house');
+    expect(here(result.state)).toEqual(['luffy']);
+  });
+
+  it('sends somebody whose home is here offstage when the model says they left', async () => {
+    const start = base();
+    const atHouse: GameState = {
+      ...start,
+      player: { ...start.player, locationId: 'dadan_house' },
+    } as GameState;
+    const result = await run({ present: [], locationId: 'dadan_house' }, atHouse);
+    expect(here(result.state)).toEqual([]);
+    expect(result.state.characters.find((c) => c.characterId === 'dadan')!.locationId).toBe(OFFSTAGE);
+  });
+
+  it('brings an offstage character back the moment the model puts them in the scene', async () => {
+    const first = await run({ present: ['luffy'], locationId: 'dadan_house' });
+    const second = await run({ present: ['luffy', 'dadan'], locationId: 'dadan_house' }, first.state);
+    expect(here(second.state)).toEqual(['dadan', 'luffy']);
+  });
+
+  it('still sends somebody home when home is somewhere else', async () => {
+    const start = base();
+    const withSabo: GameState = {
+      ...start,
+      characters: start.characters.map((c) =>
+        c.characterId === 'sabo' ? { ...c, locationId: start.player.locationId } : c,
+      ),
+    } as GameState;
+    const result = await run({ present: [] }, withSabo);
+    const sabo = ACE.characters.find((c) => c.id === 'sabo')!;
+    expect(result.state.characters.find((c) => c.characterId === 'sabo')!.locationId).toBe(sabo.homeLocationId);
   });
 
   it('ignores an id that is not in the cast', async () => {

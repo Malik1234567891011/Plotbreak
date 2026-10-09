@@ -31,7 +31,7 @@ export const hardLimit = (): number => envInt('PLOTBREAK_ARC_HARD_LIMIT', 260_00
 /** Tail of the closing arc kept verbatim, so the new arc opens mid-texture. */
 export const keepTurns = (): number => envInt('PLOTBREAK_ARC_KEEP_TURNS', 12);
 
-function envInt(name: string, fallback: number): number {
+export function envInt(name: string, fallback: number): number {
   const raw = Number(process.env[name]);
   return Number.isFinite(raw) && raw >= 0 ? raw : fallback;
 }

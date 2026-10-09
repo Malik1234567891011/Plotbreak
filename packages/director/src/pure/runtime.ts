@@ -72,6 +72,8 @@ export async function runTurnPure(options: {
   readonly arcs?: readonly StoryArc[];
   /** True while this arc is winding down toward a resting point. */
   readonly arcClosing?: boolean;
+  /** One-turn steering notes. See `narratePure`. */
+  readonly notes?: readonly string[];
   readonly maxTokens?: number;
   readonly cacheRetention?: '24h' | 'in-memory';
   /** `append` keeps every request a strict extension of the last one. */
@@ -113,6 +115,7 @@ export async function runTurnPure(options: {
     maxTokens: options.maxTokens,
     arcs: options.arcs,
     arcClosing: options.arcClosing,
+    notes: options.notes,
     ...(options.onBlock
       ? {
           onBlock: (block) => {
@@ -173,12 +176,16 @@ export async function runTurnPure(options: {
     player: { ...state.player, locationId: nextLocation },
     characters: state.characters.map((c) => {
       if (present.has(c.characterId)) return { ...c, locationId: nextLocation };
-      // Somebody the model says is no longer here goes back to where the world
-      // says they live. Crude, and the point of the experiment is to find out
-      // whether crude is enough.
+      // The model's list is the whole of who is here, so nobody else may end
+      // up at the player's location. Somebody who was here goes home — unless
+      // home is here, which is exactly the case that used to leak: a character
+      // whose home is the lobby stood in the lobby whenever the player walked
+      // in, the next header listed them as present, and the model wrote them
+      // into the scene. A fugitive came back to work that way. They go
+      // offstage instead, and come back the moment the model says they do.
       if (c.locationId === nextLocation) {
         const home = story.characters.find((d) => d.id === c.characterId)?.homeLocationId;
-        return home ? { ...c, locationId: home } : c;
+        return { ...c, locationId: home && home !== nextLocation ? home : OFFSTAGE };
       }
       return c;
     }),
@@ -242,6 +249,13 @@ function newlyCompleted(story: StoryVersion, state: GameState, claimed: readonly
   }
   return out;
 }
+
+/**
+ * Where a character is when the story has them somewhere the player is not and
+ * their home would put them in the player's scene. Not a place in any story,
+ * so `charactersPresent` never matches it.
+ */
+export const OFFSTAGE = '__offstage__';
 
 /** Exported so the shim can keep the engine's commit bookkeeping if wanted. */
 export { commitTurn };

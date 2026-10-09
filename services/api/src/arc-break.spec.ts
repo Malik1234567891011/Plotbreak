@@ -247,3 +247,130 @@ describe('arc break, through the real turn path', () => {
     expect(JSON.stringify(payload.arcs[0])).not.toContain('Aldebarant');
   });
 });
+
+describe('world pressure, through the real turn path', () => {
+  let scene: 'live' | 'settled' = 'live';
+  let app: FastifyInstance & { ctx: AppContext; hub: TurnStreamHub };
+  let ctx: AppContext;
+  let gateway: ReturnType<typeof stubGateway>;
+
+  beforeEach(() => {
+    process.env.PLOTBREAK_PRESSURE_FIRST = '5';
+    process.env.PLOTBREAK_PRESSURE_EVERY = '4';
+    process.env.PLOTBREAK_PRESSURE_AFTER_BREAK = '2';
+    process.env.PLOTBREAK_ARC_KEEP_TURNS = '2';
+    scene = 'live';
+    const repo = new MemoryRepository();
+    gateway = stubGateway(() => scene);
+    ctx = {
+      config: loadConfig({ PORT: '4000' } as NodeJS.ProcessEnv),
+      repo,
+      wallet: new WalletService(repo, () => new Date()),
+      pipeline: createDefaultPipeline(),
+      modelProvider: null,
+      modelGateway: gateway,
+      mediaGateway: null,
+      analytics: new NoopSink(),
+      jobs: new JobQueue(),
+      auth: new DevTokenVerifier(),
+      moderator: new RuleBasedModerator(),
+      rateLimiter: { check: () => ({ allowed: true, retryAfterSeconds: 0, limit: 1e6, remaining: 1e6 }) },
+      storeVerifier: createStoreVerifierFromEnv(loadConfig({ PORT: '4000' } as NodeJS.ProcessEnv), {} as NodeJS.ProcessEnv),
+    } as AppContext;
+    app = buildServer({ ctx }) as never;
+  });
+  afterEach(async () => {
+    await app.close();
+    for (const k of ['PLOTBREAK_PRESSURE_FIRST', 'PLOTBREAK_PRESSURE_EVERY', 'PLOTBREAK_PRESSURE_AFTER_BREAK',
+      'PLOTBREAK_ARC_SOFT_LIMIT', 'PLOTBREAK_ARC_HARD_LIMIT', 'PLOTBREAK_ARC_KEEP_TURNS']) delete process.env[k];
+  });
+
+  async function play(sessionId: string, revision: number, text: string) {
+    const response = await app.inject({
+      method: 'POST',
+      url: `/v1/sessions/${sessionId}/turns`,
+      headers: { authorization: 'Bearer guest_pressure_user', 'idempotency-key': randomUUID() },
+      payload: { actionText: text, qualityTier: 'QUICK', sessionRevision: revision, selectedSuggestionId: null, voicePreferred: false },
+    });
+    const body = response.json();
+    if (response.statusCode === 202) {
+      for (let i = 0; i < 400 && !app.hub.isDone(body.turnId); i += 1) await new Promise((r) => setImmediate(r));
+    }
+    return { response, body };
+  }
+
+  async function start() {
+    const r = await app.inject({
+      method: 'POST',
+      url: '/v1/stories/story_ninth_archive/sessions',
+      headers: { authorization: 'Bearer guest_pressure_user' },
+      payload: { identity: { displayName: 'Malik', pronouns: 'he/him', ageBand: null } },
+    });
+    return r.json().session.sessionId as string;
+  }
+
+  /** The user message of every storytelling call, in order. */
+  const beatPrompts = () =>
+    gateway.seen
+      .filter((messages) => !messages.some((m) => m.content.includes('Write its record.')))
+      .map((messages) => messages[messages.length - 1]!.content);
+
+  async function playMany(sessionId: string, n: number, after?: (i: number) => void) {
+    let revision = 0;
+    for (let i = 0; i < n; i += 1) {
+      const { body, response } = await play(sessionId, revision, `beat ${i}`);
+      expect(response.statusCode, `turn ${i}`).toBe(202);
+      const turn = await ctx.repo.getTurn(body.turnId);
+      if (turn) revision = turn.revisionAfter;
+      after?.(i);
+    }
+  }
+
+  it('stays quiet through the opening, then pushes on a fixed cadence', async () => {
+    process.env.PLOTBREAK_ARC_SOFT_LIMIT = '0';
+    const sessionId = await start();
+    await playMany(sessionId, 16);
+    const pushed = beatPrompts().map((p, i) => (p.includes('THE WORLD MOVES THIS BEAT.') ? i : -1)).filter((i) => i >= 0);
+    expect(pushed.length).toBeGreaterThanOrEqual(2);
+    expect(pushed[0]).toBeGreaterThanOrEqual(4);
+    for (let k = 1; k < pushed.length; k += 1) expect(pushed[k]! - pushed[k - 1]!).toBe(4);
+    // The push is stored with the turn, which is how the next turn finds it.
+    const stored = await ctx.repo.listPureMessages(sessionId);
+    expect(stored.filter((m) => m.user.includes('THE WORLD MOVES THIS BEAT.')).length).toBe(pushed.length);
+  });
+
+  it('names a different thread each time, before repeating any', async () => {
+    process.env.PLOTBREAK_ARC_SOFT_LIMIT = '0';
+    process.env.PLOTBREAK_PRESSURE_EVERY = '1';
+    const sessionId = await start();
+    await playMany(sessionId, 9);
+    const named = beatPrompts()
+      .filter((p) => p.includes('THE WORLD MOVES THIS BEAT.'))
+      .map((p) => /\n"(.+)"\n/.exec(p)?.[1]);
+    expect(named.length).toBeGreaterThanOrEqual(3);
+    expect(new Set(named.slice(0, 3)).size).toBe(3);
+  });
+
+  it('never pushes while an arc is winding down, and pushes the carried thread after the break', async () => {
+    process.env.PLOTBREAK_ARC_SOFT_LIMIT = '500';
+    process.env.PLOTBREAK_ARC_HARD_LIMIT = '200000';
+    process.env.PLOTBREAK_PRESSURE_FIRST = '1000';
+    const sessionId = await start();
+    let broke = -1;
+    await playMany(sessionId, 18, (i) => {
+      if (i === 6) scene = 'settled';
+      if (i > 6 && broke < 0) scene = 'live';
+    });
+    const arcs = await ctx.repo.listArcs(sessionId);
+    expect(arcs.length).toBeGreaterThanOrEqual(1);
+    const prompts = beatPrompts();
+    for (const p of prompts) {
+      // The two notes are never sent together.
+      expect(p.includes('THIS ARC IS DRAWING TO A CLOSE') && p.includes('THE WORLD MOVES THIS BEAT.')).toBe(false);
+    }
+    const after = prompts.filter((p) => p.includes('THE WORLD MOVES THIS BEAT.'));
+    expect(after.length).toBeGreaterThanOrEqual(1);
+    expect(after[0]).toContain('"the chamber is documented but unopened"');
+    void broke;
+  });
+});
