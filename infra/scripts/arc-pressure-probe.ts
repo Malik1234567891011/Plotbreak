@@ -220,7 +220,7 @@ async function main(): Promise<void> {
           model: tier.model, reasoningEffort: tier.reasoningEffort, wordTarget: tier.words, maxTokens: tier.maxOutputTokens,
           arcs: p.arcs, arcClosing: winding !== 'continue',
           notes: cond === 'ship'
-            ? [pressureNote(chooseThread(openThreads(p.story, p.state, p.arcs), p.rendered.map((m) => m.user))!)]
+            ? [pressureNote(chooseThread(openThreads(p.story, p.state, p.arcs), p.rendered.map((m) => m.user), p.rendered.map((m) => m.assistant))!)]
             : NOTES[cond] ? [NOTES[cond]!.replace('{thread}', p.threads[(i * 5 + point.turn) % p.threads.length] ?? '')] : [],
           actionText: p.actionText, turnId: `probe-${cond}-${i}`,
         }));

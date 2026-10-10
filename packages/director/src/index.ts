@@ -36,6 +36,8 @@ export {
   openThreads,
   shouldPush,
   chooseThread,
+  threadPresence,
+  isSensitiveThread,
   pressureEvery,
   PRESSURE_MARKER,
 } from './pure/pressure.js';

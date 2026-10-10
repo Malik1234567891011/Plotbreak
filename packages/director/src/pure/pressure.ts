@@ -114,21 +114,91 @@ export function shouldPush(opts: {
 }
 
 /**
- * Which thread to push: the one pushed least recently, never-pushed first, in
- * the order the story recorded them.
+ * Threads a push must never pick, whatever their score.
+ *
+ * A push makes something "come due" on the story's initiative. The continuity
+ * record can hold a character's suicide attempt or an assault as an open
+ * thread — Pink Tide's did — and dramatising that unprompted is not the
+ * game's call. The player can always bring it up; the world does not.
  */
-export function chooseThread(threads: readonly string[], priorUsers: readonly string[]): string | null {
-  if (threads.length === 0) return null;
-  const lastSeen = threads.map((thread) => {
+const SENSITIVE =
+  /suicid|self[- ]?harm|automutil|scarif|overdose|surdose|se tuer|kill (?:him|her|them)sel|rape|viol\b|violée?s?\b|agression sexuelle|sexual assault|abus(?:e|é)s? sexuel|sexual abuse|eating disorder|anorexi|boulimi/i;
+
+export function isSensitiveThread(thread: string): boolean {
+  return SENSITIVE.test(thread);
+}
+
+function fold(text: string): string {
+  return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
+/** Words common enough in either language that they say nothing about a thread. */
+const STOP = new Set(
+  ('apres avant alors aussi autre avec cette comme dans depuis donc elle elles encore entre etre faire leurs ' +
+    'leur mais meme moins notre nous plus pour quand quel quelle sans sera sont sous tout tous toute toutes ' +
+    'votre vous reste restent doit doivent jamais aucun aucune ainsi about after again their there these ' +
+    'those which while would could should being other where every never still with from into that this ' +
+    'have been they them what when your will remains remain unresolved unknown').split(' '),
+);
+
+/** The words that make a thread this thread: long or numbered, and not filler. */
+function keywords(thread: string): Set<string> {
+  return new Set(
+    (fold(thread).match(/[a-z0-9-]+/g) ?? []).filter((w) => (w.length >= 5 || /\d/.test(w)) && !STOP.has(w)),
+  );
+}
+
+/**
+ * How present a thread already is in the recent beats, 0 to 1: the share of
+ * its words that appear there. A thread the story is living in scores high;
+ * one it has dropped scores near zero.
+ */
+export function threadPresence(thread: string, recentBeats: readonly string[]): number {
+  const words = keywords(thread);
+  if (words.size === 0) return 1;
+  const seen = new Set(fold(recentBeats.join('\n')).match(/[a-z0-9-]+/g) ?? []);
+  let hit = 0;
+  for (const w of words) if (seen.has(w)) hit += 1;
+  return hit / words.size;
+}
+
+/** How many recent beats the neglect score reads. */
+const RECENT_BEATS = 40;
+
+/**
+ * Which thread to push: the most neglected one.
+ *
+ * Order alone is not enough. Pink Tide's arc recorded "no wedding date has been
+ * chosen" first, so the first production push into that run delivered more
+ * wedding admin to a player who had drifted into nothing but wedding admin,
+ * while the missing man and the woman in the cave sat further down the list.
+ * The thread to push is the one the recent story mentions least. Never a
+ * sensitive one, never the one pushed last time unless it is all there is,
+ * and ties go to the least recently pushed, then to the recorded order.
+ */
+export function chooseThread(
+  threads: readonly string[],
+  priorUsers: readonly string[],
+  recentBeats: readonly string[] = [],
+): string | null {
+  const safe = threads.filter((t) => !isSensitiveThread(t));
+  if (safe.length === 0) return null;
+  const lastPushed = (thread: string): number => {
     for (let i = priorUsers.length - 1; i >= 0; i -= 1) {
       const user = priorUsers[i]!;
       if (user.includes(PRESSURE_MARKER) && user.includes(`"${thread}"`)) return i;
     }
     return -1;
-  });
-  let best = 0;
-  for (let i = 1; i < threads.length; i += 1) if (lastSeen[i]! < lastSeen[best]!) best = i;
-  return threads[best]!;
+  };
+  const pushedAt = safe.map(lastPushed);
+  const newest = Math.max(...pushedAt);
+  const pool = safe
+    .map((thread, order) => ({ thread, order, pushed: pushedAt[order]! }))
+    .filter((c) => safe.length === 1 || newest < 0 || c.pushed !== newest);
+  const beats = recentBeats.slice(-RECENT_BEATS).map((b) => b.split('\n[')[0]!);
+  const scored = pool.map((c) => ({ ...c, presence: beats.length ? threadPresence(c.thread, beats) : 0 }));
+  scored.sort((a, b) => a.presence - b.presence || a.pushed - b.pushed || a.order - b.order);
+  return scored[0]!.thread;
 }
 
 /** The whole decision: the note to send this turn, or null. */
@@ -137,9 +207,11 @@ export function pressureFor(opts: {
   readonly state: GameState;
   readonly arcs: readonly StoryArc[];
   readonly priorUsers: readonly string[];
+  /** The current arc's beats as sent, oldest first; how neglect is measured. */
+  readonly priorAssistants?: readonly string[];
   readonly arcClosing: boolean;
 }): string | null {
-  const threads = openThreads(opts.story, opts.state, opts.arcs);
+  const threads = openThreads(opts.story, opts.state, opts.arcs).filter((t) => !isSensitiveThread(t));
   const push = shouldPush({
     priorUsers: opts.priorUsers,
     arcsClosed: opts.arcs.length,
@@ -148,6 +220,6 @@ export function pressureFor(opts: {
     threadCount: threads.length,
   });
   if (!push) return null;
-  const thread = chooseThread(threads, opts.priorUsers);
+  const thread = chooseThread(threads, opts.priorUsers, opts.priorAssistants ?? []);
   return thread ? pressureNote(thread) : null;
 }

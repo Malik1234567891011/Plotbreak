@@ -290,6 +290,7 @@ async function processTurn(
         state,
         arcs,
         priorUsers: priorMessages.map((m) => m.user),
+        priorAssistants: priorMessages.map((m) => m.assistant),
         arcClosing: winding !== 'continue',
       });
       // Blocks go out the moment they finish rather than after the whole

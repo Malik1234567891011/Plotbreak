@@ -308,3 +308,32 @@ made it worse (9/30), so it was taken out again.
 **Final wording, replayed across the ten sessions with follow-ups:** thread
 back 34/39, action carried out 38/39, follow → developed 16/16, set aside →
 story goes where the player went 15/17.
+
+---
+
+## 9. First day in production (2026-10-10), and what it changed
+
+Deployed `35d7eca` on 2026-10-10. First five pushes:
+
+| session | turn | thread | what the player did |
+|---|---|---|---|
+| Chris, Blank Prophecy | t90 | The Last Train | ignored it for ~10 beats while the story kept the train in the background, then asked about it at t103 |
+| Chris | t115 | Why It Is Following You | went straight to it — *"Je m'approche de la fissure"* — and played 20 turns on it |
+| Chris | t140 | a handwritten letter | "not now", went to rest; the story let it wait |
+| Alexis, Pink Tide | t111 | Adrian's blue bag | kept the romance and investigated in the same breath |
+| **Alexandre, Pink Tide** | **t951** | **"no wedding date has been chosen"** | put the envelope away and went swimming |
+
+The last one is the failure: `chooseThread` took threads in recorded order, and
+the arc recorded the wedding first. The push delivered more wedding admin to a
+player who had drifted into nothing but wedding admin, while the missing man
+and the woman in the cave sat lower on the list.
+
+**Fix:** pick the most *neglected* thread — the one whose distinctive words the
+last 40 beats mention least (`threadPresence`). Scored on his real beats, the
+wedding threads were 0.50 and 0.90; *"l'identité de la femme présente dans la
+grotte"* was 0.00. The thread pushed last is skipped when there is another.
+
+**Also found:** his arc's open list holds his character's past suicide attempt.
+A push makes something "come due" on the story's initiative, which must never
+happen to self-harm or abuse. Those threads are now excluded outright
+(`isSensitiveThread`, French and English); the player can still raise them.

@@ -5,7 +5,9 @@ import type { GameState, StoryArc } from '@plotbreak/contracts';
 import {
   PRESSURE_MARKER,
   chooseThread,
+  isSensitiveThread,
   openThreads,
+  threadPresence,
   pressureFor,
   pressureNote,
   shouldPush,
@@ -95,6 +97,72 @@ describe('which thread', () => {
 
   it('does not count a thread as pushed because the player happened to quote it', () => {
     expect(chooseThread(['a', 'b'], ['I ask about "a"'])).toBe('a');
+  });
+});
+
+describe('which thread, measured against the story', () => {
+  // The first production push into Pink Tide, verbatim: the arc listed the
+  // wedding first, and the run was nothing but the wedding.
+  const threads = [
+    'Aucune date, cérémonie, lieu ou liste d’invités n’a encore été choisi pour le mariage d’Alexandre et Sora.',
+    'L’identité de la femme présente dans la grotte d’East Cove et son rôle restent inconnus.',
+    'La disparition de Keiko Tanabe, son accès à M-17 et la personne qui l’accompagnait restent inexpliqués.',
+  ];
+  const beats = [
+    'Sora parle du mariage. Aucune date, aucun lieu, pas encore de liste d’invités.',
+    'Vous parlez de la cérémonie et du lieu du mariage en mangeant une glace.',
+    'Celeste apporte une enveloppe au sujet du mariage.\n[An 4 · matin · pink_tide_shore · present: sora]',
+  ];
+
+  it('picks the thread the recent story has dropped, not the one it is living in', () => {
+    expect(chooseThread(threads, users(10), beats)).toBe(threads[1]);
+  });
+
+  it('scores a thread by how much of it the recent beats mention', () => {
+    expect(threadPresence(threads[0]!, beats)).toBeGreaterThan(threadPresence(threads[1]!, beats));
+    expect(threadPresence(threads[1]!, beats)).toBe(0);
+  });
+
+  it('ignores accents and the state tag when measuring', () => {
+    expect(threadPresence('La cérémonie', ['la ceremonie'])).toBe(1);
+    expect(threadPresence('pink_tide_shore', ['x\n[pink_tide_shore]'.split('\n[')[0]!])).toBe(0);
+  });
+
+  it('does not push the same thread twice running when there is another', () => {
+    const history = users(30, { 20: threads[1]! });
+    expect(chooseThread(threads, history, beats)).toBe(threads[2]);
+  });
+
+  it('falls back to recorded order with no beats to measure against', () => {
+    expect(chooseThread(threads, users(10), [])).toBe(threads[0]);
+  });
+});
+
+describe('threads a push must never pick', () => {
+  const sensitive = [
+    'La tentative suicidaire passée d’Alexandre est connue de Sora et Celeste, mais son suivi reste à construire.',
+    'Nobody has asked about the self-harm scars.',
+    'Elle a été violée et personne ne le sait.',
+    'The sexual assault at the party has never been reported.',
+  ];
+
+  it('recognises self-harm and abuse threads in both languages', () => {
+    for (const t of sensitive) expect(isSensitiveThread(t), t).toBe(true);
+  });
+
+  it('does not mistake ordinary violence or music for them', () => {
+    for (const t of ['Une violente tempête approche.', 'The violin was stolen.', 'Le violon a disparu.', 'He was killed in the duel.']) {
+      expect(isSensitiveThread(t), t).toBe(false);
+    }
+  });
+
+  it('never chooses one, even when it is the most neglected', () => {
+    const threads = [sensitive[0]!, 'Le mariage n’a pas de date.'];
+    expect(chooseThread(threads, users(10), ['On parle du mariage et de sa date.'])).toBe(threads[1]);
+  });
+
+  it('pushes nothing when every open thread is sensitive', () => {
+    expect(pressureFor({ story: ACE, state: state(500), arcs: [arc(sensitive)], priorUsers: users(3), arcClosing: false })).toBeNull();
   });
 });
 
