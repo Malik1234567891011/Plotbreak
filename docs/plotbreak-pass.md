@@ -40,7 +40,14 @@ A $2.99/week auto-renewing subscription. Decided 2026-10-29.
 - [x] `crd_1000` ($1.49, 1,000 credits) — server live e01bae9, ASC submitted 2026-10-29
 - [x] Flash offer: only after a first purchase, 72h window — live e01bae9
 - [x] ASC: subscription group + `pass_weekly` $2.99/week, en + fr names
-- [ ] Server: subscriptions table, pass status on wallet, daily grant, story requests
-- [ ] iOS: Pass card (wallet + wall), story requests screen, legal copy
-- [ ] ASC: review screenshot for the pass, Terms of Use link in description
-- [ ] Build 1.0.7 (15), upload, submit with the subscription
+- [x] Server: subscriptions table, pass status on wallet, daily grant, story requests — db7f14f, **not deployed**
+- [x] iOS: Pass card (wallet + wall), story requests screen, legal copy — 2500066, verified on a simulator against a local in-memory API
+- [x] ASC: review screenshot + notes on `pass_weekly`
+- [x] Build 1.0.7 (15) archived; points at production (checked Info.plist)
+- [ ] Migration 0014 on production — needs Malik (auto mode blocks prod DDL)
+- [ ] Push db7f14f/2500066 to main (deploys the API) — only after 0014
+- [ ] Upload 1.0.7 — Xcode has no Apple account signed in; Organizer → Distribute
+- [ ] ASC: version 1.0.7, attach build + `pass_weekly`, Terms of Use link in the description, submit
+
+The app is safe against the old server: with no `pass` in the wallet response
+the card does not render.
