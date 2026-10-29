@@ -230,6 +230,20 @@ struct WalletSummary: Codable, Hashable {
     /// computed from the ledger row that opened it, so the countdown the app
     /// draws is the real deadline.
     var flashOfferExpiresAt: String?
+    /// Plotbreak Pass. Nil from a server that predates it.
+    var pass: PassStatus?
+}
+
+/// Plotbreak Pass — the weekly subscription that pays credits daily.
+struct PassStatus: Codable, Hashable {
+    var productId: String
+    var referencePriceUsd: Double
+    var dailyCredits: Int
+    var active: Bool
+    /// The latest expiry Apple reported. Renews unless cancelled.
+    var expiresAt: String?
+    /// Whether today's Pass credits already landed.
+    var bonusClaimedToday: Bool
 }
 
 struct StoreOffer: Codable, Hashable, Identifiable {
@@ -255,6 +269,7 @@ enum StoreOfferTier: String, LenientEnum {
 enum LedgerEntryType: String, LenientEnum {
     case PURCHASE, BONUS, DAILY_GRANT, NEW_USER_GRANT, TURN_RESERVE, TURN_FINALIZE, TURN_RELEASE
     case MEDIA_RESERVE, MEDIA_FINALIZE, MEDIA_RELEASE, REFUND, ADMIN_ADJUST, CREATOR_GRANT, PROMO_GRANT, FORK_FEE
+    case CREATE_FEE, SUBSCRIPTION_GRANT
     case UNKNOWN
     static var fallback: LedgerEntryType { .UNKNOWN }
 }
@@ -1101,8 +1116,35 @@ struct LedgerResponse: Codable, Hashable {
 struct DailyClaimResponse: Codable, Hashable {
     var granted: Bool
     var amount: Int
+    /// Plotbreak Pass credits that landed on the same claim.
+    @Default<Zero> var passAmount: Int
     var balance: Int
     var nextClaimAt: String?
+}
+
+// MARK: - Story requests (Plotbreak Pass)
+
+enum StoryRequestStatus: String, LenientEnum {
+    case OPEN, PLANNED, MADE, DECLINED
+    case UNKNOWN
+    static var fallback: StoryRequestStatus { .UNKNOWN }
+}
+
+struct StoryRequest: Codable, Hashable, Identifiable {
+    var id: String
+    var body: String
+    var author: String?
+    var status: StoryRequestStatus
+    var votes: Int
+    var votedByMe: Bool
+    var mine: Bool
+    var createdAt: String
+}
+
+struct StoryRequestsResponse: Codable, Hashable {
+    @Default<EmptyArray<StoryRequest>> var requests: [StoryRequest]
+    @Default<False> var canParticipate: Bool
+    var nextRequestAt: String?
 }
 
 enum PurchasePlatform: String, Codable, Hashable {

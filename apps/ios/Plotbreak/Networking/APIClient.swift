@@ -522,6 +522,22 @@ actor APIClient {
         return try await request("POST", "/v1/store/purchases/restore", body: Body(transactions: transactions))
     }
 
+    // MARK: Story requests (Plotbreak Pass)
+
+    func storyRequests() async throws -> StoryRequestsResponse {
+        try await request("GET", "/v1/story-requests")
+    }
+
+    func createStoryRequest(_ body: String) async throws {
+        struct Body: Encodable { let body: String }
+        let _: Empty = try await request("POST", "/v1/story-requests", body: Body(body: body))
+    }
+
+    func voteStoryRequest(_ id: String, voted: Bool) async throws {
+        struct Body: Encodable { let voted: Bool }
+        let _: Empty = try await request("POST", "/v1/story-requests/\(id)/vote", body: Body(voted: voted))
+    }
+
     // MARK: Account and safety
 
     func me() async throws -> MeResponse {

@@ -74,6 +74,8 @@ enum SheetRoute: Identifiable, Hashable {
     case myInformation
     case comments(storyId: String)
     case savedWorlds
+    /// Plotbreak Pass — the story-request board.
+    case storyRequests
 
     var id: String {
         switch self {
@@ -93,6 +95,7 @@ enum SheetRoute: Identifiable, Hashable {
         case .myInformation: return "myInformation"
         case .comments(let storyId): return "comments:\(storyId)"
         case .savedWorlds: return "savedWorlds"
+        case .storyRequests: return "storyRequests"
         }
     }
 }
@@ -333,6 +336,7 @@ struct SheetHost: View {
             case .myInformation: MyInformationScreen()
             case .comments(let storyId): CommentsScreen(storyId: storyId)
             case .savedWorlds: SavedWorldsScreen()
+            case .storyRequests: StoryRequestsScreen()
             }
         }
         .preferredColorScheme(.dark)

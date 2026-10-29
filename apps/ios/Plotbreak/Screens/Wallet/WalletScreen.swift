@@ -193,13 +193,13 @@ struct WalletScreen: View {
     /// The daily claim, in the warning gold: a row that is the button.
     @ViewBuilder
     private var daily: some View {
-        if wallet?.dailyClaimAvailable == true {
+        if wallet?.dailyClaimAvailable == true || passBonusWaiting {
             Button {
                 Haptic.play(.light)
                 Task { await claimDaily() }
             } label: {
                 HStack {
-                    Text(busy == "daily" ? t("wallet.claiming") : t("wallet.claim_daily"))
+                    Text(busy == "daily" ? t("wallet.claiming") : dailyLabel)
                         .font(.system(size: 15, weight: .medium))
                         .foregroundStyle(Theme.Colors.warning)
                         .multilineTextAlignment(.leading)
@@ -223,6 +223,22 @@ struct WalletScreen: View {
             .disabled(busy != nil)
             .padding(.top, Theme.Spacing.md)
         }
+    }
+
+    /// A Pass holder whose 400 for today has not landed yet.
+    private var passBonusWaiting: Bool {
+        guard let pass = wallet?.pass else { return false }
+        return pass.active && !pass.bonusClaimedToday
+    }
+
+    /// What the claim row says: the free 300, the Pass 400, or both.
+    private var dailyLabel: String {
+        guard passBonusWaiting, let pass = wallet?.pass else { return t("wallet.claim_daily") }
+        let bonus = Format.credits(pass.dailyCredits, locale: store.locale)
+        if wallet?.dailyClaimAvailable == true {
+            return t("pass.claim_both", ["free": Format.credits(300, locale: store.locale), "bonus": bonus])
+        }
+        return t("pass.claim_bonus", ["bonus": bonus])
     }
 
     /// Credit packs · Daily · How it works, underlined like a segmented title.
@@ -282,6 +298,10 @@ struct WalletScreen: View {
 
     private var packs: some View {
         VStack(alignment: .leading, spacing: 9) {
+            if let pass = wallet?.pass {
+                PassCard(pass: pass) { await load() }
+                    .padding(.bottom, Theme.Spacing.md)
+            }
             ForEach(buyableOffers) { offer in
                 OfferCard(
                     offer: offer,
@@ -561,9 +581,10 @@ struct WalletScreen: View {
             let result = try await store.api.claimDaily()
             await load()
             await store.refreshWallet()
-            if result.granted {
+            let total = (result.granted ? result.amount : 0) + result.passAmount
+            if result.granted || result.passAmount > 0 {
                 Haptic.play(.success)
-                setNotice(t("wallet.credits_claimed", ["count": result.amount]))
+                setNotice(t("wallet.credits_claimed", ["count": total]))
             }
         } catch {
             setNotice(t("wallet.daily_sign_in"))
@@ -637,6 +658,7 @@ struct WalletScreen: View {
         case .FORK_FEE: return t("wallet.timeline_fork")
         case .REFUND: return t("wallet.refund")
         case .ADMIN_ADJUST: return t("wallet.adjustment")
+        case .SUBSCRIPTION_GRANT: return t("pass.title")
         default: return type.rawValue
         }
     }

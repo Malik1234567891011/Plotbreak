@@ -162,7 +162,37 @@
     "_storefront": "USA",
     "_storeKitErrors": []
   },
-  "subscriptionGroups": [],
+  "subscriptionGroups": [
+    {
+      "id": "22527240",
+      "localizations": [],
+      "name": "Plotbreak Pass",
+      "subscriptions": [
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "2.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "6828608247",
+          "introductoryOffer": null,
+          "localizations": [
+            {
+              "description": "400 bonus credits every day, plus story requests.",
+              "displayName": "Plotbreak Pass",
+              "locale": "en_US"
+            }
+          ],
+          "productID": "pass_weekly",
+          "recurringSubscriptionPeriod": "P1W",
+          "referenceName": "Plotbreak Pass Weekly",
+          "subscriptionGroupID": "22527240",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        }
+      ]
+    }
+  ],
   "version": {
     "major": 4,
     "minor": 0

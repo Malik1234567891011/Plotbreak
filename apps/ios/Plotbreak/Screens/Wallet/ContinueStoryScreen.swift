@@ -94,6 +94,11 @@ struct ContinueStoryScreen: View {
                             Skeleton(height: 148, radius: Theme.Radius.card)
                         }
                         freeRoutes
+                        if let pass = wallet?.pass, !pass.active {
+                            PassCard(pass: pass) {
+                                wallet = try? await store.api.wallet().wallet
+                            }
+                        }
                         otherPacks
                         if let storeUnavailable {
                             Txt(storeUnavailable, .micro, color: Theme.Colors.warning)
@@ -183,7 +188,7 @@ struct ContinueStoryScreen: View {
     /// rather wait a day should be able to see that they can.
     private var freeRoutes: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-            if wallet?.dailyClaimAvailable == true {
+            if wallet?.dailyClaimAvailable == true || passBonusWaiting {
                 Button {
                     Task { await claimDaily() }
                 } label: {
@@ -336,6 +341,12 @@ struct ContinueStoryScreen: View {
         }
     }
 
+    /// A Pass holder whose credits for today have not landed yet.
+    private var passBonusWaiting: Bool {
+        guard let pass = wallet?.pass else { return false }
+        return pass.active && !pass.bonusClaimedToday
+    }
+
     private func claimDaily() async {
         busy = "daily"
         defer { busy = nil }
@@ -343,13 +354,16 @@ struct ContinueStoryScreen: View {
             let response = try await store.api.claimDaily()
             await store.refreshWallet()
             wallet = try? await store.api.wallet().wallet
-            guard response.granted else { return }
-            Telemetry.track(.dailyGrantClaimed, sessionId: sessionId, [
-                "amount": response.amount,
-                "streakDays": 0,
-            ])
+            let total = (response.granted ? response.amount : 0) + response.passAmount
+            guard total > 0 else { return }
+            if response.granted {
+                Telemetry.track(.dailyGrantClaimed, sessionId: sessionId, [
+                    "amount": response.amount,
+                    "streakDays": 0,
+                ])
+            }
             Haptic.play(.success)
-            celebrating = response.amount
+            celebrating = total
         } catch {
             // A guest cannot claim — the server answers 403 SIGN_IN_REQUIRED —
             // and swallowing that left the player tapping a row that did
