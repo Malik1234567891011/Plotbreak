@@ -28,6 +28,7 @@ describe('purchase of a product we do not sell', () => {
     // we take Apple's money and grant nothing.
     for (const id of [
       'crd_starter_700',
+      'crd_1000',
       'crd_3800',
       'crd_8200',
       'crd_2000',
@@ -51,6 +52,8 @@ describe('purchase of a product we do not sell', () => {
     expect(byId.crd_starter_700!.bonusCredits).toBe(0);
     expect(byId.crd_8200!.credits).toBe(8200);
     expect(byId.crd_8200!.bonusCredits).toBe(0);
+    // The small rung: a little worse per dollar than crd_2000, never a deal.
+    expect(byId.crd_1000!.credits + byId.crd_1000!.bonusCredits).toBe(1000);
     // The five standing packs, worth exactly what they have always been worth.
     expect(byId.crd_2000!.credits + byId.crd_2000!.bonusCredits).toBe(2000);
     expect(byId.crd_10000!.credits + byId.crd_10000!.bonusCredits).toBe(10300);

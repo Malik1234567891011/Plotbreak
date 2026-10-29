@@ -111,14 +111,19 @@ export class WalletService {
   /**
    * Start a window, if the player has earned one and is not in cooldown.
    *
-   * Called when somebody actually runs out mid-story — the moment the offer is
-   * about, and the only moment it opens. Returns the deadline either way, so a
-   * second wall inside a live window re-shows the same countdown rather than
-   * restarting it.
+   * Called when somebody who has already bought something runs out mid-story —
+   * the moment the offer is about, and the only moment it opens. Returns the
+   * deadline either way, so a second wall inside a live window re-shows the
+   * same countdown rather than restarting it.
    */
   async openFlashOffer(accountId: string): Promise<Date | null> {
     const live = await this.flashOfferExpiresAt(accountId);
     if (live) return live;
+
+    // Only for somebody who has paid before. A first-time player's wall belongs
+    // to the starter; see `FLASH_OFFER` for why.
+    const entries = await this.#repo.listLedger(accountId);
+    if (!entries.some((entry) => entry.type === 'PURCHASE')) return null;
 
     const opened = await this.#lastFlashOpenedAt(accountId);
     if (opened) {

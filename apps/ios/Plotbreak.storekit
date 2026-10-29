@@ -18,6 +18,21 @@
       "type": "Consumable"
     },
     {
+      "displayPrice": "1.49",
+      "familyShareable": false,
+      "internalID": "604118390",
+      "localizations": [
+        {
+          "description": "1,000 credits for your wallet.",
+          "displayName": "1,000 credits",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "crd_1000",
+      "referenceName": "1,000 credits",
+      "type": "Consumable"
+    },
+    {
       "displayPrice": "4.99",
       "familyShareable": false,
       "internalID": "820666748",

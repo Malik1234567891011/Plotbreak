@@ -284,7 +284,7 @@ export const CREATE_COMPILE_COST_CREDITS = 180;
 export const CREATE_ASSIST_COST_CREDITS = 15;
 
 /**
- * The credit ladder. Five packs, and they are the product's actual prices.
+ * The credit ladder. Six packs, and they are the product's actual prices.
  *
  * ⚠️ `referencePriceUsd` is a **display fallback only** — what a player is
  * actually charged comes from StoreKit, which is the source of truth and shows
@@ -296,6 +296,11 @@ export const CREATE_ASSIST_COST_CREDITS = 15;
  * here" stays put.
  */
 export const STORE_OFFERS: readonly z.infer<typeof StoreOffer>[] = [
+  // The small rung. Priced so the cheapest standing pack is under $1.50, and
+  // worth slightly less per dollar than `crd_2000` on purpose: it is the "just
+  // a few more scenes" button, not a deal, and it must never undercut the
+  // starter or the flash offer, which are the deals.
+  { productId: 'crd_1000', credits: 1000, bonusCredits: 0, referencePriceUsd: 1.49, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
   { productId: 'crd_2000', credits: 2000, bonusCredits: 0, referencePriceUsd: 2.89, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
   { productId: 'crd_10000', credits: 10000, bonusCredits: 300, referencePriceUsd: 14.49, badge: 'Popular', tier: 'POPULAR', firstPurchaseOnly: false, expiresAt: null },
   { productId: 'crd_20000', credits: 20000, bonusCredits: 1000, referencePriceUsd: 28.49, badge: null, tier: null, firstPurchaseOnly: false, expiresAt: null },
@@ -350,9 +355,16 @@ export const FIRST_PURCHASE_OFFER: z.infer<typeof StoreOffer> = {
  * Value-add two: a genuinely limited, genuinely better deal.
  *
  * Double credits on the $9.99 pack — 16,400 instead of 8,200, which is about
- * 2.3× the credits per dollar of any standing rung. It opens when a player
- * actually runs out mid-story, runs for twelve hours, and cannot reopen for a
- * week.
+ * 2.3× the credits per dollar of any standing rung. It opens when a player who
+ * has **already bought something** runs out mid-story, runs for three days, and
+ * cannot reopen for a week.
+ *
+ * Why only after a purchase: shown at the first wall it sat beside the $0.99
+ * starter and lost — 69 players saw it, one bought it, seven took the starter
+ * instead, one of them eleven seconds after the window opened. Spending the
+ * once-a-week window on somebody who has never paid wastes it on the one
+ * moment $9.99 is least likely, and leaves them without it at the second wall,
+ * when the starter is gone and the next price feels like a downgrade.
  *
  * **The window is real.** §3.8 forbids fake scarcity, and the way to respect
  * that while still having a timer is for the timer to be true: the open is
@@ -373,7 +385,7 @@ export const FLASH_OFFER: z.infer<typeof StoreOffer> = {
 };
 
 /** How long a flash window stays open once it has been triggered. */
-export const FLASH_OFFER_WINDOW_HOURS = 12;
+export const FLASH_OFFER_WINDOW_HOURS = 72;
 /** How long before a player can be shown another one. */
 export const FLASH_OFFER_COOLDOWN_DAYS = 7;
 /** The ledger reason code that records a window opening. */
