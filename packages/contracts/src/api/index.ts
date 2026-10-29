@@ -909,6 +909,51 @@ export const PurchaseRestoreResponse = z
   .strict();
 export type PurchaseRestoreResponse = z.infer<typeof PurchaseRestoreResponse>;
 
+// --- Story requests (Plotbreak Pass) -----------------------------------------
+
+/** Longest pitch we accept. Long enough for a premise, short enough to vote on. */
+export const STORY_REQUEST_MAX_CHARS = 280;
+/** One new request per Pass holder per this many days. */
+export const STORY_REQUEST_COOLDOWN_DAYS = 7;
+
+export const StoryRequestStatus = z.enum(['OPEN', 'PLANNED', 'MADE', 'DECLINED']);
+export type StoryRequestStatus = z.infer<typeof StoryRequestStatus>;
+
+export const StoryRequest = z
+  .object({
+    id: z.string(),
+    body: z.string(),
+    /** The requester's display name, or null when they have none. */
+    author: z.string().nullable(),
+    status: StoryRequestStatus,
+    votes: z.number().int(),
+    votedByMe: z.boolean(),
+    mine: z.boolean(),
+    createdAt: z.string(),
+  })
+  .strict();
+export type StoryRequest = z.infer<typeof StoryRequest>;
+
+export const StoryRequestsResponse = z
+  .object({
+    /** Most votes first. */
+    requests: z.array(StoryRequest),
+    /** Pass holders can request and vote; everybody else can read. */
+    canParticipate: z.boolean(),
+    /** When this player may submit again, or null when they may now. */
+    nextRequestAt: z.string().nullable(),
+  })
+  .strict();
+export type StoryRequestsResponse = z.infer<typeof StoryRequestsResponse>;
+
+export const CreateStoryRequestBody = z
+  .object({ body: z.string().trim().min(10).max(STORY_REQUEST_MAX_CHARS) })
+  .strict();
+export type CreateStoryRequestBody = z.infer<typeof CreateStoryRequestBody>;
+
+export const StoryRequestVoteBody = z.object({ voted: z.boolean() }).strict();
+export type StoryRequestVoteBody = z.infer<typeof StoryRequestVoteBody>;
+
 // --- Safety (§33.8) --------------------------------------------------------
 
 export const ReportReason = z.enum([

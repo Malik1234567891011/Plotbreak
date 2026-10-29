@@ -28,6 +28,8 @@ import type {
   UserBadgeRow,
   DiscordLinkRow,
   DiscordLinkResult,
+  StoryRequestRow,
+  SubscriptionRow,
   UserRecord,
   PureMessage,
   PurchaseTransaction,
@@ -754,6 +756,101 @@ export class PostgresRepository implements Repository {
   }
 
   // --- Discord quest -------------------------------------------------------
+
+  // --- Plotbreak Pass -----------------------------------------------------
+
+  async upsertSubscription(row: SubscriptionRow): Promise<void> {
+    // The owner is whoever synced it first, and the expiry only moves forward:
+    // StoreKit redelivers old transactions, and one arriving late must not
+    // shorten a pass that has renewed since.
+    await this.#pool.query(
+      `INSERT INTO subscriptions (original_transaction_id, user_id, product_id, platform, environment, expires_at, revoked_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       ON CONFLICT (original_transaction_id) DO UPDATE SET
+         expires_at = GREATEST(subscriptions.expires_at, EXCLUDED.expires_at),
+         revoked_at = EXCLUDED.revoked_at,
+         updated_at = now()`,
+      [row.originalTransactionId, row.userId, row.productId, row.platform, row.environment, row.expiresAt, row.revokedAt],
+    );
+  }
+
+  async listSubscriptions(userId: string): Promise<SubscriptionRow[]> {
+    const { rows } = await this.#pool.query<{
+      original_transaction_id: string; product_id: string; platform: SubscriptionRow['platform'];
+      environment: SubscriptionRow['environment']; expires_at: Date; revoked_at: Date | null;
+    }>(
+      `SELECT original_transaction_id, product_id, platform, environment, expires_at, revoked_at
+         FROM subscriptions WHERE user_id = $1 ORDER BY expires_at DESC`,
+      [userId],
+    );
+    return rows.map((r) => ({
+      originalTransactionId: r.original_transaction_id,
+      userId,
+      productId: r.product_id,
+      platform: r.platform,
+      environment: r.environment,
+      expiresAt: r.expires_at.toISOString(),
+      revokedAt: r.revoked_at?.toISOString() ?? null,
+    }));
+  }
+
+  async createStoryRequest(input: { requestId: string; userId: string; body: string; createdAt: string }): Promise<void> {
+    await this.#pool.query(
+      `INSERT INTO story_requests (request_id, user_id, body, created_at) VALUES ($1, $2, $3, $4)`,
+      [input.requestId, input.userId, input.body, input.createdAt],
+    );
+  }
+
+  async listStoryRequests(viewerId: string | null, limit: number): Promise<StoryRequestRow[]> {
+    const { rows } = await this.#pool.query<{
+      request_id: string; user_id: string; display_name: string | null; body: string;
+      status: StoryRequestRow['status']; votes: string; voted: boolean; created_at: Date;
+    }>(
+      `SELECT r.request_id, r.user_id, p.display_name, r.body, r.status, r.created_at,
+              count(v.user_id) AS votes,
+              coalesce(bool_or(v.user_id = $1::uuid), false) AS voted
+         FROM story_requests r
+         LEFT JOIN profiles p ON p.user_id = r.user_id
+         LEFT JOIN story_request_votes v ON v.request_id = r.request_id
+        WHERE r.status IN ('OPEN', 'PLANNED')
+        GROUP BY r.request_id, p.display_name
+        ORDER BY count(v.user_id) DESC, r.created_at DESC
+        LIMIT $2`,
+      [viewerId, limit],
+    );
+    return rows.map((r) => ({
+      requestId: r.request_id,
+      userId: r.user_id,
+      author: r.display_name,
+      body: r.body,
+      status: r.status,
+      votes: Number(r.votes),
+      votedByViewer: r.voted,
+      createdAt: r.created_at.toISOString(),
+    }));
+  }
+
+  async lastStoryRequestAt(userId: string): Promise<string | null> {
+    const { rows } = await this.#pool.query<{ at: Date | null }>(
+      `SELECT max(created_at) AS at FROM story_requests WHERE user_id = $1`,
+      [userId],
+    );
+    return rows[0]?.at?.toISOString() ?? null;
+  }
+
+  async setStoryRequestVote(requestId: string, userId: string, voted: boolean): Promise<boolean> {
+    const { rows } = await this.#pool.query(`SELECT 1 FROM story_requests WHERE request_id = $1`, [requestId]);
+    if (!rows[0]) return false;
+    if (voted) {
+      await this.#pool.query(
+        `INSERT INTO story_request_votes (request_id, user_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`,
+        [requestId, userId],
+      );
+    } else {
+      await this.#pool.query(`DELETE FROM story_request_votes WHERE request_id = $1 AND user_id = $2`, [requestId, userId]);
+    }
+    return true;
+  }
 
   async getOrCreateDiscordCode(userId: string, candidate: string): Promise<DiscordLinkRow> {
     // DO UPDATE with a no-op rather than DO NOTHING, so RETURNING hands back

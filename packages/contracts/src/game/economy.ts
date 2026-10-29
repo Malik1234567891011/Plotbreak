@@ -152,6 +152,7 @@ export const LedgerEntryType = z.enum([
   'PROMO_GRANT',
   'FORK_FEE',
   'CREATE_FEE',
+  'SUBSCRIPTION_GRANT',
 ]);
 export type LedgerEntryType = z.infer<typeof LedgerEntryType>;
 
@@ -171,6 +172,36 @@ export const LedgerEntry = z
   })
   .strict();
 export type LedgerEntry = z.infer<typeof LedgerEntry>;
+
+/**
+ * Plotbreak Pass — a weekly subscription that pays credits every day.
+ *
+ * Daily rather than a weekly lump on purpose: the weak number is how many
+ * players come back tomorrow, and a reason to open the app each day is the
+ * point. 400 a day is 2,800 a week, about 47 Vivid turns for $2.99 — roughly
+ * 935 credits per dollar, better than every standing pack and worse than the
+ * first-purchase starter, so the starter stays the best first buy. See
+ * docs/plotbreak-pass.md.
+ */
+export const PASS_PRODUCT_ID = 'pass_weekly';
+export const PASS_REFERENCE_PRICE_USD = 2.99;
+export const PASS_DAILY_CREDITS = 400;
+/** Every product id that is the Pass rather than a credit pack. */
+export const PASS_PRODUCT_IDS: readonly string[] = [PASS_PRODUCT_ID];
+
+export const PassStatus = z
+  .object({
+    productId: z.string(),
+    referencePriceUsd: z.number(),
+    dailyCredits: z.number().int(),
+    active: z.boolean(),
+    /** The latest expiry Apple has reported. Renews unless cancelled. */
+    expiresAt: z.string().nullable(),
+    /** Whether today's Pass credits have already landed. */
+    bonusClaimedToday: z.boolean(),
+  })
+  .strict();
+export type PassStatus = z.infer<typeof PassStatus>;
 
 export const WalletSummary = z
   .object({
@@ -202,9 +233,19 @@ export const WalletSummary = z
      * client draws is the real deadline rather than a number the app invented.
      */
     flashOfferExpiresAt: z.string().nullable().default(null),
+    /** Plotbreak Pass: what it costs and whether this account holds it. */
+    pass: PassStatus.default({
+      productId: PASS_PRODUCT_ID,
+      referencePriceUsd: PASS_REFERENCE_PRICE_USD,
+      dailyCredits: PASS_DAILY_CREDITS,
+      active: false,
+      expiresAt: null,
+      bonusClaimedToday: false,
+    }),
   })
   .strict();
 export type WalletSummary = z.infer<typeof WalletSummary>;
+
 
 /**
  * Where an offer sits on the ladder, as a value rather than as a label.

@@ -22,6 +22,12 @@ import {
   PurchaseSyncRequest,
   QUALITY_TIERS,
   STORE_OFFERS,
+  PASS_PRODUCT_IDS,
+  PASS_REFERENCE_PRICE_USD,
+  CreateStoryRequestBody,
+  STORY_REQUEST_COOLDOWN_DAYS,
+  STORY_REQUEST_MAX_CHARS,
+  StoryRequestVoteBody,
   SubmitTurnRequest,
   type ContentDescriptor,
   type ContinueCard,
@@ -133,6 +139,34 @@ function ladderFor(options: { firstPurchaseBonusAvailable: boolean; flashExpires
     ...(options.flashExpiresAt ? [{ ...FLASH_OFFER, expiresAt: options.flashExpiresAt }] : []),
   ];
   return [...extras, ...STORE_OFFERS];
+}
+
+/**
+ * Ask Apple about a Pass that looks lapsed before believing it.
+ *
+ * A renewal is a new transaction on the same original id, and the client only
+ * forwards it while the app is running. A holder whose week rolled over with
+ * the app closed would otherwise read as expired until their phone caught up.
+ * Only for a recent lapse: a pass that ended a month ago is over.
+ */
+async function refreshPass(ctx: AppContext, userId: string): Promise<void> {
+  const latest = await ctx.wallet.latestSubscription(userId).catch(() => null);
+  if (!latest || latest.revokedAt) return;
+  const now = Date.now();
+  const expires = Date.parse(latest.expiresAt);
+  if (expires > now || now - expires > 30 * 24 * 3600 * 1000) return;
+  const fresh = await ctx.storeVerifier
+    .subscriptionExpiry?.(latest.originalTransactionId, latest.platform)
+    .catch(() => null);
+  if (!fresh) return;
+  await ctx.wallet.recordSubscription({ ...latest, expiresAt: fresh.expiresAt, revokedAt: fresh.revokedAt });
+}
+
+/** When a player may make their next story request, or null for now. */
+function nextStoryRequestAt(last: string | null): string | null {
+  if (!last) return null;
+  const next = Date.parse(last) + STORY_REQUEST_COOLDOWN_DAYS * 24 * 3600 * 1000;
+  return next > Date.now() ? new Date(next).toISOString() : null;
 }
 
 function readableIn(story: StoryVersion, locale: Locale): boolean {
@@ -1909,6 +1943,8 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     const user = await requireUser(ctx, request, reply);
     if (!user) return reply;
 
+    await refreshPass(ctx, user.userId);
+
     const wallet = await ctx.wallet.getSummary(user.userId);
     return {
       wallet,
@@ -1965,6 +2001,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       // Spec §20.5 — the daily grant requires an authenticated account.
       return sendError(reply, 403, 'SIGN_IN_REQUIRED', 'Sign in to claim your daily credits.');
     }
+    await refreshPass(ctx, user.userId);
     const result = await ctx.wallet.claimDaily(user.userId);
     if (result.granted) {
       tracker(ctx, request, user).track('daily_grant_claimed', {
@@ -1980,6 +2017,8 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     return {
       granted: result.granted,
       amount: result.entry?.amount ?? 0,
+      // Plotbreak Pass credits landed on this same claim, or 0.
+      passAmount: result.passEntry?.amount ?? 0,
       balance: await ctx.wallet.getBalance(user.userId),
       nextClaimAt: result.nextAt,
     };
@@ -2042,6 +2081,39 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
             'PURCHASE_NOT_VERIFIED',
             'The store could not confirm that purchase. If you were charged, contact support and nothing will be lost.',
           );
+    }
+
+    // The Pass is a subscription, not a pack: no PURCHASE row, no bonus rules.
+    // Record what Apple says about it and pay today's credits on the spot, so
+    // buying it is felt immediately rather than at tomorrow's claim.
+    if (PASS_PRODUCT_IDS.includes(verdict.productId)) {
+      if (!verdict.expiresAt) {
+        return sendError(reply, 402, 'PURCHASE_NOT_VERIFIED', 'The store did not confirm that subscription.');
+      }
+      const before = await ctx.wallet.passStatus(user.userId);
+      await ctx.wallet.recordSubscription({
+        originalTransactionId: verdict.originalTransactionId,
+        userId: user.userId,
+        productId: verdict.productId,
+        platform: parsed.data.platform,
+        environment: verdict.environment,
+        expiresAt: verdict.expiresAt,
+        revokedAt: verdict.revokedAt ?? null,
+      });
+      const passEntry = await ctx.wallet.grantPassDaily(user.userId);
+      if (!before.active) {
+        tracker(ctx, request, user).track('purchase_completed', {
+          productId: verdict.productId,
+          creditsGranted: passEntry?.amount ?? 0,
+          firstPurchase: false,
+          priceUsd: PASS_REFERENCE_PRICE_USD,
+        });
+      }
+      return {
+        credited: before.bonusClaimedToday ? 0 : (passEntry?.amount ?? 0),
+        duplicate: before.active,
+        balance: await ctx.wallet.getBalance(user.userId),
+      };
     }
 
     // Read before the credit lands, because afterwards it is too late to know
@@ -2151,6 +2223,21 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       if (!verdict.valid) continue;
       verified += 1;
 
+      if (PASS_PRODUCT_IDS.includes(verdict.productId)) {
+        if (verdict.expiresAt) {
+          await ctx.wallet.recordSubscription({
+            originalTransactionId: verdict.originalTransactionId,
+            userId: user.userId,
+            productId: verdict.productId,
+            platform: transaction.platform,
+            environment: verdict.environment,
+            expiresAt: verdict.expiresAt,
+            revokedAt: verdict.revokedAt ?? null,
+          });
+        }
+        continue;
+      }
+
       const result = await ctx.wallet.reconcilePurchase(
         user.userId,
         verdict.productId,
@@ -2170,6 +2257,72 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       creditsRestored,
       balance: await ctx.wallet.getBalance(user.userId),
     };
+  });
+
+  // --- Story requests (Plotbreak Pass) ---
+
+  /**
+   * Everybody can read the board; only Pass holders can add to it or vote. The
+   * top request each month is the one we make, so the list is ranked by votes.
+   */
+  app.get('/v1/story-requests', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    const [rows, pass, last] = await Promise.all([
+      ctx.repo.listStoryRequests(user.userId, 100),
+      ctx.wallet.passStatus(user.userId),
+      ctx.repo.lastStoryRequestAt(user.userId),
+    ]);
+    return {
+      requests: rows.map((row) => ({
+        id: row.requestId,
+        body: row.body,
+        author: row.author,
+        status: row.status,
+        votes: row.votes,
+        votedByMe: row.votedByViewer,
+        mine: row.userId === user.userId,
+        createdAt: row.createdAt,
+      })),
+      canParticipate: pass.active,
+      nextRequestAt: nextStoryRequestAt(last),
+    };
+  });
+
+  app.post('/v1/story-requests', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    const parsed = CreateStoryRequestBody.safeParse(request.body);
+    if (!parsed.success) {
+      return sendError(reply, 400, 'INVALID_REQUEST', `Tell us the story in ${STORY_REQUEST_MAX_CHARS} characters or fewer.`);
+    }
+    if (!(await ctx.wallet.passStatus(user.userId)).active) {
+      return sendError(reply, 403, 'PASS_REQUIRED', 'Story requests are part of Plotbreak Pass.');
+    }
+    const next = nextStoryRequestAt(await ctx.repo.lastStoryRequestAt(user.userId));
+    if (next) {
+      return sendError(reply, 429, 'REQUEST_COOLDOWN', 'You can ask for another story soon.', { nextRequestAt: next });
+    }
+    await ctx.repo.createStoryRequest({
+      requestId: `sreq_${crypto.randomUUID()}`,
+      userId: user.userId,
+      body: parsed.data.body,
+      createdAt: new Date().toISOString(),
+    });
+    return reply.code(201).send({ ok: true });
+  });
+
+  app.post<{ Params: { requestId: string } }>('/v1/story-requests/:requestId/vote', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    const parsed = StoryRequestVoteBody.safeParse(request.body);
+    if (!parsed.success) return sendError(reply, 400, 'INVALID_REQUEST', 'Vote payload is malformed.');
+    if (!(await ctx.wallet.passStatus(user.userId)).active) {
+      return sendError(reply, 403, 'PASS_REQUIRED', 'Voting is part of Plotbreak Pass.');
+    }
+    const found = await ctx.repo.setStoryRequestVote(request.params.requestId, user.userId, parsed.data.voted);
+    if (!found) return sendError(reply, 404, 'NOT_FOUND', 'That request is gone.');
+    return { ok: true };
   });
 
   // --- Safety (§33.8) ---

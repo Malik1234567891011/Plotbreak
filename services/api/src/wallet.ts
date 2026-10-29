@@ -1,15 +1,18 @@
-import type { LedgerEntry, LedgerEntryType, WalletSummary } from '@plotbreak/contracts';
+import type { LedgerEntry, LedgerEntryType, PassStatus, WalletSummary } from '@plotbreak/contracts';
 import {
   FLASH_OFFER_COOLDOWN_DAYS,
   FLASH_OFFER_REASON,
   FLASH_OFFER_WINDOW_HOURS,
   GRANT_DAILY,
   GRANT_NEW_USER,
+  PASS_DAILY_CREDITS,
+  PASS_PRODUCT_ID,
+  PASS_REFERENCE_PRICE_USD,
   firstPurchaseBonusFor,
   flashBonusFor,
   offerForProduct,
 } from '@plotbreak/contracts';
-import type { PurchaseTransaction, Repository } from './repo/types.js';
+import type { PurchaseTransaction, Repository, SubscriptionRow } from './repo/types.js';
 
 /**
  * Spec §20.7/§20.8 — the wallet service.
@@ -184,7 +187,50 @@ export class WalletService {
       firstPurchaseOfferExpiresAt: null,
       firstPurchaseBonusAvailable: !hasPurchased,
       flashOfferExpiresAt: flashExpiresAt?.toISOString() ?? null,
+      pass: await this.passStatus(accountId),
     };
+  }
+
+  // --- Plotbreak Pass (docs/plotbreak-pass.md) ---------------------------
+
+  /** Whether this account holds a live Pass, and whether today's credits landed. */
+  async passStatus(accountId: string): Promise<PassStatus> {
+    const live = await this.#livePass(accountId);
+    const today = await this.#repo.findLedgerEntryByIdempotencyKey(accountId, passDailyKey(accountId, this.#now()));
+    return {
+      productId: PASS_PRODUCT_ID,
+      referencePriceUsd: PASS_REFERENCE_PRICE_USD,
+      dailyCredits: PASS_DAILY_CREDITS,
+      active: live !== null,
+      expiresAt: live?.expiresAt ?? null,
+      bonusClaimedToday: today !== null,
+    };
+  }
+
+  async #livePass(accountId: string): Promise<SubscriptionRow | null> {
+    const now = this.#now().toISOString();
+    const rows = await this.#repo.listSubscriptions(accountId);
+    return rows.find((row) => !row.revokedAt && row.expiresAt > now) ?? null;
+  }
+
+  /** The newest subscription row, live or not, so a caller can ask Apple about it. */
+  async latestSubscription(accountId: string): Promise<SubscriptionRow | null> {
+    return (await this.#repo.listSubscriptions(accountId))[0] ?? null;
+  }
+
+  async recordSubscription(row: SubscriptionRow): Promise<void> {
+    await this.#repo.upsertSubscription(row);
+  }
+
+  /**
+   * Today's Pass credits, once per server day, and only while the Pass is live.
+   * Separate from the 300 free daily so either can land without the other.
+   */
+  async grantPassDaily(accountId: string): Promise<LedgerEntry | null> {
+    if (!(await this.#livePass(accountId))) return null;
+    return this.grant(accountId, 'SUBSCRIPTION_GRANT', PASS_DAILY_CREDITS, passDailyKey(accountId, this.#now()), {
+      productId: PASS_PRODUCT_ID,
+    });
   }
 
   /**
@@ -369,10 +415,18 @@ export class WalletService {
    * Spec §20.5 — 300 credits per server day. Never a streak that confiscates
    * anything the player already earned.
    */
-  async claimDaily(accountId: string): Promise<{ granted: boolean; entry: LedgerEntry | null; nextAt: string | null }> {
+  async claimDaily(accountId: string): Promise<{
+    granted: boolean;
+    entry: LedgerEntry | null;
+    nextAt: string | null;
+    passEntry: LedgerEntry | null;
+  }> {
+    // The Pass pays on the same tap, and independently: a holder who already
+    // took the free 300 today still gets their 400 the first time they ask.
+    const passEntry = await this.grantPassDaily(accountId);
     const summary = await this.getSummary(accountId);
     if (!summary.dailyClaimAvailable) {
-      return { granted: false, entry: null, nextAt: summary.nextDailyClaimAt };
+      return { granted: false, entry: null, nextAt: summary.nextDailyClaimAt, passEntry };
     }
     const day = serverDayKey(this.#now());
     const entry = await this.grant(accountId, 'DAILY_GRANT', GRANT_DAILY, `daily:${accountId}:${day}`);
@@ -380,6 +434,7 @@ export class WalletService {
       granted: true,
       entry,
       nextAt: nextServerDayBoundary(this.#now()).toISOString(),
+      passEntry,
     };
   }
 
@@ -543,6 +598,10 @@ export class WalletService {
     const next = start + limit < all.length ? (page.at(-1)?.id ?? null) : null;
     return { entries: page, nextCursor: next };
   }
+}
+
+function passDailyKey(accountId: string, now: Date): string {
+  return `pass:${accountId}:${serverDayKey(now)}`;
 }
 
 /** Server-defined daily boundary: 00:00 UTC, consistent for every player. */

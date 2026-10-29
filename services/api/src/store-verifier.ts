@@ -1,4 +1,5 @@
 import type { AppConfig } from './context.js';
+import { PASS_PRODUCT_IDS } from '@plotbreak/contracts';
 
 /**
  * Spec §33.5 — store receipt verification.
@@ -44,6 +45,12 @@ export type VerificationResult =
        */
       readonly priceLocal: number | null;
       readonly currency: string | null;
+      /**
+       * Subscriptions only: when this period ends, and when Apple refunded it.
+       * Absent on a consumable, which never ends.
+       */
+      readonly expiresAt?: string | null;
+      readonly revokedAt?: string | null;
     }
   | {
       readonly valid: false;
@@ -55,6 +62,15 @@ export type VerificationResult =
 export interface StoreVerifier {
   readonly name: string;
   verify(input: VerificationInput): Promise<VerificationResult>;
+  /**
+   * The newest expiry the store knows for a subscription, asked directly
+   * rather than waiting for a client to forward the renewal. Null when the
+   * store has nothing, or this platform cannot answer.
+   */
+  subscriptionExpiry?(
+    originalTransactionId: string,
+    platform: VerificationInput['platform'],
+  ): Promise<{ expiresAt: string; revokedAt: string | null } | null>;
 }
 
 /** Raised when nothing can verify the platform the client claims to be on. */
@@ -89,6 +105,9 @@ export class SandboxStoreVerifier implements StoreVerifier {
       // No money moved, so there is no local price to record.
       priceLocal: null,
       currency: null,
+      ...(PASS_PRODUCT_IDS.includes(input.productId)
+        ? { expiresAt: new Date(Date.now() + 7 * 24 * 3600 * 1000).toISOString(), revokedAt: null }
+        : {}),
     };
   }
 }
@@ -201,7 +220,54 @@ export class AppStoreVerifier implements StoreVerifier {
       // null all the way into the column.
       priceLocal: typeof claims.price === 'number' ? claims.price / 1000 : null,
       currency: typeof claims.currency === 'string' ? claims.currency : null,
+      expiresAt: millisToIso(claims.expiresDate),
+      revokedAt: millisToIso(claims.revocationDate),
     };
+  }
+
+  /**
+   * Apple's own view of a subscription: every transaction it holds for this
+   * original id, newest expiry wins. This is what keeps a pass that renewed
+   * while the app was closed from looking lapsed.
+   */
+  async subscriptionExpiry(
+    originalTransactionId: string,
+    platform: VerificationInput['platform'],
+  ): Promise<{ expiresAt: string; revokedAt: string | null } | null> {
+    if (platform !== 'APP_STORE') return null;
+    const hosts =
+      this.options.environment === 'PRODUCTION'
+        ? ['https://api.storekit.itunes.apple.com', 'https://api.storekit-sandbox.itunes.apple.com']
+        : ['https://api.storekit-sandbox.itunes.apple.com', 'https://api.storekit.itunes.apple.com'];
+    for (const host of hosts) {
+      let response: Response;
+      try {
+        response = await fetch(`${host}/inApps/v1/subscriptions/${encodeURIComponent(originalTransactionId)}`, {
+          headers: { authorization: `Bearer ${await this.#token()}` },
+        });
+      } catch {
+        return null;
+      }
+      if (response.status === 404 || response.status === 401) continue;
+      if (!response.ok) return null;
+      const body = (await response.json()) as {
+        data?: { lastTransactions?: { signedTransactionInfo?: string }[] }[];
+      };
+      let best: { expiresAt: string; revokedAt: string | null } | null = null;
+      for (const group of body.data ?? []) {
+        for (const last of group.lastTransactions ?? []) {
+          const claims = last.signedTransactionInfo ? decodeJwsPayload(last.signedTransactionInfo) : null;
+          if (!claims || claims.bundleId !== this.options.bundleId) continue;
+          const expiresAt = millisToIso(claims.expiresDate);
+          if (!expiresAt) continue;
+          if (!best || expiresAt > best.expiresAt) {
+            best = { expiresAt, revokedAt: millisToIso(claims.revocationDate) };
+          }
+        }
+      }
+      return best;
+    }
+    return null;
   }
 
   async #token(): Promise<string> {
@@ -302,6 +368,13 @@ export class PlatformStoreVerifier implements StoreVerifier {
     if (!verifier) throw new NoVerifierError(input.platform);
     return verifier.verify(input);
   }
+
+  async subscriptionExpiry(
+    originalTransactionId: string,
+    platform: VerificationInput['platform'],
+  ): Promise<{ expiresAt: string; revokedAt: string | null } | null> {
+    return (await this.byPlatform[platform]?.subscriptionExpiry?.(originalTransactionId, platform)) ?? null;
+  }
 }
 
 /**
@@ -338,6 +411,11 @@ export function createStoreVerifierFromEnv(
   }
 
   return new PlatformStoreVerifier(byPlatform);
+}
+
+/** Apple sends dates as epoch milliseconds; anything else is absent. */
+function millisToIso(value: unknown): string | null {
+  return typeof value === 'number' && Number.isFinite(value) ? new Date(value).toISOString() : null;
 }
 
 /** Reads a JWS payload. Only ever called after the signature has been trusted. */

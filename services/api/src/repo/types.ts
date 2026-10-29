@@ -225,6 +225,28 @@ export type DiscordLinkResult =
   /** This Discord account already linked a different Plotbreak account. */
   | { readonly status: 'DISCORD_TAKEN' };
 
+/** One App Store subscription. Renewals share `originalTransactionId`. */
+export interface SubscriptionRow {
+  readonly originalTransactionId: string;
+  readonly userId: string;
+  readonly productId: string;
+  readonly platform: 'APP_STORE' | 'PLAY_STORE' | 'SANDBOX';
+  readonly environment: 'PRODUCTION' | 'SANDBOX';
+  readonly expiresAt: string;
+  readonly revokedAt: string | null;
+}
+
+export interface StoryRequestRow {
+  readonly requestId: string;
+  readonly userId: string;
+  readonly author: string | null;
+  readonly body: string;
+  readonly status: 'OPEN' | 'PLANNED' | 'MADE' | 'DECLINED';
+  readonly votes: number;
+  readonly votedByViewer: boolean;
+  readonly createdAt: string;
+}
+
 export interface UserBadgeRow {
   readonly userId: string;
   readonly badgeId: string;
@@ -445,6 +467,24 @@ export interface Repository {
   upsertBadge(row: UserBadgeRow): Promise<void>;
   /** Claims exactly once. False means somebody already claimed it. */
   claimBadge(userId: string, badgeId: string, at: string): Promise<boolean>;
+
+  // --- Plotbreak Pass (docs/plotbreak-pass.md) -------------------------
+
+  /**
+   * Record what Apple last said about a subscription. An existing row keeps its
+   * owner and only ever moves its expiry forward, so a stale redelivery cannot
+   * shorten a pass that has since renewed.
+   */
+  upsertSubscription(row: SubscriptionRow): Promise<void>;
+  listSubscriptions(userId: string): Promise<SubscriptionRow[]>;
+
+  createStoryRequest(input: { requestId: string; userId: string; body: string; createdAt: string }): Promise<void>;
+  /** Open and planned requests, most votes first, with the viewer's own vote. */
+  listStoryRequests(viewerId: string | null, limit: number): Promise<StoryRequestRow[]>;
+  /** When this player last asked for a story, if ever. */
+  lastStoryRequestAt(userId: string): Promise<string | null>;
+  /** False when the request does not exist. */
+  setStoryRequestVote(requestId: string, userId: string, voted: boolean): Promise<boolean>;
 
   // --- Discord quest (docs/discord-quest.md) ---------------------------
 

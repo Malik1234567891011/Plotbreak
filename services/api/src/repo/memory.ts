@@ -25,6 +25,8 @@ import type {
   UserBadgeRow,
   DiscordLinkRow,
   DiscordLinkResult,
+  StoryRequestRow,
+  SubscriptionRow,
   UserRecord,
   PureMessage,
   PurchaseTransaction,
@@ -161,6 +163,9 @@ export class MemoryRepository implements Repository {
   #editorial: StoryEditorial[] = [];
   #badges = new Map<string, UserBadgeRow>();
   #discordLinks = new Map<string, DiscordLinkRow>();
+  #subscriptions = new Map<string, SubscriptionRow>();
+  #storyRequests: { requestId: string; userId: string; body: string; status: StoryRequestRow['status']; createdAt: string }[] = [];
+  #storyRequestVotes = new Map<string, Set<string>>();
 
   async setLiked(userId: string, storyId: string, liked: boolean): Promise<boolean> {
     const set = this.#likes.get(storyId) ?? new Set<string>();
@@ -312,6 +317,59 @@ export class MemoryRepository implements Repository {
     const existing = this.#badges.get(key);
     if (!existing?.unlockedAt || existing.claimedAt) return false;
     this.#badges.set(key, { ...existing, claimedAt: at });
+    return true;
+  }
+
+  async upsertSubscription(row: SubscriptionRow): Promise<void> {
+    const existing = this.#subscriptions.get(row.originalTransactionId);
+    if (!existing) {
+      this.#subscriptions.set(row.originalTransactionId, row);
+      return;
+    }
+    this.#subscriptions.set(row.originalTransactionId, {
+      ...existing,
+      expiresAt: row.expiresAt > existing.expiresAt ? row.expiresAt : existing.expiresAt,
+      revokedAt: row.revokedAt,
+    });
+  }
+
+  async listSubscriptions(userId: string): Promise<SubscriptionRow[]> {
+    return [...this.#subscriptions.values()]
+      .filter((r) => r.userId === userId)
+      .sort((a, b) => b.expiresAt.localeCompare(a.expiresAt));
+  }
+
+  async createStoryRequest(input: { requestId: string; userId: string; body: string; createdAt: string }): Promise<void> {
+    this.#storyRequests.push({ ...input, status: 'OPEN' });
+  }
+
+  async listStoryRequests(viewerId: string | null, limit: number): Promise<StoryRequestRow[]> {
+    return this.#storyRequests
+      .filter((r) => r.status === 'OPEN' || r.status === 'PLANNED')
+      .map((r) => {
+        const votes = this.#storyRequestVotes.get(r.requestId) ?? new Set<string>();
+        return {
+          ...r,
+          author: this.#users.get(r.userId)?.displayName ?? null,
+          votes: votes.size,
+          votedByViewer: viewerId !== null && votes.has(viewerId),
+        };
+      })
+      .sort((a, b) => b.votes - a.votes || b.createdAt.localeCompare(a.createdAt))
+      .slice(0, limit);
+  }
+
+  async lastStoryRequestAt(userId: string): Promise<string | null> {
+    const mine = this.#storyRequests.filter((r) => r.userId === userId).map((r) => r.createdAt).sort();
+    return mine.at(-1) ?? null;
+  }
+
+  async setStoryRequestVote(requestId: string, userId: string, voted: boolean): Promise<boolean> {
+    if (!this.#storyRequests.some((r) => r.requestId === requestId)) return false;
+    const votes = this.#storyRequestVotes.get(requestId) ?? new Set<string>();
+    if (voted) votes.add(userId);
+    else votes.delete(userId);
+    this.#storyRequestVotes.set(requestId, votes);
     return true;
   }
 
