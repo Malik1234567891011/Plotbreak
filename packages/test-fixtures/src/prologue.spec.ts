@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ITACHI, LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
+import { ITACHI, LAST_FEATHER, LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
 import { StoryVersion } from '@plotbreak/contracts';
 
 /**
@@ -21,15 +21,16 @@ describe('story prologues', () => {
     expect(parsed.success && parsed.data.prologue).toEqual([]);
   });
 
-  it('only Itachi has one, and it is three panels', () => {
+  it('only Itachi and Last Feather have one, at three and four panels', () => {
     const withPrologue = LAUNCH_CATALOG.filter((s) => s.prologue.length > 0);
-    expect(withPrologue.map((s) => s.storyId)).toEqual(['story_itachi']);
+    expect(withPrologue.map((s) => s.storyId)).toEqual(['story_itachi', 'story_last_feather']);
     expect(ITACHI.prologue).toHaveLength(3);
+    expect(LAST_FEATHER.prologue).toHaveLength(4);
   });
 
   it('every panel has art, a headline and alt text', () => {
-    for (const panel of ITACHI.prologue) {
-      expect(panel.assetKey).toMatch(/^story_itachi\/prologue\/\d$/);
+    for (const panel of [...ITACHI.prologue, ...LAST_FEATHER.prologue]) {
+      expect(panel.assetKey).toMatch(/^story_(itachi|last_feather)\/prologue\/\d$/);
       expect(panel.headline.length).toBeGreaterThan(0);
       // A picture carrying the setup has to be readable by somebody who cannot
       // see it, which is also why the text is not baked into the art.

@@ -27852,5 +27852,273 @@
       "latencyMs": 25841,
       "createdAt": "2026-09-20T07:46:46.849Z"
     }
+  },
+  "story_last_feather/cover": {
+    "assetKey": "story_last_feather/cover",
+    "file": "story_last_feather/cover.png",
+    "kind": "COVER",
+    "alt": "Cover art for story_last_feather",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "seedream-5-pro",
+      "createdAt": "2026-10-31T02:24:19.492Z"
+    }
+  },
+  "story_last_feather/cover.fr": {
+    "assetKey": "story_last_feather/cover.fr",
+    "file": "story_last_feather/cover.fr.png",
+    "kind": "COVER",
+    "alt": "Cover art for story_last_feather",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "plotbreak-cover-v4-titled",
+    "provenance": {
+      "provider": "dare",
+      "model": "nano-banana-2",
+      "createdAt": "2026-10-31T02:24:19.811Z"
+    }
+  },
+  "story_last_feather/stage_bedroom": {
+    "assetKey": "story_last_feather/stage_bedroom",
+    "file": "story_last_feather/stage_bedroom.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Your Bedroom: The bed you died in, covers thrown back.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "42cbb005-7a37-4e98-9138-1ca901229704",
+      "promptHash": "ba3d7ad5432a1ef65cab443010e49dc7",
+      "seed": "sv_last_feather_1:loc:bedroom:anima-v1",
+      "costUsd": 0.00632,
+      "latencyMs": 10203,
+      "createdAt": "2026-10-31T02:47:45.811Z"
+    }
+  },
+  "story_last_feather/stage_landing": {
+    "assetKey": "story_last_feather/stage_landing",
+    "file": "story_last_feather/stage_landing.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Fourth-Floor Landing: Your front door, the door of 4B opposite, a stairwell with a flickering light, and a smell of rain coming up from the street.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "3c4d6018-c601-4a43-8d44-74068555ffbf",
+      "promptHash": "81c8d70b1911f6b916914d40503a5716",
+      "seed": "sv_last_feather_1:loc:landing:anima-v1",
+      "costUsd": 0.02404,
+      "latencyMs": 10993,
+      "createdAt": "2026-10-31T02:47:46.602Z"
+    }
+  },
+  "story_last_feather/key": {
+    "assetKey": "story_last_feather/key",
+    "file": "story_last_feather/key.png",
+    "kind": "KEY_ART",
+    "alt": "Key art for Last Feather",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "42097dbb-c539-48e3-b0bc-26409360abb2",
+      "promptHash": "401f81b8056cd46f32a6f4ca5f9987fd",
+      "seed": "sv_last_feather_1:key:anima-v1",
+      "costUsd": 0.01372,
+      "latencyMs": 11536,
+      "createdAt": "2026-10-31T02:47:47.144Z"
+    }
+  },
+  "story_last_feather/stage_kitchen": {
+    "assetKey": "story_last_feather/stage_kitchen",
+    "file": "story_last_feather/stage_kitchen.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Your Kitchen: Small, fourth floor, the light over the stove left on as always.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "87e165f8-bd4a-442b-945f-ee5fbd429ee5",
+      "promptHash": "a9503e52cfa67805ce49c512342d11be",
+      "seed": "sv_last_feather_1:loc:kitchen:anima-v1",
+      "costUsd": 0.02404,
+      "latencyMs": 13624,
+      "createdAt": "2026-10-31T02:47:49.219Z"
+    }
+  },
+  "story_last_feather/stage_mika_flat": {
+    "assetKey": "story_last_feather/stage_mika_flat",
+    "file": "story_last_feather/stage_mika_flat.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Flat 4B: Mika’s, across the landing.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "1a1af8f7-02cd-4c6d-9164-2f587d45bfbd",
+      "promptHash": "02722ec7b78df9204a485f8726516192",
+      "seed": "sv_last_feather_1:loc:mika_flat:anima-v1",
+      "costUsd": 0.02404,
+      "latencyMs": 11457,
+      "createdAt": "2026-10-31T02:47:57.277Z"
+    }
+  },
+  "story_last_feather/stage_street": {
+    "assetKey": "story_last_feather/stage_street",
+    "file": "story_last_feather/stage_street.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Street: Wet asphalt, parked cars, the corner store lit like a lantern, and the streetlights going all the way down the hill to the river.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "5ed3e3a1-c43c-4cce-b974-72b27aaa76d9",
+      "promptHash": "5a4fc4b3c2d09e1cff23e6f8fd02c071",
+      "seed": "sv_last_feather_1:loc:street:anima-v1",
+      "costUsd": 0.02404,
+      "latencyMs": 12035,
+      "createdAt": "2026-10-31T02:47:59.196Z"
+    }
+  },
+  "story_last_feather/stage_roof": {
+    "assetKey": "story_last_feather/stage_roof",
+    "file": "story_last_feather/stage_roof.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Roof: Gravel, a water tank, a door that does not lock, and the whole city laid out in the rain.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "3bf312b4-21b4-4e2e-92cf-e6bf88a2caad",
+      "promptHash": "21edf780d986bb23daa94a55a83fd1de",
+      "seed": "sv_last_feather_1:loc:roof:anima-v1",
+      "costUsd": 0.02404,
+      "latencyMs": 13063,
+      "createdAt": "2026-10-31T02:47:59.680Z"
+    }
+  },
+  "story_last_feather/stage_store": {
+    "assetKey": "story_last_feather/stage_store",
+    "file": "story_last_feather/stage_store.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Corner Store: Open all night and lit like an operating theatre: a hot-drink machine, umbrellas by the door, and a clerk who has seen everything at four in the morning and will not look twice at wings.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "11fd4891-3b59-496f-a6ba-e0ea543f70f4",
+      "promptHash": "237abd604bedbe1dcea9c388e0434bf9",
+      "seed": "sv_last_feather_1:loc:store:anima-v1",
+      "costUsd": 0.05488,
+      "latencyMs": 16826,
+      "createdAt": "2026-10-31T02:48:06.055Z"
+    }
+  },
+  "story_last_feather/stage_bridge": {
+    "assetKey": "story_last_feather/stage_bridge",
+    "file": "story_last_feather/stage_bridge.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Bridge: The old river bridge at the bottom of the hill, the railing replaced in one section six years ago and never quite matched.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "855bc064-060d-4794-b29c-ab99258012b1",
+      "promptHash": "3d157e87ef4422b6975c9e31627fdaea",
+      "seed": "sv_last_feather_1:loc:bridge:anima-v1",
+      "costUsd": 0.00632,
+      "latencyMs": 8460,
+      "createdAt": "2026-10-31T02:48:08.151Z"
+    }
+  },
+  "story_last_feather/sera": {
+    "styleVersion": "anima-v1"
+  },
+  "story_last_feather/vael": {
+    "styleVersion": "anima-v1"
+  },
+  "story_last_feather/mika": {
+    "styleVersion": "anima-v1"
+  },
+  "story_last_feather/orin": {
+    "styleVersion": "anima-v1"
+  },
+  "story_last_feather/stage_bar": {
+    "assetKey": "story_last_feather/stage_bar",
+    "file": "story_last_feather/stage_bar.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Under the Line: An all-night bar in the arches under the train tracks, where the whole room shakes every time a train goes over.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "84e0a48d-c504-4228-abbc-d8b6a7199b47",
+      "promptHash": "a8ca0aed015af3ccbcfe48f4ba493ba1",
+      "seed": "sv_last_feather_1:loc:bar:anima-v1",
+      "costUsd": 0.02404,
+      "latencyMs": 12101,
+      "createdAt": "2026-10-31T02:48:11.314Z"
+    }
+  },
+  "story_last_feather/stage_hospital": {
+    "assetKey": "story_last_feather/stage_hospital",
+    "file": "story_last_feather/stage_hospital.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Hospital: Two streets away, where Mika works nights.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "6b08cd73-9c25-4a4c-bcc5-eb0e984f482d",
+      "promptHash": "9e9e9ef1d334793763ccfd07f7fd89de",
+      "seed": "sv_last_feather_1:loc:hospital:anima-v1",
+      "costUsd": 0.05488,
+      "latencyMs": 15443,
+      "createdAt": "2026-10-31T02:48:12.732Z"
+    }
+  },
+  "story_last_feather/stage_cathedral": {
+    "assetKey": "story_last_feather/stage_cathedral",
+    "file": "story_last_feather/stage_cathedral.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Old Cathedral: Black stone on the hill across the river, locked to the public at night.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "openai",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "00065e12-7a55-4456-99ea-fc744e6a4c34",
+      "promptHash": "1d6892c4e53d9ec16b68a234674667e6",
+      "seed": "sv_last_feather_1:loc:cathedral:anima-v1",
+      "costUsd": 0.05488,
+      "latencyMs": 16636,
+      "createdAt": "2026-10-31T02:48:22.709Z"
+    }
   }
 }

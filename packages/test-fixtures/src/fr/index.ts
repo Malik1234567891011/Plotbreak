@@ -12,6 +12,7 @@ import './hush-house.fr.js';
 import './ace.fr.js';
 import './itachi.fr.js';
 import './light.fr.js';
+import './last-feather.fr.js';
 import './last-five.fr.js';
 import './last-service.fr.js';
 import './nine-weeks.fr.js';

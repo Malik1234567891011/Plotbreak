@@ -28,6 +28,7 @@ import { SECOND_SKIN as SECOND_SKIN_RAW } from './second-skin.js';
 import { UNCOUNTED as UNCOUNTED_RAW } from './uncounted.js';
 import { LAST_SERVICE as LAST_SERVICE_RAW } from './last-service.js';
 import { PINK_TIDE as PINK_TIDE_RAW } from './pink-tide.js';
+import { LAST_FEATHER as LAST_FEATHER_RAW } from './last-feather.js';
 
 
 export { withDerivedAssetKeys } from './derive-assets.js';
@@ -55,6 +56,7 @@ export const SECOND_SKIN = withDerivedAssetKeys(SECOND_SKIN_RAW);
 export const UNCOUNTED = withDerivedAssetKeys(UNCOUNTED_RAW);
 export const LAST_SERVICE = withDerivedAssetKeys(LAST_SERVICE_RAW);
 export const PINK_TIDE = withDerivedAssetKeys(PINK_TIDE_RAW);
+export const LAST_FEATHER = withDerivedAssetKeys(LAST_FEATHER_RAW);
 
 /**
  * These three shipped with null asset keys on purpose, and no longer need to.
@@ -117,7 +119,9 @@ export const GOOD_MORNING_HUSBAND = withDerivedAssetKeys(GOOD_MORNING_HUSBAND_RA
  * island resort where a guest checked out this morning without leaving, and Ace is ten years old on a mountain
  * with a brother he has not agreed to and a decade in which nothing famous has
  * happened yet, and Light is a bored seventeen-year-old in the last twenty
- * minutes of a Wednesday, watching a notebook land in the school grounds.
+ * minutes of a Wednesday, watching a notebook land in the school grounds, and
+ * Last Feather is one rainy night in which the angel sent to carry you up at
+ * 2:14 has refused, has seven feathers left, and is spending them on you.
  */
 export const LAUNCH_CATALOG = [
   NINTH_ARCHIVE,
@@ -146,4 +150,5 @@ export const LAUNCH_CATALOG = [
   UNCOUNTED,
   ACE,
   LIGHT,
+  LAST_FEATHER,
 ] as const;
