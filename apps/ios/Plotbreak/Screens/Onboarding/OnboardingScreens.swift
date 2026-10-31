@@ -391,9 +391,14 @@ struct AudienceGenresPicker: View {
 
 /// Five worlds, and a way in. The picks are pinned rather than computed: this
 /// is a shop window and somebody should choose what is in it.
+///
+/// Last Feather leads because it was written to the findings in
+/// docs/early-dropout-analysis.md. Second Skin came out: 66% of its started
+/// runs ended by turn 3, the worst of any world we pushed. A world the server
+/// does not return is skipped, so listing one before it is seeded is safe.
 private let showcaseStoryIds = [
+    "story_last_feather",
     "story_itachi",
-    "story_second_skin",
     "story_good_morning_husband",
     "story_hush_house",
     "story_zero_throne",

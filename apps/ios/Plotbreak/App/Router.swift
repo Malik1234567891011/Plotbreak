@@ -175,6 +175,20 @@ struct RootView: View {
     @State private var openStoryId: String?
     private var taps: ReminderTaps { ReminderTaps.shared }
 
+    /// A world tapped on the onboarding showcase goes straight into the story,
+    /// not to its page with a second Play button: the showcase already did the
+    /// page's job of selling it. Anything that stops the start — no credits, a
+    /// network error — lands on the story page instead, which knows how to say so.
+    private func enterFromShowcase(_ storyId: String) async {
+        do {
+            let detail = try await store.api.storyDetail(storyId)
+            let sessionId = try await QuickStart.start(detail, store: store, startPath: "onboarding")
+            router.push(.session(sessionId: sessionId))
+        } catch {
+            router.push(.storyDetail(storyId: storyId))
+        }
+    }
+
     var body: some View {
         Group {
             if !store.ready {
@@ -208,8 +222,8 @@ struct RootView: View {
                     .environment(router)
                     .onAppear {
                         if let storyId = openStoryId {
-                            router.push(.storyDetail(storyId: storyId))
                             openStoryId = nil
+                            Task { await enterFromShowcase(storyId) }
                         }
                         // A reminder tapped from a cold launch arrives long
                         // before there is a router, so it waits here rather
