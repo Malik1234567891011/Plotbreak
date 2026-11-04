@@ -44,10 +44,22 @@ A $2.99/week auto-renewing subscription. Decided 2026-10-29.
 - [x] iOS: Pass card (wallet + wall), story requests screen, legal copy — 2500066, verified on a simulator against a local in-memory API
 - [x] ASC: review screenshot + notes on `pass_weekly`
 - [x] Build 1.0.7 (15) archived; points at production (checked Info.plist)
-- [ ] Migration 0014 on production — needs Malik (auto mode blocks prod DDL)
-- [ ] Push db7f14f/2500066 to main (deploys the API) — only after 0014
-- [ ] Upload 1.0.7 — Xcode has no Apple account signed in; Organizer → Distribute
-- [ ] ASC: version 1.0.7, attach build + `pass_weekly`, Terms of Use link in the description, submit
+- [x] Migration 0014 on production (applied 2026-10-29, checked `schema_migrations` 2026-11-03)
+- [x] Push db7f14f/2500066 to main — API live at `a4bc4e0` (checked `/health` 2026-11-03)
+- [x] Upload 1.0.7 (15) — re-archived from `a4bc4e0` on Omar's Mac so it carries the
+  onboarding change; uploaded 2026-11-03 with `xcodebuild -exportArchive`
+  (`destination=upload`). First attempt failed with `PLA Update available`: Apple's
+  updated Program License Agreement had to be accepted on developer.apple.com first.
+- [x] ASC: version 1.0.7 created; What's New en + fr; description no longer says
+  "No subscription." / "Pas d'abonnement." and ends with Terms + Privacy links;
+  review notes gained a 1.0.7 Pass section and the offer now reads 72h / after a
+  first purchase
+- [x] ASC: build 15 + `pass_weekly` + the Plotbreak Pass group submitted together
+  2026-11-03 ("Waiting for Review"). A first subscription needs all three in one
+  submission: Add for Review on the subscription, then the group, then the version.
+  Release is automatic, to all users at once.
+
+Developer Program membership expires around 2026-11-28 — turn on auto-renew.
 
 The app is safe against the old server: with no `pass` in the wallet response
 the card does not render.
