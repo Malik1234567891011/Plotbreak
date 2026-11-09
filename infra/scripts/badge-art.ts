@@ -75,6 +75,14 @@ const SUBJECTS: Record<string, string> = {
   marathon: 'a tall obelisk with a single band of light around its top',
   // Community. Not Discord's own logo: a mark of ours, about saying hello.
   discord_hello: 'a rounded speech bubble with a small waving hand inside it',
+  // Relics (docs/relics.md). One per story, then climbing in weight by rarity.
+  relic_pink_tide: 'a spiral seashell with a small glowing pearl resting at its mouth',
+  relic_second_skin: 'a single animal paw print with one feather laid across it',
+  relic_rare: 'one tall sharp crystal shard standing upright with a small sparkle',
+  relic_epic: 'a glowing orb gripped in a four-pronged claw setting',
+  relic_legendary: 'a radiant eight-pointed star burst with a bright core',
+  relic_mythic_pink_tide: 'an ornate crown made of branching coral with a large pearl at its centre',
+  relic_mythic_second_skin: 'a heart split down the middle, one half furred and one half feathered, joined by light',
 };
 
 async function main(): Promise<void> {
