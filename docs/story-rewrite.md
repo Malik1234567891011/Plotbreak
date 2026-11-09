@@ -35,7 +35,7 @@ The five stories new players start with most (first story since Oct 12):
    prompt and lowers the word target, on the production path only (`narratePure`).
 3. Rewritten opening, opening suggestions, tone guide and style samples for the
    five stories, with the French overlay updated to match.
-4. Images on top of the beat. This one needs an app update (1.0.9):
+4. Images on top of the beat. This one needs an app update (1.0.10, since 1.0.9 is the relics build):
    - **Server:** the face is decided before the prose, it is stored on the turn
      so it stays in the history, the opening beat carries an image, and faces
      appear more often in the first few beats.
@@ -73,7 +73,7 @@ The five stories new players start with most (first story since Oct 12):
    the five stories. New runs get them; runs in progress stay on the version they started on.
    Never the other way round: `StoryVersion` is `.strict()`, so a server without these fields
    would reject the new definitions and Discover would 500.
-3. App 1.0.9 (17) draws the picture at the top. 1.0.8 already gets the new writing and shows the
+3. App 1.0.10 (18) draws the picture at the top. 1.0.9 and older already get the new writing and show the
    face under the beat, the way it always has.
 
 ## Measure
