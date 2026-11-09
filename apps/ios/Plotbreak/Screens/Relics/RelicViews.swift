@@ -16,16 +16,6 @@ enum RelicRarity: String, CaseIterable {
 
     init(_ raw: String) { self = RelicRarity(rawValue: raw) ?? .COMMON }
 
-    var label: String {
-        switch self {
-        case .MYTHIC: return "Mythic"
-        case .LEGENDARY: return "Legendary"
-        case .EPIC: return "Epic"
-        case .RARE: return "Rare"
-        case .COMMON: return "Common"
-        }
-    }
-
     var color: Color {
         switch self {
         case .MYTHIC: return Color(hex: 0xFF4FB8)
@@ -62,12 +52,12 @@ enum RelicRarity: String, CaseIterable {
     var sortIndex: Int { RelicRarity.allCases.firstIndex(of: self) ?? 0 }
 }
 
-func relicTimingLabel(_ timing: String) -> String {
+func relicTimingLabel(_ timing: String, _ t: Translator) -> String {
     switch timing {
-    case "EARLY": return "Early on"
-    case "MID": return "Midway"
-    case "LATE": return "Late"
-    case "ENDING": return "At an ending"
+    case "EARLY": return t("relics.timing_early")
+    case "MID": return t("relics.timing_mid")
+    case "LATE": return t("relics.timing_late")
+    case "ENDING": return t("relics.timing_ending")
     default: return timing.capitalized
     }
 }
@@ -277,9 +267,10 @@ extension View {
 struct RarityTag: View {
     let rarity: RelicRarity
     var size: CGFloat = 10
+    @Environment(\.translator) private var t
 
     var body: some View {
-        Text(rarity.label.uppercased())
+        Text(t("relics.rarity_\(rarity.rawValue.lowercased())").uppercased())
             .font(.system(size: size, weight: .heavy))
             .tracking(1.6)
             .foregroundStyle(rarity == .MYTHIC
@@ -302,6 +293,7 @@ struct RelicRevealView: View {
     let onOpenVault: () -> Void
 
     @State private var stage = 0
+    @Environment(\.translator) private var t
     private var rarity: RelicRarity { RelicRarity(drop.rarity) }
     private var big: Bool { rarity.sortIndex <= RelicRarity.EPIC.sortIndex }
 
@@ -331,7 +323,7 @@ struct RelicRevealView: View {
                 .allowsHitTesting(false)
 
             VStack(spacing: 18) {
-                Text("RELIC FOUND")
+                Text(t("relics.found_banner"))
                     .font(.system(size: 13, weight: .heavy))
                     .tracking(4)
                     .foregroundStyle(.white.opacity(0.8))
@@ -357,7 +349,7 @@ struct RelicRevealView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 30)
                     if drop.count > 1 {
-                        Text("Duplicate · you now have \(drop.count)")
+                        Text(t("relics.duplicate", ["count": drop.count]))
                             .font(.system(size: 12, weight: .semibold))
                             .foregroundStyle(rarity.color)
                     }
@@ -367,14 +359,14 @@ struct RelicRevealView: View {
 
                 HStack(spacing: 12) {
                     Button(action: onOpenVault) {
-                        Text("Open vault")
+                        Text(t("relics.open_vault"))
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundStyle(.white)
                             .padding(.horizontal, 20).padding(.vertical, 12)
                             .background(Capsule().strokeBorder(.white.opacity(0.35)))
                     }
                     Button(action: onDone) {
-                        Text("Keep playing")
+                        Text(t("relics.keep_playing"))
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundStyle(Theme.Colors.textOnLight)
                             .padding(.horizontal, 20).padding(.vertical, 12)

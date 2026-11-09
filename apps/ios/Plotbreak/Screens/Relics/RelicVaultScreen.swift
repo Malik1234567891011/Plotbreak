@@ -13,6 +13,7 @@ struct RelicVaultScreen: View {
 
     @Environment(AppStore.self) private var store
     @Environment(Router.self) private var router
+    @Environment(\.translator) private var t
 
     @State private var vault: RelicCollectionResponse?
     @State private var failed = false
@@ -28,7 +29,7 @@ struct RelicVaultScreen: View {
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                ScreenHeader(title: "Relic Vault", backLabel: "Back", onBack: { router.dismissSheet() })
+                ScreenHeader(title: t("relics.vault_title"), backLabel: t("story.back"), onBack: { router.dismissSheet() })
 
                 if let vault {
                     ScrollView {
@@ -46,7 +47,7 @@ struct RelicVaultScreen: View {
                     }
                 } else if failed {
                     Spacer()
-                    Text("The vault is not open yet.")
+                    Text(t("relics.vault_closed"))
                         .foregroundStyle(Theme.Colors.textMuted)
                     Spacer()
                 } else {
@@ -83,7 +84,7 @@ struct RelicVaultScreen: View {
                 Text("\(vault.owned)")
                     .font(.system(size: 44, weight: .bold, design: .serif))
                     .foregroundStyle(.white)
-                Text("/ \(vault.total) relics found")
+                Text("/ " + t("relics.found_of", ["total": vault.total]))
                     .font(.system(size: 16, weight: .medium))
                     .foregroundStyle(Theme.Colors.textSecondary)
             }
@@ -117,7 +118,7 @@ struct RelicVaultScreen: View {
     private func filters(_ vault: RelicCollectionResponse) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                pill("All", count: "\(vault.owned)/\(vault.total)", on: storyFilter == nil) { storyFilter = nil }
+                pill(t("relics.filter_all"), count: "\(vault.owned)/\(vault.total)", on: storyFilter == nil) { storyFilter = nil }
                 ForEach(vault.stories) { story in
                     pill(story.title, count: "\(story.owned)/\(story.total)", on: storyFilter == story.storyId) { storyFilter = story.storyId }
                 }
@@ -160,6 +161,7 @@ struct RelicVaultScreen: View {
 /// One grid cell: the item in its frame, the name, and for a locked relic the odds.
 struct RelicCell: View {
     let relic: RelicEntry
+    @Environment(\.translator) private var t
     private var rarity: RelicRarity { RelicRarity(relic.rarity) }
 
     var body: some View {
@@ -191,7 +193,7 @@ struct RelicCell: View {
                 .multilineTextAlignment(.center)
                 .frame(height: 30, alignment: .top)
             if !relic.owned {
-                Text("\(relicChanceLabel(relic.chancePercent)) · \(relicTimingLabel(relic.timing))")
+                Text("\(relicChanceLabel(relic.chancePercent)) · \(relicTimingLabel(relic.timing, t))")
                     .font(.system(size: 10, weight: .medium))
                     .foregroundStyle(rarity.color.opacity(0.8))
                     .lineLimit(1)
@@ -206,6 +208,7 @@ struct RelicCell: View {
 /// One relic, big. Drag to tilt it and the foil follows your finger.
 struct RelicDetailSheet: View {
     let relic: RelicEntry
+    @Environment(\.translator) private var t
     @Environment(\.dismiss) private var dismiss
     @State private var tilt: CGSize = .zero
     @State private var floating = false
@@ -236,7 +239,7 @@ struct RelicDetailSheet: View {
                         .multilineTextAlignment(.center)
                     Text(relic.owned
                          ? (relic.flavor ?? "")
-                         : "Find it to read what it says.")
+                         : t("relics.locked_flavor"))
                         .font(.system(size: 16, design: .serif).italic())
                         .foregroundStyle(.white.opacity(relic.owned ? 0.78 : 0.4))
                         .multilineTextAlignment(.center)
@@ -244,14 +247,14 @@ struct RelicDetailSheet: View {
                 }
 
                 VStack(spacing: 0) {
-                    row("Found in", relic.storyTitle)
-                    row("When", relicTimingLabel(relic.timing))
-                    row("Drop chance", "\(relicChanceLabel(relic.chancePercent)) when the moment comes")
-                    row("Hint", "“\(relic.hint)”")
+                    row(t("relics.row_found_in"), relic.storyTitle)
+                    row(t("relics.row_when"), relicTimingLabel(relic.timing, t))
+                    row(t("relics.row_chance"), t("relics.row_chance_value", ["chance": relicChanceLabel(relic.chancePercent)]))
+                    row(t("relics.row_hint"), "“\(relic.hint)”")
                     if relic.owned {
-                        row("You have", relic.count == 1 ? "1" : "\(relic.count)")
+                        row(t("relics.row_count"), relic.count == 1 ? "1" : "\(relic.count)")
                         if let first = relic.firstFoundAt.flatMap(Self.date) {
-                            row("First found", first)
+                            row(t("relics.row_first"), first)
                         }
                     }
                 }
@@ -321,6 +324,7 @@ struct RelicDetailSheet: View {
 struct RelicVaultCard: View {
     let vault: RelicCollectionResponse
     let onOpen: () -> Void
+    @Environment(\.translator) private var t
 
     /// Four slots, always: your best finds first, then the shapes of the
     /// rarest things you do not have yet.
@@ -336,11 +340,11 @@ struct RelicVaultCard: View {
             VStack(alignment: .leading, spacing: 14) {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("RELIC VAULT")
+                        Text(t("relics.card_label"))
                             .font(.system(size: 11, weight: .heavy))
                             .tracking(2)
                             .foregroundStyle(.white.opacity(0.6))
-                        Text("\(vault.owned) of \(vault.total) found")
+                        Text(t("relics.card_count", ["owned": vault.owned, "total": vault.total]))
                             .font(.system(size: 20, weight: .bold, design: .serif))
                             .foregroundStyle(.white)
                     }

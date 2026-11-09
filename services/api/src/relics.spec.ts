@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { RELICS, RELIC_MOMENTS, rollMoment } from '@plotbreak/contracts';
 import { MemoryRepository } from './repo/memory.js';
-import { buildCollection, relicsEnabledFor, rollRelics } from './relics.js';
+import { buildCollection, clientShowsRelics, relicsEnabledFor, rollRelics } from './relics.js';
 
 describe('relic catalog', () => {
   it('has unique ids and every relic points at a real moment in its own story', () => {
@@ -102,5 +102,16 @@ describe('relic badges', () => {
     expect(done([])).toEqual([]);
     expect(done([{ relicId: 'pt_comet_clip', storyId: 'story_pink_tide', rarity: 'RARE' }])).toEqual(['relic_pink_tide', 'relic_rare']);
     expect(done([{ relicId: 'ss_twiceborn_heart', storyId: 'story_second_skin', rarity: 'MYTHIC' }])).toEqual(['relic_mythic_second_skin', 'relic_second_skin']);
+  });
+});
+
+describe('client version', () => {
+  it('shows relics from 1.0.8 on', () => {
+    expect(clientShowsRelics('1.0.7')).toBe(false);
+    expect(clientShowsRelics('1.0.8')).toBe(true);
+    expect(clientShowsRelics('1.1.0')).toBe(true);
+    expect(clientShowsRelics('2.0')).toBe(true);
+    expect(clientShowsRelics(undefined)).toBe(false);
+    expect(clientShowsRelics('garbage')).toBe(false);
   });
 });

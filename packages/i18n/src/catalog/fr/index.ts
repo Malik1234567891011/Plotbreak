@@ -12,6 +12,7 @@ import { misc } from './misc.js';
 import { nav } from './nav.js';
 import { notifications } from './notifications.js';
 import { pass } from './pass.js';
+import { relics } from './relics.js';
 import { onboarding } from './onboarding.js';
 import { profile } from './profile.js';
 import { rails } from './rails.js';
@@ -66,6 +67,7 @@ export const fr: Partial<Record<TranslationKey, string>> = {
   ...characters,
   ...wallet,
   ...pass,
+  ...relics,
   ...share,
   ...misc,
   ...errors,

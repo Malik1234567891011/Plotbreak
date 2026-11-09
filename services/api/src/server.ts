@@ -3,7 +3,7 @@ import { readdir, stat } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { BADGES, BADGES_BY_ID, RELICS } from '@plotbreak/contracts';
-import { buildCollection, relicsEnabledFor } from './relics.js';
+import { buildCollection, clientShowsRelics, relicsEnabledFor } from './relics.js';
 import { hasWorldText, localizeStory } from '@plotbreak/contracts';
 import { syncBadges, type PlayerRecord } from './badges.js';
 import { rankTopRanked, rankTrending, trendingScore } from './ranking.js';
@@ -1093,7 +1093,11 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (!user) return reply;
     const { progress, newlyUnlocked } = await syncBadges(ctx.repo, user.userId, await playerRecord(user.userId));
     return {
-      badges: BADGES.filter((badge) => !badge.feature || relicsEnabledFor(user.userId)).map((badge) => {
+      badges: BADGES.filter(
+        (badge) =>
+          !badge.feature ||
+          (relicsEnabledFor(user.userId) && clientShowsRelics(request.headers['x-app-version'])),
+      ).map((badge) => {
         const row = progress.find((p) => p.badgeId === badge.id);
         const unlocked = !!row?.unlockedAt;
         return {

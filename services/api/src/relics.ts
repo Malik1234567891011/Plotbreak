@@ -35,6 +35,20 @@ export function relicsEnabledFor(userId: string, env: NodeJS.ProcessEnv = proces
   return raw.split(',').map((s) => s.trim()).includes(userId);
 }
 
+/**
+ * Whether this app build can show relics. 1.0.8 is the first; an older build
+ * would list the relic badges with no art and no vault behind them, so they
+ * are hidden from it. Drops still happen for an older build and are waiting
+ * in the vault when the player updates.
+ */
+export function clientShowsRelics(appVersion: string | string[] | undefined): boolean {
+  const raw = Array.isArray(appVersion) ? appVersion[0] : appVersion;
+  const parts = (raw ?? '').split('.').map((n) => Number.parseInt(n, 10));
+  if (parts.length < 2 || parts.some(Number.isNaN)) return false;
+  const [major = 0, minor = 0, patch = 0] = parts;
+  return major > 1 || (major === 1 && (minor > 0 || patch >= 8));
+}
+
 /** 0..99, stable per player. Recompute this to split any chart by arm. */
 export function relicBucket(userId: string): number {
   return createHash('sha256').update(`relics:${userId}`).digest().readUInt32BE(0) % 100;
