@@ -36,7 +36,8 @@ export function relicsEnabledFor(userId: string, env: NodeJS.ProcessEnv = proces
 }
 
 /**
- * Whether this app build can show relics. 1.0.8 is the first; an older build
+ * Whether this app build can show relics. 1.0.9 is the first: 1.0.8 shipped
+ * as a screenshot-only build without relics, so it counts as older. An older build
  * would list the relic badges with no art and no vault behind them, so they
  * are hidden from it. Drops still happen for an older build and are waiting
  * in the vault when the player updates.
@@ -46,7 +47,7 @@ export function clientShowsRelics(appVersion: string | string[] | undefined): bo
   const parts = (raw ?? '').split('.').map((n) => Number.parseInt(n, 10));
   if (parts.length < 2 || parts.some(Number.isNaN)) return false;
   const [major = 0, minor = 0, patch = 0] = parts;
-  return major > 1 || (major === 1 && (minor > 0 || patch >= 8));
+  return major > 1 || (major === 1 && (minor > 0 || patch >= 9));
 }
 
 /** 0..99, stable per player. Recompute this to split any chart by arm. */

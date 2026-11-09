@@ -106,9 +106,10 @@ describe('relic badges', () => {
 });
 
 describe('client version', () => {
-  it('shows relics from 1.0.8 on', () => {
+  it('shows relics from 1.0.9 on (1.0.8 shipped without them)', () => {
     expect(clientShowsRelics('1.0.7')).toBe(false);
-    expect(clientShowsRelics('1.0.8')).toBe(true);
+    expect(clientShowsRelics('1.0.8')).toBe(false);
+    expect(clientShowsRelics('1.0.9')).toBe(true);
     expect(clientShowsRelics('1.1.0')).toBe(true);
     expect(clientShowsRelics('2.0')).toBe(true);
     expect(clientShowsRelics(undefined)).toBe(false);
