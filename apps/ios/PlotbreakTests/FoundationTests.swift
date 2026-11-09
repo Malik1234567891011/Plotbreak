@@ -152,3 +152,32 @@ final class SSEFrameTests: XCTestCase {
         XCTAssertTrue(completed, "the stream must settle itself, never leave the poller to finish the turn")
     }
 }
+
+/// The panel drawn at the top of a beat is optional: turns from before 1.0.9,
+/// and every story that does not use it, arrive without the field.
+final class TurnPanelDecodingTests: XCTestCase {
+    private func turn(_ extra: String) throws -> PlayerTurnRecord {
+        let json = """
+        {"turnId":"t1","sessionId":"s1","turnIndex":1,"actionText":"hi","qualityTier":"VIVID","creditsCharged":60,
+         "sceneSummary":"","blocks":[],"checks":[],"stateDeltas":[],"suggestions":[],"endStatePrompt":"",
+         "heroImageUrl":null,"revisionAfter":1,"createdAt":"2026-11-09T00:00:00Z"\(extra)}
+        """
+        return try JSONDecoder.plotbreak.decode(PlayerTurnRecord.self, from: Data(json.utf8))
+    }
+
+    func testTurnWithoutPanelDecodes() throws {
+        XCTAssertNil(try turn("").panel)
+    }
+
+    func testTurnWithPanelDecodes() throws {
+        let panel = try turn(#","panel":{"url":"https://x/sora_warm","characterId":"sora","emotion":"warm","alt":"Sora"}"#).panel
+        XCTAssertEqual(panel?.url, "https://x/sora_warm")
+        XCTAssertEqual(panel?.characterId, "sora")
+    }
+
+    func testOpeningPanelHasNoCharacter() throws {
+        let panel = try turn(#","panel":{"url":"https://x/opening","characterId":null,"emotion":null,"alt":""}"#).panel
+        XCTAssertNotNil(panel)
+        XCTAssertNil(panel?.characterId)
+    }
+}

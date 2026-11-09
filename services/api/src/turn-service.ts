@@ -10,6 +10,7 @@ import {
   closeArc,
   keepTurns,
   pressureFor,
+  WEBNOVEL_WORDS,
 } from '@plotbreak/director';
 import type { Analytics } from '@plotbreak/analytics';
 import type { AppContext } from './context.js';
@@ -298,6 +299,11 @@ async function processTurn(
       // structured object lands. Without this the player watched a spinner for
       // six seconds and then received the entire turn at once.
       let streamedBlocks = 0;
+      // A `webnovel` story draws the face at the top of the beat, so it goes
+      // out before the prose, and its beats are shorter. Every other story is
+      // untouched.
+      const webnovel = story.rules.proseStyle === 'webnovel';
+      let topPanel: NonNullable<TurnRecord['panel']> | null = null;
       const pure = await runTurnPure({
         gateway: ctx.modelGateway,
         story,
@@ -316,10 +322,30 @@ async function processTurn(
         // Relics are gated per player; everyone else's prompt is unchanged.
         moments: relicsEnabledFor(user.userId) ? storyMoments(story.storyId) : undefined,
         reasoningEffort: profile.reasoningEffort,
-        wordTarget: profile.words,
+        wordTarget: webnovel ? WEBNOVEL_WORDS[qualityTier] : profile.words,
         maxTokens: profile.maxOutputTokens,
         actionText,
         turnId,
+        ...(webnovel
+          ? {
+              onReaction: (face: { characterId: string; emotion: string }) => {
+                const who = story.characters.find((c) => c.id === face.characterId);
+                const assetKey = who ? reactionAssetKey(story.storyId, who.id, face.emotion) : null;
+                if (!who || !assetKey || !assetExists(assetKey)) return;
+                topPanel = { assetKey, characterId: who.id, emotion: face.emotion, alt: who.name };
+                hub.emit(turnId, 'reaction.ready', {
+                  characterId: who.id,
+                  name: who.name,
+                  emotion: face.emotion,
+                  url: resolveAssetUrl(assetKey, story.version),
+                  // Read by 1.0.9 and later, which draw it above the prose.
+                  // Older builds ignore the field and show it under the beat,
+                  // where they always have.
+                  placement: 'top',
+                });
+              },
+            }
+          : {}),
         onBlock: (block) => {
           hub.emit(turnId, 'text.stream', {
             index: streamedBlocks,
@@ -355,8 +381,19 @@ async function processTurn(
         repairViolations: [],
         resolution: null,
         beatPlan: null,
+        // The face already drawn above this beat. Kept on the record so the
+        // completed turn and the history both carry it.
+        ...(topPanel && pure.reactionEarly ? { panel: topPanel } : {}),
       } as TurnRecord;
       await ctx.repo.appendTurn(pureRecord);
+      if (pureRecord.panel) {
+        // Its own write, allowed to fail: a missing picture never costs a turn.
+        try {
+          await ctx.repo.attachPanel(pureRecord.turnId, pureRecord.panel);
+        } catch (error) {
+          console.warn(JSON.stringify({ level: 40, msg: 'turn panel not recorded', turnId: pureRecord.turnId, err: String(error) }));
+        }
+      }
       await ctx.repo.appendPureMessage(session.sessionId, pure.state.turnIndex, pure.rendered);
       await ctx.wallet.finalize(reservation);
       // The break fires on a beat the storyteller marked `settled`, which is a
@@ -430,7 +467,7 @@ async function processTurn(
       // selects an expression that already exists and resolves it to a url; it
       // never enqueues a job and never reaches an image provider. A missing
       // asset simply shows nothing.
-      if (pure.reaction) {
+      if (pure.reaction && !pure.reactionEarly) {
         // Suppression lives in the director now, so the decision and the record
         // of it cannot drift apart: `pure.reaction` is already what the player
         // should see, or null.

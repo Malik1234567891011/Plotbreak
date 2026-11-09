@@ -86,6 +86,9 @@ struct PendingReaction: Hashable {
     var name: String
     var url: String?
     var emotion: String
+    /// Drawn above the beat rather than under it. The server sends these
+    /// before the prose, so the words never move to make room.
+    var top = false
 }
 
 struct PendingCheck: Hashable {
@@ -282,9 +285,11 @@ final class SessionModel {
         // Opening a run that already has a story lands at the end of it. A
         // player tapping Continue is asking for where they left off, not for
         // chapter one, and scrolling back a few beats is one gesture where
-        // scrolling forward through forty is not. A brand new session has no
-        // turns yet, so it is unaffected and still opens at its first line.
-        guard !turns.isEmpty else { return }
+        // scrolling forward through forty is not. A brand new session holds
+        // only its authored opening, and that opens at its first line: the
+        // opening panel and the hook sit at the top, and landing at the bottom
+        // put both off-screen before the player had read a word.
+        guard turns.contains(where: { $0.turnIndex > 0 }) else { return }
         requestScroll(animated: false)
         // Again once the images have had a moment. Hero frames and portraits
         // arrive after the text and grow the feed under the reader, so a single
@@ -579,12 +584,14 @@ final class SessionModel {
             break
 
         case .reactionReady:
-            // Now emitted after the prose, so it lands under words the player
-            // is already reading rather than ahead of them.
+            // Two kinds. Most stories send it after the prose, so it lands
+            // under words the player is already reading. A story written for
+            // the top of the beat sends it before any prose, marked `top`.
             pending?.reaction = PendingReaction(
                 name: data["name"]?.stringValue ?? "",
                 url: data["url"]?.stringValue,
-                emotion: data["emotion"]?.stringValue ?? "neutral"
+                emotion: data["emotion"]?.stringValue ?? "neutral",
+                top: data["placement"]?.stringValue == "top"
             )
 
         case .textStream:
@@ -642,8 +649,19 @@ final class SessionModel {
                 if let response = try? await store.api.session(self.sessionId) {
                     // Carried across the commit so the portrait does not blink
                     // out the moment the server's copy of the turn arrives.
-                    self.lastReaction = self.pending?.reaction
-                    self.turns = response.recentTurns
+                    let carried = self.pending?.reaction
+                    // A face at the top belongs to the turn itself from here
+                    // on (`panel`), so it is not also carried under the beat.
+                    self.lastReaction = carried?.top == true ? nil : carried
+                    var fresh = response.recentTurns
+                    // The server records the panel in a separate write that is
+                    // allowed to fail. If it did, keep the face the player was
+                    // just looking at rather than have it vanish on commit.
+                    if let carried, carried.top, let url = carried.url,
+                       let i = fresh.indices.last, fresh[i].turnId == self.pending?.turnId, fresh[i].panel == nil {
+                        fresh[i].panel = TurnPanel(url: url, characterId: carried.name, emotion: carried.emotion, alt: carried.name)
+                    }
+                    self.turns = fresh
                     self.arcs = response.arcs
                     self.revision = response.revision
                     self.pending = nil

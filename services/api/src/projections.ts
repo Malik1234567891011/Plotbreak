@@ -675,13 +675,32 @@ export function toContinueCard(
  * client turns a world that hides its numbers into one that merely declines to
  * draw them on screen. This is the projection that actually withholds them.
  */
+/**
+ * A stored panel as the player receives it: the asset key resolved to a url.
+ *
+ * Undefined, never null, when there is nothing to draw, so the field is simply
+ * absent from the response. That keeps every turn of every story that does not
+ * use panels byte-identical to what older app builds already decode.
+ */
+export function toPlayerPanel(
+  story: StoryVersion,
+  panel: TurnRecord['panel'],
+): PlayerTurnRecord['panel'] {
+  if (!panel) return undefined;
+  const url = resolveAssetUrl(panel.assetKey, story.version);
+  if (!url) return undefined;
+  return { url, characterId: panel.characterId ?? null, emotion: panel.emotion ?? null, alt: panel.alt ?? '' };
+}
+
 export function toPlayerTurn(
   story: StoryVersion,
   turn: TurnRecord,
   /** The run's locale. Defaulted so a caller that has not been given one behaves as before. */
   locale: Locale = 'en',
 ): PlayerTurnRecord {
+  const panel = toPlayerPanel(story, turn.panel);
   return {
+    ...(panel ? { panel } : {}),
     turnId: turn.turnId,
     sessionId: turn.sessionId,
     turnIndex: turn.turnIndex,

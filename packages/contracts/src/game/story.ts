@@ -980,6 +980,20 @@ export const StoryRules = z
      * adjectives about tone.
      */
     styleExamples: z.array(z.string()).max(3).default([]),
+    /**
+     * How this story's beats are written. Absent means `classic`.
+     *
+     * `webnovel` is shorter, faster beats in the cadence of serial web fiction
+     * (see `docs/craft/webnovel-openings.md`), with the character's face drawn
+     * at the top of the beat instead of under it.
+     *
+     * Optional with no default on purpose. A defaulted field is written into
+     * every parsed story, which changes every definition, and `npm run migrate`
+     * would then publish a new version of all of them. Absent, the stories
+     * that do not use it stay byte-identical, and runs already in progress
+     * keep the version they are pinned to.
+     */
+    proseStyle: z.enum(['classic', 'webnovel']).optional(),
     /** Fork price in credits. Spec §20.10 default 120. */
     forkCostCredits: z.number().int().min(0).default(120),
     /** Set on a world that starts again. Null on every world that does not. */
@@ -1202,6 +1216,18 @@ export const StoryVersion = z
      * is moving the player toward acting, and a fifth panel is just a delay.
      */
     prologue: z.array(ProloguePanel).max(4).default([]),
+    /**
+     * One picture drawn at the top of the opening beat, the way a webtoon
+     * episode opens on a panel. Optional for the same reason `proseStyle` is.
+     * Older app builds never read it.
+     */
+    openingPanel: z
+      .object({
+        assetKey: z.string(),
+        alt: z.string().max(200).default(''),
+      })
+      .strict()
+      .optional(),
     openingSuggestions: z.array(z.string()).max(3).default([]),
     publishedAt: z.string().nullable().default(null),
   })

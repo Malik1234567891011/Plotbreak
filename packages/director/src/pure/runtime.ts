@@ -2,6 +2,7 @@ import type { GameState, StoryVersion, TurnRecord, StoryArc } from '@plotbreak/c
 import { commitTurn } from '@plotbreak/engine';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 import { narratePure, type RenderedTurn, type StoryMoment } from './narrator.js';
+import type { ShownReaction } from './reaction.js';
 
 /**
  * The LLM_PURE turn, shaped so the existing API, database and client can carry
@@ -36,6 +37,8 @@ export interface PureTurnResult {
   readonly heroImage: { readonly shotType: string; readonly subject: string } | null;
   /** Which pre-generated expression to show, if any. Never triggers generation. */
   readonly reaction: { readonly characterId: string; readonly emotion: string } | null;
+  /** True when `reaction` was already sent to the player mid-stream, above the beat. */
+  readonly reactionEarly: boolean;
   readonly suggestions: Array<{ text: string; intentHint: string; resourceCostLabel: null }>;
   /** Quests this beat finished for the first time. Already applied to `state`. */
   readonly completedQuestIds: readonly string[];
@@ -92,6 +95,8 @@ export async function runTurnPure(options: {
    * true prefix of `blocks` and the caller can send only what is left.
    */
   readonly onBlock?: (block: PureTurnResult['blocks'][number]) => void;
+  /** The face for the top of the beat, before any prose. `webnovel` stories only. */
+  readonly onReaction?: (face: ShownReaction) => void;
   /** Relic moments this session records. Absent turns the feature off. */
   readonly moments?: readonly StoryMoment[];
 }): Promise<PureTurnResult> {
@@ -108,7 +113,7 @@ export async function runTurnPure(options: {
       voiceEligible: false,
     }));
 
-  const { turn, promptChars, historyTurns, invocation, rendered, nextWorldMinute, timeLabel, transition, shown } =
+  const { turn, promptChars, historyTurns, invocation, rendered, nextWorldMinute, timeLabel, transition, shown, shownEarly } =
     await narratePure({
     gateway, story, state, recentTurns, actionText,
     // One cache per session: every turn of a session shares the whole prefix.
@@ -125,6 +130,7 @@ export async function runTurnPure(options: {
     arcClosing: options.arcClosing,
     notes: options.notes,
     moments: options.moments,
+    ...(options.onReaction ? { onReaction: options.onReaction } : {}),
     ...(options.onBlock
       ? {
           onBlock: (block) => {
@@ -216,10 +222,14 @@ export async function runTurnPure(options: {
     heroImage: turn.heroImage ?? null,
     // Only for somebody actually in the cast and actually in the scene: a face
     // belonging to a character who just left would be worse than no face.
+    // A face already sent above the beat is on the player's screen, so it is
+    // kept even if the character left during the beat: the record has to say
+    // what was actually shown.
     reaction:
-      shown && castIds.has(shown.characterId) && present.has(shown.characterId)
+      shown && castIds.has(shown.characterId) && (shownEarly || present.has(shown.characterId))
         ? { characterId: shown.characterId, emotion: shown.emotion }
         : null,
+    reactionEarly: shownEarly,
     suggestions: turn.suggestedResponses.map((text) => ({
       // 320 is the contract's ceiling for a card, and the same read-side
       // validation that bricked a turn on a long paragraph applies here.

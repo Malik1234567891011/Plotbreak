@@ -1266,6 +1266,10 @@ export class PostgresRepository implements Repository {
     await this.#pool.query(`UPDATE turns SET hero_image_url = $2 WHERE turn_id = $1`, [turnId, url]);
   }
 
+  async attachPanel(turnId: string, panel: NonNullable<TurnRecord['panel']>): Promise<void> {
+    await this.#pool.query(`UPDATE turns SET panel = $2 WHERE turn_id = $1`, [turnId, JSON.stringify(panel)]);
+  }
+
   async getTurn(turnId: string): Promise<TurnRecord | null> {
     const { rows } = await this.#pool.query<Record<string, unknown>>(
       `SELECT * FROM turns WHERE turn_id = $1`,
@@ -2118,6 +2122,8 @@ function toTurnRecord(row: Record<string, unknown>): TurnRecord {
     endStatePrompt: row.end_state_prompt,
     mediaPlan: row.media_plan ?? null,
     heroImageUrl: row.hero_image_url ?? null,
+    // Absent before migration 0016, and null on every turn without a picture.
+    ...(row.panel ? { panel: row.panel } : {}),
     revisionAfter: row.revision_after,
     createdAt: iso(row.created_at),
     repairViolations: row.repair_violations,

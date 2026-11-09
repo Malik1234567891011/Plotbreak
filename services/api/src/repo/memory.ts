@@ -566,6 +566,17 @@ export class MemoryRepository implements Repository {
     );
   }
 
+  async attachPanel(turnId: string, panel: NonNullable<TurnRecord['panel']>): Promise<void> {
+    const turn = this.#turnsById.get(turnId);
+    if (!turn) return;
+    const updated: TurnRecord = { ...turn, panel };
+    this.#turnsById.set(turnId, updated);
+    this.#turns.set(
+      turn.sessionId,
+      (this.#turns.get(turn.sessionId) ?? []).map((t) => (t.turnId === turnId ? updated : t)),
+    );
+  }
+
   async listTurns(sessionId: string): Promise<TurnRecord[]> {
     return [...(this.#turns.get(sessionId) ?? [])];
   }

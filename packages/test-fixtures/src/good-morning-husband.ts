@@ -87,7 +87,12 @@ const raw = {
       'Warm, funny, and specific. This is a world of small physical detail — the pan, the wrong mug, the bag of shopping that splits, the bookshelf with four screws left over. ' +
       'Affection is shown by what people do for each other while talking about something else. Jokes land more often than speeches. ' +
       'Conflict is human-scale: money, time, whose turn it is, whether we are moving. Nobody is a villain and nobody is punished for wanting something. ' +
-      'Attraction is adult and unhurried, and the marriage is never reduced to it. If a scene has nothing at stake, let it be pleasant and let it be short.',
+      'Attraction is adult and unhurried, and the marriage is never reduced to it. If a scene has nothing at stake, let it be pleasant and let it be short. The face at the top of a beat is Hana’s whenever she is in the scene.',
+    proseStyle: 'webnovel',
+    styleExamples: [
+      "Hana laughs so hard she has to put the spatula down.\n\n\"You don’t remember me,\" she repeats. \"Okay. Okay. What’s my name, then?\"\n\nYou look at the photo. At the post on the counter. At her.\n\n\"...Hana?\"\n\n\"Wow. You read the envelope.\" She’s still grinning, but her eyes have gone careful. \"What’s my middle name?\"\n\nYou don’t know.\n\nThe grin stays. Her hand finds the edge of the counter and holds on.\n\n\"Hey. Seriously. Are you okay?\"",
+      "Kenji carries the sofa up three flights like it owes him money.\n\n\"Left,\" he says. \"Your left. Your other left.\"\n\nHana is at the top of the stairs, laughing at both of you and filming it.\n\nYou get it through the door. Kenji drops his end, wipes his face and gives you a long, flat look.\n\n\"You’re different,\" he says. \"Since when do you lift with your knees?\"\n\nHana stops filming.",
+    ],
     forkCostCredits: 120,
     loop: null,
   },
@@ -1760,15 +1765,15 @@ const raw = {
     },
   ],
   opening:
-    'The kitchen is four steps from the bed and you take all four before you have decided to.\n\n' +
-    'A woman is at the hob in an oversized shirt with her hair pinned up with what looks like a pencil, turning something in a pan without looking at it. There are two mugs out. One of them has a chip in the rim and has obviously been yours for years.\n\n' +
-    '"Morning, husband," she says, and reaches back with her free hand for yours without turning round, because that is apparently a thing the two of you do.\n\n' +
-    'The pan spits. Down in the street somebody is putting the bins out, badly.\n\n' +
-    'Her hand is still there, waiting.',
+    "There’s a ring on your finger you’ve never seen before.\n\nGold. Worn smooth. It won’t come off. Your finger has grown around it.\n\n\"Morning, husband.\"\n\nA woman is at the stove in an oversized shirt, hair pinned up with a pencil, flipping pancakes without looking.\n\nYou have never met her in your life.\n\nOn the shelf behind her, a wedding photo. You, in a suit, laughing so hard your eyes are shut.\n\nShe reaches back for your hand without turning round, like she’s done it a thousand times.\n\n\"Pancakes or eggs?\" she says. \"Choose carefully. This decides the rest of our marriage.\"",
+  openingPanel: {
+    assetKey: "story_good_morning_husband/opening",
+    alt: "Hana at the stove in an oversized shirt, hair pinned up with a pencil, smiling back over her shoulder with a spatula in her hand, morning light.",
+  },
   openingSuggestions: [
-    'I take her hand, because my body has already decided, and I let her pull me in behind her. She smells like coffee and someone I have never met. "Morning," I say, into her hair, and I have absolutely no idea what her name is.',
-    'I sit down at the counter instead and say it straight. "I need you not to laugh. I woke up ten minutes ago and I do not know your name, I do not know this flat, and I do not know how long we have been married."',
-    'I let her hand hang there a second too long, take the pan off her, and start doing something useful with it. "Sit down. I have got this." Then I look at the photograph on the shelf behind her properly, for the first time.',
+    "I take her hand. \"Pancakes. Obviously.\"",
+    "\"Please don’t laugh. I don’t know your name.\"",
+    "I pick up the wedding photo and look closer.",
   ],
   publishedAt: '2026-09-10T04:00:00.000Z',
 };

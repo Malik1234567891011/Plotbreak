@@ -70,6 +70,7 @@ import {
 import {
   resolveAssetUrl,
   toContinueCard,
+  toPlayerPanel,
   toPlayerTurn,
   toSceneState,
   toSessionSummary,
@@ -1355,11 +1356,25 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     };
     await ctx.repo.appendTurn(openingTurn);
 
+    // The opening panel, for a story that has one. Its own write, and allowed
+    // to fail: a picture is never worth a run that will not start.
+    const openingPanel = story.openingPanel
+      ? { assetKey: story.openingPanel.assetKey, characterId: null, emotion: null, alt: story.openingPanel.alt }
+      : null;
+    if (openingPanel) {
+      try {
+        await ctx.repo.attachPanel(openingTurn.turnId, openingPanel);
+      } catch (error) {
+        request.log.warn({ err: error, turnId: openingTurn.turnId }, 'opening panel not recorded');
+      }
+    }
+    const openingPlayerPanel = toPlayerPanel(story, openingPanel);
+
     void reply.code(201);
     return {
       session: toSessionSummary(record, story, state, 1),
       scene: toSceneState(story, state),
-      recentTurns: [openingTurn],
+      recentTurns: [openingPlayerPanel ? { ...openingTurn, panel: openingPlayerPanel } : openingTurn],
       suggestions: openingTurn.suggestions,
       recap: null,
       revision: state.revision,

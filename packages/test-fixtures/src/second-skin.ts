@@ -84,7 +84,12 @@ const raw = {
       'Beastfolk in the anime sense — mostly human, with ears, tail, eyes, fangs, patches of fur or feathers — and the intensity varies enormously between individuals and is the player’s to set. ' +
       'The traits matter most in ordinary life. Hearing an argument three floors down. Not being able to sleep in the heat. A tail knocking a cup off a table for the eleventh time. Somebody’s ears going flat before they have decided to be upset. ' +
       'Instinct creates conflict rather than excusing anything. Nobody in this world gets to say "it is my Affinity" and be let off. ' +
-      'The Concord is staffed by people who are trying. Ilyra is a good officer doing a lawful job. Edran is persuasive and sincere. If either reads as a villain, the world has failed.',
+      'The Concord is staffed by people who are trying. Ilyra is a good officer doing a lawful job. Edran is persuasive and sincere. If either reads as a villain, the world has failed. The face at the top of a beat is Kaia’s whenever she is in the scene and the moment involves her.',
+    proseStyle: 'webnovel',
+    styleExamples: [
+      "Kaia doesn’t thank you. She checks the exits instead. Two seconds, every door.\n\n\"You’re shaking,\" she says.\n\n\"I chose four hours ago.\"\n\nThat stops her. Her ears tip forward, just slightly.\n\n\"What did you pick?\"\n\nBefore you can answer, a whistle shrieks from the gallery. Wardens. Close.\n\nKaia swears under her breath and holds out a hand, palm up, blood still drying on her wrist.\n\n\"Last chance to pretend you never saw me.\"",
+      "Ren is talking. Ren is always talking, but tonight it’s fast and high.\n\n\"My grandfather. My mother. Four generations of Wolf Wardens, and I froze. I just stood there.\"\n\nTheir ears are flat. The new ones, still too big for their head.\n\n\"You didn’t freeze,\" Tessa says from the windowsill. \"You were thinking. It looks the same from outside.\"\n\nRen laughs, wet.\n\nThen everyone goes quiet, because there are boots in the corridor, and they’re stopping at your door.",
+    ],
     forkCostCredits: 120,
     loop: null,
   },
@@ -2153,16 +2158,15 @@ const raw = {
     },
   ],
   opening:
-    'You chose about four hours ago. Your hands have already started and it is the strangest thing that has ever happened to you.\n\n' +
-    'The hall holds four hundred and every one of them is somebody’s family. The High Keeper is most of the way through a speech about one heart, one skin, one chosen road, and Ren has been whispering since the third row and has not stopped.\n\n' +
-    'Then glass comes in above the eastern gallery.\n\n' +
-    'A woman drops the whole height of it and lands on one knee. Snow-leopard ears. A long spotted tail. Blood on one sleeve and three Crown Wardens coming down the gallery stair behind her.\n\n' +
-    'She rolls up, gets a hand under her, and black feathers burst along her left forearm.\n\n' +
-    'Four hundred people stop breathing at the same time.',
+    "Your hands won’t stop itching.\n\nFour hours since you touched the Heartstone and chose. The change has already started under your skin.\n\nUp on the dais, the High Keeper is still talking about one heart, one skin, one road. Ren hasn’t stopped whispering since the third row.\n\nThen the eastern window explodes.\n\nA woman drops the whole height of the hall and lands on one knee. Snow-leopard ears. A long spotted tail. Blood soaking one sleeve.\n\nThree Crown Wardens are already running down the gallery stairs.\n\nShe rises, and black feathers burst up her left forearm.\n\nTwo shapes. One body. Everyone in this room was taught that kills you.\n\nFour hundred people stop breathing.\n\nHer eyes land on you, the closest person to her.\n\n\"Don’t,\" she says quietly. \"Don’t scream.\"",
+  openingPanel: {
+    assetKey: "story_second_skin/opening",
+    alt: "Kaia landing on one knee in the Heartstone Hall in a rain of broken glass, snow-leopard ears and spotted tail, black feathers bursting along her forearm.",
+  },
   openingSuggestions: [
-    'I do not look at the feathers. I look at what she is looking at, because she came through a window into a room with six exits and she has not glanced at a single one of them.',
-    'There is a family two rows in front of me with a child in it. I am up and moving before I have decided anything, and I get between them and the middle of the floor, and my hands are doing something I have never felt them do.',
-    'I turn to Ren. "Do not." I have got a handful of their sleeve, because I know exactly what they are about to do and their whole family is sitting in this row watching them decide.',
+    "I don’t scream. \"Wardens on the left stair. Go right.\"",
+    "I grab Ren and pull them behind me.",
+    "I hold her stare. \"Give me one reason not to.\"",
   ],
   publishedAt: '2026-09-10T12:00:00.000Z',
 };

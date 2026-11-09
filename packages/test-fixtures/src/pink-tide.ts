@@ -98,7 +98,12 @@ const raw = {
       'The horror is daylight horror. A bloodstain under a white cabana at nine in the morning while somebody twenty feet away orders mango pancakes, a security camera pointed politely away, a key that stops working for four hours. Nothing lurks. ' +
       'Everybody here is escaping something and almost none of it is the crime: debt behind an influencer’s brand, a surgeon whose spouse left him a fortnight before the anniversary trip, a dive instructor running unauthorised dawn dives for cash. A lie is not a confession. ' +
       'Sora is deliberately gorgeous and completely comfortable about it, and the prose should establish that strongly and then let expression and behaviour carry it rather than describing her chest every time she walks in. ' +
-      'Staff and guests are different species sharing a building. A uniform is close to invisible, which is how a man moved a dead man’s luggage through a lobby at eight in the morning without anybody looking twice.',
+      'Staff and guests are different species sharing a building. A uniform is close to invisible, which is how a man moved a dead man’s luggage through a lobby at eight in the morning without anybody looking twice. The face at the top of a beat is Sora’s whenever she is in the scene and the moment involves her.',
+    proseStyle: 'webnovel',
+    styleExamples: [
+      "Sora hands you a drink you didn’t order. It’s pink. Of course it’s pink.\n\n\"House rule,\" she says. \"First one’s on me. Second one, you tell me something true.\"\n\nShe clinks her glass against yours and leans on the bar like she owns it.\n\nBehind her, Eli crosses the deck with a clipboard. He doesn’t look at you. He looks at her.\n\nSora’s laugh comes half a second late.\n\n\"Okay,\" she says quietly, still smiling for anyone watching. \"Want to hear something weird?\"",
+      "The paddleboard wobbles. You don’t fall in. Sora does.\n\nShe comes up spluttering and laughing, pink hair plastered to her face.\n\n\"That was on purpose,\" she says. \"I wanted you to feel competent.\"\n\nThe sun is going down behind the lighthouse. For a second, neither of you says anything.\n\nThen she hooks two fingers over the edge of your board.\n\n\"Can I ask you something, and you won’t make it weird?\"",
+    ],
     forkCostCredits: 120,
     loop: null,
   },
@@ -2601,18 +2606,15 @@ const raw = {
     },
   ],
   opening:
-    'Two seventeen, and the stone around the pool is hot enough to hurt.\n\n' +
-    'Forty minutes on this island and you have not unpacked. The water runs out to a far edge that is not there and the ocean carries straight on from it.\n\n' +
-    'Then you are wet from the ribs down, because somebody in the shallow end splashed you on purpose.\n\n' +
-    'She pushes vivid pink hair back over one shoulder and looks entirely unrepentant about it.\n\n' +
-    '"You have been here forty minutes," she says, "and you still look like you are at an airport."\n\n' +
-    'She looks you over, unhurried, and decides something.\n\n' +
-    '"That is unacceptable."\n\n' +
-    'Behind her the whole afternoon is waiting: the swim-up bar, the loungers, a volleyball game somebody is losing badly. A man in a pale linen blazer crosses the far end of the deck counting sunbeds, and does not look at either of you.',
+    "Cold water hits you from the ribs down.\n\nSomebody in the shallow end just splashed you. On purpose.\n\nShe pushes bubblegum-pink hair off her face and does not look sorry at all. Her name tag says SORA, GUEST EXPERIENCE.\n\n\"Forty minutes on my island,\" she says, \"and you still look like you’re waiting for a flight.\"\n\nShe looks you over, slowly, and decides something.\n\n\"Unacceptable.\"\n\nOn the empty lounger beside you, a phone buzzes face-down. It’s been buzzing since you sat down. Nobody has come for it.\n\nSora glances at it. Her smile drops for exactly one second.\n\nThen it’s back, and it’s aimed at you.\n\n\"So. Are you getting in, or do I have to come and get you?\"",
+  openingPanel: {
+    assetKey: "story_pink_tide/opening",
+    alt: "Sora in the shallow end of the infinity pool, pink hair wet, grinning after splashing you, the ocean behind her.",
+  },
   openingSuggestions: [
-    'I wipe the water off my face and look her over right back. "Do all the staff attack guests before they have unpacked, or am I getting the premium package?"',
-    'I put the phone down on the lounger, walk to the edge and get in, all at once, in the shirt. "Fine. You were right. Tell me what I am supposed to be doing instead."',
-    'I look down at my soaked shirt and say, entirely deadpan, "Amazing. Forty minutes on the island and I already have an enemy." Then I sit on the edge with my feet in the water, because it is very hot and she is not wrong.',
+    "I wipe my face. \"Do you attack every guest, or am I special?\"",
+    "I stand up, walk to the edge and jump in, shirt and all.",
+    "I nod at the buzzing phone. \"Whose is that?\"",
   ],
   coverDirection: [
     'SUBJECT: Sora Amemiya alone at the front of the frame, a key visual for a bright summer anime about a resort island.',

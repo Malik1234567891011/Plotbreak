@@ -8,6 +8,7 @@ import { chooseReaction, parseShown, type ShownReaction } from './reaction.js';
 import { NarrativeStreamParser, type StreamedBlock } from './stream-parse.js';
 import { RESPONSE_POLICY_FR, SAFETY_POLICY_FR, WRITER_POLICY_FR } from '../policies-fr.js';
 import { ARC_CLOSING_NOTE, arcPrefix } from './arc.js';
+import { FACES_WEBNOVEL, PROSE_WEBNOVEL, PROSE_WEBNOVEL_FR } from './webnovel.js';
 
 /**
  * LLM_PURE — the experiment.
@@ -40,7 +41,21 @@ import { ARC_CLOSING_NOTE, arcPrefix } from './arc.js';
  * compensate for something the engine did upstream. None of that applies here,
  * so none of it is ported. Every rule below has to justify itself on its own.
  */
-const CONSTITUTION = [
+/**
+ * The one paragraph of the constitution about prose itself. Every other rule
+ * is about what is true and who decides it, and holds for every story; this
+ * one is a house style, and a story can ask for a different one.
+ */
+const PROSE_CLASSIC = [
+  'Write vivid, physical, specific prose. Most paragraphs say what is happening; some say what it feels',
+  'like; very few say what it means. People talk — a room with people in it is loud. An ordinary beat',
+  'runs roughly 150-300 words. Say less when little is happening, and take the room you need when',
+  'something genuinely large is.',
+].join('\n');
+
+const PROSE_MARKER = '\u0000PROSE\u0000';
+
+const CONSTITUTION_TEMPLATE = [
   'You are the narrator and every character of an interactive anime story. You write the next beat.',
   '',
   'WRITE TO THE PLAYER IN SECOND PERSON. "You grab the branch." "You tell Sabo he is wrong." The player is',
@@ -120,10 +135,7 @@ const CONSTITUTION = [
   'if somebody has opened three recent lines the same way, they do not open a fourth that way. Everyone',
   'has a register they drop into when they stop performing; use it when the moment earns it.',
   '',
-  'Write vivid, physical, specific prose. Most paragraphs say what is happening; some say what it feels',
-  'like; very few say what it means. People talk — a room with people in it is loud. An ordinary beat',
-  'runs roughly 150-300 words. Say less when little is happening, and take the room you need when',
-  'something genuinely large is.',
+  PROSE_MARKER,
   '',
   'THE SUGGESTIONS are three things this player could do next, in their own voice, first person, short',
   'enough to tap. They follow from the scene you just wrote, they mean genuinely different things, and',
@@ -157,6 +169,16 @@ const CONSTITUTION = [
   'reason belongs to them and to what has actually happened between them — never to the player not',
   'having tried hard enough.',
 ].join('\n');
+
+/** Every story that has not asked for another style. Byte-identical to what it always was. */
+const CONSTITUTION = CONSTITUTION_TEMPLATE.replace(PROSE_MARKER, PROSE_CLASSIC);
+
+/** The constitution for a `webnovel` story: the same rules, with the web-fiction prose brief. */
+const CONSTITUTION_WEBNOVEL = CONSTITUTION_TEMPLATE.replace(PROSE_MARKER, PROSE_WEBNOVEL);
+
+function constitutionFor(story: StoryVersion): string {
+  return story.rules.proseStyle === 'webnovel' ? CONSTITUTION_WEBNOVEL : CONSTITUTION;
+}
 
 const PureTurn = z
   .object({
@@ -366,7 +388,7 @@ function schemaFor(story: StoryVersion, withMoments = false): typeof PureTurn {
     UNKNOWN_SPEAKER,
     ...story.characters.map((c) => c.id),
   ];
-  return PureTurn.extend({
+  const turn = PureTurn.extend({
     narrative: z
       .array(z.object({ speaker: z.enum(speakers), text: z.string() }))
       .min(1)
@@ -374,7 +396,35 @@ function schemaFor(story: StoryVersion, withMoments = false): typeof PureTurn {
     // Only on sessions that collect relics, so every other session's schema —
     // and the cached prefix it is part of — is byte-for-byte what it was.
     ...(withMoments ? { momentIds: z.array(z.string()).max(4).optional() } : {}),
-  }) as unknown as typeof PureTurn;
+  });
+  if (story.rules.proseStyle !== 'webnovel') return turn as unknown as typeof PureTurn;
+  // Face first. The model writes fields in schema order, so putting `reaction`
+  // ahead of `narrative` means the picture is decided — and can be sent — before
+  // the first sentence, which is what lets it sit at the top of the beat
+  // without pushing words the player is already reading down the screen.
+  const { reaction, ...rest } = turn.shape;
+  return z.object({ reaction, ...rest }).strict() as unknown as typeof PureTurn;
+}
+
+/**
+ * The face, pulled out of the stream the moment it is complete.
+ *
+ * Only ever called on a `webnovel` story, whose schema puts `reaction` first,
+ * so the object closes long before any prose arrives. It holds two plain
+ * strings and no braces, which is why a pattern is enough here where the
+ * narrative needs a real scanner.
+ */
+export function earlyReaction(buffer: string): ShownReaction | null | undefined {
+  const match = buffer.match(/"reaction"\s*:\s*(null|\{[^{}]*\})/);
+  if (!match) return undefined;
+  if (match[1] === 'null') return null;
+  try {
+    const parsed = JSON.parse(match[1]!) as { characterId?: unknown; emotion?: unknown };
+    if (typeof parsed.characterId !== 'string' || typeof parsed.emotion !== 'string') return null;
+    return { characterId: parsed.characterId, emotion: parsed.emotion };
+  } catch {
+    return null;
+  }
 }
 
 /** A relic moment as the storyteller sees it: an id and what has to happen. */
@@ -659,6 +709,8 @@ export interface PureResult {
   readonly transition: string | null;
   /** The face to show, after suppression. Null means show nothing. */
   readonly shown: ShownReaction | null;
+  /** True when `shown` was already sent mid-stream, at the top of the beat. */
+  readonly shownEarly: boolean;
 }
 
 /** A turn as it was actually sent, replayed verbatim on every later request. */
@@ -725,6 +777,11 @@ export async function narratePure(options: {
    */
   readonly onBlock?: (block: StreamedBlock) => void;
   /**
+   * Called once, before any prose, with the face to draw at the top of the
+   * beat. Only on a `webnovel` story; never called when there is no face.
+   */
+  readonly onReaction?: (face: ShownReaction) => void;
+  /**
    * Arcs already closed on this session, oldest first. Rendered into the
    * cached prefix; the caller is responsible for passing only the turns that
    * belong to the *current* arc in `rendered`.
@@ -744,6 +801,8 @@ export async function narratePure(options: {
 }): Promise<PureResult> {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
+  const webnovel = story.rules.proseStyle === 'webnovel';
+  const CONSTITUTION = constitutionFor(story);
 
   const world = worldBrief(story, state.player.identity.archetypeId);
   const earlierArcs = arcPrefix(options.arcs ?? []);
@@ -766,16 +825,22 @@ export async function narratePure(options: {
     `was left at the house, not somebody nearby or just mentioned, not somebody being talked about. ` +
     `If you wrote them leaving or staying put while the player moved, they are not in the list.\n\n` +
     `Pick locationId from the places listed. Suggested responses are in the player's own voice, first ` +
-    `person, and follow directly from what you just wrote. Set reaction to the one character whose ` +
-    `face the player should see on this beat and the expression it wears, or null when nobody's ` +
-    `reaction is the point. Set heroImage on a beat that would be worth drawing: arriving somewhere ` +
+    `person, and follow directly from what you just wrote. ` +
+    (webnovel
+      ? FACES_WEBNOVEL
+      : `Set reaction to the one character whose ` +
+        `face the player should see on this beat and the expression it wears, or null when nobody's ` +
+        `reaction is the point.`) +
+    ` Set heroImage on a beat that would be worth drawing: arriving somewhere ` +
     `the player has not been, a character's entrance, a confrontation at its height, a transformation, ` +
     `a discovery worth looking at. An arrival at a new locationId is usually one of these. Leave it ` +
     `null for conversation, small movement and ordinary business, which is most turns. ` +
-    `The end of each past beat records whose face was shown. Do not pick the ` +
-    `same person two beats running unless their expression has genuinely changed, and leave it null on ` +
-    `a beat that is mostly action or nobody's reaction in particular — a face on every single turn, ` +
-    `usually the same one, reads as a tic rather than a reaction. ` +
+    (webnovel
+      ? ''
+      : `The end of each past beat records whose face was shown. Do not pick the ` +
+        `same person two beats running unless their expression has genuinely changed, and leave it null on ` +
+        `a beat that is mostly action or nobody's reaction in particular — a face on every single turn, ` +
+        `usually the same one, reads as a tic rather than a reaction. `) +
     `Set completedQuestIds to the ids of any threads this beat actually brought to a finish — the ` +
     `question answered, the thing done, on the page in this beat. Leave it empty otherwise, which is ` +
     `nearly every turn, and never list a thread because it moved closer.`;
@@ -784,6 +849,19 @@ export async function narratePure(options: {
   const normalizeSpeakers = speakerNormalizer(story);
   const normalizeSpeaker = speakerLookup(story);
   const parser = new NarrativeStreamParser();
+
+  // What was shown on past beats, most recent first, for suppressing a repeat.
+  const recentShown = [...(options.rendered ?? [])].reverse().map((past) => parseShown(past.assistant));
+  // Classic stories keep the old behaviour exactly: any proposal goes to
+  // `chooseReaction`, and the runtime checks the cast. A face sent early has
+  // no later check, so on a webnovel story it is checked here, up front.
+  const castIds = new Set(story.characters.map((c) => c.id));
+  const validFace = (face: ShownReaction | null): boolean =>
+    !webnovel || (face !== null && castIds.has(face.characterId));
+  // Set once the face has been read out of the stream: the face, or null for
+  // none. Undefined until then.
+  let early: ShownReaction | null | undefined;
+  let raw = '';
 
   // This turn's user message. Identical text in both shapes; the difference is
   // only whether the transcript is concatenated in front of it.
@@ -816,6 +894,9 @@ export async function narratePure(options: {
           'presentCharacterIds, unit) restent tels quels.',
           '',
           WRITER_POLICY_FR,
+          // The story's own prose style wins over the house length guidance
+          // above it, the same way the English brief replaces the paragraph.
+          ...(webnovel ? ['', PROSE_WEBNOVEL_FR] : []),
           '',
           RESPONSE_POLICY_FR,
           '',
@@ -864,9 +945,27 @@ export async function narratePure(options: {
     cacheRetention: options.cacheRetention,
     nativeSchema: shape === 'append',
     normalize: normalizeSpeakers,
-    ...(options.onBlock
+    ...(options.onBlock || (webnovel && options.onReaction)
       ? {
           onTextDelta: (delta: string) => {
+            if (webnovel && options.onReaction && early === undefined) {
+              raw += delta;
+              const proposal = earlyReaction(raw);
+              if (proposal !== undefined) {
+                // Decided once, here, with the same suppression the finished
+                // turn uses, and then it is final: this is what the player is
+                // about to look at.
+                early = validFace(proposal) ? chooseReaction(proposal, recentShown) : null;
+                if (early) {
+                  try {
+                    options.onReaction(early);
+                  } catch {
+                    // Delivery, not story. The turn still commits.
+                  }
+                }
+              }
+            }
+            if (!options.onBlock) return;
             for (const block of parser.push(delta)) {
               // Normalised on the way out so a streamed block is identical to
               // the one the final document produces, which is what lets the
@@ -899,10 +998,12 @@ export async function narratePure(options: {
   // Decided here rather than in the API, so the marker written into history is
   // what the player actually saw. Recording the proposal instead would let a
   // suppressed face keep suppressing its own successors.
-  const shown = chooseReaction(
-    turn.reaction ?? null,
-    [...(options.rendered ?? [])].reverse().map((past) => parseShown(past.assistant)),
-  );
+  // A face already sent mid-stream is the one on screen, so it is the record,
+  // whatever the finished document says.
+  const shown =
+    early !== undefined
+      ? early
+      : chooseReaction(validFace(turn.reaction ?? null) ? (turn.reaction ?? null) : null, recentShown);
 
   return {
     turn,
@@ -913,6 +1014,7 @@ export async function narratePure(options: {
     historyTurns: shape === 'append' ? (options.rendered?.length ?? 0) : recentTurns.length,
     invocation: result.invocation,
     shown,
+    shownEarly: early !== undefined && early !== null,
     rendered: { user: userTurn, assistant: renderBeat(turn, cast, timeLabel, shown) },
   };
 }

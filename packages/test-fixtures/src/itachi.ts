@@ -116,6 +116,11 @@ const raw = {
       'Ordinary life is load-bearing — meals, the walk to the training posts, cleaning a mask, a teahouse, a seven-year-old counting his own throws. Spend time there, because the tragedy only works if the childhood exists. ' +
       'Nobody announces their villainy and nobody monologues about peace. Danzo talks in consequences, Fugaku talks about the clan as a body, Hiruzen hedges, and a thirteen-year-old is allowed to be thirteen even while being addressed as an equal by men four times his age. ' +
       'Fights are tactical and readable — clones, angles, terrain, what a Sharingan actually lets you see — never a blur of motion. Genjutsu always distinguishes what was perceived from what physically happened. Do not write hindsight into a scene that has not earned it.',
+    proseStyle: 'webnovel',
+    styleExamples: [
+      "Shisui is already on the roof when you get there. He always pretends he wasn’t early.\n\n\"You look terrible,\" he says. \"Good. Means you’re sleeping as much as I am.\"\n\nHe hands you a rice ball. You don’t eat it. He notices.\n\n\"Your father moved the date,\" he says. No joke now. \"Didn’t he.\"\n\nBelow you, the village lamps come on one street at a time.\n\nShisui taps the corner of his eye, once.\n\n\"I can stop this. Nobody dies. But I need you to trust me with something you won’t like.\"",
+      "Danzo pours the tea himself. That’s how you know this meeting is not happening.\n\n\"The Uchiha,\" he says, \"are a body with a fever. You are the part of that body that can still think.\"\n\nHe slides a cup across. Steam curls between you.\n\n\"Thinking parts get asked to do difficult things.\"\n\nHe hasn’t blinked since you sat down.\n\n\"Tell me, Itachi. If you had to choose between your clan and your brother, which would you keep?\"",
+    ],
     forkCostCredits: 120,
     loop: null,
   },
@@ -2737,16 +2742,11 @@ const raw = {
     },
   ],
   opening:
-    'Sasuke is on the step, and has been for two hours.\n\n' +
-    'You can tell because the shuriken beside him are laid out in the dirt in a row, ordered by how good he thought the throw was, and the pile he is proudest of has eleven in it.\n\n' +
-    '"You said maybe today," he says. He does not look up. "You said maybe."\n\n' +
-    'Inside, your mother is doing something at the stove that involves a great deal more noise than it needs. That is how she asks.\n\n' +
-    'Your bag has the mask in it. In eighty minutes your father expects you under the seventh mat with everything the tower told you this week, and the tower expects a report on Thursday about what happens under the seventh mat.\n\n' +
-    'Sasuke picks one up and holds it out to you, handle first, still not looking up.',
+    "There’s a report in your bag that could get your whole family killed.\n\nYour handwriting. Every name from last week’s clan meeting. The Hokage’s office expects it on Thursday.\n\n\"Brother!\"\n\nSasuke launches off the front step. Behind him, a row of shuriken lies in the dirt, sorted by how good the throw was. He’s been out here for two hours.\n\n\"You said maybe today.\" He grabs your sleeve. \"You said maybe.\"\n\nThe door slides open. Your mother stands in it, drying her hands.\n\n\"Your father wants you in eighty minutes,\" she says. \"Under the seventh mat. Everything the tower told you.\"\n\nShe looks at Sasuke. Then at you.\n\nThen, for one second too long, at your bag.",
   openingSuggestions: [
-    'I take it, turn it over once, and point at his grip. "Two fingers, not three. You have been doing it the hard way for two hours." I have got eighty minutes. He can have forty of them.',
-    'I sit down on the step beside him instead of going in. "Sasuke. Has anybody at school said anything about our family lately? Anything at all." I keep it light, because I want the honest answer rather than the careful one.',
-    '"Not today." I say it plainly and I do not soften it, because softening it is what I did last week and the week before. Then I go inside to my mother. "Is Father still expecting me at eight, or has that moved as well?"',
+    "I meet her eyes. \"Just mission notes, Mother.\"",
+    "I hand Sasuke my bag. \"Carry this for me. Don’t open it.\"",
+    "I kneel to Sasuke. \"Forty minutes. Get your best shuriken.\"",
   ],
   publishedAt: '2026-09-10T05:00:00.000Z',
 };

@@ -349,6 +349,12 @@ export interface Repository {
    */
   attachHeroImage(turnId: string, url: string): Promise<void>;
   /**
+   * Records the picture drawn at the top of a beat. A separate write from
+   * `appendTurn`, so a database without the `panel` column (a deploy that ran
+   * before its migration) loses the picture and never the turn.
+   */
+  attachPanel(turnId: string, panel: NonNullable<TurnRecord['panel']>): Promise<void>;
+  /**
    * Spec §20.9 — `Rephrase narration` rewrites the prose of a committed turn.
    *
    * Deliberately narrow: it can change what the turn *says* and nothing about

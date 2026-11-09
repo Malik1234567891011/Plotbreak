@@ -105,6 +105,9 @@ struct SessionFeed: View {
                 if let action = turn.actionText, !action.isEmpty {
                     SessionPlayerAction(text: action)
                 }
+                if let panel = turn.panel {
+                    SessionTopPanel(url: panel.url, alt: panel.alt, isFace: panel.characterId != nil) { model.fullScreenImage = panel.url }
+                }
                 ForEach(Array(turn.blocks.enumerated()), id: \.offset) { _, block in
                     SessionBlock(block: block, scene: model.scene)
                 }
@@ -189,6 +192,16 @@ struct SessionFeed: View {
             )
         }
 
+        // The picture at the top of the beat: the face the server sent ahead
+        // of the prose, then the same picture from the committed turn. It is
+        // known before the first word, so nothing below it ever moves.
+        if let reaction = pending?.reaction, reaction.top, let url = reaction.url {
+            SessionTopPanel(url: url, alt: reaction.name, isFace: true) { model.fullScreenImage = url }
+                .fadesIn()
+        } else if pending == nil, let panel = latest?.panel {
+            SessionTopPanel(url: panel.url, alt: panel.alt, isFace: panel.characterId != nil) { model.fullScreenImage = panel.url }
+        }
+
         // One list for the streamed blocks and the committed ones, so the
         // commit updates these rows in place instead of swapping in new ones —
         // the same words, with the same speakers, ten seconds early.
@@ -220,7 +233,7 @@ struct SessionFeed: View {
         // Spec §19.7 — the face, edge to edge, the way a scene would cut to it.
         // `lastReaction` keeps it there once the turn commits; without it the
         // image appeared and disappeared inside the same second.
-        if let reaction = pending?.reaction ?? model.lastReaction, let url = reaction.url {
+        if let reaction = pending?.reaction ?? model.lastReaction, !reaction.top, let url = reaction.url {
             Button {
                 model.fullScreenImage = url
             } label: {
@@ -380,6 +393,44 @@ struct SessionArcCard: View {
             .fill(Theme.Colors.accentPrimary.opacity(0.35))
             .frame(height: 1)
             .frame(maxWidth: 120)
+    }
+}
+
+// MARK: - Top panel
+
+/// The picture that opens a beat, the way a webtoon panel opens a scene.
+///
+/// Edge to edge, cropped from the top of a 2:3 picture, which at full height
+/// fills the phone before a word of the beat is visible. A face is cropped
+/// square (head and shoulders), so the first lines of the beat share the
+/// screen with it; the opening panel is a scene and keeps 4:5. A tap shows the
+/// whole picture. The frame is a fixed shape so it holds its height while the
+/// image loads, and the prose underneath never jumps.
+struct SessionTopPanel: View {
+    let url: String
+    let alt: String
+    var isFace = false
+    let onPress: () -> Void
+    @Environment(\.translator) private var t
+
+    var body: some View {
+        Button(action: onPress) {
+            Color.clear
+                .aspectRatio(isFace ? 1 : 4 / 5, contentMode: .fit)
+                .frame(maxWidth: .infinity)
+                .overlay {
+                    // Laid out at its true 2:3 shape, full width, from the top
+                    // edge; the 4:5 frame then clips the bottom of it.
+                    GeometryReader { geo in
+                        RemoteImage(url.assetURL) { Theme.Colors.bgElevated }
+                            .frame(width: geo.size.width, height: geo.size.width * 1.5)
+                    }
+                }
+                .clipped()
+        }
+        .buttonStyle(PressOpacityStyle(pressed: 0.9))
+        .padding(.horizontal, -Theme.gutter)
+        .accessibilityLabel(alt.isEmpty ? t("session.scene_image_a11y") : alt)
     }
 }
 

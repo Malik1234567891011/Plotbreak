@@ -408,6 +408,24 @@ export const SessionSceneState = z
   .strict();
 export type SessionSceneState = z.infer<typeof SessionSceneState>;
 
+/**
+ * The picture drawn at the top of a beat: a character's face from the
+ * pre-rendered deck, or the story's authored opening panel.
+ *
+ * Stored on the turn so it stays in the history. Optional everywhere: turns
+ * recorded before it existed have none, and older app builds never read it.
+ */
+export const TurnPanel = z
+  .object({
+    /** An asset key, resolved to a url on the way out. */
+    assetKey: z.string(),
+    characterId: z.string().nullable().default(null),
+    emotion: z.string().nullable().default(null),
+    alt: z.string().default(''),
+  })
+  .strict();
+export type TurnPanel = z.infer<typeof TurnPanel>;
+
 export const TurnRecord = z
   .object({
     turnId: z.string(),
@@ -426,6 +444,7 @@ export const TurnRecord = z
     endStatePrompt: z.string(),
     mediaPlan: MediaPlan.nullable(),
     heroImageUrl: z.string().nullable(),
+    panel: TurnPanel.nullable().optional(),
     revisionAfter: z.number().int(),
     createdAt: z.string(),
     /** Present when a repair pass ran. Surfaced only in creator/debug trace. */
@@ -494,6 +513,16 @@ export const PlayerTurnRecord = z
     suggestions: z.array(SuggestedAction),
     endStatePrompt: z.string(),
     heroImageUrl: z.string().nullable(),
+    /** The picture at the top of this beat, as a url. Absent on most stories. */
+    panel: z
+      .object({
+        url: z.string(),
+        characterId: z.string().nullable(),
+        emotion: z.string().nullable(),
+        alt: z.string(),
+      })
+      .strict()
+      .optional(),
     revisionAfter: z.number().int(),
     createdAt: z.string(),
   })

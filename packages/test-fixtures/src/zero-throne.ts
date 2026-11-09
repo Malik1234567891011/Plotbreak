@@ -86,7 +86,12 @@ const raw = {
       'Nobody here is the villain and at least two people who want the machine have arguments the player may sincerely agree with. Venn in particular must sometimes be right. ' +
       'Ordinary life is load-bearing: a pilot bar, somebody’s bad coffee, an argument about a shoulder mount that goes on for three days, a nineteen-year-old being asked about his grandfather by strangers on a concourse. ' +
       'Morrow is short, precise and occasionally unexpectedly human. Never "based on probabilistic analysis"; always "that plan gets us shot". ' +
-      'Fights are legible: distance, thrust, heat, what the sensors can and cannot see. A duel between two people who know each other reads as a conversation.',
+      'Fights are legible: distance, thrust, heat, what the sensors can and cannot see. A duel between two people who know each other reads as a conversation. The face at the top of a beat is Rhea’s or Mina’s whenever one of them is in the scene and the moment involves her.',
+    proseStyle: 'webnovel',
+    styleExamples: [
+      "Morrow’s voice is calm. Too calm.\n\n\"Three rounds left. Left shoulder mount is jammed.\"\n\nThe enemy frame drops out of the cloud, thrusters white-hot.\n\n\"Options?\" you say.\n\n\"Run. Or let it get close.\"\n\n\"Close sounds bad.\"\n\n\"Close is where it can’t use its rifle.\" A pause. \"And where you can use your hands.\"\n\nWarnings bloom red across the left side of the cockpit.\n\nForty metres. Thirty.\n\n\"Your call, pilot.\"",
+      "Mina is under the machine’s knee with a torch in her teeth.\n\n\"Don’t touch that,\" she says, without looking. \"Or that. Honestly, don’t touch anything.\"\n\nShe slides out on her back, grease to the elbows, and squints up at you.\n\n\"She let you in. She hasn’t let anyone in for eighteen years.\"\n\nShe calls the machine she. Nobody told her to.\n\n\"So.\" Mina sits up. \"What did you say to her?\"",
+    ],
     forkCostCredits: 120,
     loop: null,
   },
@@ -2268,17 +2273,15 @@ const raw = {
     },
   ],
   opening:
-    'Thirteen hundred and eight, and the plaza is four thousand people deep.\n\n' +
-    'Behind the glass, the machine’s eyes come on.\n\n' +
-    'It goes through the locking braces the way a hand goes through a cobweb. Nothing fires. Somebody starts screaming and then most people do, and the plaza empties in about ninety seconds, and you are still standing where you were because your legs were not consulted.\n\n' +
-    'Seventeen metres of black ceramic crosses the floor and stops in front of you. Then it kneels.\n\n' +
-    'The cockpit opens for the first time in eighteen years and a calm voice comes out of the speakers.\n\n' +
-    '"Pilot recognised."\n\n' +
-    'Off to your left, a woman in a Helion flight jacket has not run either. She has her sidearm out and she is not pointing it at the mech.',
+    "Thirteen hundred and eight. Four thousand people in the plaza, one minute of silence for a city that died eighteen years ago.\n\nBehind the armoured glass, the machine’s eyes turn on.\n\nIt walks out of its steel braces like they’re cobwebs.\n\nScreaming. Running. The plaza empties in ninety seconds.\n\nYou don’t move. Your legs weren’t consulted.\n\nSeventeen metres of black ceramic crosses the floor and stops in front of you.\n\nThen it kneels.\n\nThe cockpit opens for the first time in eighteen years.\n\n\"Pilot recognised.\"\n\nOff to your left, a woman in a Helion flight jacket hasn’t run either. Her gun is out.\n\nIt isn’t pointed at the machine.",
+  openingPanel: {
+    assetKey: "story_zero_throne/opening",
+    alt: "A seventeen-metre black ceramic mech kneeling in an empty memorial plaza, cockpit open, with Rhea in a Helion flight jacket standing her ground, sidearm drawn.",
+  },
   openingSuggestions: [
-    'I climb it. Hand over hand up the shin plating with eleven camera crews behind me, and I do not look at any of them. "All right," I say, into the open cockpit. "Whose voice is that, and how long have you been awake?"',
-    'I stay exactly where I am and put my hands out where the woman with the sidearm can see them. "I have never seen this thing before in my life." Then, to the machine, louder: "Who do you think I am?"',
-    'I turn round and walk out of the plaza. Past the stage, past the wall of names, past four thousand people looking the other way, and I do not run, because running is the part they would use.',
+    "I climb up into the cockpit.",
+    "Hands up. \"I’ve never seen this thing before in my life.\"",
+    "I look at the woman. \"Is that for me?\"",
   ],
   publishedAt: '2026-09-10T07:00:00.000Z',
 };

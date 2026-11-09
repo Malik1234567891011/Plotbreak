@@ -779,8 +779,19 @@ struct PlayerTurnRecord: Codable, Hashable, Identifiable {
     @Default<EmptyArray<SuggestedAction>> var suggestions: [SuggestedAction]
     @Default<EmptyString> var endStatePrompt: String
     var heroImageUrl: String?
+    /// The picture drawn at the top of this beat. Absent on most stories, and
+    /// on every turn recorded before 1.0.9.
+    var panel: TurnPanel?
     var revisionAfter: Int
     var createdAt: String
+}
+
+/// A face from the story's deck, or a story's opening panel, drawn above the prose.
+struct TurnPanel: Codable, Hashable {
+    var url: String
+    var characterId: String?
+    var emotion: String?
+    @Default<EmptyString> var alt: String
 }
 
 struct SessionRecap: Codable, Hashable {
