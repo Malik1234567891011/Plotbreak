@@ -146,9 +146,16 @@ describe('the launch set itself', () => {
   });
 
   it('keeps the welcome gifts to a handful of turns in total', () => {
-    const gifts = [...BADGES_BY_ID.values()].filter((b) => b.creditReward < SERIOUS_MONEY);
+    const gifts = [...BADGES_BY_ID.values()].filter((b) => b.creditReward < SERIOUS_MONEY && !b.feature);
     const total = gifts.reduce((sum, b) => sum + b.creditReward, 0);
     expect(total).toBeLessThan(60 * 30);
+  });
+
+  it('keeps the small relic rewards to under ten turns between them', () => {
+    // Relics are their own budget so the welcome set above does not move
+    // when they ship. The real relic money is behind Legendary and Mythic.
+    const small = [...BADGES_BY_ID.values()].filter((b) => b.feature === 'relics' && b.creditReward < SERIOUS_MONEY);
+    expect(small.reduce((sum, b) => sum + b.creditReward, 0)).toBeLessThan(60 * 10);
   });
 
   it('puts the real money behind months of play, not days', () => {

@@ -45,6 +45,8 @@ export interface PlayerRecord {
    * set ever mentioning payment.
    */
   readonly apexTurns: number;
+  /** Relics owned, one entry per distinct relic. Empty while relics are off. */
+  readonly relics?: readonly { relicId: string; storyId: string; rarity: string }[];
 }
 
 function progressFor(badge: Badge, record: PlayerRecord): number {
@@ -92,6 +94,20 @@ function progressFor(badge: Badge, record: PlayerRecord): number {
         .reduce((max, n) => Math.max(max, n), 0);
     case 'rare_ending':
       return Math.min(record.rareEndings, 1);
+    case 'relic_pink_tide':
+      return (record.relics ?? []).some((r) => r.storyId === 'story_pink_tide') ? 1 : 0;
+    case 'relic_second_skin':
+      return (record.relics ?? []).some((r) => r.storyId === 'story_second_skin') ? 1 : 0;
+    case 'relic_rare':
+      return (record.relics ?? []).some((r) => r.rarity === 'RARE') ? 1 : 0;
+    case 'relic_epic':
+      return (record.relics ?? []).some((r) => r.rarity === 'EPIC') ? 1 : 0;
+    case 'relic_legendary':
+      return (record.relics ?? []).some((r) => r.rarity === 'LEGENDARY') ? 1 : 0;
+    case 'relic_mythic_pink_tide':
+      return (record.relics ?? []).some((r) => r.relicId === 'pt_crown_of_tide') ? 1 : 0;
+    case 'relic_mythic_second_skin':
+      return (record.relics ?? []).some((r) => r.relicId === 'ss_twiceborn_heart') ? 1 : 0;
     case 'discord_hello':
       // Nothing in the play record says this. The Discord bot writes
       // progress 1 straight to the row, and `evaluateBadges` never lowers it.

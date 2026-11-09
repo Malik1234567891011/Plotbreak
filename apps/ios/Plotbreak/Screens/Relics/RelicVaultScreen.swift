@@ -8,6 +8,9 @@ import SwiftUI
 // Sorted rarest first so the top of the screen is always the most wanted thing.
 
 struct RelicVaultScreen: View {
+    /// Where the player came from, for `relic_vault_opened`: "profile" or "reveal".
+    var source: String = "profile"
+
     @Environment(AppStore.self) private var store
     @Environment(Router.self) private var router
 
@@ -63,7 +66,13 @@ struct RelicVaultScreen: View {
     }
 
     private func load() async {
-        do { vault = try await store.api.relics() } catch { failed = true }
+        do {
+            let loaded = try await store.api.relics()
+            vault = loaded
+            Telemetry.track(.relicVaultOpened, ["source": source, "owned": loaded.owned, "total": loaded.total])
+        } catch {
+            failed = true
+        }
     }
 
     // MARK: Pieces
@@ -137,7 +146,10 @@ struct RelicVaultScreen: View {
             }
             LazyVGrid(columns: columns, spacing: 12) {
                 ForEach(items) { relic in
-                    Button { selected = relic } label: { RelicCell(relic: relic) }
+                    Button {
+                        selected = relic
+                        Telemetry.track(.relicViewed, ["relicId": relic.id, "rarity": relic.rarity, "owned": relic.owned])
+                    } label: { RelicCell(relic: relic) }
                         .buttonStyle(.plain)
                 }
             }

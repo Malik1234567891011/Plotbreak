@@ -81,4 +81,26 @@ describe('gate', () => {
     expect(relicsEnabledFor('u3', { PLOTBREAK_RELICS: 'u2,u1' })).toBe(false);
     expect(relicsEnabledFor('u3', { PLOTBREAK_RELICS: 'all' })).toBe(true);
   });
+
+  it('splits players into a stable percentage', () => {
+    const ids = Array.from({ length: 2000 }, (_, i) => `user-${i}`);
+    const on = ids.filter((id) => relicsEnabledFor(id, { PLOTBREAK_RELICS: '50%' })).length;
+    expect(on).toBeGreaterThan(900);
+    expect(on).toBeLessThan(1100);
+    expect(relicsEnabledFor('user-7', { PLOTBREAK_RELICS: '50%' })).toBe(relicsEnabledFor('user-7', { PLOTBREAK_RELICS: '50%' }));
+    expect(relicsEnabledFor('user-7', { PLOTBREAK_RELICS: '0%' })).toBe(false);
+    expect(relicsEnabledFor('user-7', { PLOTBREAK_RELICS: '100%' })).toBe(true);
+  });
+});
+
+describe('relic badges', () => {
+  it('unlock from what the player owns', async () => {
+    const { evaluateBadges } = await import('./badges.js');
+    const base = { runs: [], genresPlayed: 0, daysPlayed: 0, endingsReached: 0, rareEndings: 0, hasFreeformed: false, hasReturned: false, apexTurns: 0 };
+    const done = (relics: { relicId: string; storyId: string; rarity: string }[]) =>
+      evaluateBadges({ ...base, relics }, []).filter((b) => b.unlockedAt && b.badgeId.startsWith('relic_')).map((b) => b.badgeId).sort();
+    expect(done([])).toEqual([]);
+    expect(done([{ relicId: 'pt_comet_clip', storyId: 'story_pink_tide', rarity: 'RARE' }])).toEqual(['relic_pink_tide', 'relic_rare']);
+    expect(done([{ relicId: 'ss_twiceborn_heart', storyId: 'story_second_skin', rarity: 'MYTHIC' }])).toEqual(['relic_mythic_second_skin', 'relic_second_skin']);
+  });
 });

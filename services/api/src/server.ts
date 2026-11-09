@@ -1035,6 +1035,12 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       hasFreeformed: freeformed,
       hasReturned: returned,
       apexTurns,
+      relics: relicsEnabledFor(userId)
+        ? [...new Set((await ctx.repo.getRelicRolls(userId)).map((r) => r.relicId).filter((id): id is string => !!id))]
+            .map((id) => RELICS.find((r) => r.id === id))
+            .filter((r): r is (typeof RELICS)[number] => !!r)
+            .map((r) => ({ relicId: r.id, storyId: r.storyId, rarity: r.rarity }))
+        : [],
     };
   };
 
@@ -1087,7 +1093,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (!user) return reply;
     const { progress, newlyUnlocked } = await syncBadges(ctx.repo, user.userId, await playerRecord(user.userId));
     return {
-      badges: BADGES.map((badge) => {
+      badges: BADGES.filter((badge) => !badge.feature || relicsEnabledFor(user.userId)).map((badge) => {
         const row = progress.find((p) => p.badgeId === badge.id);
         const unlocked = !!row?.unlockedAt;
         return {

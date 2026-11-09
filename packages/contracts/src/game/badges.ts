@@ -62,6 +62,11 @@ export const Badge = z
      * things they are failing at, so almost nothing is hidden.
      */
     secret: z.boolean().default(false),
+    /**
+     * A badge that belongs to a feature still behind a flag. Hidden, and never
+     * evaluated, for a player the feature is off for. See docs/relics.md.
+     */
+    feature: z.literal('relics').optional(),
   })
   .strict();
 export type Badge = z.infer<typeof Badge>;
@@ -314,6 +319,96 @@ export const BADGES: readonly Badge[] = [
     // SERIOUS_MONEY line, and the bot refuses new and already-used Discord accounts.
     minimumCredits: 0,
     secret: false,
+  },
+  // --- Relics (docs/relics.md). Hidden unless relics are on for the player. ---
+  //
+  // One per story so the first find in each world is a small win, then one
+  // per rarity tier, then one per Mythic. Rewards climb with how rare the drop
+  // is and how far into a story you have to get for the chance at it.
+  {
+    id: 'relic_pink_tide',
+    title: 'Souvenir from Aster Cove',
+    description: 'Find a relic in Pink Tide.',
+    icon: '🐚',
+    tier: 'BRONZE',
+    target: 1,
+    creditReward: 50,
+    minimumCredits: 60,
+    secret: false,
+    feature: 'relics',
+  },
+  {
+    id: 'relic_second_skin',
+    title: 'Something from the Hall',
+    description: 'Find a relic in Second Skin.',
+    icon: '🐾',
+    tier: 'BRONZE',
+    target: 1,
+    creditReward: 50,
+    minimumCredits: 60,
+    secret: false,
+    feature: 'relics',
+  },
+  {
+    id: 'relic_rare',
+    title: 'Rare Find',
+    description: 'Find a Rare relic.',
+    icon: '🔷',
+    tier: 'BRONZE',
+    target: 1,
+    creditReward: 100,
+    minimumCredits: 120,
+    secret: false,
+    feature: 'relics',
+  },
+  {
+    id: 'relic_epic',
+    title: 'Epic Find',
+    description: 'Find an Epic relic.',
+    icon: '🔮',
+    tier: 'SILVER',
+    target: 1,
+    creditReward: 200,
+    minimumCredits: 300,
+    secret: false,
+    feature: 'relics',
+  },
+  {
+    id: 'relic_legendary',
+    title: 'Legend in Hand',
+    description: 'Find a Legendary relic.',
+    icon: '🌟',
+    tier: 'GOLD',
+    target: 1,
+    creditReward: 500,
+    minimumCredits: 900,
+    secret: false,
+    feature: 'relics',
+  },
+  {
+    id: 'relic_mythic_pink_tide',
+    title: 'Keeper of the Tide',
+    // Names the story, not the item: the item is "???" until it is found.
+    description: 'Claim the Mythic relic of Pink Tide.',
+    icon: '👑',
+    tier: 'GOLD',
+    target: 1,
+    creditReward: 1000,
+    minimumCredits: 3600,
+    secret: false,
+    feature: 'relics',
+  },
+  {
+    id: 'relic_mythic_second_skin',
+    title: 'Two Shapes, One Heart',
+    description: 'Claim the Mythic relic of Second Skin.',
+    icon: '💞',
+    tier: 'GOLD',
+    target: 1,
+    creditReward: 1000,
+    minimumCredits: 3600,
+    secret: false,
+    feature: 'relics',
   },
 ];
 

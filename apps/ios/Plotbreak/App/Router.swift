@@ -70,7 +70,7 @@ enum SheetRoute: Identifiable, Hashable {
     case characters
     case badges
     /// The relic vault: everything found in stories, and everything still out there.
-    case relics
+    case relics(source: String)
     case settings
     case personalization
     case myInformation
@@ -348,7 +348,7 @@ struct SheetHost: View {
             case .blockedPeople: BlockedPeopleScreen()
             case .characters: CharactersScreen()
             case .badges: BadgesScreen()
-            case .relics: RelicVaultScreen()
+            case .relics(let source): RelicVaultScreen(source: source)
             case .settings: SettingsScreen()
             case .personalization: PersonalizationScreen()
             case .myInformation: MyInformationScreen()

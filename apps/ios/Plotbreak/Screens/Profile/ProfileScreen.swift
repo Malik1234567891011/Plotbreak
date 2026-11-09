@@ -45,7 +45,7 @@ struct ProfileScreen: View {
                         identityCard
 
                         if let relics {
-                            RelicVaultCard(vault: relics) { router.present(.relics) }
+                            RelicVaultCard(vault: relics) { router.present(.relics(source: "profile")) }
                                 .padding(.top, Theme.Spacing.xxl)
                         }
 

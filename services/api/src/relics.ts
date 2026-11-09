@@ -5,7 +5,7 @@
  * `packages/contracts/src/game/relics.ts` for the catalog and docs/relics.md
  * for the design.
  */
-import { randomInt } from 'node:crypto';
+import { createHash, randomInt } from 'node:crypto';
 import {
   RELICS,
   RELICS_BY_ID,
@@ -28,7 +28,16 @@ export function relicsEnabledFor(userId: string, env: NodeJS.ProcessEnv = proces
   const raw = (env.PLOTBREAK_RELICS ?? '').trim();
   if (!raw || raw === 'off') return false;
   if (raw === 'all') return true;
+  // `50%`: a stable half of all players, so relics can be measured against the
+  // half without them. Same bucket every time for the same player.
+  const percent = /^(\d{1,3})%$/.exec(raw);
+  if (percent) return relicBucket(userId) < Number(percent[1]);
   return raw.split(',').map((s) => s.trim()).includes(userId);
+}
+
+/** 0..99, stable per player. Recompute this to split any chart by arm. */
+export function relicBucket(userId: string): number {
+  return createHash('sha256').update(`relics:${userId}`).digest().readUInt32BE(0) % 100;
 }
 
 /** The moments to offer the storyteller for this story, or undefined when there are none. */

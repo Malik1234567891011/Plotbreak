@@ -81,10 +81,14 @@ struct SessionScreen: View {
                 if let drop = model.relicQueue.first {
                     RelicRevealView(
                         drop: drop,
-                        onDone: { withAnimation(.easeOut(duration: 0.25)) { model.dismissRelic() } },
+                        onDone: {
+                            Telemetry.track(.relicRevealClosed, ["relicId": drop.relicId, "rarity": drop.rarity, "action": "keep_playing"])
+                            withAnimation(.easeOut(duration: 0.25)) { model.dismissRelic() }
+                        },
                         onOpenVault: {
+                            Telemetry.track(.relicRevealClosed, ["relicId": drop.relicId, "rarity": drop.rarity, "action": "open_vault"])
                             model.dismissRelic(askNow: false)
-                            router.present(.relics)
+                            router.present(.relics(source: "reveal"))
                         }
                     )
                     .id(drop.id)

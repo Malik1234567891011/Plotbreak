@@ -33,6 +33,9 @@ export const EVENT_NAMES = [
   'turn_10_reached',
   'quest_completed',
   'relic_found',
+  'relic_reveal_closed',
+  'relic_vault_opened',
+  'relic_viewed',
   // §6.5 identity
   'sign_in_started',
   'sign_in_completed',
@@ -195,6 +198,10 @@ export const EventProperties = {
   /** Once per quest per session, on the turn that finished it. Ids only — no quest copy. */
   quest_completed: z.object({ storyId: z.string(), questId: z.string(), turnIndex: z.number().int() }),
   relic_found: z.object({ storyId: z.string(), relicId: z.string(), rarity: z.string(), turnIndex: z.number().int() }),
+  /** How the player left the drop reveal: back to the story, or into the vault. */
+  relic_reveal_closed: z.object({ relicId: z.string(), rarity: z.string(), action: z.enum(['keep_playing', 'open_vault']) }),
+  relic_vault_opened: z.object({ source: z.enum(['profile', 'reveal']), owned: z.number().int(), total: z.number().int() }),
+  relic_viewed: z.object({ relicId: z.string(), rarity: z.string(), owned: z.boolean() }),
 
   sign_in_started: z.object({ provider: z.string(), trigger: z.string() }),
   sign_in_completed: z.object({ provider: z.string() }),
