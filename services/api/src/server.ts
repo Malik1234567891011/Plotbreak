@@ -1046,6 +1046,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     const user = await requireUser(ctx, request, reply);
     if (!user) return reply;
     if (!relicsEnabledFor(user.userId)) return sendError(reply, 404, 'NOT_FOUND', 'Relics are not available yet.');
+    if (ctx.config.environment === 'dev') console.info(JSON.stringify({ event: 'relics.viewed', userId: user.userId }));
     const storyIds = [...new Set(RELICS.map((r) => r.storyId))];
     const titles = new Map<string, string>();
     for (const storyId of storyIds) {
@@ -1054,6 +1055,32 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     }
     return buildCollection(await ctx.repo.getRelicRolls(user.userId), titles);
   });
+
+  // Development only: put relics straight into the caller's vault, so the
+  // unlocked art can be looked at without playing to every moment.
+  if (ctx.config.environment === 'dev') {
+    app.post<{ Body: { relicIds?: string[]; userId?: string } }>('/v1/dev/relics/grant', async (request, reply) => {
+      const caller = await requireUser(ctx, request, reply);
+      if (!caller) return reply;
+      // A user id may be named, so a test device can be filled from a terminal.
+      const user = { userId: request.body?.userId ?? caller.userId };
+      const ids = request.body?.relicIds ?? [];
+      for (const relicId of ids) {
+        const relic = RELICS.find((r) => r.id === relicId);
+        if (!relic) continue;
+        await ctx.repo.recordRelicRoll({
+          userId: user.userId,
+          sessionId: `dev_${randomUUID()}`,
+          storyId: relic.storyId,
+          momentId: relic.momentId,
+          relicId: relic.id,
+          turnIndex: 0,
+          rolledAt: new Date().toISOString(),
+        });
+      }
+      return { granted: ids.length };
+    });
+  }
 
   app.get('/v1/badges', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);
