@@ -877,6 +877,8 @@ enum TurnStreamEventName: String, LenientEnum {
     /// The frame could not be drawn. The placeholder has to come down, or the
     /// beat keeps a hole in it for the rest of the session.
     case mediaFailed = "media.failed"
+    /// A moment in this beat dropped a relic. See docs/relics.md.
+    case relicFound = "relic.found"
     case turnFailed = "turn.failed"
     case unknown
     static var fallback: TurnStreamEventName { .unknown }
@@ -1379,4 +1381,51 @@ struct BlockedPerson: Codable, Hashable, Identifiable {
 struct BlockedListResponse: Codable {
     @Default<EmptyArray<String>> var blocked: [String]
     @Default<EmptyArray<BlockedPerson>> var people: [BlockedPerson]
+}
+
+
+// MARK: - Relics (docs/relics.md)
+
+/// One relic that just dropped, as the turn stream carries it.
+struct RelicDrop: Codable, Hashable, Identifiable {
+    var relicId: String
+    var name: String
+    var rarity: String
+    var flavor: String
+    var imageUrl: String?
+    var storyId: String
+    var count: Int
+    var id: String { relicId }
+}
+
+/// One relic in the vault, owned or not.
+struct RelicEntry: Codable, Hashable, Identifiable {
+    var id: String
+    var storyId: String
+    var storyTitle: String
+    var name: String
+    var rarity: String
+    var flavor: String?
+    var imageUrl: String?
+    var owned: Bool
+    var count: Int
+    var firstFoundAt: String?
+    var chancePercent: Double
+    var timing: String
+    var hint: String
+}
+
+struct RelicStorySummary: Codable, Hashable, Identifiable {
+    var storyId: String
+    var title: String
+    var owned: Int
+    var total: Int
+    var id: String { storyId }
+}
+
+struct RelicCollectionResponse: Codable, Hashable {
+    var owned: Int
+    var total: Int
+    var stories: [RelicStorySummary]
+    var relics: [RelicEntry]
 }

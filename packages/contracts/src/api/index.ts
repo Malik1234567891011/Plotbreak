@@ -812,6 +812,8 @@ export const TurnStreamEventName = z.enum([
    * the client gave up.
    */
   'media.failed',
+  /** A moment in this beat dropped a relic. Older clients ignore it. */
+  'relic.found',
   'turn.failed',
 ]);
 export type TurnStreamEventName = z.infer<typeof TurnStreamEventName>;

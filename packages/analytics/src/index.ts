@@ -32,6 +32,7 @@ export const EVENT_NAMES = [
   'turn_failed',
   'turn_10_reached',
   'quest_completed',
+  'relic_found',
   // §6.5 identity
   'sign_in_started',
   'sign_in_completed',
@@ -193,6 +194,7 @@ export const EventProperties = {
   turn_10_reached: z.object({ storyId: z.string(), minutesToReach: z.number().int() }),
   /** Once per quest per session, on the turn that finished it. Ids only — no quest copy. */
   quest_completed: z.object({ storyId: z.string(), questId: z.string(), turnIndex: z.number().int() }),
+  relic_found: z.object({ storyId: z.string(), relicId: z.string(), rarity: z.string(), turnIndex: z.number().int() }),
 
   sign_in_started: z.object({ provider: z.string(), trigger: z.string() }),
   sign_in_completed: z.object({ provider: z.string() }),

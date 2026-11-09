@@ -247,6 +247,17 @@ export interface StoryRequestRow {
   readonly createdAt: string;
 }
 
+/** One roll of one relic moment in one run. `relicId` null means the roll came up empty. */
+export interface RelicRollRow {
+  readonly userId: string;
+  readonly sessionId: string;
+  readonly storyId: string;
+  readonly momentId: string;
+  readonly relicId: string | null;
+  readonly turnIndex: number;
+  readonly rolledAt: string;
+}
+
 export interface UserBadgeRow {
   readonly userId: string;
   readonly badgeId: string;
@@ -467,6 +478,18 @@ export interface Repository {
   upsertBadge(row: UserBadgeRow): Promise<void>;
   /** Claims exactly once. False means somebody already claimed it. */
   claimBadge(userId: string, badgeId: string, at: string): Promise<boolean>;
+
+  // --- Relics (docs/relics.md) -----------------------------------------
+
+  /** Every roll this player has made, newest first. */
+  getRelicRolls(userId: string): Promise<RelicRollRow[]>;
+  /**
+   * Records a roll. False when this run already rolled this moment, which is
+   * the guarantee that one moment drops at most once per run.
+   */
+  recordRelicRoll(row: RelicRollRow): Promise<boolean>;
+  /** A guest's finds follow them into the account they sign up with. */
+  moveRelicRolls(fromUserId: string, toUserId: string): Promise<void>;
 
   // --- Plotbreak Pass (docs/plotbreak-pass.md) -------------------------
 

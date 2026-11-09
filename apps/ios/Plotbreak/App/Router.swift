@@ -69,6 +69,8 @@ enum SheetRoute: Identifiable, Hashable {
     case blockedPeople
     case characters
     case badges
+    /// The relic vault: everything found in stories, and everything still out there.
+    case relics
     case settings
     case personalization
     case myInformation
@@ -90,6 +92,7 @@ enum SheetRoute: Identifiable, Hashable {
         case .blockedPeople: return "blockedPeople"
         case .characters: return "characters"
         case .badges: return "badges"
+        case .relics: return "relics"
         case .settings: return "settings"
         case .personalization: return "personalization"
         case .myInformation: return "myInformation"
@@ -345,6 +348,7 @@ struct SheetHost: View {
             case .blockedPeople: BlockedPeopleScreen()
             case .characters: CharactersScreen()
             case .badges: BadgesScreen()
+            case .relics: RelicVaultScreen()
             case .settings: SettingsScreen()
             case .personalization: PersonalizationScreen()
             case .myInformation: MyInformationScreen()

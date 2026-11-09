@@ -77,6 +77,21 @@ struct SessionScreen: View {
                     .transition(.opacity)
                 }
             }
+            .overlay {
+                if let drop = model.relicQueue.first {
+                    RelicRevealView(
+                        drop: drop,
+                        onDone: { withAnimation(.easeOut(duration: 0.25)) { model.dismissRelic() } },
+                        onOpenVault: {
+                            model.dismissRelic(askNow: false)
+                            router.present(.relics)
+                        }
+                    )
+                    .id(drop.id)
+                    .transition(.opacity)
+                }
+            }
+            .animation(.easeOut(duration: 0.25), value: model.relicQueue.first?.id)
         }
         .task {
             model.attach(store: store, router: router)
@@ -95,7 +110,10 @@ struct SessionScreen: View {
             Task { await model.refreshPlayerPortrait() }
         }
         .onChange(of: router.sheet == nil) { _, closed in
-            if closed { Task { await model.refreshPlayerPortrait() } }
+            if closed {
+                Task { await model.refreshPlayerPortrait() }
+                model.resumeDeferredAsk()
+            }
         }
         // Our own ask before the system's, once, after the first finished turn.
         // iOS grants one prompt per install and "Not now" here keeps it, so a

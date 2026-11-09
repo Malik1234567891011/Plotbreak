@@ -158,6 +158,14 @@ final class SessionModel {
     /// Closed arcs. Empty for every run that has not reached one, which is
     /// almost all of them.
     private(set) var arcs: [SessionArc] = []
+    /// Relics found this session and not yet revealed, oldest first. The
+    /// screen shows the head of the queue as a full-screen reveal.
+    private(set) var relicQueue: [RelicDrop] = []
+    /// Drops received and not yet dismissed, counted from the moment the event
+    /// arrives — before the delayed reveal — so nothing else claims that beat.
+    private var relicsOutstanding = 0
+    /// The reminder ask, held while a reveal is up and asked once it closes.
+    private var reminderAskDeferred = false
     /// Guards the two one-shot session events below, which `load()` and `send()`
     /// can both otherwise reach more than once per screen.
     private var resumeReported = false
@@ -524,6 +532,27 @@ final class SessionModel {
         }
     }
 
+    /// The reveal on screen is done with.
+    /// `askNow` false when the player is leaving for the vault: the held
+    /// reminder ask waits for them to come back (`resumeDeferredAsk`) rather
+    /// than landing on the sheet as it opens.
+    func dismissRelic(askNow: Bool = true) {
+        if !relicQueue.isEmpty { relicQueue.removeFirst() }
+        relicsOutstanding = max(0, relicsOutstanding - 1)
+        if askNow { resumeDeferredAsk() }
+    }
+
+    /// Asks the held reminder question, if one is waiting and nothing is on screen.
+    func resumeDeferredAsk() {
+        if relicsOutstanding == 0 && reminderAskDeferred {
+            reminderAskDeferred = false
+            Task { [weak self] in
+                try? await Task.sleep(nanoseconds: 600_000_000)
+                self?.offerReminders = true
+            }
+        }
+    }
+
     private func handle(_ event: TurnStreamEventName, _ data: [String: JSONValue], turnId: String, actionText: String) {
         guard let store else { return }
         switch event {
@@ -591,6 +620,16 @@ final class SessionModel {
         case .stateDelta:
             pending?.deltas.append(data["label"]?.stringValue ?? "")
 
+        case .relicFound:
+            // Held back a moment so the beat that earned it lands first and
+            // the reveal reads as a consequence of the prose, not an interruption.
+            guard let drop = JSONValue.object(data).decoded(as: RelicDrop.self) else { break }
+            relicsOutstanding += 1
+            Task { [weak self] in
+                try? await Task.sleep(nanoseconds: 1_400_000_000)
+                self?.relicQueue.append(drop)
+            }
+
         case .turnCompleted:
             Attribution.firstBeatCompleted(sessionId: sessionId)
             if let balance = data["balance"]?.intValue { store.setBalance(balance) }
@@ -619,10 +658,14 @@ final class SessionModel {
                         // offer rather than a stranger's request. Turns 10, 25
                         // and 50 belong to `ReviewPrompt`, so the two never
                         // land on the same beat.
-                        if Reminders.shouldAsk(turnIndex: turnIndex) { offerReminders = true }
+                        if Reminders.shouldAsk(turnIndex: turnIndex) {
+                            // A relic reveal owns this beat; ask when it closes.
+                            if relicsOutstanding > 0 { reminderAskDeferred = true } else { offerReminders = true }
+                        }
                         await ReviewPrompt.turnCommitted(turnIndex: turnIndex) { [weak self] in
                             guard let self, let router = self.router else { return false }
                             return self.pending == nil && !self.sending && router.sheet == nil
+                                && self.relicsOutstanding == 0
                                 && router.path.last == .session(sessionId: self.sessionId)
                         }
                     }

@@ -19,6 +19,7 @@ import { resolveAssetUrl, toSceneState } from './projections.js';
 import type { SessionRecord, UserRecord } from './repo/types.js';
 import { InsufficientCreditsError, type Reservation } from './wallet.js';
 import type { TurnStreamHub } from './stream.js';
+import { relicsEnabledFor, rollRelics, storyMoments } from './relics.js';
 
 /**
  * Spec §17.1 — the turn entrypoint: steps 1–3 and 12–17 around the pipeline.
@@ -312,6 +313,8 @@ async function processTurn(
         arcs,
         arcClosing: winding !== 'continue',
         notes: pressure ? [pressure] : [],
+        // Relics are gated per player; everyone else's prompt is unchanged.
+        moments: relicsEnabledFor(user.userId) ? storyMoments(story.storyId) : undefined,
         reasoningEffort: profile.reasoningEffort,
         wordTarget: profile.words,
         maxTokens: profile.maxOutputTokens,
@@ -472,6 +475,34 @@ async function processTurn(
           heroImageNominated: Boolean(pure.heroImage),
         }),
       );
+
+      // Relics, after the prose and before the turn closes so the stream is
+      // still open to carry them. Never fatal: a failed roll costs a drop,
+      // not a turn the player already paid for.
+      if (pure.momentIds.length) {
+        try {
+          const drops = await rollRelics({
+            repo: ctx.repo,
+            userId: user.userId,
+            sessionId: session.sessionId,
+            storyId: story.storyId,
+            turnIndex: pure.state.turnIndex,
+            momentIds: pure.momentIds,
+          });
+          for (const drop of drops) {
+            hub.emit(turnId, 'relic.found', drop as unknown as Record<string, unknown>);
+            track.track('relic_found', {
+              storyId: story.storyId,
+              relicId: drop.relicId,
+              rarity: drop.rarity,
+              turnIndex: pure.state.turnIndex,
+            });
+          }
+          console.info(JSON.stringify({ level: 30, event: 'relic.rolled', sessionId: session.sessionId, turnId, moments: pure.momentIds, drops: drops.map((d) => d.relicId) }));
+        } catch (error) {
+          console.warn(JSON.stringify({ level: 40, event: 'relic.roll_failed', turnId, error: String(error) }));
+        }
+      }
 
       hub.emit(turnId, 'turn.timings', {
         narrative: pure.telemetry.ms,

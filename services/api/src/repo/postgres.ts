@@ -26,6 +26,7 @@ import type {
   StorySignals,
   StoryTextRow,
   UserBadgeRow,
+  RelicRollRow,
   DiscordLinkRow,
   DiscordLinkResult,
   StoryRequestRow,
@@ -710,6 +711,42 @@ export class PostgresRepository implements Repository {
       featuredRank: r.featured_rank,
       staffPick: r.staff_pick,
     }));
+  }
+
+  // --- Relics --------------------------------------------------------------
+
+  async getRelicRolls(userId: string): Promise<RelicRollRow[]> {
+    const { rows } = await this.#pool.query<{
+      session_id: string; story_id: string; moment_id: string; relic_id: string | null; turn_index: number; rolled_at: Date;
+    }>(
+      `SELECT session_id, story_id, moment_id, relic_id, turn_index, rolled_at
+         FROM relic_rolls WHERE user_id = $1 ORDER BY rolled_at DESC`,
+      [userId],
+    );
+    return rows.map((r) => ({
+      userId,
+      sessionId: r.session_id,
+      storyId: r.story_id,
+      momentId: r.moment_id,
+      relicId: r.relic_id,
+      turnIndex: r.turn_index,
+      rolledAt: r.rolled_at.toISOString(),
+    }));
+  }
+
+  async recordRelicRoll(row: RelicRollRow): Promise<boolean> {
+    // The unique (session_id, moment_id) key is the whole once-per-run rule.
+    const { rowCount } = await this.#pool.query(
+      `INSERT INTO relic_rolls (user_id, session_id, story_id, moment_id, relic_id, turn_index, rolled_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7)
+       ON CONFLICT (session_id, moment_id) DO NOTHING`,
+      [row.userId, row.sessionId, row.storyId, row.momentId, row.relicId, row.turnIndex, row.rolledAt],
+    );
+    return (rowCount ?? 0) > 0;
+  }
+
+  async moveRelicRolls(fromUserId: string, toUserId: string): Promise<void> {
+    await this.#pool.query(`UPDATE relic_rolls SET user_id = $2 WHERE user_id = $1`, [fromUserId, toUserId]);
   }
 
   // --- Badges --------------------------------------------------------------

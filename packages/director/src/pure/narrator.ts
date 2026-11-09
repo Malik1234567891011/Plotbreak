@@ -360,7 +360,7 @@ function usableSuggestions(raw: readonly string[]): string[] {
     .slice(0, 3);
 }
 
-function schemaFor(story: StoryVersion): typeof PureTurn {
+function schemaFor(story: StoryVersion, withMoments = false): typeof PureTurn {
   const speakers: [string, ...string[]] = [
     NARRATION,
     UNKNOWN_SPEAKER,
@@ -371,7 +371,38 @@ function schemaFor(story: StoryVersion): typeof PureTurn {
       .array(z.object({ speaker: z.enum(speakers), text: z.string() }))
       .min(1)
       .max(80),
+    // Only on sessions that collect relics, so every other session's schema —
+    // and the cached prefix it is part of — is byte-for-byte what it was.
+    ...(withMoments ? { momentIds: z.array(z.string()).max(4).optional() } : {}),
   }) as unknown as typeof PureTurn;
+}
+
+/** A relic moment as the storyteller sees it: an id and what has to happen. */
+export interface StoryMoment {
+  readonly id: string;
+  readonly when: string;
+}
+
+/**
+ * The relic moments, as their own cached system message.
+ *
+ * Framed as a record-keeping duty, never a goal: the storyteller reports a
+ * moment the beat it happens and is told nothing about what it is worth, so
+ * there is nothing to steer toward and nothing to be generous with.
+ */
+function momentsBrief(moments: readonly StoryMoment[]): string {
+  return [
+    '## Moments to record',
+    'Bookkeeping, not plot. These are things that may or may not happen in this story. They are not',
+    'goals, hints or a schedule: never steer toward one, never mention this list, and never change what',
+    'you would have written because of it.',
+    '',
+    'Set momentIds to the id of a moment only on the beat where it actually happens on the page — the',
+    'player is really there, really doing it, in this beat. Not when it is planned, discussed, nearly',
+    'happens or happened in an earlier beat. Leave momentIds empty otherwise, which is nearly every turn.',
+    '',
+    ...moments.map((m) => `- ${m.id}: ${m.when}`),
+  ].join('\n');
 }
 
 /**
@@ -708,6 +739,8 @@ export async function narratePure(options: {
    * prefix.
    */
   readonly notes?: readonly string[];
+  /** Relic moments this session can record. Absent means the feature is off. */
+  readonly moments?: readonly StoryMoment[];
 }): Promise<PureResult> {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
@@ -795,6 +828,7 @@ export async function narratePure(options: {
       ? [
           { role: 'system' as const, content: `${CONSTITUTION}\n\n${HOW}${language}` },
           { role: 'system' as const, content: world },
+          ...(options.moments?.length ? [{ role: 'system' as const, content: momentsBrief(options.moments) }] : []),
           // Context, not something anybody said, so it rides with the
           // constitution and the world rather than faking an exchange.
           ...(earlierArcs ? [{ role: 'system' as const, content: earlierArcs }] : []),
@@ -807,6 +841,7 @@ export async function narratePure(options: {
       : [
           { role: 'system' as const, content: `${CONSTITUTION}${language}` },
           { role: 'system' as const, content: world },
+          ...(options.moments?.length ? [{ role: 'system' as const, content: momentsBrief(options.moments) }] : []),
           {
             role: 'user' as const,
             content:
@@ -816,7 +851,7 @@ export async function narratePure(options: {
           },
         ];
 
-  const result = await gateway.generateStructured('writer_premium', schemaFor(story), messages, {
+  const result = await gateway.generateStructured('writer_premium', schemaFor(story, Boolean(options.moments?.length)), messages, {
     maxTokens: options.maxTokens ?? 4000,
     model: options.model,
     reasoningEffort: options.reasoningEffort,

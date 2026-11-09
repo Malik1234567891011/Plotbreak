@@ -27,6 +27,7 @@ enum PlotbreakEvent: String, CaseIterable, Sendable {
     case turnFailed = "turn_failed"
     case turn10Reached = "turn_10_reached"
     case questCompleted = "quest_completed"
+    case relicFound = "relic_found"
     case signInStarted = "sign_in_started"
     case signInCompleted = "sign_in_completed"
     case guestAccountMigrated = "guest_account_migrated"

@@ -2,7 +2,8 @@ import { createHash, randomUUID } from 'node:crypto';
 import { readdir, stat } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { BADGES, BADGES_BY_ID } from '@plotbreak/contracts';
+import { BADGES, BADGES_BY_ID, RELICS } from '@plotbreak/contracts';
+import { buildCollection, relicsEnabledFor } from './relics.js';
 import { hasWorldText, localizeStory } from '@plotbreak/contracts';
 import { syncBadges, type PlayerRecord } from './badges.js';
 import { rankTopRanked, rankTrending, trendingScore } from './ranking.js';
@@ -1036,6 +1037,23 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       apexTurns,
     };
   };
+
+  /**
+   * The relic vault: every relic, owned or locked, rarest first. 404 while the
+   * feature is off for this player, which is how the client knows to hide it.
+   */
+  app.get('/v1/relics', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    if (!relicsEnabledFor(user.userId)) return sendError(reply, 404, 'NOT_FOUND', 'Relics are not available yet.');
+    const storyIds = [...new Set(RELICS.map((r) => r.storyId))];
+    const titles = new Map<string, string>();
+    for (const storyId of storyIds) {
+      const story = await ctx.repo.getStoryByStoryId(storyId);
+      if (story) titles.set(storyId, story.title);
+    }
+    return buildCollection(await ctx.repo.getRelicRolls(user.userId), titles);
+  });
 
   app.get('/v1/badges', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);
@@ -2551,6 +2569,8 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       // cannot have purchased, so only the new-user grant is in play, and the
       // new account already received its own.
       await ctx.repo.updateUser(auth.user.userId, { migratedFromGuestId: guestUserId });
+      // Before the delete, which would cascade them away.
+      await ctx.repo.moveRelicRolls(guestUserId, auth.user.userId);
       await ctx.repo.deleteUser(guestUserId);
 
       // §6.5 — tell the vendor these two ids are one person, before the event

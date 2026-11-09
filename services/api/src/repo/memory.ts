@@ -23,6 +23,7 @@ import type {
   StorySignals,
   StoryTextRow,
   UserBadgeRow,
+  RelicRollRow,
   DiscordLinkRow,
   DiscordLinkResult,
   StoryRequestRow,
@@ -294,6 +295,24 @@ export class MemoryRepository implements Repository {
 
   async getEditorial(): Promise<StoryEditorial[]> {
     return [...this.#editorial];
+  }
+
+  readonly #relicRolls: RelicRollRow[] = [];
+
+  async getRelicRolls(userId: string): Promise<RelicRollRow[]> {
+    return this.#relicRolls.filter((r) => r.userId === userId).reverse();
+  }
+
+  async recordRelicRoll(row: RelicRollRow): Promise<boolean> {
+    if (this.#relicRolls.some((r) => r.sessionId === row.sessionId && r.momentId === row.momentId)) return false;
+    this.#relicRolls.push(row);
+    return true;
+  }
+
+  async moveRelicRolls(fromUserId: string, toUserId: string): Promise<void> {
+    for (const [i, r] of this.#relicRolls.entries()) {
+      if (r.userId === fromUserId) this.#relicRolls[i] = { ...r, userId: toUserId };
+    }
   }
 
   async getBadges(userId: string): Promise<UserBadgeRow[]> {

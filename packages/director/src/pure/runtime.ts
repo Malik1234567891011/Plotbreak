@@ -1,7 +1,7 @@
 import type { GameState, StoryVersion, TurnRecord, StoryArc } from '@plotbreak/contracts';
 import { commitTurn } from '@plotbreak/engine';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
-import { narratePure, type RenderedTurn } from './narrator.js';
+import { narratePure, type RenderedTurn, type StoryMoment } from './narrator.js';
 
 /**
  * The LLM_PURE turn, shaped so the existing API, database and client can carry
@@ -39,6 +39,12 @@ export interface PureTurnResult {
   readonly suggestions: Array<{ text: string; intentHint: string; resourceCostLabel: null }>;
   /** Quests this beat finished for the first time. Already applied to `state`. */
   readonly completedQuestIds: readonly string[];
+  /**
+   * Relic moments the storyteller says happened in this beat, reduced to ids
+   * this session was offered. Whether one already fired this run is the
+   * caller's question — it owns the record.
+   */
+  readonly momentIds: readonly string[];
   readonly state: GameState;
   readonly telemetry: { promptChars: number; historyTurns: number; ms: number };
   /** What the provider billed and cached for this turn. */
@@ -86,6 +92,8 @@ export async function runTurnPure(options: {
    * true prefix of `blocks` and the caller can send only what is left.
    */
   readonly onBlock?: (block: PureTurnResult['blocks'][number]) => void;
+  /** Relic moments this session records. Absent turns the feature off. */
+  readonly moments?: readonly StoryMoment[];
 }): Promise<PureTurnResult> {
   const started = Date.now();
   const { gateway, story, state, recentTurns, actionText, turnId } = options;
@@ -116,6 +124,7 @@ export async function runTurnPure(options: {
     arcs: options.arcs,
     arcClosing: options.arcClosing,
     notes: options.notes,
+    moments: options.moments,
     ...(options.onBlock
       ? {
           onBlock: (block) => {
@@ -219,6 +228,7 @@ export async function runTurnPure(options: {
       resourceCostLabel: null,
     })),
     completedQuestIds,
+    momentIds: offeredMoments(options.moments ?? [], (turn as { momentIds?: readonly string[] }).momentIds ?? []),
     state: moved,
     telemetry: { promptChars, historyTurns, ms: Date.now() - started },
     invocation,
@@ -298,4 +308,10 @@ function clampCard(text: string): string {
   if (text.length <= CARD_LIMIT) return text;
   const cut = text.slice(0, CARD_LIMIT).lastIndexOf(' ');
   return `${text.slice(0, cut > 0 ? cut : CARD_LIMIT).trim()}…`;
+}
+
+/** The model's reported moments, kept only when this session was offered them, once each. */
+function offeredMoments(offered: readonly StoryMoment[], claimed: readonly string[]): string[] {
+  const ids = new Set(offered.map((m) => m.id));
+  return [...new Set(claimed.map((id) => id.trim()))].filter((id) => ids.has(id));
 }

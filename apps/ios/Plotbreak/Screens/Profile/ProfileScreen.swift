@@ -22,6 +22,8 @@ struct ProfileScreen: View {
     @State private var me: MeResponse?
     @State private var characters: [PlayerCharacterCard] = []
     @State private var badges: [BadgeView] = []
+    /// Nil while relics are off for this player, which hides the vault card.
+    @State private var relics: RelicCollectionResponse?
 
     private var badgeCount: Int { badges.filter { $0.unlockedAt != nil }.count }
     private var badgeTotal: Int { badges.isEmpty ? badgeCatalogueCount : badges.count }
@@ -41,6 +43,11 @@ struct ProfileScreen: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
                         identityCard
+
+                        if let relics {
+                            RelicVaultCard(vault: relics) { router.present(.relics) }
+                                .padding(.top, Theme.Spacing.xxl)
+                        }
 
                         SectionLabel(t("profile.service"))
                             .padding(.top, Theme.Spacing.xxxl)
@@ -187,6 +194,7 @@ struct ProfileScreen: View {
         } catch {
             characters = []
         }
+        relics = try? await store.api.relics()
         if !store.isGuest, let response = try? await store.api.badges() {
             badges = response.badges
         }

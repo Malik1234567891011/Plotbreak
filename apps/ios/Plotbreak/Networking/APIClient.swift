@@ -298,6 +298,11 @@ actor APIClient {
         try await request("GET", "/v1/badges")
     }
 
+    /// The relic vault. Throws (404) while relics are off for this player.
+    func relics() async throws -> RelicCollectionResponse {
+        try await request("GET", "/v1/relics")
+    }
+
     func claimBadge(_ badgeId: String) async throws -> ClaimBadgeResponse {
         try await request("POST", "/v1/badges/\(badgeId)/claim")
     }
