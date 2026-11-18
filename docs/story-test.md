@@ -22,7 +22,7 @@ Every player is put in one of four equal groups, fixed per player, across every 
 
 So each change is on for half of all players and measured against the half without it.
 
-**Fifth group, `all-in` (added 2026-11-18, about 4am EST).** One player in five is taken out of the four
+**Fifth group, `all-in` (live 2026-11-18 03:52 EST = 08:52Z, deploy eddbd62b).** One player in five is taken out of the four
 groups by a separate hash, so nobody else changes group. They get `yes` + `push` + the all-in brief
 (`ALL_IN_BRIEF`):
 - Nobody tells the player no.
