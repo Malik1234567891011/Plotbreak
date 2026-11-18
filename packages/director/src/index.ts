@@ -42,6 +42,14 @@ export {
   pressureEvery,
   PRESSURE_MARKER,
 } from './pure/pressure.js';
+export {
+  CONTROL_ARM,
+  PLAYER_FIRST_BRIEF,
+  PUSH_CADENCE,
+  SOMETHING_HAPPENS_BRIEF,
+  storyTestBrief,
+  type StoryTestArm,
+} from './pure/story-test.js';
 export { OFFSTAGE } from './pure/runtime.js';
 export { compileStory, assemble, COMPILE_TONES, COMPILE_LENGTHS, type CompilePitch, type CompileResult } from './create/compile.js';
 export { assistField, ASSIST_TARGETS, AssistTarget, type AssistResult } from './create/assist.js';

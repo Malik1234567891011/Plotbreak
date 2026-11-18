@@ -3,6 +3,7 @@ import { commitTurn } from '@plotbreak/engine';
 import type { ModelGateway, ModelInvocation } from '../gateway/types.js';
 import { narratePure, type RenderedTurn, type StoryMoment } from './narrator.js';
 import type { ShownReaction } from './reaction.js';
+import type { StoryTestArm } from './story-test.js';
 
 /**
  * The LLM_PURE turn, shaped so the existing API, database and client can carry
@@ -99,6 +100,8 @@ export async function runTurnPure(options: {
   readonly onReaction?: (face: ShownReaction) => void;
   /** Relic moments this session records. Absent turns the feature off. */
   readonly moments?: readonly StoryMoment[];
+  /** The storyteller-test arm. See `story-test.ts`. */
+  readonly storyTest?: StoryTestArm;
 }): Promise<PureTurnResult> {
   const started = Date.now();
   const { gateway, story, state, recentTurns, actionText, turnId } = options;
@@ -130,6 +133,7 @@ export async function runTurnPure(options: {
     arcClosing: options.arcClosing,
     notes: options.notes,
     moments: options.moments,
+    storyTest: options.storyTest,
     ...(options.onReaction ? { onReaction: options.onReaction } : {}),
     ...(options.onBlock
       ? {

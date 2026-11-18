@@ -1,5 +1,6 @@
 import type { GameState, StoryArc, StoryVersion } from '@plotbreak/contracts';
 import { envInt } from './arc.js';
+import { PUSH_CADENCE } from './story-test.js';
 
 /**
  * World pressure — the story pushing back on a long run that has gone quiet.
@@ -32,11 +33,22 @@ export const PRESSURE_MARKER = 'THE WORLD MOVES THIS BEAT.';
 /** Longer than this and a thread is a paragraph, not something to name. */
 const THREAD_LIMIT = 300;
 
-export function pressureNote(thread: string): string {
+/**
+ * `yes` is the storyteller test's player-first half: the push still carries out
+ * the player's action first, but no longer reminds the storyteller to refuse.
+ */
+export function pressureNote(thread: string, options: { readonly yes?: boolean } = {}): string {
   return [
     '',
-    `${PRESSURE_MARKER} First resolve the player's action exactly as this world would — what cannot`,
-    'happen here still does not, and a refusal is still a refusal — and keep their scene. Then let this',
+    ...(options.yes
+      ? [
+          `${PRESSURE_MARKER} First carry out the player's action, saying yes to what they invented, and`,
+          'keep their scene. Then let this',
+        ]
+      : [
+          `${PRESSURE_MARKER} First resolve the player's action exactly as this world would — what cannot`,
+          'happen here still does not, and a refusal is still a refusal — and keep their scene. Then let this',
+        ]),
     'unresolved thread reach the player from outside their plans — somebody tied to it arrives, word of',
     'it comes, something connected to it turns up, a cost from it comes due:',
     `"${thread}"`,
@@ -102,15 +114,18 @@ export function shouldPush(opts: {
   /** An arc that is winding down is asked to land; a push would fight it. */
   readonly arcClosing: boolean;
   readonly threadCount: number;
+  /** Overrides the env cadence: the storyteller test's `push` half. */
+  readonly cadence?: { readonly first: number; readonly every: number };
 }): boolean {
-  const every = pressureEvery();
-  if (every === 0 || opts.arcClosing || opts.threadCount === 0) return false;
+  const every = opts.cadence?.every ?? pressureEvery();
+  const first = opts.cadence?.first ?? pressureFirst();
+  if (pressureEvery() === 0 || every === 0 || opts.arcClosing || opts.threadCount === 0) return false;
   const inArc = opts.priorUsers.length;
   const last = lastPushAt(opts.priorUsers);
   if (last >= 0) return inArc - last >= every;
   // Nothing pushed yet in this arc.
   if (opts.arcsClosed > 0) return inArc >= pressureAfterBreak();
-  return opts.sessionTurn >= pressureFirst() && inArc >= pressureFirst();
+  return opts.sessionTurn >= first && inArc >= first;
 }
 
 /**
@@ -210,6 +225,8 @@ export function pressureFor(opts: {
   /** The current arc's beats as sent, oldest first; how neglect is measured. */
   readonly priorAssistants?: readonly string[];
   readonly arcClosing: boolean;
+  /** The storyteller-test arm. `push` brings the cadence forward; `yes` softens the note. */
+  readonly storyTest?: { readonly yes: boolean; readonly push: boolean };
 }): string | null {
   const threads = openThreads(opts.story, opts.state, opts.arcs).filter((t) => !isSensitiveThread(t));
   const push = shouldPush({
@@ -218,8 +235,9 @@ export function pressureFor(opts: {
     sessionTurn: opts.state.turnIndex + 1,
     arcClosing: opts.arcClosing,
     threadCount: threads.length,
+    ...(opts.storyTest?.push ? { cadence: PUSH_CADENCE } : {}),
   });
   if (!push) return null;
   const thread = chooseThread(threads, opts.priorUsers, opts.priorAssistants ?? []);
-  return thread ? pressureNote(thread) : null;
+  return thread ? pressureNote(thread, { yes: opts.storyTest?.yes }) : null;
 }

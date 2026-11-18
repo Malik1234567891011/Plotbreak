@@ -21,6 +21,7 @@ import type { SessionRecord, UserRecord } from './repo/types.js';
 import { InsufficientCreditsError, type Reservation } from './wallet.js';
 import type { TurnStreamHub } from './stream.js';
 import { relicsEnabledFor, rollRelics, storyMoments } from './relics.js';
+import { storyTestArmFor } from './story-test.js';
 
 /**
  * Spec §17.1 — the turn entrypoint: steps 1–3 and 12–17 around the pipeline.
@@ -287,7 +288,11 @@ async function processTurn(
       // back into it, on a fixed cadence and never while an arc is landing.
       // Code picks when and which; the storyteller picks how. See
       // `docs/deep-run-pink-tide.md` for why the model is not asked to judge.
+      // The storyteller test: fixed per player, so every session of theirs
+      // gets the same storyteller. `PLOTBREAK_STORY_TEST=off` reverts it.
+      const storyTest = storyTestArmFor(user.userId);
       const pressure = pressureFor({
+        storyTest,
         story,
         state,
         arcs,
@@ -321,6 +326,7 @@ async function processTurn(
         notes: pressure ? [pressure] : [],
         // Relics are gated per player; everyone else's prompt is unchanged.
         moments: relicsEnabledFor(user.userId) ? storyMoments(story.storyId) : undefined,
+        storyTest,
         reasoningEffort: profile.reasoningEffort,
         wordTarget: webnovel ? WEBNOVEL_WORDS[qualityTier] : profile.words,
         maxTokens: profile.maxOutputTokens,

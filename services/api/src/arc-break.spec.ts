@@ -259,6 +259,8 @@ describe('world pressure, through the real turn path', () => {
     process.env.PLOTBREAK_PRESSURE_EVERY = '4';
     process.env.PLOTBREAK_PRESSURE_AFTER_BREAK = '2';
     process.env.PLOTBREAK_ARC_KEEP_TURNS = '2';
+    // These pin the default cadence, so no player here is in the test's push half.
+    process.env.PLOTBREAK_STORY_TEST = 'off';
     scene = 'live';
     const repo = new MemoryRepository();
     gateway = stubGateway(() => scene);
@@ -282,7 +284,7 @@ describe('world pressure, through the real turn path', () => {
   afterEach(async () => {
     await app.close();
     for (const k of ['PLOTBREAK_PRESSURE_FIRST', 'PLOTBREAK_PRESSURE_EVERY', 'PLOTBREAK_PRESSURE_AFTER_BREAK',
-      'PLOTBREAK_ARC_SOFT_LIMIT', 'PLOTBREAK_ARC_HARD_LIMIT', 'PLOTBREAK_ARC_KEEP_TURNS']) delete process.env[k];
+      'PLOTBREAK_ARC_SOFT_LIMIT', 'PLOTBREAK_ARC_HARD_LIMIT', 'PLOTBREAK_ARC_KEEP_TURNS', 'PLOTBREAK_STORY_TEST']) delete process.env[k];
   });
 
   async function play(sessionId: string, revision: number, text: string) {

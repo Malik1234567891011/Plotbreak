@@ -9,6 +9,7 @@ import { NarrativeStreamParser, type StreamedBlock } from './stream-parse.js';
 import { RESPONSE_POLICY_FR, SAFETY_POLICY_FR, WRITER_POLICY_FR } from '../policies-fr.js';
 import { ARC_CLOSING_NOTE, arcPrefix } from './arc.js';
 import { FACES_WEBNOVEL, PROSE_WEBNOVEL, PROSE_WEBNOVEL_FR } from './webnovel.js';
+import { storyTestBrief, type StoryTestArm } from './story-test.js';
 
 /**
  * LLM_PURE — the experiment.
@@ -798,6 +799,8 @@ export async function narratePure(options: {
   readonly notes?: readonly string[];
   /** Relic moments this session can record. Absent means the feature is off. */
   readonly moments?: readonly StoryMoment[];
+  /** The storyteller-test arm for this player. Absent or control leaves the prompt unchanged. */
+  readonly storyTest?: StoryTestArm;
 }): Promise<PureResult> {
   const { gateway, story, state, recentTurns, actionText } = options;
   const cast = new Map(story.characters.map((c) => [c.id, c.name]));
@@ -904,10 +907,14 @@ export async function narratePure(options: {
         ].join('\n')
       : '';
 
+  // Last in the first system message, so "comes after everything above" is
+  // true, and fixed per player, so the cached prefix is stable across turns.
+  const testBrief = storyTestBrief(options.storyTest);
+
   const messages =
     shape === 'append'
       ? [
-          { role: 'system' as const, content: `${CONSTITUTION}\n\n${HOW}${language}` },
+          { role: 'system' as const, content: `${CONSTITUTION}\n\n${HOW}${language}${testBrief}` },
           { role: 'system' as const, content: world },
           ...(options.moments?.length ? [{ role: 'system' as const, content: momentsBrief(options.moments) }] : []),
           // Context, not something anybody said, so it rides with the
@@ -920,7 +927,7 @@ export async function narratePure(options: {
           { role: 'user' as const, content: userTurn },
         ]
       : [
-          { role: 'system' as const, content: `${CONSTITUTION}${language}` },
+          { role: 'system' as const, content: `${CONSTITUTION}${language}${testBrief}` },
           { role: 'system' as const, content: world },
           ...(options.moments?.length ? [{ role: 'system' as const, content: momentsBrief(options.moments) }] : []),
           {
