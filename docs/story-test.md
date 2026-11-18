@@ -1,4 +1,4 @@
-# The storyteller test (from 2026-11-17)
+# The storyteller test (live 2026-11-17 22:27 EST = 2026-11-18 03:27Z)
 
 Players who get into a story on day one are not coming back. Rewritten stories got 44% of new players to
 10+ turns (classic 29%), but only 6% came back on a later day (classic 14%), and 0 of the 19 players from
