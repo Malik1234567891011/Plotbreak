@@ -43,6 +43,10 @@ export {
   PRESSURE_MARKER,
 } from './pure/pressure.js';
 export {
+  ALL_IN_BRIEF,
+  ALL_IN_ROMANCE,
+  ALL_IN_ROMANCE_STORIES,
+  allInRomanceAllowed,
   CONTROL_ARM,
   PLAYER_FIRST_BRIEF,
   PUSH_CADENCE,

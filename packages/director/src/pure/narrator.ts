@@ -909,7 +909,7 @@ export async function narratePure(options: {
 
   // Last in the first system message, so "comes after everything above" is
   // true, and fixed per player, so the cached prefix is stable across turns.
-  const testBrief = storyTestBrief(options.storyTest);
+  const testBrief = storyTestBrief(options.storyTest, options.story);
 
   const messages =
     shape === 'append'

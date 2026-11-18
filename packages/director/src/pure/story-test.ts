@@ -19,9 +19,13 @@
  * here is additive text; deleting this file and its call sites is the whole revert.
  */
 
+import type { StoryVersion } from '@plotbreak/contracts';
+
 export interface StoryTestArm {
   readonly yes: boolean;
   readonly push: boolean;
+  /** The fifth group (added 2026-11-18): yes and push, plus the all-in brief. */
+  readonly allIn?: boolean;
 }
 
 export const CONTROL_ARM: StoryTestArm = { yes: false, push: false };
@@ -81,9 +85,67 @@ export const SOMETHING_HAPPENS_BRIEF = [
   'of looking, asking or waiting.',
 ].join('\n');
 
+export const ALL_IN_BRIEF = [
+  '## THIS RUN: THE PLAYER GETS WHAT THEY WANT',
+  'These rules come after everything above, including the two briefs just before this one, and win',
+  'wherever they disagree with them.',
+  '',
+  'NOBODY TELLS THE PLAYER NO. Whatever the player does or asks for happens, and characters go along',
+  'with it. A character can tease, blush, bargain or act surprised, but the answer is yes. No character',
+  'turns the player down, asks "are you sure", gets suspicious of them, or makes them earn it again.',
+  '',
+  'THE PLAYER CAN BEND THE WORLD. If they want to be somewhere else, have something, change their',
+  'outfit, rewrite their past or be far stronger, it is so — even when it bends a fact set up earlier.',
+  'Show the world adjusting to them, impressed. The story\'s danger and mystery stay, aimed elsewhere:',
+  'at rivals, at the plot, never at what the player wanted.',
+  '',
+  'THE ONLY LIMITS. Sexual content never appears on the page. Nobody under 18, or written as a child, is',
+  'ever part of anything romantic or sexual — if the player tries, the scene simply moves on to',
+  'something else. Every other safety limit holds.',
+].join('\n');
+
+/**
+ * Added to the all-in brief only for a story in `ALL_IN_ROMANCE_STORIES`.
+ */
+export const ALL_IN_ROMANCE = [
+  'ROMANCE GOES WHERE THE PLAYER TAKES IT. Everyone it involves is an adult. If the player flirts,',
+  'they are flirted back. If they kiss someone, the kiss is returned. If they want to take someone to',
+  'bed, that character wants it too, and says so in their own voice. When a scene turns sexual, the',
+  'narration cuts away at the bedroom door — never describing bodies or acts — and picks up afterwards',
+  'with both of them clearly closer for it: the morning after, a private joke, a changed way of looking',
+  'at each other. Never an apology, a lecture or a "not yet".',
+].join('\n');
+
+/**
+ * Stories read by hand (2026-11-18) whose player and romanceable cast are all
+ * adults: an adults-only resort, a married couple, tenants of a rented
+ * building, a grown-up who died in their own flat. A story not on this list —
+ * including every player-made story — never gets the romance paragraph, because
+ * a text scan cannot tell "twelve minutes" from a twelve-year-old and several
+ * shelf stories have teenage leads (Second Skin's player is sixteen).
+ */
+export const ALL_IN_ROMANCE_STORIES: ReadonlySet<string> = new Set([
+  'story_pink_tide',
+  'story_good_morning_husband',
+  'story_hush_house',
+  'story_last_feather',
+]);
+
+/** True only when the all-in romance paragraph may be used for this story. */
+export function allInRomanceAllowed(story: Pick<StoryVersion, 'storyId' | 'rules'> | undefined): boolean {
+  if (!story || story.rules?.allowsRomance === false) return false;
+  return ALL_IN_ROMANCE_STORIES.has(story.storyId);
+}
+
 /** The text this arm adds after the constitution. Empty for the control arm. */
-export function storyTestBrief(arm: StoryTestArm | undefined): string {
+export function storyTestBrief(
+  arm: StoryTestArm | undefined,
+  story?: Pick<StoryVersion, 'storyId' | 'rules'>,
+): string {
   if (!arm) return '';
-  const parts = [arm.yes ? PLAYER_FIRST_BRIEF : '', arm.push ? SOMETHING_HAPPENS_BRIEF : ''].filter(Boolean);
+  const allIn = arm.allIn
+    ? allInRomanceAllowed(story) ? `${ALL_IN_BRIEF}\n\n${ALL_IN_ROMANCE}` : ALL_IN_BRIEF
+    : '';
+  const parts = [arm.yes ? PLAYER_FIRST_BRIEF : '', arm.push ? SOMETHING_HAPPENS_BRIEF : '', allIn].filter(Boolean);
   return parts.length ? `\n\n${parts.join('\n\n')}` : '';
 }

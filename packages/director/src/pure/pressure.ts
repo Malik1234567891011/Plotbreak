@@ -226,7 +226,7 @@ export function pressureFor(opts: {
   readonly priorAssistants?: readonly string[];
   readonly arcClosing: boolean;
   /** The storyteller-test arm. `push` brings the cadence forward; `yes` softens the note. */
-  readonly storyTest?: { readonly yes: boolean; readonly push: boolean };
+  readonly storyTest?: { readonly yes: boolean; readonly push: boolean; readonly allIn?: boolean };
 }): string | null {
   const threads = openThreads(opts.story, opts.state, opts.arcs).filter((t) => !isSensitiveThread(t));
   const push = shouldPush({

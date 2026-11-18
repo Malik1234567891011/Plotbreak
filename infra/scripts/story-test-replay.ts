@@ -38,6 +38,7 @@ const ARMS: Record<string, StoryTestArm> = {
   yes: { yes: true, push: false },
   push: { yes: false, push: true },
   'yes+push': { yes: true, push: true },
+  'all-in': { yes: true, push: true, allIn: true },
 };
 
 async function main(): Promise<void> {

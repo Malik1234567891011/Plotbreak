@@ -6,6 +6,8 @@ import type { ModelGateway } from '../gateway/types.js';
 import { narratePure } from './narrator.js';
 import { PRESSURE_MARKER, pressureFor, pressureNote, shouldPush } from './pressure.js';
 import {
+  ALL_IN_BRIEF,
+  ALL_IN_ROMANCE,
   CONTROL_ARM,
   PLAYER_FIRST_BRIEF,
   PUSH_CADENCE,
@@ -68,7 +70,8 @@ describe('storyteller test', () => {
     for (const [arm, has, hasNot] of [
       [{ yes: true, push: false }, [PLAYER_FIRST_BRIEF], [SOMETHING_HAPPENS_BRIEF]],
       [{ yes: false, push: true }, [SOMETHING_HAPPENS_BRIEF], [PLAYER_FIRST_BRIEF]],
-      [{ yes: true, push: true }, [PLAYER_FIRST_BRIEF, SOMETHING_HAPPENS_BRIEF], []],
+      [{ yes: true, push: true }, [PLAYER_FIRST_BRIEF, SOMETHING_HAPPENS_BRIEF], [ALL_IN_BRIEF]],
+      [{ yes: true, push: true, allIn: true }, [PLAYER_FIRST_BRIEF, SOMETHING_HAPPENS_BRIEF, ALL_IN_BRIEF], []],
     ] as const) {
       const r = recording();
       await narrate(r.gateway, arm);
@@ -108,5 +111,16 @@ describe('storyteller test', () => {
     expect(both).not.toContain('refusal');
     // The default note is the note it always was.
     expect(pressureNote('t')).toBe(pressureNote('t', { yes: false }));
+  });
+
+  it('gives the all-in romance paragraph only to hand-checked adult stories', () => {
+    const allIn = { yes: true, push: true, allIn: true };
+    const adult = { ...ACE, storyId: 'story_good_morning_husband', rules: { ...ACE.rules, allowsRomance: true } };
+    expect(storyTestBrief(allIn, adult)).toContain(ALL_IN_ROMANCE);
+    expect(storyTestBrief(allIn, { ...adult, storyId: 'story_second_skin' })).not.toContain(ALL_IN_ROMANCE);
+    expect(storyTestBrief(allIn, { ...adult, rules: { ...adult.rules, allowsRomance: false } })).not.toContain(ALL_IN_ROMANCE);
+    expect(storyTestBrief(allIn)).toContain(ALL_IN_BRIEF);
+    expect(storyTestBrief(allIn)).not.toContain(ALL_IN_ROMANCE);
+    expect(storyTestBrief({ yes: true, push: true }, adult)).not.toContain(ALL_IN_BRIEF);
   });
 });

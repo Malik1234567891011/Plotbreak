@@ -22,6 +22,23 @@ Every player is put in one of four equal groups, fixed per player, across every 
 
 So each change is on for half of all players and measured against the half without it.
 
+**Fifth group, `all-in` (added 2026-11-18, about 4am EST).** One player in five is taken out of the four
+groups by a separate hash, so nobody else changes group. They get `yes` + `push` + the all-in brief
+(`ALL_IN_BRIEF`):
+- Nobody tells the player no.
+- The player can bend the world, even facts set up earlier.
+- In four hand-checked all-adult stories (`ALL_IN_ROMANCE_STORIES`: Pink Tide, Good Morning Husband,
+  Hush House, Last Feather), romance goes where the player takes it, including to bed. The scene cuts
+  away at the door and picks up after; nothing is described.
+- Every other story, including all player-made ones, gets all-in without the romance paragraph. Several
+  shelf stories have teenage leads (Second Skin's player is 16), and a text scan can't tell "twelve
+  minutes" from a twelve-year-old.
+- Sex stays off the page in every story. That is an App Store rule for an app with no age verification,
+  not a storyteller choice.
+
+All-in is read against everyone else. The four groups are read with all-in players left out, so the
+yes/push comparison stays clean.
+
 - **`yes`** (text in `packages/director/src/pure/story-test.ts`):
   - Say "yes, and" to harmless inventions.
   - Let power fantasies land, and never correct the player's wording or physics on the page.
@@ -43,7 +60,7 @@ first turn on deploy.
 Set `PLOTBREAK_STORY_TEST` on Railway. No deploy is needed beyond the env change and restart.
 
 - `off`: everybody gets the old storyteller. This is the revert.
-- `yes`, `push`, `yes+push` or `control`: everybody gets that group.
+- `yes`, `push`, `yes+push`, `all-in` or `control`: everybody gets that group.
 - Unset or `on`: the four-way test.
 
 ## Replays before shipping
@@ -80,11 +97,12 @@ with t as (
 ), f as (select user_id, min(d) fd from t group by 1 having min(created_at) >= :'deployed_at'),
 p as (
   select f.user_id, f.fd,
-    (('x' || substr(encode(sha256(convert_to('storytest:' || f.user_id, 'UTF8')), 'hex'), 1, 8))::bit(32)::bigint % 4) b,
+    case when (('x' || substr(encode(sha256(convert_to('storytest-allin:' || f.user_id, 'UTF8')), 'hex'), 1, 8))::bit(32)::bigint % 5) = 0
+      then 4 else (('x' || substr(encode(sha256(convert_to('storytest:' || f.user_id, 'UTF8')), 'hex'), 1, 8))::bit(32)::bigint % 4) end b,
     (select count(*) from t where t.user_id = f.user_id and t.d = f.fd) d1,
     exists (select 1 from t where t.user_id = f.user_id and t.d > f.fd) back
   from f)
-select case when b in (1,3) then 'yes' else 'no yes' end yes_half,
+select case when b = 4 then 'ALL-IN' when b in (1,3) then 'yes' else 'no yes' end yes_half,
        case when b in (2,3) then 'push' else 'no push' end push_half,
        count(*) n, percentile_cont(.5) within group (order by d1) median_d1,
        count(*) filter (where d1 >= 10) ten_plus, count(*) filter (where d1 <= 4) quit_by_4,
@@ -93,7 +111,7 @@ select case when b in (1,3) then 'yes' else 'no yes' end yes_half,
 from p group by rollup (1, 2) order by 1, 2;
 ```
 
-Buckets: 0 control, 1 yes, 2 push, 3 yes+push.
+Buckets: 0 control, 1 yes, 2 push, 3 yes+push, 4 all-in. For all-in, count only players whose first turn is after the all-in deploy.
 
 - **Main number:** came back on a later day, `yes` half versus the rest, and `push` half versus the rest.
 - **Timing:** at about 20 new players a day, each half gets about 70 players a week. A jump from 10% to 20% returning should show in about two weeks. Small effects won't.
