@@ -23,7 +23,7 @@ import pg from 'pg';
 import { renderDashboard } from './template';
 
 const EXCLUDED = ['8ee88ed7-7ca0-4c33-8c90-56cc9fbf9d23', '78c723e1-3a8c-4500-8e90-50ba82b00424'];
-const START = process.argv.find((a) => a.startsWith('--from='))?.split('=')[1] ?? '2026-09-21'; // a Monday
+const START = process.argv.find((a) => a.startsWith('--from='))?.split('=')[1] ?? '2026-09-14'; // launch week (a Monday); earlier turns were testing
 const FX: Record<string, number> = { USD: 1, EUR: 1.08, GBP: 1.27, CAD: 0.72, AUD: 0.65 };
 const PASS_USD = 2.99;
 
