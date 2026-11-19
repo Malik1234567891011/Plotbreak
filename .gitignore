@@ -52,3 +52,6 @@ docs/ads/**/sfx/
 # repository is public; neither belongs in it. Kept on disk, out of git.
 docs/deep-run-uncounted.md
 docs/fundraising/
+
+# Local stats dashboard output (prod numbers)
+infra/dashboard/out/
