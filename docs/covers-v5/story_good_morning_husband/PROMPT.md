@@ -1,0 +1,11 @@
+# story_good_morning_husband cover v5 (gpt-image-2.6-sunburst, 1024x1536, high)
+
+Anime light-novel / mobile-game cover illustration, portrait 2:3, premium polished Japanese anime key visual quality (like a modern seasonal anime poster or a Webtoon original cover). Glossy, detailed digital anime painting with clean lineart, luminous eyes, soft rim light, rich color depth. Not flat, not sketchy, not western cartoon, not 3D.
+
+THE TITLE IS PART OF THE ART. Render the words "GOOD MORNING, HUSBAND" as a bespoke stylized logo: soft rounded handwritten romance script in warm white with a peach-pink glow and a tiny heart dotting the comma, placed in the lower third, large and perfectly legible, spelled exactly "GOOD MORNING, HUSBAND". No other text anywhere.
+
+SCENE: a small bright modern apartment kitchen on a sunny Saturday morning. Sun pouring across the counter, a pan of pancakes on the hob, two mismatched mugs, plants on the windowsill, a paper list on the fridge. Cream, amber and peach.
+
+CHARACTER, large in frame, from mid-thigh up, filling about three quarters of the cover, centred and close: HANA MORI, an extremely attractive adult woman of twenty-six, the viewer's wife of four years. Long glossy chestnut hair piled up messily and held with a drawing pencil, a few loose strands across her face, warm hazel eyes, a gold wedding band on her left hand. She wears her husband's oversized white button-up shirt as a sleep shirt, sleeves rolled, top buttons open at the collar, slipping off one shoulder, over soft grey lounge shorts, bare legs, barefoot. One hip against the counter, spatula in one hand, she looks straight at the viewer over a cup of coffee with a teasing, affectionate, slightly sleepy smile, as if she has just caught him staring and likes it.
+
+MOOD: warm, flirty, cosy newlywed morning, sunlight glowing through her hair and the shirt's edges, a hint of a secret in her eyes. Every person in the image is an adult. She is drawn attractive and stylish in a commercial anime way, tasteful, nothing explicit, nothing see-through. Composed so her face still reads at thumbnail size, strong silhouette separation, high contrast. No watermark, no signature, no extra text, no logos, no speech bubbles, no borders.

@@ -5341,13 +5341,13 @@
     "file": "story_good_morning_husband/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Good Morning, Husband: Four years married. You just met her.",
-    "width": 1640,
-    "height": 2456,
+    "width": 1024,
+    "height": 1536,
     "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
       "provider": "dare",
       "model": "seedream-5-pro",
-      "createdAt": "2026-09-13T07:10:49.382Z"
+      "createdAt": "2026-11-20T21:22:18.036Z"
     }
   },
   "story_good_morning_husband/cover.fr": {
@@ -5355,13 +5355,13 @@
     "file": "story_good_morning_husband/cover.fr.png",
     "kind": "COVER",
     "alt": "Cover art for Good Morning, Husband: Four years married. You just met her.",
-    "width": 1696,
-    "height": 2528,
+    "width": 1024,
+    "height": 1536,
     "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
       "provider": "dare",
       "model": "nano-banana-2",
-      "createdAt": "2026-09-13T07:10:49.512Z"
+      "createdAt": "2026-11-20T21:22:18.151Z"
     }
   },
   "story_good_morning_husband/emi": {
@@ -6623,13 +6623,13 @@
     "file": "story_hush_house/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Hush House: Do not open the door at 2:13 a.m.",
-    "width": 1640,
-    "height": 2456,
+    "width": 1024,
+    "height": 1536,
     "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
       "provider": "dare",
       "model": "seedream-5-pro",
-      "createdAt": "2026-09-13T07:10:48.377Z"
+      "createdAt": "2026-11-20T21:22:18.581Z"
     }
   },
   "story_hush_house/cover.fr": {
@@ -6637,13 +6637,13 @@
     "file": "story_hush_house/cover.fr.png",
     "kind": "COVER",
     "alt": "Cover art for Hush House: Do not open the door at 2:13 a.m.",
-    "width": 1696,
-    "height": 2528,
+    "width": 1024,
+    "height": 1536,
     "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
       "provider": "dare",
       "model": "nano-banana-2",
-      "createdAt": "2026-09-13T07:10:48.495Z"
+      "createdAt": "2026-11-20T21:22:18.698Z"
     }
   },
   "story_hush_house/key": {
@@ -27864,7 +27864,7 @@
     "provenance": {
       "provider": "dare",
       "model": "seedream-5-pro",
-      "createdAt": "2026-10-31T02:24:19.492Z"
+      "createdAt": "2026-11-20T21:22:19.113Z"
     }
   },
   "story_last_feather/cover.fr": {
@@ -27878,7 +27878,7 @@
     "provenance": {
       "provider": "dare",
       "model": "nano-banana-2",
-      "createdAt": "2026-10-31T02:24:19.811Z"
+      "createdAt": "2026-11-20T21:22:19.224Z"
     }
   },
   "story_last_feather/stage_bedroom": {
