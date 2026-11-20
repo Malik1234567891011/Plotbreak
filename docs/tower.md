@@ -1,6 +1,6 @@
 # The Tower: a daily mini game that pays credits
 
-Status: design (2026-11-20). Prototype in `apps/tower`, shared sim in `packages/tower`.
+Status: built (2026-11-20), not shipped. The page is `apps/tower`, the shared sim `packages/tower`, the server `services/api/src/tower.ts`, and the app `apps/ios/Plotbreak/Screens/Tower`. See "Changes since the first design" at the bottom.
 
 ## Why
 
@@ -161,3 +161,42 @@ Everything is in `tower_runs`, one row per run:
 - The input log.
 
 PostHog gets `tower_card_seen`, `tower_opened`, `tower_started`, `tower_floor_cleared`, `tower_fell`, `tower_closed` and `tower_reward_seen`, so the funnel from card to start to finish is visible.
+
+## Changes since the first design (2026-11-20, after two blind reviews)
+
+These override anything above that disagrees with them.
+
+- **Daily tower:** each UTC day has its own tower (`dailyTower(day)` in `packages/tower/src/content.ts`).
+  - The non-boss enemies are shuffled within each arc. Floor 1 and the bosses never move.
+  - There is one twist a day: A Quiet Day, Kunai Festival, Blood Moon, Trickster Day, Training Day (wider windows up to floor 20), Lucky Day (more epic power-ups), or Glass Cannon (2 hearts, parries hit 50% harder).
+  - The attack patterns still come from a secret per-run seed. Nobody can work out a run in advance.
+- **Streak:** +5% on the daily payout per day in a row, up to day 20 (+100%). Missing a UTC day restarts it at 1. An abandoned run still counts as playing.
+- **Practice:** unlimited, from floor 1, on today's tower. Pays ◆1 per floor cleared, up to ◆10 a day. It's verified by replay like the daily climb, and never counts towards best floor or the streak.
+- **Characters:** Kaito is free. Hikari, Kage, Mai, Unit Zero, Tetsu, Lilith and Ren are ◆500 each.
+  - They're cosmetic only, with their own look and finisher cry, so credits never buy payout power.
+  - They're stored in `tower_characters` and `tower_profiles`. Purchases are `TOWER_UNLOCK` ledger rows.
+- **DODGE:**
+  - Always right against red 危.
+  - From floor 11, dodging a white strike grazes you for half a heart.
+  - Dodging into a feint locks you out, the same as tapping it.
+- **THE AUTHOR (floor 30):** offers three of your power-ups and you choose which to lose. Then you're cut to three hearts. Its phases speed up harder. Experts clear about 20% of runs.
+- **Kiai:** a full meter makes the next parry a heavy blow (+20 guard damage). It no longer breaks the guard instantly.
+- **Power-ups:** offered after floors 2, 5, 7, 10, 12, 15, 17, 20, 22, 25 and 27.
+  - Power of Friendship blocks the first hit on each boss floor.
+  - Truck-kun half-breaks the next two non-boss enemies.
+  - Chuunibyou: counters hit twice as hard, but a whiff costs half a heart. It's never offered before floor 10.
+- **Script check:** a run whose late-floor timing is too consistent is paid the minimum and flagged `suspicious`. The check is the median spread of parry offsets from floor 16: a person on a phone is at or above 1 tick, a perfect script about 0.
+- **Notification:** after today's climb, one local notification is scheduled for when the next opens. It mentions the streak. It's only scheduled if the player already allows notifications.
+
+The routes are now `GET /v1/tower`, plus these POSTs:
+- `/v1/tower/start`
+- `/v1/tower/practice`
+- `/v1/tower/checkpoint`
+- `/v1/tower/finish`
+- `/v1/tower/characters/:id/buy`
+- `/v1/tower/characters/:id/select`
+
+Commands:
+- `npm run tower:dev`: the page on a desktop.
+- `npm run tower:build`: builds `Resources/tower/tower.html` for the app.
+- `npm run tower:tune -- 200 daily`: difficulty by simulated skill.
