@@ -200,3 +200,24 @@ Commands:
 - `npm run tower:dev`: the page on a desktop.
 - `npm run tower:build`: builds `Resources/tower/tower.html` for the app.
 - `npm run tower:tune -- 200 daily`: difficulty by simulated skill.
+
+### Round 3 changes (owner decisions, 2026-11-20)
+
+- **Local midnight:** each player's day ends at their own midnight.
+  - The app sends `x-timezone` (an IANA zone) on every request, and `tower_profiles.tz` stores it.
+  - The zone may change at most once every 7 days, so it can't be hopped to farm an extra climb.
+  - Players with no zone yet use UTC.
+- **Streak revive:** a streak that died can be bought back before that day's climb.
+  - It costs ◆5 on the first dead day, ◆20 on the second, ◆50 on the third, and is gone after that.
+  - It bridges the missed days (`tower_streak_bridges`), which keep the chain alive without adding to it.
+  - The ledger type is `TOWER_REVIVE`.
+- **Practice:** starts on any floor from 1 to the best floor reached (`tower_runs.start_floor`). It pays ◆1 per floor cleared from there, up to ◆10 a day.
+- **Floors 2–10:** a hit costs half a heart. Newcomers (the first-timer bot) now fall there about 1% of the time. A masher usually reaches floors 11–15.
+- **Lessons:** each attack type is taught once, ever, by a card that pauses the fight. The sim simply stops stepping, so replays are unaffected. This replaces the banners.
+  - The lessons are tap, kunai, red/dodge, feint, holding, counter stance, opening, graze, Kiai and plot twist.
+  - The record of what's been taught is stored in localStorage `tower-taught-v1`.
+- **THE AUTHOR:**
+  - Its own sprite: floating, wings of manuscript pages, a text halo, a dripping quill.
+  - A letterboxed film-style intro.
+  - In the final phase the stage goes to ink with 改稿 ("rewrite") behind the fight.
+- **Remind me:** the results screen asks for notification permission at the moment it's obviously useful, then schedules the reset reminder.
