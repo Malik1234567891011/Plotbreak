@@ -323,6 +323,11 @@ export class TowerSim {
     return a;
   }
 
+  /** Ticks before and after impact that a tap (or dodge) still counts. The renderer reads it to colour the timing ring. */
+  get window(): { early: number; late: number } {
+    return { early: this.#early(), late: this.#late() };
+  }
+
   #early(): number {
     return this.has('training_arc') ? Math.max(this.spec.early + 1, Math.ceil((this.spec.early * 125) / 100)) : this.spec.early;
   }
