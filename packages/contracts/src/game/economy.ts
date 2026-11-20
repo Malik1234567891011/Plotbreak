@@ -153,6 +153,8 @@ export const LedgerEntryType = z.enum([
   'FORK_FEE',
   'CREATE_FEE',
   'SUBSCRIPTION_GRANT',
+  'TOWER_ENTRY',
+  'TOWER_REWARD',
 ]);
 export type LedgerEntryType = z.infer<typeof LedgerEntryType>;
 

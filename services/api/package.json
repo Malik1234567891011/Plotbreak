@@ -18,6 +18,7 @@
     "@plotbreak/engine": "*",
     "@plotbreak/i18n": "*",
     "@plotbreak/test-fixtures": "*",
+    "@plotbreak/tower": "*",
     "@plotbreak/worker": "*",
     "@types/pg": "^8.23.1",
     "discord.js": "^14.27.0",

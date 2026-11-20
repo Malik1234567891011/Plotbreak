@@ -258,6 +258,34 @@ export interface RelicRollRow {
   readonly rolledAt: string;
 }
 
+/** One climb of the Tower (docs/tower.md). */
+export interface TowerRunRow {
+  readonly runId: string;
+  readonly userId: string;
+  /** UTC day, YYYY-MM-DD. */
+  readonly day: string;
+  readonly seed: number;
+  readonly fee: number;
+  readonly free: boolean;
+  readonly startedAt: string;
+  readonly lastSeenAt: string | null;
+  readonly finishedAt: string | null;
+  readonly lastFloor: number;
+  readonly fellOn: number | null;
+  readonly cleared: boolean | null;
+  readonly reward: number | null;
+  readonly abandoned: boolean;
+  readonly suspicious: boolean;
+  readonly ticks: number | null;
+  readonly realMs: number | null;
+  readonly appVersion: string | null;
+  readonly boons: string[] | null;
+  readonly floors: unknown;
+  readonly inputs: unknown;
+}
+
+export type TowerRunFinish = Pick<TowerRunRow, 'finishedAt' | 'fellOn' | 'cleared' | 'reward' | 'abandoned' | 'suspicious' | 'ticks' | 'realMs' | 'boons' | 'floors' | 'inputs' | 'lastFloor'>;
+
 export interface UserBadgeRow {
   readonly userId: string;
   readonly badgeId: string;
@@ -496,6 +524,20 @@ export interface Repository {
   recordRelicRoll(row: RelicRollRow): Promise<boolean>;
   /** A guest's finds follow them into the account they sign up with. */
   moveRelicRolls(fromUserId: string, toUserId: string): Promise<void>;
+
+  // --- The Tower (docs/tower.md) ---------------------------------------
+
+  getTowerRun(userId: string, day: string): Promise<TowerRunRow | null>;
+  getTowerRunById(runId: string): Promise<TowerRunRow | null>;
+  /** False when the player already has a run that day (the one-a-day rule). */
+  insertTowerRun(row: TowerRunRow): Promise<boolean>;
+  checkpointTowerRun(runId: string, inputs: unknown, lastFloor: number, at: string): Promise<void>;
+  /** Settles a run once. False when it was already finished. */
+  finishTowerRun(runId: string, fields: TowerRunFinish): Promise<boolean>;
+  /** Started before `beforeDay` and never finished. */
+  listUnfinishedTowerRuns(userId: string, beforeDay: string): Promise<TowerRunRow[]>;
+  /** Highest floor reached (31 = cleared), 0 if never played. */
+  bestTowerFloor(userId: string): Promise<number>;
 
   // --- Plotbreak Pass (docs/plotbreak-pass.md) -------------------------
 

@@ -11,14 +11,15 @@ Status: design (2026-11-20). Prototype in `apps/tower`, shared sim in `packages/
 ## The game in one line
 
 A one-thumb anime duel-climber. Each floor is a one-on-one duel:
-- The enemy telegraphs an attack, and you **tap** to parry when it lands, or **swipe** to dodge a red one.
+- The enemy telegraphs an attack, and you **tap anywhere** to parry when it lands, or hit the big **DODGE** button for a red one.
 - Parries crack their guard. Break the guard and a cut-in finisher ends the floor.
 - Every couple of floors you pick one of three anime-trope power-ups.
 - There are 30 floors and one try a day. How far you get decides the payout.
 
 ### Why this game
 
-- **One thumb, no aiming, one idea to learn: tap when it hits.** A toddler mashing clears floors 1–5 because nothing there punishes an early tap.
+- **One thumb, no aiming, one idea to learn: tap when it hits.** Dodge is a button, not a swipe: a swipe can't be told from a tap until the finger moves, which would add lag to every parry.
+- A toddler mashing clears floors 1–5 because nothing there punishes an early tap.
 - **Difficulty is all timing and reading,** so it scales cleanly with three dials: window size, telegraph honesty and attack mix.
   - The top floors need precise timing (tight windows, combos).
   - They need intelligence (feints, counter stances, picking power-ups that combine well).
@@ -84,7 +85,7 @@ Tuned with simulated players (`packages/tower/src/bots.ts`), not by feel:
 | Telegraph | Answer | Wrong answer |
 |---|---|---|
 | White "!" (slash) | Tap as it lands | Too early: whiff (and on floor 11+, a short lockout). Too late: hit. |
-| Red glow, 危 (heavy) | Swipe as it lands | A tap is crushed, and you're hit |
+| Red glow, 危 (heavy) | DODGE as it lands | A tap is crushed, and you're hit |
 | Kunai | Tap as each one arrives | Hit |
 | Feint (white "!" with a yellow edge, enemy grins) | Wait for the real strike | Tapping the fake whiffs, and the real one lands |
 | Counter stance (blue aura) | Don't tap until it ends | A tap is countered, and you're hit |

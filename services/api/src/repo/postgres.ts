@@ -27,6 +27,8 @@ import type {
   StoryTextRow,
   UserBadgeRow,
   RelicRollRow,
+  TowerRunRow,
+  TowerRunFinish,
   DiscordLinkRow,
   DiscordLinkResult,
   StoryRequestRow,
@@ -743,6 +745,64 @@ export class PostgresRepository implements Repository {
       [row.userId, row.sessionId, row.storyId, row.momentId, row.relicId, row.turnIndex, row.rolledAt],
     );
     return (rowCount ?? 0) > 0;
+  }
+
+  // --- The Tower ------------------------------------------------------------
+
+  async getTowerRun(userId: string, day: string): Promise<TowerRunRow | null> {
+    const { rows } = await this.#pool.query(`SELECT * FROM tower_runs WHERE user_id = $1 AND day = $2`, [userId, day]);
+    return rows[0] ? towerRow(rows[0]) : null;
+  }
+
+  async getTowerRunById(runId: string): Promise<TowerRunRow | null> {
+    const { rows } = await this.#pool.query(`SELECT * FROM tower_runs WHERE run_id = $1`, [runId]);
+    return rows[0] ? towerRow(rows[0]) : null;
+  }
+
+  async insertTowerRun(r: TowerRunRow): Promise<boolean> {
+    // The unique (user_id, day) key is the whole one-a-day rule.
+    const { rowCount } = await this.#pool.query(
+      `INSERT INTO tower_runs (run_id, user_id, day, seed, fee, free, started_at, last_seen_at, last_floor, app_version)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$7,1,$8)
+       ON CONFLICT (user_id, day) DO NOTHING`,
+      [r.runId, r.userId, r.day, r.seed, r.fee, r.free, r.startedAt, r.appVersion],
+    );
+    return (rowCount ?? 0) > 0;
+  }
+
+  async checkpointTowerRun(runId: string, inputs: unknown, lastFloor: number, at: string): Promise<void> {
+    await this.#pool.query(
+      `UPDATE tower_runs SET inputs = $2, last_floor = GREATEST(last_floor, $3), last_seen_at = $4
+       WHERE run_id = $1 AND finished_at IS NULL`,
+      [runId, JSON.stringify(inputs), lastFloor, at],
+    );
+  }
+
+  async finishTowerRun(runId: string, f: TowerRunFinish): Promise<boolean> {
+    const { rowCount } = await this.#pool.query(
+      `UPDATE tower_runs SET finished_at = $2, fell_on = $3, cleared = $4, reward = $5, abandoned = $6, suspicious = $7,
+         ticks = $8, real_ms = $9, boons = $10, floors = $11, inputs = $12, last_floor = $13, last_seen_at = $2
+       WHERE run_id = $1 AND finished_at IS NULL`,
+      [runId, f.finishedAt, f.fellOn, f.cleared, f.reward, f.abandoned, f.suspicious, f.ticks, f.realMs, f.boons,
+        JSON.stringify(f.floors ?? null), JSON.stringify(f.inputs ?? null), f.lastFloor],
+    );
+    return (rowCount ?? 0) > 0;
+  }
+
+  async listUnfinishedTowerRuns(userId: string, beforeDay: string): Promise<TowerRunRow[]> {
+    const { rows } = await this.#pool.query(
+      `SELECT * FROM tower_runs WHERE user_id = $1 AND finished_at IS NULL AND day < $2`,
+      [userId, beforeDay],
+    );
+    return rows.map(towerRow);
+  }
+
+  async bestTowerFloor(userId: string): Promise<number> {
+    const { rows } = await this.#pool.query<{ best: number | null }>(
+      `SELECT max(CASE WHEN cleared THEN 31 ELSE fell_on END)::int AS best FROM tower_runs WHERE user_id = $1`,
+      [userId],
+    );
+    return rows[0]?.best ?? 0;
   }
 
   async moveRelicRolls(fromUserId: string, toUserId: string): Promise<void> {
@@ -2211,4 +2271,33 @@ function summarizeIssues(error: { issues: { path: PropertyKey[]; code: string; k
     .slice(0, 3)
     .map((issue) => `${issue.path.join('/')}: ${issue.code}${issue.keys ? ' ' + issue.keys.join(',') : ''}`)
     .join('; ');
+}
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function towerRow(r: any): TowerRunRow {
+  const iso = (d: Date | string | null) => (d ? new Date(d).toISOString() : null);
+  return {
+    runId: r.run_id,
+    userId: r.user_id,
+    day: typeof r.day === 'string' ? r.day.slice(0, 10) : new Date(Date.UTC(r.day.getFullYear(), r.day.getMonth(), r.day.getDate())).toISOString().slice(0, 10),
+    seed: Number(r.seed),
+    fee: r.fee,
+    free: r.free,
+    startedAt: iso(r.started_at)!,
+    lastSeenAt: iso(r.last_seen_at),
+    finishedAt: iso(r.finished_at),
+    lastFloor: r.last_floor,
+    fellOn: r.fell_on,
+    cleared: r.cleared,
+    reward: r.reward,
+    abandoned: r.abandoned,
+    suspicious: r.suspicious,
+    ticks: r.ticks,
+    realMs: r.real_ms,
+    appVersion: r.app_version,
+    boons: r.boons,
+    floors: r.floors,
+    inputs: r.inputs,
+  };
 }

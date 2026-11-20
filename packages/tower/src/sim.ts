@@ -18,7 +18,7 @@ import {
 } from './content.js';
 import { Rng } from './rng.js';
 
-export type InputKind = 'tap' | 'swipe' | 'pick';
+export type InputKind = 'tap' | 'dodge' | 'pick';
 export interface Input {
   /** The tick the input was applied on. */
   readonly t: number;
@@ -204,7 +204,7 @@ export class TowerSim {
     this.inputs.push({ t, k });
     if (t < this.lockUntil) return true;
     if (k === 'tap') this.#tap(t);
-    else this.#swipe(t);
+    else this.#dodgeInput(t);
     return true;
   }
 
@@ -235,6 +235,8 @@ export class TowerSim {
   // ── fight ──────────────────────────────────────────────────────────────
 
   #fightTick(t: number): void {
+    // Schedule first, so a pattern's first telegraph is announced on the tick it starts.
+    if (!this.attacks.length && t >= this.nextPatternAt) this.#schedulePattern(t);
     for (const a of this.attacks) {
       if (a.state !== 'pending') continue;
       if (a.tele === t) this.#emit({ t, type: a.kind === 'stance' ? 'stance' : 'tele', attack: a.id });
@@ -253,7 +255,6 @@ export class TowerSim {
       this.attacks = [];
       this.nextPatternAt = t + this.#scaled(this.#rng.range(this.spec.gap[0], this.spec.gap[1]), true);
     }
-    if (!this.attacks.length && t >= this.nextPatternAt) this.#schedulePattern(t);
   }
 
   #schedulePattern(t: number): void {
@@ -373,7 +374,7 @@ export class TowerSim {
     this.#whiff(t, false);
   }
 
-  #swipe(t: number): void {
+  #dodgeInput(t: number): void {
     const a = this.#inWindow(t, ['slash', 'kunai', 'heavy', 'fake']);
     if (a?.kind === 'fake') {
       // Dodging a feint is the safe answer: nothing happens either way.
@@ -561,6 +562,11 @@ export class TowerSim {
     }
     this.phase = 'intro';
     this.phaseUntil = t + (this.spec.boss ? BOSS_INTRO_TICKS : INTRO_TICKS);
+  }
+
+  /** Dev tools only (screenshots, tuning). The server replays from floor 1, so this can't earn anything. */
+  devStartAt(floor: number): void {
+    this.#enterFloor(Math.max(1, Math.min(FLOORS, floor)));
   }
 
   // ── power-ups ──────────────────────────────────────────────────────────

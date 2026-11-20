@@ -50,89 +50,113 @@ export function playBot(seed: number, skill: Skill, botSeed: number): RunResult 
 
 /** Same, on a sim the caller holds (so its recorded inputs can be read afterwards). */
 export function playBotInto(sim: TowerSim, skill: Skill | number, botSeed = 7): RunResult {
-  if (typeof skill === 'number') skill = SKILLS[skill]!;
-  const rng = new Rng(botSeed);
-  const uni = () => (rng.next() + 0.5) / 4294967296;
-  const gauss = () => Math.sqrt(-2 * Math.log(uni())) * Math.cos(2 * Math.PI * uni());
-  const p = (perMille: number) => rng.next() % 1000 < perMille;
+  const driver = new BotDriver(typeof skill === 'number' ? SKILLS[skill]! : skill, botSeed);
+  while (!sim.over && sim.tick < 60 * 60 * 30) {
+    driver.beforeStep(sim);
+    sim.step();
+  }
+  return sim.result();
+}
 
-  const plan: { t: number; k: 'tap' | 'swipe' }[] = [];
-  const seen = new Set<number>();
-  let nextMash = 0;
-  let lastOpening: number | null = null;
-  let counterIntent: { at: number } | null = null;
+/** A bot that plays one tick at a time: call `beforeStep` right before every `sim.step()`. */
+export class BotDriver {
+  readonly #skill: Skill;
+  readonly #rng: Rng;
+  #plan: { t: number; k: 'tap' | 'dodge' }[] = [];
+  readonly #seen = new Set<number>();
+  #nextMash = 0;
+  #lastOpening: number | null = null;
+  #counterIntent = false;
+  /** Picks power-ups by hand when false (the in-game dev autoplay lets you choose). */
+  autoPick = true;
 
-  const glasses = () => sim.has('glasses_glint');
+  constructor(skill: Skill, seed: number) {
+    this.#skill = skill;
+    this.#rng = new Rng(seed);
+  }
 
-  const respond = (a: Attack) => {
+  #uni(): number {
+    return (this.#rng.next() + 0.5) / 4294967296;
+  }
+  #gauss(): number {
+    return Math.sqrt(-2 * Math.log(this.#uni())) * Math.cos(2 * Math.PI * this.#uni());
+  }
+  #p(perMille: number): boolean {
+    return this.#rng.next() % 1000 < perMille;
+  }
+
+  #respond(sim: TowerSim, a: Attack): void {
+    const skill = this.#skill;
     const lead = Math.max(1, a.impact - a.tele);
     let sigma = skill.sigma * (1 + Math.max(0, 30 - lead) / 30);
     if (a.delayed) sigma *= 1.6;
-    const at = (center: number) => Math.max(a.tele + skill.react, Math.round(center + skill.bias + gauss() * sigma));
-    if (a.kind !== 'fake' && a.kind !== 'stance' && p(skill.lapse)) return;
-    const misread = p(a.twisted ? skill.misread * 4 + 150 : skill.misread);
+    const at = (center: number) => Math.max(a.tele + skill.react, Math.round(center + skill.bias + this.#gauss() * sigma));
+    if (a.kind !== 'fake' && a.kind !== 'stance' && this.#p(skill.lapse)) return;
+    const misread = this.#p(a.twisted ? skill.misread * 4 + 150 : skill.misread);
+    const glasses = sim.has('glasses_glint');
     switch (a.kind) {
       case 'slash':
       case 'kunai':
-        if (a.delayed && p(skill.bite * 0.6)) plan.push({ t: at(a.tele + 40), k: 'tap' });
-        plan.push({ t: at(a.impact), k: misread && a.kind === 'slash' ? 'swipe' : 'tap' });
+        if (a.delayed && this.#p(skill.bite * 0.6)) this.#plan.push({ t: at(a.tele + 40), k: 'tap' });
+        this.#plan.push({ t: at(a.impact), k: misread && a.kind === 'slash' ? 'dodge' : 'tap' });
         break;
       case 'heavy':
-        plan.push({ t: at(a.impact), k: misread ? 'tap' : 'swipe' });
+        this.#plan.push({ t: at(a.impact), k: misread ? 'tap' : 'dodge' });
         break;
       case 'fake':
-        if (p(glasses() ? skill.bite / 2 : skill.bite)) plan.push({ t: at(a.impact), k: 'tap' });
+        if (this.#p(glasses ? skill.bite / 2 : skill.bite)) this.#plan.push({ t: at(a.impact), k: 'tap' });
         break;
       case 'stance':
-        if (counterIntent) {
-          if (p(glasses() ? skill.stanceBite / 2 : skill.stanceBite)) plan.push({ t: a.impact + 2 + (rng.next() % 16), k: 'tap' });
-          counterIntent = null;
+        if (this.#counterIntent) {
+          if (this.#p(glasses ? skill.stanceBite / 2 : skill.stanceBite)) this.#plan.push({ t: a.impact + 2 + (this.#rng.next() % 16), k: 'tap' });
+          this.#counterIntent = false;
         }
         break;
     }
-  };
+  }
 
-  while (!sim.over && sim.tick < 60 * 60 * 30) {
+  beforeStep(sim: TowerSim): void {
+    const skill = this.#skill;
     const t = sim.tick;
     if (sim.phase === 'boon' && sim.offer) {
-      let pick = rng.next() % sim.offer.length;
+      if (!this.autoPick) return;
+      let pick = this.#rng.next() % sim.offer.length;
       if (skill.smartBoons) {
-        const ranked = sim.offer.map((b, i) => ({ i, r: PRIORITY.indexOf(b) }))
-          .map((x) => ({ ...x, r: sim.offer![x.i] === 'beach_episode' && sim.hp <= 2 ? -1 : x.r }))
+        const ranked = sim.offer
+          .map((b, i) => ({ i, r: b === 'beach_episode' && sim.hp <= 2 ? -1 : PRIORITY.indexOf(b) }))
           .sort((a, b) => a.r - b.r);
         pick = ranked[0]!.i;
       }
       sim.input('pick', pick);
-    } else if (sim.phase === 'fight') {
-      if (skill.toddler) {
-        if (t >= nextMash) {
-          sim.input(p(100) ? 'swipe' : 'tap');
-          nextMash = t + 9 + (rng.next() % 16);
-        }
-      } else {
-        for (const a of sim.attacks) {
-          if (a.state === 'pending' && a.tele <= t && !seen.has(a.id)) {
-            seen.add(a.id);
-            respond(a);
-          }
-        }
-        if (sim.opening && sim.opening.from !== lastOpening) {
-          lastOpening = sim.opening.from;
-          if (p(skill.counter)) plan.push({ t: sim.opening.from + 3 + Math.round(Math.abs(gauss()) * 4), k: 'tap' });
-        }
-        // After dodging a heavy a player wants to counter; whether a stance stops them is decided above.
-        const last = sim.events[sim.events.length - 1];
-        if (last && last.t === t && last.type === 'dodge' && last.heavy && p(skill.counter)) counterIntent = { at: t };
-        plan.sort((x, y) => x.t - y.t);
-        while (plan.length && plan[0]!.t <= t) {
-          const a = plan.shift()!;
-          if (a.t === t) sim.input(a.k);
-        }
-      }
-    } else {
-      plan.length = 0;
+      return;
     }
-    sim.step();
+    if (sim.phase !== 'fight') {
+      this.#plan.length = 0;
+      return;
+    }
+    if (skill.toddler) {
+      if (t >= this.#nextMash) {
+        sim.input(this.#p(100) ? 'dodge' : 'tap');
+        this.#nextMash = t + 9 + (this.#rng.next() % 16);
+      }
+      return;
+    }
+    for (const a of sim.attacks) {
+      if (a.state === 'pending' && a.tele <= t && !this.#seen.has(a.id)) {
+        this.#seen.add(a.id);
+        this.#respond(sim, a);
+      }
+    }
+    if (sim.opening && sim.opening.from !== this.#lastOpening) {
+      this.#lastOpening = sim.opening.from;
+      if (this.#p(skill.counter)) this.#plan.push({ t: sim.opening.from + 3 + Math.round(Math.abs(this.#gauss()) * 4), k: 'tap' });
+    }
+    const last = sim.events[sim.events.length - 1];
+    if (last && last.t === t && last.type === 'dodge' && last.heavy && this.#p(skill.counter)) this.#counterIntent = true;
+    this.#plan.sort((x, y) => x.t - y.t);
+    while (this.#plan.length && this.#plan[0]!.t <= t) {
+      const a = this.#plan.shift()!;
+      if (a.t === t) sim.input(a.k);
+    }
   }
-  return sim.result();
 }

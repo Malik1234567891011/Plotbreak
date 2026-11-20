@@ -23,7 +23,7 @@ import type {
   StorySignals,
   StoryTextRow,
   UserBadgeRow,
-  RelicRollRow,
+  RelicRollRow, TowerRunRow, TowerRunFinish,
   DiscordLinkRow,
   DiscordLinkResult,
   StoryRequestRow,
@@ -298,6 +298,46 @@ export class MemoryRepository implements Repository {
   }
 
   readonly #relicRolls: RelicRollRow[] = [];
+  readonly #towerRuns = new Map<string, TowerRunRow>();
+
+  async getTowerRun(userId: string, day: string): Promise<TowerRunRow | null> {
+    return [...this.#towerRuns.values()].find((r) => r.userId === userId && r.day === day) ?? null;
+  }
+
+  async getTowerRunById(runId: string): Promise<TowerRunRow | null> {
+    return this.#towerRuns.get(runId) ?? null;
+  }
+
+  async insertTowerRun(row: TowerRunRow): Promise<boolean> {
+    if (await this.getTowerRun(row.userId, row.day)) return false;
+    this.#towerRuns.set(row.runId, row);
+    return true;
+  }
+
+  async checkpointTowerRun(runId: string, inputs: unknown, lastFloor: number, at: string): Promise<void> {
+    const r = this.#towerRuns.get(runId);
+    if (r && !r.finishedAt) this.#towerRuns.set(runId, { ...r, inputs, lastFloor, lastSeenAt: at });
+  }
+
+  async finishTowerRun(runId: string, fields: TowerRunFinish): Promise<boolean> {
+    const r = this.#towerRuns.get(runId);
+    if (!r || r.finishedAt) return false;
+    this.#towerRuns.set(runId, { ...r, ...fields });
+    return true;
+  }
+
+  async listUnfinishedTowerRuns(userId: string, beforeDay: string): Promise<TowerRunRow[]> {
+    return [...this.#towerRuns.values()].filter((r) => r.userId === userId && !r.finishedAt && r.day < beforeDay);
+  }
+
+  async bestTowerFloor(userId: string): Promise<number> {
+    let best = 0;
+    for (const r of this.#towerRuns.values()) {
+      if (r.userId !== userId || r.fellOn === null) continue;
+      best = Math.max(best, r.cleared ? 31 : r.fellOn);
+    }
+    return best;
+  }
 
   async getRelicRolls(userId: string): Promise<RelicRollRow[]> {
     return this.#relicRolls.filter((r) => r.userId === userId).reverse();

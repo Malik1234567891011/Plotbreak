@@ -83,6 +83,7 @@ import { deriveCustomBuildWithModel } from '@plotbreak/director';
 import { availableCategories, categoriesFor, searchCatalog } from './catalog-taxonomy.js';
 import { registerMediaRoutes } from './media-routes.js';
 import { registerCreateRoutes } from './create-routes.js';
+import { TowerError, TowerService, towerEnabledFor } from './tower.js';
 import { visibilityContext, visibleStories } from './catalogue-visibility.js';
 import type { StoryVersion } from '@plotbreak/contracts';
 import type { SessionRecord, StorySignals } from './repo/types.js';
@@ -1088,6 +1089,68 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       return { granted: ids.length };
     });
   }
+
+  // --- The Tower (docs/tower.md) ------------------------------------------
+  // A daily mini game that pays credits. 404 while it is off for this player,
+  // which is how the app knows to hide the card.
+  const tower = new TowerService(ctx.repo, ctx.wallet);
+  const towerFail = (reply: Parameters<typeof sendError>[0], error: unknown) => {
+    if (error instanceof InsufficientCreditsError) {
+      return sendError(reply, 402, 'INSUFFICIENT_CREDITS', `You need ${error.required} credits to climb today.`, {
+        required: error.required, balance: error.balance, shortfall: error.shortfall,
+      });
+    }
+    if (error instanceof TowerError) {
+      const status = error.code === 'NOT_FOUND' ? 404 : error.code === 'NOT_TODAY' ? 409 : 400;
+      return sendError(reply, status, error.code, error.message);
+    }
+    throw error;
+  };
+
+  app.get('/v1/tower', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    if (!towerEnabledFor(user.userId)) return sendError(reply, 404, 'NOT_FOUND', 'The Tower is not open yet.');
+    return tower.status(user.userId);
+  });
+
+  app.post('/v1/tower/start', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    if (!towerEnabledFor(user.userId)) return sendError(reply, 404, 'NOT_FOUND', 'The Tower is not open yet.');
+    try {
+      const raw = request.headers['x-app-version'];
+      const started = await tower.start(user.userId, (Array.isArray(raw) ? raw[0] : raw) ?? null);
+      tracker(ctx, request, user).track('tower_started', { runId: started.runId, fee: started.fee, resumed: started.resumed });
+      return started;
+    } catch (error) {
+      return towerFail(reply, error);
+    }
+  });
+
+  app.post<{ Body: { runId?: string; inputs?: unknown; floor?: number } }>('/v1/tower/checkpoint', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    try {
+      await tower.checkpoint(user.userId, String(request.body?.runId ?? ''), request.body?.inputs ?? [], Number(request.body?.floor ?? 1));
+      return { ok: true };
+    } catch (error) {
+      return towerFail(reply, error);
+    }
+  });
+
+  app.post<{ Body: { runId?: string; inputs?: unknown; realMs?: number } }>('/v1/tower/finish', { bodyLimit: 2 * 1024 * 1024 }, async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    try {
+      const runId = String(request.body?.runId ?? '');
+      const done = await tower.finish(user.userId, runId, request.body?.inputs ?? [], Number(request.body?.realMs ?? 0));
+      tracker(ctx, request, user).track('tower_settled', { runId, fellOn: done.fellOn, cleared: done.cleared, reward: done.reward, abandoned: false });
+      return done;
+    } catch (error) {
+      return towerFail(reply, error);
+    }
+  });
 
   app.get('/v1/badges', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);
