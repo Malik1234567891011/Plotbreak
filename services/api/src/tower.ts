@@ -127,8 +127,9 @@ export interface TowerStatusView {
   best: number;
   today: null | {
     runId: string; finished: boolean; fellOn: number; cleared: boolean; reward: number; streak: number;
-    /** Percent of today's finished climbs that ended lower (null until enough people have climbed). */
+    /** Percent of today's finished climbs that ended lower, and how many climbs that's out of. */
     beat: number | null;
+    climbers: number;
   };
   nextAt: string;
   enabled: boolean;
@@ -244,7 +245,7 @@ export class TowerService {
       today: run
         ? {
           runId: run.runId, finished: !!run.finishedAt, fellOn: run.fellOn ?? run.lastFloor, cleared: !!run.cleared, reward: run.reward ?? 0, streak: run.streak,
-          beat: run.finishedAt ? await this.#beat(day, run.cleared ? 31 : run.fellOn ?? 1) : null,
+          ...(run.finishedAt ? await this.#beat(day, run.cleared ? 31 : run.fellOn ?? 1) : { beat: null, climbers: 0 }),
         }
         : null,
       nextAt: nextAt.toISOString(),
@@ -369,10 +370,10 @@ export class TowerService {
     };
   }
 
-  /** "Higher than N% of today's climbers": only said once there are enough climbers for it to mean something. */
-  async #beat(day: string, reached: number): Promise<number | null> {
+  /** "Higher than N% of today's climbers". The app words it as early climbers while the count is small. */
+  async #beat(day: string, reached: number): Promise<{ beat: number | null; climbers: number }> {
     const { total, below } = await this.repo.towerStandings(day, reached);
-    return total >= 10 ? Math.round((below / total) * 100) : null;
+    return { beat: total >= 2 ? Math.round((below / total) * 100) : null, climbers: total };
   }
 
   async #character(userId: string): Promise<string> {

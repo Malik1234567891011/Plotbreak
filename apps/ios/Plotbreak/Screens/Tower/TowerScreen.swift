@@ -159,6 +159,9 @@ struct TowerWebView: UIViewRepresentable {
                 call(id) { try await self.api.towerCall("POST", "/v1/tower/characters/\(raw)/\(op)") }
             case "haptic": haptic(args["kind"] as? String)
             case "track": track(args)
+            case "share":
+                guard let text = args["text"] as? String, text.count < 600 else { return }
+                share(text)
             case "close": onExit(.close)
             case "spend": onExit(.spend)
             default: break
@@ -181,6 +184,15 @@ struct TowerWebView: UIViewRepresentable {
             let data = (try? JSONEncoder.plotbreak.encode(value)) ?? Data("null".utf8)
             let json = String(data: data, encoding: .utf8) ?? "null"
             web.evaluateJavaScript("window.__towerResolve && window.__towerResolve(\(id), \(ok), \(json))")
+        }
+
+        private func share(_ text: String) {
+            guard let web, let root = web.window?.rootViewController else { return }
+            var top = root
+            while let presented = top.presentedViewController { top = presented }
+            let sheet = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+            sheet.popoverPresentationController?.sourceView = web
+            top.present(sheet, animated: true)
         }
 
         private func haptic(_ kind: String?) {

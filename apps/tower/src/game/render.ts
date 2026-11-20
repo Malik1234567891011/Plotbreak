@@ -11,6 +11,9 @@ import { basePose, drawChar, type Gear, type Pose } from './chars';
 
 const TPS = 60;
 const TAUGHT_KEY = 'tower-taught-v1';
+export function leftHanded(): boolean {
+  try { return localStorage.getItem('tower-left') === '1'; } catch { return false; }
+}
 function loadTaught(): Set<string> {
   try { return new Set(JSON.parse(localStorage.getItem(TAUGHT_KEY) ?? '[]') as string[]); } catch { return new Set(); }
 }
@@ -32,6 +35,8 @@ export class Stage {
   L!: Layout;
   #bg: HTMLCanvasElement | null = null;
   #bgFloor = -1;
+  #prevBg: HTMLCanvasElement | null = null;
+  #ascendAt = -9;
   #particles: Particle[] = [];
   #pops: Pop[] = [];
   #slashes: Slash[] = [];
@@ -89,7 +94,7 @@ export class Stage {
     this.L = {
       w, h, dpr, top, bottom, ground, scale,
       heroX: w * 0.28, enemyX: w * 0.79, strikeX: w * 0.28 + 56 * scale,
-      dodge: { x: w * 0.52, y: h - bottom - padH + 12, w: w * 0.48 - 16, h: padH - 24 },
+      dodge: { x: leftHanded() ? 16 : w * 0.52, y: h - bottom - padH + 12, w: w * 0.48 - 16, h: padH - 24 },
     };
     this.#enemyX = this.L.enemyX;
     this.#bgFloor = -1;
@@ -365,6 +370,17 @@ export class Stage {
     }
 
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    // A red attack lights the screen's edge: you know danger is coming without looking for it.
+    if (this.#redVisible) {
+      const pulse = 0.35 + Math.sin(this.#now * 16) * 0.12;
+      const eg = ctx.createLinearGradient(0, 0, 0, L.h);
+      ctx.save();
+      ctx.strokeStyle = `rgba(255,42,58,${pulse})`;
+      ctx.lineWidth = 10;
+      ctx.strokeRect(5, 5, L.w - 10, L.h - 10);
+      ctx.restore();
+      void eg;
+    }
     this.#drawBreak(sim);
     this.#drawHud(sim);
     this.#drawPads(sim);
@@ -388,10 +404,20 @@ export class Stage {
   #drawBackground(sim: TowerSim): void {
     const { ctx, L } = this;
     if (!this.#bg || this.#bgFloor !== sim.floor) {
+      this.#prevBg = this.#bgFloor > 0 ? this.#bg : null;
       this.#bg = this.#paintBackground(sim.spec.arc, sim.spec.boss, sim.floor);
       this.#bgFloor = sim.floor;
+      this.#ascendAt = this.#now;
     }
-    ctx.drawImage(this.#bg, -20, -20, L.w + 40, L.h + 40);
+    // Climbing: the old floor drops away below as the new one comes down from above.
+    const at = this.#now - this.#ascendAt;
+    if (this.#prevBg && at < 0.5) {
+      const p = easeOut(Math.min(1, at / 0.5));
+      ctx.drawImage(this.#prevBg, -20, -20 + p * (L.h + 40), L.w + 40, L.h + 40);
+      ctx.drawImage(this.#bg!, -20, -20 - (1 - p) * (L.h + 40), L.w + 40, L.h + 40);
+    } else {
+      ctx.drawImage(this.#bg!, -20, -20, L.w + 40, L.h + 40);
+    }
     // Ambient particles per arc.
     const arc = sim.spec.arc;
     if (Math.random() < (arc === 3 ? 0.35 : 0.06)) {
@@ -436,11 +462,14 @@ export class Stage {
       // Bamboo / pines and moonlight.
       g.fillStyle = 'rgba(255,255,230,0.85)';
       g.beginPath(); g.arc(L.w * 0.5, L.ground * 0.42, 34, 0, Math.PI * 2); g.fill();
+      const moonX = L.w * 0.5;
       for (let layer = 0; layer < 2; layer++) {
         g.fillStyle = layer ? '#12221b' : a.far;
         for (let i = 0; i < 14; i++) {
           const x = rnd() * L.w;
           const w = 10 + rnd() * 10;
+          // Keep the moon whole: no stalk in front of it.
+          if (x + w > moonX - 40 && x < moonX + 40) continue;
           g.fillRect(x, 0, w, L.ground);
           for (let y = 30; y < L.ground; y += 40 + rnd() * 30) g.fillRect(x - 2, y, w + 4, 3);
         }
@@ -504,6 +533,30 @@ export class Stage {
         g.restore();
       }
     }
+    // Depth for every arc: a far silhouette band and fog that settles on the ground.
+    if (arc === 0) {
+      g.fillStyle = 'rgba(120,90,130,0.35)';
+      let x = -10;
+      while (x < L.w + 20) { const w = 30 + rnd() * 40, h = 40 + rnd() * 70; g.fillRect(x, L.ground - 50 - h, w, h); x += w + 6; }
+    } else if (arc === 2) {
+      for (const lx of [L.w * 0.28, L.w * 0.72]) {
+        g.fillStyle = '#2a1a3a';
+        g.fillRect(lx - 7, L.ground - 46, 14, 46); g.fillRect(lx - 14, L.ground - 58, 28, 12); g.fillRect(lx - 10, L.ground - 64, 20, 6);
+        g.fillStyle = 'rgba(255,190,100,0.55)'; g.fillRect(lx - 5, L.ground - 56, 10, 8);
+      }
+      for (let i = 0; i < 18; i++) { g.fillStyle = `rgba(200,255,170,${0.3 + rnd() * 0.5})`; g.beginPath(); g.arc(rnd() * L.w, L.ground * (0.45 + rnd() * 0.5), 1.5, 0, Math.PI * 2); g.fill(); }
+    } else if (arc === 4) {
+      for (const bx of [L.w * 0.08, L.w * 0.92]) {
+        g.fillStyle = '#5a0d14';
+        g.beginPath(); g.moveTo(bx - 16, 40); g.lineTo(bx + 16, 40); g.lineTo(bx + 16, L.ground * 0.55); g.lineTo(bx, L.ground * 0.5); g.lineTo(bx - 16, L.ground * 0.55); g.closePath(); g.fill();
+        g.fillStyle = '#ffd23f'; g.font = `900 18px ${FONT}`; g.textAlign = 'center'; g.fillText('魔', bx, 90);
+      }
+    }
+    const fog = g.createLinearGradient(0, L.ground - 90, 0, L.ground);
+    fog.addColorStop(0, 'rgba(255,255,255,0)');
+    fog.addColorStop(1, arc === 0 ? 'rgba(255,230,210,0.35)' : arc === 4 ? 'rgba(255,80,40,0.18)' : 'rgba(180,200,255,0.12)');
+    g.fillStyle = fog;
+    g.fillRect(-20, L.ground - 90, W, 90);
     if (boss) {
       const v = g.createRadialGradient(L.w / 2, L.ground * 0.6, 40, L.w / 2, L.ground * 0.6, L.h);
       v.addColorStop(0, 'rgba(0,0,0,0)');
@@ -682,9 +735,22 @@ export class Stage {
     const { ctx, L } = this;
     const a = sim.phase === 'fight' ? this.#active(sim, tick) : undefined;
     if (a && a.state === 'pending') {
+      // Motion lines streaming behind a dash.
+      const p = (tick - a.tele) / Math.max(1, a.impact - a.tele);
+      if (p > 0.62 && p < 1.05 && a.kind !== 'fake') {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+        for (let i = 0; i < 7; i++) {
+          const y = L.ground - (20 + i * 17) * L.scale * 0.6;
+          const len = (40 + ((i * 37) % 50)) * L.scale * 0.6;
+          ctx.lineWidth = 1.5 + (i % 3);
+          ctx.beginPath(); ctx.moveTo(this.#enemyX + 30 * L.scale * 0.6, y); ctx.lineTo(this.#enemyX + 30 * L.scale * 0.6 + len, y); ctx.stroke();
+        }
+        ctx.restore();
+      }
       const heavyLook = a.twisted ? a.kind === 'slash' : a.kind === 'heavy';
       if (heavyLook) {
-        const r = 70 * L.scale + Math.sin(this.#now * 30) * 4;
+        const r = 50 * L.scale + Math.sin(this.#now * 30) * 3;
         const g = ctx.createRadialGradient(this.#enemyX, L.ground - 50 * L.scale, 10, this.#enemyX, L.ground - 50 * L.scale, r);
         g.addColorStop(0, 'rgba(255,40,50,0.45)');
         g.addColorStop(1, 'rgba(255,40,50,0)');
@@ -788,10 +854,12 @@ export class Stage {
       if (p > 1.15) continue;
       const r = 26 * L.scale + (1 - Math.min(1, p)) * 90 * L.scale;
       const heavy = a.kind === 'heavy';
-      ctx.strokeStyle = heavy ? 'rgba(255,60,70,0.9)' : 'rgba(255,255,255,0.9)';
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = heavy ? 'rgba(255,90,100,0.85)' : 'rgba(255,255,255,0.9)';
+      ctx.lineWidth = heavy ? 2 : 3;
+      ctx.setLineDash(heavy ? [8, 6] : []);
       ctx.globalAlpha = Math.min(1, p * 3) * (p > 1 ? 1 - (p - 1) / 0.15 : 1);
       ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
       ctx.globalAlpha = 1;
     }
     // The target circle.

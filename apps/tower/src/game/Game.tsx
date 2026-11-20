@@ -247,7 +247,7 @@ export function Game({ seed, runId, day, characterId, startFloor: firstFloor = 1
               const b = BOONS_BY_ID[id];
               return (
                 <button key={id} className={`boon ${b.rarity}`} onClick={() => pick(i)} style={{ animationDelay: `${i * 70}ms` }}>
-                  <span className="boon-jp">{b.jp}</span>
+                  <span className="boon-jp">{b.jp.slice(0, 1)}</span>
                   <span className="boon-name">{b.name}</span>
                   <span className="boon-text">{b.text}</span>
                   {comboWith(id, simRef.current?.boons ?? []) && <span className="boon-combo">⚡ Combos with {comboWith(id, simRef.current?.boons ?? [])}</span>}

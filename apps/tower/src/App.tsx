@@ -159,6 +159,7 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
   const [picking, setPicking] = useState(false);
   const [floor, setFloor] = useState(status.practice.maxFloor);
   const [reviving, setReviving] = useState(false);
+  const [left, setLeft] = useState(() => { try { return localStorage.getItem('tower-left') === '1'; } catch { return false; } });
   const openPractice = () => (status.practice.maxFloor > 1 ? setPicking(true) : onPractice(1));
   const countdown = useCountdown(status.nextAt);
   const [muted, setM] = useState(isMuted());
@@ -176,9 +177,8 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
         <button className="icon" onClick={() => { setMuted(!muted); setM(!muted); }} aria-label={muted ? 'Sound on' : 'Sound off'}>{muted ? '🔇' : '🔊'}</button>
       </header>
 
-      <div className="title">
-        <span className="title-jp">塔</span>
-        <h1>THE TOWER</h1>
+      <div className="title compact">
+        <h1>THE TOWER <span className="title-jp-inline">塔</span></h1>
         <div className={`today-chip ${played ? 'done' : ''}`}>
           {played
             ? <>Today’s climb done · next in <b>{countdown}</b></>
@@ -186,54 +186,36 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
         </div>
       </div>
 
-      {status.revive && (
-        <div className="revive">
-          <div>
-            <b>💔 Your {status.revive.days}-day streak died</b>
-            <span>Bring it back for ◆{status.revive.cost} today{status.revive.nextCost ? `. Tomorrow it’s ◆${status.revive.nextCost}.` : '. Last chance.'}</span>
-          </div>
-          <button className="btn primary" disabled={reviving || status.balance < status.revive.cost}
+      <div className={`streak-card ${status.revive ? 'broken' : status.streak.alive ? '' : 'cold'}`}>
+        <div className="flame">{status.revive ? '💔' : '🔥'}</div>
+        <div className="streak-main">
+          <b>{status.revive ? `${status.revive.days}-day streak died` : `${status.streak.days}-day streak`}</b>
+          <span>
+            {status.revive
+              ? `Revive for ◆${status.revive.cost} and climb at +${Math.min(20, status.revive.days + 1) * 5}%${status.revive.nextCost ? ` (◆${status.revive.nextCost} tomorrow)` : ' (last chance)'}`
+              : played ? `Today paid +${status.streak.todayBonusPercent}%. Tomorrow +${Math.min(20, status.streak.days + 1) * 5}%.` : `Climb today for +${status.streak.todayBonusPercent}% on your payout`}
+          </span>
+          <div className="streak-bar"><i style={{ width: `${(Math.min(STREAK_CAP, (status.revive ? status.revive.days : status.streak.days) + (played ? 0 : 1)) / STREAK_CAP) * 100}%` }} /></div>
+        </div>
+        {status.revive ? (
+          <button className="btn primary small" disabled={reviving || status.balance < status.revive.cost}
             onClick={async () => { setReviving(true); await onRevive(); setReviving(false); }}>
-            Revive · ◆{status.revive.cost}
+            Revive<br />◆{status.revive.cost}
           </button>
-        </div>
-      )}
-
-      <div className="tiles">
-        <div className={`tile-card streak ${status.streak.alive || status.revive ? '' : 'cold'} ${status.revive ? 'broken' : ''}`}>
-          <span className="tile-k">STREAK</span>
-          {status.revive ? (
-            <>
-              <b>💔 {status.revive.days} days</b>
-              <span className="tile-s">Revive for ◆{status.revive.cost} to climb at +{Math.min(20, status.revive.days + 1) * 5}%, or start over at +5%.</span>
-            </>
-          ) : (
-            <>
-              <b>🔥 {status.streak.days} day{status.streak.days === 1 ? '' : 's'}</b>
-              <span className="tile-s">{played ? `Today paid +${status.streak.todayBonusPercent}%` : `Today: +${status.streak.todayBonusPercent}% on your payout`}</span>
-            </>
-          )}
-          <div className="streak-bar"><i style={{ width: `${(Math.min(STREAK_CAP, status.streak.days + (played ? 0 : 1)) / STREAK_CAP) * 100}%` }} /></div>
-        </div>
-        <div className="tile-card twist">
-          <span className="tile-k">TODAY’S TOWER</span>
-          <b><span className="jp">{mod.jp}</span> {mod.name}</b>
-          <span className="tile-s">{mod.text}</span>
-        </div>
+        ) : (
+          <div className="streak-badge">+{status.streak.todayBonusPercent}%</div>
+        )}
       </div>
 
+      <div className="twist-banner"><b><span className="jp">{mod.jp}</span> {mod.name}</b><span>{mod.text}</span></div>
+
       <button className="fighter-row" onClick={onFighters}>
-        <Portrait c={hero} size={56} />
+        <Portrait c={hero} size={52} />
         <span><small>FIGHTING AS</small><b>{hero.name}</b></span>
         <span className="fighter-cta">Change ›</span>
       </button>
 
       <Ladder best={status.best} today={played ? status.today!.fellOn : null} cleared={!!status.today?.cleared} bonus={status.streak.todayBonusPercent} />
-
-      <section className="how">
-        <div><b className="white">!</b><span><b>Tap anywhere</b> the moment a strike lands.</span></div>
-        <div><b className="red">危</b><span><b>Red?</b> Hit <b>DODGE</b>. Only red.</span></div>
-      </section>
 
       <footer className="lobby-foot">
         {played ? (
@@ -253,6 +235,9 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
               {!canPay && !resume ? `You need ◆ ${status.fee} to enter. Sundays are free.` : 'One climb a day. Miss a day and the streak restarts.'}
               {' '}<button className="link" onClick={openPractice}>Practice (◆1 a floor)</button>
             </div>
+            <button className="link hand" onClick={() => { const next = !left; try { localStorage.setItem('tower-left', next ? '1' : '0'); } catch { /* private mode */ } setLeft(next); }}>
+              DODGE button: {left ? 'left hand' : 'right hand'} (change)
+            </button>
           </>
         )}
       </footer>
@@ -280,28 +265,31 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
 }
 
 function Ladder({ best, today, cleared, bonus }: { best: number; today: number | null; cleared: boolean; bonus: number }) {
-  // From floor 1 up, the way you climb it; the next rung beyond your best is marked.
-  const rows = useMemo(() => [...PAYOUT_TIERS, { from: FLOORS + 1, to: FLOORS + 1, credits: CLEAR_PAYOUT }], []);
-  const nextRung = rows.find((t) => t.from > Math.max(1, best));
+  // Drawn as the tower itself: floor 1 at the bottom, CLEAR at the top, narrowing as it rises.
+  const rows = useMemo(() => [{ from: FLOORS + 1, to: FLOORS + 1, credits: CLEAR_PAYOUT }, ...PAYOUT_TIERS.slice().reverse()], []);
+  const reachedTier = rows.find((t) => best >= t.from && best <= Math.max(t.to, t.from));
+  const nextRung = [...rows].reverse().find((t) => t.from > Math.max(1, best));
   return (
-    <section className="ladder" aria-label="Rewards">
-      <div className="ladder-head"><span>Fall on</span><span></span><span>You get</span><span>{bonus ? `+${bonus}% streak` : ''}</span></div>
+    <section className="tower" aria-label="Rewards">
       {rows.map((t, i) => {
         const clear = t.from > FLOORS;
         const arc = clear ? null : ARCS[floorSpec(t.from).arc]!;
-        const reached = best >= t.from;
         const here = today !== null && (clear ? cleared : today >= t.from && today <= t.to && !cleared);
-        const withStreak = Math.round((t.credits * (100 + bonus)) / 100);
+        const pay = bonus ? Math.round((t.credits * (100 + bonus)) / 100) : t.credits;
+        const width = 72 + (i / (rows.length - 1)) * 28;
         return (
-          <div key={i} className={`rung ${reached ? 'reached' : ''} ${here ? 'here' : ''} ${t.credits >= 30 ? 'paid' : ''} ${best > 0 && t === nextRung ? 'next' : ''} ${clear ? 'clear' : ''}`} style={{ ['--arc' as string]: arc?.sky[1] ?? '#ffd23f' }}>
-            <div className="rung-floors">{clear ? 'CLEAR' : `${t.from}–${t.to}`}</div>
-            <div className="rung-name">{clear ? 'Beat THE AUTHOR' : t.credits === 30 ? `${arc!.name} · entry back` : arc!.name}</div>
-            <div className="rung-pay">◆{t.credits}</div>
-            <div className="rung-net">{bonus ? `◆${withStreak}` : ''}</div>
+          <div key={i} className={`storey ${clear ? 'top' : ''} ${here ? 'here' : ''} ${t === nextRung ? 'next' : ''}`}
+            style={{ width: `${width}%`, ['--arc' as string]: arc?.sky[1] ?? '#ffd23f', ['--arc2' as string]: arc?.sky[0] ?? '#ffb020' }}>
+            <span className="storey-floors">{clear ? 'TOP' : `${t.from}–${t.to}`}</span>
+            <span className="storey-name">{clear ? 'THE AUTHOR' : arc!.name}</span>
+            <span className="storey-pay">◆{pay}</span>
+            {t === reachedTier && best > 0 && <span className="pin best">BEST</span>}
+            {t === nextRung && <span className="pin next">NEXT</span>}
+            {here && <span className="pin today">TODAY</span>}
           </div>
         );
       })}
-      {best > 0 && <div className="ladder-note">Your best: {best > FLOORS ? 'cleared the tower' : `floor ${best}`}</div>}
+      <div className="tower-note">You’re paid for the floor you fall on{bonus ? `, +${bonus}% streak included` : ''}. ◆30 gets your entry back.</div>
     </section>
   );
 }
@@ -426,7 +414,7 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
         </div>
       </div>
       {status?.today?.beat != null && (
-        <div className="beat">Higher than <b>{status.today.beat}%</b> of today’s climbers</div>
+        <div className="beat">Higher than <b>{status.today.beat}%</b> of today’s {status.today.climbers < 10 ? 'early ' : ''}climbers</div>
       )}
       <div className="streak-next">
         <span>🔥 Day {finish.streak} streak</span>
@@ -443,6 +431,11 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
         <div><b>{parries ? Math.round((perfects / parries) * 100) : 0}%</b><span>perfect</span></div>
       </div>
       <div className="result-actions">
+        <button className="btn share" onClick={() => {
+          const mod = MODIFIERS_BY_ID[(status?.modifier ?? 'none') as ModifierId] ?? MODIFIERS_BY_ID.none;
+          bridge.share(`${finish.cleared ? 'I beat THE AUTHOR and cleared all 30 floors' : `I reached floor ${finish.fellOn} of 30`} in The Tower on Plotbreak. ${mod.jp} ${mod.name} · 🔥 day ${finish.streak}. Your turn: https://apps.apple.com/app/id6811307049`);
+          bridge.track('tower_closed', { screen: 'share', seconds: 0 });
+        }}>Share your climb</button>
         <button className="btn primary big" onClick={() => bridge.spend()}>Spend them in a story</button>
         <button className="btn" onClick={onPractice}>Practice · ◆1 a floor</button>
         <button className="btn ghost" onClick={onClose}>Done</button>

@@ -26,6 +26,7 @@ export interface TowerStatus {
     readonly reward: number;
     readonly streak: number;
     readonly beat: number | null;
+    readonly climbers: number;
   };
   /** ISO time the next run opens. */
   readonly nextAt: string;
@@ -97,6 +98,8 @@ export interface Bridge {
   close(): void;
   /** Opens the library, after the run. */
   spend(): void;
+  /** The system share sheet, with this text. */
+  share(text: string): void;
 }
 
 // ── native ───────────────────────────────────────────────────────────────
@@ -144,6 +147,7 @@ function nativeBridge(handler: WebkitHandler): Bridge {
     track: (event, props = {}) => fire('track', { event, props }),
     close: () => fire('close'),
     spend: () => fire('spend'),
+    share: (text) => fire('share', { text }),
   };
 }
 
@@ -211,7 +215,7 @@ function mockBridge(): Bridge {
       const todayStreak = st.playedToday ? st.days : st.days + 1;
       return wait({
         day, free: isFree(day), fee: isFree(day) ? 0 : ENTRY_FEE, balance: s.balance, best: s.best,
-        today: run ? { runId: run.runId, finished: run.finished, fellOn: run.fellOn, cleared: run.cleared, reward: run.reward, streak: run.streak, beat: run.finished ? 64 : null } : null,
+        today: run ? { runId: run.runId, finished: run.finished, fellOn: run.fellOn, cleared: run.cleared, reward: run.reward, streak: run.streak, beat: run.finished ? 64 : null, climbers: run.finished ? 7 : 0 } : null,
         nextAt: nextUtcMidnight(), enabled: true, maxReward: payoutWithStreak(30, true, todayStreak),
         streak: { days: st.days, todayBonusPercent: streakBonusPercent(todayStreak), alive: st.days > 0 },
         revive: new URLSearchParams(location.search).has('revive') && !st.playedToday ? { days: 12, cost: 5, nextCost: 20 } : null,
@@ -304,6 +308,7 @@ function mockBridge(): Bridge {
     track: (event, props) => console.debug('[track]', event, props ?? {}),
     close: () => location.reload(),
     spend: () => console.debug('[spend]'),
+    share: (text) => { void navigator.share?.({ text }).catch(() => undefined); console.debug('[share]', text); },
   };
 }
 
