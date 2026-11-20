@@ -19,6 +19,7 @@
     "clean": "rm -rf packages/*/dist services/*/dist node_modules/.cache",
     "smoke": "tsx --env-file-if-exists=.env infra/scripts/smoke.ts",
     "dashboard": "tsx --env-file=.env infra/dashboard/build.ts && open infra/dashboard/out/index.html",
+    "dashboard:stories": "tsx --env-file=.env infra/dashboard/build-stories.ts && open infra/dashboard/out/stories.html",
     "i18n:extract": "tsx infra/scripts/i18n-extract.ts",
     "fr:lint": "tsx infra/scripts/fr-lint.ts",
     "fr:size": "tsx infra/scripts/fr-size.ts",
