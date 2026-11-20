@@ -282,6 +282,10 @@ export interface TowerRunRow {
   readonly boons: string[] | null;
   readonly floors: unknown;
   readonly inputs: unknown;
+  readonly practice: boolean;
+  readonly streak: number;
+  readonly modifier: string | null;
+  readonly characterId: string | null;
 }
 
 export type TowerRunFinish = Pick<TowerRunRow, 'finishedAt' | 'fellOn' | 'cleared' | 'reward' | 'abandoned' | 'suspicious' | 'ticks' | 'realMs' | 'boons' | 'floors' | 'inputs' | 'lastFloor'>;
@@ -527,6 +531,7 @@ export interface Repository {
 
   // --- The Tower (docs/tower.md) ---------------------------------------
 
+  /** The daily (non-practice) run for that day. */
   getTowerRun(userId: string, day: string): Promise<TowerRunRow | null>;
   getTowerRunById(runId: string): Promise<TowerRunRow | null>;
   /** False when the player already has a run that day (the one-a-day rule). */
@@ -536,8 +541,17 @@ export interface Repository {
   finishTowerRun(runId: string, fields: TowerRunFinish): Promise<boolean>;
   /** Started before `beforeDay` and never finished. */
   listUnfinishedTowerRuns(userId: string, beforeDay: string): Promise<TowerRunRow[]>;
-  /** Highest floor reached (31 = cleared), 0 if never played. */
+  /** Highest floor reached on a daily run (31 = cleared), 0 if never played. */
   bestTowerFloor(userId: string): Promise<number>;
+  /** UTC days with a daily run, newest first. */
+  listTowerDays(userId: string, limit: number): Promise<string[]>;
+  /** Credits practice runs have paid this player on `day`. */
+  practiceCreditsOn(userId: string, day: string): Promise<number>;
+  getTowerCharacters(userId: string): Promise<string[]>;
+  /** False when the player already owns it. */
+  addTowerCharacter(userId: string, characterId: string, at: string): Promise<boolean>;
+  getSelectedTowerCharacter(userId: string): Promise<string | null>;
+  setSelectedTowerCharacter(userId: string, characterId: string, at: string): Promise<void>;
 
   // --- Plotbreak Pass (docs/plotbreak-pass.md) -------------------------
 

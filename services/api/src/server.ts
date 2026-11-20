@@ -84,6 +84,7 @@ import { availableCategories, categoriesFor, searchCatalog } from './catalog-tax
 import { registerMediaRoutes } from './media-routes.js';
 import { registerCreateRoutes } from './create-routes.js';
 import { TowerError, TowerService, towerEnabledFor } from './tower.js';
+import { CHARACTERS_BY_ID } from '@plotbreak/tower';
 import { visibilityContext, visibleStories } from './catalogue-visibility.js';
 import type { StoryVersion } from '@plotbreak/contracts';
 import type { SessionRecord, StorySignals } from './repo/types.js';
@@ -1101,7 +1102,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       });
     }
     if (error instanceof TowerError) {
-      const status = error.code === 'NOT_FOUND' ? 404 : error.code === 'NOT_TODAY' ? 409 : 400;
+      const status = error.code === 'NOT_FOUND' ? 404 : error.code === 'NOT_TODAY' ? 409 : error.code === 'NOT_OWNED' ? 403 : 400;
       return sendError(reply, status, error.code, error.message);
     }
     throw error;
@@ -1128,6 +1129,39 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     }
   });
 
+  app.post('/v1/tower/practice', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    if (!towerEnabledFor(user.userId)) return sendError(reply, 404, 'NOT_FOUND', 'The Tower is not open yet.');
+    const raw = request.headers['x-app-version'];
+    const started = await tower.startPractice(user.userId, (Array.isArray(raw) ? raw[0] : raw) ?? null);
+    tracker(ctx, request, user).track('tower_started', { runId: started.runId, fee: 0, resumed: false });
+    return started;
+  });
+
+  app.post<{ Params: { characterId: string } }>('/v1/tower/characters/:characterId/buy', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    if (!towerEnabledFor(user.userId)) return sendError(reply, 404, 'NOT_FOUND', 'The Tower is not open yet.');
+    try {
+      const bought = await tower.buyCharacter(user.userId, request.params.characterId);
+      tracker(ctx, request, user).track('tower_character_bought', { characterId: request.params.characterId, price: CHARACTERS_BY_ID[request.params.characterId]?.price ?? 0 });
+      return bought;
+    } catch (error) {
+      return towerFail(reply, error);
+    }
+  });
+
+  app.post<{ Params: { characterId: string } }>('/v1/tower/characters/:characterId/select', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    try {
+      return await tower.selectCharacter(user.userId, request.params.characterId);
+    } catch (error) {
+      return towerFail(reply, error);
+    }
+  });
+
   app.post<{ Body: { runId?: string; inputs?: unknown; floor?: number } }>('/v1/tower/checkpoint', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);
     if (!user) return reply;
@@ -1145,7 +1179,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     try {
       const runId = String(request.body?.runId ?? '');
       const done = await tower.finish(user.userId, runId, request.body?.inputs ?? [], Number(request.body?.realMs ?? 0));
-      tracker(ctx, request, user).track('tower_settled', { runId, fellOn: done.fellOn, cleared: done.cleared, reward: done.reward, abandoned: false });
+      tracker(ctx, request, user).track('tower_settled', { runId, fellOn: done.fellOn, cleared: done.cleared, reward: done.reward, abandoned: false, practice: done.practice, streak: done.streak });
       return done;
     } catch (error) {
       return towerFail(reply, error);

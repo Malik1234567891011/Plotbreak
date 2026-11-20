@@ -8,6 +8,8 @@
  * floats that are compared, no wall-clock time. The renderer can do anything.
  */
 import {
+  PLAIN_TOWER,
+  type DailyTower,
   BOONS,
   BOONS_BY_ID,
   BOON_AFTER,
@@ -88,9 +90,8 @@ export interface FloorStats {
   hits: number;
   whiffs: number;
   bitten: number;
-  /** Sum of (tap tick − impact tick) over parries, and of its square: how a player's timing spreads. */
-  offsets: number;
-  offsetsSq: number;
+  /** How many parries landed at each offset from impact, ticks −10..+10 (index 0 = −10). */
+  offsetHist: number[];
   skipped: boolean;
   offer?: BoonId[];
   picked?: BoonId;
@@ -166,10 +167,14 @@ export class TowerSim {
   #attackId = 0;
   #floorStart = 0;
 
-  constructor(seed: number) {
+  readonly tower: DailyTower;
+
+  constructor(seed: number, tower: DailyTower = PLAIN_TOWER) {
     this.seed = seed >>> 0;
+    this.tower = tower;
     this.#rng = new Rng(this.seed);
-    this.spec = floorSpec(1);
+    this.spec = floorSpec(1, tower);
+    if (tower.modifier === 'glass_cannon') { this.hp = 2 * HEART; this.maxHp = 2 * HEART; }
     this.#enterFloor(1);
   }
 
@@ -190,7 +195,7 @@ export class TowerSim {
       fellOn: this.phase === 'won' ? FLOORS + 1 : this.floor,
       cleared: this.phase === 'won',
       ticks: this.tick,
-      floors: this.floors.map((f) => ({ ...f })),
+      floors: this.floors.map((f) => ({ ...f, offsetHist: [...f.offsetHist] })),
       boons: [...this.boons],
     };
   }
@@ -370,8 +375,7 @@ export class TowerSim {
       const perfect = Math.abs(t - a.impact) <= this.#perfect();
       this.#resolve(a, perfect ? 'perfect' : 'parried', t);
       this.stats.parries += 1;
-      this.stats.offsets += t - a.impact;
-      this.stats.offsetsSq += (t - a.impact) * (t - a.impact);
+      this.stats.offsetHist[Math.max(-10, Math.min(10, t - a.impact)) + 10]! += 1;
       if (perfect) this.stats.perfects += 1;
       this.#emit({ t, type: 'parry', attack: a.id, perfect, kunai: a.kind === 'kunai' });
       // A full Kiai meter turns the next parry into a heavy blow and empties it.
@@ -500,6 +504,7 @@ export class TowerSim {
 
   #damageGuard(amount: number, t: number, instant: boolean): void {
     let dmg = amount;
+    if (this.tower.modifier === 'glass_cannon') dmg = Math.trunc((dmg * 3) / 2);
     if (this.has('second_form') && this.hp <= HEART) dmg *= 2;
     this.guard = Math.min(this.guardMax, this.guard + dmg);
     if (this.guard >= this.guardMax) {
@@ -517,7 +522,7 @@ export class TowerSim {
   #afterBreak(t: number): void {
     if (this.breaksDone < this.spec.breaks) {
       this.guard = 0;
-      this.tempo = Math.trunc((this.tempo * (this.spec.twist ? 84 : 90)) / 100);
+      this.tempo = Math.trunc((this.tempo * (this.spec.twist ? 78 : 90)) / 100);
       this.phase = 'fight';
       this.nextPatternAt = t + PHASE_PAUSE;
       this.#emit({ t, type: 'fight' });
@@ -553,11 +558,11 @@ export class TowerSim {
   #enterFloor(floor: number): void {
     const t = this.tick;
     this.floor = floor;
-    this.spec = floorSpec(floor);
+    this.spec = floorSpec(floor, this.tower);
     this.#floorStart = t;
     this.floors.push({
       floor, enemy: this.spec.enemy.id, ticks: 0, parries: 0, perfects: 0, dodges: 0,
-      counters: 0, hits: 0, whiffs: 0, bitten: 0, offsets: 0, offsetsSq: 0, skipped: false,
+      counters: 0, hits: 0, whiffs: 0, bitten: 0, offsetHist: new Array(21).fill(0), skipped: false,
     });
     this.attacks = [];
     this.opening = null;
@@ -621,6 +626,7 @@ export class TowerSim {
 
   #rollOffer(boss: boolean): BoonId[] {
     const weights: Record<string, number> = boss ? { common: 6, rare: 6, epic: 3 } : { common: 10, rare: 5, epic: 1 };
+    if (this.tower.modifier === 'lucky_day') weights.epic! += 4;
     const pool = BOONS.filter((b) => b.repeat || !this.boons.includes(b.id))
       // Healing nobody needs is a wasted card.
       .filter((b) => !(b.id === 'beach_episode' && this.hp >= this.maxHp))
@@ -686,8 +692,8 @@ export { BOONS_BY_ID };
  * order or past the end is ignored. A run that runs out of inputs while still
  * alive is treated as abandoned on the floor it was on.
  */
-export function replay(seed: number, inputs: readonly Input[], maxTicks = 60 * 60 * 30): RunResult {
-  const sim = new TowerSim(seed);
+export function replay(seed: number, inputs: readonly Input[], tower: DailyTower = PLAIN_TOWER, maxTicks = 60 * 60 * 30): RunResult {
+  const sim = new TowerSim(seed, tower);
   let i = 0;
   const last = inputs.length ? inputs[inputs.length - 1]!.t : 0;
   while (!sim.over && sim.tick <= maxTicks) {
@@ -704,14 +710,30 @@ export function replay(seed: number, inputs: readonly Input[], maxTicks = 60 * 6
 }
 
 /**
- * The spread (standard deviation, ticks) of this run's parry timing on the
- * late floors. A person on a phone is never perfectly consistent; a script is,
- * whatever constant offset it uses. Null when there is too little late play.
+ * How spread out this run's parry timing is on the late floors: the median
+ * distance (ticks) from the player's own median offset. A person on a phone is
+ * never perfectly consistent; a script is, whatever constant offset it uses,
+ * and the median shrugs off the few odd parries overlapping attacks produce.
+ * Null when there is too little late play to judge.
  */
 export function lateTapSpread(r: RunResult, fromFloor = 16, minParries = 40): number | null {
-  let n = 0, sum = 0, sq = 0;
-  for (const f of r.floors) if (f.floor >= fromFloor) { n += f.parries; sum += f.offsets; sq += f.offsetsSq; }
-  if (n < minParries) return null;
-  const mean = sum / n;
-  return Math.sqrt(Math.max(0, sq / n - mean * mean));
+  const hist = new Array(21).fill(0) as number[];
+  for (const f of r.floors) if (f.floor >= fromFloor) f.offsetHist.forEach((n, i) => { hist[i]! += n; });
+  const total = hist.reduce((a, b) => a + b, 0);
+  if (total < minParries) return null;
+  const medianOf = (h: number[], offset: number): number => {
+    let seen = 0;
+    for (let i = 0; i < h.length; i++) { seen += h[i]!; if (seen * 2 >= total) return i - offset; }
+    return 0;
+  };
+  const median = medianOf(hist, 10);
+  const dev = new Array(21).fill(0) as number[];
+  hist.forEach((n, i) => { dev[Math.min(20, Math.abs(i - 10 - median))]! += n; });
+  // Interpolate inside the median bin so the result isn't stuck at whole ticks.
+  let seen = 0;
+  for (let d = 0; d < dev.length; d++) {
+    if ((seen + dev[d]!) * 2 >= total) return d + (total / 2 - seen) / Math.max(1, dev[d]!) - 0.5;
+    seen += dev[d]!;
+  }
+  return 20;
 }

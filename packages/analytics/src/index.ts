@@ -45,6 +45,7 @@ export const EVENT_NAMES = [
   'tower_reward_seen',
   'tower_closed',
   'tower_settled',
+  'tower_character_bought',
   // §6.5 identity
   'sign_in_started',
   'sign_in_completed',
@@ -218,7 +219,8 @@ export const EventProperties = {
   tower_fell: z.object({ fellOn: z.number().int(), cleared: z.boolean(), ticks: z.number().int(), realMs: z.number().int(), boons: z.array(z.string()) }),
   tower_reward_seen: z.object({ reward: z.number().int(), fellOn: z.number().int(), newBest: z.boolean() }),
   tower_closed: z.object({ screen: z.string(), seconds: z.number() }),
-  tower_settled: z.object({ runId: z.string(), fellOn: z.number().int(), cleared: z.boolean(), reward: z.number().int(), abandoned: z.boolean() }),
+  tower_character_bought: z.object({ characterId: z.string(), price: z.number().int() }),
+  tower_settled: z.object({ runId: z.string(), fellOn: z.number().int(), cleared: z.boolean(), reward: z.number().int(), abandoned: z.boolean(), practice: z.boolean().optional(), streak: z.number().int().optional() }),
 
   sign_in_started: z.object({ provider: z.string(), trigger: z.string() }),
   sign_in_completed: z.object({ provider: z.string() }),

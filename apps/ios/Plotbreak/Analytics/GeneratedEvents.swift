@@ -39,6 +39,7 @@ enum PlotbreakEvent: String, CaseIterable, Sendable {
     case towerRewardSeen = "tower_reward_seen"
     case towerClosed = "tower_closed"
     case towerSettled = "tower_settled"
+    case towerCharacterBought = "tower_character_bought"
     case signInStarted = "sign_in_started"
     case signInCompleted = "sign_in_completed"
     case guestAccountMigrated = "guest_account_migrated"

@@ -155,6 +155,7 @@ export const LedgerEntryType = z.enum([
   'SUBSCRIPTION_GRANT',
   'TOWER_ENTRY',
   'TOWER_REWARD',
+  'TOWER_UNLOCK',
 ]);
 export type LedgerEntryType = z.infer<typeof LedgerEntryType>;
 

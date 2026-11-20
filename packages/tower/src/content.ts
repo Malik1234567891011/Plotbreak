@@ -189,10 +189,81 @@ const ROWS: readonly Row[] = [
   [ENEMIES.editor, 16, { ssssss: 1, sfsfs: 2, hshsh: 1, kkkkk: 1, fdf: 1 }],
   [ENEMIES.narrator, 17, { sssss: 2, shsfs: 2, fsfsf: 1, kkkkkk: 1, dhd: 1 }],
   [ENEMIES.darkrival, 17, { ssssss: 2, sfshs: 2, hshsh: 2, kkkkkk: 1, fdfd: 1 }],
-  [ENEMIES.author, 17, { ssssss: 2, sfshsf: 2, hshshs: 1, kkkkkk: 1, dfdfd: 1, shhs: 1 }, 3],
+  [ENEMIES.author, 28, { ssssss: 2, sfshsf: 2, hshshs: 1, kkkkkk: 1, dfdfd: 1, shhs: 1 }, 3],
 ];
 
-export function floorSpec(floor: number): FloorSpec {
+// ── the daily tower ──────────────────────────────────────────────────────
+
+export type ModifierId = 'none' | 'kunai_festival' | 'blood_moon' | 'trickster' | 'training_day' | 'lucky_day' | 'glass_cannon';
+
+export interface ModifierDef {
+  readonly id: ModifierId;
+  readonly name: string;
+  readonly jp: string;
+  readonly text: string;
+}
+
+/** Each day's twist. Mild on purpose: the floor targets still hold on every one. */
+export const MODIFIERS: readonly ModifierDef[] = [
+  { id: 'none', name: 'A Quiet Day', jp: '平穏', text: 'No twist today. Just you and thirty floors.' },
+  { id: 'kunai_festival', name: 'Kunai Festival', jp: '苦無祭', text: 'Kunai fly far more often from floor 6.' },
+  { id: 'blood_moon', name: 'Blood Moon', jp: '血の月', text: 'Red 危 attacks come more often from floor 7.' },
+  { id: 'trickster', name: 'Trickster Day', jp: '騙し合い', text: 'Feints everywhere from floor 11.' },
+  { id: 'training_day', name: 'Training Day', jp: '稽古日', text: 'Timing windows are a little wider up to floor 20.' },
+  { id: 'lucky_day', name: 'Lucky Day', jp: '大吉', text: 'Epic power-ups turn up much more often.' },
+  { id: 'glass_cannon', name: 'Glass Cannon', jp: '紙一重', text: 'Two hearts only, but every parry hits 50% harder.' },
+];
+export const MODIFIERS_BY_ID: Readonly<Record<ModifierId, ModifierDef>> = Object.fromEntries(MODIFIERS.map((m) => [m.id, m])) as Record<ModifierId, ModifierDef>;
+
+export interface DailyTower {
+  /** UTC day, YYYY-MM-DD. */
+  readonly day: string;
+  readonly modifier: ModifierId;
+  /** For each floor (index 0 = floor 1), which floor's enemy stands there. Bosses never move. */
+  readonly lineup: readonly number[];
+}
+
+function hashDay(day: string, salt: string): number {
+  let h = 2166136261;
+  for (const c of `${salt}:${day}`) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+
+/** The same tower for everyone on a given day: who stands on each floor, and the day's twist. */
+export function dailyTower(day: string): DailyTower {
+  let h = hashDay(day, 'lineup');
+  const next = () => { h = Math.imul(h ^ (h >>> 15), 2246822519) >>> 0; h = (h ^ (h >>> 13)) >>> 0; return h; };
+  const lineup: number[] = [];
+  for (let arc = 0; arc < 6; arc++) {
+    const slots = [1, 2, 3, 4].map((i) => arc * 5 + i);
+    // Floor 1 is the tutorial: it keeps its slacker.
+    const movable = arc === 0 ? slots.slice(1) : slots;
+    const shuffled = [...movable];
+    for (let i = shuffled.length - 1; i > 0; i--) { const j = next() % (i + 1); [shuffled[i], shuffled[j]] = [shuffled[j]!, shuffled[i]!]; }
+    if (arc === 0) lineup.push(1);
+    lineup.push(...shuffled, arc * 5 + 5);
+  }
+  const mods = MODIFIERS.map((m) => m.id);
+  return { day, modifier: mods[hashDay(day, 'modifier') % mods.length]!, lineup };
+}
+
+/** A neutral tower: practice on an old build, tests. */
+export const PLAIN_TOWER: DailyTower = { day: '', modifier: 'none', lineup: Array.from({ length: FLOORS }, (_, i) => i + 1) };
+
+export function floorSpec(floor: number, tower: DailyTower = PLAIN_TOWER): FloorSpec {
+  const base = baseFloorSpec(floor);
+  const f = base.floor;
+  const shown = ROWS[(tower.lineup[f - 1] ?? f) - 1]![0];
+  const m = tower.modifier;
+  const patterns: Record<string, number> = { ...base.patterns };
+  if (m === 'kunai_festival' && f >= 6) { patterns.kkk = (patterns.kkk ?? 0) + 2; patterns.k = (patterns.k ?? 0) + 1; }
+  if (m === 'blood_moon' && f >= 7) { patterns.h = (patterns.h ?? 0) + 2; patterns.hs = (patterns.hs ?? 0) + 1; }
+  if (m === 'trickster' && f >= 11) { patterns.f = (patterns.f ?? 0) + 2; patterns.fs = (patterns.fs ?? 0) + 1; }
+  const wide = m === 'training_day' && f <= 20 ? 1 : 0;
+  return { ...base, enemy: shown, patterns, early: base.early + wide, late: base.late + wide };
+}
+
+function baseFloorSpec(floor: number): FloorSpec {
   const f = Math.max(1, Math.min(FLOORS, floor));
   const arc = Math.floor((f - 1) / 5);
   const row = ROWS[f - 1]!;
@@ -255,3 +326,60 @@ export const BOONS: readonly BoonDef[] = [
 ];
 
 export const BOONS_BY_ID: Readonly<Record<BoonId, BoonDef>> = Object.fromEntries(BOONS.map((b) => [b.id, b])) as Record<BoonId, BoonDef>;
+
+// ── playable characters ──────────────────────────────────────────────────
+
+export interface CharacterDef {
+  readonly id: string;
+  readonly name: string;
+  readonly title: string;
+  readonly look: EnemyLook;
+  /** Extra kit drawn on the player: a scarf and headband, in these colours. */
+  readonly scarf: string | null;
+  readonly headband: string | null;
+  /** Credits; 0 is the free starter. */
+  readonly price: number;
+  /** Shouted in the finisher cut-in. */
+  readonly cry: string;
+}
+
+export const CHARACTER_PRICE = 500;
+
+export const CHARACTERS: readonly CharacterDef[] = [
+  { id: 'kaito', name: 'Kaito', title: 'The new kid with a borrowed sword', price: 0, cry: '必殺!', scarf: '#e8443a', headband: '#e8443a',
+    look: { hair: '#1b2340', outfit: '#20263a', skin: '#f7d7bf', eye: '#e8443a', accent: '#e8443a', style: 'rival', weapon: 'katana' } },
+  { id: 'hikari', name: 'Hikari', title: 'Magical girl, off duty', price: CHARACTER_PRICE, cry: '星光斬!', scarf: '#ff8fc8', headband: null,
+    look: { hair: '#ff9ccf', outfit: '#fdf2f8', skin: '#fbe3d6', eye: '#ff4fa3', accent: '#ff4fa3', style: 'president', weapon: 'blade' } },
+  { id: 'kage', name: 'Kage', title: 'Never seen, never late', price: CHARACTER_PRICE, cry: '影縫い!', scarf: '#3a3f55', headband: '#5a6375',
+    look: { hair: '#15171f', outfit: '#1c2030', skin: '#ecd0b6', eye: '#7ad4ff', accent: '#7ad4ff', style: 'ninja', weapon: 'kunai' } },
+  { id: 'mai', name: 'Mai', title: 'Fox spirit who got bored of shrines', price: CHARACTER_PRICE, cry: '狐火!', scarf: null, headband: null,
+    look: { hair: '#f2a03a', outfit: '#f2f0ea', skin: '#fae3d2', eye: '#e0b13a', accent: '#d23b3b', style: 'kitsune', weapon: 'claw' } },
+  { id: 'zero', name: 'Unit Zero', title: 'Deleted the safety limits', price: CHARACTER_PRICE, cry: 'OVERDRIVE!', scarf: '#29e3ff', headband: null,
+    look: { hair: '#d7dbe6', outfit: '#1e2236', skin: '#e9d2c2', eye: '#29e3ff', accent: '#29e3ff', style: 'cyborg', weapon: 'blade' } },
+  { id: 'tetsu', name: 'Tetsu', title: 'Oni who quit the bad guys', price: CHARACTER_PRICE, cry: '鬼神撃!', scarf: '#ffd23f', headband: null,
+    look: { hair: '#1a1a1a', outfit: '#3a1d1d', skin: '#e05a4a', eye: '#ffd23f', accent: '#ffd23f', style: 'oni', weapon: 'club' } },
+  { id: 'lilith', name: 'Lilith', title: 'Demon queen on holiday', price: CHARACTER_PRICE, cry: '魔王降臨!', scarf: '#ff3b8a', headband: null,
+    look: { hair: '#5a1a6b', outfit: '#2a0f2f', skin: '#f2cfd8', eye: '#ff3b8a', accent: '#ff3b8a', style: 'kitsune', weapon: 'claw' } },
+  { id: 'ren', name: 'Ren', title: 'Your rival. Fine. Teammate.', price: CHARACTER_PRICE, cry: '蒼天斬!', scarf: '#4fb3e0', headband: null,
+    look: { hair: '#1c2a5a', outfit: '#1a1d2b', skin: '#f2d2bb', eye: '#4fb3e0', accent: '#4fb3e0', style: 'rival', weapon: 'katana' } },
+];
+export const CHARACTERS_BY_ID: Readonly<Record<string, CharacterDef>> = Object.fromEntries(CHARACTERS.map((c) => [c.id, c]));
+export const DEFAULT_CHARACTER = 'kaito';
+
+// ── streak ───────────────────────────────────────────────────────────────
+
+/** +5% per day in a row, up to day 20 (+100%). */
+export const STREAK_STEP = 5;
+export const STREAK_CAP = 20;
+export function streakBonusPercent(streak: number): number {
+  return STREAK_STEP * Math.max(0, Math.min(STREAK_CAP, Math.trunc(streak)));
+}
+export function payoutWithStreak(fellOn: number, cleared: boolean, streak: number): number {
+  return Math.round((payoutFor(fellOn, cleared) * (100 + streakBonusPercent(streak))) / 100);
+}
+
+// ── practice ─────────────────────────────────────────────────────────────
+
+/** Practice pays 1 credit per floor cleared, up to this many a day. */
+export const PRACTICE_PER_FLOOR = 1;
+export const PRACTICE_DAILY_CAP = 10;

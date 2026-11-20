@@ -300,8 +300,39 @@ export class MemoryRepository implements Repository {
   readonly #relicRolls: RelicRollRow[] = [];
   readonly #towerRuns = new Map<string, TowerRunRow>();
 
+  readonly #towerChars = new Map<string, { id: string; at: string }[]>();
+  readonly #towerSelected = new Map<string, string>();
+
   async getTowerRun(userId: string, day: string): Promise<TowerRunRow | null> {
-    return [...this.#towerRuns.values()].find((r) => r.userId === userId && r.day === day) ?? null;
+    return [...this.#towerRuns.values()].find((r) => r.userId === userId && r.day === day && !r.practice) ?? null;
+  }
+
+  async listTowerDays(userId: string, limit: number): Promise<string[]> {
+    return [...new Set([...this.#towerRuns.values()].filter((r) => r.userId === userId && !r.practice).map((r) => r.day))]
+      .sort().reverse().slice(0, limit);
+  }
+
+  async practiceCreditsOn(userId: string, day: string): Promise<number> {
+    return [...this.#towerRuns.values()].filter((r) => r.userId === userId && r.practice && r.day === day).reduce((a, r) => a + (r.reward ?? 0), 0);
+  }
+
+  async getTowerCharacters(userId: string): Promise<string[]> {
+    return (this.#towerChars.get(userId) ?? []).map((c) => c.id);
+  }
+
+  async addTowerCharacter(userId: string, characterId: string, at: string): Promise<boolean> {
+    const list = this.#towerChars.get(userId) ?? [];
+    if (list.some((c) => c.id === characterId)) return false;
+    this.#towerChars.set(userId, [...list, { id: characterId, at }]);
+    return true;
+  }
+
+  async getSelectedTowerCharacter(userId: string): Promise<string | null> {
+    return this.#towerSelected.get(userId) ?? null;
+  }
+
+  async setSelectedTowerCharacter(userId: string, characterId: string): Promise<void> {
+    this.#towerSelected.set(userId, characterId);
   }
 
   async getTowerRunById(runId: string): Promise<TowerRunRow | null> {
@@ -309,7 +340,7 @@ export class MemoryRepository implements Repository {
   }
 
   async insertTowerRun(row: TowerRunRow): Promise<boolean> {
-    if (await this.getTowerRun(row.userId, row.day)) return false;
+    if (!row.practice && (await this.getTowerRun(row.userId, row.day))) return false;
     this.#towerRuns.set(row.runId, row);
     return true;
   }
@@ -327,13 +358,13 @@ export class MemoryRepository implements Repository {
   }
 
   async listUnfinishedTowerRuns(userId: string, beforeDay: string): Promise<TowerRunRow[]> {
-    return [...this.#towerRuns.values()].filter((r) => r.userId === userId && !r.finishedAt && r.day < beforeDay);
+    return [...this.#towerRuns.values()].filter((r) => r.userId === userId && !r.practice && !r.finishedAt && r.day < beforeDay);
   }
 
   async bestTowerFloor(userId: string): Promise<number> {
     let best = 0;
     for (const r of this.#towerRuns.values()) {
-      if (r.userId !== userId || r.fellOn === null) continue;
+      if (r.userId !== userId || r.practice || r.fellOn === null) continue;
       best = Math.max(best, r.cleared ? 31 : r.fellOn);
     }
     return best;

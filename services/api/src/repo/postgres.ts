@@ -750,7 +750,7 @@ export class PostgresRepository implements Repository {
   // --- The Tower ------------------------------------------------------------
 
   async getTowerRun(userId: string, day: string): Promise<TowerRunRow | null> {
-    const { rows } = await this.#pool.query(`SELECT * FROM tower_runs WHERE user_id = $1 AND day = $2`, [userId, day]);
+    const { rows } = await this.#pool.query(`SELECT * FROM tower_runs WHERE user_id = $1 AND day = $2 AND NOT practice`, [userId, day]);
     return rows[0] ? towerRow(rows[0]) : null;
   }
 
@@ -762,10 +762,11 @@ export class PostgresRepository implements Repository {
   async insertTowerRun(r: TowerRunRow): Promise<boolean> {
     // The unique (user_id, day) key is the whole one-a-day rule.
     const { rowCount } = await this.#pool.query(
-      `INSERT INTO tower_runs (run_id, user_id, day, seed, fee, free, started_at, last_seen_at, last_floor, app_version)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$7,1,$8)
-       ON CONFLICT (user_id, day) DO NOTHING`,
-      [r.runId, r.userId, r.day, r.seed, r.fee, r.free, r.startedAt, r.appVersion],
+      `INSERT INTO tower_runs (run_id, user_id, day, seed, fee, free, started_at, last_seen_at, last_floor, app_version,
+         practice, streak, modifier, character_id)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$7,1,$8,$9,$10,$11,$12)
+       ON CONFLICT (user_id, day) WHERE NOT practice DO NOTHING`,
+      [r.runId, r.userId, r.day, r.seed, r.fee, r.free, r.startedAt, r.appVersion, r.practice, r.streak, r.modifier, r.characterId],
     );
     return (rowCount ?? 0) > 0;
   }
@@ -791,7 +792,7 @@ export class PostgresRepository implements Repository {
 
   async listUnfinishedTowerRuns(userId: string, beforeDay: string): Promise<TowerRunRow[]> {
     const { rows } = await this.#pool.query(
-      `SELECT * FROM tower_runs WHERE user_id = $1 AND finished_at IS NULL AND day < $2`,
+      `SELECT * FROM tower_runs WHERE user_id = $1 AND NOT practice AND finished_at IS NULL AND day < $2`,
       [userId, beforeDay],
     );
     return rows.map(towerRow);
@@ -799,10 +800,52 @@ export class PostgresRepository implements Repository {
 
   async bestTowerFloor(userId: string): Promise<number> {
     const { rows } = await this.#pool.query<{ best: number | null }>(
-      `SELECT max(CASE WHEN cleared THEN 31 ELSE fell_on END)::int AS best FROM tower_runs WHERE user_id = $1`,
+      `SELECT max(CASE WHEN cleared THEN 31 ELSE fell_on END)::int AS best FROM tower_runs WHERE user_id = $1 AND NOT practice`,
       [userId],
     );
     return rows[0]?.best ?? 0;
+  }
+
+  async listTowerDays(userId: string, limit: number): Promise<string[]> {
+    const { rows } = await this.#pool.query<{ d: string }>(
+      `SELECT to_char(day, 'YYYY-MM-DD') d FROM tower_runs WHERE user_id = $1 AND NOT practice ORDER BY day DESC LIMIT $2`,
+      [userId, limit],
+    );
+    return rows.map((r) => r.d);
+  }
+
+  async practiceCreditsOn(userId: string, day: string): Promise<number> {
+    const { rows } = await this.#pool.query<{ n: number }>(
+      `SELECT coalesce(sum(reward), 0)::int n FROM tower_runs WHERE user_id = $1 AND practice AND day = $2`,
+      [userId, day],
+    );
+    return rows[0]?.n ?? 0;
+  }
+
+  async getTowerCharacters(userId: string): Promise<string[]> {
+    const { rows } = await this.#pool.query<{ character_id: string }>(
+      `SELECT character_id FROM tower_characters WHERE user_id = $1 ORDER BY bought_at`, [userId]);
+    return rows.map((r) => r.character_id);
+  }
+
+  async addTowerCharacter(userId: string, characterId: string, at: string): Promise<boolean> {
+    const { rowCount } = await this.#pool.query(
+      `INSERT INTO tower_characters (user_id, character_id, bought_at) VALUES ($1,$2,$3) ON CONFLICT DO NOTHING`,
+      [userId, characterId, at]);
+    return (rowCount ?? 0) > 0;
+  }
+
+  async getSelectedTowerCharacter(userId: string): Promise<string | null> {
+    const { rows } = await this.#pool.query<{ character_id: string }>(
+      `SELECT character_id FROM tower_profiles WHERE user_id = $1`, [userId]);
+    return rows[0]?.character_id ?? null;
+  }
+
+  async setSelectedTowerCharacter(userId: string, characterId: string, at: string): Promise<void> {
+    await this.#pool.query(
+      `INSERT INTO tower_profiles (user_id, character_id, updated_at) VALUES ($1,$2,$3)
+       ON CONFLICT (user_id) DO UPDATE SET character_id = $2, updated_at = $3`,
+      [userId, characterId, at]);
   }
 
   async moveRelicRolls(fromUserId: string, toUserId: string): Promise<void> {
@@ -2299,5 +2342,9 @@ function towerRow(r: any): TowerRunRow {
     boons: r.boons,
     floors: r.floors,
     inputs: r.inputs,
+    practice: !!r.practice,
+    streak: r.streak ?? 1,
+    modifier: r.modifier ?? null,
+    characterId: r.character_id ?? null,
   };
 }
