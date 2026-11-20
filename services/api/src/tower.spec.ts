@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { CHARACTER_PRICE, ENTRY_FEE, PRACTICE_DAILY_CAP, TowerSim, dailyTower, payoutFor, payoutWithStreak } from '@plotbreak/tower';
 import { BotDriver, SKILLS, playBotInto } from '@plotbreak/tower/bots';
 import { MemoryRepository } from './repo/memory.js';
-import { TowerService, isFreeDay, parseInputs, towerEnabledFor } from './tower.js';
+import { REVIVE_COSTS, TowerService, isFreeDay, localDay, nextLocalMidnight, parseInputs, towerEnabledFor } from './tower.js';
 import { WalletService } from './wallet.js';
 
 const USER = '00000000-0000-4000-8000-000000000001';
@@ -171,6 +171,88 @@ describe('the Tower', () => {
     expect((await tower.status(USER)).characters.selected).toBe('kaito');
     const run = await tower.start(USER, null);
     expect(run.characterId).toBe('kaito');
+  });
+
+  it('revives a dead streak for 5, 20 or 50 depending on how long it has been dead', async () => {
+    const { wallet, tower, set, advance } = setup('2026-11-16T15:00:00Z');
+    await wallet.grant(USER, 'PROMO_GRANT', 1000, 'seed');
+    const climb = async () => {
+      const run = await tower.start(USER, null);
+      const { inputs } = play(run.seed, 0, run.day);
+      advance(10 * 60_000);
+      return tower.finish(USER, run.runId, inputs, 0);
+    };
+    await climb();
+    set('2026-11-17T15:00:00Z');
+    await climb();
+    set('2026-11-18T15:00:00Z');
+    await climb();
+    // Missed the 19th and 20th: dead for two days, so ◆20.
+    set('2026-11-21T15:00:00Z');
+    const dead = await tower.status(USER);
+    expect(dead.streak.alive).toBe(false);
+    expect(dead.revive).toEqual({ days: 3, cost: REVIVE_COSTS[1], nextCost: REVIVE_COSTS[2] });
+    const before = await wallet.getBalance(USER);
+    const r = await tower.revive(USER);
+    expect(r.cost).toBe(20);
+    expect(await wallet.getBalance(USER)).toBe(before - 20);
+    const alive = await tower.status(USER);
+    expect(alive.revive).toBeNull();
+    expect(alive.streak.days).toBe(3);
+    expect(alive.streak.todayBonusPercent).toBe(20);
+    expect((await tower.start(USER, null)).streak).toBe(4);
+  });
+
+  it('lets a streak go for good after three dead days', async () => {
+    const { wallet, tower, set, advance } = setup('2026-11-10T15:00:00Z');
+    await wallet.grant(USER, 'PROMO_GRANT', 1000, 'seed');
+    const run = await tower.start(USER, null);
+    advance(60_000);
+    await tower.finish(USER, run.runId, play(run.seed, 0, run.day).inputs, 0);
+    set('2026-11-12T15:00:00Z');
+    expect((await tower.status(USER)).revive?.cost).toBe(5);
+    set('2026-11-14T15:00:00Z');
+    expect((await tower.status(USER)).revive?.cost).toBe(50);
+    set('2026-11-15T15:00:00Z');
+    expect((await tower.status(USER)).revive).toBeNull();
+    await expect(tower.revive(USER)).rejects.toThrow(/no streak/);
+  });
+
+  it('resets at the player’s own midnight, and only lets the zone move once a week', async () => {
+    // 03:00 UTC on the 21st is still the 20th in Miami.
+    const { wallet, tower, set } = setup('2026-11-21T03:00:00Z');
+    await wallet.grant(USER, 'PROMO_GRANT', 100, 'seed');
+    const s = await tower.status(USER, 'America/New_York');
+    expect(s.day).toBe('2026-11-20');
+    expect(s.timezone).toBe('America/New_York');
+    expect(s.nextAt).toBe('2026-11-21T05:00:00.000Z');
+    // A day later, trying to hop to Tokyo is ignored.
+    set('2026-11-22T03:00:00Z');
+    expect((await tower.status(USER, 'Asia/Tokyo')).timezone).toBe('America/New_York');
+    set('2026-11-29T03:00:00Z');
+    expect((await tower.status(USER, 'Asia/Tokyo')).timezone).toBe('Asia/Tokyo');
+    expect(localDay(new Date('2026-11-21T03:00:00Z'), 'Asia/Tokyo')).toBe('2026-11-21');
+    expect(nextLocalMidnight(new Date('2026-03-08T12:00:00Z'), 'America/New_York').toISOString()).toBe('2026-03-09T04:00:00.000Z');
+    expect((await tower.status(USER, 'Not/AZone')).timezone).toBe('Asia/Tokyo');
+  });
+
+  it('practises from any floor up to your best, and pays only floors cleared from there', async () => {
+    const { wallet, tower, advance } = setup();
+    await wallet.grant(USER, 'PROMO_GRANT', 100, 'seed');
+    await expect(tower.startPractice(USER, null, 5)).rejects.toThrow(/floor 1 to 1/);
+    const run = await tower.start(USER, null);
+    advance(10 * 60_000);
+    const done = await tower.finish(USER, run.runId, play(run.seed, 3, run.day).inputs, 0);
+    const best = (await tower.status(USER)).practice.maxFloor;
+    expect(best).toBe(Math.min(30, done.fellOn));
+    const p = await tower.startPractice(USER, null, best);
+    expect(p.startFloor).toBe(best);
+    const sim = new TowerSim(p.seed, dailyTower(p.day), p.startFloor);
+    const live = playBotInto(sim, 3, 4);
+    advance(10 * 60_000);
+    const pd = await tower.finish(USER, p.runId, sim.inputs, 0);
+    expect(pd.fellOn).toBe(live.cleared ? 30 : live.fellOn);
+    expect(pd.reward).toBe(Math.min(PRACTICE_DAILY_CAP, live.cleared ? 31 - best : live.fellOn - best));
   });
 
   it('rejects malformed inputs', () => {

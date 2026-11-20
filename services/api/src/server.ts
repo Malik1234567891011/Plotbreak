@@ -1102,7 +1102,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       });
     }
     if (error instanceof TowerError) {
-      const status = error.code === 'NOT_FOUND' ? 404 : error.code === 'NOT_TODAY' ? 409 : error.code === 'NOT_OWNED' ? 403 : 400;
+      const status = error.code === 'NOT_FOUND' ? 404 : error.code === 'NOT_TODAY' || error.code === 'NO_REVIVE' ? 409 : error.code === 'NOT_OWNED' ? 403 : 400;
       return sendError(reply, status, error.code, error.message);
     }
     throw error;
@@ -1112,7 +1112,18 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     const user = await requireUser(ctx, request, reply);
     if (!user) return reply;
     if (!towerEnabledFor(user.userId)) return sendError(reply, 404, 'NOT_FOUND', 'The Tower is not open yet.');
-    return tower.status(user.userId);
+    return tower.status(user.userId, request.headers['x-timezone']);
+  });
+
+  app.post('/v1/tower/revive', async (request, reply) => {
+    const user = await requireUser(ctx, request, reply);
+    if (!user) return reply;
+    if (!towerEnabledFor(user.userId)) return sendError(reply, 404, 'NOT_FOUND', 'The Tower is not open yet.');
+    try {
+      return await tower.revive(user.userId, request.headers['x-timezone']);
+    } catch (error) {
+      return towerFail(reply, error);
+    }
   });
 
   app.post('/v1/tower/start', async (request, reply) => {
@@ -1121,7 +1132,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     if (!towerEnabledFor(user.userId)) return sendError(reply, 404, 'NOT_FOUND', 'The Tower is not open yet.');
     try {
       const raw = request.headers['x-app-version'];
-      const started = await tower.start(user.userId, (Array.isArray(raw) ? raw[0] : raw) ?? null);
+      const started = await tower.start(user.userId, (Array.isArray(raw) ? raw[0] : raw) ?? null, request.headers['x-timezone']);
       tracker(ctx, request, user).track('tower_started', { runId: started.runId, fee: started.fee, resumed: started.resumed });
       return started;
     } catch (error) {
@@ -1129,14 +1140,18 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     }
   });
 
-  app.post('/v1/tower/practice', async (request, reply) => {
+  app.post<{ Body: { floor?: number } }>('/v1/tower/practice', async (request, reply) => {
     const user = await requireUser(ctx, request, reply);
     if (!user) return reply;
     if (!towerEnabledFor(user.userId)) return sendError(reply, 404, 'NOT_FOUND', 'The Tower is not open yet.');
-    const raw = request.headers['x-app-version'];
-    const started = await tower.startPractice(user.userId, (Array.isArray(raw) ? raw[0] : raw) ?? null);
-    tracker(ctx, request, user).track('tower_started', { runId: started.runId, fee: 0, resumed: false });
-    return started;
+    try {
+      const raw = request.headers['x-app-version'];
+      const started = await tower.startPractice(user.userId, (Array.isArray(raw) ? raw[0] : raw) ?? null, Number(request.body?.floor ?? 1), request.headers['x-timezone']);
+      tracker(ctx, request, user).track('tower_started', { runId: started.runId, fee: 0, resumed: false });
+      return started;
+    } catch (error) {
+      return towerFail(reply, error);
+    }
   });
 
   app.post<{ Params: { characterId: string } }>('/v1/tower/characters/:characterId/buy', async (request, reply) => {

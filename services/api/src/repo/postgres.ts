@@ -763,10 +763,10 @@ export class PostgresRepository implements Repository {
     // The unique (user_id, day) key is the whole one-a-day rule.
     const { rowCount } = await this.#pool.query(
       `INSERT INTO tower_runs (run_id, user_id, day, seed, fee, free, started_at, last_seen_at, last_floor, app_version,
-         practice, streak, modifier, character_id)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$7,1,$8,$9,$10,$11,$12)
+         practice, streak, modifier, character_id, start_floor)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$7,1,$8,$9,$10,$11,$12,$13)
        ON CONFLICT (user_id, day) WHERE NOT practice DO NOTHING`,
-      [r.runId, r.userId, r.day, r.seed, r.fee, r.free, r.startedAt, r.appVersion, r.practice, r.streak, r.modifier, r.characterId],
+      [r.runId, r.userId, r.day, r.seed, r.fee, r.free, r.startedAt, r.appVersion, r.practice, r.streak, r.modifier, r.characterId, r.startFloor],
     );
     return (rowCount ?? 0) > 0;
   }
@@ -846,6 +846,35 @@ export class PostgresRepository implements Repository {
       `INSERT INTO tower_profiles (user_id, character_id, updated_at) VALUES ($1,$2,$3)
        ON CONFLICT (user_id) DO UPDATE SET character_id = $2, updated_at = $3`,
       [userId, characterId, at]);
+  }
+
+  async getTowerTimezone(userId: string): Promise<{ tz: string; changedAt: string } | null> {
+    const { rows } = await this.#pool.query<{ tz: string | null; tz_changed_at: Date | null }>(
+      `SELECT tz, tz_changed_at FROM tower_profiles WHERE user_id = $1`, [userId]);
+    const r = rows[0];
+    return r?.tz ? { tz: r.tz, changedAt: (r.tz_changed_at ?? new Date(0)).toISOString() } : null;
+  }
+
+  async setTowerTimezone(userId: string, tz: string, at: string): Promise<void> {
+    await this.#pool.query(
+      `INSERT INTO tower_profiles (user_id, tz, tz_changed_at, updated_at) VALUES ($1,$2,$3,$3)
+       ON CONFLICT (user_id) DO UPDATE SET tz = $2, tz_changed_at = $3, updated_at = $3`,
+      [userId, tz, at]);
+  }
+
+  async listTowerBridges(userId: string, limit: number): Promise<string[]> {
+    const { rows } = await this.#pool.query<{ d: string }>(
+      `SELECT to_char(day, 'YYYY-MM-DD') d FROM tower_streak_bridges WHERE user_id = $1 ORDER BY day DESC LIMIT $2`,
+      [userId, limit]);
+    return rows.map((r) => r.d);
+  }
+
+  async addTowerBridges(userId: string, days: readonly string[], cost: number, at: string): Promise<void> {
+    for (const day of days) {
+      await this.#pool.query(
+        `INSERT INTO tower_streak_bridges (user_id, day, cost, created_at) VALUES ($1,$2,$3,$4) ON CONFLICT DO NOTHING`,
+        [userId, day, cost, at]);
+    }
   }
 
   async moveRelicRolls(fromUserId: string, toUserId: string): Promise<void> {
@@ -2346,5 +2375,6 @@ function towerRow(r: any): TowerRunRow {
     streak: r.streak ?? 1,
     modifier: r.modifier ?? null,
     characterId: r.character_id ?? null,
+    startFloor: r.start_floor ?? 1,
   };
 }

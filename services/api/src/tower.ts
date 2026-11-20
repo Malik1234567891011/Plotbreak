@@ -32,10 +32,48 @@ export function towerBucket(userId: string): number {
   return createHash('sha256').update(`tower:${userId}`).digest().readUInt32BE(0) % 100;
 }
 
-/** The UTC day, the same boundary the daily claim uses. */
+/** The UTC day. Only a fallback now: each player's day ends at their own midnight. */
 export function towerDay(now: Date): string {
   return now.toISOString().slice(0, 10);
 }
+
+/** True for a real IANA zone name ("America/New_York"). */
+export function validTimezone(tz: unknown): tz is string {
+  if (typeof tz !== 'string' || tz.length > 64 || !/^[A-Za-z0-9_+\-/]+$/.test(tz)) return false;
+  try {
+    new Intl.DateTimeFormat('en-US', { timeZone: tz });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** The calendar day (YYYY-MM-DD) it is in `tz` at `now`. */
+export function localDay(now: Date, tz: string): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+}
+
+/** Milliseconds `tz` is ahead of UTC at `at`. */
+function zoneOffset(at: number, tz: string): number {
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat('en-US', { timeZone: tz, hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' })
+      .formatToParts(new Date(at)).map((x) => [x.type, x.value]),
+  );
+  return Date.UTC(+p.year!, +p.month! - 1, +p.day!, +p.hour!, +p.minute!, +p.second!) - Math.floor(at / 1000) * 1000;
+}
+
+/** The instant the next day starts in `tz`. */
+export function nextLocalMidnight(now: Date, tz: string): Date {
+  const guess = Date.parse(`${addDays(localDay(now, tz), 1)}T00:00:00Z`);
+  let at = guess - zoneOffset(guess, tz);
+  at = guess - zoneOffset(at, tz);
+  return new Date(at);
+}
+
+/** A player may move their reset to a new time zone at most once a week. */
+const TZ_CHANGE_EVERY_MS = 7 * 24 * 3600 * 1000;
+/** What reviving a dead streak costs, by how many days it has been dead. */
+export const REVIVE_COSTS: readonly number[] = [5, 20, 50];
 
 export function isFreeDay(day: string): boolean {
   return new Date(`${day}T12:00:00Z`).getUTCDay() === FREE_WEEKDAY;
@@ -47,11 +85,6 @@ function addDays(day: string, n: number): string {
   return d.toISOString().slice(0, 10);
 }
 
-function nextDay(now: Date): Date {
-  const d = new Date(now);
-  d.setUTCHours(24, 0, 0, 0);
-  return d;
-}
 
 const MAX_INPUTS = 20_000;
 /**
@@ -81,7 +114,7 @@ export function parseInputs(raw: unknown): Input[] {
 }
 
 export class TowerError extends Error {
-  constructor(readonly code: 'BAD_INPUTS' | 'NOT_FOUND' | 'INSUFFICIENT_CREDITS' | 'NOT_TODAY' | 'NOT_OWNED', message: string) {
+  constructor(readonly code: 'BAD_INPUTS' | 'NOT_FOUND' | 'INSUFFICIENT_CREDITS' | 'NOT_TODAY' | 'NOT_OWNED' | 'NO_REVIVE' | 'BAD_FLOOR', message: string) {
     super(message);
   }
 }
@@ -98,8 +131,12 @@ export interface TowerStatusView {
   maxReward: number;
   /** Days in a row so far, and the bonus today's climb gets (or got). `alive` false: yesterday was missed. */
   streak: { days: number; todayBonusPercent: number; alive: boolean };
+  /** A dead streak that can still be bought back, until today ends. */
+  revive: null | { days: number; cost: number; nextCost: number | null };
   modifier: string;
-  practice: { earnedToday: number; cap: number };
+  /** Practice can start on any floor up to `maxFloor` (the best floor reached). */
+  practice: { earnedToday: number; cap: number; maxFloor: number };
+  timezone: string;
   characters: { owned: string[]; selected: string };
 }
 
@@ -126,19 +163,67 @@ export class TowerService {
     private readonly newSeed: () => number = () => randomInt(1, 2 ** 31),
   ) {}
 
-  /** Days in a row with a daily climb, counting today if it was played. */
-  async streak(userId: string, today: string): Promise<{ days: number; playedToday: boolean; alive: boolean }> {
-    const set = new Set(await this.repo.listTowerDays(userId, 40));
-    const playedToday = set.has(today);
-    let cursor = playedToday ? today : addDays(today, -1);
-    let n = 0;
-    while (set.has(cursor)) { n += 1; cursor = addDays(cursor, -1); }
-    return { days: n, playedToday, alive: n > 0 };
+  /** The player's day and when it ends, in their own time zone (UTC until the app has said). */
+  async clock(userId: string, tzHint?: unknown): Promise<{ day: string; nextAt: Date; tz: string }> {
+    const now = this.now();
+    let tz = (await this.repo.getTowerTimezone(userId))?.tz ?? null;
+    if (validTimezone(tzHint) && tzHint !== tz) {
+      const stored = await this.repo.getTowerTimezone(userId);
+      if (!stored || now.getTime() - new Date(stored.changedAt).getTime() >= TZ_CHANGE_EVERY_MS) {
+        await this.repo.setTowerTimezone(userId, tzHint, now.toISOString());
+        tz = tzHint;
+      }
+    }
+    const zone = tz ?? 'UTC';
+    return { day: localDay(now, zone), nextAt: nextLocalMidnight(now, zone), tz: zone };
   }
 
-  async status(userId: string): Promise<TowerStatusView> {
-    const now = this.now();
-    const day = towerDay(now);
+  /**
+   * Days in a row with a daily climb, counting today if it was played. Days
+   * bridged by a revive keep the chain alive without adding to it.
+   */
+  async streak(userId: string, today: string): Promise<{
+    days: number; playedToday: boolean; alive: boolean; revive: { days: number; cost: number; nextCost: number | null; missed: string[] } | null;
+  }> {
+    const played = new Set(await this.repo.listTowerDays(userId, 60));
+    const bridged = new Set(await this.repo.listTowerBridges(userId, 60));
+    const count = (from: string) => {
+      let cursor = from, n = 0;
+      while (played.has(cursor) || bridged.has(cursor)) { if (played.has(cursor)) n += 1; cursor = addDays(cursor, -1); }
+      return n;
+    };
+    const playedToday = played.has(today);
+    const yesterday = addDays(today, -1);
+    const days = count(playedToday ? today : yesterday);
+    const alive = days > 0 && (playedToday || played.has(yesterday) || bridged.has(yesterday));
+    let revive: { days: number; cost: number; nextCost: number | null; missed: string[] } | null = null;
+    if (!alive && !playedToday) {
+      // Dead for 1, 2 or 3 days: buy back the missed days at 5, 20 or 50.
+      const missed: string[] = [];
+      let cursor = yesterday;
+      while (missed.length <= REVIVE_COSTS.length && !played.has(cursor) && !bridged.has(cursor)) { missed.push(cursor); cursor = addDays(cursor, -1); }
+      const lost = played.has(cursor) ? count(cursor) : 0;
+      if (lost > 0 && missed.length >= 1 && missed.length <= REVIVE_COSTS.length) {
+        revive = { days: lost, cost: REVIVE_COSTS[missed.length - 1]!, nextCost: REVIVE_COSTS[missed.length] ?? null, missed };
+      }
+    }
+    return { days: alive ? days : 0, playedToday, alive, revive };
+  }
+
+  /** Buys back a dead streak, before today's climb. */
+  async revive(userId: string, tzHint?: unknown): Promise<{ days: number; cost: number; balance: number }> {
+    const { day } = await this.clock(userId, tzHint);
+    const s = await this.streak(userId, day);
+    if (!s.revive) throw new TowerError('NO_REVIVE', 'There’s no streak to revive today.');
+    const balance = await this.wallet.getBalance(userId);
+    if (balance < s.revive.cost) throw new InsufficientCreditsError(s.revive.cost, balance);
+    await this.wallet.grant(userId, 'TOWER_REVIVE', -s.revive.cost, `tower:revive:${userId}:${day}`, { missed: s.revive.missed, days: s.revive.days });
+    await this.repo.addTowerBridges(userId, s.revive.missed, s.revive.cost, this.now().toISOString());
+    return { days: s.revive.days, cost: s.revive.cost, balance: await this.wallet.getBalance(userId) };
+  }
+
+  async status(userId: string, tzHint?: unknown): Promise<TowerStatusView> {
+    const { day, nextAt, tz } = await this.clock(userId, tzHint);
     await this.settleStale(userId, day);
     const run = await this.repo.getTowerRun(userId, day);
     const free = isFreeDay(day);
@@ -155,12 +240,14 @@ export class TowerService {
       today: run
         ? { runId: run.runId, finished: !!run.finishedAt, fellOn: run.fellOn ?? run.lastFloor, cleared: !!run.cleared, reward: run.reward ?? 0, streak: run.streak }
         : null,
-      nextAt: nextDay(now).toISOString(),
+      nextAt: nextAt.toISOString(),
       enabled: true,
       maxReward: payoutWithStreak(FLOORS, true, todayStreak),
       streak: { days: streak.days, todayBonusPercent: streakBonusPercent(todayStreak), alive: streak.alive },
+      revive: streak.revive ? { days: streak.revive.days, cost: streak.revive.cost, nextCost: streak.revive.nextCost } : null,
       modifier: dailyTower(day).modifier,
-      practice: { earnedToday: await this.repo.practiceCreditsOn(userId, day), cap: PRACTICE_DAILY_CAP },
+      practice: { earnedToday: await this.repo.practiceCreditsOn(userId, day), cap: PRACTICE_DAILY_CAP, maxFloor: Math.max(1, Math.min(FLOORS, await this.repo.bestTowerFloor(userId))) },
+      timezone: tz,
       characters: {
         owned: [DEFAULT_CHARACTER, ...owned.filter((c) => c !== DEFAULT_CHARACTER)],
         selected: selected && (selected === DEFAULT_CHARACTER || owned.includes(selected)) ? selected : DEFAULT_CHARACTER,
@@ -169,10 +256,10 @@ export class TowerService {
   }
 
   /** Starts today's run, or hands back the one already started. Charges the entry once. */
-  async start(userId: string, appVersion: string | null): Promise<{
-    runId: string; seed: number; day: string; fee: number; balance: number; resumed: boolean; streak: number; characterId: string;
+  async start(userId: string, appVersion: string | null, tzHint?: unknown): Promise<{
+    runId: string; seed: number; day: string; fee: number; balance: number; resumed: boolean; streak: number; characterId: string; startFloor: number;
   }> {
-    const day = towerDay(this.now());
+    const { day } = await this.clock(userId, tzHint);
     const existing = await this.repo.getTowerRun(userId, day);
     if (existing) {
       if (existing.finishedAt) throw new TowerError('NOT_TODAY', 'Today’s climb is done. Come back tomorrow.');
@@ -183,7 +270,7 @@ export class TowerService {
     const balance = await this.wallet.getBalance(userId);
     if (balance < fee) throw new InsufficientCreditsError(fee, balance);
     const streak = (await this.streak(userId, day)).days + 1;
-    const row = this.#newRow(userId, day, fee, free, false, streak, appVersion, await this.#character(userId));
+    const row = this.#newRow(userId, day, fee, free, false, streak, appVersion, await this.#character(userId), 1);
     if (!(await this.repo.insertTowerRun(row))) {
       // Lost a race with a second tap: the other request's run is the run.
       return this.#started((await this.repo.getTowerRun(userId, day))!, 0, true);
@@ -195,14 +282,17 @@ export class TowerService {
   }
 
   /** A practice climb: free, unlimited, pays 1 credit a floor up to the daily cap. */
-  async startPractice(userId: string, appVersion: string | null): Promise<{
-    runId: string; seed: number; day: string; remaining: number; characterId: string;
+  async startPractice(userId: string, appVersion: string | null, floor = 1, tzHint?: unknown): Promise<{
+    runId: string; seed: number; day: string; remaining: number; characterId: string; startFloor: number;
   }> {
-    const day = towerDay(this.now());
-    const row = this.#newRow(userId, day, 0, true, true, 0, appVersion, await this.#character(userId));
+    const { day } = await this.clock(userId, tzHint);
+    const max = Math.max(1, Math.min(FLOORS, await this.repo.bestTowerFloor(userId)));
+    const startFloor = Math.trunc(floor) || 1;
+    if (startFloor < 1 || startFloor > max) throw new TowerError('BAD_FLOOR', `You can practise from floor 1 to ${max}.`);
+    const row = this.#newRow(userId, day, 0, true, true, 0, appVersion, await this.#character(userId), startFloor);
     await this.repo.insertTowerRun(row);
     const earned = await this.repo.practiceCreditsOn(userId, day);
-    return { runId: row.runId, seed: row.seed, day, remaining: Math.max(0, PRACTICE_DAILY_CAP - earned), characterId: row.characterId ?? DEFAULT_CHARACTER };
+    return { runId: row.runId, seed: row.seed, day, remaining: Math.max(0, PRACTICE_DAILY_CAP - earned), characterId: row.characterId ?? DEFAULT_CHARACTER, startFloor };
   }
 
   async checkpoint(userId: string, runId: string, rawInputs: unknown, floor: number): Promise<void> {
@@ -242,8 +332,8 @@ export class TowerService {
       }
     }
     await this.repo.setSelectedTowerCharacter(userId, characterId, this.now().toISOString());
-    const status = await this.status(userId);
-    return { owned: status.characters.owned, selected: status.characters.selected, balance: status.balance };
+    const owned2 = await this.repo.getTowerCharacters(userId);
+    return { owned: [DEFAULT_CHARACTER, ...owned2.filter((c) => c !== DEFAULT_CHARACTER)], selected: characterId, balance: await this.wallet.getBalance(userId) };
   }
 
   async selectCharacter(userId: string, characterId: string): Promise<{ selected: string }> {
@@ -268,7 +358,7 @@ export class TowerService {
   async #started(run: TowerRunRow, fee: number, resumed: boolean) {
     return {
       runId: run.runId, seed: run.seed, day: run.day, fee, balance: await this.wallet.getBalance(run.userId),
-      resumed, streak: run.streak, characterId: run.characterId ?? DEFAULT_CHARACTER,
+      resumed, streak: run.streak, characterId: run.characterId ?? DEFAULT_CHARACTER, startFloor: run.startFloor,
     };
   }
 
@@ -277,7 +367,7 @@ export class TowerService {
     return selected ?? DEFAULT_CHARACTER;
   }
 
-  #newRow(userId: string, day: string, fee: number, free: boolean, practice: boolean, streak: number, appVersion: string | null, characterId: string): TowerRunRow {
+  #newRow(userId: string, day: string, fee: number, free: boolean, practice: boolean, streak: number, appVersion: string | null, characterId: string, startFloor: number): TowerRunRow {
     const now = this.now().toISOString();
     return {
       // A fresh secret seed per run: nobody can work out a run's attacks in advance.
@@ -285,12 +375,12 @@ export class TowerService {
       startedAt: now, lastSeenAt: now, finishedAt: null, lastFloor: 1,
       fellOn: null, cleared: null, reward: null, abandoned: false, suspicious: false, ticks: null, realMs: null,
       appVersion, boons: null, floors: null, inputs: null,
-      practice, streak, modifier: dailyTower(day).modifier, characterId,
+      practice, streak, modifier: dailyTower(day).modifier, characterId, startFloor,
     };
   }
 
   async #settle(run: TowerRunRow, inputs: Input[], abandoned: boolean, realMs: number): Promise<Omit<FinishView, 'balance' | 'best' | 'newBest' | 'practice'>> {
-    const result = replay(run.seed, inputs, dailyTower(run.day));
+    const result = replay(run.seed, inputs, dailyTower(run.day), run.startFloor);
     const fellOn = result.cleared ? FLOORS : result.fellOn;
     // A run can't be played faster than the sim's own clock, and a thumb on
     // glass is never perfectly consistent; a script that knows the sim is.
@@ -302,7 +392,7 @@ export class TowerService {
     let base: number;
     let reward: number;
     if (run.practice) {
-      const cleared = result.cleared ? FLOORS : Math.max(0, fellOn - 1);
+      const cleared = result.cleared ? FLOORS - run.startFloor + 1 : Math.max(0, fellOn - run.startFloor);
       const remaining = Math.max(0, PRACTICE_DAILY_CAP - (await this.repo.practiceCreditsOn(run.userId, run.day)));
       base = Math.min(remaining, cleared * PRACTICE_PER_FLOOR);
       reward = suspicious ? 0 : base;

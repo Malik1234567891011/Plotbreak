@@ -34,7 +34,9 @@ CREATE TABLE IF NOT EXISTS tower_runs (
   streak        integer NOT NULL DEFAULT 1,
   -- The day's twist (dailyTower in packages/tower), for reading results by modifier.
   modifier      text,
-  character_id  text
+  character_id  text,
+  -- Practice can start on any floor the player has reached; the daily climb always starts on 1.
+  start_floor   integer NOT NULL DEFAULT 1
 );
 
 -- One daily try per player per day. Practice runs are unlimited.
@@ -54,12 +56,26 @@ CREATE TABLE IF NOT EXISTS tower_characters (
 );
 ALTER TABLE tower_characters ENABLE ROW LEVEL SECURITY;
 
+-- The fighter in use, and the time zone whose midnight is this player's daily reset.
+-- The zone can change at most once a week, so it can't be hopped to farm an extra climb.
 CREATE TABLE IF NOT EXISTS tower_profiles (
-  user_id       uuid PRIMARY KEY REFERENCES profiles (user_id) ON DELETE CASCADE,
-  character_id  text NOT NULL,
-  updated_at    timestamptz NOT NULL DEFAULT now()
+  user_id        uuid PRIMARY KEY REFERENCES profiles (user_id) ON DELETE CASCADE,
+  character_id   text,
+  tz             text,
+  tz_changed_at  timestamptz,
+  updated_at     timestamptz NOT NULL DEFAULT now()
 );
 ALTER TABLE tower_profiles ENABLE ROW LEVEL SECURITY;
+
+-- Missed days a player paid to bridge, so a dead streak lives on (◆5, ◆20 or ◆50).
+CREATE TABLE IF NOT EXISTS tower_streak_bridges (
+  user_id     uuid NOT NULL REFERENCES profiles (user_id) ON DELETE CASCADE,
+  day         date NOT NULL,
+  cost        integer NOT NULL,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (user_id, day)
+);
+ALTER TABLE tower_streak_bridges ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE wallet_ledger DROP CONSTRAINT IF EXISTS wallet_ledger_type_check;
 ALTER TABLE wallet_ledger ADD CONSTRAINT wallet_ledger_type_check CHECK (type IN (
@@ -67,6 +83,6 @@ ALTER TABLE wallet_ledger ADD CONSTRAINT wallet_ledger_type_check CHECK (type IN
   'TURN_RESERVE','TURN_FINALIZE','TURN_RELEASE',
   'MEDIA_RESERVE','MEDIA_FINALIZE','MEDIA_RELEASE',
   'REFUND','ADMIN_ADJUST','CREATOR_GRANT','PROMO_GRANT','FORK_FEE','CREATE_FEE',
-  'SUBSCRIPTION_GRANT','TOWER_ENTRY','TOWER_REWARD','TOWER_UNLOCK'));
+  'SUBSCRIPTION_GRANT','TOWER_ENTRY','TOWER_REWARD','TOWER_UNLOCK','TOWER_REVIVE'));
 
 COMMIT;

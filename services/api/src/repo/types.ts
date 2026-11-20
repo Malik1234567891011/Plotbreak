@@ -286,6 +286,7 @@ export interface TowerRunRow {
   readonly streak: number;
   readonly modifier: string | null;
   readonly characterId: string | null;
+  readonly startFloor: number;
 }
 
 export type TowerRunFinish = Pick<TowerRunRow, 'finishedAt' | 'fellOn' | 'cleared' | 'reward' | 'abandoned' | 'suspicious' | 'ticks' | 'realMs' | 'boons' | 'floors' | 'inputs' | 'lastFloor'>;
@@ -552,6 +553,10 @@ export interface Repository {
   addTowerCharacter(userId: string, characterId: string, at: string): Promise<boolean>;
   getSelectedTowerCharacter(userId: string): Promise<string | null>;
   setSelectedTowerCharacter(userId: string, characterId: string, at: string): Promise<void>;
+  getTowerTimezone(userId: string): Promise<{ tz: string; changedAt: string } | null>;
+  setTowerTimezone(userId: string, tz: string, at: string): Promise<void>;
+  listTowerBridges(userId: string, limit: number): Promise<string[]>;
+  addTowerBridges(userId: string, days: readonly string[], cost: number, at: string): Promise<void>;
 
   // --- Plotbreak Pass (docs/plotbreak-pass.md) -------------------------
 

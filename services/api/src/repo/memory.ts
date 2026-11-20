@@ -335,6 +335,27 @@ export class MemoryRepository implements Repository {
     this.#towerSelected.set(userId, characterId);
   }
 
+  readonly #towerTz = new Map<string, { tz: string; changedAt: string }>();
+  readonly #towerBridges = new Map<string, Set<string>>();
+
+  async getTowerTimezone(userId: string): Promise<{ tz: string; changedAt: string } | null> {
+    return this.#towerTz.get(userId) ?? null;
+  }
+
+  async setTowerTimezone(userId: string, tz: string, at: string): Promise<void> {
+    this.#towerTz.set(userId, { tz, changedAt: at });
+  }
+
+  async listTowerBridges(userId: string, limit: number): Promise<string[]> {
+    return [...(this.#towerBridges.get(userId) ?? [])].sort().reverse().slice(0, limit);
+  }
+
+  async addTowerBridges(userId: string, days: readonly string[]): Promise<void> {
+    const set = this.#towerBridges.get(userId) ?? new Set<string>();
+    for (const d of days) set.add(d);
+    this.#towerBridges.set(userId, set);
+  }
+
   async getTowerRunById(runId: string): Promise<TowerRunRow | null> {
     return this.#towerRuns.get(runId) ?? null;
   }
