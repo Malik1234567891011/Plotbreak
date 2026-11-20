@@ -226,3 +226,19 @@ Commands:
 ### Free climb (owner correction, 2026-11-20)
 
 The original ask was "0 credits one day a week", meaning the first climb a player makes each week is free, not a fixed Sunday. `isFreeClimb` (server) and the mock both check for any daily climb since Monday, in the player's own time zone.
+
+## Launch (2026-11-20)
+
+- **Done:** migration `0017_tower.sql` is applied on production. `PLOTBREAK_TOWER` is
+  set to Malik's two account ids only. Malik played it on his phone against prod.
+- **Bug found on device:** the Tower card never appeared, because an empty SwiftUI
+  `Group` has no view to run `.task` on, so it never asked the server. Fixed in
+  `9296d33`. The simulator preview (`-towerPreview`) skips the card, which is why it was missed.
+- **Timing ring (floors 1–10):** grey while too early, green with TAP when a tap
+  counts, red with DODGE for a heavy. Malik's first read was "attack when they're in
+  my circle".
+- **Ship order:** push → Omar uploads 1.0.11 (19) and submits it. Malik chose `PLOTBREAK_TOWER=all`
+  (no 50/50 holdout). That's safe before release, because older builds don't have the client.
+- **Measure:** with no holdout, the only comparison is before vs after release. Compare
+  1.0.11 users against those still on older builds while the update rolls out, and
+  compare D1, D7, daily turns and purchases with the weeks before.
