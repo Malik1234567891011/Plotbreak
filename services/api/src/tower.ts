@@ -4,8 +4,8 @@
  * same deterministic sim the app runs. The app's claim of how far it got is
  * never trusted. See docs/tower.md.
  */
-import { createHash, randomUUID } from 'node:crypto';
-import { ENTRY_FEE, FLOORS, FREE_WEEKDAY, TPS, daySeed, payoutFor, replay, type Input } from '@plotbreak/tower';
+import { createHash, randomInt, randomUUID } from 'node:crypto';
+import { ENTRY_FEE, FLOORS, FREE_WEEKDAY, TPS, lateTapSpread, payoutFor, replay, type Input } from '@plotbreak/tower';
 import type { Repository, TowerRunRow } from './repo/types.js';
 import { InsufficientCreditsError, type WalletService } from './wallet.js';
 
@@ -44,6 +44,11 @@ function nextDay(now: Date): Date {
 }
 
 const MAX_INPUTS = 20_000;
+/**
+ * Mean distance from dead-centre (ticks) on floors 16+ below which a run is
+ * treated as scripted. Simulated experts with phone jitter never go under 1.2.
+ */
+const MIN_HUMAN_SPREAD = 0.6;
 
 /** Throws on anything that is not a well-formed, tick-ordered input log. */
 export function parseInputs(raw: unknown): Input[] {
@@ -88,6 +93,8 @@ export class TowerService {
     private readonly repo: Repository,
     private readonly wallet: WalletService,
     private readonly now: () => Date = () => new Date(),
+    /** Tests pin it; production draws a fresh secret seed per run. */
+    private readonly newSeed: () => number = () => randomInt(1, 2 ** 31),
   ) {}
 
   async status(userId: string): Promise<TowerStatusView> {
@@ -125,7 +132,8 @@ export class TowerService {
     const balance = await this.wallet.getBalance(userId);
     if (balance < fee) throw new InsufficientCreditsError(fee, balance);
     const row: TowerRunRow = {
-      runId: `tower_${randomUUID()}`, userId, day, seed: daySeed(day), fee, free,
+      // A fresh secret seed per run: nobody can work out a day's tower in advance.
+      runId: `tower_${randomUUID()}`, userId, day, seed: this.newSeed(), fee, free,
       startedAt: now.toISOString(), lastSeenAt: now.toISOString(), finishedAt: null, lastFloor: 1,
       fellOn: null, cleared: null, reward: null, abandoned: false, suspicious: false, ticks: null, realMs: null,
       appVersion, boons: null, floors: null, inputs: null,
@@ -181,7 +189,9 @@ export class TowerService {
     // tick is how much game time the player must have lived through.
     const lastTick = inputs.length ? inputs[inputs.length - 1]!.t : 0;
     const wallMs = this.now().getTime() - new Date(run.startedAt).getTime();
-    const suspicious = !abandoned && wallMs + 15_000 < (lastTick / TPS) * 1000;
+    // And a thumb on glass is never dead-centre: a script that knows the sim is.
+    const spread = lateTapSpread(result);
+    const suspicious = (!abandoned && wallMs + 15_000 < (lastTick / TPS) * 1000) || (spread !== null && spread < MIN_HUMAN_SPREAD);
     const reward = suspicious ? payoutFor(1, false) : payoutFor(fellOn, result.cleared);
     const finished = await this.repo.finishTowerRun(run.runId, {
       finishedAt: this.now().toISOString(),

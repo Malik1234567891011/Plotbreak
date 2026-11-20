@@ -774,7 +774,7 @@ function drawDrone(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose): 
 
 function drawMecha(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose): void {
   ctx.save();
-  ctx.scale(1.25, 1.25);
+  ctx.scale(1.05, 1.05);
   // Legs.
   rrect(ctx, -16, -26, 12, 26, 3); fillStroke(ctx, shade(look.outfit, -0.15));
   rrect(ctx, 4, -26, 12, 26, 3); fillStroke(ctx, look.outfit);

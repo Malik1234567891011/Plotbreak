@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { BOONS_BY_ID, BotDriver, SKILLS, TowerSim, type BoonId, type Input, type RunResult, type SimEvent } from '@tower';
+import { BOONS_BY_ID, TowerSim, type BoonId, type Input, type RunResult, type SimEvent } from '@tower';
+import type { BotDriver } from '../../../../packages/tower/src/bots';
 import { bridge } from '../bridge';
 import { sfx, unlockAudio } from './audio';
 import { Stage } from './render';
@@ -11,25 +12,43 @@ const MAX_STEPS = 4;
 export interface GameProps {
   seed: number;
   runId: string;
+  /** Practice: no checkpoints, nothing paid. */
+  practice?: boolean;
   onEnd: (result: RunResult, inputs: Input[], realMs: number) => void;
 }
 
-export function Game({ seed, runId, onEnd }: GameProps) {
+export function Game({ seed, runId, practice = false, onEnd }: GameProps) {
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const [offer, setOffer] = useState<BoonId[] | null>(null);
+  const [erase, setErase] = useState<BoonId[] | null>(null);
   const [quit, setQuit] = useState(false);
   const simRef = useRef<TowerSim | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
+    const dev = params.has('dev');
+    const botName = dev ? params.get('bot') : null;
+    let stop: (() => void) | null = null;
+    let cancelled = false;
+    // Bots are dev tools: loaded on demand so they are not in the shipped page's code path.
+    const load = botName ? import('../../../../packages/tower/src/bots') : Promise.resolve(null);
+    void load.then((mod) => {
+      if (cancelled) return;
+      const bot = mod ? new mod.BotDriver(mod.SKILLS.find((s) => s.name === botName!.replace('-', ' ')) ?? mod.SKILLS[4]!, 99) : null;
+      if (bot && params.has('pick')) bot.autoPick = false;
+      stop = run(params, dev, bot);
+    });
+    return () => {
+      cancelled = true;
+      stop?.();
+    };
+  }, [seed, runId, practice, onEnd]);
+
+  function run(params: URLSearchParams, dev: boolean, bot: BotDriver | null): () => void {
     const sim = new TowerSim(seed);
     simRef.current = sim;
-    const dev = params.has('dev');
     const startFloor = dev ? Number(params.get('floor') ?? 1) : 1;
-    const botName = dev ? params.get('bot') : null;
-    const bot = botName ? new BotDriver(SKILLS.find((s) => s.name === botName.replace('-', ' ')) ?? SKILLS[4]!, 99) : null;
-    if (bot && params.has('pick')) bot.autoPick = false;
 
     const stage = new Stage(canvas.current!);
     const css = getComputedStyle(document.documentElement);
@@ -106,9 +125,13 @@ export function Game({ seed, runId, onEnd }: GameProps) {
         case 'break': sfx.breakGuard(e.final); setTimeout(() => sfx.cutin(), 0); bridge.haptic('heavy'); break;
         case 'cleared':
           bridge.haptic('success');
-          bridge.track('tower_floor_cleared', { floor: e.floor, skipped: e.skipped, hp: sim.hp, ticks: sim.stats.ticks });
-          void bridge.checkpoint(runId, sim.inputs, e.floor);
+          if (!practice) {
+            bridge.track('tower_floor_cleared', { floor: e.floor, skipped: e.skipped, hp: sim.hp, ticks: sim.stats.ticks });
+            void bridge.checkpoint(runId, sim.inputs, e.floor);
+          }
           break;
+        case 'erase_offer': setErase(e.offer); bridge.haptic('heavy'); break;
+        case 'erased': setErase(null); break;
         case 'floor': sfx.floor(sim.spec.boss); break;
         case 'heal': sfx.heal(); break;
         case 'boon_offer': setOffer(e.offer); break;
@@ -162,7 +185,7 @@ export function Game({ seed, runId, onEnd }: GameProps) {
     };
     const key = (ev: KeyboardEvent) => {
       if (ev.repeat) return;
-      if (sim.phase === 'boon' && sim.offer && ['1', '2', '3'].includes(ev.key)) { sim.input('pick', Number(ev.key) - 1); return; }
+      if ((sim.eraseOffer || (sim.phase === 'boon' && sim.offer)) && ['1', '2', '3'].includes(ev.key)) { sim.input('pick', Number(ev.key) - 1); return; }
       if (sim.phase !== 'fight') return;
       if (ev.code === 'Space' || ev.key === 'j' || ev.key === 'f') { ev.preventDefault(); sim.input('tap'); }
       else if (ev.key === 'k' || ev.key === 'd' || ev.code === 'ShiftLeft' || ev.code === 'ShiftRight') { stage.pressDodge(); sim.input('dodge'); }
@@ -170,14 +193,13 @@ export function Game({ seed, runId, onEnd }: GameProps) {
     };
     el.addEventListener('pointerdown', down, { passive: false });
     window.addEventListener('keydown', key);
-    bridge.track('tower_started', { seed, dev });
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', fit);
       el.removeEventListener('pointerdown', down);
       window.removeEventListener('keydown', key);
     };
-  }, [seed, runId, onEnd]);
+  }
 
   const pick = (i: number) => {
     const sim = simRef.current;
@@ -193,7 +215,6 @@ export function Game({ seed, runId, onEnd }: GameProps) {
       {offer && (
         <div data-ui className="boons">
           <div className="boons-title">
-            <span className="jp">特典</span>
             <h2>Choose a power-up</h2>
             <p>It lasts for the rest of today’s climb.</p>
           </div>
@@ -212,11 +233,34 @@ export function Game({ seed, runId, onEnd }: GameProps) {
           </div>
         </div>
       )}
+      {erase && (
+        <div data-ui className="boons erase">
+          <div className="boons-title">
+            <span className="author">THE AUTHOR</span>
+            <h2>“I’m cutting one of these.”</h2>
+            <p>Choose the power-up you can live without.</p>
+          </div>
+          <div className="boon-cards">
+            {erase.map((id, i) => {
+              const b = BOONS_BY_ID[id];
+              return (
+                <button key={id} className={`boon ${b.rarity} cut`} onClick={() => pick(i)} style={{ animationDelay: `${i * 70}ms` }}>
+                  <span className="boon-jp">{b.jp}</span>
+                  <span className="boon-name">{b.name}</span>
+                  <span className="boon-text">{b.text}</span>
+                  <span className="boon-rarity">lose this</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      {practice && <div className="practice-tag">PRACTICE · no rewards</div>}
       {quit && (
         <div data-ui className="confirm">
           <div className="confirm-card">
-            <h3>Give up this climb?</h3>
-            <p>You’ll be paid for the floor you’re on, and today’s try is used.</p>
+            <h3>{practice ? 'Stop practising?' : 'Give up this climb?'}</h3>
+            <p>{practice ? 'Nothing is lost. Practice is free.' : 'You’ll be paid for the floor you’re on, and today’s try is used.'}</p>
             <div className="confirm-row">
               <button className="btn ghost" onClick={() => setQuit(false)}>Keep fighting</button>
               <button

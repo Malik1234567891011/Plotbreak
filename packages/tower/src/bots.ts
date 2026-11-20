@@ -39,6 +39,10 @@ export const SKILLS: readonly Skill[] = [
   { name: 'expert', sigma: 1.2, bias: 0, react: 11, bite: 20, misread: 5, stanceBite: 25, counter: 950, smartBoons: true, lapse: 6 },
 ];
 
+/** A phone adds lag and jitter between the finger and the game: ~1 tick late, ~1.2 ticks of spread. */
+const TOUCH_BIAS = 1;
+const TOUCH_JITTER = 1.2;
+
 const PRIORITY: readonly BoonId[] = [
   'plot_armor', 'rivals_respect', 'friendship', 'time_skip', 'training_arc', 'flashback',
   'beach_episode', 'bento', 'filler_episode', 'glasses_glint', 'battle_cry', 'second_form', 'truck_kun', 'chuunibyou',
@@ -70,9 +74,13 @@ export class BotDriver {
   /** Picks power-ups by hand when false (the in-game dev autoplay lets you choose). */
   autoPick = true;
 
-  constructor(skill: Skill, seed: number) {
+  readonly #touchJitter: number;
+
+  /** `touchJitter` 0 makes a perfect script (used to test the server's script check). */
+  constructor(skill: Skill, seed: number, touchJitter = TOUCH_JITTER) {
     this.#skill = skill;
     this.#rng = new Rng(seed);
+    this.#touchJitter = touchJitter;
   }
 
   #uni(): number {
@@ -90,9 +98,9 @@ export class BotDriver {
     const lead = Math.max(1, a.impact - a.tele);
     let sigma = skill.sigma * (1 + Math.max(0, 30 - lead) / 30);
     if (a.delayed) sigma *= 1.6;
-    const at = (center: number) => Math.max(a.tele + skill.react, Math.round(center + skill.bias + this.#gauss() * sigma));
+    const at = (center: number) => Math.max(a.tele + skill.react, Math.round(center + skill.bias + (this.#touchJitter ? TOUCH_BIAS : 0) + this.#gauss() * Math.hypot(sigma, this.#touchJitter)));
     if (a.kind !== 'fake' && a.kind !== 'stance' && this.#p(skill.lapse)) return;
-    const misread = this.#p(a.twisted ? skill.misread * 4 + 150 : skill.misread);
+    const misread = this.#p(a.twisted && skill.misread > 0 ? skill.misread * 4 + 150 : skill.misread);
     const glasses = sim.has('glasses_glint');
     switch (a.kind) {
       case 'slash':
@@ -118,6 +126,12 @@ export class BotDriver {
   beforeStep(sim: TowerSim): void {
     const skill = this.#skill;
     const t = sim.tick;
+    if (sim.eraseOffer) {
+      // Lose the least useful card: the reverse of the pick order.
+      const ranked = sim.eraseOffer.map((b, i) => ({ i, r: PRIORITY.indexOf(b) })).sort((a, b) => b.r - a.r);
+      sim.input('pick', skill.smartBoons ? ranked[0]!.i : this.#rng.next() % sim.eraseOffer.length);
+      return;
+    }
     if (sim.phase === 'boon' && sim.offer) {
       if (!this.autoPick) return;
       let pick = this.#rng.next() % sim.offer.length;

@@ -71,10 +71,11 @@ export type SimEvent =
   | { t: number; type: 'heal'; hp: number }
   | { t: number; type: 'twist' }
   | { t: number; type: 'erased'; boon: BoonId }
+  | { t: number; type: 'erase_offer'; offer: BoonId[] }
   | { t: number; type: 'dead'; floor: number }
   | { t: number; type: 'won' };
 
-export type HitCause = 'late' | 'crushed' | 'countered' | 'feint' | 'chuunibyou';
+export type HitCause = 'late' | 'crushed' | 'countered' | 'feint' | 'chuunibyou' | 'graze';
 
 export interface FloorStats {
   floor: number;
@@ -87,6 +88,9 @@ export interface FloorStats {
   hits: number;
   whiffs: number;
   bitten: number;
+  /** Sum of (tap tick − impact tick) over parries, and of its square: how a player's timing spreads. */
+  offsets: number;
+  offsetsSq: number;
   skipped: boolean;
   offer?: BoonId[];
   picked?: BoonId;
@@ -103,7 +107,9 @@ const DELAY_EXTRA: readonly [number, number] = [24, 44];
 const FAKE_TELL = 14;
 const PHASE_PAUSE = 50;
 const KIAI_BONUS = 20;
-const AUTHOR_HP_CAP = 4;
+const AUTHOR_HP_CAP = 6;
+/** From this floor, dodging a white strike costs half a heart. */
+export const GRAZE_FROM = 11;
 const HALF = 1;
 const HEART = 2;
 const MAX_HP = 8;
@@ -149,6 +155,8 @@ export class TowerSim {
   friendCount = 0;
   twistActive = false;
   erased: BoonId | null = null;
+  /** Floor 30: the power-ups THE AUTHOR offers to erase, until one is picked. */
+  eraseOffer: BoonId[] | null = null;
 
   readonly events: SimEvent[] = [];
   readonly floors: FloorStats[] = [];
@@ -191,6 +199,14 @@ export class TowerSim {
   input(k: InputKind, v?: number): boolean {
     if (this.over) return false;
     const t = this.tick;
+    if (k === 'pick' && this.eraseOffer) {
+      const i = Math.trunc(v ?? -1);
+      const boon = this.eraseOffer[i];
+      if (!boon) return false;
+      this.inputs.push({ t, k, v: i });
+      this.#erase(boon);
+      return true;
+    }
     if (k === 'pick') {
       if (this.phase !== 'boon' || !this.offer) return false;
       const i = Math.trunc(v ?? -1);
@@ -215,7 +231,7 @@ export class TowerSim {
     const t = this.tick;
     switch (this.phase) {
       case 'intro':
-        if (t >= this.phaseUntil) {
+        if (!this.eraseOffer && t >= this.phaseUntil) {
           this.phase = 'fight';
           this.nextPatternAt = t + 30;
           this.#emit({ t, type: 'fight' });
@@ -297,10 +313,10 @@ export class TowerSim {
   }
 
   #early(): number {
-    return this.has('training_arc') ? Math.trunc((this.spec.early * 125) / 100) : this.spec.early;
+    return this.has('training_arc') ? Math.max(this.spec.early + 1, Math.ceil((this.spec.early * 125) / 100)) : this.spec.early;
   }
   #late(): number {
-    return this.has('training_arc') ? Math.trunc((this.spec.late * 125) / 100) : this.spec.late;
+    return this.has('training_arc') ? Math.max(this.spec.late + 1, Math.ceil((this.spec.late * 125) / 100)) : this.spec.late;
   }
   #perfect(): number {
     return this.has('battle_cry') ? this.spec.perfect * 2 : this.spec.perfect;
@@ -354,6 +370,8 @@ export class TowerSim {
       const perfect = Math.abs(t - a.impact) <= this.#perfect();
       this.#resolve(a, perfect ? 'perfect' : 'parried', t);
       this.stats.parries += 1;
+      this.stats.offsets += t - a.impact;
+      this.stats.offsetsSq += (t - a.impact) * (t - a.impact);
       if (perfect) this.stats.perfects += 1;
       this.#emit({ t, type: 'parry', attack: a.id, perfect, kunai: a.kind === 'kunai' });
       // A full Kiai meter turns the next parry into a heavy blow and empties it.
@@ -377,9 +395,20 @@ export class TowerSim {
   #dodgeInput(t: number): void {
     const a = this.#inWindow(t, ['slash', 'kunai', 'heavy', 'fake']);
     if (a?.kind === 'fake') {
-      // Dodging a feint is the safe answer: nothing happens either way.
-      this.#resolve(a, 'passed', t);
+      // Dodging into a feint commits you just like tapping it. Waiting is the answer.
+      this.#resolve(a, 'bitten', t);
+      this.stats.bitten += 1;
+      this.#emit({ t, type: 'bitten', attack: a.id });
+      this.#whiff(t, true);
+      return;
+    }
+    if (a && a.kind !== 'heavy' && this.floor >= GRAZE_FROM) {
+      // Dodging a white strike gets you clear, but only just: it grazes you, and
+      // does nothing to the guard. Otherwise "when in doubt, dodge" beats every read.
+      this.#resolve(a, 'dodged', t);
+      this.stats.dodges += 1;
       this.#emit({ t, type: 'dodge', attack: a.id, heavy: false });
+      this.#graze(t);
       return;
     }
     if (a) {
@@ -402,6 +431,13 @@ export class TowerSim {
     // A dodge at nothing: half the lockout of a whiffed tap.
     const lock = Math.trunc(this.spec.lockout / 2);
     if (lock) this.lockUntil = t + lock;
+  }
+
+  #graze(t: number): void {
+    this.hp -= HALF;
+    this.stats.hits += 1;
+    this.#emit({ t, type: 'hit', attack: 0, cause: 'graze', hp: this.hp });
+    if (this.hp <= 0) this.#die(t, 'graze');
   }
 
   #whiff(t: number, feint: boolean): void {
@@ -521,7 +557,7 @@ export class TowerSim {
     this.#floorStart = t;
     this.floors.push({
       floor, enemy: this.spec.enemy.id, ticks: 0, parries: 0, perfects: 0, dodges: 0,
-      counters: 0, hits: 0, whiffs: 0, bitten: 0, skipped: false,
+      counters: 0, hits: 0, whiffs: 0, bitten: 0, offsets: 0, offsetsSq: 0, skipped: false,
     });
     this.attacks = [];
     this.opening = null;
@@ -539,16 +575,13 @@ export class TowerSim {
     }
     this.#emit({ t, type: 'floor', floor });
     if (this.spec.twist && this.boons.length) {
-      // THE AUTHOR rewrites you: one power-up, chosen by the day's seed, is gone.
-      const erased = this.boons.splice(this.#rng.range(0, this.boons.length - 1), 1)[0]!;
-      this.erased = erased;
-      if (erased === 'plot_armor') this.plotArmor = false;
-      if (erased === 'flashback') this.flashbacks = 0;
-      if (erased === 'rivals_respect') {
-        this.maxHp -= HEART;
-        this.hp = Math.min(this.hp, this.maxHp);
-      }
-      this.#emit({ t, type: 'erased', boon: erased });
+      // THE AUTHOR edits you: three of your power-ups (chosen by the seed) are offered,
+      // and you choose which one to lose. The intro waits for the choice.
+      const pool = [...this.boons];
+      const offer: BoonId[] = [];
+      while (offer.length < 3 && pool.length) offer.push(pool.splice(this.#rng.range(0, pool.length - 1), 1)[0]!);
+      this.eraseOffer = offer;
+      this.#emit({ t, type: 'erase_offer', offer: [...offer] });
     }
     if (this.spec.twist && this.hp > AUTHOR_HP_CAP) {
       // ...and edits you down to two hearts. The last floor is meant to be a wall.
@@ -567,6 +600,21 @@ export class TowerSim {
   /** Dev tools only (screenshots, tuning). The server replays from floor 1, so this can't earn anything. */
   devStartAt(floor: number): void {
     this.#enterFloor(Math.max(1, Math.min(FLOORS, floor)));
+  }
+
+  #erase(boon: BoonId): void {
+    const t = this.tick;
+    this.boons.splice(this.boons.indexOf(boon), 1);
+    this.erased = boon;
+    this.eraseOffer = null;
+    if (boon === 'plot_armor') this.plotArmor = false;
+    if (boon === 'flashback') this.flashbacks = 0;
+    if (boon === 'rivals_respect') {
+      this.maxHp -= HEART;
+      this.hp = Math.min(this.hp, this.maxHp);
+    }
+    this.#emit({ t, type: 'erased', boon });
+    this.phaseUntil = t + BOSS_INTRO_TICKS;
   }
 
   // ── power-ups ──────────────────────────────────────────────────────────
@@ -653,4 +701,17 @@ export function replay(seed: number, inputs: readonly Input[], maxTicks = 60 * 6
     sim.step();
   }
   return sim.result();
+}
+
+/**
+ * The spread (standard deviation, ticks) of this run's parry timing on the
+ * late floors. A person on a phone is never perfectly consistent; a script is,
+ * whatever constant offset it uses. Null when there is too little late play.
+ */
+export function lateTapSpread(r: RunResult, fromFloor = 16, minParries = 40): number | null {
+  let n = 0, sum = 0, sq = 0;
+  for (const f of r.floors) if (f.floor >= fromFloor) { n += f.parries; sum += f.offsets; sq += f.offsetsSq; }
+  if (n < minParries) return null;
+  const mean = sum / n;
+  return Math.sqrt(Math.max(0, sq / n - mean * mean));
 }

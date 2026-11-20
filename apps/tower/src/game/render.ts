@@ -50,6 +50,7 @@ export class Stage {
   #hints = new Map<string, number>();
   #hint: { text: string; color: string; until: number } | null = null;
   #dodgePressed = 0;
+  #toldFeint = new Set<number>();
   #savedBy: { text: string; at: number } | null = null;
   #erased: { text: string; at: number } | null = null;
   #twistAt = -1;
@@ -68,13 +69,13 @@ export class Stage {
     this.canvas.height = Math.round(h * dpr);
     this.canvas.style.width = `${w}px`;
     this.canvas.style.height = `${h}px`;
-    const scale = Math.min(w / 390, h / 760) * 1.85;
+    const scale = Math.min(w / 390, h / 760) * 1.75;
     const padH = Math.max(112, h * 0.17);
     const ground = h - bottom - padH - 34;
     this.L = {
       w, h, dpr, top, bottom, ground, scale,
-      heroX: w * 0.22, enemyX: w * 0.8, strikeX: w * 0.22 + 62 * scale,
-      dodge: { x: w * 0.56, y: h - bottom - padH + 8, w: w * 0.44 - 16, h: padH - 22 },
+      heroX: w * 0.27, enemyX: w * 0.76, strikeX: w * 0.27 + 60 * scale,
+      dodge: { x: w * 0.64, y: h - bottom - padH + 14, w: w * 0.36 - 16, h: padH - 30 },
     };
     this.#enemyX = this.L.enemyX;
     this.#bgFloor = -1;
@@ -104,6 +105,8 @@ export class Stage {
         this.#enemyX = L.enemyX + 120;
         this.#enemyAnim = { kind: 'none', t: this.#now };
         this.ringsOn = sim.floor <= 10;
+        this.#hint = null;
+        this.#savedBy = null;
         break;
       case 'tele': {
         const a = sim.attacks.find((x) => x.id === e.attack);
@@ -154,6 +157,13 @@ export class Stage {
         this.#enemyHurt = this.#now;
         break;
       case 'hit':
+        if (e.cause === 'graze') {
+          this.#pop('GRAZED', heroChest.x + 20 * s, heroChest.y - 70 * s, '#ffb0b0', 16, false);
+          this.#hintOnce('graze', 'Dodging a white strike grazes you. TAP it instead.', '#ffb0b0', 2);
+          this.#heroAnim = { kind: 'hurt', t: this.#now };
+          this.#shake = Math.max(this.#shake, 5);
+          break;
+        }
         this.#heroAnim = { kind: 'hurt', t: this.#now };
         this.#lastHeroHit = this.#now;
         this.#flash = 0.35;
@@ -381,7 +391,7 @@ export class Stage {
     } else if (arc === 1) {
       // Bamboo / pines and moonlight.
       g.fillStyle = 'rgba(255,255,230,0.85)';
-      g.beginPath(); g.arc(L.w * 0.78, L.ground * 0.22, 34, 0, Math.PI * 2); g.fill();
+      g.beginPath(); g.arc(L.w * 0.5, L.ground * 0.42, 34, 0, Math.PI * 2); g.fill();
       for (let layer = 0; layer < 2; layer++) {
         g.fillStyle = layer ? '#12221b' : a.far;
         for (let i = 0; i < 14; i++) {
@@ -394,7 +404,7 @@ export class Stage {
     } else if (arc === 2) {
       // Torii gate, lanterns, spirit fog.
       g.fillStyle = 'rgba(255,240,255,0.9)';
-      g.beginPath(); g.arc(L.w * 0.2, L.ground * 0.2, 26, 0, Math.PI * 2); g.fill();
+      g.beginPath(); g.arc(L.w * 0.18, L.ground * 0.4, 26, 0, Math.PI * 2); g.fill();
       for (let i = 0; i < 50; i++) { g.fillStyle = `rgba(255,255,255,${rnd() * 0.6})`; g.fillRect(rnd() * L.w, rnd() * L.ground * 0.6, 1.5, 1.5); }
       const tx = L.w * 0.5, ty = L.ground;
       g.fillStyle = '#c4243a';
@@ -429,8 +439,8 @@ export class Stage {
       }
     } else if (arc === 4) {
       // Red moon, spires.
-      g.fillStyle = 'rgba(255,90,60,0.25)'; g.beginPath(); g.arc(L.w * 0.7, L.ground * 0.25, 90, 0, Math.PI * 2); g.fill();
-      g.fillStyle = '#ff5a3c'; g.beginPath(); g.arc(L.w * 0.7, L.ground * 0.25, 52, 0, Math.PI * 2); g.fill();
+      g.fillStyle = 'rgba(255,90,60,0.25)'; g.beginPath(); g.arc(L.w * 0.5, L.ground * 0.42, 90, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#ff5a3c'; g.beginPath(); g.arc(L.w * 0.5, L.ground * 0.42, 52, 0, Math.PI * 2); g.fill();
       g.fillStyle = a.far;
       for (const [x, h] of [[0.12, 260], [0.3, 200], [0.5, 320], [0.86, 240]] as const) {
         const cx = L.w * x;
@@ -541,7 +551,14 @@ export class Stage {
         pose.wind = 1;
       }
       if (heavy) { pose.tint = '#ff2a3a'; pose.tintAmount = 0.3 + Math.sin(this.#now * 20) * 0.1; pose.eyes = 'glow'; }
-      if (a.kind === 'fake' && tick >= a.tell) { pose.tint = '#ffd23f'; pose.tintAmount = 0.25; }
+      if (a.kind === 'fake' && tick >= a.tell) {
+        pose.tint = '#ffd23f'; pose.tintAmount = 0.45; pose.eyes = 'smug';
+        if (!this.#toldFeint.has(a.id)) {
+          this.#toldFeint.add(a.id);
+          this.#pop('?!', this.#enemyX, L.ground - 165 * L.scale, '#ffd23f', 30, false);
+          this.#hintOnce('feint', 'YELLOW = FEINT. Don\u2019t tap. Wait for the real one!', '#ffe08a', 3);
+        }
+      }
       this.#enemyX = target; // exact: the body *is* the timing cue
     } else {
       if (this.#enemyAnim.kind === 'recoil' && sinceAnim < 0.25) { pose.lean = -0.4; pose.eyes = 'shock'; pose.arm = -1.5; }
@@ -953,7 +970,7 @@ export class Stage {
       // Break pips for bosses.
       if (sim.spec.breaks > 1) {
         for (let i = 0; i < sim.spec.breaks; i++) {
-          ctx.beginPath(); ctx.arc(L.w - 22 - i * 14, by + 24, 4.5, 0, Math.PI * 2);
+          ctx.beginPath(); ctx.arc(L.w - 24 - i * 20, by + 26, 7, 0, Math.PI * 2);
           ctx.fillStyle = i < sim.breaksDone ? 'rgba(255,255,255,0.2)' : '#ff6b3a';
           ctx.fill();
         }
@@ -965,13 +982,13 @@ export class Stage {
     ctx.textAlign = 'left';
     ctx.font = `900 12px ${FONT}`;
     ctx.fillStyle = sim.kiai >= 100 ? '#ffd23f' : 'rgba(255,255,255,0.7)';
-    ctx.fillText('気合', 16, ky + 9);
-    const kw = Math.min(150, L.w * 0.36);
+    ctx.fillText('KIAI 気合', 16, ky + 9);
+    const kw = Math.min(140, L.w * 0.32);
     ctx.fillStyle = 'rgba(10,12,20,0.7)';
-    ctx.beginPath(); ctx.roundRect(48, ky, kw, 10, 5); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(86, ky, kw, 10, 5); ctx.fill();
     ctx.fillStyle = sim.kiai >= 100 ? `hsl(${(this.#now * 400) % 360},90%,65%)` : '#7c6cff';
-    ctx.beginPath(); ctx.roundRect(48, ky, (kw * sim.kiai) / 100, 10, 5); ctx.fill();
-    if (sim.kiai >= 100) { ctx.font = `800 10px ${FONT}`; ctx.fillStyle = '#ffd23f'; ctx.fillText('NEXT PARRY HITS HARD', 52 + kw, ky + 9); }
+    ctx.beginPath(); ctx.roundRect(86, ky, (kw * sim.kiai) / 100, 10, 5); ctx.fill();
+    if (sim.kiai >= 100) { ctx.font = `800 10px ${FONT}`; ctx.fillStyle = '#ffd23f'; ctx.fillText('NEXT PARRY HITS HARD', 92 + kw, ky + 9); }
 
     // Power-ups held.
     if (sim.boons.length) {
@@ -997,33 +1014,47 @@ export class Stage {
     const d = L.dodge;
     const pressed = this.#now - this.#dodgePressed < 0.1;
     const live = sim.phase === 'fight';
-    // Tap area hint.
+    const tick = sim.tick;
+    // DODGE only lights up while a red attack is actually coming.
+    const redLive = live && sim.attacks.some((a) => a.state === 'pending' && a.tele <= tick && (a.twisted ? a.kind === 'slash' : a.kind === 'heavy'));
+    // TAP is the main control: a big outlined zone across the rest of the bottom.
+    const tw = d.x - 24;
+    ctx.save();
+    ctx.globalAlpha = live ? 1 : 0.45;
+    ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([10, 8]);
+    ctx.beginPath(); ctx.roundRect(16, d.y, tw, d.h, 20); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(255,255,255,0.08)';
+    ctx.fill();
     ctx.textAlign = 'center';
-    ctx.font = `900 18px ${FONT}`;
-    ctx.fillStyle = live ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.35)';
-    const tx = d.x / 2;
-    ctx.fillText('TAP', tx, d.y + d.h / 2 - 4);
-    ctx.font = `700 11px ${FONT}`;
-    ctx.fillStyle = 'rgba(255,255,255,0.55)';
-    ctx.fillText('anywhere to parry', tx, d.y + d.h / 2 + 14);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `900 30px ${FONT}`;
+    ctx.fillText('TAP', 16 + tw / 2, d.y + d.h / 2 + 4);
+    ctx.font = `700 12px ${FONT}`;
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText('anywhere, as it lands', 16 + tw / 2, d.y + d.h / 2 + 24);
+    ctx.restore();
     // Dodge pad.
     ctx.save();
     ctx.translate(d.x + d.w / 2, d.y + d.h / 2);
-    ctx.scale(pressed ? 0.95 : 1, pressed ? 0.95 : 1);
-    ctx.fillStyle = live ? '#ff2a3a' : 'rgba(255,42,58,0.4)';
+    const pulse = redLive ? 1 + Math.sin(this.#now * 18) * 0.04 : 1;
+    ctx.scale((pressed ? 0.94 : 1) * pulse, (pressed ? 0.94 : 1) * pulse);
+    ctx.fillStyle = redLive ? '#ff2a3a' : 'rgba(255,42,58,0.22)';
     ctx.shadowColor = '#ff2a3a';
-    ctx.shadowBlur = live ? 18 : 0;
+    ctx.shadowBlur = redLive ? 26 : 0;
     ctx.beginPath(); ctx.roundRect(-d.w / 2, -d.h / 2, d.w, d.h, 20); ctx.fill();
     ctx.shadowBlur = 0;
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = redLive ? '#ffffff' : 'rgba(255,120,130,0.6)';
     ctx.stroke();
-    ctx.fillStyle = '#ffffff';
-    ctx.font = `900 22px ${FONT}`;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = redLive ? '#ffffff' : 'rgba(255,200,205,0.8)';
+    ctx.font = `900 20px ${FONT}`;
     ctx.fillText('DODGE', 0, 2);
     ctx.font = `800 11px ${FONT}`;
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
-    ctx.fillText('for red 危', 0, 20);
+    ctx.fillText('red 危 only', 0, 20);
     ctx.restore();
   }
 
@@ -1032,9 +1063,11 @@ export class Stage {
     const { ctx, L } = this;
     const a = Math.min(1, (this.#hint.until - this.#now) / 0.3);
     ctx.globalAlpha = a;
-    ctx.font = `800 15px ${FONT}`;
+    let size = 15;
+    ctx.font = `800 ${size}px ${FONT}`;
+    while (size > 10 && ctx.measureText(this.#hint.text).width > L.w - 56) { size -= 1; ctx.font = `800 ${size}px ${FONT}`; }
     ctx.textAlign = 'center';
-    const w = ctx.measureText(this.#hint.text).width + 28;
+    const w = Math.min(L.w - 24, ctx.measureText(this.#hint.text).width + 28);
     const y = L.top + 150;
     ctx.fillStyle = 'rgba(10,12,20,0.85)';
     ctx.beginPath(); ctx.roundRect(L.w / 2 - w / 2, y, w, 30, 15); ctx.fill();

@@ -1,17 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { BotDriver, ENTRY_FEE, SKILLS, TowerSim, daySeed, payoutFor, playBotInto } from '@plotbreak/tower';
+import { ENTRY_FEE, TowerSim, payoutFor } from '@plotbreak/tower';
+import { BotDriver, SKILLS, playBotInto } from '@plotbreak/tower/bots';
 import { MemoryRepository } from './repo/memory.js';
 import { TowerService, isFreeDay, parseInputs, towerEnabledFor } from './tower.js';
 import { WalletService } from './wallet.js';
 
 const USER = '00000000-0000-4000-8000-000000000001';
 
-function setup(start = '2026-11-20T15:00:00Z') {
+function setup(start = '2026-11-20T15:00:00Z', seed = 424242) {
   let now = new Date(start);
   const clock = () => now;
   const repo = new MemoryRepository();
   const wallet = new WalletService(repo, clock);
-  const tower = new TowerService(repo, wallet, clock);
+  const tower = new TowerService(repo, wallet, clock, () => seed);
   return { repo, wallet, tower, advance: (ms: number) => { now = new Date(now.getTime() + ms); }, set: (iso: string) => { now = new Date(iso); } };
 }
 
@@ -96,10 +97,17 @@ describe('the Tower', () => {
     expect(status.best).toBe(settled.fellOn);
   });
 
-  it('everyone climbs the same tower each day', async () => {
-    const { wallet, tower } = setup();
+  it('pays the minimum to a run that taps dead-centre every time', async () => {
+    const { wallet, tower, advance } = setup(undefined, 1);
     await wallet.grant(USER, 'PROMO_GRANT', 100, 'seed');
-    expect((await tower.start(USER, null)).seed).toBe(daySeed('2026-11-20'));
+    const run = await tower.start(USER, null);
+    // A script: an expert with no noise at all.
+    const sim = new TowerSim(run.seed);
+    const bot = new BotDriver({ ...SKILLS[5]!, sigma: 0, bias: -1, react: 0, lapse: 0, bite: 0, misread: 0, stanceBite: 0 }, 1, 0);
+    while (!sim.over && sim.tick < 60 * 60 * 30) { bot.beforeStep(sim); sim.step(); }
+    advance(sim.tick * 17 + 5_000);
+    const done = await tower.finish(USER, run.runId, sim.inputs, sim.tick * 17);
+    expect(done.reward).toBe(5);
   });
 
   it('rejects malformed inputs', () => {
