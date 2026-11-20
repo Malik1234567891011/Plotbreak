@@ -15,16 +15,20 @@ export interface GameProps {
   /** The UTC day: which daily tower (lineup and twist) this run climbs. */
   day: string;
   characterId: string;
+  startFloor?: number;
   /** Practice: no checkpoints, a little paid. */
   practice?: boolean;
   onEnd: (result: RunResult, inputs: Input[], realMs: number) => void;
 }
 
-export function Game({ seed, runId, day, characterId, practice = false, onEnd }: GameProps) {
+export function Game({ seed, runId, day, characterId, startFloor: firstFloor = 1, practice = false, onEnd }: GameProps) {
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const [offer, setOffer] = useState<BoonId[] | null>(null);
   const [erase, setErase] = useState<BoonId[] | null>(null);
+  const [teach, setTeach] = useState<string | null>(null);
+  const paused = useRef(false);
+  const resumeAt = useRef(0);
   const [quit, setQuit] = useState(false);
   const simRef = useRef<TowerSim | null>(null);
 
@@ -46,15 +50,17 @@ export function Game({ seed, runId, day, characterId, practice = false, onEnd }:
       cancelled = true;
       stop?.();
     };
-  }, [seed, runId, day, characterId, practice, onEnd]);
+  }, [seed, runId, day, characterId, firstFloor, practice, onEnd]);
 
   function run(params: URLSearchParams, dev: boolean, bot: BotDriver | null): () => void {
-    const sim = new TowerSim(seed, dailyTower(day));
+    const sim = new TowerSim(seed, dailyTower(day), firstFloor);
     simRef.current = sim;
     const startFloor = dev ? Number(params.get('floor') ?? 1) : 1;
 
     const stage = new Stage(canvas.current!);
     stage.hero = CHARACTERS_BY_ID[characterId] ?? CHARACTERS[0]!;
+    // A lesson pauses the sim. It just stops stepping, so the replay is unaffected.
+    if (!bot) stage.onTeach = (key) => { paused.current = true; setTeach(key); bridge.haptic('medium'); };
     const css = getComputedStyle(document.documentElement);
     const inset = (v: string) => parseFloat(css.getPropertyValue(v)) || 0;
     const fit = () => {
@@ -150,7 +156,8 @@ export function Game({ seed, runId, day, characterId, practice = false, onEnd }:
       const dt = Math.min(0.1, (now - last) / 1000);
       last = now;
       if (!document.hidden) activeMs += dt * 1000;
-      acc += dt * 1000;
+      if (paused.current || now < resumeAt.current) acc = 0;
+      else acc += dt * 1000;
       let steps = 0;
       while (!frozen && acc >= TICK_MS && steps < MAX_STEPS) {
         bot?.beforeStep(sim);
@@ -179,7 +186,7 @@ export function Game({ seed, runId, day, characterId, practice = false, onEnd }:
       if ((ev.target as HTMLElement).closest('[data-ui]')) return;
       ev.preventDefault();
       unlockAudio();
-      if (sim.phase !== 'fight') return;
+      if (sim.phase !== 'fight' || paused.current) return;
       const r = el.getBoundingClientRect();
       const dodge = stage.isDodge(ev.clientX - r.left, ev.clientY - r.top);
       if (dodge) stage.pressDodge();
@@ -190,7 +197,8 @@ export function Game({ seed, runId, day, characterId, practice = false, onEnd }:
     const key = (ev: KeyboardEvent) => {
       if (ev.repeat) return;
       if ((sim.eraseOffer || (sim.phase === 'boon' && sim.offer)) && ['1', '2', '3'].includes(ev.key)) { sim.input('pick', Number(ev.key) - 1); return; }
-      if (sim.phase !== 'fight') return;
+      if (paused.current && (ev.code === 'Space' || ev.key === 'Enter')) { ev.preventDefault(); dismissTeach(); return; }
+      if (sim.phase !== 'fight' || paused.current) return;
       if (ev.code === 'Space' || ev.key === 'j' || ev.key === 'f') { ev.preventDefault(); sim.input('tap'); }
       else if (ev.key === 'k' || ev.key === 'd' || ev.code === 'ShiftLeft' || ev.code === 'ShiftRight') { stage.pressDodge(); sim.input('dodge'); }
       while (seen < sim.events.length) handle(sim.events[seen++]!);
@@ -203,6 +211,14 @@ export function Game({ seed, runId, day, characterId, practice = false, onEnd }:
       el.removeEventListener('pointerdown', down);
       window.removeEventListener('keydown', key);
     };
+  }
+
+  function dismissTeach() {
+    if (!paused.current) return;
+    paused.current = false;
+    // A short beat before the fight moves again, so the finger that closed the card is off the glass.
+    resumeAt.current = performance.now() + 350;
+    setTeach(null);
   }
 
   const pick = (i: number) => {
@@ -235,6 +251,9 @@ export function Game({ seed, runId, day, characterId, practice = false, onEnd }:
               );
             })}
           </div>
+          {!!simRef.current?.boons.length && (
+            <div className="boons-held">You have: {simRef.current.boons.map((b) => BOONS_BY_ID[b].name).join(' · ')}</div>
+          )}
         </div>
       )}
       {erase && (
@@ -256,6 +275,16 @@ export function Game({ seed, runId, day, characterId, practice = false, onEnd }:
                 </button>
               );
             })}
+          </div>
+        </div>
+      )}
+      {teach && LESSONS[teach] && (
+        <div data-ui className="lesson" onClick={dismissTeach}>
+          <div className={`lesson-card ${LESSONS[teach].tone}`}>
+            <div className="lesson-icon">{LESSONS[teach].icon}</div>
+            <h2>{LESSONS[teach].title}</h2>
+            <p>{LESSONS[teach].text}</p>
+            <button className="btn primary">Got it</button>
           </div>
         </div>
       )}
@@ -284,3 +313,17 @@ export function Game({ seed, runId, day, characterId, practice = false, onEnd }:
     </div>
   );
 }
+
+/** Each lesson, taught once by a card that pauses the fight. */
+const LESSONS: Record<string, { icon: string; title: string; text: string; tone: string }> = {
+  slash: { icon: '!', title: 'Tap as it lands', tone: 'white', text: 'Watch the enemy dash in. Tap anywhere the moment the blade reaches you. The ring closing on you shows when.' },
+  kunai: { icon: '➶', title: 'Kunai', tone: 'white', text: 'Thrown knives. Tap as each one reaches you.' },
+  heavy: { icon: '危', title: 'Red means DODGE', tone: 'red', text: 'Red attacks can’t be parried. Hit the DODGE button as it lands. Only red.' },
+  feint: { icon: '?!', title: 'Yellow means feint', tone: 'gold', text: 'It flashes yellow, pulls back and grins. Don’t touch anything: the real strike comes right after.' },
+  delayed: { icon: '…!', title: 'It’s holding', tone: 'purple', text: 'This one stops mid-swing to catch you early. Wait for it.' },
+  stance: { icon: '構', title: 'Blue means hands off', tone: 'blue', text: 'A counter stance. Touch the screen and you get hit. Wait until the aura is gone.' },
+  opening: { icon: '★', title: 'Chance!', tone: 'gold', text: 'After you dodge a red attack the enemy is wide open. Tap right away for a big counter.' },
+  graze: { icon: '½', title: 'Dodging isn’t free', tone: 'red', text: 'From floor 11, dodging a white strike grazes you for half a heart. Tap white ones.' },
+  kiai: { icon: '気', title: 'Kiai full', tone: 'purple', text: 'Perfect parries charge it. When it’s full, your next parry hits extra hard.' },
+  twist: { icon: '改', title: 'Plot twist', tone: 'gold', text: 'THE AUTHOR is swapping the colours. Some red attacks are drawn white and some white ones red. Read the move, not the colour.' },
+};

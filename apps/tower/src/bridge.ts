@@ -31,8 +31,10 @@ export interface TowerStatus {
   readonly enabled: boolean;
   readonly maxReward: number;
   readonly streak: { readonly days: number; readonly todayBonusPercent: number; readonly alive: boolean };
+  readonly revive: null | { readonly days: number; readonly cost: number; readonly nextCost: number | null };
   readonly modifier: string;
-  readonly practice: { readonly earnedToday: number; readonly cap: number };
+  readonly practice: { readonly earnedToday: number; readonly cap: number; readonly maxFloor: number };
+  readonly timezone: string;
   readonly characters: { readonly owned: readonly string[]; readonly selected: string };
 }
 
@@ -44,6 +46,7 @@ export interface StartResult {
   readonly balance: number;
   readonly streak: number;
   readonly characterId: string;
+  readonly startFloor: number;
 }
 
 export interface PracticeStart {
@@ -52,6 +55,7 @@ export interface PracticeStart {
   readonly day: string;
   readonly remaining: number;
   readonly characterId: string;
+  readonly startFloor: number;
 }
 
 export interface FinishResult {
@@ -79,7 +83,10 @@ export interface Bridge {
   readonly native: boolean;
   status(): Promise<TowerStatus>;
   start(): Promise<StartResult>;
-  practice(): Promise<PracticeStart>;
+  practice(floor: number): Promise<PracticeStart>;
+  revive(): Promise<{ days: number; cost: number; balance: number }>;
+  /** Asks to be reminded when the next climb opens. Resolves true when it's scheduled. */
+  remind(): Promise<boolean>;
   checkpoint(runId: string, inputs: readonly Input[], floor: number): Promise<void>;
   finish(runId: string, inputs: readonly Input[], result: RunResult, realMs: number): Promise<FinishResult>;
   buyCharacter(id: string): Promise<CharactersResult>;
@@ -124,7 +131,9 @@ function nativeBridge(handler: WebkitHandler): Bridge {
     native: true,
     status: () => call<TowerStatus>('status'),
     start: () => call<StartResult>('start'),
-    practice: () => call<PracticeStart>('practice'),
+    practice: (floor) => call<PracticeStart>('practice', { floor }),
+    revive: () => call<{ days: number; cost: number; balance: number }>('revive'),
+    remind: () => call<{ scheduled: boolean }>('remind').then((r) => !!r?.scheduled).catch(() => false),
     checkpoint: (runId, inputs, floor) => call<void>('checkpoint', { runId, inputs, floor }).catch(() => undefined),
     finish: (runId, inputs, result, realMs) =>
       call<FinishResult>('finish', { runId, inputs, fellOn: result.fellOn, cleared: result.cleared, realMs }),
@@ -140,12 +149,14 @@ function nativeBridge(handler: WebkitHandler): Bridge {
 // ── desktop mock ─────────────────────────────────────────────────────────
 
 const KEY = 'tower-mock-v2';
-interface MockRun { runId: string; seed: number; day: string; practice: boolean; streak: number; finished: boolean; fellOn: number; cleared: boolean; reward: number }
+interface MockRun { runId: string; seed: number; day: string; practice: boolean; streak: number; finished: boolean; fellOn: number; cleared: boolean; reward: number; startFloor?: number }
 interface MockState { balance: number; best: number; days: string[]; runs: MockRun[]; owned: string[]; selected: string }
 
 function today(): string {
   const forced = new URLSearchParams(location.search).get('day');
-  return forced ?? new Date().toISOString().slice(0, 10);
+  if (forced) return forced;
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 function addDays(day: string, n: number): string {
   const d = new Date(`${day}T12:00:00Z`);
@@ -169,8 +180,9 @@ function save(s: MockState): void {
   }
 }
 function nextUtcMidnight(): string {
+  // The mock uses the browser's own midnight, like the server does per player.
   const d = new Date();
-  d.setUTCHours(24, 0, 0, 0);
+  d.setHours(24, 0, 0, 0);
   return d.toISOString();
 }
 function streakOf(s: MockState, day: string): { days: number; playedToday: boolean } {
@@ -201,8 +213,10 @@ function mockBridge(): Bridge {
         today: run ? { runId: run.runId, finished: run.finished, fellOn: run.fellOn, cleared: run.cleared, reward: run.reward, streak: run.streak } : null,
         nextAt: nextUtcMidnight(), enabled: true, maxReward: payoutWithStreak(30, true, todayStreak),
         streak: { days: st.days, todayBonusPercent: streakBonusPercent(todayStreak), alive: st.days > 0 },
+        revive: new URLSearchParams(location.search).has('revive') && !st.playedToday ? { days: 12, cost: 5, nextCost: 20 } : null,
         modifier: dailyTower(day).modifier,
-        practice: { earnedToday: practiceEarned(s, day), cap: PRACTICE_DAILY_CAP },
+        practice: { earnedToday: practiceEarned(s, day), cap: PRACTICE_DAILY_CAP, maxFloor: Math.max(1, Math.min(30, s.best)) },
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         characters: { owned: [DEFAULT_CHARACTER, ...s.owned], selected: s.selected },
       });
     },
@@ -213,33 +227,45 @@ function mockBridge(): Bridge {
       const forced = new URLSearchParams(location.search).get('seed');
       const seed = forced ? Number(forced) : dev ? (Math.random() * 2 ** 31) >>> 0 : daySeed(day);
       const open = s.runs.find((r) => !r.practice && r.day === day && !r.finished);
-      if (open && !dev) return wait({ runId: open.runId, seed: open.seed, day, fee: 0, balance: s.balance, streak: open.streak, characterId: s.selected });
+      if (open && !dev) return wait({ runId: open.runId, seed: open.seed, day, fee: 0, balance: s.balance, streak: open.streak, characterId: s.selected, startFloor: 1 });
       const streak = streakOf(s, day).days + (streakOf(s, day).playedToday ? 0 : 1);
       s.balance -= fee;
       s.runs.push({ runId: `mock_${Date.now()}`, seed, day, practice: false, streak, finished: false, fellOn: 1, cleared: false, reward: 0 });
       if (!s.days.includes(day)) s.days.push(day);
       save(s);
-      return wait({ runId: s.runs.at(-1)!.runId, seed, day, fee, balance: s.balance, streak, characterId: s.selected });
+      return wait({ runId: s.runs.at(-1)!.runId, seed, day, fee, balance: s.balance, streak, characterId: s.selected, startFloor: 1 });
     },
-    practice: () => {
+    practice: (floor) => {
       const s = load();
       const day = today();
-      const run: MockRun = { runId: `mockp_${Date.now()}`, seed: (Math.random() * 2 ** 31) >>> 0, day, practice: true, streak: 0, finished: false, fellOn: 1, cleared: false, reward: 0 };
+      const max = Math.max(1, Math.min(30, s.best));
+      if (floor < 1 || floor > max) return fail(`You can practise from floor 1 to ${max}.`);
+      const run: MockRun = { runId: `mockp_${Date.now()}`, seed: (Math.random() * 2 ** 31) >>> 0, day, practice: true, streak: 0, finished: false, fellOn: 1, cleared: false, reward: 0, startFloor: floor };
       s.runs.push(run);
       save(s);
-      return wait({ runId: run.runId, seed: run.seed, day, remaining: Math.max(0, PRACTICE_DAILY_CAP - practiceEarned(s, day)), characterId: s.selected });
+      return wait({ runId: run.runId, seed: run.seed, day, remaining: Math.max(0, PRACTICE_DAILY_CAP - practiceEarned(s, day)), characterId: s.selected, startFloor: floor });
     },
+    revive: () => {
+      const s = load();
+      if (s.balance < 5) return fail('You need ◆5.');
+      s.balance -= 5;
+      s.days.push(addDays(today(), -1));
+      save(s);
+      return wait({ days: 12, cost: 5, balance: s.balance });
+    },
+    remind: () => wait(true),
     checkpoint: async () => undefined,
     finish: (runId, inputs) => {
       const s = load();
       const run = s.runs.find((r) => r.runId === runId);
       if (!run) return fail('No such run.');
-      const r = replay(run.seed, inputs, dailyTower(run.day));
+      const start = run.startFloor ?? 1;
+      const r = replay(run.seed, inputs, dailyTower(run.day), start);
       const fellOn = r.cleared ? 30 : r.fellOn;
       let base: number;
       let reward: number;
       if (run.practice) {
-        base = Math.min(Math.max(0, PRACTICE_DAILY_CAP - practiceEarned(s, run.day)), r.cleared ? 30 : fellOn - 1);
+        base = Math.min(Math.max(0, PRACTICE_DAILY_CAP - practiceEarned(s, run.day)), r.cleared ? 31 - start : fellOn - start);
         reward = base;
       } else {
         base = payoutFor(fellOn, r.cleared);

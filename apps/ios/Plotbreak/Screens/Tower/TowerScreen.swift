@@ -44,7 +44,7 @@ struct TowerScreen: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        TowerWebView(api: store.api, source: source) { action in
+        TowerWebView(api: store.api, source: source, translator: store.t) { action in
             switch action {
             case .close:
                 dismiss()
@@ -72,9 +72,10 @@ struct TowerWebView: UIViewRepresentable {
     let source: String
     /// Debug only: leave the bridge off so the page runs on its own offline mock.
     var preview = false
+    var translator = Translator(locale: .en)
     let onExit: (TowerExit) -> Void
 
-    func makeCoordinator() -> Coordinator { Coordinator(api: api, onExit: onExit) }
+    func makeCoordinator() -> Coordinator { Coordinator(api: api, translator: translator, onExit: onExit) }
 
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
@@ -117,11 +118,13 @@ struct TowerWebView: UIViewRepresentable {
     @MainActor
     final class Coordinator: NSObject, WKScriptMessageHandler {
         let api: APIClient
+        let translator: Translator
         let onExit: (TowerExit) -> Void
         weak var web: WKWebView?
 
-        init(api: APIClient, onExit: @escaping (TowerExit) -> Void) {
+        init(api: APIClient, translator: Translator, onExit: @escaping (TowerExit) -> Void) {
             self.api = api
+            self.translator = translator
             self.onExit = onExit
         }
 
@@ -135,7 +138,20 @@ struct TowerWebView: UIViewRepresentable {
             case "start": call(id) { try await self.api.towerCall("POST", "/v1/tower/start") }
             case "checkpoint": call(id) { try await self.api.towerCall("POST", "/v1/tower/checkpoint", body: Self.json(args)) }
             case "finish": call(id) { try await self.api.towerCall("POST", "/v1/tower/finish", body: Self.json(args)) }
-            case "practice": call(id) { try await self.api.towerCall("POST", "/v1/tower/practice") }
+            case "practice": call(id) { try await self.api.towerCall("POST", "/v1/tower/practice", body: Self.json(args)) }
+            case "revive": call(id) { try await self.api.towerCall("POST", "/v1/tower/revive") }
+            case "remind":
+                call(id) {
+                    // Asked here, right after "come back tomorrow", when the reason is obvious.
+                    var status = await Reminders.authorizationStatus()
+                    if status == .notDetermined {
+                        _ = await Reminders.requestAuthorization()
+                        status = await Reminders.authorizationStatus()
+                    }
+                    guard status == .authorized, let tower = try? await self.api.tower() else { return .object(["scheduled": .bool(false)]) }
+                    await TowerReminder.refresh(tower, t: self.translator)
+                    return .object(["scheduled": .bool(true)])
+                }
             case "buy", "select":
                 // Character ids are short slugs; anything else never reaches a URL path.
                 guard let raw = args["characterId"] as? String,

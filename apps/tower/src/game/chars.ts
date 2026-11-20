@@ -123,7 +123,8 @@ function paint(ctx: CanvasRenderingContext2D, look: EnemyLook, x: number, y: num
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
   const style = look.style;
-  if (style === 'lantern') drawLantern(ctx, look, pose);
+  if (style === 'theauthor') drawAuthor(ctx, look, pose);
+  else if (style === 'lantern') drawLantern(ctx, look, pose);
   else if (style === 'drone') drawDrone(ctx, look, pose);
   else if (style === 'mecha') drawMecha(ctx, look, pose);
   else drawHumanoid(ctx, look, pose, gear);
@@ -810,5 +811,111 @@ function drawMecha(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose): 
   drawWeapon(ctx, 'greatsword', look, pose.time);
   rrect(ctx, -6, -4, 12, 24, 4); fillStroke(ctx, look.outfit);
   ctx.restore();
+  ctx.restore();
+}
+
+/** THE AUTHOR: floating, oversized, wings of manuscript pages, a halo of text, a quill that drips. */
+function drawAuthor(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose): void {
+  const t = pose.time;
+  ctx.save();
+  ctx.scale(1.12, 1.12);
+  ctx.translate(0, -8 + Math.sin(t * 1.6) * 3 - pose.float);
+
+  // Wings of pages, fanned behind.
+  for (let side = -1; side <= 1; side += 2) {
+    for (let i = 0; i < 5; i++) {
+      ctx.save();
+      ctx.translate(-4, -52);
+      ctx.rotate(side * (0.45 + i * 0.22) + Math.sin(t * 2 + i) * 0.05 - (side < 0 ? 0.35 : 0));
+      ctx.fillStyle = i % 2 ? '#efe9dc' : '#f7f3ea';
+      ctx.strokeStyle = INK;
+      ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.rect(-6, -52 - i * 3, 12, 34); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = 'rgba(20,20,30,0.45)';
+      ctx.lineWidth = 1;
+      for (let ly = -48 - i * 3; ly < -22 - i * 3; ly += 5) { ctx.beginPath(); ctx.moveTo(-4, ly); ctx.lineTo(4, ly); ctx.stroke(); }
+      ctx.restore();
+    }
+  }
+
+  // Halo of written lines.
+  ctx.save();
+  ctx.translate(2, -86);
+  ctx.rotate(t * 0.4);
+  ctx.strokeStyle = look.accent;
+  ctx.shadowColor = look.accent;
+  ctx.shadowBlur = 12;
+  ctx.lineWidth = 2.4;
+  ctx.setLineDash([6, 4, 2, 4]);
+  ctx.beginPath(); ctx.ellipse(0, 0, 30, 9, 0, 0, Math.PI * 2); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.shadowBlur = 0;
+  ctx.restore();
+
+  // Coat that frays into ink at the hem.
+  ctx.beginPath();
+  ctx.moveTo(-16, -46);
+  ctx.quadraticCurveTo(-28, -10, -26, 14);
+  for (let i = 0; i <= 8; i++) {
+    const x = -26 + i * 6.5;
+    ctx.lineTo(x, 14 + (i % 2 ? 10 : 2) + Math.sin(t * 5 + i) * 2);
+  }
+  ctx.quadraticCurveTo(28, -10, 16, -46);
+  ctx.closePath();
+  fillStroke(ctx, look.outfit);
+  ctx.strokeStyle = look.accent;
+  ctx.lineWidth = 1.6;
+  ctx.beginPath(); ctx.moveTo(0, -44); ctx.lineTo(0, 10); ctx.stroke();
+  // Gold trim.
+  ctx.beginPath(); ctx.moveTo(-14, -44); ctx.lineTo(-6, -30); ctx.lineTo(0, -44); ctx.lineTo(6, -30); ctx.lineTo(14, -44); ctx.stroke();
+
+  // Head.
+  ctx.save();
+  ctx.translate(2, -66);
+  // Long white hair behind.
+  ctx.beginPath(); ctx.moveTo(-24, -10); ctx.quadraticCurveTo(-34, 30, -20, 40); ctx.lineTo(16, 36); ctx.quadraticCurveTo(28, 10, 24, -10); ctx.closePath();
+  fillStroke(ctx, shade(look.hair, -0.12));
+  ctx.beginPath(); ctx.ellipse(0, 0, 23, 22, 0, 0, Math.PI * 2);
+  fillStroke(ctx, look.skin);
+  // Eyes: narrow, glowing.
+  ctx.fillStyle = look.eye;
+  ctx.shadowColor = look.eye;
+  ctx.shadowBlur = 10;
+  ctx.beginPath(); ctx.moveTo(4, -2); ctx.lineTo(17, -5); ctx.lineTo(15, 1); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(-13, -2); ctx.lineTo(-3, -4); ctx.lineTo(-4, 1); ctx.closePath(); ctx.fill();
+  ctx.shadowBlur = 0;
+  // Monocle with glare.
+  ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(11, -2, 8, 0, Math.PI * 2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(18, 2); ctx.quadraticCurveTo(22, 14, 16, 22); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.beginPath(); ctx.moveTo(6, -8); ctx.lineTo(10, -8); ctx.lineTo(5, 2); ctx.lineTo(2, 2); ctx.closePath(); ctx.fill();
+  // A thin smile.
+  ctx.strokeStyle = INK; ctx.lineWidth = 1.8;
+  ctx.beginPath(); ctx.moveTo(0, 11); ctx.quadraticCurveTo(7, 15, 13, 9); ctx.stroke();
+  // Sharp bangs.
+  ctx.beginPath();
+  ctx.moveTo(-25, 4); ctx.lineTo(-26, -18); ctx.lineTo(-10, -30); ctx.lineTo(10, -30); ctx.lineTo(26, -16); ctx.lineTo(25, 2);
+  ctx.lineTo(18, -10); ctx.lineTo(12, 0); ctx.lineTo(6, -14); ctx.lineTo(-2, -4); ctx.lineTo(-8, -16); ctx.lineTo(-16, -2); ctx.closePath();
+  fillStroke(ctx, look.hair);
+  ctx.restore();
+
+  // The quill: huge, in the forward hand, dripping.
+  ctx.save();
+  ctx.translate(12, -40);
+  ctx.rotate(pose.arm * 0.8 - 0.4);
+  ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(10, -30, 4, -78); ctx.quadraticCurveTo(20, -40, 6, 4); ctx.closePath();
+  fillStroke(ctx, '#f7f3ea', 1.8);
+  ctx.strokeStyle = 'rgba(20,20,30,0.4)'; ctx.lineWidth = 1;
+  for (let i = 1; i < 8; i++) { ctx.beginPath(); ctx.moveTo(4 + i * 0.6, -i * 9); ctx.lineTo(12, -i * 9 - 6); ctx.stroke(); }
+  ctx.beginPath(); ctx.moveTo(-2, 0); ctx.lineTo(2, 22); ctx.lineTo(6, 0); ctx.closePath();
+  fillStroke(ctx, '#d4af37', 1.6);
+  ctx.fillStyle = '#0b0b10';
+  const drip = (t * 40) % 30;
+  ctx.beginPath(); ctx.ellipse(2, 26 + drip, 2.4, 3.6, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.restore();
+  // Hand.
+  ctx.beginPath(); ctx.arc(14, -38, 4.6, 0, Math.PI * 2);
+  fillStroke(ctx, look.skin);
   ctx.restore();
 }

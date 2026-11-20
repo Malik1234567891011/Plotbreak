@@ -129,6 +129,8 @@ actor APIClient {
         // the device id a signed-out player is two people to the funnel.
         urlRequest.setValue(AppConfig.deviceId, forHTTPHeaderField: "x-device-id")
         urlRequest.setValue("ios", forHTTPHeaderField: "x-platform")
+        // The player's own midnight is when the Tower resets (docs/tower.md).
+        urlRequest.setValue(TimeZone.current.identifier, forHTTPHeaderField: "x-timezone")
         for (key, value) in headers { urlRequest.setValue(value, forHTTPHeaderField: key) }
         if let body {
             urlRequest.setValue("application/json", forHTTPHeaderField: "content-type")

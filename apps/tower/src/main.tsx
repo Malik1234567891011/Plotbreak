@@ -9,6 +9,8 @@ if (q.get('w')) {
   r.style.width = `${q.get('w')}px`;
   r.style.height = `${q.get('h') ?? 844}px`;
   r.style.overflow = 'hidden';
+  // Screenshots: no half-finished CSS animations.
+  document.body.classList.add('shot');
 }
 
 createRoot(document.getElementById('root')!).render(<App />);

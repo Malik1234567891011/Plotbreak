@@ -10,6 +10,10 @@ import {
 import { basePose, drawChar, type Gear, type Pose } from './chars';
 
 const TPS = 60;
+const TAUGHT_KEY = 'tower-taught-v1';
+function loadTaught(): Set<string> {
+  try { return new Set(JSON.parse(localStorage.getItem(TAUGHT_KEY) ?? '[]') as string[]); } catch { return new Set(); }
+}
 const FONT = '-apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", system-ui, sans-serif';
 
 interface Particle { x: number; y: number; vx: number; vy: number; life: number; max: number; color: string; size: number; kind: 'spark' | 'petal' | 'dust' | 'shard' | 'ink'; rot: number; vr: number }
@@ -50,6 +54,9 @@ export class Stage {
   #hints = new Map<string, number>();
   #hint: { text: string; color: string; until: number } | null = null;
   #dodgePressed = 0;
+  #taught = loadTaught();
+  /** Called the first time a lesson comes up; the game pauses and shows its card. */
+  onTeach: ((key: string) => void) | null = null;
   #toldFeint = new Set<number>();
   #savedBy: { text: string; at: number } | null = null;
   #erased: { text: string; at: number } | null = null;
@@ -72,12 +79,12 @@ export class Stage {
     this.canvas.height = Math.round(h * dpr);
     this.canvas.style.width = `${w}px`;
     this.canvas.style.height = `${h}px`;
-    const scale = Math.min(w / 390, h / 760) * 2.05;
+    const scale = Math.min(w / 390, h / 760) * 1.92;
     const padH = Math.max(112, h * 0.17);
     const ground = h - bottom - padH - 34;
     this.L = {
       w, h, dpr, top, bottom, ground, scale,
-      heroX: w * 0.3, enemyX: w * 0.74, strikeX: w * 0.3 + 56 * scale,
+      heroX: w * 0.24, enemyX: w * 0.79, strikeX: w * 0.24 + 58 * scale,
       dodge: { x: w * 0.52, y: h - bottom - padH + 12, w: w * 0.48 - 16, h: padH - 24 },
     };
     this.#enemyX = this.L.enemyX;
@@ -239,11 +246,13 @@ export class Stage {
     void heavyLike;
   }
 
-  #hintOnce(key: string, text: string, color: string, times: number): void {
-    const n = this.#hints.get(key) ?? 0;
-    if (n >= times) return;
-    this.#hints.set(key, n + 1);
-    this.#hint = { text, color, until: this.#now + 1.8 };
+  #hintOnce(key: string, _text: string, _color: string, _times: number): void {
+    // Each lesson is taught once, ever, by a card that pauses the fight. No banners over the duel.
+    const k = key === 'bitten' ? 'feint' : key;
+    if (this.#taught.has(k) || !this.onTeach) return;
+    this.#taught.add(k);
+    try { localStorage.setItem(TAUGHT_KEY, JSON.stringify([...this.#taught])); } catch { /* private mode */ }
+    this.onTeach(k);
   }
 
   #sparks(x: number, y: number, n: number, color: string, speed: number): void {
@@ -280,13 +289,25 @@ export class Stage {
     ctx.translate(sx, sy);
 
     this.#drawBackground(sim);
+    if (sim.twistActive) {
+      // Phase three: the page goes to ink and the margins fill with rewrites.
+      ctx.fillStyle = 'rgba(5,5,10,0.78)';
+      ctx.fillRect(-20, -20, L.w + 40, L.ground + 20);
+      ctx.save();
+      ctx.globalAlpha = 0.12 + Math.sin(this.#now * 2) * 0.04;
+      ctx.font = `900 ${L.w * 0.42}px ${FONT}`;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffd23f';
+      ctx.fillText('改稿', L.w / 2, L.ground * 0.62);
+      ctx.restore();
+    }
     this.#drawSpeedlines(dt);
 
     // Characters.
     const enemyPose = this.#enemyPose(sim, tick, frozen);
     const heroPose = this.#heroPose(sim, tick);
     const e = sim.spec.enemy;
-    const eScale = s * (sim.spec.boss ? 1.12 : 1);
+    const eScale = s * (sim.spec.twist ? 1.05 : sim.spec.boss ? 1.12 : 1);
 
     // Ground shadows.
     ctx.fillStyle = 'rgba(0,0,0,0.28)';
@@ -993,6 +1014,7 @@ export class Stage {
     ctx.beginPath(); ctx.roundRect(86, ky, kw, 10, 5); ctx.fill();
     ctx.fillStyle = sim.kiai >= 100 ? `hsl(${(this.#now * 400) % 360},90%,65%)` : '#7c6cff';
     ctx.beginPath(); ctx.roundRect(86, ky, (kw * sim.kiai) / 100, 10, 5); ctx.fill();
+    if (sim.kiai >= 100) this.#hintOnce('kiai', '', '', 1);
     if (sim.kiai >= 100) { ctx.font = `800 10px ${FONT}`; ctx.fillStyle = '#ffd23f'; ctx.fillText('NEXT PARRY HITS HARD', 92 + kw, ky + 9); }
 
     // Power-ups held.
@@ -1024,7 +1046,8 @@ export class Stage {
     const redLive = live && sim.attacks.some((a) => a.state === 'pending' && a.tele <= tick && (a.twisted ? a.kind === 'slash' : a.kind === 'heavy'));
     // Parry is the whole screen, so it gets no box: a label in the free corner says so.
     ctx.save();
-    ctx.globalAlpha = live ? 0.9 : 0.4;
+    // The label teaches; after floor 3 the player knows, and it goes.
+    ctx.globalAlpha = sim.floor <= 3 ? (live ? 0.9 : 0.4) : 0;
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffffff';
     let tapSize = 20;
@@ -1040,16 +1063,16 @@ export class Stage {
     ctx.translate(d.x + d.w / 2, d.y + d.h / 2);
     const pulse = redLive ? 1 + Math.sin(this.#now * 18) * 0.04 : 1;
     ctx.scale((pressed ? 0.94 : 1) * pulse, (pressed ? 0.94 : 1) * pulse);
-    ctx.fillStyle = redLive ? '#ff2a3a' : 'rgba(255,42,58,0.22)';
+    ctx.fillStyle = redLive ? '#ff2a3a' : 'rgba(255,42,58,0.06)';
     ctx.shadowColor = '#ff2a3a';
     ctx.shadowBlur = redLive ? 26 : 0;
     ctx.beginPath(); ctx.roundRect(-d.w / 2, -d.h / 2, d.w, d.h, 20); ctx.fill();
     ctx.shadowBlur = 0;
     ctx.lineWidth = 2.5;
-    ctx.strokeStyle = redLive ? '#ffffff' : 'rgba(255,120,130,0.6)';
+    ctx.strokeStyle = redLive ? '#ffffff' : 'rgba(255,120,130,0.45)';
     ctx.stroke();
     ctx.textAlign = 'center';
-    ctx.fillStyle = redLive ? '#ffffff' : 'rgba(255,200,205,0.8)';
+    ctx.fillStyle = redLive ? '#ffffff' : 'rgba(255,200,205,0.55)';
     ctx.font = `900 26px ${FONT}`;
     ctx.fillText('DODGE', 0, 4);
     ctx.font = `800 11px ${FONT}`;
@@ -1094,6 +1117,26 @@ export class Stage {
     if (sim.phase !== 'intro') return;
     const { ctx, L } = this;
     const t = this.#now - this.#introAt;
+    if (sim.spec.twist && this.#floorClearedAt < 0) {
+      // The last floor gets a film's opening: letterbox bars, then the name.
+      const bar = Math.min(1, t / 0.5) * L.h * 0.16;
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, L.w, bar);
+      ctx.fillRect(0, L.h - bar, L.w, bar);
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.globalAlpha = Math.min(1, Math.max(0, (t - 0.4) / 0.5));
+      ctx.font = `800 12px ${FONT}`;
+      ctx.fillStyle = '#ffd23f';
+      ctx.fillText('F I N A L   F L O O R', L.w / 2, L.h * 0.3 - 34);
+      ctx.font = `900 46px ${FONT}`;
+      outlined(ctx, 'THE AUTHOR', L.w / 2, L.h * 0.3 + 8, '#ffffff', 8);
+      ctx.font = `600 14px ${FONT}`;
+      ctx.fillStyle = 'rgba(255,255,255,0.8)';
+      ctx.fillText('\u201cI wrote you into this tower. I can write you out.\u201d', L.w / 2, L.h * 0.3 + 38);
+      ctx.restore();
+      return;
+    }
     const e = sim.spec.enemy;
     const boss = sim.spec.boss;
     const inT = Math.min(1, t / 0.25);

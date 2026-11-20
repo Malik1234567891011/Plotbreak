@@ -68,7 +68,7 @@ export interface EnemyLook {
     | 'kitsune' | 'lantern' | 'oni'
     | 'cyborg' | 'drone' | 'mecha'
     | 'knight' | 'general'
-    | 'rival' | 'author';
+    | 'rival' | 'author' | 'theauthor';
   readonly weapon: 'fist' | 'bokken' | 'katana' | 'kunai' | 'claw' | 'club' | 'blade' | 'greatsword' | 'pen';
 }
 
@@ -139,7 +139,7 @@ export const ENEMIES = {
   darkrival: E('darkrival', 'Ren, Awakened', 'Second form. Of course.', { hair: '#101018', outfit: '#0d0d14', skin: '#d9c2c8', eye: '#ff2d4a', accent: '#ff2d4a', style: 'rival', weapon: 'katana' }),
   editor: E('editor', 'The Editor', 'Cuts whatever is unnecessary', { hair: '#3a3a44', outfit: '#d8d8e0', skin: '#f0dccb', eye: '#222222', accent: '#d23b3b', style: 'author', weapon: 'pen' }),
   narrator: E('narrator', 'The Narrator', 'Already knows how this ends', { hair: '#6b5a8f', outfit: '#1a1828', skin: '#efd8c8', eye: '#c9a2ff', accent: '#c9a2ff', style: 'author', weapon: 'pen' }),
-  author: E('author', 'THE AUTHOR', 'Wrote you into this tower', { hair: '#f2f2f2', outfit: '#0b0b10', skin: '#f5e6da', eye: '#ffd23f', accent: '#ffd23f', style: 'author', weapon: 'pen' }),
+  author: E('author', 'THE AUTHOR', 'Wrote you into this tower', { hair: '#f2f2f2', outfit: '#0b0b10', skin: '#f5e6da', eye: '#ffd23f', accent: '#ffd23f', style: 'theauthor', weapon: 'pen' }),
 } as const satisfies Record<string, EnemyDef>;
 
 interface ArcTiming {

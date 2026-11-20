@@ -13,7 +13,7 @@ type Screen =
   | { kind: 'error'; message: string }
   | { kind: 'lobby'; status: TowerStatus }
   | { kind: 'fighters'; status: TowerStatus }
-  | { kind: 'play'; runId: string; seed: number; day: string; fee: number; characterId: string; practice: boolean }
+  | { kind: 'play'; runId: string; seed: number; day: string; fee: number; characterId: string; practice: boolean; startFloor: number }
   | { kind: 'settling'; practice: boolean }
   | { kind: 'result'; result: RunResult; finish: FinishResult; status: TowerStatus | null; fee: number }
   | { kind: 'practiced'; result: RunResult; finish: FinishResult | null; status: TowerStatus | null };
@@ -39,7 +39,7 @@ export function App() {
     // Dev: `?dev&play` skips the lobby (screenshots, autoplay).
     const p = new URLSearchParams(location.search);
     if (p.has('dev') && p.has('play')) {
-      void bridge.start().then((r) => setScreen({ kind: 'play', runId: r.runId, seed: r.seed, day: r.day, fee: r.fee, characterId: p.get('hero') ?? r.characterId, practice: false }));
+      void bridge.start().then((r) => setScreen({ kind: 'play', runId: r.runId, seed: r.seed, day: r.day, fee: r.fee, characterId: p.get('hero') ?? r.characterId, practice: false, startFloor: 1 }));
       return;
     }
     if (p.has('dev') && p.get('screen') === 'fighters') {
@@ -59,7 +59,7 @@ export function App() {
     setStarting(true);
     try {
       const r = await bridge.start();
-      setScreen({ kind: 'play', runId: r.runId, seed: r.seed, day: r.day, fee: r.fee, characterId: r.characterId, practice: false });
+      setScreen({ kind: 'play', runId: r.runId, seed: r.seed, day: r.day, fee: r.fee, characterId: r.characterId, practice: false, startFloor: 1 });
     } catch (e) {
       setScreen({ kind: 'error', message: e instanceof Error ? e.message : 'Could not start.' });
     } finally {
@@ -67,11 +67,11 @@ export function App() {
     }
   };
 
-  const practise = async () => {
+  const practise = async (floor = 1) => {
     unlockAudio();
     try {
-      const r = await bridge.practice();
-      setScreen({ kind: 'play', runId: r.runId, seed: r.seed, day: r.day, fee: 0, characterId: r.characterId, practice: true });
+      const r = await bridge.practice(floor);
+      setScreen({ kind: 'play', runId: r.runId, seed: r.seed, day: r.day, fee: 0, characterId: r.characterId, practice: true, startFloor: r.startFloor });
     } catch (e) {
       setScreen({ kind: 'error', message: e instanceof Error ? e.message : 'Could not start practice.' });
     }
@@ -112,12 +112,16 @@ export function App() {
         </div>
       )}
       {screen.kind === 'lobby' && (
-        <Lobby status={screen.status} onStart={start} onPractice={() => void practise()} onClose={close} starting={starting}
-          onFighters={() => setScreen({ kind: 'fighters', status: screen.status })} />
+        <Lobby status={screen.status} onStart={start} onPractice={(f) => void practise(f)} onClose={close} starting={starting}
+          onFighters={() => setScreen({ kind: 'fighters', status: screen.status })}
+          onRevive={async () => {
+            try { await bridge.revive(); bridge.haptic('success'); sfx.heal(); await refresh(); }
+            catch (e) { setScreen({ kind: 'error', message: e instanceof Error ? e.message : 'Could not revive.' }); }
+          }} />
       )}
       {screen.kind === 'fighters' && <Fighters status={screen.status} onBack={() => void refresh()} />}
       {screen.kind === 'play' && (
-        <Game seed={screen.seed} runId={screen.runId} day={screen.day} characterId={screen.characterId} practice={screen.practice} onEnd={onEnd} />
+        <Game seed={screen.seed} runId={screen.runId} day={screen.day} characterId={screen.characterId} startFloor={screen.startFloor} practice={screen.practice} onEnd={onEnd} />
       )}
       {screen.kind === 'settling' && <div className="center column"><div className="spinner" /><p className="muted">{screen.practice ? 'Counting your floors…' : 'Counting your floors…'}</p></div>}
       {screen.kind === 'result' && <Result {...screen} onClose={close} onPractice={() => void practise()} />}
@@ -173,9 +177,14 @@ function Portrait({ c, size, dim = false }: { c: CharacterDef; size: number; dim
 
 // ── lobby ────────────────────────────────────────────────────────────────
 
-function Lobby({ status, onStart, onPractice, onClose, onFighters, starting }: {
-  status: TowerStatus; onStart: () => void; onPractice: () => void; onClose: () => void; onFighters: () => void; starting: boolean;
+function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, starting }: {
+  status: TowerStatus; onStart: () => void; onPractice: (floor: number) => void; onClose: () => void; onFighters: () => void;
+  onRevive: () => Promise<void>; starting: boolean;
 }) {
+  const [picking, setPicking] = useState(false);
+  const [floor, setFloor] = useState(status.practice.maxFloor);
+  const [reviving, setReviving] = useState(false);
+  const openPractice = () => (status.practice.maxFloor > 1 ? setPicking(true) : onPractice(1));
   const countdown = useCountdown(status.nextAt);
   const [muted, setM] = useState(isMuted());
   const played = !!status.today?.finished;
@@ -201,6 +210,19 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, starting }: {
             : <>1 climb today · {status.free ? <b>FREE (Sunday)</b> : <b>◆ {status.fee} entry</b>} · resets in <b>{countdown}</b></>}
         </div>
       </div>
+
+      {status.revive && (
+        <div className="revive">
+          <div>
+            <b>💔 Your {status.revive.days}-day streak died</b>
+            <span>Bring it back for ◆{status.revive.cost} today{status.revive.nextCost ? `. Tomorrow it’s ◆${status.revive.nextCost}.` : '. Last chance.'}</span>
+          </div>
+          <button className="btn primary" disabled={reviving || status.balance < status.revive.cost}
+            onClick={async () => { setReviving(true); await onRevive(); setReviving(false); }}>
+            Revive · ◆{status.revive.cost}
+          </button>
+        </div>
+      )}
 
       <div className="tiles">
         <div className={`tile-card streak ${status.streak.alive ? '' : 'cold'}`}>
@@ -236,7 +258,7 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, starting }: {
               <span>{status.today!.cleared ? 'You cleared all 30 floors' : `You fell on floor ${status.today!.fellOn}`}</span>
               <b>+{status.today!.reward}</b>
             </div>
-            <button className="btn primary big" onClick={onPractice}>Practice · ◆1 a floor ({practiceLeft} left today)</button>
+            <button className="btn primary big" onClick={openPractice}>Practice · ◆1 a floor ({practiceLeft} left today)</button>
           </>
         ) : (
           <>
@@ -245,11 +267,30 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, starting }: {
             </button>
             <div className="fine">
               {!canPay && !resume ? `You need ◆ ${status.fee} to enter. Sundays are free.` : 'One climb a day. Miss a day and the streak restarts.'}
-              {' '}<button className="link" onClick={onPractice}>Practice (◆1 a floor)</button>
+              {' '}<button className="link" onClick={openPractice}>Practice (◆1 a floor)</button>
             </div>
           </>
         )}
       </footer>
+
+      {picking && (
+        <div className="confirm" onClick={() => setPicking(false)}>
+          <div className="confirm-card picker" onClick={(e) => e.stopPropagation()}>
+            <h3>Practice from floor</h3>
+            <p>Any floor you’ve reached. ◆1 for each floor you clear from there, {practiceLeft} left today.</p>
+            <div className="stepper">
+              <button className="icon" onClick={() => setFloor((f) => Math.max(1, f - 1))} aria-label="Lower">−</button>
+              <div><b>{floor}</b><small>{ARCS[floorSpec(floor).arc]!.name}{floorSpec(floor).boss ? ' · boss' : ''}</small></div>
+              <button className="icon" onClick={() => setFloor((f) => Math.min(status.practice.maxFloor, f + 1))} aria-label="Higher">+</button>
+            </div>
+            <input type="range" min={1} max={status.practice.maxFloor} value={floor} onChange={(e) => setFloor(Number(e.target.value))} />
+            <div className="confirm-row">
+              <button className="btn ghost" onClick={() => setPicking(false)}>Cancel</button>
+              <button className="btn primary" onClick={() => { setPicking(false); onPractice(floor); }}>Practice</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -363,6 +404,7 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
   result: RunResult; finish: FinishResult; status: TowerStatus | null; fee: number; onClose: () => void; onPractice: () => void;
 }) {
   const [shown, setShown] = useState(0);
+  const [reminded, setReminded] = useState<boolean | null>(null);
   const countdown = useCountdown(status?.nextAt);
   useEffect(() => {
     let v = 0;
@@ -400,7 +442,11 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
       <div className="streak-next">
         <span>🔥 Day {finish.streak} streak</span>
         <b>Come back tomorrow for +{tomorrow}%</b>
-        <small>Next climb in {countdown || 'a few hours'}{status && nextIsFree(status.nextAt) ? ' · FREE' : ''}. Miss a day and it restarts.</small>
+        <small>Next climb in {countdown || 'a few hours'}{status && nextIsFree(status.nextAt) ? ' · FREE' : ''}.</small>
+        <button className={`btn remind ${reminded ? 'done' : ''}`} disabled={reminded !== null}
+          onClick={async () => { const ok = await bridge.remind(); setReminded(ok); if (ok) bridge.haptic('success'); }}>
+          {reminded === null ? '🔔 Remind me when it opens' : reminded ? '✓ We’ll remind you' : 'Turn on notifications in Settings'}
+        </button>
       </div>
       <div className="stats">
         <div><b>{finish.cleared ? 30 : Math.max(0, finish.fellOn - 1)}</b><span>floors cleared</span></div>
