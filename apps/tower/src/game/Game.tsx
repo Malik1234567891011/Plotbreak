@@ -32,7 +32,7 @@ export function Game({ seed, runId, practice = false, onEnd }: GameProps) {
     let stop: (() => void) | null = null;
     let cancelled = false;
     // Bots are dev tools: loaded on demand so they are not in the shipped page's code path.
-    const load = botName ? import('../../../../packages/tower/src/bots') : Promise.resolve(null);
+    const load = import.meta.env.DEV && botName ? import('../../../../packages/tower/src/bots') : Promise.resolve(null);
     void load.then((mod) => {
       if (cancelled) return;
       const bot = mod ? new mod.BotDriver(mod.SKILLS.find((s) => s.name === botName!.replace('-', ' ')) ?? mod.SKILLS[4]!, 99) : null;

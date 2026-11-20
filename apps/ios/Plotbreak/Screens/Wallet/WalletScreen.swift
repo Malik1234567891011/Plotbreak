@@ -68,6 +68,9 @@ struct WalletScreen: View {
                         shortfallBanner
                         balance
                         daily
+                        // Earn credits: the Tower's daily climb. Hidden while it is off.
+                        TowerCard(source: "wallet")
+                            .padding(.top, Theme.Spacing.lg)
                         if showHistory {
                             history
                         } else {
@@ -659,6 +662,8 @@ struct WalletScreen: View {
         case .REFUND: return t("wallet.refund")
         case .ADMIN_ADJUST: return t("wallet.adjustment")
         case .SUBSCRIPTION_GRANT: return t("pass.title")
+        case .TOWER_ENTRY: return t("tower.ledger_entry")
+        case .TOWER_REWARD: return t("tower.ledger_reward")
         default: return type.rawValue
         }
     }

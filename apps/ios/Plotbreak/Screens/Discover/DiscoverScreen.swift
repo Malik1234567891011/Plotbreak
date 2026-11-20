@@ -114,6 +114,13 @@ struct DiscoverScreen: View {
                                 )
                             }
 
+                            // The Tower's daily climb (docs/tower.md). Hidden while it is off.
+                            if data != nil, data?.activeCategory == nil {
+                                TowerCard(source: "discover", compact: true)
+                                    .padding(.horizontal, Theme.pageGutter)
+                                    .padding(.top, Theme.Spacing.md)
+                            }
+
                             // The featured worlds as a wide banner you page through.
                             if !hero.isEmpty, data?.activeCategory == nil {
                                 FeaturedBanner(stories: hero, width: proxy.size.width - Theme.pageGutter * 2) { storyId in

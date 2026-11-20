@@ -1,0 +1,19 @@
+/** La Tour — la carte du mini-jeu quotidien et les lignes du portefeuille. Voir docs/tower.md. */
+export const tower = {
+  'tower.card_label': 'LA TOUR',
+  'tower.card_ready': 'L’ascension du jour t’attend',
+  'tower.card_waiting': 'Ton ascension t’attend',
+  'tower.card_free': 'GRATUIT aujourd’hui',
+  'tower.card_entry': '◆ {fee} pour entrer',
+  'tower.card_win_up_to': 'Jusqu’à ◆{max} à gagner',
+  'tower.card_played': 'Tombé à l’étage {floor} · +{reward}',
+  'tower.card_cleared': 'Les 30 étages franchis · +{reward}',
+  'tower.card_next': 'Prochaine ascension dans {time}',
+  'tower.card_cta': 'Grimper',
+  'tower.card_practice': 'S’entraîner',
+  'tower.wallet_title': 'Gagner des crédits',
+  'tower.wall_offer': 'Ou grimpe la Tour et gagne jusqu’à ◆{max}',
+  'tower.ledger_entry': 'Entrée de la Tour',
+  'tower.ledger_reward': 'Gain de la Tour',
+  'tower.load_failed': 'La Tour n’a pas pu charger. Réessaie dans un instant.',
+} as const;

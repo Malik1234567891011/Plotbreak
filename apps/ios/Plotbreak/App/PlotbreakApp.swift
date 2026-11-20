@@ -26,6 +26,24 @@ struct PlotbreakApp: App {
 
     var body: some Scene {
         WindowGroup {
+            #if DEBUG
+            // `-towerPreview`: the Tower page alone, on its offline mock bridge,
+            // so the game can be played in a real WKWebView without signing in.
+            if ProcessInfo.processInfo.arguments.contains("-towerPreview") {
+                TowerWebView(api: store.api, source: "preview", preview: true) { _ in }
+                    .ignoresSafeArea()
+                    .background(Color.black.ignoresSafeArea())
+                    .statusBarHidden(true)
+            } else {
+                root
+            }
+            #else
+            root
+            #endif
+        }
+    }
+
+    private var root: some View {
             RootView()
                 .environment(store)
                 .environment(\.translator, store.t)
@@ -59,7 +77,6 @@ struct PlotbreakApp: App {
                         break
                     }
                 }
-        }
     }
 }
 

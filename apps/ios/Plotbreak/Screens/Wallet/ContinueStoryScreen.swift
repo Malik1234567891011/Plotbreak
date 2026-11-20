@@ -94,6 +94,8 @@ struct ContinueStoryScreen: View {
                             Skeleton(height: 148, radius: Theme.Radius.card)
                         }
                         freeRoutes
+                        // The moment earning matters most: out of credits, mid-story.
+                        TowerCard(source: "credit_wall", compact: true)
                         if let pass = wallet?.pass, !pass.active {
                             PassCard(pass: pass) {
                                 wallet = try? await store.api.wallet().wallet

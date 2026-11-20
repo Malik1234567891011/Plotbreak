@@ -503,6 +503,18 @@ actor APIClient {
 
     // MARK: Wallet
 
+    // MARK: The Tower (docs/tower.md)
+
+    /// Today's Tower state. 404 (`NOT_FOUND`) while the Tower is off for this player.
+    func tower() async throws -> TowerStatus {
+        try await request("GET", "/v1/tower")
+    }
+
+    /// The game page's calls, passed through as JSON: the page owns the shapes.
+    func towerCall(_ method: String, _ path: String, body: JSONValue? = nil) async throws -> JSONValue {
+        try await request(method, path, body: body)
+    }
+
     func wallet() async throws -> WalletResponse {
         try await request("GET", "/v1/wallet")
     }

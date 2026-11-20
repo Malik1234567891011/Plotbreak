@@ -111,6 +111,9 @@ final class Router {
     var sheet: SheetRoute?
     /// A second sheet stacked on the first (e.g. Wallet over Session's WorldSheet).
     var stackedSheet: SheetRoute?
+    /// The Tower, full screen, and where it was opened from. Not a sheet: a
+    /// swipe down mid-duel must not close the game.
+    var towerSource: String?
 
     func push(_ route: Route) {
         path.append(route)
@@ -287,6 +290,12 @@ struct MainShell: View {
         }
         .tint(Theme.Colors.accentPrimary)
         .discordPrompt()
+        .fullScreenCover(isPresented: Binding(get: { router.towerSource != nil }, set: { if !$0 { router.towerSource = nil } })) {
+            TowerScreen(source: router.towerSource ?? "discover")
+                .environment(router)
+                .environment(store)
+                .environment(\.translator, store.t)
+        }
         .sheet(item: $router.sheet) { route in
             SheetHost(route: route)
                 .environment(router)
