@@ -94,7 +94,8 @@ export class Stage {
     this.L = {
       w, h, dpr, top, bottom, ground, scale,
       heroX: w * 0.28, enemyX: w * 0.79, strikeX: w * 0.28 + 56 * scale,
-      dodge: { x: leftHanded() ? 16 : w * 0.52, y: h - bottom - padH + 12, w: w * 0.48 - 16, h: padH - 24 },
+      // Shorter than the pad area and kept low, so it never covers the fighters' feet.
+      dodge: { x: leftHanded() ? 16 : w * 0.52, y: h - bottom - (padH - 24) * 0.7 - 6, w: w * 0.48 - 16, h: (padH - 24) * 0.7 },
     };
     this.#enemyX = this.L.enemyX;
     this.#bgFloor = -1;
@@ -375,8 +376,8 @@ export class Stage {
       const pulse = 0.35 + Math.sin(this.#now * 16) * 0.12;
       const eg = ctx.createLinearGradient(0, 0, 0, L.h);
       ctx.save();
-      ctx.strokeStyle = `rgba(255,42,58,${pulse})`;
-      ctx.lineWidth = 10;
+      ctx.strokeStyle = `rgba(255,42,58,${pulse * 0.7})`;
+      ctx.lineWidth = 6;
       ctx.strokeRect(5, 5, L.w - 10, L.h - 10);
       ctx.restore();
       void eg;
@@ -1054,12 +1055,13 @@ export class Stage {
     const fall = payoutFor(sim.floor, false);
     const next = PAYOUT_TIERS.find((t) => t.from > sim.floor);
     const chip = next ? `If you fall here  +${fall}   ·   Floor ${next.from}  +${next.credits}` : `If you fall here  +${fall}   ·   Clear  +${CLEAR_PAYOUT}`;
-    ctx.font = `700 12px ${FONT}`;
-    const cw = ctx.measureText(chip).width + 24;
-    ctx.fillStyle = 'rgba(10,12,20,0.6)';
-    ctx.beginPath(); ctx.roundRect(16, top + 56, cw, 24, 12); ctx.fill();
+    ctx.font = `800 13.5px ${FONT}`;
+    const cw = Math.min(L.w - 32, ctx.measureText(chip).width + 24);
+    ctx.fillStyle = 'rgba(10,12,20,0.78)';
+    ctx.beginPath(); ctx.roundRect(16, top + 54, cw, 28, 14); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,210,63,0.5)'; ctx.lineWidth = 1.5; ctx.stroke();
     ctx.fillStyle = '#ffd23f';
-    ctx.fillText(chip, 28, top + 72);
+    ctx.fillText(chip, 28, top + 73);
 
     // Enemy name + guard.
     if (sim.phase === 'fight' || sim.phase === 'break') {
@@ -1070,19 +1072,26 @@ export class Stage {
       outlined(ctx, e.name, L.w - 16, y, sim.spec.boss ? '#ffd23f' : '#ffffff', 5);
       const bw = Math.min(220, L.w * 0.55), bx = L.w - 16 - bw, by = y + 8;
       ctx.fillStyle = 'rgba(10,12,20,0.7)';
-      ctx.beginPath(); ctx.roundRect(bx - 2, by - 2, bw + 4, 14, 7); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(bx - 2, by - 2, bw + 4, 20, 8); ctx.fill();
       const p = sim.guard / Math.max(1, sim.guardMax);
       const g = ctx.createLinearGradient(bx, 0, bx + bw, 0);
       g.addColorStop(0, '#ffd23f'); g.addColorStop(1, '#ff6b3a');
       ctx.fillStyle = g;
-      ctx.beginPath(); ctx.roundRect(bx + bw * (1 - p), by, Math.max(0, bw * p), 10, 5); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(bx + bw * (1 - p), by, Math.max(0, bw * p), 16, 6); ctx.fill();
+      // Chunks: one per normal parry, so you can count what's left.
+      ctx.strokeStyle = 'rgba(10,12,20,0.75)';
+      ctx.lineWidth = 2;
+      for (let i = 1; i < sim.spec.guardParries; i++) {
+        const x = bx + (bw * i) / sim.spec.guardParries;
+        ctx.beginPath(); ctx.moveTo(x, by); ctx.lineTo(x, by + 16); ctx.stroke();
+      }
       ctx.font = `800 10px ${FONT}`;
       ctx.fillStyle = 'rgba(255,255,255,0.7)';
       ctx.fillText('GUARD', bx - 8, by + 9);
       // Break pips for bosses.
       if (sim.spec.breaks > 1) {
         for (let i = 0; i < sim.spec.breaks; i++) {
-          ctx.beginPath(); ctx.arc(L.w - 24 - i * 20, by + 26, 7, 0, Math.PI * 2);
+          ctx.beginPath(); ctx.arc(L.w - 24 - i * 20, by + 32, 7, 0, Math.PI * 2);
           ctx.fillStyle = i < sim.breaksDone ? 'rgba(255,255,255,0.2)' : '#ff6b3a';
           ctx.fill();
         }

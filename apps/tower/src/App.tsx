@@ -144,8 +144,13 @@ function useCountdown(iso: string | undefined): string {
   return h ? `${h}h ${String(m).padStart(2, '0')}m` : `${m}m ${String(s).padStart(2, '0')}s`;
 }
 
-function nextIsFree(iso: string): boolean {
-  return new Date(iso).getUTCDay() === 0;
+/** Whether the next climb (starting at `iso`) falls on a Sunday in the player's own zone, as the server decides it. */
+function nextIsFree(iso: string, tz?: string): boolean {
+  try {
+    return new Intl.DateTimeFormat('en-US', { timeZone: tz || undefined, weekday: 'short' }).format(new Date(iso)) === 'Sun';
+  } catch {
+    return new Date(iso).getDay() === 0;
+  }
 }
 
 const signed = (n: number) => (n > 0 ? `+${n}` : n === 0 ? '±0' : `−${Math.abs(n)}`);
@@ -192,7 +197,7 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
           <b>{status.revive ? `${status.revive.days}-day streak died` : `${status.streak.days}-day streak`}</b>
           <span>
             {status.revive
-              ? `Revive for ◆${status.revive.cost} and climb at +${Math.min(20, status.revive.days + 1) * 5}%${status.revive.nextCost ? ` (◆${status.revive.nextCost} tomorrow)` : ' (last chance)'}`
+              ? `Revive for ◆${status.revive.cost}: the top prize goes from ◆${Math.round(CLEAR_PAYOUT * 1.05)} to ◆${Math.round((CLEAR_PAYOUT * (100 + Math.min(20, status.revive.days + 1) * 5)) / 100)}.${status.revive.nextCost ? ` ◆${status.revive.nextCost} tomorrow.` : ' Last chance.'}`
               : played ? `Today paid +${status.streak.todayBonusPercent}%. Tomorrow +${Math.min(20, status.streak.days + 1) * 5}%.` : `Climb today for +${status.streak.todayBonusPercent}% on your payout`}
           </span>
           <div className="streak-bar"><i style={{ width: `${(Math.min(STREAK_CAP, (status.revive ? status.revive.days : status.streak.days) + (played ? 0 : 1)) / STREAK_CAP) * 100}%` }} /></div>
@@ -419,11 +424,7 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
       <div className="streak-next">
         <span>🔥 Day {finish.streak} streak</span>
         <b>Come back tomorrow for +{tomorrow}%</b>
-        <small>Next climb in {countdown || 'a few hours'}{status && nextIsFree(status.nextAt) ? ' · FREE' : ''}.</small>
-        <button className={`btn remind ${reminded ? 'done' : ''}`} disabled={reminded !== null}
-          onClick={async () => { const ok = await bridge.remind(); setReminded(ok); if (ok) bridge.haptic('success'); }}>
-          {reminded === null ? '🔔 Remind me when it opens' : reminded ? '✓ We’ll remind you' : 'Turn on notifications in Settings'}
-        </button>
+        <small>Next climb in {countdown || 'a few hours'}{status && nextIsFree(status.nextAt, status.timezone) ? ' · FREE' : ''}.</small>
       </div>
       <div className="stats">
         <div><b>{finish.cleared ? 30 : Math.max(0, finish.fellOn - 1)}</b><span>floors cleared</span></div>
@@ -431,13 +432,19 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
         <div><b>{parries ? Math.round((perfects / parries) * 100) : 0}%</b><span>perfect</span></div>
       </div>
       <div className="result-actions">
+        <button className={`btn big ${reminded === null ? 'primary' : 'remind done'}`} disabled={reminded !== null}
+          onClick={async () => { const ok = await bridge.remind(); setReminded(ok); if (ok) bridge.haptic('success'); }}>
+          {reminded === null ? '🔔 Remind me when it opens' : reminded ? '✓ We’ll remind you' : 'Turn on notifications in Settings to get a reminder'}
+        </button>
+        <button className="btn" onClick={onPractice}>Practice · ◆1 a floor</button>
+        <div className="row">
         <button className="btn share" onClick={() => {
           const mod = MODIFIERS_BY_ID[(status?.modifier ?? 'none') as ModifierId] ?? MODIFIERS_BY_ID.none;
           bridge.share(`${finish.cleared ? 'I beat THE AUTHOR and cleared all 30 floors' : `I reached floor ${finish.fellOn} of 30`} in The Tower on Plotbreak. ${mod.jp} ${mod.name} · 🔥 day ${finish.streak}. Your turn: https://apps.apple.com/app/id6811307049`);
           bridge.track('tower_closed', { screen: 'share', seconds: 0 });
-        }}>Share your climb</button>
-        <button className="btn primary big" onClick={() => bridge.spend()}>Spend them in a story</button>
-        <button className="btn" onClick={onPractice}>Practice · ◆1 a floor</button>
+        }}>Share</button>
+        <button className="btn" onClick={() => bridge.spend()}>Spend in a story</button>
+        </div>
         <button className="btn ghost" onClick={onClose}>Done</button>
       </div>
     </div>
