@@ -7,6 +7,8 @@ struct TowerCard: View {
     /// Where it was tapped from, for the funnel: discover, wallet or credit_wall.
     let source: String
     var compact = false
+    /// Space around the card, applied only when it shows, so a hidden card leaves no gap.
+    var inset = EdgeInsets()
     @Environment(AppStore.self) private var store
     @Environment(Router.self) private var router
     @Environment(\.translator) private var t
@@ -15,18 +17,23 @@ struct TowerCard: View {
     private let timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        Group {
+        // A zero-size placeholder while hidden: an empty Group has no view to run
+        // `.task` on, so the card would never ask whether the Tower is open.
+        ZStack {
             if let status {
                 Button {
                     Haptic.play(.light)
                     router.towerSource = source
                 } label: { card(status) }
                 .buttonStyle(PressOpacityStyle())
+                .padding(inset)
                 .onAppear {
                     Telemetry.trackOnce(.towerCardSeen, key: "tower_card_\(source)_\(status.day)", [
                         "source": source, "played": status.today?.finished ?? false, "free": status.free,
                     ])
                 }
+            } else {
+                Color.clear.frame(width: 0, height: 0)
             }
         }
         .task(id: router.towerSource == nil) {

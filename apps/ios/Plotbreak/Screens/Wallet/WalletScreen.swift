@@ -69,8 +69,7 @@ struct WalletScreen: View {
                         balance
                         daily
                         // Earn credits: the Tower's daily climb. Hidden while it is off.
-                        TowerCard(source: "wallet")
-                            .padding(.top, Theme.Spacing.lg)
+                        TowerCard(source: "wallet", inset: EdgeInsets(top: Theme.Spacing.lg, leading: 0, bottom: 0, trailing: 0))
                         if showHistory {
                             history
                         } else {
