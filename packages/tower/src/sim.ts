@@ -111,6 +111,8 @@ const KIAI_BONUS = 20;
 const AUTHOR_HP_CAP = 6;
 /** From this floor, dodging a white strike costs half a heart. */
 export const GRAZE_FROM = 11;
+/** Up to this floor a hit costs half a heart. */
+export const SOFT_UNTIL = 10;
 const HALF = 1;
 const HEART = 2;
 const MAX_HP = 8;
@@ -169,13 +171,17 @@ export class TowerSim {
 
   readonly tower: DailyTower;
 
-  constructor(seed: number, tower: DailyTower = PLAIN_TOWER) {
+  /** The floor this run began on: 1 for the daily climb, any reached floor for practice. */
+  readonly startFloor: number;
+
+  constructor(seed: number, tower: DailyTower = PLAIN_TOWER, startFloor = 1) {
     this.seed = seed >>> 0;
     this.tower = tower;
+    this.startFloor = Math.max(1, Math.min(FLOORS, Math.trunc(startFloor) || 1));
     this.#rng = new Rng(this.seed);
-    this.spec = floorSpec(1, tower);
+    this.spec = floorSpec(this.startFloor, tower);
     if (tower.modifier === 'glass_cannon') { this.hp = 2 * HEART; this.maxHp = 2 * HEART; }
-    this.#enterFloor(1);
+    this.#enterFloor(this.startFloor);
   }
 
   get stats(): FloorStats {
@@ -479,7 +485,8 @@ export class TowerSim {
       this.#emit({ t, type: 'saved', by: 'flashback' });
       return;
     }
-    this.hp -= HEART;
+    // The easy floors forgive: a hit there costs half a heart.
+    this.hp -= this.floor <= SOFT_UNTIL ? HALF : HEART;
     this.stats.hits += 1;
     this.kiai = Math.max(0, this.kiai - 30);
     this.#emit({ t, type: 'hit', attack: a.id, cause, hp: this.hp });
@@ -692,8 +699,8 @@ export { BOONS_BY_ID };
  * order or past the end is ignored. A run that runs out of inputs while still
  * alive is treated as abandoned on the floor it was on.
  */
-export function replay(seed: number, inputs: readonly Input[], tower: DailyTower = PLAIN_TOWER, maxTicks = 60 * 60 * 30): RunResult {
-  const sim = new TowerSim(seed, tower);
+export function replay(seed: number, inputs: readonly Input[], tower: DailyTower = PLAIN_TOWER, startFloor = 1, maxTicks = 60 * 60 * 30): RunResult {
+  const sim = new TowerSim(seed, tower, startFloor);
   let i = 0;
   const last = inputs.length ? inputs[inputs.length - 1]!.t : 0;
   while (!sim.over && sim.tick <= maxTicks) {

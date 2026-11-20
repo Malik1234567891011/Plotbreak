@@ -150,7 +150,7 @@ interface ArcTiming {
 
 const ARC_TIMING: readonly ArcTiming[] = [
   { early: 36, late: 18, perfect: 8, lead: [60, 72], spacing: 32, gap: [30, 50], lockout: 0, stance: 0 },
-  { early: 28, late: 16, perfect: 6, lead: [52, 66], spacing: 28, gap: [28, 48], lockout: 0, stance: 0 },
+  { early: 34, late: 22, perfect: 7, lead: [56, 70], spacing: 30, gap: [28, 48], lockout: 0, stance: 0 },
   { early: 11, late: 9, perfect: 4, lead: [42, 58], spacing: 24, gap: [30, 52], lockout: 16, stance: 0 },
   { early: 8, late: 7, perfect: 3, lead: [36, 50], spacing: 20, gap: [26, 46], lockout: 18, stance: 150 },
   { early: 4, late: 4, perfect: 2, lead: [30, 46], spacing: 18, gap: [24, 42], lockout: 20, stance: 400 },
@@ -166,10 +166,10 @@ const ROWS: readonly Row[] = [
   [ENEMIES.kendo, 4, { s: 2, ss: 2 }],
   [ENEMIES.president, 4, { s: 2, ss: 3 }, 2],
   [ENEMIES.shadow, 4, { k: 3, s: 2, kk: 1 }],
-  [ENEMIES.hayate, 4, { h: 3, s: 2 }],
-  [ENEMIES.kunoichi, 4, { s: 2, ss: 2, h: 2, k: 1, kk: 1 }],
+  [ENEMIES.hayate, 4, { s: 3, h: 2 }],
+  [ENEMIES.kunoichi, 4, { s: 3, ss: 2, h: 1, k: 1, kk: 1 }],
   [ENEMIES.twin, 4, { ss: 2, sh: 2, kk: 2, h: 1 }],
-  [ENEMIES.foxmask, 5, { ss: 2, sh: 2, kkk: 2, h: 2, hs: 1 }, 2],
+  [ENEMIES.foxmask, 5, { s: 2, ss: 3, kk: 2, sh: 1, h: 1 }, 2],
   [ENEMIES.kitsune, 6, { f: 3, s: 2, ss: 1 }],
   [ENEMIES.lantern, 6, { f: 2, d: 2, ss: 2, h: 1 }],
   [ENEMIES.tengu, 7, { sss: 1, f: 2, d: 2, sh: 2, kk: 1 }],
