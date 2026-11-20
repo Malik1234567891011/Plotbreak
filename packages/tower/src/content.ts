@@ -174,7 +174,7 @@ const ROWS: readonly Row[] = [
   [ENEMIES.lantern, 6, { f: 2, d: 2, ss: 2, h: 1 }],
   [ENEMIES.tengu, 7, { sss: 1, f: 2, d: 2, sh: 2, kk: 1 }],
   [ENEMIES.yuki, 7, { fs: 2, sss: 2, hs: 2, d: 2, kkk: 1 }],
-  [ENEMIES.oni, 8, { sss: 2, fs: 2, hsh: 1, d: 2, kkk: 1, f: 1 }, 2],
+  [ENEMIES.oni, 7, { sss: 2, fs: 2, hsh: 1, d: 2, kkk: 1, f: 1 }, 2],
   [ENEMIES.cyborg, 9, { sss: 3, shs: 2, kkk: 2, fs: 2 }],
   [ENEMIES.drone, 9, { ssss: 2, shs: 2, kkkk: 2, f: 2, d: 1 }],
   [ENEMIES.hacker, 10, { ssss: 2, hsh: 2, sfs: 2, kkk: 2 }],
@@ -263,11 +263,26 @@ export function floorSpec(floor: number, tower: DailyTower = PLAIN_TOWER): Floor
   return { ...base, enemy: shown, patterns, early: base.early + wide, late: base.late + wide };
 }
 
+/**
+ * Floors where the arc's timing would be a cliff: 11 used to drop the windows
+ * to a third in one step, so nearly every newcomer stopped in the same place
+ * every day. These floors walk down to the arc's numbers instead.
+ */
+const RAMP: Readonly<Record<number, Partial<ArcTiming>>> = {
+  11: { early: 20, late: 14, perfect: 5, lead: [48, 62], lockout: 22 },
+  12: { early: 17, late: 12, perfect: 5, lead: [46, 60], lockout: 22 },
+  13: { early: 14, late: 11, perfect: 4, lead: [44, 58], lockout: 22 },
+  14: { early: 13, late: 11, perfect: 4, lockout: 22 },
+  15: { early: 12, late: 10, perfect: 4, lockout: 22 },
+  16: { early: 11, late: 9, perfect: 3 },
+  17: { early: 10, late: 8, perfect: 3 },
+};
+
 function baseFloorSpec(floor: number): FloorSpec {
   const f = Math.max(1, Math.min(FLOORS, floor));
   const arc = Math.floor((f - 1) / 5);
   const row = ROWS[f - 1]!;
-  const t = ARC_TIMING[arc]!;
+  const t = { ...ARC_TIMING[arc]!, ...RAMP[f] };
   const boss = f % 5 === 0;
   return {
     floor: f,

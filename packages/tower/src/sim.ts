@@ -110,9 +110,9 @@ const PHASE_PAUSE = 50;
 const KIAI_BONUS = 20;
 const AUTHOR_HP_CAP = 6;
 /** From this floor, dodging a white strike costs half a heart. */
-export const GRAZE_FROM = 11;
+export const GRAZE_FROM = 13;
 /** Up to this floor a hit costs half a heart. */
-export const SOFT_UNTIL = 10;
+export const SOFT_UNTIL = 9;
 const HALF = 1;
 const HEART = 2;
 const MAX_HP = 8;
