@@ -556,6 +556,8 @@ export interface Repository {
   getTowerTimezone(userId: string): Promise<{ tz: string; changedAt: string } | null>;
   setTowerTimezone(userId: string, tz: string, at: string): Promise<void>;
   listTowerBridges(userId: string, limit: number): Promise<string[]>;
+  /** Finished daily runs on `day`, and how many reached a lower floor than `reached` (31 = cleared). */
+  towerStandings(day: string, reached: number): Promise<{ total: number; below: number }>;
   addTowerBridges(userId: string, days: readonly string[], cost: number, at: string): Promise<void>;
 
   // --- Plotbreak Pass (docs/plotbreak-pass.md) -------------------------

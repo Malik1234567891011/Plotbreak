@@ -25,6 +25,7 @@ export interface TowerStatus {
     readonly cleared: boolean;
     readonly reward: number;
     readonly streak: number;
+    readonly beat: number | null;
   };
   /** ISO time the next run opens. */
   readonly nextAt: string;
@@ -210,7 +211,7 @@ function mockBridge(): Bridge {
       const todayStreak = st.playedToday ? st.days : st.days + 1;
       return wait({
         day, free: isFree(day), fee: isFree(day) ? 0 : ENTRY_FEE, balance: s.balance, best: s.best,
-        today: run ? { runId: run.runId, finished: run.finished, fellOn: run.fellOn, cleared: run.cleared, reward: run.reward, streak: run.streak } : null,
+        today: run ? { runId: run.runId, finished: run.finished, fellOn: run.fellOn, cleared: run.cleared, reward: run.reward, streak: run.streak, beat: run.finished ? 64 : null } : null,
         nextAt: nextUtcMidnight(), enabled: true, maxReward: payoutWithStreak(30, true, todayStreak),
         streak: { days: st.days, todayBonusPercent: streakBonusPercent(todayStreak), alive: st.days > 0 },
         revive: new URLSearchParams(location.search).has('revive') && !st.playedToday ? { days: 12, cost: 5, nextCost: 20 } : null,

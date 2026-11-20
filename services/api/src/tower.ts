@@ -125,7 +125,11 @@ export interface TowerStatusView {
   fee: number;
   balance: number;
   best: number;
-  today: null | { runId: string; finished: boolean; fellOn: number; cleared: boolean; reward: number; streak: number };
+  today: null | {
+    runId: string; finished: boolean; fellOn: number; cleared: boolean; reward: number; streak: number;
+    /** Percent of today's finished climbs that ended lower (null until enough people have climbed). */
+    beat: number | null;
+  };
   nextAt: string;
   enabled: boolean;
   maxReward: number;
@@ -238,7 +242,10 @@ export class TowerService {
       balance: await this.wallet.getBalance(userId),
       best: await this.repo.bestTowerFloor(userId),
       today: run
-        ? { runId: run.runId, finished: !!run.finishedAt, fellOn: run.fellOn ?? run.lastFloor, cleared: !!run.cleared, reward: run.reward ?? 0, streak: run.streak }
+        ? {
+          runId: run.runId, finished: !!run.finishedAt, fellOn: run.fellOn ?? run.lastFloor, cleared: !!run.cleared, reward: run.reward ?? 0, streak: run.streak,
+          beat: run.finishedAt ? await this.#beat(day, run.cleared ? 31 : run.fellOn ?? 1) : null,
+        }
         : null,
       nextAt: nextAt.toISOString(),
       enabled: true,
@@ -360,6 +367,12 @@ export class TowerService {
       runId: run.runId, seed: run.seed, day: run.day, fee, balance: await this.wallet.getBalance(run.userId),
       resumed, streak: run.streak, characterId: run.characterId ?? DEFAULT_CHARACTER, startFloor: run.startFloor,
     };
+  }
+
+  /** "Higher than N% of today's climbers": only said once there are enough climbers for it to mean something. */
+  async #beat(day: string, reached: number): Promise<number | null> {
+    const { total, below } = await this.repo.towerStandings(day, reached);
+    return total >= 10 ? Math.round((below / total) * 100) : null;
   }
 
   async #character(userId: string): Promise<string> {

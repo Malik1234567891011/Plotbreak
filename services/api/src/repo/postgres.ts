@@ -862,6 +862,15 @@ export class PostgresRepository implements Repository {
       [userId, tz, at]);
   }
 
+  async towerStandings(day: string, reached: number): Promise<{ total: number; below: number }> {
+    const { rows } = await this.#pool.query<{ total: number; below: number }>(
+      `SELECT count(*)::int total,
+              count(*) FILTER (WHERE (CASE WHEN cleared THEN 31 ELSE fell_on END) < $2)::int below
+       FROM tower_runs WHERE day = $1 AND NOT practice AND finished_at IS NOT NULL`,
+      [day, reached]);
+    return rows[0] ?? { total: 0, below: 0 };
+  }
+
   async listTowerBridges(userId: string, limit: number): Promise<string[]> {
     const { rows } = await this.#pool.query<{ d: string }>(
       `SELECT to_char(day, 'YYYY-MM-DD') d FROM tower_streak_bridges WHERE user_id = $1 ORDER BY day DESC LIMIT $2`,

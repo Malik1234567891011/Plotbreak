@@ -6,7 +6,7 @@ import {
 import { bridge, type FinishResult, type TowerStatus } from './bridge';
 import { Game } from './game/Game';
 import { isMuted, setMuted, sfx, unlockAudio } from './game/audio';
-import { basePose, drawChar } from './game/chars';
+import { Portrait } from './game/Portrait';
 
 type Screen =
   | { kind: 'loading' }
@@ -150,31 +150,6 @@ function nextIsFree(iso: string): boolean {
 
 const signed = (n: number) => (n > 0 ? `+${n}` : n === 0 ? '±0' : `−${Math.abs(n)}`);
 
-/** A character drawn on a little canvas, idling. */
-function Portrait({ c, size, dim = false }: { c: CharacterDef; size: number; dim?: boolean }) {
-  const ref = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = ref.current!;
-    const dpr = Math.min(3, window.devicePixelRatio || 1);
-    canvas.width = size * dpr;
-    canvas.height = size * dpr;
-    const ctx = canvas.getContext('2d')!;
-    let raf = 0;
-    const draw = (t: number) => {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, size, size);
-      const pose = basePose(t / 1000);
-      pose.bob = Math.sin(t / 400) * 1.2;
-      if (dim) { pose.tint = '#0b0d12'; pose.tintAmount = 0.75; }
-      drawChar(ctx, c.look, size * 0.5, size * 0.93, size / 125, 1, pose, { scarf: c.scarf, headband: c.headband });
-      raf = requestAnimationFrame(draw);
-    };
-    raf = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(raf);
-  }, [c, size, dim]);
-  return <canvas ref={ref} style={{ width: size, height: size }} />;
-}
-
 // ── lobby ────────────────────────────────────────────────────────────────
 
 function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, starting }: {
@@ -225,10 +200,19 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
       )}
 
       <div className="tiles">
-        <div className={`tile-card streak ${status.streak.alive ? '' : 'cold'}`}>
+        <div className={`tile-card streak ${status.streak.alive || status.revive ? '' : 'cold'} ${status.revive ? 'broken' : ''}`}>
           <span className="tile-k">STREAK</span>
-          <b>🔥 {status.streak.days} day{status.streak.days === 1 ? '' : 's'}</b>
-          <span className="tile-s">{played ? `Today paid +${status.streak.todayBonusPercent}%` : `Today: +${status.streak.todayBonusPercent}% on your payout`}</span>
+          {status.revive ? (
+            <>
+              <b>💔 {status.revive.days} days</b>
+              <span className="tile-s">Revive for ◆{status.revive.cost} to climb at +{Math.min(20, status.revive.days + 1) * 5}%, or start over at +5%.</span>
+            </>
+          ) : (
+            <>
+              <b>🔥 {status.streak.days} day{status.streak.days === 1 ? '' : 's'}</b>
+              <span className="tile-s">{played ? `Today paid +${status.streak.todayBonusPercent}%` : `Today: +${status.streak.todayBonusPercent}% on your payout`}</span>
+            </>
+          )}
           <div className="streak-bar"><i style={{ width: `${(Math.min(STREAK_CAP, status.streak.days + (played ? 0 : 1)) / STREAK_CAP) * 100}%` }} /></div>
         </div>
         <div className="tile-card twist">
@@ -296,7 +280,9 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
 }
 
 function Ladder({ best, today, cleared, bonus }: { best: number; today: number | null; cleared: boolean; bonus: number }) {
-  const rows = useMemo(() => [{ from: FLOORS + 1, to: FLOORS + 1, credits: CLEAR_PAYOUT }, ...PAYOUT_TIERS.slice().reverse()], []);
+  // From floor 1 up, the way you climb it; the next rung beyond your best is marked.
+  const rows = useMemo(() => [...PAYOUT_TIERS, { from: FLOORS + 1, to: FLOORS + 1, credits: CLEAR_PAYOUT }], []);
+  const nextRung = rows.find((t) => t.from > Math.max(1, best));
   return (
     <section className="ladder" aria-label="Rewards">
       <div className="ladder-head"><span>Fall on</span><span></span><span>You get</span><span>{bonus ? `+${bonus}% streak` : ''}</span></div>
@@ -307,7 +293,7 @@ function Ladder({ best, today, cleared, bonus }: { best: number; today: number |
         const here = today !== null && (clear ? cleared : today >= t.from && today <= t.to && !cleared);
         const withStreak = Math.round((t.credits * (100 + bonus)) / 100);
         return (
-          <div key={i} className={`rung ${reached ? 'reached' : ''} ${here ? 'here' : ''} ${t.credits >= 30 ? 'paid' : ''}`} style={{ ['--arc' as string]: arc?.sky[1] ?? '#ffd23f' }}>
+          <div key={i} className={`rung ${reached ? 'reached' : ''} ${here ? 'here' : ''} ${t.credits >= 30 ? 'paid' : ''} ${best > 0 && t === nextRung ? 'next' : ''} ${clear ? 'clear' : ''}`} style={{ ['--arc' as string]: arc?.sky[1] ?? '#ffd23f' }}>
             <div className="rung-floors">{clear ? 'CLEAR' : `${t.from}–${t.to}`}</div>
             <div className="rung-name">{clear ? 'Beat THE AUTHOR' : t.credits === 30 ? `${arc!.name} · entry back` : arc!.name}</div>
             <div className="rung-pay">◆{t.credits}</div>
@@ -439,6 +425,9 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
           <span>Entry <b>{fee ? `−${fee}` : 'free'}</b></span>
         </div>
       </div>
+      {status?.today?.beat != null && (
+        <div className="beat">Higher than <b>{status.today.beat}%</b> of today’s climbers</div>
+      )}
       <div className="streak-next">
         <span>🔥 Day {finish.streak} streak</span>
         <b>Come back tomorrow for +{tomorrow}%</b>

@@ -346,6 +346,11 @@ export class MemoryRepository implements Repository {
     this.#towerTz.set(userId, { tz, changedAt: at });
   }
 
+  async towerStandings(day: string, reached: number): Promise<{ total: number; below: number }> {
+    const runs = [...this.#towerRuns.values()].filter((r) => !r.practice && r.day === day && r.finishedAt);
+    return { total: runs.length, below: runs.filter((r) => (r.cleared ? 31 : r.fellOn ?? 0) < reached).length };
+  }
+
   async listTowerBridges(userId: string, limit: number): Promise<string[]> {
     return [...(this.#towerBridges.get(userId) ?? [])].sort().reverse().slice(0, limit);
   }

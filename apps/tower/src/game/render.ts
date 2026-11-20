@@ -54,6 +54,10 @@ export class Stage {
   #hints = new Map<string, number>();
   #hint: { text: string; color: string; until: number } | null = null;
   #dodgePressed = 0;
+  #redVisible = false;
+  #redLastSeen = -9;
+  #redSince = -9;
+  #zoom = 0;
   #taught = loadTaught();
   /** Called the first time a lesson comes up; the game pauses and shows its card. */
   onTeach: ((key: string) => void) | null = null;
@@ -79,12 +83,12 @@ export class Stage {
     this.canvas.height = Math.round(h * dpr);
     this.canvas.style.width = `${w}px`;
     this.canvas.style.height = `${h}px`;
-    const scale = Math.min(w / 390, h / 760) * 1.92;
+    const scale = Math.min(w / 390, h / 760) * 2.0;
     const padH = Math.max(112, h * 0.17);
     const ground = h - bottom - padH - 34;
     this.L = {
       w, h, dpr, top, bottom, ground, scale,
-      heroX: w * 0.24, enemyX: w * 0.79, strikeX: w * 0.24 + 58 * scale,
+      heroX: w * 0.28, enemyX: w * 0.79, strikeX: w * 0.28 + 56 * scale,
       dodge: { x: w * 0.52, y: h - bottom - padH + 12, w: w * 0.48 - 16, h: padH - 24 },
     };
     this.#enemyX = this.L.enemyX;
@@ -93,8 +97,15 @@ export class Stage {
 
   /** True when a pointer at (x, y) is on the DODGE pad. */
   isDodge(x: number, y: number): boolean {
+    // DODGE only exists while a red attack is coming (and a beat after): the rest of the time
+    // that corner is just more of the screen you tap to parry.
+    if (!this.#dodgeLive()) return false;
     const d = this.L.dodge;
     return x >= d.x - 8 && x <= d.x + d.w + 8 && y >= d.y - 12 && y <= d.y + d.h + 8;
+  }
+
+  #dodgeLive(): boolean {
+    return this.#redVisible || this.#now - this.#redLastSeen < 0.35;
   }
 
   pressDodge(): void {
@@ -134,6 +145,7 @@ export class Stage {
         this.#sparks(x, y, e.perfect ? 26 : 14, e.perfect ? '#fff6b0' : '#ffffff', e.perfect ? 9 : 6);
         this.#pop(e.perfect ? 'キィン!' : 'キン!', x + 8, y - 34 * s, e.perfect ? '#fff27a' : '#ffffff', e.perfect ? 34 : 26, true);
         if (e.perfect) {
+          this.#zoom = 0.06;
           this.#pop('PERFECT', x, y - 62 * s, '#ffd23f', 16, false);
           this.#impact = 2;
           this.#hitstop = 0.07;
@@ -287,6 +299,14 @@ export class Stage {
     const sx = (Math.random() - 0.5) * this.#shake;
     const sy = (Math.random() - 0.5) * this.#shake;
     ctx.translate(sx, sy);
+    // Zoom-punch: a perfect parry pushes the camera in for a moment.
+    if (this.#zoom > 0.001) {
+      const z = 1 + this.#zoom;
+      ctx.translate(L.strikeX, L.ground - 60 * s);
+      ctx.scale(z, z);
+      ctx.translate(-L.strikeX, -(L.ground - 60 * s));
+      this.#zoom *= Math.pow(0.002, dt);
+    }
 
     this.#drawBackground(sim);
     if (sim.twistActive) {
@@ -948,9 +968,7 @@ export class Stage {
     // Floor.
     ctx.textBaseline = 'alphabetic';
     ctx.textAlign = 'left';
-    ctx.font = `800 11px ${FONT}`;
-    ctx.fillStyle = 'rgba(255,255,255,0.75)';
-    ctx.fillText(`${arc.jp}  ${arc.name.toUpperCase()}`, 16, top + 12);
+    void arc; // the arc is named in each floor's intro card, not in the HUD
     ctx.font = `900 30px ${FONT}`;
     outlined(ctx, `FLOOR ${sim.floor}`, 16, top + 44, '#ffffff', 6);
     const fw = ctx.measureText(`FLOOR ${sim.floor}`).width;
@@ -1008,14 +1026,15 @@ export class Stage {
     ctx.textAlign = 'left';
     ctx.font = `900 12px ${FONT}`;
     ctx.fillStyle = sim.kiai >= 100 ? '#ffd23f' : 'rgba(255,255,255,0.7)';
-    ctx.fillText('KIAI 気合', 16, ky + 9);
-    const kw = Math.min(140, L.w * 0.32);
-    ctx.fillStyle = 'rgba(10,12,20,0.7)';
-    ctx.beginPath(); ctx.roundRect(86, ky, kw, 10, 5); ctx.fill();
+    ctx.font = `900 13px ${FONT}`;
+    ctx.fillText('KIAI 気合', 16, ky + 12);
+    const kw = L.w - 16 - 100;
+    ctx.fillStyle = 'rgba(10,12,20,0.75)';
+    ctx.beginPath(); ctx.roundRect(100, ky, kw, 16, 8); ctx.fill();
     ctx.fillStyle = sim.kiai >= 100 ? `hsl(${(this.#now * 400) % 360},90%,65%)` : '#7c6cff';
-    ctx.beginPath(); ctx.roundRect(86, ky, (kw * sim.kiai) / 100, 10, 5); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(100, ky, Math.max(0.01, (kw * sim.kiai) / 100), 16, 8); ctx.fill();
     if (sim.kiai >= 100) this.#hintOnce('kiai', '', '', 1);
-    if (sim.kiai >= 100) { ctx.font = `800 10px ${FONT}`; ctx.fillStyle = '#ffd23f'; ctx.fillText('NEXT PARRY HITS HARD', 92 + kw, ky + 9); }
+    if (sim.kiai >= 100) { ctx.font = `900 11px ${FONT}`; ctx.fillStyle = '#0b0b10'; ctx.fillText('FULL · NEXT PARRY HITS HARD', 110, ky + 12); }
 
     // Power-ups held.
     if (sim.boons.length) {
@@ -1042,41 +1061,49 @@ export class Stage {
     const pressed = this.#now - this.#dodgePressed < 0.1;
     const live = sim.phase === 'fight';
     const tick = sim.tick;
-    // DODGE only lights up while a red attack is actually coming.
     const redLive = live && sim.attacks.some((a) => a.state === 'pending' && a.tele <= tick && (a.twisted ? a.kind === 'slash' : a.kind === 'heavy'));
-    // Parry is the whole screen, so it gets no box: a label in the free corner says so.
+    if (redLive && !this.#redVisible) this.#redSince = this.#now;
+    this.#redVisible = redLive;
+    if (redLive) this.#redLastSeen = this.#now;
+
+    // Parry is the whole screen, so it gets no box. The label teaches, and goes after floor 3.
+    if (sim.floor <= 3) {
+      ctx.save();
+      ctx.globalAlpha = live ? 0.9 : 0.4;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffffff';
+      ctx.font = `900 22px ${FONT}`;
+      ctx.fillText('TAP ANYWHERE', L.w / 2, d.y + d.h / 2);
+      ctx.font = `700 12px ${FONT}`;
+      ctx.fillStyle = 'rgba(255,255,255,0.7)';
+      ctx.fillText('to parry, as it lands', L.w / 2, d.y + d.h / 2 + 18);
+      ctx.restore();
+    }
+
+    // DODGE slams in when a red attack is coming, and leaves when it's gone.
+    if (!this.#dodgeLive()) return;
+    const since = this.#now - this.#redSince;
+    const slam = since < 0.12 ? 1.12 - (since / 0.12) * 0.12 : 1;
+    const fade = redLive ? 1 : Math.max(0, 1 - (this.#now - this.#redLastSeen) / 0.35);
     ctx.save();
-    // The label teaches; after floor 3 the player knows, and it goes.
-    ctx.globalAlpha = sim.floor <= 3 ? (live ? 0.9 : 0.4) : 0;
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#ffffff';
-    let tapSize = 20;
-    ctx.font = `900 ${tapSize}px ${FONT}`;
-    while (tapSize > 12 && ctx.measureText('TAP ANYWHERE').width > d.x - 28) { tapSize -= 1; ctx.font = `900 ${tapSize}px ${FONT}`; }
-    ctx.fillText('TAP ANYWHERE', d.x / 2, d.y + d.h / 2);
-    ctx.font = `700 12px ${FONT}`;
-    ctx.fillStyle = 'rgba(255,255,255,0.7)';
-    ctx.fillText('to parry, as it lands', d.x / 2, d.y + d.h / 2 + 18);
-    ctx.restore();
-    // Dodge pad.
-    ctx.save();
+    ctx.globalAlpha = fade;
     ctx.translate(d.x + d.w / 2, d.y + d.h / 2);
-    const pulse = redLive ? 1 + Math.sin(this.#now * 18) * 0.04 : 1;
-    ctx.scale((pressed ? 0.94 : 1) * pulse, (pressed ? 0.94 : 1) * pulse);
-    ctx.fillStyle = redLive ? '#ff2a3a' : 'rgba(255,42,58,0.06)';
+    const pulse = 1 + Math.sin(this.#now * 18) * 0.03;
+    ctx.scale((pressed ? 0.94 : 1) * pulse * slam, (pressed ? 0.94 : 1) * pulse * slam);
+    ctx.fillStyle = '#ff2a3a';
     ctx.shadowColor = '#ff2a3a';
-    ctx.shadowBlur = redLive ? 26 : 0;
+    ctx.shadowBlur = 28;
     ctx.beginPath(); ctx.roundRect(-d.w / 2, -d.h / 2, d.w, d.h, 20); ctx.fill();
     ctx.shadowBlur = 0;
-    ctx.lineWidth = 2.5;
-    ctx.strokeStyle = redLive ? '#ffffff' : 'rgba(255,120,130,0.45)';
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#ffffff';
     ctx.stroke();
     ctx.textAlign = 'center';
-    ctx.fillStyle = redLive ? '#ffffff' : 'rgba(255,200,205,0.55)';
-    ctx.font = `900 26px ${FONT}`;
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `900 28px ${FONT}`;
     ctx.fillText('DODGE', 0, 4);
-    ctx.font = `800 11px ${FONT}`;
-    ctx.fillText('red 危 only', 0, 24);
+    ctx.font = `900 13px ${FONT}`;
+    ctx.fillText('危', 0, 24);
     ctx.restore();
   }
 

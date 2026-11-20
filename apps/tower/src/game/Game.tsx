@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { BOONS_BY_ID, CHARACTERS, CHARACTERS_BY_ID, TowerSim, dailyTower, type BoonId, type Input, type RunResult, type SimEvent } from '@tower';
+import { BOONS_BY_ID, CHARACTERS, CHARACTERS_BY_ID, ENEMIES, TowerSim, dailyTower, type BoonId, type Input, type RunResult, type SimEvent } from '@tower';
+import { Portrait } from './Portrait';
 import type { BotDriver } from '../../../../packages/tower/src/bots';
 import { bridge } from '../bridge';
 import { sfx, unlockAudio } from './audio';
@@ -31,6 +32,7 @@ export function Game({ seed, runId, day, characterId, startFloor: firstFloor = 1
   const resumeAt = useRef(0);
   const [quit, setQuit] = useState(false);
   const simRef = useRef<TowerSim | null>(null);
+  const hero = CHARACTERS_BY_ID[characterId] ?? CHARACTERS[0]!;
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -235,8 +237,10 @@ export function Game({ seed, runId, day, characterId, startFloor: firstFloor = 1
       {offer && (
         <div data-ui className="boons">
           <div className="boons-title">
+            <Portrait c={hero} size={150} eyes="angry" />
+            <span className="cleared-tag">FLOOR {simRef.current?.floor ?? ''} CLEARED</span>
             <h2>Choose a power-up</h2>
-            <p>It lasts for the rest of today’s climb.</p>
+            <p>It lasts for the rest of this climb.</p>
           </div>
           <div className="boon-cards">
             {offer.map((id, i) => {
@@ -246,6 +250,7 @@ export function Game({ seed, runId, day, characterId, startFloor: firstFloor = 1
                   <span className="boon-jp">{b.jp}</span>
                   <span className="boon-name">{b.name}</span>
                   <span className="boon-text">{b.text}</span>
+                  {comboWith(id, simRef.current?.boons ?? []) && <span className="boon-combo">⚡ Combos with {comboWith(id, simRef.current?.boons ?? [])}</span>}
                   <span className="boon-rarity">{b.rarity}</span>
                 </button>
               );
@@ -280,10 +285,12 @@ export function Game({ seed, runId, day, characterId, startFloor: firstFloor = 1
       )}
       {teach && LESSONS[teach] && (
         <div data-ui className="lesson" onClick={dismissTeach}>
-          <div className={`lesson-card ${LESSONS[teach].tone}`}>
-            <div className="lesson-icon">{LESSONS[teach].icon}</div>
-            <h2>{LESSONS[teach].title}</h2>
-            <p>{LESSONS[teach].text}</p>
+          <div className={`lesson-panel ${LESSONS[teach].tone}`}>
+            <div className="lesson-band"><span>{LESSONS[teach].icon}</span><b>{LESSONS[teach].title}</b></div>
+            <div className="lesson-body">
+              <div className="lesson-sensei"><Portrait c={SENSEI} size={118} eyes="smug" /><small>Captain Rin</small></div>
+              <p className="lesson-bubble">{LESSONS[teach].text}</p>
+            </div>
             <button className="btn primary">Got it</button>
           </div>
         </div>
@@ -327,3 +334,21 @@ const LESSONS: Record<string, { icon: string; title: string; text: string; tone:
   kiai: { icon: '気', title: 'Kiai full', tone: 'purple', text: 'Perfect parries charge it. When it’s full, your next parry hits extra hard.' },
   twist: { icon: '改', title: 'Plot twist', tone: 'gold', text: 'THE AUTHOR is swapping the colours. Some red attacks are drawn white and some white ones red. Read the move, not the colour.' },
 };
+
+/** The coach in every lesson card: the kendo captain from floor 4, who has opinions. */
+const SENSEI = { look: ENEMIES.kendo.look, scarf: null, headband: null };
+
+const COMBOS: readonly [BoonId, BoonId][] = [
+  ['training_arc', 'battle_cry'], ['second_form', 'rivals_respect'], ['glasses_glint', 'chuunibyou'],
+  ['bento', 'beach_episode'], ['plot_armor', 'second_form'], ['time_skip', 'training_arc'], ['flashback', 'plot_armor'],
+  ['friendship', 'bento'], ['truck_kun', 'filler_episode'],
+];
+
+/** The name of a held power-up this one works well with, if any. */
+function comboWith(id: BoonId, held: readonly BoonId[]): string | null {
+  for (const [a, b] of COMBOS) {
+    if (a === id && held.includes(b)) return BOONS_BY_ID[b].name;
+    if (b === id && held.includes(a)) return BOONS_BY_ID[a].name;
+  }
+  return null;
+}

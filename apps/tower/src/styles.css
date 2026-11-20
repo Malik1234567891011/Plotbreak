@@ -230,3 +230,27 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .boons-held { text-align: center; color: var(--muted); font-size: 12px; }
 
 .shot *, .shot *::before, .shot *::after { animation: none !important; transition: none !important; }
+
+/* ── round 4 ── */
+.rung.next { outline: 2px dashed #7c6cff; outline-offset: 1px; }
+.rung.next .rung-floors::after { content: ' NEXT'; font-style: normal; font-size: 9px; font-weight: 900; color: #b8acff; letter-spacing: 0.08em; }
+.tile-card.streak.broken { background: linear-gradient(135deg, rgba(255,42,58,0.22), rgba(255,255,255,0.03)); border-color: rgba(255,90,100,0.45); }
+.beat { text-align: center; color: var(--dim); font-size: 14px; }
+.beat b { color: var(--text); font-size: 18px; }
+.lesson { background: rgba(4,5,10,0.6); }
+.lesson-panel { position: relative; width: 100%; max-width: 360px; background: #fbfbfb; color: #0b0d12; border: 4px solid #0b0d12;
+  box-shadow: 8px 8px 0 var(--tone); transform: rotate(-1deg); padding: 0 0 16px; animation: rise 0.25s cubic-bezier(.2,.9,.3,1.3) both; }
+.lesson-band { display: flex; align-items: center; gap: 10px; background: var(--tone); color: #fff; padding: 10px 14px; transform: skewX(-8deg); margin: -4px -4px 0; border-bottom: 4px solid #0b0d12; }
+.lesson-band span { font-size: 26px; font-weight: 900; transform: skewX(8deg); min-width: 32px; text-align: center; }
+.lesson-band b { font-size: 22px; font-weight: 900; font-style: italic; transform: skewX(8deg); }
+.lesson-body { display: flex; align-items: flex-end; gap: 4px; padding: 10px 12px 4px 4px; }
+.lesson-sensei { display: flex; flex-direction: column; align-items: center; flex: none; }
+.lesson-sensei small { font-size: 10px; font-weight: 900; letter-spacing: 0.08em; color: #52514e; }
+.lesson-bubble { position: relative; margin: 0 0 30px; padding: 12px 14px; border: 3px solid #0b0d12; border-radius: 18px; font-size: 15px; line-height: 1.38; font-weight: 600; background: #fff; }
+.lesson-bubble::before { content: ''; position: absolute; left: -14px; bottom: 16px; border: 9px solid transparent; border-right: 12px solid #0b0d12; }
+.lesson-panel .btn.primary { display: block; width: calc(100% - 28px); margin: 0 14px; background: #0b0d12; color: #fff; }
+.lesson-panel.white { --tone: #7c6cff; } .lesson-panel.red { --tone: #ff2a3a; } .lesson-panel.gold { --tone: #e6a400; }
+.lesson-panel.blue { --tone: #3a8bff; } .lesson-panel.purple { --tone: #9b5cff; }
+.boons-title { display: flex; flex-direction: column; align-items: center; }
+.cleared-tag { background: var(--gold); color: #0b0d12; font-weight: 900; font-size: 12px; letter-spacing: 0.1em; padding: 3px 12px; border-radius: 99px; margin: -6px 0 8px; }
+.boon-combo { color: #ffd23f; font-size: 12.5px; font-weight: 800; margin-top: 2px; }
