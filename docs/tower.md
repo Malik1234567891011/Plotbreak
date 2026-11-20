@@ -29,7 +29,7 @@ A one-thumb anime duel-climber. Each floor is a one-on-one duel:
 
 ## Money
 
-- **Entry:** 30 credits. **Free on Sundays.** The day is the server's UTC day, the same as the daily claim.
+- **Entry:** 30 credits. **The first climb each week is free** (weeks start Monday, in the player's own time zone). A new player's first climb is therefore always free.
 - **One run per account per day.**
 - **The payout depends on the floor you fall on:**
 
@@ -221,3 +221,8 @@ Commands:
   - A letterboxed film-style intro.
   - In the final phase the stage goes to ink with 改稿 ("rewrite") behind the fight.
 - **Remind me:** the results screen asks for notification permission at the moment it's obviously useful, then schedules the reset reminder.
+
+
+### Free climb (owner correction, 2026-11-20)
+
+The original ask was "0 credits one day a week", meaning the first climb a player makes each week is free, not a fixed Sunday. `isFreeClimb` (server) and the mock both check for any daily climb since Monday, in the player's own time zone.

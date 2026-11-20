@@ -3,7 +3,7 @@ export const tower = {
   'tower.card_label': 'THE TOWER',
   'tower.card_ready': 'Today’s climb is ready',
   'tower.card_waiting': 'Your climb is waiting',
-  'tower.card_free': 'FREE today',
+  'tower.card_free': 'FREE this week',
   'tower.card_entry': '◆ {fee} to enter',
   'tower.card_win_up_to': 'Win up to ◆{max}',
   'tower.card_played': 'Fell on floor {floor} · +{reward}',

@@ -144,12 +144,12 @@ function useCountdown(iso: string | undefined): string {
   return h ? `${h}h ${String(m).padStart(2, '0')}m` : `${m}m ${String(s).padStart(2, '0')}s`;
 }
 
-/** Whether the next climb (starting at `iso`) falls on a Sunday in the player's own zone, as the server decides it. */
+/** Whether the next climb (starting at `iso`) opens a new week in the player's own zone, so it's free. */
 function nextIsFree(iso: string, tz?: string): boolean {
   try {
-    return new Intl.DateTimeFormat('en-US', { timeZone: tz || undefined, weekday: 'short' }).format(new Date(iso)) === 'Sun';
+    return new Intl.DateTimeFormat('en-US', { timeZone: tz || undefined, weekday: 'short' }).format(new Date(iso)) === 'Mon';
   } catch {
-    return new Date(iso).getDay() === 0;
+    return new Date(iso).getDay() === 1;
   }
 }
 
@@ -187,7 +187,7 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
         <div className={`today-chip ${played ? 'done' : ''}`}>
           {played
             ? <>Today’s climb done · next in <b>{countdown}</b></>
-            : <>1 climb today · {status.free ? <b>FREE (Sunday)</b> : <b>◆ {status.fee} entry</b>} · resets in <b>{countdown}</b></>}
+            : <>1 climb today · {status.free ? <b>FREE (first climb this week)</b> : <b>◆ {status.fee} entry</b>} · resets in <b>{countdown}</b></>}
         </div>
       </div>
 
@@ -234,10 +234,10 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
         ) : (
           <>
             <button className="btn primary big" disabled={starting || (!canPay && !resume)} onClick={onStart}>
-              {resume ? 'Continue today’s climb' : status.free ? 'Climb free today' : <>Climb · <span className="fee">◆ {status.fee}</span></>}
+              {resume ? 'Continue today’s climb' : status.free ? 'Climb · FREE this week' : <>Climb · <span className="fee">◆ {status.fee}</span></>}
             </button>
             <div className="fine">
-              {!canPay && !resume ? `You need ◆ ${status.fee} to enter. Sundays are free.` : 'One climb a day. Miss a day and the streak restarts.'}
+              {!canPay && !resume ? `You need ◆ ${status.fee} to enter. Your first climb each week is free.` : 'One climb a day. Miss a day and the streak restarts.'}
               {' '}<button className="link" onClick={openPractice}>Practice (◆1 a floor)</button>
             </div>
             <button className="link hand" onClick={() => { const next = !left; try { localStorage.setItem('tower-left', next ? '1' : '0'); } catch { /* private mode */ } setLeft(next); }}>

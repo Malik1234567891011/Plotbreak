@@ -1030,7 +1030,7 @@
   "tower.card_cleared": "Cleared all 30 floors · +{reward}",
   "tower.card_cta": "Climb",
   "tower.card_entry": "◆ {fee} to enter",
-  "tower.card_free": "FREE today",
+  "tower.card_free": "FREE this week",
   "tower.card_label": "THE TOWER",
   "tower.card_next": "Next climb in {time}",
   "tower.card_played": "Fell on floor {floor} · +{reward}",

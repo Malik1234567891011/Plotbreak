@@ -7,7 +7,7 @@
  */
 import { createHash, randomInt, randomUUID } from 'node:crypto';
 import {
-  CHARACTERS_BY_ID, DEFAULT_CHARACTER, ENTRY_FEE, FLOORS, FREE_WEEKDAY, PRACTICE_DAILY_CAP, PRACTICE_PER_FLOOR, TPS,
+  CHARACTERS_BY_ID, DEFAULT_CHARACTER, ENTRY_FEE, FLOORS, PRACTICE_DAILY_CAP, weekStart, PRACTICE_PER_FLOOR, TPS,
   dailyTower, lateTapSpread, payoutFor, payoutWithStreak, replay, streakBonusPercent, type Input,
 } from '@plotbreak/tower';
 import type { Repository, TowerRunRow } from './repo/types.js';
@@ -75,8 +75,10 @@ const TZ_CHANGE_EVERY_MS = 7 * 24 * 3600 * 1000;
 /** What reviving a dead streak costs, by how many days it has been dead. */
 export const REVIVE_COSTS: readonly number[] = [5, 20, 50];
 
-export function isFreeDay(day: string): boolean {
-  return new Date(`${day}T12:00:00Z`).getUTCDay() === FREE_WEEKDAY;
+/** Free when the player has no daily climb yet this week (weeks start Monday, their time). */
+export function isFreeClimb(day: string, playedDays: readonly string[]): boolean {
+  const from = weekStart(day);
+  return !playedDays.some((d) => d >= from && d < day);
 }
 
 function addDays(day: string, n: number): string {
@@ -231,7 +233,7 @@ export class TowerService {
     const { day, nextAt, tz } = await this.clock(userId, tzHint);
     await this.settleStale(userId, day);
     const run = await this.repo.getTowerRun(userId, day);
-    const free = isFreeDay(day);
+    const free = isFreeClimb(day, await this.repo.listTowerDays(userId, 8));
     const streak = await this.streak(userId, day);
     const todayStreak = streak.playedToday ? streak.days : streak.days + 1;
     const owned = await this.repo.getTowerCharacters(userId);
@@ -273,7 +275,7 @@ export class TowerService {
       if (existing.finishedAt) throw new TowerError('NOT_TODAY', 'Today’s climb is done. Come back tomorrow.');
       return this.#started(existing, 0, true);
     }
-    const free = isFreeDay(day);
+    const free = isFreeClimb(day, await this.repo.listTowerDays(userId, 8));
     const fee = free ? 0 : ENTRY_FEE;
     const balance = await this.wallet.getBalance(userId);
     if (balance < fee) throw new InsufficientCreditsError(fee, balance);

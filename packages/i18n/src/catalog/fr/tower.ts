@@ -3,7 +3,7 @@ export const tower = {
   'tower.card_label': 'LA TOUR',
   'tower.card_ready': 'L’ascension du jour t’attend',
   'tower.card_waiting': 'Ton ascension t’attend',
-  'tower.card_free': 'GRATUIT aujourd’hui',
+  'tower.card_free': 'GRATUIT cette semaine',
   'tower.card_entry': '◆ {fee} pour entrer',
   'tower.card_win_up_to': 'Jusqu’à ◆{max} à gagner',
   'tower.card_played': 'Tombé à l’étage {floor} · +{reward}',

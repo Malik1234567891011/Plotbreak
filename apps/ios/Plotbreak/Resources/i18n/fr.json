@@ -1030,7 +1030,7 @@
   "tower.card_cleared": "Les 30 étages franchis · +{reward}",
   "tower.card_cta": "Grimper",
   "tower.card_entry": "◆ {fee} pour entrer",
-  "tower.card_free": "GRATUIT aujourd’hui",
+  "tower.card_free": "GRATUIT cette semaine",
   "tower.card_label": "LA TOUR",
   "tower.card_next": "Prochaine ascension dans {time}",
   "tower.card_played": "Tombé à l’étage {floor} · +{reward}",

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { CHARACTER_PRICE, ENTRY_FEE, PRACTICE_DAILY_CAP, TowerSim, dailyTower, payoutFor, payoutWithStreak } from '@plotbreak/tower';
 import { BotDriver, SKILLS, playBotInto } from '@plotbreak/tower/bots';
 import { MemoryRepository } from './repo/memory.js';
-import { REVIVE_COSTS, TowerService, isFreeDay, localDay, nextLocalMidnight, parseInputs, towerEnabledFor } from './tower.js';
+import { REVIVE_COSTS, TowerService, isFreeClimb, localDay, nextLocalMidnight, parseInputs, towerEnabledFor } from './tower.js';
 import { WalletService } from './wallet.js';
 
 const USER = '00000000-0000-4000-8000-000000000001';
@@ -28,12 +28,12 @@ describe('the Tower', () => {
     const { wallet, tower, advance } = setup();
     await wallet.grant(USER, 'PROMO_GRANT', 100, 'seed');
     const a = await tower.start(USER, '1.0.10');
-    expect(a.fee).toBe(ENTRY_FEE);
-    expect(await wallet.getBalance(USER)).toBe(100 - ENTRY_FEE);
+    expect(a.fee).toBe(0); // the first climb of the week
+    expect(await wallet.getBalance(USER)).toBe(100);
     const again = await tower.start(USER, '1.0.10');
     expect(again.runId).toBe(a.runId);
     expect(again.resumed).toBe(true);
-    expect(await wallet.getBalance(USER)).toBe(100 - ENTRY_FEE);
+    expect(await wallet.getBalance(USER)).toBe(100);
 
     const { inputs, result } = play(a.seed, 2);
     advance(result.ticks * 17 + 5_000);
@@ -41,12 +41,12 @@ describe('the Tower', () => {
     expect(done.fellOn).toBe(result.cleared ? 30 : result.fellOn);
     expect(done.reward).toBe(payoutWithStreak(result.fellOn, result.cleared, 1));
     expect(done.base).toBe(payoutFor(result.fellOn, result.cleared));
-    expect(done.balance).toBe(100 - ENTRY_FEE + done.reward);
+    expect(done.balance).toBe(100 + done.reward);
     await expect(tower.start(USER, '1.0.10')).rejects.toThrow(/done/);
     // Finishing twice pays once.
     const twice = await tower.finish(USER, a.runId, inputs, 1);
     expect(twice.reward).toBe(done.reward);
-    expect(await wallet.getBalance(USER)).toBe(100 - ENTRY_FEE + done.reward);
+    expect(await wallet.getBalance(USER)).toBe(100 + done.reward);
   });
 
   it('decides the floor by replaying, whatever the client claims', async () => {
@@ -70,14 +70,22 @@ describe('the Tower', () => {
     expect(done.reward).toBe(5);
   });
 
-  it('needs the entry fee, except on Sunday', async () => {
-    const { tower, wallet, set } = setup();
+  it('makes the first climb of each week free, and charges the rest', async () => {
+    // 2026-11-16 is a Monday.
+    const { tower, wallet, set, advance } = setup('2026-11-17T15:00:00Z');
+    expect(isFreeClimb('2026-11-17', [])).toBe(true);
+    const first = await tower.start(USER, null);
+    expect(first.fee).toBe(0);
+    advance(60_000);
+    await tower.finish(USER, first.runId, [], 0);
+    set('2026-11-18T15:00:00Z');
+    expect((await tower.status(USER)).free).toBe(false);
     await expect(tower.start(USER, null)).rejects.toThrow(/Insufficient/);
-    set('2026-11-22T15:00:00Z');
-    expect(isFreeDay('2026-11-22')).toBe(true);
-    const free = await tower.start(USER, null);
-    expect(free.fee).toBe(0);
-    expect(await wallet.getBalance(USER)).toBe(0);
+    await wallet.grant(USER, 'PROMO_GRANT', 40, 'seed');
+    expect((await tower.start(USER, null)).fee).toBe(ENTRY_FEE);
+    // A new week: free again.
+    set('2026-11-23T15:00:00Z');
+    expect((await tower.status(USER)).free).toBe(true);
   });
 
   it('settles yesterday’s unfinished climb from its last checkpoint', async () => {
@@ -94,7 +102,7 @@ describe('the Tower', () => {
     const settled = (await repo.getTowerRunById(run.runId))!;
     expect(settled.abandoned).toBe(true);
     expect(settled.fellOn).toBeGreaterThanOrEqual(7);
-    expect(await wallet.getBalance(USER)).toBe(100 - ENTRY_FEE + (settled.reward ?? 0));
+    expect(await wallet.getBalance(USER)).toBe(100 - run.fee + (settled.reward ?? 0));
     expect(status.best).toBe(settled.fellOn);
   });
 

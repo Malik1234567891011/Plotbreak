@@ -7,7 +7,7 @@
  */
 import type { Input, RunResult } from '@tower';
 import {
-  CHARACTERS_BY_ID, DEFAULT_CHARACTER, ENTRY_FEE, FREE_WEEKDAY, PRACTICE_DAILY_CAP, dailyTower, daySeed, payoutFor,
+  CHARACTERS_BY_ID, DEFAULT_CHARACTER, ENTRY_FEE, PRACTICE_DAILY_CAP, weekStart, dailyTower, daySeed, payoutFor,
   payoutWithStreak, replay, streakBonusPercent,
 } from '@tower';
 
@@ -201,7 +201,8 @@ function streakOf(s: MockState, day: string): { days: number; playedToday: boole
 
 function mockBridge(): Bridge {
   const dev = new URLSearchParams(location.search).has('dev');
-  const isFree = (day: string) => new Date(`${day}T12:00:00Z`).getUTCDay() === FREE_WEEKDAY;
+  // The first climb of each week (weeks start Monday) is free, as on the server.
+  const isFree = (day: string) => !load().runs.some((r) => !r.practice && r.day >= weekStart(day) && r.day < day);
   const wait = <T,>(v: T) => new Promise<T>((r) => setTimeout(() => r(v), 120));
   const fail = (message: string) => new Promise<never>((_, reject) => setTimeout(() => reject(new Error(message)), 120));
   const practiceEarned = (s: MockState, day: string) => s.runs.filter((r) => r.practice && r.day === day).reduce((a, r) => a + r.reward, 0);

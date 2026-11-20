@@ -9,8 +9,15 @@
 export const TPS = 60;
 export const FLOORS = 30;
 export const ENTRY_FEE = 30;
-/** 0 = Sunday, in UTC — the same day boundary the daily claim uses. */
-export const FREE_WEEKDAY = 0;
+/**
+ * The first climb a player makes in each week is free. Weeks start on Monday,
+ * in the player's own time zone.
+ */
+export function weekStart(day: string): string {
+  const d = new Date(`${day}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7));
+  return d.toISOString().slice(0, 10);
+}
 
 /** Credits paid for falling on a floor (1..30); index 31 = cleared the tower. */
 export const PAYOUT_TIERS: readonly { from: number; to: number; credits: number }[] = [
