@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 import WebKit
 
 // MARK: - The Tower (docs/tower.md)
@@ -26,6 +27,13 @@ struct TowerStatus: Decodable, Equatable {
     let today: Today?
     let nextAt: String
     let maxReward: Int
+    let streak: Streak
+
+    struct Streak: Decodable, Equatable {
+        let days: Int
+        let todayBonusPercent: Int
+        let alive: Bool
+    }
 }
 
 /// Full-screen host for the game page.
@@ -45,7 +53,10 @@ struct TowerScreen: View {
                 router.popToRoot()
                 router.tab = .library
             }
-            Task { await store.refreshWallet() }
+            Task {
+                await store.refreshWallet()
+                if let status = try? await store.api.tower() { await TowerReminder.refresh(status, t: store.t) }
+            }
         }
         .ignoresSafeArea()
         .background(Color(hex: 0x0B0D12).ignoresSafeArea())
@@ -124,6 +135,12 @@ struct TowerWebView: UIViewRepresentable {
             case "start": call(id) { try await self.api.towerCall("POST", "/v1/tower/start") }
             case "checkpoint": call(id) { try await self.api.towerCall("POST", "/v1/tower/checkpoint", body: Self.json(args)) }
             case "finish": call(id) { try await self.api.towerCall("POST", "/v1/tower/finish", body: Self.json(args)) }
+            case "practice": call(id) { try await self.api.towerCall("POST", "/v1/tower/practice") }
+            case "buy", "select":
+                // Character ids are short slugs; anything else never reaches a URL path.
+                guard let raw = args["characterId"] as? String,
+                      raw.range(of: "^[a-z0-9_]{1,32}$", options: .regularExpression) != nil else { return }
+                call(id) { try await self.api.towerCall("POST", "/v1/tower/characters/\(raw)/\(op)") }
             case "haptic": haptic(args["kind"] as? String)
             case "track": track(args)
             case "close": onExit(.close)
@@ -171,5 +188,29 @@ struct TowerWebView: UIViewRepresentable {
                   let data = try? JSONSerialization.data(withJSONObject: object) else { return nil }
             return try? JSONDecoder.plotbreak.decode(JSONValue.self, from: data)
         }
+    }
+}
+
+/// One local notification: the next climb is open. Only when today's climb is
+/// done, and only if the player already allows notifications (the Tower never
+/// asks on its own; the app's reminder prompt does).
+enum TowerReminder {
+    static let id = "plotbreak.reminder.tower"
+
+    static func refresh(_ status: TowerStatus, t: Translator) async {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: [id])
+        guard status.today?.finished == true,
+              await Reminders.authorizationStatus() == .authorized,
+              let at = ISO8601.date(from: status.nextAt), at > Date() else { return }
+        let content = UNMutableNotificationContent()
+        content.title = t("tower.notify_title")
+        content.body = status.streak.days > 0
+            ? t("tower.notify_streak", ["days": status.streak.days, "bonus": min(20, status.streak.days + 1) * 5])
+            : t("tower.notify_body")
+        content.sound = .default
+        let parts = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: at.addingTimeInterval(60))
+        let request = UNNotificationRequest(identifier: id, content: content, trigger: UNCalendarNotificationTrigger(dateMatching: parts, repeats: false))
+        try? await center.add(request)
     }
 }

@@ -4,10 +4,10 @@
  * as loud as it likes without touching determinism.
  */
 import {
-  ARCS, BOONS_BY_ID, BREAK_TICKS, FLOORS, PAYOUT_TIERS, CLEAR_PAYOUT, payoutFor,
+  ARCS, BOONS_BY_ID, BREAK_TICKS, CHARACTERS, type CharacterDef, FLOORS, PAYOUT_TIERS, CLEAR_PAYOUT, payoutFor,
   type Attack, type SimEvent, type TowerSim,
 } from '@tower';
-import { HERO, basePose, drawChar, type Pose } from './chars';
+import { basePose, drawChar, type Gear, type Pose } from './chars';
 
 const TPS = 60;
 const FONT = '-apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", system-ui, sans-serif';
@@ -56,6 +56,9 @@ export class Stage {
   #twistAt = -1;
   /** Tells the player which input is expected; switched off past floor 10. */
   ringsOn = true;
+  /** Who the player is fighting as. */
+  hero: CharacterDef = CHARACTERS[0]!;
+  get #gear(): Gear { return { scarf: this.hero.scarf, headband: this.hero.headband }; }
   dpr = 1;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -69,13 +72,13 @@ export class Stage {
     this.canvas.height = Math.round(h * dpr);
     this.canvas.style.width = `${w}px`;
     this.canvas.style.height = `${h}px`;
-    const scale = Math.min(w / 390, h / 760) * 1.75;
+    const scale = Math.min(w / 390, h / 760) * 2.05;
     const padH = Math.max(112, h * 0.17);
     const ground = h - bottom - padH - 34;
     this.L = {
       w, h, dpr, top, bottom, ground, scale,
-      heroX: w * 0.27, enemyX: w * 0.76, strikeX: w * 0.27 + 60 * scale,
-      dodge: { x: w * 0.64, y: h - bottom - padH + 14, w: w * 0.36 - 16, h: padH - 30 },
+      heroX: w * 0.3, enemyX: w * 0.74, strikeX: w * 0.3 + 56 * scale,
+      dodge: { x: w * 0.52, y: h - bottom - padH + 12, w: w * 0.48 - 16, h: padH - 24 },
     };
     this.#enemyX = this.L.enemyX;
     this.#bgFloor = -1;
@@ -293,7 +296,7 @@ export class Stage {
     this.#drawAuras(sim, tick);
     if (!this.#impact) {
       drawChar(ctx, e.look, this.#enemyX, L.ground, eScale, -1, enemyPose.pose);
-      drawChar(ctx, HERO, heroPose.x, L.ground, s, 1, heroPose.pose, true);
+      drawChar(ctx, this.hero.look, heroPose.x, L.ground, s, 1, heroPose.pose, this.#gear);
     }
     this.#drawKunai(sim, tick);
     this.#drawTelegraphs(sim, tick);
@@ -308,7 +311,7 @@ export class Stage {
       ctx.fillRect(-20, -20, L.w + 40, L.h + 40);
       const black: Pose = { ...enemyPose.pose, tint: '#000000', tintAmount: 1 };
       drawChar(ctx, e.look, this.#enemyX, L.ground, eScale, -1, black);
-      drawChar(ctx, HERO, heroPose.x, L.ground, s, 1, { ...heroPose.pose, tint: '#000000', tintAmount: 1 }, true);
+      drawChar(ctx, this.hero.look, heroPose.x, L.ground, s, 1, { ...heroPose.pose, tint: '#000000', tintAmount: 1 }, this.#gear);
       this.#impact -= 1;
     }
 
@@ -621,6 +624,8 @@ export class Stage {
       else if (bt >= 1.1) { x = lerp(L.enemyX + 70 * L.scale, L.heroX, Math.min(1, (bt - 1.1) / 0.4)); pose.eyes = 'closed'; }
     }
     if (sim.phase === 'boon' || (sim.phase === 'intro' && this.#floorClearedAt > 0)) pose.eyes = 'closed';
+    // Never let a knockback push the hero off the left edge.
+    if (sim.phase !== 'break') x = Math.max(L.heroX - 24, x);
     if (sim.phase === 'dead') {
       const dt = this.#now - this.#deadAt;
       pose.fall = Math.min(1, dt / 0.5);
@@ -853,15 +858,15 @@ export class Stage {
       ctx.save();
       ctx.beginPath(); ctx.rect(-40, -bandH / 2, L.w + 80, bandH); ctx.clip();
       const pose = basePose(this.#now); pose.eyes = 'angry';
-      drawChar(ctx, HERO, L.w * 0.42, 235, 4.2, 1, pose, true);
+      drawChar(ctx, this.hero.look, L.w * 0.42, 235, 4.2, 1, pose, this.#gear);
       ctx.restore();
       ctx.font = `900 30px ${FONT}`;
       ctx.fillStyle = '#ffffff';
       ctx.strokeStyle = '#0b0b10';
       ctx.lineWidth = 6;
       ctx.textAlign = 'right';
-      ctx.strokeText('必殺!', L.w - 18, bandH / 2 - 14);
-      ctx.fillText('必殺!', L.w - 18, bandH / 2 - 14);
+      ctx.strokeText(this.hero.cry, L.w - 18, bandH / 2 - 14);
+      ctx.fillText(this.hero.cry, L.w - 18, bandH / 2 - 14);
       ctx.restore();
     }
     // 0.55–0.75: the cut.
@@ -1017,24 +1022,18 @@ export class Stage {
     const tick = sim.tick;
     // DODGE only lights up while a red attack is actually coming.
     const redLive = live && sim.attacks.some((a) => a.state === 'pending' && a.tele <= tick && (a.twisted ? a.kind === 'slash' : a.kind === 'heavy'));
-    // TAP is the main control: a big outlined zone across the rest of the bottom.
-    const tw = d.x - 24;
+    // Parry is the whole screen, so it gets no box: a label in the free corner says so.
     ctx.save();
-    ctx.globalAlpha = live ? 1 : 0.45;
-    ctx.strokeStyle = 'rgba(255,255,255,0.85)';
-    ctx.lineWidth = 3;
-    ctx.setLineDash([10, 8]);
-    ctx.beginPath(); ctx.roundRect(16, d.y, tw, d.h, 20); ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle = 'rgba(255,255,255,0.08)';
-    ctx.fill();
+    ctx.globalAlpha = live ? 0.9 : 0.4;
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffffff';
-    ctx.font = `900 30px ${FONT}`;
-    ctx.fillText('TAP', 16 + tw / 2, d.y + d.h / 2 + 4);
+    let tapSize = 20;
+    ctx.font = `900 ${tapSize}px ${FONT}`;
+    while (tapSize > 12 && ctx.measureText('TAP ANYWHERE').width > d.x - 28) { tapSize -= 1; ctx.font = `900 ${tapSize}px ${FONT}`; }
+    ctx.fillText('TAP ANYWHERE', d.x / 2, d.y + d.h / 2);
     ctx.font = `700 12px ${FONT}`;
     ctx.fillStyle = 'rgba(255,255,255,0.7)';
-    ctx.fillText('anywhere, as it lands', 16 + tw / 2, d.y + d.h / 2 + 24);
+    ctx.fillText('to parry, as it lands', d.x / 2, d.y + d.h / 2 + 18);
     ctx.restore();
     // Dodge pad.
     ctx.save();
@@ -1051,32 +1050,44 @@ export class Stage {
     ctx.stroke();
     ctx.textAlign = 'center';
     ctx.fillStyle = redLive ? '#ffffff' : 'rgba(255,200,205,0.8)';
-    ctx.font = `900 20px ${FONT}`;
-    ctx.fillText('DODGE', 0, 2);
+    ctx.font = `900 26px ${FONT}`;
+    ctx.fillText('DODGE', 0, 4);
     ctx.font = `800 11px ${FONT}`;
-    ctx.fillText('red 危 only', 0, 20);
+    ctx.fillText('red 危 only', 0, 24);
     ctx.restore();
   }
 
   #drawHint(): void {
     if (!this.#hint || this.#now > this.#hint.until) return;
     const { ctx, L } = this;
-    const a = Math.min(1, (this.#hint.until - this.#now) / 0.3);
-    ctx.globalAlpha = a;
-    let size = 15;
-    ctx.font = `800 ${size}px ${FONT}`;
-    while (size > 10 && ctx.measureText(this.#hint.text).width > L.w - 56) { size -= 1; ctx.font = `800 ${size}px ${FONT}`; }
-    ctx.textAlign = 'center';
-    const w = Math.min(L.w - 24, ctx.measureText(this.#hint.text).width + 28);
+    const left = this.#hint.until - this.#now;
+    const age = 1.8 - left;
+    const a = Math.min(1, left / 0.3);
+    let size = 17;
+    ctx.font = `900 ${size}px ${FONT}`;
+    while (size > 11 && ctx.measureText(this.#hint.text).width > L.w - 64) { size -= 1; ctx.font = `900 ${size}px ${FONT}`; }
+    const w = Math.min(L.w - 24, ctx.measureText(this.#hint.text).width + 36);
     const y = L.top + 150;
-    ctx.fillStyle = 'rgba(10,12,20,0.85)';
-    ctx.beginPath(); ctx.roundRect(L.w / 2 - w / 2, y, w, 30, 15); ctx.fill();
-    ctx.strokeStyle = this.#hint.color;
-    ctx.lineWidth = 2;
+    // A white pill with a thick coloured border and a shake on arrival: the most important words on screen.
+    const shake = age < 0.25 ? Math.sin(age * 90) * (1 - age / 0.25) * 6 : 0;
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.translate(L.w / 2 + shake, y + 19);
+    ctx.scale(age < 0.12 ? 0.8 + age / 0.6 : 1, age < 0.12 ? 0.8 + age / 0.6 : 1);
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = this.#hint.color;
+    ctx.shadowBlur = 16;
+    ctx.beginPath(); ctx.roundRect(-w / 2, -19, w, 38, 19); ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = this.#hint.color === '#ffffff' ? '#7c6cff' : this.#hint.color;
     ctx.stroke();
-    ctx.fillStyle = this.#hint.color;
-    ctx.fillText(this.#hint.text, L.w / 2, y + 20);
-    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#0b0b10';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(this.#hint.text, 0, 1);
+    ctx.restore();
+    ctx.textBaseline = 'alphabetic';
   }
 
   #drawIntro(sim: TowerSim): void {

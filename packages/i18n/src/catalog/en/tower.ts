@@ -15,5 +15,9 @@ export const tower = {
   'tower.wall_offer': 'Or climb the Tower and win up to ◆{max}',
   'tower.ledger_entry': 'Tower entry',
   'tower.ledger_reward': 'Tower reward',
+  'tower.notify_title': 'Your climb is ready ⚔️',
+  'tower.notify_body': 'A new tower is up. One climb, up to ◆300.',
+  'tower.notify_streak': 'Day {days} streak 🔥 Climb today for +{bonus}% before it resets.',
+  'tower.card_streak': '🔥 {days}-day streak · +{bonus}% today',
   'tower.load_failed': 'The Tower couldn’t load. Try again in a moment.',
 } as const;

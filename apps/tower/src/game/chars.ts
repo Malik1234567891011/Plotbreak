@@ -60,15 +60,16 @@ function rrect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h
 
 export interface Look extends EnemyLook {}
 
-export const HERO: EnemyLook = {
-  hair: '#1b2340', outfit: '#20263a', skin: '#f7d7bf', eye: '#e8443a', accent: '#e8443a', style: 'rival', weapon: 'katana',
-};
+
 
 /** Draws a character. `dir` 1 faces right, -1 faces left. */
-export function drawChar(ctx: CanvasRenderingContext2D, look: EnemyLook, x: number, y: number, scale: number, dir: 1 | -1, pose: Pose, hero = false): void {
+/** The player's extra kit. Enemies have none. */
+export interface Gear { readonly scarf: string | null; readonly headband: string | null }
+
+export function drawChar(ctx: CanvasRenderingContext2D, look: EnemyLook, x: number, y: number, scale: number, dir: 1 | -1, pose: Pose, gear: Gear | null = null): void {
   const tinted = pose.flash > 0 || (pose.tint !== null && pose.tintAmount > 0);
   if (!tinted) {
-    paint(ctx, look, x, y, scale, dir, pose, hero);
+    paint(ctx, look, x, y, scale, dir, pose, gear);
     return;
   }
   // A tint must cover the character only, so it is painted on its own layer first.
@@ -79,7 +80,7 @@ export function drawChar(ctx: CanvasRenderingContext2D, look: EnemyLook, x: numb
   g.setTransform(1, 0, 0, 1, 0, 0);
   g.clearRect(0, 0, layer.width, layer.height);
   g.setTransform(dpr, 0, 0, dpr, 0, 0);
-  paint(g, look, W / 2, H - 20 * scale, scale, dir, pose, hero);
+  paint(g, look, W / 2, H - 20 * scale, scale, dir, pose, gear);
   g.setTransform(1, 0, 0, 1, 0, 0);
   g.globalCompositeOperation = 'source-atop';
   if (pose.tint && pose.tintAmount > 0) {
@@ -108,7 +109,7 @@ function scratch(w: number, h: number): HTMLCanvasElement {
   return c;
 }
 
-function paint(ctx: CanvasRenderingContext2D, look: EnemyLook, x: number, y: number, scale: number, dir: 1 | -1, pose: Pose, hero: boolean): void {
+function paint(ctx: CanvasRenderingContext2D, look: EnemyLook, x: number, y: number, scale: number, dir: 1 | -1, pose: Pose, gear: Gear | null): void {
   ctx.save();
   ctx.translate(x, y);
   ctx.scale(scale * dir, scale);
@@ -125,13 +126,13 @@ function paint(ctx: CanvasRenderingContext2D, look: EnemyLook, x: number, y: num
   if (style === 'lantern') drawLantern(ctx, look, pose);
   else if (style === 'drone') drawDrone(ctx, look, pose);
   else if (style === 'mecha') drawMecha(ctx, look, pose);
-  else drawHumanoid(ctx, look, pose, hero);
+  else drawHumanoid(ctx, look, pose, gear);
   ctx.restore();
 }
 
 // ── humanoids ────────────────────────────────────────────────────────────
 
-function drawHumanoid(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, hero: boolean): void {
+function drawHumanoid(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, gear: Gear | null): void {
   const s = look.style;
   const t = pose.time;
   const big = s === 'knight' || s === 'general' || s === 'oni';
@@ -139,7 +140,8 @@ function drawHumanoid(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose
 
   // Things behind the body.
   if (s === 'kitsune') drawTails(ctx, look, t, s === 'kitsune' && look.hair === '#e8f3ff' ? 1 : 3);
-  if (hero || s === 'rival') drawScarf(ctx, hero ? '#e8443a' : look.accent, t, pose.wind);
+  if (gear?.scarf) drawScarf(ctx, gear.scarf, t, pose.wind);
+  else if (!gear && s === 'rival') drawScarf(ctx, look.accent, t, pose.wind);
   if (s === 'general' || s === 'president' || s === 'author') drawCape(ctx, s === 'general' ? '#5a0d14' : s === 'author' ? '#2b2440' : '#1d2340', t, pose.wind);
   if (s === 'delinquent' && look.hair === '#111111') drawCape(ctx, '#15151c', t, pose.wind * 0.6, true);
   drawBackHair(ctx, look);
@@ -178,10 +180,10 @@ function drawHumanoid(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose
   ctx.fillStyle = shade(look.outfit, -0.22);
   ctx.fillRect(-18, -46, 10, 34);
   ctx.restore();
-  drawOutfitDetail(ctx, look, hero);
+  drawOutfitDetail(ctx, look, gear);
 
   // Head.
-  drawHead(ctx, look, pose, hero);
+  drawHead(ctx, look, pose, gear);
 
   // Front arm + weapon.
   ctx.save();
@@ -201,7 +203,7 @@ function legColor(look: EnemyLook): string {
   return shade(look.outfit, -0.1);
 }
 
-function drawOutfitDetail(ctx: CanvasRenderingContext2D, look: EnemyLook, hero: boolean): void {
+function drawOutfitDetail(ctx: CanvasRenderingContext2D, look: EnemyLook, gear: Gear | null): void {
   const s = look.style;
   ctx.lineWidth = 1.8;
   ctx.strokeStyle = INK;
@@ -215,9 +217,9 @@ function drawOutfitDetail(ctx: CanvasRenderingContext2D, look: EnemyLook, hero: 
     fillStroke(ctx, look.accent, 1.6);
     // Armband.
     if (s === 'president') { rrect(ctx, -16, -38, 6, 6, 1); fillStroke(ctx, look.accent, 1.4); }
-  } else if (s === 'delinquent' || hero || s === 'rival') {
+  } else if (s === 'delinquent' || s === 'rival') {
     // Gakuran buttons / open jacket.
-    ctx.fillStyle = hero ? '#d9b34a' : look.accent;
+    ctx.fillStyle = gear ? '#d9b34a' : look.accent;
     for (const yy of [-38, -30, -22]) { ctx.beginPath(); ctx.arc(2, yy, 1.6, 0, Math.PI * 2); ctx.fill(); }
   } else if (s === 'ninja' || s === 'kunoichi') {
     // Belt + wrap.
@@ -246,7 +248,7 @@ function drawOutfitDetail(ctx: CanvasRenderingContext2D, look: EnemyLook, hero: 
   }
 }
 
-function drawHead(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, hero: boolean): void {
+function drawHead(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, gear: Gear | null): void {
   const s = look.style;
   ctx.save();
   ctx.translate(2, -66);
@@ -294,7 +296,7 @@ function drawHead(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, he
   if (s === 'foxmask') {
     drawFoxMask(ctx, look);
   } else {
-    drawFace(ctx, look, pose, hero);
+    drawFace(ctx, look, pose, gear);
   }
   if (s === 'ninja' && look.hair !== '#d9d9e0') {
     // Face wrap over mouth and nose.
@@ -302,8 +304,9 @@ function drawHead(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, he
     ctx.moveTo(-24, 4); ctx.quadraticCurveTo(0, 0, 24, 4); ctx.lineTo(22, 16); ctx.quadraticCurveTo(0, 26, -22, 16); ctx.closePath();
     fillStroke(ctx, look.outfit);
   }
-  drawFrontHair(ctx, look, pose, hero);
-  if (s === 'ninja' || hero) drawHeadband(ctx, hero ? '#e8443a' : look.accent, pose.time, pose.wind, hero);
+  drawFrontHair(ctx, look, pose, gear);
+  if (gear?.headband) drawHeadband(ctx, gear.headband, pose.time, pose.wind, true);
+  else if (s === 'ninja' && !gear) drawHeadband(ctx, look.accent, pose.time, pose.wind, false);
   if (s === 'cyborg') {
     // Visor.
     rrect(ctx, -6, -9, 30, 9, 4);
@@ -317,9 +320,9 @@ function drawHead(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, he
   ctx.restore();
 }
 
-function drawFace(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, hero: boolean): void {
+function drawFace(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, gear: Gear | null): void {
   const e = pose.eyes;
-  const blink = Math.sin(pose.time * 1.7 + (hero ? 0 : 2)) > 0.985;
+  const blink = Math.sin(pose.time * 1.7 + (gear ? 0 : 2)) > 0.985;
   const eyes = blink && e === 'normal' ? 'closed' : e;
   // Two eyes, the near one larger (3/4 view toward +x).
   drawEye(ctx, 10, -2, 1, look.eye, eyes);
@@ -439,13 +442,13 @@ function drawBackHair(ctx: CanvasRenderingContext2D, look: EnemyLook): void {
   ctx.restore();
 }
 
-function drawFrontHair(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, hero: boolean): void {
+function drawFrontHair(ctx: CanvasRenderingContext2D, look: EnemyLook, pose: Pose, gear: Gear | null): void {
   const s = look.style;
   const c = look.hair;
   const w = pose.wind * 4;
   if (s === 'knight') return;
   ctx.save();
-  if (hero || s === 'rival' || s === 'ninja' && look.hair === '#d9d9e0' || s === 'cyborg' && look.hair !== '#ff4fd8') {
+  if (s === 'rival' || s === 'ninja' && look.hair === '#d9d9e0' || s === 'cyborg' && look.hair !== '#ff4fd8') {
     // Spiky shonen hair.
     ctx.beginPath();
     ctx.moveTo(-28, 2);

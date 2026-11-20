@@ -1,17 +1,22 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ARCS, CLEAR_PAYOUT, ENTRY_FEE, FLOORS, PAYOUT_TIERS, floorSpec, type Input, type RunResult } from '@tower';
+import {
+  ARCS, CHARACTERS, CHARACTERS_BY_ID, CLEAR_PAYOUT, FLOORS, MODIFIERS_BY_ID, PAYOUT_TIERS, STREAK_CAP, floorSpec,
+  type CharacterDef, type Input, type ModifierId, type RunResult,
+} from '@tower';
 import { bridge, type FinishResult, type TowerStatus } from './bridge';
 import { Game } from './game/Game';
 import { isMuted, setMuted, sfx, unlockAudio } from './game/audio';
+import { basePose, drawChar } from './game/chars';
 
 type Screen =
   | { kind: 'loading' }
   | { kind: 'error'; message: string }
   | { kind: 'lobby'; status: TowerStatus }
-  | { kind: 'play'; runId: string; seed: number; fee: number; practice: boolean }
-  | { kind: 'settling'; result: RunResult }
+  | { kind: 'fighters'; status: TowerStatus }
+  | { kind: 'play'; runId: string; seed: number; day: string; fee: number; characterId: string; practice: boolean }
+  | { kind: 'settling'; practice: boolean }
   | { kind: 'result'; result: RunResult; finish: FinishResult; status: TowerStatus | null; fee: number }
-  | { kind: 'practiced'; result: RunResult; status: TowerStatus | null };
+  | { kind: 'practiced'; result: RunResult; finish: FinishResult | null; status: TowerStatus | null };
 
 export function App() {
   const [screen, setScreen] = useState<Screen>({ kind: 'loading' });
@@ -34,7 +39,11 @@ export function App() {
     // Dev: `?dev&play` skips the lobby (screenshots, autoplay).
     const p = new URLSearchParams(location.search);
     if (p.has('dev') && p.has('play')) {
-      void bridge.start().then((r) => setScreen({ kind: 'play', runId: r.runId, seed: r.seed, fee: r.fee, practice: false }));
+      void bridge.start().then((r) => setScreen({ kind: 'play', runId: r.runId, seed: r.seed, day: r.day, fee: r.fee, characterId: p.get('hero') ?? r.characterId, practice: false }));
+      return;
+    }
+    if (p.has('dev') && p.get('screen') === 'fighters') {
+      void bridge.status().then((status) => setScreen({ kind: 'fighters', status }));
       return;
     }
     void refresh();
@@ -50,7 +59,7 @@ export function App() {
     setStarting(true);
     try {
       const r = await bridge.start();
-      setScreen({ kind: 'play', runId: r.runId, seed: r.seed, fee: r.fee, practice: false });
+      setScreen({ kind: 'play', runId: r.runId, seed: r.seed, day: r.day, fee: r.fee, characterId: r.characterId, practice: false });
     } catch (e) {
       setScreen({ kind: 'error', message: e instanceof Error ? e.message : 'Could not start.' });
     } finally {
@@ -58,29 +67,34 @@ export function App() {
     }
   };
 
-  const practise = () => {
+  const practise = async () => {
     unlockAudio();
-    bridge.track('tower_started', { dev: false, fee: 0, resumed: false });
-    setScreen({ kind: 'play', runId: 'practice', seed: (Math.random() * 2 ** 31) >>> 0, fee: 0, practice: true });
+    try {
+      const r = await bridge.practice();
+      setScreen({ kind: 'play', runId: r.runId, seed: r.seed, day: r.day, fee: 0, characterId: r.characterId, practice: true });
+    } catch (e) {
+      setScreen({ kind: 'error', message: e instanceof Error ? e.message : 'Could not start practice.' });
+    }
   };
 
   const onEnd = useCallback(
     async (result: RunResult, inputs: Input[], realMs: number) => {
       if (screen.kind !== 'play') return;
-      if (screen.practice) {
-        setScreen({ kind: 'practiced', result, status: lastStatus.current });
-        return;
-      }
-      const fee = screen.fee;
-      setScreen({ kind: 'settling', result });
-      bridge.track('tower_fell', { fellOn: result.fellOn, cleared: result.cleared, ticks: result.ticks, realMs, boons: result.boons });
+      const { practice, fee, runId } = screen;
+      setScreen({ kind: 'settling', practice });
+      if (!practice) bridge.track('tower_fell', { fellOn: result.fellOn, cleared: result.cleared, ticks: result.ticks, realMs, boons: result.boons });
       try {
-        const finish = await bridge.finish(screen.runId, inputs, result, realMs);
+        const finish = await bridge.finish(runId, inputs, result, realMs);
         let status: TowerStatus | null = null;
         try { status = await bridge.status(); lastStatus.current = status; } catch { /* shown without the countdown */ }
+        if (practice) {
+          setScreen({ kind: 'practiced', result, finish, status });
+          return;
+        }
         setScreen({ kind: 'result', result, finish, status, fee });
         bridge.track('tower_reward_seen', { reward: finish.reward, fellOn: finish.fellOn, newBest: finish.newBest });
       } catch (e) {
+        if (practice) { setScreen({ kind: 'practiced', result, finish: null, status: lastStatus.current }); return; }
         setScreen({ kind: 'error', message: e instanceof Error ? e.message : 'Could not save your climb. It will be settled next time you open the Tower.' });
       }
     },
@@ -97,11 +111,17 @@ export function App() {
           <button className="btn ghost" onClick={close}>Close</button>
         </div>
       )}
-      {screen.kind === 'lobby' && <Lobby status={screen.status} onStart={start} onPractice={practise} onClose={close} starting={starting} />}
-      {screen.kind === 'play' && <Game seed={screen.seed} runId={screen.runId} practice={screen.practice} onEnd={onEnd} />}
-      {screen.kind === 'settling' && <div className="center column"><div className="spinner" /><p className="muted">Counting your floors…</p></div>}
-      {screen.kind === 'result' && <Result {...screen} onClose={close} onPractice={practise} />}
-      {screen.kind === 'practiced' && <Practiced result={screen.result} status={screen.status} onAgain={practise} onBack={() => void refresh()} />}
+      {screen.kind === 'lobby' && (
+        <Lobby status={screen.status} onStart={start} onPractice={() => void practise()} onClose={close} starting={starting}
+          onFighters={() => setScreen({ kind: 'fighters', status: screen.status })} />
+      )}
+      {screen.kind === 'fighters' && <Fighters status={screen.status} onBack={() => void refresh()} />}
+      {screen.kind === 'play' && (
+        <Game seed={screen.seed} runId={screen.runId} day={screen.day} characterId={screen.characterId} practice={screen.practice} onEnd={onEnd} />
+      )}
+      {screen.kind === 'settling' && <div className="center column"><div className="spinner" /><p className="muted">{screen.practice ? 'Counting your floors…' : 'Counting your floors…'}</p></div>}
+      {screen.kind === 'result' && <Result {...screen} onClose={close} onPractice={() => void practise()} />}
+      {screen.kind === 'practiced' && <Practiced result={screen.result} finish={screen.finish} status={screen.status} onAgain={() => void practise()} onBack={() => void refresh()} />}
     </div>
   );
 }
@@ -126,17 +146,44 @@ function nextIsFree(iso: string): boolean {
 
 const signed = (n: number) => (n > 0 ? `+${n}` : n === 0 ? '±0' : `−${Math.abs(n)}`);
 
+/** A character drawn on a little canvas, idling. */
+function Portrait({ c, size, dim = false }: { c: CharacterDef; size: number; dim?: boolean }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = ref.current!;
+    const dpr = Math.min(3, window.devicePixelRatio || 1);
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    const ctx = canvas.getContext('2d')!;
+    let raf = 0;
+    const draw = (t: number) => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, size, size);
+      const pose = basePose(t / 1000);
+      pose.bob = Math.sin(t / 400) * 1.2;
+      if (dim) { pose.tint = '#0b0d12'; pose.tintAmount = 0.75; }
+      drawChar(ctx, c.look, size * 0.5, size * 0.93, size / 125, 1, pose, { scarf: c.scarf, headband: c.headband });
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(raf);
+  }, [c, size, dim]);
+  return <canvas ref={ref} style={{ width: size, height: size }} />;
+}
+
 // ── lobby ────────────────────────────────────────────────────────────────
 
-function Lobby({ status, onStart, onPractice, onClose, starting }: {
-  status: TowerStatus; onStart: () => void; onPractice: () => void; onClose: () => void; starting: boolean;
+function Lobby({ status, onStart, onPractice, onClose, onFighters, starting }: {
+  status: TowerStatus; onStart: () => void; onPractice: () => void; onClose: () => void; onFighters: () => void; starting: boolean;
 }) {
   const countdown = useCountdown(status.nextAt);
   const [muted, setM] = useState(isMuted());
   const played = !!status.today?.finished;
   const resume = !!status.today && !status.today.finished;
   const canPay = status.free || status.balance >= status.fee;
-  const fee = status.free ? 0 : status.fee;
+  const mod = MODIFIERS_BY_ID[status.modifier as ModifierId] ?? MODIFIERS_BY_ID.none;
+  const hero = CHARACTERS_BY_ID[status.characters.selected] ?? CHARACTERS[0]!;
+  const practiceLeft = Math.max(0, status.practice.cap - status.practice.earnedToday);
   return (
     <div className="lobby">
       <header className="lobby-head">
@@ -155,12 +202,31 @@ function Lobby({ status, onStart, onPractice, onClose, starting }: {
         </div>
       </div>
 
-      <Ladder best={status.best} today={played ? status.today!.fellOn : null} cleared={!!status.today?.cleared} fee={fee} />
+      <div className="tiles">
+        <div className={`tile-card streak ${status.streak.alive ? '' : 'cold'}`}>
+          <span className="tile-k">STREAK</span>
+          <b>🔥 {status.streak.days} day{status.streak.days === 1 ? '' : 's'}</b>
+          <span className="tile-s">{played ? `Today paid +${status.streak.todayBonusPercent}%` : `Today: +${status.streak.todayBonusPercent}% on your payout`}</span>
+          <div className="streak-bar"><i style={{ width: `${(Math.min(STREAK_CAP, status.streak.days + (played ? 0 : 1)) / STREAK_CAP) * 100}%` }} /></div>
+        </div>
+        <div className="tile-card twist">
+          <span className="tile-k">TODAY’S TOWER</span>
+          <b><span className="jp">{mod.jp}</span> {mod.name}</b>
+          <span className="tile-s">{mod.text}</span>
+        </div>
+      </div>
+
+      <button className="fighter-row" onClick={onFighters}>
+        <Portrait c={hero} size={56} />
+        <span><small>FIGHTING AS</small><b>{hero.name}</b></span>
+        <span className="fighter-cta">Change ›</span>
+      </button>
+
+      <Ladder best={status.best} today={played ? status.today!.fellOn : null} cleared={!!status.today?.cleared} bonus={status.streak.todayBonusPercent} />
 
       <section className="how">
         <div><b className="white">!</b><span><b>Tap anywhere</b> the moment a strike lands.</span></div>
         <div><b className="red">危</b><span><b>Red?</b> Hit <b>DODGE</b>. Only red.</span></div>
-        <div><b className="gold">★</b><span>Power-ups between floors. A boss every 5th.</span></div>
       </section>
 
       <footer className="lobby-foot">
@@ -168,10 +234,9 @@ function Lobby({ status, onStart, onPractice, onClose, starting }: {
           <>
             <div className="played">
               <span>{status.today!.cleared ? 'You cleared all 30 floors' : `You fell on floor ${status.today!.fellOn}`}</span>
-              <b>{signed(status.today!.reward - fee)} net</b>
+              <b>+{status.today!.reward}</b>
             </div>
-            <button className="btn primary big" onClick={onPractice}>Practice · free, no rewards</button>
-            <button className="btn ghost" onClick={() => bridge.spend()}>Spend your credits</button>
+            <button className="btn primary big" onClick={onPractice}>Practice · ◆1 a floor ({practiceLeft} left today)</button>
           </>
         ) : (
           <>
@@ -179,8 +244,8 @@ function Lobby({ status, onStart, onPractice, onClose, starting }: {
               {resume ? 'Continue today’s climb' : status.free ? 'Climb free today' : <>Climb · <span className="fee">◆ {status.fee}</span></>}
             </button>
             <div className="fine">
-              {!canPay && !resume ? `You need ◆ ${status.fee} to enter. Sundays are free.` : 'One climb a day. You’re paid for the floor you fall on.'}
-              {' '}<button className="link" onClick={onPractice}>Practice first</button>
+              {!canPay && !resume ? `You need ◆ ${status.fee} to enter. Sundays are free.` : 'One climb a day. Miss a day and the streak restarts.'}
+              {' '}<button className="link" onClick={onPractice}>Practice (◆1 a floor)</button>
             </div>
           </>
         )}
@@ -189,28 +254,106 @@ function Lobby({ status, onStart, onPractice, onClose, starting }: {
   );
 }
 
-function Ladder({ best, today, cleared, fee }: { best: number; today: number | null; cleared: boolean; fee: number }) {
+function Ladder({ best, today, cleared, bonus }: { best: number; today: number | null; cleared: boolean; bonus: number }) {
   const rows = useMemo(() => [{ from: FLOORS + 1, to: FLOORS + 1, credits: CLEAR_PAYOUT }, ...PAYOUT_TIERS.slice().reverse()], []);
   return (
     <section className="ladder" aria-label="Rewards">
-      <div className="ladder-head"><span>Fall on</span><span></span><span>You get</span><span>Net</span></div>
+      <div className="ladder-head"><span>Fall on</span><span></span><span>You get</span><span>{bonus ? `+${bonus}% streak` : ''}</span></div>
       {rows.map((t, i) => {
         const clear = t.from > FLOORS;
         const arc = clear ? null : ARCS[floorSpec(t.from).arc]!;
         const reached = best >= t.from;
         const here = today !== null && (clear ? cleared : today >= t.from && today <= t.to && !cleared);
-        const net = t.credits - fee;
+        const withStreak = Math.round((t.credits * (100 + bonus)) / 100);
         return (
-          <div key={i} className={`rung ${reached ? 'reached' : ''} ${here ? 'here' : ''}`} style={{ ['--arc' as string]: arc?.sky[1] ?? '#ffd23f' }}>
+          <div key={i} className={`rung ${reached ? 'reached' : ''} ${here ? 'here' : ''} ${t.credits >= 30 ? 'paid' : ''}`} style={{ ['--arc' as string]: arc?.sky[1] ?? '#ffd23f' }}>
             <div className="rung-floors">{clear ? 'CLEAR' : `${t.from}–${t.to}`}</div>
-            <div className="rung-name">{clear ? 'Beat THE AUTHOR' : arc!.name}</div>
+            <div className="rung-name">{clear ? 'Beat THE AUTHOR' : t.credits === 30 ? `${arc!.name} · entry back` : arc!.name}</div>
             <div className="rung-pay">◆{t.credits}</div>
-            <div className={`rung-net ${net > 0 ? 'pos' : net < 0 ? 'neg' : ''}`}>{signed(net)}</div>
+            <div className="rung-net">{bonus ? `◆${withStreak}` : ''}</div>
           </div>
         );
       })}
       {best > 0 && <div className="ladder-note">Your best: {best > FLOORS ? 'cleared the tower' : `floor ${best}`}</div>}
     </section>
+  );
+}
+
+// ── fighters ─────────────────────────────────────────────────────────────
+
+function Fighters({ status, onBack }: { status: TowerStatus; onBack: () => void }) {
+  const [owned, setOwned] = useState<readonly string[]>(status.characters.owned);
+  const [selected, setSelected] = useState(status.characters.selected);
+  const [balance, setBalance] = useState(status.balance);
+  const [confirm, setConfirm] = useState<CharacterDef | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  const choose = async (c: CharacterDef) => {
+    setError(null);
+    if (!owned.includes(c.id)) { setConfirm(c); return; }
+    bridge.haptic('select');
+    setSelected(c.id);
+    try { await bridge.selectCharacter(c.id); } catch (e) { setError(e instanceof Error ? e.message : 'Could not switch.'); }
+  };
+  const buy = async (c: CharacterDef) => {
+    setBusy(true);
+    try {
+      const r = await bridge.buyCharacter(c.id);
+      setOwned(r.owned); setSelected(r.selected); setBalance(r.balance);
+      bridge.haptic('success');
+      sfx.won();
+      setConfirm(null);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Could not unlock.');
+      setConfirm(null);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="lobby fighters">
+      <header className="lobby-head">
+        <button className="icon" onClick={onBack} aria-label="Back">‹</button>
+        <div className="balance">◆ {balance.toLocaleString()}</div>
+        <span style={{ width: 38 }} />
+      </header>
+      <div className="title small">
+        <h1>FIGHTERS</h1>
+        <p className="tagline">Same skills, different style. Unlock one for ◆500 and it’s yours for good.</p>
+      </div>
+      {error && <p className="error center-text">{error}</p>}
+      <div className="roster">
+        {CHARACTERS.map((c) => {
+          const has = owned.includes(c.id);
+          const on = selected === c.id;
+          return (
+            <button key={c.id} className={`fighter ${on ? 'on' : ''} ${has ? '' : 'locked'}`} onClick={() => void choose(c)}>
+              <Portrait c={c} size={110} dim={!has} />
+              <b>{c.name}</b>
+              <small>{c.title}</small>
+              <span className="fighter-tag">{on ? 'FIGHTING' : has ? 'Use' : `◆ ${c.price}`}</span>
+            </button>
+          );
+        })}
+      </div>
+      {confirm && (
+        <div className="confirm" onClick={() => setConfirm(null)}>
+          <div className="confirm-card unlock" onClick={(e) => e.stopPropagation()}>
+            <Portrait c={confirm} size={150} />
+            <h3>{confirm.name}</h3>
+            <p>{confirm.title}. Finisher: <b>{confirm.cry}</b></p>
+            <div className="confirm-row">
+              <button className="btn ghost" onClick={() => setConfirm(null)}>Not now</button>
+              <button className="btn primary" disabled={busy || balance < confirm.price} onClick={() => void buy(confirm)}>
+                {balance < confirm.price ? `Need ◆${confirm.price}` : `Unlock · ◆${confirm.price}`}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -237,6 +380,7 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
   const perfects = result.floors.reduce((a, f) => a + f.perfects, 0);
   const enemy = last ? floorSpec(last.floor).enemy.name : '';
   const next = PAYOUT_TIERS.find((t) => t.from > finish.fellOn);
+  const tomorrow = Math.min(STREAK_CAP, finish.streak + 1) * 5;
   return (
     <div className="result">
       <div className="episode">
@@ -248,35 +392,46 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
         <span className="reward-num">◆ {shown}</span>
         {finish.newBest && <span className="best-chip">NEW BEST</span>}
         <div className="math">
+          <span>Floor pay <b>+{finish.base}</b></span>
+          {finish.bonusPercent > 0 && <span>Streak <b className="pos">+{finish.bonusPercent}%</b></span>}
           <span>Entry <b>{fee ? `−${fee}` : 'free'}</b></span>
-          <span>Payout <b>+{finish.reward}</b></span>
-          <span>Net <b className={finish.reward - fee >= 0 ? 'pos' : 'neg'}>{signed(finish.reward - fee)}</b></span>
         </div>
+      </div>
+      <div className="streak-next">
+        <span>🔥 Day {finish.streak} streak</span>
+        <b>Come back tomorrow for +{tomorrow}%</b>
+        <small>Next climb in {countdown || 'a few hours'}{status && nextIsFree(status.nextAt) ? ' · FREE' : ''}. Miss a day and it restarts.</small>
       </div>
       <div className="stats">
         <div><b>{finish.cleared ? 30 : Math.max(0, finish.fellOn - 1)}</b><span>floors cleared</span></div>
         <div><b>{parries}</b><span>parries</span></div>
         <div><b>{parries ? Math.round((perfects / parries) * 100) : 0}%</b><span>perfect</span></div>
       </div>
-      <div className="next">Next climb in <b>{countdown || 'tomorrow'}</b>{status && nextIsFree(status.nextAt) && <span className="free-chip">FREE</span>}</div>
       <div className="result-actions">
         <button className="btn primary big" onClick={() => bridge.spend()}>Spend them in a story</button>
-        <button className="btn" onClick={onPractice}>Practice · free</button>
+        <button className="btn" onClick={onPractice}>Practice · ◆1 a floor</button>
         <button className="btn ghost" onClick={onClose}>Done</button>
       </div>
     </div>
   );
 }
 
-function Practiced({ result, status, onAgain, onBack }: { result: RunResult; status: TowerStatus | null; onAgain: () => void; onBack: () => void }) {
+function Practiced({ result, finish, status, onAgain, onBack }: {
+  result: RunResult; finish: FinishResult | null; status: TowerStatus | null; onAgain: () => void; onBack: () => void;
+}) {
   const fell = result.cleared ? 'You cleared all 30 floors' : `You reached floor ${result.fellOn}`;
   const ready = status && !status.today?.finished;
+  const left = status ? Math.max(0, status.practice.cap - status.practice.earnedToday) : 0;
   return (
     <div className="result">
       <div className="episode">
         <span className="ep-label">PRACTICE</span>
         <h1>{fell}.</h1>
-        <p>{ready ? 'Today’s real climb is still waiting. It pays.' : 'Practice never costs or pays anything.'}</p>
+        <p>{finish ? (finish.reward ? `+◆${finish.reward} for the floors you cleared.` : 'Today’s practice credits are used up. Still good training.') : 'Practice result couldn’t be saved.'}</p>
+      </div>
+      <div className="reward small">
+        <span className="reward-num">◆ {finish?.reward ?? 0}</span>
+        <div className="math"><span>{left} practice credits left today</span></div>
       </div>
       <div className="result-actions">
         {ready && <button className="btn primary big" onClick={onBack}>Go to today’s climb</button>}

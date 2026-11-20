@@ -15,5 +15,9 @@ export const tower = {
   'tower.wall_offer': 'Ou grimpe la Tour et gagne jusqu’à ◆{max}',
   'tower.ledger_entry': 'Entrée de la Tour',
   'tower.ledger_reward': 'Gain de la Tour',
+  'tower.notify_title': 'Ton ascension t’attend ⚔️',
+  'tower.notify_body': 'Une nouvelle tour est là. Une ascension, jusqu’à ◆300.',
+  'tower.notify_streak': 'Série de {days} jours 🔥 Grimpe aujourd’hui pour +{bonus}% avant qu’elle ne s’arrête.',
+  'tower.card_streak': '🔥 Série de {days} jours · +{bonus}% aujourd’hui',
   'tower.load_failed': 'La Tour n’a pas pu charger. Réessaie dans un instant.',
 } as const;

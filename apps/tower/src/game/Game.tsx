@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { BOONS_BY_ID, TowerSim, type BoonId, type Input, type RunResult, type SimEvent } from '@tower';
+import { BOONS_BY_ID, CHARACTERS, CHARACTERS_BY_ID, TowerSim, dailyTower, type BoonId, type Input, type RunResult, type SimEvent } from '@tower';
 import type { BotDriver } from '../../../../packages/tower/src/bots';
 import { bridge } from '../bridge';
 import { sfx, unlockAudio } from './audio';
@@ -12,12 +12,15 @@ const MAX_STEPS = 4;
 export interface GameProps {
   seed: number;
   runId: string;
-  /** Practice: no checkpoints, nothing paid. */
+  /** The UTC day: which daily tower (lineup and twist) this run climbs. */
+  day: string;
+  characterId: string;
+  /** Practice: no checkpoints, a little paid. */
   practice?: boolean;
   onEnd: (result: RunResult, inputs: Input[], realMs: number) => void;
 }
 
-export function Game({ seed, runId, practice = false, onEnd }: GameProps) {
+export function Game({ seed, runId, day, characterId, practice = false, onEnd }: GameProps) {
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const [offer, setOffer] = useState<BoonId[] | null>(null);
@@ -43,14 +46,15 @@ export function Game({ seed, runId, practice = false, onEnd }: GameProps) {
       cancelled = true;
       stop?.();
     };
-  }, [seed, runId, practice, onEnd]);
+  }, [seed, runId, day, characterId, practice, onEnd]);
 
   function run(params: URLSearchParams, dev: boolean, bot: BotDriver | null): () => void {
-    const sim = new TowerSim(seed);
+    const sim = new TowerSim(seed, dailyTower(day));
     simRef.current = sim;
     const startFloor = dev ? Number(params.get('floor') ?? 1) : 1;
 
     const stage = new Stage(canvas.current!);
+    stage.hero = CHARACTERS_BY_ID[characterId] ?? CHARACTERS[0]!;
     const css = getComputedStyle(document.documentElement);
     const inset = (v: string) => parseFloat(css.getPropertyValue(v)) || 0;
     const fit = () => {
@@ -255,12 +259,12 @@ export function Game({ seed, runId, practice = false, onEnd }: GameProps) {
           </div>
         </div>
       )}
-      {practice && <div className="practice-tag">PRACTICE · no rewards</div>}
+      {practice && <div className="practice-tag">PRACTICE · ◆1 a floor</div>}
       {quit && (
         <div data-ui className="confirm">
           <div className="confirm-card">
             <h3>{practice ? 'Stop practising?' : 'Give up this climb?'}</h3>
-            <p>{practice ? 'Nothing is lost. Practice is free.' : 'You’ll be paid for the floor you’re on, and today’s try is used.'}</p>
+            <p>{practice ? 'You keep ◆1 for each floor you cleared.' : 'You’ll be paid for the floor you’re on, and today’s try is used.'}</p>
             <div className="confirm-row">
               <button className="btn ghost" onClick={() => setQuit(false)}>Keep fighting</button>
               <button

@@ -50,9 +50,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .tagline { position: relative; margin: 0 auto; max-width: 300px; color: var(--dim); font-size: 14px; line-height: 1.4; }
 
 .ladder { display: flex; flex-direction: column; gap: 4px; }
-.ladder-head { display: grid; grid-template-columns: 58px 1fr 54px 44px; gap: 8px; padding: 0 12px; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.ladder-head { display: grid; grid-template-columns: 58px 1fr 54px 58px; gap: 8px; padding: 0 12px; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
 .ladder-head span:nth-child(n+3) { text-align: right; }
-.rung { display: grid; grid-template-columns: 58px 1fr 54px 44px; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 10px;
+.rung { display: grid; grid-template-columns: 58px 1fr 54px 58px; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 10px;
   background: linear-gradient(90deg, color-mix(in srgb, var(--arc) 26%, transparent), rgba(255,255,255,0.03)); border: 1px solid rgba(255,255,255,0.06); }
 .rung:first-of-type { background: linear-gradient(90deg, rgba(255,210,63,0.28), rgba(255,210,63,0.05)); border-color: rgba(255,210,63,0.35); }
 .rung-floors { font-weight: 900; font-size: 14px; font-style: italic; }
@@ -140,3 +140,56 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .boon.rare { background: linear-gradient(135deg, #16244a, #12151f); box-shadow: 0 0 18px rgba(61,139,255,0.18); }
 .boon.epic { background: linear-gradient(135deg, #2c1650, #12151f); }
 .boon-jp { font-size: 17px; text-shadow: 0 2px 0 rgba(0,0,0,0.35); }
+
+/* ── streak, today's tower, fighter ── */
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.tile-card { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); min-width: 0; }
+.tile-k { font-size: 10px; font-weight: 900; letter-spacing: 0.12em; color: var(--muted); }
+.tile-card b { font-size: 15px; line-height: 1.2; }
+.tile-card.twist b .jp { display: block; font-size: 12px; }
+.tile-card b .jp { color: var(--gold); margin-right: 2px; }
+.tile-s { font-size: 11.5px; color: var(--dim); line-height: 1.3; }
+.tile-card.streak { background: linear-gradient(135deg, rgba(255,120,40,0.22), rgba(255,255,255,0.03)); border-color: rgba(255,140,60,0.35); }
+.tile-card.streak.cold { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08); }
+.streak-bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.1); margin-top: 5px; overflow: hidden; }
+.streak-bar i { display: block; height: 100%; background: linear-gradient(90deg, #ffb020, #ff5a3c); border-radius: 3px; }
+.tile-card.twist { background: linear-gradient(135deg, rgba(124,108,255,0.2), rgba(255,255,255,0.03)); border-color: rgba(124,108,255,0.35); }
+.fighter-row { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); border-radius: 14px; padding: 4px 14px 4px 6px; margin-bottom: 10px; }
+.fighter-row span { display: flex; flex-direction: column; }
+.fighter-row small { font-size: 10px; font-weight: 900; letter-spacing: 0.12em; color: var(--muted); }
+.fighter-row b { font-size: 16px; }
+.fighter-cta { margin-left: auto; color: var(--accent); font-weight: 800; font-size: 14px; }
+.rung.paid .rung-floors { color: #fff; }
+.rung-net { color: #ffb020 !important; font-size: 11.5px; }
+
+.title.small h1 { font-size: 30px; margin-top: 4px; }
+.center-text { text-align: center; margin: 0 auto 8px; }
+.roster { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-bottom: 20px; }
+.fighter { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 8px 12px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(124,108,255,0.14), rgba(255,255,255,0.02)); text-align: center; }
+.fighter b { font-size: 16px; }
+.fighter small { font-size: 11.5px; color: var(--dim); line-height: 1.25; min-height: 2.5em; }
+.fighter.on { border-color: var(--gold); box-shadow: 0 0 18px rgba(255,210,63,0.25); }
+.fighter.locked { background: rgba(255,255,255,0.03); }
+.fighter-tag { margin-top: 6px; padding: 4px 12px; border-radius: 99px; font-weight: 900; font-size: 12px; background: rgba(255,255,255,0.1); }
+.fighter.on .fighter-tag { background: var(--gold); color: #0b0d12; }
+.fighter.locked .fighter-tag { background: #fbfbfb; color: #0b0d12; }
+.confirm-card.unlock { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.confirm-card.unlock .confirm-row { width: 100%; justify-content: center; }
+
+.streak-next { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px; border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255,120,40,0.2), rgba(255,255,255,0.03)); border: 1px solid rgba(255,140,60,0.35); text-align: center; }
+.streak-next span { font-size: 13px; color: var(--dim); }
+.streak-next b { font-size: 17px; }
+.streak-next small { color: var(--muted); font-size: 12px; }
+.reward.small .reward-num { font-size: 44px; }
+
+/* ── power-up reveal ── */
+.boons { background: radial-gradient(120% 70% at 50% 40%, #1d1638 0%, #07080d 70%); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.boon { background: linear-gradient(135deg, #1b2030, #10131c); animation: flipin 0.45s cubic-bezier(.2,.9,.3,1.15) both; transform-origin: center; }
+.boon.rare { box-shadow: 0 0 22px rgba(61,139,255,0.35), inset 0 0 0 1px rgba(61,139,255,0.35); }
+.boon.epic { box-shadow: 0 0 30px rgba(192,79,255,0.5), inset 0 0 0 1px rgba(192,79,255,0.5); }
+.boon.epic::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.22) 45%, transparent 60%);
+  background-size: 250% 100%; animation: shine 2.2s ease-in-out infinite; pointer-events: none; }
+@keyframes flipin { 0% { transform: perspective(600px) rotateY(80deg) scale(0.9); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes shine { 0% { background-position: 150% 0; } 100% { background-position: -100% 0; } }
