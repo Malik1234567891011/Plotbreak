@@ -157,6 +157,150 @@ CHARACTER, large in frame, from mid-thigh up, filling about three quarters of th
 LEVEL: Sexier than a cosy romance cover, less than a pin-up: alluring, confident and flirtatious, showing some skin (bare shoulders, legs or midriff, a neckline that's open but not plunging), body-conscious clothes, a direct inviting look at the viewer.
 
 MOOD: moody, romantic urban-fantasy noir; candlelight warming her face against cold green-blue rain and the beast's glow. ${RULES}`,
+
+  story_unbound_1: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE UNBOUND" as a bespoke stylized logo: bold red-black ink-brush martial-arts lettering with ember sparks, placed in the lower third, large and perfectly legible, spelled exactly "THE UNBOUND". No other text anywhere.
+
+SCENE: a steamy bathhouse courtyard of a martial-arts school at night, red lanterns, hot-spring steam, cherry petals.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: SERA ILM, an extremely attractive adult martial artist of twenty, the prodigy who refused to be bound to a school. Long black hair loose and wet, sharp grey eyes, toned curvy figure. She wears a short silk training robe in grey loosely tied and slipping off both shoulders, belt low, bare legs, glowing red breath-energy curling around her wrists like ribbons. She sits on the edge of the hot spring, one leg drawn up, looking at the viewer through steam with a slow sultry smile.
+
+HOTNESS: maximum for a mainstream app store: very sexy, seductive and body-focused, lots of skin, a plunging neckline or tiny outfit, a sultry bedroom-eyes look, but nothing explicit, no nudity, nothing see-through.
+
+${RULES}`,
+
+  story_unbound_2: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE UNBOUND" as a bespoke stylized logo: bold red-black ink-brush martial-arts lettering with ember sparks, placed in the lower third, large and perfectly legible, spelled exactly "THE UNBOUND". No other text anywhere.
+
+SCENE: a rooftop above a river city at dusk, lanterns and crowds below, a giant red sun, ember sparks.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: SERA ILM, an extremely attractive adult martial artist of twenty. Long black hair in a high ponytail whipping in the wind, sharp grey eyes, athletic figure. Mid high-kick toward the viewer in a sleeveless cropped grey fighting top and short split martial-arts skirt over black shorts, wrapped forearms, bare toned midriff and legs, blazing red breath-energy trailing from her leg. A cocky, fierce grin.
+
+HOTNESS: clearly sexy and flirtatious: some skin (shoulders, midriff or legs), a body-conscious outfit, a teasing inviting look.
+
+${RULES}`,
+
+  story_unbound_3: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE UNBOUND" as a bespoke stylized logo: bold red-black ink-brush martial-arts lettering with ember sparks, placed in the lower third, large and perfectly legible, spelled exactly "THE UNBOUND". No other text anywhere.
+
+SCENE: a quiet moonlit training hall, wooden floor, paper lanterns, a single sword on a rack, cherry blossoms drifting in through an open door.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: SERA ILM, a beautiful adult martial artist of twenty. Long black hair half tied up with a red cord, sharp grey eyes softened. A fitted grey high-collared martial-arts jacket and wide trousers, a red sash. She kneels holding a sheathed sword across her lap and looks up at the viewer with a small curious smile, red breath-light glowing in her palm.
+
+HOTNESS: attractive and romantic rather than sexy: stylish, beautiful, a warm or intriguing look at the viewer, modest outfit with one flattering detail.
+
+${RULES}`,
+
+  story_salt_road_1: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE SALT ROAD" as a bespoke stylized logo: sun-bleached carved stone and salt-crystal lettering with a warm golden glow, placed in the lower third, large and perfectly legible, spelled exactly "THE SALT ROAD". No other text anywhere.
+
+SCENE: a desert oasis pool at night under a huge moon and stars, the salt flats glowing white beyond, a campfire, the mysterious locked case beside her.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: FERROW, an extremely attractive adult desert guide of twenty-six, the woman who hired the viewer. Long wavy dark hair wet from the pool, sun-bronzed skin, kohl-lined amber eyes, curvy figure. She wears only a thin cream desert wrap tied around her like a short dress, bare shoulders and legs, gold anklets, beads of water on her skin. She sits at the pool's edge with the case's key on a chain between her fingers, looking at the viewer with a sultry, secretive half-smile.
+
+HOTNESS: maximum for a mainstream app store: very sexy, seductive and body-focused, lots of skin, a plunging neckline or tiny outfit, a sultry bedroom-eyes look, but nothing explicit, no nudity, nothing see-through.
+
+${RULES}`,
+
+  story_salt_road_2: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE SALT ROAD" as a bespoke stylized logo: sun-bleached carved stone and salt-crystal lettering with a warm golden glow, placed in the lower third, large and perfectly legible, spelled exactly "THE SALT ROAD". No other text anywhere.
+
+SCENE: a blinding white salt flat at golden hour, heat shimmer, a distant caravan and a ruined fortress on the horizon.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: FERROW, an extremely attractive adult desert guide of twenty-six. Long dark hair blowing loose from a pushed-back cream salt veil, sun-bronzed skin, amber eyes. A cropped wrapped linen top and a long slit desert skirt, bare midriff, leather wrist wraps, a map case on her hip. She walks toward the viewer with the locked case in one hand, glancing back with a teasing, challenging smile, wind pulling her skirt and veil.
+
+HOTNESS: clearly sexy and flirtatious: some skin (shoulders, midriff or legs), a body-conscious outfit, a teasing inviting look.
+
+${RULES}`,
+
+  story_salt_road_3: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE SALT ROAD" as a bespoke stylized logo: sun-bleached carved stone and salt-crystal lettering with a warm golden glow, placed in the lower third, large and perfectly legible, spelled exactly "THE SALT ROAD". No other text anywhere.
+
+SCENE: a desert campfire at blue dusk, stars coming out, the salt road stretching away white behind her.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: FERROW, a beautiful adult desert guide of twenty-six. Dark hair under a loose cream veil pushed back, sun-bronzed skin, warm amber eyes. A layered sand-coloured traveller's coat open over a simple tunic. She sits by the fire with the locked case on her knees, firelight on her face, offering the viewer a cup of tea with a warm, mysterious smile.
+
+HOTNESS: attractive and romantic rather than sexy: stylish, beautiful, a warm or intriguing look at the viewer, modest outfit with one flattering detail.
+
+${RULES}`,
+
+  story_blackwake_1: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "BLACKWAKE" as a bespoke stylized logo: weathered brass-and-gold nautical lettering with an anchor and sea-spray glow, placed in the lower third, large and perfectly legible, spelled exactly "BLACKWAKE". No other text anywhere.
+
+SCENE: a captain's cabin aboard a pirate ship at night, candlelight, maps, a stern window full of moonlit sea and burning ships far off.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: NESSA VALE, an extremely attractive adult ex-navy pirate captain of thirty. Glossy black hair with grey streaks falling past her shoulders, storm-grey eyes, curvy figure. She wears a navy captain's coat with the insignia cut off, open and slipping off her shoulders, over a loose white shirt unlaced deep and tied at the waist, tight black breeches and tall boots. She lounges back in the captain's chair, one boot up on the map table, a glass of rum raised to the viewer, bedroom eyes and a dangerous smile.
+
+HOTNESS: maximum for a mainstream app store: very sexy, seductive and body-focused, lots of skin, a plunging neckline or tiny outfit, a sultry bedroom-eyes look, but nothing explicit, no nudity, nothing see-through.
+
+${RULES}`,
+
+  story_blackwake_2: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "BLACKWAKE" as a bespoke stylized logo: weathered brass-and-gold nautical lettering with an anchor and sea-spray glow, placed in the lower third, large and perfectly legible, spelled exactly "BLACKWAKE". No other text anywhere.
+
+SCENE: the deck and rigging of a ship in a storm at sea, waves crashing, lightning, a rival fleet's lanterns in the dark.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: NESSA VALE, an extremely attractive adult pirate captain of thirty. Wind-whipped black hair, storm-grey eyes, athletic curvy figure. A cropped navy coat open over a soaked fitted corset vest, bare arms, a cutlass in one hand. She swings one-handed from the rigging toward the viewer, laughing, reaching out to pull them aboard.
+
+HOTNESS: clearly sexy and flirtatious: some skin (shoulders, midriff or legs), a body-conscious outfit, a teasing inviting look.
+
+${RULES}`,
+
+  story_blackwake_3: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "BLACKWAKE" as a bespoke stylized logo: weathered brass-and-gold nautical lettering with an anchor and sea-spray glow, placed in the lower third, large and perfectly legible, spelled exactly "BLACKWAKE". No other text anywhere.
+
+SCENE: a sunlit island harbour at golden hour, turquoise water, ships at anchor, gulls.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: NESSA VALE, a beautiful adult pirate captain of thirty. Black hair in a loose tied-back tail, storm-grey eyes, a weathered navy coat over a white shirt. She leans on the ship's rail with a brass compass in her palm, looking at the viewer with a sly, warm, knowing smile.
+
+HOTNESS: attractive and romantic rather than sexy: stylish, beautiful, a warm or intriguing look at the viewer, modest outfit with one flattering detail.
+
+${RULES}`,
+
+  story_red_moon_1: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "RED MOON BRIGADE" as a bespoke stylized logo: heavy scorched-iron military lettering with a blood-red moon glow and embers, placed in the lower third, large and perfectly legible, spelled exactly "RED MOON BRIGADE". No other text anywhere.
+
+SCENE: a barracks room at night inside a fortress wall, a blood-red moon through the window, a giant monster's silhouette on the horizon, red candlelight.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: LYRA VENN, an extremely attractive adult monster-hunter captain of thirty. Short tousled black hair with a silver streak, intense amber eyes, toned curvy figure, a few battle scars. She sits on the edge of her bunk wearing only a black tank top and her unbuckled brigade belt over fitted black shorts, bandages on one thigh, her coat and huge blade on the floor. She looks up at the viewer with heavy-lidded eyes and a tired, seductive smile, as if she's survived the night and wants company.
+
+HOTNESS: maximum for a mainstream app store: very sexy, seductive and body-focused, lots of skin, a plunging neckline or tiny outfit, a sultry bedroom-eyes look, but nothing explicit, no nudity, nothing see-through.
+
+${RULES}`,
+
+  story_red_moon_2: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "RED MOON BRIGADE" as a bespoke stylized logo: heavy scorched-iron military lettering with a blood-red moon glow and embers, placed in the lower third, large and perfectly legible, spelled exactly "RED MOON BRIGADE". No other text anywhere.
+
+SCENE: the top of a burning fortress wall at night under a huge blood-red moon, a building-sized Behemoth rearing out of the smoke behind her.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: LYRA VENN, an extremely attractive adult monster-hunter captain of thirty. Short black hair, amber eyes, athletic curvy figure. A torn brigade coat flaring behind her over a fitted red-black armoured crop top and tight combat trousers, bare toned midriff, a massive serrated blade on her shoulder. She looks back at the viewer over her shoulder with a fierce, flirty smirk, embers swirling.
+
+HOTNESS: clearly sexy and flirtatious: some skin (shoulders, midriff or legs), a body-conscious outfit, a teasing inviting look.
+
+${RULES}`,
+
+  story_red_moon_3: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "RED MOON BRIGADE" as a bespoke stylized logo: heavy scorched-iron military lettering with a blood-red moon glow and embers, placed in the lower third, large and perfectly legible, spelled exactly "RED MOON BRIGADE". No other text anywhere.
+
+SCENE: a fortress watchtower at dawn after a battle, the red moon setting, smoke clearing, the brigade's banners.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: LYRA VENN, a beautiful adult monster-hunter captain of thirty. Short black hair, warm amber eyes, a smudge of soot on her cheek. Her worn brigade coat over a fitted dark uniform. She offers the viewer a hand up from the ground with a tired, proud, warm smile, the red moon behind her.
+
+HOTNESS: attractive and romantic rather than sexy: stylish, beautiful, a warm or intriguing look at the viewer, modest outfit with one flattering detail.
+
+${RULES}`,
 };
 
 async function generate(prompt: string): Promise<Buffer> {
