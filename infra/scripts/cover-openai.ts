@@ -85,6 +85,78 @@ SCENE: a mech hangar on a space station at night. Behind her, huge and imposing,
 CHARACTER, large in frame, from mid-thigh up, filling about three quarters of the cover, close and centred: RHEA, an extremely attractive, very feminine adult woman of twenty-four, an elite rival mech pilot. Long glossy crimson-red hair falling past her shoulders in soft waves, pale gold eyes with long lashes, glossy lips, a soft beautiful face, curvy hourglass figure, a tiny pale scar under her left jawline. She wears a glossy black-and-crimson form-fitting pilot plugsuit with the front zip pulled down below her collarbone, the top half slipping off one shoulder, a gold Helion pilot pendant at her throat. Graceful, alluring pose: hips cocked to one side, one hand lifting her hair off her neck, the other resting lightly on the robot's giant chrome finger beside her, chin tilted down, looking at the viewer through her lashes with a soft, teasing, dangerous smile, as if inviting them into the cockpit.
 
 MOOD: glamorous, seductive, feminine mecha heroine; crimson rim light tracing her hair and silhouette against the cold blue hangar, the robot's red eye echoing her hair. Polished seasonal-anime key visual. ${RULES}`,
+
+  story_seven_names: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "SEVEN NAMES" as a bespoke stylized logo: elegant gilded Art Deco serif lettering in warm gold with a faint candlelit glow, placed in the lower third, large and perfectly legible, spelled exactly "SEVEN NAMES". No other text anywhere.
+
+SCENE: a glittering masked ball in a glass-roofed 1920s Paris hall at night, chandeliers, champagne, dancers blurred behind her, gold and deep emerald light.
+
+CHARACTER, large in frame, from mid-thigh up, filling about three quarters of the cover, close and centred: CÉLESTE VARENNE, an extremely attractive adult woman of twenty-four, a con artist with seven identities and the only person who knows who really killed the minister. Dark chestnut hair in a glossy soft bob, grey-blue eyes, red lips, graceful figure. She wears a backless emerald satin evening gown with a high slit showing one leg, long black gloves, a black lace masquerade mask pushed up into her hair. She looks back at the viewer over her bare shoulder, holding a sealed letter between two gloved fingers against her lips, a sly, secretive, seductive smile.
+
+LEVEL: Sexier than a cosy romance cover, less than a pin-up: alluring, confident and flirtatious, showing some skin (bare shoulders, legs or midriff, a neckline that's open but not plunging), body-conscious clothes, a direct inviting look at the viewer.
+
+MOOD: glamorous, dangerous, seductive Belle Époque mystery; warm gold chandelier light on her skin against deep emerald shadow. ${RULES}`,
+
+  story_window_seven: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "WINDOW SEVEN" as a bespoke stylized logo: clean cold surveillance-thriller lettering in pale silver with a green night-vision glow and a thin scanline, placed in the lower third, large and perfectly legible, spelled exactly "WINDOW SEVEN". No other text anywhere.
+
+SCENE: a dark apartment at night lit only by green surveillance monitors and a camera on a tripod pointed at a glowing penthouse window across the street, city lights and rain on the glass.
+
+CHARACTER, large in frame, from mid-thigh up, filling about three quarters of the cover, close and centred: MARA ELLISON, an extremely attractive adult woman of twenty-seven, the surveillance officer the viewer shares a stakeout with for seven nights. Jaw-length dark chestnut hair slightly mussed, grey-green eyes, lean athletic figure. Her black covert jacket has slipped off her shoulders and she wears a fitted black ribbed tank top tucked into high-waisted black trousers, a shoulder holster across her back. She sits on the edge of the desk beside the monitors, one knee up, headphones around her neck, turning from the screens to look at the viewer with a tired, knowing, flirtatious half-smile, as if it's 3 a.m. and the target is asleep.
+
+LEVEL: Sexier than a cosy romance cover, less than a pin-up: alluring, confident and flirtatious, showing some skin (bare shoulders, legs or midriff, a neckline that's open but not plunging), body-conscious clothes, a direct inviting look at the viewer.
+
+MOOD: intimate, tense, late-night thriller; her face and skin lit green and blue by the monitors, warm penthouse glow behind. ${RULES}`,
+
+  story_primal_crown: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "PRIMAL CROWN" as a bespoke stylized logo: rough carved bone-and-gold tribal lettering with sunlit edges and a dusty glow, placed in the lower third, large and perfectly legible, spelled exactly "PRIMAL CROWN". No other text anywhere.
+
+SCENE: a vast golden savanna at sunset, a smoking volcano on the horizon, a huge stampede of prehistoric beasts and mammoths kicking up dust behind her, a sabre-toothed tiger lying at her feet.
+
+CHARACTER, large in frame, from mid-thigh up, filling about three quarters of the cover, close and centred: KAIA THORN, an extremely attractive adult woman of twenty-three, a fearless beast rider and the viewer's guide. Long dark copper hair in a loose wild braid coming apart, sun-kissed bronze skin, amber eyes, toned athletic curvy figure. She wears a cropped leather riding top and a short leather wrap skirt with a red woven sash at her hips, bone and amber jewellery, bare toned midriff and legs, leather arm wraps. She kneels with one hand resting on the tiger's head, the other holding a spear, looking straight at the viewer with a wild, playful, challenging smile, hair blowing in the wind.
+
+LEVEL: Sexier than a cosy romance cover, less than a pin-up: alluring, confident and flirtatious, showing some skin (bare shoulders, legs or midriff, a neckline that's open but not plunging), body-conscious clothes, a direct inviting look at the viewer.
+
+MOOD: warm, wild, adventurous and sexy; golden-hour rim light on her skin and hair against the dust and the stampede. ${RULES}`,
+
+  story_tidewall: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE TIDEWALL" as a bespoke stylized logo: massive weathered steel-and-stone fortress lettering with icy blue edge light and frost, placed in the lower third, large and perfectly legible, spelled exactly "THE TIDEWALL". No other text anywhere.
+
+SCENE: the top of a colossal stone fortress wall at dusk in winter, snow blowing, braziers burning orange along the battlements, and below in the valley a dark tide of glowing-eyed beasts pouring out of the mountains.
+
+CHARACTER, large in frame, from mid-thigh up, filling about three quarters of the cover, close and centred: COMMANDER SABEL ANSETT, an extremely attractive adult woman in her early thirties, commander of the wall. A long dark braid over one shoulder, piercing grey eyes, strong elegant face, athletic curvy figure. She wears a fitted black commander's greatcoat hanging open over a form-fitting dark leather corset-style armour vest and fitted trousers with tall boots, one black glove on, a sword at her hip. She stands with one boot up on the battlement, coat blowing in the wind, looking back at the viewer with a cool, confident, slightly amused smile as if daring them to stay on the wall with her.
+
+LEVEL: Sexier than a cosy romance cover, less than a pin-up: alluring, confident and flirtatious, showing some skin (bare shoulders, legs or midriff, a neckline that's open but not plunging), body-conscious clothes, a direct inviting look at the viewer.
+
+MOOD: epic, cold and commanding with heat underneath; orange firelight on one side of her face, icy blue dusk on the other. ${RULES}`,
+
+  story_last_service: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "LAST SERVICE" as a bespoke stylized logo: bold brush-script restaurant lettering in warm white with a steamy amber neon glow, placed in the lower third, large and perfectly legible, spelled exactly "LAST SERVICE". No other text anywhere.
+
+SCENE: a small family restaurant kitchen at night during the Friday rush, steam and flame from the wok burners, copper pans hanging, rain on the window behind, warm amber light.
+
+CHARACTER, large in frame, from mid-thigh up, filling about three quarters of the cover, close and centred: MINA SAEGUSA, an extremely attractive adult woman of twenty-four, the rival chef who turned up to buy the viewer's family restaurant and stayed to cook. Long dark hair in a loose low ponytail with strands falling across her face, sharp amber-brown eyes, glossy lips, slim curvy figure. Her white chef's jacket is unbuttoned and slipping off her shoulders over a fitted black camisole, sleeves rolled to the elbow, a sheen of kitchen heat on her skin, a silver tasting spoon in her hand. She leans back against the steel counter and holds the spoon out toward the viewer's mouth, eyes half-lidded, a teasing, competitive, flirty smile.
+
+LEVEL: Sexier than a cosy romance cover, less than a pin-up: alluring, confident and flirtatious, showing some skin (bare shoulders, legs or midriff, a neckline that's open but not plunging), body-conscious clothes, a direct inviting look at the viewer.
+
+MOOD: hot, steamy, flirty rivals-to-lovers kitchen romance; amber flame light and steam around her. ${RULES}`,
+
+  story_fourth_beast: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE FOURTH BEAST" as a bespoke stylized logo: sharp gothic Parisian lettering in pale silver with a glowing green eldritch edge, placed in the lower third, large and perfectly legible, spelled exactly "THE FOURTH BEAST". No other text anywhere.
+
+SCENE: a rain-soaked Paris street at night, the Eiffel Tower lit in the mist behind, rows of memorial candles on wet cobblestones, a glowing green spectral fox-like creature coiled around a lamppost above her.
+
+CHARACTER, large in frame, from mid-thigh up, filling about three quarters of the cover, close and centred: CAMILLE LAURENT, an extremely attractive adult woman of twenty-one, searching Paris for her missing brother and the only one who can see the beasts. Short espresso-brown hair with a messy fringe damp from the rain, pale green eyes glowing faintly, slim athletic figure. She wears a cropped black leather jacket open over a thin cream crop top soaked by the rain, low-slung charcoal cargo trousers, bare toned midriff. She stands close to the viewer in the rain, one hand holding a candle, looking up at them through wet lashes with an intense, vulnerable, flirtatious look, lips parted.
+
+LEVEL: Sexier than a cosy romance cover, less than a pin-up: alluring, confident and flirtatious, showing some skin (bare shoulders, legs or midriff, a neckline that's open but not plunging), body-conscious clothes, a direct inviting look at the viewer.
+
+MOOD: moody, romantic urban-fantasy noir; candlelight warming her face against cold green-blue rain and the beast's glow. ${RULES}`,
 };
 
 async function generate(prompt: string): Promise<Buffer> {
