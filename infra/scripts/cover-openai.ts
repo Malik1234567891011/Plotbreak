@@ -337,6 +337,42 @@ CHARACTER, large in frame, filling about three quarters of the cover, close: THA
 HOTNESS: the most extreme allowed for an anime pin-up: lingerie boudoir, sultry and seductive.  Absolutely no nudity, nothing see-through, nothing explicit; every intimate area fully covered.
 
 ${RULES}`,
+
+  story_blank_prophecy_4: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE BLANK PROPHECY" as a bespoke stylized logo: elegant ancient-Greek-inspired marble-white serif lettering with gold leaf edges and a glowing violet divine aura, placed in the lower third, large and perfectly legible, spelled exactly "THE BLANK PROPHECY". No other text anywhere.
+
+SCENE: a white-and-blue Greek island infinity pool at sunset, the sea glowing gold and violet, a spectral owl of light on a column.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: THALIA KYRKOS, an extremely attractive adult woman of twenty-one in modern Athens, chosen by the Greek gods. Long dark brown hair, olive skin, bright grey-green eyes, silver crescent earrings, very curvy hourglass figure. She wears a tiny gold micro bikini with crescent charms and gold body chains draped across her hips and waist, oiled glowing skin, wet hair. She lies on her side on the pool edge, one knee raised, propped on an elbow, looking at the viewer with smouldering half-lidded eyes and parted lips.
+
+Pin-up level, maximum allure, but no nudity and nothing see-through: every intimate area fully covered by opaque fabric.
+
+${RULES}`,
+
+  story_blank_prophecy_5: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE BLANK PROPHECY" as a bespoke stylized logo: elegant ancient-Greek-inspired marble-white serif lettering with gold leaf edges and a glowing violet divine aura, placed in the lower third, large and perfectly legible, spelled exactly "THE BLANK PROPHECY". No other text anywhere.
+
+SCENE: an ancient marble bathhouse lit by violet divine fire and candles, steam rising, a golden serpent of light coiling around a pillar.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: THALIA KYRKOS, an extremely attractive adult woman of twenty-one in modern Athens, chosen by the Greek gods. Long dark brown hair, olive skin, bright grey-green eyes, silver crescent earrings, very curvy hourglass figure. She wears only a strappy black satin-and-gold harness-style monokini with deep cut-outs at the hips and sides and a plunging front held by a gold crescent clasp, gold armlets and anklets. She kneels in shallow glowing water arching her back, one hand in her wet hair, gazing at the viewer over her shoulder with a seductive, daring smile.
+
+Pin-up level, maximum allure, but no nudity and nothing see-through: every intimate area fully covered by opaque fabric.
+
+${RULES}`,
+
+  story_blank_prophecy_6: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE BLANK PROPHECY" as a bespoke stylized logo: elegant ancient-Greek-inspired marble-white serif lettering with gold leaf edges and a glowing violet divine aura, placed in the lower third, large and perfectly legible, spelled exactly "THE BLANK PROPHECY". No other text anywhere.
+
+SCENE: a goddess's chamber on Mount Olympus among glowing violet clouds, gold columns, scattered rose petals and silk cushions.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: THALIA KYRKOS, an extremely attractive adult woman of twenty-one in modern Athens, chosen by the Greek gods. Long dark brown hair, olive skin, bright grey-green eyes, silver crescent earrings, very curvy hourglass figure. as a goddess: she wears a barely-there gold-and-white silk goddess outfit made of two thin draped bands of opaque fabric held by gold crescent clasps, a gold laurel crown, golden body jewellery, long sheer-free silk ribbons flowing around her. She reclines across silk cushions stretching languidly, one arm above her head, looking at the viewer with an intensely sultry, inviting gaze.
+
+Pin-up level, maximum allure, but no nudity and nothing see-through: every intimate area fully covered by opaque fabric.
+
+${RULES}`,
 };
 
 async function generate(prompt: string): Promise<Buffer> {
