@@ -301,6 +301,42 @@ CHARACTER, large in frame, filling about three quarters of the cover, close: LYR
 HOTNESS: attractive and romantic rather than sexy: stylish, beautiful, a warm or intriguing look at the viewer, modest outfit with one flattering detail.
 
 ${RULES}`,
+
+  story_blank_prophecy_1: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE BLANK PROPHECY" as a bespoke stylized logo: elegant ancient-Greek-inspired marble-white serif lettering with gold leaf edges and a glowing violet divine aura, placed in the lower third, large and perfectly legible, spelled exactly "THE BLANK PROPHECY". No other text anywhere.
+
+SCENE: a moonlit marble temple ruin on a hill above modern Athens at night, the Acropolis lit up behind, violet divine light and a ghostly giant stag with antlers of light standing behind her.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: THALIA KYRKOS, an extremely attractive adult woman of twenty-one in modern Athens, chosen by the Greek gods for a prophecy that came back blank. Long dark brown hair, olive skin, bright grey-green eyes, silver crescent earrings, curvy hourglass figure. She wears a short draped white silk goddess dress slipping off both shoulders with a high slit to the hip, gold arm cuffs, barefoot on the marble. She sits back on a broken column with her legs crossed, chin tilted, sultry bedroom eyes at the viewer and a slow seductive smile, violet light glowing on her skin.
+
+HOTNESS: very sexy and seductive, lots of skin, body-focused. Absolutely no nudity, nothing see-through, nothing explicit; every intimate area fully covered.
+
+${RULES}`,
+
+  story_blank_prophecy_2: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE BLANK PROPHECY" as a bespoke stylized logo: elegant ancient-Greek-inspired marble-white serif lettering with gold leaf edges and a glowing violet divine aura, placed in the lower third, large and perfectly legible, spelled exactly "THE BLANK PROPHECY". No other text anywhere.
+
+SCENE: a rooftop pool on an Athens apartment building at night, the lit Acropolis behind, the water glowing violet with divine light, a spectral owl of light perched on the railing.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: THALIA KYRKOS, an extremely attractive adult woman of twenty-one in modern Athens, chosen by the Greek gods for a prophecy that came back blank. Long dark brown hair, olive skin, bright grey-green eyes, silver crescent earrings, curvy hourglass figure. She wears a tiny black string bikini with gold crescent charms and a sheer-looking but opaque black silk kimono slipping off her arms, wet hair slicked back, beads of water on her skin. She rises out of the glowing pool, forearms on the edge, looking up at the viewer with heavy-lidded eyes and a teasing, inviting smile.
+
+HOTNESS: extremely sexy pin-up level: swimwear, wet skin, maximum curves, sultry gaze.  Absolutely no nudity, nothing see-through, nothing explicit; every intimate area fully covered.
+
+${RULES}`,
+
+  story_blank_prophecy_3: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "THE BLANK PROPHECY" as a bespoke stylized logo: elegant ancient-Greek-inspired marble-white serif lettering with gold leaf edges and a glowing violet divine aura, placed in the lower third, large and perfectly legible, spelled exactly "THE BLANK PROPHECY". No other text anywhere.
+
+SCENE: a luxurious bedroom in an Athens apartment at night, silk sheets, candles, a window with the lit Acropolis, violet divine light spilling in, a ghostly golden serpent of light curling around the bedpost.
+
+CHARACTER, large in frame, filling about three quarters of the cover, close: THALIA KYRKOS, an extremely attractive adult woman of twenty-one in modern Athens, chosen by the Greek gods for a prophecy that came back blank. Long dark brown hair, olive skin, bright grey-green eyes, silver crescent earrings, curvy hourglass figure. She wears an elegant black lace-and-satin lingerie set with a gold crescent pendant, fully opaque, and a black silk robe falling off her shoulders, silver earrings catching the candlelight. She lies across the bed on her stomach propped on her elbows, legs bent up behind her, looking straight at the viewer with smouldering eyes and a knowing smile.
+
+HOTNESS: the most extreme allowed for an anime pin-up: lingerie boudoir, sultry and seductive.  Absolutely no nudity, nothing see-through, nothing explicit; every intimate area fully covered.
+
+${RULES}`,
 };
 
 async function generate(prompt: string): Promise<Buffer> {

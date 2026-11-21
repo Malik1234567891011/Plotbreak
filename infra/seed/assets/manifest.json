@@ -2388,13 +2388,13 @@
     "file": "story_blackwake/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Blackwake: A broken ship. Nobody knows your name.",
-    "width": 1640,
-    "height": 2456,
+    "width": 1024,
+    "height": 1536,
     "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
       "provider": "dare",
       "model": "seedream-5-pro",
-      "createdAt": "2026-09-13T07:04:36.915Z"
+      "createdAt": "2026-11-21T15:22:12.434Z"
     }
   },
   "story_blackwake/cover.fr": {
@@ -18854,13 +18854,13 @@
     "file": "story_red_moon/cover.png",
     "kind": "COVER",
     "alt": "Cover art for Red Moon Brigade: You hunt monsters. You are becoming one.",
-    "width": 1640,
-    "height": 2456,
+    "width": 1024,
+    "height": 1536,
     "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
       "provider": "dare",
       "model": "seedream-5-pro",
-      "createdAt": "2026-09-13T07:04:35.458Z"
+      "createdAt": "2026-11-21T15:22:12.815Z"
     }
   },
   "story_red_moon/cover.fr": {
@@ -19243,13 +19243,13 @@
     "file": "story_salt_road/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Salt Road: Eleven days of road. Nine days of water.",
-    "width": 1640,
-    "height": 2456,
+    "width": 1024,
+    "height": 1536,
     "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
       "provider": "dare",
       "model": "seedream-5-pro",
-      "createdAt": "2026-09-13T07:03:32.533Z"
+      "createdAt": "2026-11-21T15:22:13.204Z"
     }
   },
   "story_salt_road/cover.fr": {
@@ -23107,13 +23107,13 @@
     "file": "story_unbound/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Unbound: Your school was dissolved. You were not.",
-    "width": 1640,
-    "height": 2456,
+    "width": 1024,
+    "height": 1536,
     "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
       "provider": "dare",
       "model": "seedream-5-pro",
-      "createdAt": "2026-09-13T07:03:33.554Z"
+      "createdAt": "2026-11-21T15:23:12.191Z"
     }
   },
   "story_unbound/cover.fr": {
