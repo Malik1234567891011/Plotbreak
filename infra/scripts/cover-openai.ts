@@ -75,6 +75,16 @@ SCENE: an armoured observation deck on a space station at night, a huge window b
 CHARACTER, large in frame, full body to mid-thigh, filling about three quarters of the cover: RHEA, an extremely attractive adult woman of twenty-four, an elite rival mech pilot with orders to bring the viewer in. Deep crimson-red hair to the shoulder, slightly tousled, pale gold eyes, athletic hourglass figure, a short pale scar under her left jawline. She sits on the edge of a steel console with her legs crossed, in a cropped black pilot jacket worn open over a fitted crimson top, short black tactical shorts, black thigh holster, tall black boots. She looks over her shoulder at the viewer, chin down, gold eyes glinting, a slow knowing smile, one gloved hand toying with a pair of handcuffs on a finger.
 
 MOOD: sultry, dangerous, glamorous sci-fi; deep blacks and crimson with gold eye glint and cold planet light. ${RULES}`,
+
+  story_zero_throne_d: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "ZERO THRONE" as a bespoke stylized logo: sharp angular mecha-anime lettering in brushed chrome with a hot crimson edge glow and a thin scanline sheen, placed in the lower third, large and perfectly legible, spelled exactly "ZERO THRONE". No other text anywhere.
+
+SCENE: a mech hangar on a space station at night. Behind her, huge and imposing, a black-and-chrome giant robot kneels with its chest cockpit open and its single eye glowing red, filling the upper background so the mecha reads instantly. Cold blue hangar light, hot red warning lights, drifting steam and a few sparks.
+
+CHARACTER, large in frame, from mid-thigh up, filling about three quarters of the cover, close and centred: RHEA, an extremely attractive, very feminine adult woman of twenty-four, an elite rival mech pilot. Long glossy crimson-red hair falling past her shoulders in soft waves, pale gold eyes with long lashes, glossy lips, a soft beautiful face, curvy hourglass figure, a tiny pale scar under her left jawline. She wears a glossy black-and-crimson form-fitting pilot plugsuit with the front zip pulled down below her collarbone, the top half slipping off one shoulder, a gold Helion pilot pendant at her throat. Graceful, alluring pose: hips cocked to one side, one hand lifting her hair off her neck, the other resting lightly on the robot's giant chrome finger beside her, chin tilted down, looking at the viewer through her lashes with a soft, teasing, dangerous smile, as if inviting them into the cockpit.
+
+MOOD: glamorous, seductive, feminine mecha heroine; crimson rim light tracing her hair and silhouette against the cold blue hangar, the robot's red eye echoing her hair. Polished seasonal-anime key visual. ${RULES}`,
 };
 
 async function generate(prompt: string): Promise<Buffer> {

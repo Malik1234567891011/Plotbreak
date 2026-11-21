@@ -48,7 +48,7 @@ header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content:
 h1 { font-size: 26px; margin: 0; letter-spacing: -0.01em; }
 h2 { font-size: 18px; margin: 40px 0 4px; }
 .sub { color: var(--muted); font-size: 13px; }
-.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 20px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: 12px; margin-top: 20px; }
 .kpi { background: var(--surface); border: 1px solid var(--ring); border-radius: 14px; padding: 16px 18px; }
 .kpi .label { color: var(--ink-2); font-size: 13px; }
 .kpi .value { font-size: 40px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.1; margin: 6px 0 2px; }
@@ -108,7 +108,7 @@ h2 { font-size: 18px; margin: 40px 0 4px; }
   <div class="legend" id="legend"></div>
 
   <h2>Do new players come back? (by the week they started)</h2>
-  <div class="sub">D1 = played again the next day · D7 = played on day 7 · Within 7 = any day in the first week after · Ever = any later day so far</div>
+  <div class="sub">D1 = played again the next day · D7 = played on day 7 · Within 7 = any day in the first week after · D-any = any later day, ever</div>
   <div class="scroll"><div class="ret" id="ret"></div></div>
 
   <ul class="notes">
@@ -164,7 +164,13 @@ function kpis() {
     const c = DATA.cohorts.filter(c => c.e7 > 0);
     const done = c[c.length - 1], d1c = DATA.cohorts.filter(c => c.e1 > 0).slice(-1)[0];
     const p = (a, b) => b ? Math.round(a / b * 100) + '%' : '–';
-    return '<div class="kpi"><div class="label">Latest D1 / D7</div><div class="value">' + (d1c ? p(d1c.d1, d1c.e1) : '–') + ' / ' + (done ? p(done.d7, done.e7) : '–') +
+    // D-any: came back on ANY later day. Only players who started 7+ days ago
+    // count, so a week that just began can't drag it down for lack of time.
+    const allE = sum(DATA.cohorts, c => c.e7), allA = sum(DATA.cohorts, c => c.dany);
+    return '<div class="kpi"><div class="label">Ever come back (D-any)</div><div class="value">' + p(allA, allE) +
+      '</div><div class="delta">' + allA + ' of ' + allE + ' players who started 7+ days ago played again on a later day' +
+      (done ? ' · week of ' + short(done.wk) + ': ' + p(done.dany, done.e7) : '') + '</div></div>' +
+      '<div class="kpi"><div class="label">Latest D1 / D7</div><div class="value">' + (d1c ? p(d1c.d1, d1c.e1) : '–') + ' / ' + (done ? p(done.d7, done.e7) : '–') +
       '</div><div class="delta">D1: week of ' + (d1c ? short(d1c.wk) : '–') + ' · D7: week of ' + (done ? short(done.wk) : '–') + '</div></div>';
   })();
 }
@@ -221,7 +227,7 @@ function calendar() {
 }
 
 function retention() {
-  let html = ['Started week of', 'New players', 'D1', 'D7', 'Within 7', 'Ever back'].map(h => '<div class="h">' + h + '</div>').join('');
+  let html = ['Started week of', 'New players', 'D1', 'D7', 'Within 7', 'D-any (ever)'].map(h => '<div class="h">' + h + '</div>').join('');
   const cell = (a, b) => {
     if (!b) return '<div class="cell pending"><div class="pct">…</div><div class="of">not in yet</div></div>';
     const p = a / b, c = color(p, 0.5);

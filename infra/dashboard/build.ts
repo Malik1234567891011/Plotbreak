@@ -75,7 +75,8 @@ select to_char(wk, 'YYYY-MM-DD') wk, count(*)::int n,
   count(*) filter (where fd + 1 < td)::int e1, count(*) filter (where fd + 1 < td and b1)::int d1,
   count(*) filter (where fd + 7 < td)::int e7, count(*) filter (where fd + 7 < td and b7)::int d7,
   count(*) filter (where fd + 7 < td and bw)::int dw,
-  count(*) filter (where ever)::int ever
+  count(*) filter (where ever)::int ever,
+  count(*) filter (where fd + 7 < td and ever)::int dany
 from p, today where wk >= $2::date group by wk order by wk`;
 
 // Distinct players per week: a player back on three days that week counts once.
