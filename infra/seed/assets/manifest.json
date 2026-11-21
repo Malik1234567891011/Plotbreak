@@ -2663,13 +2663,13 @@
     "file": "story_blank_prophecy/cover.png",
     "kind": "COVER",
     "alt": "Cover art for The Blank Prophecy: They read your future. It was empty.",
-    "width": 1696,
-    "height": 2528,
+    "width": 1024,
+    "height": 1536,
     "styleVersion": "plotbreak-cover-v4-titled",
     "provenance": {
       "provider": "dare",
       "model": "seedream-5-pro",
-      "createdAt": "2026-09-13T07:12:09.161Z"
+      "createdAt": "2026-11-21T15:29:41.811Z"
     }
   },
   "story_blank_prophecy/cover.fr": {

@@ -401,6 +401,19 @@ async function swapTitle(png: string, fr: string, en: string): Promise<Buffer> {
 
 async function main(): Promise<void> {
   const [storyId, a, b, c, d] = process.argv.slice(2);
+  // `<name> --prompt <file.txt> [count]`: generate from a prompt you wrote yourself, verbatim.
+  if (storyId && a === '--prompt') {
+    const prompt = await readFile(b!, 'utf8');
+    const dir = join(process.cwd(), 'docs/covers-v5', storyId);
+    await mkdir(dir, { recursive: true });
+    const stamp = Date.now().toString(36);
+    const out = await Promise.all(Array.from({ length: Number(c ?? 1) }, async (_, i) => {
+      const file = join(dir, `custom-${stamp}-${i + 1}.png`);
+      try { await writeFile(file, await generate(prompt)); return file; } catch (e) { return `FAILED ${i + 1}: ${(e as Error).message}`; }
+    }));
+    console.log(out.join('\n'));
+    return;
+  }
   if (!storyId || !PROMPTS[storyId]) throw new Error(`usage: <storyId>; known: ${Object.keys(PROMPTS).join(', ')}`);
   const dir = join(process.cwd(), 'docs/covers-v5', storyId);
   await mkdir(dir, { recursive: true });
