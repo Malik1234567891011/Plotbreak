@@ -78,12 +78,26 @@ select to_char(wk, 'YYYY-MM-DD') wk, count(*)::int n,
   count(*) filter (where ever)::int ever
 from p, today where wk >= $2::date group by wk order by wk`;
 
+// Distinct players per week: a player back on three days that week counts once.
+const WEEKLY = `
+with t as (
+  select a.user_id, (l.created_at at time zone 'America/New_York')::date d
+  from wallet_ledger l join wallet_accounts a using (account_id)
+  where l.type = 'TURN_FINALIZE' and l.created_at >= '2026-09-14' and a.user_id::text <> all($1::text[])
+), f as (select user_id, min(d) fd from t group by 1)
+select to_char(date_trunc('week', t.d)::date, 'YYYY-MM-DD') wk,
+  count(distinct t.user_id)::int players,
+  count(distinct t.user_id) filter (where t.d > f.fd)::int "returning",
+  count(distinct t.user_id) filter (where t.d > f.fd and f.fd < date_trunc('week', t.d)::date)::int earlier
+from t join f using (user_id) group by 1`;
+
 async function main(): Promise<void> {
   const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
   await client.connect();
   const daily = await client.query(DAILY, [EXCLUDED, START]);
   const purchases = await client.query(PURCHASES, [EXCLUDED]);
   const cohorts = await client.query(COHORTS, [EXCLUDED, START]);
+  const weekly = await client.query(WEEKLY, [EXCLUDED]);
   const now = await client.query(`select to_char(now() at time zone 'America/New_York', 'Dy Mon DD, HH12:MI am') t`);
   await client.end();
 
@@ -100,7 +114,7 @@ async function main(): Promise<void> {
     purchases: revenue.get(r.d)?.count ?? 0,
   }));
 
-  const data = { generatedAt: now.rows[0].t, days, cohorts: cohorts.rows };
+  const data = { generatedAt: now.rows[0].t, days, cohorts: cohorts.rows, weekly: weekly.rows };
   const dir = join(process.cwd(), 'infra', 'dashboard', 'out');
   mkdirSync(dir, { recursive: true });
   const out = join(dir, 'index.html');

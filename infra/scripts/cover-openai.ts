@@ -45,6 +45,36 @@ CHARACTER, large in frame, from the waist up, filling about three quarters of th
 BEHIND HER, small and secondary: the apartment door slightly ajar, and in the gap a tall man in a black suit with black wings folded like a coat, gold eyes catching the light.
 
 MOOD: luminous, romantic and bittersweet; cool blue night against her warm inner glow. Seasonal romance anime heroine, not horror. ${RULES}`,
+
+  story_zero_throne_a: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "ZERO THRONE" as a bespoke stylized logo: sharp angular mecha-anime lettering in brushed chrome with a hot crimson edge glow and a thin scanline sheen, placed in the lower third, large and perfectly legible, spelled exactly "ZERO THRONE". No other text anywhere.
+
+SCENE: a mech hangar on a space station at night, a towering black-and-chrome giant robot kneeling behind her with its cockpit open and its single eye glowing red, steam and sparks drifting, the hangar lit in cold blue with hot red warning lights.
+
+CHARACTER, large in frame, from mid-thigh up, filling about three quarters of the cover, close and centred: RHEA, an extremely attractive adult woman of twenty-four, an elite rival mech pilot with orders to bring the viewer in. Deep crimson-red hair to the shoulder, slightly tousled, pale gold eyes, athletic hourglass figure, a short pale scar under her left jawline. Her black pilot bodysuit is unzipped to the waist and the sleeves are tied around her hips, over a fitted black sports crop top, bare toned midriff, a sheen of sweat after a sortie. She leans back against the robot's giant open hand, helmet hooked on two fingers, looking straight at the viewer with a confident, challenging, flirtatious smirk, as if she won and wants a rematch.
+
+MOOD: hot, cocky, high-energy mecha romance; crimson rim light along her hair and body against the cold blue hangar. ${RULES}`,
+
+  story_zero_throne_b: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "ZERO THRONE" as a bespoke stylized logo: sharp angular mecha-anime lettering in brushed chrome with a hot crimson edge glow and a thin scanline sheen, placed in the lower third, large and perfectly legible, spelled exactly "ZERO THRONE". No other text anywhere.
+
+SCENE: the inside of a cramped mech cockpit, glowing red and gold holographic displays all around, a starfield and a space station visible through the canopy, alarm light pulsing.
+
+CHARACTER, very close, from the hips up, filling most of the cover, as if she is leaning in toward the viewer in the tight cockpit: RHEA, an extremely attractive adult woman of twenty-four, an elite rival mech pilot with orders to bring the viewer in. Deep crimson-red hair to the shoulder, slightly tousled, pale gold eyes, athletic hourglass figure, a short pale scar under her left jawline. She wears a glossy black-and-crimson form-fitting pilot plugsuit with the front zip pulled down below her collarbone, hair falling forward, one hand braced on the console beside the viewer's head and the other holding a pilot's sidearm loosely pointed down. Her face is close to the viewer's, gold eyes half-lidded, a dangerous teasing smile, as if deciding whether to arrest them or kiss them.
+
+MOOD: tense, intimate, enemies-to-lovers; her face lit by the red and gold hologram glow, everything else in shadow. ${RULES}`,
+
+  story_zero_throne_c: `${STYLE}
+
+THE TITLE IS PART OF THE ART. Render the words "ZERO THRONE" as a bespoke stylized logo: sharp angular mecha-anime lettering in brushed chrome with a hot crimson edge glow and a thin scanline sheen, placed in the lower third, large and perfectly legible, spelled exactly "ZERO THRONE". No other text anywhere.
+
+SCENE: an armoured observation deck on a space station at night, a huge window behind her filled with a planet and the silhouette of a giant black robot standing outside in the void with its eye glowing red, reflections on the glass.
+
+CHARACTER, large in frame, full body to mid-thigh, filling about three quarters of the cover: RHEA, an extremely attractive adult woman of twenty-four, an elite rival mech pilot with orders to bring the viewer in. Deep crimson-red hair to the shoulder, slightly tousled, pale gold eyes, athletic hourglass figure, a short pale scar under her left jawline. She sits on the edge of a steel console with her legs crossed, in a cropped black pilot jacket worn open over a fitted crimson top, short black tactical shorts, black thigh holster, tall black boots. She looks over her shoulder at the viewer, chin down, gold eyes glinting, a slow knowing smile, one gloved hand toying with a pair of handcuffs on a finger.
+
+MOOD: sultry, dangerous, glamorous sci-fi; deep blacks and crimson with gold eye glint and cold planet light. ${RULES}`,
 };
 
 async function generate(prompt: string): Promise<Buffer> {

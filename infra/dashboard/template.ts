@@ -74,6 +74,7 @@ h2 { font-size: 18px; margin: 40px 0 4px; }
 .tile.today { outline: 2px solid var(--ink); outline-offset: 1px; }
 .tile.week { background: var(--surface); color: var(--ink); }
 .tile.week .big { font-size: 30px; }
+.tile.week .of { font-size: 11px; opacity: 0.7; }
 .on-dark { color: #ffffff; } .on-light { color: #0b0b0b; }
 .legend { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; margin-top: 10px; }
 .legend .ramp { display: flex; gap: 2px; } .legend .ramp i { width: 22px; height: 10px; border-radius: 3px; display: block; }
@@ -113,6 +114,7 @@ h2 { font-size: 18px; margin: 40px 0 4px; }
   <ul class="notes">
     <li><b>Turns</b>: every turn finished that day. <b>Players</b>: anyone who played at least one turn. <b>New</b>: played their first turn ever that day. <b>Back</b>: played that day, started on an earlier day.</li>
     <li><b>Revenue</b>: gross App Store sales (before Apple's cut), converted to USD at rough fixed rates, plus $2.99 each time a Pass started. Pass renewals aren't recorded by the server, so they're missing.</li>
+    <li>Returning players on a week tile: different people who played that week on a later day than their first, counted once however many days they came. "From before this week" leaves out people who started that same week.</li>
     <li>D1 on a day tile: how many of that day's new players came back the next day. A week or day still in progress is outlined or marked "so far".</li>
     <li>Rebuild with <code>npm run dashboard</code>.</li>
   </ul>
@@ -207,9 +209,12 @@ function calendar() {
     const real = wk.filter(Boolean);
     const s = f => real.reduce((a, d) => a + f(d), 0);
     const partial = real.some(d => d.d === today);
+    const wkRow = (DATA.weekly || []).find(w => w.wk === real[0].d);
     html += '<div class="tile week"><div class="date"><span>Week of ' + short(real[0].d) + '</span><span>' + (partial ? 'so far' : '') + '</span></div>' +
       '<div class="big">' + (metric === 'players' ? (s(d => d.players) / real.length).toFixed(1) + '<small>/day</small>' : m.fmt(s(m.get))) + '</div>' +
-      '<div class="rows">' + s(d => d.turns).toLocaleString() + ' turns<br>' + s(d => d.new_players) + ' new players<br><span class="money">' + money(s(d => d.revenue)) + '</span></div></div>';
+      '<div class="rows">' + s(d => d.turns).toLocaleString() + ' turns<br>' + s(d => d.new_players) + ' new players<br>' +
+      (wkRow ? wkRow.returning + ' returning players<br><span class="of">(' + wkRow.earlier + ' from before this week)</span><br>' : '') +
+      '<span class="money">' + money(s(d => d.revenue)) + '</span></div></div>';
   }
   $('cal').innerHTML = html;
   $('legend').innerHTML = '<span>0</span><div class="ramp">' + RAMP.filter((_, i) => i % 2 === 0).map(c => '<i style="background:' + c + '"></i>').join('') + '</div><span>' + m.fmt(max) + ' (busiest day)</span>';
