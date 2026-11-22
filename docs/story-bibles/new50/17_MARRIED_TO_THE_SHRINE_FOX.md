@@ -91,7 +91,11 @@ the great-aunt's death (day 3, 06:00). Everything after that lives in the ending
 ## The system (what the storyteller must hold)
 
 All of this is in `hardCanon`, because production's storyteller reads hard canon and never reads the
-ability list except the chosen archetype's starting abilities.
+ability list except the chosen archetype's starting abilities. The rest of the system sits in the other two
+places it does read: the player starts holding the Keeper's Keys (the bell, the gates, the offering box) and the
+Lawyer's Letter (the sealed condition and the forty-ninth day) in `rules.startingItems`, and every archetype's
+`startingAbilities` has Ring the Bell plus that background's own move. Isao Tadokoro has `calledName:
+'Tadokoro'`, because the town calls him by his surname.
 
 - **Answering the vow** means one of three things at the altar: a wedding; the vow refused out loud, to her
   face; or the vow rewritten in new terms she signs freely. A yes or no anywhere else is a promise, not the
@@ -191,7 +195,7 @@ does not turn the whole cast into one stiff translation. The spec holds this.
 
 ### Kuzuha, more than a thousand years old (appears about twenty-five), the nine-tailed fox
 
-- **Looks:** Tall, long-limbed adult woman. Copper-red hair to her waist, gold eyes, red fox ears with dark
+- **Looks:** Tall, regal adult woman. Copper-red hair to her waist, gold eyes, red fox ears with dark
   tips, nine tails like slow flames, three ash-grey at the tips. White kimono under a crimson outer robe,
   sleeves tied back with red cord. Her ears and tails show her mood the way a face does.
 - **Immediate want:** An answer to the vow before the forty-ninth morning.
@@ -395,13 +399,32 @@ she is owed.
 No bath scenes. The bell pulls her out of a nap, never out of a bath, and the style samples the storyteller
 imitates say so. Content descriptors: Romance, Moral Ambiguity, Alcohol References (sake at the wedding rite).
 
+The kiss limit and the no-fan-service line live in `hardCanon[1]`, not in `toneGuide`. Every image prompt
+(cover, portraits, stages, the opening panel) carries `toneGuide` as its mood text, so it holds mood only: no
+romance, body or age words. The storyteller reads both, so nothing is lost.
+
 ## Cover direction
 
-Kuzuha alone, large in frame and seen in full, at the top of mossy stone steps at dusk, perched cross-legged
-on a wooden offering box, her kimono and robe closed and covering her legs, with a half-eaten sandwich in one hand, the other hand held out palm up as if waiting for an
-answer. Nine tails fanned behind her like flames, three grey at the tips. Red gate and glowing stone lanterns
-behind her, cedar and blue dusk. Title "MARRIED TO THE SHRINE FOX" painted into the upper third. No other text.
-Described by costume and pose, never by age words.
+**Cover (Tsubaki.3, title in the art: Married to the Shrine Fox, brushed capitals on two lines in the upper
+third, spelled exactly MARRIED TO THE SHRINE FOX).** Kuzuha alone, large in frame and seen in full, at the top
+of mossy stone steps at dusk, sitting cross-legged on a wooden offering box, her long white kimono and crimson
+robe neatly closed at the collar with the hems falling in folds over the front of the box, half a sandwich in
+one hand, the other hand held out palm up as if waiting for an answer. Nine tails fanned behind her like slow
+flames, three ash-grey at the tips. Vermilion gate, bronze bell on its rope, glowing stone lanterns, cedars and
+blue dusk behind her. No other text. She is described by costume and pose only, never by age words (the Ace
+lesson in `infra/scripts/generate-art.ts`). Effects on the tails, the lanterns and the title, never on her face
+or skin. The fixture's `coverDirection` carries this to PixAI with its own `TITLE:` line.
+
+**Portraits:** Kuzuha, Sora, Oboro, Tadokoro, Ume, each drawn from the fixture's `appearance`, `visualHook` and
+`silhouette`.
+
+**Opening panel** (`story_married_to_the_shrine_fox/opening`, Kuzuha's portrait as reference): Kuzuha in a
+crimson robe over a white kimono, fox ears up and nine red tails fanned, sitting on the offering box at dusk and
+pointing the player's half-eaten sandwich at the dark hall. The alt text starts with her first name, because
+the panel script takes its reference from the character the alt names first.
+
+**Release shape:** no prologue (the story opens straight on the scene) and `publishedAt: null` until the real
+release date is set.
 
 ## Originality
 

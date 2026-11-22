@@ -158,9 +158,17 @@ describe('the vow lives where the storyteller can read it', () => {
     for (const a of S.archetypes) expect(a.startingAbilities, a.id).toContain('ring_the_bell');
   });
 
-  it('sets the 13+ line in the tone guide', () => {
-    expect(S.rules.toneGuide).toMatch(/as far as a kiss and no further/);
-    expect(S.rules.toneGuide).toMatch(/No fan service/);
+  it('sets the 13+ line in hard canon, where the storyteller reads it', () => {
+    const romance = S.rules.hardCanon.find((f) => f.startsWith('Romance in this story'))!;
+    expect(romance).toMatch(/as far as a kiss and no further/);
+    expect(romance).toMatch(/No fan service/);
+  });
+
+  it('keeps the tone guide, which every image prompt carries as its mood, free of romance, body and age words', () => {
+    expect(S.rules.toneGuide).toMatch(/^Romantic comedy with a clock in it\./);
+    expect(S.rules.toneGuide).not.toMatch(
+      /\b(adults?|kiss\w*|romance|flirt\w*|fan service|bod(y|ies)|lingering\w*|bath\w*|young\w*|girls?|boys?)\b/i,
+    );
   });
 
   it('keeps the style samples the storyteller imitates out of the bath', () => {
@@ -432,16 +440,69 @@ describe('everybody on the page is an adult, on the page', () => {
 });
 
 describe('the cover', () => {
-  it('puts the title in the art and the fox alone in front', () => {
+  it('puts the title in the art, on its own TITLE line, spelled exactly', () => {
     const cover = S.coverDirection;
-    expect(cover).toContain('spelled exactly MARRIED TO THE SHRINE FOX');
-    expect(cover).toContain('Kuzuha');
-    expect(cover).toContain('An adult woman');
-    expect(cover).toMatch(/No other text anywhere/);
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(cover.match(/TITLE:/g)).toHaveLength(1);
+    expect(title).toContain(`the title ${S.title} painted into the art in the upper third`);
+    // generate-art capitalises the wordmark, so the spelling line agrees with it.
+    expect(title).toContain(`spelled exactly ${S.title.toUpperCase()}, large and legible at thumbnail size`);
+    expect(title).toMatch(/No other text anywhere\.$/);
+  });
+
+  it('puts the fox alone in front, by costume and pose, never by an age word', () => {
+    const cover = S.coverDirection;
+    expect(cover).toMatch(/^SUBJECT: Kuzuha, .* alone and unmistakable in the foreground/);
+    expect(cover).not.toMatch(
+      /\b(teen\w*|girls?|boys?|young\w*|youth\w*|kids?|child\w*|student\w*|little|petite|small|adults?|older|aged?|\d+)\b/i,
+    );
+    // Robes and pose, nothing lingering: no legs, skin, figure or curves.
+    expect(cover).not.toMatch(/\b(legs?|thighs?|skin-tight|figure|curv\w*|bare\w*|long-limbed)\b/i);
+  });
+
+  it('keeps every effect on the tails, the lanterns and the title, never on her face', () => {
+    const cover = S.coverDirection;
+    expect(cover).toMatch(/HER FACE STAYS CLEAN: no glow, flame, sparks or marks on her face or skin\./);
+    expect(cover).toMatch(/stays on the tails, the lanterns and the title, never on her face/);
   });
 
   it('casts the fox first, so the composed art leads with her', () => {
     expect(S.characters[0]?.id).toBe('kuzuha');
+  });
+});
+
+describe('the opening panel', () => {
+  it('is keyed to the story and drawn from the fox who speaks first', () => {
+    const panel = S.openingPanel!;
+    expect(panel.assetKey).toBe(`${S.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    // opening-panel-art.ts takes the character whose first name starts the alt
+    // and uses that character's portrait as the reference image.
+    const named = S.characters.find((c) => panel.alt.startsWith(c.name.split(' ')[0]!))!;
+    expect(named.id).toBe('kuzuha');
+    expect(words(S.opening).slice(0, 60).join(' ')).toContain(named.name);
+    expect(panel.alt).not.toMatch(/\b(teen\w*|girls?|boys?|young\w*|kids?|child\w*|little|petite|adults?|legs?)\b/i);
+  });
+});
+
+describe('release shape', () => {
+  it('opens straight on the scene and has no release date yet', () => {
+    expect(S.prologue).toEqual([]);
+    expect(S.publishedAt).toBeNull();
+  });
+
+  it('gives every face on a cast card a concrete appearance to draw from', () => {
+    for (const c of S.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(120);
+      expect(c.visualHook.trim(), c.id).not.toBe('');
+      expect(c.silhouette.trim(), c.id).not.toBe('');
+    }
+  });
+
+  it('names the developer the way the town does', () => {
+    // Nobody in Sugino calls him Isao; the derived short name would.
+    expect(character('tadokoro').calledName).toBe('Tadokoro');
+    expect(calledName(character('tadokoro'))).toBe('Tadokoro');
   });
 });
 

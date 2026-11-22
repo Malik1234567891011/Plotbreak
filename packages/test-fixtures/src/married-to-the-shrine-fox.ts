@@ -92,6 +92,7 @@ const raw = {
     ],
     hardCanon: [
       'Everyone in this story is an adult. The player is an adult heir of twenty-six or older. Kuzuha is more than a thousand years old and always takes the shape of a grown woman of about twenty-five; Sora Yanagi is twenty-three; Oboro is about six hundred years old and looks like a man in his thirties; Isao Tadokoro is fifty-six and Ume Kanzaki is eighty-one. The last keeper, the player’s great-aunt Chiyo, died at ninety-four. Seiji, the first keeper, was thirty when he wrote the vow, and every keeper Kuzuha ever proposed to was a grown adult when she asked. Any earlier visit the player made to the mountain was as an adult.',
+      'Romance in this story is teasing, tense and heartfelt, and goes as far as a kiss and no further. A wedding here is a rite at the altar with sake, vows and the bell, and nothing after it is written. No fan service: her ears and tails are a face, never a body, and nobody is described lingeringly.',
       'The player has inherited the fox shrine at the top of three hundred and four stone steps above Sugino, a mountain town of about four hundred people, from their great-aunt Chiyo, the last keeper, who died forty-six days before the story starts. The player is the last of her line; nobody else of the first keeper’s blood is alive. They came up at dusk to look at the place before deciding whether to sell it.',
       'Kuzuha is the nine-tailed fox of the mountain and holds its spirit-seat. Only people she allows see her as a woman; to everyone else she is a large red fox that steals offerings. Sora saw the woman once, five years ago. Ume suspects. Tadokoro has only ever seen a fox.',
       'The vow is a cedar board nailed behind the altar of the main hall, written three hundred years ago by the first keeper, Seiji: "Fox of this mountain: keep it, and do not pass the lowest gate, and my line will keep you. When my line comes down to one, that one owes you the wedding I did not give, by the forty-ninth morning after the last keeper." Eleven keepers have signed under it since. Kuzuha proposed to every one of them and every one said no; none of them was the last of the line.',
@@ -105,11 +106,12 @@ const raw = {
       'The last keeper’s will leaves the shrine to the player, and to Sora Yanagi if the player refuses it or sells within a year. The condition is in a sealed envelope addressed to Sora, to be opened on the forty-ninth day. Sora knows what it says and has told nobody.',
       'Nothing an ordinary person does with their hands can hurt Kuzuha or Oboro. Violence on the mountain offends the small spirits first: the crows go up, the lanterns go out, the stone foxes turn their heads. Only the keeper’s ward can hold a spirit in place, and only the keeper can take it down.',
     ],
+    // Every image prompt carries the tone guide as its mood, so the 13+ line
+    // lives in hard canon (the storyteller reads both) and this stays mood only.
     toneGuide:
       'Romantic comedy with a clock in it. Banter first, then the thing under it. Kuzuha is grand and petty in the same breath, the town is warm and nosy, and the mountain is quietly alive: lanterns that light themselves, crows that keep the hours, stones that are warm at dawn. ' +
-      'The romance is teasing, tense and heartfelt, and goes as far as a kiss and no further. A wedding here is a rite at the altar with sake, vows and the bell, and nothing after it is written. No fan service: her ears and tails are a face, never a body, and nobody is described lingeringly. ' +
       'Every answer the player gives is allowed and has a consequence somebody remembers. Refusing her is legitimate, walking down the steps is legitimate, and marrying her for the wrong reason is legitimate and should feel like it. Nobody is a villain: Tadokoro is right about the jobs, Oboro is right that a vow is only a sentence, and Kuzuha is right that she is owed. ' +
-      'Keep it physical and specific: the sandwich, the broom, the box of sweets, the plum rice balls, the bell rope swinging with no wind. The face at the top of a beat is Kuzuha’s whenever she is in the scene.',
+      'Keep it concrete and specific: the sandwich, the broom, the box of sweets, the plum rice balls, the bell rope swinging with no wind. The face at the top of a beat is Kuzuha’s whenever she is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
       "You pull the rope. The bell is louder than it has any right to be.\n\nEvery lantern down the steps flares at once.\n\nKuzuha comes over the hall roof at a run and lands on the offering box with her ears flat.\n\n\"Do you know what that feels like?\" she says. \"Like being shouted for. Mid-nap.\"\n\nShe sits. Her tails settle around her one at a time, the grey ones last.\n\n\"Well? You rang. Say the thing.\"",
@@ -883,7 +885,7 @@ const raw = {
         'The radio says anyone who brings tuna mayonnaise on a first visit is a red flag. The radio is very wise. Sit.',
       ],
       appearance:
-        'An adult woman, tall and long-limbed, copper-red hair to her waist, gold eyes, red fox ears with dark tips, a white kimono under a crimson outer robe with the sleeves tied back by red cord.',
+        'An adult woman, tall and regal, copper-red hair to her waist, gold eyes, red fox ears with dark tips, a white kimono under a crimson outer robe with the sleeves tied back by red cord.',
       visualHook: 'Nine red fox tails fanned behind her like slow flames, three of them grey at the tips.',
       silhouette: 'Perched cross-legged on something higher than you, tails fanned, one hand held out palm up as if waiting for an answer.',
       artSeed: 'mtsf-kuzuha-01',
@@ -2501,16 +2503,23 @@ const raw = {
     'I walk past her into the dark hall to read the vow myself.',
     'I kneel and say yes, right now, before she changes her mind.',
   ],
+  openingPanel: {
+    assetKey: 'story_married_to_the_shrine_fox/opening',
+    alt: 'Kuzuha in a crimson robe over a white kimono, fox ears up and nine red tails fanned behind her, sits on the shrine offering box at dusk and points your half-eaten sandwich at the dark hall.',
+  },
   coverDirection: [
     'SUBJECT: Kuzuha, the nine-tailed fox of the shrine, alone and unmistakable in the foreground of a key visual for a romantic comedy fantasy anime.',
-    'She is seen in full, seated on the box, centred and close, holding about two thirds of the picture.',
-    'An adult woman, tall and long-limbed, copper-red hair to her waist, gold eyes, red fox ears with dark tips, a white kimono under a crimson outer robe with the sleeves tied back by red cord, her kimono and robe closed and covering her legs.',
-    'She sits cross-legged on top of a wooden shrine offering box with half a sandwich in one hand, and holds the other hand out toward the viewer palm up, as if waiting for an answer.',
+    'She sits on top of a wooden shrine offering box, seen in full, centred and close, holding about two thirds of the picture.',
+    'She is tall, with copper-red hair to her waist, gold eyes, red fox ears with dark tips, a long white kimono under a crimson outer robe with the sleeves tied back by red cord, both neatly closed at the collar, their hems falling in folds over the front of the box.',
+    'Cross-legged on the box, she holds half a sandwich in one hand and the other hand out toward the viewer palm up, as if waiting for an answer.',
     'Nine red fox tails fan out behind her like slow flames; three of them are ash-grey at the tips.',
     'Her expression is imperious and amused, one eyebrow raised, looking straight at the viewer.',
+    'HER FACE STAYS CLEAN: no glow, flame, sparks or marks on her face or skin.',
+    'The flame-like glow stays on the tails, the lanterns and the title, never on her face.',
     'BEHIND HER, soft and secondary: the top of long mossy stone steps, a vermilion shrine gate, a bronze bell on a red and white rope, glowing stone lanterns, tall cedars, deep blue dusk.',
-    'LIGHT: warm gold lantern light on her face and tails, cool blue dusk behind, so she is rimmed in gold against the blue.',
-    'TITLE: the words MARRIED TO THE SHRINE FOX painted into the art in the upper third as a bold brush-lettered logo, white with a soft gold glow,',
+    'LIGHT: warm gold lantern light across her robes and tails, cool blue dusk behind, so she is rimmed in gold against the blue.',
+    'TITLE: the title Married to the Shrine Fox painted into the art in the upper third, above her ears, as a bold hand-brushed ink logo set in capitals on two lines,',
+    'MARRIED TO THE on the first line and SHRINE FOX larger on the second, white with a soft gold glow along the brushstrokes,',
     'spelled exactly MARRIED TO THE SHRINE FOX, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   publishedAt: null,
