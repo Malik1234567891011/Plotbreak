@@ -108,6 +108,14 @@ describe('prose is prose', () => {
     expect(S.rules.toneGuide).toMatch(/at most a kiss/);
     expect(S.rules.hardCanon.join(' ')).toMatch(/no further than a kiss/);
   });
+
+  it('latches the bathroom, and says so where production reads it', () => {
+    // Forced proximity with an unlockable bathroom is the walk-in setup.
+    expect(S.rules.hardCanon[1]).toMatch(/bathroom with a latch/);
+    expect(S.rules.toneGuide).toMatch(/Nobody walks in on anybody/);
+    const drill = S.worldEvents.find((e) => e.id === 'we_fire_drill')!;
+    expect(drill.publicCopy).not.toMatch(/whatever they were wearing/);
+  });
 });
 
 describe('the opener hands the player a choice', () => {
@@ -149,6 +157,18 @@ describe('the opener hands the player a choice', () => {
     expect(risky).not.toMatch(/^"/);
     // The risky one ends the clock by drinking it.
     expect(risky).toMatch(/coffee/);
+    // The said one answers her demand. Asking why she needs the room asks for
+    // the secret she keeps back, and turn one comes back as a deflection.
+    expect(said).toMatch(/lottery number/);
+    expect(said).not.toMatch(/\bwhy\b/i);
+  });
+
+  it('hands the storyteller the doorway direction, since it never reads step notes', async () => {
+    const { worldBrief } = await import('@plotbreak/director');
+    const brief = worldBrief(S, 'arch_lab');
+    expect(brief).toContain('In the doorway she expects the player to fold');
+    expect(brief).toContain('If the player drinks her coffee she is outraged for one full second');
+    expect(brief).toContain('Both phones buzz at once');
   });
 
   it('offers no opening card the parser turns into a fight', async () => {
@@ -245,6 +265,22 @@ describe('she can say no, and the week ends whatever the player does', () => {
     expect(prep.succeedWhenAny.at(-1)!.predicate.flagsSet).toEqual(['hearing_day']);
   });
 
+  it('holds the floor meeting before she goes live, not during the stream', () => {
+    const meeting = S.worldEvents.find((e) => e.id === 'we_floor_meeting')!;
+    const minute = meeting.atWorldMinute % 1440;
+    expect(minute).toBeLessThan(21 * 60);
+    const yuri = S.characters.find((c) => c.id === 'yuri')!;
+    const block = yuri.schedule.find((b) => minute >= b.startMinute && minute < b.endMinute)!;
+    expect(block.activity).not.toMatch(/live on stream/);
+    expect(meeting.directorNotes).toMatch(/leaves to go live/);
+  });
+
+  it('starts the week at the start of term, so the course is a retake, not a midterm', () => {
+    expect(S.rules.hardCanon.join(' ')).toMatch(/retaking it this term/);
+    const quiz = S.worldEvents.find((e) => e.id === 'we_the_midterm')!;
+    expect(quiz.publicCopy).not.toMatch(/midterm/i);
+  });
+
   it('tells the storyteller what day each event lands on, since it never sees the clock', () => {
     const DAY = /\b(Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday)\b/;
     for (const e of S.worldEvents) expect(`${e.publicCopy} ${e.directorNotes}`, e.id).toMatch(DAY);
@@ -271,6 +307,12 @@ describe('her secret can be kept, sold or lost', () => {
     expect(hide.requires.flagsSet).toEqual(['knows:her_reason']);
     expect(hide.requires.lockedCopy.length).toBeGreaterThan(30);
     expect(hide.requires.lockedCopy).not.toMatch(/flag|predicate|locked/i);
+  });
+
+  it('never lets Jonah confess in a line the storyteller may quote', () => {
+    // Voice samples go out as "Sounds like:" and get reused word for word.
+    const jonah = S.characters.find((c) => c.id === 'jonah')!;
+    for (const line of jonah.voiceSamples) expect(line).not.toMatch(/gossip|quadwatch|by the click|bounty/i);
   });
 
   it('has an ending for each way it can go', () => {

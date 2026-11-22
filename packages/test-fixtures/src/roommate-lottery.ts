@@ -44,7 +44,7 @@ const raw = {
   version: 1,
   title: 'Roommate Lottery',
   fantasyLabel: 'Your roommate has two million followers.',
-  hook: 'A housing glitch put you in the same room as the most famous streamer on campus. She has until her coffee is done to evict you.',
+  hook: 'Same room, two emails, the most famous streamer on campus. She has until her coffee’s done to evict you.',
   openingObligations: [
     {
       what: 'Prove Room 12C is yours before Yuri finishes her iced coffee, or she starts moving her suitcases in.',
@@ -71,7 +71,7 @@ const raw = {
     'Keep her secret, or sell it',
     'Romance is earned, not owed',
   ],
-  contentDescriptors: ['ROMANCE', 'PSYCHOLOGICAL_THEMES'],
+  contentDescriptors: ['ROMANCE', 'PSYCHOLOGICAL_THEMES', 'MORAL_AMBIGUITY'],
   intensity: 'LIGHT',
   creatorNote:
     'You can spend the whole week arguing about the bathroom shelf, cooking noodles at two in the morning and helping her pass statistics, and that is a real way to play this. You can also go on her stream, win the room on a technicality, or sell her door to a gossip account. She is not a prize. She is a very tired person with a very loud job, and she has not decided about you yet either.',
@@ -87,14 +87,14 @@ const raw = {
     startingItems: [{ itemId: 'housing_email', qty: 1 }],
     hardCanon: [
       'Everyone in this story is an adult. The player is a third-year undergraduate, twenty or older. Yuri Sakamoto is twenty-one, Ben Castillo twenty, Kit Navarro twenty-two, Jonah Whitlock twenty-one, Haneul Seo twenty-nine and Ms. Park Eun-ha forty-eight. Westmere is a university and every resident of Linden House is over eighteen.',
-      'The story opens on move-in Saturday at twenty to eleven. The player and Yuri Sakamoto were both assigned Room 12C in Linden House, a single-occupancy unit on the twelfth floor: one bedroom with the only lockable door, a living room with a fold-out sofa, a kitchenette with two hobs, and one bathroom with one shelf. The player’s assignment came from the housing lottery, number 0447. Hers has no lottery number, only a reference code beginning OVR.',
+      'The story opens on move-in Saturday at twenty to eleven. The player and Yuri Sakamoto were both assigned Room 12C in Linden House, a single-occupancy unit on the twelfth floor: one bedroom with the only door that locks with a key, a living room with a fold-out sofa, a kitchenette with two hobs, and one bathroom with a latch and one shelf. The player’s assignment came from the housing lottery, number 0447. Hers has no lottery number, only a reference code beginning OVR.',
       'Ms. Park has no empty bed anywhere on campus. Until the housing appeals hearing on Friday at ten, in Room 204 of the housing office, both of them are lawfully resident in 12C. Whoever does not take the bedroom sleeps on the sofa.',
       'Yuri streams as yurisaka to about two million followers, most nights from nine until one, in a bright voice an octave above her real one. Three weeks ago her old downtown address was posted online and people have waited outside it with cameras ever since. She needed a building with key-card gates and a staffed front desk. She has told her chat she is travelling and has told nobody at the university.',
       'Haneul Seo, her manager, asked the university’s communications office for a secure room after the leak. Somebody there entered an override with a dean’s code on Thursday night and never cancelled the player’s lottery assignment. Yuri thinks she won the lottery. Ms. Park found the code on Saturday morning and has the log printed in her desk drawer.',
-      'Quadwatch is an anonymous campus gossip account with about forty thousand followers that pays for tips. On Sunday morning it posts a bounty: five hundred dollars for Yuri’s building, a thousand for her door. Jonah Whitlock in 12D runs it, to pay a tuition bill due in nine days. Nobody on the floor knows.',
+      'Quadwatch is an anonymous campus gossip account with about eight thousand followers that pays for tips. On Sunday morning it posts a bounty: five hundred dollars for Yuri’s building, a thousand for her door. Jonah Whitlock in 12D runs it, to pay a tuition bill due in nine days. Nobody on the floor knows.',
       'Ben Castillo, the player’s best friend, has been a volunteer moderator in Yuri’s chat for eighteen months under the name lanternfish. He deleted the post with her address at three in the morning. Yuri knows lanternfish well and has never seen his face.',
-      'Yuri is failing a required statistics course. One more failed course puts her on academic probation, and her parents think streaming is a hobby.',
-      'The week: Haneul arrives Saturday afternoon with a non-disclosure agreement; Kit holds a floor meeting Saturday night; the bounty goes up Sunday morning; a fire drill empties the building in the small hours of Monday; Haneul pitches a roommate reveal stream for Wednesday night; the hearing is Friday at ten.',
+      'Yuri failed a required statistics course last spring and is retaking it this term. Failing it twice puts her on academic probation, and her parents think streaming is a hobby.',
+      'The week: Haneul arrives Saturday afternoon with a non-disclosure agreement; Kit holds a floor meeting at eight on Saturday evening, before Yuri goes live at nine; the bounty goes up Sunday morning; a fire drill empties the building in the small hours of Monday; Haneul pitches a roommate reveal stream for Wednesday night; the hearing is Friday at ten.',
       'Nobody has powers and nothing supernatural happens. A shove is a shove: violence brings campus security, a conduct referral and a voided housing contract.',
       'Yuri is not a prize and cannot be won. She can say no, change her mind, get angry and move out. Romance between anybody goes no further than a kiss on the page.',
     ],
@@ -104,7 +104,9 @@ const raw = {
       'The tension is privacy. Phones are everywhere, the lobby is the most dangerous room in the building, and a careless post is a real event with real consequences. ' +
       'Romance is slow, earned and optional: teasing, tension, a hand held on a roof, at most a kiss. There is no fan service. Separate rooms, a locked door, a bathroom schedule; never linger on bodies or clothes. ' +
       'Nobody has powers. A shove is a shove, and violence brings campus security and a conduct hearing. Nobody is a villain for wanting something, including whoever runs the gossip account. ' +
-      'If a scene has nothing at stake, let it be pleasant and short. The face at the top of a beat is Yuri’s whenever she is in the scene.',
+      'If a scene has nothing at stake, let it be pleasant and short. The face at the top of a beat is Yuri’s whenever she is in the scene. ' +
+      'In the doorway she expects the player to fold, because everybody does once they recognise her. She respects stubbornness, laughs at a good joke despite herself, goes cold at anything that smells like a fan, and does not say why she needs the room. If the player drinks her coffee she is outraged for one full second and then, against her will, impressed. The empty cup does not settle it: the housing office does, and both of them stay until Friday. ' +
+      'Nobody walks in on anybody: the bathroom latches and the story never stages an accidental glimpse. A player who tries finds it latched, and loses her trust for the week.',
     proseStyle: 'webnovel',
     styleExamples: [
       'Yuri reads your email twice. Then hers. Then yours again.\n\n"Your lottery number is four-four-seven," she says. "Mine doesn’t have one."\n\nShe says it flatly, like a bug report.\n\nThe straw rattles at the bottom of the cup. She stops drinking.\n\n"Fine. Overtime."',
@@ -298,7 +300,7 @@ const raw = {
       tags: ['quest', 'document'],
       questItem: true,
       description:
-        'A flyer with a QR code, taped up by the lifts: SPOTTED ON CAMPUS? Five hundred dollars for the building. A thousand for the door. Tips anonymous.',
+        'A flyer with a QR code, taped up by the lifts: SEEN HER? Five hundred dollars for the building. A thousand for the door. Tips anonymous.',
       loreText: 'There is a grey toner streak down the left edge. The twelfth-floor printer makes exactly that streak.',
       icon: 'papers',
     },
@@ -314,9 +316,9 @@ const raw = {
     },
     {
       id: 'failed_quiz',
-      name: 'Her Statistics Quiz',
+      name: 'Her Statistics Final',
       tags: ['document', 'personal'],
-      description: 'Last week’s statistics quiz, forty-one percent, with "please come and see me" written in red across the top.',
+      description: 'Last spring’s statistics final, thirty-eight percent, RETAKE REQUIRED stamped across the top.',
       loreText: 'On the back, in her handwriting: every stream for the next month, with the study hours crossed out.',
       icon: 'papers',
     },
@@ -572,7 +574,7 @@ const raw = {
       name: 'Bedroom, 12C',
       shortName: 'The Bedroom',
       description:
-        'The room you both have an email for. A bare mattress, a desk under a window over the river, an empty wardrobe, and the only door in the unit with a lock. Four pink suitcases in the doorway and one of your boxes on the bed.',
+        'The room you both have an email for. A bare mattress, a desk under a window over the river, an empty wardrobe, and the only door in the unit that locks with a key. Four pink suitcases in the doorway and one of your boxes on the bed.',
       artDirection:
         'Small bright modern dorm bedroom on move-in morning, bare mattress, a desk under a big window with a river view, cardboard boxes, four matching pink suitcases in the doorway, a ring light still folded. Clean, sunny, pastel pink and cream.',
       connections: [{ to: 'the_living_room', travelMinutes: 1, label: 'Through to the living room' }],
@@ -589,7 +591,7 @@ const raw = {
       name: '12C, Living Room',
       shortName: 'Living Room',
       description:
-        'A sofa that folds out into a bed nobody would choose, a kitchenette with two hobs and a kettle, a bathroom with one shelf to fight over, and a Residence Life welcome pack on the counter.',
+        'A sofa that folds out into a bed nobody would choose, a kitchenette with two hobs and a kettle, a bathroom with a latch and one shelf to fight over, and a Residence Life welcome pack on the counter.',
       artDirection:
         'Compact student apartment living room, a grey fold-out sofa with a blanket, a tiny kitchenette with two hobs and a kettle, a bathroom door ajar, a welcome pack on the counter, evening lamp light. Cosy, cramped, lived-in.',
       connections: [
@@ -600,7 +602,7 @@ const raw = {
       mapPosition: { x: 0, y: 1 },
       takeableItems: [
         { itemId: 'roommate_agreement', qty: 1, ownerId: null, aka: ['agreement', 'the form', 'roommate form', 'welcome pack'] },
-        { itemId: 'failed_quiz', qty: 1, ownerId: 'yuri', aka: ['quiz', 'her quiz', 'the test', 'the statistics quiz'] },
+        { itemId: 'failed_quiz', qty: 1, ownerId: 'yuri', aka: ['final', 'her final', 'the exam', 'the statistics final', 'retake'] },
       ],
     },
     {
@@ -703,7 +705,7 @@ const raw = {
       name: 'Hargrove Hall',
       shortName: 'Hargrove',
       description:
-        'The oldest dorm on campus: radiators that knock, a shared bathroom down the corridor, and Ben’s room on the third floor with exactly enough floor for one sleeping bag and a roommate who snores like a lorry reversing.',
+        'The oldest dorm on campus: radiators that knock, a shared bathroom down the corridor, and Ben’s room on the third floor with exactly enough floor for one sleeping bag and a roommate who snores like a leaf blower.',
       artDirection:
         'Old university dormitory room, film posters, two narrow beds, a sleeping bag on the floor, a clanking radiator, a window onto ivy. Messy, warm, nostalgic.',
       connections: [{ to: 'the_quad', travelMinutes: 6, label: 'Back across campus' }],
@@ -720,7 +722,7 @@ const raw = {
       artDirection:
         'Upscale downtown apartment building entrance at dusk, a doorman, potted plants, and across the street a bench with two people holding cameras. Urban, glossy, uneasy.',
       connections: [{ to: 'the_quad', travelMinutes: 25, label: 'The bus back to campus' }],
-      discoveredByDefault: true,
+      discoveredByDefault: false,
       mapPosition: { x: -1, y: 5 },
       takeableItems: [
         { itemId: 'rice_cooker', qty: 1, ownerId: 'yuri', aka: ['rice cooker', 'the rice cooker', 'her box', 'the box'] },
@@ -760,7 +762,7 @@ const raw = {
       id: 'faction_chat',
       name: 'Her Chat',
       description:
-        'About two million people who watch yurisaka most nights. They notice everything, they would adore a mystery roommate, and they are also very good at finding a building from a window.',
+        'About two million followers of yurisaka, around forty thousand of them live on a normal night. They notice everything, they would adore a mystery roommate, and they are also very good at finding a building from a window.',
       startingReputation: 10,
       ranks: [
         { atReputation: 0, label: 'A voice off camera' },
@@ -774,7 +776,7 @@ const raw = {
       id: 'faction_quadwatch',
       name: 'Quadwatch',
       description:
-        'An anonymous campus gossip account with forty thousand followers. It pays for tips, prints flyers with QR codes, and sells its best stories to a bigger gossip site. Nobody knows who runs it.',
+        'An anonymous campus gossip account with about eight thousand followers. It pays for tips, prints flyers with QR codes, and sells its best stories to a bigger gossip site. Nobody knows who runs it.',
       startingReputation: 0,
       ranks: [
         { atReputation: 0, label: 'Not a story' },
@@ -806,7 +808,7 @@ const raw = {
         'Will not hear her address said out loud, by anybody',
         'Will not be managed; decide something about her life for her and she starts planning her exit',
       ],
-      goals: ['Keep the bedroom, or at least the lock, until Friday', 'Pass statistics without anybody finding out she is failing it'],
+      goals: ['Keep the bedroom, or at least the lock, until Friday', 'Pass the statistics retake without anybody finding out she failed it once'],
       secrets: [
         {
           id: 'yuri_the_leak',
@@ -816,9 +818,9 @@ const raw = {
         },
         {
           id: 'yuri_the_course',
-          fact: 'She is failing a required statistics course. One more failed course is academic probation, and her parents think streaming is a hobby.',
+          fact: 'She failed a required statistics course last spring and is retaking it this term. Failing it twice puts her on academic probation, and her parents think streaming is a hobby.',
           visibility: 'NPC_PRIVATE',
-          revealHint: 'The quiz is on the living-room table; she lets you help if you never once mention the score.',
+          revealHint: 'Last spring’s final is on the living-room table; she lets you help if you never once mention the score.',
         },
         {
           id: 'yuri_the_lock',
@@ -838,9 +840,9 @@ const raw = {
         'I checked the lock three times. I know you saw. Say nothing and I’ll split my noodles with you.',
       ],
       appearance:
-        'An adult woman, slight, long black hair with one pink streak, sunglasses pushed up on her head, a charcoal hoodie three sizes too big over black joggers, white trainers, a giant iced coffee in one hand and a phone in the other.',
+        'An adult woman, long black hair with one pink streak, sunglasses pushed up on her head, a charcoal hoodie three sizes too big over black joggers, white trainers, a giant iced coffee in one hand and a phone in the other.',
       visualHook: 'A giant iced coffee she is never without, and sunglasses pushed up into black hair with a single pink streak.',
-      silhouette: 'Small inside a huge hoodie, leaning on a doorframe, coffee raised like a timer.',
+      silhouette: 'Leaning on a doorframe inside a huge hoodie, coffee raised like a timer.',
       artSeed: 'rl-yuri-01',
       portrait: null,
       expressions: ['neutral', 'amused', 'annoyed', 'warm', 'worried', 'surprised'],
@@ -912,7 +914,7 @@ const raw = {
       topics: ['Yuri', 'your old commute', 'his film', 'Hargrove Hall', 'her chat', 'the floor you can sleep on'],
       voiceSamples: [
         'Okay. Okay okay okay. She is IN your ROOM. I need to sit down. I am sitting down. I am on the floor now.',
-        'My floor is free, my roommate snores like a lorry reversing, and I will lend you earplugs at cost.',
+        'My floor is free, my roommate snores like a leaf blower, and I will lend you earplugs at cost.',
         'If anybody asks, I have never once watched her at three in the morning. Never. Why are you looking at me like that.',
         'You waited two years for that lock. Do not hand it over because somebody pretty asked nicely. Unless you want to. Then I will film the montage.',
       ],
@@ -1032,7 +1034,7 @@ const raw = {
       hiddenDrives: ['They are one bad report away from losing the post, which is their free room, and cannot afford a second irregularity on their floor'],
       values: ['Quiet hours, kept', 'Telling people the actual rule instead of a scary version of it'],
       fears: ['Losing the post and the room with it, halfway through a placement', 'Being the reason somebody on their floor gets hurt'],
-      socialStyle: 'Recites the rule first, then tells you the real situation in plain words, then offers the one thing they can actually do.',
+      socialStyle: 'Asks whether anybody is hurt, sorts the problem, then does the one thing they can actually do.',
       boundaries: [
         'Will not falsify a report, however nicely asked',
         'Will not let anybody stay inside during a fire alarm, famous or not',
@@ -1041,16 +1043,16 @@ const raw = {
       secrets: [
         {
           id: 'kit_last_warning',
-          fact: 'They already had one written warning this term, for letting a first-year who was crying sleep in the lounge. One more irregularity on floor twelve and they lose the post and the room.',
+          fact: 'They already have one written warning on file from last spring, for letting a first-year who was crying sleep in the lounge. One more irregularity on floor twelve and they lose the post and the room.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'They tell you if you help with something on the floor without being asked, then ask why they look so tired.',
         },
       ],
       speechStyle:
-        'Weary, clinical and dry. Recites policy word for word with total sincerity, then translates it into plain English. Ward-shift bluntness, no wasted adjectives.',
+        'Triage, out loud. Sorts every problem into now, tonight or Monday, asks the one question that settles it, and is kind in the bluntest words available. Hospital gallows humour; never quotes a rule number.',
       topics: ['quiet hours', 'the occupancy form', 'the fire drill', 'their placement', 'the roof door', 'floor twelve'],
       voiceSamples: [
-        'Quiet hours start at eleven. I did not write the rules. I enforce them with my whole entire heart.',
+        'Is anybody hurt? No? Then it is a tonight problem, not a now problem. Sit down. I will do the form in pencil.',
         'Two names, one single. I am not angry. I am filling in a form called Occupancy Irregularity, which is worse than angry.',
         'I did a twelve-hour placement on a cardiac ward today. Your crisis is a sofa. Bring it to me before midnight and I will help.',
         'If the alarm goes, you leave. Shoes on, out, no exceptions for anybody with a ring light.',
@@ -1096,7 +1098,7 @@ const raw = {
       name: 'Jonah Whitlock',
       role: 'Your neighbour in 12D, who is always filming something',
       cardBlurb:
-        'He is the friendliest person on your floor, he has a camera running most of the time, and he wants very much to know who moved into your room. He will be extremely nice to you while he finds out.',
+        'He films everything, he is the friendliest person on your floor, and he wants very much to know who moved into your room. He will be extremely nice to you while he finds out.',
       pronouns: 'he/him',
       publicTraits: ['Effortlessly likeable', 'Always has a camera running', 'Remembers everybody’s name on the first try'],
       hiddenDrives: ['He runs Quadwatch, the anonymous gossip account, because a gossip site pays him per click and his tuition is due in nine days'],
@@ -1123,7 +1125,7 @@ const raw = {
         'New neighbour! Jonah, twelve-D. Ignore the camera, it is for a project. Smile anyway, you have a good face for it.',
         'Hypothetically, if somebody famous moved onto this floor, would that be something you might mention to a friend?',
         'Everybody posts. I just post first. First is a business model.',
-        'Tuition is due in nine days and a gossip site pays by the click. I am not proud of the maths. I am good at it.',
+        'Nine days until tuition is due. Not a crisis. A deadline. I am very good with deadlines.',
       ],
       appearance:
         'An adult man, broad smile, styled sandy hair, a varsity jacket with the sleeves pushed up, a small gimbal camera always in one hand.',
@@ -1868,6 +1870,19 @@ const raw = {
   ],
   worldEvents: [
     {
+      id: 'we_housing_rules',
+      atWorldMinute: 10 * 60 + 55,
+      locationId: null,
+      publicCopy:
+        'Both phones buzz at once: Residence Life has no free beds anywhere, both assignments stand until an appeals hearing on Friday at ten, and could the two of you please sort out the bedroom between yourselves.',
+      directorNotes:
+        'Saturday morning, a quarter of an hour after the doorway. This is what ends the coffee clock, whoever is winning: the empty cup settles nothing and the email settles it for six days. Neither of them leaves. Yuri reads it twice, looks at the bedroom door, then at the sofa, and the argument becomes who sleeps where tonight.',
+      setsFlags: [],
+      cancelledByFlags: [],
+      requiresFlags: [],
+      movesCharacters: [],
+    },
+    {
       id: 'we_haneul_arrives',
       atWorldMinute: 14 * 60,
       locationId: 'the_living_room',
@@ -1882,12 +1897,12 @@ const raw = {
     },
     {
       id: 'we_floor_meeting',
-      atWorldMinute: 21 * 60,
+      atWorldMinute: 20 * 60,
       locationId: 'floor_twelve',
       publicCopy:
         'Kit Navarro knocks on 12C with a clipboard: floor meeting in the lounge in ten minutes, and they would like a word with both of you afterwards.',
       directorNotes:
-        'Saturday, nine at night. Kit has noticed two names on a single and has to fill in an Occupancy Irregularity form. Jonah sits at the front and films the fire exits "for the floor chat". Yuri goes in a hood and says nothing, and it is the first time the floor sees her.',
+        'Saturday, eight in the evening. Kit has noticed two names on a single and has to fill in an Occupancy Irregularity form. Jonah sits at the front and films the fire exits "for the floor chat". Yuri goes in a hood and says nothing, and it is the first time the floor sees her. At ten to nine she leaves to go live.',
       setsFlags: ['floor_meeting'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -1927,7 +1942,7 @@ const raw = {
       atWorldMinute: 2 * 1440 + 2 * 60 + 10,
       locationId: 'the_lobby',
       publicCopy:
-        'At ten past two in the morning the fire alarm goes, and all of Linden House ends up on the pavement outside the lobby in whatever they were wearing, holding their phones.',
+        'At ten past two in the morning the fire alarm goes, and all of Linden House ends up on the pavement outside the lobby in hoodies, slippers and blankets, holding their phones.',
       directorNotes:
         'The small hours of Monday, a drill. Kit runs the floor out by the book. Yuri comes out in a hood and no sunglasses and stands next to the player. Sixty phones are out and Jonah is filming. Nobody can go back in for twenty minutes, and this is the most exposed she will be all week.',
       setsFlags: ['fire_drill'],
@@ -1957,7 +1972,7 @@ const raw = {
       atWorldMinute: 3 * 1440 + 16 * 60,
       locationId: null,
       publicCopy:
-        'An email lands on Yuri’s phone while she is making tea: her statistics midterm, forty-one percent, and a meeting with her academic adviser about probation.',
+        'An email lands on Yuri’s phone while she is making tea: the first statistics quiz of term, forty-one percent, and a note from her academic adviser asking to meet about the retake.',
       directorNotes:
         'Tuesday afternoon. She reads it twice, puts the phone face down, and makes tea she does not drink. She streams that night anyway and is brilliant on it. Whether she tells the player depends on whether she trusts them yet.',
       setsFlags: ['probation_letter'],
@@ -2065,7 +2080,7 @@ const raw = {
   archetypes: [
     {
       id: 'arch_lab',
-      name: 'You Study Something Hard',
+      name: 'You Live in the Lab',
       role: 'Technical study and focus',
       summary: 'You are in a degree with labs until nine at night, so you are good at numbers, revision and keeping calm on a deadline.',
       playstyle: ['Studious', 'Patient', 'Good with numbers'],
@@ -2186,7 +2201,7 @@ const raw = {
       name: 'Two Doors Down',
       rarity: 'COMMON',
       minTurn: 30,
-      requires: { flagsSet: ['hearing_over', 'just_roommates'], flagsUnset: ['exposed', 'made_it_a_double'] },
+      requires: { flagsSet: ['hearing_over'], flagsUnset: ['together', 'just_friends', 'exposed', 'made_it_a_double'] },
       condition:
         'The hearing settled the room and nobody said anything else. They were polite and funny all week and never once said what it was, and that turned out to be a decision. Do not write it as a punishment. It is the most ordinary ending a week like this can have.',
       epilogue:
@@ -2259,7 +2274,7 @@ const raw = {
     },
     {
       id: 'end_off_air',
-      name: 'Off Air',
+      name: 'Camera Off',
       rarity: 'RARE',
       minTurn: 38,
       requires: {
@@ -2313,7 +2328,7 @@ const raw = {
       condition:
         'Everything held: the panel made it a double, the account that hunted her went dark, and the two of them are together. This is the ending where the premise pays off completely, and it should still be small: a name card on the door with two names on it, in her handwriting, and an argument about whose name goes first.',
       epilogue:
-        'Her name goes first, on a coin toss she insists was fair. The roommate agreement gets a rule twenty about the sofa, which neither of them sleeps on any more. Jonah, of all people, helps them carry a second desk up twelve floors.',
+        'Her name goes first, on a coin toss she insists was fair. The roommate agreement gets a rule twenty: two beds, one each side of the bedroom, and the river side is hers on another coin toss she insists was fair. Jonah, of all people, helps them carry the second bed and a second desk up twelve floors.',
       hint: '',
     },
     {
@@ -2342,7 +2357,7 @@ const raw = {
     alt: 'Yuri in your doorway in a huge hoodie and pushed-up sunglasses, four pink suitcases beside her, holding up a printed email and an enormous iced coffee.',
   },
   openingSuggestions: [
-    '"You could live anywhere. Why do you want a dorm room this badly?"',
+    '"Mine has a lottery number on it. Read me yours."',
     'I sit down on the bare mattress and start unpacking, very slowly, while she watches.',
     'I take the coffee out of her hand and finish it in one long gulp.',
   ],

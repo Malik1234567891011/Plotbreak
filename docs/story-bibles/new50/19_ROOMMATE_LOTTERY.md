@@ -36,8 +36,8 @@ The player is a third-year undergraduate at **Westmere University**. For two yea
 ninety minutes each way. This year they finally won the housing lottery: **Room 12C in Linden
 House**, the newest residence on campus, twelve floors up with a window over the river.
 
-12C is a single-occupancy unit: one bedroom with the only lockable door, a living room with a
-fold-out sofa, a kitchenette with two hobs, and one bathroom with one shelf.
+12C is a single-occupancy unit: one bedroom with the only door that locks with a key, a living room
+with a fold-out sofa, a kitchenette with two hobs, and one bathroom with a latch and one shelf.
 
 On move-in Saturday, at twenty to eleven, **Yuri Sakamoto** arrives with four pink suitcases, an iced
 coffee the size of a vase and a printed assignment email for the same room. She streams as
@@ -56,15 +56,16 @@ What the player does not know:
   `OVR`. Her manager, **Haneul Seo**, asked the university's communications office for a secure
   room. Someone above Ms. Park entered an override with a dean's code and never cancelled the
   player's assignment. Yuri does not know. Ms. Park found the code on move-in morning.
-- **Who is hunting her.** **Quadwatch**, an anonymous campus gossip account with forty thousand
-  followers, posts a bounty on Sunday morning: five hundred dollars for her building, a thousand for
+- **Who is hunting her.** **Quadwatch**, an anonymous campus gossip account with about eight
+  thousand followers, posts a bounty on Sunday morning: five hundred dollars for her building, a thousand for
   her door. It is run by **Jonah Whitlock**, the friendly neighbour in 12D who is always filming
   "for a project".
 - **What Ben is.** The player's best friend, **Ben Castillo**, has been a volunteer moderator in her
   chat for eighteen months under the name *lanternfish*. He deleted the address leak at three in the
   morning. She has never seen his face.
-- **What she is failing.** A required statistics course. One more failed course is academic
-  probation, and her parents think streaming is a hobby.
+- **What she is failing.** A required statistics course, which she failed last spring and is
+  retaking this term. Failing it twice puts her on academic probation, and her parents think
+  streaming is a hobby.
 
 Nothing supernatural happens. Nobody has powers. A shove is a shove: violence brings campus
 security, a conduct referral and a voided housing contract.
@@ -79,13 +80,14 @@ after the hearing lives in the endings.
 | When | What the world does |
 |---|---|
 | Sat 10:40 | The doorway. Her coffee, your email, her email. |
+| Sat 10:55 | Both phones buzz: no free beds anywhere, both assignments stand until Friday. The coffee settles nothing. |
 | Sat 14:00 | Haneul arrives with a ring light and a non-disclosure agreement with your name typed on it. |
-| Sat 21:00 | Kit's floor meeting. Two names on a single is an Occupancy Irregularity form. |
+| Sat 20:00 | Kit's floor meeting. Two names on a single is an Occupancy Irregularity form. Yuri leaves at ten to nine to go live. |
 | Sun 09:00 | Quadwatch posts the bounty. QR flyers go up in the lobby. |
 | Sun 19:30 | The roof door marked ALARMED is propped open with a flip-flop. |
 | Mon 02:10 | Fire drill. All of Linden House on the pavement, sixty phones out. |
 | Mon 15:00 | Haneul pitches a "roommate reveal" stream for Wednesday. |
-| Tue 16:00 | Yuri's statistics midterm comes back: forty-one percent. |
+| Tue 16:00 | The first statistics quiz of term comes back: forty-one percent, and her adviser wants to meet about the retake. |
 | Wed 21:00 | The Wednesday stream. |
 | Thu 22:00 | Unless stopped, Quadwatch posts her building and floor. |
 | Thu 23:30 | If the player was on stream, chat matches the window view to the twelfth floor. |
@@ -100,8 +102,16 @@ after the hearing lives in the endings.
 - Two voices for Yuri. The stream voice is bright and an octave up. The real one is flat, precise and
   very dry. When she slips into sincerity she says "Don't" and changes the subject.
 - Romance is slow, earned and optional. Flirting, tension and one kiss at most, on the page.
-- **13+.** No fan service. Separate rooms, a locked door, a bathroom schedule. No lingering on bodies,
-  no sexual content, nothing about anyone's age except that they are adults.
+- **13+.** No fan service. Separate rooms, a locked door, a bathroom schedule, a bathroom latch.
+  Nobody walks in on anybody, and the story never stages an accidental glimpse; a player who tries
+  finds it latched and loses her trust for the week. No lingering on bodies, no sexual content,
+  nothing about anyone's age except that they are adults.
+- **The doorway.** She expects the player to fold, because everybody does once they recognise her.
+  She respects stubbornness, laughs at a good joke despite herself, goes cold at anything that
+  smells like a fan, and does not say why she needs the room. If the player drinks her coffee she is
+  outraged for one full second and then, against her will, impressed. The empty cup does not settle
+  it: the housing office does, and both of them stay until Friday. (This lives in the fixture's
+  tone guide, because production never reads step notes.)
 - Yuri can refuse, sulk, win, lose, and move out. She is never a reward.
 
 ## Player starting authority
@@ -173,7 +183,9 @@ and has a floor you can sleep on.
 **Wants:** a quiet floor and to finish their nursing placement.
 **Fears:** losing the RA job, which is their housing.
 **Secret:** they are one write-up away from losing the post themselves.
-**Voice:** weary, clinical, rules recited with their whole heart; shift-worker bluntness.
+**Voice:** triage, out loud. Sorts every problem into now, tonight or Monday, asks the one question
+that settles it, and is kind in the bluntest words available. Hospital gallows humour; never quotes a
+rule number. ("Is anybody hurt? No? Then it is a tonight problem, not a now problem.")
 **Visual hook:** a lanyard heavy with master keys over nursing scrubs.
 
 ### Jonah Whitlock (21)
@@ -196,10 +208,11 @@ and has a floor you can sleep on.
 
 ## Places
 
-All edges run both ways. The roof is locked until the door is propped open on Sunday night.
+All edges run both ways. The roof is locked until the door is propped open on Sunday night. Her Old
+Building is off the map until the player finds it, so the map does not spoil the leak.
 
-- **Bedroom, 12C** (start): bare mattress, desk under the river window, the only lock.
-- **12C, Living Room**: fold-out sofa, kitchenette, one bathroom shelf, the Residence Life welcome pack.
+- **Bedroom, 12C** (start): bare mattress, desk under the river window, the only door that locks with a key.
+- **12C, Living Room**: fold-out sofa, kitchenette, a bathroom with a latch and one shelf, the Residence Life welcome pack.
 - **Floor Twelve**: eleven doors, the lounge, the laundry, Kit's room, Jonah's open door in 12D.
 - **The Roof Garden**: planters, the river, an alarm that has not worked since spring.
 - **Linden House Lobby**: key-card gates, front desk, mailboxes, a noticeboard with a QR flyer.
@@ -244,7 +257,7 @@ Twelve, so the storyteller reads all of them. Four are losses.
 | Floor Twelve, Door C | Uncommon | Her door gets out; she leaves campus (loss) |
 | Five Hundred Dollars | Uncommon | You sold her door (loss) |
 | The Long Commute | Uncommon | You walk away and go back to the bus (loss) |
-| Off Air | Rare | Together, off camera, knowing why |
+| Camera Off | Rare | Together, off camera, knowing why |
 | The Mystery Roommate | Rare | On stream together; chat's favourite |
 | Fair and Square | Rare | The override goes on the record; the lottery is fixed for everyone |
 | Both Names on the Door | Unique | Together, a double, and Quadwatch gone dark |
@@ -273,7 +286,8 @@ that has to be answered now. No proper noun the player needs to know already.
 
 Suggestions, three different moves:
 
-- **Said:** "You could live anywhere. Why do you want a dorm room this badly?"
+- **Said:** "Mine has a lottery number on it. Read me yours." (Answers her demand and plants the
+  OVR code on turn one, without asking for the secret she keeps back.)
 - **Done:** I sit down on the bare mattress and start unpacking, very slowly, while she watches.
 - **Risky:** I take the coffee out of her hand and finish it in one long gulp.
 
