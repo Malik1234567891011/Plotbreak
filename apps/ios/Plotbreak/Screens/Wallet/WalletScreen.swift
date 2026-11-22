@@ -37,19 +37,16 @@ struct WalletScreen: View {
     /// How many credits just landed, while the burst is on screen. Set only
     /// after the server confirmed and the balance reloaded (WL-02).
     @State private var celebrating: Int?
+    /// The Pass's localised price, for its row.
+    @State private var passPrice: String?
+
+    /// Badges that pay credits and are not collected yet: the store's quests.
+    @State private var quests: [BadgeView] = []
 
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                ScreenHeader(title: t("wallet.my_credits"), backLabel: t("wallet.close"), onBack: { router.dismissSheet() }) {
-                    IconButton(t("wallet.how_it_works"), action: { withAnimation { showHistory = false; tab = .how } }) {
-                        Image(systemName: "questionmark.circle")
-                            .font(.system(size: 20, weight: .regular))
-                            .foregroundStyle(Theme.Colors.textMuted)
-                    }
-                }
-                .padding(.bottom, Theme.Spacing.xs)
-                .overlay(alignment: .bottom) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
+                header
 
                 // Pinned, not inline. Restore sits at the very bottom of a page
                 // taller than the screen, so a notice in the scroll flow is a
@@ -59,35 +56,27 @@ struct WalletScreen: View {
                         Txt(notice, .bodyCompact)
                     }
                     .padding(.horizontal, Theme.pageGutter)
-                    .padding(.top, Theme.Spacing.md)
+                    .padding(.top, Theme.Spacing.sm)
                     .accessibilityAddTraits(.updatesFrequently)
                 }
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
                         shortfallBanner
-                        balance
-                        daily
-                        // Earn credits: the Tower's daily climb. Hidden while it is off.
-                        TowerCard(source: "wallet", inset: EdgeInsets(top: Theme.Spacing.lg, leading: 0, bottom: 0, trailing: 0))
                         if showHistory {
                             history
+                            howItWorks
                         } else {
-                            tabs
-                            switch tab {
-                            case .packs: packs
-                            case .daily: dailyTab
-                            case .how: howItWorks
-                            }
+                            balance
+                            firstPurchase
+                            packs
+                            earn
+                            footer
                         }
                     }
                     .padding(.horizontal, Theme.pageGutter)
-                    .padding(.top, Theme.Spacing.lg)
+                    .padding(.top, Theme.Spacing.sm)
                     .padding(.bottom, Theme.Spacing.xxl)
-                }
-
-                if !showHistory, tab == .packs {
-                    footer
                 }
             }
         }
@@ -115,9 +104,49 @@ struct WalletScreen: View {
                 "trigger": shortfall == nil ? "browse" : "shortfall",
             ])
         }
+        .task { await loadQuests() }
     }
 
-    // MARK: Sections
+    // MARK: Sections (design v3: a game shop, after Character AI and Afizzy)
+
+    /// "My credits", then history and close as two round buttons.
+    private var header: some View {
+        HStack(spacing: Theme.Spacing.sm) {
+            Text(t("wallet.my_credits"))
+                .font(.system(size: 28, weight: .bold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
+            Spacer(minLength: 0)
+            roundButton(showHistory ? "square.grid.2x2" : "list.bullet.rectangle",
+                        label: showHistory ? t("wallet.packs_title") : t("wallet.history")) {
+                withAnimation(.easeOut(duration: Theme.Durations.short)) { showHistory.toggle() }
+                if showHistory, ledger.isEmpty {
+                    Task { await loadLedger(reset: true) }
+                }
+            }
+            roundButton("xmark", label: t("wallet.close")) { router.dismissSheet() }
+        }
+        .padding(.horizontal, Theme.pageGutter)
+        .padding(.top, Theme.Spacing.lg)
+        .padding(.bottom, Theme.Spacing.sm)
+    }
+
+    private func roundButton(_ symbol: String, label: String, action: @escaping () -> Void) -> some View {
+        Button {
+            Haptic.play(.light)
+            action()
+        } label: {
+            Image(systemName: symbol)
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .frame(width: 36, height: 36)
+                .background(Theme.Colors.bgRaised, in: Circle())
+                .frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(PressOpacityStyle())
+        .accessibilityLabel(label)
+    }
 
     /// WL-03 — the exact shortfall, never a vague "not enough".
     @ViewBuilder
@@ -125,106 +154,450 @@ struct WalletScreen: View {
         if let shortfall, shortfall > 0 {
             Card {
                 VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                    Txt(t("wallet.shortfall", ["count": shortfall]), .bodyStrong, color: Theme.Colors.warning)
+                    Text.crystals(t("wallet.shortfall", ["count": shortfall]), fontSize: 17)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
                     Txt(t("wallet.shortfall_hint"), .caption, color: Theme.Colors.textSecondary)
                 }
-            }
-            .overlay {
-                RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
-                    .strokeBorder(Theme.Colors.warning, lineWidth: 1)
             }
             .padding(.bottom, Theme.Spacing.md)
         }
     }
 
-    /// Spec §26.10 — the wallet always shows the full number.
+    /// Spec §26.10 — the wallet always shows the full number. Design v3: the
+    /// crystal beside it, as a row, with no turn count.
     @ViewBuilder
     private var balance: some View {
         if let wallet {
-            HStack {
-                HStack(spacing: 10) {
-                    CreditGlyph(size: 24)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(Format.credits(wallet.balance, locale: store.locale))
-                            .font(.system(size: 22, weight: .semibold, design: .monospaced))
-                            .foregroundStyle(Theme.Colors.textPrimary)
-                            // Credits arriving should be visible as the number
-                            // moving, not as a different number being there
-                            // when the burst clears.
-                            .contentTransition(.numericText())
-                            .animation(.snappy(duration: Theme.Durations.fadeIn), value: wallet.balance)
-                        if wallet.reserved > 0 {
-                            Txt(t("wallet.reserved_held", ["count": wallet.reserved]), .micro, color: Theme.Colors.textMuted)
-                        }
-                    }
-                }
-                .accessibilityElement(children: .combine)
-                .accessibilityLabel("\(Format.credits(wallet.balance, locale: store.locale)) \(t("wallet.credits_unit"))")
-                Spacer(minLength: Theme.Spacing.md)
-                Button {
-                    Haptic.play(.light)
-                    withAnimation(.easeOut(duration: Theme.Durations.short)) { showHistory.toggle() }
-                    if showHistory, ledger.isEmpty {
-                        Task { await loadLedger(reset: true) }
-                    }
-                } label: {
-                    Text(showHistory ? t("wallet.packs_title") : t("wallet.history_short"))
-                        .font(.system(size: 13))
+            HStack(spacing: Theme.Spacing.md) {
+                Image("PackOne")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 64, height: 64)
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(Format.credits(wallet.balance, locale: store.locale))
+                        .font(.system(size: 32, weight: .bold))
+                        .monospacedDigit()
                         .foregroundStyle(Theme.Colors.textPrimary)
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 9)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous)
-                                .strokeBorder(Theme.Colors.borderStrong, lineWidth: 0.5)
-                        }
+                        // Credits arriving should be visible as the number
+                        // moving, not as a different number being there
+                        // when the burst clears.
+                        .contentTransition(.numericText())
+                        .animation(.snappy(duration: Theme.Durations.fadeIn), value: wallet.balance)
+                    if wallet.reserved > 0 {
+                        Txt(t("wallet.reserved_held", ["count": wallet.reserved]), .caption, color: Theme.Colors.textMuted)
+                    }
                 }
-                .buttonStyle(PressOpacityStyle())
-                .accessibilityLabel(showHistory ? t("wallet.packs_title") : t("wallet.history"))
+                Spacer(minLength: 0)
             }
-            .padding(Theme.Spacing.xl)
-            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
-                    .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
-            }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(Format.credits(wallet.balance, locale: store.locale)) \(t("wallet.credits_unit"))")
         } else {
-            Skeleton(height: 84)
+            Skeleton(height: 64)
         }
     }
 
-    /// The daily claim, in the warning gold: a row that is the button.
+    /// The doubled starter pack, as its own wide card with the three-crystal art.
     @ViewBuilder
-    private var daily: some View {
-        if wallet?.dailyClaimAvailable == true || passBonusWaiting {
+    private var firstPurchase: some View {
+        if let offer = buyableOffers.first(where: { $0.firstPurchaseOnly }) {
             Button {
-                Haptic.play(.light)
-                Task { await claimDaily() }
+                buy(offer)
             } label: {
-                HStack {
-                    Text(busy == "daily" ? t("wallet.claiming") : dailyLabel)
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundStyle(Theme.Colors.warning)
-                        .multilineTextAlignment(.leading)
-                    Spacer(minLength: Theme.Spacing.md)
-                    if busy == "daily" {
-                        ProgressView().tint(Theme.Colors.warning)
-                    } else {
-                        ChevronGlyph(color: Theme.Colors.warning)
+                HStack(spacing: Theme.Spacing.md) {
+                    Image("PackFew")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 84, height: 84)
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(alignment: .firstTextBaseline, spacing: 6) {
+                            Text(Format.credits(offer.credits + offer.bonusCredits, locale: store.locale))
+                                .font(.system(size: 28, weight: .bold))
+                                .monospacedDigit()
+                                .foregroundStyle(Theme.Colors.textPrimary)
+                            if offer.bonusCredits > 0 {
+                                Text(Format.credits(offer.credits, locale: store.locale))
+                                    .font(.system(size: 13))
+                                    .strikethrough()
+                                    .foregroundStyle(Theme.Colors.textMuted)
+                            }
+                        }
+                        if offer.bonusCredits > 0 {
+                            Text(t("wallet.bonus_badge", ["bonus": Format.credits(offer.bonusCredits, locale: store.locale)]))
+                                .font(.system(size: 13))
+                                .foregroundStyle(Theme.Colors.textPrimary)
+                        }
+                        if let ends = offer.expiresAt {
+                            Txt(t("wallet.ends", ["when": relativeTime(ends)]), .micro, color: Theme.Colors.textMuted)
+                        }
                     }
+                    Spacer(minLength: Theme.Spacing.sm)
+                    pricePill(offer, height: 44, fontSize: 17)
                 }
-                .padding(.horizontal, Theme.Spacing.xl)
-                .padding(.vertical, 18)
-                .background(Theme.Colors.warning.opacity(0.1), in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
-                .overlay {
-                    RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
-                        .strokeBorder(Theme.Colors.warning.opacity(0.28), lineWidth: 0.5)
+                .padding(.horizontal, 14)
+                .padding(.top, 26)
+                .padding(.bottom, 14)
+                .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .overlay(alignment: .topLeading) {
+                    if let word = rungWord(offer) { cornerTag(word, radius: 16) }
                 }
                 .contentShape(Rectangle())
             }
-            .buttonStyle(PressOpacityStyle())
+            .buttonStyle(PressScaleStyle())
             .disabled(busy != nil)
-            .padding(.top, Theme.Spacing.md)
+            .opacity(busy != nil && busy != offer.productId ? 0.5 : 1)
+            .accessibilityLabel(offerLabel(offer))
+            .padding(.top, 22)
         }
+    }
+
+    /// The standing packs, three across. Each tile is its own buy: the art grows
+    /// with the price, then the total, the base crossed out with the real bonus,
+    /// and the price on a white pill. Apple's payment sheet confirms.
+    private var packs: some View {
+        let standing = buyableOffers.filter { !$0.firstPurchaseOnly }.sorted { $0.credits < $1.credits }
+        return VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+            Text(t("wallet.packs_title"))
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: Theme.Spacing.sm), count: 3), spacing: Theme.Spacing.sm) {
+                ForEach(Array(standing.enumerated()), id: \.element.productId) { index, offer in
+                    packTile(offer, art: Self.packArt[min(index, Self.packArt.count - 1)])
+                }
+                if standing.isEmpty {
+                    ForEach(0..<6, id: \.self) { _ in Skeleton(height: 220, radius: 14) }
+                }
+            }
+        }
+        .padding(.top, 28)
+    }
+
+    /// The pack pictures, smallest to largest: one crystal, three, a pouch, a
+    /// basket, a crate, a chest (docs/design-v3/pack-icons), with the size each
+    /// is drawn at so the pile visibly grows.
+    private static let packArt: [(name: String, size: CGFloat)] = [
+        ("PackOne", 68), ("PackFew", 74), ("PackPouch", 84), ("PackBasket", 88), ("PackCrate", 92), ("PackChest", 96),
+    ]
+
+    private func packTile(_ offer: StoreOffer, art: (name: String, size: CGFloat)) -> some View {
+        let popular = offer.tier == .POPULAR
+        return Button {
+            buy(offer)
+        } label: {
+            VStack(spacing: 0) {
+                Image(art.name)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: art.size, height: art.size)
+                    .frame(height: 96)
+                Text(Format.credits(offer.credits + offer.bonusCredits, locale: store.locale))
+                    .font(.system(size: 18, weight: .bold))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                    .padding(.top, 4)
+                HStack(spacing: 5) {
+                    if offer.bonusCredits > 0 {
+                        Text(Format.credits(offer.credits, locale: store.locale))
+                            .strikethrough()
+                            .foregroundStyle(Theme.Colors.textMuted)
+                        Text(verbatim: "+\(Int((Double(offer.bonusCredits) / Double(max(1, offer.credits)) * 100).rounded()))%")
+                            .font(.system(size: 11, weight: .bold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 1)
+                            .background(Theme.Colors.borderStrong, in: RoundedRectangle(cornerRadius: 5, style: .continuous))
+                    }
+                }
+                .font(.system(size: 12))
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+                .frame(height: 18)
+                .padding(.top, 2)
+                if let ends = offer.expiresAt {
+                    Txt(t("wallet.ends", ["when": relativeTime(ends)]), .micro, color: Theme.Colors.textMuted)
+                }
+                Spacer(minLength: Theme.Spacing.sm)
+                pricePill(offer, height: 34, fontSize: 15)
+            }
+            .padding(.horizontal, Theme.Spacing.sm)
+            .padding(.top, 14)
+            .padding(.bottom, 10)
+            .frame(maxWidth: .infinity, minHeight: 216)
+            .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .overlay {
+                if popular {
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .strokeBorder(Theme.Colors.textPrimary, lineWidth: 1.5)
+                }
+            }
+            .overlay(alignment: .topLeading) {
+                if let word = rungWord(offer) { cornerTag(word, radius: 14) }
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressScaleStyle())
+        .disabled(busy != nil)
+        .opacity(busy != nil && busy != offer.productId ? 0.5 : 1)
+        .accessibilityLabel(offerLabel(offer))
+    }
+
+    /// The white price pill. The store's own localised price once it has
+    /// answered; a spinner while this pack is being bought.
+    private func pricePill(_ offer: StoreOffer, height: CGFloat, fontSize: CGFloat) -> some View {
+        ZStack {
+            if busy == offer.productId {
+                ProgressView().tint(Theme.Colors.textOnLight)
+            } else {
+                Text(price(for: offer))
+                    .font(.system(size: fontSize, weight: .semibold))
+                    .monospacedDigit()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+            }
+        }
+        .foregroundStyle(Theme.Colors.textOnLight)
+        .padding(.horizontal, Theme.Spacing.md)
+        .frame(maxWidth: height < 40 ? .infinity : nil, minHeight: height)
+        .background(Theme.Colors.light, in: Capsule())
+    }
+
+    /// A paper tag in the tile's top-left corner: POPULAR, BEST VALUE, FIRST PURCHASE.
+    private func cornerTag(_ word: String, radius: CGFloat) -> some View {
+        Text(word.uppercased())
+            .font(.system(size: 11, weight: .bold))
+            .kerning(0.4)
+            .foregroundStyle(Theme.Colors.textOnLight)
+            .lineLimit(1)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(Theme.Colors.light, in: UnevenRoundedRectangle(
+                topLeadingRadius: radius, bottomLeadingRadius: 0, bottomTrailingRadius: 8, topTrailingRadius: 0, style: .continuous))
+    }
+
+    private func offerLabel(_ offer: StoreOffer) -> String {
+        t("wallet.offer_a11y", [
+            "credits": Format.credits(offer.credits, locale: store.locale),
+            "bonus": offer.bonusCredits > 0 ? Format.credits(offer.bonusCredits, locale: store.locale) : "none",
+            // The dollar amount is deliberately untouched (UI_AUDIT §2.2); only `about` is keyed.
+            "price": storePrices[offer.productId] ?? t("wallet.about_price", ["price": referencePrice(offer)]),
+        ])
+    }
+
+    /// One tap on a pack starts Apple's purchase sheet, which is the
+    /// confirmation. The selection event is kept for the funnel.
+    private func buy(_ offer: StoreOffer) {
+        guard busy == nil else { return }
+        Haptic.play(.light)
+        selected = offer.productId
+        Telemetry.track(.offerSelected, [
+            "productId": offer.productId,
+            "tier": offer.tier?.rawValue ?? "UNKNOWN",
+            "turnsOffered": (offer.credits + offer.bonusCredits) / max(1, turnCost),
+            "balance": store.balance,
+            "firstPurchase": wallet?.firstPurchaseBonusAvailable ?? false,
+            "trigger": shortfall == nil ? "organic" : "wall",
+        ])
+        Task { await purchase(offer) }
+    }
+
+    /// Earn credits: the daily grant, badges that pay, the Pass, the Tower.
+    private var earn: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(t("tower.wallet_title"))
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
+                .padding(.bottom, Theme.Spacing.md)
+
+            daily
+
+            if !quests.isEmpty {
+                Text(t("profile.badges"))
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .padding(.top, 22)
+                ForEach(quests) { badge in questRow(badge) }
+            }
+
+            if let pass = wallet?.pass {
+                earnRow(
+                    icon: AnyView(Image("PackFew").resizable().scaledToFit().frame(width: 40, height: 40)),
+                    title: t("pass.title"),
+                    subtitle: pass.active ? t("pass.active") : t("pass.price_week", ["price": passPrice ?? String(format: "$%.2f", pass.referencePriceUsd)])
+                ) { router.present(.pass) }
+                .padding(.top, Theme.Spacing.sm)
+            }
+
+            // The Tower's daily climb. Hidden while it is off.
+            TowerCard(source: "wallet", inset: EdgeInsets(top: Theme.Spacing.sm, leading: 0, bottom: 0, trailing: 0))
+        }
+        .padding(.top, 32)
+    }
+
+    /// The daily grant as a row: a crystal slot, what it is, and a claim pill.
+    private var daily: some View {
+        let ready = wallet?.dailyClaimAvailable == true || passBonusWaiting
+        return Button {
+            guard ready else { return }
+            Haptic.play(.light)
+            Task { await claimDaily() }
+        } label: {
+            HStack(spacing: Theme.Spacing.md) {
+                rewardSlot(300)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(t("wallet.daily_credits"))
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                    Group {
+                        if ready {
+                            Text(busy == "daily" ? t("wallet.claiming") : dailyLabel)
+                        } else if let next = wallet?.nextDailyClaimAt {
+                            Text(t("wallet.next_daily", ["when": relativeTime(next)]))
+                        } else {
+                            Text(t("wallet.daily_body"))
+                        }
+                    }
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: Theme.Spacing.sm)
+                if ready {
+                    ZStack {
+                        if busy == "daily" {
+                            ProgressView().tint(Theme.Colors.textOnLight)
+                        } else {
+                            Text(verbatim: "+" + Format.credits(300 + (passBonusWaiting ? (wallet?.pass?.dailyCredits ?? 0) : 0), locale: store.locale))
+                                .font(.system(size: 15, weight: .semibold))
+                                .monospacedDigit()
+                        }
+                    }
+                    .foregroundStyle(Theme.Colors.textOnLight)
+                    .padding(.horizontal, 14)
+                    .frame(minHeight: 36)
+                    .background(Theme.Colors.light, in: Capsule())
+                }
+            }
+            .padding(Theme.Spacing.md)
+            .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressOpacityStyle())
+        .disabled(busy != nil || !ready)
+    }
+
+    private func rewardSlot(_ credits: Int) -> some View {
+        VStack(spacing: 2) {
+            CreditGlyph(size: 30)
+            Text(verbatim: "+" + Format.credits(credits, compact: true, locale: store.locale))
+                .font(.system(size: 11, weight: .bold))
+                .monospacedDigit()
+                .foregroundStyle(Theme.Colors.textPrimary)
+        }
+        .frame(width: 54, height: 62)
+        .background(Theme.Colors.borderSubtle, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+    }
+
+    /// A badge that pays credits, with its progress. Tapping opens Badges,
+    /// where it is collected.
+    private func questRow(_ badge: BadgeView) -> some View {
+        let ready = badge.unlockedAt != nil
+        return Button {
+            Haptic.play(.light)
+            router.present(.badges)
+        } label: {
+            HStack(spacing: Theme.Spacing.md) {
+                rewardSlot(badge.creditReward)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(badge.title)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .lineLimit(1)
+                    Text(badge.description)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                        .lineLimit(2)
+                    ProgressBar(fraction: Double(min(badge.progress, badge.target)) / Double(max(1, badge.target)))
+                        .frame(height: 4)
+                        .padding(.top, 6)
+                }
+                Spacer(minLength: Theme.Spacing.sm)
+                Text(ready ? t("badges.ready") : t("badges.progress", ["done": min(badge.progress, badge.target), "target": badge.target]))
+                    .font(.system(size: 13, weight: ready ? .semibold : .regular))
+                    .foregroundStyle(ready ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
+                    .multilineTextAlignment(.trailing)
+                    .frame(maxWidth: 80, alignment: .trailing)
+            }
+            .padding(.vertical, Theme.Spacing.md)
+            .overlay(alignment: .bottom) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressOpacityStyle())
+    }
+
+    private func earnRow(icon: AnyView, title: String, subtitle: String, action: @escaping () -> Void) -> some View {
+        Button {
+            Haptic.play(.light)
+            action()
+        } label: {
+            HStack(spacing: Theme.Spacing.md) {
+                icon.frame(width: 48, height: 48)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                    Text(subtitle)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                }
+                Spacer(minLength: Theme.Spacing.sm)
+                ChevronGlyph()
+            }
+            .padding(Theme.Spacing.md)
+            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressOpacityStyle())
+    }
+
+    /// Restore (spec §20.6, required) and what the store confirms, as quiet text.
+    private var footer: some View {
+        VStack(spacing: Theme.Spacing.sm) {
+            HStack(spacing: Theme.Spacing.sm) {
+                Button {
+                    Task { await restore() }
+                } label: {
+                    Text(busy == "restore" ? t("wallet.restore_loading") : t("wallet.restore"))
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .frame(minHeight: Theme.minTouchTarget - 12)
+                }
+                .buttonStyle(PressOpacityStyle())
+                .disabled(busy != nil)
+                Text(verbatim: "·").foregroundStyle(Theme.Colors.borderStrong)
+                Text(t("wallet.no_expiry"))
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+            }
+            Group {
+                if let storeUnavailable {
+                    Text(storeUnavailable)
+                } else if storePrices.isEmpty {
+                    Text(t("wallet.reference_prices_note"))
+                } else {
+                    Text(t("wallet.price_confirmed_note"))
+                }
+            }
+            .font(.system(size: 11))
+            .foregroundStyle(Theme.Colors.textMuted)
+            .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 28)
     }
 
     /// A Pass holder whose 400 for today has not landed yet.
@@ -243,160 +616,17 @@ struct WalletScreen: View {
         return t("pass.claim_bonus", ["bonus": bonus])
     }
 
-    /// Credit packs · Daily · How it works, underlined like a segmented title.
-    private var tabs: some View {
-        HStack(spacing: 0) {
-            ForEach(WalletTab.allCases, id: \.self) { item in
-                let active = tab == item
-                Button {
-                    Haptic.play(.light)
-                    withAnimation(.easeOut(duration: Theme.Durations.short)) { tab = item }
-                } label: {
-                    Text(tabLabel(item))
-                        .font(.system(size: 15, weight: active ? .semibold : .regular))
-                        .foregroundStyle(active ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.8)
-                        .frame(maxWidth: .infinity, minHeight: Theme.minTouchTarget)
-                        .overlay(alignment: .bottom) {
-                            Rectangle().fill(active ? Theme.Colors.textPrimary : Color.clear).frame(height: 2)
-                        }
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(PressOpacityStyle())
-                .accessibilityAddTraits(active ? [.isButton, .isSelected] : .isButton)
-            }
-        }
-        .overlay(alignment: .bottom) { PBDivider() }
-        .padding(.top, 26)
-    }
-
-    private func tabLabel(_ item: WalletTab) -> String {
-        switch item {
-        case .packs: return t("wallet.packs_title")
-        case .daily: return t("wallet.tab_daily")
-        case .how: return t("wallet.tab_how")
-        }
-    }
-
     /// The offers this device can actually buy.
     ///
     /// The server decides what is on sale, but StoreKit decides what exists. A
     /// pack the server lists and the store has never heard of renders with our
-    /// reference price, takes a tap, and fails at payment — and it is not
-    /// hypothetical: the API and the App Store approve on different clocks, so
-    /// a newly added product is live on the server for hours or days before
-    /// Apple has cleared it. During that window every player on the shipped
-    /// build would be looking at a button that cannot work.
-    ///
-    /// Only filtered once the store has answered with something. If StoreKit is
-    /// unreachable entirely the whole ladder shows with reference prices, which
-    /// is the existing behaviour and the right one — an offline player should
-    /// still see what is for sale.
+    /// reference price, takes a tap, and fails at payment. Only filtered once
+    /// the store has answered with something; if StoreKit is unreachable the
+    /// whole ladder shows with reference prices, so an offline player still
+    /// sees what is for sale.
     private var buyableOffers: [StoreOffer] {
         guard !storePrices.isEmpty else { return offers }
         return offers.filter { storePrices[$0.productId] != nil }
-    }
-
-    private var packs: some View {
-        VStack(alignment: .leading, spacing: 9) {
-            if let pass = wallet?.pass {
-                PassCard(pass: pass) { await load() }
-                    .padding(.bottom, Theme.Spacing.md)
-            }
-            ForEach(buyableOffers) { offer in
-                OfferCard(
-                    offer: offer,
-                    price: price(for: offer),
-                    badge: rungWord(offer),
-                    ends: offer.expiresAt.map { t("wallet.ends", ["when": relativeTime($0)]) },
-                    selected: selected == offer.productId,
-                    dimmed: busy != nil && busy != offer.productId,
-                    locale: store.locale,
-                    turnCost: turnCost
-                ) {
-                    selected = offer.productId
-                    Telemetry.track(.offerSelected, [
-                        "productId": offer.productId,
-                        "tier": offer.tier?.rawValue ?? "UNKNOWN",
-                        "turnsOffered": (offer.credits + offer.bonusCredits) / max(1, turnCost),
-                        "balance": store.balance,
-                        "firstPurchase": wallet?.firstPurchaseBonusAvailable ?? false,
-                        "trigger": shortfall == nil ? "organic" : "wall",
-                    ])
-                }
-                .disabled(busy != nil)
-                .accessibilityLabel(t("wallet.offer_a11y", [
-                    "credits": Format.credits(offer.credits, locale: store.locale),
-                    "bonus": offer.bonusCredits > 0 ? Format.credits(offer.bonusCredits, locale: store.locale) : "none",
-                    // The dollar amount is deliberately untouched (UI_AUDIT §2.2); only `about` is keyed.
-                    "price": storePrices[offer.productId] ?? t("wallet.about_price", ["price": referencePrice(offer)]),
-                ]))
-            }
-
-            if buyableOffers.isEmpty {
-                ForEach(0..<3, id: \.self) { _ in Skeleton(height: 56, radius: Theme.Radius.field) }
-            }
-
-            // Said once under the ladder rather than on every row: the turn
-            // counts above are at the quality this player is on, and the same
-            // pack buys four times as many Quick turns as Apex ones.
-            Txt(t("wallet.turns_at_tier", ["tier": t(TierCopy.labelKey(.VIVID))]),
-                .micro, color: Theme.Colors.textMuted)
-                .padding(.top, Theme.Spacing.sm)
-
-            if let storeUnavailable {
-                Txt(storeUnavailable, .micro, color: Theme.Colors.warning)
-                    .padding(.top, Theme.Spacing.sm)
-            } else if storePrices.isEmpty {
-                Txt(t("wallet.reference_prices_note"), .micro, color: Theme.Colors.textMuted)
-                    .padding(.top, Theme.Spacing.sm)
-            } else {
-                Txt(t("wallet.price_confirmed_note"), .micro, color: Theme.Colors.textMuted)
-                    .padding(.top, Theme.Spacing.sm)
-            }
-        }
-        .padding(.top, 18)
-    }
-
-    /// Pinned under the packs: one button, for the pack that is selected, and
-    /// the restore link. Spec §20.6 — restore is required, and the only way
-    /// back from a charge whose reconciliation did not land.
-    private var footer: some View {
-        VStack(spacing: 11) {
-            PBButton(
-                t("wallet.buy_now"),
-                loadingLabel: t("wallet.claiming"),
-                variant: .light,
-                loading: busy != nil && busy != "daily" && busy != "restore",
-                disabled: selected == nil || busy != nil
-            ) {
-                if let offer = offers.first(where: { $0.productId == selected }) {
-                    Task { await purchase(offer) }
-                }
-            }
-            HStack(spacing: Theme.Spacing.sm) {
-                Button {
-                    Task { await restore() }
-                } label: {
-                    Text(busy == "restore" ? t("wallet.restore_loading") : t("wallet.restore"))
-                        .font(.system(size: 13))
-                        .foregroundStyle(Theme.Colors.textSecondary)
-                        .frame(minHeight: Theme.minTouchTarget - 16)
-                }
-                .buttonStyle(PressOpacityStyle())
-                .disabled(busy != nil)
-                Text("·").foregroundStyle(Theme.Colors.borderStrong)
-                Text(t("wallet.no_expiry"))
-                    .font(.system(size: 13))
-                    .foregroundStyle(Theme.Colors.textMuted)
-            }
-        }
-        .padding(.horizontal, Theme.pageGutter)
-        .padding(.top, 14)
-        .padding(.bottom, Theme.Spacing.sm)
-        .background(Theme.Colors.bgBase)
-        .overlay(alignment: .top) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
     }
 
     /// The daily grant: when the next one comes, and what it is.
@@ -475,6 +705,9 @@ struct WalletScreen: View {
             for product in products { prices[product.productId] = product.displayPrice }
             storePrices = prices
             storeUnavailable = store.purchases.available ? nil : t("store.purchases_unavailable")
+            if let pass = response.wallet.pass {
+                passPrice = await store.purchases.products(for: [pass.productId]).first?.displayPrice
+            }
 
             // The header pill reads from the shared store. Opening the wallet
             // is exactly the moment the two must not disagree.
@@ -482,6 +715,19 @@ struct WalletScreen: View {
         } catch {
             setNotice(error.playerMessage)
         }
+    }
+
+    /// Badges that pay credits and are not collected: ready ones first, then
+    /// the closest to done. Three at most.
+    private func loadQuests() async {
+        guard let response = try? await store.api.badges() else { return }
+        quests = Array(response.badges
+            .filter { $0.creditReward > 0 && $0.claimedAt == nil && !$0.secret }
+            .sorted { a, b in
+                if (a.unlockedAt != nil) != (b.unlockedAt != nil) { return a.unlockedAt != nil }
+                return Double(a.progress) / Double(max(1, a.target)) > Double(b.progress) / Double(max(1, b.target))
+            }
+            .prefix(3))
     }
 
     private func loadLedger(reset: Bool) async {
@@ -687,71 +933,5 @@ struct WalletScreen: View {
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         return Typography.foldNarrowSpaces(formatter.string(from: date))
-    }
-}
-
-// MARK: - Offer card
-
-/// One credit pack: a radio dot, the credits, the bonus under it, a badge and
-/// the price. Selecting is its own gesture; spending is the button below.
-private struct OfferCard: View {
-    let offer: StoreOffer
-    let price: String
-    let badge: String?
-    let ends: String?
-    let selected: Bool
-    let dimmed: Bool
-    let locale: AppLocale
-    /// What a turn costs this player, so the pack can be priced in turns.
-    let turnCost: Int
-    let action: () -> Void
-
-    @Environment(\.translator) private var t
-
-    /// Turns first, credits second. A new player cannot answer "is 2,000 a
-    /// lot?", and making them do that arithmetic at the moment of purchase is
-    /// most of why the store reads as a spreadsheet.
-    private var turns: Int { (offer.credits + offer.bonusCredits) / max(1, turnCost) }
-
-    var body: some View {
-        RadioCard(selected: selected, accent: Theme.Colors.textPrimary, action: action) {
-            VStack(alignment: .leading, spacing: 2) {
-                // Credits lead, turns explain. The pack's size is the thing the
-                // player is buying and the thing the receipt will say; the turn
-                // count is what makes that number mean something, which is a
-                // job for the second line.
-                Text(t("wallet.credits_count", ["credits": Format.credits(offer.credits + offer.bonusCredits, locale: locale)]))
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundStyle(Theme.Colors.textPrimary)
-                Text(t("wallet.turns_count", ["count": turns]))
-                    .font(.system(size: 12))
-                    .foregroundStyle(Theme.Colors.textDim)
-                if offer.bonusCredits > 0 {
-                    Text(t("wallet.bonus_badge", ["bonus": Format.credits(offer.bonusCredits, locale: locale)]))
-                        .font(.system(size: 12))
-                        .foregroundStyle(Theme.Colors.accentPrimary)
-                }
-                if let ends {
-                    Txt(ends, .micro, color: Theme.Colors.warning)
-                }
-            }
-            Spacer(minLength: Theme.Spacing.sm)
-            HStack(spacing: 9) {
-                if let badge {
-                    Text(badge.uppercased())
-                        .font(.system(size: 10, weight: .semibold, design: .monospaced))
-                        .kerning(0.6)
-                        .foregroundStyle(Theme.Colors.textOnAccent)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 4)
-                        .background(Theme.Colors.accentPrimary, in: RoundedRectangle(cornerRadius: 5, style: .continuous))
-                }
-                // The store's own localised price once it has answered.
-                Text(price)
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundStyle(Theme.Colors.textPrimary)
-            }
-        }
-        .opacity(dimmed ? 0.5 : 1)
     }
 }
