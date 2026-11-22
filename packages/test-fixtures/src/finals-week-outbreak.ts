@@ -8,7 +8,7 @@ import { StoryVersion } from '@plotbreak/contracts';
  *
  * Playable span: one night and one morning in and around a university library,
  * from 2:07 a.m. on the Tuesday of finals week to the afternoon. The clock is
- * the spine — the helicopter at 6:30, the gate from 7:00 to 8:00, the exam at
+ * the spine — the helicopter at 6:30, the gate from 7:00 to noon, the exam at
  * 9:00, the seal at noon, Lily at about two — and every one of those can be
  * made impossible by what the player does. Everything after lives in endings.
  *
@@ -44,7 +44,7 @@ const raw = {
   version: 1,
   title: 'Finals Week Outbreak',
   fantasyLabel: 'They learned door handles tonight.',
-  hook: 'Campus library, 2 a.m., finals week. The sick ones outside have walked into doors all night. Now one of them is trying the handle of yours, the way a person with a key would.',
+  hook: 'All night the sick ones walked into doors. Now one is trying your handle, the way a person with a key would. Campus library, 2 a.m., finals week.',
   premise:
     'Finals week. The campus has been sealed since Monday evening, and at two in the morning you are still on the third floor of the main library, because leaving got more dangerous than staying.\n\n' +
     'It started on Sunday night at the health centre: three students with fevers who had not slept in three days, and who stopped answering to their names an hour later. Since then it has spread the old way. A bite, a fever, about six hours.\n\n' +
@@ -84,10 +84,11 @@ const raw = {
       'It is 2:07 a.m. on the Tuesday of finals week. The county sealed the campus on Monday evening. Phones show signal but calls do not connect; the campus wifi and the students’ group chat still work. The emergency alert reads: Shelter in place. Do not approach affected persons. Await evacuation instructions. Six uninfected people are in the main library: the player, Nora, Lily and Declan on the third floor, Kwame in the security office, and Haas behind the steel door of Special Collections on the fourth.',
       'The students call the infected Regulars, because they keep their routines. Regulars are sick living people, not dead ones. They do not sleep and rarely speak. They walk toward lit screens and toward voices they know, and they repeat their old routines: Odile Fenn still locks the library at ten past two, a rower still runs the river path, a nurse at the health centre still does her rounds.',
       'A bite passes it on. A bitten person runs a fever within the hour, stops being able to sleep, goes quiet, and turns in about six hours. A Regular can be shoved, outrun, shut out or locked in. Hurting one is hurting a sick classmate, and the prose never treats it as anything else. There is no gore on the page, ever.',
-      'Regulars are relearning, in the order people learn a building: on Sunday they walked into doors; tonight they turn handles and climb stairs; Haas expects keys and keycards by tomorrow night and words after that. A few have started repeating a habit phrase. Odile Fenn says the library is closing, and before morning she says Kwame’s name.',
-      'It came out of ND-12, a wakefulness compound from Haas’s pharmacology lab, trialled during finals week on forty paid student volunteers who called it the study pill. Three volunteers turned at about seventy hours without sleep on Sunday night and bit others. Lily Tran is Volunteer 31: she has been awake sixty hours when the story opens, wears a paper trial band under her left sleeve, and turns at about two in the afternoon unless she sleeps first.',
-      'Haas designed a reset dose: a sedative that forces sleep and stops the turn if it is given before the turn completes. Twelve doses sit in a refrigerator in his lab in the science building across the quad, reachable over the quad or through the steam tunnel from the library basement. On a Regular who has fully turned it does nothing anybody has measured. Nobody outside his lab knows the doses exist.',
-      'At 1:40 a.m. the county radioed Kwame Mensah: a helicopter lands on the library roof at 6:30 a.m. for Professor Haas and three others, four seats in all, and waits four minutes. Kwame has told nobody, and has decided he is not one of the four. The main gate checkpoint opens from 7:00 to 8:00 a.m.; anyone with a fever or a bite is held in a quarantine tent on campus. At noon the county seals the campus for twenty-one days.',
+      'What a Regular does to a person. Left in the dark and quiet, it ignores people and keeps its routine, and somebody walking among them with no light, no voice and exactly their pace is not noticed. A lit screen or a voice it knows draws it straight to the source, and once it is close it reaches for whoever is there. It bites when it gets hold of somebody, or when somebody grabs it, blocks it or hurts it. The hand on the reading-room handle at 2:07 is Odile Fenn on her lock-up round, in her cardigan, keys on a lanyard round her neck: if the room is dark and silent at 2:10 she locks it from outside and moves on; if the laptop is still lit when that door opens, she walks straight toward it.',
+      'Regulars are relearning, in the order people learn a building: on Sunday they walked into doors; tonight they turn handles and climb stairs; Haas expects most of them to manage keys and keycards by tomorrow night, and words after that. Odile Fenn is already ahead of them: she uses her own keys tonight, says the library is closing, and before morning she says Kwame’s name. A few others have started repeating a habit phrase.',
+      'It came out of ND-12, a wakefulness compound from Haas’s pharmacology lab, trialled during finals week on forty paid student volunteers who called it the study pill. Three volunteers turned at about seventy hours without sleep on Sunday night and bit others. Lily Tran is Volunteer 31: she has been awake sixty hours when the story opens, wears a paper trial band under her left sleeve, and turns at about two in the afternoon unless a reset dose puts her to sleep first. After sixty hours on ND-12 nobody can fall asleep on their own, however tired they are; rest, warmth and kindness do not do it, and nothing in the library does.',
+      'Haas designed a reset dose: a sedative that forces sleep and stops the turn if it is given before the turn completes. Twelve doses sit in a refrigerator in his lab in the science building across the quad, reachable over the quad or through the steam tunnel from the library basement. The refrigerator is padlocked; the key is on Haas’s own ring. On a Regular who has fully turned it does nothing anybody has measured. Nobody outside his lab knows the doses exist.',
+      'At 1:40 a.m. the county radioed Kwame Mensah: a helicopter lands on the library roof at 6:30 a.m. for Professor Haas and three others, four seats in all, and waits four minutes. Kwame has told nobody, and has decided he is not one of the four. The main gate checkpoint opens at 7:00 a.m. and stays open until the noon seal; anyone with a fever or a bite is held in a quarantine tent on campus. At noon the county seals the campus for twenty-one days.',
       'At 9:00 a.m. every Regular who was booked for an exam walks to the exam hall at a normal pace, in silence, and sits at a desk until noon. The quad is empty for those three hours, and the exam hall doors lock from outside.',
     ],
     toneGuide:
@@ -376,7 +377,7 @@ const raw = {
       tags: ['personal'],
       skillModifiers: { legs: 1 },
       description: 'Heart rate, splits, and an alarm set for five every morning so you are on the river before anybody else is awake.',
-      loreText: 'The alarm has gone off on Monday and Tuesday regardless. Somewhere on the river path, half your crew is still running.',
+      loreText: 'The alarm went off at five on Monday regardless, and it will again in three hours. Somewhere on the river path, half your crew is still running.',
       icon: 'watch',
     },
     {
@@ -541,7 +542,7 @@ const raw = {
       name: 'Fight Through',
       tags: ['offensive'],
       description: 'Put a sick classmate on the floor and get past. It works, it is loud, and everyone who watches you do it remembers.',
-      affordances: ['shove', 'tackle', 'swing the extinguisher', 'push past', 'fight', 'knock it down', 'force my way through'],
+      affordances: ['shove', 'tackle', 'swing the extinguisher', 'push past', 'fight', 'knock them down', 'force my way through'],
       costs: [
         { resourceId: 'stamina', amount: 12 },
         { resourceId: 'noise', amount: 15 },
@@ -577,8 +578,8 @@ const raw = {
       id: 'give_the_reset',
       name: 'Give the Reset',
       tags: ['utility'],
-      description: 'One pen, the outer thigh, a count of ten. Before hour six it puts a turning person to sleep and keeps them themselves.',
-      affordances: ['give her the reset', 'use the pen', 'dose her', 'put her to sleep', 'give the dose', 'reset him'],
+      description: 'One pen, the upper arm, a count of ten. Before hour six it puts a turning person to sleep and keeps them themselves.',
+      affordances: ['give her the reset', 'use the pen', 'dose her', 'get her to sleep', 'give the dose', 'reset him'],
       costs: [{ resourceId: 'stamina', amount: 4 }],
       cooldownMinutes: 0,
       targetRule: 'SINGLE',
@@ -770,7 +771,7 @@ const raw = {
       name: 'Haas’s Lab',
       shortName: 'The Lab',
       description:
-        'Second floor of the science building: two benches, fume hoods, a whiteboard of dosing curves nobody wiped, and a laboratory refrigerator with a padlock and a sticky note on it. Three of the forty volunteers sat here on Saturday morning. The faculty car park is under the windows.',
+        'Second floor of the science building: two benches, fume hoods, a whiteboard of dosing curves nobody wiped, and a laboratory refrigerator with a padlock and a sticky note on it. The padlock key is on Haas’s own ring. Three of the forty volunteers sat here on Saturday morning. The faculty car park is under the windows.',
       artDirection:
         'University pharmacology lab at night, lab benches, fume hoods, a whiteboard covered in graphs, a tall white laboratory refrigerator with a padlock and a sticky note, rain on dark windows over a car park. Sterile, abandoned, guilty.',
       connections: [
@@ -894,7 +895,7 @@ const raw = {
       name: 'Nora Lindqvist',
       role: 'Fourth-year medical student, sharing your table since midnight, and the only person here who has watched somebody turn',
       cardBlurb:
-        'She has been sharing your table since midnight with four hundred flashcards, she was at the health centre when the first one turned, and she will tell you exactly how long you have in minutes whether you asked or not.',
+        'She will tell you how long you have, in minutes, whether you asked or not. She has shared your table since midnight, and she was on shift at the health centre the night it started.',
       pronouns: 'she/her',
       publicTraits: ['Counts everything: pulses, minutes, exits', 'Repeats a sentence when frightened', 'Steady hands, unsteady jokes'],
       hiddenDrives: [
@@ -947,7 +948,7 @@ const raw = {
       schedule: [
         { startMinute: 0, endMinute: 420, locationId: 'reading_room', activity: 'at the long table with her flashcards and a pulse she keeps checking' },
         { startMinute: 420, endMinute: 540, locationId: 'security_office', activity: 'going through the first-aid kit for the third time' },
-        { startMinute: 540, endMinute: 720, locationId: 'exam_hall', activity: 'standing at the back of the exam hall, watching her own paper start without her' },
+        { startMinute: 540, endMinute: 720, locationId: 'lobby', activity: 'at the lobby glass, watching the quad empty toward the exam hall where her own paper is starting without her' },
         { startMinute: 720, endMinute: 1440, locationId: 'health_centre', activity: 'doing what she can at the health centre' },
       ],
       homeLocationId: 'reading_room',
@@ -983,7 +984,7 @@ const raw = {
       name: 'Kwame Mensah',
       role: 'Night security officer, six years on this building, master keys on his belt and the county on his radio',
       cardBlurb:
-        'He has the keys to every door in this library, a radio the county answers, and a message from it at 1:40 that he has not passed on to you or anybody else.',
+        'He has not told you what the county said on his radio at 1:40. He also has the keys to every door in this library.',
       pronouns: 'he/him',
       publicTraits: ['Calm in a way that is a decision', 'Talks in radio procedure off the radio', 'Knows every door by its sound'],
       hiddenDrives: [
@@ -1062,7 +1063,7 @@ const raw = {
       name: 'Lily Tran',
       role: 'First-year architecture student who has drawn every floor of this building, and has not slept in sixty hours',
       cardBlurb:
-        'She has mapped this library down to the steam tunnels in a sketchbook you are going to want, she makes jokes faster than you can answer them, and she keeps pulling her left sleeve down over something she does not want you to see.',
+        'She keeps pulling her left sleeve down over something you are not meant to see. She has also drawn this library down to the steam tunnels, and jokes faster than you can answer.',
       pronouns: 'she/her',
       publicTraits: ['Deadpan and very fast', 'Draws floor plans compulsively', 'Lies about how many cans she has had'],
       hiddenDrives: [
@@ -1081,7 +1082,7 @@ const raw = {
       secrets: [
         {
           id: 'lily_volunteer_31',
-          fact: 'She is Volunteer 31 in the ND-12 trial, sixty hours awake, with a paper band under her left sleeve. At about seventy-two hours, near two in the afternoon, she will turn unless she is put to sleep with a reset dose first. She believes sleep is the danger; it is the cure.',
+          fact: 'She is Volunteer 31 in the ND-12 trial, sixty hours awake, with a paper band under her left sleeve. At about seventy-two hours, near two in the afternoon, she will turn unless a reset dose puts her to sleep first; she cannot fall asleep on her own any more. She believes sleep is the danger; the reset’s sleep is the cure.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She shows you the band herself if you ask her to trust you and do not look at Declan while you ask.',
         },
@@ -1126,7 +1127,7 @@ const raw = {
         },
         {
           id: 'lily_says_yes',
-          label: 'She agrees to be put to sleep',
+          label: 'She agrees to take the reset',
           kind: 'TRUST',
           requires: { trust: 60, flagsSet: ['has_the_reset'] },
         },
@@ -1141,11 +1142,11 @@ const raw = {
       name: 'Declan Shaw',
       role: 'Second-year law student barricaded in a study room with a whiteboard over the glass and a rule for everything',
       cardBlurb:
-        'He can recite the emergency alert word for word, he held a stairwell door shut on somebody at eleven o’clock, and he will make you argue for every person you want to let into his room.',
+        'He held a stairwell door shut on somebody at eight o’clock, and he will make you argue for every person you want to let into his room.',
       pronouns: 'he/him',
       publicTraits: ['Recites rules under pressure', 'Physically brave, morally rigid', 'Wants a vote on everything'],
       hiddenDrives: [
-        'At eleven he held the stairwell door shut on his study partner Priya Nair while she was bitten on the other side, and every hard line he draws tonight is there to prove he was right to',
+        'At eight he held the stairwell door shut on his study partner Priya Nair while she was bitten on the other side, and every hard line he draws tonight is there to prove he was right to',
         'He wants somebody to tell him he is not a coward, and will not accept it from anybody who has not had to choose',
       ],
       values: ['Procedure protects people from their own fear', 'Rules apply to friends first'],
@@ -1154,13 +1155,13 @@ const raw = {
         'Argues like moot court: the rule, the exception, the burden of proof. Gets louder as he gets more frightened, and uses full names when angry.',
       boundaries: [
         'Will not share a room with anybody showing symptoms, and will say so to her face',
-        'Will not lie about what he did at eleven if asked directly; he will refuse to answer instead',
+        'Will not lie about what he did at eight if asked directly; he will refuse to answer instead',
       ],
       goals: ['Get on whatever leaves first', 'Keep anybody infected out of the group'],
       secrets: [
         {
           id: 'declan_priya',
-          fact: 'At 23:05 he held the third-floor stairwell door shut while Priya Nair, his study partner, was bitten on the landing outside it. She is a Regular on the second-floor landing now, waiting for a lift.',
+          fact: 'At 20:05 he held the third-floor stairwell door shut while Priya Nair, his study partner, was bitten on the landing outside it. She is a Regular on the second-floor landing now, waiting for a lift.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'Only after he has seen her on the landing, and only if you ask him who she was instead of telling him what he did.',
         },
@@ -1177,7 +1178,7 @@ const raw = {
       voiceSamples: [
         'Shelter in place. Do not approach affected persons. Await evacuation instructions. That is the entire alert. Forty readings.',
         'For the record, nobody comes through that door who cannot show me both forearms.',
-        'Burden of proof sits with whoever has the fever. Call it cruelty if you want. It is how eleven people survive instead of none.',
+        'Burden of proof sits with whoever has the fever. Call it cruelty if you want. It is how some of us survive instead of none.',
         'Priya Nair, twenty-two, contract law, highlighter behind her ear. That is who stands on the second floor. Do not ask how I know.',
         'Motion to leave now. Seconded. Anybody opposed may remain behind and draft a dissent.',
       ],
@@ -1199,7 +1200,7 @@ const raw = {
       gates: [
         {
           id: 'declan_says_priya',
-          label: 'He tells you about eleven o’clock',
+          label: 'He tells you about eight o’clock',
           kind: 'TRUST',
           requires: { trust: 45, flagsSet: ['saw_priya'] },
         },
@@ -1221,7 +1222,7 @@ const raw = {
       calledName: 'Haas',
       role: 'Professor of pharmacology, locked in Special Collections with a grey binder he will not put down, and the man the helicopter is coming for',
       cardBlurb:
-        'He knows more about the sick ones than anybody on this campus, the helicopter is coming for him by name, and he will answer any question you ask him except the one about whose fault this is.',
+        'The helicopter is coming for him by name. He will answer any question you ask except whose fault this is.',
       pronouns: 'he/him',
       publicTraits: ['Courteous, precise and exhausted', 'Lectures when frightened', 'Will not let go of a grey binder'],
       hiddenDrives: [
@@ -1619,7 +1620,7 @@ const raw = {
         },
         {
           id: 'put_her_to_sleep',
-          playerCopy: 'Put Lily to sleep before she stops being Lily, if she says yes.',
+          playerCopy: 'Get the reset into Lily before hour seventy-two, if she says yes.',
           directorNotes:
             'She is terrified of sleep and believes it is what ends her. She will not be dosed without saying yes, and a player who does it anyway gets a living Lily who does not speak to them. She can refuse, and refusing is hers to do. If she says yes, the scene is small: a count of ten, her sketchbook on her chest, somebody holding her hand.',
           enterWhen: { flagsSet: ['has_the_reset'] },
@@ -1856,7 +1857,7 @@ const raw = {
       directorNotes:
         'Odile Fenn finishing her round. Only if the room went dark and nobody opened the door: the group is now locked in, and needs Kwame’s keys, Lily’s way round through the stacks, or a window. She is not hunting anybody. She is closing up.',
       setsFlags: ['locked_in'],
-      cancelledByFlags: ['door_open', 'fenn_led_away'],
+      cancelledByFlags: ['door_open', 'fenn_led_away', 'door_held'],
       requiresFlags: [],
       movesCharacters: [],
     },
@@ -1893,7 +1894,7 @@ const raw = {
       publicCopy:
         'Down on the second-floor landing a woman with a highlighter behind her ear stands facing the lift, waiting for it. When it does not come, she presses the button.',
       directorNotes:
-        'Priya Nair, Declan’s study partner, turned since midnight. She is not a threat unless she is lit up or called by name. She is the first Regular anybody sees use a button, and Declan, if he is there, stops talking for the first time tonight.',
+        'Priya Nair, Declan’s study partner, turned at about two. She is not a threat unless she is lit up or called by name. She is the first Regular anybody sees use a button, and Declan, if he is there, stops talking for the first time tonight.',
       setsFlags: ['saw_priya'],
       cancelledByFlags: [],
       requiresFlags: ['with_declan'],
@@ -1984,7 +1985,7 @@ const raw = {
       publicCopy:
         'The floodlights at the main gate dim into daylight and the checkpoint opens: a screening tent, a thermal camera, two lines of tape, and a loudhailer reading out the rules.',
       directorNotes:
-        'Open for one hour. Anybody with a fever or a bite is held in the quarantine tent on campus, politely and without exception. Between the library and the gate is the whole quad.',
+        'Open from seven until the noon seal. Anybody with a fever or a bite is held in the quarantine tent on campus, politely and without exception. Between the library and the gate is the whole quad.',
       setsFlags: ['gate_open'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2203,14 +2204,14 @@ const raw = {
         flagsUnset: ['flew_out'],
       },
       condition:
-        'The group refused the helicopter rather than choose, put Lily to sleep with her consent, and used the nine o’clock exam to cross the empty quad together, carrying her. This is the hardest ending in the story and it should feel earned rather than lucky. Write the walk: the silence, the full exam hall to one side, the gate getting closer, and somebody counting heads.',
+        'The group refused the helicopter rather than choose, got the reset into Lily with her consent, and used the nine o’clock exam to cross the empty quad together, carrying her. This is the hardest ending in the story and it should feel earned rather than lucky. Write the walk: the silence, the full exam hall to one side, the gate getting closer, and somebody counting heads.',
       epilogue:
         'Six of them come through the screening tent at 9:40, one of them asleep on a foam stretcher with a sketchbook on her chest. The thermal camera reads her as normal. Lily wakes up eleven hours later in a hospital two towns away, asks what she missed, and is furious to learn it was the walk.',
       hint: 'Nobody takes the seats.',
     },
     {
       id: 'end_four_seats',
-      name: 'Four Seats',
+      name: 'Lift-Off',
       rarity: 'COMMON',
       minTurn: 22,
       requires: { flagsSet: ['flew_out'] },
@@ -2246,7 +2247,7 @@ const raw = {
     },
     {
       id: 'end_volunteer_31',
-      name: 'Volunteer 31',
+      name: 'Two in the Afternoon',
       rarity: 'UNCOMMON',
       minTurn: 28,
       requires: { flagsSet: ['lily_turned'] },
@@ -2270,14 +2271,14 @@ const raw = {
     },
     {
       id: 'end_the_study_pill',
-      name: 'The Study Pill',
+      name: 'Every Page Posted',
       rarity: 'RARE',
       minTurn: 30,
       requires: { flagsSet: ['records_public'] },
       condition:
         'The player photographed the binder and posted every page to the group chat. The university cannot call it a fast-moving viral illness any more. Write the cost as well as the justice: Haas’s face on every phone on campus by lunchtime, and forty volunteers named whether they wanted to be or not.',
       epilogue:
-        'The statement is withdrawn at four in the afternoon. By Friday there is an inquiry, and by the spring there is a law with a name nobody likes. Haas gives evidence for three days and answers every question, in the passive voice, until a barrister asks him who decided, and he says, for the first time in his life, "I did."',
+        'The statement is withdrawn at four in the afternoon. By Friday there is an inquiry, and by the spring there is a law with a name nobody likes. Haas gives evidence for three days and answers every question, in the passive voice, until a lawyer for the inquiry asks him who decided, and he says, for the first time in his life, "I did."',
       hint: '',
     },
     {

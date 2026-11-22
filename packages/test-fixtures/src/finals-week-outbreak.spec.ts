@@ -155,7 +155,7 @@ describe('the rules live where the storyteller can read them', () => {
   it('puts the clock in hard canon: the roof, the gate, the exam, the seal, Lily', () => {
     expect(canon).toContain('6:30 a.m.');
     expect(canon).toContain('four seats in all');
-    expect(canon).toContain('7:00 to 8:00 a.m.');
+    expect(canon).toContain('opens at 7:00 a.m.');
     expect(canon).toContain('At 9:00 a.m.');
     expect(canon).toContain('At noon');
     expect(canon).toMatch(/Lily Tran is Volunteer 31/);

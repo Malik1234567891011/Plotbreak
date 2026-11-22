@@ -2,7 +2,7 @@
 
 **Slate:** #40 of the fifty (`docs/stories-50/PLAN.md` §3). Zombie survival, male lean, OOC evidence: OOC High Zombie Apocalypse 1.9M.
 **Genre:** campus survival horror, ensemble drama, dark comedy, a little romance
-**One-line fantasy:** It is 2 a.m. in the university library during finals week. The sick ones outside have walked into doors all night, and now one of them is trying the handle of your room the way a person with a key would.
+**One-line fantasy:** All night the sick ones walked into doors. Now one is trying your handle, the way a person with a key would. Campus library, 2 a.m., finals week.
 **Fixture:** `packages/test-fixtures/src/finals-week-outbreak.ts` (export `FINALS_WEEK_OUTBREAK`, story id `story_finals_week_outbreak`).
 **Title collision search (2026-11-22):** no anime, manga, game or novel by this title. The nearest is an itch.io visual novel, *ZomB+*, set at a zombie-overrun university, with a different title, cast and premise.
 
@@ -28,12 +28,13 @@ The group chat calls the infected **Regulars**, because they keep their routines
 - They walk toward **lit screens** and toward **voices they know**.
 - They **repeat their old routines.** Odile Fenn, the night librarian, still locks the building at ten past two. A rower still runs the river path. A nurse at the health centre still does her rounds.
 - **A bite passes it on.** Fever within the hour, then no sleep, then the quiet, then the turn, about six hours in all.
-- **They are relearning**, in the order people learn a building: doors, then stairs, then keys and keycards, then words. A few have started saying a habit phrase. Professor Haas expects names next.
+- **When they are dangerous.** Left in the dark and quiet, a Regular ignores people and keeps its routine; somebody walking among them with no light, no voice and exactly their pace is not noticed. A lit screen or a voice it knows draws it straight to the source, and once it is close it reaches for whoever is there. It bites when it gets hold of somebody, or when somebody grabs it, blocks it or hurts it.
+- **They are relearning**, in the order people learn a building: doors, then stairs, then keys and keycards, then words. Haas expects most of them to manage keys by tomorrow night. Odile Fenn is already ahead: she uses her own keys tonight, and before morning she says Kwame's name. A few others have started saying a habit phrase.
 - They can be shoved, outrun, shut out or locked in. **Hurting one is hurting a sick classmate**, and the prose never treats it as anything else. There is no gore on the page, ever.
 
 ### The reset
 
-Haas designed an antidote and never told anybody it existed: the **reset dose**, a sedative that forces sleep and stops the turn if it is given before the turn completes. **Twelve doses** sit in a refrigerator in his lab in the science building, across the quad. You reach it over the quad, or through the **steam tunnel** from the library basement. On a Regular who has fully turned it does nothing anyone has measured. Haas believes a stronger version might, and has never tested it.
+Haas designed an antidote and never told anybody it existed: the **reset dose**, a sedative that forces sleep and stops the turn if it is given before the turn completes. **Twelve doses** sit in a padlocked refrigerator in his lab in the science building, across the quad; the padlock key is on Haas's own ring. You reach it over the quad, or through the **steam tunnel** from the library basement. After sixty hours on ND-12 nobody can fall asleep on their own, however tired they are, so for Lily the reset is the only way to sleep; rest, warmth and kindness do not do it, and nothing in the library does. On a Regular who has fully turned it does nothing anyone has measured. Haas believes a stronger version might, and has never tested it.
 
 ### The clock
 
@@ -45,7 +46,7 @@ Haas designed an antidote and never told anybody it existed: the **reset dose**,
 | 4:50 | The second-floor Regulars find the stairwell and start to climb. |
 | 5:30 | Campus power fails. Emergency strips only. Every screen is now the brightest thing for a mile. |
 | 6:30 | The helicopter lands on the library roof. |
-| 7:00–8:00 | The main gate checkpoint opens. Anyone with a fever or a bite is held in a quarantine tent on campus. |
+| 7:00–12:00 | The main gate checkpoint opens and stays open until the seal. Anyone with a fever or a bite is held in a quarantine tent on campus. |
 | 9:00 | **The exam.** Every Regular booked for an exam walks to the exam hall and sits until noon. The quad empties for three hours. |
 | 12:00 | The county seals the campus for twenty-one days. |
 | ~14:00 | Lily reaches about seventy-two hours awake and turns, unless she has been given the reset. |
@@ -125,7 +126,7 @@ Every character is an adult and the ages are canon.
 ### Declan Shaw, 23
 **Role:** second-year law student barricaded in a third-floor study room with a whiteboard over the glass and a rule for everything.
 **Want:** get on whatever leaves first, and keep anyone infected out of the group.
-**Motive under it:** at eleven last night he held the stairwell door shut on his study partner **Priya Nair** (22) while she was bitten on the other side. She is a Regular on the second floor now, highlighter still behind her ear, waiting for the lift. Every hard line he draws tonight is there to prove he was right to.
+**Motive under it:** at eight last night he held the stairwell door shut on his study partner **Priya Nair** (22) while she was bitten on the other side. She finished turning at about two this morning and is a Regular on the second floor now, highlighter still behind her ear, waiting for the lift. Every hard line he draws tonight is there to prove he was right to.
 **Secret:** his father's car is in the faculty lot by the science building, keys in his pocket. A car holds five.
 **Voice:** formal, recitative, moot court: the rule, the exception, the burden of proof. "For the record." Uses full names when angry. He has read the emergency alert forty times and recites it.
 
@@ -179,7 +180,7 @@ Ground floor up, then out across campus. Every place has a way in and a way back
 
 - **The Handle** (main, active): get through the next minute, then find out who else is in the building.
 - **Four Seats** (main): find out what Kwame is not saying, then decide who is on the roof at 06:30.
-- **Volunteer 31** (main): find out what is wrong with Lily, fetch the reset doses, and put her to sleep before she stops being Lily, if she says yes.
+- **Volunteer 31** (main): find out what is wrong with Lily, fetch the reset doses, and get the reset into her before hour seventy-two, if she says yes.
 - **The Study Pill** (lead, optional): find out what Haas did, then decide what happens to the binder: the Cordon, the group chat, or the fire.
 - **Doors, Then Stairs** (side): learn the Regulars' routine, then use it: walk among them, cross the empty quad at nine, or lock them into the exam hall.
 
@@ -188,12 +189,12 @@ Ground floor up, then out across campus. Every place has a way in and a way back
 Eleven, all reachable, every rarity, real losses among them. The storyteller reads twelve at most.
 
 - **Everyone Walks Out** (rare): Lily dosed and asleep, the helicopter refused, all six across the empty quad at nine.
-- **Four Seats** (common): you were on the helicopter. Somebody was not.
+- **Lift-Off** (common): you were on the helicopter. Somebody was not.
 - **The Fifth Person** (uncommon): you gave your seat away and watched it lift.
 - **Twenty-One Days** (common): still on campus at noon. Sealed in with whoever stayed.
-- **Volunteer 31** (uncommon, loss): nobody reached the doses in time, or she said no. At two in the afternoon Lily stops making jokes.
+- **Two in the Afternoon** (uncommon, loss): nobody reached the doses in time, or she said no. At two in the afternoon Lily stops making jokes.
 - **Lights Out in the Exam Hall** (unique): the Regulars locked in the exam hall, the binder and the doses in honest hands, and the newest-turned start, one by one, to sleep.
-- **The Study Pill** (rare): the binder posted to the group chat. The university cannot bury it.
+- **Every Page Posted** (rare): the binder posted to the group chat. The university cannot bury it.
 - **Nobody's Fault** (rare): the binder burned for Haas. The trial stays a "fast-moving viral illness".
 - **Same Table, Next Term** (rare): you and Nora, at the gate at dawn, one kiss, and a seat saved at her table in the spring.
 - **Office Hours** (unique): Haas stays behind after the seal, dosing the newly bitten at the health centre.
