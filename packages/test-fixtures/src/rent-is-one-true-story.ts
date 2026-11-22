@@ -102,7 +102,7 @@ const raw = {
       'Dee Moss posted the ad for 4C, signed the lease on Elias’s behalf and gave the player the key, without telling him. He found out at midnight tonight, at the player’s door.',
       'Ada Lindqvist lived in 4C from 1971 until she died there, aged eighty-one, in 2015. Elias kept the flat empty for eleven years. Her hatbox of carbon-copied rent stories is still on the closet shelf.',
       'Since his lawyer, Harold Pruitt, died last spring, the city has wrongly recorded the building’s taxes as unpaid. Varga House is Lot 14 at a public auction at the records office at ten in the morning on the tenth. Pruitt’s receipts, which prove the error, are in a shoebox in Gus’s flat.',
-      'Celine Marchand is the vampire who made Elias. They were together from 1891 to 1974, and she left when he stopped drinking. She still drinks, runs a late bar across town called the Orchid Room, and is the bidder behind the lawyer at the auction.',
+      'Celine Marchand is the vampire who made Elias; she was made herself in 1884, at thirty-four. They were together from 1891 to 1974, and she left when he stopped drinking. She still drinks, runs a late bar across town called the Orchid Room, and is the bidder behind the lawyer at the auction.',
       'Celine still holds the welcome to the lobby and stairs that Elias gave her in 1952. She can walk up to any door in the house. She cannot cross into any flat unless somebody who lives there asks her in.',
       'Father Tom Kowalski, the priest at St. Anselm’s across the street, knows what Elias is and plays chess with him on the church porch most nights after two. He inherited a promise from his predecessor about what the parish would do if Elias ever drank again.',
       'Elias never strikes a tenant and never drinks from one, whatever is offered. Attacked, he steps out of reach faster than anybody can follow and leaves. Nobody in this story is bitten on the page.',
@@ -261,10 +261,13 @@ const raw = {
     {
       id: 'the_lease',
       name: 'The Lease',
-      tags: ['document', 'personal'],
+      tags: ['quest', 'document', 'personal'],
+      questItem: true,
+      droppable: false,
       description:
-        'One typed page. Month to month. On the landlord’s line it says D. Moss, p.p. E. Varga, in purple ink, in handwriting that is very obviously Dee’s.',
-      loreText: 'There is no amount in the rent box. Somebody has written "see card" in it and underlined it twice.',
+        'One typed page. Month to month. On the landlord’s line it says D. Moss, p.p. E. Varga, in purple ink, in handwriting that is very obviously Dee’s. There is no amount in the rent box. Somebody has written "see card" in it and underlined it twice.',
+      loreText:
+        'Clause four, typed on the same machine as the card on the door: Rent is payable to the landlord in person, at the tenant’s door, at midnight on the first. The landlord does not enter a let flat uninvited. Elias has never seen this copy, or the signature on it.',
       icon: 'papers',
     },
     {
@@ -918,7 +921,7 @@ const raw = {
         'I’ve been twenty-nine since eighteen ninety-one. It stops being interesting around the second war.',
       ],
       appearance:
-        'Looks twenty-nine and has since 1891. Tall, pale, dark hair a little too long, a charcoal overcoat older than the building, and a good white shirt buttoned to the collar.',
+        'An adult man, tall, lean and pale, dark hair a little too long falling over his brow, tired grey eyes, a long charcoal overcoat older than the building, and a good white shirt buttoned to the collar with no tie.',
       visualHook: 'He leans on doorframes and never crosses them; his shoes stop exactly at the line.',
       silhouette: 'Tall and narrow in a long coat, one shoulder against a doorframe, hands in his pockets.',
       artSeed: 'rots-elias-01',
@@ -1006,7 +1009,7 @@ const raw = {
         'I gave him eighty-three years. What did you give him? A paragraph?',
       ],
       appearance:
-        'Looks thirty-four and has since 1884. A sleek black bob, red lipstick, a long camel coat over a silk blouse, and leather gloves.',
+        'An adult woman, poised and elegant, a sleek black bob, dark eyes, red lipstick, a long camel coat over a cream silk blouse, and fine black leather gloves.',
       visualHook: 'Leather gloves she takes off one finger at a time when she is about to ask for something.',
       silhouette: 'Long camel coat, chin up, one gloved hand resting on a banister as if she owns it.',
       artSeed: 'rots-celine-01',
@@ -1084,7 +1087,7 @@ const raw = {
         'I’ve got two mugs, one teabag, and absolutely no plan. Sit.',
       ],
       appearance:
-        'Thirty-one, curly copper hair tied up in a headscarf, freckles, and an oversized cardigan with laundromat tokens in both pockets.',
+        'An adult woman, curly copper hair tied up in a green headscarf, freckles, an oversized oatmeal cardigan with laundromat tokens in both pockets, and paint-flecked jeans.',
       visualHook: 'A headscarf and a baggy cardigan whose pockets jingle with laundromat tokens.',
       silhouette: 'Sitting on a stair with her knees up and a mug in each hand.',
       artSeed: 'rots-dee-01',
@@ -1165,7 +1168,7 @@ const raw = {
         'Confession is mine. Rent is his. Same trade, roughly. Different hours.',
       ],
       appearance:
-        'Fifty-eight, broad and heavy-shouldered, a grey crew cut, a black clerical shirt with the sleeves rolled up, and old burn scars on both forearms.',
+        'An older man, broad and heavy-shouldered, a grey crew cut, a black clerical shirt and white collar with the sleeves rolled up, and old burn scars on both forearms.',
       visualHook: 'Rolled sleeves over old burn scars, and a clerical collar he tugs at when he is thinking.',
       silhouette: 'Big and square on a church porch bench, leaning over a chessboard with his elbows on his knees.',
       artSeed: 'rots-tom-01',
@@ -1249,7 +1252,7 @@ const raw = {
         'Ada Lindqvist borrowed my good scissors in nineteen seventy-two. She returned them in two thousand and nine. I made a note of both.',
       ],
       appearance:
-        'Eighty-nine, small and very upright, white hair combed back, a cardigan over a pressed shirt and tie, and ink stains on his fingers that have never quite washed out.',
+        'An older man, small and very upright, a deeply lined face, white hair combed back, a brown cardigan over a pressed shirt and tie, and ink stains on his fingers that have never quite washed out.',
       visualHook: 'Ink-stained fingertips and a tie worn every single day.',
       silhouette: 'Small and straight-backed in an armchair facing an open door.',
       artSeed: 'rots-gus-01',
@@ -2080,7 +2083,7 @@ const raw = {
       attributeBonus: { resolve: 2, mind: 2 },
       skillProficiencies: { nerve: 3, notice: 2 },
       startingItems: [{ itemId: 'thermos', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['tell_something_true', 'read_them'],
       startingReputation: [{ factionId: 'faction_st_anselm', amount: 10 }],
     },
     {
@@ -2094,7 +2097,7 @@ const raw = {
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { bluff: 3, charm: 2 },
       startingItems: [{ itemId: 'headshots', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['tell_something_true', 'lie_to_him'],
       startingReputation: [{ factionId: 'faction_orchid_room', amount: 10 }],
     },
     {
@@ -2108,7 +2111,7 @@ const raw = {
       attributeBonus: { resolve: 2, might: 2 },
       skillProficiencies: { candour: 2, handiwork: 2, nerve: 1 },
       startingItems: [{ itemId: 'unopened_letter', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['tell_something_true', 'fix_it'],
       startingReputation: [{ factionId: 'faction_tenants', amount: 5 }],
     },
     {
@@ -2122,7 +2125,7 @@ const raw = {
       attributeBonus: { mind: 3, arcana: 1 },
       skillProficiencies: { digging: 3, lore: 2 },
       startingItems: [{ itemId: 'notebook', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['tell_something_true', 'dig_into_it'],
       startingReputation: [],
     },
   ],
@@ -2333,14 +2336,29 @@ const raw = {
     "Midnight. Three knocks on the door of 4C.\n\nYou open it. A man in a long dark coat is leaning on the frame, pale and tired and very polite about both.\n\nHe doesn’t come in. His shoes stop exactly at the threshold, as if there’s glass there.\n\n\"Elias Varga,\" he says. \"I own the building.\"\n\nHe glances past you at the boxes, the bare mattress, the card taped inside your door. RENT: ONE TRUE STORY.\n\n\"Don’t lie to me,\" he adds, almost kindly. \"I always know.\"\n\nHe waits.\n\n\"Rent’s due. Tell me something true, and you can stay the month.\"",
   openingPanel: {
     assetKey: 'story_rent_is_one_true_story/opening',
-    alt: 'A tall pale man in a long dark coat leaning on a doorframe at midnight, his shoes stopped exactly at the threshold, a dim stairwell landing behind him.',
+    alt: 'Elias in a long charcoal coat leaning on the doorframe of your bare flat at midnight, seen past boxes and a mattress, stopped exactly at the threshold under a single stairwell bulb.',
   },
   openingSuggestions: [
     "\"Something true? I couldn’t afford anywhere else.\"",
     'I hold up the lease so he can see whose signature is on it.',
     "I step aside and pull the door wide. \"Then come in and ask me properly.\"",
   ],
-  publishedAt: '2026-11-22T04:00:00.000Z',
+  coverDirection: [
+    'SUBJECT: Elias Varga, the landlord, alone and unmistakable in the foreground of a key visual for a gothic romance anime about a landlord who only comes at night and takes the rent in true stories.',
+    'He fills the frame from the waist up, centred and close, holding about two thirds of the picture, seen from just inside an open apartment door at midnight.',
+    'Tall, lean and pale, dark hair a little too long falling over his brow, tired grey eyes, a long charcoal overcoat with the collar turned up, a white shirt buttoned to the collar with no tie.',
+    'He leans one shoulder against the doorframe with one hand in his coat pocket and the other resting flat on the frame, angled toward the viewer but not stepping through, as if a pane of glass stood across the doorway.',
+    'His expression is tired, polite and quietly curious, a faint wry half-smile, looking straight at the viewer as if waiting for an answer.',
+    'Taped to the inside of the door beside him is a small white index card that glows a soft warm gold, as if lit from within.',
+    'The card shows only a few faint grey lines: no letters, no numbers, nothing that reads as writing.',
+    'HIS FACE STAYS CLEAN: no glow, marks or shadow bars on his face or skin; his eyes are calm and grey.',
+    'Every glow effect stays on the index card and on the title, never on his face.',
+    'BEHIND HIM, soft and secondary: a dim old stairwell landing, one bare bulb hanging over a worn wooden banister, faded patterned wallpaper, and a tall landing window with a church spire against a deep blue night sky.',
+    'LIGHT: warm amber lamplight from inside the flat across his front and hands, cold deep-blue night light from the stairwell behind him, so he is lit in amber and rimmed in blue.',
+    'TITLE: the words RENT IS ONE TRUE STORY painted into the art in the upper third as an elegant tall serif wordmark in warm ivory with a soft candle-gold glow, set in two or three stacked lines,',
+    'spelled exactly RENT IS ONE TRUE STORY, large and legible at thumbnail size. The word TRUE alone burns a little brighter gold than the rest. No other text anywhere.',
+  ].join(' '),
+  publishedAt: null,
 };
 
 export const RENT_IS_ONE_TRUE_STORY = StoryVersion.parse(raw);

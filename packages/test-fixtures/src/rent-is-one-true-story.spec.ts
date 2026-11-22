@@ -174,13 +174,25 @@ describe('the opener', () => {
 });
 
 describe('adults only, and a 13+ story', () => {
-  it('casts nobody under eighteen and states every age where the art reads it', () => {
+  it('casts nobody under eighteen and states every age where the storyteller reads it', () => {
     expect(STORY.characters.map((c) => c.id).sort()).toEqual(Object.keys(AGES).sort());
+    const canon = STORY.rules.hardCanon.join(' ');
     for (const c of STORY.characters) {
       const entry = AGES[c.id]!;
       expect(entry.age, c.id).toBeGreaterThanOrEqual(18);
-      expect(c.appearance, c.id).toMatch(entry.word);
+      expect(canon, c.id).toMatch(entry.word);
     }
+  });
+
+  it('draws people by build and costume, never by an age word', () => {
+    // As in the pilot (#7): ages live in hard canon; the art reads appearance
+    // and coverDirection, which say "adult" and describe clothes and pose.
+    const AGE_WORDS = /\b(teen\w*|girl|boy|young\w*|youth\w*|kid|child\w*|student|\d+)\b/i;
+    for (const c of STORY.characters) {
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (wo)?man\b/);
+      expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
+    }
+    expect(STORY.coverDirection).not.toMatch(AGE_WORDS);
   });
 
   it('never describes anybody in words that read as a minor', () => {
@@ -734,6 +746,39 @@ describe('art is declared, not drawn', () => {
     expect(STORY.keyArt).toBeNull();
     for (const c of STORY.characters) expect(c.portrait, c.id).toBeNull();
     expect(STORY.openingPanel?.assetKey).toBe('story_rent_is_one_true_story/opening');
+  });
+
+  it('draws the opening panel from the man who speaks in the opener', () => {
+    const alt = STORY.openingPanel?.alt ?? '';
+    expect(alt.length).toBeLessThanOrEqual(200);
+    expect(alt.startsWith('Elias')).toBe(true);
+    expect(STORY.characters.find((c) => c.id === 'elias')!.appearance.trim().length).toBeGreaterThan(40);
+  });
+
+  it('paints the title into the cover and keeps the glow off his face', () => {
+    const cover = STORY.coverDirection;
+    expect(cover).toMatch(/\bTITLE:/);
+    expect(cover).toContain(STORY.title.toUpperCase());
+    expect(cover).toContain('Elias');
+    expect(cover).toMatch(/never on his face/i);
+    expect(cover).toMatch(/no letters, no numbers/i);
+    // The cover sells the landlord and the door, not the monster.
+    expect(cover).not.toMatch(/\bvampire\b/i);
+  });
+
+  it('opens straight on the scene and is not dated until release', () => {
+    expect(STORY.prologue ?? []).toEqual([]);
+    expect(STORY.publishedAt).toBeNull();
+  });
+
+  it('gives every background the rent as something it can do, plus one thing of its own', () => {
+    for (const a of STORY.archetypes) {
+      expect(a.startingAbilities[0], a.id).toBe('tell_something_true');
+      expect(a.startingAbilities, a.id).toHaveLength(2);
+    }
+    // The lease is the object the rent rule travels on, and the storyteller reads quest items.
+    expect(STORY.items.find((i) => i.id === 'the_lease')!.questItem).toBe(true);
+    expect(STORY.rules.startingItems.map((i) => i.itemId)).toContain('the_lease');
   });
 
   it('derives every key under the story’s own prefix', () => {

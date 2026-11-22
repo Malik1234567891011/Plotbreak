@@ -225,13 +225,18 @@ Pay in truth and settle in; lie every month and see what it costs him; ask him i
 
 ## Image plan
 
-Follow the shared visual direction in `docs/story-bibles/03_GOOD_MORNING_HUSBAND.md`: polished anime/manhwa key art, clean linework, soft cel shading, readable silhouettes, no generated text. Adults are described by costume, pose and setting; nothing lingers on bodies.
+Follow the shared visual direction in `docs/story-bibles/03_GOOD_MORNING_HUSBAND.md`: polished anime/manhwa key art, clean linework, soft cel shading, readable silhouettes, no generated text except the title painted into the cover. Adults are described by costume, pose and setting, never by an age word: each `appearance` opens with "An adult man/woman" or "An older man", and the ages above live in hard canon. Nothing lingers on bodies.
 
 ### Cover prompt
-Vertical gothic romance anime key art. Elias Varga, a tall pale man, dark hair a little too long, long charcoal overcoat and white buttoned collar, leaning on the frame of an open apartment door at midnight, hands in his pockets, shoes stopped exactly at the threshold. Warm lamplight from inside the flat on one side, a dim stairwell with a single bulb behind him. A typed index card taped inside the door. Deep blue and warm amber palette, quiet tension, title-safe space at the top, no text.
+The fixture's `coverDirection` is the source; this is its shape. Elias alone, waist up, centred and close, seen from just inside the open door of 4C at midnight: long charcoal overcoat, collar up, white shirt buttoned to the collar, one shoulder on the doorframe and a hand flat on it, not stepping through. A tired, polite, curious half-smile straight at the viewer. The index card taped inside the door glows soft gold and shows no readable writing. His face stays clean: every glow effect is on the card and the title, never on his face. Behind him, soft: the stairwell landing, one bare bulb, a window with a church spire against deep blue night. Amber lamplight from the flat in front, blue rim light from behind. The cover never says vampire: no fangs, no blood.
+
+**TITLE:** RENT IS ONE TRUE STORY, painted into the upper third as an elegant tall serif wordmark in warm ivory with a soft candle-gold glow, in two or three stacked lines, spelled exactly, legible at thumbnail size; the word TRUE burns a little brighter. No other text.
 
 ### Opening panel
-`story_rent_is_one_true_story/opening`: the same doorway, from inside the flat: bare mattress and boxes in the foreground, Elias on the landing.
+`story_rent_is_one_true_story/opening`: the same doorway, from inside the flat: bare mattress and boxes in the foreground, Elias on the landing. The alt starts with "Elias", so his portrait is the panel's reference image.
+
+### Starting kit
+Every background starts with the key, the lease (a quest item, so the storyteller reads clause four: rent in person, at the door, at midnight; the landlord does not enter uninvited) and two abilities: Pay in Truth, plus one of its own (Watch Closely, Tell Him a Lie, Fix Something, Dig Into It).
 
 ### Reaction decks
 - Elias: neutral, wry, warm, guarded, sorrowful.
