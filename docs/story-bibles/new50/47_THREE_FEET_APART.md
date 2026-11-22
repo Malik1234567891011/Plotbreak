@@ -404,6 +404,14 @@ the pure storyteller reads.
 
 Romance-fantasy key art in a lantern-lit great hall, an iron brazier of green fire behind. Caius large in
 frame, waist up, holding up his left wrist; a cord of pale green light runs from it straight toward the
-viewer. Exasperated, a little flustered, looking straight out. Warm lantern gold against cold green
-firelight. The title "THREE FEET APART" painted into the art. Costume and pose only, never age words; the
-green effects stay on the cord and the fire, never on his face.
+viewer, as if the viewer holds the other end. Exasperated, a little flustered, looking straight out. Warm
+lantern gold against cold green firelight. Costume and pose only, never age words; the green effects stay
+on the cord, the fire and the title, never on his face.
+
+**Title:** its own `TITLE:` line in `coverDirection`: the words Three Feet Apart, spelled exactly so, painted
+into the upper third as an elegant gold serif romance-fantasy logo with a thin thread of pale green light
+looping through the letters. No other text anywhere.
+
+**Opening panel** (`story_three_feet_apart/opening`): Caius on one knee by the green brazier, his left hand
+gone stone-grey, the cord running from his wrist to the player's while the court stares. The alt starts
+with "Caius", so his portrait is the panel's reference image.

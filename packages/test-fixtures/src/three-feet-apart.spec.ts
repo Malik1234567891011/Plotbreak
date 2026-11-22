@@ -285,10 +285,30 @@ describe('everybody on the page is an adult, on the page', () => {
 describe('the cover', () => {
   it('puts the title in the art and the green glow nowhere near his face', () => {
     const cover = S.coverDirection!;
-    expect(cover).toContain('THREE FEET APART');
+    // Its own TITLE: line, with style, placement and the exact spelling.
+    expect(cover).toMatch(/TITLE: the words Three Feet Apart painted into the art in the upper third/);
+    expect(cover).toContain('spelled exactly Three Feet Apart');
     expect(cover).toContain('Caius');
     expect(cover).toMatch(/never on his face/i);
+    expect(cover).toMatch(/HIS FACE STAYS CLEAN/);
     expect(cover).toMatch(/no letters or numbers/i);
+  });
+
+  it('draws the opening panel from the man who speaks first', () => {
+    const alt = S.openingPanel!.alt;
+    expect(alt.startsWith('Caius ')).toBe(true);
+    expect(alt.length).toBeLessThanOrEqual(200);
+    // opening-panel-art.ts matches the alt against the first word of `name`,
+    // which is "Lord" here, then falls back to the first character with a
+    // card blurb. Keeping him first keeps his portrait as the reference.
+    expect(S.characters.find((c) => c.cardBlurb.trim())!.id).toBe('caius');
+    expect(S.prologue ?? []).toHaveLength(0);
+  });
+
+  it('gives every titled character the name the court calls them', () => {
+    for (const c of S.characters) {
+      if (/^(Lord|Lady|Archmage)\b/.test(c.name)) expect(c.calledName, c.id).toBe(c.name.split(' ')[1]);
+    }
   });
 });
 

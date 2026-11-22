@@ -1185,6 +1185,7 @@ const raw = {
     {
       id: 'corvina',
       name: 'Lady Corvina Ashdown',
+      calledName: 'Corvina',
       role: 'Chancellor to the Queen, keeper of the seal, the ledgers and the old war treaties',
       cardBlurb:
         'She keeps the Queen’s seal, the Queen’s ledgers and the old war treaties, and she has never pretended to like the Tower. She was the first to reach you when the fire went green, already quoting the law, and the only person in the hall who did not look surprised.',
@@ -2376,19 +2377,24 @@ const raw = {
     },
   ],
   coverDirection: [
-    'Vertical romance-fantasy anime key art in a vast lantern-lit palace great hall, an iron brazier of green fire glowing behind.',
-    'Caius Wren large in frame, waist up, close and centred: slim and straight-backed, dark hair tied at the nape, grey eyes,',
-    'a high-collared charcoal mage’s coat with silver thread at the cuffs, binder’s rings on his fingers.',
-    'He holds up his left wrist toward the viewer; a cord of pale green light runs from it straight out of the frame toward us.',
-    'Expression exasperated and a little flustered, looking straight at the viewer.',
-    'Warm lantern gold against cold green firelight. The green glow stays on the cord and the fire, never on his face.',
-    'The title “THREE FEET APART” painted into the art in elegant lettering. No other text, no letters or numbers anywhere else.',
+    'SUBJECT: Caius Wren, a rival court mage, alone and unmistakable in the foreground of a key visual for a romance-fantasy anime about two rivals tied together by a spell.',
+    'He fills the frame from the waist up, centred and close, holding about two thirds of the picture, standing very straight.',
+    'Dark hair tied back at the nape, grey eyes, a high-collared charcoal mage’s coat with silver thread at the cuffs, silver binder’s rings on his fingers.',
+    'He holds his left wrist up toward the viewer; a cord of pale green light is knotted round it and runs straight out of the frame toward us, as if the viewer holds the other end.',
+    'His other hand is half raised in protest, palm out.',
+    'His expression is exasperated and a little flustered, one eyebrow up, looking straight at the viewer.',
+    'HIS FACE STAYS CLEAN: no green glow, sparks, shadows or marks on his face or skin.',
+    'Every green light effect stays on the cord, the fire and the title, never on his face.',
+    'BEHIND HIM, soft and secondary: a vast lantern-lit palace great hall, an iron brazier of green mage-fire, tall arched windows, hanging banners, and a watching court in soft focus.',
+    'LIGHT: warm lantern gold across his face and coat, cold green light from the cord and the brazier on his wrist and the hall behind him.',
+    'TITLE: the words Three Feet Apart painted into the art in the upper third as an elegant gold serif romance-fantasy logo, with a thin thread of pale green light looping through the letters,',
+    'spelled exactly Three Feet Apart, large and legible at thumbnail size. No other text anywhere: no letters or numbers outside the title.',
   ].join(' '),
   opening:
     "The court’s last question went into the fire between you. The fire turned green, and a cord of light snapped tight around your left wrist.\n\nYou’d turned to leave. Four steps.\n\n\"Stop. Don’t take another one.\"\n\nCaius Wren, your rival since your first week at college, is on one knee by the brazier. The cord runs from your wrist to his. His left hand has gone grey as stone.\n\n\"Hostage knot,\" he says through his teeth. \"Past three feet, whoever’s left behind loses the arm.\"\n\nYou walk back. The grey drains out of his fingers.\n\nThe whole court is staring.\n\nHe stands, exactly three feet away.\n\n\"One more step and I lose an arm. So. Where were you going?\"",
   openingPanel: {
     assetKey: 'story_three_feet_apart/opening',
-    alt: 'Lord Caius Wren by a brazier of green fire in a lantern-lit hall, holding up his left wrist, a cord of pale green light running from it toward the viewer.',
+    alt: 'Caius on one knee by a brazier of green fire, charcoal mage’s coat, his left hand gone stone-grey, a cord of pale green light running from his wrist to yours while the court stares.',
   },
   openingSuggestions: [
     '"To find whoever tied me to you. Keep up."',
