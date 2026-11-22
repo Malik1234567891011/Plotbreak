@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding: name and birthday</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F0E0D}
+a{color:#B4ADA3;text-decoration:none}a:hover{color:#F3EFE8}
+button{font:inherit;color:inherit;cursor:pointer}
+input::placeholder{color:#77716A;opacity:1}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #0F0E0D; color: #F3EFE8; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased">
+
+  <header style="position: absolute; left: 20px; right: 20px; top: 54px; display: flex; align-items: center; justify-content: space-between">
+    <a href="Welcome.dc.html" aria-label="Back" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <div aria-label="Step 1 of 3" style="display: flex; align-items: center; gap: 10px">
+      <span style="font-size: 12px; line-height: 16px; color: #948E85; font-variant-numeric: tabular-nums">1 of 3</span>
+      <span style="display: flex; gap: 4px"><span style="width: 16px; height: 2px; background: #F3EFE8"></span><span style="width: 16px; height: 2px; background: #45413B"></span><span style="width: 16px; height: 2px; background: #45413B"></span></span>
+    </div>
+  </header>
+
+  <div style="position: absolute; left: 20px; right: 20px; top: 132px">
+    <h1 style="margin: 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 30px; line-height: 36px">What should characters call you?</h1>
+
+    <div style="display: flex; align-items: center; height: 52px; margin-top: 24px; padding: 0 8px 0 20px; border-radius: 26px; background: #F3EFE8">
+      <label for="ob-name" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Your name</label>
+      <input id="ob-name" type="text" value="Ren" maxlength="24" style="flex: 1; min-width: 0; height: 52px; border: 0; outline: none; background: transparent; color: #0F0E0D; font-size: 17px; font-weight: 600; font-family: inherit">
+      <span style="font-size: 12px; color: #77716A; font-variant-numeric: tabular-nums; padding-right: 8px">3/24</span>
+    </div>
+    <p style="margin: 10px 0 0; font-size: 13px; line-height: 18px; color: #B4ADA3">They say it out loud. You can pick a different name in any story.</p>
+
+    <h2 style="margin: 40px 0 0; font-size: 20px; line-height: 25px; font-weight: 600">And your birthday?</h2>
+    <div style="display: flex; align-items: center; gap: 10px; height: 52px; margin-top: 14px; padding: 0 20px; border-radius: 26px; background: #F3EFE8; color: #0F0E0D; font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums">
+      <label for="ob-mm" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Month</label>
+      <input id="ob-mm" type="text" inputmode="numeric" value="06" style="width: 28px; height: 52px; border: 0; outline: none; background: transparent; color: #0F0E0D; font: inherit">
+      <span aria-hidden="true" style="color: #77716A; font-weight: 400">/</span>
+      <label for="ob-dd" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Day</label>
+      <input id="ob-dd" type="text" inputmode="numeric" value="21" style="width: 28px; height: 52px; border: 0; outline: none; background: transparent; color: #0F0E0D; font: inherit">
+      <span aria-hidden="true" style="color: #77716A; font-weight: 400">/</span>
+      <label for="ob-yy" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Year</label>
+      <input id="ob-yy" type="text" inputmode="numeric" placeholder="YYYY" style="width: 60px; height: 52px; border: 0; outline: none; background: transparent; color: #0F0E0D; font: inherit">
+    </div>
+    <p style="margin: 10px 0 0; font-size: 13px; line-height: 18px; color: #B4ADA3">Only used to keep under-13s safe. Nobody else sees it.</p>
+  </div>
+
+  <a href="OnbTaste.dc.html" aria-label="Next" style="position: absolute; right: 20px; bottom: 40px; display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 28px; background: #F3EFE8">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#77716A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+  </a>
+  <span style="position: absolute; left: 20px; bottom: 58px; font-size: 13px; line-height: 18px; color: #948E85">Finish the year to go on</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
