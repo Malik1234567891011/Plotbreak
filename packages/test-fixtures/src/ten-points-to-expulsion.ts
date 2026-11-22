@@ -45,14 +45,14 @@ const raw = {
   storyId: 'story_ten_points_to_expulsion',
   version: 1,
   title: 'Ten Points to Expulsion',
-  fantasyLabel: 'Ten points left. Zero means you’re out.',
+  fantasyLabel: 'Ten points left, and a bribe to fail.',
   hook: 'At a college where every action earns or costs points and zero means expulsion, you have ten left, and the student president has just offered you a thousand to fail this morning’s exam.',
   premise:
     'Tallis College scores everything. Every student wears a band, and a system called the Ledger watches the whole campus through them, adding or taking away points for what it sees. Hold a door: plus one. Run in the colonnade: minus two. Points buy your meals, your room and your library time. At zero, you are expelled.\n\n' +
     'You are here on the college’s one full scholarship, because your entrance exam was perfect. Paying students start the year with thousands of points from their families’ endowment. You started with fifty. A month of learning the rules the hard way later, you have ten.\n\n' +
-    'This morning is the Standing Paper, the exam that re-ranks the whole first year. Thirty seconds before the bell, Ren Calloway, the student president, sat down at your desk and offered you a thousand points to hand in a blank paper.\n\n' +
+    'This morning is the Standing Paper, the exam that re-ranks the whole first year. Thirty seconds before the bell, Ren Harcourt, the student president, sat down at your desk and offered you a thousand points to hand in a blank paper.\n\n' +
     'A thousand points would make you safe for the year, and it would save your friend Yui, who is down to three. So you have to decide, now, what your exam is worth, and why it is worth so much to him.\n\n' +
-    'Something is wrong with the Ledger. Some deductions arrive with no reason given, the proctor watching your exam knows more than he says, and the last student who asked to see its books was expelled six days later.',
+    'Something is wrong with the Ledger. Some deductions arrive with no reason given, the proctor watching your exam knows more than he says, and the last student who asked to see its books was at zero six days later.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
@@ -66,13 +66,13 @@ const raw = {
     'Lying is a real option',
     'Walk out whenever you like',
   ],
-  contentDescriptors: ['ROMANCE', 'MORAL_AMBIGUITY', 'FANTASY_VIOLENCE'],
+  contentDescriptors: ['ROMANCE', 'MORAL_AMBIGUITY', 'FANTASY_VIOLENCE', 'PSYCHOLOGICAL_THEMES'],
   intensity: 'MODERATE',
   creatorNote:
     'You can take the thousand and coast, sit the paper and find out what a perfect score sets off, or spend the week keeping Yui above zero one soup at a time. Every choice moves your number, and the Ledger will tell you exactly by how much. Ren will notice which you pick. So will the proctor.',
   openingObligations: [
     {
-      what: 'Answer Ren Calloway before the bell rings and the Standing Paper begins',
+      what: 'Answer Ren Harcourt before the bell rings and the Standing Paper begins',
       withCharacterId: 'ren',
       dueInMinutes: 1,
     },
@@ -90,15 +90,15 @@ const raw = {
     hardCanon: [
       'Tallis College is a four-year residential college on a hill above the town of Brackwater. Every student is an adult, at least eighteen. The player is a first-year a month into term, on the college’s one full scholarship, which goes to the highest entrance exam score of the year.',
       'Every student wears a band. The Ledger, the college’s scoring system, sees through the bands and through lenses on every building, and adds or takes away points by a published Tariff. Points buy meals, rooms, library time and resits. At zero a student is served Notice and is expelled forty-eight hours later unless their balance is back above zero.',
-      'The Tariff, in part: helping staff or a student +1 to +3; a kitchen shift +2; a top-ten exam paper +50; a perfect paper +200; winning a Stake, the amount staked. Running in the colonnade -2; lateness -3; a raised voice in a hall -2; lying to staff, if caught, -5; leaving a sitting early -10; refusing a lawful Stake -5; removing your band -20; unsanctioned violence -50. Gifts of points between students are lawful and unlimited.',
+      'The Tariff, in part: helping staff or a student +1 to +3; a kitchen shift +2; a top-ten exam paper +50; a perfect paper +200; winning a Stake, the amount staked. Running in the colonnade -2; lateness -3; a raised voice in a hall -2; lying to staff, if caught, -5; leaving a sitting early -10; refusing a lawful Stake -5; removing your band -20; unsanctioned violence -50. Gifts of points between students are lawful and unlimited. Help and kitchen shifts pay at most five points a day between them, and the Ledger never pays twice for the same favour.',
       'Paying students start each year with an endowment credit of thousands of points. Scholarship and bursary students start with fifty. The player starts the story at 10 points and Yui Arakawa at 3.',
-      'The Standing Paper, sat by the whole first year this Monday morning, re-ranks the year on the Board in the colonnade at six in the evening. Under clause nine of the Tallis Charter, a student who scores a perfect Standing Paper gains the Right of Audit: the Ledger must show them its complete books, and the Council cannot suspend that right.',
-      'The player’s entrance exam was perfect, and they can score perfect today if they sit the paper honestly. Ren Calloway has read their file and knows it.',
+      'The Standing Paper, sat by the whole first year this Monday morning, re-ranks the year on the Board in the colonnade at six in the evening. Under clause nine of the Tallis Charter, a student who scores a perfect Standing Paper gains the Right of Audit: the Ledger must show them its complete books, and the Council cannot suspend that right. It runs three hours, nine to twelve: forty questions, in silence, and at pens down Mr. Grey collects every paper exactly as it is. Question forty is the one nobody gets. The story opens on Monday, Day 1; the Standing Hearing is Friday, Day 5.',
+      'The player’s entrance exam was perfect, and they can score perfect today if they sit the paper honestly. Ren Harcourt has read their file and knows it. Ren’s card pays only if the player’s paper goes up blank at six; taking it and sitting the paper anyway gets the player nothing but Ren’s attention.',
       'The Correction: the Ledger’s points are a fixed pool. The thousands credited to the founding families’ heirs are balanced by small Adjustments, most of them just after midnight, taken from the students with least and authorised by Key Seven, a brass key the Provost wears. Ren co-signs it each quarter as president and means to end it quietly in his last vote. Margot Ashdown runs the file and skims it. All of this is discoverable and none of it is owed.',
       'Sixteen years ago Tobias Grey, now the proctor and night porter, scored the last perfect Standing Paper, opened the audit, read one page before Key Seven closed the session, and was drained to zero in six days. He stayed on as staff. The Ledger does not score staff.',
       'The Ledger cannot see past the main gate. Brackwater town is unscored, and its newspaper has wanted a way through that gate for years.',
       'A Standing Hearing of the Council and the Provost sits on Friday at ten. Anyone under twenty points after the Standing Paper, or whose paper is under complaint, is called before it to be carried or expelled.',
-      'Zero is not the end of the story. A student on Notice keeps their band for forty-eight hours, can still act on campus, can be saved by a gift of points, and can carry on from outside the gate.',
+      'Zero is not the end of the story. A student on Notice keeps their band for forty-eight hours, can still act on campus, can be saved by a gift of points, and can carry on from outside the gate. A balance never shows below zero: a fine bigger than the balance stops at zero, and Notice starts.',
       'Nobody on the hill wants the player hurt. The dangers are being drained, fined, bought, made complicit, or expelled.',
     ],
     toneGuide:
@@ -107,7 +107,8 @@ const raw = {
       'Nobody here is a monster. Ren is principled and compromised, Margot is ambitious, the Provost believes she saved the college, and every one of them can be argued with, bought or surprised. ' +
       'Fights are rare and expensive: a Stake bout at the boathouse is sparring with rules, tape and a medic, and a punch anywhere else costs fifty points. Injuries are bruises and split lips at worst; nothing is graphic. ' +
       'Everyone is an adult and is written as one. Romance is optional, flirtatious, tense and heartfelt, and goes no further than a kiss; never fan service, never lingering on bodies. ' +
-      'Comedy lives in the Tariff: the absurd deductions, the meal prices, Yui’s arithmetic. The face at the top of a beat is Ren’s or Yui’s whenever one of them is in the scene and the moment involves them.',
+      'Comedy lives in the Tariff: the absurd deductions, the meal prices, Yui’s arithmetic. The face at the top of a beat is Ren’s or Yui’s whenever one of them is in the scene and the moment involves them. ' +
+      'The week has a tempo, not a timetable: Monday belongs to the paper, the results at six and the first minus one nobody explains; Tuesday to the hearing list, Margot’s Stake and Yui’s balance running out; Wednesday to the midnight tick and Ren alone on the jetty; Thursday to the boathouse and the Provost’s tea; Friday at ten to the hearing. Let the pressure arrive in roughly that order, and never hold the story still waiting for it.',
     proseStyle: 'webnovel',
     styleExamples: [
       "The soup costs one point.\n\n[-1 · Refectory: soup · Balance 9]\n\nMargot Ashdown sits down across from you with a salad that costs more than your room.\n\n\"Quick thing!\" she says. \"You didn’t take Ren’s card.\"\n\n\"No.\"\n\n\"Totally your call.\" She turns her tablet round so you can see your own name on it. \"I just think nine is a really small number. And I’m really, really good at arithmetic.\"",
@@ -183,7 +184,7 @@ const raw = {
         {
           upTo: 20,
           behaviour:
-            'Nobody important knows the player’s name yet. Prefects walk past, the council is busy with its own arithmetic, and small rule-bending goes unnoticed by anybody holding a pen.',
+            'Nobody important knows the player’s name yet. Council stewards walk past, the council is busy with its own arithmetic, and small rule-bending goes unnoticed by anybody holding a pen.',
         },
         {
           upTo: 50,
@@ -193,7 +194,7 @@ const raw = {
         {
           upTo: 80,
           behaviour:
-            'The player is an item on somebody’s agenda. Doors in the council wing stay shut, a prefect turns up wherever they go, and the Provost’s secretary has begun asking after their wellbeing.',
+            'The player is an item on somebody’s agenda. Doors in the council wing stay shut, a council steward turns up wherever they go, and the Provost’s secretary has begun asking after their wellbeing.',
         },
         {
           upTo: 100,
@@ -253,9 +254,9 @@ const raw = {
       tags: ['quest', 'currency'],
       questItem: true,
       description:
-        'A black transfer card printed in gold: 1,000 POINTS. Tap it to any band and the points move, logged as a gift from R. Calloway with an empty memo line.',
+        'A black transfer card printed in gold: 1,000 POINTS. It pays out after the results go up at six, to whichever band taps it, and only if the holder’s Standing Paper is blank on the Board. Logged as a gift from R. Harcourt with an empty memo line.',
       loreText:
-        'Gifts between students are lawful and unlimited. The card is single-use and works for whoever taps it, which Ren knows, and which is either very generous or a test.',
+        'Gifts between students are lawful and unlimited. The thousand is held on the card until six: a blank paper beside the holder’s name and it pays; a single answer on the page and the card goes dark. Ren knows exactly what that makes it.',
       icon: 'card',
     },
     {
@@ -275,7 +276,7 @@ const raw = {
       questItem: true,
       skillModifiers: { rules: 1 },
       description:
-        'One laminated sheet issued at induction. Help staff or a student: +1 to +3. A kitchen shift: +2. Top-ten exam paper: +50. Perfect paper: +200. Win a Stake: the amount staked. Running in the colonnade: -2. Late to anything: -3. Raised voice in a hall: -2. Lying to staff, if caught: -5. Leaving a sitting early: -10. Refusing a lawful Stake: -5. Removing your band: -20. Unsanctioned violence: -50.',
+        'One laminated sheet issued at induction. Help staff or a student: +1 to +3. A kitchen shift: +2. Top-ten exam paper: +50. Perfect paper: +200. Win a Stake: the amount staked. Running in the colonnade: -2. Late to anything: -3. Raised voice in a hall: -2. Lying to staff, if caught: -5. Leaving a sitting early: -10. Refusing a lawful Stake: -5. Removing your band: -20. Unsanctioned violence: -50. Help and kitchen shifts pay at most five points a day between them, and the Ledger never pays twice for the same favour.',
       loreText:
         'Meals cost 1. The plain tray is free under ten points. A library afternoon costs 2, a heated room 5 a week. The bottom line, in the smallest print on the sheet: Adjustments may be made.',
       icon: 'papers',
@@ -309,7 +310,7 @@ const raw = {
       tags: ['quest', 'document', 'evidence'],
       questItem: true,
       description:
-        'A grey council folder holding one sheet per quarter: about nine thousand points a quarter, divided among forty names, every one of them under a hundred. Two signatures at the bottom of each sheet: R. Calloway, President, and A. Marsh, Provost.',
+        'A grey council folder holding one sheet per quarter: about nine thousand points a quarter, taken a point at a time from about a hundred scholarship and bursary accounts, every one of them under a hundred points. Two signatures at the bottom of each sheet: R. Harcourt, President, and H. Marsh, Provost.',
       loreText:
         'A third column, in pencil, in Margot Ashdown’s neat hand, does not match the total. The difference goes to one account every quarter, and it is hers.',
       icon: 'folder',
@@ -333,7 +334,7 @@ const raw = {
       description:
         'A heavy brass key on a green ribbon, warm from being worn. It fits one lock: a terminal in the Provost’s study that talks directly to the Ledger.',
       loreText:
-        'Turned one way, it authorises Adjustments. Turned the other, according to the Ledger’s own manual, it reverses them. Nobody has ever turned it the other way.',
+        'Turned one way, it authorises Adjustments. Turned the other, according to the Ledger’s own manual, it reverses them. Nobody has ever turned it the other way. At night the Provost hangs it, ribbon and all, on a hook beside the study terminal.',
       icon: 'key',
     },
     {
@@ -341,7 +342,7 @@ const raw = {
       name: 'A Council Pin',
       tags: ['access'],
       description:
-        'A small silver pin in the shape of a balance. Doors in the council wing open for it and prefects stop asking questions.',
+        'A small silver pin in the shape of a balance. Doors in the council wing open for it and stewards stop asking questions.',
       loreText:
         'Wearing one that is not yours costs nothing on the Tariff, because nobody who wrote the Tariff imagined anybody would.',
       icon: 'badge',
@@ -614,7 +615,7 @@ const raw = {
       description:
         'Two hundred and twelve single desks in rows under a vaulted ceiling, a clock that ticks loudly enough to count by, and a raised dais at the front with a brass hand bell on it. Every desk has a lens above it. Every band in the room shows a number.',
       artDirection:
-        'Vast old college examination hall, rows of single wooden desks, tall arched windows with morning light, a vaulted ceiling with small black camera lenses, a raised dais with a brass hand bell. Tense, hushed, navy and gold.',
+        'Vast old college examination hall, rows of single wooden desks, students in black academic gowns over navy blazers at the desks, tall arched windows with morning light, a vaulted ceiling with small black camera lenses, a raised dais with a brass hand bell. Tense, hushed, navy and gold.',
       connections: [{ to: 'colonnade', travelMinutes: 2, label: 'Out through the double doors' }],
       discoveredByDefault: true,
       mapPosition: { x: 0, y: 0 },
@@ -630,7 +631,7 @@ const raw = {
       description:
         'A long covered walkway of pale stone columns that joins every building on the hill. At its centre hangs the Board, a screen two storeys high that shows every student’s balance in rank order and rewrites itself at six each evening. Running here costs two points, and everybody is always nearly running.',
       artDirection:
-        'Long sunlit stone colonnade on a college campus, students in navy blazers walking fast, a huge glowing ranking screen hung between columns showing names and numbers, ivy, lens housings on the capitals. Bright, crowded, competitive.',
+        'Long sunlit stone colonnade on a college campus, students in open navy blazers over everyday clothes, some in black academic gowns, coffee cups and laptop bags, walking fast, a huge glowing ranking screen hung between columns showing names and numbers, ivy, lens housings on the capitals. Bright, crowded, competitive.',
       connections: [
         { to: 'exam_hall', travelMinutes: 2, label: 'The examination hall' },
         { to: 'refectory', travelMinutes: 3, label: 'The refectory' },
@@ -679,7 +680,7 @@ const raw = {
     },
     {
       id: 'library',
-      name: 'The Calloway Library',
+      name: 'The Harcourt Library',
       shortName: 'Library',
       description:
         'Three floors of oak and green lamps, paid for by Ren’s grandfather and named for him. An afternoon costs two points; the unheated reading room in the basement is free. The Charter sits under glass in the front hall, and a corridor of year photographs runs back to the day the Ledger was switched on.',
@@ -728,7 +729,7 @@ const raw = {
       name: 'The Old Boathouse',
       shortName: 'Boathouse',
       description:
-        'A timber boathouse on the river at the foot of the hill, its boats long gone, a roped ring in the middle of the floor and a medic’s bench by the door. Stakes are settled here on Thursday nights. The jetty outside is the only place on campus with one lens, and it points at the water.',
+        'A timber boathouse on the river at the foot of the hill, its boats long gone, a roped ring in the middle of the floor and a medic’s bench by the door. Small Stakes are settled here every evening, and the big ones on Thursday nights. The jetty outside is the only place on campus with one lens, and it points at the water.',
       artDirection:
         'Old wooden boathouse on a river at dusk, a roped boxing ring on the plank floor, hanging lights, a first aid bench, a long jetty outside over dark water. Warm amber light inside, cool blue outside.',
       connections: [{ to: 'colonnade', travelMinutes: 8, label: 'Up the river steps' }],
@@ -795,9 +796,9 @@ const raw = {
   factions: [
     {
       id: 'faction_council',
-      name: 'The Merit Council',
+      name: 'The Standing Council',
       description:
-        'Eleven students elected by points, which means by the richest, who set the fines on the Tariff, approve large transfers and sit on the Standing Hearing. Ren Calloway chairs it from the white chair. Margot Ashdown keeps its books.',
+        'Eleven students elected by points, which means by the richest, who set the fines on the Tariff, approve large transfers and sit on the Standing Hearing. Ren Harcourt chairs it from the white chair. Margot Ashdown keeps its books. Its stewards, students paid in points to keep order, walk the colonnade and the halls.',
       startingReputation: 0,
       ranks: [
         { atReputation: 0, label: 'A name on a list' },
@@ -853,7 +854,7 @@ const raw = {
   characters: [
     {
       id: 'ren',
-      name: 'Ren Calloway',
+      name: 'Ren Harcourt',
       role: 'Student president, fourth-year, and the richest balance on the Board',
       cardBlurb:
         'He is the highest number on the Board, he has just offered you a thousand points to fail, and for one second while he did it he looked like he hoped you would say no.',
@@ -884,7 +885,7 @@ const raw = {
       secrets: [
         {
           id: 'ren_the_signature',
-          fact: 'His signature is on every quarterly Correction sheet since he became president: about nine thousand points a quarter, taken from the forty students with least.',
+          fact: 'His signature is on every quarterly Correction sheet since he became president: about nine thousand points a quarter, taken a point at a time from the hundred or so scholarship and bursary accounts with least.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He admits it if the player shows him Yui’s notebook and asks him about it without threatening him with it.',
         },
@@ -917,12 +918,12 @@ const raw = {
         { startMinute: 420, endMinute: 520, locationId: 'refectory', activity: 'breakfast at the head of the high table, paying for whoever sits nearest' },
         { startMinute: 520, endMinute: 720, locationId: 'exam_hall', activity: 'on the dais of the examination hall, where the president opens every morning sitting' },
         { startMinute: 720, endMinute: 900, locationId: 'council_chamber', activity: 'council business: transfers, fines and petitions' },
-        { startMinute: 900, endMinute: 1080, locationId: 'colonnade', activity: 'walking the colonnade under the Board, stopped every ten metres' },
-        { startMinute: 1080, endMinute: 1260, locationId: 'boathouse', activity: 'on the boathouse jetty with Bastian, talking about nothing' },
+        { startMinute: 900, endMinute: 1110, locationId: 'colonnade', activity: 'walking the colonnade under the Board, stopped every ten metres' },
+        { startMinute: 1110, endMinute: 1260, locationId: 'boathouse', activity: 'on the boathouse jetty with Bastian, talking about nothing' },
         { startMinute: 1260, endMinute: 1440, locationId: 'council_chamber', activity: 'reading the day’s transfers by one lamp' },
       ],
       homeLocationId: 'council_chamber',
-      knowledgeScope: ['ren', 'the_council', 'the_correction', 'the_card', 'the_calloways', 'the_standing_paper', 'bastian'],
+      knowledgeScope: ['ren', 'the_council', 'the_correction', 'the_card', 'the_harcourts', 'the_standing_paper', 'bastian'],
       startingRelationship: { trust: 20, affection: 10, respect: 45, fear: 0, rivalry: 25 },
       gates: [
         {
@@ -993,7 +994,7 @@ const raw = {
       voiceSamples: [
         'Three points. That’s one soup, one bread roll, and absolutely no opinions until Friday.',
         'Take it. Don’t look at me like that, take it, you’d be mad not to, I’d take it, I’d take it twice.',
-        'I wrote every one down. Minus one for loitering, I was in a queue. Minus one for an untidy uniform, I was in my own room in pyjamas.',
+        'I wrote every one down. Minus one for loitering, I was in a queue. Minus one for an untidy blazer, I wasn’t even wearing one.',
         'If I hit zero I get the night bus home and Mum asks how it went and I say fine. That’s the plan. That’s the whole plan.',
         'Sorry. I sold Margot where you study. Twenty points. That was before. It isn’t before any more.',
       ],
@@ -1199,7 +1200,7 @@ const raw = {
       values: ['Earning it, and making sure everybody knows she did', 'Rules applied to the letter, by her'],
       fears: ['Her own name turning up in the file', 'That her eleven thousand points were never really hers'],
       socialStyle:
-        'Bright, brisk and friendly while she reads you your own fines. Threatens only with numbers, and always says it is nothing personal, which it never is not.',
+        'Bright, brisk and friendly while she reads you your own fines. Threatens only with numbers, and always says it is nothing personal, which it always is.',
       boundaries: [
         'Will not do anything a lens can see that the Tariff forbids',
         'Will not be alone in a room with Mr. Grey',
@@ -1214,7 +1215,7 @@ const raw = {
         },
         {
           id: 'margot_bought_yui',
-          fact: 'She paid Yui Arakawa twenty points last week to find out which room the player studies in.',
+          fact: 'She paid Yui Arakawa twenty points last week to find out which room the player studies in, so a lens could be re-aimed at the desk the scholarship student revises at before the Standing Paper.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells the player herself, sweetly, the moment she thinks it will split them from Yui.',
         },
@@ -1334,7 +1335,7 @@ const raw = {
     },
     {
       id: 'marsh',
-      name: 'Aurelia Marsh',
+      name: 'Honora Marsh',
       calledName: 'Provost Marsh',
       role: 'Provost of Tallis College, who wears the only key to the Ledger on a ribbon at her neck',
       cardBlurb:
@@ -1349,7 +1350,7 @@ const raw = {
       socialStyle:
         'Receives people in the drawing room with tea, agrees with everything they say about fairness, and then explains, kindly and at length, why it does not change anything.',
       boundaries: [
-        'Will not hand the key to anybody while she is awake to stop it',
+        'Will not hand the key to anybody; she wears it all day and hangs it on a hook beside her study terminal at night',
         'Will not raise her voice, and will end any meeting in which somebody else does',
       ],
       goals: ['Get through Friday’s hearing without an audit', 'Keep the founding families paying for another year'],
@@ -1414,7 +1415,7 @@ const raw = {
       steps: [
         {
           id: 'answer_ren',
-          playerCopy: 'Answer Ren Calloway before the bell.',
+          playerCopy: 'Answer Ren Harcourt before the bell.',
           directorNotes:
             'Ren is seated on the desk beside the player with the card face up. Every answer here is a real one and none is wrong. Taking the card is lawful. Refusing is lawful. Calling the proctor gets Mr. Grey’s flat ruling that gifts between students break no rule he enforces, a -2 for a raised voice in a hall, and a room full of people who now know. A punch is -50 and Notice on the spot, and the story carries on from there. Ren reacts to the specific thing, never to the premise, and he leaves on the bell either way.',
           succeedWhen: null,
@@ -1495,7 +1496,7 @@ const raw = {
           id: 'the_paper',
           playerCopy: 'Sit the Standing Paper, or don’t.',
           directorNotes:
-            'Three hours, forty questions. The player knows they can get every one. Ren watches from the back of the hall. Yui is three desks away and keeps looking over. Mr. Grey walks the rows once an hour exactly. Missing one on purpose is a clever third way: a top-ten paper and +50, no audit, and Ren’s card was never for that, so he will not pay it.',
+            'Three hours, forty questions. The player knows they can get every one. Ren watches from the back of the hall. Yui is across the aisle and keeps looking over. Mr. Grey walks the rows once an hour exactly. Missing one on purpose is a clever third way: a top-ten paper and +50, no audit, and Ren’s card was never for that, so he will not pay it.',
           enterWhen: { flagsSet: ['the_bell_rang'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1606,7 +1607,7 @@ const raw = {
     },
     {
       id: 'q_three_points',
-      title: 'Three Points',
+      title: 'Yui at Three',
       summary: 'Your friend Yui is three points from Notice, and the Tariff does not care that she is funny.',
       kind: 'MAIN',
       involvedCharacterIds: ['yui', 'margot'],
@@ -1618,7 +1619,7 @@ const raw = {
           id: 'keep_yui_in',
           playerCopy: 'Keep Yui above zero.',
           directorNotes:
-            'Yui will not ask. She will joke about the night bus and change the subject. Points can be given, earned together, or raised by the attic’s whip-round jar if the corridor trusts the player. If nobody does anything, her band goes dark on Tuesday evening and she has forty-eight hours of Notice, during which she can still be saved. If she goes home, write it as a loss and not a lesson.',
+            'Yui will not ask. She will joke about the night bus and change the subject. Points can be given, earned together, or raised by the attic’s whip-round jar if the corridor trusts the player. If nobody does anything, her band goes dark on Tuesday evening and she has forty-eight hours of Notice, during which she can still be saved. If she goes home, write it as a loss and not a lesson. Ren’s card can only save her after a thrown paper: it pays at six, and only if the holder’s paper went up blank.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1674,7 +1675,7 @@ const raw = {
           id: 'the_pattern',
           playerCopy: 'Work out where the unexplained deductions come from.',
           directorNotes:
-            'The player has had one Adjustment. Yui has had thirty-one. The pattern is that they hit the students with least, almost always just after midnight, and the Ledger tags them Authorised with no reason. Nobody needs to explain the mechanism yet. The point of this step is the moment the player realises it is not bad luck.',
+            'The player has noticed one Adjustment on their own band and watched Yui take one in the middle of the exam. Yui’s notebook has thirty-one. The pattern is that they hit the students with least, almost always just after midnight, and the Ledger tags them Authorised with no reason. Nobody needs to explain the mechanism yet. The point of this step is the moment the player realises it is not bad luck.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1773,7 +1774,7 @@ const raw = {
           id: 'what_you_do_with_it',
           playerCopy: 'Decide what to do about Key Seven before Friday.',
           directorNotes:
-            'The player now knows that a brass key on the Provost’s ribbon has been refilling the founding families’ points out of the attic for twenty-three years. Every option is live and none is clean. The audit is lawful and loud. Taking the key is theft from a sleeping woman’s study. Selling silence to Ren is a real deal he will honour. The town paper is outside the Ledger’s sight and outside anybody’s control.',
+            'The player now knows that a brass key on the Provost’s ribbon has been refilling the founding families’ points out of the attic for twenty-three years. Every option is live and none is clean. The audit is lawful and loud. Taking the key is theft: by day it is on her ribbon, and at night it hangs on a hook beside the study terminal. Selling silence to Ren is a real deal he will honour. The town paper is outside the Ledger’s sight and outside anybody’s control.',
           enterWhen: { flagsSet: ['knows:the_correction'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1944,7 +1945,7 @@ const raw = {
     },
     {
       id: 'q_the_last_perfect_paper',
-      title: 'The Last Perfect Paper',
+      title: 'What Mr. Grey Read',
       summary: 'Sixteen years ago somebody scored forty out of forty and asked to see the books. The proctor knows who.',
       kind: 'LEAD',
       involvedCharacterIds: ['grey', 'ledger', 'marsh'],
@@ -2118,6 +2119,19 @@ const raw = {
       movesCharacters: [],
     },
     {
+      id: 'we_mid_sitting',
+      atWorldMinute: 10 * 60 + 30,
+      locationId: 'exam_hall',
+      publicCopy:
+        'Halfway through the sitting, in total silence, a band across the aisle buzzes. Yui looks down at it, then at you, and mouths a number: two.',
+      directorNotes:
+        'An Adjustment, mid-exam, to somebody sitting perfectly still. Apply it to Yui (3 to 2) and do not explain it. Mr. Grey looks up, checks his watch and writes the time in his logbook. Ren, at the back, does not move. Whispering back is a raised voice in a hall if anybody official hears it.',
+      setsFlags: [],
+      cancelledByFlags: [],
+      requiresFlags: ['the_bell_rang'],
+      movesCharacters: [],
+    },
+    {
       id: 'we_pens_down',
       atWorldMinute: 12 * 60,
       locationId: 'exam_hall',
@@ -2135,7 +2149,7 @@ const raw = {
       locationId: null,
       publicCopy: 'Your band buzzes in the middle of nothing at all. [-1 · Adjustment · Authorised · Reason: not recorded]',
       directorNotes:
-        'The first unexplained deduction the player has noticed. Apply it to the running balance and do not explain it. This one was keyed by hand from the council wing, not by the midnight Correction, and the player cannot know that yet. If Yui is nearby she goes very still, then very loud.',
+        'The first unexplained deduction on the player’s own band. Apply it to the running balance and do not explain it. This one was queued by hand from the treasurer’s office under Key Seven’s standing authority, not by the midnight Correction, and the player cannot know that yet. If Yui is nearby she goes very still, then very loud.',
       setsFlags: ['saw_an_adjustment'],
       cancelledByFlags: [],
       requiresFlags: ['paper_handed_in'],
@@ -2237,7 +2251,7 @@ const raw = {
       id: 'we_ren_on_the_jetty',
       atWorldMinute: 2 * 1440 + 23 * 60 + 30,
       locationId: 'boathouse',
-      publicCopy: 'Ren Calloway is sitting at the very end of the boathouse jetty in his white blazer, alone, not on his phone.',
+      publicCopy: 'Ren Harcourt is sitting at the very end of the boathouse jetty in his white blazer, alone, not on his phone.',
       directorNotes:
         'Only for a player who refused him. This is where he is honest if he is ever going to be: about the signatures, the last perfect paper, and why the bribe was also a warning. If the two of them have been circling each other, this is the place for it, and it goes no further than a kiss.',
       setsFlags: ['ren_on_the_jetty'],
@@ -2270,7 +2284,7 @@ const raw = {
     {
       id: 'p_ren',
       kind: 'RIVAL',
-      label: 'What Ren Calloway is actually buying',
+      label: 'What Ren Harcourt is actually buying',
       seedHint: 'He offered a thousand points for a blank paper and did not look like a man who wanted to win.',
       payoffHint: 'His signature on every Correction sheet, a plan to end it in his last vote, and a bribe that was half a warning.',
       weight: 0.9,
@@ -2336,7 +2350,7 @@ const raw = {
       name: 'You Talk Your Way Out',
       role: 'Charm, bluffing and bargaining',
       summary:
-        'You have talked your way past three fines, a locked library and one prefect, and you have never once had the points to back any of it up.',
+        'You have talked your way past three fines, a locked library and one council steward, and you have never once had the points to back any of it up.',
       playstyle: ['Charming', 'Quick', 'Bluffs'],
       blurb:
         'Half the second years think you are on a secret council committee, because you once said so, confidently, while holding a clipboard.',
@@ -2401,7 +2415,7 @@ const raw = {
       kind: 'TEXT',
       advanced: true,
       maxLength: 200,
-      placeholder: 'e.g. A navy blazer from the lost-property box, sleeves rolled, and a red light on my wrist.',
+      placeholder: 'e.g. A second-hand navy blazer, sleeves rolled, and a red light on my wrist.',
     },
   ],
   /**
@@ -2547,7 +2561,7 @@ const raw = {
       condition:
         'The player turned Key Seven the other way. Overnight every Adjustment in twenty-three years runs backwards: points flow out of the founding families’ heirs and back to the students they were taken from. Nobody explains it on the Board. The attic wakes up rich.',
       epilogue:
-        'At one minute past midnight every red band in the attic turns white. Yui’s reads four thousand and eleven. She sits on the corridor floor and laughs until a prefect comes to see what the noise is, and then she gives him fifty points for coming, because she can.',
+        'At one minute past midnight every red band in the attic turns white. Yui’s reads four thousand and eleven. She sits on the corridor floor and laughs until a council steward comes to see what the noise is, and then she gives him fifty points for coming, because she can.',
       hint: 'There is a manual for the key, and the manual has two directions in it.',
     },
     {
@@ -2564,10 +2578,10 @@ const raw = {
     },
   ],
   opening:
-    "Your wristband buzzes.\n\n[Balance: 10 · At zero, you are expelled.]\n\nA fourth-year in a white blazer drops into the empty seat beside your exam desk.\n\n\"Ren Calloway. Student president.\" He smiles like it costs him nothing. \"Don’t stand up.\"\n\nHe slides a black card across the desk. Gold print: 1,000 POINTS.\n\n\"Fail the exam. Hand in a blank paper and this is yours. Nobody needs to know.\"\n\nAcross the aisle, your friend Yui stares at the card. Her band reads 3.\n\nAt the front, the proctor checks his watch and lifts the bell.\n\nThirty seconds.\n\nRen taps the card once. \"Yes or no?\"",
+    "Your wristband buzzes.\n\n[-2 · Running in the colonnade · Balance 10]\n\nTen points left. At zero, you are expelled.\n\nA fourth-year in a white blazer drops into the empty seat beside your exam desk.\n\n\"Ren Harcourt. Student president.\" He smiles like it costs him nothing. \"Don’t stand up.\"\n\nHe slides a black card across the desk. Gold print: 1,000 POINTS.\n\n\"Fail the exam. Hand in a blank paper and this is yours. Nobody needs to know.\"\n\nAcross the aisle, your friend Yui stares at the card. Her band reads 3.\n\nAt the front, the proctor checks his watch and lifts the bell.\n\nThirty seconds.\n\nRen taps the card once. \"Yes or no?\"",
   openingPanel: {
     assetKey: 'story_ten_points_to_expulsion/opening',
-    alt: 'Ren Calloway in a white blazer sliding a black card printed 1,000 POINTS across an exam desk toward the viewer, rows of desks and a brass bell behind him.',
+    alt: 'Ren Harcourt in a white blazer sliding a black card printed 1,000 POINTS across an exam desk toward the viewer, rows of desks and a brass bell behind him.',
   },
   openingSuggestions: [
     '"Why is my blank paper worth a thousand points to you?"',

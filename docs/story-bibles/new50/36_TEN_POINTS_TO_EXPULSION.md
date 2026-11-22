@@ -8,11 +8,11 @@
 **Slug / ids:** `ten-points-to-expulsion` · `TEN_POINTS_TO_EXPULSION` · `story_ten_points_to_expulsion` · `sv_ten_points_to_expulsion_1`
 **Protagonist:** BLANK. The player names themselves. They are a first-year at a residential college, an adult, on the college's one full scholarship.
 **Fixture:** `packages/test-fixtures/src/ten-points-to-expulsion.ts` · **Spec:** `ten-points-to-expulsion.spec.ts` (not yet in `LAUNCH_CATALOG`)
-**Title collision search:** not run in this pass. Check before release.
+**Title collision search (2026-11-22, run in editor review):** no anime, webtoon or manhwa titled "Ten Points to Expulsion". Nearest premise is Classroom of the Elite (points economy, expulsion). We share no names or terms with it, and the spec guards its vocabulary.
 
 ## Why this fantasy works
 
-The merit-ranked school is a shelf of its own on OOC. The readers want a scoreboard, an underdog near the bottom of it, a rich rival at the top, and a system that turns out to be rigged. The weakest openers in the genre explain the ranking rules first. This one opens on a single number (10) and a single offer (1,000), with thirty seconds on the clock.
+The merit-ranked academy is a shelf of its own on OOC. The readers want a scoreboard, an underdog near the bottom of it, a rich rival at the top, and a system that turns out to be rigged. The weakest openers in the genre explain the ranking rules first. This one opens on a single number (10) and a single offer (1,000), with thirty seconds on the clock.
 
 The player gets the genre's two core pleasures in the first beat: being poor in a place that measures everything, and being worth more than the number says. Ren is not paying a thousand points to beat a nobody. The player's entrance exam was perfect, and a perfect paper today unlocks the one thing the college is afraid of.
 
@@ -41,8 +41,9 @@ Every student wears a band. The Ledger, the scoring system, sees through the ban
 | Refusing a lawful Stake | -5 |
 | Removing your band | -20 |
 | Unsanctioned violence | -50 |
+| Help and kitchen shifts, combined | at most +5 a day; the Ledger never pays twice for the same favour |
 
-Gifts between students are lawful and unlimited. A meal costs 1; the plain tray is free under ten. A library afternoon costs 2; a heated room costs 5 a week. The last line of the sheet, in the smallest print: *Adjustments may be made.*
+Help and kitchen shifts pay at most five points a day between them, and the Ledger never pays twice for the same favour, so nobody holds doors all afternoon for ninety points. Gifts between students are lawful and unlimited. A balance never shows below zero: a fine bigger than the balance stops at zero, and Notice starts. A meal costs 1; the plain tray is free under ten. A library afternoon costs 2; a heated room costs 5 a week. The last line of the sheet, in the smallest print: *Adjustments may be made.*
 
 Paying students start each year with an endowment credit of thousands. Scholarship and bursary students start with fifty. The player started with fifty a month ago and has ten.
 
@@ -50,13 +51,17 @@ Paying students start each year with an endowment credit of thousands. Scholarsh
 
 ### The Standing Paper and clause nine
 
-The Standing Paper is sat by the whole first year on Monday morning and re-ranks the year on the Board at six that evening. Clause nine of the Tallis Charter: a student who scores a perfect Standing Paper gains the Right of Audit, and the Ledger must show them its complete books. The Council cannot suspend that right. Nobody has amended the clause, because for sixteen years nobody has needed to.
+The Standing Paper is sat by the whole first year on Monday from nine to twelve, forty questions in silence, and re-ranks the year on the Board at six that evening. At pens down Mr. Grey collects every paper exactly as it is. Clause nine of the Tallis Charter: a student who scores a perfect Standing Paper gains the Right of Audit, and the Ledger must show them its complete books. The Council cannot suspend that right. Nobody has amended the clause, because for sixteen years nobody has needed to.
 
 The player can score perfect if they sit honestly. Ren has read their file.
 
+### Ren's card
+
+The card holds a thousand points until the results go up at six. It pays to whichever band taps it, and only if the holder's Standing Paper is blank on the Board; a single answer on the page and the card goes dark. So the card is the bribe and nothing else: a player who pockets it and sits the paper anyway gets nothing but Ren's attention, and the card can only save Yui after a thrown paper. Without this, a player could tap it on turn 2, sit the paper honestly, tap Yui too, and end the ten-point scarcity before turn 3.
+
 ### The Correction (author's truth, discoverable, never owed)
 
-The Ledger's points are a fixed pool. The thousands credited to the founding families' heirs are balanced by small Adjustments, most of them at one minute past midnight, taken from the students with least. Each one is authorised by Key Seven, a brass key the Provost wears on a green ribbon. It moves about nine thousand points a quarter.
+The Ledger's points are a fixed pool. The thousands credited to the founding families' heirs are balanced by small Adjustments, most of them at one minute past midnight, taken from the students with least. Each one is authorised by Key Seven, a brass key the Provost wears on a green ribbon by day and hangs on a hook beside her study terminal at night. It moves about nine thousand points a quarter, a point at a time, from about a hundred scholarship and bursary accounts: roughly one point a night each, which is why Yui has thirty-one lines after a month.
 
 - **Ren** co-signs the quarterly sheet as president. He means to end it in his last council vote, quietly, so his family's name survives. The bribe is also a warning: the last student to open the audit was drained to zero in six days.
 - **Margot** runs the file for the Provost and has skimmed about four thousand points in a pencil column that does not match the total.
@@ -85,7 +90,7 @@ The Ledger cannot see past the main gate. Brackwater town is unscored. Students 
 - Fights are rare and expensive. A Stake bout is sparring with tape and a medic. A punch anywhere else costs fifty. Bruises at worst; nothing is graphic.
 - Romance is optional and goes no further than a kiss. Never fan service, and never lingering on bodies.
 - The comedy lives in the Tariff: absurd deductions, meal prices, Yui's arithmetic.
-- Pacing: Monday is the exam, results and the first Adjustment. Tuesday brings the hearing list, Margot's Stake and Yui hitting zero. Wednesday is the midnight tick and Ren on the jetty. Thursday is the boathouse and tea with the Provost. The hearing sits Friday at ten.
+- Pacing (the tone guide carries a soft version of this as tempo, not a timetable): Monday is the exam, Yui's silent minus one at half past ten, results and the first Adjustment on the player's own band. Tuesday brings the hearing list, Margot's Stake and Yui hitting zero. Wednesday is the midnight tick and Ren on the jetty. Thursday is the boathouse and tea with the Provost. The hearing sits Friday at ten.
 
 ## Player starting authority
 
@@ -99,11 +104,11 @@ The player is a first-year on the one full scholarship, with ten points, a band,
 ### Hard canon
 
 1. Tallis is a four-year residential college. Every student is an adult, at least eighteen.
-2. The Ledger scores every student by the published Tariff. Zero means Notice, then expulsion in forty-eight hours unless the balance recovers.
-3. Gifts between students are lawful and unlimited.
+2. The Ledger scores every student by the published Tariff. Zero means Notice, then expulsion in forty-eight hours unless the balance recovers. A balance never shows below zero.
+3. Gifts between students are lawful and unlimited. Help and kitchen shifts pay at most five points a day between them, never twice for the same favour.
 4. Paying students start with thousands of points; scholarship and bursary students with fifty. The player starts at 10; Yui at 3.
-5. A perfect Standing Paper earns the Right of Audit under clause nine, and the Council cannot suspend it.
-6. The player can score perfect if they sit honestly, and Ren knows it.
+5. A perfect Standing Paper earns the Right of Audit under clause nine, and the Council cannot suspend it. The paper runs nine to twelve on Monday, Day 1; the hearing is Friday, Day 5.
+6. The player can score perfect if they sit honestly, and Ren knows it. His card pays only if the player's paper goes up blank at six.
 7. The Correction exists, is authorised by Key Seven, and is discoverable but never owed.
 8. Grey scored the last perfect paper sixteen years ago and was drained in six days. Staff are not scored.
 9. The Ledger cannot see past the main gate.
@@ -111,15 +116,17 @@ The player is a first-year on the one full scholarship, with ten points, a band,
 11. A student on Notice can still act and be saved.
 12. Nobody wants the player hurt. The dangers are being drained, fined, bought, made complicit or expelled.
 
-## Opening (the first beat, 104 words)
+## Opening (the first beat, 113 words)
 
 > Your wristband buzzes.
 >
-> [Balance: 10 · At zero, you are expelled.]
+> [-2 · Running in the colonnade · Balance 10]
+>
+> Ten points left. At zero, you are expelled.
 >
 > A fourth-year in a white blazer drops into the empty seat beside your exam desk.
 >
-> "Ren Calloway. Student president." He smiles like it costs him nothing. "Don’t stand up."
+> "Ren Harcourt. Student president." He smiles like it costs him nothing. "Don’t stand up."
 >
 > He slides a black card across the desk. Gold print: 1,000 POINTS.
 >
@@ -133,12 +140,12 @@ The player is a first-year on the one full scholarship, with ten points, a band,
 >
 > Ren taps the card once. "Yes or no?"
 
-Ren speaks from word 27. The beat ends on his direct question. It uses no name the player must already know: Ren and Yui arrive with what they are, and the stakes are stated on the band.
+Ren speaks from word 36. The beat ends on his direct question. The band line is a real transaction in the exact format the tone guide tells the storyteller to copy (`[-2 · Reason · Balance 10]`), so the first beat shows the slate hook working: the player ran to the exam, it cost two, and ten is what is left. It uses no name the player must already know: Ren and Yui arrive with what they are, and the stakes are stated right under the band line.
 
 **Suggestions:**
 
 1. *Said:* "Why is my blank paper worth a thousand points to you?"
-2. *Done:* I pocket the card without a word and pick up my pen.
+2. *Done:* I pocket the card without a word and pick up my pen. (Under the card rule this takes the card and sits the paper: the card goes dark at six.)
 3. *Risky:* I raise my hand. "Proctor! He’s paying me to fail."
 
 The world clock starts at 08:59 on Monday. The bell is a world event at 09:00, and an opening obligation tells the storyteller the player owes Ren an answer before it rings.
@@ -147,7 +154,7 @@ The world clock starts at 08:59 on Monday. The bell is a world event at 09:00, a
 
 All seven are adults, or software. Ages are fixed.
 
-### Ren Calloway, 22
+### Ren Harcourt, 22
 **Role:** student president, fourth-year, top of the Board at about 48,000 points. The only white blazer on campus.
 **Immediate want:** a blank paper from the player this morning.
 **Long-term want:** to end the Correction in his last vote, without an audit, with his family's name intact.
@@ -173,7 +180,7 @@ All seven are adults, or software. Ages are fixed.
 **Fear:** watching it happen to somebody else on his shift.
 **Secrets:** the last perfect paper; the Grey Page in the biscuit tin.
 **Voice:** short procedural clauses, times to the minute, no opinions on duty. "Pens down is pens down. I do not care whose pen it is."
-**Will not:** break an exam rule for anybody, including to stop Ren; hand over the page to anybody who has lied to him.
+**Will not:** break an exam rule for anybody, including to stop Ren; hand over the page to anybody who has lied to him or has not told him exactly what they mean to do with it.
 **Gates:** by the stove after ten (trust 50, once the player knows the pattern); opens the biscuit tin (trust 65, once the player knows he was a student).
 
 ### The Ledger, 23 years in service
@@ -189,7 +196,7 @@ All seven are adults, or software. Ages are fixed.
 **Immediate want:** keep the Correction file out of anybody else's hands.
 **Long-term want:** the white chair, next year.
 **Fear:** her own name in the file.
-**Secrets:** the skim; she paid Yui.
+**Secrets:** the skim; she paid Yui, so a lens could be re-aimed at the desk the player revises at before the Standing Paper.
 **Voice:** upbeat, brisk and managerial, with exclamation marks. She threatens only with numbers. "Quick thing! You’re at ten. I’m at eleven thousand. Let’s keep this super friendly."
 **Will not:** break a rule a lens can see; be alone in a room with Mr. Grey.
 
@@ -202,14 +209,14 @@ All seven are adults, or software. Ages are fixed.
 **Voice:** slow, short and friendly. Ring terms, and he calls everybody "friend". "Tape your hands. No. Properly."
 **Will not:** fight outside the ring; let a bout go on after a tap-out.
 
-### Aurelia Marsh ("Provost Marsh"), 57
-**Role:** Provost. She wears Key Seven on a green ribbon.
+### Honora Marsh ("Provost Marsh"), 57
+**Role:** Provost. She wears Key Seven on a green ribbon by day; at night it hangs on a hook beside her study terminal.
 **Immediate want:** get through Friday without an audit.
 **Long-term want:** keep the founding families paying.
 **Fear:** the college closing on her watch; reading the names.
 **Secret:** Key Seven authorises every Adjustment.
 **Voice:** long, gracious sentences that end in a kind dismissal, with biscuits. "Of course it isn’t fair. Fair was the version that went bankrupt."
-**Will not:** hand over the key while awake; raise her voice.
+**Will not:** hand over the key; raise her voice.
 
 ## Places
 
@@ -219,10 +226,10 @@ All seven are adults, or software. Ages are fixed.
 | The Colonnade | The hub that joins every building. The Board hangs here and rewrites itself at six. |
 | The Refectory | High table for the top of the Board. The plain tray is at the end of the counter. |
 | The Attic Corridor | Eleven unheated rooms, eleven red bands and a whip-round jar. |
-| The Calloway Library | Paid for by Ren's grandfather. The Charter sits under glass, and the year photographs line a corridor. |
+| The Harcourt Library | Paid for by Ren's grandfather. The Charter sits under glass, and the year photographs line a corridor. |
 | The Vault | Under the library, where the Ledger lives. Locked until the player knows the pattern. |
-| The Council Chamber | Eleven chairs and a white one. The treasurer's office is through the side door. |
-| The Old Boathouse | The Stakes ring, a medic's bench, and the jetty. |
+| The Council Chamber | Eleven chairs and a white one. The treasurer's office is through the side door. The Standing Council's stewards, students paid in points to keep order, work from here. |
+| The Old Boathouse | The Stakes ring, a medic's bench, and the jetty. Small Stakes every evening, the big ones on Thursday nights. |
 | The Porter's Lodge | Stove, logbook and the last lens on campus. |
 | The Provost's House | The drawing room for tea, and the study with the key terminal. |
 | Brack Street | The unscored town, with a cafe, a night bus and the newspaper office. Reached only through the lodge. |
@@ -230,7 +237,7 @@ All seven are adults, or software. Ages are fixed.
 ## Five promises
 
 - **Finale:** whether the player is still at Tallis on Friday afternoon.
-- **Rival:** what Ren Calloway is actually buying.
+- **Rival:** what Ren Harcourt is actually buying.
 - **Mystery:** the minus ones with no reason given.
 - **Relationship:** Yui at three points.
 - **Theme:** the last perfect paper.
@@ -261,8 +268,9 @@ All seven are adults, or software. Ages are fixed.
 |---|---|
 | Mon 08:59 | Opening. Ren's card. |
 | Mon 09:00 | The bell. The sitting starts whatever the player said. |
+| Mon 10:30 | Mid-sitting, in silence, Yui's band takes an Adjustment (3 to 2) and she mouths the number. Grey logs the time. Seeds the mystery on turn 2 or 3. |
 | Mon 12:00 | Pens down. Every paper is collected as it is. |
-| Mon 13:15 | The first Adjustment the player notices. Opens the mystery. |
+| Mon 13:15 | The first Adjustment on the player's own band. Opens the mystery. |
 | Mon 18:00 | Results on the Board. A perfect paper earns the audit, and Margot freezes the +200 until Friday. |
 | Mon 22:40 | Grey reads his own 40/40 under the lodge lamp, only if the player has been to the lodge. |
 | Tue 09:00 | The hearing list goes out, unless the player was paid to fail. |
@@ -278,14 +286,14 @@ All seven are adults, or software. Ages are fixed.
 
 ## Emergent routes
 
-- **Answer Ren:** take the card, sit the paper, lie, bargain, call the proctor, ask why, swing at him, walk out, or let the bell answer. Every one is a real answer.
+- **Answer Ren:** take the card, take it and sit the paper anyway (it goes dark), sit the paper, lie, bargain, call the proctor, ask why, swing at him, walk out, or let the bell answer. Every one is a real answer.
 - **The paper:** answer all forty, hand in blank, miss exactly one on purpose (top ten, +50, no audit, and Ren will not pay), or leave early. Doing nothing still reaches pens down.
-- **Yui:** tap Ren's card to her band, earn it with her, get the attic to empty the jar, or let her Notice run out.
+- **Yui:** tap Ren's card to her band (only after a thrown paper: the card pays at six, and only on a blank one), earn it with her (five points a day at most), get the attic to empty the jar, or let her Notice run out.
 - **The source:** Grey by the stove, Grey's page, Ren's admission, Margot's file, or the audit itself.
 - **What to do with it:** the audit, the key, selling silence to Ren, or the town paper.
 - **Make it stick:** turn the key back, keep it, read the audit onto the Board, let the paper print it, switch the Ledger off, or let Ren end it his way.
 - **The Stake:** win in the ring, lose honestly, talk Margot down, swing first, or let it lapse.
-- **The hearing:** walk in after the Correction has ended, Ren's vote, the attic's jar, the Charter, Ren's card, or expulsion by default.
+- **The hearing:** walk in after the Correction has ended, Ren's vote, the attic's jar, the Charter, Ren's card (live only after a thrown paper), or expulsion by default.
 
 ## Ending space
 
@@ -304,9 +312,9 @@ All seven are adults, or software. Ages are fixed.
 
 ## Image plan (no art generated yet)
 
-Covers show adults described by costume and pose only.
+Covers show adults described by costume and pose only, never by age words. Students in the exam hall wear black academic gowns over navy blazers; in the colonnade, open blazers over everyday clothes, coffee cups and laptop bags. No school uniforms, no prefects.
 
-- **Cover:** a student in a navy blazer at an exam desk, a red light on their wrist showing 10. Leaning over them, a young man in a white blazer slides a black card printed 1,000 POINTS across the desk. Behind them is a vaulted hall of desks and a proctor lifting a brass bell. The title TEN POINTS TO EXPULSION is in the art.
+- **Cover:** a student in a black academic gown over an open navy blazer and a rumpled everyday shirt, at an exam desk, a red light on their wrist showing 10. Leaning over them, a man in a white blazer worn open, card case in his other hand, slides a black card printed 1,000 POINTS across the desk. Behind them is a vaulted hall of desks and a proctor lifting a brass bell. The title TEN POINTS TO EXPULSION is in the art.
 - **Opening panel** (`story_ten_points_to_expulsion/opening`): Ren sliding the card toward the viewer, with desks and the bell behind.
 - **Location stages:** the exam hall, the colonnade under the Board, the attic corridor, the vault, the council chamber, the boathouse ring, the lodge at night, the Provost's study, and Brack Street.
 - **Hero frames:** the card on the desk; the Board at six; the midnight tick; Ren on the jetty; the vault terminal; Key Seven turned.

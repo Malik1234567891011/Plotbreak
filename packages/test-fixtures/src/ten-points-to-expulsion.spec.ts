@@ -129,7 +129,7 @@ describe('rule 1: the opener', () => {
 
   it('has a named character speaking to the player within the first 60 words', () => {
     const first60 = opening.split(/\s+/).slice(0, 60).join(' ');
-    expect(first60).toMatch(/[“"]Ren Calloway\. Student president\.[”"]/);
+    expect(first60).toMatch(/[“"]Ren Harcourt\. Student president\.[”"]/);
     expect(first60).toMatch(/Don’t stand up/);
   });
 
@@ -149,7 +149,7 @@ describe('rule 1: the opener', () => {
     ];
     for (const term of unintroduced) expect(opening, term).not.toContain(term);
     // The two people it names arrive with what they are, in the same breath.
-    expect(opening).toMatch(/Ren Calloway\. Student president\./);
+    expect(opening).toMatch(/Ren Harcourt\. Student president\./);
     expect(opening).toMatch(/your friend Yui/);
     // The stakes are stated rather than assumed.
     expect(opening).toMatch(/At zero, you are expelled/);
@@ -188,6 +188,14 @@ describe('rule 1: the opener', () => {
     expect(story.openingObligations?.[0]?.withCharacterId).toBe('ren');
     expect(story.rules.startWorldMinute).toBe(8 * 60 + 59);
     expect(story.worldEvents.find((e) => e.id === 'we_the_bell')?.atWorldMinute).toBe(9 * 60);
+  });
+
+  it('shows a real charge in the format the storyteller is told to copy', () => {
+    // The opener is the first beat of the transcript the storyteller reads,
+    // so its band line has to match the tone guide's notice exactly.
+    const notices = opening.match(/\[[^\]]+\]/g) ?? [];
+    expect(notices).toHaveLength(1);
+    expect(notices[0]).toMatch(/^\[-\d+ · [^·\]]+ · Balance 10\]$/);
   });
 });
 
@@ -234,6 +242,16 @@ describe('rule 2: adults only', () => {
     const MINOR = /\b(kids?|boys?|girls?|child|children|childhood|teens?|teenage|teenagers?|minors?|schoolboy|schoolgirl|underage|high school|middle school)\b/i;
     const hits = visibleText().filter((t) => MINOR.test(t));
     expect(hits).toEqual([]);
+  });
+
+  it('never codes the college as a secondary school', () => {
+    // Blazers in an anime frame already lean high school, so the words around
+    // them have to read as a college: stewards, not prefects; no uniform.
+    const SCHOOL = /\b(prefects?|uniforms?|pupils?|headmaster|headmistress|homeroom|detention|form tutor|young (?:man|woman))\b/i;
+    const hits = visibleText().filter((t) => SCHOOL.test(t));
+    expect(hits).toEqual([]);
+    const hall = story.locations.find((l) => l.id === 'exam_hall')!;
+    expect(hall.artDirection).toMatch(/black academic gowns/);
   });
 });
 
@@ -606,6 +624,18 @@ describe('the number is the game, and the storyteller can see it', () => {
     for (const line of ledger.voiceSamples) expect(line, line).toMatch(/^\[.+·.+\]$/);
   });
 
+  it('keeps ten points scarce: help is capped and the card pays only for a blank paper', () => {
+    const canon = story.rules.hardCanon.join(' ');
+    const cap = 'Help and kitchen shifts pay at most five points a day between them';
+    expect(canon).toContain(cap);
+    expect(story.items.find((i) => i.id === 'tariff_sheet')!.description).toContain(cap);
+    expect(canon).toMatch(/Ren’s card pays only if the player’s paper goes up blank at six/);
+    const card = story.items.find((i) => i.id === 'rens_card')!;
+    expect(card.description).toMatch(/only if the holder’s Standing Paper is blank/);
+    expect(card.loreText).toMatch(/goes dark/);
+    expect(card.loreText).not.toMatch(/works for whoever taps it/);
+  });
+
   it('uses plain hyphens for minus signs, so the format is copyable', () => {
     expect(visibleText().filter((t) => t.includes('−'))).toEqual([]);
   });
@@ -636,6 +666,16 @@ describe('the week is shaped like the bible says', () => {
       const source = story.worldEvents.find((e) => e.setsFlags.includes(last.predicate.flagsSet[0]!));
       expect(source, `${stepId}: ${last.predicate.flagsSet[0]}`).toBeDefined();
     }
+  });
+
+  it('puts something in the silent three hours between the bell and pens down', () => {
+    // The storyteller gets no minutes and no step notes, so the sitting has to
+    // be in canon and something has to happen in it.
+    expect(story.rules.hardCanon.join(' ')).toMatch(/nine to twelve/);
+    const mid = story.worldEvents.filter((e) => e.atWorldMinute > 9 * 60 && e.atWorldMinute < 12 * 60);
+    expect(mid.map((e) => e.id)).toEqual(['we_mid_sitting']);
+    expect(mid[0]!.requiresFlags).toEqual(['the_bell_rang']);
+    expect(mid[0]!.publicCopy).toMatch(/Yui/);
   });
 
   it('lets somebody walk out of the college, and reaches that early', () => {
