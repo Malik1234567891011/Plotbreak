@@ -68,11 +68,16 @@ struct DiscoverScreen: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 0) {
                             // Scroll offset, so a shelf is not swapped mid-read.
+                            // Read with onChange: a preference sent from inside
+                            // this ScrollView never reached onPreferenceChange,
+                            // so neither flag below was ever set.
                             GeometryReader { inner in
-                                Color.clear.preference(
-                                    key: ScrollOffsetKey.self,
-                                    value: -inner.frame(in: .named("discover.scroll")).minY
-                                )
+                                let y = -inner.frame(in: .named("discover.scroll")).minY
+                                Color.clear.onChange(of: y) { _, value in
+                                    // Anything past a nudge counts as reading the shelf.
+                                    if value > 8 { hasScrolled = true }
+                                    scrolledOffTop = value > 2
+                                }
                             }
                             .frame(height: 0)
 
@@ -187,11 +192,6 @@ struct DiscoverScreen: View {
                     }
                     .coordinateSpace(name: "discover.scroll")
                     .refreshable { await load(force: true) }
-                    .onPreferenceChange(ScrollOffsetKey.self) { y in
-                        // Anything past a nudge counts as reading the shelf.
-                        if y > 8 { hasScrolled = true }
-                        scrolledOffTop = y > 2
-                    }
                 }
             }
             .overlay {
@@ -685,10 +685,6 @@ private struct RankedRow: View {
     }
 }
 
-private struct ScrollOffsetKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
-}
 
 // MARK: - DS-04 Quick preview
 
