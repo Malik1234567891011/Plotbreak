@@ -71,8 +71,9 @@ describe('search finds what a player means, not what they typed', () => {
   it('finds a world by what it is about, in a player’s words', () => {
     expect(titlesFor('pirates')[0]).toBe('Blackwake');
     expect(titlesFor('time loop')[0]).toBe('Seven Days to Midnight');
-    // Nothing is tagged "magic school" — the world is tagged "Magic academy".
-    expect(titlesFor('magic school')[0]).toBe('The Ninth Archive');
+    // Nothing is tagged "magic school" — the worlds are tagged "Magic academy".
+    // Human, Row Three (New-50 #16) now ranks first; the Archive still follows.
+    expect(titlesFor('magic school').slice(0, 2)).toEqual(['Human, Row Three', 'The Ninth Archive']);
   });
 
   it('finds a world by a character in it', () => {
@@ -112,9 +113,11 @@ describe('search finds what a player means, not what they typed', () => {
 
   it('does not rank a fragment as though it were the word', () => {
     // "art" appears inside "Bartering"; it should not beat a real word match.
+    // Cleanup Crew, E-Rank (New-50 #29) has the word in its title, so it leads;
+    // Blackwake still ranks above every fragment match.
     const hits = searchCatalog(LAUNCH_CATALOG, 'crew');
-    const top = LAUNCH_CATALOG.find((s) => s.storyId === hits[0]?.storyId)!;
-    expect(top.title).toBe('Blackwake');
+    const titles = hits.map((h) => LAUNCH_CATALOG.find((s) => s.storyId === h.storyId)!.title);
+    expect(titles.slice(0, 2)).toEqual(['Cleanup Crew, E-Rank', 'Blackwake']);
   });
 });
 

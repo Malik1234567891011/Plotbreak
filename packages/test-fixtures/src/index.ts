@@ -31,6 +31,47 @@ import { PINK_TIDE as PINK_TIDE_RAW } from './pink-tide.js';
 import { LAST_FEATHER as LAST_FEATHER_RAW } from './last-feather.js';
 import { SKILL_ERROR as SKILL_ERROR_RAW } from './skill-error.js';
 import { VILLAIN_TRACK as VILLAIN_TRACK_RAW } from './villain-track.js';
+import { RANK_ZERO as RANK_ZERO_RAW } from './rank-zero.js';
+import { NOVA_HOUSE as NOVA_HOUSE_RAW } from './nova-house.js';
+import { LEVEL_ONE_WYVERN_SLAYER as LEVEL_ONE_WYVERN_SLAYER_RAW } from './level-one-wyvern-slayer.js';
+import { THE_LAST_MIMIC as THE_LAST_MIMIC_RAW } from './the-last-mimic.js';
+import { ECHO_CLASS as ECHO_CLASS_RAW } from './echo-class.js';
+import { RESCUE_RATING as RESCUE_RATING_RAW } from './rescue-rating.js';
+import { MARRIED_TO_THE_SHRINE_FOX as MARRIED_TO_THE_SHRINE_FOX_RAW } from './married-to-the-shrine-fox.js';
+import { THE_ONLY_MAN_AT_THORNWITCH as THE_ONLY_MAN_AT_THORNWITCH_RAW } from './the-only-man-at-thornwitch.js';
+import { THE_ONE_COPPER_INN as THE_ONE_COPPER_INN_RAW } from './the-one-copper-inn.js';
+import { IRONCLAD_CADETS as IRONCLAD_CADETS_RAW } from './ironclad-cadets.js';
+import { CREST_ACADEMY as CREST_ACADEMY_RAW } from './crest-academy.js';
+import { THE_HERO_S_SPARE as THE_HERO_S_SPARE_RAW } from './the-hero-s-spare.js';
+import { THREE_SKILLS_A_MORNING as THREE_SKILLS_A_MORNING_RAW } from './three-skills-a-morning.js';
+import { PACK_RANK as PACK_RANK_RAW } from './pack-rank.js';
+import { ROOMMATE_LOTTERY as ROOMMATE_LOTTERY_RAW } from './roommate-lottery.js';
+import { HUMAN_ROW_THREE as HUMAN_ROW_THREE_RAW } from './human-row-three.js';
+import { ONE_YEAR_BRIDE as ONE_YEAR_BRIDE_RAW } from './one-year-bride.js';
+import { THIN_WALLS as THIN_WALLS_RAW } from './thin-walls.js';
+import { THREE_HEROINES_AND_A_PORTER as THREE_HEROINES_AND_A_PORTER_RAW } from './three-heroines-and-a-porter.js';
+import { SEVEN_YEARS_EARLY as SEVEN_YEARS_EARLY_RAW } from './seven-years-early.js';
+import { ICE_QUEEN_S_FAKE_BOYFRIEND as ICE_QUEEN_S_FAKE_BOYFRIEND_RAW } from './ice-queen-s-fake-boyfriend.js';
+import { ONE_WEEK_SHE_SAID as ONE_WEEK_SHE_SAID_RAW } from './one-week-she-said.js';
+import { BACK_ROW_AT_MY_OWN_WEDDING as BACK_ROW_AT_MY_OWN_WEDDING_RAW } from './back-row-at-my-own-wedding.js';
+import { THE_MORNING_OF_THE_GALLOWS as THE_MORNING_OF_THE_GALLOWS_RAW } from './the-morning-of-the-gallows.js';
+import { THE_MAID_OWNS_THE_HOUSE_NOW as THE_MAID_OWNS_THE_HOUSE_NOW_RAW } from './the-maid-owns-the-house-now.js';
+import { CUT_LOOSE_AT_FLOOR_99 as CUT_LOOSE_AT_FLOOR_99_RAW } from './cut-loose-at-floor-99.js';
+import { CLEANUP_CREW_E_RANK as CLEANUP_CREW_E_RANK_RAW } from './cleanup-crew-e-rank.js';
+import { ONE_MIRACLE_A_DAY as ONE_MIRACLE_A_DAY_RAW } from './one-miracle-a-day.js';
+import { STRUCK_FROM_THE_REGISTER as STRUCK_FROM_THE_REGISTER_RAW } from './struck-from-the-register.js';
+import { THE_CULT_MASTER_WAKES_AS_A_SERVANT as THE_CULT_MASTER_WAKES_AS_A_SERVANT_RAW } from './the-cult-master-wakes-as-a-servant.js';
+import { NOODLES_OR_BLOOD as NOODLES_OR_BLOOD_RAW } from './noodles-or-blood.js';
+import { INHERITED_ONE_FAILING_CLAN as INHERITED_ONE_FAILING_CLAN_RAW } from './inherited-one-failing-clan.js';
+import { THE_RANKING_BOARD as THE_RANKING_BOARD_RAW } from './the-ranking-board.js';
+import { FINALS_WEEK_OUTBREAK as FINALS_WEEK_OUTBREAK_RAW } from './finals-week-outbreak.js';
+import { TEN_POINTS_TO_EXPULSION as TEN_POINTS_TO_EXPULSION_RAW } from './ten-points-to-expulsion.js';
+import { AFFECTION_97 as AFFECTION_97_RAW } from './affection-97.js';
+import { RESTART_AT_EIGHTEEN as RESTART_AT_EIGHTEEN_RAW } from './restart-at-eighteen.js';
+import { EVERY_PLATFORM_A_WORLD as EVERY_PLATFORM_A_WORLD_RAW } from './every-platform-a-world.js';
+import { THE_ZOMBIE_WHO_SAID_PLEASE as THE_ZOMBIE_WHO_SAID_PLEASE_RAW } from './the-zombie-who-said-please.js';
+import { RENT_IS_ONE_TRUE_STORY as RENT_IS_ONE_TRUE_STORY_RAW } from './rent-is-one-true-story.js';
+import { THREE_FEET_APART as THREE_FEET_APART_RAW } from './three-feet-apart.js';
 
 
 export { withDerivedAssetKeys } from './derive-assets.js';
@@ -63,6 +104,48 @@ export const LAST_FEATHER = withDerivedAssetKeys(LAST_FEATHER_RAW);
 export const SKILL_ERROR = withDerivedAssetKeys(SKILL_ERROR_RAW);
 /** New-50 #2, registered raw (before art). */
 export const VILLAIN_TRACK = VILLAIN_TRACK_RAW;
+/** New-50, registered raw (before art). */
+export const RANK_ZERO = RANK_ZERO_RAW;
+export const NOVA_HOUSE = NOVA_HOUSE_RAW;
+export const LEVEL_ONE_WYVERN_SLAYER = LEVEL_ONE_WYVERN_SLAYER_RAW;
+export const THE_LAST_MIMIC = THE_LAST_MIMIC_RAW;
+export const ECHO_CLASS = ECHO_CLASS_RAW;
+export const RESCUE_RATING = RESCUE_RATING_RAW;
+export const MARRIED_TO_THE_SHRINE_FOX = MARRIED_TO_THE_SHRINE_FOX_RAW;
+export const THE_ONLY_MAN_AT_THORNWITCH = THE_ONLY_MAN_AT_THORNWITCH_RAW;
+export const THE_ONE_COPPER_INN = THE_ONE_COPPER_INN_RAW;
+export const IRONCLAD_CADETS = IRONCLAD_CADETS_RAW;
+export const CREST_ACADEMY = CREST_ACADEMY_RAW;
+export const THE_HERO_S_SPARE = THE_HERO_S_SPARE_RAW;
+export const THREE_SKILLS_A_MORNING = THREE_SKILLS_A_MORNING_RAW;
+export const PACK_RANK = PACK_RANK_RAW;
+export const ROOMMATE_LOTTERY = ROOMMATE_LOTTERY_RAW;
+export const HUMAN_ROW_THREE = HUMAN_ROW_THREE_RAW;
+export const ONE_YEAR_BRIDE = ONE_YEAR_BRIDE_RAW;
+export const THIN_WALLS = THIN_WALLS_RAW;
+export const THREE_HEROINES_AND_A_PORTER = THREE_HEROINES_AND_A_PORTER_RAW;
+export const SEVEN_YEARS_EARLY = SEVEN_YEARS_EARLY_RAW;
+export const ICE_QUEEN_S_FAKE_BOYFRIEND = ICE_QUEEN_S_FAKE_BOYFRIEND_RAW;
+export const ONE_WEEK_SHE_SAID = ONE_WEEK_SHE_SAID_RAW;
+export const BACK_ROW_AT_MY_OWN_WEDDING = BACK_ROW_AT_MY_OWN_WEDDING_RAW;
+export const THE_MORNING_OF_THE_GALLOWS = THE_MORNING_OF_THE_GALLOWS_RAW;
+export const THE_MAID_OWNS_THE_HOUSE_NOW = THE_MAID_OWNS_THE_HOUSE_NOW_RAW;
+export const CUT_LOOSE_AT_FLOOR_99 = CUT_LOOSE_AT_FLOOR_99_RAW;
+export const CLEANUP_CREW_E_RANK = CLEANUP_CREW_E_RANK_RAW;
+export const ONE_MIRACLE_A_DAY = ONE_MIRACLE_A_DAY_RAW;
+export const STRUCK_FROM_THE_REGISTER = STRUCK_FROM_THE_REGISTER_RAW;
+export const THE_CULT_MASTER_WAKES_AS_A_SERVANT = THE_CULT_MASTER_WAKES_AS_A_SERVANT_RAW;
+export const NOODLES_OR_BLOOD = NOODLES_OR_BLOOD_RAW;
+export const INHERITED_ONE_FAILING_CLAN = INHERITED_ONE_FAILING_CLAN_RAW;
+export const THE_RANKING_BOARD = THE_RANKING_BOARD_RAW;
+export const FINALS_WEEK_OUTBREAK = FINALS_WEEK_OUTBREAK_RAW;
+export const TEN_POINTS_TO_EXPULSION = TEN_POINTS_TO_EXPULSION_RAW;
+export const AFFECTION_97 = AFFECTION_97_RAW;
+export const RESTART_AT_EIGHTEEN = RESTART_AT_EIGHTEEN_RAW;
+export const EVERY_PLATFORM_A_WORLD = EVERY_PLATFORM_A_WORLD_RAW;
+export const THE_ZOMBIE_WHO_SAID_PLEASE = THE_ZOMBIE_WHO_SAID_PLEASE_RAW;
+export const RENT_IS_ONE_TRUE_STORY = RENT_IS_ONE_TRUE_STORY_RAW;
+export const THREE_FEET_APART = THREE_FEET_APART_RAW;
 
 /**
  * These three shipped with null asset keys on purpose, and no longer need to.
@@ -159,4 +242,45 @@ export const LAUNCH_CATALOG = [
   LAST_FEATHER,
   SKILL_ERROR,
   VILLAIN_TRACK,
+  RANK_ZERO,
+  NOVA_HOUSE,
+  LEVEL_ONE_WYVERN_SLAYER,
+  THE_LAST_MIMIC,
+  ECHO_CLASS,
+  RESCUE_RATING,
+  MARRIED_TO_THE_SHRINE_FOX,
+  THE_ONLY_MAN_AT_THORNWITCH,
+  THE_ONE_COPPER_INN,
+  IRONCLAD_CADETS,
+  CREST_ACADEMY,
+  THE_HERO_S_SPARE,
+  THREE_SKILLS_A_MORNING,
+  PACK_RANK,
+  ROOMMATE_LOTTERY,
+  HUMAN_ROW_THREE,
+  ONE_YEAR_BRIDE,
+  THIN_WALLS,
+  THREE_HEROINES_AND_A_PORTER,
+  SEVEN_YEARS_EARLY,
+  ICE_QUEEN_S_FAKE_BOYFRIEND,
+  ONE_WEEK_SHE_SAID,
+  BACK_ROW_AT_MY_OWN_WEDDING,
+  THE_MORNING_OF_THE_GALLOWS,
+  THE_MAID_OWNS_THE_HOUSE_NOW,
+  CUT_LOOSE_AT_FLOOR_99,
+  CLEANUP_CREW_E_RANK,
+  ONE_MIRACLE_A_DAY,
+  STRUCK_FROM_THE_REGISTER,
+  THE_CULT_MASTER_WAKES_AS_A_SERVANT,
+  NOODLES_OR_BLOOD,
+  INHERITED_ONE_FAILING_CLAN,
+  THE_RANKING_BOARD,
+  FINALS_WEEK_OUTBREAK,
+  TEN_POINTS_TO_EXPULSION,
+  AFFECTION_97,
+  RESTART_AT_EIGHTEEN,
+  EVERY_PLATFORM_A_WORLD,
+  THE_ZOMBIE_WHO_SAID_PLEASE,
+  RENT_IS_ONE_TRUE_STORY,
+  THREE_FEET_APART,
 ] as const;
