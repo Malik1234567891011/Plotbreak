@@ -8,46 +8,66 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@800&amp;family=Zen+Old+Mincho:wght@400;500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#0F0E0D}
-a{color:#B4ADA3;text-decoration:underline;text-underline-offset:2px}a:hover{color:#F3EFE8}
-button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;padding:0;background:none;text-align:left}
+.pg{position:relative;width:390px;height:844px;overflow:hidden;background:#0F0E0D;color:#F3EFE8;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+.cv{position:absolute;display:block;object-fit:cover;border-radius:10px}
+.ben{display:flex;align-items:center;gap:14px;height:52px}
+.ben .art{flex:none;display:flex;align-items:center;justify-content:center;width:48px;height:48px}
+.ben .art img{display:block;width:48px;height:48px;object-fit:contain}
+.ben .t{display:flex;flex-direction:column}
+.ben b{font-size:17px;line-height:22px;font-weight:600}
+.ben span span{font-size:13px;line-height:18px;color:#948E85}
+.opt{display:flex;align-items:center;gap:12px;width:100%;height:56px;padding:0 16px;box-sizing:border-box}
+.radio{flex:none;width:22px;height:22px;border-radius:11px;box-shadow:inset 0 0 0 1.5px #45413B}
+.radio.on{box-shadow:inset 0 0 0 7px #F3EFE8}
+.prop{padding:2px 6px;border-radius:5px;background:#2E2B27;font-size:11px;line-height:13px;font-weight:700;letter-spacing:0.04em;color:#B4ADA3}
+.fine{margin:0;font-size:12px;line-height:16px;color:#948E85;text-align:center}
+.fine a{color:#B4ADA3;text-decoration:underline;text-underline-offset:2px}
 </style>
 </helmet>
-<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #0F0E0D; color: #F3EFE8; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased">
+<div class="pg">
 
-  <div aria-hidden="true" style="position: absolute; left: 20px; top: 54px; display: flex; gap: 4px; opacity: 0.9">
-    <img src="/_blob/f8ea4704a57185127dee066248535ce2" alt="" style="display: block; width: 170px; height: 254px; object-fit: cover; border-radius: 8px">
-    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; width: 176px">
-      <img src="/_blob/8f7ea755dab5e201a1111497629d0ac7" alt="" style="display: block; width: 86px; height: 125px; object-fit: cover; border-radius: 8px">
-      <img src="/_blob/eabd22b3396076530f59fcd135d17de6" alt="" style="display: block; width: 86px; height: 125px; object-fit: cover; border-radius: 8px">
-      <img src="/_blob/5ed8523f8a6c1309d9a23cd8ff9af12f" alt="" style="display: block; width: 86px; height: 125px; object-fit: cover; border-radius: 8px">
-      <img src="/_blob/ba671630b0adbc3d2193a9fe9088a842" alt="" style="display: block; width: 86px; height: 125px; object-fit: cover; border-radius: 8px">
-    </div>
-  </div>
-  <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 200px; height: 140px; background: linear-gradient(180deg, rgba(15,14,13,0) 0%, #0F0E0D 100%)"></div>
-
-  <a href="Wallet.dc.html" aria-label="Close" style="position: absolute; top: 62px; right: 28px; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 22px; background: rgba(15,14,13,0.6); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.12); text-decoration: none">
+  <a href="Wallet.dc.html" aria-label="Close" style="position: absolute; left: 20px; top: 54px; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 22px; background: #22201D">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
   </a>
+  <a href="#" style="position: absolute; right: 20px; top: 54px; display: flex; align-items: center; height: 44px; font-size: 15px; font-weight: 500; color: #B4ADA3">Restore</a>
 
-  <div style="position: absolute; left: 20px; right: 20px; top: 300px; display: flex; flex-direction: column">
-    
-    <h1 style="margin: 0; font-weight: 700; font-size: 30px; line-height: 36px; letter-spacing: -0.01em">More story, every day.</h1>
+  <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 104px; height: 170px">
+    <img class="cv" src="/_blob/cb966c170d38d0e1f8d5f737f092278e" alt="" style="left: 62px; top: 22px; width: 96px; height: 144px; transform: rotate(-9deg); opacity: 0.85">
+    <img class="cv" src="/_blob/0d50607784cb8fceda18c1c21c016373" alt="" style="left: 232px; top: 22px; width: 96px; height: 144px; transform: rotate(9deg); opacity: 0.85">
+    <img class="cv" src="/_blob/f8ea4704a57185127dee066248535ce2" alt="" style="left: 138px; top: 0; width: 114px; height: 170px">
+  </div>
 
-    <ul style="list-style: none; margin: 20px 0 0; padding: 0">
-      <li style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid #2E2B27"><span style="font-size: 17px; line-height: 22px; font-weight: 600"><img src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="credits" style="display: inline-block; height: 1.05em; width: auto; vertical-align: -0.17em; margin-right: 0.1em">400 every day</span><span style="font-size: 13px; color: #948E85"><img src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="credits" style="display: inline-block; height: 1.05em; width: auto; vertical-align: -0.17em; margin-right: 0.1em">2,800 a week</span></li>
-      <li style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid #2E2B27"><span style="font-size: 17px; line-height: 22px; font-weight: 600">On top of your free <img src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="credits" style="display: inline-block; height: 1.05em; width: auto; vertical-align: -0.17em; margin-right: 0.1em">300</span><span style="font-size: 13px; color: #948E85">still yours</span></li>
-      <li style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid #2E2B27; border-bottom: 1px solid #2E2B27"><span style="font-size: 17px; line-height: 22px; font-weight: 600">Request stories</span><span style="font-size: 13px; color: #948E85">Pass holders only</span></li>
-    </ul>
-    <p style="margin: 12px 0 0; font-weight: 400; font-size: 15px; line-height: 20px; color: #B4ADA3">About 46 extra turns at Vivid each week.</p>
+  <div style="position: absolute; left: 20px; right: 20px; top: 292px">
+    <div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #B4ADA3">Plotbreak Pass</div>
+    <h1 style="margin: 2px 0 0; font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -0.01em">About 47 more turns,<br>every week</h1>
+
+    <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 16px">
+      <div class="ben"><span class="art"><img src="/_blob/e61bed872611e221415230b21ecd0ad0" alt=""></span><span class="t"><b>400 credits every day</b><span>2,800 a week, for as long as you keep it</span></span></div>
+      <div class="ben"><span class="art"><img src="/_blob/190979436a1145c731149b520871a25b" alt=""></span><span class="t"><b>Your free 300 stays</b><span>The Pass comes on top of it</span></span></div>
+      <div class="ben"><span class="art"><span style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: #22201D"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4.5h10a2 2 0 0 1 2 2V20l-3-2-3 2-3-2-3 2V4.5z"></path><path d="M8.5 9h5M8.5 12.5h3"></path><path d="M19.5 3.5v5M17 6h5"></path></svg></span></span><span class="t"><b>Request a story</b><span>Vote; the monthly winner gets made</span></span></div>
+    </div>
+
+    <div role="radiogroup" aria-label="Plan" style="margin-top: 16px; border-radius: 16px; background: #181715">
+      <button class="opt" role="radio" aria-checked="true" style="border-radius: 16px; box-shadow: inset 0 0 0 2px #F3EFE8">
+        <span class="radio on"></span>
+        <span style="display: flex; flex-direction: column; flex: 1"><span style="font-size: 17px; line-height: 22px; font-weight: 600">Weekly</span><span style="font-size: 12px; line-height: 16px; color: #948E85">About 6¢ a turn at Vivid</span></span>
+        <span style="font-size: 17px; font-weight: 600">$2.99</span>
+      </button>
+      <button class="opt" role="radio" aria-checked="false">
+        <span class="radio"></span>
+        <span style="display: flex; flex-direction: column; flex: 1"><span style="display: flex; align-items: center; gap: 6px; font-size: 17px; line-height: 22px; font-weight: 600">Yearly <span class="prop">PROPOSAL</span></span><span style="font-size: 12px; line-height: 16px; color: #948E85">Not in App Store Connect yet</span></span>
+        <span style="font-size: 17px; font-weight: 600; color: #948E85">[PRICE]</span>
+      </button>
+    </div>
   </div>
 
   <div style="position: absolute; left: 20px; right: 20px; bottom: 30px; display: flex; flex-direction: column; gap: 10px">
-    <button style="height: 52px; border: 0; border-radius: 26px; background: #F3EFE8; color: #0F0E0D; font-size: 17px; font-weight: 600">Get the Pass · $2.99 a week</button>
-    <p style="margin: 0; font-size: 12px; line-height: 16px; color: #948E85">Renews weekly until you cancel. Cancel any time in Settings. <a href="#">Terms</a> · <a href="#">Privacy</a> · <a href="#">Restore</a></p>
+    <button style="display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 26px; background: #F3EFE8; color: #0F0E0D; font-size: 17px; font-weight: 600">Get the Pass · $2.99 a week</button>
+    <p class="fine">Renews every week at $2.99 until you cancel. Cancel any time in Settings.<br><a href="#">Terms</a> · <a href="#">Privacy</a> · <a href="#">Restore</a></p>
   </div>
 </div>
 </x-dc>
