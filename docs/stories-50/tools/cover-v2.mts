@@ -55,10 +55,12 @@ function spent(): number {
   return total;
 }
 
+// --force alone redraws just the forced stories; it never sweeps up every story still missing its raw
+// (2026-11-22: a --force run started beside a full run drew eight covers twice).
 const ids = (await readdir(PROMPTS))
   .filter((f) => f.endsWith('.txt'))
   .map((f) => f.slice(0, -4))
-  .filter((id) => only.size === 0 || only.has(id) || force.has(id))
+  .filter((id) => (only.size === 0 && force.size === 0) || only.has(id) || force.has(id))
   .sort();
 for (const id of [...only, ...force]) if (!ids.includes(id)) console.log(`no prompt for ${id} (prompts/${id}.txt)`);
 
@@ -81,6 +83,11 @@ if (args.includes('--dry')) {
   const queue = [...todo];
   const worker = async (): Promise<void> => {
     for (let id = queue.shift(); id; id = queue.shift()) {
+      // Another run may have drawn it since this one started.
+      if (!force.has(id) && (await exists(join(RAW, `${id}.png`)))) {
+        console.log(`skip ${id} (raw appeared)`);
+        continue;
+      }
       if (spent() + reserved + CREDITS_PER_COVER > cap) {
         console.log(`STOP ${id}: would pass the ${cap}-credit cap (spent ${spent()}, in flight ${reserved})`);
         continue;
