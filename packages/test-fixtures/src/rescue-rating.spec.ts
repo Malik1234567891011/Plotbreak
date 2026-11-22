@@ -19,7 +19,7 @@ import { RESCUE_RATING } from './rescue-rating.js';
  *
  * The failure this world is most exposed to is that the camera stops being the
  * mechanic. Every public choice is supposed to come back as a number and three
- * lines of chat, and Vesper's one rule — no camera sees her unless somebody is
+ * lines of chat, and Sloane's one rule — no camera sees her unless somebody is
  * touching her — has to hold in every beat. Most of what is pinned below exists
  * so the writer is told that, and told it in the places it actually reads.
  */
@@ -105,7 +105,7 @@ describe('the opener', () => {
     const before = opening.slice(0, firstQuote);
     expect(words(before).length).toBeLessThanOrEqual(60);
     // The speaker is named on the page before she speaks.
-    expect(before).toContain('Vesper');
+    expect(before).toContain('Sloane');
   });
 
   it('ends on a question put to the player', () => {
@@ -115,15 +115,22 @@ describe('the opener', () => {
   });
 
   it('never leans on a name the player has not been told', () => {
-    // The chat introduces Vesper by name and says who she is in the next
+    // The chat introduces Sloane by name and says who she is in the next
     // line. Everything else in this world is introduced later, by somebody.
     for (const noun of [
-      'Tallyhouse', 'Calder', 'Dante', 'Roe', 'Ladder', 'Feed', 'Bureau', 'Kit', 'Morales',
+      'Tallyhouse', 'Calder', 'Dante', 'Roe', 'Ladder', 'Feed', 'Bureau', 'Kit', 'Navarro',
       'Mensah', 'Underline', 'Span', 'Vask', 'Corinne', 'Pier', 'Run Sheet', 'Harrow',
     ]) {
       expect(opening, noun).not.toContain(noun);
     }
     expect(opening).toMatch(/MOST WANTED/);
+  });
+
+  it('talks to every player the same way, whatever their pronouns or power', () => {
+    // The chat uses the player's pronouns or rank number, never "bro".
+    expect(opening).not.toMatch(/\b(bro|dude|girl|king|queen)\b/i);
+    // Only one archetype flies, so no card may assume the player is in the air.
+    for (const s of story.openingSuggestions) expect(s, s).not.toMatch(/\b(land|fly|flying|hover)\b/i);
   });
 
   it('shows the camera mechanic before it asks anything', () => {
@@ -171,12 +178,12 @@ describe('the opener', () => {
 });
 
 describe('the roof at twenty to ten', () => {
-  it('starts on Pier Tower roof at 21:40 with Vesper in your arms', () => {
+  it('starts on Pier Tower roof at 21:40 with Sloane in your arms', () => {
     const state = start();
     expect(state.player.locationId).toBe('the_rooftop');
     expect(story.rules.startWorldMinute).toBe(21 * 60 + 40);
     const here = charactersPresent(state).map((c) => c.characterId);
-    expect(here).toContain('vesper');
+    expect(here).toContain('sloane');
   });
 
   it('keeps the rest of the cast off the roof until their events land them there', () => {
@@ -189,6 +196,20 @@ describe('the roof at twenty to ten', () => {
     expect(dante.movesCharacters).toEqual([{ characterId: 'dante', toLocationId: 'the_rooftop' }]);
     expect(mensah.atWorldMinute).toBeGreaterThan(story.rules.startWorldMinute);
     expect(dante.atWorldMinute).toBeGreaterThan(mensah.atWorldMinute);
+  });
+
+  it('drops the arm ten minutes before the cue on the page', () => {
+    const page = story.items.find((i) => i.id === 'laminated_page')!;
+    expect(page.description).toContain('21:50');
+    expect(story.rules.hardCanon.join(' ')).toMatch(/Dante Roe at 21:50/);
+    expect(story.rules.hardCanon.join(' ')).toMatch(/ten minutes early/);
+  });
+
+  it('lets a player who holds on keep holding on', () => {
+    // The step notes never reach the narrator, so the rule lives in the tone guide.
+    expect(story.rules.toneGuide).toMatch(/keeps hold of Sloane she stays held/);
+    const sloane = story.characters.find((c) => c.id === 'sloane')!;
+    expect(sloane.boundaries.join(' ')).toMatch(/does not get her free/);
   });
 
   it('never drops a character into the opening scene by fallback', () => {
@@ -464,8 +485,8 @@ describe('six voices', () => {
 
   it('demonstrates each declared differentiator in the samples the writer gets', () => {
     const sample = (id: string) => story.characters.find((c) => c.id === id)!.voiceSamples.join(' | ');
-    // Vesper bargains and calls the player "hero".
-    expect(sample('vesper')).toMatch(/owe you|hero/i);
+    // Sloane bargains and calls the player "hero".
+    expect(sample('sloane')).toMatch(/owe you|hero/i);
     // Dante calls them "rookie" and talks to the camera.
     expect(sample('dante')).toMatch(/Rookie/);
     // Kit calls them by their rank number when she is annoyed.
@@ -495,7 +516,7 @@ describe('six voices', () => {
 
   it('is a cast of adults, and says how old each of them is', () => {
     const AGES: Record<string, [number, string]> = {
-      vesper: [27, 'Twenty-seven'],
+      sloane: [27, 'Twenty-seven'],
       dante: [29, 'Twenty-nine'],
       kit: [31, 'Thirty-one'],
       vask: [44, 'Forty-four'],
@@ -573,6 +594,20 @@ describe('clarity and the director’s content bar', () => {
     }
   });
 
+  it('has a cover direction: one adult, a clean face, and the title as the only text', () => {
+    expect(story.coverDirection).toMatch(/adult woman, alone/);
+    expect(story.coverDirection).toMatch(/HER FACE STAYS CLEAN/);
+    expect(story.coverDirection).toMatch(/spelled exactly RESCUE RATING/);
+    expect(story.coverDirection).toMatch(/No other text anywhere/);
+  });
+
+  it('keeps the secrets out of the cast cards and the sample lines', () => {
+    const cards = story.characters.map((c) => c.cardBlurb).join(' ');
+    expect(cards).not.toMatch(/dropped the crane|on purpose|set piece|Harrow/i);
+    const samples = story.characters.flatMap((c) => c.voiceSamples).join(' ');
+    expect(samples).not.toMatch(/Harrow|counting down/i);
+  });
+
   it('has the promises, cast and suggestions the director needs', () => {
     expect(story.promises.length).toBeGreaterThanOrEqual(3);
     expect(story.characters.length).toBeGreaterThanOrEqual(3);
@@ -602,7 +637,7 @@ describe('clarity and the director’s content bar', () => {
       const power = story.abilities.find((a) => a.id === archetype.startingAbilities[0])!;
       expect(brief, archetype.id).toContain(power.name);
     }
-    // Vesper's rule is in the canon the narrator reads every turn.
+    // Sloane's rule is in the canon the narrator reads every turn.
     expect(worldBrief(story, 'arch_quick')).toMatch(/Cameras cannot see her unless somebody is touching her/);
   });
 });
@@ -706,7 +741,7 @@ describe('Friday is not owed to anybody', () => {
   });
 
   it('still tells a player who handed the case back what Friday is', () => {
-    const page = story.worldEvents.find((e) => e.id === 'we_vesper_sends_a_page')!;
+    const page = story.worldEvents.find((e) => e.id === 'we_sloane_sends_a_page')!;
     expect(page.requiresFlags).toEqual(['case_handed_back']);
     expect(page.setsFlags).toContain('knows:the_bridge');
   });
