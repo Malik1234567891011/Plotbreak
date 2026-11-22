@@ -213,9 +213,18 @@ describe('the system lives where the storyteller can read it', () => {
 
   it('tells the storyteller what trouble costs, and that it never kills', () => {
     // runTurnPure reads neither defeatMode nor the resource bands.
-    expect(S.rules.toneGuide).toMatch(/marched to the side gate under guard, not killed/);
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/marched to the side gate under guard, not killed/);
+    expect(canon).toMatch(/never kills the player/);
+    expect(canon).toMatch(/no bed-sharing/);
     expect(S.rules.toneGuide).toMatch(/The player is never killed this week/);
-    expect(S.rules.toneGuide).toMatch(/no bed-sharing/);
+  });
+
+  it('keeps the tone guide to mood, because every image prompt reads it', () => {
+    // `Mood: ${toneGuide}` goes into the cover, the portraits and the panel.
+    // Naming the tropes it rules out is how a prompt drifts toward them, and
+    // stacking them is what tripped moderation on Ace's cover.
+    expect(S.rules.toneGuide).not.toMatch(/\b(bath|changing-room|bed\S*|bod(y|ies)|touch\S*|innuendo|gore|wounds?|strikes|threatens)\b/i);
   });
 
   it('authors exactly as many endings as the storyteller reads', () => {
@@ -309,6 +318,8 @@ describe('everybody on the page is an adult, on the page', () => {
       expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
     }
     expect(S.coverDirection).not.toMatch(AGE_WORDS);
+    // The cover goes further: costume and pose only, no age word at all.
+    expect(S.coverDirection).not.toMatch(/\b(adult|older|aged?|mature)\b/i);
     expect(S.hook).not.toMatch(/\b(teen\w*|girl|boy|kid|child\w*|schoolgirl)\b/i);
   });
 
@@ -329,11 +340,43 @@ describe('everybody on the page is an adult, on the page', () => {
 describe('the cover', () => {
   it('puts the title in the art, keeps the porter faceless and rules out fan service', () => {
     const cover = S.coverDirection!;
-    expect(cover).toContain('THREE HEROINES AND A PORTER');
+    // Its own TITLE: line owns the lettering; the cover prompt capitalises the
+    // title, so the line spells it the same way.
+    const title = cover.split('TITLE:')[1]!;
+    expect(title).toMatch(/in the upper third as a bold fantasy-adventure logo/);
+    expect(title).toContain(`spelled exactly ${S.title.toUpperCase()},`);
+    expect(S.title).toBe('Three Heroines and a Porter');
     expect(cover).toMatch(/face never shown/);
     expect(cover).toMatch(/No fan service/);
     expect(cover).toMatch(/No other text anywhere/);
     for (const name of ['Rin', 'Maya', 'Saki']) expect(cover).toContain(name);
+  });
+
+  it('keeps every effect on objects and the title, never on a face', () => {
+    const cover = S.coverDirection!;
+    expect(cover).toMatch(/THEIR FACES STAY CLEAN: no sparks, glowing marks or stray shadows on any face\./);
+    const onFaces = cover
+      .split(/(?<=\.)\s+/)
+      .filter((s) => /\b(sparks?|glow\w*)\b/i.test(s) && /\bfaces?\b/i.test(s) && !s.startsWith('THEIR FACES STAY CLEAN'));
+    expect(onFaces).toEqual([]);
+  });
+
+  it('draws the opening panel from the one who asks the question', () => {
+    const panel = S.openingPanel!;
+    expect(panel.assetKey).toBe(`${S.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    expect(panel.alt.startsWith(calledName(S.characters.find((c) => c.id === 'saki')!))).toBe(true);
+  });
+
+  it('opens straight on the scene and is not dated until release', () => {
+    expect((S as { prologue?: unknown[] }).prologue ?? []).toEqual([]);
+    expect(S.publishedAt).toBeNull();
+  });
+
+  it('gives every titled character the name they are called by', () => {
+    for (const c of S.characters.filter((x) => /^(Sir|High Cantor)\b/.test(x.name) || /High Cantor/.test(x.role))) {
+      expect(c.calledName, c.id).toBeTruthy();
+    }
   });
 });
 

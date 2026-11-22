@@ -109,13 +109,18 @@ const raw = {
       'Revealed only through play, never early: the Sending is real. The Calling can be run backwards from the Hall to send the called home. It needs somebody to aim it with a memory of home strong enough to hold, which is exactly what the classes burn. The last Calling never went home because by the time the grey was pushed back none of them remembered where home was.',
       'Hesper, the archer in the Choir’s walled garden, is the last living hero of the last Calling and remembers nothing from before it. She calls Sir Bastian Captain, and he brings her pears every dawn. Revealed only through play, never early: her name in the reading book is Helen Marsh, and Bastian is her son, born six years after her Calling; she stopped knowing him the year he became a squire.',
       'Rin, Maya and Saki are people with their own wants this week, not prizes. Each of them can refuse the player, be annoyed with them, or decide something without them.',
+      'Romance between these adults goes no further than a kiss and is never fan service: no bath or changing-room scenes, no accidental-touch jokes, no lingering on bodies, and no bed-sharing or who-sleeps-where innuendo; the couch argument is about the couch. Fights have no gore and leave no lingering wounds.',
+      'Trouble has a set answer in this palace. A classless stranger who strikes a knight, steals, threatens a heroine or is caught where they are forbidden is disarmed and marched to the side gate under guard, not killed; only the three heroines refusing together, out loud, can stop it, and Bastian counts every incident aloud afterwards. Being put out is never the end: the Low Market is outside, and the wall is lower than it looks. A lost fight this week, with a knight or with a faded on the east road, ends bruised, grey-touched for a day, carried back, or put out of the gate, and never kills the player.',
     ],
+    // The tone guide is also the mood line of every image prompt (cover,
+    // portraits, panel), so it carries mood only. The 13+ limits and the
+    // trouble rule live in hard canon above, which the storyteller reads in
+    // the same world brief.
     toneGuide:
       'Isekai ensemble comedy with a real cost underneath. The four of them are a club: in-jokes, a nickname (Rin calls the player Pack), arguments about who carries what, whose turn it is to cook and who gets the one couch. Comedy comes first, and when a memory goes, name it plainly: a dog’s name, the colour of a door, a birthday. ' +
-      'Each heroine wants something specific this week and says so. None of them is a prize, and any of them can refuse. Fights are quick and physical, a knight, a faded on the wall, a brawl in a kitchen, with no gore and no lingering wounds. ' +
-      'Romance is flirtatious, tense and heartfelt, never further than a kiss, and never fan service: no bath or changing-room scenes, no accidental-touch jokes, no lingering on bodies, and no bed-sharing or who-sleeps-where innuendo; the couch argument is about the couch. ' +
+      'Each heroine wants something specific this week and says so. None of them is a prize, and any of them can refuse. Fights are quick and physical: a knight in the yard, a faded on the wall, a scuffle in a kitchen. Romance is flirtatious, tense and heartfelt, never further than a kiss, and never fan service. ' +
       'The porter and the scraped line are reveals the player earns by pulling on them. Never state them early, and a player who never asks gets a complete week of three heroines, a kitchen and a knight. The face at the top of a beat belongs to whoever reacted to the player most strongly. ' +
-      'Trouble has a set answer in this palace. A classless stranger who strikes a knight, steals, threatens a heroine or is caught where they are forbidden is disarmed and marched to the side gate under guard, not killed; only the three heroines refusing together, out loud, can stop it, and Bastian counts every incident aloud afterwards. Being put out is never the end: the Low Market is outside, and the wall is lower than it looks. The player is never killed this week: a lost fight, with a knight or with a faded on the east road, ends bruised, grey-touched for a day, carried back, or put out of the gate.',
+      'Trouble ends at the side gate. The player is never killed this week, and being put out of the palace is never the end of the story.',
     proseStyle: 'webnovel',
     styleExamples: [
       'The post falls in two halves, clean as paper.\n\nThe knights cheer. Rin doesn’t move.\n\n"Pack." She doesn’t turn round. "What was my dog called?"\n\n"Biscuit."\n\n"Biscuit." She says it twice more under her breath, like she’s tying it off. "Right. Obviously. I knew that."\n\nIt takes her two tries to sheathe the sword.',
@@ -1073,6 +1078,7 @@ const raw = {
     {
       id: 'bastian',
       name: 'Sir Bastian Vell',
+      calledName: 'Bastian',
       role: 'Knight-commander of the heroes’ escort, with written orders to put you out',
       cardBlurb:
         'He has buried thirty-one of his men east of the river and he thinks hope is the cruel part. His orders say you leave tonight, and he does not much care whether you think that is fair.',
@@ -1155,6 +1161,7 @@ const raw = {
     {
       id: 'odessa',
       name: 'Odessa Marrin',
+      calledName: 'Odessa',
       role: 'High Cantor of the Choir, who performed the Calling',
       cardBlurb:
         'She performed the Calling, she grieves for every hero she has ever spent, and she spends them anyway. She cannot lie to you under the crystal, so she chooses very carefully where she stands when you ask.',
@@ -2573,7 +2580,7 @@ const raw = {
     '"Don’t let them vote on you. You decide. Are you coming with us, or not?"',
   openingPanel: {
     assetKey: 'story_three_heroines_and_a_porter/opening',
-    alt: 'Saki stepping between a knight with his hand on his sword and you, the reading crystal dark behind her, Rin and Maya arguing in gold light.',
+    alt: 'Saki in a white healer’s mantle over a green fleece, stepping between you and a knight with his hand on his sword, the crystal dark behind her, Rin and Maya arguing in gold light.',
   },
   openingSuggestions: [
     '"I’m coming. Somebody has to carry the tents."',
@@ -2581,16 +2588,18 @@ const raw = {
     'I put my hand back on the crystal and hold it there. "Read me again."',
   ],
   coverDirection: [
-    'SUBJECT: three adult women in a fantasy summoning hall, lit gold from below by a glowing crystal, with one figure in the foreground seen from behind under a huge hiking backpack.',
+    'SUBJECT: three heroines mid-argument in a fantasy summoning hall, lit gold from below by a glowing crystal, with one figure in the foreground seen from behind under a huge hiking backpack.',
+    'The three of them fill the frame from the waist up, side by side and close, faces large and readable at thumbnail size; the backpack fills the bottom edge of the picture.',
     'LEFT: Rin, tall and athletic, short ragged black hair, a red hiking shell jacket over a steel breastplate, a long straight sword held low, a cut length of orange climbing rope knotted at her hip, glaring sideways.',
-    'CENTRE: Maya, round glasses, long dark hair in a messy bun with a pencil through it, a grey hoodie under a midnight-blue mage’s robe rolled to the elbows, small blue sparks crawling over her raised fingertips, mid-argument.',
+    'CENTRE: Maya, round glasses, long dark hair in a messy bun with a pencil through it, a grey hoodie under a midnight-blue mage’s robe rolled to the elbows, one hand raised with small blue sparks crawling over the fingertips, mid-argument.',
     'RIGHT: Saki, calm and steady, of medium height, chin-length brown hair with a plain clip, a white healer’s mantle over a green fleece, one hand held out flat as if stepping between two people, looking straight at the viewer.',
     'FOREGROUND: the porter, seen from behind and from the shoulders up, face never shown, a battered hiking pack with a camp stove and a rolled tent strapped to it.',
-    'All four are dressed for a mountain: practical, layered and fully covered. No fan service. The comedy is in the expressions, an argument in progress.',
+    'All four are dressed for a mountain in practical, layered gear. No fan service. The comedy is in the expressions, an argument in progress.',
+    'THEIR FACES STAY CLEAN: no sparks, glowing marks or stray shadows on any face. The gold glow stays on the crystal and the title, and the blue sparks stay on Maya’s fingertips.',
     'BEHIND THEM: a vast vaulted stone hall, a circle carved into the floor with three stone seats, the crystal blazing gold on a black altar, white-robed priests in soft focus.',
     'LIGHT: warm gold from the crystal across the three faces, cool blue shadow in the vaults.',
-    'TITLE: the words THREE HEROINES AND A PORTER painted into the art in the upper third as a bold fantasy-adventure logo, white with a gold glow,',
-    'spelled exactly THREE HEROINES AND A PORTER, large and legible at thumbnail size, with the word PORTER on its own line. No other text anywhere.',
+    'TITLE: the words THREE HEROINES AND A PORTER painted into the art in the upper third as a bold fantasy-adventure logo, white with a warm gold glow and a thin dark outline,',
+    'spelled exactly THREE HEROINES AND A PORTER, large and legible at thumbnail size, with the word PORTER on its own line and a short length of orange climbing rope underlining it. No other text anywhere.',
   ].join(' '),
   publishedAt: null,
 };

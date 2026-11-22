@@ -106,8 +106,10 @@ never fan service: no bath or changing-room scenes, no accidental-touch jokes,
 no lingering on bodies, and no bed-sharing or who-sleeps-where innuendo. The
 couch argument is about the couch.
 
-Trouble has a set answer, written into the tone guide because production reads
-neither `defeatMode` nor the Suspicion bands. A classless stranger who strikes
+Trouble has a set answer, written into hard canon because production reads
+neither `defeatMode` nor the Suspicion bands (the fan-service limits above sit
+there too; the tone guide keeps only the mood, because every image prompt
+reads it). A classless stranger who strikes
 a knight, steals, threatens a heroine or is caught where they are forbidden is
 disarmed and marched to the side gate under guard, not killed. Only the three
 heroines refusing together, out loud, can stop it, and Bastian counts every
@@ -381,13 +383,26 @@ porter endings.
 
 ## Image plan
 
-- **Cover:** the three heroines lit gold from the crystal, mid-argument; the
-  porter in the foreground from behind, face never shown, under a huge hiking
-  pack with a stove strapped on. Mountain clothes, fully covered, no fan
-  service. The title THREE HEROINES AND A PORTER in the art; no other text.
-- **Opening panel** (`story_three_heroines_and_a_porter/opening`): Saki stepping
-  between a knight with his hand on his sword and you, the crystal dark behind
-  her, Rin and Maya arguing in gold light.
+- **Cover:** the three heroines lit gold from the crystal, mid-argument, waist
+  up and close; the porter in the foreground from behind, face never shown,
+  under a huge hiking pack with a stove strapped on. Practical, layered
+  mountain gear, no fan service, and people described by costume and pose
+  only, never by an age word. Effects stay on the crystal, Maya's fingertips
+  and the title, never on a face. The `coverDirection` has its own `TITLE:`
+  line: the words THREE HEROINES AND A PORTER (the title, *Three Heroines and
+  a Porter*, in capitals, as the cover prompt writes it) painted in the upper
+  third as a bold fantasy-adventure logo, white with a warm gold glow, PORTER
+  on its own line underlined by a short length of orange climbing rope. No
+  other text.
+- **Opening panel** (`story_three_heroines_and_a_porter/opening`): Saki, who
+  asks the opener's question, in a white healer's mantle over a green fleece,
+  stepping between you and a knight with his hand on his sword, the crystal
+  dark behind her, Rin and Maya arguing in gold light. The alt starts with her
+  name, because her portrait is the panel's reference image.
+- **Tone guide as mood text:** every image prompt carries the tone guide as its
+  mood line, so it holds mood only. The 13+ limits (no bath or changing-room
+  scenes, no bed-sharing innuendo, no gore) and the trouble rule live in hard
+  canon, which the storyteller reads in the same world brief.
 - Portraits in cast order. Expressions use the generator's words only.
 - Saki is described by pose and costume, never as small: "of medium height,
   composed, with a nurse's steady posture". Size words on a young woman push
