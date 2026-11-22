@@ -179,9 +179,14 @@ describe('everybody is an adult, and the page stays 13+', () => {
   });
 
   it('describes people to the portrait generator as adults, by costume rather than age', () => {
+    const AGE_WORDS = /\b(teen\w*|girl|boy|young\w*|youth\w*|kid|child\w*|student|\d+)\b/i;
     for (const c of STORY.characters) {
       expect(c.appearance, c.id).toMatch(/^An (?:elderly )?adult (?:woman|man)\b/);
+      expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
     }
+    // The cover names nobody's age at all, not even "adult": costume and pose only.
+    expect(STORY.coverDirection).not.toMatch(AGE_WORDS);
+    expect(STORY.coverDirection).not.toMatch(/\b(old|older|elderly|aged?|adult)\b/i);
   });
 
   const everything = (): string =>
@@ -201,6 +206,8 @@ describe('everybody is an adult, and the page stays 13+', () => {
       endings: STORY.endings,
       archetypes: STORY.archetypes,
       setup: STORY.setupFields,
+      panel: STORY.openingPanel,
+      cover: STORY.coverDirection,
     });
 
   it('codes nobody as a minor', () => {
@@ -675,17 +682,95 @@ describe('assets', () => {
     const prefix = 'story_the_cult_master_wakes_as_a_servant';
     expect(STORY.storyId).toBe(prefix);
     expect(STORY.id).toBe('sv_the_cult_master_wakes_as_a_servant_1');
-    // No art exists yet, so nothing names a panel that would 404, and the
-    // drop sets the publish date.
-    expect(STORY.openingPanel ?? null).toBeNull();
+    // The drop sets the publish date; until then null, or the API reports the
+    // story as updated on every request. No prologue: it opens on the scene.
     expect(STORY.publishedAt).toBeNull();
+    expect(STORY.prologue).toEqual([]);
     const derived = withDerivedAssetKeys(STORY);
     const keys = [
       derived.coverImage,
       derived.keyArt,
+      derived.openingPanel?.assetKey,
       ...derived.locations.map((l) => l.stageImage),
       ...derived.characters.map((c) => c.portrait),
     ];
     for (const key of keys) expect(String(key)).toMatch(new RegExp(`^${prefix}/`));
+  });
+
+  it('draws the opening panel from the portrait of the man who speaks first', () => {
+    // The panel script uses the character whose first name starts the alt as
+    // its reference image, so the alt has to start with the opener's voice.
+    const panel = STORY.openingPanel!;
+    expect(panel.assetKey).toBe('story_the_cult_master_wakes_as_a_servant/opening');
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    expect(panel.alt.startsWith('Mok ')).toBe(true);
+    const mok = STORY.characters.find((c) => c.id === 'mok')!;
+    expect(mok.name.split(' ')[0]).toBe('Mok');
+    expect(mok.appearance).toMatch(/pale blue/);
+    expect(panel.alt).toMatch(/pale blue/);
+  });
+
+  it('gives every face on a card a concrete appearance to draw', () => {
+    for (const c of STORY.characters.filter((ch) => ch.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(120);
+      expect(c.visualHook.length, c.id).toBeGreaterThan(20);
+    }
+  });
+});
+
+describe('the cover', () => {
+  const cover = STORY.coverDirection;
+
+  it('owns its lettering with a TITLE line that spells the title exactly', () => {
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(cover.match(/\bTITLE:/g)?.length).toBe(1);
+    expect(title).toContain('The Cult Master Wakes as a Servant');
+    expect(title).toMatch(/upper third/);
+    expect(title).toMatch(/No other text anywhere/);
+  });
+
+  it('keeps every effect on objects and the title, never on a face', () => {
+    expect(cover).toContain('Seo-ah');
+    expect(cover).toMatch(/HER FACE STAYS CLEAN/);
+    expect(cover).toMatch(/never on a face/i);
+  });
+});
+
+describe('the system reaches the storyteller', () => {
+  // The pure narrator reads hard canon, quest items and each archetype's
+  // starting abilities. It never reads the ability list or the resources, so
+  // the forms, how they unlock and what they cost have to be said in canon.
+  const canon = STORY.rules.hardCanon.join(' ');
+
+  it('names every Grave Form the player can reach, and how', () => {
+    for (const id of ['lowered_lid', 'mourners_step', 'shroud', 'iron_wreath', 'grave_bell']) {
+      const name = STORY.abilities.find((a) => a.id === id)!.name.replace(/^The /, '');
+      expect(canon, id).toContain(name);
+    }
+    expect(canon).toMatch(/Marrow Pill/);
+    expect(canon).toMatch(/cold pool/);
+    expect(canon).toMatch(/four in, hold for nine/);
+  });
+
+  it('says what a form costs the body and the disguise', () => {
+    expect(canon).toMatch(/Every form costs this body something/);
+    expect(canon).toMatch(/talked about, then watched, then searched/);
+  });
+
+  it('starts every past life with the breathing and one signature', () => {
+    for (const a of STORY.archetypes) {
+      expect(a.startingAbilities[0], a.id).toBe('steady_the_breath');
+      expect(a.startingAbilities.length, a.id).toBe(2);
+    }
+    const tag = STORY.items.find((i) => i.id === STORY.rules.startingItems[0]!.itemId)!;
+    expect(tag.questItem).toBe(true);
+    expect(STORY.rules.toneGuide.length).toBeGreaterThan(200);
+  });
+
+  it('gives every titled character the name people actually use', () => {
+    for (const c of STORY.characters) {
+      expect(c.calledName, c.id).toBeTruthy();
+      expect(c.name, c.id).toContain(c.calledName!);
+    }
   });
 });

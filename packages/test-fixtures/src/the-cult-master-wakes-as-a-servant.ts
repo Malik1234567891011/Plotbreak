@@ -80,7 +80,9 @@ const raw = {
       'Everybody in this story is an adult. The body the player wakes in, Dol’s, is twenty. Seo-ah is twenty-two, Mok is twenty-five, Seol-hwa is thirty-four, Baek is fifty-five, Pyo is sixty-one and Gong is sixty-six. The Gravekeeper was fifty-two when the wine was poured. Silver Pine takes nobody under eighteen: every disciple, junior disciples included, and every servant on the mountain is an adult.',
       'The player was the Gravekeeper, master of the Nine Graves Cult and the most feared martial artist alive, until nine days ago, when they died of poisoned wine at the cult’s winter banquet. The name the player chose is the Gravekeeper’s own, which almost nobody alive has heard said aloud.',
       'This morning the player woke in the body of Dol, a twenty-year-old servant in the Silver Pine Sect’s outer yard, who died of a beating in the woodshed last night. Everybody on the mountain knows the body as Dol and calls it Dol. Nobody knows Dol died.',
-      'The body has almost no internal energy and its channels are blocked. The Gravekeeper’s memory of the Nine Grave Forms is complete. The first three forms work on precision alone; the fourth needs the channels opened; the sixth needs real internal energy rebuilt; the seventh and eighth are out of reach in four days. The ninth is the form the Gravekeeper used while dying, and it cannot be used again.',
+      'The body has almost no internal energy and its channels are blocked. The Gravekeeper’s memory of the Nine Grave Forms is complete, and the body can manage the first three now, on precision alone: the Lowered Lid, two fingers on the right nerve so that a grown fighter drops without a mark; the Mourner’s Step, a half-step that looks like stumbling and is never where the blow lands; and the Shroud, folding one’s presence so small that trained fighters look straight through the servant. The fourth, the Iron Wreath, wraps energy round the hands so that a blade turns on bare skin, and works only once the channels are opened. The sixth, the Grave Bell, lets killing intent out all at once and freezes every fighter in the room; it needs real internal energy rebuilt, and anybody who ever met the Gravekeeper knows it on sight. The fifth, seventh and eighth are out of reach in four days. The ninth is the form the Gravekeeper used while dying, and it cannot be used again.',
+      'Opening the channels takes one of three roads: servant work all day and the cult’s breathing every night, four in, hold for nine, four out, until the body answers around the third day; the Marrow Pill the Gravekeeper buried under the third flagstone of the shrine on the old north road twelve years ago, which does it in one night at the price of a fever somebody will notice; or Old Cook Pyo holding the needles, if he trusts the player and knows what he is helping. After that, real energy comes back only from nights under the waterfall at the cold pool, or from taking a beating on purpose in the open sparring and keeping what it shakes loose.',
+      'Every form costs this body something. A form forced through blocked channels leaves an aching wrist all night, a cough that tastes of iron and hands that will not close on a bucket handle until noon, and pushed too far the body collapses in front of the wrong person. It tires fast, and food, Pyo’s ginger broth and a night’s sleep are what bring its wind back. Every form used where people can see it makes the mountain look harder at Dol: a servant who moves like an instructor gets talked about, then watched, then searched, and the Grave Bell used in public ends the disguise outright.',
       'The Silver Pine Sect is a righteous sword school whose elders led the alliance against the Nine Graves for thirty years. Ten years ago the sect leader’s wife, Han So-yeon, died in a duel she demanded with the Gravekeeper. Her daughter Seo-ah swore at the funeral to kill the Gravekeeper.',
       'Yu Seol-hwa, the Gravekeeper’s right hand for fifteen years, poured the poisoned wine. She now leads the Nine Graves as Acting Master. Her delegation of nine riders camps at Grey Ford for two nights, arrives at Silver Pine on the evening of the third day, and the truce is signed in the Hall of Pines at noon on the fourth day.',
       'The poison is Two Sleeps, an old Nine Graves recipe in two halves that are harmless apart: one in the wine, one in pear-wood smoke. First Elder Gong Tae-seok of Silver Pine bought the recipe, sent both halves to the banquet through Senior Disciple Mok, who believed he was carrying a bribe, and plans to use the rest on the delegation at the signing and blame the cult’s own factions. This is discoverable and it is not owed to anybody.',
@@ -863,7 +865,7 @@ const raw = {
         'I swore I would kill the Gravekeeper myself. Somebody beat me to it, and I have never been so furious about good news.',
       ],
       appearance:
-        'An adult woman, tall and lean, long black hair tied high with a plain white cord, a white training robe with the sleeves bound back, and a sword she carries even to breakfast.',
+        'An adult woman, tall and lean, long straight black hair tied high with a plain white cord, dark grey eyes under straight brows, a white training robe with the sleeves bound back at the forearms and a pale grey sash, and a straight sword in a plain white scabbard that she carries even to breakfast.',
       visualHook: 'A white cord in her hair that was her mother’s, tied in a swordsman’s knot.',
       silhouette: 'Straight-backed, one hand resting on the hilt, weight on the back foot.',
       artSeed: 'cmws-seo-ah-01',
@@ -959,7 +961,7 @@ const raw = {
         'You were supposed to stay down. Why did you not stay down?',
       ],
       appearance:
-        'An adult man, handsome in a sharp, hungry way, pale blue senior disciple robes kept spotless, and his hair pinned with a silver pin he cannot really afford.',
+        'An adult man, tall and broad-shouldered, handsome in a sharp, hungry way, narrow dark eyes and a thin smile, black hair in a high topknot held by an ornate silver pin he cannot really afford, spotless pale blue senior disciple robes with a darker blue sash, and a sword in a blue lacquered scabbard at his hip.',
       visualHook: 'A silver hairpin far too expensive for his family, worn every single day so people notice it.',
       silhouette: 'Chin up, chest out, one foot always planted on something lower than him.',
       artSeed: 'cmws-mok-01',
@@ -1049,7 +1051,7 @@ const raw = {
         'If you are who you claim, repeat what was said on the rope bridge, the first winter. Exactly.',
       ],
       appearance:
-        'An adult woman, slight and very still, black hair cut short at the jaw, grey riding clothes with no insignia, and the cult’s iron ring of office worn on a cord at her throat instead of on her hand.',
+        'An adult woman, slight and very still, black hair cut short at the jaw, calm dark eyes, grey riding clothes with no insignia under a grey hooded travelling cloak, and the cult’s iron ring of office worn on a cord at her throat instead of on her hand.',
       visualHook: 'An iron ring hanging on a cord at her throat, never worn on her finger.',
       silhouette: 'Hood up, hands folded inside her sleeves, standing exactly where she can see every door.',
       artSeed: 'cmws-seol-hwa-01',
@@ -2210,7 +2212,7 @@ const raw = {
       attributeBonus: { agility: 3, might: 1 },
       skillProficiencies: { grave_forms: 3, eye: 1, inner_breath: 1 },
       startingItems: [{ itemId: 'practice_sword', qty: 1 }],
-      startingAbilities: ['lowered_lid'],
+      startingAbilities: ['steady_the_breath', 'lowered_lid'],
       startingReputation: [],
     },
     {
@@ -2223,7 +2225,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { poisons: 3, inner_breath: 2 },
       startingItems: [{ itemId: 'ginger_broth', qty: 2 }],
-      startingAbilities: ['name_the_poison'],
+      startingAbilities: ['steady_the_breath', 'name_the_poison'],
       startingReputation: [],
     },
     {
@@ -2236,7 +2238,7 @@ const raw = {
       attributeBonus: { presence: 2, mind: 2 },
       skillProficiencies: { servility: 3, eye: 2 },
       startingItems: [{ itemId: 'dol_ledger', qty: 1 }],
-      startingAbilities: ['be_furniture'],
+      startingAbilities: ['steady_the_breath', 'be_furniture'],
       startingReputation: [{ factionId: 'faction_outer_yard', amount: 10 }],
     },
     {
@@ -2249,7 +2251,7 @@ const raw = {
       attributeBonus: { presence: 3, resolve: 1 },
       skillProficiencies: { command: 3, labour: 1, grave_forms: 1 },
       startingItems: [],
-      startingAbilities: ['masters_voice'],
+      startingAbilities: ['steady_the_breath', 'masters_voice'],
       startingReputation: [],
     },
   ],
@@ -2470,11 +2472,32 @@ const raw = {
   ],
   opening:
     "You died. You remember it: the wine, the cold climbing your chest, nine hundred of your own people on their knees as the lamps went out.\n\nThen a boot comes down between your shoulder blades and grinds your face into wet straw.\n\n\"Kneel, servant,\" says Senior Disciple Mok. \"Properly, this time.\"\n\nThis body is a servant’s: thin, split-lipped, breathing all wrong. Your hands still remember nine killing forms.\n\nAt the edge of the yard, a woman in white has stopped with two water buckets.\n\nMok leans his weight in. \"Forehead on the ground. Tell the lady you fell down the stairs. Do it now, or we do last night again.\"",
+  openingPanel: {
+    assetKey: 'story_the_cult_master_wakes_as_a_servant/opening',
+    alt: 'Mok in spotless pale blue robes and a silver hairpin, seen from the wet straw at your eye level, sneering down with one boot planted on your back, a misty pine yard at dawn behind him.',
+  },
   openingSuggestions: [
     "\"I fell down the stairs, my lady.\" I say it to her, not to him.",
     'I lower my forehead to the straw, slowly, and watch exactly where his weight sits.',
     'I find his ankle with two fingers, just above the bone, and press.',
   ],
+  coverDirection: [
+    'SUBJECT: Baek Seo-ah, the finest sword of a righteous mountain sect, unmistakable in the foreground of a key visual for a martial-arts fantasy anime about a feared master who wakes up as a servant.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'Long straight black hair tied high with a plain white cord in a swordsman’s knot, dark grey eyes under straight brows, a white training robe with the sleeves bound back at the forearms and a pale grey sash.',
+    'Her right hand has a straight sword half-drawn from a plain white scabbard; her left hand grips the scabbard at her hip. She stands straight-backed, weight on the back foot.',
+    'Her expression is cold, wary and searching, eyes narrowed, looking just past the viewer at somebody she has started to suspect.',
+    'A thin line of cold white light runs along the drawn steel, and a few pine needles hang in the air around the blade.',
+    'HER FACE STAYS CLEAN: no marks, smoke, ink, glow or shadows on her face or skin. Every effect stays on the sword, the yoke and the title, never on a face.',
+    'BEHIND HER, smaller and secondary: on one side a tall man in spotless pale blue sect robes with an ornate silver hairpin in his topknot, chin up, sneering down at something out of frame;',
+    'further back on the other side, a slight, very still woman in a grey hooded travelling cloak, hood up, hands folded inside her sleeves, an iron ring on a cord at her throat.',
+    'IN THE LOWER FOREGROUND, cropped by the bottom edge: a servant’s thin, scraped hands gripping the wooden pole of a water yoke, two fingers resting on one exact point, with a faint curl of black ink-smoke rising from the pole where they touch it.',
+    'BEHIND THEM, soft and secondary: a misty pine-covered mountain, a sect compound of curved dark tiled roofs and stone stairs, black paper lanterns hanging from the eaves.',
+    'LIGHT: cold blue-grey dawn mist behind, a pale gold sunrise rim along her shoulders and hair, so she stands out sharp against the fog.',
+    'TITLE: the words The Cult Master Wakes as a Servant painted into the art in the upper third, lettered in capitals as a bold black brush-ink logo with a thin white edge,',
+    'on two lines: THE CULT MASTER large, and WAKES AS A SERVANT smaller beneath it. Spelled exactly The Cult Master Wakes as a Servant, large and legible at thumbnail size.',
+    'A single wisp of black ink-smoke trails off the last letter only. No other text anywhere: no lettering on the lanterns, the robes, the sword or the yoke.',
+  ].join(' '),
   publishedAt: null,
 };
 

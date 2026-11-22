@@ -6,7 +6,7 @@
 **Hook:** You were the most feared martial master alive. You died of poisoned wine, woke up in the beaten body of a servant at the sect that hunted you for thirty years, and your killer arrives in three days to sign a truce.
 **Fixture:** `packages/test-fixtures/src/the-cult-master-wakes-as-a-servant.ts` (`THE_CULT_MASTER_WAKES_AS_A_SERVANT`, `story_the_cult_master_wakes_as_a_servant`, `sv_the_cult_master_wakes_as_a_servant_1`). **Spec:** `the-cult-master-wakes-as-a-servant.spec.ts`.
 **Protagonist:** BLANK. The name the player types is the Gravekeeper's own, which almost nobody alive has heard. Everybody on the mountain calls the body Dol.
-**Not yet registered** in `index.ts`. `publishedAt: null`, no `openingPanel`, no art.
+**Not yet registered** in `index.ts`. `publishedAt: null` (set at release), no prologue, no art yet. `openingPanel` and `coverDirection` are written, so the art scripts can run as soon as it is registered.
 
 ## Adults only
 
@@ -62,8 +62,11 @@ items, and what six people will and will not say.
 
 ## The system (the Nine Grave Forms)
 
-The pure storyteller does not read the ability list, so the system lives in hard canon and in each
-archetype's starting ability.
+The pure storyteller does not read the ability list, the resources or the step notes, so the system
+lives in three places it does read: hard canon (entries 4 to 6 name every reachable form and what it
+does, the three roads to opening the channels, the two ways to rebuild energy, and what a form costs the
+body and the disguise), the starting item (Dol's wooden tag, a quest item), and each archetype's
+starting abilities (Steady the Breath for everyone, plus one signature).
 
 | Form | Ability id | Needs | How the player gets it |
 |---|---|---|---|
@@ -72,7 +75,7 @@ archetype's starting ability.
 | 3. The Shroud (stealth) | `shroud` | precision only | default |
 | 4. The Iron Wreath (bare-hand parry) | `iron_wreath` | `body_opened` | reward of `q_rebuild/open_the_channels` |
 | 6. The Grave Bell (killing intent, area) | `grave_bell` | `breath_rebuilt` | reward of `q_rebuild/fill_the_well` |
-| 7 and 8 | none | out of reach in four days | canon only |
+| 5, 7 and 8 | none | out of reach in four days | canon only |
 | 9 | none | the form used while dying | can never be used again |
 
 Both gated forms are granted by the very step that sets their flag (grant broadly, gate by flag). The
@@ -124,8 +127,9 @@ premise's wording.
 2. Done: `I lower my forehead to the straw, slowly, and watch exactly where his weight sits.`
 3. Risky: `I find his ankle with two fingers, just above the bone, and press.` (The first Grave Form. The spec runs the real parser to prove this does not read as `attack`.)
 
-**Opening panel, for when art is made:** Senior Disciple Mok in pale blue robes, one boot planted on a
-bruised servant's back in wet straw, sneering down in a misty mountain-sect yard at dawn.
+**Opening panel** (`story_the_cult_master_wakes_as_a_servant/opening`, drawn from Mok's portrait, so the
+alt starts with his name): *Mok in spotless pale blue robes and a silver hairpin, seen from the wet straw
+at your eye level, sneering down with one boot planted on your back, a misty pine yard at dawn behind him.*
 
 ## Cast
 
@@ -289,8 +293,9 @@ Ten of the eleven endings never need a public reveal.
 
 ## Archetypes (what you were, before the wine)
 
-The choice is fixed for the whole story. Each archetype has one signature starting ability, so the
-storyteller gets a "Can:" line.
+The choice is fixed for the whole story. Every archetype starts with Steady the Breath (the cult's
+four-in, hold-for-nine breathing, which is how the body is rebuilt and how Pyo recognises it) plus one
+signature ability, so the storyteller gets two "Can:" lines.
 
 | Id | Name | Role | Signature | Skills | Items |
 |---|---|---|---|---|---|
@@ -311,11 +316,20 @@ Each has three or four bands of behaviour text. No band names its own resource.
 
 ## Cover direction
 
-Seo-ah in white training robes at the front, sword half-drawn, looking past the viewer. Behind her,
-Mok in pale blue. Further back, in grey with her hood up, Seol-hwa. In the foreground, a servant's
-hands holding a water yoke, with two fingers resting exactly on a pressure point. Misty pine mountain,
-curved tiled roofs, cold dawn light, black paper lanterns. Title in the art. No age words in any
-prompt.
+Seo-ah in white training robes at the front, waist up, about two thirds of the frame, sword half-drawn,
+looking just past the viewer. Behind her, smaller, Mok in pale blue with his silver hairpin; further
+back, in a grey hooded cloak, Seol-hwa. In the lower foreground, a servant's thin hands on a water
+yoke, two fingers resting on one exact point. Misty pine mountain, curved tiled roofs, cold dawn light,
+black paper lanterns.
+
+Effects stay on objects and the title: cold light along the blade, a curl of black ink-smoke off the
+yoke. Seo-ah's face stays clean. People are described by costume and pose; no age words anywhere in
+the prompt.
+
+**TITLE:** *The Cult Master Wakes as a Servant*, painted into the upper third in capitals as a bold
+black brush-ink logo with a thin white edge, on two lines (THE CULT MASTER large, WAKES AS A SERVANT
+beneath it), one wisp of ink-smoke off the last letter, no other text anywhere. The fixture's
+`coverDirection` is the source of truth.
 
 ## Checks the spec runs
 
@@ -328,3 +342,9 @@ intent parser. On top of those come the three checkpoint checks:
 1. Every gated ability (`iron_wreath`, `grave_bell`) is granted by some step's `rewards.abilities`.
 2. Every `cardBlurb` contains the word "you".
 3. Every location has an inbound edge.
+
+For the art and release pipeline (`docs/stories-50/PIPELINE.md`) it also checks: one `TITLE:` line
+spelling the title exactly, no age words in any `appearance` or in the cover, the opening panel's alt
+at most 200 characters and starting with "Mok", `publishedAt: null`, no prologue, every Grave Form the
+player can reach named in hard canon, and every archetype starting with Steady the Breath. The
+pilot's checker, `infra/scripts/story-checks.ts`, passes with no WARN.
