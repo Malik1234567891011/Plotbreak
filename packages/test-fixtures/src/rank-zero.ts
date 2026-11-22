@@ -73,20 +73,25 @@ const raw = {
     startWorldMinute: 10 * 60 + 20,
     startingItems: [{ itemId: 'cadet_band', qty: 1 }],
     hardCanon: [
+      'Everyone in this story is an adult and is written as one. The player is nineteen. Ines Valk is forty-one, Riku Amano twenty, Sana Tsuda nineteen, Calla Reyes twenty-one, Okon Hale fifty-eight, Noor Halvorsen thirty-four and Ada Kole thirty-eight. Every other cadet on the island is at least eighteen.',
+      'Romance, if the player wants it, is flirtatious, tense and heartfelt and goes no further than a kiss: never fan service, never lingering on bodies. Staff and the ferry engineer turn a cadet’s flirting aside in one sentence.',
       'Lodestar Academy is a four-year hero licensing college on Gull Island, in the bay off the city of Calder Bay. Every cadet is at least eighteen. The player is a nineteen-year-old first-year in an intake of 240.',
-      'On intake morning every cadet is rated on the Gauge, a glass column owned by the Ratings Bureau that reads what a power pushes out as a number from 0 to 10,000. The number sets the track (Field 1–60, Support 61–180, Reserve 181–240) and the order on the Board in the atrium.',
+      'On intake morning every cadet is rated on the Gauge, a glass column owned by the Ratings Bureau that reads what a power pushes out as a number from 0 to 10,000. The number sets the track (Field 1–60, Support 61–180, Reserve 181–240) and the order on the Board in the atrium. A zero places a cadet on the Support track pending review.',
+      'Every cadet wears a black band that shows their rank and rating and updates whenever the Board does. The player’s reads 240 · 0.',
       'The Gauge rated the player 0 and then caught fire in front of the whole intake. Nobody was hurt and the player’s hand was unmarked.',
       'The player has a real power. It pushes nothing out on its own; when force is put into the player, the power takes it in and gives it back later, often all at once and not always where they aim. It is never “nothing”, and what it can become is for play to discover. Nobody on the island knows this on intake morning, the player included; it comes out only through what happens in play.',
+      'What the power has taken in and not yet given back stays in the player and bleeds off slowly over hours. While it is held, things near them run warm: a phone heats in a pocket, a mug cracks, glass ticks as they pass, lights flicker when they are upset. The more it holds, the less it waits; full, the next solid thing that touches the player gets all of it back at once. Holding it in on purpose keeps the player looking exactly like their number, but it does not go away. It waits.',
+      'On intake morning the player cannot aim it. Letting it out on purpose, in one direction, is learned in play: in drills, from somebody who has done it, or by getting it wrong. Until then it comes back on its own, a second late and not always where they meant.',
+      'The louder the week gets, the harder the people who run the island watch the player: a public fight, a lie that gets caught, another machine that burns. The harder they watch, the nearer the Bureau comes to ordering the player reclassified and taken to its assessment floor in the capital, an order that needs no wrongdoing to go through.',
       'Nineteen years ago the previous Gauge read zero for a cadet named Ada Kole and burned. The Bureau took her to its assessment floor for eighteen months; the record says she withdrew. Ines Valk and Okon Hale were both there. This is discoverable and never owed.',
       'Riku Amano’s number was adjusted upward by an arrangement between his sponsoring agency and a Bureau technician. The automatic audit of the burned Gauge will find it. Only Riku, his sponsor and that technician know; Halvorsen has found the offset and told nobody. The player learns it only by finding it out.',
       'Trial Day is on the seventh morning of term. Any cadet may challenge their number in a public bout in the Bowl, naming any sparring partner from the Board, before a panel of Valk, Hale and Halvorsen.',
       'Nobody on the island wants the player dead. The danger is being reclassified, taken to the Bureau’s assessment floor, expelled, or quietly kept at zero.',
     ],
     toneGuide:
-      'Anime hero-academy energy: fast, loud, funny and competitive. Powers are physical and legible, so say what they do in the room — the weight, the heat, the ball that stops in the air. ' +
+      'Anime superhero energy: fast, loud, funny and competitive. Powers are physical and legible, so say what they do in the room — the weight, the heat, the ball that stops in the air. ' +
       'Fights are sparring, drills and the odd brawl. Injuries are bruises, scrapes and burns a medic fixes in a scene. Nobody dies and nothing is graphic. ' +
-      'Everyone here is an adult and is written as one. Romance is optional, flirtatious, tense and heartfelt, and goes no further than a kiss; never fan service, never lingering on bodies. ' +
-      'The institution is not evil: Hale believes the numbers keep people safe and the Bureau is careful rather than cruel, and both can be argued with. Comedy lives in the mess, the dorm corridor and Calla. ' +
+      'The institution is not evil: Hale believes the numbers keep people safe and the Bureau is careful rather than cruel, and both can be argued with. Comedy lives in the mess, the Reserve corridor and Calla. ' +
       'The power stays mysterious in a concrete way: things get warm, glass ticks, a punch lands and comes back a second later. The first time something hits the player, let a little come back on its own (a mug cracks, the mat warms, a punch returns a second late) so the player sees the power before anyone explains it. The face at the top of a beat is Valk’s or Riku’s whenever one of them is in the scene and the moment involves them.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -844,7 +849,7 @@ const raw = {
         'Hands. Turn them over. Good. Now tell me why there isn’t a mark.',
       ],
       appearance:
-        'Forty-one, tall and square-shouldered, close-cropped iron-grey hair, a long grey instructor’s coat with the sleeves shoved up, forearms crossed with old training scars.',
+        'An adult woman, tall and square-shouldered, close-cropped iron-grey hair, steady grey eyes, a long grey instructor’s coat worn open over a black training shirt with the sleeves shoved up, old pale training scars across both forearms, a steel whistle on a black cord.',
       visualHook: 'A long grey instructor’s coat she never buttons, and a whistle on a cord she never blows.',
       silhouette: 'Upright and still, coat hanging straight, one hand loose around a training staff.',
       artSeed: 'rz-valk-01',
@@ -920,7 +925,7 @@ const raw = {
         'Name me on Trial Day. Go on. Biggest crowd you’ll ever get.',
       ],
       appearance:
-        'Twenty, an adult man, lean and quick, black hair pushed back with a sweatband, the white Field-track jacket with an agency patch on the shoulder, a lopsided grin, hands in his pockets.',
+        'An adult man, lean and quick, black hair pushed back with a white sweatband, sharp dark eyes, a zipped white athletic jacket with a plain blue sponsor patch on the shoulder, black track trousers, a lopsided grin, hands in his pockets.',
       visualHook: 'An agency patch on his white jacket that he rubs with his thumb when he is nervous.',
       silhouette: 'Hands in pockets, weight on his heels, chin up, the only still thing in a moving room.',
       artSeed: 'rz-riku-01',
@@ -1003,7 +1008,7 @@ const raw = {
         'Field medic. That’s all I want. Somebody has to stand next to me on the sand.',
       ],
       appearance:
-        'Nineteen, an adult woman, neat and composed, black hair in a low knot, a medic’s green armband over a Support-track jacket, a pen behind each ear.',
+        'An adult woman, neat and composed, straight black hair in a low knot, level dark eyes, a dark grey training jacket with a green medic’s armband on the left sleeve, a red pen behind one ear and a black pen behind the other.',
       visualHook: 'Two pens, one red and one black, tucked behind her ears at all times.',
       silhouette: 'Crouched beside somebody, one hand flat on their shoulder, the other already reaching for a kit.',
       artSeed: 'rz-sana-01',
@@ -1079,7 +1084,7 @@ const raw = {
         'Want to hear what he sounded like when it caught fire? Hang on. Ready? Eeeep.',
       ],
       appearance:
-        'Twenty-one, an adult woman, curly brown hair escaping a scarf, a Reserve-track jacket covered in hand-drawn badges, big padded headphones around her neck.',
+        'An adult woman, curly brown hair escaping a mustard-yellow scarf, warm brown eyes, a dark navy training jacket covered in hand-drawn badges, big padded orange headphones around her neck, a wide grin.',
       visualHook: 'Big padded headphones around her neck that she never puts on, because she can play anything she has heard herself.',
       silhouette: 'Leaning in a doorframe mid-sentence, one hand up doing an impression.',
       artSeed: 'rz-calla-01',
@@ -1162,7 +1167,7 @@ const raw = {
         'Speaking into a cadet’s ear is rude, and I apologise. Four o’clock, please.',
       ],
       appearance:
-        'Fifty-eight, broad and unhurried, a close-trimmed white beard, a navy suit with an old hero licence pin in the lapel, reading glasses he takes off to look at you.',
+        'An older man, broad and unhurried, a close-trimmed white beard, a well-cut navy suit with an old enamel hero licence pin in the lapel, reading glasses he takes off to look at you, a thin silver earpiece in his right ear.',
       visualHook: 'A small silver earpiece in his right ear that everybody assumes is a hearing aid.',
       silhouette: 'Behind a wide desk, hands folded, leaning back, a window full of sea behind him.',
       artSeed: 'rz-hale-01',
@@ -1237,7 +1242,7 @@ const raw = {
         'Current looks orange to me. Yours looked like a hole.',
       ],
       appearance:
-        'Thirty-four, tall, pale blonde hair tied up with a cable tie, a Bureau lab coat with scorch marks on both cuffs, amber-tinted glasses pushed up on her head.',
+        'An adult woman, tall and wiry, pale blonde hair tied up with a cable tie, a white lab coat with scorch marks on both cuffs and a Bureau badge clipped to the pocket, amber-tinted glasses pushed up on her head.',
       visualHook: 'Amber-tinted glasses she wears to dim the colours she sees in every live wire.',
       silhouette: 'Bent double over an open machine, one leg kicked out behind her for balance.',
       artSeed: 'rz-halvorsen-01',
@@ -1319,7 +1324,7 @@ const raw = {
         'That band on your wrist. Same number as mine was.',
       ],
       appearance:
-        'Thirty-eight, broad-shouldered, short natural hair greying early at the temples, oil-stained ferry overalls with the sleeves tied at the waist, a faded old cadet band still on her left wrist.',
+        'An adult woman, broad-shouldered, short natural hair greying early at the temples, a grey work shirt with the sleeves rolled, oil-stained dark green ferry overalls with the top half tied at the waist, a faded black wristband with a dead screen on her left wrist.',
       visualHook: 'A faded cadet band on her wrist from an intake nineteen years ago, its screen long dead.',
       silhouette: 'Halfway up an engine-room ladder, looking up through the hatch.',
       artSeed: 'rz-ada-01',
@@ -2193,7 +2198,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { notice: 3, first_aid: 1, nerve: 1 },
       startingItems: [{ itemId: 'cadet_handbook', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['take_the_hit', 'hold_it_in', 'pull_the_file'],
       startingReputation: [{ factionId: 'faction_academy', amount: 5 }],
     },
     {
@@ -2206,7 +2211,7 @@ const raw = {
       attributeBonus: { might: 3, agility: 1 },
       skillProficiencies: { brawling: 3, footwork: 1, nerve: 1 },
       startingItems: [{ itemId: 'grip_tape', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['take_the_hit', 'hold_it_in', 'hit_back'],
       startingReputation: [{ factionId: 'faction_intake', amount: 5 }],
     },
     {
@@ -2219,7 +2224,7 @@ const raw = {
       attributeBonus: { presence: 3, resolve: 1 },
       skillProficiencies: { front: 3, nerve: 1, notice: 1 },
       startingItems: [{ itemId: 'licence_pin', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['take_the_hit', 'hold_it_in', 'talk_around_it'],
       startingReputation: [
         { factionId: 'faction_academy', amount: 10 },
         { factionId: 'faction_agencies', amount: 10 },
@@ -2235,7 +2240,7 @@ const raw = {
       attributeBonus: { mind: 2, arcana: 2 },
       skillProficiencies: { machines: 3, instinct: 2 },
       startingItems: [{ itemId: 'multitool', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['take_the_hit', 'hold_it_in', 'open_it_up'],
       startingReputation: [{ factionId: 'faction_bureau', amount: 5 }],
     },
   ],
@@ -2443,10 +2448,10 @@ const raw = {
     },
   ],
   opening:
-    "The screen above the scanner reads 0.\n\nTwo hundred and forty cadets see it with you. Someone laughs.\n\n\"Zero,\" says Riku Amano, top name on the ranking board, loud, and straight at you. \"Support track. Enjoy the mop.\"\n\nThen the glass column under your palm goes hot. Then white. Then fire climbs it to the ceiling, and the hall scatters. The scanner spits out a smoking printout.\n\nA woman in a grey instructor’s coat walks into the smoke instead of out of it. She takes your wrist and turns your hand over. Not a mark on it.\n\n\"Cadet.\" Instructor Valk doesn’t raise her voice. \"Four thousand cadets on that machine. Not one fire. Explain this one.\"",
+    "The screen above the scanner reads 0.\n\nTwo hundred and forty cadets see it with you. Someone laughs.\n\n\"Zero,\" says Riku Amano, top name on the ranking board, loud, and straight at you. \"Support track. Enjoy the mop.\"\n\nThen the glass column under your palm goes hot. Then white. Then fire climbs it to the ceiling, and the hall scatters. The scanner spits out a smoking printout.\n\nA woman in a grey instructor’s coat walks into the smoke instead of out of it. She takes your wrist and turns your hand over. Not a mark on it.\n\n\"Cadet.\" Instructor Valk doesn’t raise her voice. \"Four thousand cadets on that machine. Not one fire. Explain this one. Now.\"",
   openingPanel: {
     assetKey: 'story_rank_zero/opening',
-    alt: 'A glass scanner column burning white to the ceiling of a crowded hall, an instructor in a long grey coat holding a cadet’s unmarked hand up while a grinning rival watches.',
+    alt: 'Ines Valk in a long grey coat, striding out of the smoke to grip your wrist and turn your unmarked palm up, a glass column burning white to the ceiling behind her.',
   },
   openingSuggestions: [
     "\"I don’t know. It said zero. Then it did that.\"",
@@ -2462,14 +2467,16 @@ const raw = {
    */
   coverDirection: [
     'SUBJECT: the rival, front and centre in the foreground of a key visual for a superhero training anime about a power test that goes wrong.',
-    'He fills the lower two thirds of the frame from the waist up, close to the viewer: an adult man, lean and quick, black hair pushed back with a sweatband,',
-    'a white athletic team jacket with a plain sponsor patch on the shoulder, hands in his pockets, chin up.',
+    'He fills the lower two thirds of the frame from the waist up, close to the viewer: lean and quick, black hair pushed back with a white sweatband,',
+    'a zipped white athletic team jacket with a plain blue sponsor patch on the shoulder, hands in his pockets, chin up.',
     'He grins straight at the viewer, but his eyes have slid sideways toward the fire behind him and the grin is starting to slip.',
+    'HIS FACE STAYS CLEAN: no fire, smoke, soot, embers or glow marks on his face or skin, or on anyone’s face.',
+    'Every fire, smoke and ember effect stays on the glass column, the hall and the title, never on a face.',
     'BEHIND HIM, in the middle of the frame: a tall glass column erupting in white fire to the ceiling of a huge bright hall.',
     'A figure in a dark training jacket stands with their back to the viewer, one open palm flat on the burning glass, untouched by the flames.',
     'We never see their face: only their back, their shoulders and that one hand.',
     'From the other side, striding into the smoke instead of away from it: a tall, square-shouldered woman with close-cropped iron-grey hair',
-    'in a long grey coat with the sleeves shoved up, one hand reaching for the figure’s wrist, calm while everyone else runs.',
+    'in a long grey coat worn open over a black training shirt, sleeves shoved up, one hand reaching for the figure’s wrist, calm while everyone else runs.',
     'Around and above them, soft and secondary: a crowd in dark training jackets scattering, a viewing gallery, smoke and extinguisher foam.',
     'The screen above the column is cracked and dark, showing nothing.',
     'LIGHT: hard white fire-light from the column rims all three figures; cool steel-blue hall light everywhere else. Palette of white, charcoal, ember orange and steel blue.',

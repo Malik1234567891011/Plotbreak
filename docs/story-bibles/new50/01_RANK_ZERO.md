@@ -66,15 +66,23 @@ The player authors their name, pronouns, look, and anything about their past tha
 
 ### Hard canon
 
+The storyteller reads hard canon, the archetype's starting abilities and the quest items, and never reads the invisible variables, step notes or locked abilities. So the power's price and the watching live here, as facts.
+
+- Everyone in this story is an adult and is written as one: the player 19, Valk 41, Riku 20, Sana 19, Calla 21, Hale 58, Halvorsen 34, Ada 38. Ages live here and in the cast list, never in the fixture's `appearance` (that is also the portrait prompt).
+- Romance, if the player wants it, is flirtatious, tense and heartfelt and goes no further than a kiss: never fan service. Staff and the ferry engineer turn a cadet's flirting aside in one sentence. (This lives in hard canon, not the tone guide, because the tone guide is the mood line of every image prompt.)
 - Lodestar Academy is a four-year hero licensing college on an island; every cadet is at least eighteen; the player is a nineteen-year-old first-year in an intake of 240.
+- A zero places a cadet on the Support track pending review. Every cadet wears a black band showing rank and rating; the player's reads 240 · 0.
 - The Gauge rated the player 0, then caught fire in front of the whole intake. Nobody was hurt and the player's hand was unmarked.
 - The player has a real power. It pushes nothing out on its own; when force goes into the player, it takes the force in and gives it back later. Nobody on the island knows this on intake morning, the player included; it comes out only through what happens in play.
+- What the power has taken in and not given back stays in the player and bleeds off slowly. While held, things near them run warm: a phone heats, a mug cracks, glass ticks, lights flicker. Full, the next solid thing that touches them gets all of it back at once. Holding it in keeps them looking like their number; it waits.
+- On intake morning the player cannot aim it. Letting it out on purpose is learned in play; until then it comes back on its own, a second late and not always where they meant.
+- The louder the week gets (a public fight, a caught lie, another burned machine), the harder the people who run the island watch, and the nearer a Bureau reclassification order comes. It needs no wrongdoing to go through.
 - Nineteen years ago the previous Gauge read zero for Ada Kole and burned. The Bureau took her; the record says she withdrew. Valk and Hale were there.
 - Riku Amano's number was adjusted upward by an arrangement between his sponsor and a Bureau technician; the audit of the burned Gauge will find it. Only Riku, his sponsor and that technician know; Halvorsen has found the offset and told nobody. The player learns it only by finding it out.
 - Trial Day is on the seventh morning: any cadet may challenge their number in a public bout before a panel.
 - Nobody on the island wants the player dead. The danger is being reclassified, taken to the Bureau's assessment floor, or quietly kept at zero.
 
-## Opening (the first beat, 116 words)
+## Opening (the first beat, 117 words)
 
 > The screen above the scanner reads 0.
 >
@@ -86,9 +94,9 @@ The player authors their name, pronouns, look, and anything about their past tha
 >
 > A woman in a grey instructor's coat walks into the smoke instead of out of it. She takes your wrist and turns your hand over. Not a mark on it.
 >
-> "Cadet." Instructor Valk doesn't raise her voice. "Four thousand cadets on that machine. Not one fire. Explain this one."
+> "Cadet." Instructor Valk doesn't raise her voice. "Four thousand cadets on that machine. Not one fire. Explain this one. Now."
 
-Checks: Riku speaks to the player at word 19. It ends on a demand that needs an answer now. 116 words. Four thousand is 240 a year since the last fire, nineteen years ago, less a margin: Valk is precise and does not lie to cadets. The printout in the beat is the thing card 2 reaches for. The only names are the two people in the scene, each introduced by what they are.
+Checks: Riku speaks to the player at word 19. It ends on a demand that needs an answer now, clipped shut with "Now." so the pilot's checker reads it as one. 117 words. Four thousand is 240 a year since the last fire, nineteen years ago, less a margin: Valk is precise and does not lie to cadets. The printout in the beat is the thing card 2 reaches for. The only names are the two people in the scene, each introduced by what they are.
 
 **Suggestions** (said / done / risky):
 
@@ -218,6 +226,8 @@ Called Mei in the first draft; renamed after editor review, because a Mei on a h
 
 Covers show adults described by costume and pose only.
 
-- **Cover** (the fixture's `coverDirection`): in the foreground, the rival in a white athletic jacket with a plain sponsor patch, hands in his pockets, grinning at the viewer while his eyes slide toward the fire. Behind him a tall glass column erupts in white fire; a figure in a dark training jacket stands with their back to the viewer, one palm flat on the glass, face never shown. From the other side an instructor in a long grey coat strides into the smoke. The screen above the column is cracked and dark: no 0, so the read-back finds no text but the title. Title RANK ZERO in the upper third, the only lettering. The direction uses costume and pose only: no ages, and no academy, cadet or school words.
+- **Cover** (the fixture's `coverDirection`): in the foreground, the rival in a white athletic jacket with a plain sponsor patch, hands in his pockets, grinning at the viewer while his eyes slide toward the fire. Behind him a tall glass column erupts in white fire; a figure in a dark training jacket stands with their back to the viewer, one palm flat on the glass, face never shown. From the other side an instructor in a long grey coat strides into the smoke. The screen above the column is cracked and dark: no 0, so the read-back finds no text but the title. Title RANK ZERO in the upper third as a bold, slightly italic athletic logo, white with an ember-orange glow and smoke curling off the final O, spelled exactly RANK ZERO, the only lettering. Fire, smoke and embers stay on the column, the hall and the title, never on a face. The direction uses costume and pose only: no ages, and no academy, cadet or school words.
+- **Opening panel** (`openingPanel`, `story_rank_zero/opening`): Valk striding out of the smoke to grip the player's wrist and turn the unmarked palm up, the column burning white behind her. The alt starts with "Ines", so her portrait is the reference image.
+- **Portraits:** drawn from each character's `appearance`, which opens "An adult woman", "An adult man" or "An older man" and then gives costume only. No age numbers there; the ages are in hard canon.
 - **Location stages:** the intake hall with the burned column; the atrium Board wall; the sand arena; the seawall at night; the ferry engine room.
 - **Hero frames:** the fire; the first time the power gives something back; Trial Day; Ada on the pier.

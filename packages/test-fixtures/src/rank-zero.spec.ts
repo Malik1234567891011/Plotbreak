@@ -131,10 +131,18 @@ describe('rule 1: the opener', () => {
 
   it('ends on a direct demand from a named character', () => {
     const lastQuote = opening.trim().match(/[“"]([^“"”]+)[”"]\s*$/)?.[1] ?? '';
-    const lastSentence = lastQuote.trim().split(/(?<=[.!?])\s+/).pop() ?? '';
-    expect(lastSentence.endsWith('?') || /^(Explain|Tell|Show|Answer|Give|Say)\b/.test(lastSentence)).toBe(true);
+    const sentences = lastQuote.trim().split(/(?<=[.!?])\s+/);
+    const lastSentence = sentences.pop() ?? '';
+    const demand = /^(Explain|Tell|Show|Answer|Give|Say)\b/;
+    // A question, a demand, or a demand clipped shut with "Now."
+    expect(
+      lastSentence.endsWith('?') || demand.test(lastSentence) || (lastSentence === 'Now.' && demand.test(sentences.pop() ?? '')),
+    ).toBe(true);
     const speakerLine = opening.trim().split(/\n\s*\n/).pop() ?? '';
     expect(speakerLine).toContain('Instructor Valk');
+    // The same test infra/scripts/story-checks.ts runs, so its WARN stays quiet.
+    const tail = opening.trim().slice(-160);
+    expect(/[?]/.test(tail) || /\b(kneel|choose|tell|answer|decide|now)\b/i.test(tail)).toBe(true);
   });
 
   it('asks the player to know no proper noun the opening does not introduce', () => {
@@ -192,21 +200,27 @@ describe('rule 2: adults only', () => {
     eighteen: 18, nineteen: 19, twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70,
     one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9,
   };
-  const ageOf = (appearance: string): number => {
-    const head = appearance.split(',')[0]!.trim().toLowerCase();
-    return head.split('-').reduce((sum, part) => sum + (NUMBER[part] ?? Number.NaN), 0);
+  // Ages live in hard canon, where the storyteller reads them, and not in
+  // `appearance`, which is also the portrait prompt: an age word there is
+  // exactly the stack that gets an image refused (see generate-art.ts).
+  const AGES = story.rules.hardCanon[0]!;
+  const ageOf = (name: string): number => {
+    const word = AGES.match(new RegExp(`${name}(?: is)? ([a-z]+(?:-[a-z]+)?)`))?.[1] ?? '';
+    return word.split('-').reduce((sum, part) => sum + (NUMBER[part] ?? Number.NaN), 0);
   };
 
-  it('states every character’s age, and every one is at least eighteen', () => {
+  it('states every character’s age in hard canon, and every one is at least eighteen', () => {
+    expect(AGES).toMatch(/^Everyone in this story is an adult/);
+    expect(AGES).toMatch(/The player is nineteen\./);
     for (const c of story.characters) {
-      const age = ageOf(c.appearance);
-      expect(Number.isFinite(age), `${c.id}: "${c.appearance}"`).toBe(true);
+      const age = ageOf(c.name);
+      expect(Number.isFinite(age), `${c.id}: "${AGES}"`).toBe(true);
       expect(age, c.id).toBeGreaterThanOrEqual(18);
     }
   });
 
   it('pins the ages the bible states', () => {
-    const ages = Object.fromEntries(story.characters.map((c) => [c.id, ageOf(c.appearance)]));
+    const ages = Object.fromEntries(story.characters.map((c) => [c.id, ageOf(c.name)]));
     expect(ages).toEqual({ valk: 41, riku: 20, sana: 19, calla: 21, hale: 58, halvorsen: 34, ada: 38 });
   });
 
@@ -217,11 +231,12 @@ describe('rule 2: adults only', () => {
     expect(canon).toMatch(/nineteen-year-old/i);
   });
 
-  it('draws the three cadets as adults, never as small', () => {
-    for (const id of ['riku', 'sana', 'calla']) {
-      const c = story.characters.find((x) => x.id === id)!;
-      expect(c.appearance, id).toMatch(/^[A-Z][a-z-]+, an adult (wo)?man,/);
-      expect(c.appearance, id).not.toMatch(/\b(small|little|tiny|petite|young\w*)\b/i);
+  it('draws everyone as an adult by costume, never by an age word or as small', () => {
+    for (const c of story.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (wo)?man,/);
+      expect(c.appearance, c.id).not.toMatch(/\b(small|little|tiny|petite|young\w*|cadets?|students?|academy|school)\b/i);
+      expect(c.appearance, c.id).not.toMatch(/\d|\b(eighteen|nineteen|twenty|thirty|forty|fifty|sixty)\b/i);
+      expect(c.appearance.length, c.id).toBeGreaterThan(120);
     }
   });
 
@@ -247,10 +262,17 @@ describe('rule 3: rated 13+', () => {
     expect(hits).toEqual([]);
   });
 
-  it('caps romance at a kiss and rules out fan service in the tone guide', () => {
-    expect(story.rules.toneGuide).toMatch(/no further than a kiss/);
-    expect(story.rules.toneGuide).toMatch(/never fan service/);
+  it('caps romance at a kiss and rules out fan service in hard canon, where the storyteller reads it', () => {
+    const romance = story.rules.hardCanon.find((f) => f.startsWith('Romance'))!;
+    expect(romance).toMatch(/no further than a kiss/);
+    expect(romance).toMatch(/never fan service/);
     expect(story.rules.allowsRomance).toBe(true);
+  });
+
+  it('keeps the tone guide, which every image prompt carries as its mood, free of age, romance and school words', () => {
+    expect(story.rules.toneGuide).not.toMatch(
+      /\b(adults?|kiss\w*|romance|flirt\w*|fan service|bod(y|ies)|academy|cadets?|students?|school|dorm\w*)\b/i,
+    );
   });
 });
 
@@ -705,10 +727,58 @@ describe('art', () => {
     expect(cover).toMatch(/\bTITLE: the words RANK ZERO\b/);
     expect(cover).toMatch(/spelled exactly RANK ZERO/);
     expect(cover).toMatch(/No other text, numbers or lettering anywhere/);
-    expect(cover).not.toMatch(/\b(teen\w*|girls?|boys?|young\w*|youth\w*|kids?|child\w*|student\w*|cadet\w*|academy|school|small|\d+)\b/i);
+    expect(cover).not.toMatch(
+      /\b(teen\w*|girls?|boys?|young\w*|youth\w*|kids?|child\w*|student\w*|cadet\w*|academy|school|small|adults?|older|aged?|\d+)\b/i,
+    );
     // The player is a back and a palm, never a face.
     expect(cover).toMatch(/back to the viewer/);
     expect(cover).toMatch(/never see their face/);
+    // Fire and smoke belong to the column and the title, not to anybody's skin.
+    expect(cover).toMatch(/FACE STAYS CLEAN/);
+    expect(cover).toMatch(/stays on the glass column, the hall and the title, never on a face/);
+  });
+
+  it('draws the opening panel from the person who demands the answer', () => {
+    const alt = story.openingPanel!.alt;
+    expect(alt.length).toBeLessThanOrEqual(200);
+    // opening-panel-art.ts takes the character whose first name starts the alt
+    // and uses their portrait as the reference image.
+    const named = story.characters.find((c) => alt.startsWith(c.name.split(' ')[0]!))!;
+    expect(named.id).toBe('valk');
+    expect(story.opening).toContain(`Instructor ${named.calledName}`);
+    expect(alt).not.toMatch(/\b(cadet\w*|student\w*|academy|school|young\w*|adults?)\b/i);
+  });
+});
+
+describe('release shape', () => {
+  it('opens straight on the scene and has no release date yet', () => {
+    expect(story.prologue ?? []).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('gives every titled character the name the room uses', () => {
+    for (const id of ['valk', 'hale', 'halvorsen']) {
+      const c = story.characters.find((x) => x.id === id)!;
+      expect(c.calledName, id).toBe(c.name.split(' ').pop());
+    }
+  });
+
+  it('hands the storyteller the power through every background’s abilities', () => {
+    for (const a of story.archetypes) {
+      expect(a.startingAbilities, a.id).toEqual(expect.arrayContaining(['take_the_hit', 'hold_it_in']));
+      const brief = worldBrief(story, a.id);
+      expect(brief, a.id).toContain('Can: Take the Hit');
+    }
+    const specific = story.archetypes.map((a) => a.startingAbilities[2]);
+    expect(new Set(specific).size).toBe(story.archetypes.length);
+  });
+
+  it('puts the power’s price and the watching in hard canon, since the storyteller reads no resources', () => {
+    const canon = story.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/bleeds off slowly/);
+    expect(canon).toMatch(/cannot aim it/);
+    expect(canon).toMatch(/reclassified/);
+    expect(canon).toMatch(/240 · 0/);
   });
 });
 
@@ -719,7 +789,7 @@ describe('the narrator is not handed the mysteries', () => {
       /Nobody on the island knows this on intake morning, the player included/,
     );
     expect(canon.find((f) => f.startsWith('Riku Amano’s number'))).toMatch(/The player learns it only by finding it out/);
-    expect(canon.find((f) => f.includes('Ada Kole'))).toMatch(/never owed/);
+    expect(canon.find((f) => f.startsWith('Nineteen years ago'))).toMatch(/Ada Kole[\s\S]*never owed/);
   });
 
   it('lets the power show itself early, before anyone explains it', () => {
