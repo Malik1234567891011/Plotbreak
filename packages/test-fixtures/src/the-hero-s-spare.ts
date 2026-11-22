@@ -23,7 +23,10 @@ import { StoryVersion } from '@plotbreak/contracts';
  * The power is real and it is not a stat block. The circle wrote a gift on the
  * hero's hand and wrote nothing on the player, and the player is the only
  * person in the kingdom who can read what it wrote on everything else. Reading
- * is free from turn one. Crossing a line out is gated behind finding out that
+ * is free from turn one. Production's storyteller never reads resources, step
+ * notes or locked abilities, so the power lives where it does read: hard
+ * canon, the starting item The Circle's Script, and Read the Script in every
+ * background's `startingAbilities`. Crossing a line out is gated behind finding out that
  * it can be done — Emeric's page, Ruth's margin or Wenna Holt's letter — and
  * the ability is granted by the quest step where that happens and kept
  * unusable by its flag until then (the checkpoint's "grant broadly, gate by
@@ -79,9 +82,12 @@ const raw = {
     allowsRomance: true,
     startingLocationId: 'ring_hall',
     startWorldMinute: 7 * 60 + 52,
-    startingItems: [{ itemId: 'your_phone', qty: 1 }],
+    startingItems: [
+      { itemId: 'circle_script', qty: 1 },
+      { itemId: 'your_phone', qty: 1 },
+    ],
     hardCanon: [
-      'Everyone in this story is an adult. The player is an adult from our world, and Kai Brandt, at twenty-two, is the youngest person in the cast.',
+      'Everyone in this story is an adult. The player is an adult from our world. Mira Holt is twenty-seven, High Priestess Odile Castine fifty-two, Emeric Dahl seventy-one, Crown Princess Ilsabet twenty-six, Severin Ashby thirty-eight and Bet Tallis fifty-eight, and Kai Brandt, at twenty-two, is the youngest person in the cast.',
       'This morning the summoning circle under the cathedral dome in Corvane’s capital pulled two people out of our world: Kai Brandt, whom it marked with a sun-shaped mark of light on the back of his right hand, and the player, whom it left unmarked.',
       'The church calls a second arrival a spare. Spares are held in the Warden Cells and returned through the circle by the sword at the third dawn after the summoning, because the circle must cool for three days before it can send anyone through. The morning of the summoning counts as the first dawn, so the Returning is at six in the morning on Day 3, two days after the summoning. Eleven spares have been returned in 331 years. The last was Ruth Abara, a bus driver from our world, fifty-one when she was returned forty-seven years ago.',
       'The player can see and read the circle’s script: faint gold writing on every enchanted thing, the locks, the oaths, the blades, the circle itself, Kai’s mark. Nobody else alive can see it. Reading takes looking and a moment; it is never instant and never a menu.',
@@ -238,6 +244,18 @@ const raw = {
   ],
   tendencies: [],
   items: [
+    {
+      id: 'circle_script',
+      name: 'The Circle’s Script',
+      tags: ['quest', 'power'],
+      questItem: true,
+      droppable: false,
+      description:
+        'Faint gold writing on every enchanted thing in this world: the locks, the oaths, the blades, the chalk ring, the mark on the hero’s hand. You are the only person alive who can see it. Look at a line long enough and it comes clear: what it binds, who wrote it and what it is waiting for.',
+      loreText:
+        'Reading takes a long look and a moment of quiet. Nothing appears in the air, and nobody else can tell you are doing it unless you say the words out loud. A line can also be crossed out, with a fingertip and a held breath, but nothing in this world has told you so yet. When it happens the church feels it nearby, and every line crossed out loosens this world’s hold on you a little more.',
+      icon: 'eye',
+    },
     {
       id: 'your_phone',
       name: 'Your Phone',
@@ -835,6 +853,7 @@ const raw = {
     {
       id: 'mira',
       name: 'Mira Holt',
+      calledName: 'Mira',
       role: 'Sergeant of the Circle Wardens, and the sword that is supposed to send you back',
       cardBlurb:
         'She had the blade moving before you finished arriving, stopped it a finger’s width from your throat, and gave you a minute nobody authorised. She calls you spare, and at the third dawn she is the one who has to lift the sword.',
@@ -1015,6 +1034,7 @@ const raw = {
     {
       id: 'odile',
       name: 'Odile Castine',
+      calledName: 'Odile',
       role: 'High Priestess of the Church of the Circle. She lit the circle and turned the sandglass',
       cardBlurb:
         'She is scheduling your death, and she is the kindest person in the cathedral. She will bring you water, ask about your family, and explain very gently why you have to go back at the third dawn.',
@@ -1095,6 +1115,7 @@ const raw = {
     {
       id: 'emeric',
       name: 'Emeric Dahl',
+      calledName: 'Emeric',
       role: 'The cathedral Archivist, who recorded the last Returning as a junior clerk',
       cardBlurb:
         'He has kept a single sheet of paper hidden for forty-seven years for whoever came next, and he thinks it might be you. He will tell you everything, at length, with folio numbers, if nobody arrests him first.',
@@ -2244,7 +2265,7 @@ const raw = {
       attributeBonus: { mind: 2, resolve: 2 },
       skillProficiencies: { first_aid: 3, composure: 2 },
       startingItems: [{ itemId: 'first_aid_kit', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['read_the_script', 'patch_them_up'],
       startingReputation: [{ factionId: 'faction_church', amount: 10 }],
     },
     {
@@ -2257,7 +2278,7 @@ const raw = {
       attributeBonus: { mind: 2, agility: 2 },
       skillProficiencies: { tinkering: 3, script: 1, sneaking: 1 },
       startingItems: [{ itemId: 'multitool', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['read_the_script', 'jury_rig'],
       startingReputation: [{ factionId: 'faction_tallow', amount: 10 }],
     },
     {
@@ -2270,7 +2291,7 @@ const raw = {
       attributeBonus: { mind: 2, presence: 2 },
       skillProficiencies: { fine_print: 3, fast_talk: 2 },
       startingItems: [{ itemId: 'ballpoint_pen', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['read_the_script', 'find_the_clause'],
       startingReputation: [{ factionId: 'faction_crown', amount: 10 }],
     },
     {
@@ -2283,7 +2304,7 @@ const raw = {
       attributeBonus: { might: 3, agility: 1 },
       skillProficiencies: { brawling: 3, composure: 1, sneaking: 1 },
       startingItems: [{ itemId: 'hand_wraps', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['read_the_script', 'throw_hands'],
       startingReputation: [{ factionId: 'faction_wardens', amount: 10 }],
     },
   ],
@@ -2472,11 +2493,20 @@ const raw = {
     },
   ],
   coverDirection: [
-    'Vertical anime key art for a summoning fantasy.',
-    'Foreground: a tall woman sergeant in grey steel half-plate and a red sash, cropped black hair, a pale scar through one eyebrow, holding a sword perfectly level toward the viewer, expression unreadable.',
-    'Behind her, kneeling in a ring of smoking white chalk with faint gold writing in the lines: a lanky man in a grey hoodie under a white ceremonial surcoat with a square courier backpack, staring at a mark of white light blazing on the back of his hand, a plain ring of eight short rays.',
-    'Above them on cathedral steps, a tall silver-haired priestess in white and gold robes turning a small brass sandglass.',
-    'Dawn light through high cathedral windows, thin gold script drifting in the air.',
+    'SUBJECT: Mira Holt, the cathedral’s warden sergeant, alone and unmistakable in the foreground of a key visual for a fantasy anime about a summoning that called one person too many.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'Tall and square-shouldered, black hair cropped at the neck, a pale scar through her left eyebrow, grey steel half-plate under a red sergeant’s sash, scarred knuckles.',
+    'Her sword arm is straight out toward the viewer and the blade is held perfectly level at throat height, its point foreshortened and close, so the viewer is the one at the end of the sword.',
+    'Thin lines of glowing gold filigree run along the flat of the blade like engraved light: abstract strokes only, no letters, no numbers, nothing that reads as writing.',
+    'Her expression is steady and unreadable, eyes level, looking straight at the viewer.',
+    'HER FACE STAYS CLEAN: no gold lines, glow, marks or shadows on her face or skin.',
+    'Every glowing effect stays on the blade, the chalk ring, the hand-mark behind her and the title, never on a face.',
+    'BEHIND HER, soft and secondary: a round stone hall under a cathedral dome, a wide ring of smoking white chalk on the floor with faint gold light in its lines;',
+    'kneeling in the ring, smaller and out of focus, a lanky man in a grey hoodie under a white ceremonial surcoat with a square courier backpack, staring at a mark of white light on the back of his right hand, a plain ring of eight short rays;',
+    'on stone steps above him, a tall silver-haired priestess in white and gold robes turning a small brass sandglass.',
+    'LIGHT: cold blue dawn light from high windows across the hall and across her armour, warm gold light rising from the chalk ring, so she is lit cool from the front and rimmed in gold.',
+    'TITLE: the words THE HERO’S SPARE painted into the art across the upper third, above her head, as a bold engraved fantasy serif logo, warm gold edged in white with a soft glow,',
+    'spelled exactly THE HERO’S SPARE, apostrophe included, large and legible at thumbnail size. A thin level sword-stroke underlines the word SPARE only. No other text anywhere.',
   ].join(' '),
   opening:
     "A sword point stops against your throat.\n\n\"Don’t move,\" says the woman holding it. Red sash, scarred knuckles, no blink. \"Sergeant Mira Holt. The circle calls one hero. Today it called two.\"\n\nYou’re kneeling in a ring of smoking chalk. Gold writing glows under the white. Nobody else sees it.\n\nBeside you, a lanky man in a grey hoodie stares at his right hand, where a mark of light is burning.\n\nYour hands are empty.\n\nOn the steps above, a priestess in white turns a sandglass over.\n\n\"He’s the hero,\" Mira says. \"You’re the spare. We send spares back the only way we know.\"\n\nThe sand starts to fall.\n\n\"One minute. What are you good for?\"",

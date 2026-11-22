@@ -637,7 +637,7 @@ describe('what the storyteller is actually told', () => {
 
   it('puts the objects the story turns on in front of the storyteller', () => {
     const brief = worldBrief(story, 'arch_law');
-    for (const item of ['Your Phone', 'The First Page', 'The Book of Returnings', 'Wenna Holt’s Letter', 'The Sparrow in the Jar']) {
+    for (const item of ['The Circle’s Script', 'Your Phone', 'The First Page', 'The Book of Returnings', 'Wenna Holt’s Letter', 'The Sparrow in the Jar']) {
       expect(brief, item).toContain(`### ${item}`);
     }
     for (const ending of story.endings) expect(brief, ending.name).toContain(ending.name);
@@ -929,6 +929,68 @@ describe('art', () => {
   it('describes the cover by costume and pose, never by age', () => {
     expect(story.coverDirection.length).toBeGreaterThan(100);
     expect(story.coverDirection).not.toMatch(/\d|year-old|young|teen|girl|boy/i);
+  });
+
+  it('gives the cover its own TITLE line, spelled exactly, with effects kept off faces', () => {
+    // A TITLE: line owns the lettering: generatedCoverPrompt drops its generic lower-third rules for it.
+    const title = story.coverDirection.slice(story.coverDirection.indexOf('TITLE:'));
+    expect(story.coverDirection).toMatch(/\bTITLE:/);
+    expect(title).toContain(`spelled exactly ${story.title.toUpperCase()}`);
+    expect(title).toMatch(/upper third/);
+    expect(title).toMatch(/No other text anywhere\.$/);
+    expect(story.coverDirection).toMatch(/FACE STAYS CLEAN/);
+    expect(story.coverDirection).toMatch(/never on a face/);
+    // The gold writing is the story's hook, and on a cover it must not turn into stray lettering.
+    expect(story.coverDirection).toMatch(/nothing that reads as writing/);
+  });
+
+  it('names the panel character first, inside the 200-character alt', () => {
+    const alt = story.openingPanel!.alt;
+    expect(alt.length).toBeLessThanOrEqual(200);
+    // The panel is drawn with this character's portrait as its reference image.
+    expect(alt.startsWith('Mira ')).toBe(true);
+    expect(story.opening).toMatch(/Sergeant Mira Holt/);
+  });
+
+  it('opens straight on the scene and leaves the release date to release day', () => {
+    expect(story.prologue).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+});
+
+describe('the pipeline’s fixture rules', () => {
+  // Production reads hard canon, quest items and each background's starting
+  // abilities. It never reads resources, step notes or locked abilities.
+  it('puts the power in a starting item every player holds', () => {
+    expect(story.rules.startingItems.map((i) => i.itemId)).toContain('circle_script');
+    const script = story.items.find((i) => i.id === 'circle_script')!;
+    expect(script.questItem).toBe(true);
+    expect(script.droppable).toBe(false);
+    expect(start(null).player.inventory.map((i) => i.itemId)).toContain('circle_script');
+  });
+
+  it('starts every background with Read the Script, plus one of its own', () => {
+    for (const option of story.archetypes) {
+      expect(option.startingAbilities[0], option.id).toBe('read_the_script');
+      expect(option.startingAbilities.length, option.id).toBe(2);
+      expect(option.startingAbilities, option.id).not.toContain('cross_it_out');
+    }
+    const brief = worldBrief(story, 'arch_electrician');
+    expect(brief).toContain('Can: Read the Script');
+    expect(brief).toContain('Can: Rig It');
+  });
+
+  it('gives every titled character the name people actually call them', () => {
+    for (const id of ['mira', 'odile', 'emeric', 'ilsabet', 'severin']) {
+      expect(character(id).calledName, id).toBe(character(id).name.split(' ')[0]);
+    }
+  });
+
+  it('states every age in hard canon, where the storyteller reads it', () => {
+    const canon = story.rules.hardCanon[0]!;
+    for (const age of ['twenty-seven', 'twenty-two', 'fifty-two', 'seventy-one', 'twenty-six', 'thirty-eight', 'fifty-eight']) {
+      expect(canon).toContain(age);
+    }
   });
 });
 

@@ -38,7 +38,7 @@ Six short paragraphs, 238 words, each under 70.
 
 The fixture carries eleven hardCanon lines. In short:
 
-1. Everyone is an adult. The player is an adult from our world. Kai Brandt, at twenty-two, is the youngest person in the cast.
+1. Everyone is an adult. The player is an adult from our world. The line states every age, so the storyteller reads them: Mira 27, Odile 52, Emeric 71, Ilsabet 26, Severin 38, Bet 58, and Kai Brandt, at twenty-two, is the youngest person in the cast.
 2. The circle pulled two people this morning. Kai was marked with a sun-shaped light on his right hand. The player was left unmarked.
 3. A second arrival is a spare. Spares are held in the Warden Cells for three days, while the circle cools, then sent back through it by the sword at the third dawn. The morning of the summoning counts as the first dawn, so the Returning is at six in the morning on Day 3, two days after the summoning (production's clock calls the summoning day Day 1). Eleven spares have been returned in 331 years. The last was Ruth Abara, a bus driver from our world, fifty-one when she was returned forty-seven years ago.
 4. The player can read the circle's script: faint gold writing on every enchanted thing. Nobody else alive can see it. Reading takes a look and a moment. It is never a menu.
@@ -95,20 +95,20 @@ None of the three parses as an attack. The spec checks this. (The editor offered
 
 ## Backgrounds (what you did back home)
 
-The choice is fixed for the whole story and cannot be changed later. Each background grants one item from home and starting standing with one faction. Every player also starts with **Your Phone** (nine per cent battery, no signal, a torch, a camera, one downloaded song).
+The choice is fixed for the whole story and cannot be changed later. Each background grants one item from home, two starting abilities and starting standing with one faction. Every player also starts with **The Circle’s Script** (the power itself, as a quest item that cannot be dropped: what it reads, and that a line can be crossed out at a price nobody has told the player yet) and **Your Phone** (nine per cent battery, no signal, a torch, a camera, one downloaded song).
 
-| Id | Name | Grants | Item | Standing |
-|---|---|---|---|---|
-| `arch_nurse` | You Were a Night Nurse | mind +2, resolve +2; First Aid 3, Composure 2 | First-aid kit | Church +10 |
-| `arch_electrician` | You Were an Electrician | mind +2, agility +2; Tinkering 3, Script 1, Sneaking 1 | Multitool | Tallow Row +10 |
-| `arch_law` | You Studied Law | mind +2, presence +2; Fine Print 3, Fast Talk 2 | Ballpoint pen | Crown +10 |
-| `arch_boxer` | You Boxed | might +3, agility +1; Brawling 3, Composure 1, Sneaking 1 | Hand wraps | Wardens +10 |
+| Id | Name | Grants | Starting abilities | Item | Standing |
+|---|---|---|---|---|---|
+| `arch_nurse` | You Were a Night Nurse | mind +2, resolve +2; First Aid 3, Composure 2 | Read the Script, Patch Them Up | First-aid kit | Church +10 |
+| `arch_electrician` | You Were an Electrician | mind +2, agility +2; Tinkering 3, Script 1, Sneaking 1 | Read the Script, Rig It | Multitool | Tallow Row +10 |
+| `arch_law` | You Studied Law | mind +2, presence +2; Fine Print 3, Fast Talk 2 | Read the Script, Find the Clause | Ballpoint pen | Crown +10 |
+| `arch_boxer` | You Boxed | might +3, agility +1; Brawling 3, Composure 1, Sneaking 1 | Read the Script, Throw Hands | Hand wraps | Wardens +10 |
 
-The storyteller only sees the background the player chose, and only its role, summary, blurb and playstyle, never `startingItems`. So each blurb ends by naming the thing from home: the nurse's work pouch, the electrician's multitool, the law student's stolen courtroom pen, the boxer's hand wraps.
+The storyteller only sees the background the player chose: its role, summary, blurb, playstyle, and one "Can:" line per starting ability. It never sees `startingItems`, resources, quest-step notes or locked abilities. So the power lives where production reads it: hard canon, the starting item The Circle’s Script, and Read the Script first in every background's `startingAbilities`. Cross It Out stays out of them: it is locked until the player learns it can be done. And each blurb ends by naming the thing from home: the nurse's work pouch, the electrician's multitool, the law student's stolen courtroom pen, the boxer's hand wraps.
 
 ## Cast
 
-Seven characters, in cover order. The first three are in the Ring Hall at 07:52, when the story starts. Nobody else is there.
+Seven characters, in cover order. The first three are in the Ring Hall at 07:52, when the story starts. Nobody else is there. The five with a title or a post (Sergeant Mira, High Priestess Odile, the Archivist Emeric, Crown Princess Ilsabet, Knight-Captain Severin) carry `calledName`, their first name. Every character has a cardBlurb with "you" in it and a concrete `appearance`, which the portraits are drawn from.
 
 ### Mira Holt, 27
 
@@ -188,7 +188,7 @@ Production never sees `connections`, so every description names its own exits in
 | `north_gate` | The North Gate | Lantern Market; Edge of the Stilling (locked by `north_road_open`, four hours) |
 | `edge_of_stilling` | The Edge of the Stilling (hidden until found) | North Gate |
 
-**Quest items:** Your Phone, The First Page, The Book of Returnings (with Ruth's margin note), The Sparrow in the Jar, Wenna Holt's Letter, the Regent's Pass. Everything a quest checks for can be taken, carried or granted somewhere.
+**Quest items:** The Circle’s Script, Your Phone, The First Page, The Book of Returnings (with Ruth's margin note), The Sparrow in the Jar, Wenna Holt's Letter, the Regent's Pass. Everything a quest checks for can be taken, carried or granted somewhere.
 
 ## Factions
 
@@ -209,7 +209,7 @@ Three hidden, banded variables:
 
 Twelve abilities:
 
-- **Read the Script:** works from turn one.
+- **Read the Script:** works from turn one, and is the first starting ability of every background.
 - **Cross It Out:** locked. Its locked text: "You can read every line. Nothing you have found yet says a line can be unwritten, or what it would cost the person who did it." The quest step `learn_the_method` grants it. Four routes reach that step: Ruth's margin, Wenna's letter, Emeric teaching you, or working it out yourself from Kai's hand.
 - The other ten: Read It Aloud, Talk Fast, Find the Clause, Patch Them Up, Rig It, Throw Hands, Keep Your Head, Slip Away, Show Them Home, Keep Them Company.
 
@@ -286,9 +286,10 @@ Each ending needs a different set of flags. Only The Last Line needs the fog lea
 
 ## Image plan (no art generated yet)
 
-- **Status:** the cover, key art, portraits and stage images are all `null` in the fixture. Derived keys land under `story_the_hero_s_spare/`.
-- **Cover:** Mira in a red sash and grey half-plate, sword level at the viewer. Behind her, in a ring of smoking chalk, Kai in a grey hoodie under a white surcoat with a courier backpack, his hand blazing with a mark that is a plain ring of eight short rays (spelled out so the image model cannot fall back on a franchise hand-mark). Above, on cathedral steps, a silver-haired priestess turns a brass sandglass. Gold script drifts in the air. Described by costume and pose only, never by age.
-- **Opening panel:** see the opener.
+- **Status:** the cover, key art, portraits and stage images are all `null` in the fixture. Derived keys land under `story_the_hero_s_spare/`. No prologue: the story opens straight on the scene. `publishedAt` is `null` until release day.
+- **Cover** (`coverDirection`, written to the pilot #7 Skill: ERROR shape): Mira alone in the foreground, waist up, filling about two thirds of the frame, red sash over grey half-plate, sword arm straight out and the blade level at the viewer's throat. Glowing gold filigree runs along the blade as abstract strokes, never letters, so the story's gold writing cannot turn into stray text. Her face stays clean: every glow is on the blade, the chalk, the hand-mark and the title. Behind her, soft and secondary: Kai kneeling in the smoking chalk ring in a grey hoodie under a white surcoat with a courier backpack, his hand-mark a plain ring of eight short rays (spelled out so the image model cannot fall back on a franchise hand-mark), and a silver-haired priestess on the steps turning a brass sandglass. Cold blue dawn from the windows, warm gold from the chalk. Described by costume and pose only, never by age.
+- **Cover title:** its own `TITLE:` line, so the generic lower-third lettering rules drop out: THE HERO’S SPARE painted into the upper third above her head as a bold engraved fantasy serif logo, warm gold edged in white, spelled exactly, apostrophe included, legible at thumbnail size, with a thin sword-stroke under SPARE only. No other text anywhere.
+- **Opening panel:** `{ assetKey: 'story_the_hero_s_spare/opening', alt }`. The alt is 187 characters and starts with "Mira", because the panel is drawn with her portrait as the reference image.
 - **Reaction decks:**
   - Mira: neutral, stern, wry, guarded, surprised, warm.
   - Kai: neutral, grinning, nervous, confused, angry, warm.
