@@ -25,6 +25,17 @@
  * that already carry it.
  *
  *   npx tsx infra/scripts/generate-art.ts [--force] [--only=<substring>] [--concurrency=3]
+ *
+ * ## PixAI (`--provider=pixai`), the provider for the new-50 stories
+ *
+ *   npx tsx infra/scripts/generate-art.ts --provider=pixai --only=story_<id>/ --concurrency=6
+ *
+ * Covers are Tsubaki.3 with the title painted in (`generatedCoverPrompt`, no
+ * composited wordmark); everything else is Tsubaki.2 lite. Needs only
+ * PIXAI_API_KEY. Costs and the reasons are in `pixai.ts`. Many of these runs can
+ * go in parallel: PixAI caps the account at 10 waiting tasks, and the client
+ * backs off when the queue is full. The manifest is merged under a lock file,
+ * so parallel runs in one checkout do not overwrite each other's entries.
  */
 import { mkdir, readFile, writeFile, access } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
@@ -33,6 +44,7 @@ import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
 import {
   characterPrompt,
   coverPrompt,
+  generatedCoverPrompt,
   reactionPrompt,
   createMediaGatewayFromEnv,
   keyArtPrompt,
@@ -43,6 +55,8 @@ import {
 } from '@plotbreak/director';
 import { coverAssetKey, REACTION_EMOTIONS } from '@plotbreak/contracts';
 import { compositeTitle } from './cover-title.js';
+import { COVER, inStory, PIXAI_SIZE, pixaiGenerate, promptHash, structurallySound, USD_PER_CREDIT } from './pixai.js';
+import { saveManifestEntry } from './manifest-lock.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const ASSET_DIR = join(ROOT, 'infra/seed/assets');
@@ -105,10 +119,23 @@ async function main(): Promise<void> {
   /** Reaction decks are a large batch, so they are opt-in. */
   const reactions = args.includes('--reactions');
   const only = args.find((a) => a.startsWith('--only='))?.slice('--only='.length) ?? null;
-  const concurrency = Number(args.find((a) => a.startsWith('--concurrency='))?.slice('--concurrency='.length) ?? 3);
+  const pixai = args.includes('--provider=pixai');
+  const concurrency = Number(
+    args.find((a) => a.startsWith('--concurrency='))?.slice('--concurrency='.length) ?? (pixai ? 6 : 3),
+  );
 
-  const gateway = dryRun ? null : createMediaGatewayFromEnv();
-  if (!gateway && !dryRun) {
+  const gateway = dryRun || pixai ? null : createMediaGatewayFromEnv();
+  // Without --only, PixAI's titled-cover direction would mark every finished
+  // cover in the catalog stale and redraw all of them.
+  if (pixai && !args.some((a) => a.startsWith('--only='))) {
+    console.error('--provider=pixai needs --only=story_<id>/ (one story at a time).');
+    process.exit(1);
+  }
+  if (pixai && !dryRun && !process.env.PIXAI_API_KEY) {
+    console.error('No PIXAI_API_KEY configured. Set it in the root .env.');
+    process.exit(1);
+  }
+  if (!pixai && !gateway && !dryRun) {
     console.error('No OPENAI_API_KEY configured. Set it in .env — the app falls back to placeholder art without it.');
     process.exit(1);
   }
@@ -116,7 +143,8 @@ async function main(): Promise<void> {
   // Build the full work list from validated story data (§19.4).
   const specs: ImagePromptSpec[] = [];
   for (const story of LAUNCH_CATALOG) {
-    specs.push(coverPrompt(story), keyArtPrompt(story));
+    // PixAI paints the title into the cover, so it gets the titled prompt.
+    specs.push(pixai ? generatedCoverPrompt(story, story.title) : coverPrompt(story), keyArtPrompt(story));
     for (const location of story.locations) specs.push(locationPrompt(story, location));
     for (const character of story.characters) specs.push(characterPrompt(story, character));
 
@@ -142,7 +170,13 @@ async function main(): Promise<void> {
     ? (JSON.parse(await readFile(MANIFEST, 'utf8')) as Record<string, ManifestEntry>)
     : {};
 
-  console.log(`${filtered.length} assets planned · concurrency ${concurrency}`);
+  if (filtered.length === 0) {
+    console.error(`Nothing matches --only=${only}. Is the story registered in LAUNCH_CATALOG?`);
+    process.exit(1);
+  }
+  console.log(`${filtered.length} assets planned · concurrency ${concurrency}${pixai ? ' · PixAI' : ''}`);
+  const catchUp: Record<string, ManifestEntry> = {};
+  let credits = 0;
 
   let generated = 0;
   let skipped = 0;
@@ -182,6 +216,7 @@ async function main(): Promise<void> {
       // Catch the bookkeeping up, so the next run knows what this one knew.
       if (recorded === undefined) {
         manifest[spec.assetKey] = { ...manifest[spec.assetKey], styleVersion: spec.styleVersion } as ManifestEntry;
+        catchUp[spec.assetKey] = manifest[spec.assetKey]!;
       }
       return;
     }
@@ -193,6 +228,46 @@ async function main(): Promise<void> {
     }
 
     try {
+      if (pixai) {
+        const choice = spec.kind === 'COVER' ? COVER : inStory();
+        const size = spec.kind === 'COVER' ? PIXAI_SIZE.COVER : PIXAI_SIZE[spec.aspect];
+        const r = await pixaiGenerate({ prompt: spec.prompt, ...choice, ...size, label: spec.assetKey });
+        credits += r.paidQuota;
+        const problem = structurallySound(r.png);
+        if (problem) {
+          failed++;
+          console.error(`  ✗ ${spec.assetKey} — rejected: ${problem}`);
+          return;
+        }
+        await mkdir(dirname(path), { recursive: true });
+        await writeFile(path, r.png);
+        const entry: ManifestEntry = {
+          assetKey: spec.assetKey,
+          file,
+          kind: spec.kind,
+          alt: spec.alt,
+          width: r.width,
+          height: r.height,
+          styleVersion: spec.styleVersion,
+          provenance: {
+            provider: 'pixai',
+            model: r.model,
+            requestId: r.taskId,
+            promptHash: promptHash(spec.prompt),
+            seed: spec.seed,
+            costUsd: Number((r.paidQuota * USD_PER_CREDIT).toFixed(4)),
+            latencyMs: r.latencyMs,
+            createdAt: new Date().toISOString(),
+          },
+        };
+        manifest[spec.assetKey] = entry;
+        await saveManifestEntry(MANIFEST, entry, catchUp);
+        generated++;
+        costUsd += entry.provenance.costUsd;
+        console.log(`  ✓ ${spec.assetKey} (${r.width}×${r.height}, ${r.paidQuota} credits, ${(r.latencyMs / 1000).toFixed(1)}s)`);
+        return;
+      }
+
       let asset = await gateway!.generateImage(spec);
 
       // The art reserved a quiet band; the wordmark goes on here rather than
@@ -238,7 +313,7 @@ async function main(): Promise<void> {
         styleVersion: spec.styleVersion,
         provenance: asset.provenance,
       };
-      await writeFile(MANIFEST, `${JSON.stringify(manifest, null, 2)}\n`);
+      await saveManifestEntry(MANIFEST, manifest[spec.assetKey]!, catchUp);
 
       generated++;
       costUsd += asset.provenance.costUsd;
@@ -255,8 +330,11 @@ async function main(): Promise<void> {
   console.log(
     dryRun
       ? `\nDry run. ${generated} would be written, ${skipped} already current and untouched.`
-      : `\nDone. ${generated} generated, ${skipped} already current, ${failed} failed. Approx cost $${costUsd.toFixed(2)}.`,
+      : `\nDone. ${generated} generated, ${skipped} already current, ${failed} failed. Approx cost $${costUsd.toFixed(2)}` +
+          (pixai ? ` (${credits.toLocaleString('en-US')} PixAI credits).` : '.'),
   );
+  // Skipped assets whose bookkeeping was behind still get their entries saved.
+  if (!dryRun && Object.keys(catchUp).length > 0) await saveManifestEntry(MANIFEST, null, catchUp);
   if (failed > 0) process.exitCode = 1;
 }
 

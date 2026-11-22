@@ -1,0 +1,5 @@
+when	label	model	mode	size	paidQuota	seconds	status	task
+2026-11-22T05:10:23.812Z	measure:selene:tsubaki2_lite_1024x1536	tsubaki2	lite	1024x1536	2700	15.1	completed	2081107914164408418
+2026-11-22T05:10:27.790Z	measure:selene:tsubaki2_standard_1024x1536	tsubaki2	standard	1024x1536	3500	19.1	completed	2081107914238244514
+2026-11-22T05:11:37.920Z	measure:selene:tsubaki3_pro_816x1232	tsubaki3	pro	816x1232	4000	89.2	completed	2081107913994974868
+2026-11-22T05:12:06.785Z	measure:selene:tsubaki3_pro_1024x1536	tsubaki3	pro	1024x1536	4200	118.1	completed	2081107914102392513

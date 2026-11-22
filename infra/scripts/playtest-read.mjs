@@ -14,7 +14,7 @@ import { dirname, join } from 'node:path';
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const url =
   process.env.DATABASE_URL ??
-  fs.readFileSync(join(repoRoot, '.env'), 'utf8').match(/DATABASE_URL=(.*)/)?.[1]?.trim();
+  fs.readFileSync(join(repoRoot, '.env'), 'utf8').match(/^DATABASE_URL=(.*)$/m)?.[1]?.trim();
 if (!url) {
   console.error('No DATABASE_URL, in the environment or in .env at the repo root.');
   process.exit(1);

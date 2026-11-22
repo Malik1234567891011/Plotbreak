@@ -16,6 +16,9 @@ import { mkdir, readFile, writeFile, access } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createMediaGatewayFromEnv, MediaGatewayError } from '@plotbreak/director';
+import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
+import { characterAssetKey } from '@plotbreak/contracts';
+import { PANEL, PIXAI_SIZE, pixaiGenerate, pixaiUpload, structurallySound } from './pixai.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const ASSET_DIR = join(ROOT, 'infra/seed/assets');
@@ -29,7 +32,7 @@ const NEGATIVES = [
 const STYLE = [
   'Anime key visual, painterly cel-shaded, the same rendering and palette as the reference portrait.',
   'A single webtoon panel, vertical, cinematic composition, film-grade lighting, one saturated accent.',
-  'The character from the reference image is the subject: keep her face, hair, skin tone, build and outfit exactly.',
+  'The character from the reference image is the subject: keep the face, hair, skin tone, build and outfit exactly.',
 ].join(' ');
 
 interface Panel {
@@ -94,10 +97,91 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
+/**
+ * A panel for a story that is not in PANELS, read from its own data.
+ *
+ * The new-50 stories carry everything needed: `openingPanel.alt` is the shot
+ * (it must name the character first, e.g. "Selene raising a gloved hand…"),
+ * and the reference is that character's portrait, which generate-art drew.
+ */
+function panelFromStory(storyKey: string): Panel | null {
+  const story = LAUNCH_CATALOG.find((s) => s.storyId === `story_${storyKey}`);
+  if (!story?.openingPanel) return null;
+  const alt = story.openingPanel.alt;
+  const named =
+    story.characters.find((c) => alt.toLowerCase().startsWith(c.name.split(' ')[0]!.toLowerCase())) ??
+    story.characters.find((c) => alt.includes(c.name.split(' ')[0]!)) ??
+    story.characters.find((c) => c.cardBlurb.trim().length > 0);
+  if (!named) return null;
+  return {
+    story: storyKey,
+    key: story.openingPanel.assetKey,
+    reference: `${characterAssetKey(story.storyId, named.id)}`,
+    prompt: `${alt} The character is ${named.name}: ${named.appearance ?? ''}`.trim(),
+    alt,
+  };
+}
+
+async function firstExisting(base: string): Promise<{ path: string; type: string } | null> {
+  for (const [ext, type] of [['png', 'image/png'], ['webp', 'image/webp']] as const) {
+    const path = join(ASSET_DIR, `${base.replace(/\.(png|webp)$/, '')}.${ext}`);
+    if (await exists(path)) return { path, type };
+  }
+  return null;
+}
+
+/** PixAI path: Tsubaki.3 pro with the portrait as a context image (`contextImages`). */
+async function drawWithPixai(panel: Panel, force: boolean): Promise<void> {
+  const out = join(ASSET_DIR, `${panel.key}.png`);
+  if (!force && ((await exists(out)) || (await exists(join(ASSET_DIR, `${panel.key}.webp`))))) {
+    console.log(`skip   ${panel.key} (already drawn)`);
+    return;
+  }
+  const ref = await firstExisting(panel.reference);
+  if (!ref) {
+    console.error(`  FAILED ${panel.key}: no portrait at ${panel.reference}.(png|webp). Run generate-art first.`);
+    process.exitCode = 1;
+    return;
+  }
+  console.log(`draw   ${panel.key} (PixAI, reference ${panel.reference})`);
+  try {
+    const mediaId = await pixaiUpload(new Uint8Array(await readFile(ref.path)), ref.type);
+    const r = await pixaiGenerate({
+      prompt: `${panel.prompt} ${STYLE} ${NEGATIVES}`,
+      ...PANEL,
+      ...PIXAI_SIZE.PORTRAIT,
+      contextImages: [mediaId],
+      label: panel.key,
+    });
+    const problem = structurallySound(r.png);
+    if (problem) throw new Error(problem);
+    await mkdir(dirname(out), { recursive: true });
+    await writeFile(out, r.png);
+    console.log(`  wrote ${out} (${r.paidQuota} credits, ${(r.latencyMs / 1000).toFixed(1)}s)`);
+  } catch (error) {
+    console.error(`  FAILED ${panel.key}: ${error instanceof Error ? error.message : String(error)}`);
+    process.exitCode = 1;
+  }
+}
+
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
   const only = args.find((a) => a.startsWith('--story='))?.split('=')[1];
   const force = args.includes('--force');
+
+  if (args.includes('--provider=pixai')) {
+    if (!only) {
+      console.error('--provider=pixai needs --story=<id> (e.g. --story=skill_error).');
+      process.exit(1);
+    }
+    const panel = PANELS.find((p) => p.story === only) ?? panelFromStory(only);
+    if (!panel) {
+      console.error(`No opening panel for ${only}: is it in LAUNCH_CATALOG with an openingPanel?`);
+      process.exit(1);
+    }
+    await drawWithPixai(panel, force);
+    return;
+  }
 
   const gateway = createMediaGatewayFromEnv();
   if (!gateway) {
