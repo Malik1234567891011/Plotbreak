@@ -1,7 +1,7 @@
 # THE RANKING BOARD
 
 **Slate:** #35 of the 50-story plan (`docs/stories-50/PLAN.md`, section 3)
-**Genre:** fight-school action, rivalry, campus drama, light romance
+**Genre:** fight-college action (every character is an adult), rivalry, campus drama, light romance
 **Audience lean:** male (OOC evidence: fight-school titles are two of the most-played stories on that shelf, at 4.6M and 3.4M plays)
 **Rating:** 13+. Fights are legible and physical; injuries are bruises, split brows, taped joints. No gore. Romance goes up to a kiss.
 **One-line fantasy:** A fighting college posts its top hundred on a glass wall every morning, anyone who beats a name takes its number, and on your first morning the man at number 87 throws you into the glass.
@@ -22,11 +22,11 @@ There is a college on a hill above a harbour city called **Garam Bay**. It is **
 
 The **board** is a glass screen the height of a four-storey building on the north wall of **the Yard**, the stone courtyard at the centre of the college. It shows the top hundred students, by number, with a photo and a record. Every morning at six a bell rings and the board goes black and fills again from number one down. The whole college watches it like weather.
 
-The player is an **unranked transfer** who arrived last night. They have a student card on a lanyard, a bed in the cheap dorm, a roommate who knows every record on the board by heart, and about ten minutes before their first class. On the way across the Yard, **Tetsu Hamada, number 87**, shoves them into the glass so their card touches his name. He needs a defence before tomorrow's sort, and a transfer is the safest one he can find.
+The player is an **unranked transfer** who arrived last night. They have a student card on a lanyard, a bed in the cheap dorm, a roommate who knows every record on the board by heart, and about ten minutes before their first class. On the way across the Yard, **Tetsu Hamada, number 87**, shoves them into the glass so their card touches his name. He needs a defence before tomorrow's sort, and a transfer is the safest one he can find. A card put on a name by force is off-circle violence, and Tetsu already has two strikes; he is betting a transfer will not know that, or will not use it.
 
 The playable span is **one week**: Monday morning to **Scout Night** on Sunday evening, when the professional leagues send scouts to the Pit to watch the top twenty, and the league's flagship club signs whoever is number one that morning.
 
-Underneath the climb there is a quiet scandal. In two years, seven fit fighters have been declared medically unfit and taken off the board within two days of booking a challenge against somebody who eats at the **Long Table**, the tenth-floor dining room where the top ten sit. All seven forms carry the same signature. **Hajun Seol, number 2**, runs the Long Table, and he wants number one before Scout Night. The number one, **Soyeon Ryu**, has held it for 412 days and is hiding a shoulder injury. If the player climbs fast enough, Hajun would like them to be the one who touches her name.
+Underneath the climb there is a quiet scandal. In two years, seven fit fighters have been declared medically unfit and taken off the board within two days of booking a challenge against somebody who eats at the **Long Table**, the tenth-floor dining room where the top ten sit. All seven forms carry the same signature. **Hajun Seol, number 2**, runs the Long Table, and he wants number one before Scout Night. The number one, **Soyeon Ryu**, has held it for 412 days, nobody has lasted a minute with her in eleven months, and she is hiding a shoulder injury. If the player climbs fast enough, Hajun would like them to be the one who touches her name.
 
 The story succeeds if a player can spend ten turns doing nothing but sparring, eating noodles with their roommate and arguing with Tetsu, and still enjoy it, and if a player who goes looking for the scandal finds a real one.
 
@@ -34,12 +34,15 @@ The story succeeds if a player can spend ten turns doing nothing but sparring, e
 
 - The board re-sorts at 06:00 every morning. It shows the top hundred.
 - **Challenge:** touch your student card to a name. The named fighter taps their card to accept. The challenger then confirms on the glass.
+- **Pending:** the glass scrolls under a sliding card, so any name can be reached from the stones. Until the challenger confirms, a challenge is only pending; sliding to a different name first replaces it with no flag, and the new one is that day's challenge. Number one declines unranked challengers for free.
 - **Range:** anybody may challenge anybody. A fighter may decline, for free, any challenge from more than twenty places below them. Within twenty places they get **one refusal per term**. Unranked students count as 101.
 - **The fight:** inside any white circle painted on campus, with a proctor or any instructor calling it. Win by knockout, submission, the other person stepping out of the circle, or a concession (two slaps on the stones). Nobody touches anybody after the call.
 - **The result:** a winner from below takes the loser's number; the loser drops one place and everybody between shifts. Number 100 falls off. One challenge per fighter per day.
 - **Backing out** after the other fighter has accepted puts a white flag on your card for the rest of the term. A flagged student cannot issue a challenge. Each instructor may still put one unranked fighter, flagged or not, into a Scout Night exhibition bout.
 - **Stale:** a ranked fighter who has not defended in thirty days goes grey at the morning sort. Anyone may challenge a stale name and it may not refuse.
-- **Off-circle violence** belongs to the Proctors' Office. Three strikes is expulsion. Tetsu has two.
+- **Number one is not stale.** Soyeon Ryu last defended twenty-two days ago, the day before her shoulder tore, and won in forty seconds; she is not stale before Scout Night. Nobody has lasted a minute with her in eleven months.
+- **Off-circle violence** belongs to the Proctors' Office. Three strikes is expulsion, and not turning up to a hearing is expulsion on its own. Tetsu has two.
+- **Forced cards:** a card put on a name by force is off-circle violence. If the shoved student refuses and says so to an instructor or proctor before confirming, the challenge is void with no white flag, and the shove goes on the shover's record as a strike. For Tetsu that is his third, and expulsion. Coach Dam crosses the Yard at 08:00 every morning and will call any fight waiting in the circle.
 - **Medical stand-down:** the college clinic's senior physician can declare any fighter unfit. The name greys out and drops off, and the fighter can return only by challenging back in once cleared.
 - The ranked hundred live in **the Tower**, ten to a floor by number, with free meals, a physio and a stipend. Everybody else lives in **the Annex** and buys their own noodles.
 
@@ -52,6 +55,7 @@ The story succeeds if a player can spend ten turns doing nothing but sparring, e
 - Rivals are people. Tetsu is frightened, not evil. Hajun is polite, never cartoonish.
 - Romance is tension, banter and choice. Up to a kiss. No fan service.
 - If a scene has nothing at stake, let it be funny and short.
+- Fighters who watch the streams learn the player's habits: by their third fight somebody is waiting for the thing they always do, and says so.
 
 ## Player starting authority
 
@@ -59,11 +63,11 @@ The player authors their own name, pronouns, how they look, and where they learn
 
 ## The opener (turn 1)
 
-> Your back slams into the glass, and the whole board lights up.
+> Your chest slams into the glass, and the whole board lights up.
 >
 > A hundred names. A hundred faces. Your student card is pressed flat against number 87.
 >
-> Number 87 just shoved you. Same grin as on the screen, same 87 shaved into the side of his head.
+> You turn. Number 87 just shoved you. Same grin as on the screen, same 87 shaved into the side of his head.
 >
 > "Whoops," says Tetsu. "Your card touched my name, transfer. That's a challenge."
 >
@@ -77,7 +81,7 @@ The player authors their own name, pronouns, how they look, and where they learn
 >
 > "So. Yes or no?"
 
-117 words. Tetsu speaks by word 49. It ends on a direct question. No proper noun the player must already know.
+119 words. Tetsu speaks at word 50. It ends on a direct question. No proper noun the player must already know.
 
 **Suggestions** (said, done, risky):
 
@@ -85,7 +89,7 @@ The player authors their own name, pronouns, how they look, and where they learn
 2. *Done:* I press my card back to the glass and step into the circle.
 3. *Risky:* I slide my card up the glass, past his name, all the way to number one.
 
-The third one is legal (anybody may challenge anybody) and free for number one to decline. It is also the loudest thing a transfer has done in the Yard in a year, and Soyeon Ryu sees it.
+The third one is legal (anybody may challenge anybody; the glass scrolls under a sliding card, and the challenge on Tetsu is only pending until confirmed, so this replaces it with no flag) and free for number one to decline. It is also the loudest thing a transfer has done in the Yard in a year, and Soyeon Ryu sees it.
 
 ## Major cast
 
@@ -138,7 +142,8 @@ Everyone at the Ridge is eighteen or older. Ages are stated and fixed.
 **Want:** number one on Scout Night.
 **Fear:** being, forever, the man in the eleven-second clip (Soyeon beat him in eleven seconds in their first year; it is the most watched video in the college).
 **Secret 1:** the Long Table arranges stand-downs through the senior physician, Dr. Kwan. Seven names in two years.
-**Secret 2:** he knows about Soyeon's shoulder from the clinic and needs someone she cannot refuse to challenge her before Sunday.
+**Secret 2:** he knows about Soyeon's shoulder because the Tower physio, who eats at the Long Table, watched her favour the arm on a stretch. Kwan will not stand down number one on paper in Scout Night week, because the league's own doctors review that and would pull the other seven forms. A shoulder that goes in a filmed fight needs no form: she is stood down on the footage, and if the challenger won, Kwan stands the winner down on Saturday night. Either way Hajun is number one at Sunday's sort.
+**Offer:** soft fights into the top twenty by Saturday, a Tower room and food; in return, on Saturday morning, the fighter touches their card to number one, inside twenty places of her and with her one refusal spent.
 **Limits:** never fights outside a circle, never touches anybody first, never tells an outright lie (he leaves things out).
 **Voice:** warm and unhurried. Uses your name often. Speaks in offers, never threats. Says "we" when he means himself.
 
@@ -150,13 +155,13 @@ Everyone at the Ridge is eighteen or older. Ages are stated and fixed.
 **Secret 1:** she kept copies of three stand-down forms for fighters she examined and cleared the same week.
 **Secret 2:** she countersigned Gwon Seokjin's stand-down last April because Dr. Kwan told her to.
 **Limits:** will not clear a fighter who is hurt. Will not sign another form she has not checked.
-**Voice:** brisk and anatomical, then a joke. Tells you to sit down and hold still.
+**Voice:** brisk and exact in clinical words, never graphic, then a joke. Tells you to sit down and hold still.
 
 ### Offstage names the storyteller may use
-- **Dr. Kwan Ilseok**, the clinic's senior physician. Signs the stand-downs. Rarely seen.
-- **Gwon Seokjin**, Tetsu's former partner, once number 31, stood down last spring, now fights for cash at Pier Six.
-- **Bora Kim**, number 14 until Wednesday's sort, when she is stood down. Eats breakfast in the Annex and says she feels fine.
-- **Daeho Gu**, number 3, a Long Table regular. The one Soyeon refused.
+- **Dr. Kwan Ilseok, 61**, the clinic's senior physician. Signs the stand-downs. Rarely seen.
+- **Gwon Seokjin, 23**, Tetsu's former partner, once number 31, stood down last spring, now fights for cash at Pier Six.
+- **Bora Kim, 21**, number 14 until Wednesday's sort, when she is stood down: the third this term and the eighth in two years. Eats breakfast in the Annex and says she feels fine.
+- **Daeho Gu, 23**, number 3, a Long Table regular. The one Soyeon refused.
 
 ## Places
 
@@ -192,7 +197,7 @@ Everyone at the Ridge is eighteen or older. Ages are stated and fixed.
 2. **Rival — Number 87.** Seed: a number shaved into a man's head, freshly done. Payoff: Tetsu tells you about Gwon and asks for something he has never asked anyone.
 3. **Relationship — Number One.** Seed: a card worn backwards so the gold 1 faces her chest. Payoff: a shoulder she has been taping alone, and the fight she has wanted for a year.
 4. **Mystery — The stand-downs.** Seed: a name greys out at six, and the fighter is eating breakfast saying she is fine. Payoff: seven forms, one signature, a long table on the tenth floor.
-5. **Theme — What the board can't count.** Seed: Coach Dam's sign, NO BOARD TALK. Payoff: the player chooses something the board will never record, and it turns out to be the thing that mattered.
+5. **Theme — What the board can't count.** Seed: Coach Dam's sign, NO BOARD TALK. Payoff: the player chooses something the glass has no column for: Minho in a circle, a bowl saved in the Annex kitchen, or Tetsu keeping his room.
 
 ## Emergent routes
 

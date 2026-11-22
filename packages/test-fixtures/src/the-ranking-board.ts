@@ -18,7 +18,7 @@ import { StoryVersion } from '@plotbreak/contracts';
  * The climb is the surface. Underneath it is a scandal with no punches in it:
  * seven fit fighters taken off the board by medical forms, all signed by one
  * physician, each within two days of booking a fight against the Long Table.
- * A player who never looks still gets a complete fight-school week, because
+ * A player who never looks still gets a complete fight-college week, because
  * the board, Tetsu, Soyeon and the Annex are a whole game on their own. A
  * player who looks finds a real conspiracy with real proof.
  *
@@ -50,7 +50,7 @@ const raw = {
     'The ranked hundred live in the tower dorm, eat for free and get scouted. Everybody else lives in the old concrete dorm and buys their own noodles.\n\n' +
     'You arrived last night, a transfer. You have no number, a roommate who knows every record on the board by heart, and ten minutes until your first class.\n\n' +
     'The man at number 87 has just shoved you into the glass so your card touched his name, and now the board is asking whether you accept.\n\n' +
-    'In seven days the professional leagues send scouts to watch the top twenty. The number one has not been challenged in eleven months. And three fit fighters have come off the board this term without anybody throwing a punch.\n\n' +
+    'In seven days the professional leagues send scouts to watch the top twenty. Nobody has lasted a minute with the number one in eleven months. And two fit fighters have come off the board this term without anybody throwing a punch.\n\n' +
     'Climb it, refuse it, or find out who is moving the names. If you lose, the whole college watches you do it on their phones.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
@@ -68,7 +68,7 @@ const raw = {
   contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY'],
   intensity: 'MODERATE',
   creatorNote:
-    'You can climb this board, refuse it, cheat it, expose it or walk down the hill and never come back, and every one of those goes somewhere. The fights are the fun part. The people are the point: a bully who is mostly frightened, a number one who has not been challenged in a year, and a roommate who has watched four thousand fights and never been in one.',
+    'You can climb this board, refuse it, cheat it, expose it or walk down the hill and never come back, and every one of those goes somewhere. The fights are the fun part. The people are the point: a bully who is mostly frightened, a number one nobody has lasted a minute with in a year, and a roommate who has watched four thousand fights and never been in one.',
   rules: {
     defeatMode: 'FAIL_FORWARD',
     progressionMode: 'MILESTONE',
@@ -83,19 +83,22 @@ const raw = {
       'Haneul Ridge College of Combat Arts ("the Ridge") stands on a hill above the harbour city of Garam Bay. Every student and every member of staff is eighteen or older. Nobody has powers, magic or a status window; they are people who are very good at fighting.',
       'The board is a glass screen on the north wall of the Yard showing the top hundred students by number. It re-sorts at 06:00 every morning when the bell rings.',
       'A challenge: touch your student card to a name, the named fighter taps their card to accept, and the challenger confirms on the glass. Anybody may challenge anybody. A fighter may decline, for free, any challenge from more than twenty places below. Within twenty places they get one refusal per term. Unranked students count as 101.',
+      'The glass scrolls under a sliding card, so any name can be reached from the stones. Until the challenger confirms, a challenge is only pending; sliding to a different name first replaces it with no flag, and the new one is that day’s challenge. Number one declines unranked challengers for free.',
       'A challenge is fought inside a painted white circle with a proctor or any instructor calling it. It is won by knockout, submission, the other fighter stepping out of the circle, or a concession (two slaps on the stones). A winner from below takes the loser’s number; the loser drops one place and #100 falls off. One challenge per fighter per day.',
       'Backing out after the other fighter has accepted puts a white flag on your card for the rest of the term, and a flagged student cannot issue challenges. Each instructor may still put one unranked fighter, flagged or not, into a Scout Night exhibition bout.',
       'A ranked fighter who has not defended in thirty days goes grey ("stale") at the morning sort and may not refuse any challenge. Tetsu Hamada, #87, goes stale at 06:00 tomorrow unless he defends today.',
-      'Fighting outside a circle is a Proctors’ Office matter. Three strikes is expulsion. Tetsu has two.',
-      'The clinic’s senior physician, Dr. Kwan Ilseok, can declare any fighter medically unfit; the name greys and drops off the board. Seven fit fighters have been stood down this way in two years, each within two days of booking a challenge against a Long Table regular. Hajun Seol, #2, arranges it. Nari Hwang countersigned one of the forms, Gwon Seokjin’s, last April.',
-      'Soyeon Ryu has been #1 for 412 days. She has a three-week-old tear in her left shoulder that she tapes herself and has hidden from the clinic, and she has already used her one refusal of the term on #3, Daeho Gu.',
+      'Fighting outside a circle is a Proctors’ Office matter. Three strikes is expulsion, and not turning up to a hearing is expulsion on its own. Tetsu has two strikes.',
+      'A card put on a name by force is off-circle violence. If the shoved student refuses and says so to an instructor or proctor before confirming, the challenge is void with no white flag, and the shove goes on the shover’s record as a strike. For Tetsu that is his third, and expulsion; he is betting a transfer will not know that, or will not use it. Coach Dam crosses the Yard at 08:00 every morning and will call any fight waiting in the circle.',
+      'The clinic’s senior physician, Dr. Kwan Ilseok (61), can declare any fighter medically unfit; the name greys and drops off the board. Seven fit fighters have been stood down this way in two years, two of them this term, each within two days of booking a challenge against a Long Table regular. Hajun Seol, #2, arranges it. Nari Hwang countersigned one of the forms last April, for Gwon Seokjin (23), once #31 and Tetsu’s training partner, who left the college and now fights for cash at Pier Six.',
+      'Soyeon Ryu has been #1 for 412 days, and nobody has lasted a minute with her in eleven months. She has a three-week-old tear in her left shoulder that she tapes herself and has hidden from the clinic. She last defended twenty-two days ago, the day before the shoulder tore, and won in forty seconds; she is not stale before Scout Night. She has already used her one refusal of the term on #3, Daeho Gu (23).',
       'Scout Night is Sunday at 19:00 in the Pit. The professional league’s flagship club signs whoever is #1 on the board that morning. The top twenty get showcase bouts.',
     ],
     toneGuide:
-      'Loud, fast and specific, in the register of a good fight-school anime: two hundred phones up, red letters on glass, a bell at six, noodles at one in the morning, a vending machine that only takes coins. ' +
+      'Loud, fast and specific, in the register of a good fight-college anime, where everyone is an adult: two hundred phones up, red letters on glass, a bell at six, noodles at one in the morning, a vending machine that only takes coins. ' +
       'Fights are legible and short. Distance, angle, a habit, a mistake; a style beats another style for a reason that fits in one sentence, and that reason is the drama. Injuries are ordinary and physical (a split brow, a taped wrist, a limp up ninety-nine steps) and never graphic. ' +
       'Nobody monologues about strength. Rivals are people with rent and families and fears. Hajun is polite and never cartoonish; Tetsu is frightened before he is cruel. ' +
-      'Romance is tension, banter and choice, up to a kiss. Comedy comes from people, especially Minho. If a scene has nothing at stake, let it be funny and short. The face at the top of a beat is whoever is in the player’s way.',
+      'Romance is tension, banter and choice, up to a kiss. Comedy comes from people, especially Minho. If a scene has nothing at stake, let it be funny and short. The face at the top of a beat is whoever is in the player’s way. ' +
+      'Fighters who watch the streams learn the player’s habits: by their third fight somebody is waiting for the thing they always do, and says so.',
     proseStyle: 'webnovel',
     styleExamples: [
       "The bell goes at six.\n\nThe board blacks out, then fills from the top. 1. RYU SOYEON. 2. SEOL HAJUN. The Yard counts along under its breath, the way people count down a rocket.\n\nMinho grabs your sleeve at seventy.\n\n\"Okay okay okay. If you're on there, I'm buying breakfast. If you're not, you're buying, because I was right.\"\n\n86.\n\n87.\n\nYour own face looks back at you from forty feet up, mid-blink, terrible.\n\nSomewhere behind you, Tetsu Hamada says a word the proctors would write down.",
@@ -556,9 +559,9 @@ const raw = {
       name: 'The Yard',
       shortName: 'Yard',
       description:
-        'The stone courtyard at the centre of the college. The board fills the north wall, forty feet of glass with a hundred faces on it. Under it, a white circle painted on the stones, scuffed grey in the middle. Benches round the edges, a coin-only vending machine, and at any hour somebody filming something.',
+        'The stone courtyard at the centre of the college. The board fills the north wall, forty feet of glass with a hundred faces on it. Under it, a white circle painted on the stones, scuffed grey in the middle. Benches round the edges, a coin-only vending machine, and at any hour somebody filming something. At eight the unranked file down the tunnel to the Pit for morning footwork drills under whichever instructor is on the rota, and that is where a transfer’s first class is.',
       artDirection:
-        'Huge stone college courtyard in early morning light, a four-storey glass ranking screen on the far wall showing a grid of a hundred small portraits and numbers, a large white circle painted on worn flagstones, crowds of students in training gear holding up phones. Bright, loud, dramatic scale.',
+        'Huge stone college courtyard in early morning light, a four-storey glass ranking screen on the far wall showing a grid of a hundred small portraits and numbers, a large white circle painted on worn flagstones, crowds of college fighters in their twenties in training gear holding up phones. Bright, loud, dramatic scale.',
       connections: [
         { to: 'the_annex', travelMinutes: 4, label: 'Across to the Annex' },
         { to: 'the_tower', travelMinutes: 3, label: 'Up to the Tower' },
@@ -613,7 +616,7 @@ const raw = {
       description:
         'The ranked dorm: ten floors of glass and pale stone, ten fighters to a floor by number, with a card gate in the lobby, a gym that smells of new rubber and a physio on call. Numbers 81 to 90 live on the second floor, where the windows look straight into the Annex. Number 1 lives on the tenth and is never in the lobby.',
       artDirection:
-        'Sleek modern ten-storey dormitory tower, polished lobby with a turnstile card gate, a glass-walled gym with new equipment, students in matching tracksuits. Cool blue light, expensive and a little cold.',
+        'Sleek modern ten-storey dormitory tower, polished lobby with a turnstile card gate, a glass-walled gym with new equipment, fighters in their twenties in matching tracksuits. Cool blue light, expensive and a little cold.',
       connections: [
         { to: 'the_yard', travelMinutes: 3, label: 'Back down to the Yard' },
         { to: 'the_tower_roof', travelMinutes: 4, label: 'Ten flights to the roof' },
@@ -804,7 +807,7 @@ const raw = {
       name: 'Soyeon Ryu',
       role: 'Number one on the board for 412 days. Third-year, 21, and the most watched person at the college',
       cardBlurb:
-        'She has not been challenged in eleven months, she watches every fight you have, and she is hiding something that would cost her the number if you found it.',
+        'Nobody has lasted a minute with her in eleven months, she watches every fight you have, and she is hiding something that would cost her the number if you found it.',
       pronouns: 'she/her',
       publicTraits: ['Says almost nothing', 'Has never lost at the Ridge', 'Eats alone, always'],
       hiddenDrives: [
@@ -946,7 +949,7 @@ const raw = {
       expressions: ['grinning', 'angry', 'worried', 'surprised', 'stubborn', 'warm'],
       schedule: [
         { startMinute: 0, endMinute: 330, locationId: 'the_tower', activity: 'asleep on the second floor, alarm set for half five' },
-        { startMinute: 330, endMinute: 420, locationId: 'the_steps', activity: 'running the steps in a bin bag to make weight' },
+        { startMinute: 330, endMinute: 420, locationId: 'the_steps', activity: 'running the steps before dawn' },
         { startMinute: 420, endMinute: 540, locationId: 'the_yard', activity: 'at the board, looking for somebody safe to fight' },
         { startMinute: 540, endMinute: 720, locationId: 'the_tower', activity: 'in the Tower gym, hitting the bag too hard' },
         { startMinute: 720, endMinute: 810, locationId: 'the_yard', activity: 'lunch on the benches, loudly' },
@@ -997,7 +1000,10 @@ const raw = {
         'Never tells an outright lie; he leaves things out',
         'Will not be seen to threaten anybody in public',
       ],
-      goals: ['Number one before Scout Night', 'Put a challenger in front of Soyeon that she is not allowed to refuse'],
+      goals: [
+        'Number one before Scout Night',
+        'Give one useful fighter soft fights into the top twenty by Saturday, a Tower room and food, and in return have them touch their card to number one on Saturday morning, when they are inside twenty places of her and her one refusal is spent',
+      ],
       secrets: [
         {
           id: 'hajun_stand_downs',
@@ -1007,7 +1013,7 @@ const raw = {
         },
         {
           id: 'hajun_knows_her_shoulder',
-          fact: 'He knows about Soyeon’s shoulder from a clinic note Dr. Kwan passed him, and his whole plan for the week is a challenge she cannot refuse.',
+          fact: 'He knows about Soyeon’s shoulder because the Tower physio, who eats at the Long Table, watched her favour the arm on a stretch. Kwan will not stand down number one on paper in Scout Night week, because the league’s own doctors review that and would pull the other seven forms. A shoulder that goes in a filmed fight needs no form: she is stood down on the footage, and if the challenger won, Kwan stands the winner down on Saturday night as he has seven times before. Either way Hajun is number one at Sunday’s sort.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He lets it slip only to somebody who has already taken his deal and asked him, at the Long Table, why number one.',
         },
@@ -1141,14 +1147,14 @@ const raw = {
       name: 'Nari Hwang',
       role: 'Final-year sports-medicine student, 24, who runs the Ice Room most days',
       cardBlurb:
-        'She will patch you up after every fight you have this week, she has copies of three forms she should not have kept, and her own name is on one of them.',
+        'She will patch you up after every fight you have this week, and she has copies of three forms she should not have kept.',
       pronouns: 'she/her',
       publicTraits: ['Brisk', 'Funny under pressure', 'Will not clear anybody who is hurt'],
       hiddenDrives: ['She wants to undo one signature before she graduates, and has not worked out how to do it without ending her career'],
       values: ['Clearing a fighter means they are fit, nothing else', 'Saying exactly what is wrong with somebody, in the right words'],
       fears: ['That she is the kind of person who signs things', 'Losing her placement a month before she qualifies'],
       socialStyle:
-        'Tells you to sit down before you have said why you came, describes the damage in anatomical detail, then makes a joke so you do not panic.',
+        'Tells you to sit down before you have said why you came, names the damage in exact clinical words, never graphic, then makes a joke so you do not panic.',
       boundaries: [
         'Will not clear a fighter who is hurt, whoever asks',
         'Will not sign another form she has not checked herself',
@@ -1174,7 +1180,7 @@ const raw = {
       topics: ['your injuries', 'the Ice Room', 'Dr. Kwan', 'the stand-down forms', 'Gwon Seokjin', 'her placement'],
       voiceSamples: [
         'Hold still. That’s a two-centimetre split over the brow bone. Very photogenic. Ice, glue, and you’re pretty again by lunch.',
-        'Kwan signed three of them in one term. I examined two of those fighters that same week. Cleared. Cleared. Gone.',
+        'Kwan signed three of them that I know of. I examined all three fighters that same week. Cleared. Cleared. Cleared. Gone.',
         'I put my name on one of those forms in April. I’ve been trying to take it off ever since.',
         'You’re not going back out on that ankle. I’ll tape it. I’ll tape it badly, so you remember I said no.',
       ],
@@ -1203,7 +1209,7 @@ const raw = {
         },
         {
           id: 'nari_off_shift',
-          label: 'She has a drink with you off shift',
+          label: 'She eats with you off shift',
           kind: 'ROMANCE',
           requires: { trust: 50, affection: 50 },
         },
@@ -1306,7 +1312,7 @@ const raw = {
           id: 'answer_the_board',
           playerCopy: 'Answer the board: yes or no.',
           directorNotes:
-            'The whole Yard is filming. Tetsu needs this defence before tomorrow’s sort and picked the player because a transfer looked safe; he is loud because he is scared. Every answer is real and none of them is wrong. Win or lose is decided in the prose by what the player actually does in the circle, and a transfer who loses to #87 on day one can still have the best week of anybody. Coach Dam arrives at eight to call it if it has not started; a fight with nobody calling it is a strike for both of them, and Tetsu knows that. If the player slides their card past Tetsu to #1, the board registers it, Soyeon declines it for free from somewhere out of sight, and the Yard loses its mind.',
+            'The whole Yard is filming. Tetsu needs this defence before tomorrow’s sort and picked the player because a transfer looked safe; he is loud because he is scared. Every answer is real and none of them is wrong. Win or lose is decided in the prose by what the player actually does in the circle, and a transfer who loses to #87 on day one can still have the best week of anybody. Coach Dam arrives at eight to call it if it has not started; a fight with nobody calling it is a strike for both of them, and Tetsu knows that. If the player says they were shoved and says so to Coach Dam before confirming, the challenge is void with no flag and the shove is Tetsu’s third strike; whether to use that is the player’s call. If the player slides their card past Tetsu to #1, the glass scrolls under it, the pending challenge on Tetsu is replaced with no flag, Soyeon declines it for free from somewhere out of sight, and the Yard loses its mind.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1417,7 +1423,7 @@ const raw = {
     {
       id: 'q_twenty_places',
       title: 'Twenty Places at a Time',
-      summary: 'Seven days to Scout Night. Every challenge you win can move you up to twenty places, and the board re-sorts every morning at six.',
+      summary: 'Scout Night is Sunday. Every win takes a number, and anyone more than twenty places above you can say no for free. The board re-sorts every morning at six.',
       kind: 'MAIN',
       involvedCharacterIds: ['dam', 'minho', 'tetsu', 'hajun'],
       involvedLocationIds: ['the_boiler_room', 'the_yard', 'the_pit', 'the_steps'],
@@ -1638,7 +1644,7 @@ const raw = {
     {
       id: 'q_stand_downs',
       title: 'Medical Stand-Down',
-      summary: 'A name greyed out at six this morning. The fighter is eating breakfast in the Annex and telling everyone she feels fine.',
+      summary: 'Names keep greying out at the six o’clock sort with MEDICAL STAND-DOWN beside them, and the fighters say they feel fine.',
       kind: 'LEAD',
       involvedCharacterIds: ['nari', 'minho', 'tetsu', 'hajun'],
       involvedLocationIds: ['the_ice_room', 'the_proctors_office', 'the_annex', 'pier_six'],
@@ -1864,18 +1870,18 @@ const raw = {
     {
       id: 'q_number_one',
       title: 'Number One',
-      summary: 'Soyeon Ryu has been number one for 412 days, and nobody has touched her name in eleven months.',
+      summary: 'Soyeon Ryu has been number one for 412 days, and nobody has lasted a minute with her in eleven months.',
       kind: 'MAIN',
       involvedCharacterIds: ['soyeon', 'hajun', 'minho'],
       involvedLocationIds: ['the_tower_roof', 'the_night_market', 'the_pit'],
-      knownRewardCopy: 'Why nobody challenges number one, and what you do about it before the scouts arrive.',
+      knownRewardCopy: 'Why number one refused number 3, and what you do about it before the scouts arrive.',
       discoverWhen: { flagsSet: ['first_morning_over'] },
       steps: [
         {
           id: 'why_nobody_touches_her',
-          playerCopy: 'Find out why nobody touches number one.',
+          playerCopy: 'Find out why number one refused number 3.',
           directorNotes:
-            'The public answer is that she is terrifying. The true answer is a shoulder. How the player learns it matters to her more than anything else in the story: watching her train is fair, being told is an honour, and going through her things is the one thing she will not forgive quickly. Minho can explain the refusal she used on #3 and cannot explain why.',
+            'The public answer is that she has nothing to prove to a Long Table regular. The true answer is a shoulder torn three weeks ago, the day after her last defence: a real fight with #3 would have found it in front of the whole Pit, so she spent her one refusal of the term rather than take it. The shoulder explains this refusal, not her eleven months; those are just how good she is. How the player learns it matters to her more than anything else in the story: watching her train is fair, being told is an honour, and going through her things is the one thing she will not forgive quickly. Minho has the date of the refusal and the date of her last defence, and cannot explain why.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1965,7 +1971,7 @@ const raw = {
     {
       id: 'q_four_thousand_clips',
       title: 'Four Thousand Clips',
-      summary: 'Your roommate has filmed every fight at the Ridge for three years and never once been in one.',
+      summary: 'Your roommate has filmed every fight at the Ridge for three years, the first one from the stands before he was even a student here, and he has never once been in one.',
       kind: 'SIDE',
       involvedCharacterIds: ['minho', 'dam'],
       involvedLocationIds: ['the_annex', 'the_boiler_room', 'the_yard'],
@@ -2017,7 +2023,7 @@ const raw = {
     {
       id: 'q_outside_the_circle',
       title: 'Outside the Circle',
-      summary: 'You fought somebody where there was no circle and no proctor, and now there is a hearing with your name on it.',
+      summary: 'Fight anywhere without a circle and a proctor, and there is footage, a bench outside a grey office, and a hearing that decides whether you are still a student on Sunday.',
       kind: 'SIDE',
       involvedCharacterIds: ['dam', 'tetsu'],
       involvedLocationIds: ['the_proctors_office'],
@@ -2151,7 +2157,7 @@ const raw = {
       publicCopy:
         'At six the board re-sorts, and number 14 comes up grey: MEDICAL STAND-DOWN. Everybody below her moves up one place.',
       directorNotes:
-        'Bora Kim, #14, booked a challenge last night against #9, who eats at the Long Table. The clinic form was signed at 23:40. She is the third this term. Minho goes very quiet and does not film the rest of the sort.',
+        'Bora Kim, 21, #14, booked a challenge last night against #9, who eats at the Long Table. The clinic form was signed at 23:40. She is the third this term and the eighth in two years. Minho goes very quiet and does not film the rest of the sort.',
       setsFlags: ['stand_down_seen'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2249,7 +2255,7 @@ const raw = {
     {
       id: 'p_number_one',
       kind: 'RELATIONSHIP',
-      label: 'Why nobody has challenged number one in eleven months',
+      label: 'What number one is hiding',
       seedHint: 'A student card worn backwards, so the gold 1 faces her chest.',
       payoffHint: 'A shoulder she has been taping alone on a roof, and the fight she has wanted for a year with somebody who is not afraid of her.',
       weight: 0.9,
@@ -2267,7 +2273,7 @@ const raw = {
       kind: 'THEME',
       label: 'What the board cannot count',
       seedHint: 'A hand-painted sign over the door of a basement gym: NO BOARD TALK.',
-      payoffHint: 'You choose something the board will never record, and it turns out to be the thing that mattered.',
+      payoffHint: 'You choose something the glass has no column for: Minho in a circle, a bowl saved in the Annex kitchen, or Tetsu keeping his room.',
       weight: 0.6,
     },
   ],
@@ -2393,6 +2399,12 @@ const raw = {
    * Six is walking away, available early. Only three endings need the
    * stand-down scandal; everything else is reachable by a player who never
    * once wondered why a name went grey.
+   *
+   * Order matters: runTurnPure sends the narrator only the first twelve
+   * (director/src/pure/narrator.ts). The Hundred and First is last because it
+   * needs turn 40, three arcs and a beaten number one, and the narrator can
+   * write refusing the number from the player's own action; Pier Six and Third
+   * Strike are the early landings and must stay visible.
    */
   endings: [
     {
@@ -2408,7 +2420,7 @@ const raw = {
         'Use only if the prose has the player winning. They climbed from nothing in a week without a single arranged fight, touched their card to number one, and beat Soyeon Ryu in a fair fight with both of them knowing everything, shoulder included. She does not want it to be gentle and it is not. Write the fight as the best one of the year, and let the board do the announcing.',
       epilogue:
         'The bell rings at six on Monday and the board fills from the top, and the first face on it is yours, mid-blink, terrible. The flagship club’s scout shakes your hand in the tunnel. Soyeon has surgery on the shoulder in the spring, and on the first day she is allowed to spar again she touches her card to your name.',
-      hint: 'Four hundred and twelve days, and nobody has asked.',
+      hint: 'Four hundred and twelve days, and nobody has lasted a minute.',
     },
     {
       id: 'end_four_hundred_and_thirteen',
@@ -2421,21 +2433,6 @@ const raw = {
       epilogue:
         'Day four hundred and thirteen. She signs with the club on Sunday and leaves the Ridge in June. Before she goes she leaves a black training jacket folded on your bed in the Annex, with the card in the pocket turned the right way round.',
       hint: '',
-    },
-    {
-      id: 'end_hundred_and_first',
-      name: 'The Hundred and First',
-      rarity: 'UNIQUE',
-      minTurn: 40,
-      requires: {
-        flagsSet: ['fought_number_one', 'climbed_clean', 'table_exposed'],
-        minRelationship: [{ characterId: 'soyeon', dimension: 'respect', value: 60 }],
-      },
-      condition:
-        'The player exposed the stand-downs, climbed clean, beat number one, and then refused the number. They touch their card to their own name and ask the board to take it off. It has never been asked that and it does not have a rule for it. Write the Yard going completely silent.',
-      epilogue:
-        'The next morning the board fills from one to a hundred and then, underneath, in smaller letters, a name with no number next to it. The proctors call it a display fault. Coach Dam has it framed. Every name stood down in the last two years is invited back to challenge in, and six of the seven come.',
-      hint: 'Ask the board for something it has no rule for.',
     },
     {
       id: 'end_board_goes_dark',
@@ -2513,7 +2510,7 @@ const raw = {
       minTurn: 30,
       requires: { flagsSet: ['did_the_table_job'], flagsUnset: ['table_exposed'] },
       condition:
-        'The player did exactly what Hajun wanted: touched number one, fought her injured, and opened the top of the board. Whether they won or lost the fight, Hajun is number one on Scout Night morning. He thanks the player warmly and in public.',
+        'The player did exactly what Hajun wanted: touched number one, fought her injured, and opened the top of the board. The shoulder went on camera and she is stood down on the footage; if the player won, a clinic form stands them down on Saturday night. Either way Hajun is number one on Scout Night morning, and he thanks the player warmly and in public.',
       epilogue:
         'Hajun signs with the flagship club on Sunday night and says something gracious about you to the stream. Soyeon declares the shoulder on Monday and sits out the term. The clip of your fight is the most watched video at the Ridge for a year, and you never once watch it.',
       hint: '',
@@ -2569,9 +2566,24 @@ const raw = {
         'Pier Six pays in cash and nobody keeps count. Gwon Seokjin shows you how the headlights are arranged so nobody is fighting into the glare. Some nights you can see the board from the pier, lit up on the hill, re-sorting at six without you.',
       hint: '',
     },
+    {
+      id: 'end_hundred_and_first',
+      name: 'The Hundred and First',
+      rarity: 'UNIQUE',
+      minTurn: 40,
+      requires: {
+        flagsSet: ['fought_number_one', 'climbed_clean', 'table_exposed'],
+        minRelationship: [{ characterId: 'soyeon', dimension: 'respect', value: 60 }],
+      },
+      condition:
+        'The player exposed the stand-downs, climbed clean, beat number one, and then refused the number. They touch their card to their own name and ask the board to take it off. It has never been asked that and it does not have a rule for it. Write the Yard going completely silent.',
+      epilogue:
+        'The next morning the board fills from one to a hundred and then, underneath, in smaller letters, a name with no number next to it. The proctors call it a display fault. Coach Dam has it framed. Every name stood down in the last two years is invited back to challenge in, and all but one of them come.',
+      hint: 'Ask the board for something it has no rule for.',
+    },
   ],
   opening:
-    "Your back slams into the glass, and the whole board lights up.\n\nA hundred names. A hundred faces. Your student card is pressed flat against number 87.\n\nNumber 87 just shoved you. Same grin as on the screen, same 87 shaved into the side of his head.\n\n\"Whoops,\" says Tetsu. \"Your card touched my name, transfer. That's a challenge.\"\n\nHe taps his own card to the glass. Red letters flash:\n\nCHALLENGE ACCEPTED?\n\nAcross the courtyard, two hundred phones come up at once.\n\nTetsu steps into the white circle painted on the stones and raises his fists. \"Beat me, you get my number. Back out, and the board flags you a coward all term.\"\n\n\"So. Yes or no?\"",
+    "Your chest slams into the glass, and the whole board lights up.\n\nA hundred names. A hundred faces. Your student card is pressed flat against number 87.\n\nYou turn. Number 87 just shoved you. Same grin as on the screen, same 87 shaved into the side of his head.\n\n\"Whoops,\" says Tetsu. \"Your card touched my name, transfer. That's a challenge.\"\n\nHe taps his own card to the glass. Red letters flash:\n\nCHALLENGE ACCEPTED?\n\nAcross the courtyard, two hundred phones come up at once.\n\nTetsu steps into the white circle painted on the stones and raises his fists. \"Beat me, you get my number. Back out, and the board flags you a coward all term.\"\n\n\"So. Yes or no?\"",
   openingPanel: {
     assetKey: 'story_the_ranking_board/opening',
     alt: 'Tetsu, a big grinning fighter with 87 shaved into his bleached buzzcut, standing in a painted white circle under a giant glass ranking board, fists up, phones raised all around.',
