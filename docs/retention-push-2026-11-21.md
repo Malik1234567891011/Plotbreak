@@ -196,3 +196,13 @@ Simulator capture created guest `61aa9e7f-bf00-46a1-8604-1d944578e224` and sessi
 - Root `.env` holds `PIXAI_API_KEY`, `OPENAI_API_KEY` and `PROD_DATABASE_URL`. The production URL is renamed on purpose, so no script picks it up by default.
 - Design v3 (plotbreak-0d) is finished: 24 screens, each with an inspiration card. Credits is a game-style shop. The board is https://claude.ai/artifact/ToYYtSnfTLYqfxH1AnxbBf. Waiting for the user's verdict on the look.
 - Phone incident: a blind tap opened Afizzy's $129.99 purchase sheet. It was cancelled and nothing was bought. Rule: look before every tap on the user's phone.
+
+## Checkpoint 2026-11-22 (afternoon): first new-50 release
+
+- Pushed `78b5b9f` to main: the 37 stories, the newest-first "New on Plotbreak" row (`e3ba6c2`, `f045f3d`, `b1efb77`: stories that share a publish time take turns by a daily shuffle) and origin/main merged.
+- Prod dry run (read-only): 37 new, 0 revised, no schema migration. Real `--prod` run waits for the Railway deploy to serve `story_skill_error/cover.png`.
+- Held back: Level One, Wyvern Slayer and Roommate Lottery (misspelled covers); 10 stories without full art; The Villain Dies in Chapter Three (NAMED protagonist fails `protagonist.spec`).
+- Partial art of 4 stories moved to `.claude/held-art/` (list in `docs/stories-50/HELD-ART.md`); Every Platform a World and The Zombie Who Said Please look complete.
+- PixAI: 2.80M credits used (ledger), about 63K a story (about 20 pictures each), about 24 cover redraws. About 500K more needed for what's left.
+- Gallery of every new-story picture: https://claude.ai/artifact/FT63cNJZ3CBJ1DWzkekdRv
+- Design v3 feedback (Home, Story page stat squares, gems not consistent, gem everywhere, audit for consistency) sent to plotbreak-0d; it audits first, then shows a new Home.
