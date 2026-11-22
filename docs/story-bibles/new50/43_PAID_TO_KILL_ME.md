@@ -32,7 +32,7 @@ Every character is an adult. The content ceiling is 13+, and the romance goes as
 - If the player dies before then, it passes to their uncle **Viktor**.
 - If they simply do not turn up, the board votes Viktor in as chair.
 
-**The bodyguard.** The week of the funeral, Viktor hired a security agency on Lady Ines's recommendation. Through it, **Kael** was placed in the house as the player's bodyguard. The agency is a front. Kael is a contract operator for **the Bellhouse**, the city's quiet brokerage for killing. He was handed a contract on the player's life, to be done before the signing.
+**The bodyguard.** The week of the funeral, Viktor hired a security agency on Lady Ines's recommendation. The Bellhouse sends that agency's card, unasked, to the households around every contract it takes, which is how it reached her. Through it, **Kael** was placed in the house as the player's bodyguard. The agency is a front. Kael is a contract operator for **the Bellhouse**, the city's quiet brokerage for killing. He was handed a contract on the player's life, to be done before the signing.
 
 **Last night.** Kael came into the room to do the job and did not. When he sat down he saw that the water glass on the nightstand had gone cloudy. Somebody else had already tried. He stayed in the chair until morning.
 
@@ -46,7 +46,7 @@ Every character is an adult. The content ceiling is 13+, and the romance goes as
    - On Odile's last night, the old woman confessed the truth about **Pier Nine** to her.
    - Twenty-two years ago a fire in the Ravelle warehouse on Pier Nine killed eleven dockworkers. Odile had ordered the rear fire doors chained at night against theft, and had paid an inspector to sign them off. The company blamed a worker's cigarette.
    - Sato's husband, Haruto, a crane foreman, was the sixth name on the plaque.
-   - In the worst week of her life, Sato paid the Bellhouse to end the Ravelle line before it could inherit the lie. She paid with the money Odile left her for thirty years of care.
+   - In the worst week of her life, Sato paid the Bellhouse to take from Odile the one person she had loved most and left everything to, the way Odile's chained door had taken Haruto: in the night, with nobody coming. Who would inherit never entered her head. She paid with the money Odile left her for thirty years of care.
    - She has regretted it every hour since. She cannot make herself walk into the clock shop and cancel, because cancelling means saying it out loud.
 
 **The Bellhouse.** It runs from behind a clock-repair shop in Old Town. Its rules are painted on the back wall:
@@ -83,15 +83,17 @@ The protagonist is `BLANK`: the player names themselves and picks pronouns. They
 
 The archetype does not decide whether they trust Kael, whom they suspect, or whether they sign on Friday.
 
-Everybody starts with **Grandmother's Letter**, still sealed: "Open before you sign anything."
+Everybody starts with **Grandmother's Letter**, still sealed: "Open before you sign anything." Inside: "There is a file about Pier Nine in the library cabinet. Read it before you sign. I kept it shut for twenty-two years and it was the worst thing I ever did. Do better than I did. Augustin has the key."
 
 ### Minimal hard canon
 
 - Odile died naturally. Nobody killed her.
+- The gap in Odile's row of pill bottles is the bottle Viktor took from her rooms last night. It has nothing to do with how she died.
 - Viktor poured the glass. Sato placed the contract. Neither knows about the other.
 - Kael does not know who hired him, because the Bellhouse never tells operators. The contract card knew the side-gate code and that the player sleeps with the balcony door open, so the client has been inside the house and upstairs.
 - Pier Nine is true, and the file in the library cabinet proves it.
 - Every character is an adult.
+- Romance in this story, with Kael or anyone else, goes no further than a kiss, on the page or off it. No scene cuts away to a bed. A night in Kael's room is him in the chair facing the door. (This sits in hard canon, not only the tone guide, because the player-first storyteller brief overrides the tone guide and keeps only hard canon.)
 
 ## Opening scene
 
@@ -117,7 +119,7 @@ The opener is 102 words. Kael speaks at word 47 and is introduced in the same se
 
 | Move | Suggestion |
 |---|---|
-| Said | "My uncle, for a start. Now tell me why I'm still breathing." |
+| Said | "My uncle gets everything if I die. Start with him. Who paid you?" |
 | Done | I pick up the cloudy glass and hold it up to the light. |
 | Risky | I grab the knife off the nightstand before he can, and point it at him. |
 
@@ -152,6 +154,7 @@ Every character is an adult, and each `appearance` opens on their age.
 - Will not hurt anyone in front of the player unless they are about to hurt the player.
 - Will never hurt the player.
 - Will not be thanked.
+- If the player calls the staff or throws him out, he goes without argument, hands where everybody can see them, and by noon he is on the roof across the road, still guarding the house. If the player takes the knife, he lets them and does not move. (This lives in his `socialStyle`, which the production narrator reads.)
 
 **Gates:**
 - He tells you the cost: trust 45.
@@ -172,7 +175,7 @@ Every character is an adult, and each `appearance` opens on their age.
 ### Lady Ines Vauclair · 26
 **Role:** heir of House Vauclair. Your best friend through four years of college, and your rival ever since graduation, when she told her father a secret you had trusted her with.
 **Appearance:** sleek black bob, sharp dark eyes, a tailored cream coat, gloves taken off one finger at a time. She wears a single pearl earring, left ear only.
-**Motive:** buying the Ravelle Line is the only move big enough to stop her father passing House Vauclair to her younger brother.
+**Motive:** buying the Ravelle Line is the only move big enough to stop her father passing House Vauclair to her brother, who is twenty-four.
 **Secrets:**
 - She holds Viktor's letter of intent and hands it over if the player asks her straight whether she wanted them dead, and believes her.
 - She recommended the security agency without knowing what it was.
@@ -188,7 +191,7 @@ Every character is an adult, and each `appearance` opens on their age.
 **Appearance:** small and upright, grey hair in a low knot, half-moon glasses on a chain. She wears her husband's steel wristwatch on the inside of her wrist, stopped at twenty past two.
 **Motive:** Pier Nine. She is the client.
 **Pacing rule:** she confesses only to someone who already knows about Pier Nine and comes without a threat.
-**Will not lie about medicine.** Shown the glass, she names it exactly: her own patient's heart tablets, crushed, a great many. No drug name and no dose ever appear on the page.
+**Will not lie about medicine.** Shown the glass, she names it exactly: her own patient's heart tablets, enough of them. No drug name and no dose ever appear on the page.
 **Voice:** soft and exact. Clinical words for frightening things, plain words for kind ones. She always asks how you slept first.
 - "Wrist, please. Quick pulse. Did you sleep, or did you lie very still and think?"
 - "She asked me to hold her hand and listen. So I listened. I have been listening ever since."
@@ -222,7 +225,7 @@ There are 17 places. Every one has a way in, and every one is reachable from the
 **Ravelle House**
 - **Your Room** (start): the chair turned to face the door, the open balcony, the knife and the glass. Connects to the gallery, and by drainpipe to the roof.
 - **The East Gallery**: family portraits, with Odile's portrait halfway along. Connects to her rooms, the west wing, the grand stair, the service stairs and the attic stair.
-- **Grandmother's Rooms**: shut since she died. Her daybook lies open at the last entry: "M.S. 11 pm. Told her. All of it." Her row of pill bottles has one gap.
+- **Grandmother's Rooms**: shut since she died. Her daybook lies open at the last entry: "M.S. 11 pm. Told her. All of it." Her row of pill bottles has one gap, which is the bottle Viktor took. The daybook entry is in the location description and the daybook is a quest item, because the production narrator reads only those.
 - **The West Wing**: Viktor's rooms. The lenders' letters are on the desk and the navy coat hangs over a chair.
 - **The Great Hall**: breakfast, the reception, and the front doors.
 - **The Library**: the locked glass cabinet with a grey box file inside.
@@ -247,7 +250,7 @@ There are 17 places. Every one has a way in, and every one is reachable from the
 | 2 | RELATIONSHIP | Why Kael sat down in the chair instead | He tastes your coffee and will not say why | Tea left outside his door on the fourth night |
 | 3 | MYSTERY | Who paid the Bellhouse | A card that knows your balcony door is open | "M.S. 11 pm. Told her. All of it." and flowers under the sixth name |
 | 4 | RIVAL | Who poured the glass | "Heart, they'd have said. Same as your grandmother." | An empty bottle with her name on it, in a navy coat |
-| 5 | THEME | What your grandmother could not live with | A sealed envelope: "Open before you sign anything." | A chain still through the handles of a rusted fire door |
+| 5 | THEME | What your grandmother kept locked away | A sealed envelope: "Open before you sign anything." | A chain still through the handles of a rusted fire door |
 
 ## Active story pressures
 
@@ -352,7 +355,7 @@ Twelve endings, which is the most `worldBrief` sends. Four of them are losses, a
 
 No art is generated for this pass. The keys come from `withDerivedAssetKeys`.
 
-**Cover and key art:** Kael in the chair by the bed at dawn, knife on the nightstand. Title "Paid to Kill Me" in the art.
+**Cover and key art:** Kael in the chair by the bed at dawn, knife on the nightstand. Keep the player out of the bed and out of the frame, and keep the sheets neat. Title "Paid to Kill Me" in the art.
 
 **Opening panel:** `story_paid_to_kill_me/opening`.
 
@@ -393,7 +396,7 @@ No art is generated for this pass. The keys come from `withDerivedAssetKeys`.
 
 **Content rules**
 - Adults only: each age is stated, and no word reads as a minor.
-- 13+: no sexual content, nudity, gore or self-harm.
+- 13+: no sexual content, nudity, gore or self-harm. The kiss limit is in hard canon, and the grandmother's letter cannot read as a note left by someone who chose to die.
 - No franchise terms.
 - English only.
 
@@ -412,6 +415,11 @@ No art is generated for this pass. The keys come from `withDerivedAssetKeys`.
 - Short names are unique.
 
 **Clarity:** `checkStoryClarity` and `checkStoryChoiceClarity` report no errors.
+
+**What the production narrator can read**
+- The daybook entry is in the Grandmother's Rooms description, and the daybook is a quest item.
+- Kael's turn-one behaviour if thrown out, or if the player takes the knife, is in his `socialStyle`.
+- Sato's motive is about Odile, not about who inherits.
 
 **World-specific**
 - Kael is alone with the player at the start.

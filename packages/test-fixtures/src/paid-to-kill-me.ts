@@ -43,7 +43,7 @@ const raw = {
   version: 1,
   title: 'Paid to Kill Me',
   fantasyLabel: 'Your bodyguard was hired to kill you.',
-  hook: 'Your grandmother left you a shipping empire, and the house hired you a bodyguard. Last night he came into your room to kill you, and sat down in the chair instead.',
+  hook: 'Last night your new bodyguard came into your room to kill you. He sat down in the chair instead, and somebody else poisoned your water anyway.',
   premise:
     'Your grandmother built the biggest shipping company in Saltmere, a cold harbour city where three old families still run the docks, the clubs and the gossip. Twelve days ago she died in her sleep, at eighty-eight, and left the controlling share of it to you.\n\n' +
     'The share becomes yours when you sign for it at the board meeting on Friday at ten. If you die before then, it goes to your uncle.\n\n' +
@@ -88,12 +88,13 @@ const raw = {
     hardCanon: [
       'Odile Ravelle, who built the Ravelle Line, died in her sleep twelve days ago aged eighty-eight. Her heart gave out naturally. Dr. Mirei Sato signed the certificate and it is true.',
       'Her will leaves the controlling share of the Ravelle Line to the player. It becomes theirs when they sign at the board meeting at Ravelle Tower on Friday at ten. If the player dies before signing, it passes to their uncle, Viktor Ravelle. If they do not turn up, the board votes Viktor in as chair.',
-      'Kael is a contract operator for the Bellhouse, placed in the house as the player’s bodyguard nine days ago through the security agency Viktor hired after the funeral. He was given a contract on the player’s life, to be done before the signing. Last night he came to do it and did not. He has never refused a contract before.',
-      'Two separate people want the player dead and neither knows about the other. Viktor Ravelle dissolved his mother’s heart tablets in the player’s bedside water at eleven last night. Dr. Mirei Sato paid the Bellhouse for the contract Kael was given. Neither answer is handed over early: both are found, earned or confessed, and the story is better the longer the player has to work for them.',
+      'Kael is a contract operator for the Bellhouse, placed in the house as the player’s bodyguard nine days ago through the security agency Viktor hired after the funeral. He was given a contract on the player’s life, to be done before the signing. Last night he came to do it and did not. He has never refused a contract before. The Bellhouse sends that agency’s card, unasked, to the households around every contract it takes; that is how it reached Lady Ines the week of the funeral.',
+      'Two separate people want the player dead and neither knows about the other. Viktor Ravelle crushed his mother’s heart tablets into the player’s night carafe in the kitchen pantry at eleven last night, before it was carried up to their room. Dr. Mirei Sato paid the Bellhouse for the contract Kael was given. Neither answer is handed over early: both are found, earned or confessed, and the story is better the longer the player has to work for them.',
+      'The gap in Odile’s row of pill bottles is the bottle Viktor took from her rooms last night. It has nothing to do with how she died.',
       'The Bellhouse is the city’s quiet brokerage for killing, run from behind a clock-repair shop in Old Town. Its rules are painted on the back wall: an operator rings a bell to close a job; a contract can be cancelled only by the client in person; rule four says any contract can be bought out at twice its price; an operator who breaks a contract is closed along with it.',
       'Twenty-two years ago a fire at the Ravelle warehouse on Pier Nine killed eleven dockworkers. The company blamed a worker’s cigarette. The truth is in a file Odile kept in the library cabinet: she had the rear fire doors chained at night against theft, and paid an inspector to sign them off. Haruto Sato, Dr. Sato’s husband, was the sixth of the eleven.',
       'Kael does not know who hired him. The Bellhouse never tells operators. He does know the contract card carried details only someone who had been inside the house could know.',
-      'The player is an adult and the heir, whatever they did with their life before this week. Every character in this story is an adult.',
+      'The player is an adult and the heir, whatever they did with their life before this week. Every character in this story is an adult. Romance in this story, with Kael or anyone else, goes no further than a kiss, on the page or off it. No scene cuts away to a bed. A night in Kael’s room is him in the chair facing the door.',
     ],
     toneGuide:
       'A romantic thriller with a dry sense of humour, set in a cliff-top house and a cold harbour city in the rain. Specific physical detail carries everything: a black-handled knife, a cloudy glass, a chair turned to face the door, a brass bell with no clapper, coffee somebody tastes before handing it over. ' +
@@ -247,7 +248,7 @@ const raw = {
       tags: ['quest', 'evidence'],
       questItem: true,
       description: 'Your bedside water glass, half full and gone faintly cloudy, with a bitter smell when you get close. Kael says not to drink it.',
-      loreText: 'The carafe it came from is filled in the kitchen pantry at ten every night and carried up by whoever is on late. Somebody added something between the pantry and your room.',
+      loreText: 'The carafe it came from is filled in the kitchen pantry at ten every night and carried up by whoever is on late. Somebody added something to it in the pantry after it was filled and before it came up.',
       icon: 'glass',
     },
     {
@@ -256,7 +257,7 @@ const raw = {
       tags: ['quest', 'document', 'personal'],
       questItem: true,
       description: 'A heavy cream envelope in her handwriting: "Open before you sign anything." Pell gave it to you after the funeral. It is still sealed.',
-      loreText: 'Inside is one page. "There is a file about Pier Nine in the library cabinet. Read it before you sign. I could not live with it, so I have made you live with it instead. I am sorry. Augustin has the key."',
+      loreText: 'Inside is one page. "There is a file about Pier Nine in the library cabinet. Read it before you sign. I kept it shut for twenty-two years and it was the worst thing I ever did. Do better than I did. Augustin has the key."',
       icon: 'letter',
     },
     {
@@ -281,7 +282,8 @@ const raw = {
     {
       id: 'odile_daybook',
       name: 'Grandmother’s Daybook',
-      tags: ['document', 'evidence'],
+      tags: ['quest', 'document', 'evidence'],
+      questItem: true,
       skillModifiers: { read_people: 1 },
       description: 'Her appointment book, open at her last week. The final entry, on the night she died, is in a shaky hand: "M.S. 11 pm. Told her. All of it."',
       loreText: 'Every Thursday for twenty-two years there is the same small entry: a tick, and the number eleven.',
@@ -319,7 +321,7 @@ const raw = {
       name: 'Viktor’s Promise to the Vauclairs',
       tags: ['document', 'evidence'],
       description: 'A signed letter from Viktor promising to sell House Vauclair the controlling share of the Ravelle Line on the day he inherits it. Dated the day after the funeral.',
-      loreText: 'Ines kept it in her glovebox for eleven days without thinking about what it meant. She has thought about nothing else since Tuesday.',
+      loreText: 'Ines kept it in her glovebox for nine days without thinking about what it meant. She has thought about nothing else since Tuesday.',
       icon: 'letter',
     },
     {
@@ -597,7 +599,7 @@ const raw = {
       description:
         'The heir’s rooms at the end of the east wing: a high bed, a balcony door you always leave open an inch, a desk with your grandmother’s sealed letter on it, and a chair that has been turned round to face the door. On the nightstand, a black-handled knife and a glass of water gone cloudy. The door opens onto the east gallery, and the balcony has an old iron drainpipe that reaches the roof.',
       artDirection:
-        'Elegant old-money bedroom at grey dawn, tall windows over a harbour, a high bed with rumpled white sheets, a balcony door ajar with rain beyond, a wooden chair turned to face the door, a black-handled knife and a cloudy glass of water on the nightstand. Cool blue light, tense and intimate.',
+        'Elegant old-money bedroom at grey dawn, tall windows over a harbour, a high bed with neatly turned-back white sheets, a balcony door ajar with rain beyond, a wooden chair turned to face the door, a black-handled knife and a cloudy glass of water on the nightstand. Cool blue light, tense and quiet.',
       connections: [
         { to: 'east_gallery', travelMinutes: 1, label: 'Out into the east gallery' },
         { to: 'the_roof', travelMinutes: 3, label: 'Up the balcony drainpipe' },
@@ -634,7 +636,7 @@ const raw = {
       name: 'Grandmother’s Rooms',
       shortName: 'Her Rooms',
       description:
-        'Shut since the morning she was found. The air still smells of her perfume and of funeral lilies. A writing desk with her daybook open on it, a bedside table with a neat row of pharmacy bottles and one gap in the row, and a window over the harbour. Viktor has a key. So, it turns out, did whoever came in here last night.',
+        'Shut since the morning she was found. The air still smells of her perfume and of funeral lilies. A writing desk with her daybook open at the last entry, in a shaky hand: "M.S. 11 pm. Told her. All of it." Every Thursday in it for twenty-two years carries the same small entry: a tick and the number eleven. A bedside table holds a neat row of pharmacy bottles with one gap in the row, and a window looks over the harbour. Viktor has a key. So, it turns out, did whoever came in here last night.',
       artDirection:
         'Elderly matriarch’s bedroom kept exactly as she left it, heavy curtains half drawn, a writing desk with an open leather appointment book, a bedside table with a row of brown pill bottles and one gap, white lilies wilting in a vase, harbour beyond the window. Still, elegant, grieving.',
       connections: [{ to: 'east_gallery', travelMinutes: 1, label: 'Back into the gallery' }],
@@ -801,7 +803,7 @@ const raw = {
       name: 'Kael’s Room',
       shortName: 'Kael’s Room',
       description:
-        'A rented room above the noodle bar: one chair, one narrow bed made with hard corners, a kettle, a canvas bag packed and waiting by the door, and nothing at all on the walls. The window looks straight down the lane both ways. Nobody has ever been invited up here.',
+        'A rented room above the noodle bar: one chair, one narrow bed made with hard corners, a kettle, a canvas bag packed and waiting by the door with two train tickets dated Saturday in the outside pocket, and nothing at all on the walls. The window looks straight down the lane both ways. Nobody has ever been invited up here.',
       artDirection:
         'Bare rented room above a noodle shop at night, one wooden chair facing the door, a narrow neatly made bed, a kettle on a sill, a packed canvas bag by the door, red lantern light through the window from the lane below. Spartan, lonely, safe.',
       connections: [{ to: 'old_town', travelMinutes: 3, label: 'Down the stairs to the lane' }],
@@ -903,7 +905,7 @@ const raw = {
         'Ravelle, Vauclair and Thorne: the shipping families who have run the harbour, its clubs and its marriages for a century. They will decide over dinner this week whether the player is one of them or a story they tell.',
       startingReputation: 15,
       ranks: [
-        { atReputation: 0, label: 'The grandchild' },
+        { atReputation: 0, label: 'Her heir' },
         { atReputation: 30, label: 'A Ravelle' },
         { atReputation: 60, label: 'A house of your own' },
       ],
@@ -947,7 +949,7 @@ const raw = {
         'Vesna, who trained him and does not miss',
       ],
       socialStyle:
-        'Answers with the useful fact rather than the comforting one. Shows care as logistics: tastes the coffee first, moves the chair away from the window, walks on the street side, checks the lock twice and pretends he only checked once.',
+        'Answers with the useful fact rather than the comforting one. Shows care as logistics: tastes the coffee first, moves the chair away from the window, walks on the street side, checks the lock twice and pretends he only checked once. If the player calls the staff or throws him out, he stands, keeps his hands where everybody can see them and goes without argument, and by noon he is on the roof across the road, still watching the house; being fired does not stop him guarding them. If the player takes the knife, he lets them and does not move.',
       boundaries: [
         'Will not lie about what he is or what he has done, though he will refuse to give details',
         'Will not hurt anybody in front of the player unless they are about to hurt the player first, and will never hurt the player, even if they attack him',
@@ -1124,7 +1126,7 @@ const raw = {
       pronouns: 'she/her',
       publicTraits: ['Immaculate', 'Compliments with a hook in them', 'Never late, never flustered, never first to leave'],
       hiddenDrives: [
-        'Her father is about to pass House Vauclair to her younger brother, and buying the Ravelle Line is the only move big enough to change his mind',
+        'Her father is about to pass House Vauclair to her brother, who is twenty-four, and buying the Ravelle Line is the only move big enough to change his mind',
         'At graduation she told her father a secret the player had trusted her with, and it cost the Ravelles a contract. She has never apologised because she has never found an apology big enough',
       ],
       values: ['Winning in public, and cleanly', 'Old debts honoured, including the ones between friends'],
@@ -1206,11 +1208,11 @@ const raw = {
       calledName: 'Sato',
       role: 'Your grandmother’s doctor for thirty years, who signed her death certificate and still checks on you every morning',
       cardBlurb:
-        'She has looked after your family for thirty years, she still takes your pulse every morning, and she is the only one who was with your grandmother on her last night. She is very glad to see you alive.',
+        'She has looked after your family for thirty years, she still takes your pulse every morning, and she is the only one who was with your grandmother on her last night. She still asks how you slept before anything else.',
       pronouns: 'she/her',
       publicTraits: ['Unhurried', 'Exact about medicine and vague about herself', 'Remembers every patient’s birthday'],
       hiddenDrives: [
-        'On her last night the old woman told her the truth about Pier Nine: that her husband died behind a door the Ravelles had chained shut. In the grief of that week she paid the Bellhouse to end the Ravelle line before it could inherit the lie',
+        'On her last night the old woman told her the truth about Pier Nine: that her husband died behind a door the Ravelles had chained shut. In the grief of that week she paid the Bellhouse to take from Odile the one person she had loved most, the way Odile’s chained door had taken Haruto: in the night, with nobody coming. Who would inherit never entered her head',
         'She has regretted it every hour since and cannot make herself walk into the clock shop to cancel, because cancelling means saying it out loud',
       ],
       values: ['The truth said plainly, even at a bedside', 'Doing no harm, which she has already failed at'],
@@ -1231,7 +1233,7 @@ const raw = {
       secrets: [
         {
           id: 'sato_the_client',
-          fact: 'She is the client. Ten days ago she paid the Bellhouse, with the money Odile left her for thirty years of care, to have the heir killed before the signing. She wrote the side-gate code and the balcony door on the note herself. She confesses only to somebody who has learned about Pier Nine and comes to her without a threat.',
+          fact: 'She is the client. Ten days ago she paid the Bellhouse, with the money Odile left her for thirty years of care, to have the heir, the person Odile loved most and left everything to, killed before the signing. She wrote the side-gate code and the balcony door on the note herself. She confesses only to somebody who has learned about Pier Nine and comes to her without a threat.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'Learn what happened at Pier Nine first, then go to her alone and do not threaten her.',
         },
@@ -1247,7 +1249,7 @@ const raw = {
       topics: ['your grandmother’s last night', 'the cloudy glass', 'heart medicine', 'Pier Nine', 'her husband', 'how you are sleeping'],
       voiceSamples: [
         'Wrist, please. Quick pulse. Did you sleep, or did you lie very still and think?',
-        'Her heart tablets. Crushed, a great many. It would have looked like her. That was the cruelty of it.',
+        'Her own heart tablets. Enough of them. It would have looked like her. That was the cruelty of it.',
         'She asked me to hold her hand and listen. So I listened. I have been listening ever since.',
         'You should be frightened of me. Please. It would be easier.',
       ],
@@ -1292,7 +1294,7 @@ const raw = {
       name: 'Vesna',
       role: 'The Bellhouse’s closer, who trained Kael, and who is sent when a contract runs late',
       cardBlurb:
-        'She is cheerful, chatty, very polite to waiters, and on her way to finish the job Kael would not, and then to finish Kael. If you can make her laugh, you might be able to make her a better offer.',
+        'She trained Kael, and she is on her way to finish the job he would not, and then to finish him. She is cheerful, chatty and polite to waiters, and if you can make her laugh, you might be able to make her a better offer.',
       pronouns: 'she/her',
       publicTraits: ['Sunny', 'Talks to everybody', 'Never in a hurry and never late'],
       hiddenDrives: [
@@ -1936,7 +1938,7 @@ const raw = {
       kind: 'MAIN',
       involvedCharacterIds: ['pell', 'sato'],
       involvedLocationIds: ['library', 'pier_nine', 'harbour_front'],
-      knownRewardCopy: 'What your grandmother could not live with, and what the company you are inheriting owes for it.',
+      knownRewardCopy: 'What your grandmother kept locked away for twenty-two years, and what the company you are inheriting owes for it.',
       discoverWhen: { flagsSet: ['inspected:odile_letter'] },
       steps: [
         {
@@ -2200,7 +2202,7 @@ const raw = {
       locationId: 'motor_court',
       publicCopy: 'A small brass bell with no clapper is hanging from the front gate on a black ribbon.',
       directorNotes:
-        'The Bellhouse expected a bell by noon and did not hear one. This is the polite warning. Kael sees it and goes quiet in a new way; the staff think it is a funeral custom and nearly bring it inside.',
+        'The Bellhouse gives its operators a deadline well inside the client’s, and it expected Kael’s bell by noon today and did not hear one. This is the polite warning. Kael sees it and goes quiet in a new way; the staff think it is a funeral custom and nearly bring it inside.',
       setsFlags: ['bellhouse_noticed'],
       cancelledByFlags: ['faked_your_death', 'contract_cancelled', 'contract_bought_out'],
       requiresFlags: [],
@@ -2347,7 +2349,7 @@ const raw = {
     {
       id: 'p_pier_nine',
       kind: 'THEME',
-      label: 'What your grandmother could not live with',
+      label: 'What your grandmother kept locked away',
       seedHint: 'A sealed envelope: "Open before you sign anything."',
       payoffHint: 'A chain still threaded through the handles of a rusted fire door, and eleven names.',
       weight: 0.7,
@@ -2384,7 +2386,7 @@ const raw = {
       id: 'arch_scandal',
       name: 'You Are the Scandal',
       role: 'Charm, nerve and bad press',
-      summary: 'You are the heir the papers love to photograph leaving places, which makes you a superb liar, very hard to embarrass, and very easy to find.',
+      summary: 'You are the heir the papers love to photograph leaving places, which makes you a superb liar, very hard to embarrass, and very easy to find. You also keep a spare phone nobody here knows about.',
       playstyle: ['Charming', 'Lies well', 'Easy to find'],
       blurb: 'You once pushed a Thorne cousin off a yacht at the regatta, and the Three Houses still argue over dinner about whether he deserved it.',
       attributeBonus: { presence: 2, agility: 1 },
@@ -2397,7 +2399,7 @@ const raw = {
       id: 'arch_fencer',
       name: 'You Can Fight',
       role: 'Trained fencer, physical',
-      summary: 'You fenced at national level in college, so you can hold a blade, read a lunge, and surprise a professional for about three seconds.',
+      summary: 'You fenced at national level in college, so you can hold a blade, read a lunge, and surprise a professional for about three seconds. Your competition sabre is in your wardrobe.',
       playstyle: ['Physical', 'Fast hands', 'Hard to scare'],
       blurb: 'You still train every morning in the long gallery when the house is asleep. Kael has watched you do it for nine days and said nothing.',
       attributeBonus: { might: 1, agility: 2, resolve: 1 },
@@ -2590,7 +2592,7 @@ const raw = {
       name: 'A Bodyguard, Nothing More',
       rarity: 'COMMON',
       minTurn: 28,
-      requires: { flagsSet: ['kael_let_go'] },
+      requires: { flagsSet: ['kael_let_go', 'kept_it_professional'] },
       condition:
         'The player kept Kael at a professional distance to the end and then let him go, kindly, with the go-bag and the second ticket. Nothing went wrong. Two people decided, correctly or not, that what started with a knife on a nightstand could not become anything else. Let it be a little sad and entirely respectable.',
       epilogue:
@@ -2629,7 +2631,7 @@ const raw = {
     alt: 'Kael in a chair beside a bed at grey dawn, jacket still on, watching the door; on the nightstand a black-handled knife and a cloudy glass of water.',
   },
   openingSuggestions: [
-    "\"My uncle, for a start. Now tell me why I’m still breathing.\"",
+    '"My uncle gets everything if I die. Start with him. Who paid you?"',
     'I pick up the cloudy glass and hold it up to the light.',
     'I grab the knife off the nightstand before he can, and point it at him.',
   ],

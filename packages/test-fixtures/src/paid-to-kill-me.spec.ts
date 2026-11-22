@@ -213,8 +213,41 @@ describe('13+ content', () => {
 
   it('caps the romance at a kiss and says so', () => {
     expect(STORY.rules.toneGuide).toMatch(/as far as a kiss/);
+    // The player-first brief overrides the tone guide; only hard canon survives it.
+    expect(STORY.rules.hardCanon.join(' ')).toMatch(/no further than a kiss/);
     expect(STORY.contentDescriptors).toContain('ROMANCE');
     expect(STORY.intensity).toBe('MODERATE');
+  });
+
+  it('never lets the grandmother’s death read as one she chose', () => {
+    const letter = STORY.items.find((i) => i.id === 'odile_letter')!;
+    expect(letter.loreText).not.toMatch(/could not live|I am sorry/);
+    expect(corpus).not.toMatch(/could not live with/);
+    expect(STORY.rules.hardCanon.join(' ')).toMatch(/gap in Odile’s row of pill bottles is the bottle Viktor took/);
+  });
+});
+
+describe('what the production narrator can read', () => {
+  // runTurnPure sends hard canon, the cast (socialStyle, hiddenDrives,
+  // secrets), location descriptions and quest items only. Quest step
+  // directorNotes and promises never reach it.
+  it('puts the daybook entry where the narrator reads it', () => {
+    const suite = STORY.locations.find((l) => l.id === 'odile_suite')!;
+    const daybook = STORY.items.find((i) => i.id === 'odile_daybook')!;
+    expect(suite.description).toMatch(/M\.S\. 11 pm\. Told her\. All of it\./);
+    expect(daybook.questItem).toBe(true);
+  });
+
+  it('tells the narrator what Kael does if he is thrown out on turn one', () => {
+    const kael = STORY.characters.find((c) => c.id === 'kael')!;
+    expect(kael.socialStyle).toMatch(/roof across the road/);
+    expect(kael.socialStyle).toMatch(/takes the knife/);
+  });
+
+  it('gives the client a motive that killing the heir actually serves', () => {
+    const sato = STORY.characters.find((c) => c.id === 'sato')!;
+    expect(sato.hiddenDrives.join(' ')).not.toMatch(/end the Ravelle line/);
+    expect(sato.hiddenDrives.join(' ')).toMatch(/loved most/);
   });
 });
 
