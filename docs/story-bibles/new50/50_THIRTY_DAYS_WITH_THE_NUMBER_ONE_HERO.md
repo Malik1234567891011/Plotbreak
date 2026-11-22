@@ -183,6 +183,24 @@ walk out is theirs every turn.
 - If the player is not a woman, the press office corrects "girlfriend" to boyfriend or partner within the hour, and
   nobody treats it as more than a typo.
 
+### The system, where the storyteller reads it
+
+Production (`runTurnPure`) never reads resources, step notes or locked abilities, so the month's machinery lives in
+three places it does read:
+
+- **A starting item: Your Phone** (a quest item). It has not stopped buzzing since 11:05. Dex Holloway's stream has a
+  live poll pinned at the top, REAL or FAKE, with a counter of how many people are watching, and the Hero Ranking app
+  updates every Monday at nine. The player also starts with the intern lanyard.
+- **A hard-canon line, "How the month works".** By noon on day one the poll reads seventy per cent FAKE. Anything big
+  done in public (a scene, a kiss, an unlicensed power, a fight in front of cameras) makes the city look harder, and it
+  never looks away as fast as it looked (Scrutiny). Every performance makes a little more of the player's life an act:
+  Jo notices first, then Ace starts asking whether that was for the cameras (Pretence). A press day wears anyone out,
+  and only a night's sleep gives it back (Energy).
+- **Starting abilities.** Every job starts with Play the Part, the act itself, before its own ability.
+
+The tone guide says the phone shows up in the prose only when somebody looks at it, as one short line, never as a
+running score, and lists Ace's real name among the reveals the player earns (the gate on Call Him Nate).
+
 ## Cast
 
 Every one of them wants something that has nothing to do with the player.
@@ -192,9 +210,11 @@ Every one of them wants something that has nothing to do with the player.
 - **Role:** Number one for four years. The player's fake boyfriend for thirty days.
 - **Power:** He can fly, and he can lift anything he can get both arms around.
 - **Looks:** Tall, broad-shouldered, sun-gold hair the agency styles and he flattens the second he is off camera, warm
-  brown eyes. On duty: a white-and-gold flight suit with a high collar and a short navy cape. Off duty: a grey hoodie,
-  glasses he does not need, odd socks.
-- **Tell:** His boots drift an inch off the ground when he is nervous, and he cannot stop it.
+  brown eyes. On duty: a white-and-gold flight suit with a high collar, gold piping down the arms and a short navy
+  cape. Off duty: a grey hoodie, glasses he does not need, odd socks. The fixture's `appearance` is the on-duty look
+  only, because the portrait and the opening panel are drawn from it.
+- **Tell:** His boots drift an inch off the ground when he is nervous, and he cannot stop it. In a waist-up portrait it
+  shows as the short cape drifting up behind him, which is his `visualHook`.
 - **Immediate want:** Get through thirty days without the rooftop story becoming the Ferris Street story.
 - **Long-term want:** One person in the city who calls him by his real name and means the man, not the poster.
 - **Fear:** That without the number he is nobody anyone would grab by the hand. Basements, since Ferris Street.
@@ -237,8 +257,8 @@ Every one of them wants something that has nothing to do with the player.
 ### Jo Quinn, 24, your roommate
 
 - **Role:** The player's best friend since university and flatmate for two years. Night-shift paramedic.
-- **Looks:** Short and solid, choppy dark ponytail, tired brown eyes, crooked grin, navy uniform with reflective
-  stripes, trauma shears clipped to her belt that she uses for everything, including snacks.
+- **Looks:** Sturdy and square-shouldered, choppy dark ponytail, tired brown eyes, crooked grin, navy uniform with
+  reflective stripes, trauma shears clipped to her chest pocket that she uses for everything, including snacks.
 - **Motive:** Make rent on day 5. Find out what the player has got into. Stop the photographers sleeping on the
   laundromat steps.
 - **Fear:** Losing the flat. Losing the player to a world with cameras in it. Finding out her brother is dead, or does
@@ -361,14 +381,15 @@ Twelve, so the storyteller reads all of them. Five are losses, and walking away 
 
 ## Archetypes (your job in the press office)
 
-Each starts with one ability the storyteller can read, and every one of those is also open to everybody.
+Each starts with Play the Part, the act itself, and one ability of its own. The storyteller reads both, and every one
+of them is also open to everybody.
 
 | Id | Name | Gives |
 |---|---|---|
-| `arch_words` | You Write the Words | Presence and Mind, Spin; Spin It; a notebook of lines |
-| `arch_lens` | You Shoot the Photos | Mind and Agility, Framing; Find the Angle; your camera; standing with the press |
-| `arch_law` | You Read the Contracts | Mind and Resolve, Fine Print; Read the Fine Print; five highlighters; standing with Vantage |
-| `arch_spark` | You Have a Small Power | Arcana and Agility, Spark; Ten Quiet Seconds; big sunglasses; standing in the Narrows |
+| `arch_words` | You Write the Words | Presence and Mind, Spin; Play the Part, Spin It; a notebook of lines |
+| `arch_lens` | You Shoot the Photos | Mind and Agility, Framing; Play the Part, Find the Angle; your camera; standing with the press |
+| `arch_law` | You Read the Contracts | Mind and Resolve, Fine Print; Play the Part, Read the Fine Print; five highlighters; standing with Vantage |
+| `arch_spark` | You Have a Small Power | Arcana and Agility, Spark; Play the Part, Ten Quiet Seconds; big sunglasses; standing in the Narrows |
 
 ## State (three invisible resources)
 
@@ -377,14 +398,27 @@ Each starts with one ability the storyteller can read, and every one of those is
   headline, using an unlicensed power, and playing the footage.
 - **Pretence** (GOOD_LOW). How much of the player's life is an act. Raised by playing the part and spinning it.
 
+The storyteller never sees these numbers. What it reads instead is the phone, the "How the month works" line in hard
+canon and the starting abilities (see "The system, where the storyteller reads it").
+
 ## Cover direction
 
 A glass plaza press stage at golden hour, camera flashes everywhere. Ace large in frame, waist up, close to the viewer,
-holding the viewer's hand up into the flashes with the billboard smile, eyes sideways and nervous, a faint blush.
-Behind him, small and in shadow on a rooftop ledge above the crowd: Shade in his long coat and half-mask, one knee up,
-watching with a lopsided smile, the shadows around him solid like black glass. Gold light on the hero, cool blue dusk
-on the villain. The title THIRTY DAYS WITH THE NUMBER ONE HERO painted into the upper third as a bold gold logo with a
-navy outline, spelled exactly. No other text: no signs, no letters on the backdrop, no numbers.
+holding the viewer's hand up into the flashes with the billboard smile, eyes sideways and nervous, his other hand on
+the back of his neck, the short navy cape drifting up behind him as if he has started to float. His face stays clean:
+every flash, sparkle and lens flare stays on the cameras, the crowd and the title, never on his face. Behind him, small
+and in shadow on a rooftop ledge above the crowd: Shade in his long coat and half-mask, one knee up, watching with a
+lopsided smile, the shadows around him solid like black glass. Gold light on the hero, cool blue dusk on the villain.
+People are described by costume and pose, never by age words.
+
+**Title line:** the words Thirty Days With the Number One Hero painted into the upper third as a bold comic-book romance
+logo, gold letters with a thick navy outline and a small white star beside the word One, on two lines (Thirty Days With
+the smaller on top, Number One Hero large below), One written as a word and never as a numeral, spelled exactly Thirty
+Days With the Number One Hero. No other text: no signs, no letters on the backdrop, no numbers.
+
+**Opening panel** (`story_thirty_days_with_the_number_one_hero/opening`): starts with "Ace", so his portrait is the
+reference. Ace in the flight suit on the press stage, holding the player's hand up into the flashes, smiling for the
+crowd while his boots float an inch above the floor.
 
 ## Image plan
 

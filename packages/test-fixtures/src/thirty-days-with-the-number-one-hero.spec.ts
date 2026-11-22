@@ -196,6 +196,9 @@ describe('everybody on the page is an adult, on the page', () => {
       expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
     }
     expect(S.coverDirection).not.toMatch(AGE_WORDS);
+    expect(S.openingPanel?.alt).not.toMatch(AGE_WORDS);
+    // The cover names people by costume and pose; "adult" is for the cast list.
+    expect(S.coverDirection).not.toMatch(/\b(adult|older)\b/i);
   });
 
   it('hands the production storyteller every age, whichever job the player picks', async () => {
@@ -209,15 +212,65 @@ describe('everybody on the page is an adult, on the page', () => {
   });
 });
 
-describe('the cover', () => {
-  it('puts the title in the art and the hero in front', () => {
+describe('the art and release pipeline', () => {
+  it('puts the title in the art, the hero in front, and every effect off his face', () => {
     const cover = S.coverDirection!;
-    expect(cover).toContain('THIRTY DAYS WITH THE NUMBER ONE HERO');
+    // Its own TITLE: line, with style, placement and the exact spelling.
+    expect(cover).toMatch(/TITLE: the words Thirty Days With the Number One Hero painted into the art in the upper third/);
+    expect(cover).toContain(`spelled exactly ${S.title}`);
+    expect(cover).toMatch(/never as a numeral/);
     expect(cover).toContain('Ace Valor');
     expect(cover).toContain('Shade');
+    expect(cover).toMatch(/HIS FACE STAYS CLEAN/);
+    expect(cover).toMatch(/never on his face/);
     expect(cover).toMatch(/no letters on the backdrop, no numbers/i);
-    expect(S.openingPanel?.assetKey).toBe('story_thirty_days_with_the_number_one_hero/opening');
+  });
+
+  it('draws the opening panel from the man who speaks to the player', () => {
+    const panel = S.openingPanel!;
+    expect(panel.assetKey).toBe(`${S.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    expect(panel.alt.startsWith('Ace ')).toBe(true);
+    // opening-panel-art.ts takes the character whose first name starts the alt
+    // as the reference portrait, and falls back to the first with a card blurb.
+    expect(S.characters.find((c) => panel.alt.startsWith(c.name.split(' ')[0]!))?.id).toBe('ace');
+    expect(S.characters.find((c) => c.cardBlurb.trim())!.id).toBe('ace');
+  });
+
+  it('opens straight on the scene and is not dated yet', () => {
+    expect(S.prologue ?? []).toHaveLength(0);
     expect(S.publishedAt).toBeNull();
+  });
+
+  it('draws every portrait from one concrete look, with its hook above the waist', () => {
+    // Portraits are cut at the waist and lead with the visual hook, so a hook
+    // on the boots asks for something the frame forbids.
+    for (const c of S.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(120);
+      expect(c.appearance, c.id).not.toMatch(/\b(on duty|off duty|or a)\b/i);
+      expect(c.visualHook, c.id).not.toMatch(/\b(boots?|feet|foot|legs?|shoes?|belt|knees?)\b/i);
+    }
+  });
+
+  it('puts the story’s system where the storyteller reads it', () => {
+    // runTurnPure never reads resources, step notes or locked abilities.
+    const canon = S.rules.hardCanon.join('\n');
+    expect(canon).toMatch(/How the month works/);
+    expect(canon).toMatch(/REAL or FAKE/);
+    expect(canon).toMatch(/only a night’s sleep gives it back/);
+    const phone = S.items.find((i) => i.id === 'your_phone')!;
+    expect(phone.questItem).toBe(true);
+    expect(S.rules.startingItems.map((i) => i.itemId)).toContain('your_phone');
+    for (const a of S.archetypes) expect(a.startingAbilities[0], a.id).toBe('play_the_part');
+    // The locked ability's gate, said where the storyteller can see it.
+    expect(S.rules.toneGuide).toMatch(/Ace’s real name/);
+    expect(S.rules.toneGuide).toMatch(/never as a running score/);
+    expect(S.rules.toneGuide.length).toBeGreaterThan(200);
+  });
+
+  it('calls the titled hero by the name the city uses', () => {
+    expect(calledName(S.characters.find((c) => c.id === 'kite')!)).toBe('Kite');
+    expect(calledName(S.characters.find((c) => c.id === 'ace')!)).toBe('Ace');
   });
 });
 

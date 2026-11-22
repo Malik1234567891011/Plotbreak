@@ -28,6 +28,11 @@ import { StoryVersion } from '@plotbreak/contracts';
  * turns on are quest items, every archetype starts with one ability the
  * storyteller can read, and there are exactly twelve endings.
  *
+ * The audience is the system. The player starts holding their phone, a quest
+ * item the storyteller reads, with the city's REAL or FAKE poll on it; hard
+ * canon says what moves it, and every archetype starts with Play the Part, the
+ * act itself, before its own ability.
+ *
  * 13+: a guest room with a lock on the inside, hand-holding as an event, and
  * nothing further than a kiss. Fights end in rescues and wreckage. Every
  * character is an adult and the first hard-canon line says how old.
@@ -85,7 +90,10 @@ const raw = {
     allowsRomance: true,
     startingLocationId: 'tower_plaza',
     startWorldMinute: 11 * 60 + 5,
-    startingItems: [{ itemId: 'intern_lanyard', qty: 1 }],
+    startingItems: [
+      { itemId: 'your_phone', qty: 1 },
+      { itemId: 'intern_lanyard', qty: 1 },
+    ],
     hardCanon: [
       'Everyone in this story is an adult. The player is twenty-three, a paid intern in a six-month placement after university. Ace Valor is twenty-seven, Mira Solano thirty-six, Shade twenty-eight, Jo Quinn twenty-four, Dex Holloway thirty-one and Silver Kite twenty-nine.',
       'Calder City licenses its heroes. A licensed hero works under a registered hero name, keeps their legal name sealed, and is ranked every Monday at nine on the public Hero Ranking by rescues, votes and sponsor reach. About one person in fifty is born with a power; the law says every power is registered at eighteen and only a licensed hero may use one in public.',
@@ -93,6 +101,7 @@ const raw = {
       'Ace Valor has been number one for four years. He can fly, and he can lift anything he can get both arms around. When he is nervous, flustered or very happy, his boots drift an inch or two off the ground and he cannot stop it. His legal name is Nathaniel Ward; nobody but Mira and his mother has called him Nate in eight years.',
       'On day one, a gossip streamer called Dex Holloway published photos of Ace on a water tower over the Narrows at three in the morning, talking to Shade, the most wanted villain in the city. The rumour is that they are secretly together, or secretly fixing fights. Neither is true. Vantage hired an actress to be Ace’s girlfriend at the press conference; she never arrived, and Ace grabbed the player’s hand instead.',
       'The relationship is fake at the start and both of them know it. Mira’s Thirty-Day Agreement asks for three public dates a week, a live joint interview on day fourteen and the gala on day thirty, pays a weekly fee, and ends with a breakup press release already written and dated day thirty-one. Grabbing the player’s hand at the press conference is the only time Ace ever touches them without asking, and he is mortified about it; from then on Ace asks before he touches the player’s hand, every single time, even on camera.',
+      'How the month works: the player’s phone carries the city’s verdict, a live poll pinned on Dex Holloway’s stream, REAL or FAKE, with a counter of how many people are watching. By noon on day one it reads seventy per cent FAKE. Anything big done in public (a scene, a kiss, a power used without a licence, a fight in front of cameras) makes the city look harder, and it never looks away as fast as it looked. Every performance, the hand, the smile, the statement, makes a little more of the player’s life an act: Jo notices first, and then Ace starts asking whether that was for the cameras. A press day wears anyone out, and only a night’s sleep gives it back.',
       'Ace introduced the player on camera as his girlfriend. If the player is not a woman, the press office corrects the word to boyfriend or partner within the hour, and nobody in the story treats it as more than a typo.',
       'Four years ago a nine-storey block on Ferris Street collapsed. The famous footage shows Ace flying forty people out, and there is a bronze statue of him there holding a beam. The truth: an unlicensed man in the basement, Rafe Quinn, made the building’s own shadow solid and held it up for four minutes, holding his breath until he passed out. Vantage cut him from the footage, and Mira Solano signed the report that listed him as a suspected looter, which is why his licence was refused. Ace has known since the next morning.',
       'Rafe Quinn became Shade. He can make any shadow solid as steel for as long as he holds his breath. He robs the sponsors whose logos are on Ace’s suit, returns most of what he takes, has never hurt a bystander, and never lies to the player. He has a copy of the uncut footage and a way onto every public screen in the city, and at half past nine on gala night he will play it unless Ace has already told the truth. The rooftop meeting was Ace asking him to tell it together; Rafe refused to be rescued by the man who took the credit. The envelope in the rooftop photos held a statement Ace had written and signed, naming Rafe as the man who held Ferris Street up; Rafe would not take it.',
@@ -104,8 +113,9 @@ const raw = {
     toneGuide:
       'Superhero romantic comedy: bright, quick, warm, with a real secret underneath. Every scene has two versions, the one for the cameras and the one after the door closes, and the comedy comes from a press-office intern applying press-office sense to a superhero’s private life. ' +
       'Hand-holding is an event. Romance goes at most as far as a kiss, and the player decides whether it becomes real. Ace floats when he is flustered, happy or about to say something true; use it instead of telling the player what he feels. ' +
+      'The phone shows up in the prose only when somebody looks at it, as one short line (the poll, the watcher count, a headline), never as a running score. ' +
       'Nobody is a villain in the moral sense: Mira protects a lie that seemed small when she told it, Shade is angry for a good reason, Dex wants the truth, Kite wants to win fairly. Fights are fast and end in rescues, never in described injuries. ' +
-      'Ferris Street, Shade’s real name and the stairwell are reveals the player earns; never state them early. The face at the top of a beat belongs to whoever reacted to the player most strongly. ' +
+      'Ferris Street, Ace’s real name, Shade’s real name and the stairwell are reveals the player earns; never state them early. The face at the top of a beat belongs to whoever reacted to the player most strongly. ' +
       'Saying no does not end the story. If the player tells the cameras it is fake, refuses the agreement or walks out, the month goes on without the contract: Mira switches to damage control, Dex wants the exclusive, Shade’s card still turns up in the bag, Jo’s rent is still due on the fifth, and Ace still comes to apologise in person.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -243,6 +253,18 @@ const raw = {
   ],
   tendencies: [],
   items: [
+    {
+      id: 'your_phone',
+      name: 'Your Phone',
+      tags: ['quest', 'personal'],
+      questItem: true,
+      droppable: false,
+      description:
+        'Your phone, which has not stopped buzzing since 11:05. The clip of the number one hero grabbing your hand is the most watched thing in the city, Dex Holloway’s stream has a live poll pinned at the top, REAL or FAKE, with a counter of how many people are watching, and the Hero Ranking app updates every Monday at nine.',
+      loreText:
+        'The poll is the city’s verdict on the two of you, and it moves. A good public date nudges it toward REAL. A slip, a scene, a power used without a licence or a fight in front of cameras swings it hard and sends the watcher count up, and the count never comes down as fast as it went up. Mira checks it every hour. Jo has muted your name.',
+      icon: 'phone',
+    },
     {
       id: 'intern_lanyard',
       name: 'Your Intern Lanyard',
@@ -927,9 +949,9 @@ const raw = {
         'When I fly at night the whole city goes quiet, and up there nobody needs me to be anybody.',
       ],
       appearance:
-        'An adult man, tall and broad-shouldered, with sun-gold hair the agency styles and he flattens the second he is off camera, warm brown eyes and an easy billboard smile. On duty, a white-and-gold flight suit with a high collar and a short navy cape; off duty, a grey hoodie and glasses he does not need.',
-      visualHook: 'His boots drift an inch off the ground whenever he is nervous, and he cannot stop it.',
-      silhouette: 'Broad shoulders, a short cape, one hand rubbing the back of his neck, floating very slightly.',
+        'An adult man, tall and broad-shouldered, with sun-gold hair the agency styles and he flattens with one hand the second he is off camera, warm brown eyes, an easy billboard smile, and a white-and-gold flight suit with a high collar, gold piping down the arms and a short navy cape.',
+      visualHook: 'A short navy cape that drifts up behind him whenever he is nervous, because the rest of him has started to float.',
+      silhouette: 'Broad shoulders, the short cape lifting behind him, one hand rubbing the back of his neck.',
       artSeed: 'tdh-ace-01',
       portrait: null,
       expressions: ['neutral', 'warm', 'flustered', 'worried', 'sheepish'],
@@ -1111,8 +1133,8 @@ const raw = {
         'I had a brother. Have. Had. I don’t know which, and I don’t do this conversation before coffee.',
       ],
       appearance:
-        'An adult woman, short and solid, with a choppy dark ponytail, tired brown eyes and a crooked grin. A navy paramedic uniform with reflective stripes, or a huge borrowed sweatshirt and fluffy slippers at home.',
-      visualHook: 'A pair of trauma shears clipped to her belt that she uses for everything, including opening snacks.',
+        'An adult woman, sturdy and square-shouldered, with a choppy dark ponytail, tired brown eyes and a crooked grin, in a navy paramedic uniform with reflective stripes across the chest and a pair of trauma shears clipped to the chest pocket.',
+      visualHook: 'A pair of trauma shears clipped to her chest pocket that she uses for everything, including opening snacks.',
       silhouette: 'Leaning in a doorway with a mug in both hands and one eyebrow up.',
       artSeed: 'tdh-jo-01',
       portrait: null,
@@ -1196,7 +1218,7 @@ const raw = {
         'I built him out of a scared flier and a borrowed suit. Do not tell me what I feel about him.',
       ],
       appearance:
-        'An adult woman with a sharp black bob, red-framed glasses and a charcoal suit that has never once been creased, carrying three phones and a ring binder with coloured tabs.',
+        'An adult woman, slim and straight-backed, with a sharp black bob, dark eyes behind red-framed glasses, a charcoal suit that has never once been creased, a phone at her ear and a fat ring binder with coloured tabs under one arm.',
       visualHook: 'A fat ring binder with thirty coloured tabs, one for each day, which she never puts down.',
       silhouette: 'Straight-backed, binder under one arm, phone at her ear, already walking away.',
       artSeed: 'tdh-mira-01',
@@ -2379,7 +2401,7 @@ const raw = {
       attributeBonus: { presence: 2, mind: 2 },
       skillProficiencies: { spin: 3, performance: 1, candour: 1 },
       startingItems: [{ itemId: 'lines_notebook', qty: 1 }],
-      startingAbilities: ['spin_it'],
+      startingAbilities: ['play_the_part', 'spin_it'],
       startingReputation: [{ factionId: 'faction_vantage', amount: 5 }],
     },
     {
@@ -2392,7 +2414,7 @@ const raw = {
       attributeBonus: { mind: 2, agility: 2 },
       skillProficiencies: { framing: 3, attention: 2 },
       startingItems: [{ itemId: 'your_camera', qty: 1 }],
-      startingAbilities: ['find_the_angle'],
+      startingAbilities: ['play_the_part', 'find_the_angle'],
       startingReputation: [{ factionId: 'faction_press', amount: 10 }],
     },
     {
@@ -2405,7 +2427,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { fine_print: 3, candour: 1, composure: 1 },
       startingItems: [{ itemId: 'highlighters', qty: 1 }],
-      startingAbilities: ['read_the_fine_print'],
+      startingAbilities: ['play_the_part', 'read_the_fine_print'],
       startingReputation: [{ factionId: 'faction_vantage', amount: 10 }],
     },
     {
@@ -2418,7 +2440,7 @@ const raw = {
       attributeBonus: { arcana: 3, agility: 1 },
       skillProficiencies: { spark: 3, evasion: 2 },
       startingItems: [{ itemId: 'big_sunglasses', qty: 1 }],
-      startingAbilities: ['ten_quiet_seconds'],
+      startingAbilities: ['play_the_part', 'ten_quiet_seconds'],
       startingReputation: [{ factionId: 'faction_narrows', amount: 10 }],
     },
   ],
@@ -2648,14 +2670,20 @@ const raw = {
     'I let go of his hand, lean into the nearest microphone and say, "We met about thirty seconds ago."',
   ],
   coverDirection: [
-    'SUBJECT: Ace Valor, the number one superhero of a glittering city, large in the foreground of a key visual for a superhero romantic comedy anime.',
-    'An adult man, tall and broad-shouldered, with sun-gold hair and warm brown eyes, in a white-and-gold flight suit with a high collar and a short navy cape, waist up and close to the viewer.',
-    'He holds the viewer’s hand up into a storm of camera flashes, smiling a perfect billboard smile, but his eyes slide sideways, nervous, with a faint blush across his cheeks.',
-    'BEHIND HIM, smaller and in shadow on a rooftop ledge above the press crowd: Shade, an adult man in a long black coat and a matte black half-mask, sitting with one knee up and watching with a lopsided smile; the shadows around him look solid, like black glass.',
-    'SETTING: a glass plaza press stage at golden hour, a crowd of photographers with flashes going off, a skyline of glass towers behind.',
-    'LIGHT: white camera flashes and warm gold sunset on the hero, cool blue dusk around the villain.',
-    'TITLE: the words THIRTY DAYS WITH THE NUMBER ONE HERO painted into the art in the upper third as a bold comic-book logo, gold with a navy outline,',
-    'spelled exactly THIRTY DAYS WITH THE NUMBER ONE HERO, large and legible at thumbnail size. No other text anywhere: no signs, no letters on the backdrop, no numbers.',
+    'SUBJECT: Ace Valor, the number one superhero of a glittering glass city, unmistakable in the foreground of a key visual for a superhero romantic comedy anime about a fake relationship the whole city is watching.',
+    'He fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'Tall and broad-shouldered, sun-gold hair styled for the cameras, warm brown eyes, a white-and-gold flight suit with a high collar, gold piping down the arms and a short navy cape.',
+    'One of his hands holds the viewer’s hand up into the air as if presenting it to the crowd, the viewer’s hand reaching into the frame from the bottom edge; his other hand rubs the back of his neck.',
+    'He wears a perfect billboard smile, but his eyes slide sideways toward the viewer, nervous and a little flustered.',
+    'His short navy cape drifts up behind him as if he has started to float.',
+    'HIS FACE STAYS CLEAN: no flash glare, lens flare, sparkles, light streaks or shadows on his face or skin.',
+    'Every camera flash, sparkle and lens flare stays on the cameras, the crowd and the title, never on his face.',
+    'BEHIND HIM, smaller and in soft shadow on a rooftop ledge above the press crowd: Shade, the villain, in a long black coat with the collar up, fingerless gloves and a matte black half-mask over his eyes, sitting with one knee up and watching with a lopsided smile; the shadows around him have gone solid and sharp-edged, like black glass.',
+    'SETTING, soft and secondary: a press stage on a glass plaza at golden hour, a pen of photographers with camera flashes bursting, a skyline of glass towers behind.',
+    'LIGHT: warm gold sunset light across his face and suit, white camera flashes bursting in the crowd around him, cool blue dusk around the villain on the ledge.',
+    'TITLE: the words Thirty Days With the Number One Hero painted into the art in the upper third as a bold comic-book romance logo, gold letters with a thick navy outline and a small white star beside the word One,',
+    'set on two lines, Thirty Days With the smaller on top and Number One Hero large below, with One written out as a word, never as a numeral,',
+    'spelled exactly Thirty Days With the Number One Hero, large and legible at thumbnail size. No other text anywhere: no signs, no letters on the backdrop, no numbers.',
   ].join(' '),
   publishedAt: null,
 };
