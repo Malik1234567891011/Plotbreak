@@ -144,6 +144,19 @@ describe('the opener hands the player a choice', () => {
     }
   });
 
+  it('gives every name a face the player can point at', () => {
+    // Four bare names are not a choice. Each one comes with something visible,
+    // so the done card ("Tam’s sleeve") has somebody to reach for.
+    for (const cue of [
+      /grey ears flat\. "Easy\. I’m Varek\./,
+      /I’m Varek\. Ronan found you\." The redhead grins\./,
+      /"Tam carried you\." The tall pale one goes pink\./,
+      /"Sil kept you alive\." The one by the kettle shrugs\./,
+    ]) {
+      expect(S.opening).toMatch(cue);
+    }
+  });
+
   it('never genders the player', () => {
     // The player is BLANK and picks their own pronouns. The opening argument is
     // about "the stranger", which is also the word the law uses.
@@ -266,14 +279,38 @@ describe('it stays thirteen-plus', () => {
     expect(canon).toMatch(/never with blades/);
     expect(canon).toMatch(/The clan does not kill guests/);
   });
+
+  it('keeps everybody dressed: the player on waking, and Tam either side of the old shape', () => {
+    // The narrator reads hard canon and nothing else in its prompt bans
+    // nudity, so the two classic setups are closed here in so many words.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/The player woke fully dressed in their own travelling clothes/);
+    expect(canon).toMatch(/Nobody shared the bed/);
+    expect(canon).toMatch(/he is always dressed when he is himself, and the change itself is never shown or described/);
+    const den = S.locations.find((l) => l.id === 'the_old_den')!;
+    expect(den.description).not.toMatch(/clothes/);
+    expect(step('find_the_den').directorNotes).not.toMatch(/clothes|wait outside/);
+  });
 });
+
+/** The tone guide's own ban list names the words it bans; nothing else may. */
+const VOCAB_GUARD = /This is a clan, not a pack\.[\s\S]*?never use those words\./;
 
 describe('it is its own story', () => {
   it('borrows no names or pack-romance terms from other fiction or apps', () => {
     const BORROWED =
-      /\b(alpha\w*|omega\w*|beta|mate|mates|mated|mating|fated|luna|lycan\w*|werewol\w*|pack bond|rejected mate|OOC|Wildbound|Inuyasha|Twilight|Narnia|Westeros|Stark|direwol\w*|Skyrim|Witcher|Ghibli|Mononoke)\b/i;
-    const hits = prose().filter((t) => BORROWED.test(t)).map((t) => `${t.match(BORROWED)?.[0]}: ${t.slice(0, 60)}`);
+      /\b(alpha\w*|omega\w*|beta|mate|mates|mated|mating|fated|luna|lycan\w*|werewol\w*|pack bond|rejected mate|OOC|Wildbound|Inuyasha|Twilight|Narnia|Westeros|Stark|direwol\w*|skinchanger\w*|old blood|old-blood|Skyrim|Witcher|Ghibli|Mononoke)\b/i;
+    const hits = prose()
+      .map((t) => t.replace(VOCAB_GUARD, ''))
+      .filter((t) => BORROWED.test(t))
+      .map((t) => `${t.match(BORROWED)?.[0]}: ${t.slice(0, 60)}`);
     expect(hits).toEqual([]);
+  });
+
+  it('tells the narrator, in the tone guide, to stay out of pack-romance vocabulary', () => {
+    const guard = S.rules.toneGuide.match(VOCAB_GUARD)?.[0];
+    expect(guard).toBeDefined();
+    for (const word of ['alpha', 'omega', 'mate', 'fated', 'werewolf', 'direwolf']) expect(guard, word).toContain(word);
   });
 
   it('is written in English, title included', () => {
@@ -389,6 +426,26 @@ describe('four brothers, and nobody is a prize', () => {
   it('starts with all four brothers in the tent and their mother outside it', () => {
     const present = charactersPresent(start()).map((c) => c.characterId).sort();
     expect(present).toEqual(['ronan', 'sil', 'tam', 'varek']);
+  });
+
+  it('never lets the eldest claim the rescue, anywhere the narrator reads', () => {
+    // The lantern payoff depends on Varek being the one brother who claims
+    // nothing. Production reads the hook, the premise and every quest summary.
+    expect(S.rules.hardCanon.join(' ')).toMatch(/Varek claims no part in it/);
+    expect(S.premise).toMatch(/The eldest claims no part in it/);
+    expect(S.hook).toMatch(/The eldest claims nothing/);
+    const CLAIM_ALL = /\b(four brothers each|each of them says he found|four (?:brothers|men) arguing over who found)\b/i;
+    for (const text of [S.hook, S.premise, ...S.quests.map((q) => q.summary), ...S.promises.map((p) => p.seedHint)]) {
+      expect(text).not.toMatch(CLAIM_ALL);
+    }
+  });
+
+  it('gives the narrator the custom that lands a runner or a refuser with a host', () => {
+    // Quest steps and their director notes never reach the production
+    // narrator, so the payoff for the risky opening card lives in hard canon.
+    const guestRight = S.rules.hardCanon.find((c) => c.startsWith('Guest-right'))!;
+    expect(guestRight).toMatch(/a stranger who runs belongs to whoever catches them/);
+    expect(guestRight).toMatch(/becomes the clan mother’s own guest/);
   });
 
   it('lets the player choose any brother, or none, or break them', () => {

@@ -14,8 +14,9 @@ Lean: F. Comparable shelf evidence: Wildbound, 298K (PLAN row #45).
 
 > *Lost in the snow. Found by four wolves.*
 
-Card hook: You wake in a fur tent in a wolf clan's winter camp, and the four
-brothers who brought you in are arguing about which of them found you first.
+Card hook: You wake in a fur tent in a wolf clan's winter camp. Three brothers
+are arguing over which of them saved you. The eldest claims nothing, and won't
+say why.
 
 ## 2. Why the fantasy works
 
@@ -50,20 +51,22 @@ ears, wolf tails, sharp noses and one old law about strangers. A stranger has to
 be claimed by a host, who answers for everything the guest does. A stranger
 nobody claims goes back into the snow.
 
-Four brothers brought you in, and each of them says he found you first. Each has
-his own reason to want you under his roof. Only the eldest has not said what his
-is.
+Four brothers stand over you. Three of them are arguing over whose claim on you
+is best, and each has his own reason to want you under his roof. The eldest
+claims no part in it, and has not said why.
 
 You have three days before the pass closes for the winter. In that time you need
 a host, a place at the fire, and an answer for the polite man from the south who
-has come up the mountain with a sled of flour to buy you back.
+is coming up the mountain with a sled of flour to buy you back.
 
 Stay until spring or go down before the snow decides for you. Somebody in this
 camp knows exactly what walked ahead of you in the storm, and is hoping you
 never ask.
 
-(235 words, six paragraphs, none over 70 words. It never says "white wolf" or
-"old shape".)
+(242 words, six paragraphs, none over 70 words. It never says "white wolf" or
+"old shape". It never lets Varek claim the rescue: the hook, the premise, the
+quest summaries and hard canon all say the eldest claims nothing, because the
+lantern mystery depends on it.)
 
 ## 4. Tone and pacing
 
@@ -81,6 +84,10 @@ agree.
   blades. The clan does not kill guests; it walks them to the boundary stones.
 - When a scene has nothing at stake, keep it cosy and short.
 - The face at the top of a beat is whichever brother is talking to the player.
+- This is a clan, not a pack. The tone guide tells the narrator in so many words
+  never to use alpha, omega, mate, fated, werewolf, direwolf or skinchanger: a
+  wolf-eared reverse harem pulls a model hard toward that vocabulary. The only
+  name for what Tam does is the old shape.
 
 Prose style: `webnovel`. Two style examples ship: Ronan's fishing bet on the ice
 (Sil: "He cheats.") and Varek at the lookout ("Ask me that again when the pass
@@ -117,9 +124,17 @@ is shut.").
    respect, never animals.
 3. Guest-right: a host ties a red cord on the guest's wrist and answers for the
    guest with his own standing. A stranger nobody claims gets a day's food and a
-   walk to the boundary stones.
+   walk to the boundary stones. By the same custom, a stranger who runs belongs
+   to whoever catches them, and a stranger who refuses every host, or raises a
+   hand against one, becomes the clan mother's own guest: the hardest host in
+   camp. (This is the payoff for the risky opening card, so it lives in hard
+   canon: production never sends quest steps or director notes.)
 4. Ronan found the player in a drift, Tam carried the player three miles, Sil
    kept the player breathing through the first night. Varek claims no part.
+   Sil warmed the player with hot stones, broth and furs and sat up beside the
+   bed all night. The player woke fully dressed in their own travelling
+   clothes, dried out by his fire, under the furs and Tam's cloak. Nobody
+   shared the bed.
 5. The high pass closes at dusk on day four (world minute 5280). Nobody crosses
    again until thaw.
 6. The stores are short. Aud knows the flour runs out a month before thaw.
@@ -128,7 +143,13 @@ is shut.").
 8. Varek saw the player's lantern two nights early and waited to see whether
    Company men followed. He thinks he lost the right to claim the player.
 9. Tam can take the old shape, a white wolf, in deep cold. Only Aud and Varek
-   know. He led the player through the storm.
+   know. He led the player through the storm. For most of the two nights after
+   the lantern went out, the player sheltered half-conscious in a snow hollow
+   among the eastern rocks, with something pale lying across its mouth to keep
+   the wind out. The old shape takes Tam's clothes with it and gives them back:
+   he is always dressed when he is himself, and the change itself is never
+   shown or described, only before and after. The old shape is feared in the
+   south.
 10. Wolf-kin smell fear, fever and a nervous lie. A calm lie passes.
 11. Violence has consequences rather than detail. Brothers wrestle, never use
     blades. The clan does not kill guests.
@@ -144,7 +165,7 @@ a schedule block there in the morning. Aud is in her lodge and arrives at 7:52
 (`we_aud_at_the_flap`: "Well. Whose?"). The opening obligation gives the player
 twelve minutes to name a host before she asks.
 
-The opener as shipped (107 words; Varek speaks at word 55; it ends on a demand):
+The opener as shipped (117 words; Varek speaks at word 55; it ends on a demand):
 
 > "I found the stranger."
 >
@@ -156,14 +177,17 @@ The opener as shipped (107 words; Varek speaks at word 55; it ends on a demand):
 >
 > Then you move, and all four go silent.
 >
-> The eldest kneels beside you, grey ears flat. "Easy. I'm Varek. Ronan found you in the snow. Tam carried you. Sil kept you alive."
+> The eldest kneels beside you, grey ears flat. "Easy. I'm Varek. Ronan found you." The redhead grins. "Tam carried you." The tall pale one goes pink. "Sil kept you alive." The one by the kettle shrugs.
 >
 > A horn sounds outside, low and close.
 >
-> "That's our mother, and she runs this clan. She'll ask whose guest you are, and a stranger with no host goes back into the snow. Pick who you trust. Quickly."
+> "Our mother. She runs this clan. She'll ask whose guest you are, and a stranger with no host goes back into the snow. Pick who you trust. Quickly."
 
 The only proper nouns are the four brothers, and Varek introduces all of them
-before the demand. No place, clan or faction is named.
+before the demand, each with one visible cue: Varek's flat grey ears, the
+redhead (Ronan), the tall pale one going pink (Tam), the one by the kettle
+(Sil). Four bare names are not a choice; four faces are, and the done card has
+somebody to reach for. No place, clan or faction is named.
 
 Three cards, three different moves:
 
@@ -173,11 +197,13 @@ Three cards, three different moves:
 
 The spec runs all three through the rule-based parser; none reads as an attack.
 Running is a real route (`ran_for_it`): Ronan catches the player at the
-treeline, and by custom whoever catches a runner keeps them.
+treeline, and by custom whoever catches a runner keeps them. That custom is in
+hard canon (§6, canon 3), because the production narrator never sees quest
+director notes.
 
-Opening panel alt: four wolf-eared brothers around a fur bed in a firelit hide
-tent, the eldest kneeling closest with his grey ears flat, the other three
-mid-argument behind him.
+Opening panel alt: four wolf-eared brothers in a firelit hide tent around a fur
+bed, a traveller sitting up in it in a heavy travel coat and a long cloak, the
+eldest kneeling closest, grey ears flat.
 
 ## 8. Major cast
 
@@ -399,8 +425,9 @@ camp but kills nobody.
 
 ## 16. Image plan (no art generated yet)
 
-- **Cover:** four wolf-eared brothers in a firelit hide tent around the player's
-  fur bed, the eldest closest; snow at the flap. Title in the art.
+- **Cover:** four wolf-eared brothers in a firelit hide tent around a traveller
+  sitting up, fully dressed in a travel coat and a long cloak, the eldest
+  closest; snow at the flap. Title in the art.
 - **Opening panel:** as the alt text above.
 - **Portraits** (`artSeed` `twcg-<id>-01`): Varek's grey streak, Ronan's nicked
   ear and wagging tail, Sil's charcoal ears and rolled sleeves, Tam's pink-edged

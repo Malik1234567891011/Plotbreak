@@ -8,8 +8,8 @@ import { StoryVersion } from '@plotbreak/contracts';
  * the player. Varek did not claim the player because he saw their lantern two
  * nights early and waited. Sil already knows where the player came from and is
  * hiding their pack. Ronan wants a guest because a guest is standing, and standing is what he
- * needs before midwinter. Tam carried her, and is the thing that walked ahead
- * of her in the storm. None of them is a prize and none of them is a meter; each
+ * needs before midwinter. Tam carried the player, and is the thing that walked
+ * ahead of the player in the storm. None of them is a prize and none of them is a meter; each
  * is authored so the writer can motivate him rather than only voice him.
  *
  * The law underneath is guest-right, and it is the whole engine of the first
@@ -43,13 +43,13 @@ const raw = {
   version: 1,
   title: 'The Wolf Clan’s Guest',
   fantasyLabel: 'Lost in the snow. Found by four wolves.',
-  hook: 'You wake in a fur tent in a wolf clan’s winter camp, and the four brothers who brought you in are arguing about which of them found you first.',
+  hook: 'You wake in a fur tent in a wolf clan’s winter camp. Three brothers are arguing over which of them saved you. The eldest claims nothing, and won’t say why.',
   premise:
     'You came north with the last caravan of the year: three sleds, nine people and a guide, crossing a mountain pass a week before the snow shut it. On the second night of the storm you took a lantern and walked out to find the guide, and the guide was gone.\n\n' +
     'You remember the cold, and something pale walking ahead of you through the shallowest snow. Then nothing.\n\n' +
     'You wake in a hide tent in the winter camp of a wolf clan: people with wolf ears, wolf tails, sharp noses and one old law about strangers. A stranger has to be claimed by a host, who answers for everything the guest does. A stranger nobody claims goes back into the snow.\n\n' +
-    'Four brothers brought you in, and each of them says he found you first. Each has his own reason to want you under his roof. Only the eldest has not said what his is.\n\n' +
-    'You have three days before the pass closes for the winter. In that time you need a host, a place at the fire, and an answer for the polite man from the south who has come up the mountain with a sled of flour to buy you back.\n\n' +
+    'Four brothers stand over you. Three of them are arguing over whose claim on you is best, and each has his own reason to want you under his roof. The eldest claims no part in it, and has not said why.\n\n' +
+    'You have three days before the pass closes for the winter. In that time you need a host, a place at the fire, and an answer for the polite man from the south who is coming up the mountain with a sled of flour to buy you back.\n\n' +
     'Stay until spring or go down before the snow decides for you. Somebody in this camp knows exactly what walked ahead of you in the storm, and is hoping you never ask.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
@@ -88,13 +88,15 @@ const raw = {
     hardCanon: [
       'Everyone in this story is an adult. Varek is thirty-one, Sil twenty-seven, Ronan twenty-five and Tam twenty-one. Aud is fifty-six, Dagny twenty-six and Kell forty-four. The player is a grown traveller who crossed the pass for work.',
       'The Greyhowe are wolf-kin: people with wolf ears, wolf tails, sharp noses and good night eyes. They are people in every respect. They speak, dress, joke and argue like anyone, and nobody in the camp is an animal.',
-      'Guest-right is the clan’s oldest law. A stranger in the winter camp must be claimed by a host, who ties a red cord on the guest’s wrist and answers for everything the guest does with his own standing. To harm a claimed guest is to harm the host. A stranger nobody claims is given a day’s food and walked to the boundary stones.',
+      'Guest-right is the clan’s oldest law. A stranger in the winter camp must be claimed by a host, who ties a red cord on the guest’s wrist and answers for everything the guest does with his own standing. To harm a claimed guest is to harm the host. A stranger nobody claims is given a day’s food and walked to the boundary stones. By the same custom, a stranger who runs belongs to whoever catches them, and a stranger who refuses every host, or raises a hand against one, becomes the clan mother’s own guest: the hardest host in camp.',
       'The four brothers are the sons of Clan Mother Aud, eldest to last: Varek, Sil, Ronan, Tam. Ronan found the player face-down in a drift, Tam carried the player three miles to camp, and Sil kept the player breathing through the first night. Varek claims no part in it.',
+      'Sil warmed the player with hot stones, broth and furs, and sat up beside the bed all night. The player woke fully dressed in their own travelling clothes, dried out by his fire, under the furs and Tam’s cloak. Nobody shared the bed.',
       'The high pass closes for the winter at dusk on the fourth day of the story, and nobody crosses it again until the thaw. Whichever side of it the player is on then is where the player spends the winter.',
       'The clan’s stores are short after a bad autumn hunt, and every guest is a mouth. Aud knows the flour runs out a month before thaw and has told nobody.',
       'The Company is a southern trading house with a stockaded post at the foot of the south road. Its factor, Matthias Kell, hired the caravan the player crossed with. He wants the player back, he wants the survey of the pass, and he wants the white wolf a caravan driver swears walked through the storm.',
       'Varek saw the player’s lantern on the high pass two nights before anyone found the player, and watched it instead of going down, to see whether Company men followed. Nobody did. When it went out he went up and found only the lantern. He did not claim the player because he does not think he has the right.',
-      'Tam can take the old shape: a full white wolf, larger than any wild one, in deep cold. Only Aud and Varek know. In the storm he found the player as the wolf, walked ahead through the shallowest snow to Ronan’s hunting line, then came back as himself to carry the player down. The old blood is feared in the south, and the Company has a bounty on it.',
+      'Tam can take the old shape: a full white wolf, larger than any wild one, in deep cold. Only Aud and Varek know. In the storm he found the player as the wolf, walked ahead through the shallowest snow to Ronan’s hunting line, then came back as himself to carry the player down. For most of the two nights between the lantern going out and Ronan finding them, the player sheltered half-conscious in a snow hollow among the eastern rocks, with something pale lying across its mouth to keep the wind out. The old shape is feared in the south, and the Company has a bounty on it.',
+      'The old shape takes Tam’s clothes with it and gives them back: he is always dressed when he is himself, and the change itself is never shown or described, only before and after.',
       'Wolf-kin can smell fear, fever and a nervous lie. A calm lie passes. Ears and tails give their owners away constantly, and everyone in camp reads them the way southerners read faces.',
       'Violence has consequences rather than detail. A guest who strikes someone in camp shames the host, and the host answers it first. The clan does not kill guests; it walks them to the boundary stones. Brothers settle a quarrel by wrestling to the ground in the old form, never with blades.',
       'The cold is the edge of the map. Anyone who walks out of the valley without furs, food or a guide is in real danger within the hour, and the clan always sends someone after a guest who wanders, usually the host and usually furious.',
@@ -104,7 +106,8 @@ const raw = {
       'Cold outside, warm inside, and funny in between. This is a world of practical kindness: the better blanket, the warm side of the fire, a fish somebody caught specially and pretends not to have. ' +
       'The four brothers bicker like brothers and never all agree; give each his own rhythm in every scene he is in. Varek is short sentences, Sil is dry diagnosis, Ronan is dares and noise, Tam is two questions at once. ' +
       'Romance is slow, chosen and specific, and it lives in what people do rather than in how anybody looks: no lingering on bodies, nothing past a kiss. The clan is neither savage nor noble and the south is neither villain nor saviour; both have somebody counting flour. ' +
-      'Violence is quick, never lingered on, and always has consequences. When a scene has nothing at stake, let it be cosy and short. The face at the top of a beat is whichever brother is talking to the player.',
+      'Violence is quick, never lingered on, and always has consequences. When a scene has nothing at stake, let it be cosy and short. The face at the top of a beat is whichever brother is talking to the player. ' +
+      'This is a clan, not a pack. Nobody is an alpha or an omega, nobody is anybody’s mate or fated anything, and nobody is a werewolf, direwolf or skinchanger: never use those words. The only name for what Tam can do is the old shape.',
     proseStyle: 'webnovel',
     styleExamples: [
       'Ronan hands you the ice pick like it’s a sword.\n\n"First fish wins," he says. "Loser does the dishes for a week."\n\n"I’ve never fished through ice."\n\n"Great. I love winning."\n\nHis tail is going like a flag. Behind him, Sil doesn’t look up from the net he’s mending. "He cheats. He baits the hole the night before."\n\nRonan’s ears go flat. "That is a vicious lie."\n\nHis tail is still wagging.',
@@ -198,7 +201,7 @@ const raw = {
         {
           upTo: 100,
           behaviour:
-            'One more wrong step and the player is out at the boundary stones with a day’s food. Nobody is cruel about it, which makes it worse. The host has to argue for the player in public, and the brothers argue with each other about whether he should.',
+            'One more wrong step and the player is out at the boundary stones with a day’s food. Nobody is cruel about it, and nobody needs to be. The host has to argue for the player in public, and the brothers argue with each other about whether he should.',
         },
       ],
     },
@@ -293,7 +296,7 @@ const raw = {
       name: 'The Sealed Letter',
       tags: ['quest', 'document'],
       questItem: true,
-      description: 'A waxed envelope addressed to the clan mother of the Greyhowe, sealed with the Company’s stamp. You were paid to carry it over the pass and paid not to open it.',
+      description: 'A waxed envelope addressed to the clan mother of the Greyhowe, sealed with the Company’s stamp. The Company paid a courier to carry it over the pass, and paid them not to open it.',
       loreText: 'It offers the clan flour, salt and iron every winter for ten years in exchange for right of road through the winter valley. It does not say what a road brings with it.',
       icon: 'letter',
     },
@@ -568,7 +571,7 @@ const raw = {
       name: 'The Clan Mother’s Lodge',
       shortName: 'Aud’s Lodge',
       description:
-        'The only timber-framed lodge in camp, hung with old hunting gear and a loom with a half-finished blanket on it. Aud hears disputes here from a stool lower than everybody else’s, which nobody mistakes for modesty. The walls are thin enough to listen through if you are careful about the snow.',
+        'The only timber-framed lodge in camp, hung with old hunting gear and a loom with a half-finished blanket on it. Aud hears disputes here from a stool lower than everybody else’s, and nobody mistakes it for modesty. The walls are thin enough to listen through if you are careful about the snow.',
       artDirection:
         'A timber-framed lodge interior hung with furs and hunting gear, a loom with a half-woven blanket, a low stool by a hearth, a small grey-haired woman holding a knotted cord. Firelit, orderly, formidable.',
       connections: [{ to: 'the_long_fire', travelMinutes: 2, label: 'Back to the long fire' }],
@@ -611,7 +614,7 @@ const raw = {
       description:
         'A frozen lake below camp, black ice swept clear in patches, with a line of fishing holes cut across it. Sound carries for a mile out here. Ronan thinks it is the best place in the world to win an argument, and Tam checks the lines on the far shore when he wants to be alone.',
       artDirection:
-        'A wide frozen lake under a pale sky, swept black ice, a row of fishing holes with lines and poles, snowy pines on the far shore, two small figures with wolf tails. Open, bright, cold.',
+        'A wide frozen lake under a pale sky, swept black ice, a row of fishing holes with lines and poles, snowy pines on the far shore, two distant adult figures in furs, with wolf tails. Open, bright, cold.',
       connections: [{ to: 'the_long_fire', travelMinutes: 10, label: 'Up to camp' }],
       discoveredByDefault: true,
       mapPosition: { x: 0, y: -1 },
@@ -641,7 +644,7 @@ const raw = {
       name: 'The High Pass',
       shortName: 'The Pass',
       description:
-        'A white saddle between two peaks, marked with guide-poles that are already half buried. The caravan’s broken sled is still up here under a drift, with the surveyor’s map case lashed to it. The boundary stones stand at the top, and the rocks to the east are full of hollows nobody in camp will walk past after dark.',
+        'A white saddle between two peaks, marked with guide-poles that are already half buried. The caravan’s broken sled is still up here under a drift, with a map case lashed to it that holds the survey’s second copy. The boundary stones stand at the top, and the rocks to the east are full of hollows nobody in camp will walk past after dark.',
       artDirection:
         'A high snowy mountain saddle between two peaks, a line of half-buried wooden guide-poles, a broken sled under a drift, wind lifting snow off the ridge. Vast, white, dangerous.',
       connections: [
@@ -676,7 +679,7 @@ const raw = {
       name: 'The Company Post',
       shortName: 'The Post',
       description:
-        'A timber stockade at the foot of the south road, with a counting room, a store, a stove that never goes out and a smell of lamp oil and wet wool. Kell works upstairs with the ledger. Two hours’ climb back up to the stones, and the last place anybody can reach from the clan’s side once the pass shuts.',
+        'A timber stockade at the foot of the south road, with a counting room, a store, a stove that never goes out and a smell of lamp oil and wet wool. Kell works upstairs with the ledger. Two and a half hours’ climb back up to the stones, and the last place anybody can reach from the clan’s side once the pass shuts.',
       artDirection:
         'A southern trading-post stockade of raw timber at the foot of a mountain road, lamplit windows, sledges and sacks in the yard, snowy peaks behind. Warm-looking and slightly sinister.',
       connections: [{ to: 'the_boundary_stones', travelMinutes: 150, label: 'Back up the south road' }],
@@ -691,7 +694,7 @@ const raw = {
       name: 'The Old Den',
       shortName: 'The Den',
       description:
-        'A dry cave in the eastern rocks above the pass, older than the camp, with claw marks on the walls far too high for any wild wolf. There is a blanket folded in the back, a stub of candle, and a set of clothes Tam’s size. In deep cold the snow outside is always printed with white tracks.',
+        'A dry cave in the eastern rocks above the pass, older than the camp, with claw marks on the walls far too high for any wild wolf. There is a blanket folded in the back, a stub of candle, and a spare cloak on a peg. In deep cold the snow outside is always printed with white tracks.',
       artDirection:
         'A dry rock cave above a snowy pass, old claw marks high on the stone walls, a folded blanket and a candle stub at the back, pale blue light from the entrance, huge wolf prints in the snow outside. Hushed and secret.',
       connections: [{ to: 'the_high_pass', travelMinutes: 25, label: 'Back down to the pass' }],
@@ -864,6 +867,7 @@ const raw = {
       hiddenDrives: [
         'He wants the clan to look at him the way it looks at Varek, just once',
         'He is afraid he is only fun, and that nobody follows fun',
+        'A guest at his hearth is standing, and he needs every scrap of it before he stands up at midwinter',
       ],
       values: ['Saying it to your face', 'Never leaving anybody out in the snow'],
       fears: ['Losing to Varek in front of everyone', 'Being the brother people like and nobody trusts'],
@@ -942,7 +946,7 @@ const raw = {
       name: 'Sil',
       role: 'The second brother and the clan’s healer, whose tent you woke up in',
       cardBlurb:
-        'He kept your heart going through a night none of his brothers saw, he is the only one who already knows where you came from, and he has decided not to tell you so yet.',
+        'Your pack is under his bedding and he hasn’t mentioned it. He did sit up all night keeping you breathing, so he feels the two things balance out.',
       pronouns: 'he/him',
       publicTraits: ['Dry as kindling', 'Gentle with patients and nobody else', 'Reads people like symptoms'],
       hiddenDrives: [
@@ -1032,7 +1036,7 @@ const raw = {
       name: 'Tam',
       role: 'The fourth brother, who carried you three miles through the storm',
       cardBlurb:
-        'He carried you down the mountain on his back, he wants to know everything about the south, and he is the only person in this camp with a secret bigger than yours.',
+        'You are wearing his cloak, and he has been cold for two days without a word about it. Ask him what walked ahead of you in the storm and watch his ears.',
       pronouns: 'he/him',
       publicTraits: ['Asks two questions at once', 'Warm to everybody, which embarrasses him', 'A terrible liar, with one exception'],
       hiddenDrives: [
@@ -1069,11 +1073,11 @@ const raw = {
         'Is it true southern towns keep lamps burning all night? Every street? Who pays for the oil?',
         'Keep the cloak. No, really, keep it. I run warm. Everyone says so. Ronan says it’s annoying.',
         'I didn’t find you. I only carried you. Three miles, and you never woke, just kept mumbling about a light.',
-        'Please don’t mention the ridge to Mother. Or Varek. Especially Varek.',
+        'Sorry, I’m asking too much. Have you seen the sea? Properly seen it? What colour is it, really?',
       ],
       appearance:
         'Twenty-one, tall and long-limbed, messy white-blond hair, pale silver wolf ears that go pink at the edges when he is embarrassed, a pale tail, a patched wool tunic because he gave you his cloak.',
-      visualHook: 'Pale silver wolf ears that turn pink at the edges when he is embarrassed, which is often.',
+      visualHook: 'Pale silver wolf ears that turn pink at the edges when he is embarrassed.',
       silhouette: 'Leaning in, holding out something he brought you, ears forward.',
       artSeed: 'twcg-tam-01',
       portrait: null,
@@ -1083,7 +1087,7 @@ const raw = {
         { startMinute: 400, endMinute: 540, locationId: 'the_warm_tent', activity: 'hauling firewood for Sil and staying to ask questions' },
         { startMinute: 540, endMinute: 720, locationId: 'the_stores', activity: 'gutting fish at the smokehouse' },
         { startMinute: 720, endMinute: 900, locationId: 'the_ice_lake', activity: 'checking the lines on the far shore' },
-        { startMinute: 900, endMinute: 1080, locationId: 'the_lookout', activity: 'up on the ridge without anybody’s permission' },
+        { startMinute: 900, endMinute: 1080, locationId: 'the_lookout', activity: 'walking the ridge trail alone, checking his own snare line' },
         { startMinute: 1080, endMinute: 1260, locationId: 'the_long_fire', activity: 'at the long fire, as close to the guest as he is allowed' },
         { startMinute: 1260, endMinute: 1440, locationId: 'the_sons_lodge', activity: 'pretending to sleep while Ronan talks' },
       ],
@@ -1107,7 +1111,7 @@ const raw = {
       attributes: { might: 13, agility: 14, mind: 11, presence: 12, resolve: 12, arcana: 15 },
       companion: null,
       scouting: null,
-      combatant: { health: 50, defenseDc: 14, damage: 8, tags: ['wolfkin', 'old-blood'] },
+      combatant: { health: 50, defenseDc: 14, damage: 8, tags: ['wolfkin', 'old-shape'] },
     },
     {
       id: 'aud',
@@ -1115,7 +1119,7 @@ const raw = {
       calledName: 'Aud',
       role: 'The brothers’ mother and head of the Greyhowe clan, who decides whether a guest stays',
       cardBlurb:
-        'She counts the winter in mouths and sacks of flour, she will decide at the midwinter fire whether you are worth keeping, and she likes you rather more than she will ever let you see.',
+        'Every guest is a mouth, and she has counted yours. At the midwinter fire she decides what you are worth, out loud, in sacks of flour.',
       pronouns: 'she/her',
       publicTraits: ['Counts everything', 'Funny in a way that leaves marks', 'Never makes a promise she has not priced'],
       hiddenDrives: [
@@ -1155,7 +1159,7 @@ const raw = {
       voiceSamples: [
         'Every guest is a mouth, love, and every mouth eats until thaw. So. What do you bring, besides an appetite and my sons’ attention?',
         'Forty sacks, the factor offers. For one stranger. Either you are worth a great deal to him, or he is lying to me about why.',
-        'I raised four sons through nineteen hard winters. One guest will not finish me.',
+        'I raised four sons through every hard winter since Varek. One guest will not finish me.',
       ],
       appearance:
         'Fifty-six, small and solid, iron-grey hair in a crown of braids, grey wolf ears tipped with white, a knotted counting cord at her belt and a heavy mantle of layered furs.',
@@ -1199,7 +1203,7 @@ const raw = {
       name: 'Dagny of the Cold Ridge',
       role: 'Heir of the Cold Ridge clan, betrothed to Varek by two mothers who did not ask either of them',
       cardBlurb:
-        'She is supposed to marry Varek at midwinter, she wants it even less than he does, and she is the one person on this mountain who might help you if you can offer her a way out.',
+        'She is meant to marry Varek at midwinter and would sooner marry the weather. Offer her a way out and she may be the best ally you have on this mountain.',
       pronouns: 'she/her',
       publicTraits: ['Blunt to the point of rudeness', 'Funny when she is angry', 'Thinks three moves ahead'],
       hiddenDrives: [
@@ -1268,7 +1272,7 @@ const raw = {
       calledName: 'Kell',
       role: 'Factor of the Company post at the foot of the south road, and the man who hired your caravan',
       cardBlurb:
-        'He signed your caravan’s papers, he wants you back with interest, and he is very polite about the fact that he would pay more for a white wolf’s pelt than for you.',
+        'He signed your caravan’s papers and is coming up the mountain to collect you, with flour, apologies and a price list. You are not the most valuable thing on it.',
       pronouns: 'he/him',
       publicTraits: ['Courteous in every circumstance', 'Prices everything out loud', 'Never raises a threat he has not already costed'],
       hiddenDrives: [
@@ -1347,7 +1351,7 @@ const raw = {
       id: 'q_the_guest_claim',
       title: 'Whose Guest',
       summary:
-        'Four brothers each say they found you, their mother is at the tent flap, and a stranger with no host goes back into the snow. Name somebody, or find another way through.',
+        'Three brothers each claim a part in saving you and the eldest claims nothing, their mother is at the tent flap, and a stranger with no host goes back into the snow. Name somebody, or find another way through.',
       kind: 'MAIN',
       startsActive: true,
       involvedCharacterIds: ['varek', 'sil', 'ronan', 'tam', 'aud'],
@@ -1566,7 +1570,7 @@ const raw = {
             {
               routeId: 'were_traded',
               label: 'Let the clan mother make the trade',
-              predicate: { flagsSet: ['bounty_on_the_table'] },
+              predicate: { flagsSet: ['bounty_on_the_table', 'midwinter_fire_lit'] },
               setsFlags: ['traded_to_the_company'],
               closesFlags: ['kept_by_the_clan'],
             },
@@ -1652,7 +1656,7 @@ const raw = {
       id: 'q_the_brothers',
       title: 'Four Brothers, One Guest',
       summary:
-        'Each of them says he found you, each has a reason to want you under his roof that he has not said out loud, and one of them is hiding something bigger than you are.',
+        'Three of them claim they saved you and the eldest claims nothing. Each has a reason to want you under his roof that he has not said out loud, and one is hiding something bigger than you are.',
       kind: 'MAIN',
       involvedCharacterIds: ['varek', 'sil', 'ronan', 'tam'],
       involvedLocationIds: ['the_sons_lodge', 'the_warm_tent', 'the_ice_lake', 'the_lookout'],
@@ -1839,7 +1843,7 @@ const raw = {
           id: 'find_the_den',
           playerCopy: 'Follow the white tracks to where they end.',
           directorNotes:
-            'This quest is optional and must feel like it. A player who never sets `knows:the_white_wolf` never sees a beat of it, and the guest story is the whole game. For a player who is here, keep it quiet and physical: prints, a cave, a folded blanket, a set of clothes. If Tam takes the player, he goes in first and asks them to wait outside for one minute.',
+            'This quest is optional and must feel like it. A player who never sets `knows:the_white_wolf` never sees a beat of it, and the guest story is the whole game. For a player who is here, keep it quiet and physical: prints, a cave, a folded blanket, a candle stub. If Tam takes the player, he goes in first to light the candle.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1993,7 +1997,7 @@ const raw = {
       publicCopy:
         'The tent flap goes back. A small grey-haired woman with a knotted cord at her belt ducks in out of the snow, looks at her four sons, then at you. "Well," says Clan Mother Aud. "Whose?"',
       directorNotes:
-        'She arrives whether or not a host has been named. If one has, she makes that brother say it again in front of her and watches the other three while he does. If not, she asks the player directly, and a refusal makes the player her own guest, which everybody in the tent knows is the hardest host in camp.',
+        'She arrives whether or not a host has been named. If one has, she makes that brother say it again in front of her and watches the other three while he does. If not, she asks the player directly, and a refusal makes the player her own guest: the hardest host in camp.',
       setsFlags: ['aud_has_seen_you'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2032,7 +2036,7 @@ const raw = {
       publicCopy:
         'A Company sled comes up the south road to the boundary stones: four hired men, twenty sacks of flour under oilcloth, and a man in fogged spectacles who asks very politely to speak to the clan mother about a lost traveller.',
       directorNotes:
-        'Word reaches the long fire inside the hour. Kell will not step inside the ring of stones and will not stay above them after dark. Aud sends Varek to hear him, and Varek comes back saying fewer words than usual, which everybody notices.',
+        'Word reaches the long fire inside the hour. Kell will not step inside the ring of stones and will not stay above them after dark. Aud sends Varek to hear him, and Varek comes back with even fewer words than usual.',
       setsFlags: ['the_factor_has_come'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2058,7 +2062,7 @@ const raw = {
       publicCopy:
         'A party from the Cold Ridge arrives at the long fire with gifts of dried meat, and at the head of it a tall woman with black-tipped ears, who sits down in the clan mother’s seat before anybody can stop her.',
       directorNotes:
-        'Dagny is here for the midwinter betrothal and makes no secret of how she feels about it. She finds the guest interesting within ten minutes and says so to Varek’s face, which is the most fun Ronan has had all week.',
+        'Dagny is here for the midwinter betrothal and makes no secret of how she feels about it. She finds the guest interesting within ten minutes and says so to Varek’s face. Ronan has not had this much fun all week.',
       setsFlags: ['dagny_arrived'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2081,6 +2085,7 @@ const raw = {
         { characterId: 'sil', toLocationId: 'the_long_fire' },
         { characterId: 'ronan', toLocationId: 'the_long_fire' },
         { characterId: 'tam', toLocationId: 'the_long_fire' },
+        { characterId: 'dagny', toLocationId: 'the_long_fire' },
       ],
     },
     {
@@ -2134,7 +2139,7 @@ const raw = {
       id: 'p_four_brothers',
       kind: 'RELATIONSHIP',
       label: 'Which brother you trust, and what that costs the other three',
-      seedHint: 'Four men arguing over who found you, and the eldest naming everybody’s part but his own.',
+      seedHint: 'Three brothers arguing over which of them saved you, and the eldest naming everybody’s part but his own.',
       payoffHint: 'A host who stands up at the midwinter fire, a brother who comes south, or four brothers who never quite forgive each other.',
       weight: 0.95,
     },
@@ -2142,7 +2147,7 @@ const raw = {
       id: 'p_the_lantern',
       kind: 'MYSTERY',
       label: 'Why the eldest did not claim you',
-      seedHint: 'Varek is the only brother who did not say he found you.',
+      seedHint: 'Varek is the only brother who claims no part in saving you.',
       payoffHint: 'He saw your lantern two nights before anybody found you, and waited to see who followed.',
       weight: 0.8,
     },
@@ -2169,7 +2174,7 @@ const raw = {
       name: 'You Draw Maps',
       role: 'Scout and surveyor',
       summary:
-        'The Company paid you to map the high pass. That makes you the most useful stranger the clan has ever found, and the one with the most to explain.',
+        'The Company paid you to map the mountain pass. That makes you the most useful stranger the clan has ever found, and the one with the most to explain.',
       playstyle: ['Observant', 'Careful', 'Has a secret'],
       blurb: 'You can still see the shape of the pass with your eyes shut, because you counted every guide-pole on it yourself.',
       attributeBonus: { mind: 3, agility: 1 },
@@ -2197,7 +2202,7 @@ const raw = {
       name: 'You Carry Letters',
       role: 'Talk, nerve and bargaining',
       summary:
-        'You were paid to carry a sealed letter over the pass to the clan mother, and you have not read it, which nobody here is going to believe.',
+        'You were paid to carry a sealed letter over the pass to the clan mother, and you have not read it. Nobody here is going to believe that.',
       playstyle: ['Talks well', 'Bold', 'Reads a room'],
       blurb: 'Nine years of knocking on doors that did not want to open has made you very good at first sentences and very bad at going home.',
       attributeBonus: { presence: 3, resolve: 1 },
@@ -2445,10 +2450,10 @@ const raw = {
     },
   ],
   opening:
-    '"I found the stranger."\n\n"I carried the stranger."\n\n"I kept the stranger breathing. That counts more."\n\nYou wake in a fur tent, warm for the first time in days. Four men with wolf ears are arguing over you.\n\nThen you move, and all four go silent.\n\nThe eldest kneels beside you, grey ears flat. "Easy. I’m Varek. Ronan found you in the snow. Tam carried you. Sil kept you alive."\n\nA horn sounds outside, low and close.\n\n"That’s our mother, and she runs this clan. She’ll ask whose guest you are, and a stranger with no host goes back into the snow. Pick who you trust. Quickly."',
+    '"I found the stranger."\n\n"I carried the stranger."\n\n"I kept the stranger breathing. That counts more."\n\nYou wake in a fur tent, warm for the first time in days. Four men with wolf ears are arguing over you.\n\nThen you move, and all four go silent.\n\nThe eldest kneels beside you, grey ears flat. "Easy. I’m Varek. Ronan found you." The redhead grins. "Tam carried you." The tall pale one goes pink. "Sil kept you alive." The one by the kettle shrugs.\n\nA horn sounds outside, low and close.\n\n"Our mother. She runs this clan. She’ll ask whose guest you are, and a stranger with no host goes back into the snow. Pick who you trust. Quickly."',
   openingPanel: {
     assetKey: 'story_the_wolf_clan_s_guest/opening',
-    alt: 'Four wolf-eared brothers around a fur bed in a firelit hide tent, the eldest kneeling closest with his grey ears flat, the other three mid-argument behind him.',
+    alt: 'Four wolf-eared brothers in a firelit hide tent around a fur bed, a traveller sitting up in it in a heavy travel coat and a long cloak, the eldest kneeling closest, grey ears flat.',
   },
   openingSuggestions: [
     '"Varek. You’re the only one who didn’t claim me. I’ll trust you."',
