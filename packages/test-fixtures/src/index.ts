@@ -105,7 +105,7 @@ export const LAST_FEATHER = withDerivedAssetKeys(LAST_FEATHER_RAW);
 /** New-50 pilot (#7). Art drawn on PixAI; see docs/stories-50/PIPELINE.md. */
 export const SKILL_ERROR = withDerivedAssetKeys(SKILL_ERROR_RAW);
 /** New-50 #2, registered raw (before art). */
-export const VILLAIN_TRACK = VILLAIN_TRACK_RAW;
+export const VILLAIN_TRACK = withDerivedAssetKeys(VILLAIN_TRACK_RAW);
 /** New-50, registered raw (before art). */
 export const RANK_ZERO = RANK_ZERO_RAW;
 export const NOVA_HOUSE = NOVA_HOUSE_RAW;
