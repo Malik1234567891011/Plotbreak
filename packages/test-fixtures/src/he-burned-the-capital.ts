@@ -14,7 +14,7 @@ import { StoryVersion } from '@plotbreak/contracts';
  * Playable span is three to five days at a mountain convent, starting at 21:40
  * on the night he arrives. The betrothal, the running and the fire are
  * backstory carried by hard canon, by six people who each know a different
- * piece of it, and by the burned families who reach the infirmary an hour in.
+ * piece of it, and by the burned townspeople who reach the infirmary an hour in.
  * The crown's riders are at the gate at seven on the second morning; the army
  * marches north on the fourth unless somebody stops it.
  *
@@ -67,7 +67,7 @@ const raw = {
     'Somebody lied to you',
     'Twelve ways it ends',
   ],
-  contentDescriptors: ['ROMANCE', 'FANTASY_VIOLENCE', 'PSYCHOLOGICAL_THEMES', 'MORAL_AMBIGUITY'],
+  contentDescriptors: ['ROMANCE', 'FANTASY_VIOLENCE', 'PSYCHOLOGICAL_THEMES', 'MORAL_AMBIGUITY', 'PERMANENT_DEATH', 'ALCOHOL_REFERENCES'],
   intensity: 'MODERATE',
   creatorNote:
     'He is the most dangerous man in the kingdom and he is asking. Everything here turns on that: he will not take you anywhere you do not choose to go, and the whole kingdom is about to make that choice very hard. Say yes, say no, run, or make him answer for the nine people who died first. All of it is a real way to play, and so is finding out who actually lit the match.',
@@ -85,13 +85,14 @@ const raw = {
       { itemId: 'travel_purse', qty: 1 },
     ],
     hardCanon: [
-      'Everyone in this story is an adult. The player is twenty-two. Grand Duke Lucien Ardent is twenty-nine, Prince Remy twenty-six, Mara Ferrand twenty-four, Sister Agathe sixty-one, Captain Ottilie Ferrand thirty-six and Justiciar Isaure Dane forty-eight.',
+      'Everyone in this story is an adult. The player is twenty-two. Grand Duke Lucien Ardent is twenty-nine, Prince Remy twenty-six, Mara Ferrand twenty-four, Sister Agathe sixty-one, Captain Ottilie Ferrand thirty-six and Justiciar Isaure Dane forty-eight. Everybody else who appears or is mentioned is an adult too: the King and his elder son, the Archbishop, the riders, the sisters and novices, the villagers and the burned from the capital. No children appear in this story.',
       'Esterre is a kingdom; its capital, Aubrais, is a river city of bridges. The northern passes and the fortress of Hollowfell belong to the Grand Dukes Ardent. Stillwater is a convent of forty sisters with an infirmary, on a mountain lake a day’s ride north of the capital. Mossford is the village at the foot of the lake.',
       'A year ago, by royal decree, the player was betrothed to Grand Duke Lucien Ardent and wore his family’s betrothal ring at a rite in the capital. The decree was the crown’s way of binding the north to it.',
       'Nineteen days before the story begins, eleven days before the wedding, the player ran, with their maid Mara Ferrand. Prince Remy, the King’s second son, paid for the horses and chose Stillwater. The player left the betrothal ring on a pillow and has been a guest of the convent under a borrowed name ever since.',
+      'The player carries their mother’s knife, a slim horn-handled blade and the one thing of hers they took when they ran, and the purse Prince Remy pressed on them that night, with eleven gold crowns left in it.',
       'Under the old law, breaking a royal betrothal is defiance of the crown. The King signed a Writ of Forfeiture: unless the player returned within a month, they would be tried for treason and their family’s lands forfeit. The player learned of it from Remy’s letter four days ago.',
       'Three nights before the story begins, Lucien set fire to the Hall of Seals in Aubrais, where the crown keeps its writs, to destroy that writ. He rang the alarm bells himself first. The wind took the fire across the upper city: the Hall, the Exchequer, the palace’s west wing and the Street of Lamps. He held it off the river quarter for six hours until he collapsed and Captain Ottilie carried him out. Nine people died. Thousands lost their homes.',
-      'The Ardent line carries the Oathfire, an oath sworn with fire three hundred years ago: candle flames lean toward the Grand Duke when he comes into a room, he can set alight anything he can see, and he can put out any fire he has lit. It burns him to use it. He called it at full strength in the capital; his hands are burned to the wrist under his gloves, and a second full calling this season would very likely kill him, as it killed his father. Only Ottilie and Sister Agathe know that.',
+      'The Ardent line carries the Oathfire, an oath sworn with fire three hundred years ago: candle flames lean toward the Grand Duke when he comes into a room, he can set alight anything he can see, and he can put out any fire he has lit. It burns him to use it. He called it at full strength in the capital; his hands are burned to the wrist under his gloves, and a second full calling this season would very likely kill him, as it killed his father. Only Ottilie knows that for certain; Sister Agathe, who nursed his father, has guessed it from the gloves.',
       'The first Duchess Ardent took the veil at Stillwater as a widow and wrote in her psalter, now in the bell-tower book chest, the Banked Word: spoken by the person the Grand Duke is betrothed or married to, it puts out every fire he has lit and holds his fire quiet for a day. The player is still that person. Nobody has told them.',
       'The writ was never in the Hall of Seals. Prince Remy took it out the day before the fire, then told Lucien where it was kept, wanting him to burn the Hall and be ruined for it. The writ is folded in four in Remy’s saddlebag at the inn in Mossford. Justiciar Isaure Dane has dug the writ’s iron case out of the ashes: locked, unburned and empty.',
       'Stillwater’s house rule: nobody may be taken out through its gate by force, by king or duke, and no armed man crosses its threshold uninvited. A guest is sheltered only while the sisters choose to keep them. A novice who takes the grey veil is sheltered absolutely, for a year and a day.',
@@ -105,10 +106,14 @@ const raw = {
       'Lucien is frightening because of what he did and how still he is, never because he takes anything. He asks, every time, and a no is honoured on the page. His devotion shows in what he has already done and in what he refuses to do. ' +
       'The fire is a real moral weight. Nine people died and nobody in this story is allowed to make that cosy, including the player’s love interest. The burned are shown through bandages, coughs and what they carried out, never the wound. ' +
       'Romance can be flirtatious, tense and heartfelt, up to a kiss, and no further. No sexual content, no undressing, no lingering on bodies. ' +
-      'Remy is warm and funny and his argument against Lucien is a good one; let the player like him. Jokes land, mostly from Agathe and Ottilie. If a scene has nothing at stake, keep it short. The face at the top of a beat is Lucien’s whenever he is in the scene.',
+      'Remy is warm and funny and his argument against Lucien is a good one; let the player like him. Jokes land, mostly from Agathe and Ottilie. If a scene has nothing at stake, keep it short. The face at the top of a beat is Lucien’s whenever he is in the scene. ' +
+      'Secrets come out when the player earns them, not when a scene goes slow: he takes a glove off only for somebody who has asked about him rather than the fire, and never on the first night; Agathe opens the psalter only for somebody who already knows about his hands; Remy admits the writ only with the writ or the empty case in front of him; Mara confesses the letters when asked straight how he found the player. ' +
+      'Remy’s part in the fire is the story’s central secret. Nobody but Remy knows it at the start, and it surfaces only through evidence the player finds (the saddlebag, the empty case, Mara’s note), never through narration or another character guessing. ' +
+      'A yes does not mean riding tonight: the pass is two days away, his riders are spent, and carrying off a person named in a crown warrant is the war he came to prevent, so a yes keeps everybody at Stillwater through the first night. ' +
+      'If the player draws a knife on him he does not defend himself and does not let his riders do it for him.',
     proseStyle: 'webnovel',
     styleExamples: [
-      "The camp fire leans toward him when he sits down. He does not seem to notice. He stopped noticing years ago, the way other people stop noticing their own heartbeat.\n\n\"Ask,\" he says.\n\n\"How many?\"\n\n\"Nine.\" No pause. \"A baker. Two clerks from the Exchequer. A lamplighter and his son.\" He keeps going until there are nine, and then he stops, and his gloved hands stay very still on his knees.\n\n\"You could have lied.\"\n\n\"To you?\" He looks at you then. \"No. I could not.\"",
+      "The camp fire leans toward him when he sits down. He does not seem to notice. He stopped noticing years ago, the way other people stop noticing their own heartbeat.\n\n\"Ask,\" he says.\n\n\"How many?\"\n\n\"Nine.\" No pause. \"A baker. Two clerks from the Exchequer. A lamplighter and his grown son.\" He keeps going until there are nine, and then he stops, and his gloved hands stay very still on his knees.\n\n\"You could have lied.\"\n\n\"To you?\" He looks at you then. \"No. I could not.\"",
       "Sister Agathe meets the captain at the gate with a bucket.\n\n\"No swords over the step,\" she says.\n\n\"I am not crossing the step.\" Ottilie Ferrand is standing exactly on it. \"I am delivering a message.\"\n\n\"Then deliver it from there and carry this while you do. The burned need water and my novices are afraid of your horse.\"\n\nOttilie looks at the bucket. Then at you, behind the nun.\n\n\"He says,\" she says, through her teeth, \"good morning.\"",
     ],
     forkCostCredits: 120,
@@ -305,8 +310,8 @@ const raw = {
       id: 'maras_letters',
       name: 'Mara’s Letters',
       tags: ['document', 'personal'],
-      description: 'Five short letters in a captain’s square hand, tied with kitchen string. Each says some version of: Thank you. He knows. He has not come. Write again.',
-      loreText: 'Every one of them spells your name wrong in the same way.',
+      description: 'Three short letters in a captain’s square hand, tied with kitchen string. The first two say some version of: Thank you. He knows. He has not come. Write again.',
+      loreText: 'The third is dated the morning after the fire and says only: He is alive. Stay where you are.',
       icon: 'letter',
     },
     {
@@ -322,7 +327,7 @@ const raw = {
       id: 'travel_purse',
       name: 'The Prince’s Purse',
       tags: ['money'],
-      description: 'The purse Prince Remy pressed into your hand the night you ran. Eleven gold crowns left, and a lining embroidered with somebody else’s initials.',
+      description: 'The purse Prince Remy pressed into your hand the night you ran. Soft green leather, and eleven gold crowns left in it.',
       loreText: 'Enough for a boat down the river, or a horse and three weeks, or one very good bribe.',
       icon: 'coins',
     },
@@ -369,7 +374,7 @@ const raw = {
       tags: ['valuable'],
       skillModifiers: { court_face: 1 },
       description: 'Three pearl hairpins, each worth a good horse, from the last ball you went to before you ran.',
-      loreText: 'A ferryman, a sergeant or a stable boy would take one and forget your face.',
+      loreText: 'A ferryman, a sergeant or an ostler would take one and forget your face.',
       icon: 'gem',
     },
     {
@@ -633,7 +638,7 @@ const raw = {
       name: 'The Infirmary',
       shortName: 'Infirmary',
       description:
-        'Twelve beds under a low roof, a fire that never goes out, and a smell of vinegar and willow bark. Since the capital burned it has filled with people who walked north from it: bandaged hands, singed hair, coughs that will not stop, and a baker who will not let go of his bread paddle.',
+        'Twelve beds under a low roof, a fire that never goes out, and a smell of vinegar and willow bark. Since the sky went orange the sisters have kept every bed made up, the kettles full and the linen torn into bandages, for whoever walks north from the capital next.',
       artDirection:
         'Low-beamed convent infirmary at night, rows of plain beds with grey blankets, a big hearth, nuns in aprons carrying basins, bandaged survivors sitting up, bunches of dried herbs from the beams. Warm, crowded, tender.',
       connections: [{ to: 'the_cloister', travelMinutes: 1, label: 'Back to the cloister' }],
@@ -718,7 +723,7 @@ const raw = {
       name: 'Mossford',
       shortName: 'Mossford',
       description:
-        'A grey stone village at the foot of the lake: a ferry, a smithy, a chapel without a priest and the Heron inn, where a prince is staying under a borrowed name with a saddlebag he never lets the stable boy carry. Everybody here watched the sky go orange too.',
+        'A grey stone village at the foot of the lake: a ferry, a smithy, a chapel without a priest and the Heron inn, where a prince is staying under a borrowed name with a saddlebag he never lets the ostler carry. Everybody here watched the sky go orange too.',
       artDirection:
         'Small grey-stone lakeside village at dusk, a ferry landing, an inn with a heron sign, stables behind it, villagers on the road looking north. Damp, close, gossiping.',
       connections: [
@@ -815,7 +820,7 @@ const raw = {
       ranks: [
         { atReputation: 0, label: 'The runaway' },
         { atReputation: 35, label: 'His choice' },
-        { atReputation: 70, label: 'Their duchess' },
+        { atReputation: 70, label: 'One of the north' },
       ],
       allies: [],
       enemies: ['faction_crown'],
@@ -836,7 +841,7 @@ const raw = {
     {
       id: 'faction_burned',
       name: 'The People of the Capital',
-      description: 'The burned city: bakers, clerks, lamplighters, families walking north with what they carried out. Every one of them has heard the fire was for you.',
+      description: 'The burned city: bakers, clerks, lamplighters, townspeople walking north with what they carried out. Every one of them has heard the fire was for you.',
       startingReputation: -10,
       ranks: [
         { atReputation: -100, label: 'The one it was for' },
@@ -854,7 +859,7 @@ const raw = {
       calledName: 'Lucien',
       role: 'Grand Duke of the northern passes, the man you were promised to, and the man the whole kingdom says burned the capital looking for you',
       cardBlurb:
-        'He burned a city to keep you off a scaffold, he will not lie to you about the nine people who died in it, and he will take no for an answer, which nobody at court believes and you are about to find out.',
+        'Everyone says he burned the capital looking for you. He will not lie to you about the nine people who died in it, and he will take no for an answer, which nobody at court believes.',
       pronouns: 'he/him',
       publicTraits: ['Very still, then very fast', 'Answers exactly the question asked', 'Never takes his gloves off'],
       hiddenDrives: [
@@ -906,8 +911,8 @@ const raw = {
         'Low and level. Short sentences, no ornament. States the worst fact first and then waits. Uses your name rarely and on purpose. Says "tell me" where other people would say "please".',
       topics: ['the fire', 'the Hall of Seals', 'the nine', 'the Oathfire', 'your ring', 'why you ran', 'the north', 'his father'],
       voiceSamples: [
-        'You ran. So I burned everything you ran to. Come home, or tell me no.',
-        'Nine. A baker, two clerks, a lamplighter and his son, a woman who went back for a dog, three whose names I am still learning. Ask me anything else.',
+        'You ran. So I burned everything you ran from. Come home, or tell me no.',
+        'Nine. A baker, two clerks, a lamplighter and his grown son, a woman who went back for a dog, three whose names I am still learning. Ask me anything else.',
         'I knew where you were for twelve days. I stayed away. You had chosen, and I was trying to be a man who lets you.',
         'Tell me no and I will go. I will hate it. You will never have to watch how much.',
       ],
@@ -971,7 +976,7 @@ const raw = {
       pronouns: 'he/him',
       publicTraits: ['Charming without trying', 'Remembers every name', 'Laughs at himself first'],
       hiddenDrives: [
-        'He has been the spare all his life, and the north is the first thing he has ever been in a position to win',
+        'He has been the spare all his life. The King has promised the northern passes to whichever son brings him the traitor who burned the capital, and ruining the Grand Duke is the first thing Remy has ever been in a position to win',
         'He is truly fond of you and has decided that this counts as being good to you',
       ],
       values: ['Getting the result while everybody still likes him', 'Never being the one holding the knife'],
@@ -1062,7 +1067,7 @@ const raw = {
       calledName: 'Mara',
       role: 'Your maid for six years, who ran with you, and who has been writing letters',
       cardBlurb:
-        'She climbed out of a window after you with both your shoes in her teeth, she would lie to a king for you, and she is the reason he knew where to find you.',
+        'She climbed out of a window after you with both your shoes in her teeth, she would lie to a king for you, and she has been writing letters that she hides whenever you come in.',
       pronouns: 'she/her',
       publicTraits: ['Talks fast when frightened', 'Practical to the bone', 'Loudly, fiercely loyal'],
       hiddenDrives: [
@@ -1090,7 +1095,7 @@ const raw = {
         },
         {
           id: 'mara_the_note',
-          fact: 'She kept the prince’s note from the night you ran. It names Stillwater in his hand, and it is dated the day before the King signed the writ, which means the prince knew there would be a writ before there was one.',
+          fact: 'She kept the prince’s note from the night you ran. It names Stillwater in his hand and tells you to stay there whatever the writ says, and it is dated the day before the King signed the writ, so the prince knew there would be a writ before there was one.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She fetches it from the bottom of her basket if you ask her what she really thinks of the prince.',
         },
@@ -1099,7 +1104,7 @@ const raw = {
         'Rapid and warm, full of household detail: boots, bread, which sister snores. Calls you by your name when she is scared and by nothing at all when she is cross.',
       topics: ['the night you ran', 'her sister', 'the letters', 'the prince', 'home', 'what you should eat'],
       voiceSamples: [
-        'I have your good boots, your mother’s knife and four days of bread. I did not have time for the rest of your life.',
+        'I packed your good boots, your mother’s knife and four days of bread. I did not have time for the rest of your life.',
         'He looked at you like you were the only lit window in the street. I am only remarking. I have remarked. Moving on.',
         'I wrote to my sister. Every week. If it went wrong, one person would know which convent to come and shout at.',
         'Eat this. Then be furious with me. Furious goes better on bread.',
@@ -1141,7 +1146,7 @@ const raw = {
       calledName: 'Agathe',
       role: 'Prioress of Stillwater, once an army surgeon, and the only person in the building who is not afraid of him',
       cardBlurb:
-        'She took you in under a borrowed name and asked no questions, she has set more bones than she has sung psalms, and she has a letter in her sleeve that orders her to hand you over.',
+        'She took you in under a borrowed name and asked no questions, she has set more bones than she has sung psalms, and the house rule standing between you and the crown is hers to keep, or to break.',
       pronouns: 'she/her',
       publicTraits: ['Unshockable', 'Dry as old bread', 'Counts the cost of everything out loud'],
       hiddenDrives: [
@@ -1240,7 +1245,7 @@ const raw = {
       pronouns: 'she/her',
       publicTraits: ['Blunt to the point of insult', 'Never sits down on duty', 'Swears in three dialects'],
       hiddenDrives: [
-        'She has served three Grand Dukes and buried one, and she will do anything at all to avoid burying a second',
+        'She has served two Grand Dukes and buried one, and she will do anything at all to avoid burying a second',
         'She is proud of her sister and has never once managed to say so',
       ],
       values: ['Duty done in the mud, without a speech', 'Her riders home alive'],
@@ -1350,7 +1355,7 @@ const raw = {
         },
         {
           id: 'isaure_the_order',
-          fact: 'The order sending her riders to Stillwater came from Prince Remy’s office, not the King’s, and named the convent before anybody but Remy could have known you were in it.',
+          fact: 'The order sending her riders to Stillwater came from Prince Remy’s office, not the King’s, and named the convent before anybody at court but Remy could have known you were in it.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She reads it to you, for the record, once you have shown her the writ or told her under oath who had it.',
         },
@@ -1408,7 +1413,7 @@ const raw = {
           id: 'answer_him',
           playerCopy: 'Answer the man in the chapel doorway.',
           directorNotes:
-            'He asked a real question and both answers are honoured. He does not cross the threshold, does not raise his voice and does not argue with a no; he asks once what it means, and then he goes to the camp. A yes is not the end of anything either: he will ask what she wants before he asks anything else. Agathe stays physically between them until the player moves. Every route here is a real way to play and none of them is wrong, including the knife, which he does not defend himself against.',
+            'He asked a real question and both answers are honoured. He does not cross the threshold, does not raise his voice and does not argue with a no; he asks once what it means, and then he goes to the camp. A yes is not the end of anything either: he will ask what the player wants before he asks anything else, and nobody rides anywhere tonight. Agathe stays physically between them until the player moves. Every route here is a real way to play and none of them is wrong, including the knife, which he does not defend himself against.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1490,6 +1495,7 @@ const raw = {
               predicate: {
                 flagsSet: ['spoke:lucien'],
                 minRelationship: [{ characterId: 'lucien', dimension: 'trust', value: 45 }],
+                atLocation: 'the_ardent_camp',
               },
               setsFlags: ['heard_his_side'],
               closesFlags: [],
@@ -1517,7 +1523,7 @@ const raw = {
             },
             {
               routeId: 'rode_out_with_him',
-              label: 'Ride for the pass with him tonight',
+              label: 'Make for the north road tonight, with him or without',
               predicate: { atLocation: 'the_north_road' },
               setsFlags: ['crossed_the_pass'],
               closesFlags: ['in_sanctuary'],
@@ -1527,7 +1533,7 @@ const raw = {
             xp: 70,
             items: [],
             flags: ['first_night_over'],
-            abilities: ['bank_the_fire'],
+            abilities: [],
             reputation: [{ factionId: 'faction_stillwater', amount: 5 }],
           },
         },
@@ -1607,7 +1613,7 @@ const raw = {
           id: 'where_the_writ_went',
           playerCopy: 'Find out whether the writ he burned a city for was ever in the Hall.',
           directorNotes:
-            'It was not. Remy took it out the day before and told Lucien where it was kept. The writ is in Remy’s saddlebag at the Heron; the Justiciar has the empty iron case; Mara has a note in Remy’s hand dated before the writ existed. Any one of these is enough to know. Remy is not a cackling villain when caught: he is frightened, articulate, and his argument that Lucien is too dangerous to exist is still a good one.',
+            'It was not. Remy took it out the day before and told Lucien where it was kept. The writ is in Remy’s saddlebag at the Heron; the Justiciar has the empty iron case; Mara has a note in Remy’s hand, dated before the writ existed, that already tells the player to stay put whatever the writ says. Any one of these is enough to know. Remy is not a cackling villain when caught: he is frightened, articulate, and his argument that Lucien is too dangerous to exist is still a good one.',
           enterWhen: { flagsSet: ['knows:what_he_burned'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1777,12 +1783,12 @@ const raw = {
     {
       id: 'q_maras_letters',
       title: 'Mara’s Letters',
-      summary: 'He did not find you by chance. Somebody has written to his household every week since you ran, and only one other person knew where you were.',
+      summary: 'He did not find you by chance. Somebody has written to his household every week since you ran, and the letters came from inside the convent.',
       kind: 'SIDE',
       involvedCharacterIds: ['mara', 'ottilie'],
       involvedLocationIds: ['your_cell', 'the_ardent_camp'],
       knownRewardCopy: 'Your maid, kept or lost, and what you think loyalty is.',
-      discoverWhen: { flagsSet: ['first_night_over'] },
+      discoverWhen: { flagsSet: ['knows:the_letters'] },
       steps: [
         {
           id: 'what_mara_did',
@@ -1796,7 +1802,7 @@ const raw = {
               label: 'Forgive her',
               predicate: {
                 flagsSet: ['knows:the_letters'],
-                minRelationship: [{ characterId: 'mara', dimension: 'trust', value: 70 }],
+                minRelationship: [{ characterId: 'mara', dimension: 'trust', value: 80 }],
               },
               setsFlags: ['forgave_mara'],
               closesFlags: ['sent_mara_away'],
@@ -1846,7 +1852,7 @@ const raw = {
             {
               routeId: 'went_home_with_him',
               label: 'Go north with him, knowing what he did',
-              predicate: { flagsSet: ['used:take_his_hand', 'knows:what_he_burned'] },
+              predicate: { flagsSet: ['used:take_his_hand', 'knows:what_he_burned'], atLocation: 'the_north_road' },
               setsFlags: ['went_north_with_him'],
               closesFlags: ['parted_from_him', 'took_the_veil'],
             },
@@ -1878,7 +1884,7 @@ const raw = {
               routeId: 'sailed_with_remy',
               label: 'Get into the prince’s boat',
               predicate: {
-                flagsSet: ['met_remy_again'],
+                flagsSet: ['spoke:remy'],
                 flagsUnset: ['knows:remy_had_it'],
                 atLocation: 'the_lake_shore',
               },
@@ -1997,7 +2003,7 @@ const raw = {
       locationId: 'the_gatehouse',
       publicCopy: 'The Justiciar’s sergeant runs out of patience before she does. Ropes go over the gate bar, and forty riders lean on them.',
       directorNotes:
-        'Isaure did not order this and is shouting to stop it. Lucien calls the Oathfire to hold the gate: a wall of fire along the white stones, riders thrown back, nobody burned if he can help it. It is his second full calling this season and it is killing him. Unless the player knows the Banked Word and speaks it, he does not walk away from this.',
+        'Only if nothing at the gate is settled by late morning. Isaure did not order this and is shouting to stop it. Lucien calls the Oathfire to hold the gate: a wall of fire along the white stones, riders thrown back, nobody burned if he can help it. It is his second full calling this season and it is killing him. Unless the player knows the Banked Word and speaks it, he does not walk away from this.',
       setsFlags: ['gate_forced', 'he_called_the_fire'],
       cancelledByFlags: ['the_crown_answered', 'lucien_surrendered', 'crossed_the_pass'],
       requiresFlags: ['crown_at_the_gate'],
@@ -2009,7 +2015,7 @@ const raw = {
       locationId: 'the_ardent_camp',
       publicCopy: 'At the camp fire he pulls one glove off with his teeth to hold a hot cup, forgets for a moment that you are there, and you see his hand.',
       directorNotes:
-        'Burned to the wrist and healing badly. Do not describe the injury in detail: the colour of the bandage, how he holds the cup in his fingertips, how fast the glove goes back on. Ottilie looks away. If the player asks, Ottilie or he will say exactly what a second calling would do.',
+        'Only after the player has sat at his fire and heard his side, never on the first night. Burned to the wrist and healing badly. Do not describe the injury in detail: the colour of the bandage, how he holds the cup in his fingertips, how fast the glove goes back on. Ottilie looks away. If the player asks, Ottilie or he will say exactly what a second calling would do.',
       setsFlags: ['knows:his_hands'],
       cancelledByFlags: [],
       requiresFlags: ['heard_his_side'],
@@ -2024,7 +2030,7 @@ const raw = {
         'Remy’s manservant set it, on Remy’s orders, to make the valley blame Lucien and drive the player into the boat. Lucien never left the camp and Ottilie will swear to it. If the player speaks the Banked Word and this fire does not go out, it was never his, and that is proof anybody watching can see. Nobody dies in this one; the horses are got out.',
       setsFlags: ['mossford_burned'],
       cancelledByFlags: ['remy_exposed', 'sailed_with_remy'],
-      requiresFlags: ['met_remy_again'],
+      requiresFlags: ['spoke:remy'],
       movesCharacters: [],
     },
     {
@@ -2087,7 +2093,7 @@ const raw = {
       id: 'arch_steward',
       name: 'You Kept the House Books',
       role: 'Background: letters and law',
-      summary: 'You ran your family’s estate, rents and lawsuits for five years, so writs, seals and what a document is really for are your native language.',
+      summary: 'You ran your family’s estate, rents and lawsuits for five years, so writs, seals and what a document is really for are your native language, and your family’s signet is in a pouch at your belt.',
       playstyle: ['Observant', 'Reads the fine print', 'Patient'],
       blurb: 'You read the old betrothal law cover to cover before you ran, which is how you knew exactly what it would cost and did it anyway.',
       attributeBonus: { mind: 3, resolve: 1 },
@@ -2100,7 +2106,7 @@ const raw = {
       id: 'arch_rider',
       name: 'You Ride and Fence',
       role: 'Background: riding and blade',
-      summary: 'A fencing master hired to scandalise the court taught you the knife, and you rode before you danced, so running is something you are good at.',
+      summary: 'A fencing master hired to scandalise the court taught you the knife, and you rode before you danced, so running is something you are good at, and your grey mare is in the convent stable.',
       playstyle: ['Physical', 'Fast', 'Takes risks'],
       blurb: 'You have outridden two suitors and a royal hunt, and his captain will notice how you sit a horse before she notices anything else.',
       attributeBonus: { agility: 2, might: 2 },
@@ -2113,7 +2119,7 @@ const raw = {
       id: 'arch_courtier',
       name: 'The Court’s Favourite',
       role: 'Background: social and court',
-      summary: 'Two seasons at court taught you every smile, every lie worth telling and every name worth knowing, which is how you came to trust a prince.',
+      summary: 'Two seasons at court taught you every smile, every lie worth telling and every name worth knowing, which is how you came to trust a prince, and three pearl hairpins worth a good horse each are still in your hair.',
       playstyle: ['Charming', 'Talks well', 'Lies well'],
       blurb: 'Half the capital danced with you and the other half wrote poems about it, and none of them ever once knew what you were thinking.',
       attributeBonus: { presence: 3, agility: 1 },
@@ -2126,7 +2132,7 @@ const raw = {
       id: 'arch_devout',
       name: 'Taught by Canonesses',
       role: 'Background: lore and healing',
-      summary: 'You were schooled by canonesses before you were sent to court, so Stillwater’s rules, its old psalms and its infirmary feel like home ground.',
+      summary: 'You were schooled by canonesses before you were sent to court, so Stillwater’s rules, its old psalms and its infirmary feel like home ground, and you still carry their plain wooden prayer beads.',
       playstyle: ['Calm', 'Healer', 'Knows the old rules'],
       blurb: 'You can sing the night office from memory and dress a burn without flinching, and the sisters noticed both inside a week.',
       attributeBonus: { arcana: 3, mind: 1 },
@@ -2204,7 +2210,7 @@ const raw = {
         minRelationship: [{ characterId: 'lucien', dimension: 'affection', value: 80 }],
       },
       condition:
-        'The player went north with him knowing exactly what he did, and chose it anyway. Write the crossing of the pass and the first night at Hollowfell, not a wedding. He asks before he does anything, still, and the household watches the player to see what kind of duchess this will be. The nine are not forgotten: there is a letter on his desk to a baker’s widow, and the player can see it.',
+        'The player went north with him knowing exactly what he did, and chose it anyway. Write the crossing of the pass and the first night at Hollowfell, not a wedding. He asks before he does anything, still, and the household watches the player to see what kind of consort this will be. The nine are not forgotten: there is a letter on his desk to a baker’s widow, and the player can see it.',
       epilogue:
         'The hearth at Hollowfell has not gone out in three hundred years, and the first thing the player learns is that it leans toward him too. The wedding is small, in the snow, with Ottilie as witness and complaining throughout. Every spring he rides south with money for the Street of Lamps, and every spring the player goes with him.',
       hint: '',
@@ -2312,7 +2318,7 @@ const raw = {
       minTurn: 34,
       requires: { flagsSet: ['spoke_for_him', 'he_offered_himself'] },
       condition:
-        'The player told him no, watched him walk out to give himself up, and then testified under oath that the prince emptied the writ-case. The truth comes out and he is still tried, because nine people died and he will not say otherwise. Write the hearing, the verdict and the player choosing where to stand during it.',
+        'The player told him no, he walked out across the white stones to give himself up, and the player testified under oath that the prince emptied the writ-case, before he went or after. The truth comes out and he is still tried, because nine people died and he will not say otherwise. Write the hearing, the verdict and the player choosing where to stand during it.',
       epilogue:
         'The court sentences him to rebuild the Street of Lamps with his own money and his own hands, gloves and all, for as long as it takes. Remy leaves the country quietly in the autumn. The player visits the site more often than strictly necessary, and nobody on the scaffolding is fooled.',
       hint: '',
@@ -2331,12 +2337,12 @@ const raw = {
     },
     {
       id: 'end_grand_duchess',
-      name: 'Grand Duchess of the North',
+      name: 'Holding the North',
       rarity: 'RARE',
       minTurn: 34,
       requires: {
         flagsSet: ['holds_the_north'],
-        minFactionReputation: [{ factionId: 'faction_ardent', value: 45 }],
+        minFactionReputation: [{ factionId: 'faction_ardent', value: 20 }],
       },
       condition:
         'He gave himself up to stop the war, and the player crossed the pass and held his country for him: his household, his riders and his fortress, under the player’s orders. It is a power ending, not a romance one. Write the first council at Hollowfell and the moment the household decides to obey.',
@@ -2358,13 +2364,13 @@ const raw = {
     },
   ],
   opening:
-    "Every candle in the chapel leans toward the door at once.\n\nSister Agathe stops mid-psalm and steps in front of you. \"Stay behind me,\" she says, low. \"That’s him.\"\n\nThe man you were promised to stands in the doorway. Gloved. Ash on his collar. Smoke lifting off his coat into the cold.\n\nThree nights ago the sky to the south turned orange until dawn. Every rider since has said the same thing: the capital burned, and he was looking for you.\n\nHis eyes find you over her shoulder.\n\n\"You ran,\" he says. \"So I burned everything you ran to.\"\n\nHe holds out his hand. Your betrothal ring lies in the palm.\n\n\"Come home. Or tell me no.\"",
+    "Every candle in the chapel leans toward the door at once.\n\nSister Agathe stops mid-psalm and steps in front of you. \"Stay behind me,\" she says, low. \"That’s him.\"\n\nThe man you were promised to stands in the doorway. Gloved. Ash on his collar. Smoke lifting off his coat into the cold.\n\nThree nights ago the sky to the south turned orange until dawn. Every rider since has said the same thing: the capital burned, and he was looking for you.\n\nHe has already found you behind her.\n\n\"You ran,\" he says. \"So I burned everything you ran from.\"\n\nHe holds out his hand. Your betrothal ring lies in the palm.\n\n\"Come home. Or tell me no.\"",
   openingPanel: {
     assetKey: 'story_he_burned_the_capital/opening',
     alt: 'A tall gloved man in a smoke-dark coat stands in a candlelit chapel doorway, holding out a ring in his palm, while a grey-habited nun stands between him and you.',
   },
   openingSuggestions: [
-    '"Not until you tell me how many people died."',
+    '"No. Not until you tell me how many people died."',
     'I step out from behind Sister Agathe and take back my ring.',
     'I bolt for the side door and the boats on the lake.',
   ],

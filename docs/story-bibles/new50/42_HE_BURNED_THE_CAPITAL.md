@@ -20,7 +20,9 @@ Every character is an adult, and the fixture's first hard-canon line says so wit
 | Captain Ottilie Ferrand | 36 |
 | Justiciar Isaure Dane | 48 |
 
-Appearance fields describe build and costume only: "An adult man…", "An older woman…". No age words that could read as a minor, anywhere.
+Everybody else who appears or is mentioned is an adult too: the King and his elder son, the Archbishop, the riders, the sisters and novices, the villagers and the burned from the capital. No children appear in this story, and hard canon says so.
+
+Appearance fields describe build and costume only: "An adult man…", "An older woman…". No age words that could read as a minor, anywhere: the man at the Heron who carries bags is an ostler, and the lamplighter who died beside his son died beside his grown son.
 
 ## Why this fantasy works
 
@@ -59,7 +61,7 @@ Three to five days at Stillwater Convent and the country around it, starting at 
 ### What is actually true (the mystery)
 
 - **The writ was never in the Hall.** Remy took it out the day before the fire, then told Lucien exactly where it was kept, knowing Lucien would burn the Hall to destroy it and be ruined for it. The writ is folded in four in Remy's saddlebag at the inn in Mossford.
-- **Isaure Dane has the writ's iron case**, dug out of the ashes: locked, unburned, empty. It has kept her awake. Her orders to ride for Stillwater came from Remy's office and named the convent before anybody but Remy knew the player was there.
+- **Isaure Dane has the writ's iron case**, dug out of the ashes: locked, unburned, empty. It has kept her awake. Her orders to ride for Stillwater came from Remy's office and named the convent before anybody at court but Remy could have known the player was there.
 - **Mara is how Lucien found the player.** She is Captain Ottilie Ferrand's younger sister and has written to her every week so that one person in the world would know where they were. Lucien knew for twelve days and did not come. He came when the writ made running a death sentence.
 - **Lucien is nearly spent.** His hands are burned to the wrist under his gloves. A second full calling of the Oathfire this season would very likely kill him. The kingdom is terrified of a weapon that has one shot left.
 - **His plan if the player says no** is to walk out to the Justiciar unarmed and give himself up, so the crown has its traitor and the army never marches on his people.
@@ -83,7 +85,7 @@ Three to five days at Stillwater Convent and the country around it, starting at 
 
 ## Opener (turn 1, verbatim)
 
-117 words. Sister Agathe speaks to the player at word 21. Ends on a demand that needs an answer now. No proper noun the player must already know: Agathe is named as she acts, and the man in the doorway is "the man you were promised to".
+117 words. Sister Agathe speaks to the player at word 22. Ends on a demand that needs an answer now. No proper noun the player must already know: Agathe is named as she acts, and the man in the doorway is "the man you were promised to".
 
 > Every candle in the chapel leans toward the door at once.
 >
@@ -93,20 +95,22 @@ Three to five days at Stillwater Convent and the country around it, starting at 
 >
 > Three nights ago the sky to the south turned orange until dawn. Every rider since has said the same thing: the capital burned, and he was looking for you.
 >
-> His eyes find you over her shoulder.
+> He has already found you behind her.
 >
-> "You ran," he says. "So I burned everything you ran to."
+> "You ran," he says. "So I burned everything you ran from."
 >
 > He holds out his hand. Your betrothal ring lies in the palm.
 >
 > "Come home. Or tell me no."
 
 Suggestions, three different moves:
-- **Said:** "Not until you tell me how many people died."
+- **Said:** "No. Not until you tell me how many people died."
 - **Done:** I step out from behind Sister Agathe and take back my ring.
 - **Risky:** I bolt for the side door and the boats on the lake.
 
 The candles leaning toward him is the Oathfire, shown before it is named. The gloves are the first seed of what it cost him.
+
+The slate row has "everything you ran to". It ships as "everything you ran from": the player ran *from* the capital *to* Stillwater, Stillwater is standing, and a man written to say the true thing first cannot open on a false one. It also quietly puts him among the things the player ran from.
 
 ## Cast
 
@@ -118,13 +122,13 @@ The candles leaning toward him is the Oathfire, shown before it is named. The gl
 **Will not:** take you anywhere by force or let anyone else; cross the convent threshold uninvited; pretend the nine dead were somebody else's fault.
 **Secrets:** his hands, and the second calling that would kill him; his surrender plan if you say no; the twelve days he knew where you were and stayed away.
 **Voice:** low and level, short sentences, the worst fact first. Uses your name rarely and on purpose. Says "tell me" where other people say "please".
-> "Nine. A baker, two clerks, a lamplighter and his son, a woman who went back for a dog, three I am still learning the names of. Ask me anything else."
+> "Nine. A baker, two clerks, a lamplighter and his grown son, a woman who went back for a dog, three I am still learning the names of. Ask me anything else."
 > "Tell me no and I will go. I will not like it. You will never have to see how much."
 
 ### Prince Remy, 26, the one who helped you run
 **Role:** the King's second son, the rival, and the real author of the fire.
 **Look:** slight and golden-haired, warm brown eyes, a travelling coat too good for the road, a royal signet ring turned inward so the crest does not show.
-**Wants:** you on his boat and down the river before the third dawn; Lucien condemned, with your testimony if possible; the north, which is the first thing the spare has ever been able to win.
+**Wants:** you on his boat and down the river before the third dawn; Lucien condemned, with your testimony if possible; the northern passes, which the King has promised to whichever son brings him the traitor who burned the capital: the first thing the spare has ever been able to win.
 **Fears:** that the nine dead are his; being found out by you in particular; going back to being nobody at his father's table.
 **Will not:** raise a hand himself; say the word "writ" out loud if he can help it; leave without you while he still has a move.
 **Secrets:** he took the writ out and told Lucien where it was; he did not expect deaths and has not slept since; if you refuse the boat, his man is to set a fire in Mossford that everybody will blame on Lucien.
@@ -181,7 +185,7 @@ Lucien states facts and stops. Remy asks questions. Mara fusses and feeds. Agath
 | The Chapel (start) | candlelit, west door onto the gate court; he stands on its threshold | Cloister, Bell Tower |
 | The Cloister | covered walk round the herb garden; the hub | Chapel, Your Cell, Infirmary, Bell Tower, Gatehouse, Boathouse |
 | Your Cell | narrow room, two cots, Mara's bundle of letters under her mattress | Cloister |
-| The Infirmary | eleven burned people from the capital road, and Agathe | Cloister |
+| The Infirmary | beds kept made up for the burned walking north; eleven of them arrive on the first night | Cloister |
 | The Bell Tower | where you watched the sky go orange; the first duchess's psalter in the book chest; view of both roads | Cloister, Chapel |
 | The Gatehouse | the convent gate and the line no armed man crosses | Cloister, His Camp, Mossford |
 | His Camp | twelve riders on the meadow outside the wall; the page of nine names | Gatehouse, North Road |
@@ -207,12 +211,12 @@ Every place has at least one way in.
 2. **What Really Burned** (main). What he set alight and why; then whether the writ he burned a city for was ever there.
 3. **Forty Riders at the Gate** (main, from the second morning). The Justiciar's standoff: speak for him, give him up, hold the gate under the veil, let him surrender, ride north, or be taken.
 4. **The Word That Banks a Fire** (lead, opens only once you know about his hands). Agathe, the psalter, or Lucien himself.
-5. **Mara's Letters** (side). Forgive her, send her away, or send her to her sister.
+5. **Mara's Letters** (side, opens once you have found the letters). Forgive her, send her away, or send her to her sister.
 6. **Your Real Answer** (main). Home with him, on your terms, apart, under the veil, on the prince's boat, or holding the north yourself.
 
 ## World events
 
-- 22:30, night one: two carts of burned families reach the infirmary.
+- 22:30, night one: two carts of burned townspeople reach the infirmary.
 - 23:30: a lantern swings three times at the boathouse. Remy is here.
 - 05:20, day two: torches on the south road, seen from the bell tower.
 - 07:00: the Justiciar at the gate with forty riders, reading a warrant with both names in it.
@@ -247,7 +251,7 @@ Twelve, so the narrator reads every one. Four rarities. Three are plain losses.
 | Burned Out | Rare | He calls the Oathfire a second time and it takes him. A loss. |
 | What the Ashes Said | Rare | You speak for him under oath, the truth comes out, and he gives himself up anyway. |
 | The Witness | Rare | You expose the prince and refuse both men. |
-| Grand Duchess of the North | Rare | He surrenders; you cross the pass and hold the north in his name. |
+| Holding the North | Rare | He surrenders; you cross the pass and hold the north in his name. |
 | The Banked Fire | Unique | He calls the fire to save you, and you speak the word that saves him. |
 
 ## Archetypes (how you were raised)
@@ -263,6 +267,18 @@ Characterisation, not identity; the player names themselves.
 - **Composure** (restorable): your reserve for hard conversations, lies and running. The only thing rest refills.
 - **Pursuit** (descending, first): how close the crown is. Public violence raises it first.
 - **Smoulder** (descending): how close his fire is to the surface. Drawing a knife on him, or forcing him to face the nine, raises it; nothing you say by way of "no" does.
+
+## Pacing, where production reads it
+
+`runTurnPure` sends each secret's `fact` but never its `revealHint`, sends quests as title and summary only, and never sends a step's `directorNotes`. So the rules that pace this story live in the tone guide and in world-event notes, which it does read:
+- He takes a glove off only for somebody who has asked about him rather than the fire, and never on the first night.
+- Agathe opens the psalter only for somebody who already knows about his hands.
+- Remy admits the writ only with the writ or the empty case in front of him. His part in the fire is the central secret and surfaces only through evidence the player finds, never through narration or somebody guessing.
+- Mara confesses the letters when asked straight how he found the player.
+- A yes does not mean riding tonight: the pass is two days away, his riders are spent, and carrying off a person named in a crown warrant is the war he came to prevent.
+- If the player draws a knife on him, he does not defend himself and does not let his riders do it for him.
+
+The cast cards are shown on the story page and read by the storyteller as public lines, so none of them gives a secret away: Mara "has been writing letters", Agathe holds the house rule "to keep, or to break", and Lucien's card repeats the rumour rather than the truth.
 
 ## Content line (13+)
 

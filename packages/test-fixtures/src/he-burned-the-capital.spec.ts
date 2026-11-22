@@ -230,6 +230,26 @@ describe('the rumour has a real answer under it', () => {
     expect(caseOnTheRoad.ownerId).toBe('isaure');
   });
 
+  it('keeps the cards from answering the mysteries before play', () => {
+    // The story page shows every card blurb, and the storyteller reads each one
+    // as the public line about that character.
+    expect(character('mara').cardBlurb).not.toMatch(/how he (knew|found)|where to find you|sister/i);
+    expect(character('agathe').cardBlurb).not.toMatch(/letter|order|hand you over/i);
+    expect(character('lucien').cardBlurb).not.toMatch(/scaffold|writ|Hall of Seals/i);
+  });
+
+  it('tells the storyteller when the secrets come out, where it actually reads', () => {
+    // runTurnPure sends secret facts and world-event notes but never a
+    // revealHint or a step's directorNotes, so the pacing lives in the tone.
+    const tone = S.rules.toneGuide;
+    expect(tone).toMatch(/never on the first night/);
+    expect(tone).toMatch(/A yes does not mean riding tonight/);
+    expect(tone).toMatch(/does not defend himself/);
+    expect(tone).toMatch(/central secret/);
+    const hands = S.worldEvents.find((e) => e.id === 'we_his_hands')!;
+    expect(hands.directorNotes).toMatch(/^Only after the player has sat at his fire/);
+  });
+
   it('keeps the prince likeable on his card', () => {
     const remy = character('remy');
     expect(remy.cardBlurb).not.toMatch(/writ|match|lied|fire he/i);
@@ -238,7 +258,11 @@ describe('the rumour has a real answer under it', () => {
 
   it('only burns Mossford for a player who went to the prince, and stops once he is caught', () => {
     const fire = S.worldEvents.find((e) => e.id === 'we_fire_in_mossford')!;
-    expect(fire.requiresFlags).toEqual(['met_remy_again']);
+    // Any conversation with him counts, not only the one at the lantern: the
+    // first night's routes exclude each other, so a route flag would leave most
+    // players without the fire or the boat.
+    expect(fire.requiresFlags).toEqual(['spoke:remy']);
+    expect(route('sailed_with_remy').predicate.flagsSet).toEqual(['spoke:remy']);
     expect(fire.cancelledByFlags).toEqual(expect.arrayContaining(['remy_exposed', 'sailed_with_remy']));
   });
 
@@ -293,6 +317,15 @@ describe('everybody on the page is an adult, on the page', () => {
       expect(canon, c.id).toContain(calledName(c));
       expect(canon, c.id).toContain(AGE_WORDS_IN_CANON[c.id]!);
     }
+  });
+
+  it('never puts a minor anywhere the storyteller reads', () => {
+    // The first hard-canon line says, in so many words, that no children
+    // appear. Everything else must not contradict it.
+    const { rules, ...rest } = S;
+    const text = JSON.stringify([rest, rules.hardCanon.slice(1), rules.toneGuide, rules.styleExamples]);
+    expect(text).not.toMatch(/\b(boys?|girls?|child|children|kids?|teen\w*)\b/i);
+    expect(rules.hardCanon[0]).toMatch(/No children appear in this story\./);
   });
 
   it('describes people by build and costume, never by an age word', () => {
@@ -630,6 +663,25 @@ describe('it can end badly, early and in many ways', () => {
 
   it('uses the whole rarity range', () => {
     expect(new Set(S.endings.map((e) => e.rarity)).size).toBe(4);
+  });
+
+  it('never asks for more standing than the story can hand out', () => {
+    // Outside quest rewards the engine only ever lowers faction standing, so
+    // the ceiling is the start, the best archetype and every positive reward.
+    for (const e of S.endings) {
+      for (const need of e.requires.minFactionReputation) {
+        const faction = S.factions.find((f) => f.id === need.factionId)!;
+        const archetype = Math.max(
+          0,
+          ...S.archetypes.flatMap((a) => a.startingReputation.filter((r) => r.factionId === need.factionId).map((r) => r.amount)),
+        );
+        const rewards = steps
+          .flatMap((s) => s.rewards.reputation)
+          .filter((r) => r.factionId === need.factionId && r.amount > 0)
+          .reduce((sum, r) => sum + r.amount, 0);
+        expect(faction.startingReputation + archetype + rewards, `${e.id} on ${need.factionId}`).toBeGreaterThanOrEqual(need.value);
+      }
+    }
   });
 
   it('has real losses, not just flavours of romance', () => {
