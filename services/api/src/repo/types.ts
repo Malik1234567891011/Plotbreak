@@ -191,6 +191,50 @@ export const EMPTY_SIGNALS: StorySignals = {
   views: 0,
 };
 
+/**
+ * What a world has been doing lately: the input to every shelf that is meant to
+ * move from one day to the next (Trending, New, Rising, the daily rotations).
+ *
+ * `StorySignals` is lifetime totals plus a curated launch floor, so a shelf
+ * built on it shows the same worlds in the same order every day. These are read
+ * from the rows themselves, inside a window, so they move as people play.
+ */
+export interface StoryActivity {
+  /**
+   * When the world was first published: the earliest `story_versions.published_at`
+   * of any of its versions, or `stories.created_at` when no version records one.
+   *
+   * Not the definition's `publishedAt`. Three official fixtures (Hush House,
+   * Uncounted, Window Seven) have none, and for a player-made world it is the
+   * date of the *latest* version, so republishing would make an old world new.
+   * Null only when nothing records a date at all.
+   */
+  readonly firstPublishedAt: string | null;
+  /** Distinct players who started a run since `recentSince` (72 hours). */
+  readonly recentPlayers: number;
+  /** Likes given since `recentSince`. */
+  readonly recentLikes: number;
+  /** Distinct players who started a run since `weekSince` (7 days). */
+  readonly weekPlayers: number;
+  /** Likes given since `weekSince`. */
+  readonly weekLikes: number;
+}
+
+/** A world nobody has played or liked in the window, with no known publish date. */
+export const EMPTY_ACTIVITY: StoryActivity = {
+  firstPublishedAt: null,
+  recentPlayers: 0,
+  recentLikes: 0,
+  weekPlayers: 0,
+  weekLikes: 0,
+};
+
+/** Where the two activity windows start. `weekSince` is the earlier of the two. */
+export interface ActivityWindows {
+  readonly recentSince: Date;
+  readonly weekSince: Date;
+}
+
 export interface StoryComment {
   readonly commentId: string;
   readonly storyId: string;
@@ -340,6 +384,17 @@ export interface Repository {
    * with the catalogue.
    */
   getSignalsFor(storyIds: readonly string[]): Promise<Map<string, StorySignals>>;
+  /**
+   * Recent activity and first-publish date for many worlds, in one query.
+   *
+   * One round trip per Discover request whatever the size of the catalogue,
+   * for the same reason as `getSignalsFor`. Every id asked for is answered,
+   * with `EMPTY_ACTIVITY` for a world nobody has touched.
+   */
+  getStoryActivity(
+    storyIds: readonly string[],
+    windows: ActivityWindows,
+  ): Promise<Map<string, StoryActivity>>;
   bumpSignal(storyId: string, key: keyof StorySignals, delta: number): Promise<void>;
 
   // --- Users ---

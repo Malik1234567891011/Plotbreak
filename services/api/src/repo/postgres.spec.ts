@@ -5,6 +5,7 @@ import { createInitialState } from '@plotbreak/engine';
 import type { GameState, LedgerEntry, TurnRecord } from '@plotbreak/contracts';
 import { PostgresRepository } from './postgres.js';
 import type { PurchaseTransaction, SessionRecord, UserRecord } from './types.js';
+import { EMPTY_ACTIVITY } from './types.js';
 
 /**
  * The persistence tests that matter are the ones an in-process store cannot
@@ -618,5 +619,83 @@ describe.skipIf(!URL)('PostgresRepository', () => {
     expect(after.runs).toBeGreaterThanOrEqual(3);
     await repo.bumpSignal(STORY.storyId, 'hides', -5);
     expect((await repo.getSignals(STORY.storyId)).hides).toBe(0);
+  });
+
+  it('dates a world by its first version and counts players and likes per window, in one query', async () => {
+    // Worlds of their own, unlisted, so neither earlier runs against this
+    // database nor the catalogue can move the numbers.
+    const dated = `story_activity_${uuid().slice(0, 8)}`;
+    const undated = `story_activity_${uuid().slice(0, 8)}`;
+    const insertVersion = (storyId: string, version: number, publishedAt: string | null) =>
+      admin.query(
+        `INSERT INTO story_versions (story_version_id, story_id, version, definition, title,
+                                     fantasy_label, hook, intensity, content_descriptors,
+                                     clarity_passed, published_at)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,true,$10)`,
+        [`${storyId}_${version}`, storyId, version,
+         JSON.stringify({ ...STORY, id: `${storyId}_${version}`, storyId, version }),
+         STORY.title, STORY.fantasyLabel, STORY.hook, STORY.intensity, STORY.contentDescriptors, publishedAt],
+      );
+    for (const storyId of [dated, undated]) {
+      await admin.query(
+        `INSERT INTO stories (story_id, slug, official, status, created_at)
+         VALUES ($1, $1, true, 'DRAFT', '2026-01-01T00:00:00Z')`,
+        [storyId],
+      );
+    }
+    // The newest version is the latest republish; the first one is the launch.
+    await insertVersion(dated, 1, '2026-03-01T00:00:00Z');
+    await insertVersion(dated, 2, '2026-06-01T00:00:00Z');
+    // No version carries a date, so the stories row has to answer.
+    await insertVersion(undated, 1, null);
+
+    const now = new Date();
+    const ago = (hours: number) => new Date(now.getTime() - hours * 3_600_000).toISOString();
+    const [first, second, third] = [await makeUser(), await makeUser(), await makeUser()];
+    const state = createInitialState({
+      sessionId: 'sess_activity',
+      story: STORY,
+      identity: {
+        displayName: 'Rell', pronouns: 'they/them', ageBand: null,
+        archetypeId: STORY.archetypes[0]!.id, worldKnowsAboutYou: '', advanced: {}, portraitAssetId: null,
+      },
+    });
+    const start = (userId: string, hoursAgo: number) =>
+      repo.createSession(
+        {
+          sessionId: `sess_${uuid()}`, userId, storyId: dated, storyVersionId: `${dated}_1`,
+          displayName: 'Rell', status: 'ACTIVE', createdAt: ago(hoursAgo), lastPlayedAt: ago(0),
+          sessionSeed: 'seed', forkedFromSessionId: null, forkedAtTurnIndex: null, branchKey: 'main',
+        },
+        state,
+      );
+    await start(first!.userId, 2);
+    await start(first!.userId, 1); // the same player twice is one player
+    await start(second!.userId, 24 * 4); // this week, not the last 72 hours
+    await start(third!.userId, 24 * 10); // neither
+    await repo.setLiked(first!.userId, dated, true);
+    await admin.query(
+      `INSERT INTO story_likes (user_id, story_id, created_at) VALUES ($1, $2, now() - interval '5 days')`,
+      [second!.userId, dated],
+    );
+
+    try {
+      const activity = await repo.getStoryActivity([dated, undated, 'story_nobody_wrote'], {
+        recentSince: new Date(now.getTime() - 72 * 3_600_000),
+        weekSince: new Date(now.getTime() - 7 * 24 * 3_600_000),
+      });
+      expect(activity.get(dated)).toEqual({
+        firstPublishedAt: '2026-03-01T00:00:00.000Z',
+        recentPlayers: 1,
+        recentLikes: 1,
+        weekPlayers: 2,
+        weekLikes: 2,
+      });
+      expect(activity.get(undated)!.firstPublishedAt).toBe('2026-01-01T00:00:00.000Z');
+      expect(activity.get('story_nobody_wrote')).toEqual(EMPTY_ACTIVITY);
+    } finally {
+      await admin.query(`DELETE FROM story_sessions WHERE story_id = ANY($1)`, [[dated, undated]]);
+      await admin.query(`DELETE FROM stories WHERE story_id = ANY($1)`, [[dated, undated]]);
+    }
   });
 });

@@ -14,6 +14,7 @@ import {
   registerWorldText,
 } from '@plotbreak/contracts';
 import type {
+  ActivityWindows,
   IdempotencyRecord,
   ReportRecord,
   ModerationQueueItem,
@@ -21,6 +22,7 @@ import type {
   ClientErrorGroup,
   Repository,
   SessionRecord,
+  StoryActivity,
   StoryComment,
   StoryEditorial,
   StorySignals,
@@ -37,7 +39,7 @@ import type {
   PureMessage,
   PurchaseTransaction,
 } from './types.js';
-import { EMPTY_SIGNALS, AUTO_HIDE_REPORTS } from './types.js';
+import { EMPTY_ACTIVITY, EMPTY_SIGNALS, AUTO_HIDE_REPORTS } from './types.js';
 
 /** A `story_version_text` row, in the shape the rest of the service uses. */
 function storyTextRow(row: {
@@ -421,6 +423,84 @@ export class PostgresRepository implements Repository {
     }
     // A world nobody has touched yet has no row, and must still answer.
     for (const id of storyIds) if (!found.has(id)) found.set(id, { ...EMPTY_SIGNALS });
+    return found;
+  }
+
+  /**
+   * One query for the whole shelf: first-publish date, and distinct players and
+   * likes inside the two windows.
+   *
+   * The first-publish date is `MIN(story_versions.published_at)`, falling back
+   * to `stories.created_at`. `migrate` writes `COALESCE(fixture.publishedAt,
+   * now())` into every version it inserts, so a fixture with no `publishedAt`
+   * (Hush House, Uncounted, Window Seven) gets a fresh date on each revision;
+   * the earliest version still carries the day it really went live. A
+   * player-made world's latest version is the day it was last republished, which
+   * is why this never reads the newest one.
+   *
+   * `story_sessions.created_at` is when a run started (`last_played_at` moves
+   * every turn), so a player counts once per world however long they play.
+   */
+  async getStoryActivity(
+    storyIds: readonly string[],
+    windows: ActivityWindows,
+  ): Promise<Map<string, StoryActivity>> {
+    const found = new Map<string, StoryActivity>();
+    if (storyIds.length === 0) return found;
+    const { rows } = await this.#pool.query<{
+      story_id: string;
+      first_published_at: Date | null;
+      recent_players: string;
+      recent_likes: string;
+      week_players: string;
+      week_likes: string;
+    }>(
+      `WITH ids AS (SELECT DISTINCT unnest($1::text[]) AS story_id),
+            firsts AS (
+              SELECT s.story_id, COALESCE(MIN(v.published_at), s.created_at) AS first_published_at
+                FROM stories s
+                LEFT JOIN story_versions v ON v.story_id = s.story_id
+               WHERE s.story_id = ANY($1::text[])
+               GROUP BY s.story_id, s.created_at
+            ),
+            plays AS (
+              SELECT story_id,
+                     COUNT(DISTINCT user_id) FILTER (WHERE created_at >= $2::timestamptz) AS recent_players,
+                     COUNT(DISTINCT user_id) AS week_players
+                FROM story_sessions
+               WHERE story_id = ANY($1::text[]) AND created_at >= $3::timestamptz
+               GROUP BY story_id
+            ),
+            likes AS (
+              SELECT story_id,
+                     COUNT(*) FILTER (WHERE created_at >= $2::timestamptz) AS recent_likes,
+                     COUNT(*) AS week_likes
+                FROM story_likes
+               WHERE story_id = ANY($1::text[]) AND created_at >= $3::timestamptz
+               GROUP BY story_id
+            )
+       SELECT ids.story_id,
+              f.first_published_at,
+              COALESCE(p.recent_players, 0)::text AS recent_players,
+              COALESCE(l.recent_likes, 0)::text   AS recent_likes,
+              COALESCE(p.week_players, 0)::text   AS week_players,
+              COALESCE(l.week_likes, 0)::text     AS week_likes
+         FROM ids
+         LEFT JOIN firsts f ON f.story_id = ids.story_id
+         LEFT JOIN plays  p ON p.story_id = ids.story_id
+         LEFT JOIN likes  l ON l.story_id = ids.story_id`,
+      [[...storyIds], windows.recentSince.toISOString(), windows.weekSince.toISOString()],
+    );
+    for (const row of rows) {
+      found.set(row.story_id, {
+        firstPublishedAt: row.first_published_at ? row.first_published_at.toISOString() : null,
+        recentPlayers: Number(row.recent_players),
+        recentLikes: Number(row.recent_likes),
+        weekPlayers: Number(row.week_players),
+        weekLikes: Number(row.week_likes),
+      });
+    }
+    for (const id of storyIds) if (!found.has(id)) found.set(id, { ...EMPTY_ACTIVITY });
     return found;
   }
 

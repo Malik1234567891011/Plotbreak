@@ -11,6 +11,7 @@ import type {
 import { registerWorldText } from '@plotbreak/contracts';
 import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
 import type {
+  ActivityWindows,
   IdempotencyRecord,
   ReportRecord,
   ModerationQueueItem,
@@ -19,6 +20,7 @@ import type {
   Repository,
   SessionRecord,
   StoryComment,
+  StoryActivity,
   StoryEditorial,
   StorySignals,
   StoryTextRow,
@@ -32,7 +34,7 @@ import type {
   PureMessage,
   PurchaseTransaction,
 } from './types.js';
-import { AUTO_HIDE_REPORTS, EMPTY_SIGNALS } from './types.js';
+import { AUTO_HIDE_REPORTS, EMPTY_ACTIVITY, EMPTY_SIGNALS } from './types.js';
 
 /**
  * In-process repository.
@@ -72,8 +74,20 @@ export class MemoryRepository implements Repository {
   readonly #visibility = new Map<string, 'PRIVATE' | 'UNLISTED' | 'PUBLIC'>();
   /** Worlds taken down by moderation, and why. */
   readonly #removed = new Map<string, string>();
+  /**
+   * When each world was first published: the `story_versions.published_at` of
+   * its earliest version, in Postgres terms. A fixture with no `publishedAt`
+   * has no entry, so it never passes for new.
+   */
+  readonly #firstPublished = new Map<string, string>();
+  /** Stamps the rows that carry a time (likes). Injected so a spec can pin the day. */
+  readonly #now: () => Date;
 
-  constructor(stories: readonly StoryVersion[] = [...LAUNCH_CATALOG]) {
+  constructor(
+    stories: readonly StoryVersion[] = [...LAUNCH_CATALOG],
+    now: () => Date = () => new Date(),
+  ) {
+    this.#now = now;
     // Seeded so a fresh install shows a plausible catalog rather than a wall of
     // zeroes, and varied so the ranking has something real to sort on. Replaced
     // by the offline rollup job in production.
@@ -89,7 +103,15 @@ export class MemoryRepository implements Repository {
         story.storyId,
         seeded[story.storyId] ?? { ...EMPTY_SIGNALS },
       );
+      this.#notePublished(story.storyId, story.publishedAt);
     }
+  }
+
+  /** Keeps the earliest date seen for a world, as `MIN(published_at)` does. */
+  #notePublished(storyId: string, at: string | null): void {
+    if (!at) return;
+    const known = this.#firstPublished.get(storyId);
+    if (!known || Date.parse(at) < Date.parse(known)) this.#firstPublished.set(storyId, at);
   }
 
   // --- Catalog ---
@@ -140,6 +162,33 @@ export class MemoryRepository implements Repository {
     return new Map(await Promise.all(storyIds.map(async (id) => [id, await this.getSignals(id)] as const)));
   }
 
+  async getStoryActivity(
+    storyIds: readonly string[],
+    windows: ActivityWindows,
+  ): Promise<Map<string, StoryActivity>> {
+    const recent = windows.recentSince.getTime();
+    const week = windows.weekSince.getTime();
+    const sessions = [...this.#sessions.values()];
+    const found = new Map<string, StoryActivity>();
+    for (const storyId of storyIds) {
+      const started = sessions
+        .filter((s) => s.storyId === storyId)
+        .map((s) => ({ userId: s.userId, at: Date.parse(s.createdAt) }));
+      const liked = [...(this.#likes.get(storyId)?.values() ?? [])].map((at) => Date.parse(at));
+      const players = (since: number): number =>
+        new Set(started.filter((s) => s.at >= since).map((s) => s.userId)).size;
+      found.set(storyId, {
+        ...EMPTY_ACTIVITY,
+        firstPublishedAt: this.#firstPublished.get(storyId) ?? null,
+        recentPlayers: players(recent),
+        recentLikes: liked.filter((at) => at >= recent).length,
+        weekPlayers: players(week),
+        weekLikes: liked.filter((at) => at >= week).length,
+      });
+    }
+    return found;
+  }
+
   async bumpSignal(storyId: string, key: keyof StorySignals, delta: number): Promise<void> {
     const signals = await this.getSignals(storyId);
     signals[key] = Math.max(0, signals[key] + delta);
@@ -153,7 +202,8 @@ export class MemoryRepository implements Repository {
   // plain maps with the same semantics as the SQL: idempotent likes, soft
   // deletes, claim-once badges.
 
-  #likes = new Map<string, Set<string>>();
+  /** Story id → (user id → when they liked it), as `story_likes` keeps it. */
+  #likes = new Map<string, Map<string, string>>();
   #comments: StoryComment[] = [];
   #deletedComments = new Set<string>();
   #commentLikes = new Map<string, Set<string>>();
@@ -169,18 +219,18 @@ export class MemoryRepository implements Repository {
   #storyRequestVotes = new Map<string, Set<string>>();
 
   async setLiked(userId: string, storyId: string, liked: boolean): Promise<boolean> {
-    const set = this.#likes.get(storyId) ?? new Set<string>();
-    this.#likes.set(storyId, set);
+    const likers = this.#likes.get(storyId) ?? new Map<string, string>();
+    this.#likes.set(storyId, likers);
     if (liked) {
-      if (set.has(userId)) return false;
-      set.add(userId);
+      if (likers.has(userId)) return false;
+      likers.set(userId, this.#now().toISOString());
       return true;
     }
-    return set.delete(userId);
+    return likers.delete(userId);
   }
 
   async getLikes(userId: string): Promise<string[]> {
-    return [...this.#likes.entries()].filter(([, set]) => set.has(userId)).map(([id]) => id);
+    return [...this.#likes.entries()].filter(([, likers]) => likers.has(userId)).map(([id]) => id);
   }
 
   async countLikes(storyIds: readonly string[]): Promise<Map<string, number>> {
@@ -882,6 +932,7 @@ export class MemoryRepository implements Repository {
   }): Promise<StoryDraft> {
     this.#stories.set(input.story.id, input.story);
     this.#visibility.set(input.story.storyId, input.visibility);
+    this.#notePublished(input.story.storyId, input.at);
     if (!this.#signals.has(input.story.storyId)) {
       this.#signals.set(input.story.storyId, { ...EMPTY_SIGNALS });
     }
