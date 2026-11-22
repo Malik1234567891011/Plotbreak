@@ -146,8 +146,15 @@ async function drawWithPixai(panel: Panel, force: boolean): Promise<void> {
   console.log(`draw   ${panel.key} (PixAI, reference ${panel.reference})`);
   try {
     const mediaId = await pixaiUpload(new Uint8Array(await readFile(ref.path)), ref.type);
+    // Without this the first PixAI panel put the character small and side-on
+    // in a wide hall. The panels behind our best openers (Hana, Sora) are
+    // close shots of the person who speaks to you.
+    const framing =
+      'FRAMING: the character is large in the frame, from the waist up, close to the camera, ' +
+      'face fully visible and well lit, turned toward the viewer. Everything else is secondary background, ' +
+      'softly focused; any crowd is distant, small and indistinct.';
     const r = await pixaiGenerate({
-      prompt: `${panel.prompt} ${STYLE} ${NEGATIVES}`,
+      prompt: `${panel.prompt} ${framing} ${STYLE} ${NEGATIVES}`,
       ...PANEL,
       ...PIXAI_SIZE.PORTRAIT,
       contextImages: [mediaId],

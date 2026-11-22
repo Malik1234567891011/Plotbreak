@@ -2115,6 +2115,10 @@ const raw = {
   ],
   opening:
     "The king reads the skills off a long scroll.\n\n\"Hero.\" Daichi, your coworker, still wearing his office lanyard, goes red to the ears as the hall applauds.\n\n\"Saint.\" \"Sword Saint.\" More applause.\n\nDaichi leans back to you. \"What did you get? Tell me it’s something good.\"\n\nThe king reaches your line and stops reading.\n\nA blue window opens in the air in front of you, one line stuttering red:\n\n[ERROR: skill too large to display]\n\nBeside the throne, the silver-haired court mage reads it, and goes white.\n\nNobody claps.\n\nTwenty-nine people from your bus are already kneeling on the marble. Daichi kneels with them.\n\nThe king rolls up the scroll.\n\n\"Kneel,\" he says, \"and show us.\"",
+  openingPanel: {
+    assetKey: 'story_skill_error/opening',
+    alt: 'Selene beside the throne, silver hair and navy-gold robe, staring white-faced at a glitching blue window in the air before you while the summoned crowd kneels on the marble.',
+  },
   openingSuggestions: [
     "\"I’ll show you. First tell me what kneeling does.\"",
     'I kneel beside Daichi and keep the red window open where the court can see it.',

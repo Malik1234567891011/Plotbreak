@@ -28120,5 +28120,328 @@
       "latencyMs": 16636,
       "createdAt": "2026-10-31T02:48:22.709Z"
     }
+  },
+  "story_skill_error/stage_mage_tower": {
+    "assetKey": "story_skill_error/stage_mage_tower",
+    "file": "story_skill_error/stage_mage_tower.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Selene’s Tower: A round room at the top of a hundred and twelve steps: crystal lenses on brass arms, chalk circles on every flat surface, a cot she clearly sleeps on, and a wall of notes about the summoning.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114001591935358",
+      "promptHash": "970d8fb5929d48aa1b1931174784187f",
+      "seed": "sv_skill_error_1:loc:mage_tower:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15353,
+      "createdAt": "2026-11-22T05:34:35.396Z"
+    }
+  },
+  "story_skill_error/stage_palace_gallery": {
+    "assetKey": "story_skill_error/stage_palace_gallery",
+    "file": "story_skill_error/stage_palace_gallery.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Long Gallery: The spine of the palace: a corridor three hundred paces long, lined with portraits of every Hero Ostmere has ever summoned, twelve of them in two hundred years.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114002265816428",
+      "promptHash": "908ec41264d56b557d89d290dc0f6fd1",
+      "seed": "sv_skill_error_1:loc:palace_gallery:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15397,
+      "createdAt": "2026-11-22T05:34:35.439Z"
+    }
+  },
+  "story_skill_error/key": {
+    "assetKey": "story_skill_error/key",
+    "file": "story_skill_error/key.png",
+    "kind": "KEY_ART",
+    "alt": "Key art for Skill: ERROR",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114002301433974",
+      "promptHash": "12c0bcb88542dfb9230a8dc016b652ac",
+      "seed": "sv_skill_error_1:key:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17833,
+      "createdAt": "2026-11-22T05:34:37.881Z"
+    }
+  },
+  "story_skill_error/stage_summoning_hall": {
+    "assetKey": "story_skill_error/stage_summoning_hall",
+    "file": "story_skill_error/stage_summoning_hall.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Summoning Hall: The throne room of Ostmere and its summoning floor in one: white marble, tall stained-glass windows, banners, a throne on a dais, and a circle fifteen paces wide cut into the floor.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114002083937765",
+      "promptHash": "9abfd29a77bf7020ea728e13956f068d",
+      "seed": "sv_skill_error_1:loc:summoning_hall:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 19508,
+      "createdAt": "2026-11-22T05:34:39.550Z"
+    }
+  },
+  "story_skill_error/stage_guest_wing": {
+    "assetKey": "story_skill_error/stage_guest_wing",
+    "file": "story_skill_error/stage_guest_wing.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Guest Wing: Thirty-one small rooms off one corridor, given to the summoned.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114002444647924",
+      "promptHash": "e7f49840380c847df808205ced2972d1",
+      "seed": "sv_skill_error_1:loc:guest_wing:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 20149,
+      "createdAt": "2026-11-22T05:34:40.192Z"
+    }
+  },
+  "story_skill_error/stage_royal_garden": {
+    "assetKey": "story_skill_error/stage_royal_garden",
+    "file": "story_skill_error/stage_royal_garden.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Queen’s Garden: A walled garden with gravel paths, roses gone slightly wild, and a wooden post in the far corner scarred by ten years of sword practice.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114065647614622",
+      "promptHash": "89ddfca51ee0e0ebff0fc26e9b35ba03",
+      "seed": "sv_skill_error_1:loc:royal_garden:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15202,
+      "createdAt": "2026-11-22T05:34:50.606Z"
+    }
+  },
+  "story_skill_error/stage_training_yard": {
+    "assetKey": "story_skill_error/stage_training_yard",
+    "file": "story_skill_error/stage_training_yard.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Knights’ Yard: A sanded yard inside the palace walls with weapon racks, straw targets and a viewing gallery.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114066054188134",
+      "promptHash": "4d5c1daa2ac5ac3f63feec23153f3f42",
+      "seed": "sv_skill_error_1:loc:training_yard:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17199,
+      "createdAt": "2026-11-22T05:34:52.649Z"
+    }
+  },
+  "story_skill_error/stage_city_market": {
+    "assetKey": "story_skill_error/stage_city_market",
+    "file": "story_skill_error/stage_city_market.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Lower City: The streets below the palace gate: food stalls, a fountain, a hiring board, carts, and crowds who have heard the summoned are here and want to see one.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114083242453646",
+      "promptHash": "73efeb0c195d73bc22865f097046f7b6",
+      "seed": "sv_skill_error_1:loc:city_market:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15165,
+      "createdAt": "2026-11-22T05:34:54.725Z"
+    }
+  },
+  "story_skill_error/stage_map_room": {
+    "assetKey": "story_skill_error/stage_map_room",
+    "file": "story_skill_error/stage_map_room.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Map Room: The king’s war room: a table-sized map of Ostmere in painted wood, the northern pass marked in red ink that has been redrawn wider every week.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114076411520130",
+      "promptHash": "37794c43c10cc29d6dc1d1d5f972a129",
+      "seed": "sv_skill_error_1:loc:map_room:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17368,
+      "createdAt": "2026-11-22T05:34:55.258Z"
+    }
+  },
+  "story_skill_error/stage_cathedral": {
+    "assetKey": "story_skill_error/stage_cathedral",
+    "file": "story_skill_error/stage_cathedral.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Cathedral of the Register: A white cathedral whose whole north wall is the Great Register: thousands of stone tablets, one for every skill in the kingdom, each carved with a name, a skill and a rank.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114085947779800",
+      "promptHash": "dea581cb4e99fe3e66ba52ba658c64ca",
+      "seed": "sv_skill_error_1:loc:cathedral:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17149,
+      "createdAt": "2026-11-22T05:34:57.348Z"
+    }
+  },
+  "story_skill_error/stage_sealed_wing": {
+    "assetKey": "story_skill_error/stage_sealed_wing",
+    "file": "story_skill_error/stage_sealed_wing.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The East Wing: Plastered shut twenty-two years ago and left exactly as it was.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114129560437456",
+      "promptHash": "8a6abde82129b059bae3395a51ddd186",
+      "seed": "sv_skill_error_1:loc:sealed_wing:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15153,
+      "createdAt": "2026-11-22T05:35:05.768Z"
+    }
+  },
+  "story_skill_error/selene": {
+    "assetKey": "story_skill_error/selene",
+    "file": "story_skill_error/selene.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Selene Varre, Court mage of Ostmere, who drew the circle that summoned you and is the only one who can read your window",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114138084624791",
+      "promptHash": "e429cc43c3d34c1f06d64d1a8ec55d31",
+      "seed": "skill-error-selene-01",
+      "costUsd": 0.081,
+      "latencyMs": 15142,
+      "createdAt": "2026-11-22T05:35:07.798Z"
+    }
+  },
+  "story_skill_error/aurelia": {
+    "assetKey": "story_skill_error/aurelia",
+    "file": "story_skill_error/aurelia.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Princess Aurelia, Heir to the throne of Ostmere, promised by an old law to whichever summoned has the highest skill",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114147438794334",
+      "promptHash": "c63b6854a41d3bb74cf868fc23d61f19",
+      "seed": "skill-error-aurelia-01",
+      "costUsd": 0.081,
+      "latencyMs": 17349,
+      "createdAt": "2026-11-22T05:35:12.083Z"
+    }
+  },
+  "story_skill_error/daichi": {
+    "assetKey": "story_skill_error/daichi",
+    "file": "story_skill_error/daichi.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Daichi Ono, Your coworker from the same firm, who sat two seats ahead of you on the bus and got the Hero class",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114149267743265",
+      "promptHash": "138c2482224a742084adc472b3249b77",
+      "seed": "skill-error-daichi-01",
+      "costUsd": 0.081,
+      "latencyMs": 17281,
+      "createdAt": "2026-11-22T05:35:12.547Z"
+    }
+  },
+  "story_skill_error/hask": {
+    "assetKey": "story_skill_error/hask",
+    "file": "story_skill_error/hask.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Inquisitor Hask, Inquisitor of the Church of the Register, who decides which skills are written down, which are sealed and which are burned out",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114158294682386",
+      "promptHash": "93ae580b751bcc1fdf0dbd8f04050ba0",
+      "seed": "skill-error-hask-01",
+      "costUsd": 0.081,
+      "latencyMs": 19362,
+      "createdAt": "2026-11-22T05:35:16.717Z"
+    }
+  },
+  "story_skill_error/matthias": {
+    "assetKey": "story_skill_error/matthias",
+    "file": "story_skill_error/matthias.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "King Matthias, King of Ostmere, who ordered the summoning and needs every summoned sworn and marching north within days",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081114193468438680",
+      "promptHash": "dd1533ce24212a58f962f88feb67a7c4",
+      "seed": "skill-error-matthias-01",
+      "costUsd": 0.081,
+      "latencyMs": 15164,
+      "createdAt": "2026-11-22T05:35:20.941Z"
+    }
+  },
+  "story_skill_error/cover": {
+    "assetKey": "story_skill_error/cover",
+    "file": "story_skill_error/cover.png",
+    "kind": "COVER",
+    "alt": "Cover art for Skill: ERROR: Your skill is too large to display.",
+    "width": 1152,
+    "height": 1744,
+    "styleVersion": "plotbreak-cover-v4-generated",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki3-pro",
+      "requestId": "2081114002158166421",
+      "promptHash": "b2835142e550c3e7abe4aca1befe4695",
+      "seed": "sv_skill_error_1:cover:plotbreak-cover-v4-generated",
+      "costUsd": 0.132,
+      "latencyMs": 67850,
+      "createdAt": "2026-11-22T05:35:27.867Z"
+    }
   }
 }

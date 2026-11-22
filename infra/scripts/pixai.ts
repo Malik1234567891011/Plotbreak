@@ -230,15 +230,25 @@ export async function pixaiGenerate(req: PixaiRequest): Promise<PixaiResult> {
 }
 
 /** Uploads a local image and returns its PixAI media id, for `contextImages`. */
-export async function pixaiUpload(bytes: Uint8Array, contentType: string): Promise<string> {
-  const slot = await call('/media/image/upload-url', { method: 'POST', body: JSON.stringify({ isEphemeral: true }) });
+export async function pixaiUpload(bytes: Uint8Array, contentType: string, ephemeral = false): Promise<string> {
+  const slot = await call('/media/image/upload-url', { method: 'POST', body: JSON.stringify({ isEphemeral: ephemeral }) });
   if (!slot.ok) throw new PixaiError(`UPLOAD_URL_${slot.status}`, (await slot.text()).slice(0, 200));
   const { uploadUrl, externalId } = (await slot.json()) as { uploadUrl: string; externalId: string };
   const put = await fetch(uploadUrl, { method: 'PUT', headers: { 'Content-Type': contentType }, body: bytes });
   if (!put.ok) throw new PixaiError(`UPLOAD_PUT_${put.status}`, (await put.text()).slice(0, 200));
   const reg = await call('/media/image/register', { method: 'POST', body: JSON.stringify({ externalId }) });
   if (!reg.ok) throw new PixaiError(`UPLOAD_REGISTER_${reg.status}`, (await reg.text()).slice(0, 200));
-  return ((await reg.json()) as { id: string }).id;
+  const id = ((await reg.json()) as { id: string }).id;
+  // A context image used before PixAI has processed it fails the task with
+  // "input image moderation failed" (seen on the first opening panel). Wait
+  // until the media record has its dimensions.
+  for (let i = 0; i < 15; i++) {
+    const res = await call(`/media/batch?ids=${id}`);
+    const [media] = res.ok ? ((await res.json()) as { width?: number }[]) : [];
+    if ((media?.width ?? 0) > 0) break;
+    await sleep(2_000);
+  }
+  return id;
 }
 
 export function promptHash(prompt: string): string {

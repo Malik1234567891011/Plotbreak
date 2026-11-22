@@ -38,8 +38,10 @@ const STYLE_SPINE = [
  * Spec §41.1 / §29.4 — hard negatives on every prompt. No text baked into art
  * (it cannot be localized or made accessible), and no likeness of real people.
  */
+const NO_TEXT_RULE = 'No text, no lettering, no captions, no watermarks, no logos, no signatures, no UI.';
+
 const NEGATIVES = [
-  'No text, no lettering, no captions, no watermarks, no logos, no signatures, no UI.',
+  NO_TEXT_RULE,
   'No real people or celebrity likenesses.',
   'Not photorealistic. No 3D render look.',
   // Named because we kept getting them. Our covers came back as muted painted
@@ -484,6 +486,11 @@ function coverLogoStyle(story: StoryVersion): string {
 export function generatedCoverPrompt(story: StoryVersion, title: string): ImagePromptSpec {
   const hero = story.locations.find((l) => l.id === story.rules.startingLocationId);
   const wordmark = title.trim().toUpperCase();
+  // A hand-written direction with its own `TITLE:` line owns the lettering:
+  // style and placement. Repeating the generic "lower third" and "no text,
+  // no lettering" rules on top of it handed the model two contradictory
+  // instructions. Creator covers never carry a TITLE: line, so they are unchanged.
+  const directedTitle = /\bTITLE:/.test(story.coverDirection ?? '');
 
   return {
     assetKey: coverAssetKey(story.storyId),
@@ -498,10 +505,13 @@ export function generatedCoverPrompt(story: StoryVersion, title: string): ImageP
       GENERATED_COVER_SPINE,
       // Stated first and in the recipe's own words, because it is the thing
       // most likely to be dropped if the prompt runs long.
-      `THE TITLE IS PART OF THE ART. Render the words "${wordmark}" as a bespoke stylized logo ` +
-        `integrated into the illustration: ${coverLogoStyle(story)}, placed in the lower third of ` +
-        `the cover, large and perfectly legible, spelled exactly "${wordmark}". ` +
-        'No other text anywhere.',
+      directedTitle
+        ? `THE TITLE IS PART OF THE ART. Render the words "${wordmark}" exactly as the TITLE line below ` +
+          `describes, large and perfectly legible, spelled exactly "${wordmark}". No other text anywhere.`
+        : `THE TITLE IS PART OF THE ART. Render the words "${wordmark}" as a bespoke stylized logo ` +
+          `integrated into the illustration: ${coverLogoStyle(story)}, placed in the lower third of ` +
+          `the cover, large and perfectly legible, spelled exactly "${wordmark}". ` +
+          'No other text anywhere.',
       'FRAMING: the characters fill the frame. They occupy at least three quarters of the image and ' +
         'are cropped by its edges. Faces are large — a head is roughly a fifth of the picture height. ' +
         'Shot from the front, near eye level, looking at or just past the viewer. The setting is a ' +
@@ -520,10 +530,10 @@ export function generatedCoverPrompt(story: StoryVersion, title: string): ImageP
       `It must read at a glance as: ${story.fantasyLabel}`,
       `Mood: ${story.rules.toneGuide}`,
       'Faces large enough and contrast high enough that the characters are still readable at thumbnail size.',
-      'Keep the lower third clear enough of busy detail that the title reads cleanly over it.',
+      directedTitle ? null : 'Keep the lower third clear enough of busy detail that the title reads cleanly over it.',
       'No watermark, no signature, no speech bubbles, no borders, and no text other than the title.',
       COVER_NEGATIVES,
-      NEGATIVES,
+      directedTitle ? NEGATIVES.replace(NO_TEXT_RULE, 'No captions, no watermarks, no signatures, no UI.') : NEGATIVES,
     ]),
   };
 }

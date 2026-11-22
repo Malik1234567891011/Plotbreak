@@ -29,7 +29,7 @@ import { UNCOUNTED as UNCOUNTED_RAW } from './uncounted.js';
 import { LAST_SERVICE as LAST_SERVICE_RAW } from './last-service.js';
 import { PINK_TIDE as PINK_TIDE_RAW } from './pink-tide.js';
 import { LAST_FEATHER as LAST_FEATHER_RAW } from './last-feather.js';
-import { SKILL_ERROR } from './skill-error.js';
+import { SKILL_ERROR as SKILL_ERROR_RAW } from './skill-error.js';
 
 
 export { withDerivedAssetKeys } from './derive-assets.js';
@@ -58,6 +58,8 @@ export const UNCOUNTED = withDerivedAssetKeys(UNCOUNTED_RAW);
 export const LAST_SERVICE = withDerivedAssetKeys(LAST_SERVICE_RAW);
 export const PINK_TIDE = withDerivedAssetKeys(PINK_TIDE_RAW);
 export const LAST_FEATHER = withDerivedAssetKeys(LAST_FEATHER_RAW);
+/** New-50 pilot (#7). Art drawn on PixAI; see docs/stories-50/PIPELINE.md. */
+export const SKILL_ERROR = withDerivedAssetKeys(SKILL_ERROR_RAW);
 
 /**
  * These three shipped with null asset keys on purpose, and no longer need to.
