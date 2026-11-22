@@ -3,7 +3,8 @@
 **Slate:** story #20 of the fifty. Slug `one-year-bride`, export `ONE_YEAR_BRIDE`, asset prefix `story_one_year_bride`.  
 **Genre:** romantic comedy, contract marriage, slice of life, light drama. Lean: both.  
 **Rating:** 13+. Romance up to a kiss, always asked for. Intensity LIGHT.  
-**One-line fantasy:** To save the family restaurant you married a stranger for a year. She moves in tonight with twelve rules, and rule one is: don’t fall for me.
+**Shelf line:** Your wife of six hours has twelve rules.  
+**One-line fantasy:** She moves in tonight with twelve rules. Rule one: don’t fall for me. You married her this afternoon, for a year, to save the family restaurant.
 
 Fixture: `packages/test-fixtures/src/one-year-bride.ts`. Spec: `packages/test-fixtures/src/one-year-bride.spec.ts`. Not yet registered in `index.ts`, and no art exists yet.
 
@@ -48,17 +49,18 @@ Production's storyteller (`runTurnPure`) never reads step notes, so the rules ar
 
 ### The old story (optional)
 
-Fifty-five summers ago Teo and Chiyo were engaged for one summer, and her father ended it. She married into the Kurosawa family the next year and wrote Teo one letter a year for fifty-four years. He wrote fifty-four replies and never posted one. They are in a biscuit tin under his bed. Chiyo’s telescope in the Cliff House is aimed at the end of his pier. Her last letter told Reina where to eat if she ever needed a husband in a hurry.
+Fifty-five summers ago Teo and Chiyo were engaged for one summer, and her father ended it. She married into the Kurosawa family the next year and wrote Teo one letter a year for fifty-four years. He wrote fifty-four replies and never posted one. They are in a biscuit tin under his bed. Chiyo’s telescope in the Cliff House is aimed at the end of his pier. Her last letter told Reina where to eat if she ever needed to marry in a hurry.
 
 A player who never asks never sees any of it. It opens only through `knows:the_letters`, which comes from learning why Reina chose this family or from going down to the boathouse on purpose.
 
 ## Tone and pacing
 
 - Quick, warm, specific, a little sad underneath. The comedy comes from two precise people sharing four small rooms, and from a town that watches.
+- The bathroom door that does not lock is a joke about knocking, timing and a sign hung on the handle: nobody ever walks in on anybody, and nobody is ever shown in a towel or half-dressed. Hard canon says the same, because production reads hard canon and not this bible: nobody is seen half-dressed or bathing, the narration never lingers on a body, and if they ever share the bed to fool Felix it is fully dressed, back to back, behind a wall of pillows, and played for comedy.
 - Reina is never a prize and never a tease. She can say no, get angry, renegotiate and leave.
 - Consequences are social and they stick. Bo’s kiosk sees everybody, the pier hears a raised voice by breakfast, Felix writes things down, and Masaru calls the police if anybody touches him.
 - The first fortnight is close-up: the signing, Felix’s first visit that night, Bo’s breakfast, the bank, Masaru at the counter, the first Sunday, the storm, the lantern festival. After that the year moves in jumps of a week or a season, to Felix’s second visit and then the anniversary.
-- Nobody breaks rule one in the first week.
+- Nobody breaks rule one in the first week. The fixture's tone guide tells the storyteller that Reina does not admit to it in the first week of story time, and none of her voice samples is a confession.
 
 ## Player starting authority
 
@@ -75,7 +77,7 @@ The player is **28**. Nothing obliges them to sign, keep the rules, stay married
 
 ### Minimal hard canon
 
-Ages; Sorrel Bay and Teo’s; the debt and Friday’s auction; the marriage this afternoon; the will’s condition; the deal; the twelve rules; Felix’s four visits and his signature; Teo and Chiyo (revealed only through Teo or the letters); player freedom; romance no further than a kiss, asked first.
+Ages; Sorrel Bay and Teo’s; the debt and Friday’s auction; the marriage this afternoon; the will’s condition; the deal; the twelve rules; Felix’s four visits and his signature; Teo and Chiyo (revealed only through Teo or the letters); player freedom; 13+ whatever the player does: romance no further than a kiss, asked first, nobody seen half-dressed, the unlockable bathroom door a knocking joke and never a reveal.
 
 ## Opening scene
 
@@ -111,7 +113,7 @@ Everyone is an adult, and every age is stated in hard canon.
 **Role:** your wife of six hours; a city lawyer with a deadline, a contract and twelve rules.  
 **Want:** keep the marriage convincing to the anniversary, get the Cliff House, and stop her father selling it.  
 **Fear:** turning into her father, winning everything and keeping nobody; that Felix was right to leave.  
-**Secrets:** she chose this family on purpose, because of her grandmother’s last letter ("If you ever need a husband in a hurry, go and eat at Teo’s"). At three in the morning she typed a rule twelve, "If either of us breaks rule one, we say so," then crossed it out. Buying the debt takes every penny she has.  
+**Secrets:** she chose this family on purpose, because of her grandmother’s last letter ("If you ever need to marry in a hurry, go and eat at Teo’s"). She ate at Teo’s counter with Chiyo on Chiyo’s last two summers, always on the player’s nights off. At three in the morning she typed a rule twelve, "If either of us breaks rule one, we say so," then crossed it out. Buying the debt takes every penny she has.  
 **Voice:** short declaratives, legal precision used for comedy, rule numbers as a shield. "Define fall. No. Do not define it. Sign."  
 **Starts:** trust 35, affection 20, respect 45. A stranger with terms, not a sweetheart.
 
@@ -125,7 +127,7 @@ Everyone is an adult, and every age is stated in hard canon.
 ### Bo-mi "Auntie Bo" Choi, 58
 **Role:** front of house at Teo’s for thirty-one years, owner of the kiosk at the pier gate, the town’s news service.  
 **Want:** find out what the marriage really is before the pier does; make sure whoever paid the bank does not end up owning Teo.  
-**Fear:** that hiding the letters made it worse; being made a fool of in front of the pier.  
+**Fear:** that hiding the lender’s notices made it worse; being made a fool of in front of the pier.  
 **Secret:** the lender’s first three notices came to her kiosk. She hid them from Teo and paid what she could from her own savings.  
 **Voice:** questions in threes, then one verdict. Calls the player "Shrimp". Counts things out loud.
 
@@ -134,14 +136,14 @@ Everyone is an adult, and every age is stated in hard canon.
 **Want:** do the four visits honestly; tell Reina why he really left.  
 **Fear:** certifying the marriage and losing her for good, or refusing it and having her think it was jealousy.  
 **Secrets:** Masaru made him choose between Reina and his career two years ago, and he chose wrong. He also drafted Chiyo’s will, at her request.  
-**Voice:** careful conditionals and courtesies, permission before every question. "Please do not make it easy for me to write no."
+**Voice:** careful conditionals and courtesies, permission before every question, and he says her name often. "Please do not make it easy for me to write no."
 
 ### Masaru Kurosawa, 53
 **Role:** Reina’s father, chairman of Kurosawa Seaview Resorts, with a buyer waiting for the Cliff House.  
 **Want:** get the marriage declared a pretence and sell Gull Point before spring.  
 **Fear:** being his father, a man his wife did not love; losing the company.  
 **Secrets:** he paid off Felix; his company owes more than it is worth, and the Gull Point sale is what saves it.  
-**Voice:** soft, unhurried, hospitable; speaks in prices and gifts. "Double. Tonight. One signature."  
+**Voice:** soft, unhurried, hospitable; speaks in prices and gifts. "Please, let me be generous. Twice what your grandfather owes, tonight, for one signature."  
 **The offer:** a statement for the player to sign saying the marriage is a pretence, and a banker’s draft for twice the debt.
 
 Not a character: Chiyo Kurosawa, who died last winter at 78.
@@ -230,12 +232,14 @@ The gated ability **Follow the Old Story** is granted by the first step of Sign 
 
 - No franchise names or terms. Premise, cast and places are original to this slate.
 - Checked against the OOC catalogue snapshot (`docs/ooc-app-2026-11-21/README.md`): the only related entry is the "Forced to marry you" isekai story. That is a different premise, and no title or character is shared.
-- **Title collision to know about:** there is a Harlequin manga, 一年だけの花嫁 (*Ichinen dake no Hanayome*), an adaptation of a Joan Johnston novel, whose title translates literally as "Bride for Only One Year". There is no English franchise called "One-Year Bride". A one-year contract marriage is a generic trope. Consider this before trademarking the title.
+- **Title collision to know about:** there is a Harlequin manga, *Ichinen dake no Hanayome*, an adaptation of a Joan Johnston novel, whose title translates literally as "Bride for Only One Year". There is no English franchise called "One-Year Bride". A one-year contract marriage is a generic trope. Consider this before trademarking the title.
+- Editor search for the title with "anime", "webtoon" and "manhwa": no work called exactly "One-Year Bride". Closest premises: *365 Days to the Wedding* (2024 anime, a fake engagement on a one-year frame) and *Wedding Agreement* (Indonesian film 2019, series 2022), where the husband hands his bride an agreement on the wedding night that ends the marriage in a year. That is close to our opener beat but is the generic trope, not a copy. The formal title search from PLAN 7.3 is still owed.
+- Kurosawa is a common surname, not a franchise term; as the family name of a wealthy seaside-town family it loosely echoes one idol anime, which is low risk but worth a look.
 - Inside the catalogue, `last-service.ts` is also a family restaurant with a loan. This story avoids its motifs: a pier grill by the sea, no pot, different names.
 
 ## Image plan (not generated)
 
-- **Cover:** Reina waist-up holding out a pen and a typed page (abstract lines, no letters), the ring wrapped in red thread, the doorway, suitcases, lemon tree and pier lights behind her. Title ONE-YEAR BRIDE as an elegant serif logo in the upper third with red thread through the letters.
+- **Cover:** Reina waist-up, on the evening of her registry-office wedding and still in the dress she married in, holding out a pen and a typed page (abstract lines, no letters), the ring wrapped in red thread, the doorway, suitcases, lemon tree and pier lights behind her. Title ONE-YEAR BRIDE as an elegant serif logo in the upper third with red thread through the letters.
 - **Portraits:** Reina, Teo, Bo, Felix, Masaru. Art seeds are `oyb-<id>-01`.
 - **Expressions:** Reina neutral, dry, flustered, annoyed, warm, hurt. Teo warm, grinning, sad, stern. Bo suspicious, amused, warm, stern. Felix polite, careful, hurt, stung. Masaru polite, calculating, cold, grave.
 - **Stages:** the nine places above, each with `artDirection` in the fixture.

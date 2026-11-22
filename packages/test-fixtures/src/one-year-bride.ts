@@ -11,7 +11,7 @@ import { StoryVersion } from '@plotbreak/contracts';
  * The inversion is the point. Good Morning, Husband starts four years deep and
  * asks whether you keep it. This starts six hours deep, with a typed page of
  * terms, and asks what it turns into. Reina is not a prize and not a tease: she
- * has a deadline, an ex with a clipboard, a father who negotiates like a man
+ * has a deadline, an ex with a folder, a father who negotiates like a man
  * giving presents, and a reason for choosing this family that she has made a
  * rule against asking about.
  *
@@ -42,8 +42,8 @@ const raw = {
   storyId: 'story_one_year_bride',
   version: 1,
   title: 'One-Year Bride',
-  fantasyLabel: 'Married for a year. Rule one: don’t fall.',
-  hook: 'To save the family restaurant you married a stranger for a year. She moves in tonight with twelve rules, and rule one is: don’t fall for me.',
+  fantasyLabel: 'Your wife of six hours has twelve rules.',
+  hook: 'She moves in tonight with twelve rules. Rule one: don’t fall for me. You married her this afternoon, for a year, to save the family restaurant.',
   premise:
     'Your grandfather’s restaurant sits at the end of an old timber pier in a small harbour town, and it has one week left. Two winters ago a storm wrecked the end of the pier, and he borrowed against the restaurant to rebuild it. The lender has called the loan. Next Friday the restaurant, and the flat above it where you live, go to auction.\n\n' +
     'So this afternoon, at the town’s registry office, you married a stranger.\n\n' +
@@ -60,7 +60,7 @@ const raw = {
   mechanicsChips: [
     'Twelve rules, one left blank',
     'She can say no',
-    'An ex with a clipboard',
+    'An ex with a folder',
     'Her father has a better offer',
     'A year, played your way',
   ],
@@ -93,17 +93,17 @@ const raw = {
       'The estate’s lawyer is Felix Arden, Reina’s ex-fiancé, who ended their engagement two years ago. Under the will he may visit the marital home unannounced four times in the year, and on the anniversary he signs that the marriage was genuine or that it was a pretence. He will not sign something he has seen to be false.',
       'Fifty-five summers ago Teo and Chiyo were engaged for one summer, and her father ended it. She married into the Kurosawa family the next year. Nobody alive but Teo knows this. It comes out only through Teo himself or the letters he keeps, never as narration.',
       'Nothing obliges the player to sign, keep the rules, stay married, tell the truth or fall in love. Refusing the deal, confessing, taking Masaru’s money and leaving town on the last train are all real paths with real consequences.',
-      'Romance in this story goes no further than a kiss, and nobody is touched without being asked. Reina asks first and expects to be asked.',
+      'This story stays 13+ whatever the player does and however far the year runs. Romance in this story goes no further than a kiss, and nobody is touched without being asked; Reina asks first and expects to be asked. Nobody is ever seen half-dressed, bathing or in a towel, and the narration never lingers on anybody’s body. The bathroom door that does not lock is a running joke about knocking and announcing yourself, never a reveal. If they ever share the bed to fool Felix, it is fully dressed, back to back, behind a wall of pillows, and played for comedy.',
     ],
     toneGuide:
-      'Romantic comedy with a contract in it: quick, warm, specific, and a little sad underneath. The comedy comes from two precise people sharing four small rooms — the fridge shelves, the short sofa, the bathroom door that does not lock, the performance at Sunday dinner — and from a town that watches everything. The tension comes from the rules and from who might find out. ' +
+      'Romantic comedy with a contract in it: quick, warm, specific, and a little sad underneath. The comedy comes from two precise people sharing four small rooms — the fridge shelves, the short sofa, the bathroom door that does not lock, the performance at Sunday dinner — and from a town that watches everything. The bathroom door that does not lock is a joke about knocking, timing and a sign hung on the handle: nobody ever walks in on anybody, and nobody is ever shown in a towel or half-dressed. The tension comes from the rules and from who might find out. ' +
       'Reina is never a prize and never a tease. She is a person with a deadline, and she can say no, get angry, change her mind, renegotiate and leave. Romance is slow, flirtatious and heartfelt, never more than a kiss, and always asked for. ' +
       'Consequences are social and they stick. Auntie Bo’s kiosk sees everybody who walks onto the pier, a raised voice on the pier is news by breakfast, Felix writes down what he sees, and Masaru calls the police the moment anybody touches him. A player who lies, shouts or walks out gets a town that remembers. ' +
-      'The year can be played day by day or crossed in jumps of a week or a season whenever the player asks; Felix’s four visits, the Sunday dinners, the storm, the autumn lantern festival and the anniversary are its landmarks. If a scene has nothing at stake, let it be pleasant and short. The face at the top of a beat is Reina’s whenever she is in the scene.',
+      'The year can be played day by day or crossed in jumps of a week or a season whenever the player asks; Felix’s four visits, the Sunday dinners, the storm, the autumn lantern festival and the anniversary are its landmarks. If a scene has nothing at stake, let it be pleasant and short. The face at the top of a beat is Reina’s whenever she is in the scene. In the first week of story time Reina does not admit to breaking rule one: she can quote it, argue about it and change the subject, whatever the player says.',
     proseStyle: 'webnovel',
     styleExamples: [
       'Reina labels the second shelf of the fridge with a strip of masking tape.\n\nRK.\n\nThen, after a moment, she labels the third one too, in the same neat capitals, with your initials.\n\n"It’s not a metaphor," she says. "It’s yoghurt."\n\n"I didn’t say anything."\n\n"You were about to look meaningful at it." She shuts the door. "Rule eight. Don’t."',
-      'Auntie Bo does not knock. She has never once knocked on this door.\n\nShe sets a tray of rice and grilled fish on the counter, looks at the sofa, at the folded blanket on the sofa, at the pillow on the folded blanket, and then at you.\n\n"Shrimp," she says pleasantly. "Who slept here?"\n\nBehind you, the bathroom door, which does not lock, opens.',
+      'Auntie Bo does not knock. She has never once knocked on this door.\n\nShe sets a tray of rice and grilled fish on the counter, looks at the sofa, at the folded blanket on the sofa, at the pillow on the folded blanket, and then at you.\n\n"Shrimp," she says pleasantly. "Who slept here?"\n\nBehind you, the bedroom door opens, and Reina, already dressed for the city, looks at the tray, the blanket and Bo, in that order.',
       'Felix stands in the bathroom doorway with his folder open, and counts.\n\n"Two toothbrushes." He writes it down. "Different brands."\n\n"Is that a problem?"\n\n"No." He clicks the pen. "People who’ve been together a while usually end up buying the same one. I just notice it."\n\nAt your shoulder, Reina has gone very still.',
     ],
     forkCostCredits: 120,
@@ -227,7 +227,7 @@ const raw = {
         {
           upTo: 100,
           behaviour:
-            'Shut. Every exchange is a negotiation in complete sentences. The bedroom door stays closed, she eats on her own shelf’s schedule, and she refers to the player in the third person when Felix is in the room. She is still scrupulously fair, which is somehow worse.',
+            'Shut. Every exchange is a negotiation in complete sentences. The bedroom door stays closed, she eats on her own shelf’s schedule, and she refers to the player in the third person when Felix is in the room. She is still exactly fair about everything, down to the fridge shelves.',
         },
       ],
     },
@@ -313,7 +313,7 @@ const raw = {
       questItem: true,
       description:
         'Felix Arden’s checklist for a marital home, one copy left with you for your records: a shared bedroom or a reason why not, two sets of keys, post in both names, both names on the door, a calendar in both handwritings, how each takes their tea, what the other was doing last Tuesday.',
-      loreText: 'He has ticked nothing yet. In the margin, in pencil, very small: she hates the cold side of a bed.',
+      loreText: 'He has ticked nothing yet. In the margin beside how each takes their tea, in pencil, very small, he has already written her answer: nothing in it.',
       icon: 'papers',
     },
     {
@@ -322,7 +322,7 @@ const raw = {
       tags: ['document'],
       skillModifiers: { fine_print: 1 },
       description:
-        'Fifty-one years of Teo’s accounts in two handwritings, his and Auntie Bo’s. In the last year Bo’s columns get smaller and neater, and there is a run of payments in her hand with no invoice behind any of them.',
+        'Fifty-one years of Teo’s accounts, kept by whoever was nearest the till. In the last year there is a run of payments in Auntie Bo’s small, neat hand with no invoice behind any of them.',
       loreText: 'Added up, those payments come to most of a year of her kiosk’s takings.',
       icon: 'book',
     },
@@ -634,7 +634,7 @@ const raw = {
         'Small warm seafood grill restaurant at the end of a wooden pier at night, a glowing charcoal grill behind a pale wooden counter, twelve tables, window seats over dark water, a neon sign, walls of old photographs. Smoky gold light, busy and loved.',
       connections: [
         { to: 'the_flat', travelMinutes: 1, label: 'Up the back stairs' },
-        { to: 'the_pier', travelMinutes: 1, label: 'Out the front door' },
+        { to: 'the_pier', travelMinutes: 3, label: 'Out the front door and along the pier' },
       ],
       discoveredByDefault: true,
       mapPosition: { x: 0, y: 1 },
@@ -647,7 +647,7 @@ const raw = {
       name: 'The Old Pier',
       shortName: 'The Pier',
       description:
-        'Two hundred metres of timber over grey-green water: fishing lines, lamp posts, gulls with opinions, and the new planks from the storm repairs paler than the old. At the land end, Auntie Bo’s kiosk sells bait, coffee and news, and nobody walks onto the pier without passing it.',
+        'Two hundred metres of timber over grey-green water: fishing lines, lamp posts with a gull on every one, and the new planks from the storm repairs paler than the old. At the land end, Auntie Bo’s kiosk sells bait, coffee and news, and nobody walks onto the pier without passing it.',
       artDirection:
         'Long old wooden pier over a grey-green harbour at dusk, lamp posts, fishing lines, gulls, a small bright kiosk at the land end, a restaurant with a neon sign at the far end. Breezy, salt-faded, lantern-lit.',
       connections: [
@@ -834,7 +834,7 @@ const raw = {
       secrets: [
         {
           id: 'reina_why_you',
-          fact: 'She chose the player’s family on purpose. She ate at Teo’s counter every summer with her grandmother Chiyo, and Chiyo’s last letter to her ended: "If you ever need a husband in a hurry, go and eat at Teo’s." Reina thought it was a joke until she needed one.',
+          fact: 'She chose the player’s family on purpose. She ate at Teo’s counter with her grandmother Chiyo on Chiyo’s last two summers, always on the player’s nights off, and Chiyo’s last letter to her ended: "If you ever need to marry in a hurry, go and eat at Teo’s." Reina thought it was a joke until she had to.',
           visibility: 'NPC_PRIVATE',
           revealHint:
             'She says it on the shingle beach or the balcony, late, if the player has told her one true thing about themselves without being asked and has not pushed on rule five.',
@@ -860,7 +860,7 @@ const raw = {
         'For the record, I do not cry at registry offices. That was hay fever. In October.',
         'Define fall. No. Do not define it. Sign.',
         'My father has never once lost anything he wanted. I would like to be the first.',
-        'I typed rule one at three in the morning. I am fairly confident I typed it for you.',
+        'Rule four. The sofa is yours. I measured it, and you will fit if you are realistic about your knees.',
       ],
       appearance:
         'An adult woman, tall, long black hair pinned in a low knot with a silver clip, sharp dark eyes, a cream registry-office dress under a belted charcoal trench coat, low heels she has been standing in since noon, and a plain gold band wrapped in red thread.',
@@ -998,11 +998,11 @@ const raw = {
       pronouns: 'she/her',
       publicTraits: ['Asks three questions per breath', 'Counts everything', 'Fiercely, publicly protective of Teo'],
       hiddenDrives: [
-        'She hid the lender’s first three letters from Teo for a year and paid what she could from her own savings, and a stranger fixed it in a week',
+        'She hid the lender’s first three notices from Teo for a year and paid what she could from her own savings, and a stranger fixed it in a week',
         'She wants to be told the truth first, before the pier, because that is what family is for',
       ],
       values: ['Being told first', 'Teo keeping his pride'],
-      fears: ['That hiding the letters made the debt worse', 'Being made a fool of in front of the whole pier'],
+      fears: ['That hiding the lender’s notices made the debt worse', 'Being made a fool of in front of the whole pier'],
       socialStyle:
         'Interrogates by offering food. Fires questions in threes and watches your hands, not your face, for the answer.',
       boundaries: [
@@ -1012,7 +1012,7 @@ const raw = {
       goals: ['Find out what that marriage really is before the pier does', 'Make sure whoever paid the bank does not end up owning Teo'],
       secrets: [
         {
-          id: 'bo_hid_the_letters',
+          id: 'bo_hid_the_notices',
           fact: 'The lender’s first three notices came to the kiosk. She hid them from Teo for a year and paid what she could of the arrears from her own savings, which is why the debt reached the player so late.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She admits it if the player finds her payments in the ledger and asks her gently, alone, not in front of the pier.',
@@ -1052,7 +1052,7 @@ const raw = {
         },
         {
           id: 'bo_owns_up',
-          label: 'She tells you about the letters she hid',
+          label: 'She tells you about the notices she hid',
           kind: 'TRUST',
           requires: { trust: 70, hasItems: ['teos_ledger'] },
         },
@@ -1067,7 +1067,7 @@ const raw = {
       name: 'Felix Arden',
       role: 'The estate’s lawyer and Reina’s ex-fiancé, who decides at the anniversary whether the marriage was real',
       cardBlurb:
-        'He will knock on your door four times this year to decide whether you are really married, he was engaged to your wife two years ago, and he is scrupulously, painfully fair.',
+        'Two years ago he was engaged to your wife. This year he will knock on your door four times to decide whether you are really married, and he will be painfully fair about it.',
       pronouns: 'he/him',
       publicTraits: ['Courteous to a fault', 'Notices everything and writes some of it down', 'Apologises before every hard question and asks it anyway'],
       hiddenDrives: [
@@ -1101,13 +1101,13 @@ const raw = {
       topics: ['the will', 'the visits', 'Reina', 'her father', 'the folder', 'why he left'],
       voiceSamples: [
         'I am going to ask some questions I would rather not ask. Please do not make it easy for me to write no.',
-        'Separate fridge shelves. Labelled. Noted. Most couples stop labelling by the second week.',
+        'If I may, Reina: the fridge shelves are labelled. I will note it, and I will also note that most couples stop labelling by the second week.',
         'With respect, I have known her longer than you have known where she keeps the spoons.',
-        'I left. I am aware. I would like, once, to be the man who stays in the room.',
+        'I left, Reina. I am aware of that. If you would allow it, I would like, once, to be the man who stays in the room.',
       ],
       appearance:
         'An adult man, lean and tall, neat dark-blond hair, grey eyes behind thin steel glasses, a navy suit a little damp from the harbour air, and a worn leather folder held against his chest.',
-      visualHook: 'A worn leather folder with a brass clasp, held to his chest like a shield.',
+      visualHook: 'A worn leather folder with a brass clasp that he does not put down, even to shake hands.',
       silhouette: 'Tall and slightly stooped in a doorway, folder up, half bowing.',
       artSeed: 'oyb-felix-01',
       portrait: null,
@@ -1145,7 +1145,7 @@ const raw = {
       name: 'Masaru Kurosawa',
       role: 'Reina’s father, chairman of Kurosawa Seaview Resorts, with a buyer waiting for her grandmother’s house',
       cardBlurb:
-        'He wants your marriage declared a pretence so he can sell the house on the point, he will offer you twice what you need to say so, and he will be gracious about it either way.',
+        'He has already worked out your price. He wants your marriage declared a pretence so he can sell the house on the point, and he will be gracious about it whatever you decide.',
       pronouns: 'he/him',
       publicTraits: ['Never raises his voice', 'Generous in a way that is hard to refuse', 'Remembers every price he has ever been quoted'],
       hiddenDrives: [
@@ -1182,7 +1182,7 @@ const raw = {
       voiceSamples: [
         'Please, sit. I never negotiate standing up. It makes people believe they can leave.',
         'Everything on this bay has a price. I have simply been patient about most of it.',
-        'Double. Tonight. One signature, and your grandfather never hears the word auction again.',
+        'Please, let me be generous. Twice what your grandfather owes, tonight, for one signature, and he need never hear the word auction again.',
         'My mother loved that house more than she loved any of us. Forgive me for wanting to stop competing with a building.',
       ],
       appearance:
@@ -1840,7 +1840,7 @@ const raw = {
     {
       id: 'q_no_deal',
       title: 'No Deal',
-      summary: 'You said no. She took her lemon tree and left, and the auction is still on Friday.',
+      summary: 'If you turn her down for good, she takes her lemon tree to the hotel across the harbour, and the auction is still on Friday. One torn page is not for good: she brought spare copies.',
       kind: 'MAIN',
       involvedCharacterIds: ['reina', 'teo', 'bo'],
       involvedLocationIds: ['harbour_street', 'the_station', 'teos'],
@@ -2043,7 +2043,7 @@ const raw = {
       kind: 'MYSTERY',
       label: 'Why a stranger chose your family',
       seedHint: 'She orders without the menu and already knows which stool wobbles.',
-      payoffHint: 'Her grandmother’s last letter: if you ever need a husband in a hurry, go and eat at Teo’s.',
+      payoffHint: 'Her grandmother’s last letter: if you ever need to marry in a hurry, go and eat at Teo’s.',
       weight: 0.9,
     },
     {
@@ -2089,7 +2089,7 @@ const raw = {
       id: 'arch_floor',
       name: 'You Run the Floor',
       role: 'Front of house, social charm',
-      summary: 'You run the dining room, so you are good at reading people, keeping a story straight and making a room like you on purpose.',
+      summary: 'You work the floor beside Auntie Bo, so you are good at reading people, keeping a story straight and making a room like you on purpose.',
       playstyle: ['Charming', 'Quick talker', 'Reads people'],
       blurb: 'You can seat forty people in an hour and remember which of them are not speaking to each other.',
       attributeBonus: { presence: 3, agility: 1 },
@@ -2163,7 +2163,7 @@ const raw = {
       minTurn: 30,
       requires: { flagsSet: ['certified', 'kept_it_a_contract'], flagsUnset: ['rule_one_broken'] },
       condition:
-        'The contract was kept, well, all the way to the end. Felix signed, Reina got the house, the debt was torn up, and nobody broke rule one, or nobody said so. Write it as a good ending between two people who were excellent at something difficult, with a quiet divorce and a handshake that goes on slightly too long.',
+        'The contract was kept, well, all the way to the end. Felix signed, Reina got the house, the debt was torn up, and nobody broke rule one, or nobody said so. Write it as a good ending between two people who were excellent at something difficult, with a quiet divorce, and Reina asking at the registry office door whether Sunday dinner is still on.',
       epilogue:
         'The divorce takes eleven minutes at the same registry office. Reina moves to the point with the lemon tree. She still eats at Teo’s on Sundays, at the end of the counter, and the pier still calls you by one name for about a year after it stops being true.',
       hint: '',
@@ -2180,7 +2180,7 @@ const raw = {
       condition:
         'Somebody broke rule one and said so, and at the anniversary the two of them decided to stay married on purpose. Felix signs a true thing. Write the moment the contract stops being the reason, and do not make anybody give a speech about it.',
       epilogue:
-        'Rule two is never invoked. The page of rules stays in the kitchen drawer with the takeaway menus, and in the second year somebody adds a thirteenth in pencil about the duvet. The sofa goes to Auntie Bo, who claims she always wanted it.',
+        'Rule two is never invoked. The page of rules stays in the kitchen drawer with the takeaway menus, and in the second year somebody adds a thirteenth in pencil about whose turn it is to water the lemon tree. The sofa goes to Auntie Bo, who claims she always wanted it.',
       hint: 'She typed rule one first.',
     },
     {
@@ -2319,7 +2319,7 @@ const raw = {
     'I tear the page in half, slowly, and watch her face while I do it.',
   ],
   coverDirection: [
-    'SUBJECT: Reina Kurosawa, a lawyer on her wedding night, alone and unmistakable in the foreground of a key visual for a romance anime about a contract marriage.',
+    'SUBJECT: Reina Kurosawa, a lawyer on the evening of her registry-office wedding, still in the dress she married in, alone and unmistakable in the foreground of a key visual for a romance anime about a contract marriage.',
     'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
     'Long black hair pinned in a low knot with a silver clip, sharp dark eyes, a cream dress under a belted charcoal trench coat.',
     'She holds a typed sheet of paper toward the viewer in one hand and a fountain pen in the other, one eyebrow raised, a small challenging smile.',

@@ -6,7 +6,7 @@ import { withDerivedAssetKeys } from './derive-assets.js';
 
 /**
  * One-Year Bride, held to the promises on its own card: twelve rules with one
- * left blank, a wife who can say no, an ex with a clipboard, a father with a
+ * left blank, a wife who can say no, an ex with a folder, a father with a
  * better offer, and a year the player gets to spend however they like.
  *
  * The story is not in the launch catalog yet, so the catalog-wide wiring checks
