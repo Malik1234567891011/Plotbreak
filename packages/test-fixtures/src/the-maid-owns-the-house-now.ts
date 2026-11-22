@@ -33,6 +33,19 @@ import { StoryVersion } from '@plotbreak/contracts';
  * cost path and PUBLIC_VIOLENCE both take the first one, and a fistfight in a
  * fallen family's hall is exactly what the town talks about. Exposure is the
  * second: how close the secrets in this house are to coming out.
+ *
+ * The system has to live where the storyteller can read it. Production runs
+ * `runTurnPure`, which never sees resources, step notes or any ability except
+ * the chosen archetype's starting ones. So Clara's terms, docked wages, what
+ * work does to a body that has never done it, how the town hears things, how
+ * lies get checked and the fourteen-day clock are all hard canon; the player
+ * starts holding Clara's written terms, a quest item; and every archetype
+ * starts with Know the House plus one move of its own. The tone guide is also
+ * the cover's mood text, so the 13+ limits sit in hard canon instead.
+ *
+ * Everyone in this story is an adult, and the first line of hard canon gives
+ * every age: the player twenty-nine, the youngest of the cast twenty-two.
+ * Appearances say "adult" or "older" and describe costume, never an age.
  */
 
 const raw = {
@@ -74,24 +87,33 @@ const raw = {
     allowsRomance: true,
     startingLocationId: 'the_front_hall',
     startWorldMinute: 6 * 60 + 30,
-    startingItems: [{ itemId: 'signet_ring', qty: 1 }],
+    startingItems: [
+      { itemId: 'signet_ring', qty: 1 },
+      { itemId: 'claras_terms', qty: 1 },
+    ],
     hardCanon: [
-      'Everyone in this story is an adult. The player is in their twenties: twenty-nine, a year younger than Clara, and the family’s only heir. She was nineteen and they were eighteen when she joined the household, so she has only ever known them as an adult. She was never their nanny or carer, and no memory or flashback shows the player under eighteen in her care. Clara Voss is thirty, Midge is twenty-two, and nobody in the story is younger than that.',
+      'Everyone in this story is an adult. The player is in their twenties: twenty-nine, a year younger than Clara, and the family’s only heir. Clara Voss is thirty, Imogen Marsh, whom everyone calls Midge, is twenty-two, Silas Dunmore forty-four, Augustin fifty-six, Lady Honoria Pemberton fifty-eight and Hugo Ashworth sixty-three. Midge is twenty-two and the youngest; nobody in the story is younger than that. Clara was nineteen and the player eighteen when she joined the household, so she has only ever known them as an adult. She was never their nanny or carer, and no memory or flashback shows the player under eighteen in her care.',
       'The family is broke. Last month the money ran out, the receivers sold everything of value, and the player now owns the clothes they arrived in and one signet ring. The family surname is whatever the player’s surname is; the house has been called Wrenhurst House for a hundred and ten years.',
-      'Clara Voss worked in Wrenhurst House as a maid for eleven years and bought it at the bankruptcy auction yesterday. She owns it. She has offered the player a bed in the servants’ wing, meals and a wage in exchange for work, and the player is free to refuse.',
-      'The player’s father, Augustin, did not go abroad. The night the bailiffs came he took a room in a boarding house in town, where he posted the postcard. Nine days ago he crept back, and he has been hiding in the attic box room ever since, getting in and out through the old coal chute in the cellar. Hugo Ashworth knows and carries a tray up every night. Clara does not know.',
+      'Clara Voss worked in Wrenhurst House as a maid for eleven years and bought it at the bankruptcy auction yesterday. She owns it. Her terms reached the player in writing last night, and she holds to them exactly: a bed in the old valet’s room off the kitchen passage, three meals at the staff table, a wage paid in cash every Friday, Sunday afternoons off, and either side may end it at any time. The player is free to refuse.',
+      'Clara docks wages in writing, in her ledger, one entry at a time: for giving her orders, for breakages and for walking off a job. Pulling rank on her costs a day’s wage. Work done properly she writes down too, just as precisely, and never mentions.',
+      'The player has never done a day of household work. Stairs, buckets, coal and silver genuinely tire them; a night’s sleep and a meal put it back, and over the fortnight they visibly get stronger and better at it. Worn out, they can still talk, badly, but cannot carry anything up anything.',
+      'Serving properly, a tray carried up a stair without a sound, a table laid for twenty, a guest announced, is a craft the player does not have at the start. Hugo will teach it if he is asked properly, Midge knows the shortcuts, and failing at it until it works also works. Until then the player is clumsy with a tray.',
+      'Kestrel Bay is watching the fallen heir. Anything done in public, or loudly enough for the staff to repeat, reaches the pub and the Gazette’s society page within a day: pulling rank, a shouting match, a slammed door. If the player loses their temper, Hugo steps between them and whoever it is, Clara docks a wage or shows them the door, and nobody is seriously hurt. Talk makes tradesmen want cash, the bank cool on Clara and the bride’s family nervous; quiet good work lets it die down.',
+      'A lie in this house holds until somebody checks, and Hugo always checks. Each lie needs a second one to hold it up, and the more of them there are, the closer the house’s secrets come to coming out: Midge notices the biscuits, Clara counts the cocoa, Silas asks his question slightly differently. Telling the truth costs something on the spot and stops it getting worse.',
+      'The clock runs whatever the player does, and the house keeps working whether or not they are in the room. Today is day one of fourteen. Silas Dunmore rings at the front gate at eleven every morning, the bride’s mother inspects the ballroom on day seven, the wedding is on day fourteen, and the loan falls due at nine on the morning of day fifteen.',
+      'The player’s father, Augustin, did not go abroad. The night the bailiffs came he took a room in a boarding house in town, where he posted the postcard. Nine days ago he crept back, and he has been hiding in the attic box room ever since, getting in and out through the old coal chute in the cellar. Hugo Ashworth knows and carries a tray up every night. Clara does not know. His shame is played for comedy and warmth, and he is never a danger to himself.',
       'Clara paid for the house with eleven years of savings, Hugo Ashworth’s whole pension, and a fourteen-day bridging loan. Yesterday, an hour after the hammer fell, Lady Pemberton bought that loan through a nominee. It falls due the morning after the wedding.',
       'The house has one paid booking: a wedding for a hundred and twenty guests in fourteen days. If it goes well, an ordinary bank will refinance the house. If it goes badly, Lady Pemberton takes the house and builds a hotel on the cliff.',
       'Augustin hid one valuable thing from the receivers: a seascape by the painter Tomas Ellery, wrapped in a curtain behind the attic water tank. It legally belongs to his creditors, and Silas Dunmore is looking for it.',
-      'Clara is not a prize and cannot be won. She is the employer: she can dock a wage, give an order, sack the player, change her mind and say no. Romance, if it happens, is slow and between equals, and goes no further than a kiss.',
+      'Clara is not a prize and cannot be won. She is the employer: she can dock a wage, give an order, sack the player, change her mind and say no. Romance, if it happens, is slow and between equals, and goes no further than a kiss. No fan service: the apron is a joke about work, never about bodies, and nobody’s body is described lingeringly.',
       'Nothing supernatural happens here. It is an ordinary modern seaside town with old money on the hills, telephones, cars, and a local newspaper with a society page.',
       '“Young master” is the house’s old title for the heir. Clara uses it for the player whatever their pronouns, precisely and on purpose, until she stops. It is a title for the adult heir, never a comment on age.',
     ],
     toneGuide:
       'Comedy first, warmth underneath, and the stakes are real money. The jokes come from an heir who has never worked meeting three hundred stairs, and from a maid who has waited eleven years to say a few things and says them precisely. Nobody is humiliated for long, and the work is shown as skilled rather than as a punishment. ' +
-      'Romance is slow, adult and between equals: banter, tension, a held look on a landing, at most a kiss. Clara will not be courted by anybody who treats her as the help. No fan service: the apron is a joke about labour, never about bodies, and nobody is described lingeringly. ' +
-      'The player can do anything and the house reacts like a real household. Lose your temper and Hugo steps between you, Clara docks a wage or shows you the door, and the town hears by lunchtime; nobody is seriously hurt. Lie, and it holds until somebody checks, and Hugo always checks. Refuse the apron and the story follows you out of the gate, because the town, Lady Pemberton and the creditors’ man all have a use for a broke heir. Wander off, and the house keeps working without you while the clock runs toward the wedding. ' +
-      'Keep scenes concrete: buckets, silver polish, the bell-board, the third landing, the cream envelope under the blotter. Every member of the cast sounds like nobody else. The face at the top of a beat is Clara’s whenever she is in the scene. Augustin’s shame is played for comedy and warmth; he is never a danger to himself.',
+      'A slow-burn romance between equals: banter, tension, a held look on a landing, a cup of tea brought properly. Clara will not be courted by anybody who treats her as the help. ' +
+      'The player can do anything and the house reacts like a real household. Refuse the apron and the story follows them out of the gate, because the town, Lady Pemberton and the creditors’ man all have a use for a broke heir. Wander off, and the house keeps working without them while the clock runs toward the wedding. ' +
+      'Keep scenes concrete: buckets, silver polish, the bell-board, the third landing, the cream envelope under the blotter. Every member of the cast sounds like nobody else. The face at the top of a beat is Clara’s whenever she is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
       "Clara runs one finger along the banister and holds it up.\n\nGrey.\n\n\"Two hundred and eleven,\" she says. \"You were doing well until two hundred and eleven.\"\n\n\"How do you even know which one—\"\n\n\"I counted.\" She hands the cloth back. \"I have been counting these stairs for eleven years. Again, please. From two hundred and eleven.\"",
@@ -228,6 +250,18 @@ const raw = {
       description: 'Gold and heavy, the family crest cut into a flat green stone. The last thing of value you own, because you were wearing it when the receivers came.',
       loreText: 'Pawned in town it would pay the whole staff for a month. Clara will not take it. Lady Pemberton would very much like it.',
       icon: 'ring',
+    },
+    {
+      id: 'claras_terms',
+      name: 'Clara’s Terms',
+      tags: ['quest', 'document'],
+      questItem: true,
+      droppable: false,
+      description:
+        'One sheet of the house’s old notepaper, the crest struck through with a single ruled line, in Clara’s small upright hand. It reached you last night: the house is sold, it is hers, and if you have nowhere else to go, the front hall at half past six. Below that, her terms, numbered.',
+      loreText:
+        'One: a bed, the old valet’s room off the kitchen passage. Two: three meals, at the staff table, at staff hours. Three: a wage, paid in cash on Fridays, docked in writing for orders given, breakages and jobs walked off. Four: Sunday afternoons are your own. Five: either party may end this arrangement at any time. The door opens both ways.',
+      icon: 'letter',
     },
     {
       id: 'black_apron',
@@ -824,7 +858,7 @@ const raw = {
         'I bought it because the alternative was a hotel. I scrubbed every one of these floors on my knees, and nobody pours concrete on them while I am alive.',
       ],
       appearance:
-        'Thirty, tall and straight-backed, dark hair pinned in a low knot that never moves, grey eyes, a plain black dress with the sleeves rolled to the elbow and no jewellery at all.',
+        'An adult woman, tall and straight-backed, dark hair pinned in a low knot that never moves, level grey eyes, a plain high-necked black dress with long sleeves rolled to the elbow, no jewellery at all, and the old silver hand bell from the hall worn on a black ribbon at her wrist.',
       visualHook: 'The old silver hand bell from the hall table, worn on a black ribbon at her wrist, which she now rings for other people.',
       silhouette: 'Straight-backed at the foot of a staircase, one arm out holding something folded, the other still at her side.',
       artSeed: 'tmohn-clara-01',
@@ -918,7 +952,7 @@ const raw = {
         'She went white. After the hammer. The Pemberton woman leaned over and whispered something and she went white as a tablecloth.',
       ],
       appearance:
-        'Twenty-two, wiry and quick, freckled, red-brown hair escaping her cap, a grey uniform with the sleeves pinned to the elbow and a man’s wristwatch she checks constantly.',
+        'An adult woman, wiry and quick, freckled, red-brown hair escaping a plain grey cotton cap, a grey working dress with the sleeves pinned to the elbow under a long canvas apron, a man’s steel wristwatch she checks constantly, and a pencil stub behind one ear.',
       visualHook: 'A pencil stub behind one ear and a dog-eared society magazine rolled up in her apron pocket.',
       silhouette: 'Leaning round a doorframe mid-sentence, a bucket in each hand.',
       artSeed: 'tmohn-midge-01',
@@ -1010,7 +1044,7 @@ const raw = {
         'At my first ball in that house, somebody’s mother told me, very kindly, to enjoy it while I was there.',
       ],
       appearance:
-        'Fifty-eight, elegant, silver-blonde hair set in soft waves, pearl earrings, a camel coat over a silk blouse, gloves she removes one finger at a time.',
+        'An older woman, elegant and very upright, silver-blonde hair set in soft waves, pearl earrings, a camel coat over a cream silk blouse, fine leather gloves she removes one finger at a time, and a silver-topped walking cane.',
       visualHook: 'A silver-topped walking cane she does not need, used to point at things she intends to own.',
       silhouette: 'Seated very upright in a wing chair, cane across her knees, the window light behind her.',
       artSeed: 'tmohn-pemberton-01',
@@ -1092,7 +1126,7 @@ const raw = {
         'Your grandfather once served a duke soup with his own hands during a power cut. Adequate, he called it. It was not adequate. It was magnificent.',
       ],
       appearance:
-        'Sixty-three, tall, silver hair combed flat, a black tailcoat mended so well nobody can find where, a face that has been perfectly composed since about nineteen eighty.',
+        'An older man, tall and very upright, silver hair combed flat, a black tailcoat mended so well nobody can find where, white cotton gloves folded in the top pocket, and a face that has been perfectly composed since about nineteen eighty.',
       visualHook: 'White cotton gloves carried folded in the top pocket of his tailcoat, put on only for the silver.',
       silhouette: 'Very upright, hands clasped behind his back, standing exactly one step inside any doorway.',
       artSeed: 'tmohn-hugo-01',
@@ -1184,7 +1218,7 @@ const raw = {
         'Your mother would have known what to do. Your mother always knew, and I always did the other thing, and here we are, in a cupboard.',
       ],
       appearance:
-        'Fifty-six, handsome gone slightly to seed, a silk dressing gown over yesterday’s shirt, nine days of silver stubble, still wearing very good shoes.',
+        'An older man, handsome gone slightly to seed, swept-back grey hair, nine days of silver stubble, a burgundy silk dressing gown with the family crest on the pocket over yesterday’s shirt, and still wearing very good shoes.',
       visualHook: 'A burgundy silk dressing gown with the family crest on the pocket, worn like a robe of office.',
       silhouette: 'Standing very straight in a burgundy dressing gown, one finger raised for silence.',
       artSeed: 'tmohn-augustin-01',
@@ -1260,7 +1294,7 @@ const raw = {
         'If he walks in on his own, it is a hearing. If I have to find him, it is a different word.',
       ],
       appearance:
-        'Forty-four, medium height, a neat grey raincoat, rimless spectacles, a hat he raises to everybody including the dog.',
+        'An adult man, medium height and very neat, rimless spectacles, a grey raincoat buttoned over a dark suit, a grey felt hat he raises to everybody including the dog, and a black fountain pen in one hand.',
       visualHook: 'A black fountain pen he uncaps very slowly whenever an answer is about to matter.',
       silhouette: 'A grey figure at the iron gates, hat in hand, perfectly still in the drizzle.',
       artSeed: 'tmohn-silas-01',
@@ -2106,7 +2140,7 @@ const raw = {
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { charm: 3, bluff: 1 },
       startingItems: [{ itemId: 'calling_cards', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['know_the_house', 'old_charm'],
       startingReputation: [{ factionId: 'faction_kestrel_bay', amount: 10 }],
     },
     {
@@ -2119,7 +2153,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { accounts: 3, house_lore: 1, candour: 1 },
       startingItems: [{ itemId: 'law_notes', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['know_the_house', 'read_the_books'],
       startingReputation: [{ factionId: 'faction_creditors', amount: 10 }],
     },
     {
@@ -2132,7 +2166,7 @@ const raw = {
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { graft: 3, service: 1 },
       startingItems: [{ itemId: 'rowing_gloves', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['know_the_house', 'put_your_back_in'],
       startingReputation: [{ factionId: 'faction_below_stairs', amount: 10 }],
     },
     {
@@ -2145,7 +2179,7 @@ const raw = {
       attributeBonus: { agility: 2, presence: 1 },
       skillProficiencies: { bluff: 2, service: 2, graft: 1 },
       startingItems: [{ itemId: 'bar_corkscrew', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['know_the_house', 'cover_for_it'],
       startingReputation: [],
     },
   ],
@@ -2357,13 +2391,29 @@ const raw = {
     "Clara Voss is holding out an apron.\n\nFor eleven years she was your family’s maid. Yesterday, when the bank auctioned off everything your father owned, she bought the house.\n\n\"Good morning, young master.\" A black dress now, not the grey uniform. Same level eyes. \"Three hundred stairs in this house, and nobody has scrubbed one since spring. You’ll start at the top.\"\n\nThe hall behind her is bare. The bailiffs took the paintings, the rugs, even the clocks.\n\nFar above you, a floorboard creaks. Nobody is supposed to be up there.\n\nShe doesn’t look up. She’s looking at you.\n\n\"Bed, meals and a wage, if you earn one. Or the door. Which is it?\"",
   openingPanel: {
     assetKey: 'story_the_maid_owns_the_house_now/opening',
-    alt: 'Clara in a plain black dress at the foot of a bare marble staircase, holding out a folded black apron, grey dawn light through tall windows.',
+    alt: 'Clara in a plain black dress, sleeves rolled, at the foot of a bare marble staircase, holding a folded black apron out to you, grey dawn light through tall windows.',
   },
   openingSuggestions: [
     "\"I’ll take the wage. But I’m not calling you ma’am.\"",
     'I take the apron, tie it on wrong, and start up the stairs.',
     'I walk past her and pull the bell for breakfast, like I always did.',
   ],
+  coverDirection: [
+    'SUBJECT: Clara Voss, the new owner of an old seaside mansion, alone and unmistakable in the foreground of a key visual for a romantic comedy anime about a house that changed hands overnight.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture, standing at the foot of a grand staircase.',
+    'Dark hair pinned in a neat low knot, level grey eyes, a plain high-necked black dress with long sleeves rolled to the elbow, no jewellery, and an old silver hand bell on a black ribbon at her wrist.',
+    'She is dressed as the head of the household, not in a maid costume: no frills, no lace, no headpiece, no apron on her.',
+    'One arm is held straight out toward the viewer, offering a neatly folded plain black work apron; the other hand rests on the carved end of the stone banister.',
+    'Her expression is composed and dry, one eyebrow slightly raised, the corner of her mouth almost a smile, looking straight at the viewer.',
+    'The silver bell at her wrist catches the light in one bright glint, and the same warm gold gleam runs along the banister and the title.',
+    'HER FACE STAYS CLEAN: no glints, sparkles, shadows or marks across her face or skin. Every shine stays on the bell, the banister and the title.',
+    'BEHIND HER, soft and secondary: a stripped marble entrance hall, a curving grand staircase, pale empty rectangles on the walls where paintings used to hang, and tall windows full of grey sea light.',
+    'Small on the first landing of the staircase, in soft focus, a silver-haired butler in a black tailcoat pretends very hard not to be watching.',
+    'LIGHT: cool grey-blue dawn light from the tall windows behind her and warm gold light from one lamp on the stair, so she is rimmed in gold against the grey.',
+    'TITLE: the title The Maid Owns the House Now painted into the art in the upper third, above her head, as an elegant high-contrast serif logo set in capitals on two lines,',
+    'THE MAID OWNS on the first line and THE HOUSE NOW larger on the second, ivory-white letters with a thin black outline, an antique-gold edge and a soft warm glow, and one small gold house key hanging from a ribbon under the last line,',
+    'spelled exactly THE MAID OWNS THE HOUSE NOW, large and legible at thumbnail size. No other text anywhere: nothing written on the apron, the walls or the bell.',
+  ].join(' '),
   publishedAt: null,
 };
 

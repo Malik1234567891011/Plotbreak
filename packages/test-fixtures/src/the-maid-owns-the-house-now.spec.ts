@@ -220,13 +220,28 @@ describe('everybody is an adult, and reads as one', () => {
     44: 'forty-four',
   };
 
-  it('states an adult age for every member of the cast', () => {
+  it('states an adult age for every member of the cast in hard canon, so the storyteller has them on every turn', () => {
     expect(Object.keys(AGES).sort()).toEqual(STORY.characters.map((c) => c.id).sort());
+    const canon = STORY.rules.hardCanon[0]!;
+    expect(canon).toMatch(/^Everyone in this story is an adult\./);
+    expect(canon).toContain('twenty-nine');
     for (const c of STORY.characters) {
       const age = AGES[c.id]!;
       expect(age, c.id).toBeGreaterThanOrEqual(18);
-      expect(c.appearance.toLowerCase(), `${c.id}'s appearance does not state the age`).toContain(AGE_WORDS[age]!);
+      expect(canon, `${c.id} is not named in the ages line`).toContain(c.name);
+      const after = canon.slice(canon.indexOf(c.name) + c.name.length, canon.indexOf(c.name) + c.name.length + 50);
+      expect(after, `${c.id}'s age does not follow the name`).toContain(AGE_WORDS[age]!);
     }
+  });
+
+  it('describes people by build and costume, never by an age word', () => {
+    const AGE_WORD = /\b(teen\w*|girl|boy|young\w*|youth\w*|kid|child\w*|student|\d+)\b/i;
+    for (const c of STORY.characters) {
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (wo)?man\b/);
+      expect(c.appearance, c.id).not.toMatch(AGE_WORD);
+    }
+    expect(STORY.coverDirection).not.toMatch(AGE_WORD);
+    expect(STORY.openingPanel!.alt).not.toMatch(AGE_WORD);
   });
 
   it('puts the player and the youngest of the cast in hard canon as adults', () => {
@@ -257,9 +272,12 @@ describe('13+ and no fan service', () => {
   });
 
   it('tells the narrator where the romance stops', () => {
-    expect(STORY.rules.toneGuide).toMatch(/at most a kiss/);
-    expect(STORY.rules.toneGuide).toMatch(/No fan service/);
-    expect(STORY.rules.hardCanon.join(' ')).toMatch(/no further than a kiss/);
+    // Hard canon, not the tone guide: the tone guide is also the cover's mood text.
+    const canon = STORY.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/no further than a kiss/);
+    expect(canon).toMatch(/No fan service/);
+    expect(canon).toMatch(/never a danger to himself/);
+    expect(STORY.rules.toneGuide).not.toMatch(/\b(kiss\w*|body|bodies|fan service|lingering\w*|hurt|danger)\b/i);
     expect(STORY.intensity).toBe('LIGHT');
     expect(STORY.rules.allowsCombat).toBe(false);
   });
@@ -273,6 +291,88 @@ describe('13+ and no fan service', () => {
 
   it('is written in English', () => {
     expect(JSON.stringify(STORY)).not.toMatch(/[぀-ヿ一-鿿가-힯]/);
+  });
+});
+
+describe('the system lives where the storyteller can read it', () => {
+  // Production's storyteller reads hard canon, quest items and the chosen
+  // archetype's starting abilities. It never reads resources, step notes or
+  // the rest of the ability list.
+  const ability = (id: string) => STORY.abilities.find((a) => a.id === id)!;
+
+  it('starts the player holding Clara’s written terms, a quest item', () => {
+    expect(STORY.rules.startingItems.map((i) => i.itemId)).toEqual(['signet_ring', 'claras_terms']);
+    const terms = STORY.items.find((i) => i.id === 'claras_terms')!;
+    expect(terms.questItem).toBe(true);
+    expect(terms.loreText).toMatch(/docked in writing/);
+    expect(terms.loreText).toMatch(/The door opens both ways/);
+    const state = start();
+    expect(state.player.inventory.find((i) => i.itemId === 'claras_terms')?.quantity).toBe(1);
+  });
+
+  it('gives every background Know the House plus one move of its own, all usable from turn one', () => {
+    const seconds = new Set<string>();
+    for (const a of STORY.archetypes) {
+      expect(a.startingAbilities, a.id).toContain('know_the_house');
+      expect(a.startingAbilities.length, a.id).toBe(2);
+      for (const id of a.startingAbilities) expect(ability(id).unlockedByDefault, `${a.id} ${id}`).toBe(true);
+      seconds.add(a.startingAbilities.find((id) => id !== 'know_the_house')!);
+    }
+    expect(seconds.size).toBe(STORY.archetypes.length);
+  });
+
+  it('spells out the terms, the wages, the work, the town, the lies and the clock in hard canon', () => {
+    const canon = STORY.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/a wage paid in cash every Friday/);
+    expect(canon).toMatch(/Pulling rank on her costs a day’s wage/);
+    expect(canon).toMatch(/never done a day of household work/);
+    expect(canon).toMatch(/Hugo will teach it if he is asked properly/);
+    expect(canon).toMatch(/reaches the pub and the Gazette’s society page within a day/);
+    expect(canon).toMatch(/Hugo always checks/);
+    expect(canon).toMatch(/Today is day one of fourteen/);
+    expect(canon).toMatch(/the loan falls due at nine on the morning of day fifteen/);
+  });
+
+  it('never names a background in hard canon, so the other three stay unreal', () => {
+    const canon = STORY.rules.hardCanon.join('\n');
+    for (const a of STORY.archetypes) expect(canon, a.id).not.toContain(a.name);
+  });
+});
+
+describe('the art', () => {
+  const cover = STORY.coverDirection;
+
+  it('paints the title into the cover on its own TITLE line, spelled exactly', () => {
+    expect(cover.match(/TITLE:/g)).toHaveLength(1);
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(title).toContain('The Maid Owns the House Now');
+    expect(title).toContain('spelled exactly THE MAID OWNS THE HOUSE NOW');
+    expect(title).toMatch(/upper third/);
+    expect(cover).toMatch(/No other text anywhere/);
+  });
+
+  it('keeps every effect off her face, and keeps her out of a maid costume', () => {
+    expect(cover.startsWith('SUBJECT: Clara Voss')).toBe(true);
+    expect(cover).toMatch(/HER FACE STAYS CLEAN/);
+    expect(cover).toMatch(/not in a maid costume: no frills, no lace/);
+    expect(cover).not.toMatch(/\b(sexy|alluring|curvy|curvaceous|cleavage|figure|legs|skirt)\b/i);
+  });
+
+  it('draws the opening panel from the portrait of the person who speaks first', () => {
+    const alt = STORY.openingPanel!.alt;
+    expect(alt.length).toBeLessThanOrEqual(200);
+    expect(alt.startsWith('Clara')).toBe(true);
+    expect(STORY.opening.indexOf('Clara')).toBeLessThan(STORY.opening.indexOf('"'));
+  });
+
+  it('gives every carded character a concrete appearance', () => {
+    for (const c of STORY.characters) {
+      if (c.cardBlurb.trim()) expect(c.appearance.length, c.id).toBeGreaterThan(80);
+    }
+  });
+
+  it('ships unpublished: publishedAt is set at release', () => {
+    expect(STORY.publishedAt).toBeNull();
   });
 });
 

@@ -54,31 +54,44 @@ The player authors:
 
 The player does not author: whether the family is broke, who owns the house, or Clara's terms. Everything after the first question is theirs.
 
+Every player starts holding the **signet ring** and **Clara's terms** (a quest item, so the storyteller reads it): one sheet in her hand, numbered. One: a bed, the old valet's room off the kitchen passage. Two: three meals at the staff table. Three: a wage in cash on Fridays, docked in writing for orders given, breakages and jobs walked off. Four: Sunday afternoons off. Five: either party may end it at any time; the door opens both ways.
+
+Every background starts with **Know the House** (they all grew up here) plus one move of its own, all usable from turn one. Production's storyteller reads only the chosen background's starting abilities, so these are what it knows the player can do.
+
 **Archetypes**
 
-| Archetype | Role | Grants | Playstyle |
-|---|---|---|---|
-| The Life of the Party | Social charm background | presence +3, agility +1, Charm 3, Bluff 1, calling cards, Town +10 | Charming, Well known, Hopeless at chores |
-| The One Who Studied | Bookish background | mind +3, resolve +1, Accounts 3, The House 1, Candour 1, law notes, Creditors +10 | Observant, Reads the small print, Slow to act |
-| The Rower | Physical training background | might +3, resolve +1, Elbow Grease 3, Service 1, rowing gloves, Below Stairs +10 | Physical, Tireless, Blunt |
-| The Black Sheep | Worked-for-a-living background | agility +2, presence +1, Bluff 2, Service 2, Elbow Grease 1, waiter's corkscrew | Streetwise, Quick liar, Knows real work |
+| Archetype | Role | Grants | Starting abilities | Playstyle |
+|---|---|---|---|---|
+| The Life of the Party | Social charm background | presence +3, agility +1, Charm 3, Bluff 1, calling cards, Town +10 | Know the House, Old Charm | Charming, Well known, Hopeless at chores |
+| The One Who Studied | Bookish background | mind +3, resolve +1, Accounts 3, The House 1, Candour 1, law notes, Creditors +10 | Know the House, Read the Books | Observant, Reads the small print, Slow to act |
+| The Rower | Physical training background | might +3, resolve +1, Elbow Grease 3, Service 1, rowing gloves, Below Stairs +10 | Know the House, Put Your Back In | Physical, Tireless, Blunt |
+| The Black Sheep | Worked-for-a-living background | agility +2, presence +1, Bluff 2, Service 2, Elbow Grease 1, waiter's corkscrew | Know the House, Cover For It | Streetwise, Quick liar, Knows real work |
 
 ### Minimal hard canon
 
-- Everyone is an adult. The player is twenty-nine and was eighteen when Clara arrived; Clara is thirty; Midge is twenty-two; nobody is younger.
+The narrator never reads resources, step notes or locked abilities, so the story's system (the terms, the wages, the work, the town, the lies, the clock) is hard canon too. The tone guide doubles as the cover's mood text, so the 13+ limits live here rather than there.
+
+- Everyone is an adult, and the first line of hard canon gives every age: the player twenty-nine (eighteen when Clara arrived), Clara Voss thirty, Imogen "Midge" Marsh twenty-two, Silas Dunmore forty-four, Augustin fifty-six, Lady Honoria Pemberton fifty-eight, Hugo Ashworth sixty-three. Nobody is younger than twenty-two.
 - Clara came to Wrenhurst House at nineteen. She was never the player's nanny or guardian, nothing in the story shows, remembers or flashes back to the player under eighteen, and "young master" is the household's title for the adult heir, never a comment on age. Clara uses it whatever the player's pronouns.
 - The family is broke; the player owns their clothes and a signet ring.
-- Clara bought Wrenhurst House at auction yesterday and owns it. The player may refuse her offer.
+- Clara bought Wrenhurst House at auction yesterday and owns it. Her written terms reached the player last night: valet's room off the kitchen passage, three meals, a cash wage on Fridays, Sunday afternoons off, either side may end it. The player may refuse.
+- Clara docks wages in writing for orders, breakages and walking off a job; pulling rank costs a day's wage. Good work she writes down too, and never mentions.
+- The player has never done household work: it genuinely tires them, sleep and a meal restore it, and they visibly improve over the fortnight.
+- Serving properly is a craft the player lacks at the start; Hugo teaches it if asked properly, Midge knows shortcuts, or they fail until it works.
+- The town hears anything public within a day (pub, Gazette). Lose your temper: Hugo steps in, Clara docks a wage or shows the door, nobody is seriously hurt. Talk makes tradesmen want cash, the bank cool and the bride's family nervous.
+- A lie holds until somebody checks, and Hugo always checks. Each lie needs a second; the truth costs on the spot and stops the slide.
+- The clock: day one of fourteen. Silas at the gate at eleven every morning, the inspection on day seven, the wedding on day fourteen, the loan due at nine on day fifteen.
 - Augustin spent three weeks in a boarding house in town (where he posted the postcard), then hid in the attic box room for the last nine days, via the coal chute. Hugo knows. Clara does not.
 - Clara paid with savings, Hugo's pension and a fourteen-day loan, which Lady Pemberton has bought. It falls due the morning after the wedding.
 - One booking: a wedding for 120 in fourteen days. Success means a bank refinances; failure means Lady Pemberton takes the house and builds a hotel.
 - The Ellery seascape is behind the attic water tank and belongs to the creditors. Silas Dunmore is looking for it.
-- Clara is not a prize. She is the employer and can say no. Romance goes no further than a kiss.
+- Clara is not a prize. She is the employer and can say no. Romance goes no further than a kiss. No fan service: the apron is a joke about work, never about bodies.
+- Augustin's shame is played for comedy and warmth; he is never a danger to himself.
 - Nothing supernatural happens.
 
 ## Prologue
 
-None. The story starts on the opening scene. (Only Itachi and Last Feather carry a prologue.)
+None. The story starts on the opening scene. (Only Itachi and Last Feather carry a prologue.) The fixture ships with `publishedAt: null`; the real date is set at release.
 
 ## Opening scene
 
@@ -189,7 +202,7 @@ All three are invisible and banded; the prose shows them.
 - **Kestrel Bay**: harbour town, bank, the Anchor, the Gazette, an antiques shop on the quay.
 - **Pemberton Hall**: white stucco, orchids, a study window aimed at Wrenhurst.
 
-**Objects:** signet ring, black apron (new, in the player's size, bought the day before the auction), Clara's ledger, the cream envelope signed "H", the wedding booking (item nine: no visible staff after midnight), the Ellery seascape, Hugo's keys (one unlabelled), the night tray, the father's postcard (postmarked Kestrel Bay), the house silver for twenty-four.
+**Objects:** signet ring, Clara's terms (the player starts holding them), black apron (new, in the player's size, bought the day before the auction), Clara's ledger, the cream envelope signed "H", the wedding booking (item nine: no visible staff after midnight), the Ellery seascape, Hugo's keys (one unlabelled), the night tray, the father's postcard (postmarked Kestrel Bay), the house silver for twenty-four.
 
 ## Active story pressures
 
@@ -244,13 +257,15 @@ Attack, lie, refuse, wander: each has a mechanical home (Lose Your Temper, Cover
 
 ### Shared visual direction
 
-Polished anime key-art finish: clean linework, soft cel shading, cinematic seaside light, strong colour separation, readable silhouettes. No fan service, no lingering body framing; costumes are working clothes and period-neutral modern dress. No generated typography.
+Polished anime key-art finish: clean linework, soft cel shading, cinematic seaside light, strong colour separation, readable silhouettes. No fan service, no lingering body framing; costumes are working clothes and period-neutral modern dress. Clara is never drawn in a maid costume: she owns the house. Appearances in the fixture open with "An adult woman/man" or "An older woman/man" and describe costume, never an age; the ages live in hard canon and in this bible. The only typography is the cover title, painted in by its `TITLE:` line.
 
 ### Cover prompt
-Vertical romantic comedy anime key art. Clara Voss, a tall straight-backed woman with dark hair in a low knot and level grey eyes, in a plain black dress with rolled sleeves, stands at the foot of a stripped marble staircase holding out a folded black apron toward the viewer, a silver hand bell on a ribbon at her wrist. Pale squares on the walls where paintings hung, grey dawn sea light through tall windows. Behind her, small on the landing, a silver-haired butler in a tailcoat pretends not to watch. Dry, warm, faintly amused. Title-safe space at the top.
+`coverDirection` in the fixture, verbatim in substance: Clara Voss alone, waist up, centred, two thirds of the frame, at the foot of the stripped staircase. Dark hair in a low knot, level grey eyes, a plain high-necked black dress with sleeves rolled, the silver hand bell on a black ribbon at her wrist; explicitly not a maid costume (no frills, lace, headpiece or apron on her). One arm straight out to the viewer, offering a folded black work apron; the other hand on the banister. Composed and dry, one eyebrow up. The bell's glint and a warm gold gleam stay on the bell, the banister and the title; **her face stays clean**. Behind her, soft: the bare marble hall, pale squares where paintings hung, tall windows of grey sea light, and a silver-haired butler on the first landing pretending not to watch. Cool grey dawn behind, warm lamp gold rimming her.
+
+**TITLE:** the title The Maid Owns the House Now painted into the upper third as an elegant high-contrast serif logo in capitals on two lines, THE MAID OWNS over a larger THE HOUSE NOW, ivory-white with a thin black outline, an antique-gold edge and a soft warm glow, one small gold house key hanging from a ribbon under the last line; spelled exactly THE MAID OWNS THE HOUSE NOW. No other text anywhere.
 
 ### Opening panel
-`story_the_maid_owns_the_house_now/opening`: Clara in a plain black dress at the foot of a bare marble staircase, holding out a folded black apron, grey dawn light through tall windows.
+`story_the_maid_owns_the_house_now/opening` (alt, 164 characters, starts with the speaker so her portrait is the reference): Clara in a plain black dress, sleeves rolled, at the foot of a bare marble staircase, holding a folded black apron out to you, grey dawn light through tall windows.
 
 ### Reaction decks
 - **Clara:** neutral, stern, wry, warm, flustered, worried, angry.
