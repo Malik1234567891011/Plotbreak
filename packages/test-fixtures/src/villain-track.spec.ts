@@ -141,6 +141,25 @@ describe('the opener', () => {
   });
 });
 
+describe('what the production storyteller is told', () => {
+  it('names every gifted cast member’s gift in the brief runTurnPure sends', async () => {
+    // Combatant tags never reach the storyteller. If a gift is not in the
+    // brief, the model invents one the first time it comes up.
+    const { worldBrief } = await import('@plotbreak/director');
+    const brief = worldBrief(story, 'arch_signal');
+    for (const gift of ['steps through light', 'in the dark she is only', 'wrong note', 'pocket of air', 'holds his breath', 'throws any sound']) {
+      expect(brief, gift).toContain(gift);
+    }
+  });
+
+  it('keeps another franchise’s department and licence names out of the story', () => {
+    const everything = JSON.stringify(story);
+    expect(everything).not.toMatch(/hero course|provisional|hero school/i);
+    // A black mask is a prop; "Black Mask" capitalised is somebody else's villain.
+    expect(everything).not.toMatch(/Black Mask/);
+  });
+});
+
 describe('everybody is an adult, and the bible says so', () => {
   it('states an age of 18 or over for every character', async () => {
     const { readFileSync } = await import('node:fs');

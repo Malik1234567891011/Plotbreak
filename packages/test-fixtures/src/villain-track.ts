@@ -18,7 +18,7 @@ import { StoryVersion } from '@plotbreak/contracts';
  * 19:42 on Festival Night unless somebody has read it.
  *
  * Both sides of the academy are lying to their own students, and that is the
- * whole engine. The Track says nobody gets hurt. The hero course says every
+ * whole engine. The Track says nobody gets hurt. The hero programme says every
  * villain is real. Each has set its newest student against the other's
  * without telling either, which is why Celeste asks "Have we met?" — she was
  * warned. The conspiracy under it (Bridge Night was staged, the man who wrote
@@ -40,11 +40,11 @@ const raw = {
   version: 1,
   title: 'Villain Track',
   fantasyLabel: 'Hero academy. You’re on the villain track.',
-  hook: 'The academy that trains the city’s heroes secretly trains the villains they need. Your acceptance letter came from that side, and your first job is the top hero student’s badge, by midnight.',
+  hook: 'Your acceptance letter had a second page. The academy that trains the city’s heroes also trains their villains, and your first job is the top hero student’s badge, by midnight.',
   premise:
-    'Aurel Academy trains the city’s heroes. Four years, a licence at the end, and a ranking the whole city follows like football. Every student is an adult, and most of them think they enrolled in a hero school.\n\n' +
-    'You got in. Your acceptance letter had a second page, in black ink, that nobody else’s did. It said you had been selected for Applied Opposition, a course on the timetable with no room number, and that you should tell no one.\n\n' +
-    'Applied Opposition is the villain track. The academy secretly trains the villains its heroes need: masked, scripted, careful, and never caught. Every robbery a student hero stops on the news was planned in a room under the old chapel.\n\n' +
+    'Aurel Academy trains the city’s heroes. Students arrive at eighteen, train for four years and leave with a licence, and the whole city follows their ranking like football. Most of them think that is all the academy does.\n\n' +
+    'You got in. Your acceptance letter had a second page, in black ink. As far as you can tell, nobody else’s did. It said you had been selected for Applied Opposition, a course on the timetable with no room number, and that you should tell no one.\n\n' +
+    'Applied Opposition is the villain track. The academy secretly trains the villains its heroes need: masked, scripted, always beaten, never caught. Every robbery a student hero stops on the news was planned in a room under the old chapel.\n\n' +
     'Tonight is the welcome masquerade. Your first assignment is to take the gold badge off the best hero student in the building before midnight, without being seen and without hurting anybody.\n\n' +
     'She is very good, and somebody may have warned her you were coming.\n\n' +
     'Take the badge or refuse it. Play the villain they want, become the hero they would hate you to be, or find out who writes the scripts, because somebody has already changed this year’s.',
@@ -61,10 +61,10 @@ const raw = {
     'A policeman who counts',
     'Earn a villain name',
   ],
-  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY'],
+  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY', 'ALCOHOL_REFERENCES'],
   intensity: 'MODERATE',
   creatorNote:
-    'You can lift the badge on your second turn, refuse the whole thing and spend the week as an ordinary first-year, or walk outside and tell the policeman everything. All of it is the game. Celeste is not a prize. She was sent to catch you, and on the first night she is better at her job than you are at yours.',
+    'You can lift the badge on your first turn, refuse the whole thing and spend the week as an ordinary first-year, or walk outside and tell the policeman everything. All of it is the game. Celeste was sent to catch you, and on the first night she is better at her job than you are at yours.',
   openingObligations: [
     {
       what: 'Bring Dean Marrow the gold badge off Celeste Moreau’s lapel, in Room Zero, by midnight.',
@@ -90,17 +90,19 @@ const raw = {
       'Aurel Academy is a four-year, post-secondary academy for the gifted in the harbour city of Corvane. Every student is an adult, admitted at eighteen or older. The player is a first-year.',
       'The academy secretly runs a villain track, listed on the timetable as Applied Opposition with no room number and taught in Room Zero under the old chapel. Its masked students stage the crimes that hero students stop on camera, the villain always loses, and the one rule it says out loud is that nobody gets hurt.',
       'At the welcome masquerade, Dean Marrow handed the player a black lacquer mask and their first assignment: the First Badge off Celeste Moreau’s lapel, delivered to Room Zero by midnight.',
-      'The First Badge, numbered 001, is the provisional licence of the top final-year on the hero course. For the first week of term it opens every lock on campus, including one sealed drawer in the Registry.',
+      'The First Badge, numbered 001, is the field licence the academy issues a year early to the top final-year on the hero programme. For the first week of term it opens every lock on campus, including one sealed drawer in the Registry.',
       'Professor Anselm Dray warned Celeste tonight that a first-year would try for her badge, and told her catching them is her final exam. Rafe Corrigan, another first-year, was given the same assignment as the player.',
       'Bridge Night, twenty-two years ago, when Dray defeated the villain called the Pale Duke on the Old Bridge, was staged. Dray wrote it. Dean Marrow is the Pale Duke. The signed script is in the sealed Registry drawer. This is discoverable and never owed to anybody.',
       'Page nine of this year’s festival script, a real charge under the east pier at 19:42 on Festival Night, was added by Dray. Marrow did not write it and does not know.',
       'Everybody with a gift has exactly one, with limits. Nobody reads minds, nobody flies, and nobody comes back from the dead.',
+      'The cast’s gifts: Celeste Moreau steps through light, out of one lit place and into any other lit place she can see, and in the dark she is only a very good athlete. Dean Marrow hears a lie told within ten paces as a wrong note. Juno Pike can fold anything she can palm into a pocket of air and bring it back later. Anselm Dray cannot be hurt for as long as he holds his breath. Rafe Corrigan throws any sound he has heard to anywhere he can see. Bram Tolle has no gift.',
     ],
     toneGuide:
       'Sharp, quick and a little funny: a heist comedy with a conscience underneath it. Masks, lies and double meanings are the texture, and everybody in every scene is performing for somebody. ' +
       'Fights are legible and mostly staged, and when one turns real the prose should feel the difference in the first line. Nobody bleeds on the page. The warehouse fire and the pier are told by what happened to people afterwards. ' +
       'Nobody on either side is a cartoon. Marrow believes in “nobody gets hurt” because he wrote it. Dray has a real argument, and the player is allowed to find it persuasive. ' +
-      'Romance is rivalry first: flirtation, tension, the occasional honest moment, one kiss at most. Celeste can catch the player, outplay them and refuse them. The face at the top of a beat is Celeste’s whenever she is in the scene, and Marrow’s mask when he is.',
+      'Romance is rivalry first: flirtation, tension, the occasional honest moment, one kiss at most. Celeste can catch the player, outplay them and refuse them. A clumsy lift gets caught: she says the score out loud and lets go, because she wants to see the second attempt. The face at the top of a beat is Celeste’s whenever she is in the scene, and Marrow’s mask when he is. ' +
+      'Refusing the badge is a real route and is never treated as failing to start the story. Never describe how the charge under the east pier is built, set or disarmed beyond somebody pulling it.',
     proseStyle: 'webnovel',
     styleExamples: [
       "Her hand closes on your wrist before your fingers reach the pin.\n\n\"That is one to me,\" Celeste says pleasantly. She hasn't looked down.\n\nThe band is still playing. Nobody near the bar has noticed a thing.\n\n\"I was admiring it.\"\n\n\"You were unpinning it.\" She lets go, one finger at a time. \"Try again before midnight. I want to see what you do when you mean it.\"",
@@ -234,7 +236,7 @@ const raw = {
   items: [
     {
       id: 'black_mask',
-      name: 'The Black Mask',
+      name: 'The Lacquer Mask',
       tags: ['quest', 'disguise'],
       questItem: true,
       description: 'Black lacquer, light as a shell, with a hairline crack over the left eye that somebody has filled with gold. Stamped small inside the brow: 0.',
@@ -264,7 +266,7 @@ const raw = {
       name: 'The First Badge',
       tags: ['quest', 'access'],
       questItem: true,
-      description: 'Gold, numbered 001, pinned on the lapel of the top final-year on the hero course. A provisional hero licence, and for the first week of term the master key to every lock on campus.',
+      description: 'Gold, numbered 001, pinned on the lapel of the top final-year on the hero programme. Her field licence, issued a year early, and for the first week of term the master key to every lock on campus.',
       loreText: 'Including one drawer in the Registry that has not been opened in twenty-two years. It was sealed by two men who signed the same page.',
       icon: 'badge',
     },
@@ -573,7 +575,7 @@ const raw = {
       name: 'The Atrium Balcony',
       shortName: 'Balcony',
       description:
-        'A stone balcony running the length of the atrium on the harbour side, half inside and half open to the night. Donors stand at the rail with drinks they do not finish. At the far end, past the last lamp, there is one dark corner where you can see the whole party and the whole harbour, and nobody below can see you.',
+        'A stone balcony running the length of the atrium on the harbour side, half inside and half open to the night. Donors stand at the rail in evening dress. At the far end, past the last lamp, there is one dark corner where you can see the whole party and the whole harbour, and nobody below can see you.',
       artDirection:
         'Stone balcony above a glittering masquerade hall on one side and a night harbour on the other, string lights, donors in evening dress at the rail, one shadowed corner beyond the last lamp. Romantic, exposed, high up.',
       connections: [{ to: 'glass_atrium', travelMinutes: 1, label: 'Back down the stair' }],
@@ -647,7 +649,7 @@ const raw = {
       name: 'The Proving Yard',
       shortName: 'Proving Yard',
       description:
-        'A sand training ground ringed by stands, with a scoreboard that shows the hero course ranking in real time. Final-years spar here at dawn and anybody can watch. The sand remembers every fall.',
+        'A sand training ground ringed by stands, with a scoreboard that shows the hero programme ranking in real time. Final-years spar here at dawn and anybody can watch. The sand remembers every fall.',
       artDirection:
         'Open-air sand training arena at dawn, tiered stands, a huge scoreboard of ranked names, two figures sparring, scuffed sand. Bright, athletic, competitive.',
       connections: [{ to: 'the_quad', travelMinutes: 3, label: 'Back to the Quad' }],
@@ -752,7 +754,7 @@ const raw = {
     {
       id: 'faction_aurel',
       name: 'Aurel Academy',
-      description: 'The institution itself: faculty, deans, donors and four hundred new students who think they enrolled in a hero school. It protects its reputation first and anybody in it second.',
+      description: 'The institution itself: faculty, deans, donors and four hundred new students who think they enrolled to become heroes and nothing else. It protects its reputation first and anybody in it second.',
       startingReputation: 20,
       ranks: [
         { atReputation: 0, label: 'Enrolled' },
@@ -778,7 +780,7 @@ const raw = {
     },
     {
       id: 'faction_hero_course',
-      name: 'The Hero Course',
+      name: 'The Hero Programme',
       description: 'Professor Dray’s final-years, the ranking, the licences and the cameras. Almost all of them believe every villain they have ever stopped was real.',
       startingReputation: 5,
       ranks: [
@@ -809,13 +811,13 @@ const raw = {
     {
       id: 'celeste',
       name: 'Celeste Moreau',
-      role: 'Top-ranked final-year on the hero course, holder of the First Badge, and the person you were sent to rob',
+      role: 'Top-ranked final-year on the hero programme, holder of the First Badge, and the person you were sent to rob',
       cardBlurb:
-        'She is the best hero student in the building, she is wearing the badge you were told to take, and she asked whether you had met before you had said a word to her.',
+        'She asked if you’d met before you said a word. She is wearing the badge you were sent to take, and somebody told her you were coming.',
       pronouns: 'she/her',
       publicTraits: ['Friendly in a way that is also surveillance', 'Competitive about everything, including small talk', 'Keeps promises to the minute'],
       hiddenDrives: [
-        'She wants to be number one because she earned it, and has started to suspect the academy decides who earns things',
+        'She wants the top of the ranking because she earned it, and has started to suspect the academy decides who earns things',
         'Professor Dray told her a thief would come for the badge tonight, and she badly wants to pass whatever test that is',
       ],
       values: ['A fair fight, which she is beginning to notice she has never had', 'Saying the score out loud, even when it is against her'],
@@ -856,7 +858,7 @@ const raw = {
       appearance:
         'Twenty-two, tall and athletic, sleek black hair in a low knot, a white silk half-mask pushed up into her hair, a fitted white gala suit with a gold badge on the lapel.',
       visualHook: 'A gold badge numbered 001 on a white lapel, and a white silk half-mask pushed up into her hair like sunglasses.',
-      silhouette: 'Upright, one elbow on the bar, weight forward, a glass held and not drunk from.',
+      silhouette: 'Upright, one elbow on the bar, weight forward, turning a glass by its stem.',
       artSeed: 'vt-celeste-01',
       portrait: null,
       expressions: ['neutral', 'amused', 'competitive', 'surprised', 'warm', 'worried'],
@@ -903,7 +905,7 @@ const raw = {
       calledName: 'Marrow',
       role: 'Masked Dean of Applied Opposition, the course with no room number, and the man who put the black mask in your hand',
       cardBlurb:
-        'He chose you for the villain track, he has never shown anybody his face, and he gave you a deadline of midnight without saying what happens if you miss it.',
+        'Nobody has ever seen his face. He picked you for the villain track, gave you until midnight, and did not say what happens if you are late.',
       pronouns: 'he/him',
       publicTraits: ['Courteous to a degree that frightens people', 'Never raises his voice', 'Hears a lie as a wrong note, and says so'],
       hiddenDrives: [
@@ -1069,7 +1071,7 @@ const raw = {
       calledName: 'Tolle',
       role: 'Ungifted officer at Waterline Precinct, working the masquerade’s security cordon because he asked to',
       cardBlurb:
-        'He is the one policeman in the city who has noticed that the academy’s villains always lose on camera, he is standing outside your party not drinking, and he will remember your face if you give him a reason.',
+        'The one policeman in Corvane who has noticed that the academy’s villains always lose on camera. Tonight he is outside your party with a coffee he never drinks, and he remembers every face you show him.',
       pronouns: 'he/him',
       publicTraits: ['Patient to the point of rudeness', 'Writes everything down in pencil', 'Polite to students, which they find unnerving'],
       hiddenDrives: [
@@ -1145,14 +1147,14 @@ const raw = {
       id: 'dray',
       name: 'Professor Anselm Dray',
       calledName: 'Dray',
-      role: 'Head of the Hero Course, the city’s most famous living hero, and the bronze statue in the middle of the Quad',
+      role: 'Head of the Hero Programme, the city’s most famous living hero, and the bronze statue in the middle of the Quad',
       cardBlurb:
         'He beat the city’s last great villain on the Old Bridge twenty-two years ago, he trained the woman you were sent to rob, and he seems to know far more about your assignment than a man on a balcony should.',
       pronouns: 'he/him',
       publicTraits: ['Warm, famous, and good at both', 'Remembers every donor’s family by name', 'Tells the Bridge Night story better every year'],
       hiddenDrives: [
         'He wrote Bridge Night, and every year since he has needed the city to keep believing it',
-        'He added page nine to the festival script. A real fire on the east pier, contained and filmed and stopped by Celeste, buys the hero course ten more years of money and makes her number one on her first day',
+        'He added page nine to the festival script. A real fire on the east pier, contained and filmed and stopped by Celeste, buys the hero programme ten more years of money and puts her at the top of the ranking on her first day',
       ],
       values: ['The city needs to believe somebody is coming to save it', 'Results the cameras can see'],
       fears: ['A city that stops believing in heroes, and what it does next', 'Marrow, unmasked, telling it himself'],
@@ -1162,7 +1164,7 @@ const raw = {
         'Will never admit Bridge Night was staged, even alone, even to Marrow',
         'Will not raise a hand to a student in public; he has people and a reputation for that',
       ],
-      goals: ['Make Celeste number one on Festival Night', 'Catch the Track’s recruit with the badge, and own them afterwards'],
+      goals: ['Put Celeste at the top of the ranking on Festival Night', 'Catch the Track’s recruit with the badge, and own them afterwards'],
       secrets: [
         {
           id: 'dray_page_nine',
@@ -1179,7 +1181,7 @@ const raw = {
       ],
       speechStyle:
         'A warm baritone with a lecturer’s pauses, anecdotes that end in morals. Says “we” for the academy and talks about “the city” as if it were a person he loves. Never says villain; he says “the opposition”.',
-      topics: ['Bridge Night', 'the hero course', 'Celeste', 'the city', 'Festival Night', 'your future'],
+      topics: ['Bridge Night', 'the hero programme', 'Celeste', 'the city', 'Festival Night', 'your future'],
       voiceSamples: [
         'Corvane wants a morning paper with a hero on the front. Twenty-two years, and that paper has never once been late.',
         'Call me Anselm. Everybody does, eventually, and you strike me as somebody who gets there early.',
@@ -1197,7 +1199,7 @@ const raw = {
         { startMinute: 0, endMinute: 420, locationId: 'the_quad', activity: 'in the faculty house on the Quad, a light on late' },
         { startMinute: 420, endMinute: 720, locationId: 'proving_yard', activity: 'running the final-year session himself' },
         { startMinute: 720, endMinute: 1080, locationId: 'the_quad', activity: 'on the statue steps, posing for photographs he pretends not to enjoy' },
-        { startMinute: 1080, endMinute: 1440, locationId: 'atrium_balcony', activity: 'on the balcony with donors and a glass he never drinks' },
+        { startMinute: 1080, endMinute: 1440, locationId: 'atrium_balcony', activity: 'on the balcony with the donors, shaking every hand twice' },
       ],
       homeLocationId: 'the_quad',
       knowledgeScope: ['bridge_night', 'the_hero_course', 'celeste', 'festival_night', 'the_track', 'page_nine', 'the_registry'],
@@ -1231,7 +1233,7 @@ const raw = {
       publicTraits: ['Talks when nervous, which is always', 'Generous with things he cannot afford', 'Very funny at the worst moments'],
       hiddenDrives: [
         'His family’s fishing boat is two payments from being taken. The Track’s stipend is the only reason he is still enrolled',
-        'Somebody from the hero course has offered him a hero’s place in exchange for the Track’s names. He has not said yes. He has not said no',
+        'Somebody from the hero programme has offered him a hero’s place in exchange for the Track’s names. He has not said yes. He has not said no',
       ],
       values: ['Family first, including the parts that do not deserve it', 'Never leaving somebody behind on a job'],
       fears: ['Going home on the ferry with nothing', 'Being the reason somebody else gets caught'],
@@ -1250,23 +1252,23 @@ const raw = {
         },
         {
           id: 'rafe_the_offer',
-          fact: 'Somebody from the hero course has offered him a place on the hero side in exchange for the names of everybody on the Track. He has until Festival Night to answer.',
+          fact: 'Somebody from the hero programme has offered him a place on the hero side in exchange for the names of everybody on the Track. He has until Festival Night to answer.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He confesses it if you trust him with something real first, or if you see him leave the faculty house on the Quad.',
         },
       ],
       speechStyle:
         'Fast, rambling and self-interrupting, full of harbour slang. Ends anything he is unsure of with “right?”. Goes very quiet and plain when he finally means something.',
-      topics: ['the assignment', 'his family’s boat', 'the stipend', 'his gift', 'the offer from the hero course', 'the harbour'],
+      topics: ['the assignment', 'his family’s boat', 'the stipend', 'his gift', 'the offer from the hero programme', 'the harbour'],
       voiceSamples: [
         'Right, so, hypothetically, if two people had the same terrible idea at the same party, they could just split it, right? Halves?',
         'My dad’s boat has a name and a debt, and the debt is louder.',
         'I can throw a sound anywhere I can see. A dropped tray by the door. A scream on the stairs. Most useless gift in the building, until suddenly it isn’t.',
-        'They offered me the other side. Hero course, real licence. All I have to do is say your name. I haven’t. I wanted you to hear that from me.',
+        'They offered me the other side. Hero programme, real licence. All I have to do is say your name. I haven’t. I wanted you to hear that from me.',
       ],
       appearance:
-        'Twenty, lanky and sunburnt, shaggy salt-bleached hair, a rented tuxedo with the sleeves two inches short, a white intake mask tied badly.',
-      visualHook: 'A white intake mask tied badly and always slipping down his nose, over a rented tuxedo two inches too short in the sleeves.',
+        'Twenty, lanky and sunburnt, shaggy salt-bleached hair, a day of stubble, rope-scarred fisherman’s hands, a rented tuxedo with the sleeves two inches short, a white intake mask tied badly.',
+      visualHook: 'A white intake mask tied badly and always slipping down his nose, and rope-scarred fisherman’s hands sticking out of a rented tuxedo’s short sleeves.',
       silhouette: 'Long and loose-limbed, hands always moving, leaning in as if sharing a secret.',
       artSeed: 'vt-rafe-01',
       portrait: null,
@@ -1494,7 +1496,7 @@ const raw = {
             {
               routeId: 'named_by_the_room',
               label: 'Stand under the lamp on Name Night and take what the room gives you',
-              predicate: { flagsSet: ['name_night_happened'] },
+              predicate: { flagsSet: ['name_night_happened'], atLocation: 'room_zero' },
               setsFlags: ['named_by_the_room'],
               closesFlags: [],
             },
@@ -1862,7 +1864,7 @@ const raw = {
             {
               routeId: 'exposed_it_live',
               label: 'Put the proof on the festival cameras',
-              predicate: { flagsSet: ['used:broadcast_it'], atLocation: 'harbour_front' },
+              predicate: { flagsSet: ['used:broadcast_it', 'festival_happened'], atLocation: 'harbour_front' },
               setsFlags: ['went_public', 'charge_stopped'],
               closesFlags: ['track_intact'],
             },
@@ -1926,7 +1928,7 @@ const raw = {
       atWorldMinute: 21 * 60 + 50,
       locationId: 'glass_atrium',
       publicCopy:
-        'Up on the balcony, Professor Anselm Dray raises a glass, the quartet stops, and four hundred white masks tilt up to look at the man who won Bridge Night.',
+        'At ten to ten, up on the balcony, Professor Anselm Dray raises a glass, the quartet stops, and four hundred white masks tilt up to look at the man who won Bridge Night.',
       directorNotes:
         'Ninety seconds when every head in the room is up and every hand is down, and Juno has timed it. A player who moves now has the best cover of the night. A player who watches Celeste instead sees that she is the only person in the room not looking up: she is watching the crowd for whoever moves.',
       setsFlags: ['the_toast'],
@@ -1939,7 +1941,7 @@ const raw = {
       atWorldMinute: 22 * 60 + 15,
       locationId: 'atrium_balcony',
       publicCopy:
-        'Celeste Moreau slips away from the bar and up the curved stair to the balcony, alone, turning the gold badge over in her fingers.',
+        'At quarter past ten, Celeste Moreau slips away from the bar and up the curved stair to the balcony, alone, turning the gold badge over in her fingers.',
       directorNotes:
         'She is giving the thief a better chance on purpose, to see who takes it. Dray is at the other end of the balcony with the donors and will notice exactly who follows her up.',
       setsFlags: ['celeste_on_the_balcony'],
@@ -1952,7 +1954,7 @@ const raw = {
       atWorldMinute: 22 * 60 + 40,
       locationId: 'atrium_balcony',
       publicCopy:
-        'A tray crashes somewhere near the bar, every head turns toward the noise, and a white mask that does not fit takes the balcony stair two at a time.',
+        'At twenty to eleven, a tray crashes somewhere near the bar, every head turns toward the noise, and a white mask that does not fit takes the balcony stair two at a time.',
       directorNotes:
         'Rafe throws a sound for a distraction and goes for the badge. He is not good enough, and Celeste feels him coming unless the player helps him or gets in his way. If she catches him she now knows the thief is a first-year in a white mask, which makes the player’s night harder.',
       setsFlags: ['rafe_tried'],
@@ -2026,7 +2028,7 @@ const raw = {
       locationId: 'proving_yard',
       publicCopy: 'Professor Dray is waiting at the edge of the Proving Yard, and he says your first name before you have reached him.',
       directorNotes:
-        'He knows, or has guessed, that the player took the badge. He does not threaten. He offers a place on the hero course, a clean record and Celeste’s respect, in exchange for the names of everybody in Room Zero. He is charming and it is a genuinely good offer.',
+        'He knows, or has guessed, that the player took the badge. He does not threaten. He offers a place on the hero programme, a clean record and Celeste’s respect, in exchange for the names of everybody in Room Zero. He is charming and it is a genuinely good offer.',
       setsFlags: ['dray_approached'],
       cancelledByFlags: ['arrested'],
       requiresFlags: ['badge_taken'],
@@ -2095,7 +2097,7 @@ const raw = {
       locationId: 'harbour_front',
       publicCopy: 'At 19:42 the east pier goes dark, and then very bright.',
       directorNotes:
-        'The charge under the east pier goes off. Celeste steps through the light of it to clear the crowd, which is exactly what it was written for. Nobody dies. A dozen people are treated for smoke, the pier burns to the waterline, and a city that watched it live has a new number one by morning. Tell it by what happens to people afterwards, never by injuries.',
+        'The charge under the east pier goes off. Celeste steps through the light of it to clear the crowd, which is exactly what it was written for. Nobody dies. A dozen people are treated for smoke, the pier burns to the waterline, and a city that watched it live has a new name at the top of its ranking by morning. Tell it by what happens to people afterwards, never by injuries.',
       setsFlags: ['pier_burned'],
       cancelledByFlags: ['charge_stopped', 'charge_found'],
       requiresFlags: [],
@@ -2190,7 +2192,7 @@ const raw = {
       role: 'Tech sabotage',
       summary: 'Anything electric you touch stops working, so locks, cameras and lights are yours, and the dark is where you are strongest.',
       playstyle: ['Technical', 'Careful', 'Quiet'],
-      blurb: 'You have not owned a working phone in years, and you have opened every electric lock in your old building, mostly by accident.',
+      blurb: 'You have not owned a working phone in years, and you have opened every electric lock in your old building, mostly by accident. A caterer’s keycard found its way into your pocket on the way in tonight.',
       attributeBonus: { mind: 2, arcana: 2 },
       skillProficiencies: { gift: 3, casing: 2, poise: 1 },
       startingItems: [{ itemId: 'staff_keycard', qty: 1 }],
@@ -2212,7 +2214,7 @@ const raw = {
     {
       id: 'worldKnowsAboutYou',
       label: 'Why do you think the villain track picked you?',
-      helpText: 'Your own theory. Marrow has his, and it may not match. One plain sentence is the right amount.',
+      helpText: 'Your own theory. One plain sentence is the right amount.',
       kind: 'TEXT',
       required: false,
       maxLength: 300,
@@ -2279,7 +2281,7 @@ const raw = {
       condition:
         'Nobody stopped the charge. This is the ordinary way the week ends for a player who never read past their own lines, and it must not be written as a punishment: the script said nobody gets hurt, the player believed it, and somebody else had changed it. Celeste clears the crowd, the city crowns her, and the few people who know what happened are very quiet.',
       epilogue:
-        'The east pier is rebuilt by spring with a plaque on it. Celeste is number one by morning and does not seem to enjoy it. Juno stops coming to Room Zero. Officer Tolle adds a twelfth page to his folder, in pencil, and underlines the date twice.',
+        'The east pier is rebuilt by spring with a plaque on it. Celeste is top of the ranking by morning and does not seem to enjoy it. Juno stops coming to Room Zero. Officer Tolle adds a twelfth page to his folder, in pencil, and underlines the date twice.',
       hint: 'Somebody reads every page. Twice.',
     },
     {
@@ -2301,7 +2303,7 @@ const raw = {
       minTurn: 32,
       requires: { flagsSet: ['turned_hero'], flagsUnset: ['arrested'] },
       condition:
-        'The player fought beside Celeste on Festival Night instead of against her, and the hero course takes them in. Whatever they did with the Track’s secret, they did it from the other side of the stage. It is a transfer rather than a redemption, and some people in Room Zero will call it a betrayal.',
+        'The player fought beside Celeste on Festival Night instead of against her, and the hero programme takes them in. Whatever they did with the Track’s secret, they did it from the other side of the stage. It is a transfer rather than a redemption, and some people in Room Zero will call it a betrayal.',
       epilogue:
         'The player’s name goes up on the ranking board in the Proving Yard, very low. Celeste spars with them at dawn and keeps score out loud. Under the old chapel a black mask hangs on a hook with no name above it, and Juno has not decided whether to take it down.',
       hint: '',
@@ -2371,7 +2373,7 @@ const raw = {
       condition:
         'The player kept the Bridge Night file as a leash over both men, tore up the festival script and made Festival Night their own: an unscripted villain nobody saw coming, who hurt nobody and frightened everybody. It is a choice to be the real thing the city was being sold a fake of, and it should be written with that much nerve.',
       epilogue:
-        'The city’s ranking grows a new column for a villain with no file. The academy pays what it is told to pay. Celeste, the new number one, studies footage of the player every night, and for the first time in her life is not sure she will win.',
+        'The city’s ranking grows a new column for a villain with no file. The academy pays what it is told to pay. Celeste, now top of the ranking, studies footage of the player every night, and for the first time in her life is not sure she will win.',
       hint: '',
     },
     {
@@ -2418,15 +2420,15 @@ const raw = {
     },
   ],
   opening:
-    "Every first-year at the welcome masquerade gets a white mask at the door.\n\nYou’re the only one who gets a second.\n\nA gloved hand presses it into your palm. Black lacquer, still warm. The man holding it wears a face of carved white bone.\n\n\"Dean Marrow,\" he says, as if you’d asked. \"Your letter came from my side of the academy. First assignment: her badge. By midnight.\"\n\nHe’s gone into the crowd before you can ask whose.\n\nThen the crowd parts, and you know. The top hero student in the academy, gold badge on her lapel, leans on the bar beside you.\n\n\"Hi,\" she says. \"I’m Celeste. Have we met?\"",
+    "Every first-year at the welcome masquerade gets a white mask at the door.\n\nYou’re the only one who gets a second.\n\nA gloved hand presses it into your palm. Black lacquer, still warm. The man holding it wears a face of carved white bone.\n\n\"Dean Marrow,\" he says, as if you’d asked. \"Your letter came from my side of the academy. The side that loses. First assignment: her badge. By midnight.\"\n\nHe’s gone into the crowd before you can ask whose.\n\nSomeone leans on the bar beside you, gold badge on her lapel, and you know whose. The top hero student in the academy.\n\n\"Hi,\" she says. \"I’m Celeste. Have we met?\"",
   openingPanel: {
     assetKey: 'story_villain_track/opening',
     alt: 'A gloved hand pressing a black lacquer mask into an open palm at a glittering masquerade, rows of white masks blurred behind.',
   },
   openingSuggestions: [
-    '"Not yet," I say. "But I’ve heard of you. Congratulations on the badge."',
-    'I slip the black mask into my jacket and study how her badge is pinned.',
-    'I clink my glass against hers, and while she drinks I lift the badge off her lapel.',
+    '"Not yet. I’d remember that badge."',
+    'I pocket the black mask and study how her badge is pinned.',
+    'I lean in to admire the badge and lift it off her lapel.',
   ],
   publishedAt: null,
 };

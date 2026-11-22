@@ -12,7 +12,7 @@ OOC's evidence for this shape is a hero academy with a hero/villain pick (Hero A
 
 The first beat is a heist with a person attached. You are told to take a badge off the best hero student in the building before midnight, and before you have said a word to her she asks whether the two of you have met. Every player knows what to do next, and no two players do the same thing.
 
-The engine of the whole week is that both sides of the academy are lying to their own students. The villain track says nobody gets hurt. The hero course says every villain is real. Each side has set its newest student against the other side's, and neither student has been told.
+The engine of the whole week is that both sides of the academy are lying to their own students. The villain track says nobody gets hurt. The hero programme says every villain is real. Each side has set its newest student against the other side's, and neither student has been told.
 
 ## Story bible
 
@@ -20,16 +20,16 @@ The engine of the whole week is that both sides of the academy are lying to thei
 
 The academy also runs a course that appears on the timetable as **Applied Opposition**, with no room number. Students call it **the Track**. It is the villain track: a dozen masked students, taught by a masked dean in **Room Zero**, a classroom under the disused old chapel. The Track writes the villains the hero students stop on camera. Robberies, hostage scenes, a festival attack every year. Everything is scripted to the second, the villain always loses, and the only rule anyone on the Track will say out loud is that nobody gets hurt.
 
-The player is a first-year whose acceptance letter had a second page in black ink. The story opens at the **welcome masquerade**, the night before term. Every first-year gets a plain white mask at the door. The player is handed a second one, black, by **Dean Marrow**, along with the first assignment: the gold badge off **Celeste Moreau**, the top final-year on the hero course, by midnight, unseen, unhurt.
+The player is a first-year whose acceptance letter had a second page in black ink. The story opens at the **welcome masquerade**, the night before term. Every first-year gets a plain white mask at the door. The player is handed a second one, black, by **Dean Marrow**, along with the first assignment: the gold badge off **Celeste Moreau**, the top final-year on the hero programme, by midnight, unseen, unhurt.
 
-**The badge.** The **First Badge**, numbered 001, is given each year to the top-ranked final-year on the hero course. It is her provisional hero licence, and for the first week of term it is the master key to every lock on campus. That includes one sealed drawer in the **Registry**, the archive under the admin tower.
+**The badge.** The **First Badge**, numbered 001, is given each year to the top-ranked final-year on the hero programme. It is her field licence, issued a year early, and for the first week of term it is the master key to every lock on campus. That includes one sealed drawer in the **Registry**, the archive under the admin tower.
 
 **What nobody has told the player:**
 
 1. **Celeste was warned.** Professor Anselm Dray, her mentor, told her an hour ago that a first-year from "a city security exercise" would try for her badge tonight, and that catching them is her real final exam. That is why she asks "Have we met?"
 2. **Someone else has the same assignment.** Rafe Corrigan, another first-year, got the same letter and the same deadline. Marrow keeps whoever brings the badge.
 3. **Bridge Night was staged.** Twenty-two years ago Anselm Dray defeated the **Pale Duke**, the city's last great villain, on the Old Bridge. The Duke fell into the harbour and was never found. The fight was written by Dray. The Pale Duke is Dean Marrow. The only proof is the original script, signed by both men, in the sealed Registry drawer that the First Badge opens this week. Dray has used it as a leash on Marrow for twenty-two years. Marrow wants it back so he can end the Track.
-4. **The script has been changed.** Two years ago a staged warehouse robbery caught fire for real. Juno Pike, then a second-year on the Track, carried the night watchman out. The fire was not in Marrow's script. This year the festival script has a page nine that Marrow did not write: a real charge under the east pier at 19:42 on Festival Night, timed so Celeste can stop it on live broadcast and start her career as the city's number one. Dray wrote it. He believes he can contain it.
+4. **The script has been changed.** Two years ago a staged warehouse robbery caught fire for real. Juno Pike, then a second-year on the Track, carried the night watchman out. The fire was not in Marrow's script. This year the festival script has a page nine that Marrow did not write: a real charge under the east pier at 19:42 on Festival Night, timed so Celeste can stop it on live broadcast and start her career at the top of the city's ranking. Dray wrote it. He believes he can contain it.
 5. **A policeman is counting.** Officer Bram Tolle of Waterline Precinct has noticed that eleven times in four years a villain was stopped by an academy student in front of a camera. The watchman in the warehouse fire was his brother.
 
 None of this is forced. A player can take the badge, deliver it and spend six days learning to be a good villain, and that is a whole game. The conspiracy is there for a player who pulls on it, and the week has a hard end either way: **Festival Night**.
@@ -68,7 +68,7 @@ Everything else is open: take the badge, refuse it, tell Celeste, tell the polic
 
 ## Opening scene (the opener)
 
-The first beat. 110 words. A named character speaks at word 45. It ends on a direct question.
+The first beat. 112 words. A named character speaks at word 45. It ends on a direct question.
 
 > Every first-year at the welcome masquerade gets a white mask at the door.
 >
@@ -76,18 +76,18 @@ The first beat. 110 words. A named character speaks at word 45. It ends on a dir
 >
 > A gloved hand presses it into your palm. Black lacquer, still warm. The man holding it wears a face of carved white bone.
 >
-> "Dean Marrow," he says, as if you'd asked. "Your letter came from my side of the academy. First assignment: her badge. By midnight."
+> "Dean Marrow," he says, as if you'd asked. "Your letter came from my side of the academy. The side that loses. First assignment: her badge. By midnight."
 >
 > He's gone into the crowd before you can ask whose.
 >
-> Then the crowd parts, and you know. The top hero student in the academy, gold badge on her lapel, leans on the bar beside you.
+> Someone leans on the bar beside you, gold badge on her lapel, and you know whose. The top hero student in the academy.
 >
 > "Hi," she says. "I'm Celeste. Have we met?"
 
 Three suggestions, three different moves:
-- **Said:** "Not yet," I say. "But I've heard of you. Congratulations on the badge."
-- **Done:** I slip the black mask into my jacket and study how her badge is pinned.
-- **Risky:** I clink my glass against hers, and while she drinks I lift the badge off her lapel.
+- **Said:** "Not yet. I'd remember that badge."
+- **Done:** I pocket the black mask and study how her badge is pinned.
+- **Risky:** I lean in to admire the badge and lift it off her lapel.
 
 The only proper nouns are introduced as they are spoken (Dean Marrow, Celeste). The player needs to know nothing beforehand.
 
@@ -96,8 +96,8 @@ The only proper nouns are introduced as they are spoken (Dean Marrow, Celeste). 
 Cast order is cover-casting order: Celeste, Marrow, Juno.
 
 ### Celeste Moreau, 22
-**Role:** top-ranked final-year on the hero course, holder of the First Badge, the person you were sent to rob.
-**Gift:** she can step through light, out of one lit place and into another she can see. In the dark she is an ordinary, very fit person.
+**Role:** top-ranked final-year on the hero programme, holder of the First Badge, the person you were sent to rob.
+**Gift:** she can step through light, out of one lit place and into another she can see. In the dark she is only a very good athlete.
 **Wants:** catch the thief before midnight; find out why her mentor knew there would be one.
 **Fears:** that every rescue she is proud of was arranged for her.
 **Secret:** Dray warned her tonight. And she has watched the footage of her three best rescues: all three villains fell exactly where the camera was.
@@ -131,9 +131,9 @@ Cast order is cover-casting order: Celeste, Marrow, Juno.
 **Limits:** will not plant or bend evidence; will not take a bribe.
 
 ### Professor Anselm Dray, 63
-**Role:** Head of the Hero Course, the city's most famous living hero, Celeste's mentor. His bronze statue stands in the middle of the Quad.
+**Role:** Head of the Hero Programme, the city's most famous living hero, Celeste's mentor. His bronze statue stands in the middle of the Quad.
 **Gift:** he cannot be hurt for as long as he holds his breath.
-**Wants:** Celeste at number one on Festival Night; the Track's recruit caught with the badge and in his debt.
+**Wants:** Celeste at the top of the ranking on Festival Night; the Track's recruit caught with the badge and in his debt.
 **Fears:** a city that stops believing in heroes; Marrow telling the truth himself.
 **Secret:** he wrote Bridge Night, the warehouse fire and page nine.
 **Voice:** warm baritone, anecdotes with morals. Calls the Track "the opposition", never "villains". Uses your first name as soon as he has it.
@@ -144,7 +144,7 @@ Cast order is cover-casting order: Celeste, Marrow, Juno.
 **Gift:** he can throw any sound he has heard to anywhere he can see.
 **Wants:** to be the one who brings Marrow the badge, because the Track's stipend is all that is keeping his family's fishing boat.
 **Fears:** going home on the ferry with nothing; being the reason someone else gets caught.
-**Secret:** someone from the hero course has offered him a hero's place for the Track's names. He has until Festival Night to answer.
+**Secret:** someone from the hero programme has offered him a hero's place for the Track's names. He has until Festival Night to answer.
 **Voice:** fast, rambling, harbour slang, "right?" at the end of anything he is unsure of. Goes quiet and plain when he finally means something.
 **Limits:** will not hurt anyone for a stipend; will not sell you out to your face.
 
@@ -206,7 +206,7 @@ Take the badge and deliver it · swap it for Juno's forgery so nobody knows it i
 | A Good Villain | Common | You played the villain, quietly pulled page nine, and the Track keeps you. |
 | Page Nine | Common | Nobody stopped the charge. The pier burned; the crowd got clear. Reachable without a mistake. |
 | Booked | Common | Tolle has you in a room with the folder. |
-| Hero After All | Uncommon | You fought beside Celeste and crossed to the hero course. |
+| Hero After All | Uncommon | You fought beside Celeste and crossed to the hero programme. |
 | She Knew All Along | Uncommon | Celeste unmasked you and kept it between the two of you. |
 | Quietly Withdrawn | Uncommon | The Track let you go and the academy sent a polite letter. Reachable by doing nothing. |
 | The Last Ferry | Uncommon | You walked off the map. |
@@ -218,7 +218,8 @@ Take the badge and deliver it · swap it for Juno's forgery so nobody knows it i
 
 ## Originality and rating notes
 
-- No franchise names, terms or symbols. "Gift" is the power word; "the Track", "Applied Opposition", "Room Zero", "the First Badge", "Bridge Night" and "the Pale Duke" are invented here.
+- No franchise names, terms or symbols. "Gift" is the power word; "the Track", "Applied Opposition", "Room Zero", "the First Badge", "Bridge Night" and "the Pale Duke" are invented here. The hero side is "the hero programme", the badge is a "field licence, issued a year early", and the player's black mask is "the Lacquer Mask", so no department, licence or villain name from another franchise appears.
+- Every cast gift is written into the fixture's hard canon, which is what the production storyteller reads. Celeste's needs light, and that is what makes the You Kill Machines gift matter against her.
 - Every character is an adult and the bible states each age. The academy is post-secondary.
 - Romance is flirtation, rivalry and at most a kiss. No fan service. Violence is staged or brief, never graphic.
 
