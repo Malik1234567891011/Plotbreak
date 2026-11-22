@@ -221,6 +221,52 @@ describe('the cover', () => {
     expect(S.openingPanel?.assetKey).toBe('story_seven_years_early/opening');
     expect(S.publishedAt).toBeNull();
   });
+
+  it('gives the title its own line and keeps every effect off his face', () => {
+    const cover = S.coverDirection!;
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(cover.match(/\bTITLE:/g), 'exactly one TITLE: line').toHaveLength(1);
+    expect(title).toContain('Seven Years Early');
+    expect(title).toMatch(/upper third/);
+    expect(cover).toMatch(/HIS FACE STAYS CLEAN/);
+    expect(cover, 'people by costume and pose, not by age').not.toMatch(/\b(adult|older|aged?)\b/i);
+  });
+
+  it('opens on a panel of the one who speaks first, with no prologue', () => {
+    const alt = S.openingPanel!.alt;
+    expect(alt.length).toBeLessThanOrEqual(200);
+    expect(alt.startsWith('Victor')).toBe(true);
+    expect(S.opening.startsWith('"Victor Lane."')).toBe(true);
+    expect(S.prologue ?? []).toEqual([]);
+  });
+
+  it('gives every character on a card a face to draw', () => {
+    for (const c of S.characters.filter((c) => c.cardBlurb)) expect(c.appearance?.trim(), c.id).toBeTruthy();
+  });
+});
+
+describe('the system lives where the production storyteller reads it', () => {
+  it('starts every job with Call the Future', () => {
+    for (const a of S.archetypes) expect(a.startingAbilities, a.id).toContain('call_the_future');
+  });
+
+  it('puts both costs of the regression in hard canon', () => {
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/exact until they change something/);
+    expect(canon).toMatch(/Victor reads faces for a living/);
+  });
+
+  it('hands the player the proof of the date', () => {
+    expect(S.rules.startingItems.map((i) => i.itemId)).toContain('your_phone');
+    const phone = S.items.find((i) => i.id === 'your_phone')!;
+    expect(phone.questItem).toBe(true);
+    expect(phone.description).toMatch(/seven years before the night you died/);
+  });
+
+  it('names every titled character the way people say it', () => {
+    expect(S.characters.find((c) => c.id === 'ruiz')!.calledName).toBe('Ruiz');
+    expect(S.rules.toneGuide.length).toBeGreaterThan(200);
+  });
 });
 
 describe('he is across the table, and he is not a monster', () => {

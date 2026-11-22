@@ -31,8 +31,14 @@ import { StoryVersion } from '@plotbreak/contracts';
  * and the first twelve endings. It never sees resources, step notes or the rest
  * of the ability list. So every age, every secret that drives a scene and the
  * whole week's timetable are in hard canon or world-event notes, the objects
- * the plot turns on are quest items, every archetype starts with one ability
- * the storyteller can read, and there are exactly twelve endings.
+ * the plot turns on are quest items, and there are exactly twelve endings.
+ *
+ * The system is the regression, and it lives where the storyteller reads it:
+ * hard canon holds both of its costs (every change blurs the memory, and
+ * Victor notices what you should not know, since His Suspicion and Ripples are
+ * resources it never sees), the phone you start holding is the proof of the
+ * date, and every archetype starts with Call the Future beside its own job
+ * ability, the way Skill: ERROR's archetypes all start with Read.
  *
  * 13+: the death is a cold floor and a closing door, and nothing more is ever
  * described. Romance goes no further than a kiss. Every character is an adult
@@ -108,6 +114,7 @@ const raw = {
       'The player died seven years from now, on the night before Parley went public. They went to the server room on the seventh floor of the Halcott Building to take their code back, and a heart-rhythm condition nobody had ever checked for made them collapse. Victor came in, picked up their phone, looked at them for a long time and closed the door. Nothing more than that is ever described.',
       'Nobody knows why the player woke up seven years early, including the player. Nobody else remembers the first life. Nothing supernatural is visible in ordinary life and nobody in this world has powers.',
       'The player’s memory of the coming week is exact until they change something. Every change spreads: people stay who they are, but events drift in time, change shape or stop happening, and the bigger the change, the less the next memory can be trusted.',
+      'Victor reads faces for a living. Every time the player shows him something they should not know, a time, a name, a clause, a look at the door, he notices, and the more he notices the earlier he moves: lawyers, friends in the scene, a filing before Wednesday, questions about the player’s sister. He never accuses anybody. He just gets there first.',
       'Clause fourteen of the contract, on page eight, assigns everything the player has written and will write to the company, and lets a board Victor controls remove a founder for cause and buy back their shares at a dollar each. If challenged, Victor crosses it out on the spot, because he does not need it this week.',
       'The patent race. Whoever files a complete application on Parley first owns it, and contesting it afterwards takes years. Victor has booked Wendell Osei, the fastest patent attorney on Canal Street, for Wednesday at nine, and will file with or without the player’s signature, using the demo and the forum write-up. If the player signs Osei’s engagement letter first, Osei must turn Victor away for a conflict, and Victor files through a slower firm on Thursday at five instead. A complete filing needs a written technical description from the player, Osei’s fee of twelve hundred, and a signature. The player has about four hundred in the bank.',
       'Naomi Ito runs Lowtide Capital, a one-woman seed fund in a boathouse that backs boring things that work. Two weeks ago the player booked a meeting with her at the Blue Hour for half past eleven today. In the first life they never came and she waited forty minutes. After the board vote she sent them three lines: she was sorry, she would have backed them, call if they ever started again. They never called.',
@@ -283,7 +290,7 @@ const raw = {
       questItem: true,
       droppable: false,
       description:
-        'Seven years old again: a cracked corner, four hundred and twelve in the bank app, and a chat with Sol whose last message is hers: "did u cancel the heart thing AGAIN".',
+        'Seven years old again. The lock screen says Monday, seven years before the night you died. A cracked corner, four hundred and twelve in the bank app, and a chat with Sol whose last message is hers: "did u cancel the heart thing AGAIN".',
       loreText: 'It is the same model Victor picked up off the server-room floor, seven years from now. It feels heavier than it should.',
       icon: 'phone',
     },
@@ -2340,7 +2347,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { code: 3, hindsight: 1 },
       startingItems: [],
-      startingAbilities: ['ship_it'],
+      startingAbilities: ['call_the_future', 'ship_it'],
       startingReputation: [],
     },
     {
@@ -2353,7 +2360,7 @@ const raw = {
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { pitch: 3, bluffing: 1 },
       startingItems: [],
-      startingAbilities: ['pitch_the_room'],
+      startingAbilities: ['call_the_future', 'pitch_the_room'],
       startingReputation: [{ factionId: 'faction_scene', amount: 10 }],
     },
     {
@@ -2366,7 +2373,7 @@ const raw = {
       attributeBonus: { mind: 2, resolve: 2 },
       skillProficiencies: { digging: 3, poker: 1 },
       startingItems: [],
-      startingAbilities: ['pull_records'],
+      startingAbilities: ['call_the_future', 'pull_records'],
       startingReputation: [{ factionId: 'faction_police', amount: 5 }],
     },
     {
@@ -2379,7 +2386,7 @@ const raw = {
       attributeBonus: { resolve: 3, presence: 1 },
       skillProficiencies: { poker: 3, bluffing: 2 },
       startingItems: [],
-      startingAbilities: ['play_along'],
+      startingAbilities: ['call_the_future', 'play_along'],
       startingReputation: [],
     },
   ],
@@ -2610,7 +2617,7 @@ const raw = {
     '"So. Partners?"',
   openingPanel: {
     assetKey: 'story_seven_years_early/opening',
-    alt: 'Victor across a rainy café table in a charcoal coat, smiling, his hand held out to shake, a contract and an uncapped pen between you.',
+    alt: 'Victor across a rainy café table, dark hair pushed back, charcoal coat over a white shirt, smiling with his hand held out to shake, a contract and an uncapped pen between you.',
   },
   openingSuggestions: [
     '"Before I sign anything, read me clause fourteen. Out loud."',
@@ -2619,15 +2626,17 @@ const raw = {
   ],
   coverDirection: [
     'SUBJECT: Victor Lane, a charming startup founder, alone and unmistakable in the foreground of a key visual for a revenge thriller anime.',
-    'He sits across a small café table from the viewer, seen from the waist up, filling about two thirds of the frame.',
-    'An adult man with neat dark hair pushed back, warm brown eyes and a small pale scar through his left eyebrow,',
-    'in a charcoal-grey wool coat over a white open-collared shirt.',
-    'He holds his right hand out toward the viewer to shake, palm open, with a warm practised smile that does not reach his eyes.',
+    'He sits across a small café table from the viewer, seen from the waist up, centred and close, filling about two thirds of the frame.',
+    'Neat dark hair pushed back, warm brown eyes, a charcoal-grey wool coat over a white open-collared shirt, a slim silver watch on his left wrist.',
+    'He leans forward and holds his right hand out toward the viewer to shake, palm open, with a warm practised smile that does not reach his eyes.',
     'ON THE TABLE between him and the viewer: a stapled contract and an uncapped fountain pen, the pages blank apart from soft grey lines:',
     'no letters, no numbers, nothing that reads as writing. Beside them, an old laptop with a cracked hinge.',
-    'BEHIND HIM, soft and secondary: a rain-streaked café window with city lights blurred in the wet glass, and a round wall clock with no numerals.',
-    'LIGHT: cold blue rain light on one side of his face and a warm amber café lamp on the other, so he is split between the two.',
-    'TITLE: the words SEVEN YEARS EARLY painted into the art in the upper third as a bold, sharp serif logo, white with a thin crimson edge,',
+    'BEHIND HIM, soft and secondary: a rain-streaked café window with city lights blurred in the wet glass,',
+    'and a round wall clock with no numerals whose hands leave faint ghosted trails, as if they were turning backward.',
+    'HIS FACE STAYS CLEAN: no marks, cracks, scars, streaks or crimson on his face or skin.',
+    'The only effects are the ghosted clock hands, the rain on the glass and the crimson edge of the title, never on his face.',
+    'LIGHT: cool blue rain light from the window on one side and warm amber light from a café lamp on the other, soft and even across his face.',
+    'TITLE: the title Seven Years Early painted into the art in the upper third, lettered in capitals as a bold, sharp serif logo, white with a thin crimson edge,',
     'spelled exactly SEVEN YEARS EARLY, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   publishedAt: null,

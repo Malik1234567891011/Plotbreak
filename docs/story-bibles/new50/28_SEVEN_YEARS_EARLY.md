@@ -64,12 +64,14 @@ The player authors their name, pronouns and what they were best at in the compan
 
 **Archetypes** (what you were best at, the first time):
 
-| Archetype | Role | Starting ability |
+| Archetype | Role | Starting abilities |
 |---|---|---|
-| You Wrote the Code | Technical builder | Ship It |
-| You Sold the Dream | Sales and persuasion | Pitch It |
-| You Read the Fine Print | Research and background checks | Pull the Records |
-| You Never Let It Show | Social and bluffing | Play the Old You |
+| You Wrote the Code | Technical builder | Call the Future, Ship It |
+| You Sold the Dream | Sales and persuasion | Call the Future, Pitch It |
+| You Read the Fine Print | Research and background checks | Call the Future, Pull the Records |
+| You Never Let It Show | Social and bluffing | Call the Future, Play the Old You |
+
+**Where the system lives.** The regression is the system, and the production storyteller reads only hard canon, quest items and the chosen archetype's starting abilities. So every archetype starts with **Call the Future** beside its own job ability; hard canon carries both costs (memory is exact until the player changes something, and Victor reads faces, so the more the player shows, the earlier he moves); and the player starts holding the old laptop and their phone, whose lock screen is the proof of the date.
 
 ## The opener (first beat)
 
@@ -229,9 +231,11 @@ Every place is reachable from Canal Street and links back to it.
 
 ## Image plan
 
-**Cover (PixAI, title in the art):** Victor Lane alone in the foreground across a small café table, waist up, right hand held out to shake, warm practised smile that does not reach his eyes. Charcoal coat, white open-collared shirt, small scar through his left eyebrow. On the table a contract and an uncapped pen, pages blank apart from soft grey lines, and an old laptop with a cracked hinge. Behind him a rain-streaked café window and a round wall clock with no numerals. Cold blue rain light on one side of his face, warm amber lamp on the other. Title SEVEN YEARS EARLY in the upper third, bold sharp serif, white with a thin crimson edge. No other text.
+**Cover (PixAI, title in the art):** Victor Lane alone in the foreground across a small café table, waist up, leaning forward, right hand held out to shake, warm practised smile that does not reach his eyes. Neat dark hair pushed back, charcoal coat, white open-collared shirt, silver watch (the same look as his portrait, so no scar on the cover). On the table a contract and an uncapped pen, pages blank apart from soft grey lines, and an old laptop with a cracked hinge. Behind him a rain-streaked café window and a round wall clock with no numerals whose hands leave ghosted trails, as if turning backward. His face stays clean: the only effects are the clock hands, the rain and the title. Blue rain light on one side, warm amber lamp on the other. Title on its own TITLE: line, the title Seven Years Early in the upper third, in capitals, bold sharp serif, white with a thin crimson edge, spelled exactly SEVEN YEARS EARLY. No other text.
 
-**Opening panel:** Victor across the rainy café table, hand out, the contract and pen between you.
+**Opening panel:** `story_seven_years_early/opening`. The alt starts with Victor, the one who speaks first, so his portrait is the panel's reference: Victor across the rainy café table, hand out, the contract and pen between you.
+
+No prologue: the story opens straight on the café. `publishedAt` stays null until release.
 
 **Location stages:** the café in rain; Canal Street at dusk; the flat above the launderette; Osei's office; Founders' Hall stage; the boathouse; the cold-case basement; the tower reception; Victor's loft; the empty seventh floor; Sol's studio; the clinic waiting room.
 
