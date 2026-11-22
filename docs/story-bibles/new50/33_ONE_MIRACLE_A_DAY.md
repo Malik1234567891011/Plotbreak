@@ -20,9 +20,9 @@ Every person in this story is an adult. The ages are canon and are also the firs
 | Brother Ash, Arbiter of the Games | 63 |
 | Wick, god of candle-ends, your neighbour in the back row | about 400 years; wears the shape of a woman of about 70 |
 | Mother Sabine Orlo, High Priestess of the Golden House | 52 |
-| Odile (offstage), the night baker who keeps Wick's candle | an old woman |
+| Hettie (offstage), the night baker who keeps Wick’s candle | 76 |
 
-Covers and portraits describe people by costume and pose, never by age words. Romance (Tamsin, and Fortune's flirting) goes no further than a kiss.
+Covers and portraits describe people by costume and pose, never by age words. Romance (Tamsin, and Fortune's flirting) goes no further than a kiss, and that rule is the second line of `hardCanon`, so the storyteller reads it on every turn.
 
 ## The pitch
 
@@ -42,7 +42,7 @@ Daytime is the arena: the player sits in the Gallery, watches, talks to Tamsin i
 
 - **Merrowgate** is a harbour city of seven hundred shrines. Gods are real and live on prayer. A god nobody prays to **goes out**, like a lamp.
 - **The Bowl** is the great arena. Above its top tier, where mortals see only sky, is **the Gallery**: stone benches where the gods watch, ranked by how many people pray to them. The biggest sit at the **gold rail**. The player sits in the **back row, by a cracked pillar**, in the draught.
-- **The Hearth Games**: three days at midsummer, sixteen champions, each under one god's **mark** (a small glowing sign on the back of the hand). Real steel; a bout ends on a yield, a fall that does not get up by the count of three, or the Arbiter's bell. First-round losers drop into the **Low Ring**, where one of eight fights back in. The **Hearth Final** is at dusk on the third day.
+- **The Hearth Games**: three days at midsummer, sixteen champions, each under one god's **mark** (a small glowing sign on the back of the hand). Real steel; a bout ends on a yield, a fall that does not get up by the count of three, or the Arbiter's bell. A champion who is down or has lost her weapon gets the same count: her opponent counts aloud, and if by three she has not yielded, stood up or got a weapon back in hand, the Arbiter rings the bell and she has lost the bout. Nobody strikes after the bell. First-round losers drop into the **Low Ring**, where one of eight fights back in. The **Hearth Final** is at dusk on the third day.
 - **The Hearth** is the fire in the **Temple of All Gods**. The winning champion's god takes it, and for a year every prayer said at any hearth in the city goes up to that god.
 - **The Sixth Year**: a god who holds the Hearth six years running keeps it for good, and the Games end forever. **Lady Fortune has five.**
 - **The Gallery Pact**: in the Bowl a god may work miracles only on its own champion and what that champion is holding. Anything else is a foul. Gods cannot hurt each other directly. A big god can **take a small god in** as an aspect, with its consent, and the small god stops being itself.
@@ -73,7 +73,7 @@ Anyone who prays to a god by name at its shrine, meaning it, becomes a follower,
 
 ### Presence
 
-By day a god is an unseen presence in the Gallery, at its own shrine, or beside a follower, and moves between them in a moment. Only its followers hear it; only the sighted see it. During the three nights of the Games, dusk to dawn, gods **walk down** in bodies. A god's body can be hurt; a bad wound sends it back to the Gallery until the next dusk.
+By day a god is an unseen presence in the Gallery, at its own shrine, or beside a follower, and moves between them in a moment. Only its own followers and the sighted can hear it, only the sighted can see it, and gods can always see and hear one another. During the three nights of the Games, dusk to dawn, gods **walk down** in bodies. A god's body can be hurt; a bad wound sends it back to the Gallery until the next dusk.
 
 ### Fortune's luck
 
@@ -125,7 +125,7 @@ Every one of them wants something that has nothing to do with the player. That i
 
 - **Role:** Dock porter from Tanner's Row. Entered the Games under your mark with a borrowed sword and did not tell you.
 - **Looks:** Tall, broad-shouldered, dark brown skin, short tight black curls under a sweat-dark headscarf, a split lip healing, a sleeveless padded jerkin over dockworker's trousers, a leather strap round her right knee, and your mark, a thumb-sized glow of gold, on the back of her left hand.
-- **Her own motive:** The champion's purse would buy back the Kestrel, the Reed family boat the harbour bailiffs seized. And she wants you to have the Hearth, so you never go out.
+- **Her own motive:** The champion's purse would buy back the Kittiwake, the Reed family boat the harbour bailiffs seized. And she wants you to have the Hearth, so you never go out.
 - **Underneath:** She half entered the Games to find out whether you exist at all. She is more frightened of that answer than of the Duke.
 - **Fear:** That she has been lighting a lamp for nobody, the way her grandmother did. Being the Reed the light goes out on.
 - **Secret 1 (the knee):** Her right knee has locked under weight since a crate fell on it last winter. She has strapped it and told nobody. In a long bout it will give out.
@@ -153,7 +153,7 @@ Every one of them wants something that has nothing to do with the player. That i
 - **His own motive:** The Golden House holds the deed to Stenn House, his family home, against old debts, and will call it the day he loses. He fights for a goddess he does not believe in.
 - **Underneath:** He wants one honest bout before his sight goes, to know whether any of the five wins were his.
 - **Fear:** Going blind in front of thirty thousand people. Finding out he never actually won anything.
-- **Secret 1:** A grey fog has been closing in from the edges of his sight for two years. Fortune's luck has covered it in every bout. His courtyard has white lines painted on the flagstones.
+- **Secret 1:** A grey fog has been closing in from the edges of his sight for two years. Fortune's luck has covered it in every bout. His courtyard has white lines painted on the flagstones. He has told nobody, and nobody but Fortune has noticed.
 - **Secret 2:** The deed, at interest, in Mother Sabine's strongroom.
 - **Boundaries:** Will not kill in the ring, and will stop a bout himself if he thinks he might. Has never gone past the count of three. Will not pray to Fortune, and says so to her priests.
 - **Voice:** Short declaratives. Surnames, titles, numbers. One very dry joke a day, delivered without changing his face.
@@ -178,7 +178,7 @@ Every one of them wants something that has nothing to do with the player. That i
 - **Underneath:** She does not want to become a corner of somebody else either, and cannot see a third door.
 - **Fear:** The dark after the last inch. Being remembered as Fortune's Candle rather than as herself.
 - **Secret 1:** Fortune's offer came with a price: report what you spend your miracle on. She has done it twice.
-- **Secret 2:** Her baker Benno died in the winter. Her last follower is Odile at the night bakery, old and tired, who prays mostly out of habit.
+- **Secret 2:** Her baker Benno died in the winter. Her last follower is Hettie at the night bakery, old and tired, who prays mostly out of habit.
 - **Boundaries:** Will not lie to you twice. Will not take another god's follower to save herself, and will think less of you if you take hers.
 - **Voice:** Run-on, warm, gossiping. "Love." Changes subject mid-sentence. Food, wax and the small hours in every other line.
 
@@ -192,7 +192,7 @@ Every one of them wants something that has nothing to do with the player. That i
 - **Secret 1:** The doubt.
 - **Secret 2:** She has paid two dockhands to lever your lamp out of its niche on the first night, so that at the hearing your shrine is dark.
 - **Boundaries:** Will not have anyone killed: injured, robbed, ruined, never killed. Will not lie in a sworn hearing; she misleads with the truth instead.
-- **Voice:** Measured, polite, commercial. Percentages and terms. "Let us be practical." Never says thank you without a figure attached.
+- **Voice:** Measured, polite, commercial. Percentages and terms. Clicks her abacus while others talk and answers with the total. "Let us be practical." Never says thank you without a figure attached.
 
 ## Places
 
@@ -205,8 +205,8 @@ Every one of them wants something that has nothing to do with the player. That i
 | `twelve_bells` | The Twelve Bells | Champions' tavern. Tamsin chalked at two hundred to one. Fortune drinks here at night. |
 | `tanners_row` | Tanner's Row | Tamsin's lane in the Lower Wards. Five years of bad luck. |
 | `the_lamp` | The Lamp in the Wall | Your shrine. The Reed lamp. |
-| `the_harbour` | Merrowgate Harbour | The dawn tide, the seized Kestrel, a barge rolled over in still water. |
-| `night_bakery` | The Night Bakery | Odile's oven and Wick's candle-end. |
+| `the_harbour` | Merrowgate Harbour | The dawn tide, the seized Kittiwake, a barge rolled over in still water. |
+| `night_bakery` | The Night Bakery | Hettie's oven and Wick's candle-end. |
 | `golden_house` | The Golden House | Fortune's temple, Sabine's counting room, the strongroom with the Stenn deed. |
 | `hearth_temple` | The Temple of All Gods | The Hearth, the Register of Shrines, the hearing. Tamsin's entry paper. |
 | `stenn_house` | Stenn House | The Duke's half-shuttered townhouse, white lines on the courtyard stones. |
@@ -224,7 +224,7 @@ Every place has an inbound edge. A god can go from the Bowl to its own lamp and 
 ## Threads (quests)
 
 1. **The Count of Three** (MAIN, active). Answer her before the Duke reaches three; then go and see what she, Fortune, Ash or Wick makes of it. Grants Walk Down, Answer a Stranger, Show the Luck, Use Your Fists (each gated by its own flag).
-2. **One Miracle a Day** (MAIN, active). A second believer, then five. Five unlocks Show Yourself.
+2. **More Believers** (MAIN, active). A second believer, then five. Five unlocks Show Yourself.
 3. **The Hearth Games** (MAIN, active). The second day (or the Low Ring), the Register hearing, the Hearth Final.
 4. **The Last of the Reeds** (SIDE). Her knee, and what she believes once you have answered.
 5. **The Iron Duke** (SIDE). His eyes, and the deed to Stenn House.
@@ -273,12 +273,14 @@ Seven of thirteen are losses, and walking away is one of them (minTurn 14).
 | Fortune's Newest Face | UNCOMMON | You flip her coin and say yes. |
 | Mortal | UNIQUE | You let the lamp go on purpose and wake up a person. |
 | Gone Out | COMMON | Tamsin stops praying. |
-| Struck From the Register | UNCOMMON | Sabine wins the hearing. |
+| No Plate, No Shrine | UNCOMMON | Sabine wins the hearing. |
 | Carried Off the Sand | COMMON | Her knee gives out; out of the Games, still yours. |
 | The Back Row Stands Up | RARE | Fortune's luck exposed; no sixth year. |
 | She Would Not Finish Him | UNCOMMON | Tamsin will not beat a blind man. |
 | Somewhere Else | UNCOMMON | You walk out of the city. |
 | A Seat at the Rail | RARE | You sell Fortune your silence, for terms. |
+
+The storyteller reads only the first twelve endings, so Won Clean, a flavour of A City That Prays to You, sits last in the fixture and every other ending stays in view.
 
 ## Archetypes (what you are the god of)
 
@@ -306,5 +308,5 @@ Tamsin Reed in the foreground, waist up, centred and close, empty-handed on aren
 ## Notes for the integrator
 
 - Not registered in `index.ts` (this session may not edit it). To ship: import `ONE_MIRACLE_A_DAY` raw, add it to `LAUNCH_CATALOG`, and wrap with `withDerivedAssetKeys` only once art exists.
-- No `openingPanel` and no `prologue` until art exists: both name asset keys that would 404.
+- openingPanel is declared as story_one_miracle_a_day/opening (drawn by opening-panel-art.ts); no prologue.
 - `publishedAt: null`; the drop sets the date.

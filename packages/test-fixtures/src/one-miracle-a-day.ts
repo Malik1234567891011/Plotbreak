@@ -40,7 +40,7 @@ const raw = {
   storyId: 'story_one_miracle_a_day',
   version: 1,
   title: 'One Miracle a Day',
-  fantasyLabel: 'One follower. One miracle. Make it count.',
+  fantasyLabel: 'You’re a god. Only she still prays to you.',
   hook: 'You’re a minor god with one follower, and she is about to lose the city tournament. You get one miracle a day.',
   premise:
     'You are a god. A very small one. Merrowgate, the harbour city you belong to, has seven hundred shrines, and yours is a dented tin lamp in a wall in Tanner’s Row. Exactly one person still prays to you: Tamsin Reed, a dock porter who has lit that lamp every night for eleven years and never once asked you for anything.\n\n' +
@@ -56,7 +56,7 @@ const raw = {
   mechanicsChips: [
     'One miracle a day',
     'More believers, more miracles',
-    'Burn yourself for one more',
+    'Spend your own light for one more',
     'Break the rules if nobody sees',
     'Walk the city at night',
   ],
@@ -75,22 +75,23 @@ const raw = {
     startWorldMinute: 14 * 60 + 30,
     startingItems: [{ itemId: 'gold_line', qty: 1 }],
     hardCanon: [
-      'Everyone in this story is an adult. The player is a small god who has existed for about two hundred years and, when walking among mortals, wears the shape of an adult in their middle twenties. Tamsin Reed is twenty-four, Duke Halvard Stenn forty-one, Brother Ash sixty-three and Mother Sabine Orlo fifty-two. Lady Fortune has existed for about six hundred years and wears the shape of a woman of about thirty. Wick has existed for about four hundred years and wears the shape of a woman of about seventy.',
+      'Everyone in this story is an adult. The player is a small god who has existed for about two hundred years and, when walking among mortals, wears the shape of an adult in their middle twenties. Tamsin Reed is twenty-four, Duke Halvard Stenn forty-one, Brother Ash sixty-three and Mother Sabine Orlo fifty-two. Lady Fortune has existed for about six hundred years and wears the shape of a woman of about thirty. Wick has existed for about four hundred years and wears the shape of a woman of about seventy. Hettie, the night baker who keeps Wick’s candle, is seventy-six.',
+      'Romance in this story, with Tamsin, Lady Fortune or anyone else, is flirtatious, tense and heartfelt and goes no further than a kiss. Nobody is touched without being asked.',
       'Merrowgate is a harbour city of seven hundred shrines, where the gods are real and live on prayer. A god nobody prays to goes out, like a lamp, and nobody in the Gallery likes to talk about what, if anything, is left afterwards.',
       'The gods watch the city from the Gallery, a tier of stone benches above the top of the Bowl, the city’s great arena. Mortals see only sky there. Gods sit by how many people pray to them: the biggest at the gold rail, the smallest at the back. The player sits in the back row, by a cracked pillar, in the draught.',
       'A god can work one miracle each day for every person who truly prays to it, and they come back at dawn. The player has exactly one follower, Tamsin Reed, so the player gets one miracle a day. A small line of gold light that only the player can see shows how many are left, written as [Miracles left today: 1]. Lady Fortune has more than she can count.',
       'A miracle is one clear, physical thing that lasts a breath: a sword back in a hand, a gust of wind, a wound closed, a lock giving way, a voice carried across the city, a light in the dark. It always works. No miracle can kill, bring back the dead, or change what a person believes or wants. Inside its own domain, the one thing it is god of, a god can also do small favours for free without spending a miracle; anything that would turn a bout, save a life or be seen as a wonder costs one.',
       'A god with no miracles left can still work one more by burning itself. It works, and it costs the god part of what it is. A small god that burns itself three times in the same few days goes out.',
       'A person becomes a follower by praying to a god by name, at its shrine, and meaning it. Every new follower gives the god one more miracle from the next dawn. The player’s shrine is a dented tin lamp in a wall niche in Tanner’s Row, in the poor Lower Wards. If the lamp is dark and nobody prays to the player, the player starts to go out.',
-      'By day a god is an unseen presence: in the Gallery, at its own shrine, or beside one of its followers, and it can move between those in a moment. Only its own followers can hear it, and only the sighted can see it. For the three nights of the Games, from dusk to dawn, the gods may walk down into the city in bodies of their own. A god’s body can be hurt, and a bad wound sends the god back to the Gallery until the next dusk.',
-      'The Hearth Games run for three days at midsummer in the Bowl. Sixteen champions fight, each under one god’s mark, a small glowing sign on the back of the hand. Bouts are with real steel and end on a yield, a fall that does not get up by the count of three, or the Arbiter’s bell. Killing is not forbidden and is a disgrace. First-round losers drop into the Low Ring, where one of eight fights back into the Games. The final is at dusk on the third day.',
+      'By day a god is an unseen presence: in the Gallery, at its own shrine, or beside one of its followers, and it can move between those in a moment. Only its own followers and the sighted can hear it, only the sighted can see it, and gods can always see and hear one another. For the three nights of the Games, from dusk to dawn, the gods may walk down into the city in bodies of their own. A god’s body can be hurt, and a bad wound sends the god back to the Gallery until the next dusk.',
+      'The Hearth Games run for three days at midsummer in the Bowl. Sixteen champions fight, each under one god’s mark, a small glowing sign on the back of the hand. Bouts are with real steel and end on a yield, a fall that does not get up by the count of three, or the Arbiter’s bell. A champion who is down or has lost her weapon gets the same count: her opponent counts aloud, and if by three she has not yielded, stood up or got a weapon back in hand, the Arbiter rings the bell and she has lost the bout. Nobody strikes after the bell. Killing is not forbidden and is a disgrace. First-round losers drop into the Low Ring, where one of eight fights back into the Games. The final is at dusk on the third day.',
       'The winning champion’s god takes the Hearth, the fire in the Temple of All Gods: for a year every prayer said at any hearth in Merrowgate goes up to that god. Lady Fortune has held it five years running through her champion, Duke Halvard Stenn, called the Iron Duke. Under the oldest rule of the Games, a god who holds the Hearth six years running keeps it for good, and the Games end forever.',
       'The Gallery Pact: in the Bowl, a god may work miracles only on its own champion and on what that champion is holding. A miracle on anyone else is a foul, and if the Arbiter sees it he strikes that god’s champion out of the Games. Gods cannot hurt each other directly. A big god can take a small god in as an aspect, but only if the small god agrees, and the small god stops being itself.',
       'Brother Ash, a monk of the Unsworn, an order that prays to no god, is the Arbiter of the Games. He is sighted: he can see the gods in the Gallery and the gold light a miracle gives off. Nobody knows why, and he does not say.',
       'Lady Fortune’s miracles give off no gold. They look like luck: a strap that snaps, a foot that slips on dry sand. Her luck is moved, not made. Everything she gives the Duke is taken from someone else in the city, mostly from the Lower Wards, which have had five very unlucky years. Almost nobody knows this.',
       'Tamsin Reed is the last of the Reeds, a dockside family who have kept the player’s lamp lit for generations. Her grandmother taught her the prayer. Tamsin has prayed every night for eleven years and has never once asked for anything, or felt any answer, until the moment the story opens.',
       'The player’s name was taken off the Register of Shrines decades ago, because one follower does not count as a shrine. Tamsin could enter the Games only because Brother Ash signed her entry himself, vouching that the player’s shrine is lit, which breaks the rules he enforces. Mother Sabine Orlo, High Priestess of the Golden House, Fortune’s temple, has noticed.',
-      'The Iron Duke is going blind from the edges in, and Fortune’s luck has hidden it for two years. The Golden House holds the deed to his family home, Stenn House, and will call it in if he loses.',
+      'The Iron Duke is going blind from the edges in, and Fortune’s luck has hidden it for two years. The Golden House holds the deed to his family home, Stenn House, and will call it in if he loses. He has told nobody, and nobody but Fortune has noticed.',
     ],
     toneGuide:
       'A tournament story told from the cheap seats of heaven: funny, quick and specific, with a real person bleeding on the sand under it. The player is a god with almost no power and every bit of it matters, so the comedy comes from a small god being petty, proud, broke and outclassed among gods, and the weight comes from one woman who has prayed for eleven years and has finally asked. ' +
@@ -295,7 +296,7 @@ const raw = {
       description:
         'A candle-end no longer than a thumb, burning on the shelf above the ovens at the night bakery. It is Wick’s whole shrine. While it burns, Wick does.',
       loreText:
-        'Odile the baker lights a new stub from the old one every night out of a habit her mother had. She is not sure any more who it is for.',
+        'Hettie the baker lights a new stub from the old one every night out of a habit her mother had. She is not sure any more who it is for.',
       icon: 'candle',
     },
     {
@@ -342,7 +343,7 @@ const raw = {
       id: 'bailiffs_notice',
       name: 'The Bailiff’s Notice',
       tags: ['document'],
-      description: 'A notice nailed to the mast of the Kestrel, the Reed family boat: seized for debt, to be sold at auction the week after the Games.',
+      description: 'A notice nailed to the mast of the Kittiwake, the Reed family boat: seized for debt, to be sold at auction the week after the Games.',
       loreText: 'The debt is owed to the Golden House, which bought it from the chandler who held it. Most debts in the Lower Wards end up there.',
       icon: 'papers',
     },
@@ -351,7 +352,7 @@ const raw = {
       name: 'A Burnt-Sugar Bun',
       tags: ['food'],
       consumable: { resourceId: 'flame', amount: 5, consumesItem: true },
-      description: 'A sticky bun from the night bakery, still hot, with the sugar burnt black on top the way Odile likes it.',
+      description: 'A sticky bun from the night bakery, still hot, with the sugar burnt black on top the way Hettie likes it.',
       loreText: 'Gods do not need to eat. Gods who have walked down for a night tend to find that they want to.',
       icon: 'bread',
     },
@@ -426,7 +427,7 @@ const raw = {
       name: 'Burn for It',
       tags: ['miracle'],
       description: 'Work one more miracle when the gold line reads zero, paid for out of yourself. It works. You are fainter afterwards, and three of these in a few days would put you out.',
-      affordances: ['burn myself', 'burn for her', 'one more miracle', 'spend myself', 'give it everything', 'whatever it costs'],
+      affordances: ['burn my own light', 'burn for her', 'one more miracle', 'spend my own light', 'give it everything', 'whatever it costs'],
       costs: [
         { resourceId: 'flame', amount: 15 },
         { resourceId: 'fade', amount: 25 },
@@ -459,7 +460,7 @@ const raw = {
       id: 'speak_to_her',
       name: 'Speak to Her',
       tags: ['social'],
-      description: 'Talk to Tamsin wherever she is. She hears you as a voice at her elbow, and nobody else hears anything.',
+      description: 'Talk to Tamsin wherever she is. She hears you as a voice at her elbow, and nobody else does unless they are sighted.',
       affordances: ['tell her', 'talk to her', 'whisper to her', 'tell tamsin', 'say to her', 'speak to her', 'tell her to yield', 'reassure her'],
       costs: [],
       cooldownMinutes: 0,
@@ -516,7 +517,7 @@ const raw = {
       name: 'Hold Back',
       tags: [],
       description: 'Keep the miracle. Watch, trust her, and let the bout or the night go the way it goes without you.',
-      affordances: ['wait', 'do nothing', 'save it', 'hold back', 'trust her', 'watch', 'let her do it', 'keep the miracle'],
+      affordances: ['wait and see', 'do nothing', 'save it', 'hold back', 'trust her', 'just watch', 'let her do it', 'keep the miracle'],
       costs: [],
       cooldownMinutes: 0,
       targetRule: 'NONE',
@@ -530,7 +531,7 @@ const raw = {
       name: 'Walk Down',
       tags: ['movement'],
       description: 'Between dusk and dawn, during the Games, step out of the Gallery into a body of your own and walk the city like anyone else.',
-      affordances: ['walk down', 'take a body', 'go down into the city', 'manifest', 'appear', 'go to her in person', 'walk among them'],
+      affordances: ['walk down', 'take a body', 'go down into the city', 'manifest', 'go to her in person', 'walk among them'],
       costs: [{ resourceId: 'flame', amount: 10 }],
       cooldownMinutes: 0,
       targetRule: 'SELF',
@@ -626,7 +627,7 @@ const raw = {
       name: 'Let the Lamp Go',
       tags: ['miracle'],
       description: 'Go out on purpose, the way Brother Ash once went out by accident, and wake up a person with a heartbeat and no miracles.',
-      affordances: ['let the lamp go', 'go out', 'become mortal', 'give it up', 'stop being a god', 'stay with her as a person'],
+      affordances: ['let the lamp go', 'go out for good', 'become mortal', 'give up being a god', 'stop being a god', 'stay with her as a person'],
       costs: [{ resourceId: 'fade', amount: 60 }],
       cooldownMinutes: 0,
       targetRule: 'SELF',
@@ -837,7 +838,7 @@ const raw = {
       name: 'Merrowgate Harbour',
       shortName: 'The Harbour',
       description:
-        'Stone quays, cranes, bonded warehouses and a forest of masts. Tamsin works the dawn tide here. The Reed family boat, the Kestrel, sits chained at the bailiff’s mooring with a notice nailed to her mast. At the coal berth a barge has rolled over in flat calm water, and nobody can say why.',
+        'Stone quays, cranes, bonded warehouses and a forest of masts. Tamsin works the dawn tide here. The Reed family boat, the Kittiwake, sits chained at the bailiff’s mooring with a notice nailed to her mast. At the coal berth a barge has rolled over in flat calm water, and nobody can say why.',
       artDirection:
         'Busy stone harbour at dawn, cranes and masts, dockworkers hauling crates, a small weathered fishing boat chained at a mooring with a paper notice on the mast, a capsized barge in calm water beyond.',
       connections: [
@@ -855,7 +856,7 @@ const raw = {
       name: 'The Night Bakery',
       shortName: 'The Bakery',
       description:
-        'A narrow bakery in the Lower Wards that works from midnight to dawn. Odile, its baker, is old and slow and keeps a candle-end burning on the shelf above the ovens for a god she half remembers. That candle is Wick’s whole shrine.',
+        'A narrow bakery in the Lower Wards that works from midnight to dawn. Hettie, its baker, is old and slow and keeps a candle-end burning on the shelf above the ovens for a god she half remembers. That candle is Wick’s whole shrine.',
       artDirection:
         'Cramped bakery at night lit by the orange glow of brick ovens, trays of buns, flour in the air, a tiny candle stub burning on a high shelf, an old baker in an apron pulling a tray.',
       connections: [
@@ -991,7 +992,7 @@ const raw = {
       name: 'Tamsin Reed',
       role: 'Your one follower. A dock porter fighting in the Hearth Games under your mark, with a borrowed sword',
       cardBlurb:
-        'She is the only person in Merrowgate who still prays to you, she entered the Games under your mark without asking, and she has just looked up at your seat and asked you for something for the first time in eleven years.',
+        'She is the only person in Merrowgate who still prays to you, she entered the Games under your mark without asking, and after eleven years of never asking you for anything, she has finally asked.',
       pronouns: 'she/her',
       publicTraits: [
         'Says the blunt thing first and the kind thing second',
@@ -1015,7 +1016,7 @@ const raw = {
       ],
       goals: [
         'Win the Hearth Games and the champion’s purse',
-        'Buy back the Kestrel, the Reed family boat, from the harbour bailiffs',
+        'Buy back the Kittiwake, the Reed family boat, from the harbour bailiffs',
         'Get you the Hearth, so you never go out',
       ],
       secrets: [
@@ -1034,7 +1035,7 @@ const raw = {
       ],
       speechStyle:
         'Short, dry, dockside. Swears mildly, mostly "hells". Counts on her fingers. Talks to a god like a neighbour who owes her money, and goes very quiet when she means something.',
-      topics: ['the lamp', 'her grandmother', 'the Kestrel', 'her knee', 'the Duke', 'the purse', 'the Lower Wards'],
+      topics: ['the lamp', 'her grandmother', 'the Kittiwake', 'her knee', 'the Duke', 'the purse', 'the Lower Wards'],
       voiceSamples: [
         'Eleven years I’ve lit that lamp. Every night, rain or not, and not so much as a draught back. So you’ll forgive me if I stare.',
         'Don’t spend it on my knee. Spend it on the bout. Knees mend, more or less. A purse like that comes round once.',
@@ -1187,10 +1188,10 @@ const raw = {
     {
       id: 'duke',
       name: 'Duke Halvard Stenn',
-      calledName: 'Halvard',
+      calledName: 'Stenn',
       role: 'The Iron Duke. Five-time champion of the Hearth Games under Lady Fortune’s mark, and Tamsin’s first-round opponent',
       cardBlurb:
-        'He has won the Games five times for a goddess he does not believe in, he has never once gone past the count of three, and he is the reason your only follower is standing on the sand with empty hands.',
+        'He has won the Games five times for a goddess he does not believe in, he has never once gone past the count of three, and your only follower drew him in the first round, which is the worst luck you have ever seen.',
       pronouns: 'he/him',
       publicTraits: [
         'Courteous to every opponent, before and after',
@@ -1393,9 +1394,9 @@ const raw = {
         },
         {
           id: 'wick_one_left',
-          fact: 'Her baker Benno died in the winter. Her last follower is Odile at the night bakery, who is old and tired and prays to Wick mostly out of habit.',
+          fact: 'Her baker Benno died in the winter. Her last follower is Hettie at the night bakery, who is old and tired and prays to Wick mostly out of habit.',
           visibility: 'NPC_PRIVATE',
-          revealHint: 'She lets it slip at the night bakery, watching Odile pull the trays at three in the morning.',
+          revealHint: 'She lets it slip at the night bakery, watching Hettie pull the trays at three in the morning.',
         },
       ],
       speechStyle:
@@ -1416,7 +1417,7 @@ const raw = {
       portrait: null,
       expressions: ['warm', 'nervous', 'delighted', 'afraid'],
       schedule: [
-        { startMinute: 0, endMinute: 660, locationId: 'night_bakery', activity: 'by the ovens at the night bakery, keeping Odile company' },
+        { startMinute: 0, endMinute: 660, locationId: 'night_bakery', activity: 'by the ovens at the night bakery, keeping Hettie company' },
         { startMinute: 660, endMinute: 1080, locationId: 'the_bowl', activity: 'in the back row of the Gallery next to your seat, gossiping' },
         { startMinute: 1080, endMinute: 1440, locationId: 'night_bakery', activity: 'at the night bakery, watching the first batch go in' },
       ],
@@ -1447,7 +1448,7 @@ const raw = {
       name: 'Mother Sabine Orlo',
       role: 'High Priestess of the Golden House, Lady Fortune’s temple. Keeps its books, holds its debts, and has challenged your right to be in the Games',
       cardBlurb:
-        'She runs Fortune’s temple like a counting house, holds the paper on half the Lower Wards, and has filed a challenge to strike your name, and your only follower, out of the Games before the third day.',
+        'She runs Fortune’s temple like a counting house, holds the paper on half the Lower Wards, and has filed a challenge to strike you and your only follower out of the Games before the third day.',
       pronouns: 'she/her',
       publicTraits: ['Impeccably courteous', 'Has a figure for everything', 'Has never once been seen to pray'],
       hiddenDrives: [
@@ -1481,7 +1482,7 @@ const raw = {
         },
       ],
       speechStyle:
-        'Measured, polite, commercial. Percentages and terms. Never raises her voice, and never thanks anybody without a figure attached.',
+        'Measured, polite, commercial. Percentages and terms. Clicks her abacus while others talk and answers with the total, and never thanks anybody without a figure attached.',
       topics: ['the hearing', 'the Register', 'the deed', 'money', 'the Golden House', 'the Lower Wards'],
       voiceSamples: [
         'Let us be practical. A shrine with no lamp is not a shrine, and a champion with no shrine is a trespasser on consecrated sand.',
@@ -1574,7 +1575,7 @@ const raw = {
             },
             {
               routeId: 'opened_the_way',
-              label: 'Open a gap in his guard',
+              label: 'Show her the one way past his guard',
               predicate: { flagsSet: ['used:open_the_way'] },
               setsFlags: ['she_felt_you', 'won_first_bout'],
               closesFlags: ['into_the_low_ring'],
@@ -1672,7 +1673,7 @@ const raw = {
     },
     {
       id: 'q_one_miracle',
-      title: 'One Miracle a Day',
+      title: 'More Believers',
       summary: 'One follower is one miracle a day. Somebody else in Merrowgate has to start praying to you, by name, at your lamp, and mean it.',
       kind: 'MAIN',
       startsActive: true,
@@ -1684,7 +1685,7 @@ const raw = {
           id: 'a_second_prayer',
           playerCopy: 'Get one more person in Merrowgate to pray to you, by name, at your lamp.',
           directorNotes:
-            'A believer comes from somebody seeing a miracle and then deciding, on their own, to say your name at your lamp. The player cannot make anyone believe; they can only be worth it. Odile at the night bakery is the easiest, and she is Wick’s last follower, which Wick will find out about. A stranger in Tanner’s Row is slower and cleaner. The Twelve Bells is loud and public. Tamsin can tell the dock watch, but only if she believes it herself.',
+            'A believer comes from somebody seeing a miracle and then deciding, on their own, to say your name at your lamp. The player cannot make anyone believe; they can only be worth it. Hettie at the night bakery is the easiest, and she is Wick’s last follower, which Wick will find out about. A stranger in Tanner’s Row is slower and cleaner. The Twelve Bells is loud and public. Tamsin can tell the dock watch, but only if she believes it herself.',
           enterWhen: { flagsSet: ['day_one_done'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1775,7 +1776,7 @@ const raw = {
     {
       id: 'q_hearth_games',
       title: 'The Hearth Games',
-      summary: 'Three days, sixteen champions, one fire. Keep Tamsin in the Games through the second day and tonight’s Register hearing, all the way to the Hearth Final at dusk on the third day.',
+      summary: 'Three days, sixteen champions, one fire. Keep Tamsin in the Games through the second day and the Register hearing on the second night, all the way to the Hearth Final at dusk on the third day.',
       kind: 'MAIN',
       startsActive: true,
       involvedCharacterIds: ['tamsin', 'duke', 'ash', 'fortune', 'sabine'],
@@ -2211,12 +2212,12 @@ const raw = {
           id: 'wicks_last_night',
           playerCopy: 'Decide what happens to Wick before Fortune takes her in.',
           directorNotes:
-            'Wick is not asking to be saved and would be embarrassed by it. What she needs is a third door. Telling Odile who her candle is for is one. Sharing a shrine with the player, once the player has enough followers to spare, is another. Doing nothing means Fortune has eighteen.',
+            'Wick is not asking to be saved and would be embarrassed by it. What she needs is a third door. Telling Hettie who her candle is for is one. Sharing a shrine with the player, once the player has enough followers to spare, is another. Doing nothing means Fortune has eighteen.',
           enterWhen: { flagsSet: ['fortune_feast'] },
           succeedWhen: null,
           succeedWhenAny: [
             {
-              routeId: 'told_odile',
+              routeId: 'told_hettie',
               label: 'Tell the night baker who her candle is for',
               predicate: { flagsSet: ['wick_confided', 'used:speak_plainly'], flagsUnset: ['took_wicks_baker'], atLocation: 'night_bakery' },
               setsFlags: ['wick_stays_lit'],
@@ -2762,6 +2763,10 @@ const raw = {
    * out, struck off, carried off, the bout she would not finish, and walking
    * away, which is open from turn fourteen. Winning the Hearth is RARE, winning
    * it clean is UNIQUE, and so is choosing to stop being a god.
+   *
+   * Order matters: the storyteller reads only the first twelve. Won Clean is
+   * last because it is a flavour of A City That Prays to You, which comes
+   * first; every other ending, A Seat at the Rail included, stays in view.
    */
   endings: [
     {
@@ -2773,19 +2778,7 @@ const raw = {
       condition:
         'Tamsin won the Hearth Final under the player’s mark. Write the Hearth turning to the back row: every prayer in Merrowgate arriving at once, too many to hear, and in the middle of them one voice the player would know anywhere.',
       epilogue:
-        'For a year the whole city prays to a god most of it had never heard of. The player keeps the seat by the cracked pillar anyway. Tamsin buys back the Kestrel, paints the player’s sign on the bow, and still lights the tin lamp every night, because that was never about the Hearth.',
-      hint: '',
-    },
-    {
-      id: 'end_won_clean',
-      name: 'Won Clean',
-      rarity: 'UNIQUE',
-      minTurn: 30,
-      requires: { flagsSet: ['hearth_won', 'won_clean'] },
-      condition:
-        'She beat a Duke who was fighting fair, with Fortune’s luck kept off the sand and not one miracle spent on her. Write it as hers, completely, and let the Duke be the first to say so.',
-      epilogue:
-        'The Iron Duke retires the same night and asks Tamsin to his courtyard to show her where the white lines go. Brother Ash writes one word in the margin of the ledger, under five years of question marks: "clean". The player never tells anyone how much they wanted to help.',
+        'For a year the whole city prays to a god most of it had never heard of. The player keeps the seat by the cracked pillar anyway. Tamsin buys back the Kittiwake, paints the player’s sign on the bow, and still lights the tin lamp every night, because that was never about the Hearth.',
       hint: '',
     },
     {
@@ -2809,7 +2802,7 @@ const raw = {
       condition:
         'No Hearth, but Wick is still herself and still lit, and Tamsin believes in the player now rather than out of habit. Write a small win that is entirely real: two small lights in a poor street that were nearly one.',
       epilogue:
-        'A candle-end burns in the niche beside the tin lamp now. Odile and Tamsin take turns lighting them and argue about whose god is louder. Wick has stopped counting Benno, and has started counting again.',
+        'A candle-end burns in the niche beside the tin lamp now. Hettie and Tamsin take turns lighting them and argue about whose god is louder. Wick has stopped counting Benno, and has started counting again.',
       hint: '',
     },
     {
@@ -2821,7 +2814,7 @@ const raw = {
       condition:
         'The player flipped Fortune’s coin and said yes. They will never go out. Write it warm and gold and completely final, and let the player notice, too late, that they cannot remember their own name.',
       epilogue:
-        'Fortune has an eighteenth aspect: the luck of finding a thing you thought you had lost. People pray to it all the time. In Tanner’s Row, a tin lamp burns for nobody, and Tamsin keeps lighting it for a year before she stops.',
+        'Fortune has an eighteenth aspect, a small new face of luck that looks a little like you used to. People pray to it all the time. In Tanner’s Row, a tin lamp burns for nobody, and Tamsin keeps lighting it for a year before she stops.',
       hint: '',
     },
     {
@@ -2850,7 +2843,7 @@ const raw = {
     },
     {
       id: 'end_struck_from_the_register',
-      name: 'Struck From the Register',
+      name: 'No Plate, No Shrine',
       rarity: 'UNCOMMON',
       minTurn: 18,
       requires: { flagsSet: ['struck_off'] },
@@ -2869,7 +2862,7 @@ const raw = {
       condition:
         'Her knee folded on the second day and she did not get up by three. Out of the Games, still the player’s. Write the loss honestly, and let what she says to the back row afterwards decide how bad it is.',
       epilogue:
-        'She walks with a stick for the summer. The Kestrel is sold at auction to a man who renames her. Every night, slowly, on a bad knee, Tamsin climbs the stairs to the bend in Tanner’s Row and lights the lamp anyway.',
+        'She walks with a stick for the summer. The Kittiwake is sold at auction to a man who renames her. Every night, slowly, on a bad knee, Tamsin climbs the stairs to the bend in Tanner’s Row and lights the lamp anyway.',
       hint: '',
     },
     {
@@ -2920,9 +2913,25 @@ const raw = {
         'The player sits at the gold rail now, between Fortune and the god of the harbour, and the draught never reaches them. Below in Tanner’s Row the porches keep falling in. Wick stops visiting. Tamsin still lights the lamp.',
       hint: '',
     },
+    {
+      id: 'end_won_clean',
+      name: 'Won Clean',
+      rarity: 'UNIQUE',
+      minTurn: 30,
+      requires: { flagsSet: ['hearth_won', 'won_clean'] },
+      condition:
+        'She beat a Duke who was fighting fair, with Fortune’s luck kept off the sand and not one miracle spent on her. Write it as hers, completely, and let the Duke be the first to say so.',
+      epilogue:
+        'The Iron Duke retires the same night and asks Tamsin to his courtyard to show her where the white lines go. Brother Ash writes one word in the margin of the ledger, under five years of question marks: "clean". The player never tells anyone how much they wanted to help.',
+      hint: '',
+    },
   ],
   opening:
     "The Iron Duke knocks the sword from Tamsin Reed’s hands, and the whole arena roars.\n\nShe doesn’t chase it. She looks up, past the packed stands, to the gallery of gods no mortal can see.\n\nAt you. Back row, by the cracked pillar.\n\n\"I know you’re up there,\" she says, barely moving her lips. You hear her as if she stood at your elbow.\n\nShe is the only person in this city who still prays to you.\n\nA small gold line burns in the air before you:\n\n[Miracles left today: 1]\n\nThe Duke raises his axe and begins the count to yield. \"One.\"\n\nTamsin doesn’t look away from you. \"Well? Are you going to help me or not?\"",
+  openingPanel: {
+    assetKey: 'story_one_miracle_a_day/opening',
+    alt: 'Tamsin Reed, empty-handed on arena sand, looks up past the roaring stands toward the viewer while the Iron Duke holds his axe raised behind her.',
+  },
   openingSuggestions: [
     '"Yield. You’ll get another bout tomorrow, and I’m not going anywhere."',
     'I spend my one miracle and put her sword back in her hand.',
@@ -2931,7 +2940,7 @@ const raw = {
   coverDirection: [
     'SUBJECT: Tamsin Reed, a dock porter turned arena champion, alone and unmistakable in the foreground of a key visual for a fantasy anime about a very small god.',
     'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
-    'Tall and broad-shouldered, dark brown skin, short tight black curls under a sweat-dark headscarf, a split lip, a sleeveless padded jerkin, a leather strap round one knee.',
+    'Tall and broad-shouldered, dark brown skin, short tight black curls under a sweat-dark headscarf, a sleeveless padded jerkin, a leather strap round one knee.',
     'Her hands are empty and half raised. Her face is tipped up toward the viewer, because the viewer is the god she prays to: defiant, scared and asking, all at once.',
     'A thumb-sized mark of warm gold light glows on the back of her left hand.',
     'A thin shaft of warm gold light falls on her face from above, and a small floating line of gold light hangs in the air between her and the viewer.',

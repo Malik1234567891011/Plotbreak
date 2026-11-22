@@ -117,6 +117,12 @@ describe('the opener hands the player a choice', () => {
     expect(risky).toMatch(/Duke’s axe/);
   });
 
+  it('declares the opening panel, drawn around Tamsin', () => {
+    expect(S.openingPanel?.assetKey).toBe('story_one_miracle_a_day/opening');
+    expect(S.openingPanel?.alt).toMatch(/^Tamsin/);
+    expect(S.openingPanel!.alt.length).toBeLessThanOrEqual(200);
+  });
+
   it('offers no opening card the parser turns into a fight', async () => {
     const { RuleBasedIntentParser } = await import('@plotbreak/director');
     const parser = new RuleBasedIntentParser();
@@ -155,6 +161,20 @@ describe('the system lives where the storyteller can read it', () => {
     expect(canon).toMatch(/one more miracle from the next dawn/);
     expect(canon).toMatch(/Gallery Pact/);
     expect(canon).toMatch(/six years running keeps it for good/);
+    expect(canon).toMatch(/no further than a kiss/);
+  });
+
+  it('says in hard canon what happens at the count of three', () => {
+    // The opener runs on this clock, and quest notes never reach the storyteller.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/has lost her weapon gets the same count/);
+    expect(canon).toMatch(/the Arbiter rings the bell and she has lost the bout/);
+  });
+
+  it('lets the sighted Arbiter hear a god, and gods hear each other', () => {
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/Only its own followers and the sighted can hear it/);
+    expect(canon).toMatch(/gods can always see and hear one another/);
   });
 
   it('keeps archetype names out of the fields that would make them coexist', () => {
@@ -516,6 +536,12 @@ describe('it can end badly, early and in many ways', () => {
     const walk = S.endings.find((e) => e.requires.flagsSet.includes('left_the_map'))!;
     expect(walk.minTurn).toBeLessThanOrEqual(22);
     expect(S.endings.indexOf(walk)).toBeLessThan(12);
+  });
+
+  it('keeps every ending a quest route leads to inside the twelve the storyteller reads', () => {
+    const seen = S.endings.slice(0, 12).map((e) => e.id);
+    expect(seen).toContain('end_a_seat_at_the_rail');
+    expect(seen).toContain('end_a_city_that_prays');
   });
 
   it('uses the whole rarity range', () => {
