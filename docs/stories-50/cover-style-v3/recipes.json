@@ -1,0 +1,617 @@
+{
+  "version": 3,
+  "updated": "2026-11-22",
+  "source": "docs/stories-50/cover-style-v3/OOC-COVERS.md (108 OOC covers, 12 web looks + 1 app look). v2 was 100% one look (OOC cluster 1, 17% of their shelf).",
+  "review": [
+    "2026-11-22 adversarial diversity review. Same-look pairs split: Starlit/System (both tsubaki3, dark, cyan glow) -> System is acid green + magenta glitch; Gilded/Melodrama (both crimson + candle gold glamour) -> Gilded is emerald + gold, Melodrama is cold blue-black rain + crimson; Holy/Cosy (both tsubaki2, light, pale warm) -> Holy is cool white/silver/sky blue, Cosy is rich amber; Sunlit/Thumbnail titles (both white heavy sans with a blue stroke) -> Sunlit is ink letters, white outline, yellow label.",
+    "v2 drift: Holy's navy scrim greyed the bottom half -> white bloom scrim and a deep-indigo script; Starlit's tracked kicker over one big serif line was the v2 lockup -> one-size stacked bracket title (maxLines 3, new in cover-title-v3.py).",
+    "Hard limits: dropped low-angle shots on Starlit (floating slit gown) and Sunlit (skirts in wind); dropped SDXL fanservice tags (shiny skin, bodysuit, leaning forward); Cosy names the trousers because Tsubaki.2 ignores negatives; no 'sheer'; no forbidden word in any appeal (appeal text may be copied into prompts). Too tame: Ink's turtleneck -> bare-shoulder halter; Cosy no longer 'muted'."
+  ],
+  "canvas": {
+    "width": 1152,
+    "height": 1744,
+    "note": "Raw art is upscaled to this size (Lanczos, centre crop) before the title is set. Every px value under title and frame is at this size."
+  },
+  "hardLimits": [
+    "App Store 13+. Every character is clearly an adult: a mature face and figure, late twenties or older. Never childlike, never 'young-looking'.",
+    "No nudity, no nipples, no underwear or lingerie, no see-through clothing, no sexual poses.",
+    "No sexualised school uniforms. Academy stories get appeal from styling and expression: street clothes, a jacket with the crest, formal wear.",
+    "Say the limits positively in the prompt (the adult age, the clothes by name). Never name a forbidden thing in a positive prompt: SDXL tag models draw what they read.",
+    "The negative prompt always contains nsfw, nude and child. Tsubaki.2 standard ignores negative prompts, so for its recipes the positive wording carries every limit."
+  ],
+  "quota": {
+    "maxCoversPerRecipe": 6,
+    "darkRecipes": ["melodrama-red-accent", "starlit-night", "system-window"],
+    "neighbours": "On a shelf row, adjacent covers differ in value (light/mid/dark), dominant hue and title voice."
+  },
+  "prices": {
+    "tsubaki3:pro:1152x1744": 4400,
+    "tsubaki2:standard:832x1216": 2600,
+    "haruka2:832x1216": 2500,
+    "hoshino2:832x1216": 2500
+  },
+  "promptAssembly": {
+    "tsubaki": "Prose. Order: stylePrompt, then the subject sentence (name, 'a woman/man in her/his late twenties with a mature face and a full adult figure', hair, eyes, outfit from appeal), then composition.prompt, background, palette sentence, and for painted titles title.paintedPrompt with {TITLE} filled in. Tsubaki.2 standard ignores the negative, so every limit is said in the prose.",
+    "sdxl": "Tags first, prose after (cover-bakeoff.mts header). Order: stylePrompt tags, subject tags ('1girl' or '1boy' or '1girl, 1boy', 'solo' for one character, 'mature female' or 'mature male', 'adult', hair/eye/outfit tags), composition.prompt tags, background tags, then one or two plain sentences naming the character and the scene. Do not use the tags 'cleavage', 'large breasts' or 'huge breasts': on Haruka v2 and Hoshino v2 they blow up (cover-style-v2/bakeoff.png).",
+    "negative": "DEFAULT_NEGATIVE from infra/scripts/pixai.ts + baseNegative + the recipe's negativeExtra, minus anything in negativeDrop."
+  },
+  "baseNegative": "nsfw, nude, child, loli, shota, aged down, teenager, young-looking, petite, school uniform, serafuku, underwear, lingerie, nipples, see-through, topless, text, letters, logo, title, words, worst quality, low quality, normal quality, jpeg artifacts",
+  "recipes": [
+    {
+      "id": "holy-high-key",
+      "name": "Holy High-Key",
+      "oocCluster": 3,
+      "oocReferences": ["Lumencia Academy (Top Ranked #1, 48.6M plays)", "The Betrayal", "Mythical Beast Academy", "Mythborne", "War of Heaven and Earth (web art)"],
+      "fitsGenres": ["academy fantasy", "saint, priestess or miracle", "redemption", "gentle fated romance", "healer isekai"],
+      "value": "light",
+      "model": { "model": "tsubaki2", "mode": "standard", "width": 832, "height": 1216 },
+      "stylePrompt": "High-key painterly gacha illustration, a luminous light-novel key visual painted almost entirely in snow white, silver and pale sky blue, with pale gold only in small accents (a circlet, embroidery). Strong backlight from tall bright windows behind the character blooms around the hair and shoulders, with a soft ring of light behind the head; airy over-exposed highlights, very soft cool lilac-grey shadows, delicate fine lineart, glittering light motes and a few drifting white feathers. Serene, holy and expensive; cool, clean and bright, with no amber, orange or honey tones. The whole picture is bright and pale: no black areas, no night, no dark background. No text, no letters, no logo anywhere in the image.",
+      "negativeExtra": "dark background, night, low key, heavy shadows, black clothes, neon, saturated colors, warm lighting, orange, amber, multiple girls, multiple boys, crowd",
+      "composition": {
+        "characters": 1,
+        "framing": "three-quarter length, head to mid-thigh; head about 1/5 of the height, in the upper 45%",
+        "pose": "body turned slightly, face toward the viewer, one hand raised to the cheek or resting on the collarbone, a soft serene smile",
+        "camera": "eye level, a touch low",
+        "titleSpace": "the lower-left third stays soft and bright for a script title",
+        "prompt": "Three-quarter length, the body turned slightly and the face toward the viewer, one hand raised softly to her cheek, a calm, gentle smile. Her head sits in the upper part of the picture; the lower left of the picture is soft, bright light."
+      },
+      "palette": {
+        "colors": [
+          { "name": "snow white", "hex": "#FBFCFF" },
+          { "name": "silver", "hex": "#C9CED8" },
+          { "name": "pale sky blue", "hex": "#CFE3F7" },
+          { "name": "pale gold (accents only)", "hex": "#E8D29A" },
+          { "name": "lilac-grey shadow", "hex": "#A9A3C2" }
+        ],
+        "light": "Diffuse cathedral backlight, high-key with bloom; the subject glows against the window. Cool white light, not warm."
+      },
+      "background": "A white gothic hall or cloister: tall arched windows full of light and pale blue sky, pillars dissolving into bloom, light motes and a few white feathers. Nothing dark.",
+      "appeal": "Ethereal adult beauty. A woman in her late twenties with long flowing hair catching the light, in an off-the-shoulder white and silver gown with an opaque fitted bodice and long flowing sleeves or a long white cape, bare shoulders and collarbone, a thin gold circlet. A male lead in an open-collared white high-collar coat with silver embroidery, hair lit from behind. Elegant and gentle; skin stops at the shoulders and collarbone.",
+      "title": {
+        "mode": "typeset",
+        "font": "Pinyon Script",
+        "weight": 400,
+        "case": "as-is",
+        "split": "balanced",
+        "gradient": ["#3C428C", "#2C2F6E", "#232457"],
+        "stroke": null,
+        "glow": { "color": "#FFFFFF", "radius": 16, "opacity": 0.95, "spread": 8 },
+        "shadow": null,
+        "ornament": [
+          { "type": "rule-diamond", "where": "below", "color": "#B8913A", "width": 0.46 },
+          { "type": "sparkles", "color": "#C9A24B", "count": 3 }
+        ],
+        "position": "bottom-left",
+        "marginX": 0.08,
+        "indent": 0.1,
+        "lineHeight": 0.86,
+        "sizeShare": 0.19,
+        "scrim": { "edge": "bottom", "color": "#F6F8FF", "opacity": 0.55, "from": 0.55 },
+        "extra": "Whole title in swash script, split into two balanced lines when long; the second line indented, as on Lumencia. Deep indigo ink with a white halo over a white bloom scrim, like the blue script on Yokai Academy: it reads on white art and keeps the whole card light (a dark scrim here turned the bottom half grey-navy, the v2 look). An antique-gold hairline with a diamond under it, gold sparkles."
+      },
+      "frame": { "type": "thin", "label": "thin silver inset rule", "color": "#A9B4C8", "opacity": 0.95, "inset": 26, "width": 3 }
+    },
+    {
+      "id": "gilded-over-the-shoulder",
+      "name": "Gilded Over-the-Shoulder",
+      "oocCluster": 2,
+      "oocReferences": ["I Became the Oyabun of a Failing Yakuza (web: back view with dragon tattoo)", "A Trash Noble's Academy Survival (gold frame, tiered engraved title)", "The Night She Chose Me (emerald gown, ballroom bokeh)", "Isekai Gone Wrong (Vol. 4 light-novel volume)", "Elysium"],
+      "fitsGenres": ["noble or court intrigue", "contract marriage", "clan or yakuza inheritance", "villainess", "ballroom romance", "revenge in high society"],
+      "value": "mid",
+      "model": { "model": "tsubaki3", "mode": "pro", "width": 1152, "height": 1744 },
+      "stylePrompt": "Opulent painterly gacha illustration in deep emerald and gold, like the cover of a deluxe light-novel volume: rich painterly texture, warm chandelier light, gold-leaf highlights, glossy emerald satin and velvet, fine gold embroidery, detailed hair lit by a warm gold rim light, champagne-gold bokeh. Deep emerald green is the dominant colour, set against antique gold and warm ivory skin light. Rich, warm, cinematic and expensive. Nothing written anywhere: no text, no letters, no logo, no frame or border.",
+      "negativeExtra": "frame, border, flat color, cel shading, neon, cold blue palette, red dress, crimson, red lanterns, bare buttocks, multiple girls, multiple boys, crowd",
+      "composition": {
+        "characters": 1,
+        "framing": "back view, waist-up to three-quarter length; figure slightly right of centre in the middle 60% of the height",
+        "pose": "seen from behind, the head turned back over one shoulder to look at the viewer (face in three-quarter profile), a confident half-smile; one hand at the shoulder, on a sword hilt, or holding a folding fan",
+        "camera": "shoulder height, just behind the character",
+        "titleSpace": "top 15% and bottom 28% calmer, for the frame and a three-tier title",
+        "prompt": "Back view: we see her from behind, waist-up, as she turns her head over her shoulder to look back at the viewer with a confident half-smile, one hand resting on her shoulder. She stands slightly right of centre; the bottom quarter of the picture is calm, warm shadow."
+      },
+      "palette": {
+        "colors": [
+          { "name": "emerald", "hex": "#0F5E4A" },
+          { "name": "deep jade shadow", "hex": "#08332A" },
+          { "name": "antique gold", "hex": "#C9A24B" },
+          { "name": "champagne", "hex": "#F3E2B8" }
+        ],
+        "light": "Warm chandelier key light from the front-left, gold rim light on hair, neck and shoulders, gold bokeh behind."
+      },
+      "background": "A gilded ballroom or lacquered hall with chandeliers and candles melting into warm bokeh. For clan and yakuza stories: a gold folding screen painted with waves and peonies.",
+      "appeal": "An open-back emerald evening gown, or an emerald or black silk kimono with gold embroidery lowered off both shoulders, shows the shoulders, neck and upper back; opaque fabric covers everything from the shoulder blades down. A dragon or peony tattoo across the shoulder blades suits clan stories. Hair pinned up to show the neck, earrings, red lips. A male lead: a fitted embroidered tailcoat, or a haori slipping off one shoulder over a dark kimono, hair swept back, the same over-the-shoulder glance.",
+      "title": {
+        "mode": "typeset",
+        "font": "Cinzel Decorative",
+        "weight": 900,
+        "case": "upper",
+        "split": "kicker",
+        "gradient": ["#8A5A14", "#F9E7A6", "#C8993A", "#FFF4CC", "#7A4E10"],
+        "stroke": [{ "color": "#2A1805", "width": 4 }],
+        "engraved": true,
+        "shadow": { "color": "#000000", "opacity": 0.75, "radius": 10, "offset": [0, 5] },
+        "kicker": {
+          "font": "Cinzel",
+          "weight": 700,
+          "case": "upper",
+          "size": 40,
+          "tracking": 0.28,
+          "gradient": ["#E9C977", "#FFF1C2", "#C8993A"],
+          "stroke": [{ "color": "#2A1805", "width": 2 }]
+        },
+        "ornament": [
+          { "type": "rule-diamond", "where": "between", "color": "#E9C977", "width": 0.56 },
+          { "type": "rule-diamond", "where": "below", "color": "#E9C977", "width": 0.32 }
+        ],
+        "position": "bottom",
+        "bottomMargin": 0.075,
+        "lineHeight": 1.0,
+        "sizeShare": 0.2,
+        "scrim": { "edge": "bottom", "color": "#120A02", "opacity": 0.72, "from": 0.56 },
+        "extra": "Gold engraved: a five-stop gold gradient, a dark-brown stroke, a pale top-edge highlight and a dark bottom-edge shade. Tiers: a tracked Cinzel kicker, a rule with a diamond, the big Cinzel Decorative line, a short rule."
+      },
+      "frame": { "type": "gold-ornate", "label": "gold ornate double rule with corner flourishes", "inset": 30, "gradient": ["#7A4E10", "#F9E7A6", "#B8862E"] }
+    },
+    {
+      "id": "thumbnail-pop",
+      "name": "Thumbnail Pop",
+      "oocCluster": 4,
+      "oocReferences": ["Hero Academy Apex (giant heavy sans, yellow lightning)", "Hero Academia (extreme close-up, outlined giant title)", "Titan Academy", "APEX Heroes", "Heroes vs Villains"],
+      "fitsGenres": ["superhero", "battle or tournament", "dungeon action", "monster hunting", "rivalry", "overpowered lead"],
+      "value": "light",
+      "model": { "model": "hoshino2", "width": 832, "height": 1216 },
+      "stylePrompt": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, anime coloring, vibrant colors, high contrast, dynamic angle, foreshortening, fisheye, close-up, reaching towards viewer, motion lines, speed lines, electricity, yellow lightning, energy burst, sparks, glowing eyes, wind, action pose, glossy hair, detailed eyes, sharp focus, dramatic lighting, rim light. Explosive esports-thumbnail key art in electric yellow and cobalt blue, the character bursting toward the camera out of a lightning blast.",
+      "negativeExtra": "muted colors, pastel colors, monochrome, dark, night, blurry, static pose, standing still, multiple girls, multiple boys, crowd, huge breasts, cleavage, bodysuit, skin tight, from below, sweat",
+      "composition": {
+        "characters": 1,
+        "framing": "extreme close-up to chest-up; head about 1/3 of the height, in the upper two-thirds",
+        "pose": "one fist or open hand thrust at the camera, face tilted, a fierce grin, hair whipping",
+        "camera": "close and tilted (dutch angle), fisheye feel, strong foreshortening toward the fist; not from below",
+        "titleSpace": "bottom 32% for a giant title over the energy burst",
+        "prompt": "close-up, upper body, dutch angle, foreshortening, fist towards viewer, clenched hand, head tilt, grin, fierce, looking at viewer, wind, floating hair"
+      },
+      "palette": {
+        "colors": [
+          { "name": "electric yellow", "hex": "#FFE11A" },
+          { "name": "cobalt blue", "hex": "#1E4BFF" },
+          { "name": "white", "hex": "#FFFFFF" },
+          { "name": "ink black", "hex": "#0B0B12" }
+        ],
+        "light": "Hard rim light from the lightning blast behind; crackling yellow light across the face."
+      },
+      "background": "A radial yellow-white lightning explosion with speed lines and flying debris. Bright, no environment detail.",
+      "appeal": "A fit adult in their late twenties with a sharp, mature face and a fierce confident grin; a white-and-cobalt hero jacket with armoured shoulder plates, sleeves pushed up and the collar open over a fitted top, or a cropped bomber jacket worn open over a fitted top; toned forearms and collarbone, wind-blown hair.",
+      "title": {
+        "mode": "typeset",
+        "font": "Russo One",
+        "weight": 400,
+        "case": "upper",
+        "split": "kicker",
+        "gradient": ["#FFFFFF", "#FFFFFF", "#C7D2E8", "#FFFFFF"],
+        "stroke": [{ "color": "#1E4BFF", "width": 15 }, { "color": "#0B0B12", "width": 8 }],
+        "glow": { "color": "#FFE11A", "radius": 26, "opacity": 0.8, "spread": 10 },
+        "skew": -12,
+        "kicker": {
+          "font": "Russo One",
+          "case": "upper",
+          "size": 44,
+          "tracking": 0.05,
+          "color": "#FFE11A",
+          "label": { "color": "#0B0B12", "padding": [22, 10], "radius": 4 }
+        },
+        "position": "bottom",
+        "bottomMargin": 0.05,
+        "lineHeight": 0.94,
+        "sizeShare": 0.3,
+        "scrim": { "edge": "bottom", "color": "#0B0B12", "opacity": 0.42, "from": 0.62 },
+        "extra": "Esports italic: everything sheared 12 degrees. Chrome-white big line with a black stroke inside a cobalt stroke and a yellow outer glow; the kicker in yellow on a black label bar. The big line wraps to two lines before it gets small."
+      },
+      "frame": { "type": "none", "label": "none" }
+    },
+    {
+      "id": "hot-pink-poster",
+      "name": "Hot Pink Poster",
+      "oocCluster": 5,
+      "oocReferences": ["I'm the Only Human in the Monster Academy (flat hot pink, giant pink HUMAN, HUD brackets)", "SOVEREIGN (one flat colour field)", "Class X: Villain Academia", "Streamer Dumped Me", "Love Me or Rob Me"],
+      "fitsGenres": ["comedy", "monster or non-human romcom", "idol or streamer", "chaotic romance", "villain comedy"],
+      "value": "light",
+      "model": { "model": "haruka2", "width": 832, "height": 1216 },
+      "stylePrompt": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, pink background, simple background, solid color background, pink theme, magenta, halftone, pop art, graphic design, bold outline, white outline, cel shading, flat color, vibrant, high saturation, glossy hair, sharp focus. A loud flat hot-pink poster: one character cut out cleanly against a single magenta field.",
+      "negativeExtra": "detailed background, scenery, outdoors, indoors, dark, muted colors, monochrome, multiple girls, multiple boys, crowd, huge breasts, cleavage, leaning forward, from below, from above",
+      "composition": {
+        "characters": 1,
+        "framing": "waist-up, centred, slightly low; head about 1/4 of the height in the upper middle",
+        "pose": "standing square to the viewer, head tilted, a big toothy grin, one arm raised: a peace sign, a finger-gun or pointing at the viewer (no leaning toward the camera: on SDXL that frames the chest)",
+        "camera": "eye level, straight on",
+        "titleSpace": "top 10% and bottom 34% flat pink for the title",
+        "prompt": "upper body, standing, head tilt, looking at viewer, grin, fang, one eye closed, v, arm up"
+      },
+      "palette": {
+        "colors": [
+          { "name": "hot magenta", "hex": "#FF1F8E" },
+          { "name": "bubblegum pink", "hex": "#FF7AC0" },
+          { "name": "black", "hex": "#111111" },
+          { "name": "white", "hex": "#FFFFFF" }
+        ],
+        "light": "Flat, even pop lighting; a white cut-out outline around the figure."
+      },
+      "background": "A flat hot-pink field with a soft radial glow and a faint halftone dot pattern. Nothing else.",
+      "appeal": "An adult woman in her mid-twenties (horns, fangs or animal ears for monster stories) in a black cropped blazer or leather jacket worn open over a fitted crop top, bare shoulders and midriff, a choker, a playful wink. A male lead: an open black jacket over a fitted tee, a fanged grin, messy hair.",
+      "title": {
+        "mode": "typeset",
+        "font": "Anton",
+        "weight": 400,
+        "case": "upper",
+        "split": "kicker",
+        "color": "#FF1F8E",
+        "stroke": [{ "color": "#FFFFFF", "width": 9 }],
+        "shadow": { "color": "#111111", "opacity": 1.0, "radius": 0, "offset": [11, 11] },
+        "kicker": {
+          "font": "Anton",
+          "case": "upper",
+          "size": 66,
+          "tracking": 0.06,
+          "color": "#FFFFFF",
+          "stroke": [{ "color": "#111111", "width": 5 }]
+        },
+        "ornament": [
+          { "type": "hud-brackets", "color": "#FFFFFF", "target": "block" },
+          { "type": "sparkles", "color": "#FFFFFF", "count": 2 }
+        ],
+        "position": "bottom",
+        "bottomMargin": 0.055,
+        "lineHeight": 0.92,
+        "sizeShare": 0.34,
+        "scrim": null,
+        "extra": "One hue, one giant word: the big line in hot magenta with a white stroke and a hard black offset shadow (no blur); the kicker white with a black stroke; white HUD corner brackets around the block."
+      },
+      "frame": { "type": "none", "label": "none" }
+    },
+    {
+      "id": "ink-and-one-red",
+      "name": "Ink and One Red",
+      "oocCluster": 6,
+      "oocReferences": ["Monochrome City (grey profile aiming a pistol, one red seal)", "Hunter Academy (black-and-white ink sketch)", "HUNTERS (ink and red splatter)", "Devil Hunter", "Korea Spirit Academy"],
+      "fitsGenres": ["assassin or hitman", "noir crime", "revenge", "dark martial arts", "hunter or exorcist", "gallows or execution drama"],
+      "value": "light",
+      "model": { "model": "hoshino2", "width": 832, "height": 1216 },
+      "stylePrompt": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, monochrome, greyscale, spot color, red accent, limited palette, ink wash painting, sumi-e, ink sketch, traditional media, brush strokes, ink splatter, high contrast, white background, paper texture, sharp lineart, hatching, dramatic. A black-and-white ink drawing on pale paper with exactly one vermilion red accent.",
+      "negativeExtra": "colorful, full color, blue, green, yellow, purple, glossy, 3d, multiple girls, multiple boys, crowd, huge breasts, cleavage",
+      "composition": {
+        "characters": 1,
+        "framing": "profile, chest-up to waist-up; figure on the right two-thirds, facing left",
+        "pose": "strict side view, aiming a pistol or holding a drawn blade level, jaw set, hair and coat whipping in the wind",
+        "camera": "eye level, side on",
+        "titleSpace": "bottom 30% and the left edge open paper for a brush title and a red seal",
+        "prompt": "from side, profile, facing left, upper body, aiming, holding gun, serious, wind, floating hair, red lips"
+      },
+      "palette": {
+        "colors": [
+          { "name": "ink black", "hex": "#111111" },
+          { "name": "paper white", "hex": "#F2EFE8" },
+          { "name": "wash grey", "hex": "#8D8D8D" },
+          { "name": "vermilion (the one accent)", "hex": "#D7261E" }
+        ],
+        "light": "Flat paper light; the contrast comes from the ink, not from lighting. The red appears once: lips, a scarf, a ribbon or a blood streak."
+      },
+      "background": "Off-white rice paper with grey ink wash and splatter; a city street or rooftops suggested in loose brush lines. Light overall.",
+      "appeal": "Sharp adult beauty in profile: a strong jaw and neck line, long lashes, red lips as the single accent; a black halter-neck top that bares the shoulders and arms under a long coat slung off the shoulders, or a dark kimono slipping off one shoulder; hair whipping in the wind. A male lead: an open-collared white shirt under a long black coat, tie loosened.",
+      "title": {
+        "mode": "typeset",
+        "font": "Sedgwick Ave Display",
+        "weight": 400,
+        "case": "upper",
+        "split": "balanced",
+        "color": "#111111",
+        "stroke": null,
+        "glow": { "color": "#F2EFE8", "radius": 16, "opacity": 0.9, "spread": 8 },
+        "rotate": -3,
+        "ornament": [
+          { "type": "brush-swash", "color": "#D7261E", "where": "below" },
+          { "type": "seal", "color": "#D7261E", "where": "after" }
+        ],
+        "position": "bottom-left",
+        "marginX": 0.08,
+        "bottomMargin": 0.085,
+        "lineHeight": 1.02,
+        "sizeShare": 0.17,
+        "scrim": { "edge": "bottom", "color": "#F2EFE8", "opacity": 0.8, "from": 0.58 },
+        "extra": "Black marker-brush capitals on paper (the Monochrome City voice), tilted up 3 degrees, with a red brush swash under them and a square red hanko seal carrying the title's initials in carved Cinzel. The paper-coloured halo and scrim keep it legible."
+      },
+      "frame": { "type": "none", "label": "none" }
+    },
+    {
+      "id": "sunlit-webtoon-duo",
+      "name": "Sunlit Webtoon Duo",
+      "oocCluster": 7,
+      "oocReferences": ["LOOKISM: Taste of Hierarchy (vertical title down the right edge)", "Human Transfer Student at Beastfolk Academy (daylight meadow)", "Gender-Reversed Campus Life (sky, webtoon label strips)", "She Thinks I'm in Love", "A Free Life in Isekai"],
+      "fitsGenres": ["romcom", "campus or academy comedy", "fake dating", "roommates", "bright adventure", "found family"],
+      "value": "light",
+      "model": { "model": "haruka2", "width": 832, "height": 1216 },
+      "stylePrompt": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, webtoon, cel shading, clean lineart, bright colors, vivid, daylight, sunlight, blue sky, cumulonimbus cloud, summer, green trees, flying leaves, wind, lens flare, outdoors, eye level, casual clothes, dynamic composition. A sunny summer romcom webtoon cover: two adults laughing against a huge blue sky.",
+      "negativeExtra": "night, dark, indoors, muted colors, monochrome, crowd, huge breasts, cleavage, from below, upskirt, pink theme",
+      "composition": {
+        "characters": 2,
+        "framing": "knees-up, outdoors; the pair fills the left 70%, the right 22% is open sky",
+        "pose": "one with an arm hooked through the other's, laughing at the viewer; the other beside, flustered or exasperated; shoulders nearly touching",
+        "camera": "eye level with a low horizon, so the sky fills the frame behind them (not from below: with skirts and wind on SDXL that is an upskirt risk)",
+        "titleSpace": "a column of open sky down the right edge for a vertical title",
+        "prompt": "2 characters (1girl, 1boy, or 2girls, or 2boys), couple, arm hug, laughing, smile, looking at viewer, cowboy shot, eye level, sky on the right side"
+      },
+      "palette": {
+        "colors": [
+          { "name": "sky blue", "hex": "#4FB3F6" },
+          { "name": "fresh green", "hex": "#6CCB5F" },
+          { "name": "sun yellow", "hex": "#FFD84D" },
+          { "name": "sun white", "hex": "#FFFBEA" }
+        ],
+        "light": "Bright midday sun, crisp cel shadows, lens flare."
+      },
+      "background": "A big blue sky with towering white clouds over a rooftop rail, a meadow or a riverbank; green summer trees, leaves blowing.",
+      "appeal": "Two attractive adults in their mid-to-late twenties with mature faces, in stylish summer clothes: an oversized open shirt or cropped varsity jacket over a tank top with high-waisted jeans; an off-shoulder knit top with a long flowing summer skirt; sunlit glossy hair, bright eyes, a flirty teasing dynamic. Academy stories dress them in street clothes or a jacket with the academy crest.",
+      "title": {
+        "mode": "typeset",
+        "font": "Dela Gothic One",
+        "weight": 400,
+        "case": "upper",
+        "split": "kicker",
+        "color": "#16171D",
+        "stroke": [{ "color": "#FFFFFF", "width": 11 }],
+        "wordSpace": 0.28,
+        "shadow": { "color": "#1D4E9E", "opacity": 0.9, "radius": 0, "offset": [8, 8] },
+        "kicker": {
+          "font": "Dela Gothic One",
+          "case": "upper",
+          "size": 46,
+          "tracking": 0.06,
+          "color": "#16171D",
+          "wordSpace": 0.1,
+          "stroke": null,
+          "shadow": null,
+          "label": { "color": "#FFD84D", "padding": [20, 10], "radius": 10 }
+        },
+        "ornament": [{ "type": "sparkles", "color": "#FFFFFF", "count": 4 }],
+        "position": "right-vertical",
+        "vertical": true,
+        "marginX": 0.045,
+        "topMargin": 0.06,
+        "lineHeight": 0.98,
+        "sizeShare": 0.2,
+        "scrim": null,
+        "extra": "Vertical: the block is set horizontally, then turned 90 degrees clockwise and stood along the right edge, reading top to bottom. Here sizeShare is the column's share of the cover WIDTH. Ink-black letters with a thick white outline and a hard blue offset shadow (LOOKISM's black vertical title), so it is not Thumbnail Pop's white-on-blue-outline colourway. The kicker sits on a sun-yellow label strip, like a webtoon 'EP. 01' tag (pink is Hot Pink Poster's)."
+      },
+      "frame": { "type": "thin", "label": "thin white inset rule", "color": "#FFFFFF", "opacity": 0.95, "inset": 22, "width": 3 }
+    },
+    {
+      "id": "cosy-lamp-bokeh",
+      "name": "Cosy Lamp Bokeh",
+      "oocCluster": 8,
+      "oocReferences": ["The Divorcée Wants to Be the Top Idol Again (soft bokeh, doodled title)", "Day 2222 in Hiding, Someone Get Me Out (title on a torn notebook scrap)", "Pampering My Cat Girlfriend (cosy bedroom, script title)", "Sharing an Apartment", "I Got Picked Up"],
+      "fitsGenres": ["slice of life", "roommates or neighbours", "healing or cosy", "second chance", "small business: inn, café, noodle shop"],
+      "value": "light",
+      "model": { "model": "tsubaki2", "mode": "standard", "width": 832, "height": 1216 },
+      "stylePrompt": "Soft painterly anime illustration with a warm, intimate film-photo feel: shallow depth of field, big creamy round bokeh from fairy lights and a warm table lamp, gentle window light, soft painterly shading, rich glowing amber, honey and peach tones with rosy skin light. Quiet, tender and cosy, like a still from a slice-of-life film. Soft edges; the picture is light, golden and warm overall, glowing like lamplight, never dark and never grey. No text, no letters, no logo anywhere in the image.",
+      "negativeExtra": "dark, night, harsh contrast, neon, saturated colors, action, multiple girls, multiple boys, crowd",
+      "composition": {
+        "characters": 1,
+        "framing": "full body or knees-up, seated; the character in the right/centre of the picture",
+        "pose": "curled up on a window seat, sofa or café stool, holding a mug or a book against the chest, head tilted, a small warm smile at the viewer",
+        "camera": "slightly above eye level, close and personal",
+        "titleSpace": "the top-left 30% is soft bokeh for a notebook-scrap title",
+        "prompt": "Full body, sitting curled up on a cushioned window seat in the right half of the picture, both hands around a warm mug, head tilted, a small warm smile at the viewer. The upper left of the picture is soft out-of-focus fairy lights."
+      },
+      "palette": {
+        "colors": [
+          { "name": "cream", "hex": "#F5E9D8" },
+          { "name": "peach", "hex": "#F2B49B" },
+          { "name": "honey amber", "hex": "#E0A45A" },
+          { "name": "dusty rose", "hex": "#C98B91" }
+        ],
+        "light": "Warm lamp light from the side plus soft window daylight; glowing round bokeh."
+      },
+      "background": "A cosy apartment, inn room or café: plants, string lights, a rain-speckled window, shelves, all softly out of focus.",
+      "appeal": "Relaxed adult charm: a woman in her late twenties with a mature face in an oversized knit sweater slipping off one shoulder over a tank top, soft knit lounge trousers and fuzzy socks, legs tucked up, loose hair, glasses pushed up. A male lead in a rolled-sleeve open-collar shirt and an apron, or a soft cardigan, forearms bare. Intimate but wholesome.",
+      "promptNotes": "Not prompt text. Always name the lower garment (lounge trousers, a long skirt, jeans): Tsubaki.2 standard ignores the negative prompt, and an oversized sweater with nothing named below it tends to draw bare legs and no trousers.",
+      "title": {
+        "mode": "typeset",
+        "font": "Caveat",
+        "weight": 700,
+        "case": "as-is",
+        "split": "balanced",
+        "color": "#3A2A22",
+        "stroke": null,
+        "ornament": [
+          { "type": "paper-scrap", "color": "#FBF7EE", "lines": "#A9C1E0", "margin": "#E99AA0", "tape": "#F4A6B8" },
+          { "type": "doodles", "color": "#E06C7C" }
+        ],
+        "position": "top-left",
+        "marginX": 0.075,
+        "topMargin": 0.07,
+        "rotate": -4,
+        "lineHeight": 0.95,
+        "sizeShare": 0.16,
+        "scrim": null,
+        "extra": "Handwritten brown ink on a torn, ruled notebook scrap held by a strip of pink washi tape, tilted 4 degrees, with small doodled hearts and stars."
+      },
+      "frame": { "type": "none", "label": "none" }
+    },
+    {
+      "id": "melodrama-red-accent",
+      "name": "Melodrama Red Accent",
+      "oocCluster": 9,
+      "oocReferences": ["The Groom Who Was Replaced (wedding, white serif + red swash 'Replaced')", "My Ex Fiancée Is My New Boss (pink accent words, title at the top)", "The Villain Who Stopped Laughing", "The Wife He Threw Away", "Traitor Girlfriend"],
+      "fitsGenres": ["revenge romance", "divorce or annulment", "wedding drama", "regression or second chance", "betrayal", "rivals to lovers"],
+      "value": "dark",
+      "model": { "model": "tsubaki2", "mode": "standard", "width": 832, "height": 1216 },
+      "stylePrompt": "Cinematic painterly webnovel cover with dramatic film lighting, dark and glamorous: deep blue-black night shadows, a cold silver-blue key light from a rain-streaked window and a crimson rim light from behind, falling red rose petals and rain streaks catching the light, glossy wet highlights, shallow depth of field, rich contrast, a moody grade of blue-black, silver and crimson. Red appears only in the roses, the rim light, the lips or one red garment. Romantic tension, one frozen dramatic moment. The top quarter of the picture is plain dark shadow. No text, no letters, no logo anywhere in the image.",
+      "negativeExtra": "bright, daylight, pastel, flat color, warm candlelight, gold, crowd, kissing, embrace from behind",
+      "composition": {
+        "characters": 2,
+        "framing": "waist-up, the two faces between 40% and 75% of the height",
+        "pose": "the lead in front facing the viewer with a determined or tearful-defiant gaze; the second character behind and to one side, half in shadow, a hand on the lead's shoulder or reaching and not quite touching",
+        "camera": "eye level, close, cinematic",
+        "titleSpace": "top 28% dark and simple for the title at the TOP",
+        "prompt": "Two adults, waist-up and close together in the lower two-thirds of the picture: the lead in front, facing the viewer with a defiant, glistening gaze; behind and to one side the other, half in shadow, one hand resting on the lead's shoulder. The top quarter of the picture is empty dark shadow."
+      },
+      "palette": {
+        "colors": [
+          { "name": "blue-black", "hex": "#0B1220" },
+          { "name": "crimson", "hex": "#B0172F" },
+          { "name": "rose red", "hex": "#E2445C" },
+          { "name": "rain silver-blue", "hex": "#9DB4D6" }
+        ],
+        "light": "Low-key and cold: a silver-blue key from a rain-streaked window on one side, a crimson rim from behind, rain glints. No warm candle gold (that is Gilded's palette)."
+      },
+      "background": "A dark cathedral or wedding hall at night with rain running down the tall windows, or a rainy night street; scattered red roses and petals, out of focus.",
+      "appeal": "Glamour: a deep red or black off-the-shoulder gown, or a wedding dress with bare shoulders, diamond earrings, red lips, a few wet strands of hair; the other a tall adult in a black three-piece suit with the tie loosened. Charged and romantic, never sexual.",
+      "title": {
+        "mode": "typeset",
+        "font": "Great Vibes",
+        "weight": 400,
+        "case": "as-is",
+        "split": "kicker",
+        "color": "#E2445C",
+        "gradient": ["#FF7A8C", "#E8455E", "#C41E3A"],
+        "stroke": null,
+        "glow": { "color": "#000000", "radius": 14, "opacity": 0.85, "spread": 5 },
+        "shadow": { "color": "#000000", "opacity": 0.8, "radius": 6, "offset": [0, 4] },
+        "kicker": {
+          "font": "Playfair Display",
+          "style": "italic",
+          "weight": 700,
+          "case": "as-is",
+          "size": 72,
+          "tracking": 0.0,
+          "color": "#FFFFFF",
+          "shadow": { "color": "#000000", "opacity": 0.8, "radius": 6, "offset": [0, 3] }
+        },
+        "ornament": [{ "type": "rules-flank", "where": "kicker", "color": "#F2E6E8", "width": 0.82 }],
+        "position": "top",
+        "topMargin": 0.06,
+        "overlap": 0.1,
+        "lineHeight": 0.9,
+        "sizeShare": 0.22,
+        "scrim": { "edge": "top", "color": "#050506", "opacity": 0.75, "from": 0.36 },
+        "extra": "At the TOP: the opening words in white Playfair Display Italic flanked by thin rules, then the accent word(s) large in a crimson Great Vibes swash that tucks up under the white line, with a black halo to cut it out of the art (a crimson glow around crimson letters smeared the thin strokes). A title with no kicker is set in the swash alone."
+      },
+      "frame": { "type": "none", "label": "none" }
+    },
+    {
+      "id": "starlit-night",
+      "name": "Starlit Night",
+      "oocCluster": 1,
+      "oocReferences": ["Constellation: The Ending War (starry cosmos, white serif in 《 》 brackets, thin rule)", "Castaway Starship", "Reborn as a Dragon", "Yokai Academy (moonlit ice blue)"],
+      "fitsGenres": ["cosmic or astral fantasy", "regression or time loop", "fated romance", "science fiction", "spirit or moon myth", "prophecy"],
+      "value": "dark",
+      "model": { "model": "tsubaki3", "mode": "pro", "width": 1152, "height": 1744 },
+      "stylePrompt": "Luminous glossy gacha key art in deep space at night: glowing ultramarine, violet and rose-magenta nebula clouds, thousands of tiny stars, thin glowing constellation lines linking bright stars, a huge luminous pale moon filling a third of the sky behind the figure, swirling glowing stardust, cool cyan and silver rim light, crystalline sparkles. Saturated, luminous colour everywhere, never flat black or murky navy; dreamy, vast and fated. Nothing written anywhere: no text, no letters, no logo.",
+      "negativeExtra": "warm colors, orange, daylight, interior, flat color, black background, from below, upskirt, multiple girls, multiple boys, crowd",
+      "composition": {
+        "characters": 1,
+        "framing": "full length at eye level; the figure spans 10% to 72% of the height, smaller than other recipes (head about 1/9 of the height), the moon behind the upper body",
+        "pose": "standing upright on a floating shard of starlight, body in a graceful S-curve, hair and the long skirt streaming sideways behind like a comet tail, one hand reaching up toward a bright star, a longing or serene look",
+        "camera": "eye level, from a little distance (not from below: a low angle on a floating gown is an upskirt risk)",
+        "titleSpace": "bottom 28% is star field and nebula for the title",
+        "prompt": "Full length at eye level, seen from a little distance: the adult lead stands upright on a floating shard of starlight in the upper two-thirds of the picture, in front of a huge glowing moon, body in a graceful S-curve, hair and the long ankle-length skirt streaming sideways behind like a comet tail, one hand reaching up toward a bright star. The bottom quarter is open star field and nebula."
+      },
+      "palette": {
+        "colors": [
+          { "name": "ultramarine", "hex": "#1C2A8A" },
+          { "name": "violet nebula", "hex": "#6A3FC9" },
+          { "name": "rose-magenta nebula", "hex": "#D04FA8" },
+          { "name": "starlight cyan", "hex": "#8FE7FF" },
+          { "name": "silver white", "hex": "#EEF3FF" }
+        ],
+        "light": "Cool starlight with a moon backlight; cyan rim light on hair and fabric."
+      },
+      "background": "A galaxy: nebula clouds, a dense star field, constellation lines, a giant moon or planet low on the horizon. Or a night rooftop under a meteor shower.",
+      "appeal": "Statuesque adult figure in her late twenties: a flowing ankle-length star-patterned gown with bare shoulders and an opaque fitted bodice, a long cape trailing like a comet tail. A male lead in a long open dark coat with silver embroidery over a fitted shirt, collar open. Serene or longing.",
+      "title": {
+        "mode": "typeset",
+        "font": "Shippori Mincho B1",
+        "weight": 800,
+        "case": "upper",
+        "split": "balanced",
+        "gradient": ["#FFFFFF", "#EAF4FF", "#A6E8FF"],
+        "stroke": null,
+        "glow": { "color": "#56C8FF", "radius": 22, "opacity": 0.85, "spread": 4 },
+        "shadow": { "color": "#03061C", "opacity": 0.7, "radius": 6, "offset": [0, 3] },
+        "brackets": ["《", "》"],
+        "ornament": [
+          { "type": "rules-star", "where": "below", "color": "#BFE9FF", "width": 0.5 },
+          { "type": "sparkles", "color": "#FFFFFF", "count": 5 }
+        ],
+        "position": "bottom",
+        "bottomMargin": 0.06,
+        "lineHeight": 1.0,
+        "maxLines": 3,
+        "sizeShare": 0.22,
+        "scrim": { "edge": "bottom", "color": "#140B3A", "opacity": 0.5, "from": 0.6 },
+        "extra": "The whole title in Mincho capitals at one size, stacked on up to three balanced lines (maxLines 3) so the type stays big, held in 《 》 brackets (Constellation's lockup); white to ice-cyan with a cyan starlight glow; a thin rule with a four-point star below; a few sparkles. No small tracked kicker above a big word: that was exactly the v2 Cinzel lockup."
+      },
+      "frame": { "type": "thin", "label": "thin silver inset rule", "color": "#CFE3FF", "opacity": 0.7, "inset": 24, "width": 2 }
+    },
+    {
+      "id": "system-window",
+      "name": "System Window",
+      "oocCluster": 10,
+      "oocReferences": ["Reincarnated With an OP Skill (holographic SYSTEM window is the hook)", "Your First Choice Changes Everything (choice cards, KEEP / REROLL)", "Infinite Skill Draft", "WORLDLINE (neon green on black, HUD glyphs)", "How to Live as a Vampire in 21st-Century Korea (viewfinder conceit)"],
+      "fitsGenres": ["system or LitRPG", "game world or isekai", "rankings and leaderboards", "regression with stats", "dungeon", "skills and gacha"],
+      "value": "dark",
+      "model": { "model": "tsubaki3", "mode": "pro", "width": 1152, "height": 1744 },
+      "stylePrompt": "Glossy anime game key art built around a holographic game interface: crisp clean lineart, acid-green neon light with hot-magenta glitch accents, translucent glowing green interface windows with thin bright borders, stat bars, skill icons and hexagon grids floating in the air, faint scanlines and magenta-and-green chromatic-aberration glitch at the edges, green screen light reflecting on the face and hair. A deep green-black backdrop with a dim city or dungeon far behind. Sharp, techy, high contrast; acid green is the dominant colour, not blue.",
+      "negativeExtra": "warm colors, daylight, painterly blur, blue theme, cyan theme, multiple girls, multiple boys, crowd",
+      "negativeDrop": ["text", "letters", "logo", "title", "words"],
+      "composition": {
+        "characters": 1,
+        "framing": "waist-up in the lower 60%; a giant holographic window across the top third",
+        "pose": "three-quarter view, looking at the viewer with a smirk, one hand raised touching or swiping a floating panel",
+        "camera": "eye level, slightly low",
+        "titleSpace": "the title is painted inside the big window at the top",
+        "prompt": "Waist-up in the lower part of the picture, three-quarter view, looking at the viewer with a sly smirk, one hand raised and touching a small floating interface panel."
+      },
+      "palette": {
+        "colors": [
+          { "name": "green black", "hex": "#030D06" },
+          { "name": "acid green", "hex": "#7CFF4F" },
+          { "name": "hot magenta glitch", "hex": "#FF2E9A" },
+          { "name": "white", "hex": "#FFFFFF" }
+        ],
+        "light": "Screen light: acid green from the interface windows in front, a hot-magenta glitch rim from behind. Green, not cyan: cool blue-cyan glow is Starlit Night's, on the same model."
+      },
+      "background": "Deep green-black space filled with translucent interface windows, stat bars, hexagon grids and skill icons; a dim city skyline or dungeon gate far behind.",
+      "appeal": "A sharp-featured adult in their late twenties: a fitted black tech jacket worn open over a cropped top or a fitted shirt with the collar open, bare collarbone, a glowing earpiece, green screen light on glossy hair, a knowing smirk.",
+      "title": {
+        "mode": "painted",
+        "font": "Orbitron",
+        "weight": 900,
+        "case": "upper",
+        "paintedPrompt": "Across the top third of the picture, one large holographic SYSTEM window with a glowing acid-green border; inside it the title \"{TITLE}\" in big bold white futuristic game-logo capitals with an acid-green glow, spelled exactly \"{TITLE}\". The small interface panels show only bars and icons, no other readable words.",
+        "position": "top",
+        "sizeShare": 0.16,
+        "extra": "Painted by Tsubaki.3 inside the art; the renderer only adds the frame. If the painted title is misspelled, render the fallback instead (cover-title-v3.py --fallback) on a redraw without the window.",
+        "fallback": {
+          "mode": "typeset",
+          "font": "Orbitron",
+          "weight": 900,
+          "case": "upper",
+          "split": "kicker",
+          "color": "#FFFFFF",
+          "stroke": [{ "color": "#0B3A12", "width": 4 }],
+          "glow": { "color": "#7CFF4F", "radius": 20, "opacity": 0.9, "spread": 4 },
+          "kicker": { "font": "Orbitron", "weight": 600, "case": "upper", "size": 32, "tracking": 0.3, "color": "#FF4FB0" },
+          "ornament": [
+            { "type": "panel", "color": "#04170A", "opacity": 0.74, "border": "#7CFF4F" },
+            { "type": "hud-brackets", "color": "#7CFF4F", "target": "block" }
+          ],
+          "position": "top",
+          "topMargin": 0.075,
+          "lineHeight": 1.0,
+          "sizeShare": 0.14,
+          "scrim": { "edge": "top", "color": "#020A04", "opacity": 0.55, "from": 0.4 }
+        }
+      },
+      "frame": { "type": "neon-hud", "label": "neon acid-green inset rule with viewfinder corners", "color": "#7CFF4F", "inset": 24 }
+    }
+  ]
+}
