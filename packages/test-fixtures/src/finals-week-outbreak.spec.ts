@@ -321,6 +321,32 @@ describe('the cover', () => {
     expect(cover).toMatch(/no wounds, no blood/i);
     expect(cover).toMatch(/no letters, no numbers/i);
   });
+
+  it('owns its lettering with a TITLE line and keeps every effect off her face', () => {
+    const cover = S.coverDirection;
+    expect(cover).toMatch(/TITLE: the words FINALS WEEK OUTBREAK .*upper third/);
+    expect(cover).toContain('HER FACE STAYS CLEAN');
+    expect(cover).not.toMatch(/\badult\b/i);
+  });
+});
+
+describe('it is ready for art and release', () => {
+  it('heads the opener with a panel of the woman who speaks first', () => {
+    expect(S.openingPanel?.alt.length).toBeLessThanOrEqual(200);
+    expect(S.openingPanel?.alt).toMatch(/^Nora\b/);
+  });
+
+  it('has no prologue and no release date yet', () => {
+    expect(S.prologue).toEqual([]);
+    expect(S.publishedAt).toBeNull();
+  });
+
+  it('hands the storyteller the laptop and the one rule everybody can use', () => {
+    expect(S.rules.startingItems.map((i) => i.itemId)).toEqual(['your_laptop']);
+    expect(S.items.find((i) => i.id === 'your_laptop')?.questItem).toBe(true);
+    expect(S.rules.hardCanon.join(' ')).toMatch(/A loud noise/);
+    for (const a of S.archetypes) expect(a.startingAbilities[0], a.id).toBe('go_dark');
+  });
 });
 
 describe('nobody is only there to react', () => {

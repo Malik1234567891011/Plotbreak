@@ -26,6 +26,7 @@ The group chat calls the infected **Regulars**, because they keep their routines
 
 - They are **sick living people, not dead ones.** They do not sleep and rarely speak.
 - They walk toward **lit screens** and toward **voices they know**.
+- **Noise carries.** A fight, a slammed fire door or an alarm turns every head on that floor and the floors next to it, and brings the nearest of them toward it within minutes. The stairwell carries sound through the whole building.
 - They **repeat their old routines.** Odile Fenn, the night librarian, still locks the building at ten past two. A rower still runs the river path. A nurse at the health centre still does her rounds.
 - **A bite passes it on.** Fever within the hour, then no sleep, then the quiet, then the turn, about six hours in all.
 - **When they are dangerous.** Left in the dark and quiet, a Regular ignores people and keeps its routine; somebody walking among them with no light, no voice and exactly their pace is not noticed. A lit screen or a voice it knows draws it straight to the source, and once it is close it reaches for whoever is there. It bites when it gets hold of somebody, or when somebody grabs it, blocks it or hurts it.
@@ -64,7 +65,7 @@ None of this is a script. The storyteller reads it as pressure, and the player c
 
 ## Player starting authority
 
-The player is **twenty-one, a third-year undergraduate** (BLANK protagonist). They author their name, pronouns, look, and one true sentence about themselves. The archetype sets what they are at this university:
+The player is **twenty-one, a third-year undergraduate** (BLANK protagonist). They author their name, pronouns and look. The archetype sets what they are at this university, and every archetype also starts able to *Go Dark*, the one rule of the Regulars anybody can use. The laptop on the table is the starting item and a quest item, so the storyteller reads it:
 
 - **You Work the Night Desk**: library assistant. Knows the staff lift, the basement and Odile Fenn, who knows them back. Starts able to *Read the Room*.
 - **You Study Engineering**: hinges, loads, fasteners. Starts able to *Hold the Door*.
@@ -229,6 +230,6 @@ Nora speaks at word 48. The beat ends on a question that needs an answer now. Th
 
 ## Image notes
 
-- **Cover:** Nora with her back pressed to a tall wooden library door, one hand flat on it, a finger to her lips, stethoscope over a navy hoodie. Behind the frosted glass, the silhouette of a hand on the handle. Dark reading room, arched windows, red-and-white floodlights from the quad. Title FINALS WEEK OUTBREAK painted into the upper third. No blood, no gore, adults only, described by costume and pose.
-- **Opening panel:** Nora at the table in the dark, gripping your wrist, staring at a door handle turned all the way down, one laptop glowing.
+- **Cover:** Nora with her back pressed to a tall wooden library door, one hand flat on it, a finger to her lips, stethoscope over a navy hoodie. Behind the frosted glass, the silhouette of a hand on the handle with a ring of keys. Dark reading room, arched windows, red-and-white floodlights from the quad. Her face stays clean: every red effect sits on the floodlights and the title. `TITLE:` line: FINALS WEEK OUTBREAK in the upper third, a bold condensed horror logo, white with a red glow, a thin frosted-glass crack through OUTBREAK only. No blood, no gore, people described by costume and pose, never by age words.
+- **Opening panel** (`story_finals_week_outbreak/opening`, drawn from Nora's portrait): Nora at the table in the dark, gripping your wrist, staring at a door handle turned all the way down, one laptop glowing.
 - **Hero frames:** Priya waiting for the lift; the helicopter on the roof in rotor wash; the quad emptying at nine as hundreds of Regulars walk to the exam hall in silence; Lily asleep at last with her sketchbook on her chest.

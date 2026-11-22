@@ -29,7 +29,10 @@ import { StoryVersion } from '@plotbreak/contracts';
  * world events and the first twelve endings. It does not read resources, step
  * notes or the ability list beyond the chosen archetype's starting abilities.
  * So the rules of the infected, the reset doses and the four seats all live in
- * hard canon, and the objects the story turns on are quest items.
+ * hard canon, and the objects the story turns on are quest items. The laptop,
+ * the brightest thing on the floor in the opener, is the starting item and a
+ * quest item for the same reason, and every archetype starts with Go Dark, the
+ * one rule of the Regulars anybody can use, as well as its own move.
  *
  * Three invisible variables. Stamina is the one honest GOOD_HIGH, because
  * `resolveRest` refills those. Noise comes first among the descending pair on
@@ -84,7 +87,7 @@ const raw = {
       'It is 2:07 a.m. on the Tuesday of finals week. The county sealed the campus on Monday evening. Phones show signal but calls do not connect; the campus wifi and the students’ group chat still work. The emergency alert reads: Shelter in place. Do not approach affected persons. Await evacuation instructions. Six uninfected people are in the main library: the player, Nora, Lily and Declan on the third floor, Kwame in the security office, and Haas behind the steel door of Special Collections on the fourth.',
       'The students call the infected Regulars, because they keep their routines. Regulars are sick living people, not dead ones. They do not sleep and rarely speak. They walk toward lit screens and toward voices they know, and they repeat their old routines: Odile Fenn still locks the library at ten past two, a rower still runs the river path, a nurse at the health centre still does her rounds.',
       'A bite passes it on. A bitten person runs a fever within the hour, stops being able to sleep, goes quiet, and turns in about six hours. A Regular can be shoved, outrun, shut out or locked in. Hurting one is hurting a sick classmate, and the prose never treats it as anything else. There is no gore on the page, ever.',
-      'What a Regular does to a person. Left in the dark and quiet, it ignores people and keeps its routine, and somebody walking among them with no light, no voice and exactly their pace is not noticed. A lit screen or a voice it knows draws it straight to the source, and once it is close it reaches for whoever is there. It bites when it gets hold of somebody, or when somebody grabs it, blocks it or hurts it. The hand on the reading-room handle at 2:07 is Odile Fenn on her lock-up round, in her cardigan, keys on a lanyard round her neck: if the room is dark and silent at 2:10 she locks it from outside and moves on; if the laptop is still lit when that door opens, she walks straight toward it.',
+      'What a Regular does to a person. Left in the dark and quiet, it ignores people and keeps its routine, and somebody walking among them with no light, no voice and exactly their pace is not noticed. A lit screen or a voice it knows draws it straight to the source, and once it is close it reaches for whoever is there. A loud noise, such as a fight, a slammed fire door or an alarm, turns every head on that floor and the floors next to it and brings the nearest of them toward it within minutes; the stairwell carries sound through the whole building. It bites when it gets hold of somebody, or when somebody grabs it, blocks it or hurts it. The hand on the reading-room handle at 2:07 is Odile Fenn on her lock-up round, in her cardigan, keys on a lanyard round her neck: if the room is dark and silent at 2:10 she locks it from outside and moves on; if the laptop is still lit when that door opens, she walks straight toward it.',
       'Regulars are relearning, in the order people learn a building: on Sunday they walked into doors; tonight they turn handles and climb stairs; Haas expects most of them to manage keys and keycards by tomorrow night, and words after that. Odile Fenn is already ahead of them: she uses her own keys tonight, says the library is closing, and before morning she says Kwame’s name. A few others have started repeating a habit phrase.',
       'It came out of ND-12, a wakefulness compound from Haas’s pharmacology lab, trialled during finals week on forty paid student volunteers who called it the study pill. Three volunteers turned at about seventy hours without sleep on Sunday night and bit others. Lily Tran is Volunteer 31: she has been awake sixty hours when the story opens, wears a paper trial band under her left sleeve, and turns at about two in the afternoon unless a reset dose puts her to sleep first. After sixty hours on ND-12 nobody can fall asleep on their own, however tired they are; rest, warmth and kindness do not do it, and nothing in the library does.',
       'Haas designed a reset dose: a sedative that forces sleep and stops the turn if it is given before the turn completes. Twelve doses sit in a refrigerator in his lab in the science building across the quad, reachable over the quad or through the steam tunnel from the library basement. The refrigerator is padlocked; the key is on Haas’s own ring. On a Regular who has fully turned it does nothing anybody has measured. Nobody outside his lab knows the doses exist.',
@@ -93,7 +96,7 @@ const raw = {
     ],
     toneGuide:
       'Survival horror with the lights off and the jokes still on. Tense, fast and specific: a door handle, a cracked phone screen, a stairwell door that sighs, keys on the other side of frosted glass. ' +
-      'The fear comes from what the Regulars are learning and from what the survivors are willing to do to each other, never from wounds — nothing is described in blood or injury. The Regulars are sick classmates in hoodies and lanyards; violence against one works, is loud, and costs the group something every time it happens. ' +
+      'The fear comes from what the Regulars are learning and from what the survivors are willing to do to each other, never from wounds — nothing is described in blood or injury. The Regulars are sick classmates in hoodies and lanyards; hurting one works, is loud, and costs the group something every time it happens.' +
       'The survivors are funny because they are frightened, and a joke between two scares is how this story breathes. Romance between frightened adults is allowed to happen honestly and slowly, a kiss at most. ' +
       'Nobody is a villain. Haas is ashamed, Declan is guilty, Kwame is decided, Nora is counting, Lily is lying about how many cans she has had. The face at the top of a beat belongs to whoever reacted to the player most strongly.',
     proseStyle: 'webnovel',
@@ -234,6 +237,7 @@ const raw = {
       id: 'your_laptop',
       name: 'Your Laptop',
       tags: ['personal', 'light'],
+      questItem: true,
       description: 'Thirty-one per cent battery, a revision document called FINAL final v3, and the brightest thing on the third floor. They come to screens.',
       loreText: 'Shut, it is a slab of aluminium. Open and thrown down a corridor, it is the best lure in the building for about four minutes.',
       icon: 'laptop',
@@ -2082,7 +2086,7 @@ const raw = {
       attributeBonus: { mind: 2, agility: 2 },
       skillProficiencies: { attention: 3, quiet: 2 },
       startingItems: [{ itemId: 'staff_lanyard', qty: 1 }],
-      startingAbilities: ['read_them'],
+      startingAbilities: ['go_dark', 'read_them'],
       startingReputation: [],
     },
     {
@@ -2095,7 +2099,7 @@ const raw = {
       attributeBonus: { might: 2, mind: 2 },
       skillProficiencies: { brace: 3, attention: 1, nerve: 1 },
       startingItems: [{ itemId: 'multitool', qty: 1 }],
-      startingAbilities: ['hold_it'],
+      startingAbilities: ['go_dark', 'hold_it'],
       startingReputation: [],
     },
     {
@@ -2108,7 +2112,7 @@ const raw = {
       attributeBonus: { might: 2, agility: 2 },
       skillProficiencies: { legs: 3, scrap: 1, nerve: 1 },
       startingItems: [{ itemId: 'training_watch', qty: 1 }],
-      startingAbilities: ['make_a_run'],
+      startingAbilities: ['go_dark', 'make_a_run'],
       startingReputation: [{ factionId: 'faction_group_chat', amount: 5 }],
     },
     {
@@ -2121,7 +2125,7 @@ const raw = {
       attributeBonus: { presence: 3, resolve: 1 },
       skillProficiencies: { steady: 3, bluff: 2 },
       startingItems: [{ itemId: 'your_phone', qty: 1 }],
-      startingAbilities: ['talk_down'],
+      startingAbilities: ['go_dark', 'talk_down'],
       startingReputation: [{ factionId: 'faction_group_chat', amount: 5 }],
     },
     {
@@ -2134,7 +2138,7 @@ const raw = {
       attributeBonus: { mind: 2, resolve: 2 },
       skillProficiencies: { first_aid: 3, candour: 1, steady: 1 },
       startingItems: [{ itemId: 'penlight', qty: 1 }],
-      startingAbilities: ['patch_up'],
+      startingAbilities: ['go_dark', 'patch_up'],
       startingReputation: [],
     },
   ],
@@ -2148,29 +2152,6 @@ const raw = {
         'Your course or your job here, which sets what you are good at when the handle turns. It is fixed for the whole story. It does not decide whether you hold the door, take a seat on the roof, or walk out on everybody. All of that is yours, and none of it is decided here.',
       kind: 'ARCHETYPE',
       required: true,
-    },
-    {
-      id: 'worldKnowsAboutYou',
-      label: 'What is true about you, even at 2 a.m.?',
-      helpText: 'One plain sentence the night can use. Most people write one, and that is the right amount.',
-      kind: 'TEXT',
-      required: false,
-      maxLength: 300,
-      placeholder: 'e.g. I have never once finished revising on time, and I am very calm in a fire drill, which people find annoying.',
-    },
-    {
-      id: 'how_you_take_it',
-      label: 'What is your first instinct when the handle turns?',
-      helpText: 'A starting temperament, not a promise. You can do the exact opposite on turn one and the night will keep up.',
-      kind: 'CHOICE',
-      advanced: true,
-      options: [
-        { id: 'hide', label: 'Go dark and wait for it to pass' },
-        { id: 'hold', label: 'Put my weight against the door' },
-        { id: 'look', label: 'Find out who it is' },
-        { id: 'lead', label: 'Take charge of whoever is in the room' },
-        { id: 'leave', label: 'Work out how to get out alone' },
-      ],
     },
     {
       id: 'appearance',
@@ -2350,14 +2331,17 @@ const raw = {
   coverDirection: [
     'SUBJECT: Nora Lindqvist, a medical trainee trapped in a university library at night, alone and unmistakable in the foreground of a key visual for a survival horror anime.',
     'She fills the frame from the waist up, close and slightly off centre, holding about two thirds of the picture.',
-    'An adult woman, tall, ash-blonde hair in a messy knot held with a pen, grey eyes, a navy hoodie over pale blue hospital scrubs, a stethoscope slung round her neck.',
+    'Tall, ash-blonde hair in a messy knot held with a pen, grey eyes, a navy hoodie over pale blue hospital scrubs, a stethoscope slung round her neck.',
     'Her back is pressed against a tall wooden door, one palm flat against it, the other hand raised with one finger to her lips, eyes wide and alert, looking straight at the viewer.',
-    'In the frosted glass panel of the door beside her head, the soft dark silhouette of a hand resting on the handle from the other side. No faces behind the glass, no wounds, no blood.',
+    'In the frosted glass panel of the door beside her head, the soft dark silhouette of a hand resting on the handle from the other side, a ring of keys hanging from it. No faces behind the glass, no wounds, no blood.',
+    'HER FACE STAYS CLEAN: no red light, marks, scratches, stains or shadows on her face or skin.',
+    'Every red effect stays on the floodlights outside the windows and on the title, never on her face.',
     'BEHIND HER, soft and secondary: a vast dark reading room with long oak tables and green lamps switched off, tall arched windows, and outside them a campus lawn lit by distant red and white floodlights.',
-    'LIGHT: cold blue moonlight from the windows across her face, a single warm laptop glow from a table, a thin red rim of emergency light along her silhouette.',
+    'LIGHT: cold blue moonlight from the windows across her face and hoodie, a single warm laptop glow from a table beside her, so she is lit in blue and edged in warm gold.',
     'MOOD: tense, quiet, cinematic. Fear from stillness, not gore.',
     'TITLE: the words FINALS WEEK OUTBREAK painted into the art in the upper third as a bold condensed horror logo, white with a red glow,',
-    'spelled exactly FINALS WEEK OUTBREAK, large and legible at thumbnail size. No other text anywhere: no letters, no numbers, no signs, nothing written on the walls.',
+    'spelled exactly FINALS WEEK OUTBREAK, large and legible at thumbnail size. A thin crack, like cracked frosted glass, runs through the word OUTBREAK only.',
+    'No other text anywhere: no letters, no numbers, no signs, nothing written on the walls.',
   ].join(' '),
   publishedAt: null,
 };
