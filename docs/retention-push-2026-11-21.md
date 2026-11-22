@@ -144,7 +144,13 @@ Targets (weekly cohorts, ~88 players/week so only big moves show): D1 any-open 1
    wire PixAI into the cover pipeline: provider switch, the existing gpt-4.1-mini title read-back,
    a franchise-symbol check; the FR title swap stays on the gpt-image edit path. Redo the 6 Featured
    covers first and show the user before any install or MEDIA_EPOCH bump.
-   Bot cost, plainly: ~$2.50/story → 1/day ≈ $75 + $10 PixAI ≈ $85/month; 3/day ≈ $225 + $30 ≈ $255.
+   Bot cost, English only (the user, 2026-11-21: no French for now), full art pack: ~$3.50–4/story =
+   premise $0.04 (terra) + writing ~$1.90 (Opus 5.5 API: bible 9.5K in/10K out, world 57K/45K,
+   uncached repair) + PixAI cover ~$0.15 + 50–65 in-story images ~$1.30–1.80 (gpt-image-2.5 at auto
+   ≈ $0.025 each, or PixAI Flash) + smoke $0.02. 1/day ≈ $115/month incl. PixAI (budget $150);
+   3/day ≈ $340. Writing on the user's Claude plan via Claude Code instead of the API: ≈ $60 and
+   ≈ $170. The earlier $2.50 figure counted only 3 portraits. About 60% of sessions opened in French
+   in October (early-dropout-analysis.md); French adds ~$0.30/story when it comes back.
 
 ## Production side effects of this push
 
