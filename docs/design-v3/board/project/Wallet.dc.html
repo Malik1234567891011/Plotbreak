@@ -14,21 +14,38 @@
 body{margin:0;background:#0F0E0D}
 a{color:#B4ADA3;text-decoration:none}a:hover{color:#F3EFE8}
 button{font:inherit;color:inherit;cursor:pointer}
-.pack{position:relative;display:flex;flex-direction:column;align-items:center;min-height:214px;padding:10px 8px 10px;border:0;border-radius:3px;background:radial-gradient(circle at 50% 40%,rgba(243,239,232,0.09),rgba(243,239,232,0) 58%),#22201D;box-shadow:inset 0 0 0 1px #2E2B27;font-variant-numeric:tabular-nums}
-.pack .bonus{height:18px;font-size:13px;line-height:18px;font-weight:700;color:#F3EFE8}
-.pack .art{display:flex;align-items:center;justify-content:center;width:88px;height:88px;margin-top:2px}
+.pill{display:flex;align-items:center;justify-content:center;border:0;border-radius:999px;background:#F3EFE8;color:#0F0E0D;font-weight:600;font-variant-numeric:tabular-nums}
+.pack{position:relative;display:flex;flex-direction:column;align-items:center;min-height:236px;padding:12px 8px 10px;border:0;border-radius:3px;background:radial-gradient(circle at 50% 34%,rgba(243,239,232,0.10),rgba(243,239,232,0) 56%),#22201D;box-shadow:inset 0 0 0 1px #2E2B27;font-variant-numeric:tabular-nums}
+.pack .art{display:flex;align-items:center;justify-content:center;width:92px;height:92px;margin-top:6px}
 .pack .art img{display:block;object-fit:contain}
-.pack .amt{margin-top:4px;font-size:17px;line-height:22px;font-weight:600}
+.pack .amt{margin-top:4px;font-size:18px;line-height:22px;font-weight:700}
+.pack .was{display:flex;align-items:center;gap:5px;height:18px;margin-top:2px;font-size:12px;color:#948E85}
+.pack .was s{text-decoration-thickness:1px}
+.pack .was b{padding:1px 4px;border-radius:3px;box-shadow:inset 0 0 0 1px #B4ADA3;color:#F3EFE8;font-size:11px;line-height:13px;font-weight:700}
 .pack .turns{font-size:12px;line-height:16px;color:#948E85}
-.pack .price{display:flex;align-items:center;justify-content:center;align-self:stretch;height:32px;margin-top:10px;border-radius:16px;background:rgba(243,239,232,0.14);font-size:15px;font-weight:600}
-.pack .tag{position:absolute;left:0;top:0;padding:3px 7px;border-radius:3px 0 3px 0;background:#F3EFE8;color:#0F0E0D;font-size:10px;line-height:12px;font-weight:700;letter-spacing:0.08em}
-.row{display:flex;align-items:center;gap:14px;min-height:64px;border-bottom:1px solid #2E2B27;color:#F3EFE8}
+.pack .pill{align-self:stretch;height:34px;margin-top:auto;font-size:15px}
+.tag{position:absolute;left:0;top:0;padding:3px 7px;border-radius:3px 0 3px 0;background:#F3EFE8;color:#0F0E0D;font-size:10px;line-height:12px;font-weight:700;letter-spacing:0.08em}
+.slot{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;width:54px;height:62px;border-radius:3px;box-shadow:inset 0 0 0 1px #45413B;font-size:11px;line-height:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.slot img{display:block;width:32px;height:32px;margin-bottom:2px}
+.quest{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #2E2B27}
+.quest .t{display:flex;flex-direction:column;flex:1;min-width:0}
+.quest .t b{font-size:17px;line-height:22px;font-weight:600}
+.quest .t span{font-size:13px;line-height:18px;color:#948E85}
+.bar{display:block;height:4px;margin-top:8px;border-radius:2px;background:#2E2B27;overflow:hidden}
+.bar i{display:block;height:4px;background:#F3EFE8}
+.row{display:flex;align-items:center;gap:12px;min-height:64px;border-bottom:1px solid #2E2B27;color:#F3EFE8}
 .row .t{display:flex;flex-direction:column;flex:1}
 .row .t b{font-size:17px;line-height:22px;font-weight:600}
 .row .t span{font-size:13px;line-height:18px;color:#948E85}
+.swap{position:relative;display:inline-block;height:12px;min-width:150px}
+.swap span{position:absolute;left:0;top:0;white-space:nowrap;animation:swapA 6s infinite}
+.swap span+span{opacity:0;animation-name:swapB}
+@keyframes swapA{0%,42%{opacity:1}50%,92%{opacity:0}100%{opacity:1}}
+@keyframes swapB{0%,42%{opacity:0}50%,92%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion: reduce){.swap span{animation:none}.swap span+span{display:none}}
 </style>
 </helmet>
-<div style="position: relative; width: 390px; height: 1240px; overflow: hidden; background: #0F0E0D; color: #F3EFE8; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased">
+<div style="position: relative; width: 390px; height: 1600px; overflow: hidden; background: #0F0E0D; color: #F3EFE8; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased">
 
   <section role="dialog" aria-labelledby="w-title" style="position: absolute; left: 0; right: 0; top: 54px; bottom: 0; border-radius: 20px 20px 0 0; background: #181715; box-shadow: inset 0 1px 0 rgba(243,239,232,0.08); padding: 0 20px">
     <span aria-hidden="true" style="display: block; width: 36px; height: 5px; margin: 8px auto 0; border-radius: 3px; background: #45413B"></span>
@@ -43,91 +60,104 @@ button{font:inherit;color:inherit;cursor:pointer}
       </a>
     </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center; margin-top: 6px">
+    <div style="display: flex; flex-direction: column; align-items: center; margin-top: 4px">
       <img src="/_blob/dd88a6f419bccac19643044129e2d1e2" alt="" style="display: block; width: 92px; height: 92px">
       <div aria-label="1,240 credits" style="margin-top: 4px; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 44px; line-height: 48px; font-variant-numeric: tabular-nums">1,240</div>
       <span style="font-size: 13px; line-height: 18px; color: #948E85">About 20 turns at Vivid</span>
     </div>
 
-    <button aria-label="First purchase: 1,400 credits for $0.99" style="position: relative; display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 24px; padding: 20px 14px 14px; border: 0; border-radius: 3px; background: radial-gradient(circle at 15% 55%, rgba(243,239,232,0.10), rgba(243,239,232,0) 45%), #22201D; box-shadow: inset 0 0 0 1.5px #F3EFE8; text-align: left; font-variant-numeric: tabular-nums">
-      <span style="position: absolute; left: 0; top: 0; padding: 3px 7px; border-radius: 2px 0 3px 0; background: #F3EFE8; color: #0F0E0D; font-size: 10px; line-height: 12px; font-weight: 700; letter-spacing: 0.08em">FIRST PURCHASE · ONCE</span>
-      <img src="/_blob/e4b9408ede6f8c98108a3391eae791db" alt="" style="display: block; flex: none; width: 80px; height: 80px">
+    <button aria-label="First purchase: 1,400 credits instead of 700, $0.99" style="position: relative; display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 22px; padding: 22px 14px 14px; border: 0; border-radius: 3px; background: radial-gradient(circle at 14% 58%, rgba(243,239,232,0.12), rgba(243,239,232,0) 42%), #22201D; box-shadow: inset 0 0 0 1.5px #F3EFE8; text-align: left; font-variant-numeric: tabular-nums">
+      <span class="tag"><span class="swap"><span>FIRST PURCHASE · ONCE</span><span>DOUBLE CREDITS</span></span></span>
+      <img src="/_blob/e4b9408ede6f8c98108a3391eae791db" alt="" style="display: block; flex: none; width: 84px; height: 84px">
       <span style="display: flex; flex-direction: column; flex: 1">
-        <span style="font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 30px; line-height: 34px">1,400</span>
-        <span style="font-size: 13px; line-height: 18px; color: #F3EFE8">700, doubled on your first purchase</span>
+        <span style="display: flex; align-items: baseline; gap: 6px"><span style="font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 30px; line-height: 34px">1,400</span><s style="font-size: 13px; color: #948E85">700</s></span>
+        <span style="font-size: 13px; line-height: 18px; color: #F3EFE8">Doubled on your first purchase</span>
         <span style="font-size: 12px; line-height: 16px; color: #948E85">About 23 turns</span>
       </span>
-      <span style="display: flex; align-items: center; justify-content: center; flex: none; height: 44px; padding: 0 16px; border-radius: 22px; background: #F3EFE8; color: #0F0E0D; font-size: 17px; font-weight: 600">$0.99</span>
+      <span class="pill" style="flex: none; height: 44px; padding: 0 16px; font-size: 17px">$0.99</span>
     </button>
 
     <h2 style="margin: 28px 0 0; font-size: 20px; line-height: 25px; font-weight: 600">Credit packs</h2>
+    <p style="margin: 2px 0 0; font-size: 13px; line-height: 18px; color: #948E85">Bigger packs get a bigger bonus, up to +10%.</p>
     <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 12px">
       <button class="pack" aria-label="1,000 credits, $1.49">
-        <span class="bonus"></span>
-        <span class="art"><img src="/_blob/dd88a6f419bccac19643044129e2d1e2" alt="" style="width: 64px; height: 64px"></span>
-        <span class="amt">1,000</span><span class="turns">16 turns</span>
-        <span class="price">$1.49</span>
+        <span class="art"><img src="/_blob/dd88a6f419bccac19643044129e2d1e2" alt="" style="width: 62px; height: 62px"></span>
+        <span class="amt">1,000</span><span class="was"></span><span class="turns">16 turns</span>
+        <span class="pill">$1.49</span>
       </button>
       <button class="pack" aria-label="2,000 credits, $2.89">
-        <span class="bonus"></span>
-        <span class="art"><img src="/_blob/2edeb3af4475e5fbd21e161a6f0c794e" alt="" style="width: 70px; height: 70px"></span>
-        <span class="amt">2,000</span><span class="turns">33 turns</span>
-        <span class="price">$2.89</span>
+        <span class="art"><img src="/_blob/2edeb3af4475e5fbd21e161a6f0c794e" alt="" style="width: 68px; height: 68px"></span>
+        <span class="amt">2,000</span><span class="was"></span><span class="turns">33 turns</span>
+        <span class="pill">$2.89</span>
       </button>
-      <button class="pack" aria-label="10,000 credits plus 300 bonus, $14.49, popular" style="box-shadow: inset 0 0 0 1.5px #F3EFE8">
+      <button class="pack" aria-label="10,300 credits including a 300 bonus, $14.49, popular" style="box-shadow: inset 0 0 0 1.5px #F3EFE8">
         <span class="tag">POPULAR</span>
-        <span class="bonus">+300</span>
         <span class="art"><img src="/_blob/30982e7940c42fa808e2ec18ee097ac8" alt="" style="width: 76px; height: 76px"></span>
-        <span class="amt">10,000</span><span class="turns">171 turns</span>
-        <span class="price">$14.49</span>
+        <span class="amt">10,300</span><span class="was"><s>10,000</s><b>+3%</b></span><span class="turns">171 turns</span>
+        <span class="pill">$14.49</span>
       </button>
-      <button class="pack" aria-label="20,000 credits plus 1,000 bonus, $28.49">
-        <span class="bonus">+1,000</span>
+      <button class="pack" aria-label="21,000 credits including a 1,000 bonus, $28.49">
         <span class="art"><img src="/_blob/faa01e697ab928b2a1551212ba12a40b" alt="" style="width: 80px; height: 80px"></span>
-        <span class="amt">20,000</span><span class="turns">350 turns</span>
-        <span class="price">$28.49</span>
+        <span class="amt">21,000</span><span class="was"><s>20,000</s><b>+5%</b></span><span class="turns">350 turns</span>
+        <span class="pill">$28.49</span>
       </button>
-      <button class="pack" aria-label="50,000 credits plus 3,500 bonus, $71.00, best value">
+      <button class="pack" aria-label="53,500 credits including a 3,500 bonus, $71.00, best value">
         <span class="tag">BEST VALUE</span>
-        <span class="bonus">+3,500</span>
-        <span class="art"><img src="/_blob/e211dffc8c11998e4db8e001cb095464" alt="" style="width: 84px; height: 84px"></span>
-        <span class="amt">50,000</span><span class="turns">891 turns</span>
-        <span class="price">$71.00</span>
+        <span class="art"><img src="/_blob/e211dffc8c11998e4db8e001cb095464" alt="" style="width: 86px; height: 86px"></span>
+        <span class="amt">53,500</span><span class="was"><s>50,000</s><b>+7%</b></span><span class="turns">891 turns</span>
+        <span class="pill">$71.00</span>
       </button>
-      <button class="pack" aria-label="100,000 credits plus 10,000 bonus, $142.99">
-        <span class="bonus">+10,000</span>
-        <span class="art"><img src="/_blob/fee1b242cee8119eb09a9294e867701f" alt="" style="width: 88px; height: 88px"></span>
-        <span class="amt">100,000</span><span class="turns">1,833 turns</span>
-        <span class="price">$142.99</span>
+      <button class="pack" aria-label="110,000 credits including a 10,000 bonus, $142.99">
+        <span class="art"><img src="/_blob/fee1b242cee8119eb09a9294e867701f" alt="" style="width: 92px; height: 92px"></span>
+        <span class="amt">110,000</span><span class="was"><s>100,000</s><b>+10%</b></span><span class="turns">1,833 turns</span>
+        <span class="pill">$142.99</span>
       </button>
     </div>
 
-    <h2 style="margin: 28px 0 0; font-size: 20px; line-height: 25px; font-weight: 600">Free credits</h2>
-    <div style="margin-top: 4px">
-      <div class="row">
-        <img src="/_blob/dd88a6f419bccac19643044129e2d1e2" alt="" style="display: block; width: 36px; height: 36px">
-        <span class="t"><b>300 free today</b><span>Back every day</span></span>
-        <button style="height: 44px; padding: 0 20px; border: 0; border-radius: 22px; background: #22201D; box-shadow: inset 0 0 0 1px #45413B; font-size: 15px; font-weight: 600">Claim</button>
+    <h2 style="margin: 32px 0 0; font-size: 20px; line-height: 25px; font-weight: 600">Earn credits</h2>
+    <div style="display: flex; align-items: center; gap: 12px; margin-top: 12px; padding: 12px; border-radius: 3px; background: radial-gradient(circle at 10% 50%, rgba(243,239,232,0.10), rgba(243,239,232,0) 40%), #22201D">
+      <span class="slot" style="box-shadow: inset 0 0 0 1px #B4ADA3"><img src="/_blob/dd88a6f419bccac19643044129e2d1e2" alt="">×300</span>
+      <span style="display: flex; flex-direction: column; flex: 1"><b style="font-size: 17px; line-height: 22px; font-weight: 600">Daily log-in</b><span style="font-size: 13px; line-height: 18px; color: #948E85">Free every day. Next one in 24 h.</span></span>
+      <button class="pill" style="height: 44px; padding: 0 20px; font-size: 15px">Claim</button>
+    </div>
+
+    <h3 style="margin: 22px 0 0; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.12em; color: #B4ADA3">QUESTS</h3>
+    <div style="margin-top: 2px">
+      <div class="quest">
+        <span class="slot"><img src="/_blob/dd88a6f419bccac19643044129e2d1e2" alt="">+100</span>
+        <span class="t"><b>Genre Hopper</b><span>Play worlds in three different genres.</span><span class="bar" aria-label="3 of 3"><i style="width: 100%"></i></span></span>
+        <button class="pill" style="height: 44px; padding: 0 18px; font-size: 15px">Claim</button>
       </div>
-      <a class="row" href="Pass.dc.html">
-        <img src="/_blob/2edeb3af4475e5fbd21e161a6f0c794e" alt="" style="display: block; width: 36px; height: 36px">
-        <span class="t"><b>Plotbreak Pass</b><span>400 more every day · $2.99 a week</span></span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
-      </a>
-      <a class="row" href="Tower.dc.html" style="border-bottom: 0">
-        <span aria-hidden="true" style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 24px">塔</span>
-        <span class="t"><b>The Tower</b><span>One climb a day, up to 300</span></span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
-      </a>
+      <div class="quest">
+        <span class="slot"><img src="/_blob/dd88a6f419bccac19643044129e2d1e2" alt="">+120</span>
+        <span class="t"><b>World Hopper</b><span>Start five different worlds.</span><span class="bar" aria-label="4 of 5"><i style="width: 80%"></i></span></span>
+        <span style="flex: none; width: 52px; text-align: right; font-size: 13px; color: #B4ADA3; font-variant-numeric: tabular-nums">4 of 5</span>
+      </div>
+      <div class="quest">
+        <span class="slot"><img src="/_blob/dd88a6f419bccac19643044129e2d1e2" alt="">+200</span>
+        <span class="t"><b>Ending Hunter</b><span>Reach five different endings.</span><span class="bar" aria-label="1 of 5"><i style="width: 20%"></i></span></span>
+        <span style="flex: none; width: 52px; text-align: right; font-size: 13px; color: #B4ADA3; font-variant-numeric: tabular-nums">1 of 5</span>
+      </div>
     </div>
 
-    <div style="display: flex; justify-content: center; gap: 18px; margin-top: 14px; font-size: 13px">
+    <a class="row" href="Pass.dc.html" style="margin-top: 8px">
+      <img src="/_blob/2edeb3af4475e5fbd21e161a6f0c794e" alt="" style="display: block; width: 40px; height: 40px; margin: 0 7px">
+      <span class="t"><b>Plotbreak Pass</b><span>400 more every day · $2.99 a week</span></span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+    </a>
+    <a class="row" href="Tower.dc.html" style="border-bottom: 0">
+      <span aria-hidden="true" style="display: flex; align-items: center; justify-content: center; width: 54px; height: 40px; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 26px">塔</span>
+      <span class="t"><b>The Tower</b><span>One climb a day, up to 300</span></span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+    </a>
+
+    <div style="display: flex; justify-content: center; gap: 18px; margin-top: 12px; font-size: 13px">
       <a href="#">Restore purchases</a><a href="#">Terms</a>
     </div>
   </section>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1240}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1600}}'>
 class Component extends DCLogic {
   renderVals() {
     return {};

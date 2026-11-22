@@ -147,7 +147,7 @@
    "x": 0,
    "y": 9876,
    "w": 390,
-   "h": 1240,
+   "h": 1600,
    "title": "Credits (full scroll)"
   },
   "Quality.dc.html": {
@@ -334,9 +334,9 @@
   },
   "RefWallet.dc.html": {
    "x": 0,
-   "y": 11164,
+   "y": 11524,
    "w": 390,
-   "h": 720,
+   "h": 1120,
    "title": "Where it came from: Credits"
   }
  },
