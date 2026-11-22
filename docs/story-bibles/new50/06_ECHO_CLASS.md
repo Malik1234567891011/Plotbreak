@@ -133,7 +133,7 @@ Ages are canon. Everybody is 18 or older.
 **Voice:** lazy, polite, smiling. Calls everybody by their rank number. Never swears. Offers deals like a shopkeeper. "Morning, Twelve-Hundred. Hit me. Everybody does eventually, and it's the best part of my day."
 
 ### Registrar Delphine Marsh, called Marsh (52)
-**Role:** classification officer for the national Registry. Has set up in the Registry Annex with one file in her case, and it is yours.
+**Role:** classification officer for the national Registry. Has set up in the Registry Annex with one file in her case, and it is yours. She has never had a power; shaking her hand copies nothing, and she offers it anyway.
 **Appearance:** neat grey bob, navy suit that has been to a lot of hearings, clipboard with a carbon under every sheet. **Visual hook:** a fountain pen she uncaps only when she is about to write something you cannot take back.
 **Want:** classify you by Friday at ten. She does not want to restrict a twenty-year-old. She has done it once.
 **Secrets:** standing order: any Echo who demonstrably holds past sixty is restricted on the spot, with no hearing, and there is a car waiting at the harbour. And she processed Arlo Wren's restriction as a junior clerk. He is alive, in a Registry facility, and every year she visits he asks about Adair.
@@ -221,7 +221,7 @@ Named in the fixture's faction descriptions so the narrator has powers to hand t
 
 Adults only, described by costume and pose, never by age words. No franchise symbols: no hero-academy crests or costumes from existing series. Effects on objects, not on faces.
 
-- **Cover (Tsubaki.3, title in the art: "ECHO CLASS"):** a figure in a dark open jacket, one black glove on and one hand bare, floats a metre above a crowded hall floor, one hand locked in the grip of a composed woman with jaw-length black hair and steel wrist weights, grey eyes narrowed. A water jug and three chairs drift around them. Faint concentric ripples in the air around their joined hands. The ranking board glows on the back wall, numbers unreadable. Cool blue and steel palette with one warm stage light.
+- **Cover (Tsubaki.3, title in the art: "ECHO CLASS"):** Yuna alone in the foreground, waist up, jaw-length black hair, grey eyes narrowed, dark navy jacket zipped to the collar with no crest, a steel weight band on each wrist. Her bare hand grips the viewer's bare hand at the bottom of the frame, a handshake held far too long. The room has lost its weight: her hair ends lift, a water jug pours out into floating beads, two chairs and blank sheets of paper drift up. Faint concentric ripples in the air around the joined hands, never on her face. Behind her, the hall's crowd looks up and the ranking board glows with blank bars, nothing readable. Cool blue and steel with one warm stage light. Title ECHO CLASS in the upper third, steel white with a cold blue edge, one ripple ring through ECHO. The fixture's `coverDirection` is the full brief.
 - **Portraits:** Yuna (zipped jacket, wrist weights), Teo (unplugged headphones, pocket jacket), Adair (watch on the inside of the wrist, forearm scar), Rook (black chess piece across knuckles), Marsh (fountain pen, clipboard).
 - **Stages:** Great Hall with the Board, the Quad, Residence Block, Room 4C, the Pit, Gym Roof at night, Adair's Lab, Records Room 0, Infirmary, Registry Annex, the Boathouse, Velling Harbour with the rebuilt pier.
 - **Opening panel:** Yuna gripping the player's hand as they float above the hall, a water jug drifting beside them.

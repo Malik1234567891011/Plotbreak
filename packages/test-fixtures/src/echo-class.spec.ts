@@ -504,6 +504,8 @@ describe('everyone is an adult and the content stays 13+', () => {
     expect(imagePlan, 'bible image plan').not.toMatch(MINOR);
     const art = story.locations.filter((l) => MINOR.test(l.artDirection)).map((l) => l.id);
     expect(art).toEqual([]);
+    expect(story.coverDirection, 'coverDirection').not.toMatch(MINOR);
+    expect(story.openingPanel?.alt ?? '', 'openingPanel.alt').not.toMatch(MINOR);
   });
 
   it('borrows no franchise vocabulary', () => {
@@ -513,6 +515,55 @@ describe('everyone is an adult and the content stays 13+', () => {
     expect(hits).toEqual([]);
     expect(JSON.stringify(story)).not.toMatch(FRANCHISE);
     expect(bible).not.toMatch(FRANCHISE);
+  });
+});
+
+describe('ready for art and release (docs/stories-50/PIPELINE.md)', () => {
+  it('paints its own title into the cover, spelled exactly', () => {
+    const title = story.coverDirection.slice(story.coverDirection.indexOf('TITLE:'));
+    expect(story.coverDirection).toContain('TITLE:');
+    expect(title).toContain('Echo Class');
+    expect(title).toContain('spelled exactly ECHO CLASS');
+    expect(title).toMatch(/No other text anywhere\.$/);
+  });
+
+  it('keeps every cover effect off her face', () => {
+    expect(story.coverDirection).toMatch(/HER FACE STAYS CLEAN/);
+    expect(story.coverDirection).toMatch(/never on her face/);
+  });
+
+  it('opens on a panel of the person who speaks first', () => {
+    const panel = story.openingPanel!;
+    expect(panel.assetKey).toBe(`${story.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    expect(panel.alt.startsWith('Yuna')).toBe(true);
+    expect(story.opening).toContain('Yuna says');
+  });
+
+  it('draws every carded character from a concrete appearance', () => {
+    const vague = story.characters
+      .filter((c) => c.cardBlurb.trim() && words(c.appearance).length < 12)
+      .map((c) => c.id);
+    expect(vague).toEqual([]);
+  });
+
+  it('opens straight on the scene and is not dated yet', () => {
+    expect(story.prologue).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('puts the system where the storyteller reads it', () => {
+    for (const a of story.archetypes) expect(a.startingAbilities, a.id).toContain('echo_touch');
+    const held = new Set(story.rules.startingItems.map((i) => i.itemId));
+    const premiseItems = story.items.filter((i) => i.questItem && held.has(i.id)).map((i) => i.id);
+    expect(premiseItems).toEqual(expect.arrayContaining(['transfer_file', 'rank_band']));
+    expect(story.rules.hardCanon.join(' ')).toMatch(/sixty seconds/);
+    expect(story.rules.toneGuide.length).toBeGreaterThan(200);
+  });
+
+  it('calls its titled characters by name', () => {
+    const titled = story.characters.filter((c) => /^(?:Professor|Registrar)\b/.test(c.name) || c.id === 'marsh');
+    for (const c of titled) expect(c.calledName, c.id).toBeTruthy();
   });
 });
 

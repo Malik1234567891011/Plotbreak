@@ -28,6 +28,12 @@ import { StoryVersion } from '@plotbreak/contracts';
  * the flag that learning sets (the "grant broadly, gate by flag" lesson from
  * `docs/stories-checkpoint.md`).
  *
+ * Production runs `runTurnPure`, which never reads resources, step notes or the
+ * ability list beyond the chosen archetype's starting abilities. So the system
+ * lives where it can: hard canon spells out the copy rules, the Board and every
+ * power close to the player; the transfer file and the rank band are quest items
+ * the player starts holding; and every archetype starts with Echo.
+ *
  * Three variables. Stamina is the only GOOD_HIGH, because `resolveRest` refills
  * every GOOD_HIGH and a night's sleep is the honest thing for that to mean.
  * Scrutiny is first among the descending pair on purpose: PUBLIC_VIOLENCE and
@@ -85,13 +91,14 @@ const raw = {
     ],
     hardCanon: [
       'Larkspur Academy is a four-year, post-secondary academy for licensed heroes on a hill above the harbour city of Velling. It admits at eighteen. Every student and every member of staff is an adult.',
-      'The player is twenty, a second-year transfer.',
+      'Everyone in this story is an adult. The player is twenty, a second-year transfer. Yuna Takeda is twenty-one, Teo Vance twenty-two, Callum Rook twenty-three, Professor Imogen Adair forty-seven and Registrar Delphine Marsh fifty-two. The other students named in the factions are between twenty and twenty-three.',
       'The player’s power: skin-to-skin contact with somebody who has a power gives the player a copy of it for sixty seconds, felt as a count under the ribs. One copy at a time; a new touch replaces the old one. Fabric stops it: gloves, sleeves and jackets copy nothing.',
       'Touching somebody with no power copies nothing. Touching Adair, the player feels an empty place, as if something used to be there.',
-      'While the player holds a copy, the original owner keeps their power but shares control of it. It answers them half a beat late and feels like somebody else has a hand on it. When the copy ends it is theirs alone again.',
+      'While the player holds a copy, the original owner keeps their power but shares control of it. It answers them half a beat late and feels like somebody else has a hand on it. When the copy ends, or the player lets go of it early, it is theirs alone again.',
       'Without a copy the player has no power at all. When a copy ends there is a drop: a headache, heavy limbs, and for a minute the feel of the power they just lost.',
-      'Yuna Takeda has been ranked first of twelve hundred for fourteen months. Her power is gravity. The player copied it by shaking her hand at the welcome assembly, and that is where the story starts.',
-      'The Board in the Great Hall ranks every student and updates at seven every morning. Rank changes only through sanctioned challenges in the Pit, refereed by faculty. Anyone may challenge anyone; the winner takes the loser’s place, and losing to somebody ranked far above you costs fifty places. Fights in the Boathouse are off the books and change nothing on the Board.',
+      'Yuna Takeda has been ranked first of twelve hundred for fourteen months. Her power is gravity: anything she can see within about thirty metres, herself included, she can make up to ten times heavier or nearly weightless. By tradition the top-ranked student shakes every transfer’s hand at the welcome assembly; the player copied her gravity that way, and that is where the story starts.',
+      'Other powers close to the player. Rook has recoil, a Form power: any force that hits him he stores and returns doubled, which is why he never throws the first punch. Teo hears electricity, a Sense power: wiring in walls, phones in pockets, the hum of the Board. Adair has no power now; the faculty believe an injury ended her career in her fourth year. Marsh has never had one.',
+      'The Board in the Great Hall ranks every student and updates at seven every morning. Unranked transfers start last, so the player is 1,200, and every student wears a rank band that shows their number. Rank changes only through sanctioned challenges in the Pit, refereed by faculty. Anyone may challenge anyone; the winner takes the loser’s place, and losing to somebody ranked far above you costs fifty places. Fights in the Boathouse are off the books and change nothing on the Board.',
       'The Registry classifies every power: Field, Form, Sense, Make, and Echo. Echo class has had one registrant before the player: Arlo Wren, then a twenty-four-year-old Larkspur fourth-year, twenty-six years ago. He is fifty now. What happened to him is not public.',
       'Sixty seconds is a habit and not a law: a copy can be held past it, and every minute past it more of the power leaves its owner. Nobody tells the player this on the first day, and they cannot do it until they know it is possible.',
       'Registrar Delphine Marsh must classify the player by Friday at ten: open (the player stays and competes like anybody else) or restricted (the player leaves with the Registry).',
@@ -100,7 +107,7 @@ const raw = {
       'Shonen academy energy with a real cost underneath: fast, bright, loud and funny, and then suddenly not. ' +
       'Fights are legible and specific: who touched whom, whose power is in the player’s chest, how many seconds are left. When a copy is running, count it in the prose — "forty-one", "twelve" — and let the count drive the pace. A borrowed power is used clumsily for the first ten seconds and well for the last ten. ' +
       'Rank numbers are everywhere and people use them instead of names, which is rude and everybody does it. Comedy comes from Teo and from borrowed powers used badly. Rook is frightening because he is polite. The Registry is a real institution with a real reason, and Adair has the best reason of anybody. ' +
-      'Romance with Yuna is slow, teasing and earned; she can say no, and the most it reaches is a kiss. Never describe bodies lingeringly and never sexualise a power. Fights bruise, wind and knock people down; nobody bleeds out on the page. ' +
+      'Romance with Yuna is slow, teasing and earned; she can say no, and the most it reaches is a kiss. Skin contact is written as a handshake, a grip or a wrist: it is about the power, never about the body. Fights bruise, wind and knock people flat, and nothing on the page is graphic. ' +
       'The face at the top of a beat is Yuna’s whenever she is in the scene, otherwise whoever the player just touched.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -242,7 +249,7 @@ const raw = {
       questItem: true,
       droppable: false,
       description:
-        'A manila folder: your name, your old address, a photograph that does not look much like you, and a box marked CLASS in which somebody at intake has written “pending” in pencil and underlined it twice.',
+        'A manila folder: your name, your old address, a photograph that does not look much like you, and your power in your own words: “Copies a power on skin contact. Sixty seconds. One at a time. Nothing through fabric.” Beside it, a box marked CLASS in which somebody at intake has written “pending” in pencil and underlined it twice.',
       loreText:
         'Clipped to the back, a typed note from the intake office: “Applicant’s description of their power not credible. Refer to Power Theory.” Somebody has initialled it I.A.',
       icon: 'file',
@@ -250,7 +257,8 @@ const raw = {
     {
       id: 'rank_band',
       name: 'Your Rank Band',
-      tags: ['personal'],
+      tags: ['quest', 'personal'],
+      questItem: true,
       droppable: false,
       description:
         'A black rubber wristband with a small screen. Right now it says 1,200. It buzzes when somebody challenges you, and every student on the hill can read the number on everybody else’s wrist.',
@@ -2235,7 +2243,7 @@ const raw = {
       attributeBonus: { agility: 3, presence: 1 },
       skillProficiencies: { footwork: 3, wielding: 2 },
       startingItems: [{ itemId: 'studio_lanyard', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['echo_touch', 'get_a_hand_on'],
       startingReputation: [{ factionId: 'faction_board', amount: 10 }],
     },
     {
@@ -2249,7 +2257,7 @@ const raw = {
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { brawling: 3, composure: 1 },
       startingItems: [{ itemId: 'hand_tape', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['echo_touch', 'fight_bare'],
       startingReputation: [{ factionId: 'faction_back_row', amount: 15 }],
     },
     {
@@ -2263,7 +2271,7 @@ const raw = {
       attributeBonus: { mind: 3, presence: 1 },
       skillProficiencies: { reading: 3, front: 2 },
       startingItems: [{ itemId: 'clinic_badge', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['echo_touch', 'read_a_power'],
       startingReputation: [{ factionId: 'faction_larkspur', amount: 10 }],
     },
     {
@@ -2277,7 +2285,7 @@ const raw = {
       attributeBonus: { resolve: 3, arcana: 1 },
       skillProficiencies: { composure: 3, holding: 2 },
       startingItems: [{ itemId: 'thin_gloves', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['echo_touch', 'hold_your_nerve'],
       startingReputation: [{ factionId: 'faction_registry', amount: 10 }],
     },
   ],
@@ -2512,6 +2520,22 @@ const raw = {
     'I let go of her hand and try to sink back down to the floor.',
     'I tighten my grip and pull us both up toward the ceiling.',
   ],
+  coverDirection: [
+    'SUBJECT: Yuna Takeda, the top-ranked fighter of a superpower academy, alone and unmistakable in the foreground of a key visual for an action anime about a borrowed power.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture, leaning toward the viewer.',
+    'Black hair cut bluntly at the jaw, grey eyes, a fitted dark navy field jacket zipped to the collar with no crest or emblem on it, and a heavy brushed-steel weight band locked round each wrist.',
+    'Her bare right hand thrusts forward into the bottom of the frame, foreshortened toward the viewer, gripping the viewer’s bare hand, which reaches in from the lower edge: a handshake held far too long, knuckles tight, the steel band heavy on her wrist.',
+    'The room has lost its weight around them: the ends of her hair and the tab of her zip drift upward, a glass water jug tips and pours out into floating beads of water, two folding chairs tumble slowly upward, and loose blank sheets of paper hang in the air.',
+    'Faint concentric ripples bend the air in rings around the two joined hands, like a stone dropped into still water, catching the light.',
+    'Her expression is composed and furious at once: grey eyes narrowed, jaw set, lips pressed together, looking straight at the viewer as if she wants something back.',
+    'HER FACE STAYS CLEAN: no ripples, glow, distortion or shadows on her face or skin.',
+    'Every ripple effect stays in the air around the joined hands, on the drifting objects and on the title, never on her face.',
+    'BEHIND HER, soft and secondary: a vast stone assembly hall with tall arched windows, rows of seats with a crowd in dark jackets all looking up,',
+    'and a huge ranking board on the back wall glowing with rows of blank light bars, nothing on it that reads as numbers or writing.',
+    'LIGHT: cool blue and steel from the tall windows, one warm stage spotlight from above catching her hair, the steel bands and the floating water.',
+    'TITLE: the title Echo Class painted into the art in the upper third, above her head, as the words ECHO CLASS in a bold heavy condensed sans-serif logo, steel white with a cold blue edge,',
+    'spelled exactly ECHO CLASS, two words, large and legible at thumbnail size. One thin ring of the same ripple passes through the word ECHO only, leaving every letter readable. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 
