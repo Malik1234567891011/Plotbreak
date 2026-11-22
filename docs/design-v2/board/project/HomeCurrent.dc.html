@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home current</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width:1270px;height:960px;box-sizing:border-box;padding:28px 30px;background:#E9EBEF;font-family:Inter,system-ui,sans-serif;color:#1B1F2A;display:flex;flex-direction:column;gap:14px">
+  <div style="display:flex;align-items:baseline;gap:12px">
+    <span style="font-size:13px;font-weight:700;letter-spacing:0.12em;color:#B4233C">CURRENT</span>
+    <span style="font-size:14px;color:#4A5160">iOS 1.0.10 (18), iPhone 17 Pro simulator, production API, signed-out guest, 21 Nov 2026</span>
+  </div>
+  <div style="display:flex;gap:20px">
+    <sc-for list="{{shots}}" as="s" hint-placeholder-count="3">
+      <figure style="margin:0;display:flex;flex-direction:column;gap:8px;width:390px">
+        <img src="{{s.src}}" alt="{{s.cap}}" style="width:390px;height:848px;object-fit:cover;border-radius:28px;display:block;box-shadow:0 6px 24px rgba(0,0,0,0.18)">
+        <figcaption style="font-size:13px;color:#4A5160">{{s.cap}}</figcaption>
+      </figure>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1270,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { shots: [
+      { src: '/_blob/96da7ad74269d5da0d1e843813e1587e', cap: 'Top: chips, a dim 16:9 banner, Trending now' },
+      { src: '/_blob/b139c1c3eb0a3c6353a3c887ff903fcc', cap: 'Top ranked, New on Plotbreak, then All worlds' },
+      { src: '/_blob/20cd4fded8077bb030c92aee97a1af79', cap: 'All worlds: 56 covers in one 3-column wall' }
+    ] };
+  }
+}
+</script>
+</body>
+</html>

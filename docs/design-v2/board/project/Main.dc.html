@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redesign overview</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#0B0D12}
+a{color:#A99FFF}a:hover{color:#C9C2FF}
+.disp{font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:800;letter-spacing:-0.01em}
+</style>
+</helmet>
+<div style="width:1280px;height:1000px;box-sizing:border-box;background:#0B0D12;color:#F7F8FA;font-family:Inter,system-ui,sans-serif;position:relative;overflow:hidden">
+  <div style="position:absolute;right:-40px;top:60px;display:flex;gap:14px;transform:rotate(-8deg);opacity:0.9" aria-hidden="true">
+    <sc-for list="{{covers}}" as="c" hint-placeholder-count="5">
+      <img src="{{c.src}}" alt="" style="width:150px;height:225px;object-fit:cover;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,0.6)">
+    </sc-for>
+  </div>
+  <div style="position:absolute;right:-40px;top:300px;display:flex;gap:14px;transform:rotate(-8deg) translateX(80px);opacity:0.55" aria-hidden="true">
+    <sc-for list="{{covers2}}" as="c" hint-placeholder-count="5">
+      <img src="{{c.src}}" alt="" style="width:150px;height:225px;object-fit:cover;border-radius:12px">
+    </sc-for>
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,#0B0D12 48%,rgba(11,13,18,0.75) 66%,rgba(11,13,18,0.2) 100%)" aria-hidden="true"></div>
+
+  <div style="position:relative;padding:64px 72px;display:flex;flex-direction:column;gap:36px;height:100%;box-sizing:border-box">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:700px">
+      <div style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:0.14em;color:#A7AFBE">
+        <span style="width:8px;height:8px;border-radius:4px;background:#FF4F6E"></span>
+        PLOTBREAK · REDESIGN v2 · DESIGN ONLY · 21 NOV 2026
+      </div>
+      <h1 class="disp" style="margin:0;font-size:64px;line-height:1.02">Make it feel alive.</h1>
+      <p style="margin:0;font-size:19px;line-height:1.5;color:#C3C9D4">About 30 new players a day, and most never open the app again. Every page on this board gets the same job: give people a reason to come back tomorrow, and make the shelf look different when they do.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;max-width:1000px">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h2 style="margin:0;font-size:14px;letter-spacing:0.12em;color:#FF8FA3;font-weight:700">WHY IT LOOKS OLD TODAY</h2>
+        <sc-for list="{{why}}" as="w" hint-placeholder-count="5">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <span style="flex:none;width:24px;height:24px;border-radius:12px;background:#1E2230;color:#FF8FA3;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">{{w.n}}</span>
+            <div style="font-size:15px;line-height:1.45;color:#D5DAE3"><b style="color:#F7F8FA">{{w.t}}</b> {{w.d}}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h2 style="margin:0;font-size:14px;letter-spacing:0.12em;color:#A99FFF;font-weight:700">FIVE RULES FOR v2</h2>
+        <sc-for list="{{rules}}" as="r" hint-placeholder-count="5">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <span style="flex:none;width:24px;height:24px;border-radius:12px;background:#7C6CFF;color:#0B0D12;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">{{r.n}}</span>
+            <div style="font-size:15px;line-height:1.45;color:#D5DAE3"><b style="color:#F7F8FA">{{r.t}}</b> {{r.d}}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:12px;max-width:1000px">
+      <h2 style="margin:0;font-size:14px;letter-spacing:0.12em;color:#A7AFBE;font-weight:700">ON THIS BOARD · ONE PAGE PER SCREEN, CURRENT LEFT, PROPOSED RIGHT, NOTES NUMBERED TO MATCH</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{pages}}" as="p" hint-placeholder-count="10">
+          <span style="padding:8px 14px;border-radius:999px;background:#171B26;border:1px solid #2A3040;font-size:14px;font-weight:600;color:#E7EAF0">{{p}}</span>
+        </sc-for>
+      </div>
+      <p style="margin:6px 0 0;font-size:13px;line-height:1.5;color:#8E95A4">Covers, key art, cast and counts are production data from 21 Nov (likes and views are seeded by seed:social). Live counts, moments and choice splits are illustrative: each needs a real aggregate before it ships. Research: docs/design-v2/research.md.</p>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const b = (id) => ({ src: '/_blob/' + id });
+    return {
+      covers: [b('2c7959d4b1a299084161312e9900f8ba'), b('a5df894eb812b3ae260bb4d25f67c00e'), b('5956b5ae206499d5ecf5aec97e155ce6'), b('3416a0db0b90b4099d7f67cd88325dde'), b('6d1fe1cd0be1cfefcda919adb2131f22')],
+      covers2: [b('0516f5a024fbb030ce98c3b88117b085'), b('9386288eacf9575f3ff8ec0caadc3e02'), b('98f7ecff04ba1dec186b14227031f8ae'), b('fab983d9b20aa735acd579562ee48386'), b('e5c301f3f4c4b237f8864829a8cfae00')],
+      why: [
+        { n: 1, t: 'Flat and quiet.', d: 'One dark grey everywhere and a soft violet. Nothing glows, nothing moves, nothing says live.' },
+        { n: 2, t: 'One typeface, one voice.', d: 'System font at one weight: "Trending now" speaks like a caption. No title cards, no anime energy.' },
+        { n: 3, t: 'Pages read like forms.', d: '"Story Information", underline tabs, chip rows and paragraphs before art. A settings app wearing covers.' },
+        { n: 4, t: 'Nothing changes between visits.', d: 'Same hero, same rows, then a 56-cover grid. Tomorrow looks exactly like today.' },
+        { n: 5, t: 'No other people.', d: 'Counts are tiny grey text, comments are a tab away, nobody is ever "playing now".' }
+      ],
+      rules: [
+        { n: 1, t: 'Art leads.', d: 'Full-bleed key art and covers carry the colour; UI chrome steps back.' },
+        { n: 2, t: 'Every visit is different.', d: 'Rotating hero, Top 10 that resets, New, Moments from other runs, characters.' },
+        { n: 3, t: 'Show the crowd.', d: 'Plays, ranks, comments and what other players chose, where the decision happens.' },
+        { n: 4, t: 'Tomorrow is always on screen.', d: 'Continue, streak, daily claim, countdowns, end-of-run hooks.' },
+        { n: 5, t: 'One tap to the next beat.', d: 'Fewer screens between wanting a story and playing it.' }
+      ],
+      pages: ['1 Home', '2 Story detail', '3 Play', '4 Library', '5 Onboarding', '6 Create', '7 Profile', '8 Wallet', '9 Tower', 'Design system']
+    };
+  }
+}
+</script>
+</body>
+</html>

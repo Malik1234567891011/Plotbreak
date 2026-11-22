@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Story detail proposed</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
+<style>
+body{margin:0;background:#08090E}
+.d{font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-0.01em}
+.h{font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;font-size:20px;letter-spacing:-0.01em;margin:0;color:#F7F8FA}
+.pin{display:inline-flex;flex:none;width:22px;height:22px;border-radius:11px;background:#FFE14D;color:#14120A;font:800 12px Inter,sans-serif;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(255,225,77,0.28)}
+.serif{font-family:'Source Serif 4',Georgia,serif}
+.glass{width:40px;height:40px;border-radius:20px;border:0;background:rgba(8,9,14,0.55);color:#fff;display:flex;align-items:center;justify-content:center}
+</style>
+</helmet>
+<div style="width:390px;height:2400px;position:relative;overflow:hidden;background:#08090E;color:#F7F8FA;font-family:Inter,system-ui,sans-serif">
+
+  <!-- Art -->
+  <div style="position:relative;height:460px">
+    <img src="/_blob/8ab86ee609616f3dda750032e6b29452" alt="Itachi key art" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,14,0.45) 0%,rgba(8,9,14,0) 25%,rgba(8,9,14,0) 50%,#08090E 100%)"></div>
+    <div style="position:absolute;top:54px;left:16px;right:16px;display:flex;justify-content:space-between">
+      <button class="glass" aria-label="Back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="pin">1</span>
+        <button class="glass" aria-label="Share"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v13M7 8l5-5 5 5M5 14v6h14v-6"></path></svg></button>
+        <button class="glass" aria-label="Like"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 20s-7-4.3-9-8.7C1.6 8 3.8 4.5 7.3 4.5c2 0 3.4 1.1 4.7 2.8 1.3-1.7 2.7-2.8 4.7-2.8 3.5 0 5.7 3.5 4.3 6.8-2 4.4-9 8.7-9 8.7z"></path></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Title block -->
+  <div style="margin-top:-118px;position:relative;padding:0 18px;display:flex;flex-direction:column;gap:10px">
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <span style="height:22px;padding:0 8px;border-radius:6px;background:#FFC24B;color:#221800;font-size:11px;font-weight:800;letter-spacing:0.06em;display:flex;align-items:center">#1 THIS WEEK</span>
+      <span style="height:22px;padding:0 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.35);color:#E7EAF0;font-size:11px;font-weight:800;letter-spacing:0.06em;display:flex;align-items:center;gap:5px"><svg width="6" height="11" viewBox="0 0 12 22" aria-hidden="true"><path d="M0 0h8v9.5L0 13z" fill="#A99FFF"></path><path d="M0 15.6L8 12.1V22H0z" fill="#A99FFF"></path></svg>PLOTBREAK STUDIOS</span>
+      <span style="height:22px;padding:0 8px;border-radius:6px;background:rgba(255,79,110,0.18);color:#FF9DB0;font-size:11px;font-weight:800;letter-spacing:0.06em;display:flex;align-items:center">INTENSE</span>
+    </div>
+    <h1 class="d" style="margin:0;font-size:52px;line-height:0.95;font-stretch:125%;font-weight:900">ITACHI</h1>
+    <div style="font-size:17px;line-height:1.4;color:#E7EAF0">Both sides already think you are theirs.</div>
+    <div style="font-size:13px;color:#9AA1AF">Mystery · Rivalry · Military · by <b style="color:#C9CED8">Plotbreak Studios</b></div>
+  </div>
+
+  <!-- Stats -->
+  <div style="margin:18px 16px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-radius:16px;background:#12141C;border:1px solid #20243A;position:relative">
+    <span class="pin" style="position:absolute;top:-10px;right:-6px">2</span>
+    <sc-for list="{{stats}}" as="s" hint-placeholder-count="3">
+      <div style="padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:2px">
+        <span class="d" style="font-size:20px">{{s.v}}</span>
+        <span style="font-size:12px;color:#9AA1AF">{{s.k}}</span>
+      </div>
+    </sc-for>
+  </div>
+  <div style="margin:10px 18px 0;display:flex;align-items:center;gap:8px;font-size:13px;color:#FFB3C0;font-weight:600">
+    <span style="width:7px;height:7px;border-radius:4px;background:#FF4F6E;box-shadow:0 0 0 4px rgba(255,79,110,0.22)"></span>1,204 people played this week
+  </div>
+
+  <!-- Who are you -->
+  <div style="margin-top:28px">
+    <div style="display:flex;align-items:center;gap:8px;padding:0 16px"><h2 class="h">Who are you?</h2><span class="pin">3</span></div>
+    <div style="padding:4px 16px 12px;font-size:14px;color:#9AA1AF">You were four, on a battlefield. What did you take away?</div>
+    <div style="display:flex;gap:10px;padding:0 16px;overflow:hidden">
+      <sc-for list="{{arch}}" as="a" hint-placeholder-count="3">
+        <div style="flex:none;width:190px;min-height:132px;box-sizing:border-box;padding:14px;border-radius:16px;background:{{a.bg}};border:{{a.border}};display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:15px;font-weight:700">{{a.name}}</span>
+            <span style="width:20px;height:20px;border-radius:10px;border:2px solid {{a.ring}};background:{{a.dot}};box-sizing:border-box"></span></div>
+          <div style="font-size:13px;line-height:1.4;color:#B3B9C6">{{a.desc}}</div>
+          <div style="font-size:12px;color:#C9C2FF;font-weight:600;margin-top:auto">{{a.traits}}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="padding:14px 16px 0">
+      <button style="width:100%;height:52px;border-radius:26px;border:0;background:#F7F8FA;color:#0B0D12;font:700 17px Inter,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="#0B0D12"></path></svg>Play as You Gave Him Water
+      </button>
+      <div style="text-align:center;font-size:12px;color:#9AA1AF;margin-top:8px">600 credits in your wallet · about 9 turns</div>
+    </div>
+  </div>
+
+  <!-- How it opens -->
+  <div style="margin:30px 16px 0;padding:18px;border-radius:16px;background:#101219;border:1px solid #1E2232">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span style="font-size:12px;font-weight:800;letter-spacing:0.1em;color:#9AA1AF">HOW IT OPENS</span><span class="pin">4</span></div>
+    <p class="serif" style="margin:0 0 10px;font-size:19px;line-height:1.45;color:#F7F8FA">There’s a report in your bag that could get your whole family killed.</p>
+    <p class="serif" style="margin:0;font-size:17px;line-height:1.55;color:#C3C9D4">Your handwriting. Every name from last week’s clan meeting. The Hokage’s office expects it on Thursday.</p>
+    <div style="margin-top:12px;font-size:14px;font-weight:600;color:#A99FFF">Read the full premise</div>
+  </div>
+
+  <!-- Cast -->
+  <div style="margin-top:30px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;padding:0 16px;margin-bottom:12px"><h2 class="h">Who you’ll meet</h2><span style="font-size:14px;font-weight:600;color:#B3B9C6">All 5</span></div>
+    <div style="display:flex;gap:10px;padding:0 16px;overflow:hidden">
+      <sc-for list="{{cast}}" as="c" hint-placeholder-count="3">
+        <div style="flex:none;width:136px;border-radius:14px;overflow:hidden;background:#12141C;border:1px solid #20243A">
+          <img src="{{c.src}}" alt="{{c.name}}" style="width:136px;height:170px;object-fit:cover;object-position:50% 15%;display:block">
+          <div style="padding:10px"><div style="font-size:14px;font-weight:700">{{c.name}}</div><div style="font-size:12px;line-height:1.35;color:#9AA1AF;margin-top:2px">{{c.role}}</div></div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- What players did -->
+  <div style="margin:30px 16px 0">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><h2 class="h">What players did first</h2><span class="pin">5</span></div>
+    <div style="font-size:13px;color:#9AA1AF;margin-bottom:12px">From 2,140 runs · no spoilers past beat 1</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{choices}}" as="c" hint-placeholder-count="3">
+        <div style="position:relative;height:42px;border-radius:12px;background:#12141C;overflow:hidden">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:{{c.w}};background:{{c.fill}}"></div>
+          <div style="position:relative;height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-size:14px"><span style="font-weight:600">{{c.label}}</span><span style="font-weight:800">{{c.pct}}</span></div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Top comment -->
+  <div style="margin:22px 16px 0;padding:14px;border-radius:16px;background:#12141C;border:1px solid #20243A;display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#9AA1AF">
+      <span style="width:26px;height:26px;border-radius:13px;background:#9FF0C9;color:#0B0D12;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center">Y</span>
+      <b style="color:#E7EAF0">@yuki_r</b><span>· top comment</span>
+      <span style="margin-left:auto;color:#FFB3C0;font-weight:700">♥ 214</span>
+    </div>
+    <div style="font-size:15px;line-height:1.45;color:#E7EAF0">I tried to save everyone and it let me try. Then it made me pay for it. Third run now.</div>
+    <div style="font-size:14px;font-weight:600;color:#A99FFF">See all 109 comments</div>
+  </div>
+
+  <!-- Content notes -->
+  <div style="margin:22px 16px 0;display:flex;justify-content:space-between;align-items:center;padding:14px;border-radius:14px;border:1px solid #20243A">
+    <div><div style="font-size:14px;font-weight:600">Content notes</div><div style="font-size:12px;color:#9AA1AF">Fantasy violence, psychological themes, permanent death</div></div>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA1AF" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+  </div>
+
+  <!-- More like this -->
+  <div style="margin-top:30px">
+    <div style="padding:0 16px;margin-bottom:12px"><h2 class="h">If you like Itachi</h2></div>
+    <div style="display:flex;gap:10px;padding:0 16px;overflow:hidden">
+      <sc-for list="{{related}}" as="s" hint-placeholder-count="3">
+        <div style="flex:none;width:120px"><img src="{{s.src}}" alt="{{s.title}}" style="width:120px;height:180px;object-fit:cover;border-radius:10px;display:block"><div style="font-size:14px;font-weight:600;margin-top:8px">{{s.title}}</div><div style="font-size:12px;color:#9AA1AF">{{s.meta}}</div></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Sticky footer -->
+  <div style="position:absolute;left:0;right:0;bottom:0;padding:12px 16px 30px;background:linear-gradient(180deg,rgba(8,9,14,0) 0%,#08090E 30%);display:flex;gap:10px">
+    <button style="flex:1;height:54px;border-radius:27px;border:0;background:#F7F8FA;color:#0B0D12;font:700 17px Inter,sans-serif">Play</button>
+    <button aria-label="Customize your character" style="width:54px;height:54px;border-radius:27px;border:1px solid #2A3040;background:#161923;color:#E7EAF0;display:flex;align-items:center;justify-content:center">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-6 8-6M17 15l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z"></path></svg>
+    </button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const B = (id) => '/_blob/' + id;
+    return {
+      stats: [{ v: '2.9M', k: 'plays' }, { v: '157K', k: 'likes' }, { v: '109', k: 'comments' }],
+      arch: [
+        { name: 'You Gave Him Water', desc: 'You knelt beside a dying man in the wrong uniform.', traits: 'Talks to people · Direct', bg: '#1E1A3A', border: '1.5px solid #7C6CFF', ring: '#7C6CFF', dot: '#7C6CFF' },
+        { name: 'You Wanted It To Stop', desc: 'Strong enough that nobody could ever bring that field back.', traits: 'Relentless · Guarded', bg: '#12141C', border: '1px solid #262B3B', ring: '#4A5062', dot: 'transparent' },
+        { name: 'You Counted The Dead', desc: 'You worked out which choices made the difference.', traits: 'Strategic · Cold', bg: '#12141C', border: '1px solid #262B3B', ring: '#4A5062', dot: 'transparent' }
+      ],
+      cast: [
+        { name: 'Sasuke', role: 'Your brother, seven', src: B('4519fcb79e9f0fca2fd3c7d6dce03958') },
+        { name: 'Shisui', role: 'Your closest friend', src: B('c299d1ea035df4d354af7b6ab3239777') },
+        { name: 'Mikoto', role: 'Your mother, ex-kunoichi', src: B('110068b8cef358b6c5e0b22aab84ed9b') },
+        { name: 'Izumi', role: 'Has decided you are friends', src: B('37a7005333ed75513e1eab0feef6d8f7') }
+      ],
+      choices: [
+        { label: 'Stayed with Sasuke', pct: '46%', w: '46%', fill: 'rgba(124,108,255,0.45)' },
+        { label: 'Hid the report', pct: '31%', w: '31%', fill: 'rgba(124,108,255,0.28)' },
+        { label: 'Went to your father', pct: '23%', w: '23%', fill: 'rgba(124,108,255,0.2)' }
+      ],
+      related: [
+        { src: B('0516f5a024fbb030ce98c3b88117b085'), title: 'Zero Throne', meta: '1.4M plays' },
+        { src: B('fab983d9b20aa735acd579562ee48386'), title: 'Red Moon Brigade', meta: '1.1M plays' },
+        { src: B('e5c301f3f4c4b237f8864829a8cfae00'), title: 'Light', meta: '1.1M plays' },
+        { src: B('9386288eacf9575f3ff8ec0caadc3e02'), title: 'Ace', meta: '1.9M plays' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+# Uploaded asset ids (artifact https://claude.ai/artifact/8yRDJdhfSbAQe2wxSZYgpG)
+
+Use as `/_blob/<id>` in artboards.
+
+## Current app (assets/current/*.jpg, iPhone 17 Pro sim, prod API, 2026-11-21)
+01_welcome aef1e62914d64f78e108d8ce94b331de
+02_birthdate e88aa3f10b1ab4cb4470c1b01ef12cdf
+03_name b13984b6b688012e0799a9ca00039d29
+05_showcase 7f8f31e76341c9cf5d387f436f908372
+10_discover_a 96da7ad74269d5da0d1e843813e1587e
+10_discover_mid b139c1c3eb0a3c6353a3c887ff903fcc
+10_discover_c 20cd4fded8077bb030c92aee97a1af79
+20_detail_a d976fc332771a521506af6928db97bc6
+20_detail_c d7f260f4eb1888963bc3a004ebd01b2b
+30_prologue ade82fd6f4ebd727aef41bd1648e92f4
+31_opener cf696230b0716fe3955c2c6fbb1f860e
+33_session_a 0cf6b9862f209068745cf49941d33247
+33_session_b 967e78551bc0adf895e5093fbca0575d
+40_library 72ae5abbcaf0f67693e0481d8e714e61
+50_create e4b3b0a6f6a24f75cd7e077d9f1cd5a9
+60_profile 88bc9bc6afc8a794c575097bf07df4c5
+70_wallet 1bae22df25f9a36792c916308432cd70
+70_wallet_b 13750687a066aae6c97e1fcf20f5b9a6
+
+## Key art (3:2)
+itachi 8ab86ee609616f3dda750032e6b29452
+pink_tide b3093222db0c27543434821bfe69676b
+good_morning_husband 5590747193352576d80e080cf8209773
+hush_house 16b4c9b000e1ac3ecdda9587fadd344a
+last_feather d885ff1ba6db46d0576af166b19598b3
+zero_throne 3a69e756a741867676aca391daaae491
+second_skin 84c6c58137bf04d7dabcf7b903cfec0a
+ace 3d852907db5976d88fefdd8653eb1b5d
+
+## Cast portraits (2:3)
+sasuke 4519fcb79e9f0fca2fd3c7d6dce03958
+shisui c299d1ea035df4d354af7b6ab3239777
+mikoto 110068b8cef358b6c5e0b22aab84ed9b
+izumi 37a7005333ed75513e1eab0feef6d8f7
+sora(pink_tide) f24035d22a386c6c0dd919a8be48e328
+luka(pink_tide) 27d33533c699d5f80262bd9cf5f089dd
+hana(gmh) d6fccf9ec7e43eaac3b59a44dcd42fb0
+lucia(gmh) 6b7f3cc4d32511e09c69749365686ae9
+ayame(hush) 0f4d218315bf606dfacce9c62062fe18
+mika(hush) 9e0699e6e358185519306eaef0dad277
+rhea(zero) 521ef8b143291fd60c33bb9bce63c47b
+mina(zero) 3088f5e7cf81a222caa0893e957f5c81
+kaia(second_skin) 849c961d55ed3612e2ca941f61b2726f
+
+## Covers (2:3, title baked in)
+ace 9386288eacf9575f3ff8ec0caadc3e02
+blackwake af8be72b3ceaaebbda8ac0a7f366177e
+blank_prophecy b6737c05f53926e4c689056159167638
+fourth_beast b6467087a952dd550366a5d8578ab2ca
+good_morning_husband 6d1fe1cd0be1cfefcda919adb2131f22
+hush_house 5956b5ae206499d5ecf5aec97e155ce6
+itachi 2c7959d4b1a299084161312e9900f8ba
+last_feather 98f7ecff04ba1dec186b14227031f8ae
+last_five a30518b78b57ca2a4c3cbf67f5035f40
+last_service 9d8d7f1024b2b1535e4807b7e0899349
+light e5c301f3f4c4b237f8864829a8cfae00
+nine_weeks 2951e5eb686e1bc2ebf7ba0d427f977b
+ninth_archive 1bc0a72a6a47777c52f83dae02f95a73
+pink_tide a5df894eb812b3ae260bb4d25f67c00e
+primal_crown 608d969c771613d6324eb40b79acbf75
+red_floor 60c5aee7181501ffefb7bbfaaf011b0d
+red_moon fab983d9b20aa735acd579562ee48386
+salt_road 4257fd0beb29f94696c6bf909cc1a324
+second_skin 3416a0db0b90b4099d7f67cd88325dde
+seven_days 5e17560d89e1f3630fe3cdf52fbb3aaf
+seven_names 43ccdb98838150311b915d4eb1f6d813
+tidewall 827b8109463bc0462d9b904fd7385123
+unbound e27530f2666db5119dca20af5e8b43da
+uncounted 1276abfc4c8466040ff684d2170d77c0
+understudy 230d9d6332f28f4606ef380273f22fd1
+window_seven 8c6e1f5e0fa3d22be23713922f728531
+zero_throne 0516f5a024fbb030ce98c3b88117b085
+UGC "Skill Creation" (King) 93a90e653a1ad02ec98b3200c255ba53
+UGC "The Unbothered Anvil" (Juju) 5c61f36f9ade677f2d035281da412e73
+UGC "Crown of Arcana" 0d845fc84c1c1b50820959068c2fefb3
+UGC "Nine Tails at Council" 08977179e7a472506550cc810ab38c6c
+UGC "The Door in Winter" f55879c97a430b993475ea6a0998a22a
+UGC "Teeth Beneath Pines" 8973f931bed3643166993d7a963c0b2e
+UGC "The Useless Gift" 5bee77c314bd9c51956ff2bd4da064a2
+UGC "Heavenly demon system" 862d90b66419a5d600bfec03728e4167
