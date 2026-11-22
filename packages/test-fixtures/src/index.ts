@@ -72,6 +72,8 @@ import { EVERY_PLATFORM_A_WORLD as EVERY_PLATFORM_A_WORLD_RAW } from './every-pl
 import { THE_ZOMBIE_WHO_SAID_PLEASE as THE_ZOMBIE_WHO_SAID_PLEASE_RAW } from './the-zombie-who-said-please.js';
 import { RENT_IS_ONE_TRUE_STORY as RENT_IS_ONE_TRUE_STORY_RAW } from './rent-is-one-true-story.js';
 import { THREE_FEET_APART as THREE_FEET_APART_RAW } from './three-feet-apart.js';
+import { PAID_TO_KILL_ME as PAID_TO_KILL_ME_RAW } from './paid-to-kill-me.js';
+import { HE_BURNED_THE_CAPITAL as HE_BURNED_THE_CAPITAL_RAW } from './he-burned-the-capital.js';
 
 
 export { withDerivedAssetKeys } from './derive-assets.js';
@@ -146,6 +148,8 @@ export const EVERY_PLATFORM_A_WORLD = EVERY_PLATFORM_A_WORLD_RAW;
 export const THE_ZOMBIE_WHO_SAID_PLEASE = THE_ZOMBIE_WHO_SAID_PLEASE_RAW;
 export const RENT_IS_ONE_TRUE_STORY = RENT_IS_ONE_TRUE_STORY_RAW;
 export const THREE_FEET_APART = THREE_FEET_APART_RAW;
+export const PAID_TO_KILL_ME = PAID_TO_KILL_ME_RAW;
+export const HE_BURNED_THE_CAPITAL = HE_BURNED_THE_CAPITAL_RAW;
 
 /**
  * These three shipped with null asset keys on purpose, and no longer need to.
@@ -283,4 +287,6 @@ export const LAUNCH_CATALOG = [
   THE_ZOMBIE_WHO_SAID_PLEASE,
   RENT_IS_ONE_TRUE_STORY,
   THREE_FEET_APART,
+  PAID_TO_KILL_ME,
+  HE_BURNED_THE_CAPITAL,
 ] as const;
