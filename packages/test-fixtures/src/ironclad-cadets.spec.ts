@@ -177,25 +177,37 @@ describe('the opener', () => {
   it('asks for its own opening panel', () => {
     expect(story.openingPanel?.assetKey).toBe('story_ironclad_cadets/opening');
     expect((story.openingPanel?.alt ?? '').length).toBeLessThanOrEqual(200);
+    // The panel is drawn with the first-named character's portrait as reference,
+    // so it has to be the one who speaks in the opener.
+    expect(story.openingPanel?.alt.startsWith('Kaede ')).toBe(true);
   });
 });
 
 describe('everybody is an adult', () => {
   const AGES: Record<string, number> = { kaede: 22, tova: 23, haldor: 22, ruiz: 52, graf: 58 };
   const NUMBER_WORDS: Record<number, string> = {
-    22: 'Twenty-two',
-    23: 'Twenty-three',
-    52: 'Fifty-two',
-    58: 'Fifty-eight',
+    22: 'twenty-two',
+    23: 'twenty-three',
+    52: 'fifty-two',
+    58: 'fifty-eight',
   };
 
-  it('states every human age in the appearance, and every one is eighteen or over', () => {
+  it('states every human age in hard canon, and every one is eighteen or over', () => {
+    const canon = story.rules.hardCanon.join(' ');
     for (const c of story.characters) {
       if (c.pronouns === 'it/its') continue;
       const age = AGES[c.id];
       expect(age, `${c.id} has no stated age`).toBeDefined();
       expect(age!, c.id).toBeGreaterThanOrEqual(18);
-      expect(c.appearance.startsWith(NUMBER_WORDS[age!]!), `${c.id}: ${c.appearance}`).toBe(true);
+      expect(canon, c.id).toMatch(new RegExp(`${c.name} (is )?${NUMBER_WORDS[age!]!}\\b`));
+    }
+  });
+
+  it('draws people as adults by costume, never by an age number (the art is painted from appearance)', () => {
+    for (const c of story.characters) {
+      if (c.pronouns === 'it/its') continue;
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (woman|man),/);
+      expect(c.appearance, c.id).not.toMatch(/\b(twenty|thirty|forty|fifty|sixty)\b|\d/i);
     }
   });
 
@@ -277,6 +289,55 @@ describe('it is its own story', () => {
     for (const s of story.openingSuggestions) expect(s).not.toContain('\\n');
     // Nothing outside Latin script and typographic punctuation.
     expect(playerFacing()).not.toMatch(/[Ѐ-ӿ぀-ヿ一-鿿가-힯]/);
+  });
+});
+
+describe('ready for art and release (docs/stories-50/PIPELINE.md)', () => {
+  it('opens straight on the scene and ships unpublished', () => {
+    expect(story.prologue).toEqual([]);
+    // Null until release day; a date set now makes the API report it updated on every request.
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('gives every carded character a concrete appearance to paint a portrait from', () => {
+    for (const c of story.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(120);
+      expect(c.visualHook.length, c.id).toBeGreaterThan(0);
+    }
+  });
+
+  it('keeps the cover effects on objects and the title, never on a face', () => {
+    expect(story.coverDirection).toMatch(/HER FACE STAYS CLEAN/);
+    expect(story.coverDirection).toMatch(/never on her face/);
+    expect(story.coverDirection).not.toMatch(/\b(twenty|thirty|forty|fifty|years? old|aged)\b/i);
+  });
+
+  it('puts the suit’s system where the narrator reads it', () => {
+    // runTurnPure never reads resources, step notes or locked abilities. It reads
+    // hard canon, quest items and each archetype's starting abilities.
+    const link = story.items.find((i) => i.id === 'nine_link')!;
+    expect(story.rules.startingItems[0]?.itemId).toBe('nine_link');
+    expect(link.questItem).toBe(true);
+    expect(link.droppable).toBe(false);
+    const canon = story.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/rear seat has its own controls/);
+    expect(canon).toMatch(/every step and every fight wears it/);
+    expect(canon).toMatch(/command tower notices/);
+    expect(canon).toMatch(/It is the limiter/);
+    for (const a of story.archetypes) {
+      expect(a.startingAbilities[0], a.id).toBe('take_a_step');
+      expect(a.startingAbilities.length, a.id).toBe(2);
+      for (const id of a.startingAbilities) {
+        expect(story.abilities.find((x) => x.id === id)?.unlockedByDefault, `${a.id} ${id}`).toBe(true);
+      }
+    }
+    expect(new Set(story.archetypes.map((a) => a.startingAbilities[1])).size).toBe(story.archetypes.length);
+  });
+
+  it('names its titled characters the way people address them', () => {
+    const called = Object.fromEntries(story.characters.map((c) => [c.id, c.calledName]));
+    expect(called).toMatchObject({ kaede: 'Kaede', ruiz: 'Ruiz', graf: 'Graf' });
+    expect(story.rules.toneGuide.length).toBeGreaterThan(200);
   });
 });
 

@@ -51,7 +51,7 @@ What you do with any of it is yours. Climb out and keep your head down, or take 
 
 ## Tone and pacing
 
-- A loud, quick, physical school story with nine-metre machines in it, and a bruise underneath.
+- A loud, quick, physical military academy story with nine-metre machines in it, and a bruise underneath. (Not "school story": `toneGuide` is also the mood line on the cover and every portrait, and "school" pulls the art toward school uniforms.)
 - The setting is a ranking Board over the mess, rivalries in front of two hundred people, sparring in a bowl cut into the cliff, and a hangar at night that smells of coffee and hydraulic fluid.
 - The academy looks down on mechanics, and the hangar looks right back. The comedy comes from people being very specific about what they want.
 - Action is machine against machine. Injuries to people are stated plainly and briefly and never dwelt on. There is no gore.
@@ -72,18 +72,26 @@ In production only the name, pronouns and archetype reach the storyteller (`runT
 
 ### Minimal hard canon
 - The player is a **twenty-one-year-old** night-shift mechanic. They are crew, not a cadet, and they are not on the Board.
-- Everyone at the academy is an adult. Cadets enlist at eighteen or older.
+- Everyone at the academy is an adult. Cadets enlist at eighteen or older. Every named character's age is stated in hard canon.
 - Unit Nine keyed to the player tonight, and the cutters are due at six.
 - Pip's three rules, above.
+
+### The suit's system, where the narrator reads it
+`runTurnPure` never reads resources, quest step notes or locked abilities, so the system lives in three places it does read:
+- **Hard canon** says what the rear seat can do alone (walk and fight, slower and harder on the suit), what a pilot in the empty front seat adds, how every step wears the suit (Strain), how moving it in public draws the tower (Heat), and what the limiter is.
+- **A starting quest item**, *Your Link To Unit Nine* (`nine_link`, not droppable), says the same thing in the player's inventory without giving away what the front seat is for.
+- **Starting abilities.** Every archetype starts with *Take a Step* (the keyed suit) plus one signature move, so the narrator gets a "Can:" line for the player's origin.
 
 ### Archetypes (fixed for the whole story)
 
 | Id | Name | Role | Grants |
 |---|---|---|---|
-| `arch_garage` | You Grew Up In A Garage | Technical craft and repairs | mind +2, might +1; tinkering 3, hauling 1, noticing 1; tool roll; Hangar Crews +10 |
-| `arch_washout` | You Washed Out | Pilot training, unfinished | agility +2, resolve +1; piloting 2, nerve 2; old cadet badge; Cadet Wing +10 |
-| `arch_talker` | You Talk To Machines | Social and machine affinity | arcana +2, presence +1; linking 3, bluffing 2; diagnostic slate |
-| `arch_harbour` | You Grew Up Below The Cliff | Salvage and stealth background | might +2, agility +1; slipping 3, hauling 2; boat shed key; Harbour Families +15 |
+| `arch_garage` | You Grew Up In A Garage | Technical craft and repairs | mind +2, might +1; tinkering 3, hauling 1, noticing 1; Take a Step, Fix It Properly; tool roll; Hangar Crews +10 |
+| `arch_washout` | You Washed Out | Pilot training, unfinished | agility +2, resolve +1; piloting 2, nerve 2; Take a Step, Put It Down; old cadet badge; Cadet Wing +10 |
+| `arch_talker` | You Talk To Machines | Social and machine affinity | arcana +2, presence +1; linking 3, bluffing 2; Take a Step, Ask Pip; diagnostic slate |
+| `arch_harbour` | You Grew Up Below The Cliff | Salvage and stealth background | might +2, agility +1; slipping 3, hauling 2; Take a Step, Slip Away; boat shed key; Harbour Families +15 |
+
+Every player also starts with *Your Link To Unit Nine*, the night pass and the tin of contact polish.
 
 ## Opening scene (as shipped, 114 words)
 
@@ -116,17 +124,17 @@ How it meets the opener rules:
 
 **Opening panel:** Kaede in a navy pilot's flight jacket with a lieutenant's stripe, on a gantry ladder, palm flat on the amber-lit cockpit glass of a grey-green armoured suit, red alarms behind her. ("Pilot's jacket with a lieutenant's stripe" reads older to image models than "cadet flight jacket".)
 
-**Cover (`coverDirection`):** Kaede alone in the foreground from the waist up on a gantry ladder, by costume and pose and never by age words: blunt black bob, navy flight jacket with a lieutenant's stripe, grease smear, swollen logbook, palm on amber cockpit glass, furious and astonished. Behind her, soft, the scuffed grey-green nine-metre suit with a blunt rounded helm, red tag on its knee, red beacons; no V-crest, horn, twin-eye visor, insignia or lettering. Title UNIT NINE painted in the upper third as a stencilled industrial logo, spelled exactly, no other text.
+**Cover (`coverDirection`):** Kaede alone in the foreground from the waist up on a gantry ladder, by costume and pose and never by age words: blunt black bob, navy flight jacket with a lieutenant's stripe, grease smear on the sleeve, swollen logbook, palm on amber cockpit glass, furious and astonished. Her face stays clean: the amber glow, the red beacons and the grease stay on objects and on the title. Behind her, soft, the scuffed grey-green nine-metre suit with a blunt rounded helm, red tag on its knee, red beacons; no V-crest, horn, twin-eye visor, insignia or lettering. Title UNIT NINE painted in the upper third as a stencilled industrial logo with a thin red alarm glow behind it, spelled exactly, no other text. The cover spells the shelf title, **Unit Nine**, not the working title: the art script paints `story.title`, so a TITLE line naming *Ironclad Cadets* would hand the model two different words to letter.
 
 At 23:10 the only characters in Hangar Nine are Kaede (scheduled there 23:00–24:00, saying goodbye to the suit) and Pip. Two academy police arrive at 23:25. Chief Ruiz walks down the row at 23:35.
 
 ## Major cast
 
-Every character is an adult. Ages are stated here and repeated at the start of each `appearance`.
+Every character is an adult. Ages are stated here and in hard canon. Each `appearance` opens "An adult woman/man" or "An older woman/man" and never carries an age number, as in the pilot, because the portraits and the opening panel are painted from it.
 
 ### Kaede Strand, 22
 **Role:** Final-year cadet lieutenant, first on the Board. She tried to wake Unit Nine forty-one times.
-**Appearance:** Black hair cut blunt at the jaw, navy flight jacket with the first-rank stripe, and a grease smear on one sleeve that she would deny. Her logbook is swollen with forty-one dated entries.
+**Appearance:** Black hair cut blunt at the jaw, dark grey eyes, a navy pilot's flight jacket with a lieutenant's stripe over a charcoal flight suit, fingerless flight gloves, and a grease smear on one sleeve that she would deny. Her logbook is swollen with forty-one dated entries.
 **Wants:** to find out what the mechanic did that she could not. She also has to decide, by noon on Day 8, whether to send her signed Northgate acceptance.
 **Fears:** being ordinary after all, and being pitied by the person who got the thing she wanted.
 **Secrets:**

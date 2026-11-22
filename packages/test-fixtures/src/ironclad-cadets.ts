@@ -87,15 +87,20 @@ const raw = {
     startingLocationId: 'hangar_nine',
     startWorldMinute: 23 * 60 + 10,
     startingItems: [
+      { itemId: 'nine_link', qty: 1 },
       { itemId: 'hangar_pass', qty: 1 },
       { itemId: 'contact_polish', qty: 1 },
     ],
     hardCanon: [
       'The player is a twenty-one-year-old night-shift mechanic at Gullwater Head Academy, a pilot academy on a sea cliff above the harbour town of Gullwater. The player is crew, not a cadet, and is not on the ranking Board.',
-      'Everybody at the academy is an adult. Cadets enlist at eighteen or older, so even a first-year cadet is at least eighteen. The youngest named character is the player, at twenty-one.',
+      'Everybody at the academy is an adult. Cadets enlist at eighteen or older, so even a first-year cadet is at least eighteen. The youngest named character is the player, at twenty-one. Kaede Strand is twenty-two, Haldor Quist twenty-two, Tova Brask twenty-three, Chief Bo Ruiz fifty-two and Commandant Ilse Graf fifty-eight. Pip is a machine with twenty-three years in service.',
       'Ironclads are nine-metre armoured suits. A suit has to key to a pilot through the seat before it will move, and a suit that will not key will not so much as lift a hand.',
       'Unit Nine is a two-seat ironclad built twenty-three years ago by the Quist Foundry: a front seat that steers and a rear engineer’s seat that keys the suit. The academy dropped two-crew doctrine eleven years ago, and since then Unit Nine has refused every pilot who tried it from the front.',
-      'At 23:10 tonight Unit Nine keyed to the player, who was cleaning the rear seat, and sealed its hatch. Its onboard intelligence, Pip, spoke for the first time in eleven years.',
+      'At 23:10 tonight Unit Nine keyed to the player, who was cleaning the rear seat, and sealed its hatch. Its onboard intelligence, Pip, spoke for the first time in eleven years. It is keyed to the player and to nobody else.',
+      'The rear seat has its own controls. Keyed in the back, the player can wake Unit Nine, walk it and fight in it alone, but slower and clumsier than it was built to move, and harder on the suit. The empty front seat has its own harness and link plate. With a pilot keyed in front of a keyed engineer, the suit moves the way the Foundry designed it to, and nobody at the academy has seen that in eleven years.',
+      'Unit Nine has stood in a gantry for eleven years, and every step and every fight wears it. The left knee grinds, a hand actuator lags half a second, and when it is pushed hard the link carries the suit’s ache into the engineer’s own joints. Ruiz can put a night’s wear right on the bench. Nobody can fix it in the middle of a fight, and a suit pushed past its limit can lock solid.',
+      'A nine-metre suit leaving its gantry is the loudest thing on the headland. Whenever the player moves Unit Nine or fights where people can see, the command tower notices: duty officers take names, the academy police in white helmets turn up, and the Commandant’s patience gets shorter. Only a public win in front of the right people turns that attention into protection.',
+      'A red collar on Unit Nine’s throttle carries Pip’s seal. It is the limiter. Lifted, the reactor gives everything it has for about ninety seconds, and the wear comes due all at once.',
       'Commandant Ilse Graf signed Unit Nine’s decommission order. The cutters arrive at the breakers’ yard at 06:00 and the suit is scheduled to be cut for scrap by seven.',
       'Derelicts, called rustbacks on the headland, are automated war walkers left over from the Long War sixty years ago. A few still wander south out of the Hollow Coast every year, and academy pilots hold the Seawall against them.',
       'The academy Trials open at ten in the morning on Day 10, nine days after tonight: ranked bouts in the Pit, judged by inspectors from the Defence Ministry, who decide the academy’s budget and which suits stay in service. The rival Northgate Institute fields a team.',
@@ -103,11 +108,13 @@ const raw = {
       'Eleven years ago at Gullwater, Ilse Graf was Unit Nine’s front-seat pilot. She overrode Pip’s limiter to stop a derelict before it reached the harbour, the overload killed the engineer in the rear seat, Paz Ruiz, who was thirty, and the official report blamed a reactor fault. Paz was Bo Ruiz’s younger sister. Pip’s log holds Graf’s voice giving the order. Almost nobody alive knows this.',
     ],
     toneGuide:
-      'Loud, quick and physical, with a bruise underneath. This is a school story with nine-metre machines in it: a ranking board over the mess hall, rivalries conducted in front of two hundred people, sparring bouts in a bowl cut into the cliff, and a hangar at night that smells of coffee and hydraulic fluid. ' +
+      'Loud, quick and physical, with a bruise underneath. This is a military academy story with nine-metre machines in it: a ranking board over the mess hall, rivalries conducted in front of two hundred people, sparring bouts in a bowl cut into the cliff, and a hangar at night that smells of coffee and hydraulic fluid. ' +
       'Comedy comes from people being very specific about what they want. The academy is snobbish about mechanics and the hangar is snobbish right back. ' +
       'Action is machine on machine: weight, noise, a gantry coming down, a footstep that cracks concrete. Injuries to people are stated plainly and briefly and never dwelt on. ' +
       'Every character is an adult. Romance is allowed and should be competitive, slow and mostly unspoken, up to a kiss and no further, and nobody is ever described by their body. Machines are described lovingly; people are described by what they do with their hands. ' +
-      'Pip is funny and is also grieving, and neither cancels the other. If a scene has nothing at stake, let it be a good night shift and let it be short. The face at the top of a beat is Kaede’s whenever she is in the scene.',
+      'Pip is funny and is also grieving, and neither cancels the other. The suit never solves a scene for free: every step costs it wear and draws eyes from the tower. ' +
+      'What happened at Gullwater eleven years ago is a lead the player earns through Pip’s log, the Chief or the Commandant. Never state it early, and a player who never asks never hears it. ' +
+      'If a scene has nothing at stake, let it be a good night shift and let it be short. The face at the top of a beat is Kaede’s whenever she is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
       "Kaede pulls a logbook out of her jacket. It has been opened so often the spine is white.\n\n\"Forty-one attempts,\" she says. \"Dates. Times. Link readings. It never even flickered.\"\n\nShe holds it out. You don’t take it.\n\n\"So,\" she says, very calmly. \"What did you do?\"\n\n\"I cleaned the contacts.\"\n\nShe looks at you for a long moment.\n\n\"We were told,\" she says, \"that those were decorative.\"",
@@ -241,6 +248,18 @@ const raw = {
   ],
   tendencies: [],
   items: [
+    {
+      id: 'nine_link',
+      name: 'Your Link To Unit Nine',
+      tags: ['quest', 'machine'],
+      questItem: true,
+      droppable: false,
+      description:
+        'Since 23:10 tonight Unit Nine is keyed to you through its rear seat, and to nobody else. From back there you can wake it, walk it and fight in it, and through the seat you feel what it feels: a grinding left knee, a hand that lags half a second, and, when you push it, a dull ache in your own joints. Pip talks to you through the speaker by your ear.',
+      loreText:
+        'There is a second seat in front of yours, with its own harness and its own link plate, and nobody has told you what it is for. The red collar on the throttle is the limiter, under Pip’s seal. Pip will open the hatch for anybody who asks twice, will not walk on people, and has not lifted the limiter for anybody in eleven years.',
+      icon: 'link',
+    },
     {
       id: 'hangar_pass',
       name: 'Your Night Pass',
@@ -897,7 +916,7 @@ const raw = {
         'I came down here to say goodbye to it. Repeat that to anybody and I will deny it in front of the entire mess.',
       ],
       appearance:
-        'Twenty-two, black hair cut blunt at the jaw, a navy cadet flight jacket with the first-rank stripe on the cuff and a smear of grease on one sleeve she would deny.',
+        'An adult woman, lean and upright, glossy black hair cut blunt at the jaw, sharp dark grey eyes, a navy pilot’s flight jacket with a lieutenant’s stripe on the cuff over a charcoal flight suit, a grease smear on one sleeve she would deny, fingerless black flight gloves, and a swollen logbook jammed in her jacket pocket.',
       visualHook: 'A pilot’s logbook jammed in her jacket pocket, swollen with forty-one dated entries.',
       silhouette: 'Halfway up a ladder, one hand on a rung, leaning hard toward the glass.',
       artSeed: 'ic-kaede-01',
@@ -987,7 +1006,7 @@ const raw = {
         'Nobody up there ever thinks about who keeps their toys breathing while they sleep. We do. Us. The orange lot.',
       ],
       appearance:
-        'Twenty-three, dark curly hair stuffed under a red bandana, hangar overalls tied off by the sleeves, a fork and a pencil in the same chest pocket.',
+        'An adult woman, sturdy and quick, dark curly hair stuffed under a red bandana with a small crooked wrench stitched on it, warm brown eyes, faded orange hangar overalls with the sleeves tied round her waist over a grey long-sleeved work shirt, a fork and a pencil in the same chest pocket, and a cup of noodles in one hand.',
       visualHook: 'A red bandana with a crooked little wrench she stitched on herself.',
       silhouette: 'Perched on an upturned crate with a cup of noodles, pointing with the fork.',
       artSeed: 'ic-tova-01',
@@ -1069,7 +1088,7 @@ const raw = {
         'I froze. Last spring, with the whole town behind me. She covered it. I have never once said that out loud.',
       ],
       appearance:
-        'Twenty-two, fair hair combed back with great care, a tailored cadet uniform with the second-rank stripe, white gloves he removes one finger at a time.',
+        'An adult man, tall and very straight-backed, fair hair combed back with great care, pale blue eyes, a tailored navy academy dress uniform with a high collar and the second-rank stripe on the cuff, polished black boots, and white duelling gloves he removes one finger at a time.',
       visualHook: 'White duelling gloves, taken off finger by finger before every bout.',
       silhouette: 'Standing very straight with his hands clasped behind his back.',
       artSeed: 'ic-haldor-01',
@@ -1151,7 +1170,7 @@ const raw = {
         'You clean contacts as if they matter. Four months, and nobody told you to. That is why I put you on Nine.',
       ],
       appearance:
-        'Fifty-two, broad and grey-bearded, orange hangar overalls rolled to the elbow, reading glasses pushed up onto a faded blue bandana.',
+        'An older man, broad and heavyset, a short grey beard, faded orange hangar overalls with the sleeves rolled to the elbow, reading glasses pushed up onto a faded blue bandana and never worn over his eyes, a battered torque wrench in his back pocket, and a chipped enamel mug in one hand.',
       visualHook: 'Reading glasses pushed up on a faded blue bandana and never once worn over his eyes.',
       silhouette: 'Leaning on a gantry rail with a mug, looking up at a suit as if it might say something.',
       artSeed: 'ic-ruiz-01',
@@ -1232,7 +1251,7 @@ const raw = {
         'I flew it once. We do not discuss that, and I would be so grateful if you did not either. Thank you. More tea?',
       ],
       appearance:
-        'Fifty-eight, silver hair pinned flat, a dark commandant’s coat with no medals on it, a black cane she uses on stairs and nowhere else.',
+        'An older woman, slight and very upright, silver hair pinned flat, cool grey eyes, a dark charcoal commandant’s greatcoat buttoned to the throat with no medals on it, black leather gloves, and a black steel-tipped cane she uses on stairs and nowhere else.',
       visualHook: 'A black steel-tipped cane she taps twice on the floor before she says no.',
       silhouette: 'Seated, very upright, both hands resting on the head of the cane.',
       artSeed: 'ic-graf-01',
@@ -1313,7 +1332,7 @@ const raw = {
         'I’ll open the hatch if you ask me twice. I’d like it noted that I am asking you once, very nicely, to stay.',
       ],
       appearance:
-        'An amber ring of light on the rear console that brightens when it speaks, inside Unit Nine: nine metres of scuffed grey-green armour, a blunt helm, and a cockpit set high in the chest.',
+        'A machine, not a person: Unit Nine itself, a nine-metre two-seat armoured suit of scuffed grey-green plate, a blunt rounded helm with no crest, horn or face, a cockpit hatch high in the chest, and a red decommission tag wired to its knee. Pip is the ring of amber light on the rear console inside, which brightens when it speaks.',
       visualHook: 'A ring of amber light that pulses once, politely, before every sentence.',
       silhouette: 'A nine-metre armoured suit in a rusted gantry, one hand half raised as if about to wave.',
       artSeed: 'ic-pip-01',
@@ -2275,7 +2294,7 @@ const raw = {
       attributeBonus: { mind: 2, might: 1 },
       skillProficiencies: { tinkering: 3, hauling: 1, noticing: 1 },
       startingItems: [{ itemId: 'toolroll', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['take_a_step', 'fix_it_properly'],
       startingReputation: [{ factionId: 'faction_hangar', amount: 10 }],
     },
     {
@@ -2288,7 +2307,7 @@ const raw = {
       attributeBonus: { agility: 2, resolve: 1 },
       skillProficiencies: { piloting: 2, nerve: 2 },
       startingItems: [{ itemId: 'old_cadet_badge', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['take_a_step', 'put_it_down'],
       startingReputation: [{ factionId: 'faction_cadets', amount: 10 }],
     },
     {
@@ -2301,7 +2320,7 @@ const raw = {
       attributeBonus: { arcana: 2, presence: 1 },
       skillProficiencies: { linking: 3, bluffing: 2 },
       startingItems: [{ itemId: 'diagnostic_slate', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['take_a_step', 'ask_pip'],
       startingReputation: [],
     },
     {
@@ -2314,7 +2333,7 @@ const raw = {
       attributeBonus: { might: 2, agility: 1 },
       skillProficiencies: { slipping: 3, hauling: 2 },
       startingItems: [{ itemId: 'boat_shed_key', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['take_a_step', 'slip_away'],
       startingReputation: [{ factionId: 'faction_harbour', amount: 15 }],
     },
   ],
@@ -2553,12 +2572,15 @@ const raw = {
   coverDirection: [
     'SUBJECT: Kaede Strand, a pilot, alone and unmistakable in the foreground of a key visual for a mecha anime about a war suit that was due for scrap.',
     'She fills the frame from the waist up, holding about two thirds of the picture, standing on a steel gantry ladder.',
-    'Black hair cut blunt at the jaw, a navy pilot’s flight jacket with a lieutenant’s stripe on the cuff, a grease smear on one sleeve, a swollen logbook jammed in her jacket pocket.',
-    'One palm flat on amber-lit cockpit glass beside her, looking straight at the viewer, furious and astonished at once.',
+    'Glossy black hair cut blunt at the jaw, dark grey eyes, a navy pilot’s flight jacket with a lieutenant’s stripe on the cuff over a charcoal flight suit,',
+    'fingerless black flight gloves, a grease smear on one sleeve, a swollen logbook jammed in her jacket pocket.',
+    'One hand grips a ladder rung; the other palm is flat on amber-lit cockpit glass beside her. She looks straight at the viewer, furious and astonished at once, jaw set.',
+    'HER FACE STAYS CLEAN: no grease, scratches, red marks or shadows on her face or skin. The grease is on her sleeve only.',
+    'Every effect stays on objects and on the title: the amber glow on the cockpit glass, the red on the alarm beacons and the tag, never on her face.',
     'BEHIND HER, soft and secondary: a scuffed grey-green nine-metre armoured suit with a blunt rounded helm, standing in a rusted service gantry in a dim hangar at night,',
     'a red tag wired to its knee, red alarm beacons turning. No V-shaped head crest, no single horn, no twin-eye visor, no insignia, numbers or lettering on the armour.',
-    'LIGHT: warm amber from the cockpit glass across her face and hand, red alarm light rimming her from behind, cold blue hangar shadows.',
-    'TITLE: the words UNIT NINE painted into the art in the upper third as a bold stencilled industrial logo, off-white with chipped edges,',
+    'LIGHT: warm amber from the cockpit glass across her face and hand, red alarm light rimming her hair and shoulders from behind, cold blue hangar shadows.',
+    'TITLE: the words UNIT NINE painted into the art in the upper third as a bold stencilled industrial logo, off-white with chipped paint edges and a thin red alarm glow behind the letters,',
     'spelled exactly UNIT NINE, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   publishedAt: null,
