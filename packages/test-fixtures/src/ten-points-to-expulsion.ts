@@ -88,7 +88,8 @@ const raw = {
     startWorldMinute: 8 * 60 + 59,
     startingItems: [{ itemId: 'band', qty: 1 }],
     hardCanon: [
-      'Tallis College is a four-year residential college on a hill above the town of Brackwater. Every student is an adult, at least eighteen. The player is a first-year a month into term, on the college’s one full scholarship, which goes to the highest entrance exam score of the year.',
+      'Tallis College is a four-year residential college on a hill above the town of Brackwater. Every student is an adult, at least eighteen. The player is an adult first-year a month into term, on the college’s one full scholarship, which goes to the highest entrance exam score of the year.',
+      'Everyone in this story is an adult, and the ages are fixed: Ren Harcourt is twenty-two, Yui Arakawa nineteen, Margot Ashdown twenty-one, Bastian Kroll twenty-three, Tobias Grey thirty-six and Honora Marsh fifty-seven. The Ledger is software, twenty-three years in service, and not a person.',
       'Every student wears a band. The Ledger, the college’s scoring system, sees through the bands and through lenses on every building, and adds or takes away points by a published Tariff. Points buy meals, rooms, library time and resits. At zero a student is served Notice and is expelled forty-eight hours later unless their balance is back above zero.',
       'The Tariff, in part: helping staff or a student +1 to +3; a kitchen shift +2; a top-ten exam paper +50; a perfect paper +200; winning a Stake, the amount staked. Running in the colonnade -2; lateness -3; a raised voice in a hall -2; lying to staff, if caught, -5; leaving a sitting early -10; refusing a lawful Stake -5; removing your band -20; unsanctioned violence -50. Gifts of points between students are lawful and unlimited. Help and kitchen shifts pay at most five points a day between them, and the Ledger never pays twice for the same favour.',
       'Paying students start each year with an endowment credit of thousands of points. Scholarship and bursary students start with fifty. The player starts the story at 10 points and Yui Arakawa at 3.',
@@ -907,7 +908,7 @@ const raw = {
         'My grandfather paid for the machine that decides whether you eat. Please don’t thank me for being polite about it.',
       ],
       appearance:
-        'Twenty-two, tall and composed, ash-blond hair cut short, cool grey eyes, the only white blazer in a college of navy ones, worn open, and a black card case turning in one hand.',
+        'An adult man, tall and composed, ash-blond hair cut short, cool grey eyes, the only white blazer in a college of navy ones, worn open over a pale open-collared shirt, and a black card case turning in one hand.',
       visualHook: 'A white blazer in a sea of navy ones, and a black card case that never stops turning between his fingers.',
       silhouette: 'Seated sideways on somebody else’s desk, one elbow on his knee, card case held up between two fingers.',
       artSeed: 'tpe-ren-01',
@@ -999,7 +1000,7 @@ const raw = {
         'Sorry. I sold Margot where you study. Twenty points. That was before. It isn’t before any more.',
       ],
       appearance:
-        'Nineteen, a black bob she cuts herself, a pen behind each ear, a second-hand navy college jumper with frayed cuffs, and a band glowing red on her wrist.',
+        'An adult woman, quick and restless, a black bob she cuts herself, a pen behind each ear, a second-hand navy college jumper with frayed cuffs over a collared shirt, and a band glowing red on her left wrist.',
       visualHook: 'Two pens behind her ears at all times, and a red-glowing band she keeps tugging her sleeve down over.',
       silhouette: 'Cross-legged on a desk or a bench, notebook open on her knee, talking with both hands.',
       artSeed: 'tpe-yui-01',
@@ -1084,7 +1085,7 @@ const raw = {
         'Staff are not scored. I was not always staff.',
       ],
       appearance:
-        'Thirty-six, lean, dark hair cropped close and already grey at the temples, a charcoal porter’s coat buttoned to the throat, and a pocket watch on a chain that he checks instead of looking at people.',
+        'An adult man, lean and upright, dark hair cropped close and already grey at the temples, a charcoal porter’s coat buttoned to the throat, and a pocket watch on a chain that he checks instead of looking at people.',
       visualHook: 'A pocket watch he opens and closes instead of making eye contact.',
       silhouette: 'Upright at the front of a room, hands behind his back, watch chain catching the light.',
       artSeed: 'tpe-grey-01',
@@ -1160,7 +1161,7 @@ const raw = {
         '[Right of Audit · Charter, clause nine · Requires a perfect Standing Paper · Met: pending]',
       ],
       appearance:
-        'Twenty-three years in service and no body at all: white numerals on the face of every band, a soft chime, and the two-storey Board in the colonnade that it rewrites every evening at six.',
+        'No body at all: a two-storey black screen of glowing white names and numbers hung between pale stone columns, which it rewrites every evening at six, and the same white numerals on the matte black face of every band on campus, each change announced by a soft chime.',
       visualHook: 'A white number on a black band face, and a soft chime before every change.',
       silhouette: 'Not a body. A glowing two-storey screen of names and numbers hanging between stone columns.',
       artSeed: 'tpe-ledger-01',
@@ -1230,7 +1231,7 @@ const raw = {
         'Ren’s sweet. Ren thinks this ends with a nice speech. It ends with a spreadsheet, and guess who’s holding it.',
       ],
       appearance:
-        'Twenty-one, sleek auburn hair in a low knot, a navy blazer with a silver council pin, very white trainers, and a tablet held against her chest like a shield.',
+        'An adult woman, poised and brisk, sleek auburn hair in a low knot, a fitted navy blazer with a silver council pin, very white trainers, and a tablet held against her chest like a shield.',
       visualHook: 'A tablet hugged to her chest and a silver balance-shaped pin on her lapel.',
       silhouette: 'Leaning in with a bright smile, tablet tilted toward you so you can read your own name on it.',
       artSeed: 'tpe-margot-01',
@@ -1297,7 +1298,7 @@ const raw = {
         'Tape your hands. No. Properly. You’ll want those fingers for the next exam.',
       ],
       appearance:
-        'Twenty-three, broad as a doorway, dark skin, a shaved head, a rowing club jacket over taped knuckles, and a whistle on a cord he never blows.',
+        'An adult man, broad as a doorway, dark skin, a shaved head, a rowing club jacket over taped knuckles, and a whistle on a cord he never blows.',
       visualHook: 'Taped knuckles and a whistle on a cord he has never once blown.',
       silhouette: 'Leaning on the ring ropes with both forearms, filling the whole frame, perfectly relaxed.',
       artSeed: 'tpe-bastian-01',
@@ -1372,7 +1373,7 @@ const raw = {
         'You have a perfect paper and ten points. By Friday I could make one of those numbers very much larger.',
       ],
       appearance:
-        'Fifty-seven, silver hair in a precise chignon, a dark academic gown over a soft grey cardigan, reading glasses pushed up, and a heavy brass key on a green ribbon at her neck.',
+        'An older woman, upright and gracious, silver hair in a precise chignon, a dark academic gown over a soft grey cardigan, reading glasses pushed up, and a heavy brass key on a green ribbon at her neck.',
       visualHook: 'A heavy brass key on a green ribbon, resting on a grey cardigan.',
       silhouette: 'Upright in a wingback armchair, teacup in one hand, the other resting on the key.',
       artSeed: 'tpe-marsh-01',
@@ -2327,7 +2328,7 @@ const raw = {
       attributeBonus: { might: 2, resolve: 2 },
       skillProficiencies: { graft: 3, blind_spots: 2 },
       startingItems: [{ itemId: 'plain_tray', qty: 2 }],
-      startingAbilities: [],
+      startingAbilities: ['ask_the_ledger', 'earn_it'],
       startingReputation: [{ factionId: 'faction_staff', amount: 15 }],
     },
     {
@@ -2342,7 +2343,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { rules: 3, study: 1, gut: 1 },
       startingItems: [{ itemId: 'tariff_sheet', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['ask_the_ledger', 'work_the_rules'],
       startingReputation: [],
     },
     {
@@ -2357,7 +2358,7 @@ const raw = {
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { front: 3, bargain: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['ask_the_ledger', 'name_a_price'],
       startingReputation: [{ factionId: 'faction_council', amount: 10 }],
     },
     {
@@ -2372,7 +2373,7 @@ const raw = {
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { scrapping: 3, nerve: 2 },
       startingItems: [{ itemId: 'hand_tape', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['ask_the_ledger', 'stake_a_bout'],
       startingReputation: [{ factionId: 'faction_attic', amount: 10 }],
     },
   ],
@@ -2581,14 +2582,29 @@ const raw = {
     "Your wristband buzzes.\n\n[-2 · Running in the colonnade · Balance 10]\n\nTen points left. At zero, you are expelled.\n\nA fourth-year in a white blazer drops into the empty seat beside your exam desk.\n\n\"Ren Harcourt. Student president.\" He smiles like it costs him nothing. \"Don’t stand up.\"\n\nHe slides a black card across the desk. Gold print: 1,000 POINTS.\n\n\"Fail the exam. Hand in a blank paper and this is yours. Nobody needs to know.\"\n\nAcross the aisle, your friend Yui stares at the card. Her band reads 3.\n\nAt the front, the proctor checks his watch and lifts the bell.\n\nThirty seconds.\n\nRen taps the card once. \"Yes or no?\"",
   openingPanel: {
     assetKey: 'story_ten_points_to_expulsion/opening',
-    alt: 'Ren Harcourt in a white blazer sliding a black card printed 1,000 POINTS across an exam desk toward the viewer, rows of desks and a brass bell behind him.',
+    alt: 'Ren in an open white blazer, leaning in from the seat beside your exam desk to slide a black card with gold print toward you, rows of desks and a proctor lifting a brass bell behind.',
   },
   openingSuggestions: [
     '"Why is my blank paper worth a thousand points to you?"',
     'I pocket the card without a word and pick up my pen.',
     'I raise my hand. "Proctor! He’s paying me to fail."',
   ],
-  publishedAt: '2026-11-22T04:00:00.000Z',
+  coverDirection: [
+    'SUBJECT: Ren Harcourt, council president of an old residential college, alone and unmistakable in the foreground of a key visual for an anime college drama about a points economy and a bribe.',
+    'He fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'Tall and composed, ash-blond hair cut short, cool grey eyes, the only white blazer in the picture, worn open over a pale open-collared shirt.',
+    'He sits sideways on the edge of a wooden exam desk, one elbow on his knee, and holds a matte black card out toward the viewer between two fingers; a black card case rests in his other hand.',
+    'The card has a thin gold border and a small gold balance-scale emblem, and a hard gold glint runs along its edge. It shows no letters, no numbers, nothing that reads as writing.',
+    'His expression is a calm, courteous half-smile with something unreadable behind it, looking straight at the viewer as if waiting for an answer.',
+    'HIS FACE STAYS CLEAN: no glow, sparkles, numbers, marks or effect shadows on his face or skin.',
+    'Every gold and red effect stays on the card, the wristbands and the title, never on his face.',
+    'BEHIND HIM, soft and secondary: a vast old examination hall under a vaulted ceiling, rows of single wooden desks with seated figures in black academic gowns over navy blazers, a small red or white light glowing on each wristband,',
+    'tall arched windows, small black camera lenses in the vaulting, and on a raised dais a proctor in a charcoal coat lifting a brass hand bell, all in soft focus.',
+    'LIGHT: cold pale morning light from the tall windows across the hall, and warm gold light from the card on his hand and the white blazer, so he is rimmed in cold white and lit in gold.',
+    'TITLE: the title Ten Points to Expulsion painted into the art in the upper third as a stacked bold condensed wordmark in capitals: TEN POINTS on the first line in white with a soft gold glow like a lit scoreboard, TO EXPULSION on the second line in deep red,',
+    'spelled exactly TEN POINTS TO EXPULSION, large and legible at thumbnail size. A thin red warning line glows under the word EXPULSION only. No other text anywhere.',
+  ].join(' '),
+  publishedAt: null,
 };
 
 export const TEN_POINTS_TO_EXPULSION = StoryVersion.parse(raw);

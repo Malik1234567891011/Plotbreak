@@ -65,6 +65,7 @@ const visibleText = (): string[] => [
   story.creatorNote,
   story.opening,
   story.openingPanel?.alt ?? '',
+  story.coverDirection ?? '',
   ...story.openingSuggestions,
   ...story.mechanicsChips,
   ...story.rules.hardCanon,
@@ -204,32 +205,46 @@ describe('rule 2: adults only', () => {
     eighteen: 18, nineteen: 19, twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70,
     one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9,
   };
-  /** The number word an appearance opens with: "Twenty-two, tall…" is 22. */
-  const ageOf = (appearance: string): number => {
-    const head = appearance.trim().toLowerCase().match(/^[a-z]+(?:-[a-z]+)?/)?.[0] ?? '';
-    return head.split('-').reduce((sum, part) => sum + (NUMBER[part] ?? Number.NaN), 0);
+  const AGE_WORD = '((?:eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy)(?:-(?:one|two|three|four|five|six|seven|eight|nine))?)';
+  const canon = story.rules.hardCanon.join(' ');
+  /**
+   * The age hard canon gives a person: "Ren Harcourt is twenty-two" is 22.
+   * Ages live in canon, where the storyteller reads them, and not in
+   * `appearance`, which the portrait and panel art are drawn from: as in the
+   * pilot, art describes people by costume and pose, never by an age word.
+   */
+  const ageOf = (name: string): number => {
+    const word = canon.match(new RegExp(`${name}(?: is)? ${AGE_WORD}\\b`))?.[1] ?? '';
+    return word ? word.split('-').reduce((sum, part) => sum + (NUMBER[part] ?? Number.NaN), 0) : Number.NaN;
   };
   const people = story.characters.filter((c) => c.id !== 'ledger');
 
-  it('states every person’s age, and every one is at least eighteen', () => {
+  it('states every person’s age in hard canon, and every one is at least eighteen', () => {
     for (const c of people) {
-      const age = ageOf(c.appearance);
-      expect(Number.isFinite(age), `${c.id}: "${c.appearance}"`).toBe(true);
+      const age = ageOf(c.name);
+      expect(Number.isFinite(age), `${c.id}: no age for ${c.name} in hard canon`).toBe(true);
       expect(age, c.id).toBeGreaterThanOrEqual(18);
-      expect(c.appearance, c.id).toMatch(/^[A-Z][a-z]+(?:-[a-z]+)?, /);
     }
   });
 
   it('pins the ages the bible states', () => {
-    const ages = Object.fromEntries(people.map((c) => [c.id, ageOf(c.appearance)]));
+    const ages = Object.fromEntries(people.map((c) => [c.id, ageOf(c.name)]));
     expect(ages).toEqual({ ren: 22, yui: 19, grey: 36, margot: 21, bastian: 23, marsh: 57 });
+  });
+
+  it('draws every person as an adult, by costume and never by an age word', () => {
+    const AGE = new RegExp(`\\b${AGE_WORD}\\b|\\b\\d+\\b`, 'i');
+    for (const c of people) {
+      expect(c.appearance, c.id).toMatch(/^An (?:adult|older) (?:man|woman), /);
+      expect(c.appearance, c.id).not.toMatch(AGE);
+    }
   });
 
   it('makes the Ledger software with a service age, not a person', () => {
     const ledger = story.characters.find((c) => c.id === 'ledger')!;
     expect(ledger.pronouns).toBe('it/its');
-    expect(ledger.appearance).toMatch(/^Twenty-three years in service and no body at all/);
-    expect(ageOf(ledger.appearance)).toBe(23);
+    expect(ledger.appearance).toMatch(/^No body at all: /);
+    expect(canon).toMatch(/The Ledger is software, twenty-three years in service, and not a person/);
   });
 
   it('says in canon that the college is post-secondary and everybody is an adult', () => {
@@ -829,6 +844,54 @@ describe('art', () => {
       ...derived.characters.map((c) => c.portrait),
     ];
     for (const key of keys) expect(key, String(key)).toMatch(/^story_ten_points_to_expulsion\//);
+  });
+
+  it('gives every card-blurbed character a concrete appearance to draw a portrait from', () => {
+    for (const c of story.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(80);
+    }
+  });
+
+  it('opens on a panel of the character who speaks first', () => {
+    const panel = story.openingPanel!;
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    expect(panel.alt.startsWith('Ren ')).toBe(true);
+    expect(story.opening).toMatch(/[“"]Ren Harcourt\./);
+  });
+
+  it('directs its own cover, title included, with every effect kept off faces', () => {
+    const cover = story.coverDirection ?? '';
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(cover).toMatch(/\bTITLE:/);
+    expect(title).toContain('Ten Points to Expulsion');
+    expect(title).toContain('spelled exactly TEN POINTS TO EXPULSION');
+    expect(title).toMatch(/upper third/);
+    expect(cover).toMatch(/HIS FACE STAYS CLEAN/);
+    expect(cover).toMatch(/never on his face/);
+    // People by costume and pose: no age words and no digits on the cover.
+    expect(cover).not.toMatch(/\b(adult|older|aged?|years? old|eighteen|nineteen|twenty|thirty|fifty)\b|\d/i);
+  });
+});
+
+describe('release pipeline', () => {
+  it('has no prologue and no release date until it ships', () => {
+    expect((story as { prologue?: unknown[] }).prologue ?? []).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('puts the system where the storyteller reads it: canon, the band, and every background’s abilities', () => {
+    expect(story.rules.startingItems.map((i) => i.itemId)).toContain('band');
+    for (const a of story.archetypes) {
+      expect(a.startingAbilities[0], a.id).toBe('ask_the_ledger');
+      expect(a.startingAbilities.length, a.id).toBeGreaterThanOrEqual(2);
+    }
+    expect(new Set(story.archetypes.map((a) => a.startingAbilities[1])).size).toBe(story.archetypes.length);
+  });
+
+  it('gives every titled character the name they are called by', () => {
+    expect(story.characters.find((c) => c.id === 'grey')?.calledName).toBe('Mr. Grey');
+    expect(story.characters.find((c) => c.id === 'marsh')?.calledName).toBe('Provost Marsh');
+    expect(story.rules.toneGuide.length).toBeGreaterThan(200);
   });
 });
 

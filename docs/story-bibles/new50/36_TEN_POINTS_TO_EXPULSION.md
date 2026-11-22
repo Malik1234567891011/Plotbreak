@@ -94,12 +94,14 @@ The Ledger cannot see past the main gate. Brackwater town is unscored. Students 
 
 ## Player starting authority
 
-The player is a first-year on the one full scholarship, with ten points, a band, a perfect entrance score and a friend at three. They have no rank, no allies on the Council and no money outside the Ledger. They do know the Tariff exists. What they can do depends on their background, which is fixed for the story:
+The player is a first-year on the one full scholarship, with ten points, a band, a perfect entrance score and a friend at three. They have no rank, no allies on the Council and no money outside the Ledger. They do know the Tariff exists. Everyone starts with the band (the one starting item) and can Ask the Ledger through it. What else they can do depends on their background, which is fixed for the story:
 
-- **You Work Every Shift:** graft and blind spots. Two plain trays, and the staff and attic know them.
-- **You Read the Small Print:** rules, study and gut, plus the Tariff sheet in hand.
-- **You Talk Your Way Out:** front and bargaining, and a small reputation with the Council for confidence.
-- **You Box at the Boathouse:** scrapping and nerve, hand tape, and the attic's respect.
+- **You Work Every Shift:** graft and blind spots, and Earn It. Two plain trays, and the staff and attic know them.
+- **You Read the Small Print:** rules, study and gut, and Work the Rules, plus the Tariff sheet in hand.
+- **You Talk Your Way Out:** front and bargaining, and Name a Price, plus a small reputation with the Council for confidence.
+- **You Box at the Boathouse:** scrapping and nerve, and Call a Stake, plus hand tape and the attic's respect.
+
+The narrator reads only the chosen background, with these starting abilities spelled out (`startingAbilities`). The system itself lives in hard canon and the band.
 
 ### Hard canon
 
@@ -115,6 +117,7 @@ The player is a first-year on the one full scholarship, with ten points, a band,
 10. The Standing Hearing sits on Friday at ten.
 11. A student on Notice can still act and be saved.
 12. Nobody wants the player hurt. The dangers are being drained, fined, bought, made complicit or expelled.
+13. The ages are fixed and stated in canon: Ren 22, Yui 19, Margot 21, Bastian 23, Grey 36, Marsh 57. The Ledger is software, 23 years in service. `appearance` says "An adult man/woman" ("An older woman" for Marsh) and never an age word, because portraits and the opening panel are drawn from it.
 
 ## Opening (the first beat, 113 words)
 
@@ -314,7 +317,8 @@ All seven are adults, or software. Ages are fixed.
 
 Covers show adults described by costume and pose only, never by age words. Students in the exam hall wear black academic gowns over navy blazers; in the colonnade, open blazers over everyday clothes, coffee cups and laptop bags. No school uniforms, no prefects.
 
-- **Cover:** a student in a black academic gown over an open navy blazer and a rumpled everyday shirt, at an exam desk, a red light on their wrist showing 10. Leaning over them, a man in a white blazer worn open, card case in his other hand, slides a black card printed 1,000 POINTS across the desk. Behind them is a vaulted hall of desks and a proctor lifting a brass bell. The title TEN POINTS TO EXPULSION is in the art.
-- **Opening panel** (`story_ten_points_to_expulsion/opening`): Ren sliding the card toward the viewer, with desks and the bell behind.
+- **Cover** (`coverDirection`, modelled on #7 Skill: ERROR): Ren alone in the foreground, waist up and frontal, in the open white blazer, seated sideways on an exam desk and holding a matte black card out to the viewer between two fingers, card case in the other hand. The viewer is the player; the protagonist is never drawn. The card has a gold border, a balance-scale emblem and a gold glint, and no letters or numbers. His face stays clean: every gold and red effect stays on the card, the wristbands and the title. Behind him, soft: the vaulted exam hall, gowned figures at desks with red and white wrist lights, ceiling lenses, and the proctor lifting the brass bell. Cold window light, warm gold from the card. **TITLE:** a stacked bold condensed wordmark in the upper third, TEN POINTS in white with a gold scoreboard glow over TO EXPULSION in deep red, a thin red line under EXPULSION only, spelled exactly Ten Points to Expulsion (in capitals). No other text.
+- **Opening panel** (`story_ten_points_to_expulsion/opening`): "Ren in an open white blazer, leaning in from the seat beside your exam desk to slide a black card with gold print toward you, rows of desks and a proctor lifting a brass bell behind." Ren speaks first, so his portrait is the panel's reference image.
+- **Release:** no prologue; `publishedAt` stays `null` until the real release date is set.
 - **Location stages:** the exam hall, the colonnade under the Board, the attic corridor, the vault, the council chamber, the boathouse ring, the lodge at night, the Provost's study, and Brack Street.
 - **Hero frames:** the card on the desk; the Board at six; the midnight tick; Ren on the jetty; the vault terminal; Key Seven turned.
