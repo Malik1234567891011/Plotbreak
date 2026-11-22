@@ -74,6 +74,7 @@ import { RENT_IS_ONE_TRUE_STORY as RENT_IS_ONE_TRUE_STORY_RAW } from './rent-is-
 import { THREE_FEET_APART as THREE_FEET_APART_RAW } from './three-feet-apart.js';
 import { PAID_TO_KILL_ME as PAID_TO_KILL_ME_RAW } from './paid-to-kill-me.js';
 import { HE_BURNED_THE_CAPITAL as HE_BURNED_THE_CAPITAL_RAW } from './he-burned-the-capital.js';
+import { THE_ONLY_GIRL_AT_BLACKTHORN as THE_ONLY_GIRL_AT_BLACKTHORN_RAW } from './the-only-girl-at-blackthorn.js';
 
 
 export { withDerivedAssetKeys } from './derive-assets.js';
@@ -150,6 +151,7 @@ export const RENT_IS_ONE_TRUE_STORY = RENT_IS_ONE_TRUE_STORY_RAW;
 export const THREE_FEET_APART = THREE_FEET_APART_RAW;
 export const PAID_TO_KILL_ME = PAID_TO_KILL_ME_RAW;
 export const HE_BURNED_THE_CAPITAL = HE_BURNED_THE_CAPITAL_RAW;
+export const THE_ONLY_GIRL_AT_BLACKTHORN = THE_ONLY_GIRL_AT_BLACKTHORN_RAW;
 
 /**
  * These three shipped with null asset keys on purpose, and no longer need to.
@@ -289,4 +291,5 @@ export const LAUNCH_CATALOG = [
   THREE_FEET_APART,
   PAID_TO_KILL_ME,
   HE_BURNED_THE_CAPITAL,
+  THE_ONLY_GIRL_AT_BLACKTHORN,
 ] as const;
