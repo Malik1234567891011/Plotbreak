@@ -88,18 +88,22 @@ const raw = {
     hardCanon: [
       'Everyone in this story is an adult. Varek is thirty-one, Sil twenty-seven, Ronan twenty-five and Tam twenty-one. Aud is fifty-six, Dagny twenty-six and Kell forty-four. The player is a grown traveller who crossed the pass for work.',
       'The Greyhowe are wolf-kin: people with wolf ears, wolf tails, sharp noses and good night eyes. They are people in every respect. They speak, dress, joke and argue like anyone, and nobody in the camp is an animal.',
-      'Guest-right is the clan’s oldest law. A stranger in the winter camp must be claimed by a host, who ties a red cord on the guest’s wrist and answers for everything the guest does with his own standing. To harm a claimed guest is to harm the host. A stranger nobody claims is given a day’s food and walked to the boundary stones. By the same custom, a stranger who runs belongs to whoever catches them, and a stranger who refuses every host, or raises a hand against one, becomes the clan mother’s own guest: the hardest host in camp.',
+      'This is a clan, not a pack. Nobody is an alpha or an omega, nobody is anybody’s mate or fated anything, and nobody is a werewolf, direwolf or skinchanger: never use those words. The clan’s words for itself are clan, kin, hearth and host, and the only name for what Tam can do is the old shape.',
+      'Guest-right is the clan’s oldest law. A stranger in the winter camp must be claimed by a host, who ties a red cord on the guest’s wrist and answers for everything the guest does with his own standing. To harm a claimed guest is to harm the host. A stranger nobody claims is given a day’s food and walked to the boundary stones. By the same custom, a stranger who runs belongs to whoever catches them, and a stranger who refuses every host, or raises a hand against one, becomes the clan mother’s own guest: the hardest host in camp. Once the cord is tied, the guest can call on guest-right out loud, and then the whole camp must answer to the host for anything said or done to the guest.',
       'The four brothers are the sons of Clan Mother Aud, eldest to last: Varek, Sil, Ronan, Tam. Ronan found the player face-down in a drift, Tam carried the player three miles to camp, and Sil kept the player breathing through the first night. Varek claims no part in it.',
       'Sil warmed the player with hot stones, broth and furs, and sat up beside the bed all night. The player woke fully dressed in their own travelling clothes, dried out by his fire, under the furs and Tam’s cloak. Nobody shared the bed.',
       'The high pass closes for the winter at dusk on the fourth day of the story, and nobody crosses it again until the thaw. Whichever side of it the player is on then is where the player spends the winter.',
       'The clan’s stores are short after a bad autumn hunt, and every guest is a mouth. Aud knows the flour runs out a month before thaw and has told nobody.',
       'The Company is a southern trading house with a stockaded post at the foot of the south road. Its factor, Matthias Kell, hired the caravan the player crossed with. He wants the player back, he wants the survey of the pass, and he wants the white wolf a caravan driver swears walked through the storm.',
+      'The three days run on a calendar the whole camp knows. Late on the morning of the second day, the factor comes up the south road to the boundary stones with a sled of flour, to ask the clan mother for the lost traveller. On the evening of the third day the clan lights the midwinter fire: Aud counts the stores aloud, names the factor’s offer for the guest, and the guest’s host is expected to stand up and answer it in front of everyone. The betrothal is meant to be sealed at the same fire.',
       'Varek saw the player’s lantern on the high pass two nights before anyone found the player, and watched it instead of going down, to see whether Company men followed. Nobody did. When it went out he went up and found only the lantern. He did not claim the player because he does not think he has the right.',
       'Tam can take the old shape: a full white wolf, larger than any wild one, in deep cold. Only Aud and Varek know. In the storm he found the player as the wolf, walked ahead through the shallowest snow to Ronan’s hunting line, then came back as himself to carry the player down. For most of the two nights between the lantern going out and Ronan finding them, the player sheltered half-conscious in a snow hollow among the eastern rocks, with something pale lying across its mouth to keep the wind out. The old shape is feared in the south, and the Company has a bounty on it.',
       'The old shape takes Tam’s clothes with it and gives them back: he is always dressed when he is himself, and the change itself is never shown or described, only before and after.',
       'Wolf-kin can smell fear, fever and a nervous lie. A calm lie passes. Ears and tails give their owners away constantly, and everyone in camp reads them the way southerners read faces.',
       'Violence has consequences rather than detail. A guest who strikes someone in camp shames the host, and the host answers it first. The clan does not kill guests; it walks them to the boundary stones. Brothers settle a quarrel by wrestling to the ground in the old form, never with blades.',
-      'The cold is the edge of the map. Anyone who walks out of the valley without furs, food or a guide is in real danger within the hour, and the clan always sends someone after a guest who wanders, usually the host and usually furious.',
+      'The cold is the edge of the map. Anyone who walks out of the valley without furs, food or a guide is in real danger within the hour, and the clan always sends someone after a guest who wanders, usually the host and usually furious. Inside the camp the cold still counts: outdoor work, the ice lake and the high snow wear a southerner down, and a fire, food and a night’s sleep bring them back.',
+      'A stranger in camp is watched, and the host’s standing pays for every hour of it. Work done where people can see it, the truth told plainly and a host who vouches out loud make the camp stop watching. A nervous lie, sneaking about, or a raised hand make it watch harder.',
+      'The four brothers share one lodge and one fire, and each of them notices whom the guest sits beside, thanks and walks with. Playing one brother against another works, and it costs all four: the family is a few quarrels away from four separate tents.',
       'Romance here is slow and chosen: teasing, a cloak around the shoulders, a held hand, at most a kiss. Nobody takes what is not offered, and every brother can be refused without the story punishing the player for it.',
     ],
     toneGuide:
@@ -107,7 +111,7 @@ const raw = {
       'The four brothers bicker like brothers and never all agree; give each his own rhythm in every scene he is in. Varek is short sentences, Sil is dry diagnosis, Ronan is dares and noise, Tam is two questions at once. ' +
       'Romance is slow, chosen and specific, and it lives in what people do rather than in how anybody looks: no lingering on bodies, nothing past a kiss. The clan is neither savage nor noble and the south is neither villain nor saviour; both have somebody counting flour. ' +
       'Violence is quick, never lingered on, and always has consequences. When a scene has nothing at stake, let it be cosy and short. The face at the top of a beat is whichever brother is talking to the player. ' +
-      'This is a clan, not a pack. Nobody is an alpha or an omega, nobody is anybody’s mate or fated anything, and nobody is a werewolf, direwolf or skinchanger: never use those words. The only name for what Tam can do is the old shape.',
+      'Ears and tails say what people feel before their mouths do, so let them carry a scene: a flat ear, a tail that will not keep still, a pink ear-tip somebody pretends is the cold.',
     proseStyle: 'webnovel',
     styleExamples: [
       'Ronan hands you the ice pick like it’s a sword.\n\n"First fish wins," he says. "Loser does the dishes for a week."\n\n"I’ve never fished through ice."\n\n"Great. I love winning."\n\nHis tail is going like a flag. Behind him, Sil doesn’t look up from the net he’s mending. "He cheats. He baits the hole the night before."\n\nRonan’s ears go flat. "That is a vicious lie."\n\nHis tail is still wagging.',
@@ -819,7 +823,7 @@ const raw = {
         'I saw your lantern. Two nights before Ronan found you. I watched it, and waited, and nobody came after you. Nobody.',
       ],
       appearance:
-        'Thirty-one, tall and broad-shouldered, dark hair with a single streak of grey he was born with, grey wolf ears that go flat when he is thinking, a long grey tail and a heavy grey fur mantle.',
+        'An adult man, tall and broad-shouldered, dark hair with a single streak of grey at the front he was born with, steady amber eyes, grey wolf ears that go flat when he is thinking, a long grey tail, and a heavy grey fur mantle over a dark brown wool hunting tunic.',
       visualHook: 'Grey wolf ears and one streak of grey through dark hair, the same colour as his mantle.',
       silhouette: 'Filling a doorway, arms folded, tail perfectly still.',
       artSeed: 'twcg-varek-01',
@@ -905,7 +909,7 @@ const raw = {
         'Pick Varek and you get rules. Pick me and you get fun. Pick Sil and you get soup.',
       ],
       appearance:
-        'Twenty-five, lean and quick, rust-red hair worn long and tied back badly, rust-red wolf ears with a nick out of the left one, a bushy tail he cannot keep still, a red wool scarf he never takes off.',
+        'An adult man, lean and quick, rust-red hair worn long and tied back badly, bright green eyes, rust-red wolf ears with a nick out of the left one, a bushy rust-red tail he cannot keep still, and a red wool scarf he never takes off over a scuffed brown leather hunting jacket.',
       visualHook: 'A nick out of his left wolf ear and a tail that wags every time he lies.',
       silhouette: 'Mid-movement, one foot up on something, grinning back over his shoulder.',
       artSeed: 'twcg-ronan-01',
@@ -989,7 +993,7 @@ const raw = {
         'Drink this. It tastes like boiled bark because it is boiled bark.',
       ],
       appearance:
-        'Twenty-seven, slim, black hair cut short for practicality, soft charcoal wolf ears, ink-dark eyes, sleeves always rolled to the elbow, a satchel of herbs slung across his chest.',
+        'An adult man, slim, black hair cut short for practicality, ink-dark eyes, soft charcoal wolf ears and a charcoal tail, a dark green wool tunic with the sleeves always rolled to the elbow, a thin burn scar across the back of one hand, and a satchel of herbs slung across his chest.',
       visualHook: 'Charcoal wolf ears and a thin burn scar across the back of one hand from a pot he refused to let go of.',
       silhouette: 'Bent over a pot or a patient, one ear turned toward whoever is talking.',
       artSeed: 'twcg-sil-01',
@@ -1076,7 +1080,7 @@ const raw = {
         'Sorry, I’m asking too much. Have you seen the sea? Properly seen it? What colour is it, really?',
       ],
       appearance:
-        'Twenty-one, tall and long-limbed, messy white-blond hair, pale silver wolf ears that go pink at the edges when he is embarrassed, a pale tail, a patched wool tunic because he gave you his cloak.',
+        'An adult man, tall and long-limbed, messy white-blond hair, pale blue eyes, pale silver wolf ears that go pink at the edges when he is embarrassed, a pale silver tail, and a patched oatmeal wool tunic with no cloak over it, because he gave you his.',
       visualHook: 'Pale silver wolf ears that turn pink at the edges when he is embarrassed.',
       silhouette: 'Leaning in, holding out something he brought you, ears forward.',
       artSeed: 'twcg-tam-01',
@@ -1162,7 +1166,7 @@ const raw = {
         'I raised four sons through every hard winter since Varek. One guest will not finish me.',
       ],
       appearance:
-        'Fifty-six, small and solid, iron-grey hair in a crown of braids, grey wolf ears tipped with white, a knotted counting cord at her belt and a heavy mantle of layered furs.',
+        'An older woman, small and solid, iron-grey hair in a crown of braids, sharp grey eyes, grey wolf ears tipped with white, a heavy mantle of layered furs, and a knotted counting cord at her belt.',
       visualHook: 'A knotted counting cord at her belt, one knot for every sack left in the stores.',
       silhouette: 'Seated very upright on a low stool, a bowl in one hand and the counting cord in the other.',
       artSeed: 'twcg-aud-01',
@@ -1201,6 +1205,7 @@ const raw = {
     {
       id: 'dagny',
       name: 'Dagny of the Cold Ridge',
+      calledName: 'Dagny',
       role: 'Heir of the Cold Ridge clan, betrothed to Varek by two mothers who did not ask either of them',
       cardBlurb:
         'She is meant to marry Varek at midwinter and would sooner marry the weather. Offer her a way out and she may be the best ally you have on this mountain.',
@@ -1235,7 +1240,7 @@ const raw = {
         'Cold Ridge has forty hunters and no flour. Greyhowe has flour and no hunters. That is the whole romance.',
       ],
       appearance:
-        'Twenty-six, tall, ash-blonde braids pinned up like a helmet, black-tipped wolf ears, a scar through one eyebrow, a white fox-fur collar over hunting leathers.',
+        'An adult woman, tall, ash-blonde braids pinned up like a helmet, pale grey eyes, black-tipped wolf ears, a thin scar through her left eyebrow, and a white fox-fur collar over dark hunting leathers.',
       visualHook: 'Black-tipped wolf ears and a scar through her left eyebrow she explains differently every time.',
       silhouette: 'Sprawled in the best seat by the fire as if she owns it.',
       artSeed: 'twcg-dagny-01',
@@ -1312,7 +1317,7 @@ const raw = {
         'I’m sure we can reach an arrangement. People generally do, once they have seen the alternative priced out.',
       ],
       appearance:
-        'Forty-four, neat and narrow, a trimmed brown beard going grey, round wire spectacles, a southern greatcoat too thin for the mountain, a ledger under one arm. No wolf ears.',
+        'An adult man, neat and narrow, a trimmed brown beard going grey, round wire spectacles, a buttoned southern greatcoat too thin for the mountain, and a leather ledger under one arm. No wolf ears and no tail.',
       visualHook: 'Round wire spectacles that fog over every time he comes in from the cold.',
       silhouette: 'Standing very straight beside a laden sled, ledger open, pen ready.',
       artSeed: 'twcg-kell-01',
@@ -2180,7 +2185,7 @@ const raw = {
       attributeBonus: { mind: 3, agility: 1 },
       skillProficiencies: { notice: 3, stealth: 1, lore: 1 },
       startingItems: [{ itemId: 'survey_map', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['read_them', 'slip_away'],
       startingReputation: [{ factionId: 'faction_company', amount: 10 }],
     },
     {
@@ -2194,7 +2199,7 @@ const raw = {
       attributeBonus: { mind: 2, resolve: 2 },
       skillProficiencies: { healing: 3, candour: 1, notice: 1 },
       startingItems: [{ itemId: 'herb_satchel', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['tend_wounds', 'speak_plainly'],
       startingReputation: [{ factionId: 'faction_greyhowe', amount: 10 }],
     },
     {
@@ -2208,7 +2213,7 @@ const raw = {
       attributeBonus: { presence: 3, resolve: 1 },
       skillProficiencies: { guile: 3, candour: 1, nerve: 1 },
       startingItems: [{ itemId: 'sealed_letter', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['bluff', 'stand_your_ground'],
       startingReputation: [],
     },
     {
@@ -2222,7 +2227,7 @@ const raw = {
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { brawl: 3, labour: 1, nerve: 1 },
       startingItems: [{ itemId: 'caravan_sword', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['earn_your_keep', 'fight'],
       startingReputation: [],
     },
   ],
@@ -2450,16 +2455,41 @@ const raw = {
     },
   ],
   opening:
-    '"I found the stranger."\n\n"I carried the stranger."\n\n"I kept the stranger breathing. That counts more."\n\nYou wake in a fur tent, warm for the first time in days. Four men with wolf ears are arguing over you.\n\nThen you move, and all four go silent.\n\nThe eldest kneels beside you, grey ears flat. "Easy. I’m Varek. Ronan found you." The redhead grins. "Tam carried you." The tall pale one goes pink. "Sil kept you alive." The one by the kettle shrugs.\n\nA horn sounds outside, low and close.\n\n"Our mother. She runs this clan. She’ll ask whose guest you are, and a stranger with no host goes back into the snow. Pick who you trust. Quickly."',
+    '"I found the stranger."\n\n"I carried the stranger."\n\n"I kept the stranger breathing. That counts more."\n\nYou wake in a fur tent, warm for the first time in days. Four men with wolf ears are arguing over you.\n\nThen you move, and all four go silent.\n\nThe eldest kneels beside you, grey ears flat. "Easy. I’m Varek. Ronan found you." The redhead grins. "Tam carried you." The tall pale one goes pink. "Sil kept you alive." The one by the kettle shrugs.\n\nA horn sounds outside, low and close.\n\n"Our mother. She runs this clan. She’ll ask whose guest you are, and a stranger with no host goes back into the snow. Pick who you trust. Now."',
   openingPanel: {
     assetKey: 'story_the_wolf_clan_s_guest/opening',
-    alt: 'Four wolf-eared brothers in a firelit hide tent around a fur bed, a traveller sitting up in it in a heavy travel coat and a long cloak, the eldest kneeling closest, grey ears flat.',
+    alt: 'Varek kneeling beside a fur bed in a firelit hide tent, grey wolf ears flat, one hand held out to you, while three wolf-eared brothers crowd behind him and snow blows past the open flap.',
   },
   openingSuggestions: [
     '"Varek. You’re the only one who didn’t claim me. I’ll trust you."',
     'I reach for Tam’s sleeve and hold on.',
     'I throw off the furs and make a run for the tent flap.',
   ],
+  /**
+   * Four brothers, because four is the card's promise, staged in depth so the
+   * faces stay large: Varek in front (he speaks the opener and his portrait
+   * leads), Ronan and Tam over his shoulders, Sil softer at the back. The
+   * player is never drawn; the viewer is the guest they are all looking at.
+   * Nobody is placed by age or birth order, only by costume and pose.
+   */
+  coverDirection: [
+    'SUBJECT: four wolf-kin brothers crowded close around the viewer inside a firelit hide tent, the key visual for a cosy winter fantasy romance anime.',
+    'The viewer is the stranger they have just carried in out of the snow, and all four of them are looking at the viewer.',
+    'All four have wolf ears on top of their heads and long wolf tails, with entirely human faces and hands. Four clearly different hair colours: dark with a grey streak, rust-red, white-blond and black.',
+    'FOREGROUND: Varek, centred and close from the chest up, holding about half the picture.',
+    'Dark hair with a single streak of grey at the front, steady amber eyes, grey wolf ears laid flat, a heavy grey fur mantle over a dark brown wool hunting tunic, arms folded.',
+    'His expression is calm, grave and unreadable, eyes straight at the viewer.',
+    'BEHIND HIM, to the left, leaning in over his shoulder with a wide grin: Ronan, rust-red hair tied back badly, bright green eyes, rust-red wolf ears with a nick out of the left one,',
+    'a red wool scarf over a scuffed brown leather hunting jacket, and a braided red cord dangling from two fingers like a prize he has just won.',
+    'BEHIND HIM, to the right, a little shy: Tam, tall, messy white-blond hair, pale blue eyes, pale silver wolf ears with pink edges, a patched oatmeal wool tunic, holding a steaming wooden cup out toward the viewer in both hands.',
+    'FURTHER BACK, in softer focus beside a kettle on the fire: Sil, short black hair, ink-dark eyes, charcoal wolf ears, a dark green wool tunic with the sleeves rolled to the elbow, a herb satchel strap across his chest, one eyebrow raised.',
+    'THEIR FACES STAY CLEAN: no frost, snow, marks or shadows on any face.',
+    'Every snowflake and every glint of frost stays on the furs, the tent flap and the title, never on their faces.',
+    'SETTING, soft and secondary: the inside of a round hide tent on bent poles, bundles of drying bark hanging overhead, a low fire, and behind them the tent flap thrown open on blowing snow and a deep blue winter night.',
+    'LIGHT: warm orange firelight on their faces from the front, cold blue snow light from the open flap behind, so they are lit in gold and rimmed in blue. The red cord is the one hard spot of red.',
+    'TITLE: the story title "The Wolf Clan’s Guest" painted into the art across the upper third, above their heads, as a bold rustic serif logo in all capitals, cream-white letters with a dark charcoal outline and a thin crust of snow along the top edge of each letter.',
+    'Set on two lines, THE WOLF CLAN’S smaller above and GUEST large below, spelled exactly THE WOLF CLAN’S GUEST with the apostrophe, large and legible at thumbnail size. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 

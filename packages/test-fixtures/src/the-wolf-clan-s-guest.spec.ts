@@ -64,6 +64,7 @@ const prose = () => [
   S.creatorNote,
   S.rules.toneGuide,
   S.openingPanel?.alt ?? '',
+  S.coverDirection,
   ...S.openingSuggestions,
   ...S.mechanicsChips,
   ...S.rules.hardCanon,
@@ -117,7 +118,7 @@ describe('the opener hands the player a choice', () => {
   });
 
   it('ends on a demand the player has to answer now', () => {
-    expect(S.opening.trim()).toMatch(/Pick who you trust\. Quickly\."$/);
+    expect(S.opening.trim()).toMatch(/Pick who you trust\. Now\."$/);
   });
 
   it('names nobody the player is expected to know already', () => {
@@ -229,6 +230,59 @@ describe('the opener hands the player a choice', () => {
   });
 });
 
+describe('the art and release pipeline', () => {
+  it('puts the title in the art and every effect off their faces', () => {
+    const cover = S.coverDirection;
+    expect(cover).toMatch(/\bTITLE:/);
+    expect(cover).toContain(`"${S.title}"`);
+    expect(cover).toContain('spelled exactly THE WOLF CLAN’S GUEST');
+    for (const name of ['Varek', 'Ronan', 'Tam', 'Sil']) expect(cover, name).toContain(name);
+    expect(cover).toMatch(/never on their faces/i);
+    expect(cover).toMatch(/entirely human faces and hands/);
+  });
+
+  it('opens on a panel of the brother who speaks to the player', () => {
+    const panel = S.openingPanel!;
+    expect(panel.assetKey).toBe(`${S.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    // The art script takes the character whose first name starts the alt as
+    // the panel's reference portrait.
+    const subject = S.characters.find((c) => panel.alt.startsWith(c.name.split(' ')[0]!));
+    expect(subject?.id).toBe('varek');
+    expect(S.opening).toContain('I’m Varek.');
+  });
+
+  it('opens straight on the scene and is not dated yet', () => {
+    expect(S.prologue).toEqual([]);
+    expect(S.publishedAt).toBeNull();
+  });
+
+  it('calls titled people by the name the world uses', () => {
+    for (const c of S.characters.filter((x) => x.name.includes(' '))) {
+      expect(c.calledName, c.id).toBeTruthy();
+      expect(c.name, c.id).toContain(c.calledName!);
+    }
+  });
+
+  it('puts the story’s system where the storyteller reads it', () => {
+    // runTurnPure never reads resources, step notes, world-event timing or
+    // locked abilities, so the law, the calendar and the costs are canon.
+    const canon = S.rules.hardCanon.join('\n');
+    expect(canon).toMatch(/the guest can call on guest-right out loud/);
+    expect(canon).toMatch(/The three days run on a calendar the whole camp knows/);
+    expect(canon).toMatch(/A stranger in camp is watched/);
+    expect(canon).toMatch(/Playing one brother against another works, and it costs all four/);
+    expect(canon).toMatch(/a fire, food and a night’s sleep bring them back/);
+    expect(S.rules.startingItems.map((i) => i.itemId)).toContain('borrowed_cloak');
+    for (const arch of S.archetypes) {
+      expect(arch.startingAbilities.length, arch.id).toBeGreaterThan(0);
+      for (const id of arch.startingAbilities) expect(ability(id)?.unlockedByDefault, `${arch.id} starts ${id}`).toBe(true);
+    }
+    expect(new Set(S.archetypes.map((a) => a.startingAbilities.join())).size).toBe(S.archetypes.length);
+    expect(S.rules.toneGuide.length).toBeGreaterThan(200);
+  });
+});
+
 describe('everybody on the page is an adult, on the page', () => {
   it('states every age in hard canon, all eighteen or over', () => {
     const canon = S.rules.hardCanon[0]!;
@@ -241,11 +295,20 @@ describe('everybody on the page is an adult, on the page', () => {
     }
   });
 
-  it('opens every appearance on the age the bible gives', () => {
+  it('describes people by build and costume, never by an age word', () => {
+    // Portraits, the opening panel and the cover are drawn from these, and an
+    // image model reads "twenty-one" as younger than it is. The ages live in
+    // the first line of hard canon and in the bible.
+    const AGE_WORDS = /\b(teen\w*|girl|boy|young\w*|youth\w*|kid|child\w*|student|eldest|youngest|\d+)\b/i;
+    const NUMBERS = new RegExp(`\\b(${Object.values(IN_WORDS).join('|')})\\b`, 'i');
     for (const c of S.characters) {
-      const age = IN_WORDS[AGES[c.id]!]!;
-      expect(c.appearance.toLowerCase(), c.id).toMatch(new RegExp(`^${age},`));
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (wo)?man\b/);
+      expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
+      expect(c.appearance, c.id).not.toMatch(NUMBERS);
     }
+    expect(S.coverDirection).not.toMatch(AGE_WORDS);
+    expect(S.coverDirection).not.toMatch(NUMBERS);
+    expect(S.openingPanel?.alt).not.toMatch(AGE_WORDS);
   });
 
   it('uses no word that reads as under eighteen, anywhere', () => {
@@ -307,10 +370,13 @@ describe('it is its own story', () => {
     expect(hits).toEqual([]);
   });
 
-  it('tells the narrator, in the tone guide, to stay out of pack-romance vocabulary', () => {
-    const guard = S.rules.toneGuide.match(VOCAB_GUARD)?.[0];
+  it('tells the narrator, in hard canon, to stay out of pack-romance vocabulary', () => {
+    // Not in the tone guide: that is also the mood line of every portrait and
+    // cover prompt, and an image model reads "werewolf" as a request.
+    const guard = S.rules.hardCanon.join('\n').match(VOCAB_GUARD)?.[0];
     expect(guard).toBeDefined();
     for (const word of ['alpha', 'omega', 'mate', 'fated', 'werewolf', 'direwolf']) expect(guard, word).toContain(word);
+    expect(S.rules.toneGuide).not.toMatch(/\b(alpha|omega|mate|fated|werewol\w*|direwol\w*|skinchanger\w*|beast\w*)\b/i);
   });
 
   it('is written in English, title included', () => {

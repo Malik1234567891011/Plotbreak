@@ -84,10 +84,14 @@ agree.
   blades. The clan does not kill guests; it walks them to the boundary stones.
 - When a scene has nothing at stake, keep it cosy and short.
 - The face at the top of a beat is whichever brother is talking to the player.
-- This is a clan, not a pack. The tone guide tells the narrator in so many words
+- Ears and tails say what people feel before their mouths do: a flat ear, a
+  tail that will not keep still, a pink ear-tip somebody blames on the cold.
+- This is a clan, not a pack. Hard canon tells the narrator in so many words
   never to use alpha, omega, mate, fated, werewolf, direwolf or skinchanger: a
   wolf-eared reverse harem pulls a model hard toward that vocabulary. The only
-  name for what Tam does is the old shape.
+  name for what Tam does is the old shape. The ban lives in hard canon, not the
+  tone guide, because the tone guide is also the mood line of every portrait
+  and cover prompt, and an image model reads "werewolf" as a request.
 
 Prose style: `webnovel`. Two style examples ship: Ronan's fishing bet on the ice
 (Sil: "He cheats.") and Varek at the lookout ("Ask me that again when the pass
@@ -100,12 +104,17 @@ is shut.").
   player: the brothers argue over "the stranger", which is also the law's word.
 - **Archetype** ("Why did you come north?", kept for the whole story):
 
-| Archetype | Role | Starts with | Why it matters |
-|---|---|---|---|
-| You Draw Maps | Scout and surveyor | Survey map, Company +10 | You carry the Company's red line through the valley without knowing it |
-| You Heal People | Healer and medicine | Herb satchel, Greyhowe +10 | Useful on day one; Sil's natural ally |
-| You Carry Letters | Talk, nerve and bargaining | Sealed letter | The Company's offer, unread, addressed to the clan mother |
-| You Guard Caravans | Sword and endurance | Caravan sword | You lost the caravan; every wolf-kin knows where your sword is |
+| Archetype | Role | Starts with | Leading abilities | Why it matters |
+|---|---|---|---|---|
+| You Draw Maps | Scout and surveyor | Survey map, Company +10 | Watch Them, Slip Away | You carry the Company's red line through the valley without knowing it |
+| You Heal People | Healer and medicine | Herb satchel, Greyhowe +10 | Tend Someone, Say It Plainly | Useful on day one; Sil's natural ally |
+| You Carry Letters | Talk, nerve and bargaining | Sealed letter | Lie Well, Stand Your Ground | The Company's offer, unread, addressed to the clan mother |
+| You Guard Caravans | Sword and endurance | Caravan sword | Earn Your Keep, Fight | You lost the caravan; every wolf-kin knows where your sword is |
+
+Every background also starts in Tam's cloak (`borrowed_cloak`). The two
+leading abilities are `startingAbilities`: the production narrator reads them
+as what the player is good at ("Can: ..."), and it never reads the ability
+list itself.
 
 - **Setup questions:** name, pronouns, archetype, one true sentence ("What is
   true about you that the cold did not change?"), and two advanced fields: a
@@ -121,14 +130,19 @@ is shut.").
 1. Everyone is an adult: Varek 31, Sil 27, Ronan 25, Tam 21, Aud 56, Dagny 26,
    Kell 44. The player is a grown traveller.
 2. The Greyhowe are wolf-kin: ears, tails, noses, night eyes. People in every
-   respect, never animals.
+   respect, never animals. This is a clan, not a pack: the vocabulary ban from
+   §4 is its own canon line, with the clan's own words (clan, kin, hearth,
+   host).
 3. Guest-right: a host ties a red cord on the guest's wrist and answers for the
    guest with his own standing. A stranger nobody claims gets a day's food and a
    walk to the boundary stones. By the same custom, a stranger who runs belongs
    to whoever catches them, and a stranger who refuses every host, or raises a
    hand against one, becomes the clan mother's own guest: the hardest host in
    camp. (This is the payoff for the risky opening card, so it lives in hard
-   canon: production never sends quest steps or director notes.)
+   canon: production never sends quest steps or director notes.) Once the
+   cord is tied, the guest can call on guest-right out loud, and the whole camp
+   answers to the host for anything said or done to the guest (the locked
+   Call on Guest-Right ability, said where the narrator reads it).
 4. Ronan found the player in a drift, Tam carried the player three miles, Sil
    kept the player breathing through the first night. Varek claims no part.
    Sil warmed the player with hot stones, broth and furs and sat up beside the
@@ -140,6 +154,12 @@ is shut.").
 6. The stores are short. Aud knows the flour runs out a month before thaw.
 7. The Company is a southern trading house. Its factor, Matthias Kell, wants the
    player back, wants the survey, and wants the white wolf.
+   The calendar: the factor reaches the boundary stones late on the morning of
+   day two with a sled of flour; the midwinter fire is the evening of day three,
+   where Aud counts the stores aloud, names the factor's offer for the guest,
+   and the host is expected to answer it; the betrothal is meant to be sealed
+   there too. (World events reach the narrator with no timing, so the clock is
+   canon.)
 8. Varek saw the player's lantern two nights early and waited to see whether
    Company men followed. He thinks he lost the right to claim the player.
 9. Tam can take the old shape, a white wolf, in deep cold. Only Aud and Varek
@@ -154,9 +174,21 @@ is shut.").
 11. Violence has consequences rather than detail. Brothers wrestle, never use
     blades. The clan does not kill guests.
 12. The cold is the edge of the map. A guest who wanders gets followed by the
-    host, usually furious.
-13. Romance is slow and chosen: at most a kiss. Nobody takes what is not
+    host, usually furious. Inside camp, outdoor work, the lake and the high snow
+    wear a southerner down; a fire, food and sleep bring them back (Warmth).
+13. A stranger in camp is watched, and the host's standing pays for it. Visible
+    work, plain truth and a host who vouches out loud make the camp stop
+    watching; a nervous lie, sneaking about or a raised hand make it watch
+    harder (Suspicion).
+14. The brothers share one lodge and notice whom the guest sits beside, thanks
+    and walks with. Playing one against another works and costs all four: the
+    family is a few quarrels from four separate tents (Friction).
+15. Romance is slow and chosen: at most a kiss. Nobody takes what is not
     offered. Every brother can be refused without punishment.
+
+The parenthesised names are the three invisible variables. The production
+narrator never reads resources, so what moves them is said here in the
+world's own terms.
 
 ## 7. Prologue and opening scene
 
@@ -165,7 +197,8 @@ a schedule block there in the morning. Aud is in her lodge and arrives at 7:52
 (`we_aud_at_the_flap`: "Well. Whose?"). The opening obligation gives the player
 twelve minutes to name a host before she asks.
 
-The opener as shipped (117 words; Varek speaks at word 55; it ends on a demand):
+The opener as shipped (117 words; Varek speaks to the player at word 55; it
+ends on a demand that needs an answer now):
 
 > "I found the stranger."
 >
@@ -181,7 +214,7 @@ The opener as shipped (117 words; Varek speaks at word 55; it ends on a demand):
 >
 > A horn sounds outside, low and close.
 >
-> "Our mother. She runs this clan. She'll ask whose guest you are, and a stranger with no host goes back into the snow. Pick who you trust. Quickly."
+> "Our mother. She runs this clan. She'll ask whose guest you are, and a stranger with no host goes back into the snow. Pick who you trust. Now."
 
 The only proper nouns are the four brothers, and Varek introduces all of them
 before the demand, each with one visible cue: Varek's flat grey ears, the
@@ -201,9 +234,12 @@ treeline, and by custom whoever catches a runner keeps them. That custom is in
 hard canon (§6, canon 3), because the production narrator never sees quest
 director notes.
 
-Opening panel alt: four wolf-eared brothers in a firelit hide tent around a fur
-bed, a traveller sitting up in it in a heavy travel coat and a long cloak, the
-eldest kneeling closest, grey ears flat.
+Opening panel (`openingPanel`, `story_the_wolf_clan_s_guest/opening`), alt:
+"Varek kneeling beside a fur bed in a firelit hide tent, grey wolf ears flat,
+one hand held out to you, while three wolf-eared brothers crowd behind him and
+snow blows past the open flap." It starts with Varek because he is the one who
+speaks to the player, and the art script uses the portrait of whoever the alt
+names first as the panel's reference.
 
 ## 8. Major cast
 
@@ -213,8 +249,9 @@ never the youngest of anything, and nobody is ever a cub or pup.
 ### Varek, 31: the eldest
 
 - **Role:** leads the hunters; expected to lead the clan.
-- **Appearance:** tall, broad, dark hair with one streak of grey, grey ears
-  that go flat when he thinks, heavy grey fur mantle.
+- **Appearance:** tall, broad, dark hair with one streak of grey at the front,
+  amber eyes, grey ears that go flat when he thinks, a long grey tail, a heavy
+  grey fur mantle over a dark brown wool hunting tunic.
 - **Want:** get the clan to thaw; get out of the midwinter betrothal without
   costing the clan the pass.
 - **Fear:** that waiting is the only thing he is good at.
@@ -228,8 +265,9 @@ never the youngest of anything, and nobody is ever a cub or pup.
 ### Ronan, 25: the third brother
 
 - **Role:** best hunter, loudest voice; found the player face-down in a drift.
-- **Appearance:** lean, rust-red hair tied back badly, a nick out of his left
-  ear, a tail that wags every time he lies.
+- **Appearance:** lean, rust-red hair tied back badly, green eyes, a nick out
+  of his left ear, a tail that wags every time he lies, a red wool scarf over a
+  scuffed brown leather hunting jacket.
 - **Want:** challenge Varek at the midwinter fire, in the old form, for the
   right to speak for the hunters.
 - **Fear:** being the brother people like and nobody trusts.
@@ -242,8 +280,9 @@ never the youngest of anything, and nobody is ever a cub or pup.
 ### Sil, 27: the healer
 
 - **Role:** the clan's healer; the player woke in his tent.
-- **Appearance:** slim, short black hair, charcoal ears, sleeves rolled, a burn
-  scar on one hand.
+- **Appearance:** slim, short black hair, ink-dark eyes, charcoal ears and
+  tail, a dark green wool tunic with the sleeves rolled, a burn scar across the
+  back of one hand, a herb satchel across his chest.
 - **Want:** get the camp through the cough; learn everything the player knows
   about the south.
 - **Fear:** a fever he cannot break; his mother learning where his medicine
@@ -258,8 +297,9 @@ never the youngest of anything, and nobody is ever a cub or pup.
 ### Tam, 21: the fourth brother
 
 - **Role:** carried the player three miles; gave the player his cloak.
-- **Appearance:** tall, long-limbed, white-blond hair, silver ears that go pink
-  when he is embarrassed, a patched tunic because the player has his cloak.
+- **Appearance:** tall, long-limbed, white-blond hair, pale blue eyes, silver
+  ears that go pink when he is embarrassed, a pale silver tail, a patched
+  oatmeal wool tunic because the player has his cloak.
 - **Want:** see the south once; keep the Company's hunters off the pass.
 - **Fear:** the Company finding out what walks the pass in a storm.
 - **Secrets:** the old shape; a bag packed under the woodpile.
@@ -272,6 +312,8 @@ never the youngest of anything, and nobody is ever a cub or pup.
 
 - **Role:** the brothers' mother and head of the clan; decides whether a guest
   stays.
+- **Appearance:** small and solid, iron-grey hair in a crown of braids, grey
+  eyes, white-tipped grey ears, layered furs, a knotted counting cord.
 - **Voice:** brisk and wry; counts in mouths and sacks; calls people "love" or
   "stranger" and switches without warning. *"Every guest is a mouth, love."*
 - **Secrets:** the flour runs out a month early; she has half-agreed to Kell's
@@ -281,6 +323,9 @@ never the youngest of anything, and nobody is ever a cub or pup.
 ### Dagny of the Cold Ridge, 26 (called Dagny)
 
 - **Role:** heir of the rival clan, betrothed to Varek, wants out.
+- **Appearance:** tall, ash-blonde braids pinned up like a helmet, pale grey
+  eyes, black-tipped ears, a scar through her left eyebrow, a white fox-fur
+  collar over dark hunting leathers.
 - **Voice:** dry and blunt, opens with "Let me save us both some time." Talks
   about romance like trade. *"Cold Ridge has forty hunters and no flour. Greyhowe
   has flour and no hunters. That is the whole romance."*
@@ -291,6 +336,9 @@ never the youngest of anything, and nobody is ever a cub or pup.
 ### Matthias Kell, 44 (called Kell)
 
 - **Role:** Company factor at the foot of the south road; hired the caravan.
+- **Appearance:** neat and narrow, a trimmed brown beard going grey, round wire
+  spectacles, a southern greatcoat too thin for the mountain, a leather ledger.
+  No wolf ears and no tail.
 - **Voice:** smooth, formal, apologetic; prices, clauses, "regrettably",
   "arrangement". *"Forty sacks for the traveller. Sixty if the papers come too.
   For the white wolf, I would empty the storehouse."*
@@ -425,11 +473,26 @@ camp but kills nobody.
 
 ## 16. Image plan (no art generated yet)
 
-- **Cover:** four wolf-eared brothers in a firelit hide tent around a traveller
-  sitting up, fully dressed in a travel coat and a long cloak, the eldest
-  closest; snow at the flap. Title in the art.
-- **Opening panel:** as the alt text above.
-- **Portraits** (`artSeed` `twcg-<id>-01`): Varek's grey streak, Ronan's nicked
+The fixture carries all of it, to the pilot's rules (`docs/stories-50/PIPELINE.md`):
+people are described by costume and pose, never by age words or birth order,
+and every effect stays on objects and the title, never on a face. No prologue;
+`publishedAt` stays null until release.
+
+- **Cover** (`coverDirection`): the four brothers crowded close inside the
+  firelit tent, all looking at the viewer, who is the guest they just carried
+  in. Varek in front from the chest up, arms folded, grey ears flat; Ronan
+  grinning over one shoulder with a red guest cord dangling from two fingers;
+  Tam over the other holding out a steaming cup; Sil softer
+  at the back by the kettle. Wolf ears and tails, entirely human faces and
+  hands, four different hair colours. Snow and frost on the furs, the flap and
+  the title, never on faces. The player is never drawn. Title painted into the
+  upper third: "The Wolf Clan's Guest" as a rustic serif logo in cream-white
+  capitals with a charcoal outline and snow along the tops of the letters, on
+  two lines (THE WOLF CLAN'S above, GUEST larger below). No other text.
+- **Opening panel:** as the alt text in §7; Varek's portrait is the reference.
+- **Portraits** (`artSeed` `twcg-<id>-01`): every `appearance` starts "An adult
+  man", "An adult woman" or (Aud) "An older woman"; the ages live in §6 and the
+  first line of the fixture's hard canon. Varek's grey streak, Ronan's nicked
   ear and wagging tail, Sil's charcoal ears and rolled sleeves, Tam's pink-edged
   silver ears, Aud's counting cord, Dagny's black-tipped ears and fox collar,
   Kell's fogged spectacles.
