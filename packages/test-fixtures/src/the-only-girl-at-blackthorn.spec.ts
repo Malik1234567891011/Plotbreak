@@ -42,6 +42,8 @@ const routes = S.quests.flatMap((q) =>
 );
 const route = (id: string) => routes.find(({ route: r }) => r.routeId === id)!.route;
 const words = (text: string) => text.split(/\s+/).filter(Boolean);
+/** The title, and the cover's two-line lettering of it, struck out. */
+const withoutTitle = (text: string) => text.replace(/the only girl at( blackthorn)?/gi, '');
 
 /** Ages as the bible states them. The player is nineteen. */
 const AGES: Record<string, number> = {
@@ -326,17 +328,54 @@ describe('everybody on the page is an adult, on the page', () => {
 
   it('describes people by build and costume, never by an age word', () => {
     const AGE_WORDS = /\b(teen\w*|girl|boy|young\w*|youth\w*|kid|child\w*|student|\d+)\b/i;
-    for (const c of S.characters) expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
+    for (const c of S.characters) {
+      // Portraits are drawn from this line, and a cadet in an academy reads
+      // younger to an image model unless it is told otherwise.
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (wo)?man\b/);
+      expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
+    }
+    expect(withoutTitle(S.coverDirection)).not.toMatch(AGE_WORDS);
   });
 
   it('never uses a childlike word anywhere in the world but its title', () => {
     // The title is the genre's own phrase for the first woman through the
     // gate, and the world it names says she is nineteen in its first line of
-    // canon. Everything the storyteller reads beyond the title is held to the
-    // full list.
+    // canon. The cover letters it, so it is struck wherever it is the title;
+    // everything else is held to the full list.
     const CHILDLIKE = /\b(teen\w*|girls?|boys?|kids?|child\w*|schoolgirl\w*|schoolboy\w*|minors?|underage|loli\w*)\b/i;
-    const text = JSON.stringify({ ...S, title: '' });
+    const text = withoutTitle(JSON.stringify({ ...S, title: '' }));
     expect(text.match(CHILDLIKE)?.[0] ?? null).toBeNull();
+  });
+});
+
+describe('the cover', () => {
+  it('letters the title into the art, spelled exactly, on its own line', () => {
+    const cover = S.coverDirection;
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(cover).toMatch(/\bTITLE:/);
+    expect(title).toContain('Spelled exactly The Only Girl at Blackthorn');
+    expect(title).toMatch(/upper third/);
+    expect(cover).toMatch(/No other text anywhere/);
+  });
+
+  it('draws the four from the doorway, so the title never sits beside a drawn face of hers', () => {
+    const cover = S.coverDirection;
+    expect(cover).toContain('Rowan');
+    expect(cover).toMatch(/seen from the doorway as if the viewer has just walked in/);
+    expect(cover).toMatch(/Nobody else is in the picture/);
+    expect(cover).not.toMatch(/\b(she|her|woman|lady)\b/i);
+  });
+
+  it('keeps every effect on the steel and the title, never on a face', () => {
+    expect(S.coverDirection).toMatch(/never on a face/);
+    expect(S.coverDirection).toMatch(/FACES STAY CLEAN/);
+  });
+
+  it('feeds the cover and every portrait a tone guide with no body words in it', () => {
+    // `toneGuide` is the cover's mood line and the world line of every
+    // portrait prompt, and an image model reads a forbidden noun as a request.
+    const BODY = /\b(bod(y|ies)|undress\w*|bath\w*|naked|nude|figure-hugging|changing room)\b/i;
+    expect(S.rules.toneGuide.match(BODY)?.[0] ?? null).toBeNull();
   });
 });
 
@@ -403,6 +442,47 @@ describe('art is not commissioned yet, and says so consistently', () => {
     expect(S.storyId).toBe('story_the_only_girl_at_blackthorn');
     expect(S.openingPanel?.assetKey).toBe('story_the_only_girl_at_blackthorn/opening');
     expect(S.openingPanel!.alt.length).toBeLessThanOrEqual(200);
+    // The panel is drawn with the first-named character's portrait as its
+    // reference, and Rowan is the one who speaks in the opener.
+    expect(S.openingPanel!.alt).toMatch(/^Rowan /);
+  });
+
+  it('opens straight on the scene and is not dated until release', () => {
+    expect((S as { prologue?: unknown[] }).prologue ?? []).toEqual([]);
+    expect(S.publishedAt).toBeNull();
+  });
+});
+
+describe('the system lives where the storyteller reads it', () => {
+  it('gives every background the sword, and something of its own', () => {
+    // Production's storyteller sees abilities only as the chosen background's
+    // starting abilities, so a background that lists none tells it nothing.
+    for (const a of S.archetypes) {
+      expect(a.startingAbilities, a.id).toContain('cross_blades');
+      expect(a.startingAbilities.length, a.id).toBeGreaterThanOrEqual(2);
+      for (const id of a.startingAbilities) expect(ability(id).unlockedByDefault, `${a.id}: ${id}`).toBe(true);
+    }
+    const sets = S.archetypes.map((a) => [...a.startingAbilities].sort().join('|'));
+    expect(new Set(sets).size).toBe(sets.length);
+  });
+
+  it('puts the two learned abilities in hard canon, since locked abilities are never sent', () => {
+    const canon = S.rules.hardCanon.join('\n');
+    expect(canon).toMatch(/learned, never issued, and the player starts with neither/);
+    expect(canon).toContain('Seventeen’s Guard');
+    expect(canon).toMatch(/quote article and line to a master’s face/);
+  });
+
+  it('starts her holding the tabard, which the storyteller reads as an object the story turns on', () => {
+    expect(S.rules.startingItems).toEqual([{ itemId: 'trial_tabard', qty: 1 }]);
+    expect(S.items.find((i) => i.id === 'trial_tabard')!.questItem).toBe(true);
+  });
+
+  it('calls the titled cast by name', () => {
+    const called = (id: string) => S.characters.find((c) => c.id === id)!.calledName;
+    expect(called('aren')).toBe('Aren');
+    expect(called('orme')).toBe('Orme');
+    expect(called('greaves')).toBe('Greaves');
   });
 });
 

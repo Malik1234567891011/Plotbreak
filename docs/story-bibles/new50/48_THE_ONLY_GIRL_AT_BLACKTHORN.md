@@ -97,6 +97,16 @@ Why she sat the Trial is hers to say in play; the setup answer does not reach th
 - Nobody shares a bed, ever. If she takes Rowan's, he sleeps on the floor by the window without a
   word and lies awake furious and impressed.
 - Cadet Seventeen is Margery Dunmore; Orme voted no; Greaves cut the page and kept it.
+- Two things are learned, never issued, and she starts with neither: the Charter well enough to quote
+  at a master (Felix teaches it for evidence) and Seventeen's Guard (only Dunmore knows it). The
+  storyteller never reads locked abilities, so this line is how it knows they exist.
+
+### What every background starts able to do
+The storyteller sees abilities only as the chosen background's starting abilities, so each one lists
+them. Everybody passed a sword trial, so all four start with **Cross Blades** (drill in the yard, a
+scandal anywhere else). The Old Knight's Yard adds Outwork Them and Say It To Their Face; the Horse
+Fairs add Take the Saddle and Read the Yard; the Caravan Guard adds Outwork Them and Break Bread; the
+Campaign Books add Read the Rolls and Read the Yard. She starts holding Tabard Forty-One.
 
 ## The opener (turn zero, 119 words)
 
@@ -275,17 +285,28 @@ keep her secret · ride lanceless · walk out of the Thorn Gate · strike a mast
 
 ## Art notes (not generated yet)
 
-Adults only, described by costume and pose. Cover: the player in cadet grey with a Trial tabard over it,
-helm under one arm, in the tower-room doorway; Rowan in the window seat with a sword across his knees,
-Aren standing with both hands on a table, Gideon ducking under a beam with a hand held out, Felix behind
-stacked books. Grey sea through five narrow windows. Opening panel key:
-`story_the_only_girl_at_blackthorn/opening`.
+Adults only, described by costume and pose. Every portrait line opens "An adult man", "An adult
+woman" or "An older man", because a cadet at an academy reads younger to an image model unless it is
+told otherwise. The tone guide is the cover's mood line and the world line of every portrait prompt,
+so it states the no-fan-service rule without naming the things it forbids.
 
-**The title and the cover (owner decision, open).** The title says "Girl", the one word the spec
-exempts. PixAI covers paint the title into the image prompt, and PLAN §7.2 bans age words on covers.
-Until the owner decides, do not send the title to PixAI bare: either composite it afterwards with
-`cover-title.ts`, or put "a 19-year-old woman in cadet grey" beside it in the prompt, and read the
-result back for a youthful face. Renaming to "The Only Woman at Blackthorn" removes the risk.
+**Cover** (`coverDirection`): shot from the Rook's doorway, as if the viewer has just walked in. Rowan
+fills the left foreground in the window seat, sword across his knees, one eyebrow up; behind him,
+staggered, Gideon ducking under a beam with a hand held out, Aren with both hands flat on a table,
+Felix over a stack of books. Grey sea through narrow arched windows, firelight from the hearth. The
+only effect is a glint on Rowan's blade and on the title, never on a face. The title is lettered in
+the upper third as an engraved silver serif logo with an iron thorn vine, THE ONLY GIRL AT small on
+top and BLACKTHORN large beneath, spelled exactly The Only Girl at Blackthorn.
+
+**The title and the cover.** The title says "Girl", the one word the spec exempts. The cover keeps
+it, painted in by its own TITLE line, and draws no woman at all: the viewer is the one the four are
+looking at, so the word never sits beside a drawn face for the model to make younger. Nothing in the
+direction uses an age word or a number. Still read the result back for youthful faces on the four.
+Renaming to "The Only Woman at Blackthorn" remains the owner's call.
+
+**Opening panel** (`story_the_only_girl_at_blackthorn/opening`): starts with Rowan, who speaks in the
+opener, so his portrait is the reference: Rowan in the window seat at dusk, sword across his knees,
+staring up at you, the other three behind him and the partition hiding a bare square of floor.
 
 ## Originality
 

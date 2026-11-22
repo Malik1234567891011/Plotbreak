@@ -29,6 +29,12 @@ import { StoryVersion } from '@plotbreak/contracts';
  * comedy and tension and choice, and goes no further than a kiss. The canvas
  * partition is about dignity and nothing else.
  *
+ * The system lives where production's storyteller can read it: the Taking,
+ * the Charter and the two abilities that are learned rather than issued are
+ * in hard canon, she starts holding Tabard Forty-One (a quest item, so it is
+ * sent), and every background starts with Cross Blades plus two of its own,
+ * because starting abilities are the only abilities `runTurnPure` sees.
+ *
  * Three variables. Stamina is the only GOOD_HIGH, because `resolveRest`
  * refills those and a cadet who has slept is the honest thing for that to
  * mean. Scrutiny comes first among the descending pair because the generic
@@ -91,10 +97,11 @@ const raw = {
       'At dawn today porters carried the fifth bed out of the Rook to the stable yard on Leopold Marr’s word, after the Provost remarked to him that it was a fire risk. Rowan saw it and held the door for them.',
       'Thirty-one years ago a woman passed the Trial in a helm as Cadet Seventeen, ranked ninth, and her lance did not take her. Anselm Greaves, then Master of the Rolls, cut her name out of the register and kept the page. She was Margery Holt. She is Margery Dunmore, the armorer, and her unmarked sword hangs on the armory wall. Matthias Orme was in her lance and said no. None of them has ever said this aloud.',
       'Gideon’s horse, armour and fees are paid by Lord Marshal Hargrave of the Old Houses, who wants the player gone. The Queen, Aren’s mother, wrote to Aren on the player’s first day: keep her in. Neither Gideon nor Aren has told anybody.',
+      'Two things at Blackthorn are learned, never issued, and the player starts with neither. One is the Charter known well enough to quote article and line to a master’s face and make the room decide whether the Taking is law at all: Felix knows it that well and teaches it to somebody who brings him evidence. The other is Seventeen’s Guard, a low old-fashioned guard for a lighter fighter against a heavier one that nobody in the yard has taught in thirty years: only Margery Dunmore still knows it, and she shows it only to somebody she trusts.',
     ],
     toneGuide:
-      'Comedy first, tension second, and the romance grows out of both. Four men and one woman in a tower room is funny because of boots, snoring, the window that never shuts and whose turn it is to fetch water, never because of bodies. ' +
-      'There is no fan service: no undressing, no bath or changing scenes, no lingering on anybody’s figure. The canvas partition is about dignity and nobody treats it as a joke for long. Nobody shares a bed, ever; whoever gives one up sleeps on the floor. Romance is flirtatious, tense and earned, and goes no further than a kiss. Every one of the four can say no, change his mind, or be told no. ' +
+      'Comedy first, tension second, and the romance grows out of both. Four men and one woman in a tower room is funny because of boots, snoring, the window that never shuts and whose turn it is to fetch water. ' +
+      'There is no fan service: everybody stays in uniform or riding kit on the page, any scene of washing or changing cuts away at the door, and nobody lingers on anybody’s figure. The canvas partition is about dignity and nobody treats it as a joke for long. Nobody shares a bed, ever; whoever gives one up sleeps on the floor. Romance is flirtatious, tense and earned, and goes no further than a kiss. Every one of the four can say no, change his mind, or be told no. ' +
       'Everyone here is an adult; describe people by build, costume and what they do, never with a word that reads younger. ' +
       'The sword is a language. Bouts are legible: distance, footwork, who is tired, what Orme writes in his ledger. Bruises and a split lip at worst; no gore, nobody maimed. Steel drawn in anger outside the yard is a scandal and the masters treat it as one. ' +
       'Prejudice is the obstacle and it is written as people doing things, never as speeches: a bed moved, a number scraped off a board, a girth cut, tea offered. Allies are not saints and enemies are not stupid; the Provost believes he is protecting something. The player wins by being good at things in front of people and by choosing whom to trust, and nobody rescues her. ' +
@@ -837,7 +844,7 @@ const raw = {
         'Don’t thank me. I held a door. Doors don’t count.',
       ],
       appearance:
-        'Lean and quick, black hair cut short and badly, a narrow sharp face, dark eyes that never stop measuring distance, cadet grey worn as if he slept in it, which he did.',
+        'An adult man, lean and quick, black hair cut short and badly, a narrow sharp face, dark eyes that never stop measuring distance, the high-collared grey wool cadet coat open at the throat and creased as if he slept in it, which he did, and black riding boots.',
       visualHook: 'A plain steel sword always across his knees or his shoulders, never in its rack.',
       silhouette: 'Sitting sideways in a window seat, one boot up, blade across his knees.',
       artSeed: 'otgab-rowan-01',
@@ -923,7 +930,7 @@ const raw = {
         'My mother writes to me twice a year. She has written twice this week. You may draw your own conclusions; I have drawn several.',
       ],
       appearance:
-        'Tall and straight-backed, fair hair tied at the nape, cool grey eyes, cadet grey pressed to an edge, a heavy gold signet ring he never takes off.',
+        'An adult man, tall and straight-backed, fair hair tied at the nape with a black ribbon, cool grey eyes, the high-collared grey wool cadet coat pressed to an edge and buttoned to the throat, and a heavy gold signet ring he never takes off.',
       visualHook: 'A gold signet ring with the royal crest, turned inward so the crest faces his palm.',
       silhouette: 'Standing at a table with both hands flat on it, reading something he has already read.',
       artSeed: 'otgab-aren-01',
@@ -1001,7 +1008,7 @@ const raw = {
         'May I? Your buckle’s twisted. Smith’s habit.',
       ],
       appearance:
-        'Huge through the shoulders, a head taller than any doorway in the tower, close-cut brown hair, a broad calm face, forge-scarred hands, cadet grey let out at every seam.',
+        'An adult man, huge through the shoulders and a head taller than any doorway in the tower, close-cut brown hair, a broad calm face with a short beard, forge-scarred hands, and the grey wool cadet coat let out at every seam and still tight across the back.',
       visualHook: 'Hands the size of a shield, the backs speckled with old forge burns.',
       silhouette: 'Ducking under a doorframe with one hand already held out.',
       artSeed: 'otgab-gideon-01',
@@ -1078,7 +1085,7 @@ const raw = {
         'My sword marks were the lowest in forty years and my paper the highest. They averaged them and put me fifth, which is mathematically insulting.',
       ],
       appearance:
-        'Slight and ink-stained, untidy brown curls, wire spectacles mended with thread, cadet grey with every pocket stuffed with folded paper.',
+        'An adult man, slight and ink-stained, untidy chestnut curls, wire spectacles mended with black thread, a pencil behind each ear, and the grey wool cadet coat with every pocket stuffed with folded paper.',
       visualHook: 'Wire spectacles mended at the hinge with black thread, and a pencil behind each ear.',
       silhouette: 'Peering over a wall of stacked books, one finger still marking a page.',
       artSeed: 'otgab-felix-01',
@@ -1155,7 +1162,7 @@ const raw = {
         'Don’t ask me about that sword. Ask me about your grip, which is wrong.',
       ],
       appearance:
-        'Broad-shouldered and weathered, an iron-grey braid pinned up out of the way, a scarred leather apron, forearms marked with old burns, a hammer through her belt.',
+        'An adult woman, broad-shouldered and weathered, an iron-grey braid pinned up out of the way, a dark linen work shirt with the sleeves rolled, a scarred leather apron burned through at the hem, and a hammer through her belt.',
       visualHook: 'A leather apron burned through at the hem, and an iron-grey braid pinned up with a horseshoe nail.',
       silhouette: 'Bent over the grinding wheel, sparks going one way and her braid the other.',
       artSeed: 'otgab-dunmore-01',
@@ -1229,7 +1236,7 @@ const raw = {
         'I scored that bout with your helm on. I’d score it the same with it off. That is all you get from me.',
       ],
       appearance:
-        'Lean and weathered, close-cropped grey hair, a scar through one eyebrow, a master’s black coat with the thorn at the collar, a ledger always under one arm.',
+        'An older man, lean and weathered, close-cropped grey hair, a scar through one eyebrow, a master’s long black coat with a black iron thorn at the collar, and a battered leather ledger always under one arm.',
       visualHook: 'A battered leather ledger under one arm, in which he writes down every bout, every day.',
       silhouette: 'Standing at the yard rail, ledger open, not looking up.',
       artSeed: 'otgab-orme-01',
@@ -1307,7 +1314,7 @@ const raw = {
         'Custom is merely the Charter remembering what it forgot to write down.',
       ],
       appearance:
-        'Tall, silver-haired, immaculate in a provost’s black and silver, thin reading spectacles, long pale hands that are nearly always holding a teacup.',
+        'An older man, tall and silver-haired, immaculate in a provost’s black gown with silver facings, thin reading spectacles, and long pale hands that are nearly always holding a porcelain teacup.',
       visualHook: 'A thin porcelain teacup he holds even while standing, never spilling a drop.',
       silhouette: 'Seated in a high-backed chair by a lit fire, legs crossed, cup raised.',
       artSeed: 'otgab-greaves-01',
@@ -1376,7 +1383,7 @@ const raw = {
         'Honestly, I’m your friend here. Ask anyone. Ask the porters.',
       ],
       appearance:
-        'Handsome and broad, golden hair worn longer than the rules allow, a senior’s grey with a captain’s silver cord at the shoulder, a wide easy grin.',
+        'An adult man, handsome and broad, golden hair worn longer than the rules allow, a senior’s darker grey wool coat with a captain’s silver cord at the shoulder, and a wide easy grin.',
       visualHook: 'A silver captain’s cord at one shoulder that he touches whenever he gives an order.',
       silhouette: 'Leaning in a doorway with one arm up on the frame, lamp held high.',
       artSeed: 'otgab-marr-01',
@@ -2299,7 +2306,7 @@ const raw = {
       attributeBonus: { agility: 3, resolve: 1 },
       skillProficiencies: { swordwork: 3, composure: 1 },
       startingItems: [{ itemId: 'old_knights_blade', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['cross_blades', 'outwork_them', 'say_it_to_their_face'],
       startingReputation: [],
     },
     {
@@ -2312,7 +2319,7 @@ const raw = {
       attributeBonus: { agility: 2, presence: 2 },
       skillProficiencies: { riding: 3, instinct: 2 },
       startingItems: [{ itemId: 'plaited_bridle', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['cross_blades', 'take_the_saddle', 'read_the_yard'],
       startingReputation: [{ factionId: 'faction_thornhollow', amount: 10 }],
     },
     {
@@ -2325,7 +2332,7 @@ const raw = {
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { endurance: 3, swordwork: 1, composure: 1 },
       startingItems: [{ itemId: 'caravan_knife', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['cross_blades', 'outwork_them', 'break_bread'],
       startingReputation: [],
     },
     {
@@ -2338,7 +2345,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { tactics: 3, records: 2 },
       startingItems: [{ itemId: 'campaign_book', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['cross_blades', 'read_the_rolls', 'read_the_yard'],
       startingReputation: [{ factionId: 'faction_masters', amount: 5 }],
     },
   ],
@@ -2579,13 +2586,31 @@ const raw = {
     "Four beds. Behind a canvas partition, a clean square of floor where the fifth should be.\n\nFour cadets look up at you.\n\n\"Wrong room,\" says the one in the window seat, sword across his knees. Rowan. Second in the entrance trial. Second to you.\n\n\"Right room,\" says the one with the signet ring. Aren. \"She ranked first. The board is the board.\"\n\nThe biggest holds out a hand the size of a shield. \"Gideon.\"\n\nThe fourth turns a page and says nothing.\n\nRowan nods at the clean square. \"Porters took your bed to the stables at dawn. We vote on you in seven days. Last night nobody said yes.\"\n\nHe looks at you. \"So where are you sleeping tonight?\"",
   openingPanel: {
     assetKey: 'story_the_only_girl_at_blackthorn/opening',
-    alt: 'A round stone tower room at dusk: four cadets in grey look up, one in a window seat with a sword across his knees, beside a canvas partition with only bare floor behind it.',
+    alt: 'Rowan in the window seat of a round stone tower room at dusk, sword across his knees, staring up at you; three cadets in grey behind him, and a canvas partition hiding a bare square of floor.',
   },
   openingSuggestions: [
     "\"Then I’m carrying it back up. Who wants the other end?\"",
     'I take Gideon’s hand and shake it.',
     'I drop my bag on Rowan’s bed and sit down.',
   ],
+  coverDirection: [
+    'SUBJECT: four men in grey cadet coats in their tower room at a knight academy, seen from the doorway as if the viewer has just walked in, in a key visual for a fantasy academy romance.',
+    'Rowan dominates the foreground, left of centre, close and large, holding about half the picture: sitting sideways in a deep stone window seat, one boot up on the ledge, a plain steel sword laid across his knees.',
+    'Black hair cut short and ragged, a narrow sharp face, dark eyes, a high-collared grey wool cadet coat open at the throat and creased, black riding boots.',
+    'He looks straight at the viewer with one eyebrow raised, sardonic and challenging, not smiling.',
+    'BEHIND HIM, staggered at different depths and never in a line:',
+    'on the right, a huge broad-shouldered man with close-cut brown hair and a short beard ducks under a low oak beam, one big forge-scarred hand held out toward the viewer, his face warm and calm;',
+    'in the middle distance, a tall straight-backed man with fair hair tied at the nape stands with both hands flat on a writing table, a gold signet ring on one hand, cool grey eyes, composed;',
+    'at the back, a slight man with untidy chestnut curls and wire spectacles peers over a tall stack of books, a pencil behind each ear, curious.',
+    'All four wear the same high-collared grey wool cadet coat. Nobody else is in the picture.',
+    'SETTING, soft and secondary: a round stone tower room at dusk, narrow arched windows onto a cold grey sea, practice swords in a wall rack, a lit hearth.',
+    'LIGHT: cold blue-grey sea light from the windows behind them and warm amber firelight from the hearth, so each of them is rimmed in blue and lit in gold.',
+    'The last of the daylight runs along the edge of Rowan’s sword in one bright white glint.',
+    'FACES STAY CLEAN: no glints, shadows, marks or effects across any face. Every light effect stays on the steel and on the title, never on a face.',
+    'TITLE: the words The Only Girl at Blackthorn painted into the art in the upper third, over the windows above their heads, as an engraved knightly serif logo in capitals, forged silver with a cold steel-blue edge and a thin black iron thorn vine curling through the letters.',
+    'THE ONLY GIRL AT on a smaller line on top, BLACKTHORN large beneath it, and a single cold glint running across the word BLACKTHORN only.',
+    'Spelled exactly The Only Girl at Blackthorn, large and legible at thumbnail size. No other text anywhere: no numbers, no writing on the books, the coats or the walls.',
+  ].join(' '),
   publishedAt: null,
 };
 
