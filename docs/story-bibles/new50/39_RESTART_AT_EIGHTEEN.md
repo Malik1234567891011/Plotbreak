@@ -73,6 +73,15 @@ Only the player can see the window or hear the voice in it, which calls itself *
 - The System cannot touch the world, cannot see further ahead than the player remembers, and will not fix anything for them.
 - In the corner of the window, very small and grey, it says **ATTEMPT 2**. Nobody mentions it unless the player looks.
 
+Where the fixture puts this, because the production storyteller never reads resources, step notes or locked abilities: the hard canon (word for word above), **Your Stat Window** as a starting quest item (quest items are the only items it reads), and every archetype's starting abilities, which are **Spend Points** plus one thing that life made the player good at:
+
+| Archetype | Starting abilities |
+|---|---|
+| You Stayed | Spend Points, Fix It |
+| You Left | Spend Points, Use Hindsight |
+| You Sold Things | Spend Points, Talk Them Round |
+| You Drifted | Spend Points, Push Your Luck |
+
 ### The night pulls back
 
 Left alone, the night drifts back toward what happened.
@@ -161,7 +170,7 @@ Jun reacts to the exact thing. He does not guess the truth. If told it, he assum
 
 **Age:** 18
 **Role:** the one you lost. Top of the class, gave the graduation speech this morning, leaves town on the 6:10.
-**Appearance:** straight dark-blonde hair cut to the jaw, grey eyes, flour on one sleeve at all hours, an oversized denim jacket with a pin badge on every inch of the collar.
+**Appearance:** an adult woman of medium height, straight dark-blonde hair cut to the jaw, steady grey eyes, flour on one sleeve at all hours, a plain dark green summer dress under an oversized denim jacket with a pin badge on every inch of the collar, white canvas shoes she takes off whenever she sits down.
 **Immediate want:** ask the player one question on the old pier at eleven and get an answer either way.
 **Long-term want:** a life in the city that is hers: not her mother's bakery, and not anybody else's plan for her.
 **Fear:** that she will ask and the player will laugh; that she will stay for someone and resent it forever.
@@ -178,7 +187,7 @@ Jun reacts to the exact thing. He does not guess the truth. If told it, he assum
 
 **Age:** 18
 **Role:** best friend for as long as either of you can remember; lives two doors down; due at the fire service academy in August.
-**Appearance:** broad-shouldered and restless, buzzed black hair, a wide grin with one chipped front tooth, the academy open-day T-shirt he has worn since March.
+**Appearance:** an adult man, broad-shouldered and restless, buzzed black hair, light stubble along the jaw, a wide grin with one chipped front tooth, cargo shorts, the red fire service academy open-day T-shirt he has worn since March.
 **Immediate want:** get the player to one party before everybody leaves town.
 **Long-term want:** be a firefighter; be taken seriously.
 **Fear:** being the one everybody likes and nobody takes seriously; losing the academy place before August.
@@ -194,7 +203,7 @@ Jun reacts to the exact thing. He does not guess the truth. If told it, he assum
 
 **Age:** 51
 **Role:** your father; Tomas to everyone else on Ferry Road; runs a two-bay garage with one employee, who is him. Raised the player on his own after their mother moved away. She calls on birthdays.
-**Appearance:** grey at the temples, oil under the nails for good, reading glasses pushed up into his hair, a faded work shirt with a name patch.
+**Appearance:** an older man, solid and weathered, dark hair grey at the temples, oil under the nails for good, reading glasses pushed up into his hair, a faded blue work shirt with a name patch and the sleeves rolled to the elbow.
 **Immediate want:** sign at ten and have it done before he can change his mind.
 **Long-term want:** the player on the road to the city in September, whatever it costs him.
 **Fear:** that the player stays in this town because of him; that he is turning into his own father.
@@ -210,7 +219,7 @@ Jun reacts to the exact thing. He does not guess the truth. If told it, he assum
 
 **Age:** 19
 **Role:** host of the party, Graham's son, the one who lights the crate at 22:40.
-**Appearance:** tall, sun-streaked brown hair pushed back, expensive linen shirt, a heavy gold watch his father gave him this morning that he keeps turning on his wrist.
+**Appearance:** an adult man, tall and lean, sun-streaked brown hair pushed back, a sharp jaw, an expensive white linen shirt with the sleeves pushed up, pale chinos, a heavy gold watch his father gave him this morning that he keeps turning on his wrist.
 **Immediate want:** throw the party everyone talks about for ten years.
 **Long-term want:** his father looking at him for one whole minute.
 **Fear:** his father's quiet; being exactly as ordinary as he suspects.
@@ -226,7 +235,7 @@ Jun reacts to the exact thing. He does not guess the truth. If told it, he assum
 
 **Age:** 52
 **Role:** owns the hardware store, the marina, the lake house, and the paper on half the waterfront, including the Dela Cruz house. Buying Dad's garage at ten.
-**Appearance:** short neat silver hair, navy blazer even at a lake party, a black fountain pen he takes out and never quite puts away.
+**Appearance:** an older man, trim and upright, short neat silver hair, pale watchful eyes, a navy blazer over an open-collared white shirt even at a lake party, a black fountain pen he takes out and never quite puts away.
 **Immediate want:** the signature at ten, and the party out of the newspaper.
 **Long-term want:** the waterfront, and a son who does not need cleaning up after.
 **Fear:** scandal before next month's rezoning vote; that his son is exactly like him.
@@ -346,6 +355,9 @@ Every place has a way in and a way out.
 
 ## Image plan (not generated here)
 
-- **Cover:** Jun in a bedroom doorway with a shoe in one hand, grinning; a soft blue stat window with four bars glowing over an unmade bed; a graduation gown on the door; late summer light. Adults only, described by costume and pose: lean on the adult cues already authored (broad shoulders, buzzed hair, a man's build, the fire academy T-shirt). A grin in a bedroom doorway is exactly the frame an anime model draws young, so read the cover back for a youthful face before shipping, and regenerate if in doubt. No lettering in the window.
-- **Opening panel:** the same moment, from the bed.
+Covers and portraits describe people by costume and pose, never by age words. Every portrait `appearance` with a person in it opens "An adult woman", "An adult man" or "An older man", like the pilot's.
+
+- **Cover (`coverDirection`):** Sara, alone, waist up, close and centred, sitting at the end of the old pier at night and turned to the viewer: denim jacket with pin badges over a dark green summer dress, a faded bus ticket held up between two fingers, an envelope against her jacket, her canvas shoes on the boards beside her, a small surprised half-smile. A pale blue stat window with four glowing bars floats by her shoulder, light lines streaming backward off it like a clock in reverse, no letters or numbers on it, the ticket or the envelope. Behind her, soft: the lake house across the bay in party lights, a bonfire, the boathouse, and one rocket streaking sideways low over the water toward it. Warm lamp and party light, cool blue from the window. Every effect stays on the window, the rocket and the title, never on her face. Title "Restart at Eighteen" in the upper third, spelled RESTART AT EIGHTEEN, clean bold rounded white capitals with a pale blue glow, a thin progress bar under EIGHTEEN and a rewind arrow in the first R.
+  - Why Sara on the pier and not the opener's doorway: the cover sells the night and the person waiting at the end of it, and Jun grinning in a bedroom with a graduation gown on the door is exactly the frame an anime model draws young. Read the render back for a youthful face anyway, and regenerate if in doubt.
+- **Opening panel (`openingPanel`, reference: Jun's portrait):** "Jun grinning in a bedroom doorway, seen from the bed, one shoe raised to throw, while a pale blue window with four glowing bars and no writing hangs over the blanket in late-afternoon light."
 - **Stages:** the bedroom, the kitchen, Ferry Road at dusk, the garage, Main Street, the bakery, the hardware store alley, the bus shelter at dawn, the lake house party, the boathouse roof, the study, the old pier at night, the Save Room.

@@ -593,3 +593,68 @@ describe('catalog invariants, for a world not yet in the catalog', () => {
     expect(story.prologue ?? []).toEqual([]);
   });
 });
+
+/**
+ * What the art and release pipeline needs, as the pilot (#7 Skill: ERROR) set
+ * it: docs/stories-50/PIPELINE.md, "What the 49 writers need in the fixture".
+ */
+describe('ready for the art and release pipeline', () => {
+  const AGE_WORDS = /\b(teen\w*|girls?|boys?|young\w*|youth\w*|kids?|child\w*|students?|minors?|\d+)\b/i;
+  const cover = story.coverDirection ?? '';
+
+  it('letters the exact title into the cover on its own TITLE line', () => {
+    const title = /TITLE:[\s\S]*$/.exec(cover)?.[0] ?? '';
+    expect(title, 'no TITLE: line').not.toBe('');
+    expect(title).toContain('Restart at Eighteen');
+    expect(title).toContain('spelled exactly RESTART AT EIGHTEEN');
+    expect(title).toMatch(/upper third/);
+    expect(title).toMatch(/No other text anywhere\.$/);
+  });
+
+  it('keeps every effect off her face and describes her by costume and pose, not age', () => {
+    expect(cover).toContain('Sara');
+    expect(cover).toMatch(/never on her face/i);
+    expect(cover).toMatch(/no letters, no numbers/i);
+    expect(cover).not.toMatch(AGE_WORDS);
+  });
+
+  it('draws the opening panel around the person who speaks first, in under 200 characters', () => {
+    const alt = story.openingPanel!.alt;
+    expect(alt.length).toBeLessThanOrEqual(200);
+    const beforeFirstLine = story.opening.slice(0, story.opening.search(/["“]/));
+    const speaker = story.characters.find((c) => beforeFirstLine.includes(calledName(c)))!;
+    expect(speaker.id).toBe('jun');
+    expect(alt.startsWith(speaker.name.split(' ')[0]!)).toBe(true);
+    expect(alt).not.toMatch(AGE_WORDS);
+  });
+
+  it('gives every carded character a concrete appearance, adult, with no age words', () => {
+    for (const c of story.characters.filter((ch) => ch.cardBlurb.trim().length > 0)) {
+      expect(c.appearance?.length ?? 0, c.id).toBeGreaterThan(80);
+      expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
+      if (c.id !== 'the_system') expect(c.appearance, c.id).toMatch(/^An (adult|older) (wo)?man\b/);
+    }
+  });
+
+  it('has no prologue and no release date until the drop', () => {
+    expect(story.prologue ?? []).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('puts the system where the storyteller reads it: hard canon, a starting quest item, starting abilities', () => {
+    expect(story.rules.hardCanon.some((line) => /Charm, Grit, Wits and Luck/.test(line))).toBe(true);
+    const window = story.items.find((i) => i.id === 'stat_window');
+    expect(window?.questItem).toBe(true);
+    expect(story.rules.startingItems.map((i) => i.itemId)).toContain('stat_window');
+    for (const a of story.archetypes) {
+      expect(a.startingAbilities, a.id).toContain('spend_points');
+      expect(a.startingAbilities.length, a.id).toBeGreaterThanOrEqual(2);
+    }
+    expect(new Set(story.archetypes.map((a) => a.startingAbilities[1])).size).toBe(story.archetypes.length);
+    expect(story.rules.toneGuide.length).toBeGreaterThan(200);
+  });
+
+  it('gives the one titled character the name the prose uses', () => {
+    expect(story.characters.find((c) => c.id === 'dad')?.calledName).toBe('Dad');
+  });
+});

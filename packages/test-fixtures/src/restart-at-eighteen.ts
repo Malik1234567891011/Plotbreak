@@ -24,8 +24,11 @@ import { StoryVersion } from '@plotbreak/contracts';
  * Ripple's negative regen, so all three layers say the same thing.
  *
  * The stat window is the genre's hook and the opener's first decision, but the
- * production narrator never reads resources or abilities, so everything it
- * needs about the four stats lives in hard canon in plain words. The window's
+ * production narrator never reads resources, step notes or locked abilities, so
+ * everything it needs about the four stats lives in hard canon in plain words,
+ * in the stat window as a starting quest item (quest items are the only items
+ * it reads), and in every archetype's starting abilities: Spend Points plus the
+ * one thing that archetype's ten years made it good at. The window's
  * voice, the System, is a CharacterDef because it has a voice, wants and
  * limits, and it is last in the cast so it never takes a cover slot.
  *
@@ -86,6 +89,7 @@ const raw = {
     startingLocationId: 'your_room',
     startWorldMinute: 16 * 60 + 40,
     startingItems: [
+      { itemId: 'stat_window', qty: 1 },
       { itemId: 'faded_ticket', qty: 1 },
       { itemId: 'old_phone', qty: 1 },
     ],
@@ -248,6 +252,18 @@ const raw = {
   ],
   tendencies: [],
   items: [
+    {
+      id: 'stat_window',
+      name: 'Your Stat Window',
+      tags: ['quest', 'personal'],
+      questItem: true,
+      droppable: false,
+      description:
+        'A pale blue translucent panel the size of a paperback that hangs at the edge of your sight and opens wider when you think about it. Only you can see it. Four stats, Charm, Grit, Wits and Luck, each at 2 to start, and 10 unspent points. In one lower corner there is a tiny grey number you have not looked at closely yet.',
+      loreText:
+        'It pays new points for changing what happened the first time: one for a small change that holds, two for changing what a person does, three for the signature, the fire or the pier. Spent points land at once and never come back out. The voice in it calls itself the System, speaks only in short bracketed lines with the time in them, and cannot touch anything but you. At 6:10 tomorrow morning it will ask one question.',
+      icon: 'window',
+    },
     {
       id: 'faded_ticket',
       name: 'The Faded Ticket',
@@ -858,7 +874,7 @@ const raw = {
         'I’m leaving at 6:10 either way. I just wanted to know which way.',
       ],
       appearance:
-        'Straight dark-blonde hair cut to the jaw, grey eyes, flour on one sleeve at all hours, a plain summer dress under an oversized denim jacket covered in pin badges.',
+        'An adult woman of medium height, straight dark-blonde hair cut to the jaw, steady grey eyes, a dusting of flour on one sleeve at all hours, a plain dark green knee-length summer dress under an oversized denim jacket covered in pin badges, and white canvas shoes she takes off whenever she sits down.',
       visualHook: 'An oversized denim jacket with a pin badge on every inch of the collar.',
       silhouette: 'Sitting on an edge with her shoes beside her, knees up, an envelope held flat against them.',
       artSeed: 'rae-sara-01',
@@ -944,7 +960,7 @@ const raw = {
         'Since when do you talk like my uncle? You sound exactly like my uncle. Stop it.',
       ],
       appearance:
-        'Broad-shouldered and restless, buzzed black hair, a wide grin with one chipped front tooth, and the fire service academy T-shirt he got at the open day in March and has worn ever since.',
+        'An adult man, broad-shouldered and restless, buzzed black hair, light stubble along the jaw, a wide grin with one chipped front tooth, cargo shorts, and the red fire service academy T-shirt he got at the open day in March and has worn ever since.',
       visualHook: 'A chipped front tooth that shows every time he grins, which is constantly.',
       silhouette: 'Leaning in a doorframe with one arm up on it, the other hand about to throw something at you.',
       artSeed: 'rae-jun-01',
@@ -1034,7 +1050,7 @@ const raw = {
         'Found it in the bin in April. Flattened it out under the toolbox. You want to tell me why it was in the bin?',
       ],
       appearance:
-        'Grey at the temples, oil under the nails for good, reading glasses pushed up into his hair, a faded blue work shirt with a name patch over the pocket.',
+        'An older man, solid and weathered, dark hair grey at the temples, oil under the nails for good, reading glasses pushed up into his hair, a faded blue work shirt with a name patch over the pocket and the sleeves rolled to the elbow.',
       visualHook: 'Reading glasses pushed up into his grey hair, forgotten there for hours.',
       silhouette: 'Bent over an open engine bay, one hand flat on the fender, not looking up.',
       artSeed: 'rae-dad-01',
@@ -1118,7 +1134,7 @@ const raw = {
         'For the record, I didn’t light anything. I’m saying it now so it’s been said.',
       ],
       appearance:
-        'Tall, sun-streaked brown hair pushed back, an expensive linen shirt open at the collar, and a heavy gold watch he keeps turning on his wrist.',
+        'An adult man, tall and lean, sun-streaked brown hair pushed back, a sharp jaw, an expensive white linen shirt with the sleeves pushed up, pale chinos, and a heavy gold watch he keeps turning on his wrist.',
       visualHook: 'A heavy gold watch, a present from his father this morning, that he keeps turning round his wrist.',
       silhouette: 'Arms spread wide along a deck railing, holding court.',
       artSeed: 'rae-theo-01',
@@ -1198,7 +1214,7 @@ const raw = {
         'It’s a good offer. I don’t make bad offers. I make offers people understand later.',
       ],
       appearance:
-        'Short neat silver hair, a navy blazer over an open shirt even at a lake party, and a black fountain pen clipped inside the blazer.',
+        'An older man, trim and upright, short neat silver hair, pale watchful eyes, a navy blazer over an open-collared white shirt even at a lake party, and a black fountain pen clipped inside the blazer.',
       visualHook: 'A black fountain pen he takes out of his blazer and never quite puts away.',
       silhouette: 'Standing very still in a doorway with one hand in his pocket while everybody else moves around him.',
       artSeed: 'rae-graham-01',
@@ -2244,7 +2260,7 @@ const raw = {
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { hands: 3, grit: 2 },
       startingItems: [{ itemId: 'garage_keys', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['spend_points', 'fix_it'],
       startingReputation: [{ factionId: 'faction_ferry_road', amount: 10 }],
     },
     {
@@ -2258,7 +2274,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { wits: 3, hindsight: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['spend_points', 'use_hindsight'],
       startingReputation: [],
     },
     {
@@ -2272,7 +2288,7 @@ const raw = {
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { charm: 3, passing: 1, wits: 1 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['spend_points', 'talk_them_round'],
       startingReputation: [{ factionId: 'faction_ashcroft', amount: 10 }],
     },
     {
@@ -2286,7 +2302,7 @@ const raw = {
       attributeBonus: { arcana: 3, agility: 1 },
       skillProficiencies: { luck: 3, passing: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['spend_points', 'push_your_luck'],
       startingReputation: [{ factionId: 'faction_the_class', amount: 5 }],
     },
   ],
@@ -2494,13 +2510,35 @@ const raw = {
     "Ten minutes ago you were twenty-eight, asleep with an old bus ticket in your hand.\n\nNow Jun is in your doorway, throwing a shoe at you. Your best friend. Eighteen, and still talking to you.\n\n\"Up, graduate. You slept the whole afternoon.\"\n\nYour old bedroom. Your gown on the door. And over the blanket, a pale blue window only you can see:\n\n[Restart complete. Graduation day, 16:40.]\n[10 points to allocate: Charm, Grit, Wits, Luck]\n\nLast time, tonight cost your dad his garage, Jun his future, and you the person waiting on the pier.\n\nJun weighs the other shoe in his hand. \"Party’s at eight. You’re coming this time, right?\"",
   openingPanel: {
     assetKey: 'story_restart_at_eighteen/opening',
-    alt: 'Jun grinning in a bedroom doorway with a shoe in one hand, while a pale blue window with four glowing bars hangs over an unmade bed in late-afternoon light.',
+    alt: 'Jun grinning in a bedroom doorway, seen from the bed, one shoe raised to throw, while a pale blue window with four glowing bars and no writing hangs over the blanket in late-afternoon light.',
   },
   openingSuggestions: [
     "\"Yeah, I’m coming. Who’s going to be there?\"",
     'I tap the window and put all ten points into Luck.',
     "I sit up and look straight at Jun. \"Don’t laugh. I’m from ten years in the future.\"",
   ],
+  /**
+   * Sara on the pier rather than the opener's doorway: the cover sells the
+   * night and the person waiting at the end of it, and a graduation gown in a
+   * bedroom is the frame an anime model draws youngest. Costume and pose only,
+   * no age words, and every effect on the window, the rocket and the title.
+   */
+  coverDirection: [
+    'SUBJECT: Sara Lindgren, alone and unmistakable in the foreground of a key visual for a second-chance summer romance anime that takes place over one night by a lake.',
+    'She sits at the very end of an old wooden pier at night, turned toward the viewer, framed from the waist up, close and centred, holding about two thirds of the picture.',
+    'Straight dark-blonde hair cut to the jaw, steady grey eyes, an oversized denim jacket with a pin badge on every inch of the collar over a plain dark green summer dress.',
+    'One hand holds up a small faded paper bus ticket between two fingers, toward the viewer; the other holds a plain envelope against her jacket. Her white canvas shoes sit side by side on the boards beside her.',
+    'Beside her shoulder floats a pale blue translucent stat window the size of a paperback, with four glowing horizontal bars of different lengths and one small grey square in its lower corner.',
+    'Thin pale blue light lines stream backward off its edges like a clock running in reverse. It shows only the four abstract bars and the grey square: no letters, no numbers, nothing that reads as writing. The ticket and the envelope are blank too.',
+    'Her expression is a small, surprised half-smile, eyes straight at the viewer, as if somebody she had stopped expecting has just walked up the pier.',
+    'HER FACE STAYS CLEAN: no glow lines, sparks, light streaks or shadows across her face or skin.',
+    'Every rewind and glow effect stays on the stat window, the rocket and the title, never on her face.',
+    'BEHIND HER, soft and secondary: dark still lake water and, across the bay, a big lakeside summer house strung with warm party lights, a small bonfire on its lawn and a wooden boathouse at the water’s edge.',
+    'One firework rocket streaks sideways, low over the water toward the boathouse, trailing gold sparks: the only firework in the sky.',
+    'LIGHT: warm amber from a single old lamp at the end of the pier and the far party lights rimming her hair and jacket, cool pale blue from the stat window across her hands and the ticket, a deep blue summer night above.',
+    'TITLE: the title Restart at Eighteen painted into the art in the upper third, across the night sky, as clean bold rounded capitals in white with a soft pale blue glow like the stat window,',
+    'spelled exactly RESTART AT EIGHTEEN, large and legible at thumbnail size. A thin pale blue progress bar runs under the word EIGHTEEN, and a small circular rewind arrow is worked into the first letter R. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 
