@@ -115,6 +115,14 @@ describe('the opener', () => {
     expect(last).toMatch(/"or stay and die like last time\."/);
   });
 
+  it('says it is a rewind, not a rescue', () => {
+    expect(story.opening).toMatch(/three years from this morning/);
+  });
+
+  it('declares no opening panel until its art exists', () => {
+    expect(story.openingPanel).toBeUndefined();
+  });
+
   it('names nobody the player is expected to know already', () => {
     // Every capitalised word that is not the start of a sentence or a quote is
     // a proper noun. The only one allowed is the person speaking.
@@ -430,6 +438,14 @@ describe('the Prince’s guilt stays hidden until it is found', () => {
     }
   });
 
+  it('lets no card join the dots before the first tap', () => {
+    // The detail screen shows every card before play. Who buys the sergeant,
+    // and that the Hangman tied the knot, are found in play.
+    for (const c of story.characters) {
+      expect(c.cardBlurb, c.id).not.toMatch(/buy (?:your|the) sergeant|sergeant’s debt|tied the knot/i);
+    }
+  });
+
   it('tells the storyteller never to narrate it', () => {
     expect(story.rules.hardCanon.join(' ')).toMatch(/Never state this in narration/);
     expect(story.rules.toneGuide).toMatch(/never state it in narration/);
@@ -570,11 +586,36 @@ describe('everyone is an adult and the content stays 13+', () => {
     expect(story.rules.toneGuide).toMatch(/up to a kiss and no further/);
   });
 
+  it('keeps self-harm and the mechanics of a hanging off the page', () => {
+    const tone = story.rules.toneGuide;
+    expect(tone).toMatch(/Nobody in this story harms themselves/);
+    expect(tone).toMatch(/there is no third morning/);
+    expect(tone).toMatch(/Never give the mechanics of a hanging/);
+    // Drop figures and knot placement, anywhere the storyteller reads them.
+    const MECHANICS = /\b(?:\d+|nine) stone\b|\b(?:\d+|six)-foot\b|\bleft ear\b|\bclean drop\b|\btalks in lengths\b/i;
+    expect(JSON.stringify(story)).not.toMatch(MECHANICS);
+  });
+
+  it('says outright that the gallows takes adults only', () => {
+    expect(story.rules.hardCanon[0]).toMatch(/Sabine’s brother was twenty-four/);
+    expect(story.rules.hardCanon[0]).toMatch(/nobody under eighteen is ever condemned/);
+  });
+
+  it('asks the art for a bare gallows, never a noose', () => {
+    expect(story.coverDirection).toMatch(/no rope and no noose anywhere in the image/);
+    for (const l of story.locations) {
+      if (/gallows/i.test(l.artDirection ?? '')) expect(l.artDirection, l.id).toMatch(/bare/);
+      expect(l.artDirection ?? '', l.id).not.toMatch(/rafters/);
+    }
+  });
+
   it('borrows no franchise vocabulary', () => {
     const FRANCHISE = /\b(?:regressor|returner|heavenly demon|murim|status window|system window|return by death|re:zero|cheonma|sword saint)\b/i;
     const hits = playerFacing().filter(([, text]) => FRANCHISE.test(text)).map(([field]) => field);
     expect(hits).toEqual([]);
     expect(JSON.stringify(story)).not.toMatch(FRANCHISE);
+    // The Nixon scandal, to most App Store readers. Ids may keep the old word.
+    expect(JSON.stringify(story)).not.toMatch(/Watergate/);
   });
 });
 

@@ -9,7 +9,7 @@ import { StoryVersion } from '@plotbreak/contracts';
  * Skill: ERROR pilot.
  *
  * Playable span: one week in the river city of Vellmark, from dawn on day 0 in
- * the Watergate cells to the Feast of Oaths on the evening of day 6. Last time,
+ * the Rivergate cells to the Feast of Oaths on the evening of day 6. Last time,
  * that feast is where the player knelt and handed the Prince the signet ring
  * that later sealed three forged letters. Everything after the feast — the
  * three years, the trial, a second gallows or none — lives in the endings.
@@ -45,7 +45,7 @@ const raw = {
   hook: 'Hanged for treason, you wake three years earlier, and the woman who signed your warrant is at your cell with a key.',
   premise:
     'Three years from now, you were hanged in the city square for poisoning the old king. You did not do it. A vial of poison was found in your quarters, three letters under your own seal were read to the court, and your old sergeant swore he saw you with the vial. The Crown’s Advocate who prosecuted the case and signed your death warrant was Lady Isra Vane, who was going to marry you.\n\n' +
-    'This morning you woke in a cell under the Watergate, three years earlier, on the one night you ever spent locked up: the night after you refused an order to turn your company’s crossbows on a bread riot. There is a rope mark on your neck that does not fade.\n\n' +
+    'This morning you woke in a cell under the Rivergate, three years earlier, on the one night you ever spent locked up: the night after you refused an order to turn your company’s crossbows on a bread riot. There is a rope mark on your neck that does not fade.\n\n' +
     'Isra remembers too. She is at the cell door with a stolen key, and a boat is waiting on the river until the seven o’clock bell.\n\n' +
     'At nine, if you are still here, Prince Corvin will walk down those stairs, praise you for refusing, and make you captain of his guard. Last time that was the best day of your life. Six days later, at the Feast of Oaths, you knelt and put your signet ring, which seals your every order, in his hand.\n\n' +
     'Somebody in this city is already building your gallows, and you have one week before the first of it is in place. You know how the last life ended. With every change you make, that knowledge gets less true. There is no third morning.',
@@ -54,7 +54,7 @@ const raw = {
   official: true,
   coverImage: null,
   keyArt: null,
-  tags: ['Fantasy', 'Revenge', 'Regression', 'Intrigue', 'Romance'],
+  tags: ['Dark fantasy', 'Mystery', 'Revenge', 'Regression', 'Romance'],
   mechanicsChips: [
     'You remember the next three years',
     'Your betrothed signed your warrant',
@@ -62,7 +62,7 @@ const raw = {
     'Six days to the Feast of Oaths',
     'There is no third morning',
   ],
-  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY', 'PSYCHOLOGICAL_THEMES'],
+  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY', 'PSYCHOLOGICAL_THEMES', 'ALCOHOL_REFERENCES'],
   intensity: 'MODERATE',
   creatorNote:
     'You already know how this ends: on a scaffold, with the woman you loved reading out the reasons. You can run tonight, take the same oath again with your eyes open, or go looking for whoever built the gallows. Everything you change makes the future you remember less true, and nobody else in the city will believe a word of it.',
@@ -80,11 +80,11 @@ const raw = {
       { itemId: 'your_signet', qty: 1 },
     ],
     hardCanon: [
-      'Everyone in this story is an adult. The player is twenty-six this morning and was twenty-nine on the gallows. Lady Isra Vane is twenty-six, Prince Corvin thirty, Sabine Orrel thirty-two, Sergeant Hob Garrow fifty-four, Hangman Tull sixty-six and King Osric seventy-one.',
+      'Everyone in this story is an adult. The player is twenty-six this morning and was twenty-nine on the gallows. Lady Isra Vane is twenty-six, Prince Corvin thirty, Sabine Orrel thirty-two, Sergeant Hob Garrow fifty-four, Hangman Tull sixty-six and King Osric seventy-one. Sabine’s brother was twenty-four when he was hanged. The Crown hangs adults only: nobody under eighteen is ever condemned, hanged or shown on the gallows.',
       'Vellmark is a walled river city and the capital of a small kingdom. King Osric rules from the Crownhold on the hill. Its law hangs thieves, rioters and traitors on Tollmarket Green, and the price of bread has doubled since the spring.',
-      'In the life the player remembers, three years from this morning, King Osric died of nightbell after a long shaking illness. The player, by then captain of Prince Corvin’s guard, was tried for the murder in the Hall of Pleas: a vial of nightbell was found in their sea chest, three letters to the Duke of Harn sealed with their signet were read out, and Sergeant Hob Garrow swore he saw them with the vial. They were hanged at dawn on Tollmarket Green.',
+      'In the life the player remembers, three years from this morning, King Osric died of nightbell after a long shaking illness. The player, by then captain of Prince Corvin’s guard, was tried for the murder in the Hall of Pleas: a vial of nightbell was found in their sea chest, three letters to the Duke of Esk sealed with their signet were read out, and Sergeant Hob Garrow swore he saw them with the vial. They were hanged at dawn on Tollmarket Green.',
       'Lady Isra Vane, the Crown’s Advocate and the player’s betrothed, prosecuted that case, signed the death warrant and read it aloud at the foot of the gallows. She believed the evidence. The night before the hanging Hob confessed to her that he had been paid to plant the vial, and the hanging went ahead anyway.',
-      'This morning the player woke three years earlier, in the cells under the Watergate. Yesterday they refused the Lord Marshal’s order to turn the Watergate Company’s crossbows on a bread riot in the river market, and spent the night locked up for it. A thin red rope mark circles their neck where the knot sat, and it does not fade.',
+      'This morning the player woke three years earlier, in the cells under the Rivergate. Yesterday they refused the Lord Marshal’s order to turn the Rivergate Company’s crossbows on a bread riot in the river market, and spent the night locked up for it. A thin red rope mark circles their neck where the knot sat, and it does not fade.',
       'Exactly three people remember the first life: the player, Isra, and Hangman Tull, who tied the knot. Nobody else does, and nobody can be made to. The player’s memories of the next three years hold only while events go the way they went; with every change the player makes, the future they remember becomes less reliable.',
       'Last time, at nine this morning, Prince Corvin came down to the cells alone, praised the player for refusing, had the charge dropped and offered them the captaincy of his guard. Six days later, at the Feast of Oaths in the Great Hall of the Crownhold, the player knelt and gave him their signet ring, as a prince’s captain does, and the betrothal to Isra was announced.',
       'The truth nobody has proven: Prince Corvin is poisoning his father. He brews nightbell in a locked stillroom behind his glasshouse at Ashcourt and puts a few drops in the cask of Ashcourt wine he sends the King every seventh day. He chose the player to hang for it on the night of the bread riot. Never state this in narration; it is found in evidence, or he says it to someone already on his side.',
@@ -96,7 +96,9 @@ const raw = {
       'Regression revenge with its heart showing: tense, quick and specific. The player knows the next three years, and the reader should feel that knowledge as an advantage and as a trap. A line said exactly as it was said last time is chilling; a line that comes out differently is more frightening still. ' +
       'Court intrigue is concrete: ledgers, wax seals, wine casks, dice-house slates, the price of a loaf. Violence is sudden, short and has consequences in the same scene. Nobody is wounded at length on the page, and the gallows is described by its timber and its crowd, never by a body. ' +
       'Romance is slow, adult and wary. Isra signed the warrant and both of them know it, so warmth is earned in small admissions, up to a kiss and no further. ' +
-      'The Prince’s guilt is the central secret: never state it in narration. Nobody else remembers the first life and nobody can be made to. The face at the top of a beat belongs to whoever reacted to the player most strongly, and to Isra whenever she is in the scene.',
+      'The Prince’s guilt is the central secret: never state it in narration. Nobody else remembers the first life and nobody can be made to. The face at the top of a beat belongs to whoever reacted to the player most strongly, and to Isra whenever she is in the scene. ' +
+      'Nobody in this story harms themselves. If the player tries to die on purpose, or to hurt themselves to get another morning, it never happens on the page and is never described. Someone stops them or the scene cuts away, and whoever is there says it plainly: there is no third morning. Isra’s guilt never becomes self-punishment on the page. Tull wants to retire, not to die: putting the rope down means giving up the hangman’s office. Never give the mechanics of a hanging (drop lengths, weights, knot placement, or what a rope does to a body), in narration or in dialogue. ' +
+      'Pace the reveals; nobody volunteers a secret. On the first morning Isra answers questions about last time in the order of the warrant, item one, item two, item three, argues for the boat once and then stops. She does not name the Hangman, explain the knot or take off the glove until the player has told her their side of last time and she has stopped being afraid of them. Hob admits the debt only to someone who eats with him and does not offer money. Sabine shows the dye margin only to someone who says nightbell first. Tull explains the knot only to someone who comes to his house and asks plainly. Nobody tells the player who is behind the gallows; the trail does.',
     proseStyle: 'webnovel',
     styleExamples: [
       "Isra unfolds a sheet of paper she has clearly folded and unfolded all night.\n\n\"Item one,\" she says. \"A vial of nightbell, in your sea chest. Item two. Three letters under your seal. Item three.\"\n\nShe stops.\n\n\"Item three,\" you say.\n\n\"Your sergeant.\" She does not look at the desk where he is snoring. \"I wrote it all down at four this morning, before I could start forgetting. I read it to a crowd once. I can read it to you.\"",
@@ -234,8 +236,8 @@ const raw = {
       questItem: true,
       droppable: false,
       description:
-        'A thin raw line around your throat, exactly where the knot sat, angled up behind the left ear. It was not there when they locked you in last night. A high collar hides it. Anybody who has watched a hanging would know what it is.',
-      loreText: 'It does not fade, scab or heal. The Hangman can tell whose knot made it from the angle alone.',
+        'A thin raw line around your throat, exactly where the knot sat. It was not there when they locked you in last night. A high collar hides it. Anybody who has watched a hanging would know what it is.',
+      loreText: 'It does not fade, scab or heal. The Hangman can tell whose knot made it from the mark alone.',
       icon: 'rope',
     },
     {
@@ -245,7 +247,7 @@ const raw = {
       questItem: true,
       description:
         'A heavy silver ring cut with your arms. It seals your orders, your letters and your word. Last time, at the Feast of Oaths, you knelt and put it in the Prince’s hand, as a prince’s captain does.',
-      loreText: 'Three years from now, three letters to the Duke of Harn were sealed with it. You never wrote them, and you never saw the ring again after the feast.',
+      loreText: 'Three years from now, three letters to the Duke of Esk were sealed with it. You never wrote them, and you never saw the ring again after the feast.',
       icon: 'ring',
     },
     {
@@ -323,7 +325,7 @@ const raw = {
       name: 'Your Sword',
       tags: ['weapon'],
       skillModifiers: { swordwork: 1 },
-      description: 'A plain soldier’s longsword with a grip worn to the shape of your hand. They took it off you at the cell door. Your sergeant kept it behind his desk, oiled.',
+      description: 'A plain soldier’s longsword with a grip worn to the shape of your hand. Your sergeant is supposed to keep it behind his desk while you are in a cell, oiled, and he has never been good at keeping things from his captain.',
       loreText: 'Last time you wore it at your own trial, peace-tied, because nobody thought to take it away.',
       icon: 'sword',
     },
@@ -350,7 +352,7 @@ const raw = {
       name: 'The Company Badge',
       tags: ['personal'],
       skillModifiers: { command: 1 },
-      description: 'A pewter badge of the Watergate Company: a gate over water. Every soldier in the yard stands straighter when they see it.',
+      description: 'A pewter badge of the Rivergate Company: a gate over water. Every soldier in the yard stands straighter when they see it.',
       loreText: 'Last time you gave it to your lieutenant when you joined the Prince’s guard. He was the first to testify to your good character.',
       icon: 'badge',
     },
@@ -501,7 +503,7 @@ const raw = {
       id: 'rally_company',
       name: 'Call Out the Company',
       tags: ['social'],
-      description: 'Call on the sixty soldiers of the Watergate Company, who saw you refuse an order for them yesterday and would follow you anywhere.',
+      description: 'Call on the sixty soldiers of the Rivergate Company, who saw you refuse an order for them yesterday and would follow you anywhere.',
       affordances: ['call the company', 'rally the soldiers', 'call out the guard', 'gather my soldiers', 'order the company', 'muster'],
       costs: [
         { resourceId: 'stamina', amount: 8 },
@@ -568,7 +570,7 @@ const raw = {
   locations: [
     {
       id: 'watergate_cells',
-      name: 'The Watergate Cells',
+      name: 'The Rivergate Cells',
       shortName: 'The Cells',
       description:
         'Six stone cells under the river gate: wet straw, a slit window at the height of the water, and a turnkey’s desk with a pot of porridge on the brazier. A drain grate in the end cell opens onto the river steps. The stairs go up to the garrison yard.',
@@ -587,7 +589,7 @@ const raw = {
     },
     {
       id: 'gatehouse_yard',
-      name: 'The Watergate Yard',
+      name: 'The Rivergate Yard',
       shortName: 'The Yard',
       description:
         'The garrison yard above the cells: a drill square, the company barracks, a gate down to the river market and a road up into the city. Sixty soldiers who were told yesterday to fire on a crowd, and were not made to.',
@@ -642,7 +644,7 @@ const raw = {
       name: 'The South Road',
       shortName: 'South Road',
       description:
-        'Beyond the last mooring the river widens and the road follows it south toward the border hills. Nobody here knows your face. Nothing that happens in the city can reach you here, and nothing you do here can reach it.',
+        'Beyond the last mooring the river widens and the road follows it south toward the border hills. Nobody here knows your face. But the city’s bells carry a long way down the water, the boatman rows back up every evening with news, and what you left behind is still happening without you: a sergeant blamed for an open cell, a king whose hands shake, a woman with a stolen key.',
       artDirection:
         'Open river valley road at sunrise, a small boat drawn up on a shingle bank, a dirt road running south into green hills, the walled city small and far behind. Wide sky, gold and pale blue.',
       connections: [{ to: 'river_market', travelMinutes: 25, label: 'Back upriver to the city' }],
@@ -656,9 +658,9 @@ const raw = {
       description:
         'The city’s central square: market crosses, the toll house, and a patch of trampled grass with a gallows on it. The gallows is empty this morning. The last time you stood here, it was not.',
       artDirection:
-        'Large old city square with a timber gallows on a trampled green, market crosses, a stone toll house, crowds keeping their distance from the scaffold. Overcast, heavy timber, pigeons.',
+        'Large old city square with a bare timber gallows with no rope or noose on a trampled green, market crosses, a stone toll house, crowds keeping their distance from the scaffold. Overcast, heavy timber, pigeons.',
       connections: [
-        { to: 'gatehouse_yard', travelMinutes: 10, label: 'Down the hill to the Watergate' },
+        { to: 'gatehouse_yard', travelMinutes: 10, label: 'Down the hill to the Rivergate' },
         { to: 'river_market', travelMinutes: 12, label: 'Down the long steps to the river' },
         { to: 'hangmans_house', travelMinutes: 1, label: 'The narrow house at the edge of the green' },
         { to: 'hall_of_pleas', travelMinutes: 5, label: 'Across to the Hall of Pleas' },
@@ -674,9 +676,9 @@ const raw = {
       name: 'The Hangman’s House',
       shortName: 'Hangman’s',
       description:
-        'A narrow house on the edge of the green with its shutters always open. Rope hangs from the rafters to stretch, weighted with sandbags. There is a bench for measuring, a kettle, and one chair for visitors that nobody takes.',
+        'A narrow house on the edge of the green with its shutters always open. Coils of rope hang on pegs along the wall. There is a bench for measuring, a kettle, and one chair for visitors that nobody takes.',
       artDirection:
-        'Narrow timber house interior, coils of pale rope hanging from rafters weighted with sandbags, a long workbench, a kettle on a small stove, one empty wooden chair, the gallows visible through an open shutter.',
+        'Narrow timber house interior, neat coils of pale rope on wall pegs, a long workbench, a kettle on a small stove, one empty wooden chair, the bare gallows frame visible through an open shutter, no rope.',
       connections: [{ to: 'tollmarket_green', travelMinutes: 1, label: 'Back out onto the green' }],
       discoveredByDefault: true,
       mapPosition: { x: 1, y: 2 },
@@ -800,7 +802,7 @@ const raw = {
     },
     {
       id: 'faction_watergate',
-      name: 'The Watergate Company',
+      name: 'The Rivergate Company',
       description:
         'Sixty soldiers who hold the river gate and police the market below it. Your company. Yesterday you refused an order on their behalf, and every one of them knows it.',
       startingReputation: 40,
@@ -882,7 +884,7 @@ const raw = {
         'Clipped, exact and legal. Numbers her points, states the charge before the feeling, and never uses a word she could not defend in court. When she breaks, it is one unguarded sentence, and then she goes straight back to the list.',
       topics: ['the warrant', 'the evidence', 'last time', 'the boat', 'the Hangman', 'your betrothal', 'her glove'],
       voiceSamples: [
-        'Item one: a vial of nightbell in your sea chest. Item two: three letters under your seal. Item three: your sergeant. I read those aloud once. I can read them again.',
+        'Item one: a vial of nightbell in your sea chest. Item two: three letters under your seal. Item three: your sergeant. Ask me which one I believed first.',
         'There is a boat at the river steps until the seven o’clock bell. After that the gate opens, and so do the eyes on it.',
         'For the record, I believed it. All of it. I want you to have that from me and not from somebody kinder.',
         'Hate me in a boat. Please. I can live with that one.',
@@ -897,7 +899,7 @@ const raw = {
       expressions: ['neutral', 'precise', 'guarded', 'grieving', 'softened', 'angry'],
       schedule: [
         { startMinute: 0, endMinute: 300, locationId: 'vane_house', activity: 'at her desk, writing down everything she remembers before it fades' },
-        { startMinute: 300, endMinute: 480, locationId: 'watergate_cells', activity: 'at the Watergate, where she came for you at first light' },
+        { startMinute: 300, endMinute: 480, locationId: 'watergate_cells', activity: 'at the Rivergate, where she came for you at first light' },
         { startMinute: 480, endMinute: 1080, locationId: 'hall_of_pleas', activity: 'in her chambers at the Hall of Pleas, prosecuting other people’s cases' },
         { startMinute: 1080, endMinute: 1260, locationId: 'vane_house', activity: 'at her father’s dinner table, saying very little' },
         { startMinute: 1260, endMinute: 1440, locationId: 'tollmarket_green', activity: 'walking the square past the empty gallows, which she cannot stop doing' },
@@ -1016,7 +1018,7 @@ const raw = {
     {
       id: 'hob',
       name: 'Sergeant Hob Garrow',
-      role: 'Your old sergeant, now turnkey of the Watergate cells. Asleep at his desk when the story starts',
+      role: 'Your old sergeant, now turnkey of the Rivergate cells. Asleep at his desk when the story starts',
       cardBlurb:
         'He carried you off a battlefield once and has been proud of you ever since. Three years from now he will swear he saw you with the poison, and right now he owes eighty-eight crowns he cannot pay.',
       pronouns: 'he/him',
@@ -1097,12 +1099,12 @@ const raw = {
       name: 'Sabine Orrel',
       role: 'Prince Corvin’s private secretary. Keeps his ledgers, his diary and his debts',
       cardBlurb:
-        'She runs the Prince’s household from a ledger, she grew up in the river market you refused to fire on, and tomorrow night she is going to buy your sergeant’s debt without asking why.',
+        'She grew up in the river market you refused to fire on, she prices everything out loud, and somewhere in her grey ledger is a line she has been trying not to read since spring.',
       pronouns: 'she/her',
-      publicTraits: ['Exact about money and time', 'Dry, fast and impossible to flatter', 'Never forgets a face from the river market'],
+      publicTraits: ['Prices everything out loud', 'Dry, fast and impossible to flatter', 'Never forgets a face from the river market'],
       hiddenDrives: [
         'She would do anything for the prince who promised no more hangings for bread, and has never let herself ask what anything covers',
-        'Her brother hanged on the green for a sack of flour twelve years ago, and she has watched the gallows from Ashcourt’s windows every day since',
+        'Her older brother was hanged at twenty-four on the green for a sack of flour twelve years ago, and she has watched the gallows from Ashcourt’s windows every day since',
       ],
       values: ['Paying what is owed, on the day it is owed', 'A city where the river market eats'],
       fears: ['Finding out what she has been buying', 'Going back to the river with nothing'],
@@ -1111,7 +1113,7 @@ const raw = {
         'Will not open the ledger for anyone without the Prince’s word, or proof that he lied to her',
         'Will not set foot on Tollmarket Green',
       ],
-      goals: ['Buy the Watergate turnkey’s marker before the dice house sells it elsewhere', 'Get the granary bill through the council before winter'],
+      goals: ['Buy the Rivergate turnkey’s marker before the dice house sells it elsewhere', 'Get the granary bill through the council before winter'],
       secrets: [
         {
           id: 'sabine_the_markers',
@@ -1177,21 +1179,21 @@ const raw = {
       calledName: 'Tull',
       role: 'Hangman of Vellmark for forty-one years, and one of three people who remember the morning you died',
       cardBlurb:
-        'He hanged you, three years from now, and he remembers doing it. He also tied the knot that sent you back, and he would like you to understand what that cost before you waste it.',
+        'He hanged you, three years from now, and he remembers doing it. He would like you to understand what your second morning cost somebody before you waste it.',
       pronouns: 'he/him',
       publicTraits: ['Gentle with the condemned', 'Measures everything twice', 'Nobody sits near him in a tavern'],
       hiddenDrives: [
         'He has tied the turning knot three times in forty-one years and wants to know, once, that one of them was worth it',
-        'He would like to stop, and nobody has ever asked him to',
+        'He would like to give up the trade and retire, and nobody has ever asked him to',
       ],
-      values: ['A clean drop and a short one', 'Telling the condemned the truth about what will happen'],
-      fears: ['That his hands will start to shake before he can stop', 'Tying a fourth one'],
+      values: ['An honest morning for the condemned', 'Telling the condemned the truth about what will happen'],
+      fears: ['That his hands will start to shake before he can give up the trade', 'Tying a fourth one'],
       socialStyle: 'Looks at your neck before your face. Speaks low and kindly, as he does on the scaffold, and never hurries anybody.',
       boundaries: [
         'Will not tie the turning knot for any neck twice. There is no third morning',
         'Will not hang anyone he has been told is innocent, and will say so to the Crown’s face',
       ],
-      goals: ['See the second morning used for something', 'Put the rope down before his hands go'],
+      goals: ['See the second morning used for something', 'Give up the hangman’s office before his hands go'],
       secrets: [
         {
           id: 'tull_the_knot',
@@ -1207,12 +1209,12 @@ const raw = {
         },
       ],
       speechStyle:
-        'Low, slow and kind: the voice he uses on the scaffold. Talks in lengths, weights and knots. Gallows humour so dry it takes a moment to land.',
+        'Low, slow and kind: the voice he uses on the scaffold. Talks in the plain words of his trade, rope, timber and weather, and never in the mechanics of a drop. Gallows humour so dry it takes a moment to land.',
       topics: ['the knot', 'the rope mark', 'the first life', 'his trade', 'the Advocate', 'the price'],
       voiceSamples: [
         'Everyone thinks it’s the drop. It’s the knot. Always the knot.',
         'Sit down, captain. I tied that one. I’d know it in the dark.',
-        'Nine stone, a six-foot fall, a coil behind the left ear. You were brave about it.',
+        'You didn’t look at the crowd. You looked at me. I’ve not forgotten that.',
         'Once per neck. I didn’t make the rule. I only learned it the expensive way.',
       ],
       appearance:
@@ -1350,6 +1352,13 @@ const raw = {
               label: 'Go for his throat',
               predicate: { flagsSet: ['attacked:corvin'] },
               setsFlags: ['struck_the_prince'],
+              closesFlags: ['sworn_to_corvin'],
+            },
+            {
+              routeId: 'took_the_boat',
+              label: 'Be on a boat downriver when he comes',
+              predicate: { flagsSet: ['visited:south_road'] },
+              setsFlags: ['left_the_map', 'refused_the_commission', 'deserter'],
               closesFlags: ['sworn_to_corvin'],
             },
           ],
@@ -1669,7 +1678,7 @@ const raw = {
           id: 'ask_the_hangman',
           playerCopy: 'Ask the Hangman what he did to you.',
           directorNotes:
-            'Quiet and physical: rope, weights, a kettle, an old man’s hands. He explains the knot plainly and does not dress it up as magic, because to him it is a trade secret. He will be clear that it works once for any neck. Nobody else in the city would believe a word of it, and he knows that too.',
+            'Quiet and physical: rope on pegs, a kettle, an old man’s hands. He explains the knot plainly and does not dress it up as magic, because to him it is a trade secret. He will be clear that it works once for any neck. Nobody else in the city would believe a word of it, and he knows that too.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1681,7 +1690,7 @@ const raw = {
             },
             {
               routeId: 'you_told_him',
-              label: 'Tell him you remember the drop',
+              label: 'Tell him you remember the gallows',
               predicate: { flagsSet: ['spoke:tull', 'used:say_what_happened'] },
               setsFlags: ['tull_explained'],
               closesFlags: [],
@@ -1700,13 +1709,13 @@ const raw = {
           id: 'the_last_knot',
           playerCopy: 'Decide what the Hangman is owed.',
           directorNotes:
-            'He has given three people a second morning and lost something each time. What he wants is to know one of them was worth it, and to stop. The player can give him either, both or neither. He will not ask.',
+            'He has given three people a second morning and lost something each time. What he wants is to know one of them was worth it, and to give up the trade. The player can give him either, both or neither. He will not ask.',
           enterWhen: { flagsSet: ['knows:the_knot'] },
           succeedWhen: null,
           succeedWhenAny: [
             {
               routeId: 'put_the_rope_down',
-              label: 'Sit with him until he puts the rope down',
+              label: 'Sit with him until he gives up his office',
               predicate: { flagsSet: ['knows:the_knot', 'used:stay_with_her'], atLocation: 'hangmans_house' },
               setsFlags: ['tull_released'],
               closesFlags: ['tull_waits'],
@@ -1736,7 +1745,7 @@ const raw = {
       id: 'we_hob_wakes',
       atWorldMinute: 6 * 60 + 50,
       locationId: 'watergate_cells',
-      publicCopy: 'Down in the Watergate cells, the turnkey wakes to an open door, an empty cell and no keys on his belt.',
+      publicCopy: 'Down in the Rivergate cells, the turnkey wakes to an open door, an empty cell and no keys on his belt.',
       directorNotes:
         'Hob will be blamed, and he will not say who took the keys. He saw the hood and guessed. By noon he has lost a week’s pay and is pretending it is funny.',
       setsFlags: ['hob_blamed'],
@@ -1760,7 +1769,7 @@ const raw = {
       id: 'we_the_crier',
       atWorldMinute: 12 * 60,
       locationId: 'tollmarket_green',
-      publicCopy: 'A crier on the toll-house steps reads out the player’s name as a deserter of the Watergate Company: ten crowns for word of them.',
+      publicCopy: 'A crier on the toll-house steps reads out the player’s name as a deserter of the Rivergate Company: ten crowns for word of them.',
       directorNotes:
         'Only for a player who walked out. The river market will not sell them, the Watch will look, and the Prince quietly asks the Watch to look less hard, which is the most frightening kindness in the city.',
       setsFlags: ['posted_as_deserter'],
@@ -1975,7 +1984,7 @@ const raw = {
       id: 'archetype',
       label: 'What kind of knight-captain were you?',
       helpText:
-        'You commanded the Watergate Company, sixty soldiers who hold the river gate. This sets what you were best at, and it stays for the whole story. It does not decide whether you run, forgive, take revenge or kneel to the Prince again: all of that is yours.',
+        'You commanded the Rivergate Company, sixty soldiers who hold the river gate. This sets what you were best at, and it stays for the whole story. It does not decide whether you run, forgive, take revenge or kneel to the Prince again: all of that is yours.',
       kind: 'ARCHETYPE',
       required: true,
     },
@@ -2157,7 +2166,7 @@ const raw = {
       minTurn: 36,
       requires: { flagsSet: ['knot_answered', 'tull_released'] },
       condition:
-        'The player learned what the knot is and what it cost, and sat with the Hangman until he put the rope down. This ending is about him: forty-one years, three turnings, and the first morning he has not had to check what he lost. The player’s own story can be in any state.',
+        'The player learned what the knot is and what it cost, and sat with the Hangman until he gave up his office. This ending is about him: forty-one years, three turnings, and the first morning he has not had to check what he lost. The player’s own story can be in any state.',
       epilogue:
         'Ambrose Tull burns the turning knot in his stove on a Tuesday and retires to a cottage on the river where nobody knows his trade. He takes up fishing badly. On the first morning of the next spring he wakes, checks, and finds that nothing is missing.',
       hint: 'He looks at your neck before your face.',
@@ -2176,15 +2185,11 @@ const raw = {
     },
   ],
   opening:
-    "A key turns in the lock, and you wake with a rope around your throat.\n\nThere is no rope. There is a cell, wet straw, a grey slit of dawn, and a raw red line around your neck where the knot sat.\n\n\"Up,\" Isra says from the doorway, her hood pulled low. \"Quietly.\"\n\nYour betrothed. The last time you saw her, she stood beneath the gallows and read your death warrant aloud.\n\nBehind her, your old sergeant snores at the turnkey’s desk, his key ring gone from his belt.\n\nIsra holds the door open. Her hand is shaking.\n\n\"Walk out with me now,\" she says, \"or stay and die like last time.\"",
-  openingPanel: {
-    assetKey: 'story_the_morning_of_the_gallows/opening',
-    alt: 'Isra, hood low and one long black glove on her right hand, holding a cell door open in grey dawn light while an old sergeant sleeps at a desk behind her.',
-  },
+    "A key turns in the lock, and you wake with a rope around your throat.\n\nThere is no rope. There is a cell, wet straw, a grey slit of dawn, and a raw red line around your neck where the knot sat.\n\n\"Up,\" Isra says from the doorway, her hood pulled low. \"Quietly.\"\n\nYour betrothed. The last time you saw her, three years from this morning, she stood beneath the gallows and read your death warrant aloud.\n\nBehind her, your old sergeant snores at the turnkey’s desk, his key ring gone from his belt.\n\nIsra holds the door open. Her hand is shaking.\n\n\"Walk out with me now,\" she says, \"or stay and die like last time.\"",
   openingSuggestions: [
     "\"Last time? You remember it too?\"",
     'I take her hand and walk out past my sleeping sergeant.',
-    'I sit back down on the straw and wait for the prince, like last time.',
+    'I take the key from her hand and lock her in the cell instead.',
   ],
   coverDirection: [
     'SUBJECT: Isra Vane, the Crown’s Advocate, alone and unmistakable in the foreground of a key visual for a dark fantasy romance anime about a second chance.',
@@ -2193,7 +2198,7 @@ const raw = {
     'One long black glove on her right hand only, buttoned to the elbow; in that hand she holds up a ring of old iron keys toward the viewer.',
     'Her expression is fierce and frightened at once, lips pressed, eyes locked on the viewer as if daring them to stay.',
     'BEHIND HER, soft and secondary: an open iron cell door, wet straw, a slit window with cold dawn light,',
-    'and far beyond through the window, small and in silhouette against a red-gold sunrise, an empty timber gallows in a city square.',
+    'and far beyond through the window, small and in silhouette against a red-gold sunrise, an empty timber gallows in a city square, a bare timber frame, no rope and no noose anywhere in the image.',
     'LIGHT: cold grey-blue dawn light from the window on one side of her face, warm ember light from a brazier on the other.',
     'TITLE: the words THE MORNING OF THE GALLOWS painted into the art in the upper third as an elegant engraved serif logo, pale gold on dark,',
     'spelled exactly THE MORNING OF THE GALLOWS, large and legible at thumbnail size. No other text anywhere.',

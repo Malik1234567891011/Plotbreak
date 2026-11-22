@@ -7,6 +7,7 @@
 **Fixture:** `packages/test-fixtures/src/the-morning-of-the-gallows.ts` (`THE_MORNING_OF_THE_GALLOWS`,
 `story_the_morning_of_the_gallows`). **Spec:** `the-morning-of-the-gallows.spec.ts`.
 **Protagonist:** BLANK. The player names themselves; the archetype is what kind of knight-captain they were.
+**Tags:** Dark fantasy, Mystery, Revenge, Regression, Romance (files it under Fantasy, Mystery and Romance).
 **Title check:** a search for existing work titled "The Morning of the Gallows" found nothing.
 
 ## Adults only
@@ -16,17 +17,32 @@ so the storyteller has them on every turn.
 
 | Who | Age |
 |---|---|
-| The player, knight-captain of the Watergate Company | 26 (29 on the gallows, last time) |
+| The player, knight-captain of the Rivergate Company | 26 (29 on the gallows, last time) |
 | Lady Isra Vane, the Crown's Advocate, your betrothed | 26 |
 | Prince Corvin, the King's only son | 30 |
 | Sabine Orrel, the Prince's secretary | 32 |
 | Sergeant Hob Garrow, turnkey | 54 |
 | Hangman Tull (Ambrose Tull) | 66 |
 | King Osric of Vellmark (offstage, at the feast) | 71 |
+| Isra's father, Lord Vane (offstage, at his dinner table) | 60 |
+| The Lord Marshal (offstage, gave the order to fire) | 58 |
+| The Duke of Esk (offstage, across the border; the forged letters' addressee) | 47 |
+| Sabine's older brother (dead; hanged on the green twelve years ago) | 24 when hanged |
+
+Hard canon also says the Crown hangs adults only: nobody under eighteen is ever condemned, hanged or
+shown on the gallows.
 
 Covers and portraits describe people by costume and pose, never by age words. Content stays 13+:
 romance goes up to a kiss and no further, and the gallows is described by its timber and its crowd,
-never by a body.
+never by a body. The tone guide forbids the mechanics of a hanging (drop lengths, weights, knot
+placement, what a rope does to a body) in narration and dialogue. Art prompts ask for a bare timber
+frame with no rope and no noose: a noose is a self-harm image, and in the US a hate symbol.
+
+**Self-harm.** A die-and-go-back premise invites "I hang myself to get another morning". The tone guide
+says nobody in this story harms themselves: it never happens on the page, someone stops them or the
+scene cuts away, and whoever is there says there is no third morning. Isra's guilt never becomes
+self-punishment on the page. Tull wants to retire, not to die: "putting the rope down" means giving up
+the hangman's office.
 
 ## The pitch
 
@@ -34,13 +50,13 @@ Three years from now you were hanged on Tollmarket Green for poisoning the old k
 The woman who prosecuted you, signed the warrant and read it aloud at the foot of the scaffold was
 Lady Isra Vane, who was going to marry you.
 
-This morning you wake in a cell under the Watergate, three years earlier, with a red rope line round
+This morning you wake in a cell under the Rivergate, three years earlier, with a red rope line round
 your neck that does not fade. A key turns in the lock. It is Isra, hooded, with a stolen key ring and
 a shaking hand, and she remembers too.
 
 ## Playable span
 
-One week in the river city of Vellmark: from 05:40 on day 0 in the Watergate cells to the Feast of
+One week in the river city of Vellmark: from 05:40 on day 0 in the Rivergate cells to the Feast of
 Oaths on the evening of day 6. Last time, that feast is where the player knelt and gave the Prince the
 signet ring that later sealed three forged letters. Everything after the feast (the three years, a
 second trial, a second gallows or none) lives in the endings.
@@ -52,13 +68,13 @@ reliable with every change the player makes.
 
 - **Vellmark** is a walled river city and the capital of a small kingdom. **King Osric** rules from the
   Crownhold on the hill. Bread has doubled since spring. The Crown hangs bread thieves on Tollmarket Green.
-- **Yesterday** the player, captain of the sixty-strong Watergate Company, refused the Lord Marshal's
+- **Yesterday** the player, captain of the sixty-strong Rivergate Company, refused the Lord Marshal's
   order to turn the company's crossbows on a bread riot in the river market. They spent the night in
   their own cells for it. It is the only night they were ever locked up.
 - **Last time**, at nine this morning, Prince Corvin came down alone, praised the refusal, had the charge
   dropped and made them captain of his guard. Six days later, at the Feast of Oaths, they knelt and put
   their signet ring in his hand. Three years later the King died of a shaking illness, and they hanged
-  for it: a vial of nightbell in their sea chest, three letters to the Duke of Harn under their seal, and
+  for it: a vial of nightbell in their sea chest, three letters to the Duke of Esk under their seal, and
   their old sergeant swearing he saw them with the vial.
 - **Nightbell** is a blue-flowered plant sold as dye. A drop a week makes a shaking sickness that looks
   like old age. A spoonful stops the heart. The King's hands began to shake this spring.
@@ -92,7 +108,7 @@ knot in an old case file. She did not believe it would work.
 > court, and your old sergeant swore he saw you with the vial. The Crown's Advocate who prosecuted the
 > case and signed your death warrant was Lady Isra Vane, who was going to marry you.
 >
-> This morning you woke in a cell under the Watergate, three years earlier, on the one night you ever
+> This morning you woke in a cell under the Rivergate, three years earlier, on the one night you ever
 > spent locked up: the night after you refused an order to turn your company's crossbows on a bread
 > riot. There is a rope mark on your neck that does not fade.
 >
@@ -118,8 +134,8 @@ The Prince's guilt is **not** in the premise, the hook, the opener or his card. 
 >
 > "Up," Isra says from the doorway, her hood pulled low. "Quietly."
 >
-> Your betrothed. The last time you saw her, she stood beneath the gallows and read your death warrant
-> aloud.
+> Your betrothed. The last time you saw her, three years from this morning, she stood beneath the
+> gallows and read your death warrant aloud.
 >
 > Behind her, your old sergeant snores at the turnkey's desk, his key ring gone from his belt.
 >
@@ -127,15 +143,17 @@ The Prince's guilt is **not** in the premise, the hook, the opener or his card. 
 >
 > "Walk out with me now," she says, "or stay and die like last time."
 
-**Quality bar:** 112 words. Isra speaks at word 43. It ends on a demand with two answers and a clock.
-The only proper noun is Isra, introduced as "your betrothed". She says "last time", so the player
+**Quality bar:** 117 words. Isra speaks at word 43. It ends on a demand with two answers and a clock.
+The only proper noun is Isra, introduced as "your betrothed". "Three years from this morning" makes it
+a rewind, not a rescue, for a player who skipped the premise. She says "last time", so the player
 learns in the first beat that she remembers.
 
 **Opening suggestions** (said / done / risky):
 
 1. Said: `"Last time? You remember it too?"`
 2. Done: `I take her hand and walk out past my sleeping sergeant.`
-3. Risky: `I sit back down on the straw and wait for the prince, like last time.`
+3. Risky: `I take the key from her hand and lock her in the cell instead.` The revenge reversal; it
+   changes the scene on turn 1, and the parser reads it as `interact`, not `attack`.
 
 ## Cast
 
@@ -196,7 +214,8 @@ Every one of them wants something that has nothing to do with the player.
   grey-bound ledger always under one arm.
 - **Voice:** Dry, fast, in figures and prices. A river-market vowel she cannot iron out when angry.
   "Granaries cost money. Gallows cost rope. Guess which one the council funds."
-- **Her own motive:** Her brother was hanged on the green for a sack of flour twelve years ago. She would
+- **Her own motive:** Her older brother was hanged on the green at twenty-four, for a sack of flour, twelve
+  years ago, when she was twenty. She would
   do anything for the prince who promised no more bread hangings, and has never asked what anything covers.
 - **Secrets:** She buys debts as "loyalty insurance" on Corvin's word (six this year). She signs for two
   ounces of nightbell a month, entered as blue dye. Ashcourt has no dye vats. She noticed, wrote it in
@@ -208,25 +227,26 @@ Every one of them wants something that has nothing to do with the player.
 
 - **Looks:** Tall and stooped like a gallows post, white hair tied back, long leather coat, huge gentle
   rope-scarred hands, a coil of pale hemp worn over one shoulder.
-- **Voice:** Low, slow and kind, the voice he uses on the scaffold. Lengths, weights, knots. Gallows humour
-  so dry it takes a moment. "Everyone thinks it's the drop. It's the knot. Always the knot."
+- **Voice:** Low, slow and kind, the voice he uses on the scaffold. The plain words of his trade, rope,
+  timber and weather, never the mechanics of a drop. Gallows humour so dry it takes a moment. "Everyone thinks it's the drop. It's the knot. Always the knot."
 - **His own motive:** He has tied the turning knot three times and wants to know, once, that one of them
-  was worth it. He would like to stop, and nobody has ever asked him to.
+  was worth it. He would like to give up the trade and retire, and nobody has ever asked him to.
 - **Secrets:** what the knot does; what each turning has cost him.
 - **Gates:** explains the knot (trust 45 + met him); stands witness at the feast (ALLIANCE: trust 65 +
   you know the knot).
+- **Goal:** give up the hangman's office before his hands go.
 
 ## Places
 
 | Id | Place | What it is |
 |---|---|---|
-| `watergate_cells` | The Watergate Cells | Start. Wet straw, a slit window, Hob's desk and porridge pot, a drain grate to the river steps. |
-| `gatehouse_yard` | The Watergate Yard | The company's drill square and barracks. Sixty soldiers who were not made to fire. |
+| `watergate_cells` | The Rivergate Cells | Start. Wet straw, a slit window, Hob's desk and porridge pot, a drain grate to the river steps. |
+| `gatehouse_yard` | The Rivergate Yard | The company's drill square and barracks. Sixty soldiers who were not made to fire. |
 | `river_market` | The River Market | The quay of yesterday's riot. Bread stalls, boats, Isra's boatman at the steps. |
 | `drowned_lantern` | The Drowned Lantern | Dice house under the quay. Debt slates on the back wall, Hob's the biggest. |
-| `south_road` | The South Road | Downriver and out. Going here is walking away (`left_the_map`). |
+| `south_road` | The South Road | Downriver and out, but not out of reach: the bells carry, the boatman brings news back every evening, and what you left is still happening. On the legacy engine path, reaching it during the nine o'clock step sets `left_the_map`. |
 | `tollmarket_green` | Tollmarket Green | The square, the toll house and the gallows. The hub. |
-| `hangmans_house` | The Hangman's House | Rope from the rafters, a kettle, one empty chair. The turning knot on a nail. |
+| `hangmans_house` | The Hangman's House | Coils of rope on wall pegs, a kettle, one empty chair. The turning knot on a nail. |
 | `hall_of_pleas` | The Hall of Pleas | The court where you were tried. Isra's chambers up the back stair. |
 | `vane_house` | The Vane House | Isra's townhouse; four pages of warrant written from memory on her desk. |
 | `the_crownhold` | The Crownhold | The palace: great hall, the King's sickroom, the cellar with the green-waxed casks. |
@@ -237,14 +257,15 @@ Every one of them wants something that has nothing to do with the player.
 
 - **The Crown's Law** (first in the array, so public violence costs Crown standing first).
 - **The Prince's House.**
-- **The Watergate Company** (starts at 40; your company).
+- **The Rivergate Company** (starts at 40; your company).
 - **The River Market** (allied to the company; yesterday they were the crowd).
 
 ## Threads (quests)
 
 1. **Walk, or Stay** (MAIN, starts active). The cell door: walk out with Isra before nine, stay like last
-   time, make her talk, tell her your side, or wake Hob. Then nine o'clock: say yes as before, say yes
-   and mean none of it, turn him down to his face, be gone, or go for his throat. Taking the commission
+   time, make her talk, tell her your side, wake Hob, or take the key and lock her in. Then nine o'clock:
+   say yes as before, say yes and mean none of it, turn him down to his face, be gone, be on a boat
+   downriver, or go for his throat. Taking the commission
    grants Speak in His Name.
 2. **Item Three: Your Sergeant** (MAIN). Buy Hob's slate, tell him what he said in court, or let the grey
    coat buy him on the second night and watch who sent her.
@@ -300,7 +321,7 @@ and walking away is reachable from turn 16.
 | The Prince's Hand | RARE | Joined him. |
 | The Banns, Read Twice | RARE | Forgave Isra, stayed, survived the feast; affection 80. |
 | Her Signature | UNCOMMON | Heard her out and refused her. |
-| No Third Morning | UNIQUE | Sat with Tull until he put the rope down. |
+| No Third Morning | UNIQUE | Sat with Tull until he gave up his office. |
 | The Morning, Kept | UNIQUE | Corvin accused, Isra forgiven, Hob never bought. |
 
 ## Archetypes (what kind of knight-captain you were)
@@ -316,6 +337,20 @@ Each starts with **Remember It** plus one ordinary ability, so the storyteller a
 
 Advanced setup asks what the rope left you wanting (revenge, to run, to be proven innocent, to save the
 King, or to hear her explain) as a starting temperament only.
+
+## Pacing the reveals
+
+Production (`runTurnPure`) reads the tone guide, secret facts and quest summaries, but not step
+directorNotes, revealHints or character gates. So the pacing lives in the tone guide: nobody volunteers
+a secret. On the first morning Isra answers in the order of the warrant (item one, two, three), argues
+for the boat once and stops; she names the Hangman, explains the knot or takes off the glove only after
+the player has told their side and she has stopped being afraid of them. Hob admits the debt only to
+someone who eats with him and does not offer money. Sabine shows the dye margin only to someone who says
+nightbell first. Tull explains the knot only to someone who comes to his house and asks plainly. Nobody
+tells the player who is behind the gallows; the trail does.
+
+Character cards are shown before play, so none of them joins the dots: Sabine's card does not say she
+buys the sergeant's debt, and Tull's does not say he tied the knot.
 
 ## State (three invisible resources)
 
@@ -334,7 +369,13 @@ Isra large in frame, waist up, close and centred: black hair at the jaw, grey ey
 an advocate's black coat and high white collar, **one long black glove on her right hand**, holding up a
 ring of old iron keys toward the viewer. Fierce and frightened at once. Behind her, soft: an open cell
 door, wet straw, a slit window with cold dawn, and far off through it a small empty gallows silhouetted
-against a red-gold sunrise. Cold blue from the window on one side of her face, ember from a brazier on
-the other. The title THE MORNING OF THE GALLOWS painted in as a pale-gold engraved serif, no other text.
-Described by costume and pose, never by age words. No art has been generated yet; `openingPanel` names
-`story_the_morning_of_the_gallows/opening` for when it is.
+against a red-gold sunrise: a bare timber frame, no rope and no noose anywhere in the image. Cold blue
+from the window on one side of her face, ember from a brazier on the other. The title THE MORNING OF THE GALLOWS painted in as a pale-gold engraved serif, no other text.
+Described by costume and pose, never by age words. No art has been generated yet, so the fixture
+declares no `openingPanel` (session creation would attach a broken image). When the art exists, add a
+panel entry in `infra/scripts/opening-panel-art.ts`, put the file at
+`infra/seed/assets/story_the_morning_of_the_gallows/opening.webp`, and restore:
+assetKey `story_the_morning_of_the_gallows/opening`, alt "Isra, hood low and one long black glove on her
+right hand, holding a cell door open in grey dawn light while an old sergeant sleeps at a desk behind
+her." The story is also not yet in `packages/test-fixtures/src/index.ts` or `LAUNCH_CATALOG`; register it
+raw (no derived keys) before ship.
