@@ -27,7 +27,7 @@ Nine days ago the player fell asleep on a night bus in our world and woke in a h
 
 **The cost.** Every card kept takes one small memory of the world the player came from: a tune, a street name, a taste, a joke. Never a person, never all at once, never chosen. The player notices only when they reach for it. The first time they notice is this afternoon, when a song they have known all their life is simply not there.
 
-**The Door Back.** Once, to a drifter who has kept enough cards to know what they cost, the Draw offers [The Door Back]. Keep it and you go home at the next sundown. The other two cards that morning are always things somebody here badly needs. Ysolde was offered it nineteen years ago and kept [Mend Bone] instead.
+**The Door Back.** Once, to a morning-hand who has kept enough cards to know what they cost, the Draw offers [The Door Back]. Keep it and you go home at the next sundown. The other two cards that morning are always things somebody here badly needs. Ysolde was offered it nineteen years ago and kept [Mend Bone] instead.
 
 **The town.** About nine hundred people, a ferry, salt barges, a moot hall with a strongroom and a bell tower that leans, a gallows in Ford Square used twice a decade. The lord is far away. His justice rides the river towns on circuit: **Sir Garrot Dunmere** holds a dawn assize in each town and, by custom, hangs at noon "so the condemned get one last morning".
 
@@ -48,7 +48,7 @@ Haldis last came down sixty-one years ago, in a flood year when the rent was a t
 
 **What stops a hanging.** Garrot stops for exactly five things: a witness proven false; the stolen thing returned and the thief named; the pardon of the wronged party; proof that his court has no right to try the case; or the old proof, a speaker who stands against him in arms until the bell finishes. He hears everything else courteously and refuses it. A speaker caught lying to the court goes to the stocks and then out of town.
 
-**Drifters.** They turn up along the river about once a generation. Most townsfolk think they are a story; river folk say a drifter in town means a funeral or a fortune. Haldis has met four. Ysolde is one. Corra Quell's bank once owned one's contract.
+**Morning-hands.** People who carry the cards turn up along the river about once a generation. The river folk call them morning-hands; Haldis says "the morning-handed". Most townsfolk think they are a story; river folk say a morning-hand in town means a funeral or a fortune. Haldis has met four. Ysolde is one. Corra Quell's bank once owned one's contract.
 
 The player is free to speak for Nell or not, keep any card or none, break her out, fight the knight, side with the reeve, sell themselves to the bank, climb the hill, cook, flirt, lie, or walk out of town before noon. The world reacts to the specific thing.
 
@@ -93,23 +93,23 @@ All characters are adults. Ages are fixed.
 **Want:** the law kept exactly, because he believes it is the only thing between the river towns and blood feud.
 **Hidden want:** somebody, once, to answer the question he asks three times.
 **Fear:** a second Wat Kell.
-**Secret:** nine years ago at Hobb's Mill he hanged a drover, Wat Kell, for a killing. A month later the real killer confessed. He carries Wat's tin whistle. Since then he asks three times, every time. Fourteen hangings in eleven years; nobody has ever answered.
+**Secret:** eleven years ago at Hobb's Mill he hanged a drover, Wat Kell, for a killing. A month later the real killer confessed. He carries Wat's tin whistle. Since then he asks three times, every time. Fourteen hangings in eleven years; nobody has ever answered.
 **Voice:** formal, no contractions, thinks and speaks in threes, legal phrasing; courteous to everybody including the condemned.
-**Combat:** a superb fighter. Standing against him "until the bell" is the old proof, and it is meant to be nearly impossible.
+**Combat:** the best sword on the river, and never draws it in anger. Standing against him "until the bell" is the old proof, and it is meant to be nearly impossible: claimed aloud, fought at the foot of the gallows while the noon bell rings, won by still standing, armed, when the bell finishes, lost by a yield or a disarm, never to the death. He has never lost it. Anybody who simply attacks the court is disarmed by the circuit men and put in the lockup beside the condemned. (This reaches the narrator as hard canon; the `combatant` block does not.)
 
 ### Haldis, about four hundred years old
 **Role:** the dragon who owns the hill. The wronged party.
 **Appearance:** the size of a tithe barn, scaled the dull red of a cooling forge, one horn broken short, eyes like banked coals. Asleep, she looks like part of the hill.
 **Want:** the bargain kept. She does not need the silver. The yearly rent is the only conversation she has had with people for two centuries.
 **Fear:** being a story the town tells instead of a party to a bargain.
-**Secret:** she noticed the short weight six years ago and said nothing, waiting to see whether the town would catch its own thief. This year she is coming down regardless. She also knows the Draw: the player is the fifth drifter she has met, and she knows about the Door Back.
+**Secret:** she noticed the short weight six years ago and said nothing, waiting to see whether the town would catch its own thief. This year she is coming down regardless. She also knows the Draw: the player is the fifth morning-hand she has met, and she knows about the Door Back.
 **Voice:** slow, enormous, pedantic about weights and clauses, counts time in winters, calls people "tenant". Only understandable with [Dragon Tongue]; without it she sounds like a forge breathing.
 
 ### Ysolde Marr, 47
 **Role:** keeps the Crooked Kettle, the inn where the player sleeps on credit.
 **Appearance:** solid, flour-dusted, black hair with a grey streak pinned up with a cooking skewer, a burn scar across one hand.
 **Want:** to keep the lodger fed and out of trouble, which is already failing.
-**Secret:** she is a drifter. She fell in twenty-three years ago, kept a card every morning for four years, and was offered [The Door Back] the morning the ferryman Tobias was crushed under the ferry winch. She kept [Mend Bone], saved him, and married him. He died of a fever six years ago. She stopped choosing after that, and the cards stopped coming after thirty untouched mornings. She has forgotten her own first name. "Ysolde" was Tobias's mother's.
+**Secret:** she is a morning-hand. She fell in twenty-three years ago, kept a card every morning for four years, and was offered [The Door Back] the morning the ferryman Tobias was crushed under the ferry winch. She kept [Mend Bone], saved him, and married him. She never kept another card after that, and the cards stopped coming after thirty untouched mornings, so she has not drawn one in nineteen years. Tobias died of a fever six years ago. She has forgotten her own first name. "Ysolde" was Tobias's mother's.
 **Voice:** dry, gruff, kitchen imperatives; answers questions with chores; calls the player "lodger".
 
 ### Anselm Cotter, 44
@@ -131,9 +131,9 @@ All characters are adults. Ages are fixed.
 ### Corra Quell, 39
 **Role:** factor of the Lowmere Salt Bank, aboard the *Honest Weight*. Cotter's creditor.
 **Appearance:** tall and spare in a high-collared grey travelling coat, ink on two fingers, a slim black ledger under one arm.
-**Want:** twelve barrels and a signature. If she learns the player is a drifter, a seven-year contract.
+**Want:** twelve barrels and a signature. If she learns the player is a morning-hand, a seven-year contract.
 **Fear:** going home empty. Her post depends on this debt.
-**Secret:** she has decided not to know what is in the barrels. And she once held a drifter's contract; he left in the seventh year without saying goodbye, and she still balances his column some nights.
+**Secret:** she has decided not to know what is in the barrels. And she once held a morning-hand's contract; he left in the seventh year without saying goodbye, and she still balances his column some nights.
 **Voice:** precise, polite, numerical; every sentence has a figure in it; offers terms instead of threats.
 
 ## Places
@@ -185,10 +185,10 @@ Round trip from the square to the dragon is about ninety minutes, so the dragon 
 
 - **Spoken For** (common): Nell lives, the rent is settled, you stay.
 - **The Day the Hill Stood Up** (common): the dragon came down, and the town lived through it.
-- **Drifter** (common): you walked out of Kettlecross before it was over.
+- **The Long Road** (common): you walked out of Kettlecross before it was over.
 - **The Noon Bell** (uncommon): Nell hanged. The law outran one stranger.
 - **Downriver** (uncommon): you broke her out, and now you are both outlaws.
-- **The Bank's Drifter** (uncommon): seven years under contract.
+- **Seven Years Signed** (uncommon): seven years under contract.
 - **The Landlady's Court** (rare): the trial moved to the hill and the dragon judged the reeve.
 - **A Feast for the Hill** (rare): the rent paid in a feast, and Nell alive to eat the leftovers.
 - **Two on the Ferry** (rare): the license back, and Nell and you running the crossing.
@@ -196,7 +196,7 @@ Round trip from the square to the dragon is about ninety minutes, so the dragon 
 - **The Door Back** (unique): you went home.
 - **A Card for Someone Else** (unique): you were offered home and kept what somebody here needed.
 
-## The opener (turn-one beat, 102 words)
+## The opener (turn-one beat, 107 words)
 
 > Dawn, your ninth in this world, and three cards hang in the air that only you can see. Keep one until you sleep.
 >
@@ -206,7 +206,7 @@ Round trip from the square to the dragon is about ninety minutes, so the dragon 
 >
 > "Morning, stranger," says Nell, through a split lip.
 >
-> The knight beside her, Sir Garrot, lifts a gloved hand. "Nell Farrow hangs at noon for theft. Does anyone speak for her?"
+> The knight beside her, Sir Garrot, lifts a gloved hand. "Nell Farrow hangs at noon for the theft of the dragon's rent. Does anyone speak for her?"
 >
 > Silence. He asks again. Nobody moves.
 >
@@ -214,13 +214,13 @@ Round trip from the square to the dragon is about ninety minutes, so the dragon 
 >
 > "You," Garrot says. "Third and last time. Do you speak for her?"
 
-Nell speaks to the player at word 47. The beat ends on a direct question that needs an answer now. Every proper noun is introduced in the beat itself.
+Nell speaks to the player at word 47. The beat ends on a direct question that needs an answer now. Every proper noun is introduced in the beat itself. The dragon is named as the victim in Garrot's charge, so the [Dragon Tongue] card and the risky suggestion have a reason on turn one.
 
 **Suggestions** (said, done, risky):
 - Said: I touch Perfect Cooking. "Before anyone hangs, can I cook her breakfast?"
 - Done: I touch Read Lies and raise my hand.
-- Risky: I touch Dragon Tongue, climb the gallows steps and say, "She's innocent. I'll prove it by noon."
+- Risky: I touch Dragon Tongue, climb the gallows steps and say, "She's innocent. The dragon will prove it by noon."
 
 ## Image plan (not generated yet)
 
-Covers show adults only, described by costume and pose. Cover: Nell in irons at the foot of a gallows, chin up, split lip, oilskin coat; three glowing cards hanging in the air in front of the viewer; Sir Garrot in black half-plate behind her with a gloved hand raised; a huge red dragon asleep on the hill above the town's leaning bell tower, one eye open. Dawn light, warm and cold. Title in the art per the v4 recipe.
+Covers show adults only, described by costume and pose. Cover: Nell at the foot of an empty gallows frame (no rope or noose anywhere in any image), chin up, split lip, fully clothed in the buttoned, oversized oilskin coat, irons only at the wrists; three glowing cards hanging in the air in front of the viewer; Sir Garrot in black half-plate behind her with a gloved hand raised; a huge red dragon asleep on the hill above the town's leaning bell tower, one eye open. Dawn light, warm and cold. Title in the art per the v4 recipe.

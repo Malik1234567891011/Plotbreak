@@ -58,7 +58,7 @@ const raw = {
     'Nine days ago you fell asleep on a night bus in your own world and woke up in a hayloft outside a river town called Kettlecross, with nothing in your pockets that works here.\n\n' +
     'What came with you is the draw. Every morning at first light, three cards appear in the air in front of you, and only you can see them. Each one is a skill: [Read Lies], [Mend Bone], [Speak to Horses]. Touch one and it is yours, completely, until you next sleep. The other two are gone.\n\n' +
     'This morning the whole town is in the square for a hanging. Three nights ago somebody stole the rent the town owes the dragon who owns the hill, and the court has decided it was Nell Farrow, a ferry hand with a quick tongue and an old reputation. She hangs at noon unless somebody speaks for her and brings the knight a reason.\n\n' +
-    'The rent is due on the hill at sundown. Nobody alive has seen what the dragon does when it is late.\n\n' +
+    'The rent is due on the hill at sundown. The last time it was late, sixty-one years ago, the dragon sat on the bell tower until the town paid. It still leans.\n\n' +
     'Your three cards today are [Dragon Tongue], [Perfect Cooking] and [Read Lies]. You can keep one. You can keep none. You can walk out of town before noon, and nobody here would blame a stranger for it.\n\n' +
     'Every card you keep costs you something you will not notice losing. Nobody has told you that yet.',
   creatorId: 'creator_official',
@@ -74,10 +74,10 @@ const raw = {
     'Rent due to a dragon',
     'Every card costs something',
   ],
-  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY', 'PSYCHOLOGICAL_THEMES'],
+  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY', 'PSYCHOLOGICAL_THEMES', 'ALCOHOL_REFERENCES'],
   intensity: 'MODERATE',
   creatorNote:
-    'Keep [Read Lies] and you can break a witness by mid-morning. Keep [Dragon Tongue] and you can climb the hill and ask the victim. Keep [Perfect Cooking] and you might pay a dragon’s rent with lunch. Or keep nothing, walk out of town, and nobody would blame you. Every card you keep costs you something, and nobody is going to tell you what until you notice.',
+    'Keep [Read Lies] and you can break a witness by mid-morning. Keep [Dragon Tongue] and you can climb the hill and ask the victim. Keep [Perfect Cooking] and you might pay a dragon’s rent with lunch.',
   rules: {
     defeatMode: 'FAIL_FORWARD',
     progressionMode: 'MILESTONE',
@@ -94,13 +94,14 @@ const raw = {
       'A kept skill is complete and exact. It does precisely what its name says, at the highest level, and nothing else. [Perfect Cooking] is perfect cooking and not charm, speed or chemistry. No card can raise the dead, change the past, or make anybody love anybody.',
       'Today’s three cards are [Dragon Tongue], to speak and understand the language of dragons; [Perfect Cooking], to cook anything perfectly with what is to hand; and [Read Lies], to hear a spoken lie ring false the moment it is said. [Read Lies] does not catch silence, half-truths, or a liar who believes what he is saying.',
       'Every card kept costs one small memory of the world the player came from: a tune, a street name, a taste, a joke. Never a person, never all at once, never chosen. The player only notices when they reach for it. Nobody has told them.',
-      'On later mornings the draw is three new cards, usually one useful, one strange and one dangerous or grand, never the same card twice in one draw. Once, to a drifter who has kept enough cards to know what they cost, the draw offers [The Door Back], which takes them home at the next sundown. The other two cards that morning are always things somebody here badly needs.',
+      'People who carry the cards turn up along the river about once a generation, and the river folk call them morning-hands. On later mornings the draw is three new cards, usually one useful, one strange and one dangerous or grand, never the same card twice in one draw. Once, to a morning-hand who has kept enough cards to know what they cost, the draw offers [The Door Back], which takes them home at the next sundown. The other two cards that morning are always things somebody here badly needs.',
       'Kettlecross leases its hill and ford from Haldis, a dragon about four hundred years old, under the Hill Charter, signed two hundred and twelve years ago. The rent is a chest of silver to the weight of a grown calf, carried to the Rent Stone halfway up the hill by sundown on Rent Day. Today is Rent Day.',
       'The Hill Charter has three clauses nobody living has read closely: the rent may be paid in silver or in a feast worthy of the hill cooked by one pair of hands; the Landlady may come down to collect what is owed; and whoever robs the Landlady answers to the Landlady and to no other court.',
-      'Three nights ago the rent chest vanished from the moot hall strongroom. Reeve Anselm Cotter took it. He has short-weighted the rent for six years to pay a debt to the Lowmere Salt Bank, and the silver is now in salt barrels in his cellar, due to go aboard the bank’s barge at sundown. He paid the night watchman Pim Atwater twelve crowns to swear he saw Nell, and he put the coin in her boot himself while searching her.',
+      'Three nights ago the rent chest vanished from the moot hall strongroom. Reeve Anselm Cotter took it. He has short-weighted the rent for six years to pay a debt to the Lowmere Salt Bank, and the silver is now in salt barrels in his cellar, due to go aboard the bank’s barge, the Honest Weight, at six this evening. The barge sails at sundown. He paid the night watchman Pim Atwater twelve crowns to swear he saw Nell, and he put the coin in her boot himself while searching her.',
       'Nell Farrow did not steal the rent. That night she was burgling the reeve’s house to take back her late mother’s ferry license, heard barrels rolled into his cellar and saw the iron corner of the rent chest. She will not say so, because it confesses another crime and nobody believes a thief who accuses the reeve.',
       'Sir Garrot Dunmere hangs at the noon bell. He stops for exactly five things: a witness proven false; the stolen thing returned and the thief named; the pardon of the wronged party; proof that his court has no right to try the case; or the old proof, a speaker who stands against him in arms until the bell finishes. He hears everything else courteously and refuses it.',
       'Anybody may speak for the condemned when the knight has asked three times. A speaker caught lying to the court is put in the stocks and then put out of the town.',
+      'The old proof is claimed aloud and fought at the foot of the gallows while the noon bell rings. The speaker wins by still standing, armed, when the bell finishes, and loses by a yield or a disarm. It is never to the death. Sir Garrot is the finest sword on the river and has never lost it. Anybody who simply attacks the court is disarmed by the circuit men and put in the lockup beside the condemned, which is not the end of anything.',
       'Haldis speaks only the dragon tongue. Without [Dragon Tongue] the player hears a forge breathing and nothing else. She last came down sixty-one years ago, when the rent was a third short, and sat on the bell tower until the town paid. It still leans.',
       'Ysolde Marr, who keeps the Crooked Kettle, fell into this world twenty-three years ago and has not drawn a card in nineteen. She has never told anybody in Kettlecross.',
     ],
@@ -194,7 +195,7 @@ const raw = {
         {
           upTo: 50,
           behaviour:
-            'People have started talking. Somebody saw the business with the dray horse, somebody else saw the stranger speak up at the assize, and the river folk say a drifter in town means a funeral or a fortune. Doors still open, slower.',
+            'People have started talking. Somebody saw the business with the dray horse, somebody else saw the stranger speak up at the assize, and the river folk say a morning-hand in town means a funeral or a fortune. Doors still open, slower.',
         },
         {
           upTo: 80,
@@ -255,7 +256,7 @@ const raw = {
       description:
         'Three cards at first light, at arm’s length, that only you can see. Each names one skill in square brackets. Touch one and it is yours, completely and exactly, until you next sleep; the other two fade. Touch none and all three fade when the sun clears the rooftops. Today: [Dragon Tongue], [Perfect Cooking], [Read Lies].',
       loreText:
-        'You have kept eight before today: [Speak to Horses] on the third morning, when you stopped a bolting dray horse in the square with one word and a ferry hand saw you do it. Every card kept takes one small memory of home, a tune, a street, a taste, and never says which. Haldis calls drifters "the morning-handed". Once, the cards offer [The Door Back].',
+        'You have kept eight before today: [Speak to Horses] on the third morning, when you stopped a bolting dray horse in the square with one word and a ferry hand saw you do it. Every card kept takes one small memory of home, a tune, a street, a taste, and never says which. River folk call people like you morning-hands, and Haldis says "the morning-handed". Once, the cards offer [The Door Back].',
       icon: 'cards',
     },
     {
@@ -285,6 +286,7 @@ const raw = {
       id: 'rent_ledger',
       name: 'The Rent Ledger',
       tags: ['document', 'evidence'],
+      questItem: true,
       skillModifiers: { questioning: 1, notice: 1 },
       description:
         'The reeve’s ledger of rent weighed and carried up the hill, year by year, in a careful hand.',
@@ -345,6 +347,7 @@ const raw = {
       id: 'feast_book',
       name: 'The Hill Feast Book',
       tags: ['document'],
+      questItem: true,
       skillModifiers: { cooking: 2, old_ways: 1 },
       description:
         'A grease-stained book on the top shelf of the Kettle kitchen: the three feasts the town cooked for the hill instead of rent, written down by the cooks who made them.',
@@ -729,7 +732,7 @@ const raw = {
       description:
         'The cobbled heart of Kettlecross: a gallows used twice a decade, a trestle table where the circuit holds its dawn assize, the town well, and a bell tower that has leaned since the dragon sat on it sixty-one years ago. The noon bell is rung from there. From the square you can see the hill, and on a still morning you can hear it breathe.',
       artDirection:
-        'Cobbled market square of a small riverside fantasy town at dawn, a wooden gallows, a trestle table, a well, a stone bell tower leaning visibly to one side, a crowd in rough wool and oilskin, a great red-brown hill above the roofs. Cold gold light.',
+        'Cobbled market square of a small riverside fantasy town at dawn, an empty wooden gallows frame with no rope or noose, a trestle table, a well, a stone bell tower leaning visibly to one side, a crowd in rough wool and oilskin, a great red-brown hill above the roofs. Cold gold light.',
       connections: [
         { to: 'the_crooked_kettle', travelMinutes: 2, label: 'The inn on the corner' },
         { to: 'moot_hall', travelMinutes: 1, label: 'Up the moot hall steps' },
@@ -748,7 +751,7 @@ const raw = {
       name: 'The Crooked Kettle',
       shortName: 'The Kettle',
       description:
-        'The only inn in Kettlecross, with a common room of six tables and a hearth, a loft where the stranger has slept on credit for nine nights, and a slate behind the bar with the stranger’s debt chalked on it in Ysolde’s square hand. It smells of bread from five in the morning onwards.',
+        'The only inn in Kettlecross, with a common room of six tables and a hearth, a loft where the stranger has slept on credit for eight nights, and a slate behind the bar with the stranger’s debt chalked on it in Ysolde’s square hand. It smells of bread from five in the morning onwards.',
       artDirection:
         'Warm low-beamed fantasy inn common room, six scrubbed tables, a big stone hearth, a chalk slate behind the bar, a ladder to a hayloft, morning light through small windows. Homely and smoky.',
       connections: [
@@ -886,9 +889,7 @@ const raw = {
       connections: [{ to: 'the_ferry_landing', travelMinutes: 1, label: 'Down the gangplank' }],
       discoveredByDefault: true,
       mapPosition: { x: 1, y: 3 },
-      takeableItems: [
-        { itemId: 'rent_silver', qty: 1, ownerId: 'haldis', aka: ['silver', 'the barrels', 'the salt barrels', 'a handful of silver'] },
-      ],
+      takeableItems: [],
     },
     {
       id: 'the_hill_road',
@@ -955,7 +956,7 @@ const raw = {
       id: 'faction_river',
       name: 'The River Folk',
       description:
-        'Ferry hands, bargemen, eel fishers and the women who mend their nets. Nell is one of theirs, and they think a drifter in town means a funeral or a fortune.',
+        'Ferry hands, bargemen, eel fishers and the women who mend their nets. Nell is one of theirs, and they think a morning-hand in town means a funeral or a fortune.',
       startingReputation: 5,
       ranks: [
         { atReputation: 0, label: 'A Landsman' },
@@ -969,7 +970,7 @@ const raw = {
       id: 'faction_salt_bank',
       name: 'The Lowmere Salt Bank',
       description:
-        'A downriver bank that lends against salt, ferries and futures, and keeps its word to the letter. Its factor is aboard the barge, and it once owned a drifter’s contract.',
+        'A downriver bank that lends against salt, ferries and futures, and keeps its word to the letter. Its factor is aboard the barge, and it once owned a morning-hand’s contract.',
       startingReputation: 0,
       ranks: [
         { atReputation: 0, label: 'Not a Client' },
@@ -987,7 +988,7 @@ const raw = {
       calledName: 'Nell',
       role: 'Ferry hand, former pickpocket, and the woman they are hanging at noon',
       cardBlurb:
-        'She picked your purse on your first day and put a copper back out of pity. She has not stolen the dragon’s rent, she hangs at noon for it, and of everybody in the square she is looking at you.',
+        'She picked your purse on your first day and put a copper back out of pity. She swears she did not steal the dragon’s rent, she hangs at noon for it, and of everybody in the square she is looking at you.',
       pronouns: 'she/her',
       publicTraits: ['Jokes when she is frightened', 'Never asks for help directly', 'Knows every boat and back door in town'],
       hiddenDrives: [
@@ -1042,7 +1043,7 @@ const raw = {
         { startMinute: 450, endMinute: 720, locationId: 'the_lockup', activity: 'back in the cell under the bell tower, waiting for noon' },
         { startMinute: 720, endMinute: 1440, locationId: 'the_ferry_landing', activity: 'at her chained ferry, if she is free to be anywhere' },
       ],
-      homeLocationId: 'the_ferry_landing',
+      homeLocationId: 'the_lockup',
       knowledgeScope: ['nell', 'the_river', 'the_ferry', 'the_reeve', 'the_theft_night', 'kettlecross'],
       startingRelationship: { trust: 20, affection: 15, respect: 10, fear: 0, rivalry: 0 },
       gates: [
@@ -1072,7 +1073,7 @@ const raw = {
       cardBlurb:
         'He has asked "does anyone speak for her" fourteen times in eleven years and nobody has ever answered. If you do, he will hear you out with perfect courtesy, and hang her anyway unless you bring him one of five lawful reasons.',
       pronouns: 'he/him',
-      publicTraits: ['Courteous to everybody including the condemned', 'Never early, never late', 'Unmovable by tears'],
+      publicTraits: ['Courteous to everybody including the condemned', 'Never early, never late', 'Unmovable by tears', 'The best sword on the river, and never draws it in anger'],
       hiddenDrives: [
         'He wants, once, for somebody to answer the question he asks three times',
         'He is afraid the law he serves is only a rope that holds until it does not',
@@ -1089,7 +1090,7 @@ const raw = {
       secrets: [
         {
           id: 'garrot_wat_kell',
-          fact: 'Nine years ago at Hobb’s Mill he hanged a drover named Wat Kell for a killing. A month later the real killer confessed. He carries Wat’s tin whistle and has asked three times at every assize since.',
+          fact: 'Eleven years ago at Hobb’s Mill he hanged a drover named Wat Kell for a killing. A month later the real killer confessed. He carries Wat’s tin whistle and has asked three times at every assize since.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He tells it, briefly and without excusing himself, to a speaker who has stood in front of him and argued well, whether or not they won.',
         },
@@ -1146,12 +1147,12 @@ const raw = {
       name: 'Haldis',
       role: 'The dragon who owns the hill, the ford and the town’s lease, and the party who was robbed',
       cardBlurb:
-        'She is about four hundred years old, she has been short-changed for six years, and she is coming down at sundown whatever happens. If you kept the right card this morning, you are the first person in sixty-one winters she can actually talk to.',
+        'She is about four hundred years old, her rent was stolen three nights ago, and she is coming down at sundown whatever happens. If you kept the right card this morning, you are the first person in sixty-one winters she can actually talk to.',
       pronouns: 'she/her',
       publicTraits: ['Pedantic about weights and clauses', 'Bored to her bones', 'Curious about anything new'],
       hiddenDrives: [
         'She does not need the silver. The yearly rent is the only conversation she has had with people in two centuries, and she wants it kept',
-        'She has met four drifters and liked all of them, and she wants to know if the fifth will ask the same question',
+        'She has met four morning-hands and liked all of them, and she wants to know if the fifth will ask the same question',
       ],
       values: ['A bargain kept to the letter', 'Being spoken to properly'],
       fears: ['Becoming a story the town tells instead of a party to a bargain', 'Sleeping through the century everybody she knows dies in'],
@@ -1171,14 +1172,14 @@ const raw = {
         },
         {
           id: 'haldis_the_door',
-          fact: 'She knows the morning cards. The player is the fifth drifter she has met, Ysolde was the fourth, and she knows that once, the cards offer the way home.',
+          fact: 'She knows the morning cards. The player is the fifth morning-hand she has met, Ysolde was the fourth, and she knows that once, the cards offer the way home.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you if you ask her what happened to the other four.',
         },
       ],
       speechStyle:
         'Slow and vast, every sentence weighed. Counts time in winters and silver by the calf-weight. Calls people "tenant". Without [Dragon Tongue] she sounds like a forge breathing and nothing else.',
-      topics: ['the rent', 'the charter', 'the bell tower', 'the other drifters', 'weights and measures', 'the town as it used to be'],
+      topics: ['the rent', 'the charter', 'the bell tower', 'the other morning-hands', 'weights and measures', 'the town as it used to be'],
       voiceSamples: [
         'Tenant. You speak properly. Nobody has spoken properly to me in sixty-one winters.',
         'Six years the chest has come up light. A sixth part lead, painted. Did they think I weigh with my eyes?',
@@ -1196,7 +1197,7 @@ const raw = {
         { startMinute: 0, endMinute: 1440, locationId: 'the_hollow', activity: 'curled in the Hollow, one eye a little open' },
       ],
       homeLocationId: 'the_hollow',
-      knowledgeScope: ['the_charter', 'the_rent', 'drifters', 'the_door_back', 'kettlecross_history', 'ysolde'],
+      knowledgeScope: ['the_charter', 'the_rent', 'morning_hands', 'the_door_back', 'kettlecross_history', 'ysolde'],
       startingRelationship: { trust: 0, affection: 0, respect: 0, fear: 0, rivalry: 0 },
       gates: [
         {
@@ -1206,7 +1207,7 @@ const raw = {
           requires: { respect: 25, flagsSet: ['kept:dragon_tongue'] },
         },
         {
-          id: 'haldis_tells_of_drifters',
+          id: 'haldis_tells_of_the_others',
           label: 'She tells you about the other four',
           kind: 'TRUST',
           requires: { trust: 45 },
@@ -1223,7 +1224,7 @@ const raw = {
       calledName: 'Ysolde',
       role: 'Keeper of the Crooked Kettle, who gave the stranger a bed on credit',
       cardBlurb:
-        'She gave you a bed on credit nine nights ago without asking a single question, which in this town is a very loud thing to do. She knows exactly what your eyes are doing at dawn, and she is not going to say so first.',
+        'She gave you a bed on credit eight nights ago without asking a single question, which in this town is a very loud thing to do. She knows exactly what your eyes are doing at dawn, and she is not going to say so first.',
       pronouns: 'she/her',
       publicTraits: ['Answers questions with chores', 'Feeds people before she lets them talk', 'Never goes to a hanging'],
       hiddenDrives: [
@@ -1231,7 +1232,7 @@ const raw = {
         'She wants somebody to know her real name, and she cannot remember it',
       ],
       values: ['Feeding people properly', 'Minding your own business until it becomes somebody else’s life'],
-      fears: ['Watching another drifter forget themselves one morning at a time', 'Being found out by the town after twenty-three years'],
+      fears: ['Watching another morning-hand forget themselves one morning at a time', 'Being found out by the town after twenty-three years'],
       socialStyle:
         'Gruff, practical, kind with her hands rather than her mouth. Puts a bowl in front of you, then a knife, then a job, and the conversation happens around the job.',
       boundaries: [
@@ -1241,8 +1242,8 @@ const raw = {
       goals: ['Keep the lodger fed and alive through Rent Day', 'Keep her own secret one more year'],
       secrets: [
         {
-          id: 'ysolde_drifter',
-          fact: 'She fell into this world twenty-three years ago. She kept a card every morning for four years and was offered [The Door Back] the morning the ferryman Tobias was crushed under the ferry winch. She kept [Mend Bone], saved him and married him. He died of a fever six years ago. She stopped choosing, and the cards stopped coming after thirty untouched mornings.',
+          id: 'ysolde_morning_hand',
+          fact: 'She fell into this world twenty-three years ago. She kept a card every morning for four years and was offered [The Door Back] the morning the ferryman Tobias was crushed under the ferry winch. She kept [Mend Bone], saved him and married him. She never kept another card after that, and the cards stopped coming after thirty untouched mornings. Tobias died of a fever six years ago.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you in her kitchen, late, if you tell her you have lost a memory you cannot get back.',
         },
@@ -1250,7 +1251,7 @@ const raw = {
           id: 'ysolde_the_name',
           fact: 'She has forgotten her own first name. Ysolde was Tobias’s mother’s name, and she took it the year she stayed.',
           visibility: 'NPC_PRIVATE',
-          revealHint: 'Only after she has told you she is a drifter, and only if you ask her what she was called before.',
+          revealHint: 'Only after she has told you she is a morning-hand, and only if you ask her what she was called before.',
         },
       ],
       speechStyle:
@@ -1258,7 +1259,7 @@ const raw = {
       topics: ['the slate', 'the kitchen', 'Tobias', 'the feast book', 'what the lodger does at dawn', 'the hill road'],
       voiceSamples: [
         'Sit. Eat that. You can save a neck on a full stomach as easily as an empty one.',
-        'You owe me nine nights, lodger. This bowl goes on the slate and you are not to argue.',
+        'You owe me eight nights, lodger. This bowl goes on the slate and you are not to argue.',
         'Every dawn your eyes go up and left, to nothing, and stay there a while. Mine used to do that.',
         'I had a name once that wasn’t Ysolde. I’ve been trying to remember the first letter of it for eleven years.',
       ],
@@ -1277,12 +1278,12 @@ const raw = {
         { startMinute: 1140, endMinute: 1440, locationId: 'the_crooked_kettle', activity: 'wiping tables and watching the door' },
       ],
       homeLocationId: 'the_crooked_kettle',
-      knowledgeScope: ['drifters', 'the_cards', 'the_door_back', 'kettlecross', 'the_feast_book', 'tobias'],
+      knowledgeScope: ['morning_hands', 'the_cards', 'the_door_back', 'kettlecross', 'the_feast_book', 'tobias'],
       startingRelationship: { trust: 45, affection: 40, respect: 20, fear: 0, rivalry: 0 },
       gates: [
         {
           id: 'ysolde_admits_it',
-          label: 'She tells you she was a drifter too',
+          label: 'She tells you she was a morning-hand too',
           kind: 'TRUST',
           requires: { trust: 50, flagsSet: ['knows:the_cost'] },
         },
@@ -1302,7 +1303,7 @@ const raw = {
       id: 'cotter',
       name: 'Anselm Cotter',
       calledName: 'Cotter',
-      role: 'The town reeve, who keeps the keys and the ledgers, and who stole the rent',
+      role: 'The town reeve, who keeps the keys and the ledgers, and who found the coin in her boot',
       cardBlurb:
         'He found the coin in her boot, he will tell you so very reasonably, and every word of it is technically true. If her case falls apart before noon, the next stranger he points at is you.',
       pronouns: 'he/him',
@@ -1405,7 +1406,7 @@ const raw = {
       voiceSamples: [
         'I saw her. I did. Midnight, the side door, a sack, the ferry coat. I said it to the knight and I’ll say it again, right?',
         'Twelve crowns is a lot for a watchman. I found it. In the road. Is that a crime, finding?',
-        'Does he hang you, the knight, for being wrong? Just wrong. Asking for a friend.',
+        'Does he hang you, the knight, for being wrong? Just wrong. My cousin wants to know.',
       ],
       appearance:
         'Thirty-one, lanky and unshaven, a watchman’s tabard with the badge pinned on crooked, red-eyed from a night of not sleeping.',
@@ -1448,7 +1449,7 @@ const raw = {
       publicTraits: ['Precise to the crown', 'Polite in every circumstance', 'Never threatens; offers terms'],
       hiddenDrives: [
         'Her post depends on this debt, and the bank is failing faster than anybody upriver knows',
-        'She once held a drifter’s contract, and she still balances his column some nights',
+        'She once held a morning-hand’s contract, and she still balances his column some nights',
       ],
       values: ['A debt paid in full and on time', 'Terms written down and kept'],
       fears: ['Going home empty', 'Liking somebody she holds paper on'],
@@ -1467,20 +1468,20 @@ const raw = {
           revealHint: 'She admits it if somebody opens a barrel in front of her and asks whether she knew.',
         },
         {
-          id: 'quell_the_last_drifter',
-          fact: 'The bank held a drifter’s seven-year contract under her as factor. He was very good. In the seventh year the cards offered him the way home and he took it without saying goodbye.',
+          id: 'quell_the_last_morning_hand',
+          fact: 'The bank held a morning-hand’s seven-year contract under her as factor. He was very good. In the seventh year the cards offered him the way home and he took it without saying goodbye.',
           visibility: 'NPC_PRIVATE',
-          revealHint: 'She tells you if you ask why the bank wants a drifter at all, after she has made her offer.',
+          revealHint: 'She tells you if you ask why the bank wants a morning-hand at all, after she has made her offer.',
         },
       ],
       speechStyle:
         'Precise and polite, with a figure in nearly every sentence. Offers terms instead of threats. Uses "let us be clear" when she is about to be.',
-      topics: ['the debt', 'the barrels', 'contracts', 'the bank', 'the last drifter', 'the river trade'],
+      topics: ['the debt', 'the barrels', 'contracts', 'the bank', 'the last morning-hand', 'the river trade'],
       voiceSamples: [
         'Let us be clear. Twelve barrels and a signature, and I am gone on the evening current.',
         'Seven years, a cabin with a window, fair wages, and every morning’s card at the bank’s disposal. I can have it drawn up by supper.',
         'Everybody upriver owes somebody downriver. I simply keep the list.',
-        'We held a drifter’s contract once. He was very good. He left in the seventh year without saying goodbye, and I still balance his column some nights.',
+        'We held a morning-hand’s contract once. He was very good. He left in the seventh year without saying goodbye, and I still balance his column some nights.',
       ],
       appearance:
         'Thirty-nine, tall and spare in a high-collared grey travelling coat, ink on two fingers, a slim black ledger under one arm.',
@@ -1498,7 +1499,7 @@ const raw = {
         { startMinute: 1260, endMinute: 1440, locationId: 'the_barge', activity: 'aboard, wherever the barge is' },
       ],
       homeLocationId: 'the_barge',
-      knowledgeScope: ['the_salt_bank', 'the_debt', 'contracts', 'drifters', 'the_river_trade'],
+      knowledgeScope: ['the_salt_bank', 'the_debt', 'contracts', 'morning_hands', 'the_river_trade'],
       startingRelationship: { trust: 0, affection: 0, respect: 5, fear: 0, rivalry: 0 },
       gates: [
         {
@@ -1962,7 +1963,7 @@ const raw = {
           id: 'ask_someone_who_knows',
           playerCopy: 'Find somebody who knows what the cards take.',
           directorNotes:
-            'Two people in this world know: the innkeeper, who has never told anybody she was a drifter, and the dragon, who has met five. Neither will volunteer it. The cost is small, specific and never a person: the end of a joke, a street name, the taste of a drink. Write it as quietly frightening, never as horror.',
+            'Two people in this world know: the innkeeper, who has never told anybody she was a morning-hand, and the dragon, who has met five. Neither will volunteer it. The cost is small, specific and never a person: the end of a joke, a street name, the taste of a drink. Write it as quietly frightening, never as horror.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1972,7 +1973,7 @@ const raw = {
                 flagsSet: ['spoke:ysolde'],
                 minRelationship: [{ characterId: 'ysolde', dimension: 'trust', value: 50 }],
               },
-              setsFlags: ['knows:ysolde_drifter'],
+              setsFlags: ['knows:ysolde_morning_hand'],
               closesFlags: [],
             },
             {
@@ -2091,7 +2092,7 @@ const raw = {
       publicCopy:
         'Reeve Cotter stands on the moot hall steps and asks, loudly and reasonably, where the stranger from the Crooked Kettle was three nights ago.',
       directorNotes:
-        'Nell’s case has collapsed and the rent is still missing, so the reeve reaches for the next person nobody will defend: the drifter who arrived six days before the theft. Every word he says is true. The town is ready to believe it, more so the louder the whispers about the stranger already are.',
+        'Nell’s case has collapsed and the rent is still missing, so the reeve reaches for the next person nobody will defend: the stranger who arrived six days before the theft. Every word he says is true. The town is ready to believe it, more so the louder the whispers about the stranger already are.',
       setsFlags: ['you_are_accused'],
       cancelledByFlags: ['cotter_exposed', 'cotter_bargain'],
       requiresFlags: ['nell_reprieved'],
@@ -2117,7 +2118,7 @@ const raw = {
       publicCopy:
         'A bargeman brings a folded note to the Crooked Kettle in a hand like engraving: Corra Quell would like ten minutes of the stranger’s time, and will pay for them.',
       directorNotes:
-        'She heard a stranger spoke for the thief and did something nobody could explain, and she has met a drifter before. She wants to make an offer, in writing, with terms.',
+        'She heard a stranger spoke for the thief and did something nobody could explain, and she has met a morning-hand before. She wants to make an offer, in writing, with terms.',
       setsFlags: ['quell_wants_you'],
       cancelledByFlags: [],
       requiresFlags: ['speaker'],
@@ -2235,7 +2236,7 @@ const raw = {
       kind: 'THEME',
       label: 'Why the knight always asks three times',
       seedHint: 'He asks a crowd that never answers, every time, as if he means it.',
-      payoffHint: 'A tin whistle that belonged to a drover he hanged for nothing, nine years ago at Hobb’s Mill.',
+      payoffHint: 'A tin whistle that belonged to a drover he hanged for nothing, eleven years ago at Hobb’s Mill.',
       weight: 0.6,
     },
   ],
@@ -2379,8 +2380,8 @@ const raw = {
       hint: 'A bell tower that has leaned for sixty-one years.',
     },
     {
-      id: 'end_drifter',
-      name: 'Drifter',
+      id: 'end_the_long_road',
+      name: 'The Long Road',
       rarity: 'COMMON',
       minTurn: 12,
       requires: { flagsSet: ['left_the_map'], flagsUnset: ['speaker'] },
@@ -2415,8 +2416,8 @@ const raw = {
       hint: '',
     },
     {
-      id: 'end_the_banks_drifter',
-      name: 'The Bank’s Drifter',
+      id: 'end_seven_years_signed',
+      name: 'Seven Years Signed',
       rarity: 'UNCOMMON',
       minTurn: 20,
       requires: { flagsSet: ['signed_with_the_bank'] },
@@ -2519,7 +2520,7 @@ const raw = {
     '[Dragon Tongue] [Perfect Cooking] [Read Lies]\n\n' +
     'Below them, at the foot of a gallows, a woman in irons finds you in the crowd.\n\n' +
     '"Morning, stranger," says Nell, through a split lip.\n\n' +
-    'The knight beside her, Sir Garrot, lifts a gloved hand. "Nell Farrow hangs at noon for theft. Does anyone speak for her?"\n\n' +
+    'The knight beside her, Sir Garrot, lifts a gloved hand. "Nell Farrow hangs at noon for the theft of the dragon’s rent. Does anyone speak for her?"\n\n' +
     'Silence. He asks again. Nobody moves.\n\n' +
     'The whole square follows her eyes to you.\n\n' +
     '"You," Garrot says. "Third and last time. Do you speak for her?"',
@@ -2530,7 +2531,7 @@ const raw = {
   openingSuggestions: [
     'I touch Perfect Cooking. "Before anyone hangs, can I cook her breakfast?"',
     'I touch Read Lies and raise my hand.',
-    'I touch Dragon Tongue, climb the gallows steps and say, "She’s innocent. I’ll prove it by noon."',
+    'I touch Dragon Tongue, climb the gallows steps and say, "She’s innocent. The dragon will prove it by noon."',
   ],
   publishedAt: null,
 };

@@ -76,7 +76,7 @@ describe('prose is prose', () => {
 
   it('is English and carries no franchise vocabulary', () => {
     const all = JSON.stringify(story);
-    expect(all).not.toMatch(/\bquirk|\bnen\b|chakra|hokage|hunter association|system window|skill draft/i);
+    expect(all).not.toMatch(/\bquirk|\bnen\b|chakra|hokage|hunter association|system window|skill draft|drifter/i);
     expect(all, 'em-dash in authored copy').not.toContain('—');
   });
 
