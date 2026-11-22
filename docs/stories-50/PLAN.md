@@ -157,7 +157,17 @@ side by side. The limit on the user's Claude plan, not money, is what caps throu
 
 ## 5. PixAI credit budget
 
-**Measured today (API, one call):** Tsubaki.3, mode `pro`, 1152×1744, one image = **4,400 credits, 39.6
+> **Update 2026-11-22, measured on the API (supersedes the estimates below).** "Flash" is not
+> available on the API: Tsubaki.3 only has `pro` and `ultra`. In-story images use **Tsubaki.2 lite at
+> 2,700 credits** (~15 s), which looked better than Tsubaki.3 pro in a side-by-side. Covers stay
+> Tsubaki.3 pro at 4,400. Opening panels need Tsubaki.3, the only model that takes a reference
+> image: ~4,200. There is no prologue (both stories that have one are our weakest openers).
+> Per story, with 5 portraits, 9 stages, 1 key, 1.5 cover takes, 1 panel and ~3 retries:
+> **≈ 60,000 credits ≈ $1.80**. All 50 ≈ **3.0M credits ≈ $90**, so Plus (1M a month) plus about
+> 2M of top-ups at the "as fast as possible" pace. Expressions later: 40 × 2,700 = 108K a story.
+> Commands and costs: `PIPELINE.md`.
+
+**Measured on 2026-11-21 (API, one call):** Tsubaki.3, mode `pro`, 1152×1744, one image = **4,400 credits, 39.6
 seconds**. That is the web price with the 1,000-credit High Priority fee included, not the 3,400
 member web price. The API seems to charge priority pricing. One open question: the call used `mode: "pro"`,
 and `mode: "standard"` might be what drops the 1,000 extra. Test it on the first real story before
