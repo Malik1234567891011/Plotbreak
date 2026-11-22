@@ -29,6 +29,7 @@ import { UNCOUNTED as UNCOUNTED_RAW } from './uncounted.js';
 import { LAST_SERVICE as LAST_SERVICE_RAW } from './last-service.js';
 import { PINK_TIDE as PINK_TIDE_RAW } from './pink-tide.js';
 import { LAST_FEATHER as LAST_FEATHER_RAW } from './last-feather.js';
+import { SKILL_ERROR } from './skill-error.js';
 
 
 export { withDerivedAssetKeys } from './derive-assets.js';
@@ -151,4 +152,5 @@ export const LAUNCH_CATALOG = [
   ACE,
   LIGHT,
   LAST_FEATHER,
+  SKILL_ERROR,
 ] as const;
