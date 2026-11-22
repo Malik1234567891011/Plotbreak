@@ -44,21 +44,9 @@ struct CreateTabScreen: View {
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                TabHeader(t("nav.create")) {
-                    if !titles.isEmpty {
-                        Txt(t("create.title_count", ["count": titles.count]), .micro, color: Theme.Colors.textMuted)
-                    }
-                }
-
-                if loading {
-                    loadingList
-                } else if titles.isEmpty {
-                    empty
-                } else {
-                    list
-                }
+                TabHeader(t("nav.create"))
+                list
             }
-            .overlay(alignment: .bottomTrailing) { newStoryButton }
         }
         .task { await load() }
         .refreshable { await load() }
@@ -77,84 +65,76 @@ struct CreateTabScreen: View {
 
     // MARK: Pieces
 
-    private var newStoryButton: some View {
-        Button {
-            Haptic.play(.medium)
-            Task { await startNew() }
-        } label: {
-            Group {
-                if creating {
-                    ProgressView().tint(Theme.Colors.bgBase)
-                } else {
-                    Image(systemName: "plus").font(.system(size: 24, weight: .semibold))
-                }
+    /// Design v3 (board frame Create): the way in sits at the top of the page,
+    /// always, as the one filled block with the one white button. Your stories
+    /// follow as plain rows.
+    private var startCard: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(t("create.empty_title"))
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+            Text(t("create.empty_body"))
+                .font(.system(size: 15))
+                .foregroundStyle(Theme.Colors.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+            PBButton(t("create.new_story"), loadingLabel: t("create.new_story"), variant: .light, size: .medium,
+                     loading: creating, full: false, disabled: creating, haptic: .medium) {
+                Task { await startNew() }
             }
-            .foregroundStyle(Theme.Colors.bgBase)
-            .frame(width: 58, height: 58)
-            .background(Theme.Colors.light, in: Circle())
-            .shadow(color: .black.opacity(0.35), radius: 12, y: 4)
+            .padding(.top, 8)
         }
-        .buttonStyle(PressScaleStyle())
-        .disabled(creating)
-        .padding(.trailing, Theme.gutter)
-        .padding(.bottom, Theme.Spacing.xl)
-        .accessibilityLabel(t("create.new_story"))
-    }
-
-    private var loadingList: some View {
-        VStack(spacing: Theme.Spacing.md) {
-            ForEach(0..<3, id: \.self) { _ in Skeleton(height: 96) }
-            Spacer()
-        }
-        .padding(Theme.gutter)
-    }
-
-    private var empty: some View {
-        ScrollView {
-            VStack(spacing: Theme.Spacing.xl) {
-                EmptyState(
-                    title: t("create.empty_title"),
-                    message: t("create.empty_body"),
-                    actionLabel: t("create.new_story")
-                ) { Task { await startNew() } }
-            }
-            .padding(.top, Theme.Spacing.giant)
-        }
+        .padding(20)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 
     private var list: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                HStack(spacing: Theme.Spacing.sm) {
-                    ForEach(Filter.allCases, id: \.self) { option in
-                        Chip(t(option.labelKey), selected: filter == option, style: .outlined) {
-                            filter = option
-                        }
-                    }
-                    Spacer(minLength: 0)
-                }
-                .padding(.bottom, Theme.Spacing.xs)
+            VStack(alignment: .leading, spacing: 0) {
+                startCard
+                    .padding(.top, Theme.Spacing.sm)
 
                 if let errorMessage {
                     InlineError(message: errorMessage, retryLabel: t("misc.close")) { self.errorMessage = nil }
+                        .padding(.top, Theme.Spacing.md)
                 }
 
-                ForEach(shown) { title in
-                    CreatorTitleCard(title: title) {
-                        router.push(.storyBuilder(draftId: title.draftId))
-                    } onPlay: {
-                        if let storyId = title.storyId { router.push(.storyDetail(storyId: storyId)) }
-                    } onDelete: {
-                        confirmingDelete = title
+                if loading {
+                    ForEach(0..<2, id: \.self) { _ in Skeleton(height: 84) }
+                        .padding(.top, Theme.Spacing.md)
+                } else if !titles.isEmpty {
+                    HStack(spacing: 6) {
+                        Text(t("create.title_count", ["count": titles.count]))
+                            .font(.system(size: 20, weight: .semibold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .accessibilityAddTraits(.isHeader)
+                        Spacer(minLength: Theme.Spacing.sm)
+                        ForEach(Filter.allCases, id: \.self) { option in
+                            Chip(t(option.labelKey), selected: filter == option) {
+                                filter = option
+                            }
+                        }
+                    }
+                    .padding(.top, 32)
+                    .padding(.bottom, 6)
+
+                    ForEach(shown) { title in
+                        CreatorTitleCard(title: title) {
+                            router.push(.storyBuilder(draftId: title.draftId))
+                        } onPlay: {
+                            if let storyId = title.storyId { router.push(.storyDetail(storyId: storyId)) }
+                        } onDelete: {
+                            confirmingDelete = title
+                        }
+                    }
+
+                    if shown.isEmpty {
+                        Txt(t("create.filter_empty"), .bodyCompact, color: Theme.Colors.textMuted, center: true)
+                            .padding(.vertical, Theme.Spacing.giant)
                     }
                 }
-
-                if shown.isEmpty {
-                    Txt(t("create.filter_empty"), .bodyCompact, color: Theme.Colors.textMuted, center: true)
-                        .padding(.vertical, Theme.Spacing.giant)
-                }
             }
-            .padding(Theme.gutter)
+            .padding(.horizontal, Theme.pageGutter)
             .padding(.bottom, Theme.Spacing.giant * 2)
         }
     }
@@ -212,56 +192,58 @@ struct CreatorTitleCard: View {
     @Environment(AppStore.self) private var store
     @Environment(\.translator) private var t
 
-    private var statusTone: ChipTone {
-        guard title.isPublished else { return .neutral }
-        switch title.visibility {
-        case .publicly: return .success
-        case .unlisted: return .warning
-        case .privateOnly: return .neutral
-        }
-    }
-
     private var statusLabel: String {
         title.isPublished ? t(title.visibility.labelKey) : t("create.status_draft")
     }
 
+    /// Design v3: a plain row like Library's: the cover (or an empty one),
+    /// the title, a small filled status tag, then the numbers or how far along.
     var body: some View {
         Button(action: onEdit) {
-            Card {
-                VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                    HStack(alignment: .top, spacing: Theme.Spacing.md) {
-                        // The cover, when they have chosen one. A card that
-                        // will not show the picture somebody just uploaded is
-                        // how you conclude the upload failed.
-                        if let cover = title.coverImage, !cover.isEmpty {
-                            RemoteImage(cover.assetKeyURL) { Theme.Colors.bgRaised }
-                                .frame(width: 44, height: 66)
-                                .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
-                        }
-                        VStack(alignment: .leading, spacing: 4) {
-                            Txt(title.title.isEmpty ? t("create.untitled") : title.title, .h3, lineLimit: 2)
-                            if !title.hook.isEmpty {
-                                Txt(title.hook, .micro, color: Theme.Colors.textMuted, lineLimit: 2)
-                            }
-                        }
-                        Spacer(minLength: Theme.Spacing.sm)
-                        Chip(statusLabel, tone: statusTone, style: .outlined)
+            HStack(alignment: .top, spacing: 14) {
+                // The cover, when they have chosen one. A row that will not
+                // show the picture somebody just uploaded is how you conclude
+                // the upload failed.
+                Group {
+                    if let cover = title.coverImage, !cover.isEmpty {
+                        RemoteImage(cover.assetKeyURL) { Theme.Colors.bgRaised }
+                    } else {
+                        Theme.Colors.bgRaised
                     }
+                }
+                .frame(width: 56, height: 84)
+                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
 
-                    HStack(spacing: Theme.Spacing.lg) {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(title.title.isEmpty ? t("create.untitled") : title.title)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.leading)
+                    Text(statusLabel.uppercased())
+                        .font(.system(size: 11, weight: .semibold))
+                        .kerning(0.4)
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 5, style: .continuous))
+                    HStack(spacing: Theme.Spacing.md) {
                         if title.isPublished {
                             metric("play.fill", title.runs, t("create.metric_plays"))
                             metric("heart.fill", title.likes, t("create.metric_likes"))
                             metric("bubble.left.fill", title.comments, t("create.metric_comments"))
-                        } else if title.ready {
-                            Txt(t("create.ready_to_publish"), .micro, color: Theme.Colors.success)
                         } else {
-                            Txt(t("create.keep_going"), .micro, color: Theme.Colors.textMuted)
+                            Text(title.ready ? t("create.ready_to_publish") : t("create.keep_going"))
+                                .font(.system(size: 13))
+                                .foregroundStyle(Theme.Colors.textMuted)
                         }
-                        Spacer(minLength: 0)
                     }
                 }
+                .padding(.top, 4)
+                Spacer(minLength: 0)
             }
+            .padding(.vertical, 10)
+            .contentShape(Rectangle())
         }
         .buttonStyle(PressOpacityStyle())
         .contextMenu {
