@@ -149,8 +149,9 @@ audience.
 
 - **Role:** She made the player's final year of school a misery. Now she works the early shift on the
   front desk of a business hotel by the station.
-- **Looks:** Medium height, a sharp chin, and dark straight hair cut bluntly at the jaw. She wears a
-  man's oversized navy parka zipped to the collar over her hotel uniform, sleeves rolled four times.
+- **Looks:** Medium height, a sharp chin, steady dark brown eyes, and dark straight hair cut bluntly at
+  the jaw. She wears a man's oversized navy parka zipped to the collar over a white front-desk blouse,
+  sleeves rolled four times. ("Blouse", not "uniform": the portrait painter reads that word as school.)
   She has a cracked silver phone and holds a battered grey cat carrier like the last thing she owns.
 - **Her own motive:** To get out of Kenta's life with her documents, her grandmother's ring and her
   half of the wedding fund. To be out of the player's life by Sunday at ten with nothing owed either way.
@@ -389,14 +390,16 @@ because the storyteller reads only the first twelve and the engine detects that 
 
 All four are twenty-six and work at the same freight company. The setup screen says the choice "is fixed
 for the whole story, so it cannot be changed later". It does not decide whether the player forgives her.
-Each archetype starts with a different ability, which is what the production storyteller reads.
+Each archetype starts with a different ability first, which is what the production storyteller reads
+as its "Can:" line, and all four start with **Set the Rules** second: the terms of the week are the one
+power every version of the player holds on turn one, so it is the story's system ability.
 
 | Id | Name | Gives |
 |---|---|---|
-| `arch_steady` | You Got Steady | Might and Resolve; Composure, Legwork; Haul It; two canned coffees |
-| `arch_paperwork` | You Run the Paperwork | Mind and Resolve; Paperwork, Attention; Do the Paperwork; office standing |
-| `arch_talker` | You Learned to Talk | Presence and Agility; Nerve, Warmth; Bluff Your Way; class and office standing |
-| `arch_drawing` | You Still Draw | Arcana and Mind; Memory, Attention, Cooking; Read Her; the old notebook |
+| `arch_steady` | You Got Steady | Might and Resolve; Composure, Legwork; Haul It, Set the Rules; two canned coffees |
+| `arch_paperwork` | You Run the Paperwork | Mind and Resolve; Paperwork, Attention; Do the Paperwork, Set the Rules; office standing |
+| `arch_talker` | You Learned to Talk | Presence and Agility; Nerve, Warmth; Bluff Your Way, Set the Rules; class and office standing |
+| `arch_drawing` | You Still Draw | Arcana and Mind; Memory, Attention, Cooking; Read Her, Set the Rules; the old notebook |
 
 ## Abilities
 
@@ -462,19 +465,46 @@ The spec scans the whole story for minor-coded words and for the 13+ word list.
 
 Mika alone in the foreground, waist up, centred and close, standing just outside an apartment door at
 night in the rain. She wears the oversized navy parka zipped to the collar with the hood up and
-dripping, as in the opener, over wet hair cut bluntly at the jaw, sleeves rolled. She holds the grey cat carrier against her chest with both arms, and a cat's face shows
-through the grille. Her expression is proud and braced at once: chin up, eyes on the viewer.
+dripping, as in the opener, over wet hair cut bluntly at the jaw, sleeves rolled. She holds the grey
+cat carrier against her chest with both arms, and a cat's face shows through the grille. Her
+expression is proud and braced at once: chin up, eyes on the viewer.
+
+Her face stays clean and dry. Every rain and glow effect stays on objects and the title: the hood, the
+parka, the carrier, the railing, the vending machine.
 
 Behind her, soft and secondary: the open-air walkway, the glowing vending machine, rain-blurred city
 lights, a bus pulling away. Warm light falls from the open doorway onto her and the carrier, with cold
-blue rain light behind. The title **ONE WEEK, SHE SAID** is painted in the upper third in clean white
-brush lettering. There is no other text: no letters or numbers on the door, the bus, the vending machine
-or the carrier. She is described by costume and pose only.
+blue rain light behind.
+
+`coverDirection` carries its own `TITLE:` line, so the generic "lower third, no lettering" cover rules
+are dropped: the title **ONE WEEK, SHE SAID** (the story's title, One Week, She Said, in the capitals
+the cover generator spells it in, comma after WEEK) is painted in the upper third above her hood in
+clean white hand-brushed lettering with a soft warm glow and a few raindrops running off the letters.
+There is no other text: no letters or numbers on the door, the bus, the vending machine or the carrier.
+She is described by costume and pose only, with no age words and no digits.
+
+The tone guide doubles as the cover's mood text, so it opens on mood ("Comedy of close quarters with
+an old hurt underneath it") and the specific fan-service exclusions (towels, walking in, bodies) live in
+`hardCanon`, where the storyteller reads them and the painter never sees them.
+
+## Opening panel
+
+`openingPanel` is `{ assetKey: 'story_one_week_she_said/opening', alt }`. The alt starts with "Mika",
+because her portrait is the panel's reference image: Mika at the door at twenty to midnight, hood up on
+the oversized navy parka, hugging the grey cat carrier, the duffel at her feet and the last bus pulling
+away behind her (189 characters, limit 200).
 
 ## What the production storyteller reads
 
 `runTurnPure` reads only items with `questItem: true`, never promises, quest steps or `revealHint`s,
-and every world event with no conditions attached. So:
+never the resources or the ability list (only the chosen archetype's starting abilities), and every
+world event with no conditions attached. So:
+
+- The week's system is in `hardCanon`: how Her Guard comes down on its own with ordinary time together
+  and goes back up whenever the past, her bag, her phone or the door is used against her; how anything
+  done outside 2C travels (building, office, class chat, Kenta), which is Gossip; and what the work
+  week at Tsubame Logistics costs the player, which is Energy.
+- The spare key is the starting quest item, and every archetype starts with Set the Rules.
 
 - Aya's appointment book (the MYSTERY payoff), Mika's phone (the RIVAL seed and the only pressure on
   night one) and the old notebook (the THEME stub) are quest items.
@@ -485,8 +515,8 @@ and every world event with no conditions attached. So:
 
 - Not registered in `packages/test-fixtures/src/index.ts`. Registering it is a separate step, and the
   catalog-wide specs will run on it from then. Its own spec already repeats their checks.
-- No `openingPanel` and no `prologue` until art exists, because both name asset keys that would 404. When
-  art lands, the panel key is `story_one_week_she_said/opening`, and it is added to
-  `infra/scripts/opening-panel-art.ts`.
+- No art yet. `openingPanel` names `story_one_week_she_said/opening`, which 404s until the art run
+  draws it from Mika's portrait; the story is not in the catalog, so nothing serves it before then.
+  There is no `prologue`, by design: the new-50 stories open straight on the scene.
 - `publishedAt: null`. The drop sets the date.
 - `migrate` has not been run, so the story is not in any database.

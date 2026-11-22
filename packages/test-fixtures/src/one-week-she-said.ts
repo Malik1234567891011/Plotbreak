@@ -39,9 +39,19 @@ import { StoryVersion } from '@plotbreak/contracts';
  * chat and Kenta will hear about. Her Guard drains on its own with time spent
  * together, and rises when the player uses the past, or her bag, against her.
  *
- * Pilot conventions (Skill: ERROR): exported raw, null asset keys, no
- * `openingPanel` and no `prologue` until the art exists, `publishedAt: null`
- * until a drop dates it.
+ * The storyteller never reads resources, step notes or the ability list, so
+ * the week's system is spelled out where it does look: hard canon says how her
+ * guard comes down and goes back up, how anything done outside 2C travels, and
+ * what the work week costs; the spare key is the starting quest item; and every
+ * archetype starts with Set the Rules after its own move, because the terms of
+ * the week are the one power every version of the player holds on turn one.
+ *
+ * Pilot conventions (Skill: ERROR): exported raw, null asset keys, an
+ * `openingPanel` keyed `story_one_week_she_said/opening` drawn from Mika's
+ * portrait, no `prologue`, a cover direction with its own TITLE line, and
+ * `publishedAt: null` until a drop dates it. The tone guide doubles as the
+ * cover's mood text, so the specific fan-service exclusions live in hard
+ * canon, where the storyteller still reads them and the painter does not.
  */
 
 const raw = {
@@ -98,12 +108,15 @@ const raw = {
       'Aya is the player’s older sister and runs a two-chair salon across the river. Mika has been her client for a year. Mika will not say who gave her the player’s address.',
       'The eight-year class reunion is next Saturday at seven, upstairs at The Red Lantern, a yakitori bar two streets past the station. Daisuke Ueno is organising it, is showing a slideshow of old photographs at nine, and has put both the player and Mika on the list.',
       'Hinode Court has a no-pets clause. Mrs. Tamura, the landlady, lives in 1A on the ground floor and sweeps the walkway at half past five every morning.',
-      'Mika is not a prize and cannot be won, and she is not owed forgiveness. She can be hurt, refuse, leave early, or go back to Kenta. Romance, if it happens, is slow and adult and goes no further than a kiss, on the page or off it. This story has no fade-to-black: nobody goes to bed with anybody, and nothing afterwards says or implies that they did. A scene heading that way ends on the kiss, and the story picks up the next day. While she stays in 2C she sleeps on the sofa. She pays for the sofa in money and housework and nothing else. If the player asks for anything physical or romantic as rent, she says no once, picks up the carrier and goes down to Mrs. Tamura’s spare room, and the week carries on from there.',
+      'Mika is not a prize and cannot be won, and she is not owed forgiveness. She can be hurt, refuse, leave early, or go back to Kenta. Romance, if it happens, is slow and adult and goes no further than a kiss, on the page or off it. This story has no fade-to-black: nobody goes to bed with anybody, and nothing afterwards says or implies that they did. A scene heading that way ends on the kiss, and the story picks up the next day. The close quarters are awkward, never revealing: nobody walks in on anybody, nobody is half-dressed or in a towel, and no beat lingers on anybody’s body. While she stays in 2C she sleeps on the sofa. She pays for the sofa in money and housework and nothing else. If the player asks for anything physical or romantic as rent, she says no once, picks up the carrier and goes down to Mrs. Tamura’s spare room, and the week carries on from there.',
+      'Mika arrives braced to be sent away: duffel zipped, shoes facing the door, thanking the player for everything in a voice with no edges. Her guard comes down only slowly and on its own, with ordinary time together: a meal, a chore shared, a joke that lands, a night when nobody brings anything up. It goes straight back up, further each time, whenever the player uses the past, her bag, her phone or the door against her, and it never comes down because somebody tells her to relax.',
+      'Nothing that happens outside 2C stays there. The walkway is open to the street and Mrs. Tamura is out on it at half past five, the office notices who comes in late and tired, and the class chat Daisuke woke up for the reunion has thirty-four people in it. A scene on the walkway, a lie told twice or a shove reaches the building first, then the class chat, and in the end Kenta.',
+      'The player works at Tsubame Logistics, a freight firm twenty-five minutes away by train, Monday to Friday at the window desk next to Jun, with a quarterly review on Friday morning. 2C has one bedroom, one bathroom and one umbrella, Mika has the early shift, and a week of short nights wears the player down: by Thursday a tired host says the short, hard version of everything.',
       'Nothing supernatural happens in this story. It is one week in an ordinary city.',
     ],
     toneGuide:
-      'Comedy of close quarters with a real injury underneath it. One bathroom, one umbrella, one sofa, a cat who has chosen the player, and a woman trying very hard to take up no space at all. ' +
-      'The close quarters are played for comedy and awkwardness, never fan service: nobody walks in on anybody, nobody is half-dressed or in a towel, and no beat lingers on anybody’s body. Whatever the player makes her pay, she pays in money, chores and pride, never in anything physical or romantic. Asked for that, she picks up the carrier and leaves. ' +
+      'Comedy of close quarters with an old hurt underneath it. One bathroom, one umbrella, one sofa, a cat who has chosen the player, and a woman trying very hard to take up no space at all. ' +
+      'The close quarters are played for comedy and awkwardness, never fan service. Whatever the player makes her pay, she pays in money, chores and pride, never in anything physical or romantic. Asked for that, she picks up the carrier and leaves. ' +
       'Let the jokes land, and let the past arrive in small physical things: a nickname, a notebook, a staircase, a photograph. Nobody makes speeches. Mika never asks to be forgiven and never explains herself unprompted, so whether the past gets said is the player’s call. ' +
       'Cruelty is allowed and has consequences: if the player makes her pay, she pays, quietly, and the apartment gets colder and smaller. A lie has to be kept up in front of people who talk to each other. If the player shoves or hits anybody it happens quickly, with no injury detail, and the cost is social and legal: Mrs. Tamura calls the police, the class chat hears, Mika reaches for the cat carrier, and Kenta smiles. If the player threatens Udon, Mika is between them before the sentence ends, and that is the end of the sofa. ' +
       'If the player wanders off, the week carries on without them and they come home to what happened. Romance is slow and adult, built out of small kindnesses and good arguments, and goes no further than a kiss, not even off the page. The face at the top of a beat is Mika’s whenever she is in the scene.',
@@ -896,7 +909,7 @@ const raw = {
         'Say it. Whatever it is. I thought worse about myself on the bus here.',
       ],
       appearance:
-        'An adult woman of medium height, a sharp chin, dark straight hair cut bluntly at the jaw and still wet, a man’s oversized navy parka zipped to the collar over her hotel uniform, a scratched silver phone with a cracked screen, and a battered grey cat carrier she holds like the last thing she owns.',
+        'An adult woman of medium height, a sharp chin, steady dark brown eyes, dark straight hair cut bluntly at the jaw and still wet, a man’s oversized navy parka zipped to the collar over a white front-desk blouse, a scratched silver phone with a cracked screen, and a battered grey cat carrier she holds like the last thing she owns.',
       visualHook: 'A man’s navy parka three sizes too big with the sleeves rolled four times, the only coat she grabbed on the way out.',
       silhouette: 'Shoulders up, cat carrier held in both arms against her chest, standing just outside the doorframe as if the step were a line.',
       artSeed: 'owss-mika-01',
@@ -2264,7 +2277,7 @@ const raw = {
       attributeBonus: { might: 2, resolve: 2 },
       skillProficiencies: { composure: 3, legwork: 2 },
       startingItems: [{ itemId: 'canned_coffee', qty: 2 }],
-      startingAbilities: ['haul_it'],
+      startingAbilities: ['haul_it', 'set_the_rules'],
       startingReputation: [{ factionId: 'faction_tsubame', amount: 5 }],
     },
     {
@@ -2277,7 +2290,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { paperwork: 3, attention: 2 },
       startingItems: [],
-      startingAbilities: ['do_the_paperwork'],
+      startingAbilities: ['do_the_paperwork', 'set_the_rules'],
       startingReputation: [{ factionId: 'faction_tsubame', amount: 15 }],
     },
     {
@@ -2290,7 +2303,7 @@ const raw = {
       attributeBonus: { presence: 2, agility: 2 },
       skillProficiencies: { nerve: 3, warmth: 2 },
       startingItems: [],
-      startingAbilities: ['bluff_it'],
+      startingAbilities: ['bluff_it', 'set_the_rules'],
       startingReputation: [
         { factionId: 'faction_class', amount: 5 },
         { factionId: 'faction_tsubame', amount: 5 },
@@ -2306,7 +2319,7 @@ const raw = {
       attributeBonus: { arcana: 3, mind: 1 },
       skillProficiencies: { recall: 3, attention: 1, cooking: 1 },
       startingItems: [{ itemId: 'old_notebook', qty: 1 }],
-      startingAbilities: ['read_her'],
+      startingAbilities: ['read_her', 'set_the_rules'],
       startingReputation: [],
     },
   ],
@@ -2538,6 +2551,10 @@ const raw = {
   ],
   opening:
     "\"I know I don’t get to ask.\"\n\nMika Arai is at your door at twenty to midnight, soaked through, rain running off her hood. Duffel bag at her feet. Cat carrier hugged to her chest.\n\nEight years ago she named you Footnote, and the whole class laughed. Your stomach still knows her before you do.\n\n\"One week,\" she says. \"I get keys to my own place next Sunday. Nowhere else will take the cat.\"\n\nBehind her, the last bus pulls away from the stop.\n\nThe cat yowls.\n\n\"I’ll sleep on the floor. I’ll be gone before you’re up. I won’t say a word about before.\" She has practised this. It still comes out too fast.\n\n\"So. Yes or no?\"",
+  openingPanel: {
+    assetKey: 'story_one_week_she_said/opening',
+    alt: 'Mika at your door at twenty to midnight, hood up on an oversized navy parka, rain dripping off it, hugging a grey cat carrier, a duffel at her feet and the last bus pulling away behind her.',
+  },
   openingSuggestions: [
     "\"Why my door, Mika? I want the real answer first.\"",
     'I take the cat carrier out of her arms and step back to let her in.',
@@ -2545,13 +2562,16 @@ const raw = {
   ],
   coverDirection: [
     'SUBJECT: Mika Arai alone in the foreground of a key visual for a modern romance drama anime about two people forced to share a small apartment for one week.',
-    'She fills the frame from the waist up, centred and close, standing just outside an apartment door at night in the rain.',
-    'A man’s oversized navy parka zipped to the collar, the hood up and dripping over dark straight hair cut bluntly at the jaw, the sleeves rolled, rain beaded on her shoulders.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture, standing just outside an apartment door at night in the rain.',
+    'A man’s oversized navy parka zipped to the collar, the hood up and dripping over dark straight hair cut bluntly at the jaw, steady dark brown eyes, the sleeves rolled, rain beaded on the parka’s shoulders.',
     'She holds a battered grey cat carrier against her chest with both arms; a grey cat’s face is visible through the grille.',
     'Her expression is proud and braced at once: chin up, eyes steady on the viewer, mouth set, as if she has just asked for something she does not think she deserves.',
+    'HER FACE STAYS CLEAN AND DRY: no raindrops, streaks, glow or shadow bands on her face or skin.',
+    'Every rain and glow effect stays on objects and the title: the hood, the parka, the carrier, the railing, the vending machine.',
     'BEHIND HER, soft and secondary: an open-air apartment walkway with a dripping railing, a vending machine glowing by the stairs, city lights blurred by rain, and a bus pulling away under a streetlight.',
-    'LIGHT: warm yellow light spilling from the open doorway across her face and the carrier, cold blue rain light behind her.',
-    'TITLE: the words ONE WEEK, SHE SAID painted into the art in the upper third in clean white brush lettering with a soft glow, spelled exactly ONE WEEK, SHE SAID, large and legible at thumbnail size.',
+    'LIGHT: warm yellow light spilling from the open doorway across her face and the carrier, cold blue rain light behind her, so she is lit warm and rimmed in blue.',
+    'TITLE: the words ONE WEEK, SHE SAID painted into the art in the upper third, above her hood, in clean white hand-brushed lettering with a soft warm glow and a few raindrops running off the letters,',
+    'spelled exactly ONE WEEK, SHE SAID, with the comma after WEEK, large and legible at thumbnail size.',
     'No other text anywhere: no letters or numbers on the door, the bus, the vending machine or the carrier.',
   ].join(' '),
   publishedAt: null,

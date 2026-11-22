@@ -376,6 +376,51 @@ describe('what the production storyteller can actually see', () => {
       expect(e.directorNotes, id).toMatch(/^Only if she (?:is|has been) staying in 2C\./);
     }
   });
+
+  it('puts the week’s system where it reads: canon, the spare key, and Set the Rules', () => {
+    // Resources and the ability list never reach the pure narrator, so Her
+    // Guard, Gossip and Energy are spelled out in canon.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/Her guard comes down only slowly/);
+    expect(canon).toMatch(/Nothing that happens outside 2C stays there/);
+    expect(canon).toMatch(/a week of short nights wears the player down/);
+    expect(S.rules.startingItems.map((i) => i.itemId)).toEqual(['spare_key']);
+    expect(S.items.find((i) => i.id === 'spare_key')!.questItem).toBe(true);
+    for (const a of S.archetypes) expect(a.startingAbilities, a.id).toContain('set_the_rules');
+  });
+});
+
+describe('ready for the art run', () => {
+  it('has an opening panel led by the woman who speaks in the opener', () => {
+    expect(S.openingPanel?.assetKey).toBe('story_one_week_she_said/opening');
+    expect(S.openingPanel!.alt.length).toBeLessThanOrEqual(200);
+    expect(S.openingPanel!.alt).toMatch(/^Mika /);
+  });
+
+  it('letters its own title and keeps every effect off her face', () => {
+    const cover = S.coverDirection!;
+    expect(cover).toMatch(/\bTITLE: /);
+    // The generator spells the wordmark as the title in capitals.
+    expect(cover).toContain(`spelled exactly ${S.title.toUpperCase()}`);
+    expect(cover).toMatch(/HER FACE STAYS CLEAN/);
+    expect(cover).not.toMatch(/\buniform\b/i);
+  });
+
+  it('gives every carded character a face to paint and opens on the scene', () => {
+    for (const c of S.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance?.length ?? 0, c.id).toBeGreaterThan(80);
+    }
+    expect(character('mika').appearance).not.toMatch(/\buniform\b/i);
+    expect(S.prologue).toEqual([]);
+    expect(S.publishedAt).toBeNull();
+  });
+
+  it('keeps the cover’s mood text free of the things it rules out', () => {
+    // toneGuide is pasted into the cover prompt as "Mood:", and an image model
+    // reads "no towel" as "towel".
+    expect(S.rules.toneGuide).not.toMatch(/\b(towel|half-dressed|body)\b/i);
+    expect(S.rules.hardCanon.join(' ')).toMatch(/nobody is half-dressed or in a towel/);
+  });
 });
 
 describe('the three checks every new story runs', () => {
