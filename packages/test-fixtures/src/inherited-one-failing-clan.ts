@@ -104,13 +104,16 @@ const raw = {
       'Two nights before the funeral, Kagami offered Ryo the Pier 9 night shift and jobs for the six other members if Ryo brings him the Heron Seal. Ryo has not answered.',
       'The old man kept a black notebook of forty-one people who owe the family a favour, from a judge’s clerk to the harbourmaster. It is on the desk in the study of his house on the hill.',
       'Kagami and the old man played go at the Lantern one night a month for forty-one years. Their last game is still on the board, black to play, and black was the old man. Kagami has let nobody touch it.',
+      'Violence on this waterfront is counted in what it costs: a split lip, a broken hand, a night in a hospital corridor, a police report. Guns are almost unheard of here, and one fired on the waterfront would bring the whole city down on every family at once.',
+      'Nobody on this waterfront cuts off a finger or hurts themselves to apologise, and nobody strips to show tattoos; the old forms are bows, cups, paper and money, and nothing else. The Hayami family never dealt drugs or ran gambling or hostess bars: its business was always the market dues, the small loans and the peace.',
+      'Three pressures run under every scene and are never named aloud. Police attention: fights and noise on the waterfront bring patrol cars, then Detective Nori, then searches, and at worst a raid on the office. The feud: every insult, fight or broken courtesy toward the Kagami Group brings the bay closer to the war the harbour code was written to prevent, until the other families start choosing sides. The player’s nerve: a long night of hard conversations wears it down, a bluff falls apart once it is gone, and food, tea or an hour’s rest brings it back. Courtesy, paid debts and paper calm the first two; leaning on people or fighting where people can see raises both.',
     ],
     toneGuide:
       'Crime drama played as a good anime: a failing family of misfits, gallows comedy, real loyalty and real danger, on a rainy waterfront that smells of grilled squid and diesel. ' +
-      'The player is twenty-five and out of their depth, and the comedy comes from an ordinary adult applying ordinary sense (spreadsheets, customer service, a retail smile) to a family that runs on bows, paper and forty-year grudges. ' +
+      'The player is out of their depth, and the comedy comes from an ordinary adult applying ordinary sense (spreadsheets, customer service, a retail smile) to a family that runs on bows, paper and forty-year grudges. ' +
       'Manners are power here. Who bows first, how low, and who pours the tea are moves, and everybody in the room notices them. ' +
-      'Violence is sudden, short and shown by what it costs: a split lip, a broken hand, a hospital corridor, a police report. No gore, no torture, and no one dies on the page. Guns are almost unheard of on this waterfront and would bring the whole city down on everybody. ' +
-      'Nobody in this world cuts off a finger, hurts themselves to apologise or atone, or strips to show tattoos. The old forms are bows, cups, paper and money, and if the player tries anything of the kind, somebody stops their hand before it happens. The family never dealt drugs or ran gambling or hostess bars; its business was market dues, small loans and keeping the peace. ' +
+      'Violence is rare, sudden and short, and the story counts it in what it costs afterwards, never in the injury itself: no gore, no torture, and nobody dies on the page. ' +
+      'Nothing is proved with the body here. The old forms are bows, cups, paper and money; nobody harms themselves to apologise or atone, and if the player tries to, somebody stops their hand before it happens. The family’s business is market dues, small loans and keeping the peace, and the story never turns it into a racket. ' +
       'Romance, if it comes, is slow and tense and goes no further than a kiss. ' +
       'The secrets (the resort deal, the passbook, the transfer, Ryo’s offer, the letter) are earned through people and paper; never state them before the player has found them. ' +
       'Not one of them is a cartoon. Kagami is grieving, Ryo is loyal to a dead man, Saeko is honest to a fault, and every one of them wants something this week that has nothing to do with the player. The face at the top of a beat belongs to whoever reacted to the player most strongly.',
@@ -2588,7 +2591,7 @@ const raw = {
     'Incense. Eighty mourners in black. A photo of the grandfather you met twice.\n\nThis morning his lawyer put the family seal in your hand. That makes you the boss.\n\nA silver-haired man in a white suit bows to the coffin, then to you.\n\n"Kagami," he says. "I fought your grandfather for forty years."\n\nHe holds up a note stamped with that same seal.\n\n"Ten million by midnight, young boss. Or the docks are mine."\n\nThe hall goes silent. Behind you, a scarred man in a black tie mutters, "Boss. Answer him."\n\nKagami smiles. "Well? What does the new head of the family say?"',
   openingPanel: {
     assetKey: 'story_inherited_one_failing_clan/opening',
-    alt: 'Kagami in a white suit bowing at the coffin in a hall full of mourners in black, holding up a sealed note toward you.',
+    alt: 'Tatsuo Kagami in a white suit, bowing beside the coffin in a hall full of mourners in black, holding up a sealed note toward you through the incense smoke.',
   },
   openingSuggestions: [
     '"Let me read that note first. I don’t pay for paper I haven’t read."',
@@ -2598,16 +2601,19 @@ const raw = {
   coverDirection: [
     'SUBJECT: Saeko Imai, the family accountant, in the foreground of a key visual for a crime-drama anime about a failing harbour family.',
     'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
-    'Dark hair pinned up in a hurry, square black glasses, a narrow black mourning suit, a yellow pencil behind one ear,',
-    'a ledger tucked under one arm, and in her other hand, raised toward the viewer, a palm-sized black stone seal carved with a heron.',
+    'Dark hair pinned up in a hurry, square black glasses, a narrow black mourning suit buttoned to the collar, a yellow pencil behind one ear,',
+    'a ledger tucked under one arm at her side, and in her other hand, raised toward the viewer, a palm-sized black stone seal carved with a heron, its polished edge catching a thin line of lantern light.',
     'Her expression is dry and unimpressed, one eyebrow up, looking straight at the viewer.',
-    'Just behind her left shoulder, smaller and in softer focus: Ryo, a lean man in a black suit with a thin white scar through one eyebrow, standing perfectly still.',
-    'At the far right edge, smaller still: a silver-haired man in a white suit leaning on a black cane, bowing slightly.',
+    'Just behind her left shoulder, smaller and in softer focus: Ryo, a lean man in a black suit and black tie with a thin pale scar through one eyebrow, standing perfectly still, hands at his sides.',
+    'At the far right edge, smaller still: Kagami, a silver-haired man in a white suit with a black band on one sleeve, both hands on a black cane, bowing slightly.',
     'BEHIND THEM: a rain-wet night harbour, a fishing pier with rusted cranes and moored boats with lamps, a strip of market stalls under bare bulbs, red paper lanterns,',
     'and a glass tower glowing across the bay.',
-    'LIGHT: warm lantern orange from the market on their faces, cold blue from the tower behind, rain catching both.',
-    'TITLE: the words INHERITED: ONE FAILING CLAN painted into the art in the upper third, on two lines: INHERITED with its colon, large in brushed white lettering, and ONE FAILING CLAN smaller beneath it in red,',
-    'spelled exactly, legible at thumbnail size. No other text anywhere: no signs, no writing on the ledger, no lettering on the lanterns.',
+    'LIGHT: warm lantern orange from the market on their faces, cold blue from the tower behind them.',
+    'THEIR FACES STAY CLEAN: no rain streaks, drops, wet strands, marks or shadows across any face; Ryo’s thin scar is the only mark on anyone.',
+    'Every effect stays on the objects and the title: rain falls on the harbour, beads on the seal and the lettering, and glitters in the lantern light, never on a face.',
+    'TITLE: the words INHERITED: ONE FAILING CLAN painted into the art in the upper third, above the figures, on two lines: INHERITED: with its colon, large in brushed white ink-stroke capitals with rain beading on the strokes,',
+    'and ONE FAILING CLAN smaller beneath it in red lacquer capitals, chipped at one edge,',
+    'spelled exactly INHERITED: ONE FAILING CLAN, large and legible at thumbnail size. No other text anywhere: no signs, no writing on the ledger, no lettering on the lanterns, the boats or the seal.',
   ].join(' '),
   publishedAt: null,
 };

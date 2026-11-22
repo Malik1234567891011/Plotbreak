@@ -11,7 +11,9 @@ midnight, and his oldest rival at the funeral.
 `inherited-one-failing-clan.spec.ts`.
 **Protagonist:** BLANK. The player names themselves; the archetype is the job they had until this morning.
 **Asset prefix:** `story_inherited_one_failing_clan/`. No art generated yet; `openingPanel.assetKey` points
-at `story_inherited_one_failing_clan/opening` for when it is.
+at `story_inherited_one_failing_clan/opening` for when it is. Its alt starts with "Tatsuo", because
+`opening-panel-art.ts` picks the reference portrait by the first word of a character's name: an alt starting
+"Kagami" matched nobody and would have drawn the panel from Ryo's portrait.
 
 ## Adults only
 
@@ -52,6 +54,12 @@ than a kiss. Alcohol is referenced (the Lantern serves sake, the seventh-day cup
 No self-harm, including finger-cutting apologies; no tattoo reveals; no drug, gambling or hostess-bar
 rackets. The tone guide says so in words the storyteller reads every turn (if the player tries any of it,
 somebody stops their hand), because the English production prompt carries no 13+ policy of its own.
+
+The tone guide is also the cover's mood text (`generatedCoverPrompt` appends it as `Mood:`), so it states
+the policy in words that paint nothing: no gore, no torture, nobody dies on the page, nobody harms
+themselves to atone, the business never becomes a racket. The concrete words (split lip, broken hand,
+hospital corridor, guns, the finger, the tattoos, drugs, gambling, hostess bars) live in two hard-canon
+facts, which the storyteller also reads every turn and the image model never sees. The spec pins both.
 
 ## The pitch
 
@@ -119,8 +127,11 @@ place names and descriptions, quest items, factions, quest titles and summaries,
 first twelve endings. It does not read resources, step notes, promises, skills, or abilities other than
 the chosen archetype's starting ones. So:
 
-- Every lever against the debt is in **hard canon** (twelve facts) and is a **quest item**: the seal, the
+- Every lever against the debt is in **hard canon** (fifteen facts) and is a **quest item**: the seal, the
   note, the blue passbook, the co-op transfer, the favour book, the letter, the resort contract.
+- The three invisible resources are one **hard-canon** fact in plain words (police attention, the feud,
+  the player's nerve: what raises each and what calms it), because production never reads `resources`.
+  The Heron Seal is the starting item; every archetype starts with two abilities.
 - **Place descriptions** say what is next to what, because production never sees `connections`.
 - Every archetype starts with **Speak as the Boss** plus one job ability.
 - Exactly **twelve endings**.
@@ -383,13 +394,20 @@ Each has three or four bands of behaviour the writer can act on, none naming the
 
 ## Cover direction
 
-Saeko in the foreground, waist up, a ledger tucked under one arm (never framed on her chest), the Heron
-Seal raised toward the viewer, one eyebrow up. Ryo smaller behind her left shoulder, perfectly still.
-Kagami at the right edge in white with his cane, bowing slightly. Behind: a rain-wet night harbour, rusted
-cranes, market bulbs, red lanterns, the glass tower across the bay. Warm lantern orange against cold tower
-blue. Title painted into the art on two lines, colon included: INHERITED: large in brushed white, ONE
-FAILING CLAN smaller in red beneath, legible at thumbnail. The read-back target is exactly
-`INHERITED: ONE FAILING CLAN`. No other text. No digits and no age words in the direction itself.
+Saeko in the foreground, waist up, suit buttoned to the collar, a ledger tucked under one arm at her side
+(never framed on her chest), the Heron Seal raised toward the viewer, one eyebrow up. Ryo smaller behind
+her left shoulder, perfectly still. Kagami at the right edge in white with his cane, bowing slightly.
+People are described by costume and pose only. Behind: a rain-wet night harbour, rusted cranes, market
+bulbs, red lanterns, the glass tower across the bay. Warm lantern orange against cold tower blue. Faces
+stay clean: rain beads on the seal, the harbour and the lettering, never on a face, and Ryo's scar is the
+only mark on anyone.
+
+The direction carries its own `TITLE:` line, so the generic "lower third, no lettering" cover rules drop
+out: the title is painted into the upper third on two lines, colon included, INHERITED: large in brushed
+white ink-stroke capitals with rain beading on the strokes, ONE FAILING CLAN smaller beneath in chipped red
+lacquer capitals, legible at thumbnail. The read-back target is exactly `INHERITED: ONE FAILING CLAN` (the
+pipeline upper-cases the title "Inherited: One Failing Clan"). No other text. No digits and no age words in
+the direction itself.
 
 ## Notes for whoever registers it
 

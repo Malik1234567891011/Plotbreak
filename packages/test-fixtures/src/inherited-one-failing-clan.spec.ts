@@ -761,4 +761,59 @@ describe('Inherited: One Failing Clan', () => {
       }
     });
   });
+
+  // What the art and release pipeline reads (docs/stories-50/PIPELINE.md,
+  // "What the 49 writers need in the fixture"), pinned the way the pilot,
+  // Skill: ERROR, shipped it.
+  describe('ready for art and release', () => {
+    it('opens on a panel of the man who speaks first, by his first name', () => {
+      const kagami = S.characters.find((c) => c.id === 'kagami')!;
+      expect(S.openingPanel?.assetKey).toBe(`${S.storyId}/opening`);
+      const alt = S.openingPanel?.alt ?? '';
+      expect(alt.length).toBeGreaterThan(0);
+      expect(alt.length).toBeLessThanOrEqual(200);
+      // opening-panel-art.ts picks the reference portrait by the first word of
+      // a character's name, so "Kagami…" would have drawn Ryo instead.
+      expect(alt.startsWith(kagami.name.split(' ')[0]!)).toBe(true);
+      expect(S.opening).toMatch(/"Kagami," he says/);
+    });
+
+    it('letters its own title on the cover, spelled exactly', () => {
+      const cover = S.coverDirection ?? '';
+      const title = cover.slice(cover.indexOf('TITLE:'));
+      expect(cover).toContain('TITLE:');
+      expect(S.title).toBe('Inherited: One Failing Clan');
+      expect(title).toContain(`spelled exactly ${S.title.toUpperCase()}`);
+      expect(title).toMatch(/upper third/);
+      expect(cover).not.toMatch(/lower third/i);
+      expect(cover).toMatch(/never on a face/);
+    });
+
+    it('keeps injury and undress out of the tone guide, which is also the cover’s mood text', () => {
+      expect(S.rules.toneGuide.length).toBeGreaterThan(200);
+      expect(S.rules.toneGuide).not.toMatch(/finger|tattoo|strip|lip|broken hand|hospital|drug|gun|blood/i);
+      expect(S.rules.toneGuide).toMatch(/nobody harms themselves/);
+      const canon = S.rules.hardCanon.join(' ');
+      expect(canon).toMatch(/cuts off a finger/);
+      expect(canon).toMatch(/Guns are almost unheard of/);
+    });
+
+    it('puts the hidden pressures where the storyteller reads them', () => {
+      const canon = S.rules.hardCanon.join(' ').toLowerCase();
+      for (const pressure of ['police attention', 'the feud', 'nerve']) expect(canon, pressure).toContain(pressure);
+      expect(S.rules.startingItems.map((i) => i.itemId)).toEqual(['heron_seal']);
+      for (const archetype of S.archetypes) expect(archetype.startingAbilities.length, archetype.id).toBeGreaterThan(1);
+    });
+
+    it('draws a portrait for everybody on a card', () => {
+      for (const character of S.characters.filter((c) => c.cardBlurb.trim())) {
+        expect(character.appearance?.trim(), character.id).toBeTruthy();
+      }
+    });
+
+    it('has no prologue and no release date yet', () => {
+      expect(S.prologue ?? []).toEqual([]);
+      expect(S.publishedAt).toBeNull();
+    });
+  });
 });
