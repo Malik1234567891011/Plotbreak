@@ -101,6 +101,7 @@ const raw = {
       'Vampires at Hollowmere drink bottled blood that comes through the gate from human hospitals under the Accord. Biting anyone is a treaty crime. Cellar House has eleven months of bottles left, and nobody outside Cellar House knows it.',
       'Forty-one years ago the last human exchange student, Ada Penhallow, sat in row three, walked down into the Stacks in her third week and was never marked present or absent again. The human side believes she died here. She did not. She is the Keeper of the bottom of the Stacks, whom most students think is a ghost, and Countess Vey hid her there at Ada’s own request. Her line in the register is still open. Nobody volunteers any of this; a player finds it only by going looking.',
       'Gate-Warden Grenna, Ishiko’s grandmother and captain of the wardens, lost her husband in the fighting at the gate the winter after Ada vanished. She wants the Briar closed and has told Ishiko to set Gate House’s lantern dark.',
+      'The player is an ordinary human with no magic of their own: no wings, no spells, no changing shape, no strength or senses beyond a human’s, and glamour never gives them any. Feeling where the ward runs thick is a knack border people learn, not a power, and calling on the register borrows the Founders’ ward rather than anything of theirs. When the player tries to fly, cast or change shape, they try, it does not work, and the room notices.',
     ],
     toneGuide:
       'Monster-school comedy with a real clock under it. Funny, quick and physical: horns catch on doorframes, a harpy lands on a desk instead of sitting at it, the Cellar House table drinks from wine bottles with hospital labels. The player is the only human in every room and the room always notices, which is the joke and also the danger. ' +
@@ -1274,7 +1275,7 @@ const raw = {
       secrets: [
         {
           id: 'teague_the_song',
-          fact: 'On the first night the lake sings the human’s real name, not "Human". It is Teague singing, and he does not entirely choose to: it is what the water does when it wants somebody.',
+          fact: 'From the first night on, and only after dark, the lake sings the human’s real name, not "Human": a tune with no other words in it, heard faintly anywhere on academy ground. It is Teague singing from the end of the dock, and he does not entirely choose to: it is what the water does when it wants somebody. The song is the only part of him that leaves the water; nobody hears Teague speak unless they are standing where he is.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'If you ask him about the singing in daylight and do not walk to the water’s edge while you ask.',
         },

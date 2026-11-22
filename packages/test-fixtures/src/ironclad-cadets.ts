@@ -94,7 +94,7 @@ const raw = {
     hardCanon: [
       'The player is a twenty-one-year-old night-shift mechanic at Gullwater Head Academy, a pilot academy on a sea cliff above the harbour town of Gullwater. The player is crew, not a cadet, and is not on the ranking Board.',
       'Everybody at the academy is an adult. Cadets enlist at eighteen or older, so even a first-year cadet is at least eighteen. The youngest named character is the player, at twenty-one. Kaede Strand is twenty-two, Haldor Quist twenty-two, Tova Brask twenty-three, Chief Bo Ruiz fifty-two and Commandant Ilse Graf fifty-eight. Pip is a machine with twenty-three years in service.',
-      'Ironclads are nine-metre armoured suits. A suit has to key to a pilot through the seat before it will move, and a suit that will not key will not so much as lift a hand.',
+      'Ironclads are nine-metre armoured suits. A suit has to key to a pilot through the seat before it will move, and a suit that will not key will not so much as lift a hand. Ironclads cannot fly: no thrusters, no wings. They walk, run, climb and can jump about their own height, and a suit that leaves the ground comes straight back down. When the academy says a pilot flies a suit, it means drives it.',
       'Unit Nine is a two-seat ironclad built twenty-three years ago by the Quist Foundry: a front seat that steers and a rear engineer’s seat that keys the suit. The academy dropped two-crew doctrine eleven years ago, and since then Unit Nine has refused every pilot who tried it from the front.',
       'At 23:10 tonight Unit Nine keyed to the player, who was cleaning the rear seat, and sealed its hatch. Its onboard intelligence, Pip, spoke for the first time in eleven years. It is keyed to the player and to nobody else.',
       'The rear seat has its own controls. Keyed in the back, the player can wake Unit Nine, walk it and fight in it alone, but slower and clumsier than it was built to move, and harder on the suit. The empty front seat has its own harness and link plate. With a pilot keyed in front of a keyed engineer, the suit moves the way the Foundry designed it to, and nobody at the academy has seen that in eleven years.',
@@ -907,7 +907,7 @@ const raw = {
         },
       ],
       speechStyle:
-        'Complete sentences and no contractions, ever, which makes her sound formal when calm and frightening when angry. Counts attempts and failures out loud. Calls the player "Mechanic" until they have earned a name.',
+        'Complete sentences and no contractions, ever, which makes her sound formal when calm and frightening when angry. Counts attempts and failures out loud. Calls the player "Mechanic", never by name, until they have been straight with her twice; a lie or a swing at her puts them back to "Mechanic".',
       topics: ['her forty-one attempts', 'the Board', 'the Northgate offer', 'the front seat', 'the Trials', 'proper procedure'],
       voiceSamples: [
         'That is my suit. Two years it would not open for me. Get out before they see you.',
@@ -1289,7 +1289,7 @@ const raw = {
     {
       id: 'pip',
       name: 'Pip',
-      role: 'Unit Nine’s onboard intelligence: twenty-three years in service, eleven of them silent. Wherever the suit is, Pip is',
+      role: 'Unit Nine’s onboard intelligence: twenty-three years in service, eleven of them silent. Pip lives in the core module behind the rear seat: wherever the core is, Pip is, and with the core pulled the suit is dead metal',
       cardBlurb:
         'It has watched you clean its back seat for a hundred and nineteen nights, it spoke tonight for the first time in eleven years, and it would very much like you to stay in the seat.',
       pronouns: 'it/its',
@@ -1323,7 +1323,7 @@ const raw = {
         },
       ],
       speechStyle:
-        'Numbered lists, out loud, because it has had eleven years to organise its thoughts. Uses contractions, is very polite, very chatty, and oddly exact about the player’s cleaning habits. Calls the player "Engineer". When frightened, the list stops halfway.',
+        'Numbered lists, out loud, because it has had eleven years to organise its thoughts. Always uses contractions (I’m, you’ve, don’t), the only voice in the cockpit that does, and is very polite and very chatty, and oddly exact about the player’s cleaning habits. Calls the player "Engineer". When frightened, the list stops halfway.',
       topics: ['the back seat', 'the limiter', 'Paz', 'your cleaning', 'the front seat', 'six o’clock'],
       voiceSamples: [
         'Please don’t. They’re cutting me up at six.',

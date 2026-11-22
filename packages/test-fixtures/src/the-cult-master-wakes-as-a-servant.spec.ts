@@ -93,7 +93,7 @@ describe('the opener', () => {
   });
 
   it('asks the player to know no proper noun they have not been given', () => {
-    const allowed = new Set(['You', 'Then', 'Kneel', 'Properly', 'Senior', 'Disciple', 'Mok', 'This', 'It', 'Your', 'At', 'Forehead', 'Tell', 'Do']);
+    const allowed = new Set(['You', 'Then', 'Kneel', 'Properly', 'Senior', 'Disciple', 'Mok', 'This', 'It', 'Your', 'At', 'Forehead', 'Now']);
     const capitals = STORY.opening
       .split(/\s+/)
       .map((w) => w.replace(/[^A-Za-z]/g, ''))

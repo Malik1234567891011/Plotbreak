@@ -108,11 +108,11 @@ describe('the opener', () => {
     expect(names.some((n) => speaking.includes(n)), `unattributed: ${speaking}`).toBe(true);
   });
 
-  it('ends on her demand: walk now, or die like last time', () => {
+  it('ends on her question: walk out now, or die like last time', () => {
     const last = paragraphs[paragraphs.length - 1]!;
     expect(last.trimEnd().endsWith('"')).toBe(true);
-    expect(last).toMatch(/"Walk out with me now,"/);
-    expect(last).toMatch(/"or stay and die like last time\."/);
+    expect(last).toMatch(/"Are you walking out with me now,"/);
+    expect(last).toMatch(/"or staying to die like last time\?"/);
   });
 
   it('says it is a rewind, not a rescue', () => {

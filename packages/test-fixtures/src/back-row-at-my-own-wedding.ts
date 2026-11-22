@@ -93,11 +93,11 @@ const raw = {
       'Everyone in this story is an adult. Elena Ward is twenty-nine and turns thirty at midnight. Marcus Hale is thirty-three, Constance Hale eighty-one, June Arden twenty-nine, Sami Rahal thirty and Benny Castellano forty-six. Desmond Ward, Elena’s father, is sixty-two. The player is the groom, the younger Hale grandson, thirty-one, with a job of their own.',
       'The player remembers the cold room clearly: a cold room full of the wrong flowers, June crying, a hug that lasted about ten seconds. Nobody has told them that anybody saw it. The first time the cold room, the flowers or June’s tears come up, give the player that memory in a single line, so they are never arguing blind.',
       'The player did not cheat on Elena. At 11:40 last night, in the flower cold room under the hotel kitchens, June Arden cried over a ruined flower delivery and the player hugged her. That is all that happened.',
-      'Marcus Hale photographed that hug through the round window in the cold-room door, cropped it so it reads as a kiss, and sent it to Elena at 1:14 a.m. from a cheap second phone with the message "Ask him about the cold room." The second phone is in the inside pocket of his own jacket, over a chair in the gatehouse.',
+      'Marcus Hale photographed that hug through the round window in the cold-room door, cropped it so it reads as a kiss, and sent it to Elena at 1:14 a.m. from a cheap second phone with the message "Ask about the cold room." The second phone is in the inside pocket of his own jacket, over a chair in the gatehouse.',
       'At 11:50 p.m. Marcus sent the player to the city to collect their grandmother’s ring from the jeweller, saying it had to be done tonight. It did not: the jeweller had cleaned it a week ago and noted no urgency. The coast road has no signal, the player’s phone died at four, and Elena called eleven times between 1:20 and 3:00.',
       'At 5:40 a.m. Elena showed June the photograph and asked if it was her. June, mortified, said "I don’t know what you want me to say", and Elena took that as a yes. At 5:52 Marcus told June to reprint the place cards and the orders of service with his name, and to correct the welcome board by hand because it could not be reprinted in time. At 6:00 he told Constance the player had phoned him at three to call the wedding off. At 6:10 Elena agreed to marry Marcus. He gave the reprint order eighteen minutes before she said yes, and June has the order sheet with the time on it.',
       'Proof, not pleading. Elena cannot be argued, charmed or begged out of what she was shown; she changes her mind only when she is shown something else. Four things prove the photograph is a cropped hug, and any one of them, put in front of her with its time on it, makes her stop and look: frame 2214 on Benny Castellano’s rehearsal memory card, showing Marcus at the cold-room window at 11:40 with his phone raised; the second phone in Marcus’s jacket in the gatehouse; June’s 5:52 reprint order; and June telling Elena herself what happened in the cold room.',
-      'Elena must be married before her thirtieth birthday, which begins at midnight tonight, or her late mother’s trust passes to a sailing foundation and the money her father Desmond Ward’s boatyard needs by Monday goes with it. Sixty people work at that yard. She never told the player, because she wanted to be sure he was not marrying a deadline. Constance is a trustee and knows. Marcus read the papers on Constance’s desk in March.',
+      'Elena must be married before her thirtieth birthday, which begins at midnight tonight, or her late mother’s trust passes to a sailing foundation and the money her father Desmond Ward’s boatyard needs by Monday goes with it. Sixty people work at that yard. She never told the player, because she wanted to be sure she was being married for love and not for a deadline. Constance is a trustee and knows. Marcus read the papers on Constance’s desk in March.',
       'Elena agreed to Marcus as a marriage on paper: sign today, the trust pays out, end it quietly within a year. Marcus agreed to that and does not mean it.',
       'Marcus owes 380,000 to a private lender since his restaurant closed. Nobody in the family knows. Constance will name the next keeper of the Hale in her toast at eight tonight, and the Hale is the only thing Marcus could borrow against.',
       'In 1966 Constance, then twenty-one, stood at this altar waiting for Arthur Hale, then twenty-six, who never came. She married his younger brother Edwin, then twenty-four, the player’s grandfather, that afternoon and was happy for fifty-two years. In 1979 she found a letter from Arthur in Edwin’s desk: Edwin had sent him across the county the night before the wedding on an errand that did not need doing. She kept the letter in her study and has told nobody.',
@@ -107,6 +107,7 @@ const raw = {
       'Violence here is a scuffle, never a fight scene. If the player swings at or grabs somebody it is over in seconds, guests and staff pull people apart, nobody is badly hurt, and it costs the player the room.',
       'Nobody in this story falls, jumps or is pushed from the cliff path or the boathouse steps, and nobody hurts themselves. If the player goes towards the edge in despair, somebody who cares about them, Sami first, is already on the path, and the scene becomes two people on Edwin’s bench.',
       'Benny Castellano’s photography contract is with the couple named on it, Elena Ward and the player. He hands raw files only to them.',
+      'There is no magic in this world and nobody has powers. If the player tries something no ordinary person could do, such as flying, the attempt happens and the impossible part does not, in front of two hundred guests who will remember it.',
     ],
     toneGuide:
       'A wedding-day drama with a comic spine. Humiliation is played straight and the people around it are funny: a paramedic best man doing triage on the groom, a planner talking into a headset, a grandmother who refers to the hotel as a person. ' +
@@ -357,7 +358,7 @@ const raw = {
       tags: ['quest', 'evidence'],
       questItem: true,
       description:
-        'A cheap pay-as-you-go phone with one contact, one sent picture, and one message: "Ask him about the cold room." Sent 01:14.',
+        'A cheap pay-as-you-go phone with one contact, one sent picture, and one message: "Ask about the cold room." Sent 01:14.',
       loreText:
         'It is in the inside pocket of your brother’s own jacket, which he left on the back of a chair in the gatehouse when he put on yours.',
       icon: 'phone',
@@ -990,7 +991,7 @@ const raw = {
       secrets: [
         {
           id: 'elena_the_deadline',
-          fact: 'Her late mother’s trust pays out only if she marries before her thirtieth birthday, which is midnight tonight. Otherwise it goes to a sailing foundation and her father’s boatyard misses Monday’s payment. She never told the player because she wanted to be sure he was not marrying a deadline.',
+          fact: 'Her late mother’s trust pays out only if she marries before her thirtieth birthday, which is midnight tonight. Otherwise it goes to a sailing foundation and her father’s boatyard misses Monday’s payment. She never told the player because she wanted to be sure she was being married for love and not for a deadline.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you herself, behind a closed door, once you stop defending yourself long enough to ask her why it had to be today.',
         },
@@ -1902,7 +1903,7 @@ const raw = {
           id: 'why_today',
           playerCopy: 'Find out why it had to be today.',
           directorNotes:
-            'The answer is a trust deadline at midnight and a boatyard that needs the money on Monday, and the reason the player never heard of it is that Elena wanted to be sure he was not marrying a deadline. Whoever tells it, let it reframe the morning: she did not swap grooms out of spite. She ran out of time.',
+            'The answer is a trust deadline at midnight and a boatyard that needs the money on Monday, and the reason the player never heard of it is that Elena wanted to be sure she was being married for love and not for a deadline. Whoever tells it, let it reframe the morning: she did not swap grooms out of spite. She ran out of time.',
           succeedWhen: null,
           succeedWhenAny: [
             {

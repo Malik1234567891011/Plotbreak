@@ -101,7 +101,7 @@ const raw = {
       'Three nights ago the rent chest vanished from the moot hall strongroom. Reeve Anselm Cotter took it. He has short-weighted the rent for six years to pay a debt to the Lowmere Salt Bank, and the silver is now in salt barrels in his cellar, due to go aboard the bank’s barge, the Honest Weight, at six this evening. The barge sails at sundown. He paid the night watchman Pim Atwater twelve crowns to swear he saw Nell, and he put the coin in her boot himself while searching her.',
       'Nell Farrow did not steal the rent. That night she was burgling the reeve’s house to take back her late mother’s ferry license, heard barrels rolled into his cellar and saw the iron corner of the rent chest. She will not say so, because it confesses another crime and nobody believes a thief who accuses the reeve.',
       'Sir Garrot Dunmere hangs at the noon bell. He stops for exactly five things: a witness proven false; the stolen thing returned and the thief named; the pardon of the wronged party; proof that his court has no right to try the case; or the old proof, a speaker who stands against him in arms until the bell finishes. He hears everything else courteously and refuses it.',
-      'Anybody may speak for the condemned when the knight has asked three times. A speaker caught lying to the court is put in the stocks and then put out of the town.',
+      'Anybody may speak for the condemned when the knight has asked three times. The story opens on his third asking, and he never asks it again: from then until the noon bell anybody may step forward and speak. If nobody does, Garrot takes the silence as no answer, closes the dawn assize and has Nell returned to the cell under the bell tower, and a speaker may still come to him in the moot hall before noon. A speaker caught lying to the court is put in the stocks and then put out of the town.',
       'The old proof is claimed aloud and fought at the foot of the gallows while the noon bell rings. The speaker wins by still standing, armed, when the bell finishes, and loses by a yield or a disarm. It is never to the death. Sir Garrot is the finest sword on the river and has never lost it. Anybody who simply attacks the court is disarmed by the circuit men and put in the lockup beside the condemned, which is not the end of anything.',
       'Haldis speaks only the dragon tongue. Without [Dragon Tongue] the player hears a forge breathing and nothing else. She last came down sixty-one years ago, when the rent was a third short, and sat on the bell tower until the town paid. It still leans.',
       'Ysolde Marr, who keeps the Crooked Kettle, fell into this world twenty-three years ago and has not drawn a card in nineteen. She has never told anybody in Kettlecross.',
@@ -1272,8 +1272,8 @@ const raw = {
       voiceSamples: [
         'Sit. Eat that. You can save a neck on a full stomach as easily as an empty one.',
         'You owe me eight nights, lodger. This bowl goes on the slate and you are not to argue.',
-        'Every dawn your eyes go up and left, to nothing, and stay there a while. Mine used to do that.',
-        'I had a name once that wasn’t Ysolde. I’ve been trying to remember the first letter of it for eleven years.',
+        'You were up before the bread again, lodger, staring at the rafters. Whatever is up there can wait until you have eaten.',
+        'Knife. Onions. That pile. You can talk while you chop, or you can chop.',
       ],
       appearance:
         'Forty-seven, a solid, broad-armed woman, olive skin dusted with flour, black hair with one grey streak pinned up in a knot with a steel cooking skewer, dark brown eyes, a faded green work dress with the sleeves rolled to the elbow, a long stained canvas apron, and a burn scar across the back of her left hand.',
@@ -1342,7 +1342,7 @@ const raw = {
         },
       ],
       speechStyle:
-        'Smooth and civic, says "we" for the town and "in fairness" before anything unfair. Speaks only in sentences he can defend word by word, so he talks around things rather than through them.',
+        'Smooth and civic, says "we" for the town. Saves "in fairness" for the one sentence in a scene where he is about to be unfair, and never opens every line with it. Speaks only in sentences he can defend word by word, so he talks around things rather than through them.',
       topics: ['the ledgers', 'the town', 'the theft', 'Nell’s reputation', 'the salt trade', 'the stranger'],
       voiceSamples: [
         'In fairness to the court, I only report what was found. The coin was in her boot. I took it out myself.',

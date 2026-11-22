@@ -105,7 +105,7 @@ const raw = {
     ],
     toneGuide:
       'Shonen academy energy with a real cost underneath: fast, bright, loud and funny, and then suddenly not. ' +
-      'Fights are legible and specific: who touched whom, whose power is in the player’s chest, how many seconds are left. When a copy is running, count it in the prose — "forty-one", "twelve" — and let the count drive the pace. A borrowed power is used clumsily for the first ten seconds and well for the last ten. ' +
+      'Fights are legible and specific: who touched whom, whose power is in the player’s chest, how many seconds are left. When a copy is running, count it in the prose — "forty-one", "twelve" — and let the count drive the pace. The count runs in real time and never waits for the scene: a beat with a few lines of talk spends ten to fifteen seconds, so a copy lasts four or five beats, and waiting, walking out of the room or refusing to act runs it to zero in that beat. At zero the copy ends and the drop lands on the page. A borrowed power is used clumsily for the first ten seconds and well for the last ten. ' +
       'Rank numbers are everywhere and people use them instead of names, which is rude and everybody does it. Comedy comes from Teo and from borrowed powers used badly. Rook is frightening because he is polite. The Registry is a real institution with a real reason, and Adair has the best reason of anybody. ' +
       'Romance with Yuna is slow, teasing and earned; she can say no, and the most it reaches is a kiss. Skin contact is written as a handshake, a grip or a wrist: it is about the power, never about the body. Fights bruise, wind and knock people flat, and nothing on the page is graphic. ' +
       'The face at the top of a beat is Yuna’s whenever she is in the scene, otherwise whoever the player just touched.',
@@ -930,13 +930,13 @@ const raw = {
         },
       ],
       speechStyle:
-        'Fast, warm and overlapping. Turns everything into odds. Ends half his sentences with "yeah?" to check you are still with him. Lists things in threes and then adds a fourth.',
+        'Fast, warm and overlapping. Turns everything into odds. Now and then tags a "yeah?" on the end to check you are still with him: once a scene at most, never in two beats running. Lists things in threes and then adds a fourth.',
       topics: ['the odds', 'the Board', 'Room 4C', 'noodles', 'Rook', 'Adair’s lab', 'the hum in the walls'],
       voiceSamples: [
         'I had you at four to one to survive the week. Moved you to three. That’s a compliment, yeah?',
-        'The wall behind your bed hums in B-flat. Don’t ask. Noodles are two a cup, three after midnight, yeah?',
+        'The wall behind your bed hums in B-flat. Don’t ask. Noodles are two a cup, three after midnight.',
         'Okay. Full disclosure, partial disclosure, some disclosure: somebody might have asked me what you can do.',
-        'Statistically you should be under the bed. With me. There’s room, there’s snacks, yeah?',
+        'Statistically you should be under the bed. With me. There’s room, there’s snacks, there’s a torch, there’s a second torch.',
       ],
       appearance:
         'Twenty-two, tall and loose-limbed, curly brown hair, a canvas jacket with too many pockets, a pen behind each ear.',

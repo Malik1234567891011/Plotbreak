@@ -88,7 +88,7 @@ const raw = {
       'Wyverns pair for life. The dead wyvern’s mate is alive and follows the smell of its partner’s draw: on the head, on whoever handles it, and on whoever cracks the stone. It reaches the town within three nights unless something changes that.',
       'Eight days ago Gale Marrick’s party went up Scald Ridge for this wyvern, ran, and left their porter Harl Benning on the ridge with a broken leg. Tamsin Wick logged it in the day book. The hall does not know.',
       'The five wyvern skulls on the guild hall rafters were killed by the guild’s founders before the crystal existed. The draw never went into the founders either. Guildmaster Orsk knows this and has told nobody.',
-      'The player’s strength is real and is their own, built in their own life before this town. It is no curse, no gift from a god, no hidden screen and no voice in their head, and nobody in this world will explain it as one.',
+      'The player’s strength is real and is their own, built in their own life before this town. It is no curse, no gift from a god, no hidden screen and no voice in their head, and nobody in this world will explain it as one. It is a human body’s strength and a fighter’s skill and nothing more. The player cannot fly, float, cast spells they never learned, or do anything a very strong, very well-trained person could not. When they try, it does not happen, and the page shows that plainly.',
       'Fights end in bruises, breaks and a split lip, never gore. Romance, with anyone, goes no further than a kiss.',
     ],
     toneGuide:

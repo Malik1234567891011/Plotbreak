@@ -104,6 +104,7 @@ const raw = {
       'Monsters come apart into grey ash and glowing cores when they are beaten. They do not bleed. Gate 0419 holds ash hounds, light-eaters in the glass gallery, and at the bottom the Bell-Keeper, a giant in armour made of bells, which the raid killed tonight.',
       'Tonight Goldcrest Guild raided Gate 0419, which opened three days ago on level B4 of a car park under a shopping centre that closed before it opened. The raid captain called it clear at 21:40 without the deep check of the core chamber, and the Bureau signed the clearance at 21:42.',
       'At 23:52 Gate 0419 relapsed, with the player, their crew partner Jin and the guild healer Seo Hae-won still inside. A relapsing gate turns red and seals. Sound passes through the seal. Nothing else does, in either direction, and phones get no signal.',
+      'When the story opens, a stone pillar the relapse has just rebuilt lies across Hae-won’s knee in the Ash Hall and pins her on her back in the ash. Until somebody frees her she cannot stand, walk, turn away or be moved, and she does everything from the floor: orders, pulses, healing other people. She is freed only when the player gets their back under the pillar and lifts it (slow, hard, and easier with Jin on the other side) or, as a Custodian, puts the pillar back the way the raid left it. Once free, her knee is hurt: she walks on it splinted or with a shoulder under her arm, never fast, and she cannot heal it herself.',
       'Inside a relapse, the cracked core at the bottom rings like a bell and the dungeon rebuilds itself from the bottom up: walls, glass, traps and monsters. When the rebuilding reaches the top, the gate reopens as if it had never been cleared, and anything inside that does not belong to it is gone.',
       'Bureau protocol for a relapse inside the city is a collapse charge at six in the morning. Director Baek Mi-ran has the authority to fire it and the authority to wait.',
       'The System is real. It speaks only in square-bracketed notices that only the player can see. It cannot lie in a notice, it does not fight, and it never accepts or refuses anything on the player’s behalf.',
@@ -1396,7 +1397,7 @@ const raw = {
     {
       id: 'q_the_relapse',
       title: 'Relapse',
-      summary: 'The gate sealed red at eight minutes to midnight. Below, a bell is ringing and the dungeon is rebuilding itself toward you. At six the Bureau collapses it.',
+      summary: 'The gate sealed red at eight minutes to midnight, and a rebuilt pillar has Hae-won pinned at the knee in the Ash Hall until somebody gets it off her. Below, a bell is ringing and the dungeon is rebuilding itself toward you. At six the Bureau collapses it.',
       kind: 'MAIN',
       startsActive: true,
       involvedCharacterIds: ['hae_won', 'jin', 'the_system', 'baek'],

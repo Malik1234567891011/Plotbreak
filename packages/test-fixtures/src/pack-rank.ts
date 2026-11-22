@@ -89,6 +89,7 @@ const raw = {
       'The one challenged names the form. The Hold is grappling, won by a pin to a count of three or a yield. The Strike is padded, claws blunted, first to three clean touches. The Run is the eleven-kilometre ridge course, and the first to stop loses. The Stare is won when the other looks away, flattens their ears or bares their throat. No biting, ever. Coach Stagg referees and the bout ends when he says.',
       'On the seventh night the moon is full: the Order is read aloud and fixed for the year, and anyone unranked is sent home on the morning bus. That night is the Moon Bout, the only night the first rank can be challenged, by anyone in the top ten or anyone the first rank invites.',
       'Beastfolk ears and tails show what they feel, they can smell fear, and they have a yield instinct: faced with a stronger presence, the body flattens its ears and bares its throat, sometimes before the mind has decided. A lion’s roar sets it off in almost everyone. Humans have no tells beastfolk can read, smell of soap and very little else, and do not have the instinct at all.',
+      'Nobody at Ashgrove has magic, the player least of all: nobody flies, vanishes, reads minds or casts anything, and no rule allows it. When the player tries something a human body cannot do, they try it, it fails in front of everybody, and the hall laughs. Stagg never rules the impossible into the rulebook.',
       'Lio Solenne of Sunward House has been first on the Order for two years and has never once been struck: every challenger has yielded to his roar before reaching him. Ruka Varn of the Hill Pack is second.',
       'Thirty years ago a human student climbed to seventh. The night before she was due to challenge the first rank she fell on the north stair, broke her leg, missed the full moon and was sent home, and the clans stopped admitting humans. Her name is scratched off the carved Order in the archive. What really happened is discoverable and owed to nobody.',
     ],
@@ -865,7 +866,7 @@ const raw = {
         },
       ],
       speechStyle:
-        'Clipped imperatives and three-word sentences. Calls the player "human" as if it were their name until she decides otherwise, and the day she uses their real name is an event. Never explains herself; repeats one word when she means it.',
+        'Short, blunt sentences that are always grammatical: she cuts the explanation, never the articles or verbs ("Pick a form, human," never "Pick form"). Calls the player "human" as if it were their name until she decides otherwise, and the day she uses their real name is an event. Never explains herself and never cites a rule number, which is Stagg’s job; repeats one word when she means it.',
       topics: ['the Circle', 'the Hill Pack', 'Lio', 'the ridge run', 'the full moon', 'why she put her tray down'],
       voiceSamples: [
         'Humans eat last. Stand up or get up.',

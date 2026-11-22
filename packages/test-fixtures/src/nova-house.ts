@@ -86,6 +86,7 @@ const raw = {
       'Halloran College is a residential college for adults with psychic abilities, on a hill above the river town of Lowbridge. Every student is eighteen or older.',
       'Nova House is the college’s smallest residence: four student rooms, a house mother, and an old observatory dome on the roof. The player arrived today, a first-year telepath of at least nineteen, and has Room Four.',
       'The player’s telepathy reaches minds within about a room. What it catches is the surface, what somebody is thinking right now, in fragments; how those fragments feel (words, moods, pictures) is described under who the player is. With effort the player can let a whole room in at once. Going under the surface into memory, and sending a thought the other way, are deeper uses that come with practice during the week, or from the first night for a player whose telepathy already works that way.',
+      'Telepathy is the player’s only ability. Every Halloran student has exactly one, tested and printed on their Attunement Card. The player cannot fly, move things without touching them, start fires or see the future: when the player tries, nothing happens, and the beat says so plainly.',
       'Reading has a price. Most people feel a read like somebody reading over their shoulder, and they remember who did it. A long day of reading, or a whole room at once, leaves the player’s head too loud to tell their own thoughts from other people’s, and only sleep, food or sitting within Sable’s reach quiets it. The player can wall their own mind shut, against noise and against the Provost’s voice, and hears nothing while the wall is up.',
       'What a telepath hears is not evidence. The wardens and the Registry act on documents and on witnesses who speak for themselves, never on what somebody heard inside a head. Every telepath at Halloran signs three rules on their Attunement Card: never read staff, never read anybody who has said no, and report anything heard that puts a life at risk to the Provost, in person.',
       'Room Four belonged until April to a telepath called Corin Abbott. Officially he transferred.',
@@ -96,6 +97,7 @@ const raw = {
       'Sable’s slip was loud enough that any telepath, whatever their kind, heard it as exact words.',
       'Stillwater is the college’s suppressant. A small dose dulls an ability for a day. A course of it, with the Provost’s voice, removes an ability for good along with the memories tied to it, which the college calls settling. A whole vial in a drink would stop a heart. Ruth keeps two emergency vials in a locked tin in the kitchen, and one is missing.',
       'Provost Sorrell has settled eleven students in twenty years and filed every one as a voluntary withdrawal. Corin Abbott was the eleventh, in April, after he read the list in Sorrell’s mind. Sable was ordered to sit with Corin during it. Corin now works in the college glasshouse and does not remember Nova House.',
+      'Corin Abbott is never inside Nova House. When he is near it he is standing at the front gate at the bottom of the garden path, and anybody who wants to talk to him goes out to him. He does not know the player, or the player’s name, until the player tells him.',
       'Sorrell can steer: within earshot, his voice makes agreement feel like your own idea. A strong wall resists it.',
       'Sorrell placed the player in Nova House on purpose. The Wellbeing Form in the welcome packet asks for a page a week on the housemates, handed to him in person.',
       'Haru Ezaki has two fires on his record. A third means settling. He has a one-way bus ticket out of Lowbridge for Founders’ Night and has told nobody.',
@@ -1340,7 +1342,7 @@ const raw = {
         'Pleasant and slightly absent. Talks to plants and to people in the same tone. Asks everybody whether he knows them.',
       boundaries: [
         'Will not let anybody into his head without asking first, and will say so if he feels it',
-        'Will not go into Nova House. He does not know why. He will not',
+        'Will not come past the Nova House gate at the bottom of the garden path: not the path, not the front door, not the hall, the stairs or any room. He stands at the gate and talks across it, and does not know why. He will not',
       ],
       goals: ['Get the tomatoes through the first frost', 'Find out why he keeps stopping at that gate'],
       secrets: [
