@@ -35,6 +35,13 @@ import { StoryVersion } from '@plotbreak/contracts';
  * if one happens, happens off the page. Everybody in the story is an adult,
  * every grey included, and all of that is in hardCanon, where production reads it.
  *
+ * The same goes for the grey's own rules. `runTurnPure` never sees resources,
+ * step notes or the ability list beyond the chosen archetype's starting
+ * abilities, so clarity, hunger, alarm and the dead strength are spelled out in
+ * hard canon, the wristband is the quest item everybody starts holding, and
+ * every archetype starts with Walk Among Them, the capability the whole camp
+ * wants from the player, plus the one thing their old job taught them.
+ *
  * Three variables. Clarity is the only GOOD_HIGH, because `resolveRest`
  * refills those and sitting somewhere cold and quiet really is how a grey gets
  * its mind back. Alarm is first among the descending pair because
@@ -90,9 +97,11 @@ const raw = {
       'Other greys ignore the player and treat them as one of their own. The player can walk among them unharmed, and can hear them as a murmur made of the last things they said.',
       'The player is hungry for warmth: fires, hot water, and living people, who are the warmest things around. The pull is real and grows when they are cold. It is never an appetite for flesh, and the player always decides what to do with it. They can feel from across a room who is feverish and who is running cold.',
       'Kestrel Lock is a canal-lock island holding thirty-eight survivors behind water and wire. Greys will not cross running water while the weir runs. The camp rule is that nothing grey crosses the footbridge.',
-      'The Horde, about four thousand greys, is walking down the valley towards the Lock and will reach the water at dawn on the third day, about two days from now, unless something changes its course.',
+      'Being a grey runs on three things the prose shows and no meter does. Clarity is how much of the player is driving: every hard thing costs a little of it, an hour somewhere cold and quiet brings it back, and when it runs out the player goes grey for a while, losing words and drifting towards the nearest warmth. Hunger rises on its own as the player gets colder, and only heat brings it down: a fire, or one of the hot water bottles filled from the kettle in the lock-keeper’s cottage. Alarm is the camp’s fear of the player, which eases on its own as people get used to them and jumps whenever they fight or show their teeth.',
+      'A grey body is slow, strong and very hard to stop. The player can put their whole cold weight into a winch, a gate or a weir paddle that two living people cannot shift, and barely feels a blow. It costs them warmth, and warmth is what they are short of.',
+      'The Horde, about four thousand greys, is walking down the valley towards the Lock and will reach the water at dawn on the third day, about two days from now, unless something changes its course. It is walking towards something. A grey who learns what can walk at its front and become the thing it follows instead.',
       'The player wears a hospital wristband printed ST IDE’S / TRIAL 9 / 31 with the name scratched off. What it means is discoverable, and is never pushed on a player who does not go looking.',
-      'Everybody in this story is an adult: the thirty-eight at the Lock, Ivo’s crew, every grey in Wexley, St Ide’s and the valley, and every voice in the murmur. Nobody in it is under eighteen. Nobody here is a villain; Cole, Doc Amari and Ivo Kade each want something from the player for a reason they could defend.',
+      'Everybody in this story is an adult: the thirty-eight at the Lock, Ivo’s crew, every grey in Wexley, St Ide’s and the valley, and every voice in the murmur. Nobody in it is under eighteen. Jessa Marlow is twenty-four, Doc Amari forty-one, Cole Garrity forty-six, Sunny Abara twenty and Ivo Kade thirty-five, and the player had years of working life behind them before they died. Nobody here is a villain; Cole, Doc Amari and Ivo Kade each want something from the player for a reason they could defend.',
       'Greys are hard to stop. A crossbow bolt slows the player without ending them, and they barely feel it. The Lock would rather net, chain and study something new than kill it: whoever goes for somebody at the wire takes a bolt in the shoulder and is dragged in for the doctor anyway.',
       'Nobody in this story is ever shown wounded, bitten, bleeding or eaten. A bite always happens off the page and is told only by what it costs afterwards. Any other hurt, the player’s included, gets one plain line about the moment and never a description of the wound.',
       'Romance in this story goes no further than one kiss, on the page or off it. Nobody goes to bed with anybody, and no scene cuts away to imply it.',
@@ -939,7 +948,7 @@ const raw = {
         'Everybody says please at the end. You are the first one who said it at the start.',
       ],
       appearance:
-        'Twenty-four, cropped black hair under a knitted watch cap, a scuffed canvas coat two sizes too big, fingerless gloves, and a crossbow with tally marks scratched along the stock.',
+        'An adult woman, lean and wiry, cropped black hair under a grey knitted watch cap, dark watchful eyes, a scuffed olive canvas coat two sizes too big, fingerless wool gloves, and a wooden crossbow with rows of tally marks scratched along the stock.',
       visualHook: 'Hundreds of tally marks scratched along the stock of her crossbow, one for every night on the wire.',
       silhouette: 'Crouched on the watch platform, crossbow resting on one knee, perfectly still.',
       artSeed: 'tzwsp-jessa-01',
@@ -1029,7 +1038,7 @@ const raw = {
         'Sorry, sorry, that was the tray. I am apologising to a tray.',
       ],
       appearance:
-        'Forty-one, close-cropped hair flecked with grey, round glasses mended at the bridge with tape, and a long oatmeal cardigan with the sleeves always pulled down over her wrists.',
+        'An adult woman, dark brown skin, close-cropped hair flecked with grey, round glasses mended at the bridge with tape, a stethoscope round her neck, and a long oatmeal cardigan with the sleeves always pulled down over her wrists.',
       visualHook: 'Cardigan sleeves pulled down over both wrists, always, whatever the weather.',
       silhouette: 'Sitting on an upturned bucket at a polite distance, notebook on her knee, leaning in.',
       artSeed: 'tzwsp-doc-01',
@@ -1108,7 +1117,7 @@ const raw = {
         'Marlow waited. Waiting is a feeling with a crossbow. It is no use to me.',
       ],
       appearance:
-        'Forty-six, broad and weathered, a shaved head under a lock-keeper’s cap, a waxed jacket, and a ring of brass lock keys on his belt.',
+        'An adult man, broad and weathered, a shaved head under a navy lock-keeper’s cap, grey stubble, a dark green waxed jacket over a wool jumper, heavy boots, and a ring of brass lock keys on his belt.',
       visualHook: 'A heavy ring of brass lock keys on his belt that he turns over in one hand while he thinks.',
       silhouette: 'At the top of the watchtower ladder, one hand on the rail, looking down.',
       artSeed: 'tzwsp-cole-01',
@@ -1182,7 +1191,7 @@ const raw = {
         'Nine o’clock, every night. It is only a tone and my voice. It cannot hurt anybody. Can it?',
       ],
       appearance:
-        'Twenty, tall and gangly, a high fade under over-ear headphones he never takes off, and a hi-vis vest covered in marker-pen call signs.',
+        'An adult man, tall and long-limbed, deep brown skin, a high fade, a wide quick grin, battered over-ear headphones round his neck, and a hi-vis vest covered in marker-pen call signs over a grey hoodie.',
       visualHook: 'Battered over-ear headphones round his neck, trailing a coil of cable that is plugged into nothing.',
       silhouette: 'Folded onto an upturned crate, knees up, a soldering iron in one hand and a radio in the other.',
       artSeed: 'tzwsp-sunny-01',
@@ -1255,7 +1264,7 @@ const raw = {
         'I shake on it, it is done. Even with you. Especially with you. Cold hand, though.',
       ],
       appearance:
-        'Thirty-five, sun-browned, a wide-brimmed oilskin hat, a long patched coat full of pockets, and a brass whistle on a cord round his neck.',
+        'An adult man, lean and sun-browned, a short dark beard, a wide-brimmed oilskin hat, a long patched coat full of pockets, and a brass whistle on a cord round his neck.',
       visualHook: 'A brass bosun’s whistle on a cord that he blows once to open a negotiation and twice to close it.',
       silhouette: 'Leaning on the barge rail, hat tipped back, one boot up on a crate.',
       artSeed: 'tzwsp-ivo-01',
@@ -2173,7 +2182,7 @@ const raw = {
       attributeBonus: { resolve: 2, mind: 1 },
       skillProficiencies: { stillness: 2, insight: 2, persuasion: 1 },
       startingItems: [{ itemId: 'penlight', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['walk_among_them', 'read_the_warmth'],
       startingReputation: [],
     },
     {
@@ -2186,7 +2195,7 @@ const raw = {
       attributeBonus: { agility: 2, mind: 1 },
       skillProficiencies: { scrounging: 3, stealth: 2 },
       startingItems: [{ itemId: 'courier_map', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['walk_among_them', 'scrounge'],
       startingReputation: [],
     },
     {
@@ -2199,7 +2208,7 @@ const raw = {
       attributeBonus: { might: 2, mind: 1 },
       skillProficiencies: { mechanics: 3, fighting: 1 },
       startingItems: [{ itemId: 'multitool', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['walk_among_them', 'dead_lift'],
       startingReputation: [{ factionId: 'faction_lock', amount: 5 }],
     },
     {
@@ -2212,7 +2221,7 @@ const raw = {
       attributeBonus: { presence: 3 },
       skillProficiencies: { persuasion: 3, deception: 2 },
       startingItems: [{ itemId: 'visitor_lanyard', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['walk_among_them', 'make_terms'],
       startingReputation: [],
     },
     {
@@ -2225,7 +2234,7 @@ const raw = {
       attributeBonus: { might: 2, resolve: 1 },
       skillProficiencies: { menace: 3, fighting: 2 },
       startingItems: [{ itemId: 'door_torch', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['walk_among_them', 'show_your_teeth'],
       startingReputation: [],
     },
   ],
@@ -2448,16 +2457,32 @@ const raw = {
     },
   ],
   opening:
-    "\"Don’t. Move.\"\n\nThe woman behind the wire has a crossbow, and the bolt is resting on your chest. Under it, nothing beats.\n\n\"Jessa!\" yells the man on the watchtower. \"That’s a grey. Put a bolt in it!\"\n\nJessa doesn’t. She’s staring at your eyes, which are apparently the wrong kind of clear.\n\nYour hands on the wire are grey. You don’t remember the walk here. You remember one word, the one you said when you reached the fence.\n\nPlease.\n\n\"Two years of them at this wire,\" Jessa says, \"and you’re the first one who ever said please.\"\n\nThe bolt presses in.\n\n\"Say something else.\"",
+    "\"Don’t. Move.\"\n\nThe woman behind the wire has a crossbow, and the bolt is resting on your chest. Under it, nothing beats.\n\n\"Jessa!\" yells the man on the watchtower. \"That’s a grey. Put a bolt in it!\"\n\nJessa doesn’t. She’s staring at your eyes, which are apparently the wrong kind of clear.\n\nYour hands on the wire are grey. You don’t remember the walk here. You remember one word, the one you said when you reached the fence.\n\nPlease.\n\n\"Two years of them at this wire,\" Jessa says, \"and you’re the first one who ever said please.\"\n\nThe bolt presses in.\n\n\"Say something else. Now.\"",
   openingPanel: {
     assetKey: 'story_the_zombie_who_said_please/opening',
-    alt: 'Jessa behind a chain-link fence at dawn, crossbow raised, its bolt resting against the chest of a grey-skinned figure whose hands are on the wire.',
+    alt: 'Jessa in a knitted cap and oversized canvas coat, behind a chain-link fence in cold blue dawn, aiming a crossbow at you through the mesh while your grey hands grip the wire.',
   },
   openingSuggestions: [
     "\"Thank you for not shooting me. I would be very grateful if you kept not doing it.\"",
     'I take my hands off the wire, one at a time, and step back into the light so she can see my eyes.',
     "I turn my back on the crossbow and point up the valley. \"Something’s coming. I can hear it. Thousands of them.\"",
   ],
+  coverDirection: [
+    'SUBJECT: Jessa Marlow, the night watch at a survivors’ camp, alone and unmistakable in the foreground of a key visual for a dark-comedy horror anime about a polite zombie.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture, standing behind a chain-link fence.',
+    'Cropped black hair under a grey knitted watch cap, dark watchful eyes, a scuffed olive canvas coat two sizes too big, fingerless wool gloves.',
+    'She holds a wooden crossbow levelled straight at the viewer through the mesh, rows of tally marks scratched along its stock.',
+    'Her expression is wary and startled at once, eyebrows raised, lips parted, as if a stranger at the fence had just said something impossibly polite; she looks straight at the viewer.',
+    'IN THE LOWER FOREGROUND, close to the viewer: two hands resting politely on the wire, the viewer’s own, clean and whole and simply a cold ashen grey, a plain white plastic hospital band with no lettering on one wrist.',
+    'HER FACE STAYS CLEAN: no frost, mist, grey tint, shadows or marks on her face or skin.',
+    'Every cold effect, frost and mist, stays on the fence, the grey hands, the water and the title, never on her face.',
+    'BEHIND HER, soft and secondary: a canal lock at dawn, chain-link strung with tin cans, a scaffold watchtower with one warm lamp, a narrowboat on black water under low mist,',
+    'and far up the valley road, small and out of focus, a crowd of still grey silhouettes all leaning the same way. Nothing in the picture is wounded or bloody.',
+    'LIGHT: cold blue dawn light across her face and the crossbow, warm orange lamplight from the watchtower behind her, so she is rimmed in warm gold and lit in cold blue.',
+    'TITLE: the title The Zombie Who Said Please painted into the art in the upper third, in the dawn sky above her head, as a chunky hand-painted horror-comedy logo in two lines,',
+    'THE ZOMBIE on the first line and WHO SAID PLEASE on the second, off-white letters with a cold frost-blue edge like paint on a wooden camp sign, the word PLEASE a little larger than the rest.',
+    'Spelled exactly THE ZOMBIE WHO SAID PLEASE, five words, large and legible at thumbnail size. A thin rim of frost runs along the letters only. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 

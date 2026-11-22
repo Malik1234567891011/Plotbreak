@@ -222,15 +222,16 @@ describe('the opening', () => {
 
 describe('adults only, and 13+', () => {
   const AGES: Record<string, number> = { jessa: 24, doc: 41, cole: 46, sunny: 20, ivo: 35 };
-  const NUMBER_WORDS: Record<number, string> = {
-    20: 'Twenty,',
-    24: 'Twenty-four,',
-    35: 'Thirty-five,',
-    41: 'Forty-one,',
-    46: 'Forty-six,',
+  const IN_CANON: Record<string, string> = {
+    jessa: 'Jessa Marlow is twenty-four',
+    doc: 'Doc Amari forty-one',
+    cole: 'Cole Garrity forty-six',
+    sunny: 'Sunny Abara twenty',
+    ivo: 'Ivo Kade thirty-five',
   };
 
-  it('states an adult age for every person in the cast', () => {
+  it('states an adult age for every person in the cast, in hard canon where the narrator reads it', () => {
+    const canon = STORY.rules.hardCanon.join(' ');
     for (const c of STORY.characters) {
       if (c.id === 'the_horde') {
         expect(c.appearance).toMatch(/adults/);
@@ -239,7 +240,11 @@ describe('adults only, and 13+', () => {
       const age = AGES[c.id];
       expect(age, `${c.id} has no stated age`).toBeDefined();
       expect(age!).toBeGreaterThanOrEqual(18);
-      expect(c.appearance.startsWith(NUMBER_WORDS[age!]!), `${c.id}: ${c.appearance}`).toBe(true);
+      expect(canon, c.id).toContain(IN_CANON[c.id]!);
+      // Portraits are drawn from appearance: it says adult, the way the pilot
+      // does, and carries no number for an image model to misread.
+      expect(c.appearance.startsWith('An adult '), `${c.id}: ${c.appearance}`).toBe(true);
+      expect(c.appearance, c.id).not.toMatch(/\b(twenty|thirty|forty|fifty)\b/i);
     }
   });
 
@@ -708,6 +713,60 @@ describe('Trial Nine is optional and behaves like it', () => {
     const mystery = new Set(['trial_answered', 'knows_who_you_were', 'found_the_ward', 'stood_in_ward_nine']);
     const ordinary = STORY.endings.filter((e) => !e.requires.flagsSet.some((f) => mystery.has(f)));
     expect(ordinary.length).toBeGreaterThanOrEqual(STORY.endings.length - 1);
+  });
+});
+
+describe('the art and release pipeline (docs/stories-50/PIPELINE.md)', () => {
+  it('directs its own cover, title included, with effects off every face', () => {
+    const cover = STORY.coverDirection;
+    expect(cover).toMatch(/\bTITLE:/);
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(title).toContain('The Zombie Who Said Please');
+    expect(title).toContain('THE ZOMBIE WHO SAID PLEASE');
+    expect(title).toMatch(/upper third/);
+    expect(cover).toMatch(/never on her face/);
+    // People by costume and pose, never by age words.
+    expect(cover).not.toMatch(/\b(adult|young|younger|old|older|aged|years?[- ]old|teen\w*|child\w*|kid|girl|boy|woman|man)\b/i);
+  });
+
+  it('opens on a panel of the character who speaks first, drawn from her portrait', () => {
+    const panel = STORY.openingPanel!;
+    expect(panel.assetKey).toBe(`${STORY.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    expect(panel.alt.startsWith('Jessa ')).toBe(true);
+    expect(STORY.opening).toMatch(/Jessa says/);
+  });
+
+  it('gives every character with a card a concrete appearance', () => {
+    for (const c of STORY.characters) {
+      if (!c.cardBlurb.trim()) continue;
+      expect(c.appearance.length, c.id).toBeGreaterThan(80);
+    }
+  });
+
+  it('opens straight on the scene and is not yet published', () => {
+    expect(STORY.prologue).toEqual([]);
+    expect(STORY.publishedAt).toBeNull();
+  });
+
+  it('puts the grey’s rules where the narrator reads them', () => {
+    const canon = STORY.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/Clarity is how much of the player is driving/);
+    expect(canon).toMatch(/Hunger rises on its own/);
+    expect(canon).toMatch(/Alarm is the camp’s fear/);
+    expect(STORY.rules.toneGuide.length).toBeGreaterThan(200);
+    const wristband = STORY.items.find((i) => i.id === 'wristband')!;
+    expect(wristband.questItem).toBe(true);
+    expect(STORY.rules.startingItems.map((i) => i.itemId)).toContain('wristband');
+    const abilityIds = new Set(STORY.abilities.map((a) => a.id));
+    const kits = new Set<string>();
+    for (const option of STORY.archetypes) {
+      expect(option.startingAbilities, option.id).toContain('walk_among_them');
+      expect(option.startingAbilities.length, option.id).toBeGreaterThanOrEqual(2);
+      for (const id of option.startingAbilities) expect(abilityIds.has(id), `${option.id}: ${id}`).toBe(true);
+      kits.add(option.startingAbilities.join('|'));
+    }
+    expect(kits.size).toBe(STORY.archetypes.length);
   });
 });
 

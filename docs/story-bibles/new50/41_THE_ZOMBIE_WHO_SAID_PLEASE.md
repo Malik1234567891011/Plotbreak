@@ -85,15 +85,20 @@ The player is a grey who can think, speak and choose, protagonist `BLANK`
 2. **What did you do before you died?** The archetype. Fixed for the whole
    story and cannot be changed later.
    - **You Were a Nurse**: healing and steady nerves. Stillness, Grey Sense,
-     Manners; a penlight.
+     Manners; a penlight; starts with Read the Warmth.
    - **You Drove Deliveries**: scout and scavenger. Scrounging, Shamble; a
-     courier's map of the dead town.
+     courier's map of the dead town; starts with Scrounge.
    - **You Fixed Machines**: technical and heavy work. Know-how, Fighting; a
-     multitool; a little standing with the Lock.
+     multitool; a little standing with the Lock; starts with Dead Lift.
    - **You Talked for a Living**: persuasion and bluffing. Manners, Passing for
-     Alive; a visitor's lanyard.
+     Alive; a visitor's lanyard; starts with Name Your Price.
    - **You Kept the Door**: defence and intimidation. Menace, Fighting; a
-     doorman's torch.
+     doorman's torch; starts with Show Your Teeth.
+
+   Every archetype also starts with **Walk Among Them**, the capability the
+   whole camp wants from the player. The storyteller reads only the chosen
+   archetype's starting abilities, so these are how it learns what the player
+   can do.
 3. **What do you still remember about yourself?** (optional, one sentence)
 4. Advanced: first instinct at the wire, and what you look like now (this
    reaches only the portrait generator).
@@ -102,6 +107,9 @@ The only identity the storyteller reads is the archetype plus name and
 pronouns, so everything the archetype means, starting item included, is in
 its summary and blurb. Line 3 (`worldKnowsAboutYou`) never reaches the
 production storyteller; that is a platform gap, not one this story can fix.
+
+The player is an adult with years of working life behind them; every
+archetype is a job they held for years before they died.
 
 Everyone starts with **the hospital wristband**: ST IDE'S / TRIAL 9 / 31,
 name scratched off. Looking at it opens the optional Trial Nine thread.
@@ -123,11 +131,21 @@ guide and keep only hard canon.
   can feel from across a room who is feverish and who is running cold.
 - Kestrel Lock holds 38 survivors. Greys will not cross running water while the
   weir runs. Nothing grey crosses the footbridge.
+- Being a grey runs on three things the prose shows and no meter does:
+  Clarity (every hard thing costs some; an hour somewhere cold and quiet
+  brings it back; at zero the player goes grey for a while), Hunger (rises as
+  they get colder; only heat brings it down, a fire or a hot water bottle from
+  the cottage kettle) and Alarm (the camp's fear; eases as people get used to
+  them, jumps when they fight or show their teeth).
+- A grey body is slow, strong and very hard to stop: it can shift a winch or a
+  weir paddle two living people cannot, and it costs warmth to do it.
 - The Horde, about 4,000 greys, reaches the water at dawn on the third day,
-  about two days from now, unless its course changes.
+  about two days from now, unless its course changes. It is walking towards
+  something, and a grey who learns what can walk at its front instead.
 - Everybody in this story is an adult: the 38 at the Lock, Ivo's crew, every
   grey in Wexley, St Ide's and the valley, and every voice in the murmur.
-  Nobody in it is under eighteen.
+  Nobody in it is under eighteen. Jessa is 24, Doc 41, Cole 46, Sunny 20 and
+  Ivo 35, and the player had years of working life before they died.
 - Greys are hard to stop. A crossbow bolt slows the player without ending
   them. Whoever goes for somebody at the wire takes a bolt in the shoulder and
   is dragged in for the doctor anyway.
@@ -142,7 +160,7 @@ guide and keep only hard canon.
 The player is at the landward wire of Kestrel Lock at 06:10 on day one. Jessa
 and Cole are there. Nobody else is.
 
-Opener as shipped (104 words):
+Opener as shipped (105 words):
 
 > "Don't. Move."
 >
@@ -164,7 +182,7 @@ Opener as shipped (104 words):
 >
 > The bolt presses in.
 >
-> "Say something else."
+> "Say something else. Now."
 
 Checks: Jessa speaks to the player in the first two words and is named by
 word 23. It ends on a demand. No proper noun the player has to know already.
@@ -411,8 +429,24 @@ Only Participant Thirty-One needs the Trial Nine thread.
 
 ## Image plan
 
-No art generated yet. When commissioned: `story_the_zombie_who_said_please/opening`
-is Jessa behind a chain-link fence at dawn, crossbow raised, its bolt resting
-against the chest of a grey-skinned figure whose hands are on the wire. Shared
-direction: cold blue dawn with one warm lamp, mist on black water, greys shown
-by posture and stillness, never wounds.
+No art generated yet. Everything the pipeline needs is in the fixture:
+
+- **Cover** (`coverDirection`): Jessa alone in the foreground, waist up, behind
+  the chain-link, crossbow levelled at the viewer, startled and wary. In the
+  lower foreground the viewer's own grey hands rest politely on the wire, a
+  blank white hospital band on one wrist. Canal lock, watchtower lamp and
+  narrowboat soft behind her; a far crowd of grey silhouettes up the valley.
+  Cold blue dawn on her, warm lamp rim behind. The title is painted in the
+  upper third as a chunky hand-painted horror-comedy logo in two lines, THE
+  ZOMBIE / WHO SAID PLEASE, off-white with a frost-blue edge. Frost and mist
+  go on the fence, the hands, the water and the title, never on her face.
+- **Opening panel** (`story_the_zombie_who_said_please/opening`): Jessa in a
+  knitted cap and oversized canvas coat behind the fence in cold blue dawn,
+  aiming the crossbow at you through the mesh while your grey hands grip the
+  wire. Her portrait is the reference image.
+- **Portraits**: drawn from each `appearance`, which opens with "An adult
+  woman" or "An adult man" and carries no age number; the ages live in hard
+  canon.
+
+Shared direction: cold blue dawn with one warm lamp, mist on black water, greys
+shown by posture and stillness, never wounds.
