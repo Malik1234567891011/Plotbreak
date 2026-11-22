@@ -109,6 +109,20 @@ describe('the opener hands the player a choice', () => {
     expect(S.rules.hardCanon.join(' ')).toMatch(/Saying yes or no anywhere else is a promise, not the answer/);
     for (const ending of S.endings) expect(ending.minTurn, ending.id).toBeGreaterThanOrEqual(14);
   });
+
+  it('turns a first-night yes into preparation, in the canon the storyteller reads', () => {
+    // Step notes never reach production's storyteller, so the brake on a
+    // turn-three wedding has to be hard canon, right after the three answers.
+    const canon = S.rules.hardCanon;
+    const answers = canon.findIndex((c) => c.startsWith('Answering the vow means'));
+    const guard = canon.findIndex((c) => c.startsWith('Nobody in three hundred years has said yes'));
+    expect(answers).toBeGreaterThanOrEqual(0);
+    expect(guard).toBe(answers + 1);
+    expect(canon[guard]).toMatch(/bridal robes/);
+    expect(canon[guard]).toMatch(/rite book/);
+    expect(canon[guard]).toMatch(/Sora to read the words/);
+    expect(canon[guard]).toMatch(/an engagement she does not quite believe/);
+  });
 });
 
 describe('the vow lives where the storyteller can read it', () => {
@@ -135,7 +149,7 @@ describe('the vow lives where the storyteller can read it', () => {
     expect(S.rules.startingItems.map((i) => i.itemId)).toEqual(['shrine_keys', 'lawyers_letter']);
     const letter = S.items.find((i) => i.id === 'lawyers_letter')!;
     expect(letter.questItem).toBe(true);
-    expect(letter.description).toMatch(/sealed letter held by Ms Sora Yanagi/);
+    expect(letter.description).toMatch(/sealed letter addressed to Ms Sora Yanagi/);
   });
 
   it('gives every background the keeper’s bell, so the storyteller always sees it', () => {
@@ -147,6 +161,14 @@ describe('the vow lives where the storyteller can read it', () => {
   it('sets the 13+ line in the tone guide', () => {
     expect(S.rules.toneGuide).toMatch(/as far as a kiss and no further/);
     expect(S.rules.toneGuide).toMatch(/No fan service/);
+  });
+
+  it('keeps the style samples the storyteller imitates out of the bath', () => {
+    for (const example of S.rules.styleExamples) expect(example).not.toMatch(/\bbath\w*/i);
+  });
+
+  it('declares the sake at the wedding', () => {
+    expect(S.contentDescriptors).toContain('ALCOHOL_REFERENCES');
   });
 });
 
@@ -209,6 +231,21 @@ describe('she is a person, not a prize', () => {
         expect(overlap, `${a.id} and ${b.id} share ${Math.round(overlap * 100)}% of their vocabulary`).toBeLessThan(0.3);
       }
     }
+  });
+
+  it('keeps the formal register to two of them, so the cast does not sound like one translation', () => {
+    // Sora and Oboro never contract; everybody else does, the way people talk.
+    const formal = S.characters.filter((c) => !c.voiceSamples.some((v) => /\w[’']\w/.test(v))).map((c) => c.id);
+    expect(formal.length, `contraction-free: ${formal.join(', ')}`).toBeLessThanOrEqual(2);
+    expect(formal.sort()).toEqual(['oboro', 'sora']);
+  });
+
+  it('leads every cast card with the hook, not a design note', () => {
+    for (const c of S.characters) {
+      expect(c.cardBlurb, c.id).not.toMatch(/\b(allowed|remember which)\b/i);
+    }
+    expect(character('kuzuha').cardBlurb).toMatch(/^She ate your dinner/);
+    expect(character('kuzuha').cardBlurb).toContain('Nobody has ever said yes');
   });
 
   it('does not let two of them run the same rhetorical move', () => {
@@ -358,6 +395,30 @@ describe('everybody on the page is an adult, on the page', () => {
       expect(AGES[c.id]!).toBeGreaterThanOrEqual(18);
       expect(canon, c.id).toContain(c.calledName ?? c.name.split(' ')[0]!);
     }
+    // The player can never be younger, and the people in the backstory have ages too.
+    expect(canon).toContain('twenty-six or older');
+    expect(canon).toMatch(/Seiji, the first keeper, was thirty when he wrote the vow/);
+    expect(canon).toMatch(/every keeper Kuzuha ever proposed to was a grown adult/);
+    expect(canon).toMatch(/Any earlier visit the player made to the mountain was as an adult/);
+  });
+
+  it('gives no background a childhood on the mountain', () => {
+    // The storyteller reads the chosen archetype's summary and blurb every
+    // turn. A childhood memory of the fox would invite her to remember the
+    // player small, which a romance must never do.
+    const CHILDHOOD = /\b(long ago|child\w*|kids?|little|young\w*|boy|girl|made it up|when you were)\b/i;
+    for (const a of S.archetypes) {
+      expect(a.summary, a.id).not.toMatch(CHILDHOOD);
+      expect(a.blurb, a.id).not.toMatch(CHILDHOOD);
+    }
+    const local = S.archetypes.find((a) => a.id === 'arch_local')!;
+    expect(`${local.summary} ${local.blurb}`).toMatch(/twenty/);
+    const charm = S.items.find((i) => i.id === 'fox_charm')!;
+    expect(charm.description).toMatch(/the summer you turned twenty/);
+  });
+
+  it('never lets fading make her look younger', () => {
+    expect(S.rules.hardCanon.join(' ')).toMatch(/Fading never makes the woman look younger or smaller/);
   });
 
   it('describes people by build and costume, never by an age word', () => {
@@ -440,6 +501,9 @@ describe('it would pass the catalog’s own gates', () => {
     expect(report.issues.filter((i) => i.severity === 'ERROR').map((i) => i.message)).toEqual([]);
     const field = S.setupFields.find((f) => f.kind === 'ARCHETYPE')!;
     expect(field.helpText).toMatch(/fixed|for the whole story/i);
+    // Production's storyteller reads only the archetype, plus name and
+    // pronouns; appearance reaches the portrait. Nothing else is worth asking.
+    expect(S.setupFields.map((f) => f.id)).toEqual(['displayName', 'pronouns', 'archetype', 'appearance']);
     const tagSets = S.archetypes.map((a) => a.playstyle.join('|'));
     expect(new Set(tagSets).size).toBe(tagSets.length);
   });

@@ -55,7 +55,7 @@ const raw = {
   hook: 'You inherit a mountain shrine and a nine-tailed fox who says your family owes her a wedding.',
   premise:
     'Your great-aunt Chiyo kept a fox shrine at the top of three hundred steps above a mountain town called Sugino. When she died she left it to you: a hall with a leaking roof, a storehouse, a house with her reading glasses still on the table, and eleven thousand yen in the accounts.\n\n' +
-    'You came up to look at it before you sold it. Somebody was already sitting on the offering box.\n\n' +
+    'You came up to look at it once before deciding whether to sell. You set your dinner on the offering box to catch your breath. When you looked up, somebody was eating it.\n\n' +
     'Her name is Kuzuha. She has nine tails, three of them going grey, and a vow nailed behind the altar that says your family owes her a wedding. The first keeper wrote it three hundred years ago. It only binds the last of the line, and that is you.\n\n' +
     'You have until the forty-ninth morning after your great-aunt’s death, three dawns from now, to marry her, refuse her to her face, or talk her into new terms. Do nothing and the vow lapses, and she starts losing her tails until she is an ordinary fox.\n\n' +
     'Meanwhile a developer who grew up in the town wants the whole mountain for a ropeway, a polite man under an umbrella will offer to make the vow go away for free, and the shrine maiden who kept the place running is deciding what kind of keeper you are.\n\n' +
@@ -73,7 +73,7 @@ const raw = {
     'A free offer with a catch',
     'Nine tails, three going grey',
   ],
-  contentDescriptors: ['ROMANCE', 'MORAL_AMBIGUITY'],
+  contentDescriptors: ['ROMANCE', 'MORAL_AMBIGUITY', 'ALCOHOL_REFERENCES'],
   intensity: 'LIGHT',
   creatorNote:
     'You can marry her on the first night, refuse her on the second, sell the mountain out from under both of you, or sit on the steps for three days feeding her plum rice balls and never answer at all. All of those are endings. Eleven keepers have told her no. Nobody has ever said yes.',
@@ -91,12 +91,13 @@ const raw = {
       { itemId: 'lawyers_letter', qty: 1 },
     ],
     hardCanon: [
-      'Everyone in this story is an adult. The player is an adult heir of twenty-six or older. Kuzuha is more than a thousand years old and always takes the shape of a grown woman of about twenty-five; Sora Yanagi is twenty-three; Oboro is about six hundred years old and looks like a man in his thirties; Isao Tadokoro is fifty-six and Ume Kanzaki is eighty-one. The last keeper, the player’s great-aunt Chiyo, died at ninety-four.',
-      'The player has inherited the fox shrine at the top of three hundred and four stone steps above Sugino, a mountain town of about four hundred people, from their great-aunt Chiyo, the last keeper, who died forty-six days before the story starts. The player is the last of her line. They came up at dusk to look at the place before deciding what to do with it.',
+      'Everyone in this story is an adult. The player is an adult heir of twenty-six or older. Kuzuha is more than a thousand years old and always takes the shape of a grown woman of about twenty-five; Sora Yanagi is twenty-three; Oboro is about six hundred years old and looks like a man in his thirties; Isao Tadokoro is fifty-six and Ume Kanzaki is eighty-one. The last keeper, the player’s great-aunt Chiyo, died at ninety-four. Seiji, the first keeper, was thirty when he wrote the vow, and every keeper Kuzuha ever proposed to was a grown adult when she asked. Any earlier visit the player made to the mountain was as an adult.',
+      'The player has inherited the fox shrine at the top of three hundred and four stone steps above Sugino, a mountain town of about four hundred people, from their great-aunt Chiyo, the last keeper, who died forty-six days before the story starts. The player is the last of her line; nobody else of the first keeper’s blood is alive. They came up at dusk to look at the place before deciding whether to sell it.',
       'Kuzuha is the nine-tailed fox of the mountain and holds its spirit-seat. Only people she allows see her as a woman; to everyone else she is a large red fox that steals offerings. Sora saw the woman once, five years ago. Ume suspects. Tadokoro has only ever seen a fox.',
       'The vow is a cedar board nailed behind the altar of the main hall, written three hundred years ago by the first keeper, Seiji: "Fox of this mountain: keep it, and do not pass the lowest gate, and my line will keep you. When my line comes down to one, that one owes you the wedding I did not give, by the forty-ninth morning after the last keeper." Eleven keepers have signed under it since. Kuzuha proposed to every one of them and every one said no; none of them was the last of the line.',
-      'Answering the vow means one of three things, done at the altar of the main hall: a wedding; the vow refused out loud, to her face; or the vow rewritten in new terms that she signs freely. Saying yes or no anywhere else is a promise, not the answer. Unanswered by the forty-ninth morning, three dawns after the story starts, the vow lapses as if refused.',
-      'A refused or lapsed vow does not kill her. Her nine tails grey one at a time until she is an ordinary red fox who remembers nothing, and the spirit-seat of the mountain stands empty. Three tails are grey at the tips when the story starts. Every time she spends her fire for somebody, the grey comes faster.',
+      'Answering the vow means one of three things, done at the altar of the main hall: a wedding; the vow refused out loud, to her face; or the vow rewritten in new terms that she signs freely. Saying yes or no anywhere else is a promise, not the answer. Unanswered by the forty-ninth morning, three dawns after the story starts, the vow lapses as if refused. There is one way out that is not an answer: the keeper takes the board down and gives it to her. Freely given, the vow is hers to end; she keeps her tails and may pass the lowest gate.',
+      'Nobody in three hundred years has said yes to her, and she has no plan for it. A yes on the first night frightens her more than a no: she wants to know why, and she will not marry anybody who does not yet know what yes costs them. A wedding on this mountain is done properly or not at all. It needs the bridal robes from the storehouse, the wedding pages of the last keeper’s rite book, Sora to read the words, and the bell rung at dusk. Until all of that has happened, a yes is an engagement she does not quite believe.',
+      'A refused or lapsed vow does not kill her. Her nine tails grey one at a time until she is an ordinary red fox who remembers nothing, and the spirit-seat of the mountain stands empty. Three tails are grey at the tips when the story starts. Every time she spends her fire for somebody, the grey comes faster. Fading never makes the woman look younger or smaller; she simply appears less often.',
       'The cost of yes: a keeper married to her cannot be away from the mountain for more than one night at a time while the marriage lasts. She tells anyone who asks, and believes it is why the others said no.',
       'Kuzuha cannot pass the lowest gate on the steps while the vow stands. When somebody of the keeper’s blood rings the shrine bell, every spirit on the mountain hears it and Kuzuha has to come. She hates being rung for.',
       'Oboro, a yokai of the valley mist, can dissolve the vow for anybody of the line who asks him, with no wedding and nobody saying no to her face. He cannot lie, and he cannot cross a threshold uninvited. A dissolved vow ends exactly like a refused one, and the spirit-seat passes to him; he says so only if asked exactly what happens to her.',
@@ -111,7 +112,7 @@ const raw = {
       'Keep it physical and specific: the sandwich, the broom, the box of sweets, the plum rice balls, the bell rope swinging with no wind. The face at the top of a beat is Kuzuha’s whenever she is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
-      "You pull the rope. The bell is louder than it has any right to be.\n\nEvery lantern down the steps flares at once.\n\nKuzuha comes over the hall roof at a run and lands on the offering box with her ears flat.\n\n\"Do you know what that feels like?\" she says. \"Like being shouted for. In the bath.\"\n\nShe sits. Her tails settle around her one at a time, the grey ones last.\n\n\"Well? You rang. Say the thing.\"",
+      "You pull the rope. The bell is louder than it has any right to be.\n\nEvery lantern down the steps flares at once.\n\nKuzuha comes over the hall roof at a run and lands on the offering box with her ears flat.\n\n\"Do you know what that feels like?\" she says. \"Like being shouted for. Mid-nap.\"\n\nShe sits. Her tails settle around her one at a time, the grey ones last.\n\n\"Well? You rang. Say the thing.\"",
       "Sora does not look up from the broom.\n\n\"The offering is at seven,\" she says. \"The lanterns are at quarter to. You are standing where the bell rope swings.\"\n\nYou step aside. The rope swings through the place your head was.\n\n\"Thank you.\" She sweeps the spot you were standing on. \"She will tell you it is a debt.\"\n\n\"Isn’t it?\"\n\nSora finally looks at you.\n\n\"Ask her who wrote that word.\"",
       "The mist has come up to the lowest gate and stopped there, like a dog told to stay.\n\nThe man under the grey umbrella bows.\n\n\"You would rather not say no to her face,\" Oboro says. \"Yes. You would rather not have to say it at all.\"\n\nHe holds out one pale hand, palm up.\n\n\"Ask me, and by morning there will be nothing on that altar but wood.\"",
     ],
@@ -255,7 +256,7 @@ const raw = {
       tags: ['quest', 'document'],
       questItem: true,
       description:
-        'Two pages from a solicitor in the city. The shrine, its land and its buildings are yours, subject to a condition set out in a sealed letter held by Ms Sora Yanagi, to be opened on the forty-ninth day. The shrine’s accounts hold eleven thousand yen.',
+        'Two pages from a solicitor in the city. The shrine, its land and its buildings are yours, subject to a condition set out in a sealed letter addressed to Ms Sora Yanagi, to be opened on the forty-ninth day. The shrine’s accounts hold eleven thousand yen.',
       loreText:
         'There is a postscript in a different pen: "Your great-aunt asked me to add that the fox likes plum." The solicitor clearly assumed this was a figure of speech.',
       icon: 'letter',
@@ -393,7 +394,7 @@ const raw = {
       name: 'The Last Keeper’s Fox Charm',
       tags: ['personal'],
       skillModifiers: { sight: 1 },
-      description: 'A small carved wooden fox on a red cord, which your great-aunt gave you the summer you stayed up here. The ears are worn smooth.',
+      description: 'A small carved wooden fox on a red cord, which your great-aunt gave you at the end of the summer you turned twenty. The ears are worn smooth.',
       loreText: 'Kuzuha carved it. She will recognise it at once and pretend she does not.',
       icon: 'charm',
     },
@@ -511,7 +512,7 @@ const raw = {
       name: 'Sit With Her',
       tags: ['social'],
       description: 'Do not answer and do not leave. Sit down on the step beside somebody and stay there.',
-      affordances: ['sit with her', 'sit down', 'stay', 'wait', 'keep her company', 'say nothing', 'stay the night'],
+      affordances: ['sit with her', 'sit down', 'stay', 'wait', 'keep her company', 'say nothing', 'keep watch'],
       costs: [],
       cooldownMinutes: 0,
       targetRule: 'SINGLE',
@@ -826,7 +827,7 @@ const raw = {
       name: 'Kuzuha',
       role: 'The nine-tailed fox of the mountain, who says your family owes her a wedding',
       cardBlurb:
-        'She has been on this mountain longer than the town, she ate your dinner before saying hello, and she says the vow on the altar means you owe her a wedding by the forty-ninth morning. Every answer you give her is allowed. She will remember which one it was.',
+        'She ate your dinner before she said hello, and she says your family owes her a wedding within three dawns. She has been on this mountain longer than the town below it. Eleven keepers have told her no. Nobody has ever said yes.',
       pronouns: 'she/her',
       publicTraits: ['Grand and petty in the same sentence', 'Counts in centuries and in sandwiches', 'Never asks for anything as a favour'],
       hiddenDrives: [
@@ -878,7 +879,8 @@ const raw = {
         'Plum. Your great-aunt brought plum for sixty years. You brought tuna mayonnaise. We will work on it.',
         'You may sit. Not there. That step is mine. That one too.',
         'Three centuries is a long time to wait for one word, heir. Pick one.',
-        'Do not look at the tails. I said do not look at them.',
+        'Don’t look at the tails. I said don’t.',
+        'The radio says anyone who brings tuna mayonnaise on a first visit is a red flag. The radio is very wise. Sit.',
       ],
       appearance:
         'An adult woman, tall and long-limbed, copper-red hair to her waist, gold eyes, red fox ears with dark tips, a white kimono under a crimson outer robe with the sleeves tied back by red cord.',
@@ -929,7 +931,7 @@ const raw = {
       name: 'Sora Yanagi',
       role: 'Shrine maiden. Has kept the shrine running alone since the last keeper died',
       cardBlurb:
-        'She has swept your steps every morning for five years, she knows where every key goes, and she has not offered to show you. She is deciding what kind of keeper you are, and she holds an envelope she will not open before the forty-ninth day.',
+        'She is deciding what kind of keeper you are. Five years of sweeping your steps every morning means she knows where every key goes; she has not offered to show you. An envelope with her name on it sits on the shelf, and she will not open it before the forty-ninth day.',
       pronouns: 'she/her',
       publicTraits: ['Precise about everything', 'Never raises her voice', 'Holds a broom like a spear'],
       hiddenDrives: [
@@ -970,7 +972,7 @@ const raw = {
         'The envelope stays shut until the forty-ninth day. Ask again and the answer will be the same length.',
       ],
       appearance:
-        'An adult woman, slight and straight-backed, black hair in a low tie with a white paper ribbon, dark serious eyes, a white kimono top and red hakama, a straw broom held upright beside her.',
+        'An adult woman, composed and straight-backed, of average height, black hair in a low tie with a white paper ribbon, dark serious eyes, a white kimono top and red hakama, a straw broom held upright beside her.',
       visualHook: 'A straw broom she holds upright like a spear, even indoors.',
       silhouette: 'Very straight, broom upright at her side, standing one step above you.',
       artSeed: 'mtsf-sora-01',
@@ -1011,7 +1013,7 @@ const raw = {
       name: 'Oboro',
       role: 'Yokai of the valley mist, who offers to make the vow go away for free',
       cardBlurb:
-        'He is unfailingly polite, he only appears where there is mist, and he will dissolve the vow tonight so that you never have to say no to her face. He will answer anything you ask him exactly. He will not mention what you did not ask.',
+        'He will dissolve the vow tonight, for free, so you never have to say no to her face. He only appears in mist, he is unfailingly polite, and he answers exactly what you ask and nothing more.',
       pronouns: 'he/him',
       publicTraits: ['Exquisitely polite', 'Never in a hurry', 'Always under an umbrella, rain or not'],
       hiddenDrives: [
@@ -1094,7 +1096,7 @@ const raw = {
       calledName: 'Tadokoro',
       role: 'Property developer from the town, buying the mountain for a ropeway and a hot-spring hotel',
       cardBlurb:
-        'He grew up in the town below, he has come back with a ropeway, a hotel and two hundred jobs, and he needs your signature before his backers lose patience on the second evening. He is friendly, he is honest about the money, and he is not telling you what the survey said.',
+        'He needs your signature by the second evening: sixty million yen, a ropeway, a hotel and two hundred jobs for the town he grew up in. He’s honest about the money. He isn’t telling you what the survey said.',
       pronouns: 'he/him',
       publicTraits: ['Friendly in a hurry', 'Talks in numbers', 'Brings sweets to every meeting'],
       hiddenDrives: [
@@ -1132,9 +1134,9 @@ const raw = {
         'Plain, quick and friendly, with a salesman’s rhythm. The town dialect comes back the longer he is in town. Says "honestly" when he means it and when he does not.',
       topics: ['the ropeway', 'the hotel', 'the offer', 'the survey', 'jobs', 'his mother', 'the meeting'],
       voiceSamples: [
-        'Sixty million yen, a hotel with two hundred jobs, and the shrine rebuilt down the hill with a better roof. Honestly, it is a good offer.',
-        'The school closed the spring after I left. Now it is four hundred people, one bus and a bathhouse.',
-        'I brought sweets. I always bring sweets. My mother said you never go up a hill empty-handed.',
+        'Sixty million yen, a hotel, two hundred jobs, and the shrine rebuilt down the hill with a roof that doesn’t leak. Honestly? It’s a good offer.',
+        'School shut the spring after I left. Now it’s four hundred people, one bus and a bathhouse.',
+        'I brought sweets. I always bring sweets. My mother said you don’t go up a hill empty-handed.',
         'Shut the door. Good. What do you want to know about the survey?',
       ],
       appearance:
@@ -1201,9 +1203,9 @@ const raw = {
       topics: ['the town', 'the meeting', 'the work song', 'the last keeper', 'plum rice balls', 'Tadokoro’s mother'],
       voiceSamples: [
         'Eat. You climbed those steps on a convenience-store sandwich? Shameful. Sit.',
-        'Your great-aunt sat on that bench every Thursday for sixty years and never once paid for a rice ball.',
-        'Big Suit thinks I will vote for his cable car. Big Suit can carry my shopping.',
-        'Come here. Closer. I am going to sing you something and you are not going to laugh.',
+        'Your great-aunt sat on that bench every Thursday for sixty years and never once paid for a rice ball. Don’t you start.',
+        'Big Suit thinks I’ll vote for his cable car. Big Suit can carry my shopping.',
+        'Come here. Closer. I’m going to sing you something and you’re not going to laugh.',
       ],
       appearance:
         'An older woman, small and wiry, short white hair under a headscarf printed with plums, a shop apron with three pens in the pocket, quick black eyes.',
@@ -1537,7 +1539,7 @@ const raw = {
                 flagsSet: ['knows:why_she_waits'],
                 minRelationship: [
                   { characterId: 'kuzuha', dimension: 'trust', value: 65 },
-                  { characterId: 'kuzuha', dimension: 'affection', value: 75 },
+                  { characterId: 'kuzuha', dimension: 'affection', value: 80 },
                 ],
                 beforeWorldMinute: 3 * 1440 + 6 * 60,
               },
@@ -1587,7 +1589,7 @@ const raw = {
             {
               routeId: 'sealed_her',
               label: 'Bind her under the cedar with the keeper’s ward',
-              predicate: { flagsSet: ['used:keepers_ward', 'spoke:kuzuha'] },
+              predicate: { atLocation: 'cedar_grove', flagsSet: ['used:keepers_ward', 'spoke:kuzuha'] },
               setsFlags: ['sealed_her'],
               closesFlags: ['married', 'vow_rewritten', 'released_her'],
             },
@@ -1745,7 +1747,7 @@ const raw = {
           id: 'the_offer_of_fire',
           playerCopy: 'Let her show you what her fire can do.',
           directorNotes:
-            'This is courtship, her way: she shows off. Lanterns lit with a flick, the bath water hot, a crow knocked off the roof. She offers it to the heir as a lover’s gift and does not mention the cost. The fire is warm, not burning, unless she wants it to be.',
+            'This is courtship, her way: she shows off. Lanterns lit with a flick, the kettle boiling, a crow knocked off the roof. She offers it to the heir as a lover’s gift and does not mention the cost. The fire is warm, not burning, unless she wants it to be.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -2061,6 +2063,19 @@ const raw = {
       movesCharacters: [{ characterId: 'oboro', toLocationId: 'the_steps' }],
     },
     {
+      id: 'we_mist_second_night',
+      atWorldMinute: 1440 + 23 * 60 + 30,
+      locationId: 'the_steps',
+      publicCopy:
+        'On the second clear night the mist climbs the steps again and stops at the lowest gate, and the man under the grey umbrella is standing in it, as if he had been there all along.',
+      directorNotes:
+        'Only if the first night’s mist never came, because the heir did not yet know about the vow. Oboro is exactly as patient as before and one day shorter of time. From now on the mist bridge can be reached from behind the great cedar.',
+      setsFlags: ['mist_on_the_steps'],
+      cancelledByFlags: ['mist_on_the_steps'],
+      requiresFlags: ['knows:the_vow'],
+      movesCharacters: [{ characterId: 'oboro', toLocationId: 'the_steps' }],
+    },
+    {
       id: 'we_fourth_tail',
       atWorldMinute: 1440 + 3 * 60 + 40,
       locationId: 'cedar_grove',
@@ -2215,7 +2230,7 @@ const raw = {
         'You fix roofs and walls for a living, so the leaking hall, the headless stone fox and the old wall behind the hall are all jobs you can actually do.',
       playstyle: ['Practical', 'Physical', 'Fixes things'],
       blurb:
-        'You looked at the roof before you looked at the fox, and you are still a little annoyed with yourself about which one you found more interesting.',
+        'You looked at the roof before you looked at the fox, and you are still faintly annoyed with yourself about which one you found more interesting.',
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { handiwork: 3, footwork: 1, sight: 1 },
       startingItems: [{ itemId: 'tool_bag', qty: 1 }],
@@ -2257,10 +2272,10 @@ const raw = {
       name: 'You Stayed Here Once',
       role: 'Old ties and second sight',
       summary:
-        'You spent one summer up here with your great-aunt long ago, so you see the mountain’s small spirits more easily than most, and half the town remembers your face.',
+        'You spent the summer you turned twenty up here helping your great-aunt, so you see the mountain’s small spirits more easily than most, and half the town remembers your face.',
       playstyle: ['Intuitive', 'Rooted', 'Sees spirits'],
       blurb:
-        'You remember a red fox that sat on the offering box every evening that summer and watched you eat. You had assumed, until tonight, that you made it up.',
+        'You remember a red fox that sat on the offering box every evening that summer, the year you were twenty, and watched you eat. Until tonight you had put it down to the heat.',
       attributeBonus: { arcana: 3, presence: 1 },
       skillProficiencies: { sight: 3, rites: 1, banter: 1 },
       startingItems: [{ itemId: 'fox_charm', qty: 1 }],
@@ -2278,29 +2293,6 @@ const raw = {
         'The work you did in the city before the lawyer’s letter came, which sets what you are good at. It is fixed for the whole story. It does not decide whether you marry her, refuse her, sell the mountain or stay; all of that is yours.',
       kind: 'ARCHETYPE',
       required: true,
-    },
-    {
-      id: 'worldKnowsAboutYou',
-      label: 'What does the town already know about you?',
-      helpText: 'Small towns talk. One plain sentence is the right amount.',
-      kind: 'TEXT',
-      required: false,
-      maxLength: 300,
-      placeholder: 'e.g. I have not been back since the summer I was here, and I never wrote to her once.',
-    },
-    {
-      id: 'why_you_came_up',
-      label: 'Why did you climb up here tonight?',
-      helpText: 'A starting intention, not a promise. You can change your mind on the offering box and the world will keep up.',
-      kind: 'CHOICE',
-      advanced: true,
-      options: [
-        { id: 'to_sell_it', label: 'To look at it once before I sell it' },
-        { id: 'to_keep_it', label: 'To see whether I could keep it' },
-        { id: 'for_her', label: 'To find out who my great-aunt was' },
-        { id: 'to_hide', label: 'Because I needed somewhere nobody knows me' },
-        { id: 'on_a_dare', label: 'Because my family dared me to' },
-      ],
     },
     {
       id: 'appearance',
@@ -2408,7 +2400,7 @@ const raw = {
       condition:
         'Nobody answered by the forty-ninth morning and the vow lapsed. This must not be written as a punishment for playing badly: the heir may have been kind, funny and present for three days and simply never said yes or no, and that turned out to be an answer. There is no scene where anybody explains what went wrong.',
       epilogue:
-        'The lantern beside the offering box stays dark. Sora opens her envelope and puts it back without reading it twice. The fox under the cedar gets smaller and redder and simpler over the summer, and by the first frost it eats from the heir’s hand like any wild thing that has been fed long enough.',
+        'The lantern beside the offering box stays dark. Sora opens her envelope and puts it back without reading it twice. The fox under the cedar grows greyer and quieter and simpler over the summer, and by the first frost it eats from the heir’s hand like any wild thing that has been fed long enough.',
       hint: 'Three dawns. Nobody is counting but her.',
     },
     {
@@ -2511,8 +2503,8 @@ const raw = {
   ],
   coverDirection: [
     'SUBJECT: Kuzuha, the nine-tailed fox of the shrine, alone and unmistakable in the foreground of a key visual for a romantic comedy fantasy anime.',
-    'She fills the frame from the knees up, centred and close, holding about two thirds of the picture.',
-    'An adult woman, tall and long-limbed, copper-red hair to her waist, gold eyes, red fox ears with dark tips, a white kimono under a crimson outer robe with the sleeves tied back by red cord.',
+    'She is seen in full, seated on the box, centred and close, holding about two thirds of the picture.',
+    'An adult woman, tall and long-limbed, copper-red hair to her waist, gold eyes, red fox ears with dark tips, a white kimono under a crimson outer robe with the sleeves tied back by red cord, her kimono and robe closed and covering her legs.',
     'She sits cross-legged on top of a wooden shrine offering box with half a sandwich in one hand, and holds the other hand out toward the viewer palm up, as if waiting for an answer.',
     'Nine red fox tails fan out behind her like slow flames; three of them are ash-grey at the tips.',
     'Her expression is imperious and amused, one eyebrow raised, looking straight at the viewer.',

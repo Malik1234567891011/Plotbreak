@@ -15,16 +15,21 @@ Every person in this story is an adult. The ages are canon and are written into 
 
 | Who | Age |
 |---|---|
-| The player, heir to the shrine | an adult; twenty-six unless they say otherwise |
+| The player, heir to the shrine | an adult, twenty-six or older; never younger, whatever the player types |
 | Kuzuha, the nine-tailed fox | more than a thousand years old; takes the shape of a woman of about twenty-five |
 | Sora Yanagi, shrine maiden | 23 |
 | Oboro, yokai of the valley mist | about six hundred years old; looks like a man in his thirties |
 | Isao Tadokoro, developer | 56 |
 | Ume Kanzaki, general store | 81 |
 | Chiyo, the player's great-aunt (dead before the story starts) | died at 94 |
+| Seiji, the first keeper (died long before the story) | thirty when he wrote the vow |
+
+Every keeper Kuzuha ever proposed to was a grown adult when she asked, and any earlier visit the player
+made to the mountain was as an adult. Both lines are in `hardCanon[0]`.
 
 Portraits and the cover describe people by build, costume and pose, never by age words. Kuzuha is a tall
-adult woman in every description; nothing about her is small, cute-as-young or childlike.
+adult woman in every description; nothing about her is small, cute-as-young or childlike. Fading greys her
+tails and makes her appear less often; it never makes the woman look younger or smaller.
 
 ## Why this fantasy works
 
@@ -58,6 +63,7 @@ the great-aunt's death (day 3, 06:00). Everything after that lives in the ending
 | Day 1, 09:30 | Tadokoro climbs the steps with sweets and a surveyor. |
 | Day 1, 10:15 | The surveyor photographs the old wall and writes nothing down in front of anyone. |
 | Day 1, 19:00 | The residents' association votes on backing the sale at the inn. |
+| Day 1, 23:30 | (only if the first night's mist never came, and the player now knows about the vow) The mist and Oboro come up the steps again. |
 | Day 2, 02:00 | (unless answered) The old wall slumps a hand's width. Every crow leaves. |
 | Day 2, 17:00 | Tadokoro's backers' deadline. |
 | Day 2, 18:00 | (once the player knows what the vow binds) Sora airs the bridal robes on the hall rail. |
@@ -89,10 +95,21 @@ ability list except the chosen archetype's starting abilities.
 
 - **Answering the vow** means one of three things at the altar: a wedding; the vow refused out loud, to her
   face; or the vow rewritten in new terms she signs freely. A yes or no anywhere else is a promise, not the
-  answer. Unanswered by the forty-ninth morning, it lapses as if refused.
+  answer. Unanswered by the forty-ninth morning, it lapses as if refused. One way out is not an answer: the
+  keeper takes the board down and gives it to her. Freely given, the vow is hers to end; she keeps her tails
+  and may pass the lowest gate.
+- **A first-night yes is an engagement, not a wedding.** Nobody in three hundred years has said yes to her,
+  and she has no plan for it. A yes on the first night frightens her more than a no: she wants to know why,
+  and she will not marry anybody who does not yet know what yes costs them. A wedding on this mountain is done
+  properly or not at all: the bridal robes from the storehouse, the wedding pages of the last keeper's rite
+  book, Sora to read the words, and the bell rung at dusk. Until all of that has happened, a yes is an
+  engagement she does not quite believe. This is the brake on the risky opening card: it turns "yes, now"
+  into turns of preparation (Sora, the storehouse, the diary) instead of a wedding on turn three. It is hard
+  canon, not a step note, because production's storyteller never reads step notes.
 - **A refused or lapsed vow does not kill her.** Her nine tails grey one at a time until she is an ordinary
   red fox who remembers nothing, and the mountain's spirit-seat is unclaimed. Three tails are already grey at
-  the tips. Every time she spends her fire for somebody, the grey comes faster.
+  the tips. Every time she spends her fire for somebody, the grey comes faster. Fading never makes the woman
+  look younger or smaller; she simply appears less often.
 - **The cost of yes.** A keeper married to her cannot be away from the mountain for more than a night at a
   time while the marriage lasts. She tells anyone who asks. She thinks it is why the others said no.
 - **The lowest gate.** Kuzuha cannot pass the bottom gate on the steps while the vow stands.
@@ -113,7 +130,8 @@ ability list except the chosen archetype's starting abilities.
 > Sugino. When she died she left it to you: a hall with a leaking roof, a storehouse, a house with her reading
 > glasses still on the table, and eleven thousand yen in the accounts.
 >
-> You came up to look at it before you sold it. Somebody was already sitting on the offering box.
+> You came up to look at it once before deciding whether to sell. You set your dinner on the offering box to
+> catch your breath. When you looked up, somebody was eating it.
 >
 > Her name is Kuzuha. She has nine tails, three of them going grey, and a vow nailed behind the altar that
 > says your family owes her a wedding. The first keeper wrote it three hundred years ago. It only binds the
@@ -158,12 +176,18 @@ introduces it. The fixture uses curly apostrophes; the spec checks all of this.
 3. Risky: `I kneel and say yes, right now, before she changes her mind.`
 
 The risky one is the best scene in the story's first hour: in three hundred years nobody has ever said yes,
-and she has no plan for it.
+and she has no plan for it. The hard-canon brake above keeps it from ending the main question by turn 3.
 
 ## Cast
 
 Cast order is cover-casting order: Kuzuha, Sora, Oboro, Tadokoro, Ume. Every one of them wants something
 that has nothing to do with the player.
+
+**Registers.** Sora and Oboro are the only formal pair: neither ever uses a contraction. Kuzuha, Tadokoro
+and Ume talk the way people talk, contractions and all, so the narrator, which copies the voice samples,
+does not turn the whole cast into one stiff translation. The spec holds this.
+
+**Cast cards.** The cast card shows about ten words before it cuts, so every blurb leads with the hook.
 
 ### Kuzuha, more than a thousand years old (appears about twenty-five), the nine-tailed fox
 
@@ -185,10 +209,15 @@ that has nothing to do with the player.
   - "Eleven keepers have said no to me. Most were polite. One threw salt. I liked him best."
   - "Plum. Your great-aunt brought plum for sixty years. You brought tuna mayonnaise. We will work on it."
   - "Three centuries is a long time to wait for one word, heir. Pick one."
+  - "Don't look at the tails. I said don't."
+  - "The radio says anyone who brings tuna mayonnaise on a first visit is a red flag. The radio is very wise. Sit."
+- **Card:** She ate your dinner before she said hello, and she says your family owes her a wedding within
+  three dawns. She has been on this mountain longer than the town below it. Eleven keepers have told her no.
+  Nobody has ever said yes.
 
 ### Sora Yanagi, 23, shrine maiden
 
-- **Looks:** Slight, straight-backed adult woman. Black hair in a low tie with a white paper ribbon, dark
+- **Looks:** Composed, straight-backed adult woman of average height. Black hair in a low tie with a white paper ribbon, dark
   serious eyes, white kimono top and red hakama, a straw broom held like a spear.
 - **Role:** Has swept the steps every morning for five years and run the shrine alone since Chiyo died. Works
   the counter at the town office in the day.
@@ -229,7 +258,8 @@ that has nothing to do with the player.
 - **Secret 2:** His mother cleaned the shrine for Chiyo for twenty years. Ume knows; he will not say it.
 - **Limits:** Never threatens anybody. Talks about the survey only at the inn, door shut.
 - **Voice:** Plain, friendly, salesman-quick; dialect comes back the longer he is in town; numbers as a second
-  language; "honestly" when he means it and when he doesn't.
+  language; "honestly" when he means it and when he doesn't. "Sixty million yen, a hotel, two hundred jobs,
+  and the shrine rebuilt down the hill with a roof that doesn't leak. Honestly? It's a good offer."
 
 ### Ume Kanzaki, 81, the general store
 
@@ -241,7 +271,8 @@ that has nothing to do with the player.
 - **Secret:** The town's old work song is Seiji's story word for word, including the part the diary leaves out.
 - **Limits:** Will not vote for the sale and will tell the meeting why. Will not tell you Sora's business.
 - **Voice:** Loud, rural, cheerful bossiness. Nicknames within five minutes. Drops to a whisper for anything
-  that matters. "Eat. You climbed those steps on a convenience-store sandwich? Shameful. Sit."
+  that matters. "Eat. You climbed those steps on a convenience-store sandwich? Shameful. Sit." "Big Suit
+  thinks I'll vote for his cable car. Big Suit can carry my shopping."
 
 ## Places
 
@@ -257,7 +288,7 @@ that has nothing to do with the player.
 | `sugino_street` | Sugino Main Street | Post office, shuttered bakery (Sora's flat above), bathhouse, ropeway posters, half torn down. |
 | `ume_shop` | Kanzaki General Store | Rice balls at four, a chest freezer, the bench where the town decides things. |
 | `the_inn` | The Kawase Inn | Tadokoro's site office: ropeway drawings, a mountain model, a locked filing box. |
-| `bus_stop` | The Last Bus Stop | Last bus 19:52. The road out of the story. |
+| `bus_stop` | The Bus Stop | Last bus 19:52. The road out of the story. |
 | `mist_bridge` | The Mist Bridge | Oboro's. Rope and plank over a gorge full of mist at noon. Opens once the mist has come up the steps. |
 
 Every place has a way in. The steps connect the mountain to the town; the cedar connects to the bridge.
@@ -307,7 +338,7 @@ relationship score and no item: being pleasant for three days and never answerin
 | The Ropeway | COMMON | Sold to Tadokoro before the wall moved. |
 | Mist on the Steps | UNCOMMON | Took Oboro's deal. |
 | The Last Lantern | COMMON | Nobody answered by the forty-ninth morning. |
-| Sealed Under the Cedar | UNCOMMON | Used the keeper's ward on her. |
+| Sealed Under the Cedar | UNCOMMON | Used the keeper's ward on her under the great cedar. |
 | The Last Bus | UNCOMMON | Walked down the steps and left. Sora inherits. |
 | She Went to See the Sea | RARE | Released her from the vow, knowing why it was written. She keeps her tails and goes. |
 | Two Keepers | RARE | Kept the shrine with Sora; no wedding, no sale. |
@@ -326,7 +357,14 @@ Every archetype starts with **Ring the Bell**, so the storyteller always sees th
 | `arch_kitchen` | You Cook for a Living | Presence and Mind, Cooking; Make an Offering; three Plum Rice Balls; Sugino Town +10 |
 | `arch_local` | You Stayed Here Once | Arcana, Sight; Look Closer; the Last Keeper's Fox Charm; Sugino Town +10 |
 
+arch_local's summer was the year the player turned twenty. The storyteller reads the chosen archetype's
+summary and blurb, so neither may read as a childhood memory: no "long ago", no "you made it up". The fox
+charm was a gift at the end of that same adult summer.
+
 The archetype is fixed for the whole story and decides what the player is good at, never what they decide.
+Setup asks only for a name, pronouns, the archetype and an appearance. Production's storyteller reads only
+the archetype (plus name and pronouns for this BLANK protagonist), and appearance reaches only the portrait,
+so a "what the town knows" or "why you came up" field would be dead text before turn 1.
 
 ## Abilities and key items
 
@@ -354,10 +392,13 @@ heartfelt, up to a kiss and no further. No fan service: her tails and ears are a
 villain. Tadokoro is right about the jobs, Oboro is right that a vow is a sentence, and the fox is right that
 she is owed.
 
+No bath scenes. The bell pulls her out of a nap, never out of a bath, and the style samples the storyteller
+imitates say so. Content descriptors: Romance, Moral Ambiguity, Alcohol References (sake at the wedding rite).
+
 ## Cover direction
 
-Kuzuha alone, large in frame, at the top of mossy stone steps at dusk, perched cross-legged on a wooden
-offering box with a half-eaten sandwich in one hand, the other hand held out palm up as if waiting for an
+Kuzuha alone, large in frame and seen in full, at the top of mossy stone steps at dusk, perched cross-legged
+on a wooden offering box, her kimono and robe closed and covering her legs, with a half-eaten sandwich in one hand, the other hand held out palm up as if waiting for an
 answer. Nine tails fanned behind her like flames, three grey at the tips. Red gate and glowing stone lanterns
 behind her, cedar and blue dusk. Title "MARRIED TO THE SHRINE FOX" painted into the upper third. No other text.
 Described by costume and pose, never by age words.
@@ -367,4 +408,11 @@ Described by costume and pose, never by age words.
 No title, character or premise copied. No franchise terms. The fox-wife and the shrine are folklore and genre,
 not anyone's property; the vow, the eleven names, the lowest gate, the grey tails, Oboro's deal, the wall and
 the will are this story's own. "Kuzuha" is taken from the folklore fox-wife name, as the slate brief asked.
-The title still needs the collision search from PLAN.md §7 before release.
+
+**Collision search (PLAN.md §7, editor review).** No exact title match for "Married to the Shrine Fox" as an
+anime, webtoon or manhwa. Close genre neighbours: Kamisama Kiss (inheriting a shrine with a fox yokai),
+Kakuriyo: Bed & Breakfast for Spirits (an ancestor's debt means marrying a yokai), Kitsune no Yomeiri / Fox's
+Wedding, and Seven Seas' "Marriage to Kitsune-sama". Nothing is copied, but keep all of them out of store
+copy. "Kuzuha" is folklore (Kuzunoha) and also the stage name of a large Nijisanji VTuber, and Onmyoji has a
+Kuzunoha fox; defensible, since the name predates both. "Tadokoro" is a common surname (also Megumi's in Food
+Wars); kept because the slate in PLAN.md names him, and the editor rated it low risk.
