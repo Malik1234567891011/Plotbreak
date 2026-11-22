@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home daily feed</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
+<style>
+body{margin:0;background:#08090E}
+.d{font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-0.01em}
+.h{font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;font-size:20px;letter-spacing:-0.01em;margin:0;color:#F7F8FA}
+.serif{font-family:'Source Serif 4',Georgia,serif}
+.pin{display:inline-flex;flex:none;width:22px;height:22px;border-radius:11px;background:#FFE14D;color:#14120A;font:800 12px Inter,sans-serif;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(255,225,77,0.28)}
+.rowhead{display:flex;align-items:center;gap:8px;padding:0 16px}
+.sub{padding:3px 16px 12px;font-size:13px;color:#9AA1AF}
+.shelf{display:flex;gap:10px;padding:0 16px;overflow:hidden}
+.cv{flex:none;width:108px;display:flex;flex-direction:column;gap:5px}
+.cv .art{position:relative;width:108px;height:162px}
+.cv img{width:100%;height:100%;border-radius:10px;object-fit:cover;display:block}
+.cv .tag{position:absolute;top:6px;left:6px;height:18px;padding:0 6px;border-radius:5px;font-size:10px;font-weight:800;letter-spacing:0.06em;display:flex;align-items:center}
+.cv .t{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cv .m{font-size:12px;color:#9AA1AF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sec{margin-top:30px}
+</style>
+</helmet>
+<div style="width:390px;height:3150px;position:relative;overflow:hidden;background:#08090E;color:#F7F8FA;font-family:Inter,system-ui,sans-serif">
+  <div style="height:54px"></div>
+  <!-- Header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 16px 10px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <svg width="11" height="20" viewBox="0 0 12 22" aria-hidden="true"><path d="M0 0h8v9.5L0 13z" fill="#7C6CFF"></path><path d="M0 15.6L8 12.1V22H0z" fill="#7C6CFF"></path></svg>
+      <span class="d" style="font-size:17px;letter-spacing:0.02em">PLOTBREAK</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span style="height:30px;padding:0 10px;border-radius:15px;background:#1A1D28;font-size:13px;font-weight:700;color:#FF8FA3;display:flex;align-items:center;gap:5px"><svg width="12" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 3.5-1.5 5-1.5 7.5 0 1.3 1 2.5 2.5 2.5 2 0 3-1.7 2.6-4C18 10 20 12.6 20 15.5 20 19.6 16.4 22 12 22s-8-2.4-8-6.5C4 10 9.5 7.5 12 2z" fill="#FF4F6E"></path></svg>4</span>
+      <span style="height:30px;padding:0 10px;border-radius:15px;background:#1A1D28;font-size:13px;font-weight:700;color:#FFD475;display:flex;align-items:center">≈ 9 turns</span>
+      <button aria-label="Search" style="width:30px;height:30px;border-radius:15px;border:0;background:#1A1D28;color:#E7EAF0;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></button>
+    </div>
+  </div>
+  <!-- Chips -->
+  <div style="display:flex;gap:8px;padding:2px 16px 0;overflow:hidden">
+    <sc-for list="{{chips}}" as="c" hint-placeholder-count="6">
+      <span style="flex:none;height:34px;padding:0 14px;border-radius:17px;background:{{c.bg}};color:{{c.fg}};font-size:14px;font-weight:700;display:flex;align-items:center">{{c.t}}</span>
+    </sc-for>
+  </div>
+
+  <!-- Continue -->
+  <div style="margin-top:22px">
+    <div class="rowhead"><h2 class="h">Continue</h2><span class="pin">1</span><span style="margin-left:auto;font-size:13px;font-weight:700;color:#C9C2FF">2 waiting on you</span></div>
+    <div class="shelf" style="margin-top:12px">
+      <sc-for list="{{cont}}" as="k" hint-placeholder-count="2">
+        <div style="flex:none;width:292px;border-radius:16px;overflow:hidden;background:#12141C;border:1px solid #20243A">
+          <div style="height:146px;position:relative">
+            <img src="{{k.src}}" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%">
+            <span style="position:absolute;top:10px;left:10px;height:22px;padding:0 8px;border-radius:11px;background:#7C6CFF;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:3px;background:#fff"></span>YOUR TURN</span>
+            <span style="position:absolute;left:0;bottom:0;height:3px;width:{{k.prog}};background:#A99FFF"></span>
+          </div>
+          <div style="padding:11px 12px 12px">
+            <div class="serif" style="font-size:15px;line-height:1.42">{{k.line}}</div>
+            <div style="font-size:12px;color:#9AA1AF;margin-top:6px">{{k.meta}}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Daily claim -->
+  <div style="margin:16px 16px 0;padding:12px 14px;border-radius:14px;background:#14161F;border:1px solid #23283A;display:flex;align-items:center;gap:12px">
+    <div style="display:grid;grid-template-columns:repeat(7,10px);gap:4px">
+      <sc-for list="{{week}}" as="w" hint-placeholder-count="7"><span style="width:10px;height:10px;border-radius:3px;background:{{w}}"></span></sc-for>
+    </div>
+    <div style="flex:1;font-size:13px;line-height:1.3"><b>Day 4</b> <span style="color:#9AA1AF">· 300 free credits, about 5 turns</span></div>
+    <button style="height:32px;padding:0 12px;border-radius:16px;border:0;background:#FFC24B;color:#221800;font:800 13px Inter,sans-serif">Claim</button>
+  </div>
+
+  <!-- Featured -->
+  <div style="margin-top:26px">
+    <div class="rowhead"><h2 class="h">Featured today</h2><span class="pin">2</span><span style="margin-left:auto;font-size:12px;color:#9AA1AF">New six at midnight</span></div>
+    <div style="margin:12px 16px 0;height:440px;border-radius:20px;overflow:hidden;position:relative">
+      <img src="/_blob/5590747193352576d80e080cf8209773" alt="Good Morning, Husband key art" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,14,0.45) 0%,rgba(8,9,14,0) 22%,rgba(8,9,14,0.1) 45%,rgba(8,9,14,0.94) 100%)"></div>
+      <div style="position:absolute;top:12px;left:12px;right:12px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px">
+        <sc-for list="{{bars}}" as="b" hint-placeholder-count="6"><span style="height:3px;border-radius:2px;background:{{b}}"></span></sc-for>
+      </div>
+      <div style="position:absolute;left:16px;right:16px;bottom:16px;display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;gap:6px"><span style="height:20px;padding:0 7px;border-radius:5px;background:#FF4F6E;color:#0B0D12;font-size:10px;font-weight:800;letter-spacing:0.06em;display:flex;align-items:center">BEST FIRST STORY</span><span style="height:20px;padding:0 7px;border-radius:5px;background:rgba(255,255,255,0.14);font-size:10px;font-weight:800;letter-spacing:0.06em;display:flex;align-items:center">ROMANCE · LIGHT</span></div>
+        <div class="d" style="font-size:30px;line-height:0.98;font-stretch:125%">GOOD MORNING, HUSBAND</div>
+        <div style="font-size:14px;line-height:1.45;color:#E2E5EB">You wake up wearing a wedding ring. The woman making pancakes has been your wife for four years.</div>
+        <div style="font-size:12px;color:#B3B9C6">1.7M plays · 64% take a first turn</div>
+        <div style="display:flex;gap:10px;margin-top:2px">
+          <button style="flex:1;height:46px;border-radius:23px;border:0;background:#F7F8FA;color:#0B0D12;font:800 15px Inter,sans-serif">Play now</button>
+          <button aria-label="Save" style="width:46px;height:46px;border-radius:23px;border:0;background:rgba(255,255,255,0.14);color:#fff;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"></path></svg></button>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;padding:12px 16px 0">
+      <sc-for list="{{six}}" as="s" hint-placeholder-count="6">
+        <div style="flex:1;display:flex;flex-direction:column;gap:4px;align-items:center">
+          <img src="{{s.src}}" alt="" style="width:100%;aspect-ratio:2/3;border-radius:7px;object-fit:cover;outline:{{s.ring}};outline-offset:1px">
+          <span style="font-size:10px;font-weight:800;letter-spacing:0.05em;color:{{s.c}}">{{s.lbl}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- New on Plotbreak -->
+  <div class="sec">
+    <div class="rowhead"><h2 class="h">New on Plotbreak</h2><span class="pin">3</span></div>
+    <div class="sub">Newest first · NEW for 7 days</div>
+    <div class="shelf">
+      <sc-for list="{{fresh}}" as="c" hint-placeholder-count="4">
+        <div class="cv"><div class="art"><img src="{{c.src}}" alt=""><sc-if value="{{c.tag}}" hint-placeholder-val="{{false}}"><span class="tag" style="background:{{c.tb}};color:{{c.tf}}">{{c.tag}}</span></sc-if></div><div class="t">{{c.t}}</div><div class="m">{{c.m}}</div></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Hot -->
+  <div class="sec">
+    <div class="rowhead"><h2 class="h">Hot right now</h2></div>
+    <div class="sub">Most played in the last 72 hours</div>
+    <div class="shelf">
+      <sc-for list="{{hot}}" as="c" hint-placeholder-count="4">
+        <div class="cv"><div class="art"><img src="{{c.src}}" alt=""></div><div class="t">{{c.t}}</div><div class="m" style="color:#9FF0C9;font-weight:700">{{c.m}}</div></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Category rows -->
+  <div style="margin:34px 16px 0;padding:10px 12px;border-radius:12px;background:#12141C;border:1px dashed #2E3448;display:flex;align-items:center;gap:8px">
+    <span class="pin">4</span><span style="font-size:13px;color:#C3C9D4">Today's three genres. Tomorrow brings three others.</span>
+  </div>
+  <div style="margin-top:18px">
+    <div class="rowhead"><h2 class="h">Romance</h2><span style="margin-left:auto;font-size:13px;font-weight:600;color:#B3B9C6">13 worlds</span></div>
+    <div class="shelf" style="margin-top:12px">
+      <sc-for list="{{romance}}" as="c" hint-placeholder-count="4">
+        <div class="cv"><div class="art"><img src="{{c.src}}" alt=""></div><div class="t">{{c.t}}</div><div class="m">{{c.m}}</div></div>
+      </sc-for>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="rowhead"><h2 class="h">Mystery</h2><span style="margin-left:auto;font-size:13px;font-weight:600;color:#B3B9C6">25 worlds</span></div>
+    <div class="shelf" style="margin-top:12px">
+      <sc-for list="{{mystery}}" as="c" hint-placeholder-count="4">
+        <div class="cv" style="opacity:{{c.o}}"><div class="art"><img src="{{c.src}}" alt=""><sc-if value="{{c.tag}}" hint-placeholder-val="{{false}}"><span class="tag" style="background:#1E2232;color:#C9C2FF">{{c.tag}}</span></sc-if></div><div class="t">{{c.t}}</div><div class="m">{{c.m}}</div></div>
+      </sc-for>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="rowhead"><h2 class="h">Adventure</h2><span style="margin-left:auto;font-size:13px;font-weight:600;color:#B3B9C6">13 worlds</span></div>
+    <div class="shelf" style="margin-top:12px">
+      <sc-for list="{{adventure}}" as="c" hint-placeholder-count="4">
+        <div class="cv"><div class="art"><img src="{{c.src}}" alt=""></div><div class="t">{{c.t}}</div><div class="m">{{c.m}}</div></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Rising -->
+  <div class="sec">
+    <div class="rowhead"><h2 class="h">Rising from the community</h2><span class="pin">5</span></div>
+    <div class="sub">Made by players · most played this week</div>
+    <div class="shelf">
+      <sc-for list="{{rising}}" as="c" hint-placeholder-count="4">
+        <div class="cv"><div class="art"><img src="{{c.src}}" alt=""></div><div class="t">{{c.t}}</div><div style="display:flex;align-items:center;gap:5px"><span style="width:16px;height:16px;border-radius:8px;background:{{c.col}};color:#0B0D12;font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center">{{c.i}}</span><span class="m">{{c.m}}</span></div></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Explore -->
+  <div class="sec">
+    <div class="rowhead"><h2 class="h">All 56 worlds</h2><span style="margin-left:auto;font-size:13px;font-weight:700;color:#C9C2FF">Most played ▾</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:12px 16px 0">
+      <sc-for list="{{grid}}" as="g" hint-placeholder-count="6"><img src="{{g}}" alt="" style="width:100%;aspect-ratio:2/3;border-radius:9px;object-fit:cover;display:block"></sc-for>
+    </div>
+  </div>
+
+  <nav aria-label="Tabs" style="position:absolute;left:0;right:0;bottom:0;height:84px;background:rgba(10,11,16,0.94);border-top:1px solid #1C2030;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding-top:8px;box-sizing:border-box">
+    <sc-for list="{{nav}}" as="t" hint-placeholder-count="4">
+      <a href="#" style="display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:{{t.color}};font-size:11px;font-weight:600">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.icon}}"></path></svg>
+        {{t.label}}
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3150}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const B = (id) => '/_blob/' + id;
+    const c = (id, t, m) => ({ src: B(id), t, m, tag: '', tb: '', tf: '', o: '1' });
+    const neu = (x) => Object.assign(x, { tag: 'NEW', tb: '#FF4F6E', tf: '#0B0D12' });
+    const K = {
+      itachi: '2c7959d4b1a299084161312e9900f8ba', skin: '3416a0db0b90b4099d7f67cd88325dde', pink: 'a5df894eb812b3ae260bb4d25f67c00e', ace: '9386288eacf9575f3ff8ec0caadc3e02',
+      gmh: '6d1fe1cd0be1cfefcda919adb2131f22', hush: '5956b5ae206499d5ecf5aec97e155ce6', zero: '0516f5a024fbb030ce98c3b88117b085', nine: '2951e5eb686e1bc2ebf7ba0d427f977b',
+      light: 'e5c301f3f4c4b237f8864829a8cfae00', redmoon: 'fab983d9b20aa735acd579562ee48386', blackwake: 'af8be72b3ceaaebbda8ac0a7f366177e', archive: '1bc0a72a6a47777c52f83dae02f95a73',
+      feather: '98f7ecff04ba1dec186b14227031f8ae', understudy: '230d9d6332f28f4606ef380273f22fd1', window7: '8c6e1f5e0fa3d22be23713922f728531', sevendays: '5e17560d89e1f3630fe3cdf52fbb3aaf',
+      uncounted: '1276abfc4c8466040ff684d2170d77c0', tidewall: '827b8109463bc0462d9b904fd7385123', salt: '4257fd0beb29f94696c6bf909cc1a324', primal: '608d969c771613d6324eb40b79acbf75',
+      sevennames: '43ccdb98838150311b915d4eb1f6d813', beast: 'b6467087a952dd550366a5d8578ab2ca',
+      skill: '93a90e653a1ad02ec98b3200c255ba53', anvil: '5c61f36f9ade677f2d035281da412e73', arcana: '0d845fc84c1c1b50820959068c2fefb3', tails: '08977179e7a472506550cc810ab38c6c',
+      door: 'f55879c97a430b993475ea6a0998a22a', teeth: '8973f931bed3643166993d7a963c0b2e', gift: '5bee77c314bd9c51956ff2bd4da064a2', demon: '862d90b66419a5d600bfec03728e4167'
+    };
+    const on = { bg: '#F7F8FA', fg: '#0B0D12' }, off = { bg: '#161923', fg: '#C3C9D4' };
+    const slot = (k, lbl, color, ring) => ({ src: B(K[k]), lbl, c: color, ring });
+    return {
+      chips: [Object.assign({ t: 'For you' }, on), Object.assign({ t: 'Romance' }, off), Object.assign({ t: 'Mystery' }, off), Object.assign({ t: 'Action' }, off), Object.assign({ t: 'Fantasy' }, off), Object.assign({ t: 'School' }, off)],
+      cont: [
+        { src: B('8ab86ee609616f3dda750032e6b29452'), line: 'Sasuke is still holding the shuriken out to you.', meta: 'Itachi · beat 3 · 2 h ago', prog: '18%' },
+        { src: B('16b4c9b000e1ac3ecdda9587fadd344a'), line: 'The knocking stops. Then someone says your name.', meta: 'Hush House · beat 7 · yesterday', prog: '35%' }
+      ],
+      week: ['#7C6CFF', '#7C6CFF', '#7C6CFF', '#FFC24B', '#2A2F3F', '#2A2F3F', '#2A2F3F'],
+      bars: ['#F7F8FA', 'rgba(255,255,255,0.3)', 'rgba(255,255,255,0.3)', 'rgba(255,255,255,0.3)', 'rgba(255,255,255,0.3)', 'rgba(255,255,255,0.3)'],
+      six: [
+        slot('gmh', 'PINNED', '#FFD475', '2px solid #F7F8FA'), slot('pink', 'PINNED', '#FFD475', '0'), slot('skin', 'TODAY', '#9AA1AF', '0'),
+        slot('nine', 'TODAY', '#9AA1AF', '0'), slot('ace', 'TODAY', '#9AA1AF', '0'), slot('light', 'TODAY', '#9AA1AF', '0')
+      ],
+      fresh: [
+        neu(c(K.arcana, 'Crown of Arcana', 'Ogun Tepes · 1 d')), neu(c(K.gift, 'The Useless Gift', 'Roddy · 5 d')), neu(c(K.demon, 'Heavenly Demon System', 'Dell · 7 d')),
+        c(K.tails, 'Nine Tails at Council', 'Ila · 8 d'), c(K.door, 'The Door in Winter', 'Antonio · 10 d')
+      ],
+      hot: [c(K.skin, 'Second Skin', '▲ 412 plays'), c(K.ace, 'Ace', '▲ 388 plays'), c(K.zero, 'Zero Throne', '▲ 297 plays'), c(K.nine, 'Nine Weeks', '▲ 240 plays'), c(K.redmoon, 'Red Moon Brigade', '▲ 198 plays')],
+      romance: [c(K.window7, 'Window Seven', '684K plays'), c(K.understudy, 'The Understudy', '229K plays'), c(K.nine, 'Nine Weeks', '1.2M plays'), c(K.hush, 'Hush House', '1.6M plays'), c(K.feather, 'Last Feather', 'Studios')],
+      mystery: [c(K.light, 'Light', '1.1M plays'), c(K.sevendays, 'Seven Days to Midnight', '758K plays'), c(K.archive, 'The Ninth Archive', '262K plays'), c(K.sevennames, 'Seven Names', '425K plays'),
+        Object.assign(c(K.itachi, 'Itachi', 'You played this'), { tag: 'STARTED', o: '0.5' })],
+      adventure: [c(K.blackwake, 'Blackwake', '933K plays'), c(K.primal, 'Primal Crown', '873K plays'), c(K.salt, 'The Salt Road', '333K plays'), c(K.uncounted, 'Uncounted', 'Studios'), c(K.tidewall, 'The Tidewall', '470K plays')],
+      rising: [
+        Object.assign(c(K.skill, 'Skill Creation', 'King · 66 runs'), { i: 'K', col: '#FFD475' }),
+        Object.assign(c(K.anvil, 'The Unbothered Anvil', 'Juju · 35 runs'), { i: 'J', col: '#C9C2FF' }),
+        Object.assign(c(K.tails, 'Nine Tails at Council', 'Ila · 11 runs'), { i: 'I', col: '#9FF0C9' }),
+        Object.assign(c(K.demon, 'Heavenly Demon System', 'Dell · 4 runs'), { i: 'D', col: '#FF8FA3' }),
+        Object.assign(c(K.teeth, 'Teeth Beneath Pines', 'SSJ4Gogeta · 3 runs'), { i: 'S', col: '#8FD3FF' })
+      ],
+      grid: [B(K.gmh), B(K.pink), B(K.skin), B(K.ace), B(K.hush), B(K.zero)],
+      nav: [
+        { label: 'Home', color: '#F7F8FA', icon: 'M3 10.5L12 3l9 7.5V21h-6v-6H9v6H3z' },
+        { label: 'Library', color: '#7E8595', icon: 'M4 4h4v16H4zM10 4h4v16h-4zM16 5l3.5-1 2.5 15-3.5 1z' },
+        { label: 'Create', color: '#7E8595', icon: 'M12 3v18M3 12h18' },
+        { label: 'Profile', color: '#7E8595', icon: 'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 3.6-6 8-6s8 2 8 6' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

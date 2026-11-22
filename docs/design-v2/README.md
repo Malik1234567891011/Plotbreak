@@ -1,19 +1,19 @@
 # Design v2: redesign board
 
 **Board:** https://claude.ai/artifact/8yRDJdhfSbAQe2wxSZYgpG (private Artifact, Design canvas type)
-**Status (2026-11-21):** all 11 pages and 22 artboards are published. Design only; no Swift changed.
-Pending: the retention and feed findings from the orchestrator session, to be folded into Home and Play.
+**Status (2026-11-21):** all 11 pages and 23 artboards are published. Design only; no Swift changed.
+The retention and feed findings (`docs/retention-push-2026-11-21.md`) are folded into Home, Detail, Play and Onboarding.
 
 ## What the board proposes
 
 | Page | Biggest change | Retention lever |
 |---|---|---|
-| Home | Continue first (with the cliffhanger line), moving hero, Top 10 that resets at midnight, Moments, Characters, grid last | A reason to open tomorrow, shown today |
-| Home, first week | Welcome missions in the Continue slot; step 4 unlocks after midnight | The D1 hook |
+| Home (`HomeDaily`) | The server's daily feed: Continue above Featured; Featured is 6 daily slots, with slots 1-2 pinned from the best openers (never Itachi or Last Feather); New on Plotbreak; Hot right now (72 h); 3 genre rows that rotate daily; Rising from the community; started worlds sink | D1 play-again is 7.6%; the shelf must change daily |
+| Home, first week (`HomeToday`) | Welcome missions in the Continue slot; step 4 unlocks after midnight. Top 10, Moments and Characters are a later phase | The D1 hook |
 | Story detail | Full-bleed art, proof under the title, archetype pick on the page, first line in serif | One screen fewer before beat 1 |
-| Play | Scene card per beat, speaker portraits, editable suggestions, delta chip, "Next time" end card with a reminder | 58–66% quit by turn 3; 11/22 churned in slow loops |
+| Play | Scene card per beat, speaker portraits, editable suggestions, delta chip. Turn-10 wall as wait-or-pay ("5 free turns in 3h 59m" plus a reminder). End card quotes the lead character, shows endings found, and asks for notifications after the first cliffhanger, with a preview of the ~20 h message | Players who ran dry came back 5% of the time vs 23% with credits left |
 | Library | YOUR TURN card, tabs Playing / Saved / Finished / Endings, collection counts | Collections give a reason to replay |
-| Onboarding | Cold open on a real story, 3 vibe tiles, name + age on one screen, account ask after beat 3 | Play before forms |
+| Onboarding | Welcome with the 4 best openers, 3 vibe tiles, name + age on one screen, then straight into beat 1 of the best opener for the picks; account ask after beat 3 | 38% who finish onboarding never start a story |
 | Create | One-sentence prompt, Remix a hit, your worlds with weekly runs | Checking your numbers is a reason to come back |
 | Profile | Identity, stats, streak strip, relic vault | Visible progress |
 | Wallet | "≈ 9 turns" headline, 7-day claim calendar, free ways to earn, packs as a grid | Earning before buying |

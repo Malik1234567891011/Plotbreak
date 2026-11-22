@@ -17,40 +17,56 @@ body{margin:0;background:#08090E}
 </style>
 </helmet>
 <div style="width:390px;height:844px;position:relative;overflow:hidden;background:#08090E;color:#F7F8FA;font-family:Inter,system-ui,sans-serif">
-  <img src="/_blob/8ab86ee609616f3dda750032e6b29452" alt="" style="position:absolute;inset:0;width:100%;height:62%;object-fit:cover;object-position:50% 30%">
-  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,14,0.5) 0%,rgba(8,9,14,0.2) 20%,rgba(8,9,14,0.85) 50%,#08090E 64%)"></div>
+  <img src="/_blob/5590747193352576d80e080cf8209773" alt="" style="position:absolute;inset:0;width:100%;height:46%;object-fit:cover;object-position:50% 25%">
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,14,0.55) 0%,rgba(8,9,14,0.25) 14%,rgba(8,9,14,0.9) 34%,#08090E 46%)"></div>
 
   <div style="position:absolute;top:58px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center">
-    <span style="height:26px;padding:0 10px;border-radius:13px;background:rgba(8,9,14,0.6);font-size:12px;font-weight:700;color:#E7EAF0;display:flex;align-items:center">Beat 12 saved</span>
+    <span style="height:26px;padding:0 10px;border-radius:13px;background:rgba(8,9,14,0.6);font-size:12px;font-weight:700;color:#E7EAF0;display:flex;align-items:center">Good Morning, Husband · beat 6 saved</span>
     <span class="pin">5</span>
   </div>
 
-  <div style="position:absolute;left:20px;right:20px;top:300px;display:flex;flex-direction:column;gap:14px">
+  <!-- Cliffhanger in Hana's voice -->
+  <div style="position:absolute;left:20px;right:20px;top:176px;display:flex;flex-direction:column;gap:12px">
     <div style="display:flex;align-items:center;gap:8px"><span style="width:28px;height:3px;background:#FF4F6E"></span><span style="font-size:12px;font-weight:800;letter-spacing:0.16em;color:#FF9DB0">NEXT TIME</span></div>
-    <div class="d" style="font-size:34px;line-height:1.02">The seventh mat</div>
-    <p class="serif" style="margin:0;font-size:19px;line-height:1.5;color:#E7EAF0;font-style:italic">Your father is waiting under the seventh mat. Sasuke is still holding the shuriken out to you.</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <span style="height:28px;padding:0 10px;border-radius:14px;background:#1B1730;color:#C9C2FF;font-size:12px;font-weight:700;display:flex;align-items:center">3 choices that changed things</span>
-      <span style="height:28px;padding:0 10px;border-radius:14px;background:#12141C;color:#C3C9D4;font-size:12px;font-weight:700;display:flex;align-items:center">Sasuke trusts you more</span>
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <img src="/_blob/d6fccf9ec7e43eaac3b59a44dcd42fb0" alt="Hana" style="width:52px;height:52px;border-radius:26px;object-fit:cover;border:2px solid #FF4F6E;flex:none">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:0.06em;color:#FFB3C1">HANA</span>
+        <p class="serif" style="margin:0;font-size:20px;line-height:1.42;font-style:italic">"You looked at our wedding photo like it belonged to a stranger. I'm not asking twice. I'm asking at dinner."</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+      <div style="display:flex;gap:4px"><sc-for list="{{endings}}" as="e" hint-placeholder-count="6"><span style="width:16px;height:16px;border-radius:4px;background:{{e}};border:1px solid #2E3448"></span></sc-for></div>
+      <span style="font-size:13px;color:#B3B9C6">Endings found <b style="color:#F7F8FA">1 of 6</b></span>
+      <span style="margin-left:auto;font-size:13px;font-weight:700;color:#FF8FA3">Day 1 streak</span>
     </div>
   </div>
 
-  <div style="position:absolute;left:16px;right:16px;bottom:30px;display:flex;flex-direction:column;gap:10px">
-    <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:#14161F;border:1px solid #23283A">
-      <svg width="22" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 3.5-1.5 5-1.5 7.5 0 1.3 1 2.5 2.5 2.5 2 0 3-1.7 2.6-4C18 10 20 12.6 20 15.5 20 19.6 16.4 22 12 22s-8-2.4-8-6.5C4 10 9.5 7.5 12 2z" fill="#FF4F6E"></path></svg>
-      <div style="flex:1"><div style="font-size:15px;font-weight:700">Day 4 streak kept</div><div style="font-size:12px;color:#9AA1AF">Play tomorrow for day 5 · +300 credits waiting</div></div>
+  <!-- Notification ask -->
+  <div style="position:absolute;left:16px;right:16px;bottom:26px;display:flex;flex-direction:column;gap:12px">
+    <div style="padding:14px;border-radius:20px;background:#12141C;border:1px solid #2A3040;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:16px;font-weight:700;line-height:1.3">Want Hana to tell you when she stops waiting?</div>
+      <div style="padding:10px 12px;border-radius:16px;background:rgba(235,238,245,0.1);border:1px solid rgba(255,255,255,0.08);display:flex;gap:10px;align-items:flex-start">
+        <span style="width:30px;height:30px;border-radius:7px;background:#0B0D12;border:1px solid #2A2F3F;display:flex;align-items:center;justify-content:center;flex:none"><svg width="9" height="16" viewBox="0 0 12 22" aria-hidden="true"><path d="M0 0h8v9.5L0 13z" fill="#7C6CFF"></path><path d="M0 15.6L8 12.1V22H0z" fill="#7C6CFF"></path></svg></span>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#9AA1AF"><span style="letter-spacing:0.06em">PLOTBREAK</span><span>tomorrow, 6:10 pm</span></div>
+          <div style="font-size:14px;font-weight:700;margin-top:2px">Hana</div>
+          <div style="font-size:14px;line-height:1.35;color:#E2E5EB">The pancakes went cold an hour ago. You still owe me an answer.</div>
+        </div>
+      </div>
+      <button style="height:48px;border-radius:24px;border:0;background:#F7F8FA;color:#0B0D12;font:700 16px Inter,sans-serif">Turn on notifications</button>
+      <div style="text-align:center;font-size:14px;font-weight:600;color:#9AA1AF">Not now</div>
+      <div style="font-size:11px;line-height:1.45;color:#7E8595;text-align:center">One message, about 20 hours after you stop mid-scene. If you ignore two, they stop.</div>
     </div>
-    <button style="height:54px;border-radius:27px;border:0;background:#F7F8FA;color:#0B0D12;font:700 17px Inter,sans-serif">Keep playing</button>
-    <button style="height:50px;border-radius:25px;border:1px solid #3A3170;background:#1B1730;color:#E2DEFF;font:700 15px Inter,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 21h4"></path></svg>
-      Remind me tomorrow at 8:00 pm
-    </button>
+    <button style="height:50px;border-radius:25px;border:1px solid #3A3170;background:#1B1730;color:#E2DEFF;font:700 15px Inter,sans-serif">Keep playing · ≈ 4 turns left</button>
   </div>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
 class Component extends DCLogic {
-  renderVals() { return {}; }
+  renderVals() {
+    return { endings: ['#FFC24B', '#14161F', '#14161F', '#14161F', '#14161F', '#14161F'] };
+  }
 }
 </script>
 </body>
