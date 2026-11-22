@@ -46,7 +46,7 @@ Three to five days at Stillwater Convent and the country around it, starting at 
 - **Esterre** is a kingdom. Its capital, **Aubrais**, is a river city of bridges. The north, the mountain passes and the fortress of **Hollowfell** belong to the **Grand Dukes Ardent**.
 - **The Oathfire.** Three hundred years ago the first Ardent swore an oath with fire to hold the passes. Every Grand Duke since carries it: flame leans toward him when he enters a room, he can set alight what he can see, and he can put out any fire he has lit. It burns him to use it. A Grand Duke who calls it at full strength twice in one season does not survive the second time. Lucien's father died that way.
 - **The Banked Word.** The first Duchess Ardent took the veil at Stillwater as a widow and wrote in her psalter a word that, spoken by the person the Grand Duke is betrothed or married to, puts out every fire he has lit and holds his fire quiet for a day. The player is still that person. Nobody has told them.
-- **Stillwater** is a convent on a mountain lake, forty sisters and an infirmary, with a house rule older than the crown: nobody may be taken out through its gate by force, by king or duke, and no armed man crosses its threshold uninvited. A guest is sheltered only while the sisters keep them; a novice who takes the grey veil is sheltered absolutely, for a year and a day.
+- **Stillwater** is a convent on a mountain lake, forty sisters and an infirmary, with a house rule older than the crown: nobody may be taken out through its gate by force, by king or duke, and no armed man crosses its threshold uninvited. A guest is sheltered only while the sisters keep them, and wears the white **guest's cord** the prioress ties at the wrist until the prioress cuts it; a novice who takes the grey veil is sheltered absolutely, for a year and a day.
 - **Mossford** is the village at the foot of the lake, one inn, a ferry and a road south.
 
 ## What happened before the story
@@ -116,7 +116,7 @@ The slate row has "everything you ran to". It ships as "everything you ran from"
 
 ### Grand Duke Lucien Ardent, 29, the man you were promised to
 **Role:** the romantic lead, the most feared man in Esterre, and the man everyone says burned the capital looking for you.
-**Look:** tall and lean, short black hair falling into pale grey eyes, a long black riding coat with ash in the seams, black gloves he never takes off. Candle flames lean toward him.
+**Look:** tall and lean, short black hair falling into pale grey eyes, a long black riding coat with ash in the seams over a high-collared charcoal tunic, black gloves he never takes off. Candle flames lean toward him.
 **Wants:** an answer from you that you mean; to keep the crown's army off the north, by himself if necessary; to write to all nine families.
 **Fears:** that you only ever saw the fire and never him; burning out in front of you; becoming his father.
 **Will not:** take you anywhere by force or let anyone else; cross the convent threshold uninvited; pretend the nine dead were somebody else's fault.
@@ -127,7 +127,7 @@ The slate row has "everything you ran to". It ships as "everything you ran from"
 
 ### Prince Remy, 26, the one who helped you run
 **Role:** the King's second son, the rival, and the real author of the fire.
-**Look:** slight and golden-haired, warm brown eyes, a travelling coat too good for the road, a royal signet ring turned inward so the crest does not show.
+**Look:** slight and golden-haired, warm brown eyes, a deep green travelling coat with gold buttons too good for the road, a royal signet ring turned inward so the crest does not show.
 **Wants:** you on his boat and down the river before the third dawn; Lucien condemned, with your testimony if possible; the northern passes, which the King has promised to whichever son brings him the traitor who burned the capital: the first thing the spare has ever been able to win.
 **Fears:** that the nine dead are his; being found out by you in particular; going back to being nobody at his father's table.
 **Will not:** raise a hand himself; say the word "writ" out loud if he can help it; leave without you while he still has a move.
@@ -256,11 +256,13 @@ Twelve, so the narrator reads every one. Four rarities. Three are plain losses.
 
 ## Archetypes (how you were raised)
 
-Characterisation, not identity; the player names themselves.
-- **You Kept the House Books:** letters and law. Mind, the old betrothal law, your family seal.
-- **You Ride and Fence:** riding and blade. A horse in the convent stable and a knife you know how to use.
-- **The Court's Favourite:** social and court. Every smile and every lie, and three pearl hairpins worth a horse each.
-- **Taught by Canonesses:** lore and healing. The house rule, the old psalms, the infirmary; the sisters like you.
+Characterisation, not identity; the player names themselves. Every background starts with both answers to his question, **Tell Him No** and **Take His Hand**, plus one move of its own, because the chosen archetype's starting abilities are the only abilities the storyteller reads.
+- **You Kept the House Books:** letters and law. Mind, the old betrothal law, your family seal. Own move: **Name Your Terms**.
+- **You Ride and Fence:** riding and blade. A horse in the convent stable and a knife you know how to use. Own move: **Slip Away**.
+- **The Court's Favourite:** social and court. Every smile and every lie, and three pearl hairpins worth a horse each. Own move: **Lie Like a Courtier**.
+- **Taught by Canonesses:** lore and healing. The house rule, the old psalms, the infirmary; the sisters like you. Own move: **Claim Sanctuary**.
+
+None of the four background names appears in hard canon, the premise or the cast, so the storyteller treats the other three as unreal.
 
 ## State (three invisible resources)
 
@@ -268,9 +270,18 @@ Characterisation, not identity; the player names themselves.
 - **Pursuit** (descending, first): how close the crown is. Public violence raises it first.
 - **Smoulder** (descending): how close his fire is to the surface. Drawing a knife on him, or forcing him to face the nine, raises it; nothing you say by way of "no" does.
 
+The storyteller never reads resources, so each one also has a hard-canon line in plain words: what wears the player down and what puts it back (sleep, a meal, Agathe's willow-bark tea); that the crown closes in whatever anybody does and anything loud brings it faster; and that his fire answers to provocation, never to refusal.
+
+## The system, where the storyteller reads it
+
+Production's `runTurnPure` reads hard canon, quest items and the chosen archetype's starting abilities, and nothing else of the rules. So:
+- **Hard canon** carries the Oathfire and the Banked Word, the house rule, the clock, how the three pressures move, the pacing of every secret and the 13+ line.
+- **The guest's cord** is a quest item the player starts wearing: the house rule made into an object. While they wear it nobody takes them out through the gate by force; only the prioress can cut it; trading it for the grey veil makes the shelter absolute; taking it off and walking out makes it only a cord. It is also the shape of Agathe's dilemma: the Archbishop's order is, in effect, an order to cut it.
+- **Starting abilities** put both answers in front of the storyteller for every background, and a no always works and never feeds his fire.
+
 ## Pacing, where production reads it
 
-`runTurnPure` sends each secret's `fact` but never its `revealHint`, sends quests as title and summary only, and never sends a step's `directorNotes`. So the rules that pace this story live in the tone guide and in world-event notes, which it does read:
+`runTurnPure` sends each secret's `fact` but never its `revealHint`, sends quests as title and summary only, and never sends a step's `directorNotes`. So the rules that pace this story live in hard canon and in world-event notes, which it does read. (They used to sit in the tone guide; the tone guide is also the cover's mood text, so it now says only how the story feels.)
 - He takes a glove off only for somebody who has asked about him rather than the fire, and never on the first night.
 - Agathe opens the psalter only for somebody who already knows about his hands.
 - Remy admits the writ only with the writ or the empty case in front of him. His part in the fire is the central secret and surfaces only through evidence the player finds, never through narration or somebody guessing.
@@ -284,10 +295,26 @@ The cast cards are shown on the story page and read by the storyteller as public
 
 Romance up to a kiss. No sexual content, no nudity, no lingering on bodies. The fire is shown by smoke, bells, ash and the colour of the sky; burns by bandages and how somebody holds a cup, never the wound. The nine dead are named and grieved, not described. Lucien's obsession is in what he did and how he speaks, never in taking: he asks, every time.
 
+This line is in hard canon, where the storyteller reads it on every turn. The tone guide carries none of it, because the cover generator reads the tone guide as mood text and an image model takes "kiss", "wound" or "knife" as subject matter.
+
 ## Protagonist
 
 BLANK. The player names themselves; the pronouns placeholder is she/her, since the slate pitches a runaway noblewoman, and nothing in the fixture depends on it. Characters address the player by name or by "Your Grace-that-was-going-to-be" (Ottilie), never by a gendered title in authored text.
 
 ## Cover direction
 
-Lucien in the chapel doorway at night, gloved hand held out with a ring in the palm, smoke lifting off his coat, every candle leaning toward him; through the door behind him, an orange glow on the horizon. Title HE BURNED THE CAPITAL painted into the upper third. Effects on objects, never on faces.
+Lucien in the chapel doorway at night, waist up and close, gloved hand held out with a ring in the palm, smoke lifting off his coat, every candle leaning toward him; through the door behind him, an orange glow on the horizon. He is described by build, hair, coat, gloves and pose, never by an age word. HIS FACE STAYS CLEAN: every flame, ember and glow stays on the candles, the smoke, the ring, the horizon and the title.
+
+The `TITLE:` line owns the lettering: the title He Burned the Capital in the upper third, above his head, as an elegant high-contrast serif logo in capitals on two lines (HE BURNED, then THE CAPITAL larger), ivory-white with a thin black outline and a soft ember-orange glow along the lower edges, a few small sparks drifting off the last line, spelled exactly HE BURNED THE CAPITAL. No other text anywhere.
+
+## Opening panel
+
+`story_he_burned_the_capital/opening`. The alt starts with **Lucien**, so his portrait is the panel's reference image: he speaks the line the opener ends on.
+
+> Lucien, the Grand Duke, black-gloved in a smoke-dark coat, holds a red-gold ring out on his palm in a candlelit chapel doorway, every flame leaning to him, a nun in grey between him and you.
+
+His fixture name begins with his title, so `story-checks.ts` (which compares the alt to the first word of each name, "Grand") prints a WARN. The panel tool still resolves him: its second pass matches "Grand" inside the alt, and he is cast first. The spec runs the tool's selection logic and pins the result to Lucien.
+
+## Release
+
+No prologue: the story opens straight on the scene. `publishedAt` is null until release.

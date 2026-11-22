@@ -37,6 +37,16 @@ import { StoryVersion } from '@plotbreak/contracts';
  * fight in a convent is exactly what brings the crown. Smoulder is how close
  * his fire is to the surface, and nothing the player says by way of "no"
  * raises it.
+ *
+ * The system has to live where the storyteller can read it. Production runs
+ * `runTurnPure`, which never sees resources, revealHints, step notes or any
+ * ability except the chosen archetype's starting ones. So how each of the
+ * three pressures moves, when each secret comes out, and the 13+ line are all
+ * hard canon; the player starts wearing the guest's cord, a quest item that
+ * carries the house rule; and every archetype starts with both answers to his
+ * question plus one move of its own. The tone guide is also the cover's mood
+ * text, so it says how the story feels and nothing about knives, wounds or
+ * where the romance stops.
  */
 
 const raw = {
@@ -83,34 +93,39 @@ const raw = {
     startingItems: [
       { itemId: 'mothers_knife', qty: 1 },
       { itemId: 'travel_purse', qty: 1 },
+      { itemId: 'guests_cord', qty: 1 },
     ],
     hardCanon: [
       'Everyone in this story is an adult. The player is twenty-two. Grand Duke Lucien Ardent is twenty-nine, Prince Remy twenty-six, Mara Ferrand twenty-four, Sister Agathe sixty-one, Captain Ottilie Ferrand thirty-six and Justiciar Isaure Dane forty-eight. Everybody else who appears or is mentioned is an adult too: the King and his elder son, the Archbishop, the riders, the sisters and novices, the villagers and the burned from the capital. No children appear in this story.',
       'Esterre is a kingdom; its capital, Aubrais, is a river city of bridges. The northern passes and the fortress of Hollowfell belong to the Grand Dukes Ardent. Stillwater is a convent of forty sisters with an infirmary, on a mountain lake a day’s ride north of the capital. Mossford is the village at the foot of the lake.',
       'A year ago, by royal decree, the player was betrothed to Grand Duke Lucien Ardent and wore his family’s betrothal ring at a rite in the capital. The decree was the crown’s way of binding the north to it.',
       'Nineteen days before the story begins, eleven days before the wedding, the player ran, with their maid Mara Ferrand. Prince Remy, the King’s second son, paid for the horses and chose Stillwater. The player left the betrothal ring on a pillow and has been a guest of the convent under a borrowed name ever since.',
-      'The player carries their mother’s knife, a slim horn-handled blade and the one thing of hers they took when they ran, and the purse Prince Remy pressed on them that night, with eleven gold crowns left in it.',
+      'The player carries their mother’s knife, a slim horn-handled blade and the one thing of hers they took when they ran; the purse Prince Remy pressed on them that night, with eleven gold crowns left in it; and, knotted at the wrist, the white guest’s cord Sister Agathe tied the night they arrived.',
       'Under the old law, breaking a royal betrothal is defiance of the crown. The King signed a Writ of Forfeiture: unless the player returned within a month, they would be tried for treason and their family’s lands forfeit. The player learned of it from Remy’s letter four days ago.',
       'Three nights before the story begins, Lucien set fire to the Hall of Seals in Aubrais, where the crown keeps its writs, to destroy that writ. He rang the alarm bells himself first. The wind took the fire across the upper city: the Hall, the Exchequer, the palace’s west wing and the Street of Lamps. He held it off the river quarter for six hours until he collapsed and Captain Ottilie carried him out. Nine people died. Thousands lost their homes.',
       'The Ardent line carries the Oathfire, an oath sworn with fire three hundred years ago: candle flames lean toward the Grand Duke when he comes into a room, he can set alight anything he can see, and he can put out any fire he has lit. It burns him to use it. He called it at full strength in the capital; his hands are burned to the wrist under his gloves, and a second full calling this season would very likely kill him, as it killed his father. Only Ottilie knows that for certain; Sister Agathe, who nursed his father, has guessed it from the gloves.',
       'The first Duchess Ardent took the veil at Stillwater as a widow and wrote in her psalter, now in the bell-tower book chest, the Banked Word: spoken by the person the Grand Duke is betrothed or married to, it puts out every fire he has lit and holds his fire quiet for a day. The player is still that person. Nobody has told them.',
       'The writ was never in the Hall of Seals. Prince Remy took it out the day before the fire, then told Lucien where it was kept, wanting him to burn the Hall and be ruined for it. The writ is folded in four in Remy’s saddlebag at the inn in Mossford. Justiciar Isaure Dane has dug the writ’s iron case out of the ashes: locked, unburned and empty.',
-      'Stillwater’s house rule: nobody may be taken out through its gate by force, by king or duke, and no armed man crosses its threshold uninvited. A guest is sheltered only while the sisters choose to keep them. A novice who takes the grey veil is sheltered absolutely, for a year and a day.',
+      'Stillwater’s house rule: nobody may be taken out through its gate by force, by king or duke, and no armed man crosses its threshold uninvited. A guest is sheltered only while the sisters choose to keep them, and wears the guest’s cord the prioress ties until the prioress cuts it. A novice who takes the grey veil is sheltered absolutely, for a year and a day.',
       'Lucien will not take the player anywhere by force and will not let anybody else do it. If the player tells him no and means it, he accepts it. His private plan, if that happens, is to give himself up to the Justiciar so the crown has its traitor and the army never marches on the north.',
       'Mara Ferrand is Captain Ottilie Ferrand’s younger sister and has written to her every week since the player ran, so that somebody would know where they were. That is how Lucien found the player. He knew for twelve days and did not come, until the fire made it urgent.',
       'The crown says Lucien burned the capital in a jealous rage hunting his runaway betrothed. It has declared him a traitor and is mustering an army to march north on the fourth morning. Justiciar Isaure Dane rides ahead of it with forty riders and a warrant for them both, and reaches Stillwater’s gate at seven on the second morning.',
       'Sister Agathe holds an order from the Archbishop: surrender the player to the crown, or Stillwater loses its charter, its infirmary and its forty sisters’ home. She has not decided and has told nobody.',
+      'The player is running on very little. Hard conversations, lies, running and long hours in the infirmary wear them down; a night’s sleep, a meal or a bowl of Agathe’s willow-bark tea puts it back. Worn out, they cannot lie convincingly or hold a line under a stare, and they agree to things to make a conversation stop.',
+      'The crown closes in whatever anybody does: torches on the south road before the second dawn, the Justiciar at the gate at seven, the army on the fourth morning. Anything loud brings it faster: a fight inside the walls, a chase through Mossford, a fire, a sighting at the ferry. Inside the gate the house rule holds the riders off; outside it, every trip is watched and reported, and by the second day the Mossford road and the ferry are held.',
+      'Lucien’s fire answers to provocation, never to refusal. A knife drawn on him, a lie told to his face, or being made to go through the nine again brings it closer to the surface: candles gutter toward him, the air near him turns warm in a cold room, and Ottilie stays within arm’s reach of him. A plain no never does. Left alone it settles, and at rest he is dry, gentle and unguarded. At the very edge, anybody who threatens the player is in real danger, and so is he.',
+      'Secrets come out when the player earns them, not when a scene goes slow. Lucien takes a glove off only for somebody who has asked about him rather than about the fire, and never on the first night. Sister Agathe opens the psalter only for somebody who already knows about his hands. Prince Remy admits the writ only with the writ or the empty case in front of him. Mara confesses the letters when she is asked straight how he found the player.',
+      'Remy’s part in the fire is the story’s central secret. Nobody but Remy knows it at the start, and it surfaces only through evidence the player finds (the saddlebag, the empty case, Mara’s note), never through narration or another character guessing.',
+      'A yes does not mean riding tonight: the pass is two days away, his riders are spent, and carrying off a person named in a crown warrant is the war he came to prevent, so a yes keeps everybody at Stillwater through the first night.',
+      'If the player draws a knife on him, he does not defend himself and does not let his riders do it for him.',
+      'Romance here can be flirtatious, tense and heartfelt, up to a kiss, and no further. No sexual content, no undressing, no lingering on bodies. The fire is shown by smoke, bells, ash and the colour of the sky; the burned by bandages, coughs and what they carried out, never the wound. The nine are named and grieved, never described.',
     ],
     toneGuide:
       'Romance fantasy with a court mystery underneath, played close and specific: candle flames, wet stone, the smell of smoke on wool, a bucket handed over a threshold. ' +
       'Lucien is frightening because of what he did and how still he is, never because he takes anything. He asks, every time, and a no is honoured on the page. His devotion shows in what he has already done and in what he refuses to do. ' +
-      'The fire is a real moral weight. Nine people died and nobody in this story is allowed to make that cosy, including the player’s love interest. The burned are shown through bandages, coughs and what they carried out, never the wound. ' +
-      'Romance can be flirtatious, tense and heartfelt, up to a kiss, and no further. No sexual content, no undressing, no lingering on bodies. ' +
-      'Remy is warm and funny and his argument against Lucien is a good one; let the player like him. Jokes land, mostly from Agathe and Ottilie. If a scene has nothing at stake, keep it short. The face at the top of a beat is Lucien’s whenever he is in the scene. ' +
-      'Secrets come out when the player earns them, not when a scene goes slow: he takes a glove off only for somebody who has asked about him rather than the fire, and never on the first night; Agathe opens the psalter only for somebody who already knows about his hands; Remy admits the writ only with the writ or the empty case in front of him; Mara confesses the letters when asked straight how he found the player. ' +
-      'Remy’s part in the fire is the story’s central secret. Nobody but Remy knows it at the start, and it surfaces only through evidence the player finds (the saddlebag, the empty case, Mara’s note), never through narration or another character guessing. ' +
-      'A yes does not mean riding tonight: the pass is two days away, his riders are spent, and carrying off a person named in a crown warrant is the war he came to prevent, so a yes keeps everybody at Stillwater through the first night. ' +
-      'If the player draws a knife on him he does not defend himself and does not let his riders do it for him.',
+      'The fire is a real moral weight, and nobody in this story is allowed to make it cosy, including the man who lit it. ' +
+      'Slow-burn and heartfelt: a held look across a threshold, a coat put round somebody’s shoulders, one true sentence said badly. ' +
+      'Remy is warm and funny and his argument against Lucien is a good one; let the player like him. Jokes land, mostly from Agathe and Ottilie. If a scene has nothing at stake, keep it short. The face at the top of a beat is Lucien’s whenever he is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
       "The camp fire leans toward him when he sits down. He does not seem to notice. He stopped noticing years ago, the way other people stop noticing their own heartbeat.\n\n\"Ask,\" he says.\n\n\"How many?\"\n\n\"Nine.\" No pause. \"A baker. Two clerks from the Exchequer. A lamplighter and his grown son.\" He keeps going until there are nine, and then he stops, and his gloved hands stay very still on his knees.\n\n\"You could have lied.\"\n\n\"To you?\" He looks at you then. \"No. I could not.\"",
@@ -304,6 +319,18 @@ const raw = {
       questItem: true,
       description: 'A novice’s plain grey veil, folded on the altar rail. Whoever takes it and says the vow is sheltered absolutely by the house rule, for a year and a day.',
       loreText: 'Nobody who wore it has ever been taken out through Stillwater’s gate. A king tried, once, and the chronicle records only that he went home.',
+      icon: 'cloth',
+    },
+    {
+      id: 'guests_cord',
+      name: 'The Guest’s Cord',
+      tags: ['quest', 'vow'],
+      questItem: true,
+      droppable: true,
+      description:
+        'A plain white linen cord knotted round your wrist, with one wooden bead cut with Stillwater’s mark, a ring of still water. Sister Agathe tied it the night you arrived under a borrowed name, and every sister in the house knows what it means.',
+      loreText:
+        'While you wear it, the house rule stands between you and everybody outside the gate: nobody takes you out through it by force, and no armed man crosses the threshold to reach you uninvited. Only the prioress can cut it, and a guest is sheltered only for as long as the sisters choose to keep them. Trade it for the grey veil and the shelter is absolute for a year and a day. Take it off and walk out of the gate, and it is only a cord.',
       icon: 'cloth',
     },
     {
@@ -917,7 +944,7 @@ const raw = {
         'Tell me no and I will go. I will hate it. You will never have to watch how much.',
       ],
       appearance:
-        'An adult man, tall and lean, short black hair falling into pale grey eyes, a long black riding coat with ash in every seam, black leather gloves buttoned at the wrist.',
+        'An adult man, tall and lean, short black hair falling into pale grey eyes, a long black riding coat with ash in every seam over a high-collared charcoal tunic buttoned to the throat, and black leather gloves buttoned at the wrist.',
       visualHook: 'Black gloves he never takes off, and candle flames that lean toward him when he walks into a room.',
       silhouette: 'Tall in a doorway, one gloved hand held out palm up, the other at his side.',
       artSeed: 'hbtc-lucien-01',
@@ -1026,7 +1053,7 @@ const raw = {
         'You always did read the last page first. Fine. Ask me.',
       ],
       appearance:
-        'An adult man, slight and golden-haired, warm brown eyes, a travelling coat far too good for the road, a royal signet ring turned inward on his finger.',
+        'An adult man, slight and golden-haired, warm brown eyes, an easy smile, a deep green travelling coat with gold buttons far too good for the road, and a royal signet ring turned inward on his finger.',
       visualHook: 'A royal signet ring he wears turned palm-side so the crest does not show.',
       silhouette: 'Leaning in a boathouse doorway, lantern held up, smiling at whoever is coming.',
       artSeed: 'hbtc-remy-01',
@@ -2099,7 +2126,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { letters: 3, insight: 1, steel: 1 },
       startingItems: [{ itemId: 'family_seal', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['say_no', 'take_his_hand', 'set_terms'],
       startingReputation: [],
     },
     {
@@ -2112,7 +2139,7 @@ const raw = {
       attributeBonus: { agility: 2, might: 2 },
       skillProficiencies: { riding: 3, knifework: 2 },
       startingItems: [{ itemId: 'grey_mare', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['say_no', 'take_his_hand', 'slip_away'],
       startingReputation: [{ factionId: 'faction_ardent', amount: 5 }],
     },
     {
@@ -2125,7 +2152,7 @@ const raw = {
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { court_face: 3, insight: 2 },
       startingItems: [{ itemId: 'pearl_pins', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['say_no', 'take_his_hand', 'lie_smoothly'],
       startingReputation: [{ factionId: 'faction_crown', amount: 10 }],
     },
     {
@@ -2138,7 +2165,7 @@ const raw = {
       attributeBonus: { arcana: 3, mind: 1 },
       skillProficiencies: { old_lore: 3, nursing: 2 },
       startingItems: [{ itemId: 'chapel_beads', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['say_no', 'take_his_hand', 'claim_sanctuary'],
       startingReputation: [{ factionId: 'faction_stillwater', amount: 10 }],
     },
   ],
@@ -2367,7 +2394,7 @@ const raw = {
     "Every candle in the chapel leans toward the door at once.\n\nSister Agathe stops mid-psalm and steps in front of you. \"Stay behind me,\" she says, low. \"That’s him.\"\n\nThe man you were promised to stands in the doorway. Gloved. Ash on his collar. Smoke lifting off his coat into the cold.\n\nThree nights ago the sky to the south turned orange until dawn. Every rider since has said the same thing: the capital burned, and he was looking for you.\n\nHe has already found you behind her.\n\n\"You ran,\" he says. \"So I burned everything you ran from.\"\n\nHe holds out his hand. Your betrothal ring lies in the palm.\n\n\"Come home. Or tell me no.\"",
   openingPanel: {
     assetKey: 'story_he_burned_the_capital/opening',
-    alt: 'A tall gloved man in a smoke-dark coat stands in a candlelit chapel doorway, holding out a ring in his palm, while a grey-habited nun stands between him and you.',
+    alt: 'Lucien, the Grand Duke, black-gloved in a smoke-dark coat, holds a red-gold ring out on his palm in a candlelit chapel doorway, every flame leaning to him, a nun in grey between him and you.',
   },
   openingSuggestions: [
     '"No. Not until you tell me how many people died."',
@@ -2375,17 +2402,20 @@ const raw = {
     'I bolt for the side door and the boats on the lake.',
   ],
   coverDirection: [
-    'SUBJECT: Grand Duke Lucien Ardent, a tall lean man with short black hair falling into pale grey eyes, alone and unmistakable in the foreground of a key visual for a romance fantasy anime.',
-    'He stands in the arched west doorway of a stone convent chapel at night, filling the frame from the knees up, centred and close.',
-    'He wears a long black riding coat with grey ash in its seams and black leather gloves. Thin smoke lifts off the shoulders of the coat into the cold air.',
-    'One gloved hand is held out toward the viewer, palm up, and in the palm lies a dark red-gold ring.',
-    'His face is calm, intent and a little sad, looking straight at the viewer as if waiting for an answer.',
-    'BEHIND HIM, through the open door, a dark mountain landscape with a faint orange glow on the far horizon where a city burned.',
-    'AROUND HIM, rows of chapel candles in the foreground and at the edges, every flame leaning toward him.',
-    'LIGHT: warm gold candlelight on him from the front, cold blue night behind, the orange glow on the horizon.',
-    'HIS FACE STAYS CLEAN: no glow, sparks, marks or fire effects on his face or skin. The fire effects stay on the candles and the smoke.',
-    'TITLE: the words HE BURNED THE CAPITAL painted into the art in the upper third as an elegant bold serif logo, warm white with a thin ember-orange glow, large and legible at thumbnail size.',
-    'No other text anywhere.',
+    'SUBJECT: Grand Duke Lucien Ardent, alone and unmistakable in the foreground of a key visual for a romance fantasy anime about a man who burned a city and is now asking.',
+    'He stands in the arched west doorway of a stone convent chapel at night and fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'Tall and lean, short black hair falling into pale grey eyes, a long black riding coat with grey ash in its seams over a high-collared charcoal tunic buttoned to the throat, and black leather gloves buttoned at the wrist.',
+    'One gloved hand is held out toward the viewer, palm up, and in the palm lies a dark red-gold ring that catches the candlelight in one bright glint; the other hand rests on the stone of the door frame.',
+    'Thin grey smoke lifts off the shoulders of the coat into the cold air.',
+    'His expression is calm, intent and a little sad, lips closed, looking straight at the viewer as if he has asked a question and is waiting for the answer.',
+    'AROUND HIM, rows of tall chapel candles in the foreground and along the edges of the frame, every flame leaning toward him.',
+    'BEHIND HIM, soft and secondary, through the open door: a dark mountain landscape under a cold blue night sky, and a faint orange glow on the far horizon where a city burned.',
+    'LIGHT: warm gold candlelight on him from the front and cold blue night behind, so he is rimmed in gold against the dark.',
+    'HIS FACE STAYS CLEAN: no glow, sparks, embers, ash, marks or fire effects on his face or skin.',
+    'Every flame, ember and glow stays on the candles, the smoke, the ring, the horizon and the title, never on his face.',
+    'TITLE: the title He Burned the Capital painted into the art in the upper third, above his head, as an elegant high-contrast serif logo set in capitals on two lines,',
+    'HE BURNED on the first line and THE CAPITAL larger on the second, warm ivory-white letters with a thin black outline and a soft ember-orange glow along their lower edges, a few small sparks drifting up off the last line,',
+    'spelled exactly HE BURNED THE CAPITAL, large and legible at thumbnail size. No other text anywhere: nothing written on the ring, the door, the candles or the sky.',
   ].join(' '),
   publishedAt: null,
 };

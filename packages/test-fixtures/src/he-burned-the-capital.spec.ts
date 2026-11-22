@@ -208,8 +208,13 @@ describe('he takes no for an answer', () => {
   });
 
   it('keeps the romance at a kiss and the fire off the wound', () => {
-    expect(S.rules.toneGuide).toMatch(/up to a kiss, and no further/);
-    expect(S.rules.toneGuide).toMatch(/never the wound/);
+    // Hard canon, not the tone guide: the tone guide is also the cover's mood
+    // text, and the image model reads "kiss" or "wound" as subject matter.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/up to a kiss, and no further/);
+    expect(canon).toMatch(/No sexual content, no undressing, no lingering on bodies/);
+    expect(canon).toMatch(/never the wound/);
+    expect(S.rules.toneGuide).not.toMatch(/\b(kiss\w*|sexual|undress\w*|body|bodies|lingering|wound\w*|knife|knives|blood|dead|died|danger)\b/i);
     expect(S.intensity).not.toBe('INTENSE');
   });
 });
@@ -240,12 +245,13 @@ describe('the rumour has a real answer under it', () => {
 
   it('tells the storyteller when the secrets come out, where it actually reads', () => {
     // runTurnPure sends secret facts and world-event notes but never a
-    // revealHint or a step's directorNotes, so the pacing lives in the tone.
-    const tone = S.rules.toneGuide;
-    expect(tone).toMatch(/never on the first night/);
-    expect(tone).toMatch(/A yes does not mean riding tonight/);
-    expect(tone).toMatch(/does not defend himself/);
-    expect(tone).toMatch(/central secret/);
+    // revealHint or a step's directorNotes, so the pacing lives in hard canon.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/never on the first night/);
+    expect(canon).toMatch(/A yes does not mean riding tonight/);
+    expect(canon).toMatch(/does not defend himself/);
+    expect(canon).toMatch(/central secret/);
+    expect(canon).toMatch(/Mara confesses the letters when she is asked straight/);
     const hands = S.worldEvents.find((e) => e.id === 'we_his_hands')!;
     expect(hands.directorNotes).toMatch(/^Only after the player has sat at his fire/);
   });
@@ -335,6 +341,7 @@ describe('everybody on the page is an adult, on the page', () => {
       expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
     }
     expect(S.coverDirection).not.toMatch(AGE_WORDS);
+    expect(S.openingPanel!.alt).not.toMatch(AGE_WORDS);
   });
 });
 
@@ -774,5 +781,95 @@ describe('the art it will ask for', () => {
     expect(S.coverDirection).toContain('HE BURNED THE CAPITAL');
     expect(S.coverDirection).toMatch(/HIS FACE STAYS CLEAN/);
     expect(S.coverDirection).toMatch(/No other text anywhere/);
+  });
+
+  it('paints the title on its own TITLE line, with its style, its place and its exact spelling', () => {
+    const cover = S.coverDirection!;
+    expect(cover.match(/TITLE:/g)).toHaveLength(1);
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(title).toContain('He Burned the Capital');
+    expect(title).toContain('spelled exactly HE BURNED THE CAPITAL');
+    expect(title).toMatch(/upper third/);
+    expect(title).toMatch(/serif logo/);
+    expect(cover.startsWith('SUBJECT: Grand Duke Lucien Ardent')).toBe(true);
+  });
+
+  it('keeps every effect on the candles, the smoke and the title, never on his face', () => {
+    const cover = S.coverDirection!;
+    expect(cover).toMatch(/never on his face/);
+    expect(cover).not.toMatch(/\b(sexy|alluring|shirtless|bare-chested|muscular|blood\w*|wound\w*|corpse\w*)\b/i);
+  });
+
+  it('draws the opening panel from the portrait of the man who asks the question', () => {
+    const panel = S.openingPanel!;
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    expect(panel.alt.startsWith(`${calledName(character('lucien'))}, `)).toBe(true);
+    // He speaks the line the opener ends on.
+    expect(S.opening.trim().endsWith('"Come home. Or tell me no."')).toBe(true);
+    // infra/scripts/opening-panel-art.ts picks the reference portrait like this.
+    // His name starts with a title, so it is the second pass that finds him:
+    // he is cast first and the alt names him "the Grand Duke".
+    const first = (name: string) => name.split(' ')[0]!;
+    const reference =
+      S.characters.find((c) => panel.alt.toLowerCase().startsWith(first(c.name).toLowerCase())) ??
+      S.characters.find((c) => panel.alt.includes(first(c.name))) ??
+      S.characters.find((c) => c.cardBlurb.trim().length > 0);
+    expect(reference?.id).toBe('lucien');
+  });
+
+  it('gives every carded character a concrete appearance to draw from', () => {
+    for (const c of S.characters) {
+      if (c.cardBlurb.trim()) expect(c.appearance.length, c.id).toBeGreaterThan(120);
+    }
+  });
+
+  it('opens straight on the scene and ships unpublished', () => {
+    expect(S.prologue).toEqual([]);
+    expect(S.publishedAt).toBeNull();
+  });
+});
+
+describe('the system lives where the storyteller can read it', () => {
+  // Production's storyteller reads hard canon, quest items and the chosen
+  // archetype's starting abilities. It never reads resources, revealHints,
+  // step notes or the rest of the ability list.
+
+  it('starts the player wearing the guest’s cord, a quest item that carries the house rule', () => {
+    expect(S.rules.startingItems.map((i) => i.itemId)).toEqual(['mothers_knife', 'travel_purse', 'guests_cord']);
+    const cord = S.items.find((i) => i.id === 'guests_cord')!;
+    expect(cord.questItem).toBe(true);
+    expect(cord.loreText).toMatch(/nobody takes you out through it by force/);
+    expect(cord.loreText).toMatch(/Only the prioress can cut it/);
+    expect(cord.loreText).toMatch(/grey veil/);
+    expect(S.rules.hardCanon.join(' ')).toMatch(/the white guest’s cord Sister Agathe tied/);
+    expect(start().player.inventory.find((i) => i.itemId === 'guests_cord')?.quantity).toBe(1);
+  });
+
+  it('gives every background both answers to his question plus one move of its own, all usable from turn one', () => {
+    const own = new Set<string>();
+    for (const a of S.archetypes) {
+      expect(a.startingAbilities.slice(0, 2), a.id).toEqual(['say_no', 'take_his_hand']);
+      expect(a.startingAbilities.length, a.id).toBe(3);
+      for (const id of a.startingAbilities) expect(ability(id).unlockedByDefault, `${a.id} ${id}`).toBe(true);
+      own.add(a.startingAbilities[2]!);
+    }
+    expect(own.size).toBe(S.archetypes.length);
+  });
+
+  it('spells out in hard canon how each of the three pressures moves', () => {
+    const canon = S.rules.hardCanon.join(' ');
+    // Composure.
+    expect(canon).toMatch(/a night’s sleep, a meal or a bowl of Agathe’s willow-bark tea puts it back/);
+    // Pursuit.
+    expect(canon).toMatch(/The crown closes in whatever anybody does/);
+    expect(canon).toMatch(/Anything loud brings it faster/);
+    // Smoulder, and the promise that a no never feeds it.
+    expect(canon).toMatch(/Lucien’s fire answers to provocation, never to refusal/);
+    expect(canon).toMatch(/A plain no never does/);
+  });
+
+  it('never names a background in hard canon, so the other three stay unreal', () => {
+    const canon = S.rules.hardCanon.join('\n');
+    for (const a of S.archetypes) expect(canon, a.id).not.toContain(a.name);
   });
 });
