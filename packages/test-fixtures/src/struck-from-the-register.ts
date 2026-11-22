@@ -60,10 +60,10 @@ const raw = {
   hook: 'The sword house is expelling its failed heir this morning, and the sister who will take your place is holding the blade that cuts your name out of the family register.',
   premise:
     'Your family has run a sword house for thirty-one generations, and every member of it is written in one book: the register, kept open on a stand in the ancestral hall.\n\n' +
-    'You are the eldest grandchild, and until this morning you were the heir. Then you failed the house’s sword test three springs running, in front of everybody, and the house is cutting your name out of the register today.\n\n' +
+    'You are the eldest grandchild, and the heir. You failed the house’s sword test three springs running, in front of everybody, and this morning the house is cutting your name out of the register.\n\n' +
     'The person holding the blade is your younger sister, Siwon. Whoever cuts a name takes that person’s place. She is the best sword of your generation, and she has not slept.\n\n' +
     'House law gives you one right: challenge whoever holds the blade, in the yard, before the cut. Win, and your name stays. Lose, or stay silent, and it goes.\n\n' +
-    'A struck name costs more than a family. At the sundown bell the city’s sword licence goes with it, and a man with no house may not carry a blade inside the walls.\n\n' +
+    'A struck name costs more than a family. At the sundown bell the city’s sword licence goes with it, and without a house you may not carry a blade inside the walls.\n\n' +
     'Across the hall, the heir of the rival house is watching as the official witness. She has come every morning for a month, and she seems to know something about you that you do not.\n\n' +
     'What you do now is yours. Leave quietly, fight your sister, find another house, or find out why the people who love you are so sure this has to happen today.',
   creatorId: 'creator_official',
@@ -77,7 +77,7 @@ const raw = {
     'Refusing is a route',
     'A clock that ends at sundown',
     'Your hands know more than you',
-    'Three houses want you differently',
+    'Two houses and a city want you',
   ],
   contentDescriptors: ['FANTASY_VIOLENCE', 'MORAL_AMBIGUITY', 'PSYCHOLOGICAL_THEMES', 'ROMANCE'],
   intensity: 'MODERATE',
@@ -98,12 +98,15 @@ const raw = {
     ],
     hardCanon: [
       'The player is twenty-four, the eldest grandchild of House Seol in the river city of Haseong, and was the heir until this morning. Siwon is the player’s younger sister and calls them brother; the bond between them is family and nothing else.',
+      'Everyone in this story is an adult. Every sword house in Haseong takes disciples at eighteen or older, so the forty kneeling in House Seol’s hall and the disciples across the bridge are grown men and women.',
+      'The player’s and Siwon’s parents died together when a barge went down on the river eleven years ago. Since then the Grandmaster has been the only head of family either of them has had.',
       'Every member of House Seol is written in the register, a folding book of mulberry paper on a stand in the register hall. The player failed the house’s lantern test (one first cut through a hanging lantern’s cord, so it drops upright and stays lit) three springs running, the last a month ago. Three failures and the name is struck.',
       'Whoever cuts a name from the register takes that person’s place. Before the cut, the struck person has the right of contest: a bout in the training yard against whoever holds the blade, to first clean touch or a yield. Win, and the name stays for a year and a day. Sword-house bouts are never fought to kill.',
       'When a house strikes a name it notifies the Roll Office. At the next sundown bell (18:40 today) the struck person’s brass sword token lapses, and the watch takes any blade carried inside the walls without one. A struck person loses the family name. Two ways back to a token: be written into another house’s register, or win the open trial (three bouts against licensed blades on the first morning of the Spring Bout) and become a free blade.',
       'The player has an answering hand. Alone, performing forms, their blade freezes. When somebody attacks them, it moves after the other blade commits and arrives first, faster and truer than anybody in House Seol. Nobody in the house has tested this, because every house test is a form done alone. When the player answers an attack, it works.',
       'A hundred and forty years ago a grandmaster of House Seol struck his own elder brother, who had the answering hand. The brother crossed the Long Bridge and founded House Geum, whose art is the second cut, the answering stroke. The two houses signed the Pact of the Bridge: no Seol may keep the answering hand in the house; any Seol who shows it is struck; House Geum sends a witness to every striking; House Seol pays a yearly bridge rent; and if the witness sees a Seol still in the register use the answering hand, House Geum may call a feud bout at the next Spring Bout for House Seol’s seat on the Sword Council.',
-      'Han, the old servant who keeps the whetstones, was born Seol Han. He is the Grandmaster’s younger brother, struck forty-seven years ago under the pact, and he chose to stay as a servant rather than cross the river. Almost nobody alive knows.',
+      'Han, the old servant who keeps the whetstones, still calls the player “young master”, a servant’s title for the house’s grown heir. He was born Seol Han. He is the Grandmaster’s younger brother, struck forty-seven years ago under the pact, and he chose to stay as a servant rather than cross the river. Almost nobody alive knows.',
+      'At the start the player knows none of the hidden history: not the Pact of the Bridge, not why the house strikes an answering hand, not what the Grandmaster told Siwon, and not who Han was. Each is found in play, from a person, a page or a fight. None is owed, and a run can end without any of them.',
       'Three days ago the Grandmaster told Siwon the real reason for the striking and made her promise not to tell the player. She agreed to hold the blade because otherwise their cousin Doha would have.',
       'House Geum has not had a true answering hand in three generations and teaches the second cut from books. Its heir, Geum Yeon, has come to the Seol morning rite every day this month as witness.',
       'The Spring Bout is fought on the island bout ground on the third day, at three in the afternoon. The draw is posted at noon on the second day.',
@@ -113,7 +116,8 @@ const raw = {
       'Family pain lives under formality. People say the polite thing and mean the other thing, and the beat shows both. Humour is load-bearing: Doha’s spite, Yeon’s price-talk, Minseo’s clauses, Han’s grunts. ' +
       'Violence is quick and never graphic. House bouts end at first touch or a yield; a cut sleeve, a bruise, a sword in the sand. Real blood is a scandal and is written as one. Romance belongs to Yeon alone and runs on banter, tension and choice, never further than a kiss. ' +
       'When somebody attacks the player, the player’s hands answer before they decide: narrate that as a reflex the player can use or hold back, never as weakness. Forms performed alone are the thing that fails. ' +
-      'Nobody here is a villain. The Grandmaster has a reason, Siwon has a promise, Doha has a grievance, and every one of them can be argued with. The face at the top of a beat is Siwon’s whenever she is in the scene.',
+      'Nobody here is a villain. The Grandmaster has a reason, Siwon has a promise, Doha has a grievance, and every one of them can be argued with. The face at the top of a beat is Siwon’s whenever she is in the scene. ' +
+      'When the player strikes first, the cut comes out stiff and a half-beat late, the house forms failing as they always have; if the other blade then comes back at them, their hands answer and it works. Make that difference visible inside the beat, so the player learns to wait.',
     proseStyle: 'webnovel',
     styleExamples: [
       "The man in the ring is bigger than you, and he knows it.\n\nHe swings first. They always swing first.\n\nYou don’t move until he does. Then you’re already inside his reach, your elbow under his arm, his own weight carrying him past you into the rope.\n\nThe crowd under the bridge makes a sound like a kettle.\n\n\"Again!\" somebody shouts. Coins change hands.\n\nYour heart is going hard. Your hands are perfectly still.",
@@ -130,7 +134,7 @@ const raw = {
     { id: 'bearing', name: 'Bearing', attribute: 'presence', description: 'Courtesy, ceremony and composure in a room where everybody is watching you.' },
     { id: 'plain_speech', name: 'Plain Speech', attribute: 'resolve', description: 'Saying the true thing to family, in public, while it still costs something.' },
     { id: 'streetwise', name: 'Streetwise', attribute: 'agility', description: 'The city under the houses: the rings, the ferry, the back lanes, and who to pay.' },
-    { id: 'breath', name: 'House Breath', attribute: 'arcana', description: 'The house’s breathing art for steadying a body after a blow. The one thing it taught you that took.' },
+    { id: 'breath', name: 'Steadying Breath', attribute: 'arcana', description: 'The house’s breathing art for steadying a body after a blow. The one thing it taught you that took.' },
   ],
   /**
    * Three, all invisible.
@@ -218,7 +222,7 @@ const raw = {
       displayPriority: 3,
       visible: false,
       zeroStateConsequence:
-        'Siwon talks to the player the way she did in the woodshed at fifteen: rude, fast, and unguarded. She tells them things before she has decided to.',
+        'Siwon talks to the player the way she did in the woodshed years ago: rude, fast, and unguarded. She tells them things before she has decided to.',
       color: '#6D8BA6',
       bands: [
         {
@@ -252,7 +256,7 @@ const raw = {
       tags: ['weapon', 'personal'],
       questItem: true,
       droppable: true,
-      description: 'The sword the house gave you at fifteen: plain steel, a plain guard, very good balance, and your name cut into the tang under the grip.',
+      description: 'The sword the house gave you nine years ago: plain steel, a plain guard, very good balance, and your name cut into the tang under the grip.',
       loreText: 'Han has sharpened it every week for nine years without being asked. It is the only thing in the house with your name on it that nobody can cut out.',
       icon: 'sword',
     },
@@ -272,7 +276,7 @@ const raw = {
       tags: ['quest', 'document'],
       questItem: true,
       description: 'A long folding book of mulberry paper between lacquered boards, thirty-one generations of names in brush ink. It lies open to your page, and your name is the last one written in it.',
-      loreText: 'Five of its older pages have neat rectangular holes in them. The newest hole is forty-seven years old.',
+      loreText: 'Its front pages are a fair copy, made forty-six years ago when the book was rebound. The originals went down to the archive under the hall, and nobody has ever asked why the book needed rebinding.',
       icon: 'book',
     },
     {
@@ -281,7 +285,7 @@ const raw = {
       tags: ['quest', 'weapon'],
       questItem: true,
       description: 'The oldest blade in House Seol: short, single-edged, and used for one thing only. Siwon is holding it over your page.',
-      loreText: 'It has cut nine names in thirty-one generations. Han sharpened it last night and did not sleep afterwards.',
+      loreText: 'It has cut five names in thirty-one generations, and nobody in the hall under fifty has seen it used. Han sharpened it last night and did not sleep afterwards.',
       icon: 'dagger',
     },
     {
@@ -306,7 +310,7 @@ const raw = {
       name: 'The Third Lantern',
       tags: ['personal'],
       description: 'The scorched paper lantern from your third failed test, cord still knotted. You kept it, and you have never been able to say why.',
-      loreText: 'There is a clean cut across the bottom of the cord, a second one, from the moment it swung back toward you. Nobody else noticed it. One person did.',
+      loreText: 'There is a clean cut across the bottom of the cord, a second one, from the moment it swung back toward you. Nobody in the house noticed it. One person from across the river did.',
       icon: 'lantern',
     },
     {
@@ -332,8 +336,8 @@ const raw = {
       name: 'The Cut Page',
       tags: ['quest', 'document'],
       questItem: true,
-      description: 'A page from an older volume of the register, with a neat rectangular hole where a name was cut. Beside the hole, in the margin, somebody has written a date forty-seven years ago and nothing else.',
-      loreText: 'The hole sits between the Grandmaster’s name and a blank where a younger sibling would be written.',
+      description: 'One of the register’s original pages, taken out when the book was rebound, with a neat rectangular hole where a name was cut. Beside the hole, in the margin, somebody has written a date forty-seven years ago and nothing else.',
+      loreText: 'The hole sits right after the Grandmaster’s name, exactly where a younger brother would be written.',
       icon: 'papers',
     },
     {
@@ -523,9 +527,9 @@ const raw = {
     },
     {
       id: 'house_breath',
-      name: 'The House Breath',
+      name: 'The Steadying Breath',
       tags: ['utility'],
-      description: 'The house’s breathing art for steadying a body after a blow. You learned it at six, and it is the one house thing that works for you.',
+      description: 'The house’s breathing art for steadying a body after a blow. You learned it before any form, and it is the one house thing that works for you.',
       affordances: ['breathe', 'steady myself', 'catch my breath', 'calm down', 'meditate', 'rest a moment', 'centre myself'],
       costs: [],
       cooldownMinutes: 30,
@@ -620,7 +624,7 @@ const raw = {
       description:
         'A leaning shed at the back of the compound, split wood stacked to the roof and two posts scarred at chest height. Siwon and you sparred here at night for fifteen years and nobody was supposed to know. A loose board in the back wall lets onto the lane behind Sword Street, which is how a struck name gets back in. The front path goes back to the training yard.',
       artDirection:
-        'Old wooden woodshed at night, stacked firewood, two scarred practice posts, a hanging paper lantern, moonlight through gaps in the planks, one loose board in the back wall. Intimate, secret, dusty.',
+        'Old wooden woodshed at night, stacked firewood, two scarred practice posts, a hanging paper lantern, moonlight through gaps in the planks, one loose board in the back wall. Hidden, quiet, dusty.',
       connections: [
         { to: 'seol_courtyard', travelMinutes: 2, label: 'Back to the yard' },
         { to: 'sword_street', travelMinutes: 4, label: 'Through the loose board' },
@@ -654,7 +658,7 @@ const raw = {
       name: 'The Sealed Archive',
       shortName: 'Archive',
       description:
-        'A stone room under the register hall, reached by a ladder through the iron trapdoor. Older volumes of the register lie on shelves in oiled cloth, and some of their pages have neat rectangular holes cut in them. A copy of an old agreement between two houses waits in a cedar case. The ladder goes back up to the hall.',
+        'A stone room under the register hall, reached by a ladder through the iron trapdoor. The register’s original pages, taken out when the book was rebound, lie on shelves in oiled cloth, and some of them have neat rectangular holes cut in them. A copy of an old agreement between two houses waits in a cedar case. The ladder goes back up to the hall.',
       artDirection:
         'Underground stone archive lit by one lamp, shelves of old folding books wrapped in cloth, a cedar document case, a page held to the light showing a rectangular hole cut out of it. Dusty, hushed, forbidden.',
       connections: [{ to: 'register_hall', travelMinutes: 1, label: 'Back up the ladder' }],
@@ -856,12 +860,12 @@ const raw = {
       publicTraits: ['Precise to the point of cruelty', 'Never relaxes her back in public', 'Counts things when she is upset'],
       hiddenDrives: [
         'She wants the heirship and she earned it, and she cannot forgive the house for giving it to her like this',
-        'Part of her wants him to claim the contest anyway, so that everybody finally sees what she has seen in the woodshed',
+        'Part of her wants the player to claim the contest anyway, so that everybody finally sees what she has seen in the woodshed',
       ],
       values: ['Keeping a promise even when it is the wrong one', 'Doing the hard thing herself rather than letting someone worse do it'],
       fears: [
-        'The contest: in daylight, in front of the Geum witness, he would win, and the feud would come on her first day as heir',
-        'That he will leave believing she wanted this',
+        'The contest: in daylight, in front of the Geum witness, the player would win, and the feud would come on her first day as heir',
+        'That the player will leave believing she wanted this',
       ],
       socialStyle:
         'Formal and clipped in front of the house, rude and fast in private. Gives orders when she means to give comfort. Never looks at the person she is protecting while she protects them.',
@@ -869,7 +873,7 @@ const raw = {
         'Will not break her promise to the Grandmaster unless the player has told her something true first, in private',
         'Will not hold back in a bout once it has started. If she fights, she fights for real',
       ],
-      goals: ['Get through the cut without a contest', 'Get her brother out of the city before the house finds a use for him'],
+      goals: ['Get through the cut without a contest', 'Get her brother out of the city before the house finds a use for them'],
       secrets: [
         {
           id: 'siwon_was_told',
@@ -879,9 +883,9 @@ const raw = {
         },
         {
           id: 'siwon_never_touched_him',
-          fact: 'In fifteen years of night practice she has never once landed a clean touch on him. She stopped trying to win in the eleventh year and started trying to make him go first. He never has.',
+          fact: 'In fifteen years of night practice she has never once landed a clean touch on the player. She stopped trying to win in the eleventh year and started trying to make them go first. They never have.',
           visibility: 'NPC_PRIVATE',
-          revealHint: 'She says it out loud the first time he answers her blade in front of anybody else.',
+          revealHint: 'She says it out loud the first time the player answers her blade in front of anybody else.',
         },
       ],
       speechStyle:
@@ -908,7 +912,7 @@ const raw = {
         { startMinute: 780, endMinute: 900, locationId: 'pond_pavilion', activity: 'with the Grandmaster, being taught what an heir signs' },
         { startMinute: 900, endMinute: 1080, locationId: 'seol_courtyard', activity: 'the afternoon lantern drills, cutting cords until her arms shake' },
         { startMinute: 1080, endMinute: 1260, locationId: 'sword_street', activity: 'walking Sword Street in house white so the city sees the new heir' },
-        { startMinute: 1260, endMinute: 1440, locationId: 'old_woodshed', activity: 'back in the woodshed with a lamp, waiting for somebody who used to come' },
+        { startMinute: 1260, endMinute: 1440, locationId: 'old_woodshed', activity: 'back in the woodshed with a lamp, waiting for a sparring partner who used to come' },
       ],
       homeLocationId: 'seol_courtyard',
       knowledgeScope: ['house_seol', 'the_register', 'the_woodshed', 'the_pact', 'the_lantern_test', 'the_spring_bout'],
@@ -1026,7 +1030,7 @@ const raw = {
       calledName: 'Grandmaster Jae',
       role: 'Head of House Seol and your grandfather, who ordered the striking',
       cardBlurb:
-        'He ordered your name cut and has not looked at you in a month, and three days ago he quietly paid for a room and a ferry seat south in your name. He will not tell you why unless you make him.',
+        'He ordered your name cut and has not looked at you in a month. Whatever he feels about it, he has decided you will never see it, and he will not tell you why unless you make him.',
       pronouns: 'he/him',
       publicTraits: ['Speaks like a judgement being read', 'Never raises his voice', 'Has not been seen to sit in the yard in twenty years'],
       hiddenDrives: [
@@ -1041,7 +1045,7 @@ const raw = {
         'Will not break the pact himself. He will let somebody else break it, and he will not stop them',
         'Will not apologise in public. In private, once, if he is asked the right question',
       ],
-      goals: ['See the cut done before the Spring Bout', 'Get the eldest out of the city before House Geum finds a reason to want him'],
+      goals: ['See the cut done before the Spring Bout', 'Get the eldest out of the city before House Geum finds a reason to want them'],
       secrets: [
         {
           id: 'jae_held_the_blade',
@@ -1062,7 +1066,7 @@ const raw = {
       voiceSamples: [
         'A house is a sentence. Somebody has to decide where it stops.',
         'The eldest may kneel or stand. Either is permitted. Choose one.',
-        'Thirty-one generations in that book, and I have cut two names from it. Do not ask me which was heavier.',
+        'Thirty-one generations in that book, and I have cut one name out of it. Do not ask me whose.',
         'Sit. The tea is bitter because I let it steep. Some things should be.',
       ],
       appearance:
@@ -1439,7 +1443,7 @@ const raw = {
     {
       id: 'q_the_contest',
       title: 'The Right of Contest',
-      summary: 'You claimed the contest. Now you fight your sister in the training yard, to first touch or a yield, in front of the whole house and the witness from House Geum.',
+      summary: 'If you claim the right of contest, you fight your sister in the training yard, to first touch or a yield, in front of the whole house and the witness from House Geum. Win, and your name stays.',
       kind: 'MAIN',
       discoverWhen: { flagsSet: ['contested'] },
       involvedCharacterIds: ['siwon', 'yeon', 'jae', 'doha'],
@@ -1450,7 +1454,7 @@ const raw = {
           id: 'the_yard',
           playerCopy: 'Fight Siwon in the yard.',
           directorNotes:
-            'Siwon is the best first-cut sword of her generation and she comes in for real once it starts. The player cannot win with the house forms, which are what he fails at. If he waits for her, his hands know what to do, and everyone in the yard sees a Seol answer a blade, including the witness, who is bound to report it. Siwon knows this. She fights anyway.',
+            'Siwon is the best first-cut sword of her generation and she comes in for real once it starts. The player cannot win with the house forms, which are what the player fails at. If the player waits for her, their hands know what to do, and everyone in the yard sees a Seol answer a blade, including the witness, who is bound to report it. Siwon knows this. She fights anyway.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1498,7 +1502,7 @@ const raw = {
     {
       id: 'q_the_book',
       title: 'The Book in Your Hands',
-      summary: 'You took the register off its stand in front of the whole house. Nobody can cut a name out of a book they do not have, and everybody wants it back.',
+      summary: 'If you take the register off its stand, nobody can cut a name out of a book they do not have, and the whole house will come after it.',
       kind: 'SIDE',
       discoverWhen: { flagsSet: ['took_the_register'] },
       involvedCharacterIds: ['jae', 'siwon', 'doha', 'yeon'],
@@ -1548,7 +1552,7 @@ const raw = {
     {
       id: 'q_sundown',
       title: 'Before Sundown',
-      summary: 'Your name is out of the register. At the sundown bell your sword token stops being legal, and a blade with no house behind it gets taken by the watch.',
+      summary: 'If your name is cut, your sword token stops being legal at the sundown bell, and the watch takes any blade with no house behind it.',
       kind: 'MAIN',
       discoverWhen: { flagsSet: ['name_struck'] },
       involvedCharacterIds: ['minseo', 'yeon', 'han'],
@@ -1559,7 +1563,7 @@ const raw = {
           id: 'somewhere_to_stand',
           playerCopy: 'Find somewhere to stand before the sundown bell.',
           directorNotes:
-            'Five answers, none of them a fail. House Geum will write the player in today for one signature and one bout in their yard. The Roll Office will take Form Eleven for the open trial and issue a three-day trial token. Han will make room in the whetstone room for a servant without a name, the way he once did for himself. The player can hand their sword in. Or they can do nothing, and at 18:40 they are a man carrying an unlicensed blade.',
+            'Five answers, none of them a fail. House Geum will write the player in today for one signature and one bout in their yard. The Roll Office will take Form Eleven for the open trial and issue a three-day trial token. Han will make room in the whetstone room for a servant without a name, the way he once did for himself. The player can hand their sword in. Or they can do nothing, and at 18:40 they are somebody carrying an unlicensed blade.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1616,7 +1620,7 @@ const raw = {
           id: 'learn_it',
           playerCopy: 'Learn the whole of the answering hand from somebody who has it.',
           directorNotes:
-            'Four teachers, four different arts. Han throws a lit lantern at the player in the woodshed and says nothing at all. Yeon teaches it from her books and is shaken by how quickly the player outgrows them. The rings teach it the hard way, for money, in a mask. Siwon finally attacks the player for real, in the woodshed, and keeps attacking until he answers properly.',
+            'Four teachers, four different arts. Han throws a lit lantern at the player in the woodshed and says nothing at all. Yeon teaches it from her books and is shaken by how quickly the player outgrows them. The rings teach it the hard way, for money, in a mask. Siwon finally attacks the player for real, in the woodshed, and keeps attacking until the player answers properly.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1751,7 +1755,7 @@ const raw = {
     {
       id: 'q_the_pact',
       title: 'The Pact of the Bridge',
-      summary: 'Your house pays House Geum every spring for something nobody will name, and you were cut because of it. The words are written down somewhere under the register hall.',
+      summary: 'Your house pays House Geum every spring for something nobody will name, and it is the real reason the house wants your name gone. The words are written down somewhere under the register hall.',
       kind: 'MAIN',
       discoverWhen: { flagsSet: ['knows_there_is_a_pact'] },
       involvedCharacterIds: ['jae', 'yeon', 'han', 'siwon'],
@@ -1880,7 +1884,7 @@ const raw = {
     {
       id: 'q_spring_bout',
       title: 'The Spring Bout',
-      summary: 'On the third afternoon the seven houses fight on the island bout ground in front of four thousand people. The heirs’ bout is Siwon against Yeon, and whose colours you wear on the sand, if any, is up to you.',
+      summary: 'On the third afternoon the seven houses fight on the island bout ground in front of four thousand people. The heirs’ bout is House Seol’s heir against Yeon, and whose colours you wear on the sand, if any, is up to you.',
       kind: 'MAIN',
       discoverWhen: { flagsSet: ['bout_drawn'] },
       involvedCharacterIds: ['siwon', 'yeon', 'doha', 'jae', 'minseo'],
@@ -1891,7 +1895,7 @@ const raw = {
           id: 'the_ring',
           playerCopy: 'Decide whose colours you wear on the sand, or whether you watch.',
           directorNotes:
-            'If a feud has been called, the heirs’ bout is the feud bout, and House Seol’s seat rides on Siwon against Yeon, the first cut against the second. A Seol still in the register can fight for the house. A Geum can fight for Geum. A free blade fights the open trial in the morning and is on the sand by afternoon. Anybody can stand in Siwon’s corner. Watching from the stands is allowed and it is not nothing.',
+            'If a feud has been called, the heirs’ bout is the feud bout, and House Seol’s seat rides on House Seol’s heir against Yeon, the first cut against the second. A Seol still in the register can fight for the house. A Geum can fight for Geum. A free blade fights the open trial in the morning and is on the sand by afternoon. Anybody can stand in Siwon’s corner. Watching from the stands is allowed and it is not nothing.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -2081,9 +2085,9 @@ const raw = {
       id: 'we_the_draw',
       atWorldMinute: 1440 + 12 * 60,
       locationId: 'bout_ground',
-      publicCopy: 'The Spring Bout draw goes up on the bout ground gate: the heirs’ bout, tomorrow afternoon, House Seol’s new heir against House Geum’s.',
+      publicCopy: 'The Spring Bout draw goes up on the bout ground gate: the heirs’ bout, tomorrow afternoon, House Seol’s heir against House Geum’s.',
       directorNotes:
-        'Siwon against Yeon, the first cut against the second, in front of four thousand people. Doha has already been to the gambling end of Sword Street with the news.',
+        'House Seol’s heir against Yeon, the first cut against the second, in front of four thousand people: Siwon if she made the cut, the player if their name stayed. Doha has already been to the gambling end of Sword Street with the news.',
       setsFlags: ['bout_drawn'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2162,7 +2166,7 @@ const raw = {
       kind: 'MYSTERY',
       label: 'Who Han was before he swept the yard',
       seedHint: 'He still calls you young master, and he sweeps one patch of the sand twice.',
-      payoffHint: 'A hole in an older page of the register, forty-seven years old, the exact shape of his name.',
+      payoffHint: 'A hole in one of the register’s original pages, forty-seven years old, the exact shape of his name.',
       weight: 0.7,
     },
     {
@@ -2230,7 +2234,7 @@ const raw = {
   ],
   setupFields: [
     { id: 'displayName', label: 'What is the name in the register?', kind: 'TEXT', required: true, maxLength: 40, placeholder: 'e.g. Seol Haram' },
-    { id: 'pronouns', label: 'Pronouns', kind: 'TEXT', required: false, maxLength: 24, placeholder: 'e.g. he/him' },
+    { id: 'pronouns', label: 'Pronouns', kind: 'TEXT', required: false, maxLength: 24, placeholder: 'e.g. he/him', helpText: 'Siwon calls you brother.' },
     {
       id: 'archetype',
       label: 'What did you do with the years after you failed?',
@@ -2245,6 +2249,7 @@ const raw = {
       helpText: 'One true thing the house never noticed. Most people write one plain sentence, and that is the right amount.',
       kind: 'TEXT',
       required: false,
+      advanced: true,
       maxLength: 300,
       placeholder: 'e.g. I can catch anything thrown at me without looking, and I have never once said so.',
     },
@@ -2417,7 +2422,7 @@ const raw = {
       condition:
         'Siwon broke her promise and told the player the truth, and the player stood in her corner at the Spring Bout anyway, with or without a name. This is the sibling ending. Write it as two people on the same side of a ring for the first time in public, and do not make anybody say they forgive anybody.',
       epilogue:
-        'Whatever happened on the sand, she walked off it and handed you her sword to hold before she handed it to anybody else. The house noticed. The woodshed has a lamp in it most nights again, and two people who are not supposed to be there.',
+        'Whatever happened on the sand, she walked off it and handed you her sword to hold before she handed it to anybody else. The house noticed. The woodshed has a lamp in it most nights again, and the sound of two practice swords.',
       hint: 'She will tell you, alone, if you ask her the right question.',
     },
     {
@@ -2452,7 +2457,7 @@ const raw = {
     },
   ],
   opening:
-    "Forty people kneel in the hall. You are the only one standing.\n\nOn the stand lies the family register, open to your page. Your name is the last one in it.\n\nYour sister raises the house’s oldest blade over the paper.\n\n\"Say you’ll leave quietly, brother,\" Siwon says. \"Then I won’t have to fight you.\"\n\nHer hands are steady. Her eyes are not.\n\nOn the dais, your grandfather’s face shows nothing. By the door, a woman in another house’s gold watches you, not the blade.\n\nHouse law gives you one right: challenge whoever holds the blade. Win, and your name stays.\n\nSiwon’s knuckles whiten on the hilt.\n\n\"Quietly, or the yard,\" she says. \"Answer me.\"",
+    "Forty people kneel in the hall. Two are standing: you, and your sister.\n\nOn the stand lies the family register, open to your page. Your name is the last one in it.\n\nShe raises the house’s oldest blade over the paper.\n\n\"Say you’ll leave quietly, brother,\" Siwon says. \"Then I won’t have to fight you.\"\n\nHer hands are steady. Her eyes are not.\n\nOn the dais, your grandfather’s face shows nothing. By the door, a woman in another house’s gold watches you, not the blade.\n\nHouse law gives you one right: challenge whoever holds the blade, in the yard. Win, and your name stays.\n\nUnder her breath, Siwon is counting.\n\n\"Quietly, or the yard,\" she says. \"Answer me.\"",
   openingPanel: {
     assetKey: 'story_struck_from_the_register/opening',
     alt: 'Siwon in house white holding a short blade level over an open folding book on a lacquer stand, eyes red, hands steady, kneeling rows behind her.',

@@ -240,12 +240,20 @@ describe('adults only', () => {
     }
   });
 
-  it('describes nobody in words that read as a minor', () => {
+  it('describes nobody in words that read as a minor, anywhere the narrator reads', () => {
     const MINOR = /\b(teen|teens|teenage|teenager|kid|kids|child|children|schoolgirl|schoolboy|underage|minor|loli|little girl|little boy|high school|middle school)\b/i;
-    for (const character of story.characters) {
-      const text = JSON.stringify(character);
-      expect(text, character.id).not.toMatch(MINOR);
-    }
+    // Words only: digits here are clock times ("18:40"), and the cast's ages are spelled out.
+    const UNDER_AGE = '(?:six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen)';
+    // The lookbehind keeps "forty-seven years old" from reading as "seven years old".
+    const AGED = new RegExp(`\\b(?:at|aged) ${UNDER_AGE}\\b|(?<![\\w-])${UNDER_AGE}[- ]years?[- ]old\\b`, 'i');
+    const text = JSON.stringify(story);
+    expect(text).not.toMatch(MINOR);
+    expect(text).not.toMatch(AGED);
+  });
+
+  it('says in canon that every disciple in the city is a grown adult', () => {
+    expect(story.rules.hardCanon.join(' ')).toMatch(/Everyone in this story is an adult/);
+    expect(story.rules.hardCanon.join(' ')).toMatch(/disciples at eighteen or older/);
   });
 
   it('keeps the romance with Yeon alone and the sister bond explicit', () => {
@@ -650,6 +658,29 @@ describe('every answer to her is a story', () => {
 
   it('keeps the mystery out of the premise', () => {
     expect(story.premise).not.toMatch(/\bpact\b|\bHan\b|second cut|answering/i);
+  });
+
+  it('tells the narrator the hidden history is discoverable, not owed', () => {
+    expect(story.rules.hardCanon.join(' ')).toMatch(/the player knows none of the hidden history/);
+    expect(story.rules.hardCanon.join(' ')).toMatch(/None is owed/);
+  });
+
+  it('says what happens when the player strikes first', () => {
+    expect(story.rules.toneGuide).toMatch(/When the player strikes first/);
+  });
+
+  it('never words a quest summary as a branch the player already took', () => {
+    // runTurnPure sends every summary on every turn, found or not, so a
+    // summary has to be true whichever way the morning went.
+    const PAST = /\bYou (claimed|took|left|bowed|walked|signed|fought|were)\b|\byou were cut\b|\bYour name is out\b/i;
+    for (const quest of story.quests) expect(quest.summary, quest.id).not.toMatch(PAST);
+  });
+
+  it('keeps the cut holes in the archive, not in the book on the stand', () => {
+    const register = story.items.find((i) => i.id === 'house_register')!;
+    expect(`${register.description} ${register.loreText}`).not.toMatch(/\bhole/i);
+    const page = story.items.find((i) => i.id === 'struck_page')!;
+    expect(page.description).toMatch(/original pages/);
   });
 
   it('spreads its endings over every rarity and lets the walk-away come early', () => {

@@ -32,7 +32,9 @@ the bout ground, where the Spring Bout is fought every year.
 **House Seol.** Thirty-one generations of the "first cut": a forward art in which every form begins with
 an attack and a good swordsman ends a bout with one stroke. Every member of the house is written in
 **the register**, a long folding book of mulberry paper kept open on a stand in the ancestral hall. The
-heir keeps a short rite at the register every morning.
+heir keeps a short rite at the register every morning. Every disciple of every sword house in Haseong is
+an adult: the houses take disciples at eighteen or older, and the forty who kneel in House Seol's hall are
+grown men and women.
 
 **The test.** Each spring an heir must pass the lantern test: one first cut through the cord of a hanging
 paper lantern, so that it drops upright and the flame stays lit. The player failed it at twenty-two,
@@ -60,12 +62,14 @@ morning of the Spring Bout) and become a **free blade**, who writes their own fa
   pays Geum a yearly "bridge rent"; and if a witness ever sees a Seol use the answering hand while still in
   the register, Geum may call a **feud bout** at the next Spring Bout for House Seol's seat on the Sword
   Council. Losing the seat means losing the right to train licensed blades. The house would empty.
+- The register was rebound forty-six years ago. Its front pages are a fair copy, and the original pages,
+  with their cut holes, lie in the sealed archive under the hall. Nothing on the stand shows a hole.
 - Five names have been cut under the pact in 140 years. One of them is **Han**, the old servant who keeps
   the whetstones. He is the Grandmaster's younger brother, struck forty-seven years ago, and he chose to
   stay in the house as a servant rather than cross the river.
 - Three days ago the Grandmaster told **Siwon** the real reason and made her promise not to tell the
   player. She agreed to hold the blade because the alternative was their cousin Doha holding it.
-- House Geum's own art is dying. No Geum child in three generations has had a true answering hand, and they
+- House Geum's own art is dying. Nobody born to House Geum in three generations has had a true answering hand, and they
   teach the second cut from books. That is why their heir has come to the morning rite every day for a
   month.
 
@@ -86,6 +90,9 @@ Spring Bout draw (day two, noon), and the Spring Bout itself (day three, 15:00).
 - When somebody attacks the player, the player's hands answer before they decide. Narrate that as a
   reflex the player can use or hold back. Never narrate the player as weak in a real fight; narrate forms
   done alone as the thing that fails.
+- When the player strikes first, the cut comes out stiff and a half-beat late, the house forms failing as
+  they always have; if the other blade then comes back at them, their hands answer and it works. Show that
+  difference inside the beat, so the player learns to wait.
 
 ## Player starting authority
 
@@ -105,7 +112,10 @@ them brother. They are **24**. They author:
 - A struck name's sword token lapses at the next sundown bell.
 - The player has the answering hand. Nobody has ever tested it in the house.
 - The Pact of the Bridge exists. Han is the Grandmaster's struck brother. Both are discoverable and
-  neither is owed to the player.
+  neither is owed to the player. At the start the player knows none of the hidden history: not the pact,
+  not why the house strikes an answering hand, not what the Grandmaster told Siwon, and not who Han was.
+- Everyone in the story is an adult; the sword houses take disciples at eighteen or older.
+- The player's and Siwon's parents died together when a barge went down on the river eleven years ago.
 
 ## Places
 
@@ -116,7 +126,7 @@ them brother. They are **24**. They author:
 | `whetstone_room` | The Whetstone Room | Han's room off the armoury: stones, lamp, a pallet, every blade the house owns | yard |
 | `old_woodshed` | The Old Woodshed | Where Siwon and the player sparred at night for fifteen years; a loose board to the back lane | yard, Sword Street |
 | `pond_pavilion` | The Pond Pavilion | The Grandmaster's tea pavilion on the carp pond | yard, hall |
-| `sealed_archive` | The Sealed Archive | Under the hall: the old register volumes, the cut pages, the pact copy | hall (hidden, locked by `archive_open`) |
+| `sealed_archive` | The Sealed Archive | Under the hall: the register's original pages with their cut holes, the pact copy | hall (hidden, locked by `archive_open`) |
 | `sword_street` | Sword Street | The avenue of the seven houses; smithies, teahouses, the gambling end | yard, woodshed, Roll Office, House Geum, the rings, the Ferry Inn, the bout ground |
 | `roll_office` | The Roll Office | City office; the roll of blades; the sundown bell | Sword Street |
 | `geum_house` | House Geum | Across the Long Bridge; gold lacquer, book-taught second cut | Sword Street, the bout ground |
@@ -149,6 +159,7 @@ a seat on the southern ferry in the player's name.
 **Voice:** formal, sentence-shaped, speaks of the house in the third person and calls the player "the
 eldest", never by name.
 > "A house is a sentence. Somebody has to decide where it stops."
+> "Thirty-one generations in that book, and I have cut one name out of it. Do not ask me whose."
 
 ### Han, 68
 **Role:** the old servant who keeps the whetstones; born Seol Han.
@@ -237,13 +248,13 @@ chose her mother's family name. A licensed sword sits under her counter.
 | Across the Ring | Rare | Yeon, after the bout, on terms both of you chose |
 | Two Names | Unique | Han's name written back into the register, and the pact over |
 
-## The opener (turn zero, 115 words)
+## The opener (turn zero, 118 words)
 
-> Forty people kneel in the hall. You are the only one standing.
+> Forty people kneel in the hall. Two are standing: you, and your sister.
 >
 > On the stand lies the family register, open to your page. Your name is the last one in it.
 >
-> Your sister raises the house's oldest blade over the paper.
+> She raises the house's oldest blade over the paper.
 >
 > "Say you'll leave quietly, brother," Siwon says. "Then I won't have to fight you."
 >
@@ -252,13 +263,15 @@ chose her mother's family name. A licensed sword sits under her counter.
 > On the dais, your grandfather's face shows nothing. By the door, a woman in another house's gold watches
 > you, not the blade.
 >
-> House law gives you one right: challenge whoever holds the blade. Win, and your name stays.
+> House law gives you one right: challenge whoever holds the blade, in the yard. Win, and your name stays.
 >
-> Siwon's knuckles whiten on the hilt.
+> Under her breath, Siwon is counting.
 >
 > "Quietly, or the yard," she says. "Answer me."
 
-Siwon speaks at word 42. It ends on a demand. The only proper noun is Siwon, introduced as "your sister".
+Siwon speaks at word 42. It ends on a demand. The only proper noun is Siwon, introduced as "your sister"
+before she is named. The first line matches the opening panel, where Siwon stands over the book with
+the blade raised.
 
 **Suggestions (said, done, risky):**
 1. Said: `"I'll go. But I want to hear why from you, Siwon. Not from him."`
