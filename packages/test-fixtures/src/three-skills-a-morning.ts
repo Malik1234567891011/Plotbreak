@@ -89,6 +89,7 @@ const raw = {
     startWorldMinute: 6 * 60,
     startingItems: [{ itemId: 'morning_draw', qty: 1 }],
     hardCanon: [
+      'Everyone in this story is an adult. Nell Farrow is twenty-four, Pim Atwater thirty-one, Corra Quell thirty-nine, Reeve Anselm Cotter forty-four, Ysolde Marr forty-seven and Sir Garrot Dunmere fifty-two. Haldis is a dragon about four hundred years old.',
       'The player is an adult who fell asleep on a night bus in our world nine days ago and woke in a hayloft outside Kettlecross, a ford town on a brown river under a hill that belongs to a dragon. Nobody here knows how it happened, and nothing here can send them back except the cards.',
       'Every dawn, wherever the player is, three cards appear at arm’s length that only the player can see. Each names one skill in square brackets. Touching one keeps it until the player next sleeps, even for a short nap, and the other two fade. If none is touched, all three fade when the sun clears the rooftops.',
       'A kept skill is complete and exact. It does precisely what its name says, at the highest level, and nothing else. [Perfect Cooking] is perfect cooking and not charm, speed or chemistry. No card can raise the dead, change the past, or make anybody love anybody.',
@@ -106,10 +107,10 @@ const raw = {
       'Ysolde Marr, who keeps the Crooked Kettle, fell into this world twenty-three years ago and has not drawn a card in nineteen. She has never told anybody in Kettlecross.',
     ],
     toneGuide:
-      'Bright, quick and a little funny, with a real rope at the end of the morning. This is an isekai with a courtroom clock in it: the cards are a game and the player should feel clever choosing, and when a kept skill is used the prose shows exactly what it does, concretely, in the hands and the ears. ' +
+      'Bright, quick and a little funny, with a real life on the line at noon. This is an isekai with a courtroom clock in it: the cards are a game and the player should feel clever choosing, and when a kept skill is used the prose shows exactly what it does, concretely, in the hands and the ears. ' +
       'The town is a real place with mud, bread, river smell and a bell tower that leans. People want specific things and talk like themselves: Nell jokes when she is frightened, Garrot speaks in threes, Ysolde answers questions with chores, Cotter never says a false sentence, Pim cannot stop saying them, Haldis counts in winters, Quell counts in crowns. ' +
       'Nobody is stupid and the reeve is not a cartoon. Garrot is not a villain; he is the law, and the law is the problem. ' +
-      'If the noon bell rings with nothing to stop it, the hanging happens and is never shown: write it from the back of the crowd, the bell, the square going quiet, a knight taking off his gloves, and let the afternoon be wrong. Violence is legible and brief and never graphic. ' +
+      'If the noon bell rings with nothing to stop it, the sentence is carried out offstage and is never shown: write the back of the crowd, the bell, the square going quiet, a knight taking off his gloves, and let the afternoon be wrong. Violence is legible and brief and never graphic. ' +
       'Romance is flirtatious, tense and heartfelt, up to a kiss, and never fan service. Every character is an adult. The face at the top of a beat is Nell’s whenever she is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -397,6 +398,17 @@ const raw = {
       icon: 'cards',
     },
   ],
+  /**
+   * Every archetype starts with the draw itself (keep one of today's three
+   * cards, or none) plus one thing its old life is good at, because the
+   * chosen archetype's starting abilities are the only ones the storyteller
+   * reads, as "Can:" lines.
+   *
+   * The six locked abilities, the three card powers, the charter and the two
+   * Door choices, are tagged `relic`. A freeform build's ability budget is the
+   * presets' mean, and without the tag a player who wrote "I can talk to
+   * dragons" would start the morning already holding [Dragon Tongue].
+   */
   abilities: [
     {
       id: 'speak_for_her',
@@ -615,7 +627,7 @@ const raw = {
     {
       id: 'read_lies',
       name: 'Read Lies',
-      tags: ['sight'],
+      tags: ['sight', 'relic'],
       description: 'Hear a spoken lie ring false the moment it is said. Silence and half-truths stay silent.',
       affordances: ['listen for the lie', 'is he lying', 'hear the lie', 'read him', 'check if she is lying', 'use read lies'],
       costs: [{ resourceId: 'nerve', amount: 3 }],
@@ -634,7 +646,7 @@ const raw = {
     {
       id: 'dragon_tongue',
       name: 'Dragon Tongue',
-      tags: ['social'],
+      tags: ['social', 'relic'],
       description: 'Speak and understand the language of dragons, perfectly, until you sleep.',
       affordances: ['speak dragon', 'talk to the dragon', 'call to the hill', 'answer her in her own tongue', 'use dragon tongue', 'speak to haldis'],
       costs: [{ resourceId: 'nerve', amount: 5 }],
@@ -653,7 +665,7 @@ const raw = {
     {
       id: 'perfect_cooking',
       name: 'Perfect Cooking',
-      tags: ['utility'],
+      tags: ['utility', 'relic'],
       description: 'Cook anything perfectly with whatever is to hand. Perfect, not fast, and not magic.',
       affordances: ['cook perfectly', 'cook a feast', 'use perfect cooking', 'cook the feast', 'make the perfect meal', 'cook her last meal'],
       costs: [{ resourceId: 'nerve', amount: 12 }],
@@ -672,7 +684,7 @@ const raw = {
     {
       id: 'invoke_the_charter',
       name: 'Invoke the Charter',
-      tags: ['social'],
+      tags: ['social', 'relic'],
       description: 'Read the Hill Charter’s third clause aloud to a court that has never heard it.',
       affordances: ['invoke the charter', 'read the clause', 'cite the charter', 'the landlady judges', 'no right to try her', 'show the charter'],
       costs: [{ resourceId: 'nerve', amount: 6 }],
@@ -690,7 +702,7 @@ const raw = {
     {
       id: 'take_the_door',
       name: 'Take the Door',
-      tags: ['utility'],
+      tags: ['utility', 'relic'],
       description: 'Keep [The Door Back]. It takes you home at the next sundown, and until then you are still here.',
       affordances: ['take the door', 'go home', 'keep the door back', 'touch the door back', 'choose home'],
       costs: [],
@@ -708,7 +720,7 @@ const raw = {
     {
       id: 'keep_what_they_need',
       name: 'Keep What They Need',
-      tags: ['utility'],
+      tags: ['utility', 'relic'],
       description: 'Keep one of the other two cards, the one somebody here needs, and let the way home fade.',
       affordances: ['keep the other card', 'choose to stay', 'keep what they need', 'let the door go', 'pick the card for them'],
       costs: [{ resourceId: 'forgetting', amount: 4 }],
@@ -1031,9 +1043,9 @@ const raw = {
         'My lip’s fine. The rope’s the problem.',
       ],
       appearance:
-        'Twenty-four, sun-browned, dark hair cut short with a knife, a split lip from the arrest, an oilskin ferry coat two sizes too big, boots with a hole in the left sole.',
-      visualHook: 'A split lip and a crooked grin she refuses to give up, even in irons.',
-      silhouette: 'Chin up, shoulders back, wrists chained in front of her like she is carrying something light.',
+        'Twenty-four, a wiry woman of middling height, sun-browned skin, dark brown hair hacked short with a knife, grey-green eyes, a faded mustard-yellow oilskin ferry coat two sizes too big with the sleeves rolled back four times, a blue river kerchief knotted at the throat, brown canvas breeches, and patched boots with a hole in the left sole.',
+      visualHook: 'A mustard-yellow oilskin ferry coat two sizes too big, and a crooked grin she refuses to give up.',
+      silhouette: 'Chin up, shoulders back, hands shoved deep in the pockets of a coat made for somebody larger.',
       artSeed: 'tsam-nell-01',
       portrait: null,
       expressions: ['neutral', 'amused', 'defiant', 'worried', 'warm'],
@@ -1105,7 +1117,7 @@ const raw = {
         'Every condemned person is owed one last morning. That is why we hang at noon. It is the only mercy the circuit has.',
       ],
       appearance:
-        'Fifty-two, broad and grey-bearded, in black-enamelled half-plate scuffed silver at every edge, with a book of law chained to his belt.',
+        'Fifty-two, a broad, heavy-shouldered man, close-cropped iron-grey hair and a short square grey beard, deep-set steel-grey eyes, black-enamelled half-plate scuffed silver at every edge over a dark red quilted gambeson, black leather gloves, a long sword sheathed at his hip, and a thick book of law chained to his belt.',
       visualHook: 'A thick book of law chained to his belt like a second sword.',
       silhouette: 'Square and motionless, one gloved hand raised, the other resting on the book.',
       artSeed: 'tsam-garrot-01',
@@ -1187,7 +1199,7 @@ const raw = {
         'You are the fifth of your kind I have met. The other four all asked me one question, and so will you.',
       ],
       appearance:
-        'About four hundred years old and the size of a tithe barn, scaled the dull red of a cooling forge, with one horn broken short and eyes like banked coals. Asleep, she looks like part of the hill.',
+        'About four hundred years old and the size of a tithe barn: a dragon scaled the dull red of a cooling forge, darker and cracked like old slate along the spine, one horn broken short, ember-orange eyes like banked coals, a long heavy neck, and folded leathery wings furred with moss and gravel where she has lain still for decades. Asleep, she looks like part of the hill.',
       visualHook: 'One horn broken short, and a slow curl of smoke from her nostrils when she is thinking.',
       silhouette: 'A hill with a spine, curled tail to snout, one huge eye half open.',
       artSeed: 'tsam-haldis-01',
@@ -1264,7 +1276,7 @@ const raw = {
         'I had a name once that wasn’t Ysolde. I’ve been trying to remember the first letter of it for eleven years.',
       ],
       appearance:
-        'Forty-seven, solid and flour-dusted, black hair with a grey streak pinned up with a cooking skewer, sleeves rolled, a burn scar across the back of one hand.',
+        'Forty-seven, a solid, broad-armed woman, olive skin dusted with flour, black hair with one grey streak pinned up in a knot with a steel cooking skewer, dark brown eyes, a faded green work dress with the sleeves rolled to the elbow, a long stained canvas apron, and a burn scar across the back of her left hand.',
       visualHook: 'A steel cooking skewer pinned through her hair, which she pulls out to test the meat and puts back.',
       silhouette: 'Fists on hips in a kitchen doorway, apron on, steam behind her.',
       artSeed: 'tsam-ysolde-01',
@@ -1339,7 +1351,7 @@ const raw = {
         'If you have questions about the ledgers, my door is open. Most afternoons. Not this one.',
       ],
       appearance:
-        'Forty-four, neat as a ledger, a polished chain of office, soft hands, and a kind face he has practised.',
+        'Forty-four, a neat, soft-built man of middle height, thinning sandy hair combed flat, clean-shaven, mild pale blue eyes, a well-cut dark brown coat with brass buttons over a cream waistcoat, a polished silver chain of office across his chest, soft hands, and a kind face he has practised.',
       visualHook: 'A reeve’s chain of office he polishes with his thumb whenever somebody asks a question.',
       silhouette: 'Slightly forward-leaning, hands folded, head tilted in sympathy.',
       artSeed: 'tsam-cotter-01',
@@ -1409,7 +1421,7 @@ const raw = {
         'Does he hang you, the knight, for being wrong? Just wrong. My cousin wants to know.',
       ],
       appearance:
-        'Thirty-one, lanky and unshaven, a watchman’s tabard with the badge pinned on crooked, red-eyed from a night of not sleeping.',
+        'Thirty-one, a lanky, stooping man, unshaven, shaggy straw-coloured hair, brown eyes red-rimmed from a night of not sleeping, a faded blue watchman’s tabard over a grey wool shirt with a tin badge pinned on crooked, a knitted cap twisted in his hands, and a cudgel hanging from his belt on a cord.',
       visualHook: 'A watchman’s badge pinned on crooked, which he keeps trying to straighten.',
       silhouette: 'Hunched, hands twisting a cap, weight on the back foot.',
       artSeed: 'tsam-pim-01',
@@ -1484,7 +1496,7 @@ const raw = {
         'We held a morning-hand’s contract once. He was very good. He left in the seventh year without saying goodbye, and I still balance his column some nights.',
       ],
       appearance:
-        'Thirty-nine, tall and spare in a high-collared grey travelling coat, ink on two fingers, a slim black ledger under one arm.',
+        'Thirty-nine, a tall, spare woman, dark brown skin, black hair in a severe low knot, sharp dark eyes, ink on two fingers of her right hand, a high-collared dove-grey travelling coat buttoned to the throat, black gloves tucked into her belt, and a slim black ledger under one arm with a silver pencil clipped to its spine.',
       visualHook: 'A slim black ledger under one arm, never set down, with a silver pencil clipped to the spine.',
       silhouette: 'Very upright, ledger held against the chest, head slightly tilted as if reading you.',
       artSeed: 'tsam-quell-01',
@@ -2252,7 +2264,7 @@ const raw = {
       attributeBonus: { might: 2, resolve: 2 },
       skillProficiencies: { cooking: 3, brawl: 1, haggle: 1 },
       startingItems: [{ itemId: 'lighter', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['keep_read_lies', 'keep_dragon_tongue', 'keep_perfect_cooking', 'let_them_fade', 'cook_something'],
       startingReputation: [{ factionId: 'faction_kettlecross', amount: 5 }],
     },
     {
@@ -2266,7 +2278,7 @@ const raw = {
       attributeBonus: { mind: 2, resolve: 1, presence: 1 },
       skillProficiencies: { questioning: 2, notice: 2, pleading: 1, old_ways: 1 },
       startingItems: [{ itemId: 'biro', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['keep_read_lies', 'keep_dragon_tongue', 'keep_perfect_cooking', 'let_them_fade', 'press_a_witness'],
       startingReputation: [{ factionId: 'faction_circuit', amount: 5 }],
     },
     {
@@ -2280,7 +2292,7 @@ const raw = {
       attributeBonus: { agility: 3, might: 1 },
       skillProficiencies: { sneak: 3, notice: 1, brawl: 1 },
       startingItems: [{ itemId: 'bike_lamp', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['keep_read_lies', 'keep_dragon_tongue', 'keep_perfect_cooking', 'let_them_fade', 'slip_in'],
       startingReputation: [{ factionId: 'faction_river', amount: 5 }],
     },
     {
@@ -2294,7 +2306,7 @@ const raw = {
       attributeBonus: { presence: 2, mind: 2 },
       skillProficiencies: { bluff: 3, haggle: 1, questioning: 1 },
       startingItems: [{ itemId: 'deck_of_cards', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['keep_read_lies', 'keep_dragon_tongue', 'keep_perfect_cooking', 'let_them_fade', 'talk_your_way'],
       startingReputation: [{ factionId: 'faction_salt_bank', amount: 5 }],
     },
   ],
@@ -2526,13 +2538,28 @@ const raw = {
     '"You," Garrot says. "Third and last time. Do you speak for her?"',
   openingPanel: {
     assetKey: 'story_three_skills_a_morning/opening',
-    alt: 'Nell in irons at the foot of a gallows at dawn, split lip, chin up, as Sir Garrot in black half-plate raises a gloved hand and three glowing cards hang in the air.',
+    alt: 'Nell in an oversized mustard oilskin coat, wrists in irons, grins at you across a dawn-lit square as Sir Garrot in black half-plate raises a gloved hand and three glowing cards hang in the air.',
   },
   openingSuggestions: [
     'I touch Perfect Cooking. "Before anyone hangs, can I cook her breakfast?"',
     'I touch Read Lies and raise my hand.',
     'I touch Dragon Tongue, climb the gallows steps and say, "She’s innocent. The dragon will prove it by noon."',
   ],
+  coverDirection: [
+    'SUBJECT: Nell Farrow, a river ferry hand, alone and unmistakable in the foreground of a key visual for a fantasy anime about a stranger who is handed three new skills every dawn.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'Ragged short dark brown hair, grey-green eyes, sun-browned skin, a faded mustard-yellow oilskin ferry coat two sizes too big, buttoned to the collar, sleeves rolled back, a blue kerchief at the throat.',
+    'One hand is shoved in her coat pocket, the other raised in a lazy two-fingered salute. Chin up, a crooked, daring grin, looking straight at the viewer.',
+    'Between her and the viewer, three tall cards made of light hang in a loose fan, edged in warm gold, sparks drifting off their corners.',
+    'Each card shows one simple glowing emblem and nothing else: a dragon’s head, a steaming cooking pot, a cracked bell. No letters, no numbers, no writing on the cards.',
+    'HER FACE STAYS CLEAN: no cuts, marks, sparkles, glow or shadows on her face or skin. Every glow and spark stays on the cards and on the title.',
+    'BEHIND HER, soft and secondary: a small river town square at dawn, steep timber-framed houses, and a stone bell tower that leans visibly to one side.',
+    'Above the rooftops, a green hill where a huge dull-red dragon lies curled like part of the hill, one horn broken short, one ember-orange eye open and watching.',
+    'No rope, no gallows and no chains anywhere in the picture.',
+    'LIGHT: warm gold dawn light from behind the town rimming her hair and coat, cool blue shadow across the square, and the cards’ gold glow on the front of her coat and her raised hand.',
+    'TITLE: the words THREE SKILLS A MORNING painted into the art in the upper third, across the dawn sky, as a hand-lettered storybook fantasy logo in warm gold with a dark ink outline, stacked on two lines, THREE SKILLS above A MORNING,',
+    'spelled exactly "Three Skills a Morning" and lettered in capitals, large and legible at thumbnail size, with a soft gold glow on the letters only. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 

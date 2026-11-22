@@ -54,7 +54,7 @@ The player is free to speak for Nell or not, keep any card or none, break her ou
 
 ## Tone and pacing
 
-- Bright, quick, a little funny, with a real rope at the end of the morning.
+- Bright, quick, a little funny, with a real life on the line at noon.
 - Anime isekai energy: the cards are a game, and choosing well should feel clever. Show exactly what a kept skill does, concretely.
 - The town is real: mud, bread, river smell, a bell tower that leans.
 - Two clocks on day one: the noon bell and sundown. After that the cards keep coming and the pressure moves to the reeve, the bank, the dragon and the cost.
@@ -66,7 +66,10 @@ The player is free to speak for Nell or not, keep any card or none, break her ou
 
 The player authors who they were back home (the archetype), their name and pronouns, and everything they do. The archetype is the only identity the storyteller reads, so each one says plainly what kind of person fell through and what came with them.
 
+Every archetype starts with the Draw as abilities the storyteller reads: keep [Read Lies], keep [Dragon Tongue], keep [Perfect Cooking], or let all three fade. Each adds one thing its old life is good at: the line cook cooks without a card, the paralegal presses a witness, the courier slips in, the card player talks their way past. The card powers, the charter and the two Door choices are tagged `relic`, so a freeform build can never start the morning already holding one.
+
 ### Minimal hard canon
+- Everyone is an adult, with the ages below.
 - The player is an adult who fell into this world nine days ago.
 - The Draw works as above, and today's cards are [Dragon Tongue], [Perfect Cooking] and [Read Lies].
 - Nell is innocent of the rent theft; Cotter did it; Pim lied.
@@ -79,7 +82,7 @@ All characters are adults. Ages are fixed.
 
 ### Nell Farrow, 24
 **Role:** the accused. Ferry hand on her late mother's ferry, former pickpocket.
-**Appearance:** sun-browned, dark hair cut short with a knife, a split lip from the arrest, an oilskin ferry coat two sizes too big, boots with a hole in the left sole.
+**Appearance:** wiry, middling height, sun-browned skin, dark brown hair hacked short with a knife, grey-green eyes, a faded mustard-yellow oilskin ferry coat two sizes too big with the sleeves rolled back four times, a blue river kerchief at the throat, brown canvas breeches, patched boots with a hole in the left sole. On Rent Day morning she has a split lip from the arrest; the opener says so, and her portrait leaves it out, because the portrait is her face for the whole story.
 **Want now:** not to hang, without begging anybody.
 **Want later:** her mother's ferry license back, and a life where she is not the first name the town reaches for.
 **Fear:** dying as the town's idea of her. Being owed something by a stranger.
@@ -89,7 +92,7 @@ All characters are adults. Ages are fixed.
 
 ### Sir Garrot Dunmere, 52
 **Role:** the lord's circuit justiciar. The hanging knight.
-**Appearance:** broad, grey-bearded, black-enamelled half-plate scuffed silver at every edge, a book of law chained to his belt.
+**Appearance:** broad and heavy-shouldered, close-cropped iron-grey hair and a short square grey beard, deep-set steel-grey eyes, black-enamelled half-plate scuffed silver at every edge over a dark red quilted gambeson, black leather gloves, a long sword at his hip, a thick book of law chained to his belt.
 **Want:** the law kept exactly, because he believes it is the only thing between the river towns and blood feud.
 **Hidden want:** somebody, once, to answer the question he asks three times.
 **Fear:** a second Wat Kell.
@@ -99,7 +102,7 @@ All characters are adults. Ages are fixed.
 
 ### Haldis, about four hundred years old
 **Role:** the dragon who owns the hill. The wronged party.
-**Appearance:** the size of a tithe barn, scaled the dull red of a cooling forge, one horn broken short, eyes like banked coals. Asleep, she looks like part of the hill.
+**Appearance:** the size of a tithe barn, scaled the dull red of a cooling forge, darker and cracked like old slate along the spine, one horn broken short, ember-orange eyes like banked coals, a long heavy neck, folded wings furred with moss and gravel. Asleep, she looks like part of the hill.
 **Want:** the bargain kept. She does not need the silver. The yearly rent is the only conversation she has had with people for two centuries.
 **Fear:** being a story the town tells instead of a party to a bargain.
 **Secret:** she noticed the short weight six years ago and said nothing, waiting to see whether the town would catch its own thief. This year she is coming down regardless. She also knows the Draw: the player is the fifth morning-hand she has met, and she knows about the Door Back.
@@ -107,14 +110,14 @@ All characters are adults. Ages are fixed.
 
 ### Ysolde Marr, 47
 **Role:** keeps the Crooked Kettle, the inn where the player sleeps on credit.
-**Appearance:** solid, flour-dusted, black hair with a grey streak pinned up with a cooking skewer, a burn scar across one hand.
+**Appearance:** solid and broad-armed, olive skin dusted with flour, black hair with one grey streak pinned up in a knot with a steel cooking skewer, dark brown eyes, a faded green work dress with the sleeves rolled, a long stained canvas apron, a burn scar across the back of her left hand.
 **Want:** to keep the lodger fed and out of trouble, which is already failing.
 **Secret:** she is a morning-hand. She fell in twenty-three years ago, kept a card every morning for four years, and was offered [The Door Back] the morning the ferryman Tobias was crushed under the ferry winch. She kept [Mend Bone], saved him, and married him. She never kept another card after that, and the cards stopped coming after thirty untouched mornings, so she has not drawn one in nineteen years. Tobias died of a fever six years ago. She has forgotten her own first name. "Ysolde" was Tobias's mother's.
 **Voice:** dry, gruff, kitchen imperatives; answers questions with chores; calls the player "lodger".
 
 ### Anselm Cotter, 44
 **Role:** the reeve. Keeps the keys, the ledgers and the peace. The thief.
-**Appearance:** neat as a ledger, polished chain of office, soft hands, a kind face he has practised.
+**Appearance:** neat and soft-built, middle height, thinning sandy hair combed flat, clean-shaven, mild pale blue eyes, a well-cut dark brown coat with brass buttons over a cream waistcoat, a polished silver chain of office, soft hands, a kind face he has practised.
 **Want:** Nell hanged, the barrels on the barge by sundown, and his debt gone.
 **Fear:** the ledger read by somebody who can read.
 **Secret:** six years light, the strongroom key, the twelve crowns to Pim, the coin in the boot.
@@ -122,7 +125,7 @@ All characters are adults. Ages are fixed.
 
 ### Pim Atwater, 31
 **Role:** the night watchman and the false witness.
-**Appearance:** lanky, unshaven, watchman's tabard with the badge on crooked.
+**Appearance:** lanky and stooping, unshaven, shaggy straw-coloured hair, brown eyes red-rimmed from no sleep, a faded blue watchman's tabard over a grey wool shirt with a tin badge pinned on crooked, a knitted cap twisted in his hands, a cudgel on a cord at his belt.
 **Want:** for this to be over and for nobody to ask about the money.
 **Fear:** Garrot. A false witness on a hanging charge hangs in Garrot's court.
 **Secret:** he was asleep. Cotter woke him and told him what he had seen.
@@ -130,7 +133,7 @@ All characters are adults. Ages are fixed.
 
 ### Corra Quell, 39
 **Role:** factor of the Lowmere Salt Bank, aboard the *Honest Weight*. Cotter's creditor.
-**Appearance:** tall and spare in a high-collared grey travelling coat, ink on two fingers, a slim black ledger under one arm.
+**Appearance:** tall and spare, dark brown skin, black hair in a severe low knot, sharp dark eyes, ink on two fingers, a high-collared dove-grey travelling coat buttoned to the throat, black gloves tucked into her belt, a slim black ledger under one arm with a silver pencil clipped to its spine.
 **Want:** twelve barrels and a signature. If she learns the player is a morning-hand, a seven-year contract.
 **Fear:** going home empty. Her post depends on this debt.
 **Secret:** she has decided not to know what is in the barrels. And she once held a morning-hand's contract; he left in the seventh year without saying goodbye, and she still balances his column some nights.
@@ -223,4 +226,8 @@ Nell speaks to the player at word 47. The beat ends on a direct question that ne
 
 ## Image plan (not generated yet)
 
-Covers show adults only, described by costume and pose. Cover: Nell at the foot of an empty gallows frame (no rope or noose anywhere in any image), chin up, split lip, fully clothed in the buttoned, oversized oilskin coat, irons only at the wrists; three glowing cards hanging in the air in front of the viewer; Sir Garrot in black half-plate behind her with a gloved hand raised; a huge red dragon asleep on the hill above the town's leaning bell tower, one eye open. Dawn light, warm and cold. Title in the art per the v4 recipe.
+Adults only, described by costume and pose, never by age words. Glow and sparks go on objects and the title, never on faces. No rope, gallows or chains on the cover: the stakes are carried by the hook, the leaning bell tower and the dragon.
+
+- **Cover** (`coverDirection`, painted by PixAI with the title in the art): Nell alone, waist up, centred and close, in the mustard oilskin coat buttoned to the collar, one hand in a pocket, the other raised in a lazy two-fingered salute, grinning at the viewer. Three cards of light hang in a fan between her and the viewer, each with one emblem and no writing: a dragon's head, a steaming pot, a cracked bell. Behind her a river square at dawn and the leaning bell tower; above the roofs, a dull-red dragon curled into the hill with one eye open. Title in the upper third: THREE SKILLS over A MORNING, hand-lettered storybook gold with a dark ink outline, spelled exactly "Three Skills a Morning". No other text.
+- **Opening panel** (`openingPanel`, drawn with Nell's portrait as the reference): Nell in her oversized coat, wrists in irons, grinning at you across a dawn-lit square while Sir Garrot raises a gloved hand and three glowing cards hang in the air.
+- **Portraits:** drawn from each character's `appearance`, `visualHook` and `silhouette` above.

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
-import { createInitialState, charactersPresent } from '@plotbreak/engine';
+import { createInitialState, charactersPresent, deriveCustomBuild } from '@plotbreak/engine';
 import { checkStoryChoiceClarity, checkStoryClarity } from '@plotbreak/director';
 import { THREE_SKILLS_A_MORNING } from './three-skills-a-morning.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
@@ -87,6 +87,63 @@ describe('prose is prose', () => {
     const derived = withDerivedAssetKeys(story);
     expect(derived.coverImage).toContain('story_three_skills_a_morning');
     for (const c of derived.characters) expect(c.portrait, c.id).toContain('story_three_skills_a_morning');
+  });
+});
+
+describe('ready for the art and release pipeline', () => {
+  const cover = story.coverDirection ?? '';
+
+  it('paints its own title on the cover, spelled exactly', () => {
+    expect(cover).toMatch(/\bTITLE:/);
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(title).toContain('"Three Skills a Morning"');
+    expect(title).toMatch(/upper third/);
+    expect(title).toMatch(/No other text anywhere\.$/);
+  });
+
+  it('keeps effects off faces, ages off the cover and the rope out of the picture', () => {
+    expect(cover).toMatch(/FACE STAYS CLEAN/);
+    expect(cover).not.toMatch(/\b(young|younger|youthful|old|older|elderly|aged|adult|years)\b/i);
+    expect(cover).toMatch(/No rope, no gallows and no chains/);
+    // The tone guide is the cover's mood line and every portrait's world line.
+    expect(story.rules.toneGuide).not.toMatch(/\b(rope|noose|gallows|hanging)\b/i);
+  });
+
+  it('opens on a panel of the first person to speak', () => {
+    const panel = story.openingPanel!;
+    expect(panel.assetKey).toBe('story_three_skills_a_morning/opening');
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    const firstSpeaker = /says (\w+)/.exec(story.opening)?.[1];
+    expect(firstSpeaker).toBe('Nell');
+    expect(panel.alt.startsWith(`${firstSpeaker} `)).toBe(true);
+  });
+
+  it('draws every card from a concrete appearance', () => {
+    for (const c of story.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(200);
+      expect(c.appearance, c.id).toMatch(/hair|scaled/);
+      expect(c.appearance, c.id).toMatch(/eyes/);
+    }
+  });
+
+  it('opens straight on the scene and is not dated yet', () => {
+    expect(story.prologue ?? []).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('starts every archetype with the draw, where the storyteller reads it', () => {
+    const draw = ['keep_read_lies', 'keep_dragon_tongue', 'keep_perfect_cooking', 'let_them_fade'];
+    for (const a of story.archetypes) expect(a.startingAbilities.slice(0, draw.length), a.id).toEqual(draw);
+    const own = story.archetypes.map((a) => a.startingAbilities.slice(draw.length));
+    for (const extra of own) expect(extra).toHaveLength(1);
+    expect(new Set(own.flat()).size).toBe(own.length);
+  });
+
+  it('never lets a freeform build start the morning holding a card power', () => {
+    for (const a of story.abilities.filter((x) => !x.unlockedByDefault)) expect(a.tags, a.id).toContain('relic');
+    const build = deriveCustomBuild(story, 'A chef who can talk to dragons, cook a perfect feast, hear every lie and find the door home.');
+    expect(build).not.toBeNull();
+    expect(build!.startingAbilities).toEqual([]);
   });
 });
 
