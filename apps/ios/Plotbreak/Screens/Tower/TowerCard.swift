@@ -43,64 +43,45 @@ struct TowerCard: View {
         .onReceive(timer) { now = $0 }
     }
 
+    /// Design v3: a filled ink row, no gradient. 塔 in a squircle, the
+    /// headline, a quiet line with the crystal, and a quiet Climb capsule
+    /// (Home's one white button is Play).
     private func card(_ s: TowerStatus) -> some View {
         let played = s.today?.finished ?? false
         let waiting = s.today != nil && !played
-        return HStack(spacing: 14) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(LinearGradient(colors: [Color(hex: 0x7C6CFF), Color(hex: 0xFF6B9E)], startPoint: .topLeading, endPoint: .bottomTrailing))
-                Text(verbatim: "塔")
-                    .font(.system(size: compact ? 24 : 28, weight: .black))
-                    .foregroundStyle(.white)
-            }
-            .frame(width: compact ? 46 : 54, height: compact ? 46 : 54)
+        return HStack(spacing: Theme.Spacing.md) {
+            Text(verbatim: "塔")
+                .font(.system(size: compact ? 22 : 24, weight: .bold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .frame(width: compact ? 44 : 48, height: compact ? 44 : 48)
+                .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 11, style: .continuous))
 
-            VStack(alignment: .leading, spacing: 3) {
-                HStack(spacing: 6) {
-                    Text(t("tower.card_label"))
-                        .font(.system(size: 11, weight: .heavy))
-                        .tracking(2)
-                        .foregroundStyle(.white.opacity(0.6))
-                    if s.free && !played {
-                        Text(t("tower.card_free"))
-                            .font(.system(size: 10, weight: .black))
-                            .padding(.horizontal, 6).padding(.vertical, 2)
-                            .background(Capsule().fill(Theme.Colors.warning))
-                            .foregroundStyle(Theme.Colors.textOnAccent)
-                    }
-                }
+            VStack(alignment: .leading, spacing: 2) {
                 Text(headline(s, played: played, waiting: waiting))
-                    .font(.system(size: compact ? 15 : 17, weight: .bold))
-                    .foregroundStyle(.white)
+                    .font(.system(size: compact ? 15 : 17, weight: .semibold))
+                    .foregroundStyle(Theme.Colors.textPrimary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
-                Text(subline(s, played: played))
+                Text.crystals(subline(s, played: played), fontSize: 13)
                     .font(.system(size: 13))
-                    .foregroundStyle(played ? Theme.Colors.textSecondary : Theme.Colors.warning)
+                    .foregroundStyle(Theme.Colors.textMuted)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
             }
             Spacer(minLength: 0)
             if !played {
                 Text(t("tower.card_cta"))
-                    .font(.system(size: 14, weight: .heavy))
-                    .padding(.horizontal, 14).padding(.vertical, 8)
-                    .background(Capsule().fill(Theme.Colors.light))
-                    .foregroundStyle(Theme.Colors.textOnLight)
+                    .font(.system(size: 15, weight: .semibold))
+                    .padding(.horizontal, 16)
+                    .frame(height: 34)
+                    .background(Capsule().fill(Theme.Colors.bgRaised))
+                    .foregroundStyle(Theme.Colors.textPrimary)
             } else {
-                Image(systemName: "chevron.right").foregroundStyle(.white.opacity(0.4))
+                ChevronGlyph()
             }
         }
         .padding(compact ? 12 : 14)
-        .background(
-            RoundedRectangle(cornerRadius: Theme.Radius.large)
-                .fill(LinearGradient(colors: [Color(hex: 0x241A45), Color(hex: 0x121620)], startPoint: .topLeading, endPoint: .bottomTrailing))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: Theme.Radius.large)
-                .strokeBorder(LinearGradient(colors: [Color(hex: 0x7C6CFF).opacity(0.8), Color(hex: 0xFF6B9E).opacity(0.4)], startPoint: .leading, endPoint: .trailing), lineWidth: 1)
-        )
+        .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         .accessibilityElement(children: .combine)
     }
 
@@ -114,7 +95,11 @@ struct TowerCard: View {
     private func subline(_ s: TowerStatus, played: Bool) -> String {
         if played { return t("tower.card_next", ["time": countdown(s.nextAt)]) }
         // A live streak is the strongest reason to climb today: say what it's worth.
-        if s.streak.days > 0 { return t("tower.card_streak", ["days": s.streak.days, "bonus": s.streak.todayBonusPercent]) }
+        // Design v3 has no fire emoji; the catalogue's streak line still starts with one.
+        if s.streak.days > 0 {
+            return t("tower.card_streak", ["days": s.streak.days, "bonus": s.streak.todayBonusPercent])
+                .replacingOccurrences(of: "🔥 ", with: "")
+        }
         let entry = s.free ? t("tower.card_free") : t("tower.card_entry", ["fee": s.fee])
         return "\(t("tower.card_win_up_to", ["max": s.maxReward])) · \(entry)"
     }

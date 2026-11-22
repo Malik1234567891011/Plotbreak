@@ -15,7 +15,7 @@ enum Tab: Hashable, CaseIterable {
         switch self {
         case .discover: return selected ? "house.fill" : "house"
         case .library: return selected ? "books.vertical.fill" : "books.vertical"
-        case .create: return selected ? "wand.and.stars" : "wand.and.stars.inverse"
+        case .create: return "square.and.pencil"
         case .profile: return selected ? "person.fill" : "person"
         }
     }
@@ -379,18 +379,18 @@ struct TabBarShell: View {
 
     var body: some View {
         @Bindable var router = router
-        VStack(spacing: 0) {
-            Group {
-                switch router.tab {
-                case .discover: DiscoverScreen()
-                case .library: LibraryScreen()
-                case .create: CreateTabScreen()
-                case .profile: ProfileScreen()
-                }
+        Group {
+            switch router.tab {
+            case .discover: DiscoverScreen()
+            case .library: LibraryScreen()
+            case .create: CreateTabScreen()
+            case .profile: ProfileScreen()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            // Spec §27.2 — the bar clears the home indicator.
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        // Design v3: a floating glass capsule. Pages scroll under it, and the
+        // inset keeps their last row clear of it.
+        .safeAreaInset(edge: .bottom, spacing: 0) {
             HStack(spacing: 0) {
                 ForEach(Tab.allCases, id: \.self) { tab in
                     let selected = router.tab == tab
@@ -398,17 +398,17 @@ struct TabBarShell: View {
                         Haptic.play(.light)
                         router.tab = tab
                     } label: {
-                        VStack(spacing: 5) {
+                        VStack(spacing: 3) {
                             Image(systemName: tab.symbol(selected: selected))
-                                .font(.system(size: 22, weight: .regular))
-                                .frame(height: 26)
+                                .font(.system(size: 20, weight: .regular))
+                                .frame(height: 24)
                             Text(t(tab.labelKey))
-                                .font(.system(size: 11, weight: selected ? .medium : .regular))
+                                .font(.system(size: 11, weight: selected ? .semibold : .medium))
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.8)
                         }
-                        .foregroundStyle(selected ? Theme.Colors.accentPrimary : Theme.Colors.textMuted)
-                        .frame(maxWidth: .infinity, minHeight: 50)
+                        .foregroundStyle(selected ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
+                        .frame(maxWidth: .infinity, minHeight: 64)
                         .contentShape(Rectangle())
                     }
                     .buttonStyle(PressOpacityStyle())
@@ -416,9 +416,11 @@ struct TabBarShell: View {
                     .accessibilityAddTraits(selected ? [.isSelected, .isButton] : .isButton)
                 }
             }
-            .padding(.top, 10)
-            .background(Theme.Colors.bgElevated)
-            .overlay(alignment: .top) { PBDivider() }
+            .background(Theme.Colors.bgElevated.opacity(0.72), in: Capsule())
+            .background(.ultraThinMaterial, in: Capsule())
+            .overlay { Capsule().strokeBorder(Theme.Colors.textPrimary.opacity(0.10), lineWidth: 1) }
+            .padding(.horizontal, Theme.pageGutter)
+            .padding(.bottom, 4)
         }
         .background(Theme.Colors.bgBase.ignoresSafeArea())
         .toolbar(.hidden, for: .navigationBar)

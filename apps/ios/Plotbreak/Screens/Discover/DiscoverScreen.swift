@@ -22,7 +22,7 @@ private struct CardWidths {
 
     init(screenWidth: CGFloat) {
         let usable = screenWidth - Theme.pageGutter * 2
-        rail = floor((usable - Theme.Spacing.md * 3) / 3.4)
+        rail = 104
         grid = floor((usable - Theme.Spacing.md * 2) / 3)
         `continue` = min(72, floor((usable - Theme.Spacing.md * 4) / 5.6))
     }
@@ -48,6 +48,8 @@ struct DiscoverScreen: View {
     /// The last load failed offline while a shelf was on screen. The shelf
     /// stays; a banner says why it may be stale.
     @State private var showingStaleShelf = false
+    /// The featured story whose Play is starting a session.
+    @State private var starting: String?
 
     private var hero: [StorySummary] {
         data?.rails.first(where: { $0.kind == .HERO })?.stories ?? []
@@ -72,11 +74,15 @@ struct DiscoverScreen: View {
                             }
                             .frame(height: 0)
 
+                            searchField
+                                .padding(.horizontal, Theme.pageGutter)
+                                .padding(.top, Theme.Spacing.sm)
+
                             // The filter row. Categories come from the server,
                             // which only ever offers one that has worlds in it.
                             if let data, !data.categories.isEmpty {
                                 ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 10) {
+                                    HStack(spacing: Theme.Spacing.sm) {
                                         Chip(t("discover.category_main"), selected: category == nil, style: .outlined) {
                                             category = nil
                                         }
@@ -88,7 +94,7 @@ struct DiscoverScreen: View {
                                     }
                                     .padding(.horizontal, Theme.pageGutter)
                                 }
-                                .padding(.top, Theme.Spacing.sm)
+                                .padding(.top, Theme.Spacing.md)
                             }
 
                             if store.offline || showingStaleShelf {
@@ -114,49 +120,46 @@ struct DiscoverScreen: View {
                                 )
                             }
 
-                            // The Tower's daily climb (docs/tower.md). Hidden while it is off.
-                            if data != nil, data?.activeCategory == nil {
-                                TowerCard(source: "discover", compact: true,
-                                          inset: EdgeInsets(top: Theme.Spacing.md, leading: Theme.pageGutter, bottom: 0, trailing: Theme.pageGutter))
-                            }
-
-                            // The featured worlds as a wide banner you page through.
+                            // Design v3: the featured covers as posters, the current
+                            // one's meta, hook and Play under them.
                             if !hero.isEmpty, data?.activeCategory == nil {
-                                FeaturedBanner(stories: hero, width: proxy.size.width - Theme.pageGutter * 2) { storyId in
-                                    router.push(.storyDetail(storyId: storyId))
-                                }
-                                .padding(.horizontal, Theme.pageGutter)
+                                HeroCarousel(
+                                    stories: hero,
+                                    screenWidth: proxy.size.width,
+                                    locale: store.locale,
+                                    starting: starting,
+                                    onOpen: { router.push(.storyDetail(storyId: $0)) },
+                                    onPlay: { storyId in Task { await play(storyId) } }
+                                )
                                 .padding(.top, Theme.Spacing.lg)
                             }
 
                             // Spec §7.2 item 3 — Continue, only when there is
                             // something to continue.
                             if let data, !data.continueCards.isEmpty {
-                                VStack(alignment: .leading, spacing: 14) {
-                                    shelfTitle(t("discover.continue"))
-                                    ScrollView(.horizontal, showsIndicators: false) {
-                                        HStack(spacing: Theme.Spacing.md) {
-                                            ForEach(data.continueCards) { card in
-                                                ContinueRunCard(
-                                                    title: card.title,
-                                                    storyId: card.storyId,
-                                                    coverImage: card.coverImage,
-                                                    turnsLine: t("discover.continue_turns_in", ["count": card.turnCount]),
-                                                    width: widths.continue,
-                                                    onPress: { router.push(.session(sessionId: card.sessionId)) }
-                                                )
-                                            }
+                                VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                                    shelfTitle(t("discover.continue"),
+                                               action: data.continueCards.count > 2 ? { router.tab = .library } : nil,
+                                               actionLabel: t("library.see_all"))
+                                    ForEach(data.continueCards.prefix(2)) { card in
+                                        ContinueRow(card: card, locale: store.locale) {
+                                            router.push(.session(sessionId: card.sessionId))
                                         }
-                                        .padding(.horizontal, Theme.pageGutter)
                                     }
                                 }
-                                .padding(.top, 28)
+                                .padding(.top, 36)
+                            }
+
+                            // The Tower's daily climb (docs/tower.md). Hidden while it is off.
+                            if data != nil, data?.activeCategory == nil {
+                                TowerCard(source: "discover", compact: true,
+                                          inset: EdgeInsets(top: 28, leading: Theme.pageGutter, bottom: 0, trailing: Theme.pageGutter))
                             }
 
                             if let data {
                                 ForEach(data.rails.filter { $0.kind != .HERO && $0.kind != .CONTINUE && !$0.stories.isEmpty }) { rail in
                                     railSection(rail, widths: widths)
-                                        .padding(.top, 28)
+                                        .padding(.top, 36)
                                 }
 
                                 if data.rails.allSatisfy({ $0.stories.isEmpty }) {
@@ -175,7 +178,7 @@ struct DiscoverScreen: View {
                             if store.wallet?.dailyClaimAvailable == true {
                                 dailyCard
                                     .padding(.horizontal, Theme.pageGutter)
-                                    .padding(.top, 28)
+                                    .padding(.top, 36)
                             }
                         }
                         .padding(.bottom, Theme.Spacing.giant)
@@ -239,39 +242,66 @@ struct DiscoverScreen: View {
 
     // MARK: Header
 
-    /// Credits and search, right-aligned. The filter row underneath is the
-    /// page's own title.
+    /// Design v3: the wordmark on the left, your balance on the right.
     private var header: some View {
-        HStack(spacing: Theme.Spacing.xs) {
+        HStack(spacing: Theme.Spacing.sm) {
+            Image("WordmarkInk")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 25)
+                .accessibilityLabel(Text(verbatim: "Plotbreak"))
+                .accessibilityAddTraits(.isHeader)
             Spacer(minLength: 0)
-            IconButton(t("wallet.title"), action: { router.present(.wallet(shortfall: nil)) }) {
-                CreditGlyph(size: 22)
+            CreditBalance(balance: store.wallet?.balance ?? 0, compact: false, locale: store.locale) {
+                router.present(.wallet(shortfall: nil))
             }
-            IconButton(t("discover.search_worlds"), action: { router.present(.search) }) {
-                Image(systemName: "magnifyingglass")
-                    .font(.system(size: 22, weight: .medium))
-                    .foregroundStyle(Theme.Colors.textPrimary)
-            }
+            .accessibilityLabel(t("wallet.title"))
         }
-        .padding(.horizontal, Theme.Spacing.xs)
-        .frame(height: 48)
+        .padding(.horizontal, Theme.pageGutter)
+        .frame(height: 52)
+    }
+
+    /// The search field, as a button: it opens the search sheet.
+    private var searchField: some View {
+        Button {
+            Haptic.play(.light)
+            router.present(.search)
+        } label: {
+            HStack(spacing: Theme.Spacing.sm) {
+                Image(systemName: "magnifyingglass")
+                    .font(.system(size: 15, weight: .medium))
+                Text(t("discover.search_placeholder_short"))
+                    .font(.system(size: 15))
+                Spacer(minLength: 0)
+            }
+            .foregroundStyle(Theme.Colors.textMuted)
+            .padding(.horizontal, 14)
+            .frame(height: 40)
+            .background(Theme.Colors.bgRaised, in: Capsule())
+            .contentShape(Capsule())
+        }
+        .buttonStyle(PressOpacityStyle())
+        .accessibilityLabel(t("discover.search_worlds"))
     }
 
     private func shelfTitle(_ title: String, action: (() -> Void)? = nil, actionLabel: String? = nil) -> some View {
         HStack(alignment: .center) {
             Text(title)
-                .font(.system(size: 22, weight: .semibold))
+                .font(.system(size: 20, weight: .semibold))
                 .foregroundStyle(Theme.Colors.textPrimary)
                 .accessibilityAddTraits(.isHeader)
             Spacer(minLength: Theme.Spacing.md)
-            if let action, let actionLabel {
+            if let action, actionLabel != nil {
+                // Design v3: "See all" is the only trailing link, plain text.
                 Button(action: action) {
-                    ChevronGlyph(size: 24)
-                        .frame(minWidth: Theme.minTouchTarget, minHeight: Theme.minTouchTarget - 12)
+                    Text(t("library.see_all"))
+                        .font(.system(size: 15))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .frame(minHeight: Theme.minTouchTarget - 12)
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(PressOpacityStyle())
-                .accessibilityLabel(actionLabel)
+                .accessibilityLabel(actionLabel ?? t("library.see_all"))
             }
         }
         .padding(.horizontal, Theme.pageGutter)
@@ -283,9 +313,7 @@ struct DiscoverScreen: View {
             router.present(.wallet(shortfall: nil))
         } label: {
             HStack(spacing: 14) {
-                Image(systemName: "sparkles")
-                    .font(.system(size: 24, weight: .regular))
-                    .foregroundStyle(Theme.Colors.textPrimary)
+                CreditGlyph(size: 30)
                     .frame(width: 32)
                 VStack(alignment: .leading, spacing: 3) {
                     Text(t("wallet.claim_daily"))
@@ -300,11 +328,7 @@ struct DiscoverScreen: View {
             }
             .padding(.horizontal, 18)
             .padding(.vertical, 16)
-            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
-                    .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
-            }
+            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(Rectangle())
         }
         .buttonStyle(PressScaleStyle())
@@ -316,13 +340,15 @@ struct DiscoverScreen: View {
     private func railSection(_ rail: DiscoverRail, widths: CardWidths) -> some View {
         // A curated row is a sample and reads best as a rail you can flick
         // through. The full catalogue is not a sample — it gets a grid, so
-        // every world is on the page.
+        // every world is on the page. Top ranked is a short list of rows
+        // (design v3): rank, cover, title, hook, likes and plays.
         let asGrid = rail.id == "all" || rail.id == "category"
-        VStack(alignment: .leading, spacing: 14) {
+        let ranked = rail.kind == .TOP_RANKED
+        VStack(alignment: .leading, spacing: ranked ? Theme.Spacing.md : 14) {
             shelfTitle(
                 t.serverKey(rail.titleKey, fallback: rail.title),
                 action: asGrid ? nil : { router.present(.search) },
-                actionLabel: asGrid ? nil : t("discover.search_worlds")
+                actionLabel: asGrid ? nil : t("library.see_all")
             )
             if asGrid {
                 LazyVGrid(columns: Array(repeating: GridItem(.fixed(widths.grid), spacing: Theme.Spacing.md, alignment: .top), count: 3),
@@ -332,12 +358,21 @@ struct DiscoverScreen: View {
                     }
                 }
                 .padding(.horizontal, Theme.pageGutter)
+            } else if ranked {
+                ForEach(Array(rail.stories.prefix(3).enumerated()), id: \.element.storyId) { index, story in
+                    RankedRow(story: story, rank: index + 1, locale: store.locale,
+                              onPress: { router.push(.storyDetail(storyId: story.storyId)) },
+                              onLongPress: { preview = story })
+                        .onAppear {
+                            Telemetry.trackOnce(.storyCardViewed, key: "\(rail.id)|\(story.storyId)",
+                                                ["storyId": story.storyId, "railId": rail.id, "position": index])
+                        }
+                }
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .top, spacing: Theme.Spacing.md) {
                         ForEach(Array(rail.stories.enumerated()), id: \.element.storyId) { index, story in
-                            // The rank only on the shelf that is about ranking.
-                            card(story, width: widths.rail, rank: rail.kind == .TOP_RANKED ? index + 1 : nil, railId: rail.id, position: index)
+                            card(story, width: widths.rail, rank: nil, railId: rail.id, position: index)
                         }
                     }
                     .padding(.horizontal, Theme.pageGutter)
@@ -365,6 +400,28 @@ struct DiscoverScreen: View {
                 key: "\(railId)|\(story.storyId)",
                 ["storyId": story.storyId, "railId": railId, "position": position]
             )
+        }
+    }
+
+    // MARK: Play
+
+    /// Play under the featured poster: the same quick start as Play on the
+    /// story page. Any failure that is not a shortfall opens the story page,
+    /// where the player can try again or set up a character.
+    private func play(_ storyId: String) async {
+        guard starting == nil else { return }
+        starting = storyId
+        defer { starting = nil }
+        do {
+            let detail = try await store.api.storyDetail(storyId)
+            let sessionId = try await QuickStart.start(detail, store: store, startPath: "instant")
+            router.push(.session(sessionId: sessionId))
+        } catch {
+            if let api = error as? APIError, api.isInsufficientCredits {
+                router.present(.wallet(shortfall: api.shortfall))
+            } else {
+                router.push(.storyDetail(storyId: storyId))
+            }
         }
     }
 
@@ -427,75 +484,193 @@ struct DiscoverScreen: View {
 
 /// The featured worlds as one wide strip you page through: key art, a scrim,
 /// the title and the fantasy line. Rotates every six seconds until touched.
-private struct FeaturedBanner: View {
+/// Design v3 Home lead: the featured covers as 2:3 posters you page through
+/// (the next one peeks in), with the current one's meta, hook and Play under.
+private struct HeroCarousel: View {
     let stories: [StorySummary]
-    let width: CGFloat
+    let screenWidth: CGFloat
+    let locale: AppLocale
+    var starting: String?
     let onOpen: (String) -> Void
+    let onPlay: (String) -> Void
 
     @Environment(\.translator) private var t
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var position: String?
-    @State private var driving = false
-    @State private var autoTarget: String?
 
-    private var height: CGFloat { (width * 0.42).rounded() }
+    private var posterWidth: CGFloat { min(280, ((screenWidth - Theme.pageGutter * 2) * 0.8).rounded()) }
+    private var posterHeight: CGFloat { (posterWidth * 1.5).rounded() }
+    private var current: StorySummary? { stories.first { $0.storyId == position } ?? stories.first }
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: Theme.Spacing.md) {
-                ForEach(stories) { story in
-                    Button {
-                        Haptic.play(.light)
-                        onOpen(story.storyId)
-                    } label: {
-                        StoryArt(seed: story.storyId, title: story.title, uri: story.keyArt ?? story.coverImage)
-                            .frame(width: width, height: height)
-                            .overlay(alignment: .bottomLeading) {
-                                LinearGradient(
-                                    stops: [.init(color: .clear, location: 0.3), .init(color: Theme.Colors.bgBase.opacity(0.9), location: 1)],
-                                    startPoint: .top, endPoint: .bottom
-                                )
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(story.title)
-                                        .font(.system(size: 20, weight: .semibold))
-                                        .foregroundStyle(Theme.Colors.textPrimary)
-                                        .lineLimit(1)
-                                    Text(story.fantasyLabel)
-                                        .font(.system(size: 13))
-                                        .foregroundStyle(Theme.Colors.textSecondary)
-                                        .lineLimit(1)
-                                }
-                                .padding(14)
-                            }
-                            .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
-                            .contentShape(Rectangle())
+        VStack(alignment: .leading, spacing: 0) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: Theme.Spacing.md) {
+                    ForEach(stories) { story in
+                        Button {
+                            Haptic.play(.light)
+                            onOpen(story.storyId)
+                        } label: {
+                            StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage ?? story.keyArt)
+                                .frame(width: posterWidth, height: posterHeight)
+                                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(PressOpacityStyle(pressed: 0.9))
+                        .accessibilityLabel(t("discover.hero_a11y", ["title": story.title, "fantasy": story.fantasyLabel]))
+                        .id(story.storyId)
                     }
-                    .buttonStyle(PressOpacityStyle(pressed: 0.9))
-                    .accessibilityLabel(t("discover.hero_a11y", ["title": story.title, "fantasy": story.fantasyLabel]))
-                    .id(story.storyId)
                 }
+                .scrollTargetLayout()
             }
-            .scrollTargetLayout()
-        }
-        .scrollTargetBehavior(.viewAligned)
-        .scrollPosition(id: $position)
-        .scrollClipDisabled()
-        .frame(height: height)
-        .onAppear { if position == nil { position = stories.first?.storyId } }
-        .onChange(of: position) { _, newValue in
-            if let newValue, newValue != autoTarget { driving = true }
-        }
-        .task(id: "\(driving)-\(stories.count)") {
-            guard !driving, !reduceMotion, stories.count >= 2 else { return }
-            while !Task.isCancelled {
-                try? await Task.sleep(nanoseconds: 6_000_000_000)
-                guard !Task.isCancelled else { return }
-                let index = stories.firstIndex(where: { $0.storyId == position }) ?? 0
-                let target = stories[(index + 1) % stories.count].storyId
-                autoTarget = target
-                withAnimation(.easeInOut(duration: Theme.Durations.sheet)) { position = target }
+            .contentMargins(.horizontal, Theme.pageGutter, for: .scrollContent)
+            .scrollTargetBehavior(.viewAligned)
+            .scrollPosition(id: $position)
+            .frame(height: posterHeight)
+            .onAppear { if position == nil { position = stories.first?.storyId } }
+
+            if let story = current {
+                VStack(alignment: .leading, spacing: 0) {
+                    StoryMetaLine(story: story, locale: locale, tags: 2)
+                        .padding(.top, Theme.Spacing.md)
+                    Text(story.hook)
+                        .font(.system(size: 15))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, Theme.Spacing.xs)
+                    PBButton(t("story.play"), variant: .light, loading: starting == story.storyId, icon: "play.fill") {
+                        onPlay(story.storyId)
+                    }
+                    .padding(.top, Theme.Spacing.lg)
+                }
+                .padding(.horizontal, Theme.pageGutter)
+                .animation(.easeOut(duration: Theme.Durations.instant), value: story.storyId)
             }
         }
+    }
+}
+
+/// "Romance · Fantasy · ♥ 76K · 1.4M plays": tags, then the counts that are
+/// not zero, as one quiet line (design v3: numbers stay inline).
+struct StoryMetaLine: View {
+    let story: StorySummary
+    let locale: AppLocale
+    var tags: Int = 2
+    @Environment(\.translator) private var t
+
+    var body: some View {
+        let shown = Array(story.tags.prefix(tags))
+        var text = Text(verbatim: shown.joined(separator: " · "))
+        if story.likes > 0 {
+            if !shown.isEmpty { text = text + Text(verbatim: " · ") }
+            text = text + Text(Image(systemName: "heart.fill")).font(.system(size: 10))
+                + Text(verbatim: " " + Format.credits(story.likes, compact: true, locale: locale))
+        }
+        if story.runs > 0 {
+            if !shown.isEmpty || story.likes > 0 { text = text + Text(verbatim: " · ") }
+            text = text + Text(verbatim: Format.credits(story.runs, compact: true, locale: locale) + " " + t("create.metric_plays"))
+        }
+        return text
+            .font(.system(size: 13))
+            .foregroundStyle(Theme.Colors.textMuted)
+            .lineLimit(1)
+    }
+}
+
+/// A run in progress (design v3): the cover, the title, how far in and when,
+/// and the story's last line in the story's own type.
+private struct ContinueRow: View {
+    let card: ContinueCard
+    let locale: AppLocale
+    let onPress: () -> Void
+    @Environment(\.translator) private var t
+
+    private var meta: String {
+        var parts = [t("discover.continue_turns_in", ["count": card.turnCount])]
+        if let date = ISO8601.date(from: card.lastPlayedAt) { parts.append(Format.relative(date, locale: locale)) }
+        return parts.joined(separator: " · ")
+    }
+
+    var body: some View {
+        Button {
+            Haptic.play(.light)
+            onPress()
+        } label: {
+            HStack(alignment: .top, spacing: Theme.Spacing.md) {
+                StoryArt(seed: card.storyId, title: card.title, uri: card.coverImage)
+                    .frame(width: 56, height: 84)
+                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(card.title)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .lineLimit(1)
+                    Text(meta)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                        .lineLimit(1)
+                    if let line = card.recapLine ?? card.currentObjective, !line.isEmpty {
+                        Text(line)
+                            .font(.system(size: 15, design: .serif))
+                            .foregroundStyle(Theme.Colors.textSecondary)
+                            .lineLimit(2)
+                            .padding(.top, 4)
+                    }
+                }
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, Theme.pageGutter)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressOpacityStyle())
+    }
+}
+
+/// One Top ranked row (design v3): the rank, the cover, the title, the hook
+/// and the counts.
+private struct RankedRow: View {
+    let story: StorySummary
+    let rank: Int
+    let locale: AppLocale
+    let onPress: () -> Void
+    let onLongPress: () -> Void
+
+    var body: some View {
+        Button {
+            Haptic.play(.light)
+            onPress()
+        } label: {
+            HStack(alignment: .center, spacing: Theme.Spacing.md) {
+                Text(verbatim: String(rank))
+                    .font(.system(size: 17, weight: .semibold))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .frame(width: 18, alignment: .leading)
+                StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
+                    .frame(width: 56, height: 84)
+                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(story.title)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .lineLimit(1)
+                    Text(story.hook)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .lineLimit(1)
+                    StoryMetaLine(story: story, locale: locale, tags: 0)
+                }
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, Theme.pageGutter)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressOpacityStyle())
+        .simultaneousGesture(LongPressGesture(minimumDuration: 0.45).onEnded { _ in
+            Haptic.play(.medium)
+            onLongPress()
+        })
+        .accessibilityElement(children: .combine)
     }
 }
 
