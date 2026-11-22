@@ -210,6 +210,8 @@ struct CharacterPortrait: View {
     var speaking: Bool = false
     var dimmed: Bool = false
     var expression: String? = nil
+    /// The player. Design v3: you are a circle, everybody else a rounded square.
+    var isYou: Bool = false
 
     private var initials: String {
         name.split(separator: " ").prefix(2).compactMap { $0.first }.map(String.init).joined().uppercased()
@@ -217,8 +219,11 @@ struct CharacterPortrait: View {
 
     var body: some View {
         VStack(spacing: Theme.Spacing.xs) {
+            let shape = isYou
+                ? AnyShape(Circle())
+                : AnyShape(RoundedRectangle(cornerRadius: size * 0.24, style: .continuous))
             ZStack {
-                Circle().fill(Theme.Colors.bgRaised)
+                shape.fill(Theme.Colors.bgRaised)
                 RemoteImage(uri?.assetURL) {
                     Text(initials.isEmpty ? "?" : initials)
                         .font(.system(size: size * 0.36, weight: .semibold))
@@ -226,9 +231,10 @@ struct CharacterPortrait: View {
                 }
             }
             .frame(width: size, height: size)
-            .clipShape(Circle())
+            .clipShape(shape)
             .overlay {
-                Circle().strokeBorder(speaking ? Theme.Colors.accentPrimary : Theme.Colors.borderSubtle, lineWidth: speaking ? 2 : 0.5)
+                // A ring only while speaking; at rest the art carries the edge.
+                if speaking { shape.stroke(Theme.Colors.accentPrimary, lineWidth: 2) }
             }
             .opacity(dimmed ? 0.55 : 1)
             .animation(.easeOut(duration: Theme.Durations.short), value: speaking)

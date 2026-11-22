@@ -113,7 +113,7 @@ struct SessionStage: View {
                 // also where an unset one gets drawn.
                 Button(action: onOpenPortrait) {
                     if let playerPortraitUrl {
-                        CharacterPortrait(name: t("session.you"), uri: playerPortraitUrl, size: playerSlotWidth)
+                        CharacterPortrait(name: t("session.you"), uri: playerPortraitUrl, size: playerSlotWidth, isYou: true)
                     } else {
                         VStack(spacing: 2) {
                             Txt("+", .h3, color: Theme.Colors.textSecondary)
