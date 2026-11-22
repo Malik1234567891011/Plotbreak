@@ -52,9 +52,9 @@ const raw = {
   hook: 'You are the only person at court who can see the little window of light over the crown prince’s head. He has just told you he despises you. It says Affection 97, and it went up when he said it.',
   premise:
     'You are a lady-in-waiting at the royal palace of a small kingdom of river towns and vineyards. For eleven months you have carried the Queen’s letters, kept her secrets and been insulted, briefly and exactly, by her son.\n\n' +
-    'This morning you woke and found you could see a small frame of light hanging above Crown Prince Aldric’s head. Nobody else can see it. It has one line you can read:\n\n' +
+    'This morning you woke and found you could see a small frame of light hanging above Crown Prince Aldric’s head. Nobody else can see it. It has one line you can read, a word and a number.\n\n' +
+    'This afternoon he sent everyone else out of the music room and told you he despises you, and the number went up:\n\n' +
     '[Affection 97 ▲]\n\n' +
-    'This afternoon he sent everyone else out of the music room and told you he despises you. The number went up.\n\n' +
     'The number is always true. It does not tell you why he says the opposite, or what he will do about it.\n\n' +
     'In nine days, at the Midsummer Rite, he gives his word to Lady Viola Ashgrove in front of the whole court. Her family’s bank holds the crown’s war debt, and the marriage cancels it. Two springs ago, the last person he was seen to like was dismissed from the palace for a theft she did not commit.\n\n' +
     'So you know how he feels. You need to find out why he is lying, and decide what to do before Midsummer: make him say it, keep his secret, use it, or walk away from all of it.',
@@ -90,24 +90,25 @@ const raw = {
     ],
     hardCanon: [
       'Everyone in this story is an adult. The player is twenty-three. Crown Prince Aldric is twenty-five, Lady Viola Ashgrove twenty-four, Sir Bastien Roche twenty-seven, Lady Cressida Fane (Cress) twenty-nine, Maren Lisle thirty-one and Queen Ottilie fifty-one.',
-      'Rosewall Palace is the royal seat of Halcyne, a small kingdom of river towns and vineyards. The player has been a lady-in-waiting in Queen Ottilie’s household for eleven months. Ladies-in-waiting are paid companions and secretaries to royal women, from minor families; they sleep two to a room in the Ladies’ Gallery. The player shares a room with Cress Fane. For this fortnight the Queen has assigned the player to attend Lady Viola, who arrived at court yesterday.',
+      'Rosewall Palace is the royal seat of Halcyne, a small kingdom of river towns and vineyards. The player has been a lady-in-waiting in Queen Ottilie’s household for eleven months. Ladies-in-waiting are paid companions and secretaries to royal women, from minor families; they sleep two to a room in the Ladies’ Gallery. The player shares a room with Cress Fane. For this fortnight the Queen has assigned the player to attend Lady Viola, who arrived at court yesterday. Right now Lady Viola is waiting in the Ashgrove Suite to be dressed for the ball, and the player, her attendant, is already late. Where this canon calls the player she, use the pronouns the player chose.',
       'King Edmar died three winters ago after a border war the crown paid for with borrowed money. The lender is House Ashgrove, the kingdom’s great banking family. Aldric has been promised to Lady Viola Ashgrove since he was nineteen; on their wedding the debt becomes her dowry and is cancelled. At the Midsummer Rite, in the Rose Chapel on the evening of the tenth day, he gives his word in public, and once given it cannot be taken back without the whole debt falling due at once. Without the marriage the crown cannot pay the northern garrisons past autumn.',
       'Since the player woke this morning, a small frame of pale light hangs a hand’s width above Aldric’s head whenever she can see him. Only the player can see it. Nobody else has one; she has looked at everybody. Mirrors and paintings do not show it, and it cannot be touched. The player calls it the window.',
-      'The window’s first line reads [Affection NN] followed by ▲ or ▼ for the last change. It started at 97. It is always true: it shows how Aldric feels about the player at that moment. It never says why, and it never predicts what he will do. It moves by one or two for small things and by more for large ones, and it can fall as well as rise, a long way if she uses him, lies to him or humiliates him.',
+      'The window’s first line reads [Affection NN] followed by ▲ or ▼ for the last change. It rose to 97 when Aldric told the player he despised her, and to 98 when he ordered her to keep away; that is where the story starts. It is always true: it shows how Aldric feels about the player at that moment. It never says why, and it never predicts what he will do. It moves by one or two for small things and by more for large ones, and it can fall as well as rise, a long way if she uses him, lies to him or humiliates him. It is not a score out of a hundred. On an ordinary day it wanders a point or two either way in the high nineties, dipping when he is jealous, hurt or frightened for her and recovering when she is kind; it passes 100 only for something he will remember for years. It does not climb every beat: a beat where it holds still or dips is what makes the next rise land.',
       'Under the number is a second line, greyed out like ink under water. More lines can sharpen during the fortnight: [Thinking of: …] after the first time the player and Aldric are alone together after the ball, and [Afraid of: …] once she knows what happened to Maren Lisle. The grey line becomes readable only at the dry fountain in the Sunken Garden, where it reads [Wished for: this]. In prose the window appears as a short bracketed line on its own, like [Affection 98 ▲], only when the number changes or the player looks, and never more than twice in a beat.',
-      'The window closes for good the first time Aldric says out loud, to the player’s face, what it says. After that she has to know him the way everybody has to know anybody.',
+      'The window closes for good the first time Aldric says out loud, to the player’s face, what it says: that he loves her, in his own words, meaning it. Reading the number back, repeating it in disbelief or joking about it does not count. After that she has to know him the way everybody has to know anybody.',
+      'If the player tells Aldric about the window, he does not believe her. Then he tests it: he says something cutting, or something kind, and asks what it did. When her answer is right, he is mortified, and the number moves at each step. He never guesses at the window on his own, and nobody else at court ever believes in it.',
       'The window is the answer to a wish. Last night Aldric climbed the wall of the walled Sunken Garden and dropped a royal crown-piece into its dry fountain, which an old palace story says grants one honest wish in each generation, and wished that the person he could not tell would know anyway. He does not know it worked. The player learns this only by finding the fountain, the coin, or what Maren Lisle remembers. It is never narrated to her.',
       'Two springs ago Aldric was openly fond of the court harpist, Maren Lisle, his only friend at court; it was friendship, not courtship. Within a month the Queen’s sapphire brooch was found in Maren’s music case and she was put in a carriage at dawn without a hearing. Queen Ottilie had it put there, to protect the Ashgrove marriage, and wrote the brooch out of her jewel book in her own hand the day before. Aldric suspects and cannot prove it. Since then he has been cold in public to everybody he likes, and coldest to the player. Maren now teaches music in a rented room on Lantern Street in the lower town, a mile from the palace’s postern gate.',
-      'What Aldric and the player share before today: perhaps forty words a week for eleven months. Once, at two in the morning in the Map Library, he told her she was standing in his light, and then did not move to another table. In the winter she corrected his pronunciation of a northern town in front of the council secretary, and he has called her “the expert” ever since. Since the winter somebody has been leaving books of northern poetry, one at a time, on her window seat in the Long Gallery. It is Aldric. She does not know that.',
+      'Before today Aldric has spoken perhaps forty words a week to the player for eleven months, most of them cutting. Once, at two in the morning in the Map Library, he told her she was standing in his light, and then did not move to another table. In the winter she corrected his pronunciation of a northern town in front of the council secretary, and he has called her “the expert” ever since. Since the winter somebody has been leaving books of northern poetry, one at a time, on her window seat in the Long Gallery. It is Aldric. She does not know that.',
       'Tonight is the Rose Ball, which opens the betrothal fortnight. Aldric must open the dancing with Viola. At court a lady may not refuse a dance to anyone of higher rank, and a crown prince may dance with anybody he likes, which is why he has ordered the player to keep away.',
-      'The palace guard answers to Sir Bastien inside the palace and to the Queen above him. Anybody who strikes another person at court, of any rank, is arrested by the guard and dismissed. Nobody duels, nobody draws a sharp blade in anger anywhere in the palace, and nobody here dies of a quarrel.',
+      'The palace guard answers to Sir Bastien inside the palace and to the Queen above him. Anybody seen striking another person at court, or reported for it, is arrested by the guard and dismissed, whatever their rank. What happens with no witness stays between the two people, and Aldric would sooner be struck again than report her. Nobody duels, nobody draws a sharp blade in anger anywhere in the palace, and nobody here dies of a quarrel.',
       'Romance in this story goes no further than a kiss, and nobody is touched without being asked. A kiss in public is a scandal. A kiss in private is a secret somebody may learn.',
       'Nothing obliges the player to love Aldric, keep her post, keep the window secret or stay at court. Calling his bluff, obeying him, telling him about the window, using it, helping Viola, siding with the Queen, choosing Sir Bastien and leaving the palace are all real paths with real consequences.',
     ],
     toneGuide:
       'Romantic comedy at a royal court: quick, warm, specific, with real stakes under it. The comedy is the gap between what Aldric says and what the number does. Let him be cutting and let the arrow undercut him, and never explain the joke. ' +
       'The window is always true and never predictive. It tells the player how he feels and never what he will choose, so the tension lives in his choices, in the Queen, the debt and the nine days, not in whether he cares. ' +
-      'The court is small and it talks. A dance is news by breakfast, a raised voice by noon, and the Queen hears everything by supper. Consequences are social and they stick. A player who lies, shouts, sulks, wanders off or strikes somebody gets a court that remembers, and a guard that arrests. ' +
+      'The court is small and it talks. A dance is news by breakfast, a raised voice by noon, and the Queen hears everything by supper. Consequences are social and they stick. A player who lies, shouts, sulks or wanders off gets a court that remembers, and one who strikes somebody in front of witnesses gets a guard that arrests. ' +
       'Nobody is a pure villain. The Queen did a cruel thing for a real reason, Viola is using the player and says so, and Bastien began as a decoy and stopped. Everybody can say no, change their mind, bargain or leave. ' +
       'Romance is flirtatious, tense and heartfelt, never more than a kiss, always asked for. If a scene has nothing at stake, keep it short and pleasant. The face at the top of a beat is Aldric’s whenever he is in the scene.',
     proseStyle: 'webnovel',
@@ -253,9 +254,9 @@ const raw = {
       questItem: true,
       droppable: false,
       description:
-        'A small frame of pale light that hangs a hand’s width above Crown Prince Aldric’s head whenever you can see him. Only you can see it. Its top line reads [Affection 97 ▲], and the arrow shows which way it last moved.',
+        'A small frame of pale light that hangs a hand’s width above Crown Prince Aldric’s head whenever you can see him. Only you can see it. Its top line read [Affection 97 ▲] the moment he said he despised you, and the arrow shows which way it last moved.',
       loreText:
-        'It is always true and it never explains itself: how he feels about you right now, never why, never what he will do. Under the number is a second line, greyed out like ink under water, that will not come clear. It closes for good the first time he says the number’s meaning to your face.',
+        'It is always true and it never explains itself: how he feels about you right now, never why, never what he will do. Under the number is a second line, greyed out like ink under water, that will not come clear. It closes for good the first time he tells you to your face, in his own words and meaning it, what the number means.',
       icon: 'sparkle',
     },
     {
@@ -265,7 +266,7 @@ const raw = {
       description:
         'A stiff cream card for the Rose Ball with ten dances printed down one side and ten blank lines beside them. A silk cord to hang it from your wrist.',
       loreText:
-        'Court etiquette: a lady may not refuse a dance to anybody of higher rank. Nobody at the ball outranks the crown prince, which is exactly why he told you to stand at the far end of the room.',
+        'Court etiquette: a lady may not refuse a dance to anybody of higher rank. Nobody at the ball but the Queen outranks the crown prince, which is exactly why he told you to stand at the far end of the room.',
       icon: 'card',
     },
     {
@@ -785,7 +786,7 @@ const raw = {
       discoveredByDefault: true,
       mapPosition: { x: 1, y: 0 },
       takeableItems: [
-        { itemId: 'viola_ledger', qty: 1, ownerId: 'viola', aka: ['the red book', 'her account book', 'the ledger', 'her numbers'] },
+        { itemId: 'viola_ledger', qty: 1, ownerId: 'viola', aka: ['the red book', 'her account book', 'her numbers'] },
       ],
     },
     {
@@ -973,7 +974,7 @@ const raw = {
         'That breaking the Ashgrove betrothal leaves the northern garrisons unpaid and the border with them',
       ],
       socialStyle:
-        'Says the coldest available thing and then stays in the room. Leaves small kindnesses where they cannot be traced to him and denies them if asked.',
+        'Says the coldest available thing and then stays in the room. He expects a curtsy and a hurt face, or tears; anything else throws him, and the number shows it. Leaves small kindnesses where they cannot be traced to him and denies them if asked.',
       boundaries: [
         'Will not say he loves the player while he believes saying it puts her in danger',
         'Will not break his word to Viola behind her back: if it ends, he tells her first, to her face',
@@ -1106,9 +1107,9 @@ const raw = {
         'Smile. The Queen is watching, and if we look like friends she will assume we are plotting. Which, to be fair, we are.',
       ],
       appearance:
-        'An adult woman, small and quick, with copper-red hair in a braided crown, sharp green eyes and freckles she refuses to powder. Dark green silk cut like a riding coat, pearl combs, and ink on one finger.',
+        'An adult woman, slight and brisk, with copper-red hair in a braided crown, sharp green eyes and freckles she refuses to powder. Dark green silk cut like a riding coat, pearl combs, and ink on one finger.',
       visualHook: 'A smudge of ink on her right forefinger that no amount of pearls distracts from.',
-      silhouette: 'Small and upright, chin lifted, a folded paper always in one hand.',
+      silhouette: 'Upright and brisk, chin lifted, a folded paper always in one hand.',
       artSeed: 'a97-viola-01',
       portrait: null,
       expressions: ['neutral', 'amused', 'calculating', 'annoyed', 'warm'],
@@ -1147,7 +1148,7 @@ const raw = {
       name: 'Sir Bastien Roche',
       role: 'The prince’s sworn knight and oldest friend, who flirts with you in public and has no number over his head',
       cardBlurb:
-        'He is warm where the prince is cold, he asks you to dance where the whole court can see, and there is no window over his head to tell you whether he means a word of it.',
+        'He asks you to dance where the whole court can see, tells you a story about a mule instead of answering, and there is no window over his head to tell you whether he means a word of it.',
       pronouns: 'he/him',
       publicTraits: [
         'Easy laugh, easy charm, easy with everybody',
@@ -1283,7 +1284,7 @@ const raw = {
       voiceSamples: [
         'Sit with me, my dear. Tea? You look as though somebody has said something unkind to you. My son, I expect. He has my gift for it.',
         'A kingdom is a household with a leaking roof, and the Ashgroves own the slates. One does not insult the slater.',
-        'I did it. The brooch was mine, the case was hers, and the lesson was his. Would you like me to be sorry? I can manage it for an afternoon.',
+        'Every household has one cupboard nobody opens, my dear. Mine is very tidy.',
         'You may refuse me, of course. Nobody ever has. But you may.',
       ],
       appearance:
@@ -1369,7 +1370,7 @@ const raw = {
         'Sit, pet, your hair is a crime. Now. The Icicle cleared the music room for you alone and I want every word.',
         'Sir Smiles has asked three women to dance this month and you twice. I count. Somebody has to.',
         'Herself asked about you this morning, by the way, pass me the pins, which she never does about anyone dull.',
-        'I write things down. Family failing. Mostly what I write about you concerns your stockings.',
+        'I write things down. Family failing. Mostly what I write about you concerns your hairpins.',
       ],
       appearance:
         'An adult woman, tall and long-limbed, with a heart-shaped face, a mass of honey-blonde curls held up with far too many pins, and quick hazel eyes. Grey silk of the Queen’s household, and a pincushion on a ribbon at her wrist.',
@@ -1978,7 +1979,7 @@ const raw = {
       id: 'q_the_pearl_comb',
       title: 'The Pearl Comb',
       summary:
-        'The Queen’s steward is searching the Ladies’ Gallery for Lady Viola’s missing pearl comb. Two springs ago a search like this found a brooch in a harpist’s music case.',
+        'If the Queen decides you are a danger, her steward will search the Ladies’ Gallery for Lady Viola’s missing pearl comb. Two springs ago a search like this found a brooch in a harpist’s music case.',
       kind: 'SIDE',
       involvedCharacterIds: ['cress', 'ottilie', 'viola'],
       involvedLocationIds: ['ladies_gallery', 'queens_solar'],
@@ -2560,7 +2561,7 @@ const raw = {
     },
   ],
   opening:
-    'The crown prince, Aldric, has sent everyone out of the music room except you, the newest of his mother’s ladies-in-waiting.\n\nHe doesn’t sit. He stands by the cold fireplace in black gloves, looking at you like an appointment he regrets.\n\n"I despise you," he says. "I want that understood before the ball tonight."\n\nSince this morning, a small frame of light has hung above his head. Nobody else can see it. You’ve checked.\n\n[Affection 97 ▲]\n\nThe arrow went up when he said it.\n\n"You’ll keep to the far end of the ballroom. You won’t speak to me. You won’t dance with me."\n\n[Affection 98 ▲]\n\nHis jaw sets. "Do you understand?"',
+    'The crown prince, Aldric, has sent everyone out of the music room except you, the newest of his mother’s ladies-in-waiting.\n\nHe doesn’t sit. He stands by the cold fireplace in black gloves, looking at you like an appointment he regrets.\n\n"I despise you," he says. "I want that understood before the ball tonight."\n\nSince this morning, a small frame of light has hung above his head. Nobody else can see it. You’ve checked.\n\n[Affection 97 ▲]\n\nThe arrow went up when he said it.\n\n"You will keep to the far end of the ballroom. You will not speak to me. You will not dance with me."\n\n[Affection 98 ▲]\n\nHis jaw sets. "Do you understand?"',
   openingPanel: {
     assetKey: 'story_affection_97/opening',
     alt: 'Crown Prince Aldric in a black coat and gloves stands by a cold fireplace in a blue music room, hands behind his back, a faint frame of light above his head.',
@@ -2573,7 +2574,7 @@ const raw = {
   coverDirection: [
     'SUBJECT: Crown Prince Aldric, a cold and handsome royal heir, alone in the foreground of a key visual for a romance anime set at a royal court.',
     'He fills the frame from the waist up, close and slightly off-centre, turned three-quarters away with his chin raised, glancing sideways at the viewer with cool pale grey eyes and the faintest blush across his cheekbones.',
-    'Short black hair, a long severe face, a black court coat with silver embroidery at the high collar, black gloves, one gloved hand at his collar as if adjusting it.',
+    'Short black hair, a long severe face, a black court coat with silver embroidery buttoned to the high collar, black gloves, gloved hands clasped behind his back.',
     'TITLE: the words AFFECTION: 97 painted into the art in the upper third, inside a floating translucent rectangular frame of pale lilac light that hovers just above his head, with a small glowing upward arrow after the number,',
     'spelled exactly AFFECTION: 97, large, crisp and legible at thumbnail size. No other text, letters or numbers anywhere.',
     'BEHIND HIM, soft and secondary: a candlelit palace ballroom hung with pale pink roses, crystal chandeliers glowing out of focus.',

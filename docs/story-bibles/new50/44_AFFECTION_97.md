@@ -20,9 +20,9 @@ Two things keep the number from making the story easy:
 
 ## Story bible
 
-You are a lady-in-waiting at Rosewall Palace, the court of Halcyne, a small kingdom of river towns and vineyards. You have served Queen Ottilie for eleven months: her letters, her errands, her secrets. Her son, Crown Prince Aldric, has spoken perhaps forty words to you in that time, most of them cutting.
+You are a lady-in-waiting at Rosewall Palace, the court of Halcyne, a small kingdom of river towns and vineyards. You have served Queen Ottilie for eleven months: her letters, her errands, her secrets. Her son, Crown Prince Aldric, has spoken perhaps forty words a week to you in that time, most of them cutting.
 
-This morning you woke and found a small frame of pale light hanging a hand's width above his head. Only you can see it. Its first line reads **[Affection 97 ▲]**. This afternoon he sent everyone else out of the music room and told you he despises you, and the arrow went up.
+This morning you woke and found a small frame of pale light hanging a hand's width above his head. Only you can see it. It has one line you can read, a word and a number. This afternoon he sent everyone else out of the music room and told you he despises you, and the number went up: **[Affection 97 ▲]**.
 
 What the player does not know at the start, and can find out:
 
@@ -37,11 +37,13 @@ The story succeeds if a player can spend ten turns at the Rose Ball and the morn
 ## The Window (rules the storyteller never breaks)
 
 - A small frame of pale light, a hand's width above Aldric's head, whenever the player can see him. Only she can see it. Nobody else has one; she has looked at everybody. Mirrors and paintings do not show it, and it cannot be touched.
-- First line: `[Affection NN ▲]` or `[Affection NN ▼]`, the arrow showing the last change. It starts at 97.
+- First line: `[Affection NN ▲]` or `[Affection NN ▼]`, the arrow showing the last change. It rises to 97 when he says he despises her and to 98 when he orders her to keep away, which is where the story starts.
 - **It is always true and it never explains.** It shows how he feels about her right now. It never says why, and never predicts what he will do. He can be at 99 and still walk away.
 - It moves by one or two for small things (a look, a joke, his name said by accident) and by more for large ones. It can fall, and fall a long way: being used, lied to or humiliated in public costs him, and it shows.
+- **It is not a score out of a hundred.** On an ordinary day it wanders a point or two either way in the high nineties, dipping when he is jealous, hurt or frightened for her and recovering when she is kind; it passes 100 only for something he will remember for years. It does not climb every beat: a beat where it holds still or dips is what makes the next rise land.
 - Under the number is a second line, greyed out like ink under water. More lines can sharpen over the fortnight: `[Thinking of: …]` after the first time they are alone together after the ball; `[Afraid of: …]` once the player knows about Maren. The grey line becomes readable only at the fountain, and reads `[Wished for: this]`.
-- **It closes for good the first time Aldric says out loud, to her face, what it says.**
+- **It closes for good the first time Aldric says out loud, to her face, what it says:** that he loves her, in his own words, meaning it. Reading the number back, repeating it in disbelief or joking about it does not count.
+- **If she tells him about it,** he does not believe her. Then he tests it: he says something cutting, or something kind, and asks what it did. When her answer is right, he is mortified, and the number moves at each step. He never guesses at the window on his own, and nobody else at court ever believes in it.
 - In prose it appears as a short bracketed line on its own, exactly like `[Affection 98 ▲]`, only when the number changes or the player looks. Never more than twice in a beat.
 
 ## Tone and pacing
@@ -51,18 +53,18 @@ The story succeeds if a player can spend ten turns at the Rose Ball and the morn
 - The court is small and it talks. Consequences are social and they stick: a dance is news by breakfast, a raised voice is news by noon, and the Queen hears everything by supper.
 - Romance is flirtatious, tense and heartfelt, and goes no further than a kiss, asked for. A kiss in public is a scandal; a kiss in private is a secret somebody may learn.
 - Nobody is a pure villain. The Queen did a cruel thing for a real reason. Viola is using the player and says so. Bastien began as a decoy and stopped.
-- Violence at court is a crime: anybody who strikes someone in the palace is arrested by the guard and dismissed.
+- Violence at court is a crime: anybody seen striking someone in the palace, or reported for it, is arrested by the guard and dismissed, whatever their rank. What happens with no witness stays between the two people, and Aldric would sooner be struck again than report her.
 
 ## Player starting authority
 
-The player authors her name, her pronouns, her family (one of four backgrounds), her appearance and her temperament. Hard canon:
+The player authors her name, her pronouns (where this bible says she, the storyteller uses the pronouns the player chose), her family (one of four backgrounds), her appearance and her temperament. Hard canon:
 
 - she is twenty-three and has been a lady-in-waiting in the Queen's household for eleven months;
-- she has been assigned to attend Lady Viola for the betrothal fortnight;
+- she has been assigned to attend Lady Viola for the betrothal fortnight, and right now Viola is waiting in the Ashgrove Suite to be dressed for the ball and the player is already late;
 - she has a small shared history with Aldric: once, at two in the morning in the Map Library, he told her she was standing in his light and then did not move to another table; in the winter she corrected his pronunciation of a northern town in front of the council secretary, and he has called her "the expert" since; somebody has been leaving books of northern poetry on her window seat in the Long Gallery since the winter, and she does not know who;
 - the window appeared this morning.
 
-## Opening scene (the opener: 112 words)
+## Opening scene (the opener: 115 words)
 
 > The crown prince, Aldric, has sent everyone out of the music room except you, the newest of his mother's ladies-in-waiting.
 >
@@ -76,13 +78,13 @@ The player authors her name, her pronouns, her family (one of four backgrounds),
 >
 > The arrow went up when he said it.
 >
-> "You'll keep to the far end of the ballroom. You won't speak to me. You won't dance with me."
+> "You will keep to the far end of the ballroom. You will not speak to me. You will not dance with me."
 >
 > [Affection 98 ▲]
 >
 > His jaw sets. "Do you understand?"
 
-Checks: a named character speaks to the player at word 41; it ends on a direct question that needs an answer now; 112 words; the only proper noun is Aldric, introduced as the crown prince.
+Checks: a named character speaks to the player at word 41; it ends on a direct question that needs an answer now; 115 words; the only proper noun is Aldric, introduced as the crown prince.
 
 Three suggestions, three different moves:
 
@@ -90,7 +92,7 @@ Three suggestions, three different moves:
 - **Done:** I curtsy, then take one step closer instead of back, and watch the number.
 - **Risky:** I point at the air above his head. "Your Highness, there's a number up there, and it just went up."
 
-Aldric reacts to the exact move. Telling him about the window is a real branch: he does not believe it, then tests it, then is mortified, and the number does something on each step.
+Aldric reacts to the exact move. Telling him about the window is a real branch: he does not believe it, then tests it, then is mortified, and the number does something on each step. His orders in the opener carry no contractions on purpose: he is lying, and the contractions arrive only when he forgets himself.
 
 ## Cast
 
@@ -205,7 +207,8 @@ Eleven, using every rarity. Several are losses, and none is written as a punishm
 
 - No status-window vocabulary is copied: the frame is "the window" in the fiction, and its lines are this story's own (`Affection`, `Thinking of`, `Afraid of`, `Wished for`).
 - The kingdom, palace, families and cast are invented for this story. Halcyne, Rosewall, Ashgrove and the Fountain of Small Mercies are not names from any franchise we know of.
-- The title collision search the plan asks for has not been run in this session; it is left for owner review.
+- Title collision search, run 2026-11-22 (web search): "Affection: 97" with webtoon, manhwa and novel; "Affection 97" with otome game; "Affection 97" with web novel, light novel and anime. An editor's earlier pass searched "Affection: 97" anime and "Affection 97" webtoon and manhwa. No work with this title turned up in webtoon, web-novel, light-novel, anime or otome-game listings. Nearest titles: A Sign of Affection, First Affection (WEBTOON), Affection Disbelief (Lezhin/Bomtoon) and Affection Engine (Steam); none shares the title or premise.
+- Closest premise in a known work: Death Is the Only Ending for the Villainess (Villains Are Destined to Die), whose heroine sees affection gauges over several male leads' heads, a crown prince among them. That is a genre trope and nothing is copied. Keep the differences: one person only, a bare number rather than a percentage gauge, a window that closes when he says it aloud, and no villainess or game-world framing in the store copy or the cover.
 
 ## Image plan
 
