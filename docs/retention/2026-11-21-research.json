@@ -1,0 +1,1715 @@
+{
+ "ooc-feed": {
+  "result": {
+   "rows": [
+    {
+     "name": "Notification bar (headline announcement)",
+     "kind": "thin banner strip above the hero",
+     "itemCount": "1",
+     "ordering": "Latest event notice. Today: 'Free Messages Are Back Through November 30' (posted Nov 10)."
+    },
+    {
+     "name": "Hero banner",
+     "kind": "hero carousel: '1/6' pager, blurred-cover backdrop, portrait cover, title, one-liner, hashtags, Explore button",
+     "itemCount": "6",
+     "ordering": "Editorial ('CharacterRecommend'). Same on every genre tab and the same across reloads. Today: 3 Originals released Nov 12-13, 2 top creator stories, and Hero Academy Apex. All 6 also appear in the rows below."
+    },
+    {
+     "name": "Genre bar",
+     "kind": "sticky chip tabs",
+     "itemCount": "16",
+     "ordering": "Fixed order: Main, New Ranking, Rankings, Today, Fantasy, Romance, Sci-Fi, History, Girls Love, Horror, Oriental Fantasy, Slice of Life, Fan Fiction, Utility, Boys Love, Others."
+    },
+    {
+     "name": "Top Ranked",
+     "kind": "ranked carousel, numbered 1-20",
+     "itemCount": "20",
+     "ordering": "stories/ranking type=total period=daily, so it ranks by today's activity, not lifetime. View All opens the Rankings tab."
+    },
+    {
+     "name": "AIRPG promo: 'Dice of Fate: A reverse Isekai - First AIRPG on OOC'",
+     "kind": "landing banner",
+     "itemCount": "1",
+     "ordering": "Editorial. Links to a game mode (/arpg/...)."
+    },
+    {
+     "name": "Popular OOC Originals",
+     "kind": "carousel",
+     "itemCount": "20",
+     "ordering": "sort=recommend, isOriginal=true. View All sorts: Most Played, Most Liked, Latest."
+    },
+    {
+     "name": "New OOC Originals",
+     "kind": "carousel",
+     "itemCount": "30",
+     "ordering": "Newest first by firstPublicAt. 28 of the 30 were created Nov 12-17."
+    },
+    {
+     "name": "Trending Now",
+     "kind": "ranked carousel, numbered",
+     "itemCount": "10 shown (20 fetched)",
+     "ordering": "stories/ranking type=recent period=daily: momentum of newly released titles. Today all 10 are OOC Originals, 4-9 days old."
+    },
+    {
+     "name": "Welcome Mission",
+     "kind": "landing banner (signed-in users only)",
+     "itemCount": "1",
+     "ordering": "Onboarding checklist: browse ranking, visit personalization, finish a chat, daily check-in."
+    },
+    {
+     "name": "Trending New Creators",
+     "kind": "carousel",
+     "itemCount": "14",
+     "ordering": "/story-recommendations/newbie type=non-creator. A pool of 14 stories, 1-8 days old, reshuffled on every page load."
+    },
+    {
+     "name": "Tags",
+     "kind": "hashtag chip row (each chip opens a search)",
+     "itemCount": "11",
+     "ordering": "Fixed: #Fantasy #Romance #Adventure #Action #Isekai #Magic #SliceOfLife #Comedy #Horror #Simulation #Thriller"
+    },
+    {
+     "name": "New from certified creators",
+     "kind": "carousel",
+     "itemCount": "15",
+     "ordering": "/story-recommendations/newbie type=creator. Recent certified-creator titles, mostly under 3 days old, reshuffled on every load."
+    },
+    {
+     "name": "Explore",
+     "kind": "infinite 6-column grid",
+     "itemCount": "50 per page, cursor pagination, no end",
+     "ordering": "Default Most Played (totalMessageCount desc); also Most Liked and Latest. The underlying 'recommend' pool contains no Fan Fiction-genre titles."
+    },
+    {
+     "name": "Trick or Chat (seasonal, Oct 25-Nov 7)",
+     "kind": "carousel inserted between Popular OOC Originals and Trending Now",
+     "itemCount": "a few on Home, full lineup on tap",
+     "ordering": "Any title with a #Halloween hashtag or Halloween cover joins automatically. Reshuffled every time Home opens."
+    },
+    {
+     "name": "New Ranking tab",
+     "kind": "Top 100 ranked list with filter chips",
+     "itemCount": "100",
+     "ordering": "type=recent. Filters: Daily/Weekly/Monthly x All/Female-Oriented/Male-Oriented. Median title age is 3.9 days on Daily and 10 days on Weekly."
+    },
+    {
+     "name": "Rankings tab",
+     "kind": "Top 100 ranked list with filter chips",
+     "itemCount": "100",
+     "ordering": "type=total. Same Daily/Weekly/Monthly x All/Female/Male filters. Daily and weekly Top 100 share 86 titles; weekly and monthly share 45."
+    },
+    {
+     "name": "Today tab",
+     "kind": "hero + infinite grid",
+     "itemCount": "~505 titles first released today (Pacific day, counted at 17:35 PT Nov 21)",
+     "ordering": "isTodayReleased=true. Sorts: Most Played, Most Liked, Latest."
+    },
+    {
+     "name": "Genre tabs (12)",
+     "kind": "hero + genre bar + infinite grid",
+     "itemCount": "6 hero slides + grid",
+     "ordering": "Genre-filtered Most Played. Romance also gets a 20-item 'Romance OOC Originals' carousel."
+    },
+    {
+     "name": "Character home (separate sidebar tab)",
+     "kind": "hero + 14-chip genre bar + tag row + grid",
+     "itemCount": "3 hero slides, 8 tags, infinite grid",
+     "ordering": "Most Played. Much thinner than Story: the top character has 8.8M messages against 48.5M for the top story."
+    },
+    {
+     "name": "Search page",
+     "kind": "Recent Searches plus a ranked Popular Searches list",
+     "itemCount": "top 10 keywords",
+     "ordering": "keyword/ranking: EXPLICIT, ISEKAI, PREGNANT, AIRPG, SAX, BL, FEMALE ORIENTED, ACADEMY, CHEATING, GIRLFRIEND. Results split into All/Story/Series/Character/Account/Hashtag tabs, each with a total count."
+    }
+   ],
+   "taxonomy": [
+    "Story genre tabs (16): Main, New Ranking, Rankings, Today, Fantasy, Romance, Sci-Fi, History, Girls Love, Horror, Oriental Fantasy, Slice of Life, Fan Fiction, Utility, Boys Love, Others. The Character side has 14 (no New Ranking, no Utility).",
+    "Every title carries exactly one genre, one target audience (Male-oriented, Female-oriented or All-oriented) and a chatType ('Simulation' or '1:1 role playing'). Official titles always set chatType; creator titles usually leave it blank.",
+    "Audience filter on both ranking tabs: All / Female-Oriented / Male-Oriented. Every page call also passes target=male or female, and the web defaults to male.",
+    "Home tag row (11): #Fantasy #Romance #Adventure #Action #Isekai #Magic #SliceOfLife #Comedy #Horror #Simulation #Thriller. The Character home shows 8.",
+    "Creators add free-form hashtags, about 6 per title. Most frequent in the top 300 most-played: romance 121, fantasy 112, academy 69, simulation 67, isekai 57, harem 56, sliceoflife 38, magic 37, rpg 33, adventure 26, halloween 24, drama 23, comedy 23, action 18, hero 17, school 15, reincarnation 14, villain 13. Most frequent in the newest 500: romance, fantasy, sliceoflife, magic, adventure, isekai, comedy, slowburn, action, mystery, academy.",
+    "Genre mix. Top 300 most-played: Fantasy 132, Romance 85, Slice of Life 57, every other genre 6 or fewer. Weekly Top 100: Fantasy 45, Slice of Life 24, Romance 23, the rest 1-3 each, Fan Fiction 0. Audience of the top 300: All-oriented 191, Male 94, Female 15.",
+    "Fan Fiction is kept off the main feed. It has its own tab, led by MHA A New Symbol (4.4M messages), then My Hero Academia, RWBY, Jujutsu Kaisen, Mushoku Tensei, Naruto, High School DxD, Demon Slayer, Bleach, Hazbin Hotel, One Piece and Harry Potter. Yet 0 Fan Fiction-genre titles appear in the recommend pool or in any Top 100, and fan fiction can't become an Original. IP-flavored titles still rank when filed under Fantasy or Sci-Fi, for example academies tagged MyheroAcademia.",
+    "The female-oriented track has its own vocabulary: RoFan (romance fantasy), HL/BL route toggles, ReverseHarem, EnemiesToLovers, Obsessive, AgeGap. 13 of its weekly top 15 are OOC Originals.",
+    "Card flags: ORIGINAL (official title), certified-creator flag, isAdult. The web always queries isSafetyOnly=true. Search results are split into Story, Series, Character, Account and Hashtag."
+   ],
+   "cardAnatomy": "Portrait 2:3 cover, full-bleed with rounded corners, high-gloss anime key art (usually 1-2 characters). The title is painted into the art as a logo, webtoon or light-novel style, on creator titles as well as Originals. Overlays: a rank number in a dark square at top-left on ranked rows; a lime '*ORIGINAL' pill at top-right on official titles; a small round gallery icon when the title has scene images (Hero Academy Apex, 0 images, has none). Under the cover: the title in plain text (up to 2 lines), then a single meta line such as '48.5M · OOC', which is the lifetime message count plus the creator name. Cards show no likes, comments, tags or genre. The data behind each card includes w200/w600 webp covers plus gif/gif600/mp4 animated versions: 67 of the 109 home carousel cards have an animated asset. The web build is in experiment 'ooc_video_thumbnail' group A and showed static covers. One-liners often advertise how much content a title has, e.g. '[images 600+ / female 14 / male 7]' or '+300 imgs / 21 characters'. The story page adds a creator chip; chips for image count ('150 Images'), prompt type ('Creator Custom Prompt'), target and genre; a one-liner; hashtags; counters (48.5M messages, 130K likes, 169.7K comments) and a 'New Play' button. Below that: an Avatar (persona) picker, a Starting Scenarios dropdown (Lumencia has Character Preview / Enrollment / Free Mode, 50 images each), a prologue preview, and a long markdown description with image galleries, cast lists, BGM notes and slash-command cheat sheets (/event, /anti-impersonation). Comments come last, sorted by likes.",
+   "freshness": [
+    "Ranked rows run on short windows. Top Ranked is the daily total ranking; Trending Now is the daily 'recent' ranking, which only includes new titles. The Rankings and New Ranking tabs each offer Daily/Weekly/Monthly x All/Female/Male Top 100s. Daily and weekly Top 100 share 86 titles; weekly and monthly share 45.",
+    "Two back-to-back loads of the Main page differed only in 'Trending New Creators' and 'New from certified creators'. Each is a 14-15 title pool shuffled on every load. Hero, Top Ranked, both Originals rows and Trending Now were identical. target=female returned the same layout.",
+    "The Today tab listed ~505 titles first released that day (Pacific day, at 17:35 PT Nov 21). New Ranking Daily has a median title age of 3.9 days; Weekly, 10 days.",
+    "OOC Originals ship in drops, all timestamped 01:11-01:47 UTC (about 10-11am KST): Nov 2 = 25, Nov 10 = 21, Nov 12 = 12, Nov 13 = 13, Nov 17 = 9. By month: Apr 47, May 7, Jun 28, Jul 69, Aug 50, Sep 49, Oct 70, Nov 80 so far.",
+    "A new drop goes straight to the top. 3 of the 6 hero slides are Nov 12-13 Originals, and all 10 Trending Now titles are Originals released Nov 13-17, helped by the free-message event. Hunter Academy, released Nov 17, is already #17 in the daily total ranking with 115k messages.",
+    "Official titles are versioned and keep getting updates: Lumencia Academy is on v20 (last update Nov 6). Creator titles advertise updates in their one-liners ('[UPDATE v2.2]').",
+    "Live ops: 20 announcements between Sep 3 and Nov 18. Examples: Free Messages (Nov 10-30); Halloween reskin of tabs, app icon and launch screen plus double check-in (Oct 25-Nov 8); Halloween Candy Packs (Oct 29-Nov 8); a 'Trick or Chat' home section fed by #Halloween (Oct 25-Nov 7); the OOC Originals $500 round (Oct 23); the Apex mode launch sale (Oct 23); referral codes (Oct 14); Series and Originals submissions opening (Nov 18).",
+    "Seasonal hashtags linger after the event: #halloween is still the 11th most common tag in the top 300.",
+    "Creator content is new every day: 'Trending New Creators' titles were 1-8 days old and 'New from certified creators' titles were mostly under 3 days old."
+   ],
+   "scale": "About 50-65k public stories. Method: the search API's totalCount for common title words ('the' 12,477, 'of' 4,847, 'a' 4,093, 'and' 1,440, 'with' 1,161), divided by each word's share of titles in a 1,000-title sample, gives estimates clustered at 52-66k. That is an extrapolation, so treat it as approximate. Characters are a smaller, secondary catalog: searching 'the' returns 4,086 characters, and the top character has 8.8M messages against 48.5M for the top story. Official vs creator: there are 539 OOC Originals since Apr 14, 2026, with 162.6M lifetime messages combined, about 2-3 a day on average but released in batches. Everything else is user-made: of the newest 2,000 stories, 10 were Originals and 98 (4.9%) came from certified creators. Publishing rate: 400-475 new public stories per UTC day in the recommend pool (Nov 18: 460, Nov 19: 411, Nov 20: 404, Nov 21: 474). The Today tab showed ~505 at 17:35 PT, a pace of about 650 a day. The newest 2,000 stories came from 1,582 different creators, roughly 400 a day. Plays concentrate at the top: Lumencia Academy has 48.5M messages and 526k players, Hero Academia 21.6M, Reincarnated With an OP Skill 20.7M and 534k players; #50 by plays has ~757k messages. The official OOC account has 127.6k followers. OOC is built by Wrtn (API field wrtnUid, 'Crack' model names), and Originals also release on sister apps in Korea and Japan. Sources: ooc.ai pages; read-only GETs to api.ooc.ai /ooc-page/pages/v2, /ooc-api/stories, /stories/ranking, /content/search, /announcements, /keyword/ranking and /ooc-cash/cash/products.",
+   "trending": [
+    {
+     "title": "Lumencia Academy",
+     "tags": "academy, fantasy, harem, game, textGame, simulation",
+     "plays": "48.5M msgs / 526k players",
+     "likes": "130k",
+     "creator": "OOC (official)",
+     "hook": "Enroll at an imperial sword-and-sorcery academy and work through a big romanceable cast in a stat-driven dating sim with 3 start modes.",
+     "ipStatus": "original (OOC Original)",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Sharing an apartment with the popular girl",
+     "tags": "love, roommates, Sliceoflife, Halloween",
+     "plays": "4.7M msgs / 127k players",
+     "likes": "39k",
+     "creator": "Johnnyboy (certified)",
+     "hook": "A double-booked lease makes you roommates with the most popular girl in school.",
+     "ipStatus": "original",
+     "format": "story"
+    },
+    {
+     "title": "Reincarnated With an OP Skill",
+     "tags": "Fantasy, OP, Powers, Magic, Dragons, Fame",
+     "plays": "20.7M msgs / 534k players",
+     "likes": "111k",
+     "creator": "Nuzelle (certified)",
+     "hook": "Isekai run by a game-style System: pick an overpowered skill and rewrite your fate.",
+     "ipStatus": "original",
+     "format": "story"
+    },
+    {
+     "title": "Hero Academia",
+     "tags": "academy, school, growth, hero, villain",
+     "plays": "21.6M msgs / 216k players",
+     "likes": "96k",
+     "creator": "OOC (official)",
+     "hook": "Superhero-school sim with classes 1-A and 1-B, 25 characters and 375 images.",
+     "ipStatus": "original, but a thin My Hero Academia homage (name, class 1-A/1-B)",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "My High School Romance",
+     "tags": "Simulation, Harem, Romance",
+     "plays": "3.4M msgs / 258k players",
+     "likes": "34k",
+     "creator": "OOC (official)",
+     "hook": "Teen dating sim at OOC High where you juggle several love interests.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "The Betrayal",
+     "tags": "History, Romance, RPG",
+     "plays": "5.2M msgs / 56k players",
+     "likes": "33k",
+     "creator": "Katzhen (certified)",
+     "hook": "Historical RPG that opens on your betrayal: chase revenge or start over.",
+     "ipStatus": "original",
+     "format": "story"
+    },
+    {
+     "title": "Hero Academy Apex",
+     "tags": "superpower, hero, villain, academy, simulation, newYork",
+     "plays": "1.8M msgs / 34k players",
+     "likes": "14k",
+     "creator": "OOC (official)",
+     "hook": "Superpowered academy sim in New York with 635 images, 15 leads and 17 supporting characters.",
+     "ipStatus": "original (MHA-style superhero academy)",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Chronicle Hero Academy",
+     "tags": "Academy, Fantasy, Hero, Swordsmanship, Magic, Adventure",
+     "plays": "497k msgs / 11k players",
+     "likes": "5k",
+     "creator": "OOC (official)",
+     "hook": "Sword-and-magic academy for future heroes; released Nov 10 and already top 10.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "ASHFORD",
+     "tags": "Fantasy, Priest, Vampire, Werewolf, Witch",
+     "plays": "434k msgs / 11k players",
+     "likes": "6k",
+     "creator": "OOC (official)",
+     "hook": "Gothic hunting season among priests, vampires, werewolves and witches.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Psychic Academy NOVA",
+     "tags": "Academy, School, Superpower, Simulation",
+     "plays": "7.8M msgs / 92k players",
+     "likes": "47k",
+     "creator": "OOC (official)",
+     "hook": "Train at an academy for the rarest psychics, with 30 collectible endings.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Devil Hunter",
+     "tags": "Hunter, Demon, DevilHunter, Familiar, ModernFantasy",
+     "plays": "359k msgs / 9k players",
+     "likes": "4k",
+     "creator": "OOC (official)",
+     "hook": "Modern devil hunting with familiars: 300+ images, 21 heroines, and an /event command for when the story gets dull.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "APEX Heroes Academy",
+     "tags": "Academy, SuperheroAcademy, MyheroAcademia, Superpowers, SliceOfLife, Romance",
+     "plays": "7.0M msgs / 60k players",
+     "likes": "42k",
+     "creator": "GlizzyMaster (certified)",
+     "hook": "Superhero-academy roleplay with 20 characters and 150+ images.",
+     "ipStatus": "MHA-derived (tagged MyheroAcademia but filed under Sci-Fi, not Fan Fiction)",
+     "format": "story"
+    },
+    {
+     "title": "Isekai Gone Wrong",
+     "tags": "Fantasy, Highfantasy, Demonking, Goddess, Isekai, Reincarnated",
+     "plays": "8.2M msgs / 154k players",
+     "likes": "74k",
+     "creator": "DOO (certified)",
+     "hook": "Your whole class gets summoned to another world, and it goes badly.",
+     "ipStatus": "original",
+     "format": "story"
+    },
+    {
+     "title": "Relic Academy",
+     "tags": "Academy, SuperheroAcademy, MyheroAcademia, Fantasy, Harem, Weapons",
+     "plays": "4.2M msgs / 32k players",
+     "likes": "30k",
+     "creator": "Kaiserr431 (certified)",
+     "hook": "Modern academy where your awakened weapon (a 'Relic') and its power decide your rank; 22 characters.",
+     "ipStatus": "original world, tagged MyheroAcademia",
+     "format": "story"
+    },
+    {
+     "title": "ACADEMIA I MY HEROES",
+     "tags": "Academy, Hero, Villain, Growth, Action",
+     "plays": "3.7M msgs / 35k players",
+     "likes": "20k",
+     "creator": "OOC (official)",
+     "hook": "Hero-academy sim with background music, 350+ images and 26 characters.",
+     "ipStatus": "original (MHA-style)",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Heros Chronicle",
+     "tags": "Fantasy, Medieval, Harem, Adventure, Isekai, Simulation",
+     "plays": "2.6M msgs / 44k players",
+     "likes": "21k",
+     "creator": "OOC (official)",
+     "hook": "Medieval isekai adventure where your party (and harem) grows as you travel.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Titan Academy",
+     "tags": "fantasy, isekai, highschool, academy, harem",
+     "plays": "5.3M msgs / 79k players",
+     "likes": "34k",
+     "creator": "GlizzyMaster (certified)",
+     "hook": "Pilot giant mechs against kaiju at a combat academy, with romance between sorties.",
+     "ipStatus": "original (Pacific Rim-like premise)",
+     "format": "story"
+    },
+    {
+     "title": "ISEKAI IN ANOTHER WORLD",
+     "tags": "(none)",
+     "plays": "1.8M msgs / 24k players",
+     "likes": "14k",
+     "creator": "Mrcream (certified)",
+     "hook": "Choose your fate, cross into another world, survive.",
+     "ipStatus": "original",
+     "format": "story"
+    },
+    {
+     "title": "Class X I Villain Academia",
+     "tags": "superhero, villain, academy, redemption, darkcomedy",
+     "plays": "974k msgs / 10k players",
+     "likes": "7k",
+     "creator": "Babble (certified)",
+     "hook": "Ten captured teen villains, collared and ranked on live TV inside a hero school, must earn redemption.",
+     "ipStatus": "original (title parodies MHA)",
+     "format": "story"
+    },
+    {
+     "title": "I Became a National Power Class Returnee",
+     "tags": "HunterFantasy, Returnee, Fantasy, Modern, Return",
+     "plays": "191k msgs / 5k players",
+     "likes": "2k",
+     "creator": "OOC (official)",
+     "hook": "Come back from another world as a nation-level power in a modern hunter society; 252 images, 20 characters.",
+     "ipStatus": "original (Korean web-novel 'returnee' trope)",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Yokai Academy",
+     "tags": "Academy, Yokai, Reincarnation, Buddhism, Fantasy",
+     "plays": "199k msgs / 10k players",
+     "likes": "4k",
+     "creator": "OOC (official)",
+     "hook": "School life at an academy for yokai caught between life and death.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Extra in the Zombie Apocalypse",
+     "tags": "Zombie, Apocalypse, Simulation, Survival",
+     "plays": "443k msgs / 14k players",
+     "likes": "5k",
+     "creator": "OOC (official)",
+     "hook": "Survive a zombie outbreak as a nameless background extra, with a 20-character cast.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "LOOKISM Taste of Hierarchy",
+     "tags": "newSemester, simulation, lookism, hierarchy, power",
+     "plays": "3.4M msgs / 57k players",
+     "likes": "25k",
+     "creator": "OOC (official)",
+     "hook": "School-caste sim where looks, money and fists set your rank; 600+ images, 21 characters.",
+     "ipStatus": "based on Lookism (Naver webtoon); official OOC title, license unverified",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "SOVEREIGN",
+     "tags": "Simulation, Superpowers, Gate, Monster, Fantasy, Hunter",
+     "plays": "2.3M msgs / 30k players",
+     "likes": "18k",
+     "creator": "OOC (official)",
+     "hook": "Monsters pour out of gates and you hunt or get hunted.",
+     "ipStatus": "original (Solo Leveling-style gate genre)",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Sword Prodigy in a Magic Supremacist World",
+     "tags": "Academy, Fantasy, Simulation",
+     "plays": "222k msgs / 5k players",
+     "likes": "2k",
+     "creator": "OOC (official)",
+     "hook": "A sword prodigy revives a lost lineage in a world that only respects magic.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "OOC Fight Academy",
+     "tags": "newSemester, simulation, schoolAction, martialArts, harem, femaleRoute",
+     "plays": "4.6M msgs / 78k players",
+     "likes": "29k",
+     "creator": "OOC (official)",
+     "hook": "Might is right at OOC High: a martial-arts school brawler with romance routes.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Seoul War",
+     "tags": "Simulation, Isekai, Fantasy, Seoul, OtherRaces",
+     "plays": "131k msgs / 5k players",
+     "likes": "2k",
+     "creator": "OOC (official)",
+     "hook": "People pulled in from other worlds go to war across modern Seoul (released Nov 12).",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "How to Live as a Boss Monster",
+     "tags": "Fantasy, Munchkin, Healing, Adventure, Isekai",
+     "plays": "141k msgs / 4k players",
+     "likes": "2k",
+     "creator": "OOC (official)",
+     "hook": "Reborn as the youngest divine beast ruling an unknown forest: cozy, overpowered monster life.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Cianis Dating Inn",
+     "tags": "Dating, Inn, Romance, Fantasy",
+     "plays": "227k msgs / 6k players",
+     "likes": "2k",
+     "creator": "OOC (official)",
+     "hook": "Run a fantasy inn that sets up dates for adventurers.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Reincarnated With an OP Skill 2",
+     "tags": "Fantasy, Isekai, RPG, System, World",
+     "plays": "5.9M msgs / 51k players",
+     "likes": "28k",
+     "creator": "Nuzelle (certified)",
+     "hook": "Sequel to #3: the same System isekai in a new world.",
+     "ipStatus": "original (creator sequel)",
+     "format": "story"
+    },
+    {
+     "title": "Isekai Shortcuts Included",
+     "tags": "Simulation, TextGame, RPG, Isekai, Reincarnation",
+     "plays": "280k msgs / 8k players",
+     "likes": "3k",
+     "creator": "OOC (official)",
+     "hook": "Text-RPG isekai that gives you shortcut commands from day one.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Otherworld Seoul You Are Not Welcome",
+     "tags": "UrbanFantasy, ModernFantasy, OtherRace",
+     "plays": "148k msgs / 3k players",
+     "likes": "1k",
+     "creator": "OOC (official)",
+     "hook": "A Demon Lord and a dragon end up as your minimum-wage coworkers in Seoul.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Academy City AETHERGIA",
+     "tags": "Academy, Fantasy, Game, TextGame, Simulation",
+     "plays": "193k msgs / 4k players",
+     "likes": "2k",
+     "creator": "OOC (official)",
+     "hook": "Life sim in an artificial academy-city built on the ocean.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "I Became a Hero but Nobody Welcomes Me",
+     "tags": "Hero, Fantasy, Medieval, DarkFantasy, Powers",
+     "plays": "134k msgs / 4k players",
+     "likes": "2k",
+     "creator": "OOC (official)",
+     "hook": "A scorned hero in a dark medieval world tries to win people over.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "The Future You Stole From Me",
+     "tags": "Romance, fantasy, betrayal",
+     "plays": "124k msgs / 2k players",
+     "likes": "1k",
+     "creator": "So1o (certified)",
+     "hook": "She stole your future to save your life, and now you have to face her.",
+     "ipStatus": "original",
+     "format": "story"
+    },
+    {
+     "title": "Choose Your Anime Isekai",
+     "tags": "Isekai, Anime",
+     "plays": "4.1M msgs / 28k players",
+     "likes": "27k",
+     "creator": "SkyHeart",
+     "hook": "Pick which anime world to be transported into, then change its plot.",
+     "ipStatus": "multi-anime fan-fic (filed under Fantasy, so it ranks)",
+     "format": "story"
+    },
+    {
+     "title": "CHEATING GIRLFRIEND AT THE ACADEMY",
+     "tags": "Revenge, Academy, Magic, Fantasy, Betrayal",
+     "plays": "138k msgs / 2k players",
+     "likes": "1k",
+     "creator": "KarmaMini (certified)",
+     "hook": "You catch your girlfriend cheating at magic school: take revenge or watch.",
+     "ipStatus": "original",
+     "format": "story"
+    },
+    {
+     "title": "My Friend Got Way Too Pretty",
+     "tags": "romance, pureLove, campus, glowUp, revenge",
+     "plays": "248k msgs / 8k players",
+     "likes": "3k",
+     "creator": "OOC (official)",
+     "hook": "The girl you dumped has glowed up into the campus goddess.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Im the Only Human in the Monster Academy",
+     "tags": "Monster, Academy, NonHuman, Harem, Gumiho",
+     "plays": "119k msgs / 6k players",
+     "likes": "2k",
+     "creator": "OOC (official)",
+     "hook": "The only human at a monster academy chases the gumiho who stole his orb.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    },
+    {
+     "title": "Astra Chronicles",
+     "tags": "fantasy, medieval, harem, politics, adventure, isekai",
+     "plays": "3.9M msgs / 53k players",
+     "likes": "32k",
+     "creator": "OOC (official)",
+     "hook": "Medieval continent sim mixing politics, adventure and harem intrigue.",
+     "ipStatus": "original",
+     "format": "story (simulation)"
+    }
+   ],
+   "mechanics": [
+    "Credits economy. New accounts get 500 credits, and a 'Sign up and get 500 credits!' tooltip sits on every page. Packs: 2,000 for $2.29 web / $2.89 app; 10,300 for $11.49 / $14.49 (marked recommended); 21,000 for $22.49 / $28.49; 53,500 for $56.49 / $71; 110,000 for $113.99 / $142.99. Web is about 20% cheaper (Stripe checkout). The premium 'Apex' mode costs 90 credits a message (78 during its launch sale), about $0.10. A 'Max' mode also exists.",
+    "Daily check-in in a 'Claim Free Credits' tab: 300 credits a day, doubled to 600 for Halloween (Oct 25-31).",
+    "Free Messages event (Nov 10-30): 7 free messages on every OOC Original the player hasn't played, including Originals released during the event and for players who join mid-event. It ran before from Oct 29 to Nov 8.",
+    "Welcome Mission onboarding checklist (a banner on Home for signed-in users): browse the ranking, visit personalization, complete a chat, do the daily check-in. Each step triggers a 'Welcome Mission N Success!' toast. There are also tutorial and onboarding status checks.",
+    "Referral codes (since Oct 14): the new player gets 500 credits, and the referrer earns 5% of that player's credit purchases in their first 30 days, paid in credits. An optional setting adds the code to every story link a player shares.",
+    "Gacha-style limited bundles. The Halloween Candy Pack was 70,000 credits plus a random bonus: +7,777 (55%), +10,000 (40%), +50,000, up to +1,000,000.",
+    "Creator economy. Since June, Official Creators earn a share of the credits their stories bring in. The OOC Originals program (open to Certified Creators 18+ since Nov 18) buys a title outright for $200 ($500 in the Halloween round) plus 5% of paid credits, paid monthly and capped at $1M. Selected titles get a home-screen row, a notification to the creator's followers and a release on the Korean and Japanese sister apps; the announcement says a sister-app top earner makes over $45k a month. Fan fiction, Utility and NSFW titles are not eligible.",
+    "Social features: follow creators (profiles show follower counts; OOC has 127.6k); a profile Feed for posts with likes and comment threads (since Sep 21); Series, which group sequels and can be subscribed to (Nov 18); notifications; 'has-new' badges.",
+    "Comments on every story, sorted by likes, with replies and pinned comments. The top comments on #1 Lumencia are 'Please like my comment for credits' (3,281 likes), 'Follow for follow' (1,879) and 'F4F, lets help each other get credits'. Players treat likes and follows as a route to credits or creator status, which inflates the public engagement numbers. I couldn't see the exact rule logged out.",
+    "Collection loops: collectible endings and ending cards (Psychic Academy NOVA has 30), shareable epilogues, and a scene-image gallery per starting scenario with 'has-new' flags. Since Nov 11 a starting scenario can hold up to 1,600 scene images, laid out as a character-by-emotion table.",
+    "Play tools: several starting scenarios per story, a persona picker, session branching (Sep 17), writing style, regeneration instructions and thinking depth (Nov 5), slash commands inside stories (/event, /anti-impersonation), suggested replies, and an AIRPG game mode ('Dice of Fate').",
+    "Leaderboards everywhere: Top 100 Rankings and New Ranking (Daily/Weekly/Monthly x All/Female/Male), numbered Top Ranked and Trending Now rows, and a Popular Searches top 10.",
+    "Personalization: every page request carries a target audience (male/female), rankings filter by Female- or Male-oriented, and visiting personalization is a Welcome Mission step.",
+    "Seasonal live ops: a Halloween reskin of tabs, app icon and launch screen; a home section fed automatically by #Halloween titles; double check-in; themed credit packs. An announcement lands about every 4 days.",
+    "Sign-in is only required to act. Browsing, story pages, rankings, search and comments are public; Credits and My Titles redirect to Google or Apple sign-in. The sign-in screen's tagline is literally 'THE PLAYABLE ANIME', the same positioning as Plotbreak."
+   ],
+   "whyItFeelsLively": [
+    "Sheer density. The Main tab stacks 6 hero slides, 16 genre chips, 6 card rows (109 cards, 87 unique) and an 11-tag row before an endless 6-column grid. Every genre tab has its own hero and grid, and the two ranking tabs each hold 6 filterable Top 100s. A user never reaches the end.",
+    "Most rows are numbered or tied to a time window. Top Ranked and Trending Now show rank numbers, and the rankings run daily, weekly and monthly, so the page reads like a live chart that changes every day.",
+    "A steady supply of official titles. OOC has released 539 Originals in 7 months, in drops of 9-25 (five drops between Nov 2 and Nov 17). Each drop fills the hero, the New OOC Originals row and Trending Now, and 7 free messages per unplayed Original pull players into it. Today all 10 Trending Now titles are Originals 4-9 days old.",
+    "Plenty of user-made titles underneath: about 450-650 new public stories a day from about 400 creators. Two creator rows are random samples that reshuffle on every load, so a refresh visibly changes the page.",
+    "Big public numbers. Every card shows a lifetime message count (48.5M, 21.6M, 20.7M) and every story page shows likes and comments (130K / 169.7K). Players trade likes and follows for credits ('like my comment for credits', F4F), which pushes those counters higher still.",
+    "Covers look like a webtoon storefront: the title is painted into glossy anime key art on almost every card, creator titles included. 67 of the 109 home cards also have animated cover versions being tested.",
+    "Each title looks like a lot of content. One-liners advertise image and cast counts ('600+ images / 14 F / 7 M'), endings and background music, and official titles carry 50-1,600 scene images and versioned updates (Lumencia is on v20).",
+    "Something is always new or time-limited: 20 announcements in 11 weeks (events, features, sales), seasonal reskins, and hashtag-fed seasonal sections.",
+    "Tight genre focus with two audiences. The catalog leans on proven tropes (academy, isekai, harem, hero vs villain, revenge and cheating), and a separate female-oriented track (romance fantasy, BL/HL routes, reverse harem) shows up through the gender filter. Fan fiction is kept off Home, so the storefront looks like an original, ownable catalog."
+   ],
+   "blockers": [
+    "The Credits and My Titles pages redirect to sign-in, and I did not sign in. Check-in amounts, Welcome Mission rewards, the rule behind 'like my comment for credits', and per-message prices for the default models therefore come from public announcements and the site's JavaScript, not from using the features. The Apex price (90 credits, 78 on sale) is from the Oct 23 announcement, and the chat-model price endpoint returned 404.",
+    "read_network_requests only captured image requests. The data came from the page's own query cache and read-only GET requests to api.ooc.ai made from inside the page (pages, stories, rankings, search, announcements, keyword ranking, credit products). Nothing was written, liked, posted or purchased.",
+    "There is no total-count endpoint, so the 50-65k story figure is an extrapolation from search counts. I couldn't estimate the character count reliably because character search also matches descriptions.",
+    "The web always queries safe-only content and defaults the audience to male, so NSFW titles and app-only features are not covered: Series and Originals submission need iOS app v0.1.30+, video thumbnails only show in the app or a test group, and the iOS app has hidden NSFW since Nov 12.",
+    "This is a snapshot from Nov 22, 01:35-02:00 UTC (Nov 21 evening PT). The daily rankings and the shuffled creator rows will change.",
+    "Two other sessions opened tabs in the same Chrome tab group during the run (an ooc.ai tab and a trydare.com/plans tab). I left them alone and closed only my own tab."
+   ]
+  },
+  "verification": null
+ },
+ "retention-data": {
+  "result": {
+   "period": "P2 (last 30 days) = cohort days 2026-10-22 to 2026-11-20. P1 (prior 30) = 2026-09-22 to 2026-10-21. Days are America/New_York calendar days, the same rule as infra/dashboard/build.ts. Queried 2026-11-21 around 20:40 EST. Query IDs in brackets refer to /private/tmp/claude-501/-Users-omarlahmimi-Documents-Plotbreak/8c3f10ab-493e-4c44-89ce-84d9ac0f7b6b/scratchpad/retention-queries-2026-11-21.sql. PH-* queries run in PostHog project 533970; DB-* queries run on Supabase qscmokjkflkrspqjjooa.",
+   "newUsersPerDay": "P2: 30.4 installs/day (911 first-ever app_opened, keyed by install id) [PH-2]. 25.4 new accounts/day (763 wallet_accounts) [DB-1]. 12.6 new players/day (378 first-ever turns) [DB-1]. P1: 13.9 installs/day (416), 11.9 accounts/day (356), 6.5 players/day (195). Installs per day doubled, which matches the ~30/day estimate. Only 6 of the 763 P2 accounts are guests, so a DB account means someone who signed in.",
+   "retention": {
+    "definition": "Primary: played at least 1 turn (a TURN_FINALIZE ledger row) on exactly calendar day N after the cohort day. Two cohorts: new accounts (wallet_accounts.created_at) and new players (first-ever turn). Secondary: any app_opened on day N in PostHog, keyed by install id (pb_anonymous_id), with the cohort = first-ever app_opened. Excludes 8ee88ed7… and 78c723e1…. A cohort is scored only after day N has fully ended: D1 counts cohorts up to Nov 19, D3 up to Nov 17, D7 up to Nov 13. [DB-1, PH-2]",
+    "d1": "Accounts 5.5% (40/733). Players 8.1% (29/358). Any-open 11.1% (97/873). [DB-1, PH-2]",
+    "d3": "Accounts 1.9% (13/685). Players 3.3% (11/331). Any-open 4.9% (40/812). [DB-1, PH-2]",
+    "d7": "Accounts 0.8% (4/521). Players 1.6% (4/248). Any-open 3.8% (23/612). Back on any of days 1–7 (played): accounts 10.2%, players 15.7%. Unsure: D7 rests on 4 returners. [DB-1, PH-2]",
+    "priorPeriod": "P1, accounts: D1 5.9% (21/356), D3 3.1% (11/356), D7 2.5% (9/356), back within 7 days 10.4%. P1, players: D1 8.7% (17/195), D3 5.1% (10/195), D7 4.1% (8/195), within 7 days 14.9%. P1, any-open: D1 13.0% (54/416), D3 7.5% (31/416), D7 6.3% (26/416). Trend: flat to down on every definition while installs doubled. Weekly new-player D1 was 7.0% for the week of Nov 9 (n=129) and 5.1% for Nov 16 (partial, 59 eligible), the two lowest weeks since early October. [DB-1, DB-6]"
+   },
+   "funnel": [
+    {
+     "step": "First open (first-ever app_opened)",
+     "users": "911 (P1 416)",
+     "pct": "100%",
+     "source": "PH-2"
+    },
+    {
+     "step": "Signed in on day 0 (first screen; guests may skip)",
+     "users": "764 (P1 347)",
+     "pct": "83.9% (P1 83.4%)",
+     "source": "PH-2"
+    },
+    {
+     "step": "Onboarding done (genres step, taste_calibration_completed)",
+     "users": "781 (P1 352)",
+     "pct": "85.7% (P1 84.6%); lost 130",
+     "source": "PH-2"
+    },
+    {
+     "step": "Opened a story page (story detail or run)",
+     "users": "646 (P1 309)",
+     "pct": "70.9% (P1 74.3%); 83% of onboarded",
+     "source": "PH-3"
+    },
+    {
+     "step": "Story opened = run started (session_started)",
+     "users": "485 (P1 247)",
+     "pct": "53.2% (P1 59.4%); 62% of onboarded, lost 296. DB check: 466/763 accounts = 61.1%",
+     "source": "PH-2, DB-2"
+    },
+    {
+     "step": "Turn 1",
+     "users": "353 (P1 182)",
+     "pct": "38.7% (P1 43.8%); 73% of run starters. DB: 347/763 = 45.5%",
+     "source": "PH-2, DB-2"
+    },
+    {
+     "step": "Turn 3 (3+ turns on day 0, all runs)",
+     "users": "226 (P1 104)",
+     "pct": "24.8% (P1 25.0%); 64% of turn-1. DB: 220 = 28.8%",
+     "source": "PH-2, DB-2"
+    },
+    {
+     "step": "Turn 10 (10+ turns on day 0)",
+     "users": "121 (P1 47)",
+     "pct": "13.3% (P1 11.3%); 54% of turn-3. DB: 116 = 15.2%",
+     "source": "PH-2, DB-2"
+    },
+    {
+     "step": "Second story (turns in 2+ stories on day 0)",
+     "users": "74 (P1 25); 39 of them also reached turn 10",
+     "pct": "8.1% (P1 6.0%). DB: 70 = 9.2%",
+     "source": "PH-2, DB-2"
+    },
+    {
+     "step": "Day-1 return",
+     "users": "97 opened, 41 played, of 873 eligible (P1: 54 and 23 of 416)",
+     "pct": "11.1% open / 4.7% play (P1 13.0% / 5.5%). Of day-0 players: 15.9% open (53/334), 8.1% play (27/334). DB accounts: 5.5% (40/733)",
+     "source": "PH-2, DB-2"
+    }
+   ],
+   "biggestLeak": "The biggest leak is day 0 → day 1: people who play once don't come back. 89% of P2 installs never reopen the app the next day (97 of 873 do). 92% of day-0 players don't play on day 1 (27 of 334 do). Even players with 10+ turns on day 0 played on day 1 only 12.4% of the time (14/113), down from 22.9% (11/48) in P1 (p=0.10), and this fell while the share reaching turn 10 rose (13.3% vs 11.3%). [PH-2, DB-2] The biggest drop before day 1 is onboarding done → first run started: 296 of 781 onboarded installs (38%, about 10 a day) never start a story on day 0. These are not guests: 286 of them signed in and saw Discover, 156 opened a story page and backed out, and only 23 ever started a run later. [PH-3]",
+   "credits": "Exposure on day 0. In PostHog, 96 of 911 P2 installs (10.5%) saw the insufficient-credits sheet or the paywall; that is 27% of day-0 players (P1: 48/416 = 11.5%) [PH-2]. In the DB, 99 of 763 P2 accounts (13.0%) ran out of credits on day 0, meaning a turn reserve left less than the price of one more turn (P1: 51/356 = 14.3%) [DB-2]. 19 P2 accounts (2.5%) bought on day 0 (P1: 6 = 1.7%). The server's own wall rows (FLASH_OFFER_OPENED) show only 16 in P2, an undercount. Day 1, hit vs not hit (P2): opened 23.4% (22/94) vs 9.6% (75/779), played 10.6% (10/94) vs 4.0% (31/779) [PH-4]. DB: played 11.2% (11/98) vs 4.6% (29/635), p=0.014 [DB-2]. That gap only reflects engagement, because only engaged players run out. Comparing players with 8+ day-0 turns: opened 24.4% (22/90) vs 26.5% (13/49), p=0.84; played 11.1% (10/90) vs 18.4% (9/49), p=0.30 [PH-4]. DB: 12.0% (11/92) vs 19.0% (8/42), p=0.29. So at equal engagement the wall does no visible harm to coming back, but it may cost play: 12 of the 22 wall-hitters who reopened on day 1 did not take a turn. P1 wall-hitters did better: day-1 opened 33.3% (16/48), played 16.7% (8/48). Unsure: small n.",
+   "perStory": [
+    {
+     "story": "Itachi (#1 first story)",
+     "starts": "63 first runs; 27 took a turn (43%)",
+     "stopByT3": "74% of 27, worse than the 10-30 table (first-story-only 63% of 46; all runs 58% of 53). All runs since 10-30: 68% (19), and the share of runs that take a turn fell from 60% to 33%. Only 4% reach T10. [DB-3, DB-4]",
+     "d1": "2/26 (8%)"
+    },
+    {
+     "story": "Pink Tide",
+     "starts": "57; 38 took a turn (67%)",
+     "stopByT3": "47% of 38, flat vs 10-30 (49% of 53 / 46% of 70). All runs since 10-30: 44% (45).",
+     "d1": "1/37 (3%)"
+    },
+    {
+     "story": "Second Skin",
+     "starts": "43; 24 (56%)",
+     "stopByT3": "54% of 24, better than 10-30 (60% of 50 / 66% of 71). All runs since 10-30: 51% (35), p=0.20.",
+     "d1": "2/23 (9%)"
+    },
+    {
+     "story": "Good Morning, Husband",
+     "starts": "39; 25 (64%)",
+     "stopByT3": "40% of 25, flat vs 10-30 (38% of 47 / 38% of 63). All runs since 10-30: 33% (39).",
+     "d1": "2/25 (8%)"
+    },
+    {
+     "story": "Zero Throne",
+     "starts": "34; 17 (50%)",
+     "stopByT3": "47% of 17, flat vs 10-30 (47% of 19 / 48% of 23). Since 10-30: 50% (16).",
+     "d1": "3/15 (20%)"
+    },
+    {
+     "story": "skill-creation-494ace (player-made)",
+     "starts": "33; 24 (73%)",
+     "stopByT3": "58% of 24. No 10-30 baseline (not official). Only 4% reach T10.",
+     "d1": "1/22 (5%)"
+    },
+    {
+     "story": "Last Feather",
+     "starts": "30; 11 (37%)",
+     "stopByT3": "64% of 11. Not in the 10-30 table. All runs since 10-30: 44% (16).",
+     "d1": "0/9"
+    },
+    {
+     "story": "Hush House",
+     "starts": "24; 12 (50%)",
+     "stopByT3": "42% of 12, slightly better than 10-30 (50% of 16 / 50% of 20). Since 10-30: 46% (13).",
+     "d1": "2/10 (20%)"
+    },
+    {
+     "story": "the-unbothered-anvil-d54b60 (player-made)",
+     "starts": "17; 12 (71%)",
+     "stopByT3": "58% of 12. No baseline.",
+     "d1": "1/12 (8%)"
+    },
+    {
+     "story": "Red Floor",
+     "starts": "12; 7 (58%)",
+     "stopByT3": "43% of 7, worse than 10-30 (25% of 8 / 17% of 12). Since 10-30: 33% (9). Tiny n.",
+     "d1": "0/7"
+    }
+   ],
+   "push": "Not measurable. Plotbreak sends no server push. Reminders.swift (since 2026-09-19) schedules three local notifications on the device: daily credits claimable, story waiting, and badge credits. There is no APNs key and no device-token table. No PostHog event or person property records the permission answer, a scheduled or fired reminder, or a reminder tap (Router.openTappedReminder emits nothing; checked via read-data-schema and the code). So the share of users with notifications on, the number sent, and their open or return rate are all unknown. The lead-character cliffhanger notification proposed in churn-readings 2026-11-15 does not exist. To measure this, the app needs three events: permission result (with the prompt source), reminder scheduled (with its kind), and reminder opened (with its kind).",
+   "shippedFixes": [
+    "d16d70b, Storyteller test, live 2026-11-18 03:27Z (docs/story-test.md). 'yes' targets cause 1 (refusals and lectures); 'push' targets cause 2 (slow stretches). Since go-live (n=47 new players with complete first days, Nov 18–20) nothing has improved. Quit-by-turn-4 is 62% (29/47) vs 49% (110/226) for Nov 4–17 (p=0.11). 10+ turns on day 0 is 21% vs 32%. D1 is 1/27 (3.7%) vs 7.1% (16/226). Push half quit-by-4 is 73% (11/15) vs 47% (8/17) without push (p=0.17); yes half 58% (7/12) vs 60% (12/20). Unsure: n is far too small, and the doc says a read needs about 2 weeks. The push half is trending toward the doc's own stop rule ('turn it off if quit-by-turn-4 jumps'). [DB-5]",
+    "eb64d8a, all-in fifth group, live 2026-11-18 08:52Z: 15 new players, quit-by-4 67% (10/15), 3 reached 10+ turns, D1 0/5. Unsure: tiny n. [DB-5]",
+    "Cause 3 (cliffhanger return hook): NOT shipped. No commit since Nov 15 adds a story return notification. The Tower remind-me prompt and reset notification (Nov 20) apply only to the Tower, which is server-gated off (0 tower_runs rows) and ships in 1.0.10. That build was submitted Nov 20 and had 16 installs by the end of the window [PH-6].",
+    "Not churn fixes: the stats dashboards (7710647, 784e25c) only measure. Covers v5 (51073c9) is acquisition art. The story rewrite / faster openings went out server-side before Nov 15.",
+    "Net effect after Nov 15: no upturn. Weekly new-player D1 was 7.0% (week of Nov 9) and 5.1% (week of Nov 16, partial). [DB-6]"
+   ],
+   "otherFindings": [
+    "Instrumentation bug: in PostHog, server events (keyed by user id) and client events (keyed by install id) are not merged into one person. In the last 14 days, only 20 of 270 people with server turn events share a PostHog person with client events [PH-0]. Any person-keyed PostHog funnel from app_opened to turn_completed is therefore wrong: a person-keyed P2 funnel showed 19 day-0 players instead of 353. Keying on pb_anonymous_id works (268 of 272 server-turn installs match a client install). Cause not verified: Telemetry.configure runs in App.init, before identify.",
+    "Itachi, featured #1 and the most common first story (63 of 763 new accounts), is the worst opener. 43% of its first runs take a turn, 74% of those that do stop by T3, and 4% reach T10. Across all runs since 10-30, its start rate fell from 60% to 33%. The prologue is not the blocker: 77 of 79 installs finish or skip it [PH-5]. Players drop at the opening choice. [DB-3, DB-4]",
+    "Story-hopping marks a miss: P2 accounts that played 2+ stories on day 0 played on D1 3.0% of the time (2/67), vs 8.6% (22/257) for single-story players (p=0.19, unsure). [DB-2]",
+    "Guests: 147 of 911 P2 installs (16%) never sign in on day 0. Only 27 of them finish onboarding and 11 play. [PH-3]",
+    "Volume doubled (13.9 to 30.4 installs/day) while every retention measure slipped, e.g. any-open D7 6.3% to 3.8%. A shift toward lower-intent traffic from ads or App Store campaigns is plausible but not verified; installs carry no channel.",
+    "Last Feather and Itachi, the two stories with prologues, have the lowest start rates of the larger stories (42% and 33% of runs since 10-30). Prologue completion is 97–100%, so the loss comes after the prologue. Unsure: small n. [DB-4, PH-5]",
+    "The PostHog MCP started on project 756825 'OutOfBody' (created today). I switched this conversation to 533970; anyone re-running the PH-* queries needs to switch as well."
+   ],
+   "caveats": [
+    "Every query I ran is saved under its ID (PH-0..6, DB-1..6) in /private/tmp/claude-501/-Users-omarlahmimi-Documents-Plotbreak/8c3f10ab-493e-4c44-89ce-84d9ac0f7b6b/scratchpad/retention-queries-2026-11-21.sql. The file is in the scratchpad, not the repo, and can be cleared. Significance figures are Fisher exact tests computed locally.",
+    "Installs are keyed by install id, so a reinstall counts as a new install. That slightly inflates installs and deflates any-open retention. DB cohorts are accounts, which exist only after sign-in.",
+    "DB counts miss deleted accounts and sessions (1,639 profiles vs 1,682 wallets), so every count is a small undercount.",
+    "D1 = activity on the next calendar day (New York time), so a late-night first session biases D1 slightly upward. D3 and D7 mean exactly day 3 and day 7. P2's D7 covers only cohorts up to Nov 13.",
+    "'Turn 3' and 'Turn 10' count total turns on day 0 across all runs, not the deepest single run.",
+    "'Ran dry' is a ledger proxy. FLASH_OFFER_OPENED is written at most once per 7 days and only when the client reports the wall.",
+    "Only the two known developer accounts are excluded. Any other internal or test accounts are counted.",
+    "Unsure: per-story figures (7–38 starters per story, roughly ±15–20 points), story-test figures (5–17 per group), D7 (4 returners) and D1 per story (0–3 returners). About 15 comparisons were run, and only the engagement-confounded ran-dry D1 split reaches p<0.05.",
+    "Push and notification metrics cannot be measured with the current instrumentation."
+   ]
+  },
+  "verification": {
+   "checks": [
+    {
+     "claim": "New users/day (P2 = Oct 22 to Nov 20): 30.4 installs/day (911 first app_opened), 25.4 accounts/day (763), 12.6 new players/day (378). Installs doubled from P1's 13.9/day.",
+     "verdict": "confirmed",
+     "correctedValue": "30.7 installs/day from the DB: 922 anonymous Supabase users, which the app creates on a fresh install. PostHog keyed by person gives 30.5/day (915). The two sources agree within 0 to 6 installs a week since Oct 12, e.g. 155 vs 155, 220 vs 218, 306 vs 305. 25.3 signed-in accounts/day (758 non-anonymous auth.users). 12.5 new players/day (374 with a first real turn). P1 was 15.8/day in the DB (474) and 13.9/day in PostHog, so growth was 1.9x to 2.2x. The current pace is above the 30-day average: 43.7/day in the week of Nov 9 (306) and 35/day for Nov 16 to 20 (175). Only about 12.5 of the ~30 daily installs ever play a turn.",
+     "howChecked": "Counted auth.users split by is_anonymous. Auth.swift restore() calls signInAnonymously on a fresh install, and Apple, Google or email sign-in goes through signInWithIdToken, which creates a separate non-anonymous user. Compared weekly DB counts against PostHog first opens. Re-ran the PostHog cohort keyed by person_id instead of pb_anonymous_id. Both dev accounts excluded. SELECT only."
+    },
+    {
+     "claim": "D1: accounts 5.5% (40/733), players 8.1% (29/358), any-open 11.1% (97/873).",
+     "verdict": "confirmed",
+     "correctedValue": "Accounts 5.2% (38/729). Players 7.6% (27/354). Any-open 11.1% (97/877). The ~0.4-point gap comes from deleted sessions: the turns table is missing 470 of P2's 5,234 finalized turns (9%). D1 depends on the definition: a strict 24 to 48 hour window gives 3.3% for accounts (24/727), so calendar-day D1 is about 1.6x higher. D1 is not falling: P1 accounts were 5.7% (p=0.77) and P1 any-open was 12.7% (p=0.40).",
+     "howChecked": "Played = a turns row with turn_index >= 1, joined to story_sessions.user_id, with the cohort taken from auth.users.created_at. This replaces the first pass's wallet_ledger TURN_FINALIZE and wallet_accounts. Every session gets an uncharged turn_index 0 row (1,788 rows = 1,788 sessions), and counting it would inflate retention. Any-open recomputed in PostHog keyed by person_id. DB floor: any server-recorded day-1 activity (turn, new session, daily claim, purchase, comment, like) is 8.0% (58/729). New York calendar days and the same eligibility cutoffs."
+    },
+    {
+     "claim": "D7: accounts 0.8% (4/521), players 1.6% (4/248), any-open 3.8% (23/612).",
+     "verdict": "confirmed",
+     "correctedValue": "Accounts 0.8% (4/519). Players 1.2% (3/247). Any-open 3.6% (22/618). The played figures rest on 3 to 5 returners. 'Back on any of days 1 to 7' is the steadier number: 10.0% for accounts (52/519) and 15.0% for players (37/247).",
+     "howChecked": "Same turns-table method as D1, for cohorts up to Nov 13, plus PostHog keyed by person_id."
+    },
+    {
+     "claim": "Trend: retention flat to down on every definition while installs doubled ('every retention measure slipped').",
+     "verdict": "off",
+     "correctedValue": "Overstated. D1 for accounts: P1 5.7% vs P2 5.2% (p=0.77). D1 any-open: 12.7% vs 11.1% (p=0.40). Back within 7 days for accounts: 10.2% vs 10.0% (p=1.0). Only exact-day-7 fell, and only at borderline significance: accounts 2.3% to 0.8% (p=0.08), any-open 6.2% to 3.6% (p=0.05). The fair summary is flat at a low level, not a decline. The 'lower-intent traffic' explanation is not supported by D1.",
+     "howChecked": "Fisher exact tests run locally on the turns-table and person-keyed PostHog counts above. The P1 PostHog cohort is not polluted by pre-existing users: the DB's weekly anonymous-user counts show the same Sep 21-week spike (210 vs 208)."
+    },
+    {
+     "claim": "Biggest day-0 leak: onboarding done to first run started. 296 of 781 onboarded installs (38%) never start a story on day 0, 156 opened a story page and backed out, and only 23 started a run later.",
+     "verdict": "confirmed",
+     "correctedValue": "The number holds. PostHog by person: 297 of 785 onboarded (37.8%) never sent session_started on day 0. DB: 288 of 758 signed-in accounts (38.0%) had no story_sessions row and no TURN_RESERVE on day 0, and only 27 of them ever started a run later. Caveat on calling it the biggest: it is two drops of similar size. 136 never opened a story page, and 161 opened one and backed out. Only 16 reached character setup, so that screen is not the leak. Each half is about as big as the steps after it: run started but no first turn, 128 to 129 (26 to 27%); turn 1 to under 3 turns, 126 (37%); turn 3 to under 10 turns, 103 (48%, partly the credit wall, see below). Day 0 to day 1 is confirmed as the largest leak overall: 88.9% of new persons do not reopen on day 1, and 92.4% of new players do not play on day 1.",
+     "howChecked": "DB: story_sessions plus wallet_ledger TURN_RESERVE, so a deleted session still counts as a started run. PostHog keyed by person_id with character_setup_started added (the first pass left it out), and first_turn_submitted, a client event, used for turn 1 so the server/client identity split does not matter."
+    },
+    {
+     "claim": "Credits/paywall: 10.5% of installs and 13.0% of accounts hit the wall on day 0. 19 accounts (2.5%) buy on day 0. At equal engagement (8+ turns) the wall does no visible harm to coming back, though it may cost play.",
+     "verdict": "off",
+     "correctedValue": "Exposure holds. 94 of 915 persons (10.3%) saw the sheet or paywall on day 0, and the ledger reproduces 98 dry accounts. On a stricter definition, 75 of 733 accounts (10.2%, or 22.7% of day-0 players) ended day 0 unable to afford one more turn. 19 day-0 buyers is confirmed in purchase_transactions. The conclusion is wrong. Every new account gets 600 credits, exactly 10 Vivid turns at 60 each (all 763 P2 grants were 600). Claiming the daily +300 adds 5 turns, and 41.7% of accounts did that on day 0. Day-0 turn counts pile up exactly at those limits in both sources. DB: 38 accounts stopped at exactly 10 turns (33 of them out of credits), against 9 at 9 and 3 at 11. 17 stopped at exactly 15, against 3 at 14. PostHog: 41 installs at 10 (34 saw the wall) and 18 at 15 (16 saw it). So 'Turn 10' in the funnel is the credit wall, not a milestone players reach by choice, and the 8+ match compares wall-hitters with people who mostly stopped before it. Among accounts with 8 to 14 day-0 turns, those who ended day 0 out of credits played on day 1 5.0% of the time (2/40), against 22.9% (8/35) for those with credits left (p=0.04). For 10 to 14 turns it was 2.6% vs 25% (p=0.02). 14 of the 75 who ran dry came back on day 1 to claim daily credits, and only 6 played. This is observational, the samples are small, and who claims daily credits is a confounder. It would not survive correction for the ~15 comparisons run. The evidence leans toward harm, not 'no visible harm'. An A/B test on the new-user grant (e.g. 10 vs 20 turns) would settle it.",
+     "howChecked": "Read economy.ts: GRANT_NEW_USER = 10 x DEFAULT_TURN_COST, DEFAULT_TURN_COST = 60. Checked the NEW_USER_GRANT and DAILY_GRANT amounts in the ledger. Computed the end-of-day-0 balance as the sum of ledger amounts, compared with the price of the account's last turn. Built the day-0 turn histogram from the DB ledger and checked it against PostHog server turn_completed keyed by install, with client wall events. Day-1 play taken from both the ledger and the turns table. Purchases counted from purchase_transactions. Fisher exact tests run locally."
+    }
+   ],
+   "overall": "The first pass's headline numbers hold up within about half a point when recomputed from different sources. Those sources were DB auth.users (the anonymous sessions created on a fresh install), the turns table instead of the wallet ledger, and PostHog keyed by person instead of install id. About 30 installs a day is right (30.5 to 30.7, and 35 to 44 a day over the last two weeks), but only about 25 sign in and about 12.5 ever play. D1 is about 5% for accounts, 7.6% for players and 11% for any open. D7 is about 1% for accounts and players and 3.6% for any open. Two findings need correcting. First, the credits conclusion is wrong. The new-user grant is exactly 10 turns, and day-0 play piles up at exactly 10 and 15 turns in both the DB and PostHog. 'Turn 10' in the funnel is therefore the credit wall, not an engagement milestone. Players who end day 0 out of credits come back to play about a quarter as often as equally deep players who still have credits (small n, observational). Replace 'no visible harm' with 'likely harm, A/B the grant'. Second, 'every retention measure slipped' is overstated. D1 and the 7-day return are flat from P1 to P2, and only exact-day-7 is down, at borderline significance. The onboarding-to-first-run leak (about 38%, roughly 9 to 10 people a day) is confirmed. It splits into 136 people who never open a story page and 161 who open one and back out, and each half is about the size of the later drops. Calendar-day D1 also reads about 1.6x higher than a strict 24 to 48 hour window (5.2% vs 3.3%). Everything was read-only: SELECT queries, HogQL, and reading code and docs. No files were created. The PostHog MCP defaults to project 756825 ('OutOfBody') for every new MCP conversation; switch-project 533970 applies only to that conversation_id."
+  }
+ },
+ "catalog-feed": {
+  "result": {
+   "officialCount": "27 official worlds are on the shelf, and the EN and FR shelves are the same (official worlds skip the locale filter, services/api/src/server.ts:176-180). 25 of them come from the seed:social CATALOGUE (infra/scripts/seed-social.ts:33-59). The other two were added later: Uncounted (2026-09-20) and Last Feather (2026-10-30). Both have 0 seeded likes.",
+   "userCreatedPublicCount": "29 user-made worlds are PUBLISHED: 23 written in English and 6 in French. All 29 have a finished translation in story_version_text, so the EN shelf and the FR shelf are both the same 56 worlds (27 official + 29 user-made). None are hidden by reports (the auto-hide threshold is 3). Not on the shelf: 4 UNLISTED, 74 DRAFT and 1 REMOVED stories, plus 243 rows in story_drafts.",
+   "newestStoryDate": "The newest world on the shelf is 'The Strongest Quietly' (user-made), published 2026-11-21 at 23:21 UTC. The newest official world is 'Last Feather', published 2026-10-30 (its stories row is dated 2026-10-31), 22 days ago.",
+   "publishCadence": "Official: 25 of the 27 went live 2026-09-09 to 09-12. Three fixtures carry August publishedAt dates but went live with the database on 09-09. After that came Uncounted (09-20) and Last Feather (10-30). That is 2 official releases in 10 weeks and none in the last 22 days. 6 official versions were re-migrated in the last 30 days (newest 2026-11-09), but those were cover and fixture updates, not new worlds. User-made: 5 in September (all French, 09-19 to 09-26), none from 09-27 to 10-26, then 24 between 10-27 and 11-21. By week that is 5, 5, 5, then 9 this week, so about one a day and rising. The catalog is growing (+24 worlds in 26 days), but almost none of the new worlds reach the top of any row (see day2Change).",
+   "topStories": [
+    {
+     "title": "Pink Tide (official)",
+     "sessions30d": "80 (76 players)",
+     "likes": "3 real likes in 30d; card shows 110,817 (110,811 seeded)"
+    },
+    {
+     "title": "Itachi (official)",
+     "sessions30d": "75 (73 players)",
+     "likes": "3 real in 30d; shows 157,200 (157,195 seeded)"
+    },
+    {
+     "title": "Second Skin (official)",
+     "sessions30d": "74 (61 players)",
+     "likes": "3 real in 30d; shows 131,484 (131,475 seeded)"
+    },
+    {
+     "title": "Good Morning, Husband (official)",
+     "sessions30d": "65 (61 players)",
+     "likes": "1 real in 30d; shows 97,275 (97,273 seeded)"
+    },
+    {
+     "title": "Skill Creation (user-made, published 11-02)",
+     "sessions30d": "60 (51 players)",
+     "likes": "4 real in 30d; shows 4"
+    },
+    {
+     "title": "Zero Throne (official)",
+     "sessions30d": "46 (41 players)",
+     "likes": "0 real in 30d; shows 75,932 (75,931 seeded)"
+    },
+    {
+     "title": "Last Feather (official, 10-30)",
+     "sessions30d": "43 (42 players)",
+     "likes": "2 real in 30d; shows 2 (no seed)"
+    },
+    {
+     "title": "Hush House (official)",
+     "sessions30d": "36 (32 players)",
+     "likes": "1 real in 30d; shows 86,418 (86,416 seeded)"
+    },
+    {
+     "title": "The Unbothered Anvil (user-made, 11-04)",
+     "sessions30d": "33 (31 players)",
+     "likes": "3 real in 30d; shows 3"
+    },
+    {
+     "title": "Ace (official)",
+     "sessions30d": "27 (26 players)",
+     "likes": "1 real in 30d; shows 103,309 (103,307 seeded)"
+    },
+    {
+     "title": "The Red Floor (official)",
+     "sessions30d": "24 (20 players)",
+     "likes": "1 real in 30d; shows 31,888 (31,886 seeded)"
+    },
+    {
+     "title": "The Beginning cosmo life Isekai (user-made, 10-27)",
+     "sessions30d": "22 (20 players)",
+     "likes": "1 real in 30d; shows 1"
+    },
+    {
+     "title": "Last Five (official)",
+     "sessions30d": "19 (19 players)",
+     "likes": "1 real in 30d; shows 27,724 (27,721 seeded)"
+    },
+    {
+     "title": "The Ninth Archive (official)",
+     "sessions30d": "17 (15 players)",
+     "likes": "2 real in 30d; shows 11,889 (11,886 seeded)"
+    },
+    {
+     "title": "Light (official)",
+     "sessions30d": "17 (17 players)",
+     "likes": "1 real in 30d; shows 62,995 (62,994 seeded)"
+    }
+   ],
+   "feedRows": [
+    {
+     "name": "Category chips (top of page)",
+     "logic": "'Main' plus each derived category that has at least 1 world (9 today). Tapping a chip replaces the whole page with a single grid in the default ranking order, so official worlds always come first. The chip set only changes if a category empties or fills.",
+     "fileRef": "services/api/src/server.ts:479-483, 534-552; services/api/src/catalog-taxonomy.ts:117-154; apps/ios/Plotbreak/Screens/Discover/DiscoverScreen.swift:77-92"
+    },
+    {
+     "name": "Tower card (not a story row)",
+     "logic": "The daily Tower climb card, shown above the banner. It is the only block above the fold that changes daily.",
+     "fileRef": "apps/ios/Plotbreak/Screens/Discover/DiscoverScreen.swift:117-122"
+    },
+    {
+     "name": "Featured banner (6 worlds)",
+     "logic": "The ranked list re-sorted by story_editorial.featured_rank, lowest first (no rank counts as 999), then the first 6. In production that is Last Feather (rank 0), Itachi (1), Pink Tide (3), Good Morning Husband (4), Hush House (5), Zero Throne (6). The last editorial change was 2026-10-31, when Last Feather was added at rank 0. The other 5 have not changed since 2026-09-18. The app auto-advances the banner every 6 s but always opens on slide 1.",
+     "fileRef": "services/api/src/server.ts:554-578; services/api/src/repo/postgres.ts:705-716; infra/scripts/seed-social.ts:33-59, 1733-1739; apps/ios/Plotbreak/Screens/Discover/DiscoverScreen.swift:124-131, 485, 489-499"
+    },
+    {
+     "name": "Continue",
+     "logic": "The signed-in player's 5 most recently played sessions, skipping archived ones. Only shown when there is at least one. It sits below the Tower card and the Featured banner.",
+     "fileRef": "services/api/src/server.ts:186-200, 684; services/api/src/repo/postgres.ts:1265-1271; apps/ios/Plotbreak/Screens/Discover/DiscoverScreen.swift:133-155"
+    },
+    {
+     "name": "For you",
+     "logic": "Only shown when the tastes picked in onboarding match at least 2 worlds. The tastes are stored only on the phone and sent as ?tastes=. The row holds every world whose derived categories match a taste, sorted by how many categories match, then by the default ranking. It never changes for a given player. The server also sends a 'Because you picked ...' subtitle, but the app never draws row subtitles.",
+     "fileRef": "services/api/src/server.ts:580-615; apps/ios/Plotbreak/Screens/Onboarding/OnboardingScreens.swift:310-317; apps/ios/Plotbreak/State/AppStore.swift:321-324; apps/ios/Plotbreak/Screens/Discover/DiscoverScreen.swift:322-327"
+    },
+    {
+     "name": "Trending now",
+     "logic": "Every world with at least 1 play, which is all 56 today, with no cap. Sorted by all-time play count (the code passes lifetime story_signals.runs as 'recent plays' and 0 for recent likes), so it is really 'most played ever', even though the comment in ranking.ts:13-14 says it reads recent activity. The play count goes up once per new session. Today the top 5 are Ace 211, Second Skin 205, Itachi 180, Pink Tide 177, Good Morning Husband 156, exactly the same top 5 as 7 days ago. The TRENDING badge needs more than 5,000 plays; the most any world has is 211.",
+     "fileRef": "services/api/src/server.ts:617-639, 1427; services/api/src/ranking.ts:43-55; services/api/src/projections.ts:130"
+    },
+    {
+     "name": "Top ranked (10)",
+     "logic": "Likes, highest first, where likes = seeded likes + real likes; ties broken by id; rank numbers are drawn on the cards. The order is frozen: Itachi 157,200, Second Skin 131,484, Pink Tide 110,817, Ace 103,309, Good Morning Husband 97,275, Hush House 86,418, Zero Throne 75,932, Nine Weeks 67,997, Light 62,995, Red Moon Brigade 58,563. There have been 79 real likes ever (52 in the last 30 days), while the gap between #10 and #11 is 4,432 likes. Its top 7 are the same 7 worlds as Trending's top 7, and 5 of the 6 Featured worlds are among them too.",
+     "fileRef": "services/api/src/server.ts:641-654; services/api/src/ranking.ts:26-34; services/api/src/repo/postgres.ts:467-485; infra/scripts/seed-social.ts:1721-1730"
+    },
+    {
+     "name": "New on Plotbreak",
+     "logic": "This row is not sorted by date. The code reverses the default ranking and takes the bottom 30%, so it shows the 17 lowest-scored worlds. The score only counts seeded likes, so a user-made world with no seed falls further the more it is played. The first cards are Skill Creation (published 11-02, 66 plays), The Unbothered Anvil (11-04) and The Beginning cosmo life Isekai (10-27), the same first 3 as 7 days ago. 6 of the 8 worlds published 11-17 to 11-21 are not in this row at all. The NEW badge is never set anywhere.",
+     "fileRef": "services/api/src/server.ts:656-668, 2805-2831; services/api/src/projections.ts:128-130"
+    },
+    {
+     "name": "All worlds (3-column grid)",
+     "logic": "All 56 worlds in the default ranking. That score is built from seeded likes, saves, hides and reports per play, plus a small bonus for official worlds. In practice the 27 official worlds come first, in seeded-likes order, with Uncounted and Last Feather (no seeded likes) last among them. The 29 user-made worlds come after. A brand-new user-made world lands right after the officials, at #28-32 (grid row 10 or later).",
+     "fileRef": "services/api/src/server.ts:670-682, 2805-2831"
+    },
+    {
+     "name": "Daily credits card",
+     "logic": "Shown at the bottom of the page when the daily claim is available.",
+     "fileRef": "apps/ios/Plotbreak/Screens/Discover/DiscoverScreen.swift:173-180"
+    },
+    {
+     "name": "Story page: 'Related worlds' (6)",
+     "logic": "Not actually related. It is the first 6 worlds in alphabetical order of their internal story id, because the catalog query sorts by story id: Ace, Blackwake, Blank Prophecy, Fourth Beast, Good Morning Husband, Hush House, on every story page except their own. It is not translated and never includes user-made worlds.",
+     "fileRef": "services/api/src/server.ts:774-787, 828; services/api/src/repo/postgres.ts:308-312; apps/ios/Plotbreak/Screens/StoryDetail/StoryDetailScreen.swift:265-266"
+    },
+    {
+     "name": "Search, before typing",
+     "logic": "The 'what people look for' list is just the server's category list, read from the cached Discover response. It is not based on real searches.",
+     "fileRef": "apps/ios/Plotbreak/Screens/Discover/SearchScreen.swift:39-42"
+    }
+   ],
+   "categoriesSupported": "No genre or category field exists anywhere. Contracts: StoryVersion has free-form tags[] (packages/contracts/src/game/story.ts:1163), mechanicsChips[] (1165), fantasyLabel of up to 42 characters (1143), a contentDescriptors list (1166), intensity LIGHT/MODERATE/INTENSE (1167), sourceLocale (1160) and publishedAt (1232). StorySummary has a badges list with NEW, TRENDING, OFFICIAL and STAFF_PICK (1272). The Create flow allows up to 10 tags of up to 30 characters each (packages/contracts/src/create/draft.ts:358). Fixtures fill the same fields, for example packages/test-fixtures/src/itachi.ts:48 and 79-88 (tags 'Rivalry', 'Military', 'Mystery', 'Coming of age', 'Tragedy'). Database: tags only exist inside the story_versions.definition JSON. story_versions has fantasy_label, hook, intensity and content_descriptors columns but no tags column, and the story_tags and story_version_tags tables exist but are empty. Categories are worked out on every request instead. There are 9 fixed ones: action, romance, fantasy, sports, mystery, school, adventure, horror, drama (services/api/src/catalog-taxonomy.ts:32-100). A world joins a category if one of its tags matches exactly (ignoring case) or if 2 or more keywords appear in its title, hook, premise, tags or chips (117-129). They power the Discover chips, the ?category= filter, the onboarding genre list and search synonyms (services/api/src/server.ts:208-210, 479-483; services/api/src/catalog-taxonomy.ts:219-224). Approximate counts on today's shelf, from re-running the same rules in SQL: Mystery 24, Action 20, School 15, Romance 13, Adventure 13, Fantasy 12, Drama 8, Sports 5, Horror 4. 9 of the 29 user-made worlds fall into no category, because creators write tags like 'dark-fantasy', 'school-drama', 'slice-of-life' or 'isekai' that don't match the list. Those worlds can only be found through All worlds or search. Categories never appear as their own rows on the main page.",
+   "personalization": "What is personal: (1) Continue, the player's last 5 runs. (2) For you, based on onboarding tastes; it is stored only on the phone and never changes. (3) Hidden stories, blocked creators and the 3-report auto-hide (services/api/src/catalogue-visibility.ts:35-44). (4) The saved and liked flags on cards. (5) Language: the copy is translated, but EN and FR get the same 56 worlds. Nothing else is personal: there is no 'because you played' row, worlds the player already started are not pushed down, and play history is not used anywhere except Continue. Time-windowed: nothing. Trending uses lifetime plays, Top ranked uses seeded likes, 'New' is score-based, and the default ranking is lifetime too. Rotating: nothing on the server. Featured is a fixed editorial order. The only movement is the banner auto-advancing every 6 s in the app, plus the Tower and daily-credit cards. Built but unused (no code reads or writes them): story_editorial.editorial_boost (0 on all 26 rows), story_quality_rollups (0 rows, though it has window_span, d1_story_return and turn_10_rate columns), story_impressions (0 rows), story_tags and story_version_tags (0 rows). A comment at services/api/src/server.ts:2802 says 'the full multi-window formula runs as an offline rollup job', but nothing writes those rollups. Tracking to measure any change already exists: storyCardViewed with railId and position, and discoverViewed with hasContinue (apps/ios/Plotbreak/Screens/Discover/DiscoverScreen.swift:363-369, 420-423).",
+   "day2Change": "Effectively identical. A guest on day 1 and the same player on day 2 or day 7 see the same chips, the same 6 Featured worlds in the same order (always opening on Last Feather) and the same Top ranked 10. Trending's top 5 (Ace, Second Skin, Itachi, Pink Tide, Good Morning Husband) are the same as 7 days ago. Positions 6-15 moved by at most 2 places, except The Unbothered Anvil, which went from #24 to #15. 'New on Plotbreak' opens on the same 3 cards as a week ago, and the first 27 cards of All worlds are in the same order as at launch. What does differ for a returning player: (a) the Continue row appears, (b) For you appears if they picked tastes, then never changes, (c) the Tower and daily-credit cards, (d) the far end of New, All worlds and Trending as user-made worlds arrive. 9 user-made worlds were published 11-16 to 11-21, and none reached the first screen of any row. On top of that, Trending's top 7 and Top ranked's top 7 are the same 7 worlds, and 5 of the 6 Featured worlds are among them, so the first scroll shows about 8 different worlds three times over. Context: 832 sessions by 522 players across 54 worlds in the last 30 days. The top 5 worlds took 43% of sessions and user-made worlds took 25%. Skill Creation (60 sessions) out-played 23 of the 27 official worlds, but it sits below every official world in All worlds, can never enter Top ranked, and is only #10 in Trending.",
+   "cheapLevers": [
+    {
+     "lever": "Make 'New on Plotbreak' actually newest first: sort by first-publish date, cap at about 12, keep requiring a cover. With about one user-made world a day (9 this week), the first card changes almost daily at no content cost. Gotcha: Hush House, Uncounted and Window Seven have no publishedAt in their definition, and the summary code falls back to the current time, so a naive sort on updatedAt would pin those 3 old officials to the front. Use story_versions.published_at or stories.created_at instead.",
+     "files": "services/api/src/server.ts:656-668; services/api/src/repo/postgres.ts:291-322 (expose the first-publish date); services/api/src/projections.ts:156; services/api/src/api.spec.ts",
+     "effort": "XS, about 1 hour, server-only so no App Review. The local dev repository only has 3 stories, so test with a spec or against production-like data."
+    },
+    {
+     "lever": "Make 'Trending now' a real time window: score each world by distinct players who started a session in the last 72 hours to 7 days, plus 2x likes in that window. Cap at 10-12 and require at least 3 plays. There were 52 sessions in the last 24 h and 285 in the last 7 days, enough for a 72-hour to 7-day window but thin for 24 hours alone. The 7-day order today would be Good Morning Husband 28, Skill Creation 25 (user-made), Pink Tide 25, Itachi 21, Last Feather 16, Second Skin 16, so the row would move from week to week and sometimes daily, and it would surface user-made worlds. Tie the TRENDING badge to this top N instead of the unreachable 5,000-play threshold.",
+     "files": "services/api/src/server.ts:617-639; services/api/src/ranking.ts:36-55 (+ ranking.spec.ts); services/api/src/repo/types.ts, repo/postgres.ts, repo/memory.ts (new recent-plays query over story_sessions.created_at and story_likes.created_at); services/api/src/projections.ts:130",
+     "effort": "S, about half a day, server-only"
+    },
+    {
+     "lever": "Rotate Featured daily: pin 1-2 editorial slots (for example Itachi) and fill the other 4 from a pool of official worlds plus user-made worlds above a 7-day play threshold. Shuffle with a seed based on the UTC date (story id + YYYY-MM-DD), so it stays stable all day and changes tomorrow. The unused story_editorial.editorial_boost column can hold pool weights without a migration.",
+     "files": "services/api/src/server.ts:554-578; services/api/src/ranking.ts (new daily rotation helper + spec); services/api/src/repo/postgres.ts:705-716 (read editorial_boost); infra/scripts/seed-social.ts:33-59 if the pinned set changes",
+     "effort": "S, 2-3 hours, server-only"
+    },
+    {
+     "lever": "Push down worlds the player has already played: drop or demote worlds they already started from Featured, Trending, New and For you. Their sessions are already loaded for the Continue row. Day 2 then looks different for every returning player, and Continue still carries what they played.",
+     "files": "services/api/src/server.ts:186-200 (reuse the sessions list), 554-682",
+     "effort": "S, 2-3 hours, server-only"
+    },
+    {
+     "lever": "Add category rows to the home page: 3 per day, rotating through the 9 categories by day of the year, each sorted by 7-day plays with a date-seeded shuffle. This gives the ooc.ai look of many shelves from the existing 56 worlds. The app already draws any row the server sends (it shows as a horizontal row unless its id is 'all' or 'category') and translates titles like 'category.romance' from its own strings. Also treat '-' and '_' as spaces when matching categories, so the 9 uncategorized user-made worlds land somewhere.",
+     "files": "services/api/src/server.ts (after Top ranked, around line 654); services/api/src/catalog-taxonomy.ts:105-129 (+ catalog-taxonomy.spec.ts). No app change needed (apps/ios/Plotbreak/Screens/Discover/DiscoverScreen.swift:157-161, apps/ios/Plotbreak/I18n/Translator.swift:45-48, apps/ios/Plotbreak/Models/Models.swift:445-448)",
+     "effort": "S, about half a day, server-only"
+    },
+    {
+     "lever": "Fix 'Related worlds' on the story page: rank other worlds by shared categories plus 7-day plays, skip ones the player already played, and apply the same language filtering and translation Discover uses. Today it is the same 6 alphabetical worlds on every page.",
+     "files": "services/api/src/server.ts:774-787, 828",
+     "effort": "XS to S, 1-2 hours, server-only"
+    },
+    {
+     "lever": "Add a 'Rising from the community' row: user-made worlds sorted by 7-day plays and likes. User-made worlds get 25% of sessions but can never reach Top ranked and always sit below every official world in All worlds. Optionally mix them into All worlds instead of listing them after the officials.",
+     "files": "services/api/src/server.ts:641-682; services/api/src/ranking.ts",
+     "effort": "XS, about 1 hour, server-only (reuses the time-window query from the Trending lever)"
+    },
+    {
+     "lever": "Show the badges the data model already has: set NEW for worlds first published in the last 7 days, and draw NEW, TRENDING and STAFF_PICK tags on story cards. Today the card only draws ORIGINAL, although the app already understands all four badges.",
+     "files": "services/api/src/projections.ts:128-131; apps/ios/Plotbreak/Theme/Components.swift:699-774 (badge overlay at 736-747); apps/ios/Plotbreak/Resources/i18n/en.json and fr.json",
+     "effort": "S. The server part is XS; drawing the tag needs the next App Store build."
+    },
+    {
+     "lever": "Move Continue above the Featured banner when it has something in it, so a returning player's first card is their own story. Also draw the row subtitles the server already sends ('Because you picked ...').",
+     "files": "apps/ios/Plotbreak/Screens/Discover/DiscoverScreen.swift:117-155, 316-327",
+     "effort": "XS, app-only, next App Store build"
+    },
+    {
+     "lever": "Add a character-of-the-day / 'Meet the cast' row. All 179 characters in official worlds already have portraits plus a short blurb and role (user-made worlds: 20 of 170). A daily row of faces is the most ooc-like lever, but it needs a new card type.",
+     "files": "packages/contracts/src/api/index.ts:91-113 (row payload and kind); services/api/src/server.ts (Discover route); apps/ios/Plotbreak/Models/Models.swift:445-458; apps/ios/Plotbreak/Theme/Components.swift; apps/ios/Plotbreak/Screens/Discover/DiscoverScreen.swift",
+     "effort": "M, 1-2 days: data model + server + app release"
+    },
+    {
+     "lever": "Add a local 'N new worlds since you last played' reminder next to the existing daily-credits and story-waiting reminders, so players actually see the feed once it changes. Count new worlds from the Discover response cached on the phone.",
+     "files": "apps/ios/Plotbreak/Notifications/Reminders.swift; apps/ios/Plotbreak/State/AppStore.swift (cached Discover response)",
+     "effort": "S, app-only, next App Store build"
+    }
+   ]
+  },
+  "verification": null
+ },
+ "story-cost": {
+  "result": {
+   "currentPipeline": [
+    {
+     "step": "Official 1: story bible (docs/story-bibles/NN_*.md)",
+     "model": "Claude Opus 5.5 running in a Claude Code session (co-author on commit 4a90dfe), not an API call from the app",
+     "tokensIn": "~9.5K: authoring-principles 8KB + new-stories-brief 5KB + a reference bible ~10KB (ASSUMPTION)",
+     "tokensOut": "~10K including thinking. Bibles run 10–110KB; Last Feather is 9.7KB (ASSUMPTION)",
+     "images": "0",
+     "costUsd": "$0 metered (covered by the subscription). API equivalent: 9.5K×$4/M + 10K×$20/M = $0.24",
+     "ref": "docs/story-bibles/14_LAST_FEATHER.md; docs/story-bibles/BUILD_STATUS.md:36-50 (required fields)"
+    },
+    {
+     "step": "Official 2: hand-written fixture packages/test-fixtures/src/<story>.ts plus a spec",
+     "model": "Claude Opus 5.5 (Claude Code)",
+     "tokensIn": "~57K: schema packages/contracts/src/game/story.ts (58KB) + a reference fixture (~92KB) + the bible (ASSUMPTION)",
+     "tokensOut": "~45K including thinking. Fixtures are 33–207KB; last-feather.ts is 92KB / 1,864 lines (ASSUMPTION)",
+     "images": "0",
+     "costUsd": "$0 metered. API equivalent: 57K×$4/M + 45K×$20/M = $1.13, plus one repair pass of $0.31. An agentic session that keeps re-reading its context would cost 2–3× more (ASSUMPTION)",
+     "ref": "packages/test-fixtures/src/last-feather.ts; commit 4a90dfe"
+    },
+    {
+     "step": "Official 3: npm run migrate (fixture → story_versions row)",
+     "model": "none",
+     "tokensIn": "0",
+     "tokensOut": "0",
+     "images": "0",
+     "costUsd": "$0",
+     "ref": "infra/scripts/migrate.ts:155-158 (writes clarity_passed=true unconditionally)"
+    },
+    {
+     "step": "Official 4: French fixture via npm run fr:adapt",
+     "model": "gpt-4.1-mini (role writer_fast)",
+     "tokensIn": "~20–60K across ~20 batches (A:10 fields, B:40). Each batch also re-sends the tier brief, glossary and world brief (ASSUMPTION)",
+     "tokensOut": "~11–13K",
+     "images": "0",
+     "costUsd": "≈$0.03–0.04 at $0.40/$1.60 per M",
+     "ref": "infra/scripts/fr-adapt.ts:47 (batch sizes), :85-104 (maxTokens 8000), :178-210 (midpoint repair pass); packages/director/src/gateway/openai.ts:41"
+    },
+    {
+     "step": "Official 5: EN cover (covers v4)",
+     "model": "Dare seedream-5-pro, 2:3, 2k",
+     "tokensIn": "n/a (prompt of about 600–900 words)",
+     "tokensOut": "n/a",
+     "images": "1, with one retry if the title is misspelt",
+     "costUsd": "4 credits = $0.168 at $0.042/credit (range $0.09–0.25)",
+     "ref": "docs/covers-v4/RECIPE.md:3, :29 (one retry rule)"
+    },
+    {
+     "step": "Official 6: FR cover (title swap)",
+     "model": "Dare nano-banana-2 (labelled Nano Banana Pro), reference edit of the EN cover",
+     "tokensIn": "n/a",
+     "tokensOut": "n/a",
+     "images": "1",
+     "costUsd": "4 credits = $0.168 (range $0.09–0.25)",
+     "ref": "docs/covers-v4/RECIPE.md:4. The v5 alternative uses gpt-image-2.6-sunburst at 1024x1536 high (EN + FR edit); OpenAI publishes no per-image price for 2.5/2.6, so up to ~$0.165 + $0.006 prompt (GPT-Image-2's published high-quality figure): infra/scripts/cover-openai.ts:12, :54, :66"
+    },
+    {
+     "step": "Official 7: art pack via npm run art",
+     "model": "gpt-image-2.5-flare, quality not set so it defaults to auto",
+     "tokensIn": "~1K text prompt per image (ASSUMPTION)",
+     "tokensOut": "Image output tokens from the 1,441 generations recorded in the asset manifest: portrait mean 666, location stage 855, key art 857",
+     "images": "1 key art + 1 per location (median 11) + 1 per character (median 6), plus 8 reactions per character with --reactions. Last Feather shipped 54 images",
+     "costUsd": "Portrait ≈$0.025, stage or key art ≈$0.031 (including prompt). A median story without reactions ≈$0.52. Last Feather's 54 images ≈$1.4–2.5",
+     "ref": "infra/scripts/generate-art.ts:118-133; packages/director/src/media/gateway.ts:68-71, :111, :127-133; packages/contracts/src/game/assets.ts:44; infra/seed/assets/manifest.json provenance"
+    },
+    {
+     "step": "Official 8: npm run smoke (~15 scripted bad-player probes in one session per world)",
+     "model": "gpt-5.6-luna (QUICK tier) through the local API's runTurnPure. The checks themselves are deterministic and free",
+     "tokensIn": "186.8K over 15 turns, 171K of it cached (model below)",
+     "tokensOut": "6.7K (15 × 447)",
+     "images": "0",
+     "costUsd": "$0.015 per world",
+     "ref": "infra/scripts/smoke.ts:222, :236; packages/director/src/narrative-clarity.ts:180"
+    },
+    {
+     "step": "Official 9: hand playtest (3 openings × 3 turns)",
+     "model": "gpt-5.6-terra (VIVID)",
+     "tokensIn": "~9 turns × 9–13K",
+     "tokensOut": "~9 × 600",
+     "images": "0",
+     "costUsd": "≈$0.15–0.20 (ASSUMPTION)",
+     "ref": "commit 4a90dfe message"
+    },
+    {
+     "step": "Create 1: compileStory (two calls, spine then cast)",
+     "model": "gpt-5.6-terra (writer_premium), reasoning medium, maxTokens 8000 per call, Responses API",
+     "tokensIn": "9–13K for the pair (measured)",
+     "tokensOut": "6–9K for the pair (measured)",
+     "images": "0",
+     "costUsd": "$0.090–0.134 (9K×$2 + 6K×$12 … 13K×$2 + 9K×$12, per M)",
+     "ref": "services/api/src/create-routes.ts:305 → packages/director/src/create/compile.ts:466-475, :478, :504; docs/create/findings.md:70-71; gateway/openai.ts:45"
+    },
+    {
+     "step": "Create 2: assistField (optional, one call per field)",
+     "model": "gpt-5.6-terra, reasoning medium, maxTokens 4000",
+     "tokensIn": "~2–4K (ASSUMPTION)",
+     "tokensOut": "~0.5–2K (ASSUMPTION)",
+     "images": "0",
+     "costUsd": "$0.01–0.03 per assist",
+     "ref": "services/api/src/create-routes.ts:533 → packages/director/src/create/assist.ts:264-279"
+    },
+    {
+     "step": "Create 3: drawDraftArt (titled cover + key-art banner)",
+     "model": "gpt-image-2.5-flare, plus gpt-4.1-mini vision to read the title back off the cover",
+     "tokensIn": "~1K prompt per image; the title check reads ~2.5K image tokens",
+     "tokensOut": "~666 image tokens (portrait mean)",
+     "images": "Cover in 1–2 attempts (1024x1536) + 1 banner (1536x1024)",
+     "costUsd": "Cover $0.025–0.05 + banner $0.031 + title check $0.001 ≈ $0.06–0.08",
+     "ref": "services/api/src/create-routes.ts:646 → services/api/src/create-art.ts:135-150, :245; media/gateway.ts:323"
+    },
+    {
+     "step": "Create 4: translateStory on publish",
+     "model": "Tier A gpt-5.6-terra (writer_premium); tier B gpt-4.1 (writer_standard)",
+     "tokensIn": "Official-size world (median 135 A fields / 13.4K chars, 220 B fields / 18.0K chars, measured): A 14 calls ≈ 11K, B 6 calls ≈ 9.6K",
+     "tokensOut": "A ≈ 7K, B ≈ 5.8K (ASSUMPTION: French runs ~15% longer than English, plus JSON)",
+     "images": "0",
+     "costUsd": "$0.172 for an official-size world (A $0.106 + B $0.066); ≈$0.068 for a compile-size world (ASSUMPTION: about 40% of the chars)",
+     "ref": "services/api/src/translate-story.ts:124 → packages/director/src/create/translate.ts:177, :240-256"
+    },
+    {
+     "step": "Create 5: reletterCover (FR title swap)",
+     "model": "gpt-image-2.5-flare images/edits + gpt-4.1-mini title check",
+     "tokensIn": "EN cover as image input (~1.5–6K tokens at $8/M) + prompt",
+     "tokensOut": "~666 image tokens",
+     "images": "1 (up to 2 attempts)",
+     "costUsd": "≈$0.03–0.07 per attempt",
+     "ref": "services/api/src/translate-story.ts:66 → services/api/src/create-art.ts:196-212"
+    },
+    {
+     "step": "Serving: runTurnPure, one model call per turn",
+     "model": "The tier's model. VIVID (default) = gpt-5.6-terra, reasoning effort unset",
+     "tokensIn": "Fixed prefix ≈9.3K (median cold first turn) + ~450 per prior turn (measured). Live VIVID mean 29.5K, of which 82.9% cached",
+     "tokensOut": "VIVID mean 606; QUICK 447; CINEMATIC 961",
+     "images": "0 (hero images only on Cinematic/Apex turns)",
+     "costUsd": "VIVID mean $0.022–0.025 per turn (median $0.015)",
+     "ref": "services/api/src/turn-service.ts:312-323 → packages/director/src/pure/narrator.ts:915-952; packages/contracts/src/game/economy.ts:73-133"
+    }
+   ],
+   "prices": [
+    {
+     "model": "gpt-5.6-terra",
+     "inputPerMTok": "$2.00 (cached read $0.20; cache write $2.50 for the default 30m TTL, $5.00 for 12h; long context >272K: $4.00)",
+     "outputPerMTok": "$12.00 (long context $18.00; Batch/Flex $1.00 in / $6.00 out)",
+     "source": "https://developers.openai.com/api/docs/pricing ; cache-write rules from https://developers.openai.com/api/docs/guides/prompt-caching"
+    },
+    {
+     "model": "gpt-5.6-luna",
+     "inputPerMTok": "$0.20 (cached $0.02; 30m write $0.25)",
+     "outputPerMTok": "$1.20",
+     "source": "https://developers.openai.com/api/docs/pricing"
+    },
+    {
+     "model": "gpt-5.6-sol",
+     "inputPerMTok": "$4.00 (cached $0.40; 30m write $5.00)",
+     "outputPerMTok": "$20.00",
+     "source": "https://developers.openai.com/api/docs/pricing"
+    },
+    {
+     "model": "gpt-4.1",
+     "inputPerMTok": "$2.00 (cached $0.50)",
+     "outputPerMTok": "$8.00",
+     "source": "https://developers.openai.com/api/docs/pricing"
+    },
+    {
+     "model": "gpt-4.1-mini",
+     "inputPerMTok": "$0.40 (cached $0.10)",
+     "outputPerMTok": "$1.60",
+     "source": "https://developers.openai.com/api/docs/pricing"
+    },
+    {
+     "model": "gpt-image-2.5-flare / gpt-image-2.6-sunburst",
+     "inputPerMTok": "Text $5.00; image $8.00",
+     "outputPerMTok": "Image $30.00. No official per-image table exists for 2.5/2.6; the repo's own generations give a portrait ≈$0.020 and a landscape ≈$0.026",
+     "source": "https://developers.openai.com/api/docs/models/gpt-image-2.5-flare.md ; https://developers.openai.com/api/docs/guides/image-generation (GPT-Image-2 at 1024x1536: low $0.005, medium $0.041, high $0.165)"
+    },
+    {
+     "model": "Claude Opus 5.5",
+     "inputPerMTok": "$4 (5m write $5; cache hit $0.20; Batch $2)",
+     "outputPerMTok": "$20 (Batch $10)",
+     "source": "https://platform.claude.com/docs/en/about-claude/pricing.md"
+    },
+    {
+     "model": "Claude Sonnet 5.5",
+     "inputPerMTok": "$2 (write $2.50; hit $0.10)",
+     "outputPerMTok": "$10",
+     "source": "https://platform.claude.com/docs/en/about-claude/pricing.md"
+    },
+    {
+     "model": "Claude Haiku 5.5",
+     "inputPerMTok": "$0.10 for prompts up to 100K (hit $0.01)",
+     "outputPerMTok": "$0.50",
+     "source": "https://platform.claude.com/docs/en/about-claude/pricing.md"
+    },
+    {
+     "model": "Dare seedream-5-pro / nano-banana-2 at 2k",
+     "inputPerMTok": "n/a: 4 credits per image (MEMORY.md cover note)",
+     "outputPerMTok": "4 × $0.023–0.062 = $0.09–0.25 per image",
+     "source": "https://trydare.com/plans (read in Chrome)"
+    },
+    {
+     "model": "Direct-API alternatives to Dare (third-party sources, UNVERIFIED)",
+     "inputPerMTok": "Seedream 5.0 Pro: $0.045 per image up to 2.36MP, $0.09 above",
+     "outputPerMTok": "Nano Banana Pro: ~$0.134 per 2K image ($0.067 batch)",
+     "source": "https://openrouter.ai/bytedance-seed/seedream-5-0-pro ; https://www.atlascloud.ai/blog/ai-updates/seedream-5-0-pro-price ; https://magichour.ai/blog/nano-banana-pro-pricing"
+    }
+   ],
+   "dareCreditUsd": "$0.042 per credit (ASSUMPTION: the Pro plan billed monthly, $49.99 for 1,200 credits). Dare's published range runs from $0.023 (Ultra, billed annually) to $0.062 (Starter, billed monthly). A 4-credit 2k image is therefore $0.168, within $0.09–0.25. Which plan the account is on could not be checked: the Dare MCP returned \"session expired or revoked\", so dare_credits could not be read. docs/blocked-on-credits.md is about OpenAI API credits, not Dare.",
+   "tiers": [
+    {
+     "tier": "(a) Fully automated text + 1 EN cover",
+     "perStoryUsd": "$0.39 compile-grade | $1.95 official-grade",
+     "breakdown": "1. Turn a trending card into an original premise: gpt-5.6-terra, 6K in / 2K out = $0.012 + $0.024 = $0.036 (ASSUMPTION on tokens).\n2. Story text, one of two options:\n   - Compile-grade: the existing compileStory, measured midpoint 11K in / 7.5K out = $0.112.\n   - Official-grade: Opus 5.5 writes the bible (9.5K in / 10K out = $0.238), then the fixture (57K / 45K = $1.128), then one repair pass (57K cached × $0.20 + 35K × $4 + 8K × $20 = $0.311). Total $1.68 (ASSUMPTION on tokens). The same three steps on terra cost $0.97; Batch API halves either.\n3. IP and quality judge: terra, 8K in / 1K out = $0.028. checkNarrativeClarity adds $0 (deterministic).\n4. EN cover: Dare seedream-5-pro, 4 credits × $0.042 × 1.25 expected attempts = $0.21.\nTotal compile-grade: 0.036 + 0.112 + 0.028 + 0.21 = $0.386.\nTotal official-grade: 0.036 + 1.677 + 0.028 + 0.21 = $1.95.\nIf the cover came from gpt-image-2.5-flare instead (≈$0.03), compile-grade drops to ≈$0.21."
+    },
+    {
+     "tier": "(b) (a) + FR cover + FR localization + 3 portraits + automated ~15-turn smoke playtest",
+     "perStoryUsd": "$0.79 compile-grade | $2.46 official-grade",
+     "breakdown": "Start from (a): $0.386 compile-grade or $1.951 official-grade, then add:\n1. FR cover: nano-banana-2, 4 credits × $0.042 × 1.25 = $0.21.\n2. FR text via translateStory:\n   - Official-size world: A 14 calls on terra (11K in / 7K out) = $0.106; B 6 calls on gpt-4.1 (9.6K / 5.8K) = $0.066; total $0.172.\n   - Compile-size world: ≈$0.068 (ASSUMPTION: about 40% of the chars).\n3. Three portraits on gpt-image-2.5-flare: 3 × ($0.020 image + $0.005 prompt) = $0.075.\n4. Smoke: 15 QUICK turns on luna. Inputs: 15,600 uncached × $0.25/M + 171,150 cached × $0.02/M + 6,705 out × $1.20/M = $0.0154.\n5. Transcript judge: terra, 9K in / 1.5K out = $0.036.\nTotal compile-grade: 0.386 + 0.21 + 0.068 + 0.075 + 0.015 + 0.036 = $0.791.\nTotal official-grade: 1.951 + 0.21 + 0.172 + 0.075 + 0.015 + 0.036 = $2.459.\nRunning the smoke at VIVID, the tier players actually get, adds $0.167 (15 turns = $0.182). A full reaction deck (3 characters × 8 = 24 edits at ~$0.035–0.07) would add ≈$0.85–1.7."
+    },
+    {
+     "tier": "(c) (b) + ~20 min human review",
+     "perStoryUsd": "$0.79 compile-grade | $2.46 official-grade, plus 20 min of human time (not priced)",
+     "breakdown": "The API spend is the same as (b). Review time is 20 min per story: 10 h/month at 1/day, 30 h at 3/day, 100 h at 10/day. At any of these rates the review time costs far more than the API spend. That is the point of (c): it buys the judgement no automated check covers today. Nothing calls checkStoryClarity at publish time; both publish paths hardcode clarity_passed=true."
+    }
+   ],
+   "monthly": [
+    {
+     "rate": "1/day (30 stories)",
+     "usd": "(a) $11.6 compile-grade | $58.5 official-grade; (b) $23.7 | $73.8; (c) $23.7 | $73.8 + 10 h review"
+    },
+    {
+     "rate": "3/day (90 stories)",
+     "usd": "(a) $34.7 | $175.6; (b) $71.2 | $221.4; (c) $71.2 | $221.4 + 30 h review"
+    },
+    {
+     "rate": "10/day (300 stories)",
+     "usd": "(a) $115.8 | $585.4; (b) $237.2 | $737.8; (c) $237.2 | $737.8 + 100 h review"
+    },
+    {
+     "rate": "For scale: today's total turn-serving spend",
+     "usd": "≈$108–120/month. That is 5,701 turns in the last 30 days × $0.019–0.021 blended per turn, plus ~$2.5 for 83 hero images. The bot at 3/day official-grade costs about 2× the whole current serving bill. The new players each story attracts cost ~$0.19–0.24 per 20-turn session on top."
+    }
+   ],
+   "playCost": {
+    "model": "gpt-5.6-terra on VIVID, the default tier, which carried 71.8% of the last 30 days' turns. QUICK = gpt-5.6-luna (24.7%), CINEMATIC = terra at high effort (2.2%), APEX = gpt-5.6-sol at medium (1.2%). Source: packages/contracts/src/game/economy.ts:73-133 plus the turns table.",
+    "perTurnUsd": "$0.012 averaged over a 20-turn VIVID session. Turn 1 is cold: 9,300 × $2.50/M + 606 × $12/M = $0.031. Turn 20: 450 × $2.50 + 17,400 × $0.20 + 606 × $12, per M = $0.012. Measured on 446 live VIVID turns: mean $0.022–0.025, median $0.015, p90 $0.041; long sessions pull the mean up (max input 174K). Across all 561 sampled turns: $0.019–0.021.",
+    "per20TurnSessionUsd": "VIVID $0.24, or $0.27 with one 30-minute cache expiry (+$0.031). QUICK $0.020. CINEMATIC $0.33 + ~8 hero images (~$0.03 each, ASSUMPTION). APEX $0.63 + hero images. Weighted by the tier mix, $0.19. With no caching, VIVID would be $0.69, so caching saves 65%.",
+    "basis": "Data: 561 turn.generated log lines pulled read-only from Railway (plotbreak-api, 4 deployments, 2026-11-18 to 2026-11-22). Each line carries inputTokens, cachedTokens and outputTokens; I priced them at today's OpenAI list rates.\n\nSession model: turn n input I_n = P + (n−1)Δ.\n- P = 9,300: median input of the first logged turn when cold, n=101 sessions.\n- Δ = 450: median input growth between consecutive turns, n=456.\nFor 20 turns: ΣI = 20×9,300 + 450×190 = 271,500. Cached = 253,650 (the previous request each turn). Uncached = 17,850, billed at the 1.25× write rate.\nVIVID: 17,850 × $2.50 + 253,650 × $0.20 + 12,120 × $12, per M = $0.0446 + $0.0507 + $0.1454 = $0.241.\nOutput is 60% of the bill, so the beat length matters more than the context.\n\nCaching notes:\n- The append-only shape (narrator.ts:915-927) keeps the prefix byte-identical. 82.9% of live VIVID input tokens were cache hits.\n- GPT-5.6 bills cache writes at 1.25× and reads at 0.1×.\n- Production sends prompt_cache_retention '24h' (turn-service.ts:320 → openai.ts:266). OpenAI's docs say GPT-5.6 replaced that parameter with prompt_cache_options.ttl (30m default, 12h at a 2.5× write), so the 24h setting is probably ignored (UNVERIFIED). Consistent with that, 25 of 460 non-first turns (5.4%) came back fully uncached.\n- Moving to a 12h TTL would add ≈$0.045 per 20-turn session in writes to avoid ~1 miss worth $0.03, so it is roughly break-even.\n- Arcs keep context under 260K, below the 272K long-context step where terra input costs $4/M (docs/arcs.md)."
+   },
+   "risks": [
+    "Copyright and trademark. 3 of the 27 official stories are fan IP: Itachi (Naruto), Ace (One Piece), Light (Death Note). In the last 30 days they took 10.6% of turns (606) and 121 of 901 sessions. Many trending ooc premises are fan fiction too. The bot must take only the trope and fantasy and replace names, designs, costumes, power systems, places and plot specifics. A close paraphrase is still derivative. Apple App Review 5.2.1 bars third-party IP without permission, and store pages and ads raise trademark risk. ooc's own user-written blurbs are other creators' copyrighted text, and scraping them may break ooc's terms. Feed the bot abstract signals only (tags, tropes, counts), never their prose.",
+    "Engagement says quality matters more than volume. Last 30 days: official original stories held 7.6 turns per session, user-made Create stories 4.3, fan-IP stories 5.0. These are correlations confounded by shelf placement, but they suggest a compile-grade bot story may underperform. That argues for official-grade text and/or tier (c) review.",
+    "There is no automated quality gate at publish time today. checkStoryClarity (narrative-clarity.ts:346) is never called outside specs. Both publish paths hardcode clarity_passed=true (repo/postgres.ts:1971, infra/scripts/migrate.ts:158). checkNarrativeClarity runs only in smoke.ts:165/349 and checks premise and opening clarity, not fun. The bar in authoring-principles.md and BUILD_STATUS.md (about 20 fields per major character, 3+ distinct voice samples, the 'strip the speaker names' test) is human judgement; an LLM judge only approximates it.",
+    "Content filters. Image moderation refused Ace's cover twice until minors were described by costume rather than age (generate-art.ts:11-25; RECIPE.md minors rule). Seedream blocks Naruto and One Piece costume sets (MEMORY.md). On text, about 9 of 22 churned day-one runs ended right after the storyteller refused or lectured (story-test.ts:4-10). Trending ooc content skews romantic, and a bot-made story never gets the ALL_IN_ROMANCE paragraph unless a human adds it to the allowlist (story-test.ts).",
+    "Dare cannot run unattended. It is reached through an 'Unofficial MCP' tied to a user login, and that session was already expired during this run. Use direct APIs instead: OpenAI gpt-image-2.5/2.6, already wired into create-art.ts, or Seedream via BytePlus and Nano Banana Pro via Gemini at ~$0.09–0.134 per image (UNVERIFIED third-party prices).",
+    "Production cost numbers are wrong. costOf (gateway/openai.ts:691-695) bills every input token at the full rate and uses stale prices (openai.ts:52-56 has terra at $1.25/$10, while the list price is $2/$12). luna and sol have no entry at all, so they report $0. In PostHog turn_completed.providerCostUsd, VIVID shows ≈$0.043 per turn against a true $0.022–0.025 (1.7–1.9× over), and QUICK/APEX show $0. docs/analytics.md:86 calls the figure exact. Image telemetry uses $40/M (media/gateway.ts:75) where the list price is $30/M, and leaves out input tokens. Do not budget the bot from these numbers.",
+    "Shared OpenAI account. Running out of OpenAI credit has already stopped every production turn once (docs/blocked-on-credits.md). Give the bot its own project, key and hard budget so it cannot starve player turns. gpt-image-2.5-flare is also limited to 20 images per minute on the Build tier.",
+    "Shipping path. Official stories are TypeScript fixtures that go through code review, npm run migrate and a deploy. 1–10 stories a day cannot ride that path, so bot output should publish through the Create/DB path (story_versions rows) under an official account.",
+    "Unpublished image prices. OpenAI lists no per-image price for gpt-image-2.5/2.6, and 'auto' quality varies: portraits ranged from 158 to 1,372 output tokens in the manifest. At high quality, a cover may cost up to ~$0.165 (GPT-Image-2's published 1024x1536 figure)."
+   ],
+   "assumptions": [
+    "ASSUMPTION: $0.042 per Dare credit (Pro plan, billed monthly). The real plan is unknown.",
+    "ASSUMPTION: 4 Dare credits per 2k image, for both seedream-5-pro and nano-banana-2 (from MEMORY.md and the task brief; I could not re-check it because the Dare session was expired).",
+    "ASSUMPTION: 1.25 expected attempts per cover (RECIPE: 'one retry if wrong'; a 25% retry rate).",
+    "ASSUMPTION: token counts for the new bot steps. Premise 6K in / 2K out; judge 8K/1K; transcript judge 9K/1.5K. Official-grade Opus 5.5: bible 9.5K/10K, fixture 57K/45K, repair 57K cached + 35K / 8K. Sizes come from the repo files at about 4 chars per token (OpenAI) and about 3.2 chars per token for code with Claude's newer tokenizer.",
+    "ASSUMPTION: French text runs ~15% longer than English. A compile-size world has ~40% of an official world's translatable chars. Translation output includes ~30% JSON and reasoning overhead.",
+    "ASSUMPTION: each image prompt is ~1K text tokens at $5/M (≈$0.005). Image output costs are the manifest means converted at the $30/M list price: portrait 666 tokens → $0.020, landscape 855 → $0.026.",
+    "MEASURED, not assumed: per-turn tokens (561 production turns, 2026-11-18 to 11-22); P = 9,300 and Δ = 450 tokens; tier mix, session lengths and engagement split (turns table, last 30 days: 5,701 turns, 901 sessions, median 2 turns per session, 50 sessions reached 20+ turns); compile at 9–13K in / 6–9K out (docs/create/findings.md); the fixed prompt per story, 20K–71K chars of constitution plus world brief, measured locally with a fake gateway and no model call.",
+    "ASSUMPTION: uncached input on GPT-5.6 is billed at the 1.25× cache-write rate (upper bound). Billing it at the plain input rate instead lowers the VIVID per-turn mean from $0.0248 to $0.0222; both ends are shown.",
+    "ASSUMPTION: hero images on Cinematic/Apex cost ~$0.03 each.",
+    "ASSUMPTION: the authoring done today in Claude Code costs $0 at the margin (subscription). Its API equivalent is given for comparison only.",
+    "Not priced: the 20-minute review in tier (c), engineering time to build the bot, and ooc scraping (assumed a free HTTP fetch, subject to ooc's terms).",
+    "Scope: I did not edit or create any repo files and did not commit. Database and log access was SELECT/read-only (Supabase SQL, Railway logs). Scratch scripts and log extracts are in /private/tmp/claude-501/-Users-omarlahmimi-Documents-Plotbreak/8c3f10ab-493e-4c44-89ce-84d9ac0f7b6b/scratchpad/ (measure-prompt.mts, measure-translate.mts, manifest_stats.py, all_tg.jsonl). In Chrome I opened one tab of my own for trydare.com/plans and closed it; I did not touch the two OOC tabs."
+   ]
+  },
+  "verification": {
+   "checks": [
+    {
+     "claim": "Official 1 (story bible): Claude Opus 5.5 in Claude Code (co-author on 4a90dfe); bibles 10–110KB, Last Feather 9.7KB; API-equivalent 9.5K×$4 + 10K×$20 = $0.24",
+     "verdict": "confirmed",
+     "correctedValue": "$0.238. The token counts are still assumptions. The inputs total about 23KB (8,074 + 5,201 + ~10K bytes), roughly 6–9K tokens, so 9.5K is on the high side. The claim that it costs '$0 metered' under the subscription can't be checked.",
+     "howChecked": "git show 4a90dfe has the Co-Authored-By: Claude Opus 5.5 trailer. wc -c gives bibles of 9,753–110,212 B, docs/authoring-principles.md 8,074 B and docs/new-stories-brief.md 5,201 B. The $4/$20 rate comes from the claude-api skill. Another contributor made the commit, and no local Claude Code transcript of that session exists, so real usage could not be measured."
+    },
+    {
+     "claim": "Official 2 (fixture): schema 58KB, last-feather.ts 92KB / 1,864 lines, fixtures 33–207KB; 57K×$4 + 45K×$20 = $1.13, plus a repair pass of $0.31 that reads the 57K back from cache at $0.20/M",
+     "verdict": "off",
+     "correctedValue": "The fixture call is $1.128 as stated. The repair pass is about $0.53, not $0.31, because the cache read won't happen: 57K×$4 + 35K×$4 + 8K×$20 = $0.528. Official-grade text is $1.89, not $1.68. The 2–3× agentic multiplier can't be checked.",
+     "howChecked": "wc confirms story.ts (57,990 B), last-feather.ts (92,449 B, 1,864 lines) and fixtures of 33,649–207,030 B. On caching, the claude-api skill (prompt-caching.md) says Opus 5.5's 5-minute TTL is counted from the start of the request that writes the cache. A ~45K-token generation runs well past 5 minutes. A cache hit would also need the fixture call to pay the 1.25× write rate ($5/M). BUILD_STATUS.md:38-39 names last-five.ts (98KB) and blackwake.ts (101KB) as the reference worlds, so the reference input is closer to 100KB than 92KB."
+    },
+    {
+     "claim": "Official 3: npm run migrate makes no model call and writes clarity_passed=true unconditionally (migrate.ts:155-158)",
+     "verdict": "confirmed",
+     "correctedValue": "$0",
+     "howChecked": "migrate.ts:158 has the literal `true` in the VALUES list, and grep finds no gateway, openai or anthropic reference in the file."
+    },
+    {
+     "claim": "Official 4: fr:adapt on gpt-4.1-mini (writer_fast); batches of A:10 and B:40; maxTokens 8000; a midpoint repair pass; about 20 batches; ≈$0.03–0.04",
+     "verdict": "confirmed",
+     "correctedValue": "$0.026–0.045. One caveat: if ANTHROPIC_API_KEY is set and MODEL_PROVIDER is not 'openai', createGatewayFromEnv picks Anthropic, and writer_fast becomes claude-haiku-4-5 (≈$0.08–0.13). There is no local .env to show which provider ran.",
+     "howChecked": "openai.ts:41 sets writer_fast to gpt-4.1-mini. fr-adapt.ts:47 sets the batch sizes and :85-104 calls writer_fast with maxTokens 8000. :178-210 is a point-médian fix on writer_fast with maxTokens 4000. Re-measuring gives a median of 135 A and 220 B fields, so 14 + 6 = 20 batches. Provider choice is in gateway/index.ts:15-40 and anthropic.ts:37."
+    },
+    {
+     "claim": "Official 5/6: covers are Dare seedream-5-pro (EN, 2:3, 2k) plus a nano-banana-2 title swap (FR)",
+     "verdict": "off",
+     "correctedValue": "Only partly true. Dare made 25 of the 27 v4 covers, judging by their READMEs. The newest official world, Last Feather, used gpt-image-2.5-flare for EN and images/edits for FR. The v5 covers (2026-11-20) used gpt-image-2.6-sunburst. The manifest can't settle which tool made a cover, because install-covers-v4.ts:49 hardcodes dare/seedream-5-pro and nano-banana-2 as provenance.",
+     "howChecked": "RECIPE.md:3-4 gives the recipe and :28 the one-retry rule. docs/covers-v4/story_last_feather/README.md:3 names flare. I tallied the generator named in every docs/covers-v4/*/README.md and read install-covers-v4.ts:49. dare_list_models shows that nano-banana-2 is labelled 'Nano Banana Pro'."
+    },
+    {
+     "claim": "A Dare credit is $0.042 (Pro, billed monthly, $49.99 for 1,200); the published range is $0.023–0.062; a 4-credit image is $0.168 ($0.09–0.25)",
+     "verdict": "confirmed",
+     "correctedValue": "Monthly plans: Starter $14.99/240 = $0.062, Pro $49.99/1,200 = $0.042, Ultra $129.99/3,600 = $0.036. Annual plans: $0.05, $0.033 and $0.023 per credit. A 4-credit image costs $0.092–0.248. Which plan the account is on can't be checked: dare_credits returned 'session expired or revoked' again today.",
+     "howChecked": "I read trydare.com/plans in my own Chrome tab, in both the Annual and Monthly views, then closed the tab. I also called the Dare MCP's dare_credits."
+    },
+    {
+     "claim": "Each seedream-5-pro or nano-banana-2 image at 2k costs 4 credits, with 1.25 expected attempts per cover",
+     "verdict": "unverifiable",
+     "correctedValue": "Left at the assumption. The plans page implies about 2 credits per default image ('240 credits … ~120 images'), so 4 credits at 2k is plausible but unconfirmed.",
+     "howChecked": "The Dare session is expired, so no dryRun was possible. The only source for 4 credits is the cover-art memory note."
+    },
+    {
+     "claim": "v5 alternative: gpt-image-2.6-sunburst at 1024x1536 'high' for EN plus an FR edit; with no official 2.6 price, up to ~$0.165 + $0.006 prompt per image",
+     "verdict": "off",
+     "correctedValue": "The per-image figure is reasonable, but the script draws 2 EN candidates by default plus 1 FR edit, which also pays image-input tokens. That is about 3 images per story, roughly $0.5 if 2.6 'high' costs the same as GPT-Image-2 'high'. 2.5/2.6 also offer xhigh and max, so $0.165 isn't a ceiling.",
+     "howChecked": "cover-openai.ts:12 sets the model, :54 and :66 request 1024x1536 at high, and :84 sets `count = Number(a ?? 2)`. All three docs/covers-v5/* folders contain en-1, en-2 and fr. The image-generation guide gives GPT-Image-2 at 1024x1536: low $0.005, medium $0.041, high $0.165."
+    },
+    {
+     "claim": "Official 7 (art pack): gpt-image-2.5-flare at 'auto' quality; portrait mean 666, stage 855 and key art 857 output tokens across the 1,441 recorded generations; median 11 locations and 6 characters; portrait ≈$0.025, stage ≈$0.031; median story ≈$0.52",
+     "verdict": "confirmed",
+     "correctedValue": "$0.52 holds. The 666/855/857 means come from the 103 flare generations only (n = 81, 20 and 2). Across all 1,441, the means are 647, 1,041 and 1,267. Image prompts measure 2.0–3.3K characters (0.5–0.85K tokens), so the ~1K-token prompt assumption is generous. The script also draws one cover per story and makes reactions only for characters that have a cardBlurb.",
+     "howChecked": "media/gateway.ts:111 defaults to flare and :127-133 sends no quality. I parsed infra/seed/assets/manifest.json, converting each costUsd at $40/M back to output tokens; the constant has been 40 since ffe9958. I measured prompts with keyArtPrompt, locationPrompt and characterPrompt over 27 stories using scratchpad/audit/measure.mts. generate-art.ts:118-133 shows what the script draws."
+    },
+    {
+     "claim": "Last Feather shipped 54 images, costing ≈$1.4–2.5",
+     "verdict": "unverifiable",
+     "correctedValue": "The 54 images are confirmed: 2 covers, a key art, 4 portraits, 32 reactions, 4 prologue cards and 11 stages. The cost can't be checked: only 12 of them (11 stages and the key art) record usage, 8,381 output tokens or $0.25 at $30/M. The other 42 have no recorded usage.",
+     "howChecked": "git show --stat 4a90dfe and the manifest entries under story_last_feather/."
+    },
+    {
+     "claim": "Official 8 (smoke): about 15 QUICK (gpt-5.6-luna) turns per world, $0.015; free deterministic checks; at VIVID +$0.167 (15 turns = $0.182)",
+     "verdict": "off",
+     "correctedValue": "It is 16 probes, not 15 (quick mode runs 5). That makes it $0.0163 per world on QUICK, or $0.194 on VIVID (+$0.178). The model and the deterministic checks are confirmed.",
+     "howChecked": "smoke.ts:58 probesFor returns 16 probes, :222 is the quick slice of 5, and :236 sets qualityTier 'QUICK'. The clarity checks are checkNarrativeClarity at smoke.ts:165 and :349, defined at narrative-clarity.ts:180. I recomputed with P = 9,300, Δ = 450 and 447 output tokens per turn."
+    },
+    {
+     "claim": "Official 9: hand playtest of 3 openings × 3 turns on VIVID ≈$0.15–0.20",
+     "verdict": "confirmed",
+     "correctedValue": "$0.15–0.19. The commit doesn't say which tier was used.",
+     "howChecked": "The 4a90dfe commit message says 'three openings, three turns each'. I recomputed with P = 9.3–13K, Δ = 450, 606 output tokens and terra rates."
+    },
+    {
+     "claim": "Create 1: compileStory is two terra calls (spine, then cast), reasoning medium, maxTokens 8000, Responses API; measured 9–13K in / 6–9K out; $0.090–0.134",
+     "verdict": "confirmed",
+     "correctedValue": "$0.090–0.134, with a midpoint of $0.112",
+     "howChecked": "create-routes.ts:304, compile.ts:466-504 and openai.ts:45 (writer_premium = gpt-5.6-terra); docs/create/findings.md:70-71."
+    },
+    {
+     "claim": "Create 2: assistField is one terra call at reasoning medium with maxTokens 4000; $0.01–0.03 per assist",
+     "verdict": "confirmed",
+     "correctedValue": "$0.010–0.032 (the token counts are assumptions)",
+     "howChecked": "assist.ts:264-279; each target makes a single call (lines 294, 305 and 312)."
+    },
+    {
+     "claim": "Create 3: drawDraftArt draws a flare cover in 1–2 attempts, a banner, and a gpt-4.1-mini title read of ~2.5K image tokens; ≈$0.06–0.08",
+     "verdict": "confirmed",
+     "correctedValue": "$0.057–0.083. moderateMedia is only a local size and PNG check, so it is free. The title read applies to each attempt.",
+     "howChecked": "create-art.ts:135-150 caps attempts at 2 and runs readText on each. :245 onward draws the banner. media/gateway.ts:323 sets gpt-4.1-mini and :361-368 is the local moderation check. A 1024x1536 image is 1,536 patches × 1.62 ≈ 2,488 tokens, about $0.001."
+    },
+    {
+     "claim": "Create 4: translateStory runs tier A on terra and tier B on gpt-4.1 in batches of 10 and 40; median 135 A / 13.4K chars and 220 B / 18.0K chars; 14 + 6 calls; $0.172 for an official-size world and ≈$0.068 for a compile-size one (~40% of the chars)",
+     "verdict": "confirmed",
+     "correctedValue": "The arithmetic gives $0.172 (A $0.106 + B $0.066). Caveat: the calls pass neither reasoningEffort nor maxTokens, so they go through chat completions with max_completion_tokens 2048 and terra's default reasoning. Any reasoning tokens raise tier-A output, up to 14 × 2,048 ≈ 28.7K tokens (about $0.34). The ~40% ratio for compile-size worlds holds: the median published Create story is 40.9K chars against 97.0K for officials (42%).",
+     "howChecked": "translate.ts:177 sets the batch sizes and :240-256 makes the calls; openai.ts:395-412 is the chat path. I recomputed the field and character counts over 27 stories with scratchpad/audit/measure.mts, and got definition lengths from a Supabase SELECT on story_versions."
+    },
+    {
+     "claim": "Create 5: reletterCover does a flare images/edits plus a gpt-4.1-mini check, up to 2 attempts, ≈$0.03–0.07 per attempt",
+     "verdict": "unverifiable",
+     "correctedValue": "The code path is confirmed, and it skips the redraw when the translated title equals the original. OpenAI doesn't publish image-input token counts for 2.5 edits, so the dollar figure can't be checked.",
+     "howChecked": "translate-story.ts:60-66 and create-art.ts:196-212"
+    },
+    {
+     "claim": "Serving: runTurnPure makes one model call per turn using the tier's model; VIVID is gpt-5.6-terra with reasoning effort unset",
+     "verdict": "confirmed",
+     "correctedValue": "Correct. The only other call is a rare arc-close summary on luna (turn-service.ts:1043-1086).",
+     "howChecked": "turn-service.ts:312-330, narrator.ts:937-952 and economy.ts:73-133. In the 561 logs, all 446 VIVID turns ran on terra with reasoningEffort null."
+    },
+    {
+     "claim": "GPT-5.6 list prices: terra $2 / $0.20 cached / $2.50 30m write / $5 12h write / $12 out; >272K: $4 in, $18 out; Batch/Flex $1 / $6. luna $0.20 / $0.02 / $0.25 / $1.20. sol $4 / $0.40 / $5 / $20",
+     "verdict": "confirmed",
+     "correctedValue": "As stated",
+     "howChecked": "developers.openai.com/api/docs/pricing"
+    },
+    {
+     "claim": "gpt-4.1 at $2 / $0.50 / $8; gpt-4.1-mini at $0.40 / $0.10 / $1.60",
+     "verdict": "confirmed",
+     "correctedValue": "As stated",
+     "howChecked": "developers.openai.com/api/docs/pricing"
+    },
+    {
+     "claim": "gpt-image-2.5-flare and 2.6-sunburst: text $5, image input $8, image output $30 per M; no per-image table; 20 images/min on the Build tier",
+     "verdict": "confirmed",
+     "correctedValue": "As stated. Cached text is $1.25 and cached image input $2. Both models default to 'auto' quality.",
+     "howChecked": "The pricing page, the gpt-image-2.5-flare model page (Build tier: 250K TPM, 20 IPM) and the image-generation guide"
+    },
+    {
+     "claim": "Anthropic prices: Opus 5.5 $4/$20 (5m write $5, cache hit $0.20, Batch $2/$10); Sonnet 5.5 $2/$10 (write $2.50, hit $0.10); Haiku 5.5 $0.10/$0.50 up to 100K tokens (hit $0.01)",
+     "verdict": "confirmed",
+     "correctedValue": "As stated. Haiku 5.5 rises to $0.50/$2.50 above 100K tokens.",
+     "howChecked": "claude-api skill (model table cached 2026-11-03; prompt-caching.md for cache-read rates and the 1.25× write; model-migration.md for Haiku)"
+    },
+    {
+     "claim": "Direct-API alternatives (unverified): Seedream 5.0 Pro $0.045 per image up to 2.36MP and $0.09 above; Nano Banana Pro ~$0.134 per 2K image ($0.067 batch)",
+     "verdict": "unverifiable",
+     "correctedValue": "Google's official page confirms Nano Banana Pro (gemini-3-pro-image) at $120/M output, about $0.134 per 1K/2K image and $0.24 at 4K. The $0.067 batch price isn't shown there. Dare's 'nano-banana-2' may actually be Google's Nano Banana 2 (gemini-3.1-flash-image, about $0.101 per 2K). Nano Banana 2.1 costs about $0.050 per 2K ($0.025 batch), a cheaper option for title swaps. I found no official ModelArk price for Seedream 5.0 Pro: BytePlus's product page says 'from $0.045', and Vercel's gateway lists $0.035–0.04.",
+     "howChecked": "WebFetch of aistudio.google.com/docs/pricing, plus a web search. The Google page contained embedded instructions aimed at AI readers; I ignored them."
+    },
+    {
+     "claim": "Tier (a): $0.386 compile-grade, $1.951 official-grade; with a flare cover, compile-grade falls to ≈$0.21",
+     "verdict": "off",
+     "correctedValue": "The arithmetic reproduces exactly. With the repair-pass fix, official-grade becomes $2.17. Compile-grade stays $0.386, and $0.208 with a flare cover (1.25 × ($0.025 + $0.001 title check)).",
+     "howChecked": "I recomputed every line in Python, applying the Official 2 correction."
+    },
+    {
+     "claim": "Tier (b): $0.79 compile-grade, $2.46 official-grade",
+     "verdict": "off",
+     "correctedValue": "$0.79 compile-grade and $2.68 official-grade, after the repair fix and the 16-probe smoke. Moving both covers to the OpenAI path already wired up (Dare can't run unattended) gives $0.47 and $2.35.",
+     "howChecked": "Python recomputation. The FR reletter is taken as 1.25 × $0.05, the middle of the model's own $0.03–0.07."
+    },
+    {
+     "claim": "Tier (c): API spend equals (b), plus review time of 10, 30 and 100 hours a month at 1, 3 and 10 stories a day",
+     "verdict": "confirmed",
+     "correctedValue": "The hours are correct (20 min × 30, 90, 300). The API spend inherits (b)'s correction: $2.68 per official-grade story.",
+     "howChecked": "Arithmetic"
+    },
+    {
+     "claim": "Monthly totals: (a) $11.6/$58.5, $34.7/$175.6, $115.8/$585.4; (b) and (c) $23.7/$73.8, $71.2/$221.4, $237.2/$737.8",
+     "verdict": "off",
+     "correctedValue": "Every figure reproduces to within $0.1. Corrected official-grade: (a) $65.0 / $195.1 / $650.4; (b) and (c) $80.3 / $241.0 / $803.2. Compile-grade is unchanged. With OpenAI covers, (b) is $14.0/$70.6, $42.0/$211.7 and $139.9/$705.7.",
+     "howChecked": "Python, with the line items multiplied by 30, 90 and 300"
+    },
+    {
+     "claim": "Token counts for the new bot steps: premise 6K in / 2K out, IP/quality judge 8K/1K, transcript judge 9K/1.5K",
+     "verdict": "unverifiable",
+     "correctedValue": "These are assumptions. A judge that reads a whole world sees about 10K tokens for a compile-size one (40.9K chars) and about 24K for an official-size one (97K chars), adding $0.004–0.03 per story.",
+     "howChecked": "Median definition lengths from a Supabase SELECT"
+    },
+    {
+     "claim": "30-day volume and tier mix: 5,701 turns; VIVID 71.8%, QUICK 24.7%, CINEMATIC 2.2%, APEX 1.2%; 901 sessions; median 2 turns; 50 sessions with 20+ turns; 83 hero images",
+     "verdict": "confirmed",
+     "correctedValue": "4,096 / 1,406 / 128 / 71 turns. 902 sessions, because the window had moved on. Median 2 turns, 50 sessions with 20+, 83 hero images.",
+     "howChecked": "Read-only Supabase SELECT on turns and story_sessions, now() − 30 days"
+    },
+    {
+     "claim": "Live per-turn costs from 561 logged turns (2026-11-18 to 11-22): VIVID n=446, mean input 29.5K with 82.9% cached, mean output 606, max input 174K, mean $0.022–0.025, median $0.015, p90 $0.041; QUICK output 447; CINEMATIC 961; all turns $0.019–0.021",
+     "verdict": "confirmed",
+     "correctedValue": "Matches: 29,523 tokens, 82.9%, 607, 174,061, $0.0222/$0.0248, $0.0147/$0.0149, and p90 $0.035/$0.041 (the claim used the write-rate value). QUICK 448, CINEMATIC 961, all turns $0.0190/$0.0211.",
+     "howChecked": "scratchpad/audit/turns.py run on all_tg.jsonl, priced at the list rates"
+    },
+    {
+     "claim": "Billing uncached GPT-5.6 input at the 1.25× cache-write rate is an upper bound",
+     "verdict": "off",
+     "correctedValue": "It is the expected case, not an upper bound. 97–99% of uncached input is billed as cache writes (99.3% with the append shape production uses). VIVID is about $0.0247 per turn, not anywhere in $0.022–0.025.",
+     "howChecked": "experiments/context/*-metrics.jsonl: 207 gpt-5.6-terra calls, cacheWriteTokens divided by (input − cached). The prompt-caching guide says implicit mode places a breakpoint at the end of the latest message."
+    },
+    {
+     "claim": "P = 9,300 (median cold first turn, n=101) and Δ = 450 (median growth per turn, n=456)",
+     "verdict": "confirmed",
+     "correctedValue": "P = 9,279 (n=101); Δ = 445 (n=460)",
+     "howChecked": "turns.py"
+    },
+    {
+     "claim": "20-turn session: VIVID $0.241 (turn 1 $0.031, turn 20 $0.012), +$0.031 per cache miss; QUICK $0.020; CINEMATIC $0.33 + ~8 hero images; APEX $0.63; tier-weighted $0.19; $0.69 uncached, so caching saves 65%",
+     "verdict": "confirmed",
+     "correctedValue": "All of these reproduce. In live data, three fresh 20-turn VIVID windows cost $0.21, $0.24 and $0.41 (the last had 5 misses). Hero images: 83 over 199 Cinematic and Apex turns is 42%, about 8.3 per 20 turns.",
+     "howChecked": "Closed-form recomputation; scratchpad/audit/s20.py; the Supabase hero count"
+    },
+    {
+     "claim": "Output is 60% of the bill, so the beat length matters more than the context",
+     "verdict": "off",
+     "correctedValue": "That holds for the modeled 20-turn session, not for real traffic. Across the 446 live VIVID turns, output is 29% of spend and input 71%, and cache writes alone are about half. The causes are short and resumed sessions and cache misses after gaps.",
+     "howChecked": "turns.py and ttl.py (VIVID input share 70.6%)"
+    },
+    {
+     "claim": "prompt_cache_retention '24h' is probably ignored on GPT-5.6 (UNVERIFIED); 25 of 460 later turns came back fully uncached",
+     "verdict": "unverifiable",
+     "correctedValue": "The docs only say to replace it with prompt_cache_options.ttl (30m default). The logs strongly suggest a 30-minute TTL in practice: 20 of the 22 turns that followed a gap of more than 30 minutes were full misses, against 5 of 438 within 30 minutes. Those misses add $2.51 over the 561 turns, about $0.0045 per turn or ~19% of the VIVID mean.",
+     "howChecked": "Prompt-caching guide; scratchpad/audit/gaps.py and ttl.py"
+    },
+    {
+     "claim": "A 12h TTL adds ≈$0.045 per 20-turn session to avoid ~1 miss worth $0.03, so it is roughly break-even",
+     "verdict": "off",
+     "correctedValue": "It is a net loss. On the model it costs +$0.045 to save at most $0.031. Replaying the 561 live turns with 12h writes (2.5×), and turning the 13 misses in the 30-minute-to-12-hour range into hits, raises spend by 32% ($11.85 → $15.69).",
+     "howChecked": "ttl.py counterfactual at list rates"
+    },
+    {
+     "claim": "Current turn-serving spend ≈$108–120 a month (5,701 turns × $0.019–0.021, plus ~$2.5 for 83 hero images); the bot at 3 a day official-grade costs about 2× that",
+     "verdict": "off",
+     "correctedValue": "About $102–114 a month including hero images, best estimate ≈$114 given that writes are billed. The original applied the 4-day log's tier mix (79.5% VIVID) to the whole month. The bot's (b) official-grade cost at 3 a day, $241, is still about 2.1× that.",
+     "howChecked": "Per-tier log costs weighted by the 30-day tier counts from Supabase, giving $0.0175–0.0196 per turn"
+    },
+    {
+     "claim": "Cost telemetry is wrong: costOf bills every input token at full rate with stale prices (terra $1.25/$10), luna and sol report $0, VIVID shows ≈$0.043 per turn (1.7–1.9× the true cost), analytics.md:86 calls the figure exact, and image telemetry uses $40/M on output tokens only",
+     "verdict": "confirmed",
+     "correctedValue": "Applying costOf to the 446 logged VIVID turns gives $0.0430 a turn. I did not re-query PostHog itself; the default PostHog project had no turn_completed properties in its taxonomy.",
+     "howChecked": "openai.ts:52-56 and :691-695; turn-service.ts:594; analytics.md:86; media/gateway.ts:75 and :185"
+    },
+    {
+     "claim": "Fan IP and engagement: 3 of the 27 official stories are fan IP, taking 10.6% of turns (606) and 121 sessions; turns per session are 7.6 for official originals, 4.3 for Create stories and 5.0 for fan IP",
+     "verdict": "confirmed",
+     "correctedValue": "7.63, 4.35 and 5.01 turns per session",
+     "howChecked": "Supabase SELECT joining turns, story_sessions and stories (story_ace, story_itachi, story_light)"
+    },
+    {
+     "claim": "There is no quality gate at publish time: checkStoryClarity is never called outside specs, and both publish paths hardcode clarity_passed=true",
+     "verdict": "confirmed",
+     "correctedValue": "Correct",
+     "howChecked": "git grep finds checkStoryClarity only at its definition (narrative-clarity.ts:346) and in RELEASE.md. postgres.ts:1971 and migrate.ts:158 hardcode the flag. checkNarrativeClarity is called only from smoke.ts:165 and :349."
+    },
+    {
+     "claim": "Running out of OpenAI credit has already stopped every production turn once (docs/blocked-on-credits.md)",
+     "verdict": "off",
+     "correctedValue": "Overstated. The 2026-09-11 doc records the credit exhaustion blocking every playtest, English and French, through the old pipeline. It doesn't say production players were affected. The recommendation still holds, because one shared key would stop production too.",
+     "howChecked": "Read docs/blocked-on-credits.md:1-45"
+    },
+    {
+     "claim": "Dare can't run unattended (it is an unofficial MCP tied to a login, and the session had expired)",
+     "verdict": "confirmed",
+     "correctedValue": "Correct. The session was still expired on 2026-11-21.",
+     "howChecked": "The Dare MCP describes itself as an 'Unofficial MCP', and dare_credits returned an auth error."
+    }
+   ],
+   "overall": "The tier arithmetic is right: every per-story and monthly figure reproduces to within $0.1, and most of the code and price claims hold. Code checks confirmed the model roles, calls per step, batch sizes, retries and the hardcoded clarity_passed flags. OpenAI, Anthropic and Dare list prices match the official pages, and the 30-day database figures match exactly.\n\nSix things change the numbers or the advice:\n\n1. **The repair pass won't get a cache hit.** Opus 5.5's 5-minute cache expires during a ~45K-token generation. The repair costs about $0.53 instead of $0.31, so official-grade costs $2.17 at (a) and $2.68 at (b), not $1.95 and $2.46. Monthly at (b)/(c): $80, $241 and $803 at 1, 3 and 10 stories a day.\n\n2. **Covers aren't only made on Dare.** The newest official world and the v5 covers used OpenAI. The manifest says Dare for every cover because the install script hardcodes it. The v5 script also draws two candidates per story by default. Since Dare can't run unattended, pricing covers through the OpenAI path gives about $0.21 and $1.99 at (a), and $0.47 and $2.35 at (b).\n\n3. **On serving, the \"upper bound\" is the real price.** The repo's own experiments show 97–99% of uncached GPT-5.6 input is billed at the cache-write rate, so VIVID costs about $0.025 a turn.\n   - On live traffic, output is 29% of VIVID spend, not 60%.\n   - Cache misses after gaps of more than 30 minutes add about 19% to the VIVID per-turn cost. This also strongly suggests the 24h retention setting is being ignored.\n   - A 12h cache would raise spend about 32%, not break even.\n   - Monthly serving is about $102–114, best estimate $114, not $108–120.\n\n4. **The smoke test is 16 probes, not 15:** $0.016 per world.\n\n5. **The credit outage doc covers playtests, not production.**\n\n6. **These can't be checked from here:**\n   - Dare's credits per image and which plan the account is on.\n   - The Claude Code subscription cost and the agentic multiplier.\n   - Image-input tokens for edits, and the price of gpt-image-2.6 at 'high'.\n   - The direct Seedream price.\n   - Whether translateStory's tier-A calls reason by default; they set no reasoning level and cap output at 2,048 tokens a call.\n\nI edited no repo files and made no commits. Database access was read-only SELECTs, plus one read-only PostHog taxonomy lookup. I opened one Chrome tab of my own and closed it.\n\nEverything is in /private/tmp/claude-501/-Users-omarlahmimi-Documents-Plotbreak/8c3f10ab-493e-4c44-89ce-84d9ac0f7b6b/scratchpad/audit/:\n- turns.py\n- gaps.py\n- ttl.py\n- s20.py\n- measure.mts"
+  }
+ },
+ "competitor-retention": {
+  "result": {
+   "oocProfile": "OOC: The Playable Anime is Wrtn Technologies' English edition of Crack (Korea, standalone launch April 2025) and Kyarapu (Japan). Wrtn is based in Seoul, was founded in 2021, and is run by CEO Seyoung Lee. The App Store seller is New AI Entertainment Inc., and press goes to \"Wrtn Technologies Inc. (OOC)\". OOC launched in North America on 2026-04-15 on iOS, Android and web (Business Wire release, Yahoo mirror: https://finance.yahoo.com/sectors/technology/articles/wrtn-technologies-unveils-ai-interactive-210000072.html).\n\nTEAM: about 170-179 employees across all of Wrtn (TheVC / national pension data, Jul-Aug 2026: 107 hires and 50 departures in 12 months). No headcount for OOC alone is public.\n\nFUNDING: about $166M of primary equity (Sacra), including a Series B of about $100M in March 2025 led by Goodwater and a Series C closed 2026-08-26. Reported Series C figures conflict: $72-100M at a valuation of about $722-870M.\n\nFINANCIALS: Wrtn's 2025 revenue was KRW 47.1B (about $33-36M, roughly 15x YoY) on an operating loss of about KRW 58.9B. The 2026 target is about $145M. In April 2026, Crack plus Kyarapu made more than $8M a month on fewer than 500K MAU, about $16-17 per MAU (https://sacra.com/c/wrtn/). Crack users average about 2 h/day, and paying-user retention is above 70% (https://www.woshipm.com/?p=6441577).\n\nOOC REVENUE AND DOWNLOADS (all estimates):\n- Sacra says OOC reached $7.2M/month in August 2026, the month overseas revenue first passed domestic. That figure may include Japan.\n- screensdesign puts it at about $0.6-0.94M/month and about 100K downloads/month.\n- mwm.ai shows 750K+ iOS downloads (500K reached in October 2026).\n- iOS rating 4.6 from 14-15.7K ratings, ranked #29-38 in US Entertainment. Google Play 4.2 from 10K+ reviews.\n\nCATALOG: OOC's own figures (Oct 2026) are 52,630 stories, 58,848 characters and 409 first-party Originals.\n\nHOME FEED (ooc.ai, observed 2026-11-21):\n- An event bar reading \"Free Messages Are Back Through November 30\" and a 6-slide rotating hero.\n- 16 tabs: Main, New Ranking, Rankings, Today, Fantasy, Romance, Sci-Fi, History, Girls Love, Horror, Oriental Fantasy, Slice of Life, Fan Fiction, Utility, Boys Love, Others.\n- Top Ranked #1-20 with play counts. #1 is Lumencia Academy at 48.5M plays, and community titles hold #2, #3, #6 and #7.\n- An ARPG promo banner, then Popular Originals and New Originals (about 20 titles at 18K-131K plays).\n- Trending Now #1-10, all of them new Originals, so new first-party releases get pushed into Trending.\n- Trending New Creators, 11 tag chips, and New from certified creators.\n- The Today tab is today's Most Played: fresh community stories at 5 to 1.2K plays, so the feed changes every day.\n\nECONOMY:\n- Credit packs only, $1.39 for 1K up to $142.99 for 100K. There is no subscription, and a subscription is the top request in reviews.\n- The Basic model is free and unlimited in Character mode. Story mode costs 30-90 credits per turn, up to about 195 on the top tier.\n- 500 credits on sign-up, 300 a day from check-in (600 during events). Free credits expire after 30 days.\n- Referrals give the new user 500 credits and the referrer 5% of that user's purchases in their first 30 days.\n- A first-purchase discount countdown.\n\nCREATORS: Certified Creators get 2% of credits spent on their titles for one year. The Originals program buys picked stories for $500 each (October 2026) plus a revenue share, and since 2026-11-18 that covers sequels too.\n\nRELEASE CADENCE (https://ooc.ai/announcement, App Store notes): 2-3 announcements a week.\n- Features:\n  - Endings & Stats (May 28)\n  - Dice of Fate ARPG (July)\n  - Slash Commands (August)\n  - Session Branching (September)\n  - Profile Feed (Sep 21)\n  - Referral codes (Oct 14)\n  - Apex mode (Oct 22)\n  - Writing-style and thinking-depth controls (Nov 5)\n  - Up to 1,600 scene images per start setting (Nov 11)\n  - Series collections (Nov 18)\n- Events:\n  - Sale Week (Sep 1)\n  - Halloween, Oct 19 to Nov 8. It brought a theme and app icon, double check-in, Candy Packs up to $111.99, a \"Trick or Chat\" row, and 7 free messages on every Original the player had not played.\n  - Free Messages again, Nov 10-30.\n\nNOT PUBLIC: OOC's D1/D7/D30 figures and its push-notification strategy.",
+   "tactics": [
+    {
+     "tactic": "1. Make the first session a story, not a menu: get a new user into a top story within about 60 seconds, on the best model, with no credit wall or ads before the first cliffhanger",
+     "whatTheyDo": "OOC sign-up takes 10 seconds through Google or Apple and gives 500 credits. Character mode is unlimited and free on the Basic model, and Originals hand out free messages during events. After ending open chat for under-18s, Character.AI built its fallback product, Stories: pick 2-3 characters and a genre, the premise is generated, and the player makes frequent choices. Bside found its story ('adventure') sessions retain better than its chat. Chai and Crack treat the model behind those first turns as a retention lever and cut friction for new users (Chai halved ad load).",
+     "evidence": "Bside (Kotoko AI, internal, July 2026): on 7-day return, adventure days beat chat days by 5.4 percentage points in all 24 daily cohorts, and about 30% of players active on adventure days come back at D7. Overall D1 is about 60% and D7 about 25%, and 41% of MAU never opened chat. Crack: one model-routing change raised session time by 15% and first-month retention by 10%. Chai: reward-model reranking raised mean conversation length by up to 70%, which gave more than 30% better retention (A/B test, 10K new users a day). Halving ads for new users (from 1 in 8 messages to 1 in 16; more than 20K users, Jan 2025) raised D30 by 18.5% relative, to 19.8%. a16z: generous free tiers produce converted users with higher M3 retention. Chai's 2026 message-limit pop-ups drew reports of users deleting the app.",
+     "sources": [
+      "https://www.deconstructoroffun.com/blog/retention-in-an-ai-companion-game-deconstructed",
+      "https://www.woshipm.com/?p=6441577",
+      "https://arxiv.org/abs/2303.06135",
+      "https://chai-research.com/chai_roadmap_2025.pdf",
+      "https://a16z.com/ai-retention-benchmarks/",
+      "https://www.engadget.com/ai/characterai-launches-guided-stories-format-after-banning-teens-from-its-chatbots-133000131.html",
+      "https://piunikaweb.com/2026/03/28/chai-app-message-limits-users-frustrated-delete-app/",
+      "https://ooc.ai/"
+     ],
+     "effort": "Low to Medium (days). Give a new user's first 10-15 turns the top quality tier at no charge. Open every new user on the 2-3 stories with the best D1 in your own data. Move any credit wall, paywall or survey to after the first in-story cliffhanger.",
+     "impact": "Highest. Most churn is decided in session one, so this moves D1 most directly, and D7 follows. It is ranked first because Plotbreak is already story-first: the lever is quality and friction in the first 10 minutes, not a new feature."
+    },
+    {
+     "tactic": "2. End every session on an open hook, and deliver it as a notification in the character's voice",
+     "whatTheyDo": "Character.AI has an 'Away messages' setting that lets bots you've chatted with message you first. Meta tests proactive bot follow-ups with guardrails: only within 14 days of a chat, only after 5 or more user messages, and they stop if the first follow-up goes unanswered. Bside posts the character's activity to a feed while the player is away, which it calls its cheapest AI surface. Webtoon asks readers to subscribe after they finish 3 episodes. It then sends a push and shows an 'UP' badge in four places when a new episode drops. Crack's stories never end: each reply leaves a new conflict or goal.",
+     "evidence": "Airship (63M new users, 2017): users who got any push retained nearly 3x (190%) better at 90 days than users who got none or opted out. More than a quarter of 47M opted-in users got no push in their first 90 days, and they retained worse than opt-outs. Media apps showed no significant gain until they sent at least daily. These are correlational vendor figures. Crack users average about 2 h/day on these open loops.",
+     "sources": [
+      "https://www.roborhythms.com/bots-on-character-ai-away-messages/",
+      "https://techcrunch.com/2025/07/03/meta-has-found-another-way-to-keep-you-engaged-chatbots-that-message-you-first/",
+      "https://www.deconstructoroffun.com/blog/retention-in-an-ai-companion-game-deconstructed",
+      "https://www.webtoons.com/en/notice/detail?noticeNo=3722",
+      "https://www.webtoons.com/en/notice/detail?noticeNo=3481",
+      "https://www.airship.com/newsroom/urban-airships-mobile-app-retention-study-for-key-industry-verticals/",
+      "https://www.woshipm.com/?p=6441577"
+     ],
+     "effort": "Low. Plotbreak already schedules a once-a-day local 'story waiting' reminder (/Users/omarlahmimi/Documents/Plotbreak/apps/ios/Plotbreak/Notifications/Reminders.swift), but the body is the same generic line every day: 'Waiting for you to find out what happens next.' Have the production writer (runTurnPure, the streaming path) return a one-line in-character hook with each beat, use the latest one as the notification text, and stop after it is ignored once or twice (Meta's rule). Asking for permission right after the first cliffhanger is a suggestion here, not something a source tested.",
+     "impact": "High for D1 to D7. It reuses the user's own unfinished thread, so it works even with a 15-20 story catalog, and it needs no new content."
+    },
+    {
+     "tactic": "3. Ship on a fixed weekly schedule: one new story or sequel every week on the same day, with a 'New'/'UP' badge and a push to people who played the prior part",
+     "whatTheyDo": "Chapters' listing promises 'new stories and chapters every week', and Episode's promises 'more new stories EVERY WEEK' (150,000+ stories). Webtoon publishes by weekday, sorts each day by views, and spreads popular titles in a genre across the week so a genre's readers come back several times. OOC runs a New Originals row of about 20 recent first-party titles and pushes its newest Originals into Trending. On 2026-11-18 it added Series collections, which group stories into one collection, and began paying creators for sequels.",
+     "evidence": "OOC has 409 first-party Originals in about 7 months, alongside 52,630 stories. Its new Originals sit at 18K-131K plays within weeks, and all of Trending Now #1-10 were new Originals on 2026-11-21. Episode: 2.5M storyteller sign-ups and 17K published stories by 2016, about 7M MAU at the time. Kakao and Webtoon built their businesses on weekly serialization (see the benchmarks).",
+     "sources": [
+      "https://apps.apple.com/US/app/id1277029359",
+      "https://apps.apple.com/us/app/episode-choose-your-story/id656971078",
+      "https://www.webtoonish.com/p/webtoons-and-weekly-publishing",
+      "https://ooc.ai/",
+      "https://ooc.ai/announcement",
+      "https://www.pocketgamer.biz/interview/63073/the-making-of-episode/"
+     ],
+     "effort": "Medium, and ongoing content work. One release a week. The trend bot or an AI-assisted pipeline can draft it for a human to polish. Plotbreak stories are versioned, and a fixture change needs a new session, so ship next parts as new titles grouped into a Series (OOC's model) rather than editing a live story.",
+     "impact": "High for D7 and D30. It fixes the stated root cause, a feed that never changes. It gives every lapsed user a dated reason to return and gives the pushes in tactic 2 something new to announce."
+    },
+    {
+     "tactic": "4. A per-story 'wait or pay' timer on top of the daily check-in: the next chapter or free turns unlock on a visible clock, with a reminder when it is ready",
+     "whatTheyDo": "Kakao Page's 'Wait-Or-Pay' (2014) gives one free episode, then the next free one after a wait, or you buy to skip. Episode refills 2-4 free passes every 4 hours. Chapters sells 5 tickets for $1.99 and a $0.99 DayPass. OOC gives a 300-credit daily check-in, doubled to 600 during events. Its free credits expire after 30 days, and it shows a first-purchase discount countdown. Chai meters free messages and sells unlimited plans.",
+     "evidence": "Kakao says purchase conversion rose to 25% from 3-4% when it switched from selling per episode to Wait-Or-Pay, and Podotree had its first monthly operating profit in four years a month later. An analyst quoted by Asia Business Daily says DAU went from 200K to 900K within a month. Episode App Store reviews complain about waiting about 3 hours for passes, which shows the pull of the timer. OOC's top complaint is the credit wall: a gate needs a free path, or it creates churn instead of returns.",
+     "sources": [
+      "https://www.kakaocorp.com/page/detail/9441?lang=ENG",
+      "https://www.asiae.co.kr/en/article/2021010507470606589",
+      "https://pocketgems-support.helpshift.com/hc/en/4-episode/faq/90-how-do-i-get-free-gems-and-passes",
+      "https://apps.apple.com/US/app/id1277029359",
+      "https://www.itechguides.com/ooc-interactive-stories-how-play-credits-and-event-rewards-work/",
+      "https://techyorker.com/ooc-playable-anime-how-interactive-stories-credits-and-event-rewards-work/",
+      "https://www.isekaizero.ai/blog/ooc-review",
+      "https://screensdesign.com/showcase/ooc-the-playable-anime"
+     ],
+     "effort": "Low to Medium. Plotbreak already grants 300 free daily credits (the same as OOC) and sends a local reminder for them. What's missing is a per-story clock on the story card and the credit wall ('next chapter free in 4h, or continue now'), plus a reminder when it unlocks.",
+     "impact": "High for return frequency (D7 and D30) and the strongest documented paid-conversion lever. Ranked below tactics 1-3 only because the daily check-in, the core of it, already exists."
+    },
+    {
+     "tactic": "5. Let new users sample many stories for free, breadth before depth",
+     "whatTheyDo": "OOC ran 'Free Messages' twice in a month: 2026-10-29 to 11-08, then 11-10 to 11-30. Every Original the player hadn't played gets 7 free messages. Originals released during the event get 7 more, and users who join mid-event get them too. OOC also gives 500 credits on sign-up and another 500 through referral codes. Episode's timers push players to start a second story while they wait for passes.",
+     "evidence": "OOC's own copy frames it as a nudge toward Originals 'you haven't gotten around to yet', and it repeated the event right after Halloween. Of the OOC tactics on this list, this is the cheapest to copy. No outcome numbers are published.",
+     "sources": [
+      "https://ooc.ai/announcement",
+      "https://www.itechguides.com/ooc-interactive-stories-how-play-credits-and-event-rewards-work/",
+      "https://www.gamedeveloper.com/design/will-you-pay-2-to-kiss-a-game-character-episode-choose-your-story---the-good-the-bad-the-ugly-"
+     ],
+     "effort": "Low. A per-user, per-story allowance of free turns, plus a 'Free to try' badge on the shelf.",
+     "impact": "Medium to High for D1 to D7. With 15-20 stories, the risk is that a user bounces off one story and never finds the one that hooks them. Pairing a free sample with each weekly release (tactic 3) also gives a reason to return."
+    },
+    {
+     "tactic": "6. A replay and collection layer: visible stats, rarity-ranked endings, 'endings found x/y', and replaying from a branch",
+     "whatTheyDo": "In OOC, each start setting can have up to 7 stats shown as live gauges and up to 10 endings rated N, R, SR or SSR, triggered by turn counts or stat thresholds. Opening an ending costs credits, and Session Branching lets players restart from any message. Character.AI Stories are built to be replayed for different endings. Linky bonding levels unlock custom greetings at level 2 and voice calls at level 4, and collectible cards come with the relationship. Talkie sells gacha pulls for character cards with gems.",
+     "evidence": "OOC shipped Endings & Stats as one of its few named releases (v0.1.4, 2026-05-28) and Session Branching in September. Crack also supports branching from any point. Linky details come from a third-party review. None of these apps publish a retention lift for this.",
+     "sources": [
+      "https://www.itechguides.com/ooc-interactive-stories-how-play-credits-and-event-rewards-work/",
+      "https://apps.apple.com/us/app/id6761247061",
+      "https://www.engadget.com/ai/characterai-launches-guided-stories-format-after-banning-teens-from-its-chatbots-133000131.html",
+      "https://www.fast.io/resources/linky-ai-review-2026.md",
+      "https://dreamgen.com/blog/articles/talkie-ai-review"
+     ],
+     "effort": "Low. Plotbreak already has rarity-ranked endings in the creator flow and the 'Ending Found' and 'Ending Hunter' badges. The work is surfacing them: an 'endings found 1/6' count and hints on story cards and the end screen, plus 'replay from this choice'.",
+     "impact": "Medium to High. It multiplies hours per authored story, the key constraint with a 15-20 story catalog, and gives completers a reason to stay."
+    },
+    {
+     "tactic": "7. Make the home feed re-slice the catalog many ways and change every day",
+     "whatTheyDo": "OOC's home (observed 2026-11-21) has:\n- an event bar and a 6-slide rotating hero\n- 16 genre and ranking tabs\n- Top Ranked #1-20 with play counts and creator names\n- Popular Originals, New Originals, and Trending Now #1-10\n- Trending New Creators, tag chips, and New from certified creators\n- a 'Today' tab of today's most-played titles\n- seasonal rows such as 'Trick or Chat'\nTalkie's main tabs are Chat, Creation Center and Trending. Webtoon groups titles by update weekday, sorted by views.",
+     "evidence": "OOC's feed sits on 52,630 stories, but its structure is time windows (today, new, trending), ranks, counters and tags. Those work at 15-20 titles too. Its Today tab ranks titles with as few as 5 plays, which shows how much 'liveliness' comes from time-windowed ranking rather than volume.",
+     "sources": [
+      "https://ooc.ai/",
+      "https://saranormous.github.io/filing-websites/minimax/",
+      "https://www.webtoonish.com/p/webtoons-and-weekly-publishing",
+      "https://www.itechguides.com/ooc-interactive-stories-how-play-credits-and-event-rewards-work/"
+     ],
+     "effort": "Low (UI plus queries). Today you have Top Ranked by likes, with seeded likes in production. Add 'Hot today' and 'This week' ranks by plays, New and UP badges, a rotating hero, 'Continue' and 'Because you played X' rows, tag shelves, live counters (plays, endings found) and a seasonal row.",
+     "impact": "Medium. It improves first impressions and browse-to-play conversion, and it answers 'looks dead'. It cannot replace new content (tactic 3); without new titles the rows reshuffle the same 15-20 stories."
+    },
+    {
+     "tactic": "8. A live-ops event every 1-2 weeks: seasonal skins, double rewards, limited-time content",
+     "whatTheyDo": "OOC's announcement cadence:\n- Sale Week (Sep 1)\n- A creator call for Halloween titles (Oct 19)\n- A Halloween look, app icon and double check-in (Oct 25)\n- Candy Packs and free messages (Oct 28)\n- Daily Candy Pack sales (Oct 30)\n- Free Messages (Nov 10-30)\nChapters ran an 8th-anniversary leaderboard challenge, outfit raffle and sale. Episode runs book clubs with reading challenges that pay rewards.",
+     "evidence": "OOC's v0.1.27 release (Oct 27) is 'Halloween-exclusive content and a limited-time Halloween app theme'. OOC also sold a $111.99 Halloween Candy Pack in-app purchase and posts 2-3 announcements a week. No outcome numbers are published.",
+     "sources": [
+      "https://ooc.ai/announcement",
+      "https://apps.apple.com/us/app/id6761247061",
+      "https://apps.apple.com/US/app/id1277029359",
+      "https://apps.apple.com/us/app/episode-choose-your-story/id656971078"
+     ],
+     "effort": "Low per event once there is a template: a theme, a 2x reward, one limited story, a push, and a feed row. Plotbreak's Tower weekly free climb and streak bonus are already this kind of loop.",
+     "impact": "Medium. Mostly reactivation of the installed base, plus fresh push copy. Smaller effect on new-user D1."
+    },
+    {
+     "tactic": "9. Scale content supply: creator incentives plus an internal AI drafting pipeline (pay per picked story)",
+     "whatTheyDo": "OOC's catalog is 52,630 stories versus 409 Originals, and community titles sit in its Top Ranked. Certified Creators get 2% of credits spent on their titles. The Originals program buys picked stories for $500 each plus a share, and now buys sequels too. Crack lets users build a world in about 5 minutes and pays KRW 300,000 plus a share for Crack Originals. Talkie's character remixing yielded tens of millions of user characters. Chai has 25M+ user-built AIs.",
+     "evidence": "Chai: AI-assisted creation gave 56% higher-quality prompts and 33% more AIs created. Power users who train their own AIs get almost 2x the engagement of in-house ones. Episode: 150,000+ stories, mostly community-written. Janitor: 1.7M characters behind 2.5M daily users.",
+     "sources": [
+      "https://ooc.ai/",
+      "https://ooc.ai/announcement",
+      "https://techyorker.com/ooc-playable-anime-how-interactive-stories-credits-and-event-rewards-work/",
+      "https://www.woshipm.com/?p=6441577",
+      "https://chai-research.com/chai_roadmap_2025.pdf",
+      "https://saranormous.github.io/filing-websites/minimax/",
+      "https://www.implicator.ai/janitor-ai-draws-2-5-million-daily-users-to-adult-roleplay-app/"
+     ],
+     "effort": "High: moderation, tooling and payouts. Plotbreak already has a Create flow. At 30 installs/day there will be few creators, so near term this is the internal trend bot drafting stories for a human to polish. OOC's $200-500 per picked story is a reference price for buying outside stories.",
+     "impact": "High long-term (catalog depth is what makes OOC feel alive) but Low to Medium in the next 1-2 months at current traffic."
+    },
+    {
+     "tactic": "10. Social proof and referral loops: play counts on cards, follow creators, a shareable feed, two-sided referral credits",
+     "whatTheyDo": "OOC shows plays and creator names on every card, has creator follows, launched a Profile Feed (2026-09-21) and added referral codes (2026-10-14): 500 credits for the new user, and 5% of their first-30-day purchases for the referrer. Character.AI launched a Feed on 2025-08-04 where users post chat snippets, scenes and videos that others can remix and continue. Linky has a 'Buzz' feed. Webtoon puts comments under every episode and asks readers to follow the creator after they subscribe. Episode has book clubs.",
+     "evidence": "Character.AI's CEO pitched the Feed as a 'lean-back experience'. Users there average about 80 min/day (CEO, Aug 2025). OOC's referral reward is paid only on purchased credits and is capped at 100K credits a month. No retention lift is published for any of these.",
+     "sources": [
+      "https://ooc.ai/announcement",
+      "https://techyorker.com/ooc-playable-anime-how-interactive-stories-credits-and-event-rewards-work/",
+      "https://www.pymnts.com/?p=2892901",
+      "https://www.fast.io/resources/linky-ai-review-2026.md",
+      "https://www.webtoons.com/en/notice/detail?noticeNo=3722",
+      "https://the-decoder.com/character-ai-keeps-young-people-glued-to-their-smartphones-for-an-average-of-80-minutes-a-day/"
+     ],
+     "effort": "Low for referral credits and counters, Medium to High for a feed.",
+     "impact": "Low to Medium at about 30 installs/day, because network effects need density. Referral credits and visible play counts are cheap and worth doing now; a social feed can wait."
+    }
+   ],
+   "benchmarks": [
+    "Planning note (own calculation): with about 30 installs a day, an A/B test needs about 700 users per arm to see D7 move from 10% to 15% (80% power, alpha 0.05), which is 6-7 weeks of installs. Roll changes out one at a time and compare weekly cohorts rather than waiting on split tests.",
+    "Cross-app mobile baseline (Adjust): D1 26%, D7 13%, D30 7%. Entertainment D1 is about 15-20%. https://www.adjust.com/blog/what-makes-a-good-retention-rate/ (Deconstructor of Fun cites the same: about 26% D1 and 11-13% D7)",
+    "Gen-AI apps vs incumbents (Sequoia, Sept 2023): median one-month retention 42% vs 63% for entertainment, social, games and education; median DAU/MAU 14% vs 51%. Character.AI was the outlier at about 41% DAU/MAU (as read off Sequoia's chart by Voicebot). https://sequoiacap.com/article/generative-ai-act-two , https://voicebot.ai/2023/10/03/generative-ai-apps-struggle-with-retention-and-engagement-charts/",
+    "CHAI (company memo 2026): new-user D30 retention 19.8% after halving ads from 1 in 8 messages to 1 in 16, which was +18.5% relative (A/B test, more than 20K users, 2025-01-27). Annualized revenue $85M in April 2026, $100M ARR in July 2026 with about 15 staff. Larger models showed higher retention and monetization. https://chai-research.com/chai_roadmap_2025.pdf , https://dealroom.co/news/160910-chai-ai-passes-100m-arr-with-a-team-of-around-15/",
+    "CHAI (arXiv 2303.06135, 2023): a reward model that filters responses raised mean conversation length by up to 70%, which was more than a 30% retention increase (A/B tests on 10K new daily users). https://arxiv.org/abs/2303.06135",
+    "Bside, an AI companion game (internal, July 2026): D1 about 60%, D7 about 25%. On 7-day return, story ('adventure') days beat chat days by 5.4 percentage points in all 24 cohorts. https://www.deconstructoroffun.com/blog/retention-in-an-ai-companion-game-deconstructed",
+    "Crack (Wrtn): users average about 2 h/day and paying-user retention is above 70%. A model-routing change gave +15% session time and +10% first-month retention. Crack and Kyarapu made more than $8M a month on fewer than 500K MAU (Apr 2026). https://www.woshipm.com/?p=6441577 , https://sacra.com/c/wrtn/",
+    "Character.AI: about 80 min/day and 20M MAU, half of them women and mostly Gen Z (CEO Karandeep Anand, Aug 2025). https://the-decoder.com/character-ai-keeps-young-people-glued-to-their-smartphones-for-an-average-of-80-minutes-a-day/",
+    "Talkie/Xingye (MiniMax Hong Kong prospectus, 9 months to Sept 2025): more than 70 min/day per user, 20.05M average MAU, 1.39M paying users, about $5 average spend per payer. Revenue was $18.75M, of which $11.19M came from ads. https://saranormous.github.io/filing-websites/minimax/",
+    "Janitor AI (Forbes, May 2026): 2.5M daily users, 15M+ total, about 100M monthly visits, 70-80% women. Inference runs about 13T tokens and about $130K a month. https://www.implicator.ai/janitor-ai-draws-2-5-million-daily-users-to-adult-roleplay-app/",
+    "Kakao Page Wait-Or-Pay (2014): purchase conversion went from 3-4% to 25%, with the first monthly operating profit in 4 years a month later (Kakao). DAU went from 200K to 900K within a month (analyst quoted by Asia Business Daily). https://www.kakaocorp.com/page/detail/9441?lang=ENG , https://www.asiae.co.kr/en/article/2021010507470606589",
+    "Webtoon FY2025: 157M MAU and 7.5M paying users. Paying ratio 4.8% overall (Korea 15.1%, rest of world 1.5%), ARPPU $12.1. Daily Pass was dropped in May 2025 in favor of Ad Pass and coins. https://ir.webtoon.com/news-releases/news-release-details/webtoon-entertainment-inc-reports-fourth-quarter-and-full-year-0 , https://kcomicsbeat.com/2025/05/29/no-youre-not-losing-it-webtoon-got-rid-of-daily-pass/",
+    "Push (Airship, 63M new users, 2017, correlational): users who got any push retained nearly 3x (190%) better at 90 days. Opted-in users who got no push retained worse than opt-outs. Media apps showed no significant gain until they sent daily or more. https://www.airship.com/newsroom/urban-airships-mobile-app-retention-study-for-key-industry-verticals/",
+    "Paid retention of AI apps (RevenueCat, 3,519 apps, Aug 2026): AI apps churn about 30% faster than non-AI apps. One-year retention on monthly plans is 10.9% for the best-retaining group vs 1.6% for the worst, and most of the gap forms at the first renewal. Media and Entertainment leans toward low retention. https://www.revenuecat.com/blog/growth/ai-app-retention-study",
+    "Companion-app market (Appfigures via TechCrunch, Aug 2025): $82M revenue in H1 2025, with 89% going to the top 10% of 337 apps. Revenue per download $1.18. https://techcrunch.com/2025/08/12/ai-companion-apps-on-track-to-pull-in-120m-in-2025",
+    "Episode: 2-4 free passes every 4 hours, 150,000+ stories, 'new stories every week'. About 7M MAU and 2.5M storyteller sign-ups as of 2016. https://pocketgems-support.helpshift.com/hc/en/4-episode/faq/90-how-do-i-get-free-gems-and-passes , https://www.pocketgamer.biz/interview/63073/the-making-of-episode/",
+    "Not found anywhere public: OOC D1/D7/D30, Talkie or Character.AI D30, or interactive-story-game (Episode, Chapters) cohort retention. Those would need Sensor Tower or AppMagic data."
+   ]
+  },
+  "verification": null
+ }
+}
