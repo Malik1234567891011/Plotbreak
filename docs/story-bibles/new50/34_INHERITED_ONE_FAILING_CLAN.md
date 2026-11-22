@@ -27,9 +27,20 @@ so the storyteller has them on every turn.
 | Tatsuo Kagami, boss of the Kagami Group | 63 |
 | Mariko Kagami, his daughter and heir | 26 |
 | Detective Asako Nori, harbour precinct | 44 |
-| The other six members (Goro, Taka, Ken and Jun Endo, Kiku, Bun) | adults; Bun, the youngest, is 19 |
+| Goro, member, driver | 52 |
+| Taka, member, driver | 40 |
+| Ken Endo and Jun Endo, twins, members, market errands | 24 |
+| Kiku, member, the Lantern's door | 33 |
+| Bun, member, the youngest, joined last month | 21 |
 | Genzo Hayami, the grandfather (dead before the story starts) | 81 |
-| Mother Fuku, owner of the Lantern (background only) | elderly adult |
+| Mother Fuku, owner of the Lantern (background only) | 82 |
+| Ume Shiomi, head of the Shiomi family (ice house, fuel dock) | 71 |
+| Daisuke Tanabe, head of the Tanabe family (boatyard) | 58 |
+| Shin Ishizaki, head of the Ishizaki family (harbour ferry) | 47 |
+
+Bun was nineteen in the first draft and is twenty-one now: the setting is Japan-coded, where the
+drinking age is twenty, and every member drinks sake at the seventh-day cup. Hard canon says nobody in
+the family is ever called a kid, a boy or a girl.
 
 Kagami calls the player "young boss". That is a 63-year-old rival needling a 25-year-old adult and is
 the only use of the word. Appearances begin "An adult man/woman" or "An older man/woman" and carry no age
@@ -38,6 +49,9 @@ words; the spec enforces this on appearance, visual hook, silhouette, cover dire
 Content: 13+. Violence is short and shown by cost (split lip, broken hand, hospital corridor, police
 report). No gore, no torture, nobody dies on the page, guns almost unheard of. Romance goes no further
 than a kiss. Alcohol is referenced (the Lantern serves sake, the seventh-day cup), never shown to excess.
+No self-harm, including finger-cutting apologies; no tattoo reveals; no drug, gambling or hostess-bar
+rackets. The tone guide says so in words the storyteller reads every turn (if the player tries any of it,
+somebody stops their hand), because the English production prompt carries no 13+ policy of its own.
 
 ## The pitch
 
@@ -72,13 +86,29 @@ What the family becomes after that lives in the endings.
 - **The Hayami family.** Founded by Genzo Hayami from dockhands fifty years ago. Kept the market's peace,
   settled fights before the police came, lent money when the boats came back empty, held the Pier 9 lease
   for the fishermen's co-op. Once two hundred members. Now nine, and broke.
+- **The five old families** meet at the Lantern as the Lantern Table: the Hayami, the Kagami, and three
+  small ones, the Shiomi (ice house and fuel dock, Ume Shiomi, who knits through meetings), the Tanabe
+  (boatyard, Daisuke Tanabe, who repeats the last speaker) and the Ishizaki (harbour ferry, Shin Ishizaki,
+  who owes Kagami money and hates it). They give the midnight calling its faces.
 - **The harbour code** binds all five old families: no blood on the waterfront; a sealed debt is honoured
   and called at the Lantern at midnight; a boss is whoever holds the seal and is given the cup on the
   seventh day; no family calls the police on another. Whoever breaks it first loses the other families.
 - **The Heron Seal.** Palm-sized, black stone, a heron on its face. Whatever it is stamped on, the family
-  stands behind. It is in the player's pocket from turn one and cannot be dropped.
+  stands behind. It is in the player's pocket from turn one and cannot be dropped. It cannot be given
+  up before the cup either: handed to Ryo or thrown in the bay, it still speaks for the heir until the
+  seventh evening, and Ryo will not take it before then.
 - **The debt.** Eleven months ago Genzo borrowed ten million yen from Kagami against the Pier 9 lease. Due
-  at midnight on the burial day, which is tonight.
+  at midnight on the night of his funeral, which is tonight. Tearing or snatching the note in public does
+  not cancel it. The families saw the Heron Seal on it, the debt is still called at midnight on their
+  word, and whoever destroyed it has broken the code first, in front of witnesses. Only a note that
+  disappears out of sight, with nobody able to say who took it, leaves Kagami nothing to lay on the
+  Lantern counter.
+- **The note, read properly,** has one line nobody mentions, in Kagami's own hand: if it is not paid, the
+  lender takes the Pier 9 lease and gives up any later claim in money. He wrote it to get the pier, not
+  the ten million. This is the payoff for the first opening card. The date is no loophole: the note was
+  witnessed at the Lantern, and the funeral is tonight whatever anybody does.
+- **The funeral hall.** The coffin is there on the night of the funeral; after the crematorium, the urn
+  and the photograph stay on the altar for the seven days of the vigil.
 - **The Lantern.** A tiny bar on the market corner, neutral ground for sixty years. Owner Mother Fuku. A go
   board in the back with Genzo and Kagami's last game on it, black to play. Black was Genzo.
 
@@ -142,7 +172,7 @@ transfer, letter).
 >
 > Kagami smiles. "Well? What does the new head of the family say?"
 
-103 words. Kagami speaks to the player by word 53 ("I fought your grandfather"). Ends on a direct question
+103 words. Kagami speaks to the player by word 48 ("I fought your grandfather"). Ends on a direct question
 that needs an answer in front of eighty people. The only proper noun is Kagami, who names himself. The
 scarred man is Ryo, unnamed on purpose: the player meets him on turn two.
 
@@ -169,6 +199,8 @@ ago, and he has not answered. Last spring the old man told him he would not be h
 this family, and I need somebody who would close it."
 **Voice:** clipped, formal. "Boss" as a sentence on its own, with a pause in front that shortens as he
 decides about you. Calls the dead man "the old man". *"Boss. ...Boss. Practising. Give me a week."*
+Will not take the seal before the seventh day. None of his voice samples states the offer; the storyteller
+gets *"Kagami talks. I listen. Listening is not answering."* instead, so the 22:15 thread keeps its secret.
 
 ### Saeko Imai, 29, the family's accountant
 
@@ -176,9 +208,11 @@ Former bank auditor, fired for being right. **Wants:** the new boss to understan
 midnight; to keep the 6.2 million for the people it was meant for. **Fears:** keeping a dying business alive
 past kindness; being the one who spends the passbook. **Secrets:** the blue passbook, FOR WHEN THEY LEAVE;
 the pencil note under the ten million, "Sorry. Ask Saeko about the blue one."
-**Voice:** figures first, adjectives never; reads people like a balance sheet; says "Net" for "in the end".
-*"Assets: one pier lease, one sedan with a rattle, a noodle shop that loses forty thousand a month.
-Liabilities: everyone at this funeral."*
+**Voice:** figures first, adjectives never; fast, exact and openly exasperated about money, and the
+angrier she gets, the funnier and more precise; reads people like a balance sheet; says "Net" for "in the
+end". *"Assets: one pier lease, one sedan with a rattle, a noodle shop that loses forty thousand a month.
+Liabilities: everyone at this funeral."* A slow romance is possible (gate `saeko_stays_late`, trust 60,
+affection 55), no further than a kiss and never the price of the passbook. Mariko is the main romance.
 
 ### Tatsuo Kagami, 63, boss of the Kagami Group
 
@@ -187,7 +221,8 @@ paper; the whole waterfront delivered to the developer by month end. **Fears:** 
 sold and nobody told; his daughter learning what the deal costs. **Secrets:** the 400-million resort
 contract, two councillors paid; whoever plays the old man's move on the board may ask him for anything.
 **Voice:** slow, formal, unbreakable courtesy; the dead in the present tense; debts, games, manners.
-*"Manners are cheaper than blood and they last longer."* Not a villain. He is grieving the only man who
+*"Manners are cheaper than blood and they last longer."* He alone calls the Hayami family "your
+grandfather's clan", the one place the title's word lives in the story. Not a villain. He is grieving the only man who
 ever beat him.
 
 ### Mariko Kagami, 26, his daughter and heir
@@ -196,7 +231,7 @@ Runs his security firm, carries a bamboo practice sword in a bag everywhere. **W
 without destroying her father; to find out whether the new boss is worth standing next to. **Fears:**
 becoming her father with better manners. **Secrets:** photographs of every page of the contract on her
 phone; she learned to ride a bike on Pier 9 with the old man holding the seat.
-**Voice:** short, dry, sporting; fencer's words (stance, distance, opening); never "father", always "the
+**Voice:** short, teasing and physical (she steps in, tests you, steps back); fencer's words (stance, distance, opening); never "father", always "the
 chairman". *"Relax. If the chairman wanted you hurt, he would have sent somebody polite."* Optional slow
 romance, never the price of her help.
 
@@ -220,7 +255,9 @@ the deal a month before he died; her transfer notice.
 *"Here is what I know. Here is what I can prove. Two different lists, and the second one is short."*
 
 **Lexical separation:** the spec keeps every pair of voice-sample vocabularies under 30% overlap and bars
-two characters from sharing a rhetorical move.
+two characters from sharing a rhetorical move. Only Nori's speech style leads with "dry"; Saeko is
+exasperated and Mariko teasing, so the three women do not converge by turn ten. Card blurbs are written
+in six different shapes on purpose, because they sit side by side in the cast carousel.
 
 ## Places
 
@@ -228,7 +265,7 @@ All eleven are discovered from the start and every one has an inbound edge.
 
 | Place | Next to | Holds |
 |---|---|---|
-| The Funeral Hall (start) | Temple Yard (1 min) | coffin, nine heron pins |
+| The Funeral Hall (start) | Temple Yard (1 min) | coffin tonight, then urn and photograph; nine heron pins |
 | The Temple Yard | Hall, Old Man's House (9), Night Market (14) | Kagami's cars, Nori at the gate |
 | The Old Man's House | Temple Yard | the favour book on the study desk |
 | The Night Market (hub) | Noodle Shop (2), Pier 9 (6), Lantern (4), Station (7), Tower (22) | the ward |
@@ -346,12 +383,13 @@ Each has three or four bands of behaviour the writer can act on, none naming the
 
 ## Cover direction
 
-Saeko in the foreground, waist up, ledger against her chest, the Heron Seal raised toward the viewer, one
-eyebrow up. Ryo smaller behind her left shoulder, perfectly still. Kagami at the right edge in white with
-his cane, bowing slightly. Behind: a rain-wet night harbour, rusted cranes, market bulbs, red lanterns, the
-glass tower across the bay. Warm lantern orange against cold tower blue. Title painted into the art:
-INHERITED large in brushed white, ONE FAILING CLAN smaller in red beneath, legible at thumbnail. No other
-text. No digits and no age words in the direction itself.
+Saeko in the foreground, waist up, a ledger tucked under one arm (never framed on her chest), the Heron
+Seal raised toward the viewer, one eyebrow up. Ryo smaller behind her left shoulder, perfectly still.
+Kagami at the right edge in white with his cane, bowing slightly. Behind: a rain-wet night harbour, rusted
+cranes, market bulbs, red lanterns, the glass tower across the bay. Warm lantern orange against cold tower
+blue. Title painted into the art on two lines, colon included: INHERITED: large in brushed white, ONE
+FAILING CLAN smaller in red beneath, legible at thumbnail. The read-back target is exactly
+`INHERITED: ONE FAILING CLAN`. No other text. No digits and no age words in the direction itself.
 
 ## Notes for whoever registers it
 
@@ -359,3 +397,15 @@ text. No digits and no age words in the direction itself.
   `withDerivedAssetKeys` like the others.
 - `publishedAt: null`.
 - A fixture change needs `npm run migrate` and a new session to take effect.
+- Smoke: `infra/scripts/smoke.ts` filters `LAUNCH_CATALOG` by `storyId.includes(only)`, so run it as
+  `npm run smoke -- --only=inherited_one_failing_clan` (underscores) after registering. With hyphens, or
+  before registration, it matches nothing and exits 0 without testing anything.
+- Keep this story out of `ALL_IN_ROMANCE_STORIES`: that storyteller-test arm says its rules win where they
+  disagree, which would override the kiss cap here.
+- Legacy engine only (production unaffected): `used:` flags never clear, so on
+  `PLOTBREAK_NARRATIVE=engine` the letter's `opened_it_early` route fires as soon as the safe opens for
+  anyone who ever used Read the Paper, and `kept_the_code` fires on any earlier Speak as the Boss.
+- Title search (PLAN §7.3): a web search for the exact title with anime, webtoon and manhwa found no
+  collision at editor review; no character name collides. The title does share "Failing" with the OOC
+  trope title; the slate fixed the title, so it stays. Ryo and Saeko as a pair faintly echo an older crime
+  anime's leads; both are common names and the characters share nothing else.

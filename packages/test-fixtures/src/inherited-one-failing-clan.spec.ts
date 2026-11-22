@@ -195,7 +195,7 @@ describe('Inherited: One Failing Clan', () => {
         expect(first, character.id).toContain(surname);
         expect(first, character.id).toContain(NUMBER_WORDS[AGES[character.id]!]!);
       }
-      expect(first).toMatch(/the youngest nineteen/);
+      expect(first).toMatch(/Bun, twenty-one, the youngest/);
     });
 
     it('has an age for every character and every one of them is eighteen or over', () => {

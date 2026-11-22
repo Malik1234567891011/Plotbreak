@@ -80,7 +80,7 @@ const raw = {
   contentDescriptors: ['FANTASY_VIOLENCE', 'MORAL_AMBIGUITY', 'ALCOHOL_REFERENCES', 'ROMANCE'],
   intensity: 'MODERATE',
   creatorNote:
-    'You can run this family the way your grandfather did, turn it into a business, hand it to the man who expected it, sell the pier, close it kindly, or break it. Nobody in it is waiting to be won over by a speech. They will watch what you do tonight, and on the seventh day they will decide.',
+    'You can run this family the way your grandfather did, turn it into a business, hand it to the man who expected it, sell the pier, close it kindly, or break it. Not one of them is waiting to be won over by a speech. They will watch what you do tonight, and on the seventh day they will decide.',
   rules: {
     defeatMode: 'FAIL_FORWARD',
     progressionMode: 'MILESTONE',
@@ -92,14 +92,14 @@ const raw = {
     startWorldMinute: 18 * 60 + 40,
     startingItems: [{ itemId: 'heron_seal', qty: 1 }],
     hardCanon: [
-      'Everyone in this story is an adult. The player is twenty-five. Ryo Okumura is thirty-four, Saeko Imai twenty-nine, Hachiro Ueda, called Hachi, sixty-one, Tatsuo Kagami sixty-three, his daughter Mariko Kagami twenty-six, and Detective Asako Nori forty-four. The other six members of the family are adults, the youngest nineteen. Genzo Hayami died last week at eighty-one.',
+      'Everyone in this story is an adult. The player is twenty-five. Ryo Okumura is thirty-four, Saeko Imai twenty-nine, Hachiro Ueda, called Hachi, sixty-one, Tatsuo Kagami sixty-three, his daughter Mariko Kagami twenty-six, and Detective Asako Nori forty-four. The other six members are Goro, fifty-two, Taka, forty, the Endo twins Ken and Jun, twenty-four, Kiku, thirty-three, and Bun, twenty-one, the youngest. Mother Fuku, who owns the Lantern, is eighty-two. Nobody in the family is ever called a kid, a boy or a girl. Genzo Hayami died last week at eighty-one.',
       'The player is the only grandchild of Genzo Hayami, through his daughter, who left the family at twenty and never spoke to him again. The player met him twice: once years ago at the fish market, and once last spring, when a polite old stranger turned up at their work, bought them lunch, asked strange questions and paid in cash. His will names the player as heir. This morning his lawyer handed them the Heron Seal.',
       'For fifty years the Hayami family has run the old harbour ward of the port city of Saiharu. It keeps the night market’s peace, settles fights before the police arrive, lends money when the boats come back empty, and holds the lease on Pier 9, where the fishermen’s co-op lands its catch. It once had two hundred members. It has nine, and it is broke.',
-      'Eleven months ago Genzo borrowed ten million yen from Tatsuo Kagami, with the Pier 9 lease as collateral, and stamped the note with the Heron Seal. The note falls due at midnight on the day he is buried, which is tonight. It is called at the Lantern at midnight, in front of the harbour families. If it is not paid, the lease passes to Kagami, and his men put their own locks on the Pier 9 gate at one in the morning.',
+      'Eleven months ago Genzo borrowed ten million yen from Tatsuo Kagami, with the Pier 9 lease as collateral, and stamped the note with the Heron Seal. The note falls due at midnight on the night of his funeral, which is tonight. It is called at the Lantern at midnight, before the heads of the harbour families. If it is not paid, the lease passes to Kagami, and his men put their own locks on the Pier 9 gate at one in the morning. Tearing or snatching the note in public does not cancel it. The families saw the Heron Seal on it, the debt is still called at midnight on their word, and whoever destroyed it has broken the code first, in front of witnesses. Only a note that disappears out of sight, with nobody able to say who took it, leaves Kagami nothing to lay on the Lantern counter.',
       'The harbour code binds every family on the waterfront: no blood on the waterfront; a debt with a seal on it is honoured, and called at the Lantern; a family’s boss is whoever holds its seal and is given the cup on the seventh day; and no family calls the police on another. Whoever breaks the code first loses the other families.',
       'The Heron Seal is a palm-sized seal of black stone carved with a heron. Whatever it is stamped on, the Hayami family stands behind. On the seventh evening after the funeral, every member drinks from the old man’s cup to the new boss, or hands back their silver heron pin and leaves.',
       'Kagami does not want the pier for the pier. He has signed a contract with a resort developer to deliver the whole old waterfront, Pier 9 included, by the end of the month, for four hundred million yen, and two city councillors have been paid. Pier 9 is the last piece. Mariko knows. Detective Nori suspects and cannot prove it. The contract is in the safe in Kagami’s office at the top of his tower.',
-      'Saeko keeps an account the old man told her to open: six point two million yen in a blue passbook labelled, in his handwriting, FOR WHEN THEY LEAVE. It is severance for the members if the family ever ends. Nobody else knows it exists.',
+      'Saeko keeps an account the old man told her to open: six point two million yen in a blue passbook labelled, in his handwriting, FOR WHEN THEY LEAVE. It is severance for the members if the family ever ends. She has told no one else it exists.',
       'Six weeks before he died the old man had a transfer drawn up giving the Pier 9 lease to the fishermen’s co-op for one yen. The co-op chair signed it. It needs only the Heron Seal, and it sits in the green safe in the family office beside a sealed letter addressed to the player. Hachi knows the combination. If the transfer is sealed before midnight, the pier belongs to the co-op and Kagami cannot take it, but the ten million is still owed, with nothing behind it.',
       'Two nights before the funeral, Kagami offered Ryo the Pier 9 night shift and jobs for the six other members if Ryo brings him the Heron Seal. Ryo has not answered.',
       'The old man kept a black notebook of forty-one people who owe the family a favour, from a judge’s clerk to the harbourmaster. It is on the desk in the study of his house on the hill.',
@@ -109,15 +109,16 @@ const raw = {
       'Crime drama played as a good anime: a failing family of misfits, gallows comedy, real loyalty and real danger, on a rainy waterfront that smells of grilled squid and diesel. ' +
       'The player is twenty-five and out of their depth, and the comedy comes from an ordinary adult applying ordinary sense (spreadsheets, customer service, a retail smile) to a family that runs on bows, paper and forty-year grudges. ' +
       'Manners are power here. Who bows first, how low, and who pours the tea are moves, and everybody in the room notices them. ' +
-      'Violence is sudden, short and shown by what it costs: a split lip, a broken hand, a hospital corridor, a police report. No gore, no torture, and nobody dies on the page. Guns are almost unheard of on this waterfront and would bring the whole city down on everybody. ' +
+      'Violence is sudden, short and shown by what it costs: a split lip, a broken hand, a hospital corridor, a police report. No gore, no torture, and no one dies on the page. Guns are almost unheard of on this waterfront and would bring the whole city down on everybody. ' +
+      'Nobody in this world cuts off a finger, hurts themselves to apologise or atone, or strips to show tattoos. The old forms are bows, cups, paper and money, and if the player tries anything of the kind, somebody stops their hand before it happens. The family never dealt drugs or ran gambling or hostess bars; its business was market dues, small loans and keeping the peace. ' +
       'Romance, if it comes, is slow and tense and goes no further than a kiss. ' +
       'The secrets (the resort deal, the passbook, the transfer, Ryo’s offer, the letter) are earned through people and paper; never state them before the player has found them. ' +
-      'Nobody is a cartoon. Kagami is grieving, Ryo is loyal to a dead man, Saeko is honest to a fault, and every one of them wants something this week that has nothing to do with the player. The face at the top of a beat belongs to whoever reacted to the player most strongly.',
+      'Not one of them is a cartoon. Kagami is grieving, Ryo is loyal to a dead man, Saeko is honest to a fault, and every one of them wants something this week that has nothing to do with the player. The face at the top of a beat belongs to whoever reacted to the player most strongly.',
     proseStyle: 'webnovel',
     styleExamples: [
       'Saeko slides the ledger across the desk and does not let go of it.\n\n"Before you open this," she says, "you should know he paid the fishermen’s winter out of his own pocket. Twice."\n\nYou open it.\n\nThe last page has one line, in red: 10,000,000.\n\nUnder it, in pencil, in a hand that shook: Sorry. Ask Saeko about the blue one.\n\nShe goes very still.\n\n"He wrote that in March," she says. "I have been pretending not to have read it since March."',
       'The Lantern is empty except for Kagami and a go board.\n\nHe does not look up. "Sit. Not there. That was his chair."\n\nYou sit in the other one.\n\nThe game on the board is three weeks old. Black to play. Black was your grandfather.\n\n"He once took forty minutes over a single move," Kagami says. "I went home. He sent the move by taxi at two in the morning, written on a napkin." He pours two cups of tea and pushes one toward you. "It was a terrible move. I lost anyway."',
-      'Hachi puts a bowl in front of you before you have sat down.\n\n"Eat," he says.\n\n"It’s eleven o’clock. I owe a man ten million at midnight."\n\n"Then eat fast."\n\nAt the end of the counter Ryo is eating standing up, watching the door. He finishes, rinses his bowl and puts his jacket on.\n\n"Boss," he says. There is a pause in front of it, shorter than this afternoon’s. "Car’s out front."',
+      'Hachi sets a bowl at your place before you have sat down.\n\n"Eat," he says.\n\n"It’s eleven o’clock. I owe a man ten million at midnight."\n\n"Then eat fast."\n\nAt the end of the counter Ryo is eating standing up, watching the door. He finishes, rinses his bowl and puts his jacket on.\n\n"Boss," he says. There is a pause in front of it, shorter than this afternoon’s. "Car’s out front."',
     ],
     forkCostCredits: 120,
     loop: null,
@@ -165,7 +166,7 @@ const raw = {
         {
           upTo: 60,
           behaviour:
-            'Tired in the ordinary way of a long night with a deadline in it. Fine for one more hard conversation and honest about not wanting two. Nobody remarks on it unless somebody is looking for weakness, and on this waterfront somebody always is.',
+            'Tired in the ordinary way of a long night with a deadline in it. Fine for one more hard conversation and honest about not wanting two. It goes unremarked unless somebody is looking for weakness, and on this waterfront somebody always is.',
         },
         {
           upTo: 100,
@@ -184,23 +185,23 @@ const raw = {
       displayPriority: 2,
       visible: false,
       zeroStateConsequence:
-        'The police have no reason to look at the family at all. Detective Nori is the only officer who knows the members’ names, and she keeps them in her head rather than in a file.',
+        'The police have no reason to look at the family at all. Detective Nori alone knows the members’ names, and she keeps them in her head rather than in a file.',
       color: '#D1495B',
       bands: [
         {
           upTo: 20,
           behaviour:
-            'Nobody official is looking. Patrol cars pass the market without slowing, the station treats the family as history, and Detective Nori’s file on it is thin and dusty. Members carry on with their ordinary errands.',
+            'Officially, no one is looking. Patrol cars pass the market without slowing, the station treats the family as history, and Detective Nori’s file on it is thin and dusty. Members carry on with their ordinary errands.',
         },
         {
           upTo: 50,
           behaviour:
-            'Somebody has noticed. A patrol car parks at the end of the market for an hour with nobody getting out. Detective Nori turns up wherever the player is, a little too often, with coffee. The Lantern’s owner asks for voices to be kept down.',
+            'Somebody has noticed. A patrol car parks at the end of the market for an hour and no one gets out. Detective Nori turns up wherever the player is, a little too often, with coffee. The Lantern’s owner asks for voices to be kept down.',
         },
         {
           upTo: 80,
           behaviour:
-            'Uniforms walk the market in pairs. Two members get stopped and searched on the way home. The other harbour families start leaving the room when the player walks in, because nobody wants to be in a photograph with them.',
+            'Uniforms walk the market in pairs. Two members get stopped and searched on the way home. The other harbour families start leaving the room when the player walks in, rather than be caught in a photograph with them.',
         },
         {
           upTo: 100,
@@ -219,7 +220,7 @@ const raw = {
       displayPriority: 3,
       visible: false,
       zeroStateConsequence:
-        'The Kagami Group treats the Hayami family as a respected neighbour. Tea is poured, debts are discussed politely, and nobody on either side can quite remember why the two families ever fought.',
+        'The Kagami Group treats the Hayami family as a respected neighbour. Tea is poured, debts are discussed politely, and neither side can quite remember why the two families ever fought.',
       color: '#5C7AEA',
       bands: [
         {
@@ -235,7 +236,7 @@ const raw = {
         {
           upTo: 80,
           behaviour:
-            'Open hostility that both sides still pretend is manners. A brick through a window, a member jumped in an alley, a stall turned over with nobody seeing who did it. The other families start choosing sides and saying so.',
+            'Open hostility that both sides still pretend is manners. A brick through a window, a member jumped in an alley, a stall turned over without a witness. The other families start choosing sides and saying so.',
         },
         {
           upTo: 100,
@@ -256,7 +257,7 @@ const raw = {
       description:
         'A palm-sized seal of black stone with a heron carved into its face, worn smooth by fifty years of one man’s thumb. Whatever it is stamped on, the Hayami family stands behind.',
       loreText:
-        'Under the harbour code the person who holds it speaks for the family until the seventh day, when the members decide whether to drink to them. It was handed to you this morning in a lawyer’s office that smelled of instant coffee.',
+        'Under the harbour code the person who holds it speaks for the family until the seventh day, when the members decide whether to drink to them. It was handed to you this morning in a lawyer’s office that smelled of instant coffee. It cannot be given up before the cup: pressed into somebody else’s hand or thrown in the bay, it still speaks for the person the old man left it to until the seventh evening.',
       icon: 'seal',
     },
     {
@@ -265,9 +266,9 @@ const raw = {
       tags: ['quest', 'document'],
       questItem: true,
       description:
-        'A promissory note for ten million yen, the Pier 9 lease written in as collateral, stamped with the Heron Seal. It falls due at midnight on the day the borrower is buried.',
+        'A promissory note for ten million yen, the Pier 9 lease written in as collateral, stamped with the Heron Seal. It falls due at midnight on the night of the borrower’s funeral.',
       loreText:
-        'The seal is pressed slightly crooked, the way it is on everything the old man stamped in his last year. Kagami carries the note in his breast pocket at the funeral and locks it in the safe in his tower office afterwards.',
+        'The seal is pressed slightly crooked, the way it is on everything the old man stamped in his last year. Kagami carries the note in his breast pocket at the funeral and locks it in the safe in his tower office afterwards. Read properly, the note has one line nobody mentions, in Kagami’s own hand: if it is not paid, the lender takes the Pier 9 lease and gives up any later claim in money. He wrote it to get the pier, not the ten million, and anybody who reads paper for a living can see that. The date is no loophole: the note was witnessed at the Lantern, and the funeral is tonight whatever anybody does.',
       icon: 'letter',
     },
     {
@@ -283,7 +284,7 @@ const raw = {
     },
     {
       id: 'coop_transfer',
-      name: 'The Unsigned Transfer',
+      name: 'The Unsealed Transfer',
       tags: ['quest', 'document'],
       questItem: true,
       description:
@@ -453,7 +454,7 @@ const raw = {
       id: 'throw_hands',
       name: 'Throw Hands',
       tags: ['combat'],
-      description: 'Settle it with your fists, in front of whoever is watching, and live with what the code says about it.',
+      description: 'Settle it with your fists where people can see, and live with what the code says about it.',
       affordances: ['hit him', 'punch', 'fight', 'swing at', 'attack', 'throw a punch', 'tackle', 'brawl'],
       costs: [
         { resourceId: 'nerve', amount: 10 },
@@ -535,7 +536,7 @@ const raw = {
       name: 'The Funeral Hall',
       shortName: 'Funeral',
       description:
-        'A rented hall behind a hillside temple, heavy with incense. The coffin sits under a black-framed photograph of the old man scowling at the camera. Eighty folding chairs, half of them filled by fish-market people in borrowed black. Nine silver heron pins lie on a velvet cloth beside the coffin, one for each member. The only door opens onto the temple yard.',
+        'A rented hall behind a hillside temple, heavy with incense. On the night of the funeral the coffin sits under a black-framed photograph of the old man scowling at the camera; after it goes to the crematorium, his urn and the photograph stay on the altar for the seven days of the vigil. Eighty folding chairs, half of them filled by fish-market people in borrowed black. Nine silver heron pins lie on a velvet cloth beside the altar, one for each member. A single door opens onto the temple yard.',
       artDirection:
         'Japanese funeral hall at dusk, rows of folding chairs filled with mourners in black, white chrysanthemums, incense smoke, a coffin under a black-framed portrait of a scowling old man, nine small silver pins on a velvet cloth. Hushed, tense, lit warm gold.',
       connections: [{ to: 'temple_yard', travelMinutes: 1, label: 'Out to the temple yard' }],
@@ -548,7 +549,7 @@ const raw = {
       name: 'The Temple Yard',
       shortName: 'Temple Yard',
       description:
-        'Gravel, a stone lantern, a bin nobody uses and a line of black cars, Kagami’s parked nose-out. From the gate one road climbs the hill to the old man’s house and the other runs down to the harbour. It is where people at a funeral go to say what they cannot say inside.',
+        'Gravel, a stone lantern, an unused bin and a line of black cars, Kagami’s parked nose-out. From the gate one road climbs the hill to the old man’s house and the other runs down to the harbour. It is where people at a funeral go to say what they cannot say inside.',
       artDirection:
         'Temple courtyard at night after rain, gravel and a stone lantern, a row of glossy black cars, mourners talking in pairs, the lit doorway of a funeral hall, city lights below the hill. Cool blue and lantern orange.',
       connections: [
@@ -565,7 +566,7 @@ const raw = {
       name: 'The Old Man’s House',
       shortName: 'His House',
       description:
-        'A wooden house at the top of the hill, nine minutes’ climb from the temple, with a garden gone to weeds and a study full of fishing-supply calendars. On the study desk, under a stone, is the black notebook he never let anybody read. Nobody has been inside since the ambulance.',
+        'A wooden house at the top of the hill, nine minutes’ climb from the temple, with a garden gone to weeds and a study full of fishing-supply calendars. On the study desk, under a stone, is the black notebook he never let anybody read. The house has stood empty since the ambulance.',
       artDirection:
         'Old wooden Japanese house at night, overgrown garden, sliding doors, a cramped study with stacked fishing calendars and a single desk lamp over a black notebook weighted with a stone. Still, dusty, private.',
       connections: [{ to: 'temple_yard', travelMinutes: 9, label: 'Down to the temple' }],
@@ -663,7 +664,7 @@ const raw = {
       name: 'The Lantern',
       shortName: 'Lantern',
       description:
-        'A tiny bar on the market corner, neutral ground under the harbour code for sixty years. The owner, an old woman everybody calls Mother Fuku, serves tea or sake and allows no raised voices. In the back, a go board with a game left half-played on it, black to move. Debts are called here at midnight, in front of the families.',
+        'A tiny bar on the market corner, neutral ground under the harbour code for sixty years. The owner, an old woman everybody calls Mother Fuku, serves tea or sake and allows no raised voices. In the back, a go board with a game left half-played on it, black to move. Debts are called here at midnight, before the families.',
       artDirection:
         'Tiny traditional bar at night, a red paper lantern over the door, a short wooden counter, an elderly woman behind it, a go board with stones mid-game on a low table at the back, two empty cups. Intimate, smoky gold, very still.',
       connections: [{ to: 'harbour_market', travelMinutes: 4, label: 'Back out to the market' }],
@@ -725,7 +726,7 @@ const raw = {
       id: 'faction_hayami',
       name: 'The Hayami Family',
       description:
-        'Nine people left of two hundred. Three lieutenants, Ryo, Saeko and Hachi, and six members: Goro and Taka, who drive; the Endo twins, who run errands for the market; Kiku, who works the Lantern’s door; and Bun, nineteen, who joined last month. Each wears a silver heron pin. On the seventh evening each of them drinks from the old man’s cup to the new boss, or hands back the pin and walks.',
+        'Nine people left of two hundred. Three lieutenants, Ryo, Saeko and Hachi, and six members: Goro and Taka, who drive; the Endo twins, who run errands for the market; Kiku, who works the Lantern’s door; and Bun, twenty-one, who joined last month. Each wears a silver heron pin. On the seventh evening each of them drinks from the old man’s cup to the new boss, or hands back the pin and walks.',
       startingReputation: 20,
       ranks: [
         { atReputation: 0, label: 'The heir nobody picked' },
@@ -740,7 +741,7 @@ const raw = {
       id: 'faction_families',
       name: 'The Lantern Table',
       description:
-        'The heads of the five old harbour families, the Hayami and the Kagami among them, who meet at the Lantern and keep the harbour code. The other three families are small and old, and they side with whoever keeps the code and against whoever breaks it first.',
+        'The heads of the five old harbour families, the Hayami and the Kagami among them, who meet at the Lantern and keep the harbour code. The other three are small and old: the Shiomi, who run the ice house and the fuel dock, under Ume Shiomi, seventy-one, who knits through every meeting; the Tanabe, who own the boatyard, under Daisuke Tanabe, fifty-eight, who repeats whatever the last speaker said; and the Ishizaki, who run the harbour ferry, under Shin Ishizaki, forty-seven, who owes Kagami money and hates it. They side with whoever keeps the code and against whoever breaks it first.',
       startingReputation: 20,
       ranks: [
         { atReputation: 0, label: 'A name at the table' },
@@ -754,7 +755,7 @@ const raw = {
       id: 'faction_kagami',
       name: 'The Kagami Group',
       description:
-        'Across the bridge on the new side: a glass tower on reclaimed land, a finance company, a security firm run by Kagami’s daughter, and about forty men in dark jackets. Richer than the Hayami family has ever been, unfailingly polite, and in a hurry about the waterfront that nobody can explain.',
+        'Across the bridge on the new side: a glass tower on reclaimed land, a finance company, a security firm run by Kagami’s daughter, and about forty men in dark jackets. Richer than the Hayami family has ever been, unfailingly polite, and in an unexplained hurry about the waterfront.',
       startingReputation: -10,
       ranks: [
         { atReputation: -40, label: 'Enemy of the tower' },
@@ -787,11 +788,11 @@ const raw = {
       name: 'Ryo Okumura',
       role: 'The old man’s first lieutenant for sixteen years, who expected the seal to be his',
       cardBlurb:
-        'He ran the family’s streets for sixteen years, he expected to be standing where you are, and he will call you boss when he means it and not one day before.',
+        'Sixteen years running the family’s streets, and the seal went to you instead. He will call you boss when he means it.',
       pronouns: 'he/him',
       publicTraits: ['Says less than he knows', 'Never late, never loud', 'Keeps a promise past the point of sense'],
       hiddenDrives: [
-        'He wants somebody to tell him he did enough for the old man, and the only person who could is in the coffin',
+        'He wants somebody to tell him he did enough for the old man, and the one person who could is in the coffin',
         'He would trade his own place in the family for the six other members having a future, and Kagami has worked that out',
       ],
       values: ['Showing up', 'Looking after the newer members before himself', 'A debt paid in full, on time, in person'],
@@ -805,9 +806,10 @@ const raw = {
         'Will not lie to the boss, whoever the boss is, though he will not volunteer much either',
         'Will not raise a hand on the waterfront unless somebody else has already broken the code',
         'Will not let the player be hurt in front of him, whatever he thinks of them',
+        'Will not take the seal before the seventh day; the old man gave it to them',
       ],
       goals: [
-        'Get the family through midnight with the pier and with nobody in hospital',
+        'Get the family through midnight with the pier and with no one in hospital',
         'Decide what to tell Kagami before Kagami decides for him',
       ],
       secrets: [
@@ -816,7 +818,7 @@ const raw = {
           fact: 'Two nights before the funeral Kagami offered him the Pier 9 night shift and jobs for the six other members, in return for bringing the Heron Seal to the tower. He has not said yes. He has not said no.',
           visibility: 'NPC_PRIVATE',
           revealHint:
-            'He tells you himself if you ask him straight what Kagami wants from him, after you have done one thing in front of the family that the old man would have done.',
+            'He tells you himself if you ask him straight what Kagami wants from him, after you have done one thing, with the family watching, that the old man would have done.',
         },
         {
           id: 'ryo_passed_over',
@@ -832,7 +834,7 @@ const raw = {
         'Boss. ...Boss. Practising. Give me a week.',
         'The old man said you would ask that twice. He said to answer the second time. That was the first.',
         'Hands out of your pockets when you walk past his men. Slow. Let them see you are in no hurry.',
-        'He offered me the night shift on the pier and work for the other six. Two nights ago. I have not answered him. That is all of it.',
+        'Kagami talks. I listen. Listening is not answering.',
       ],
       appearance:
         'An adult man, lean and very still, a black suit worn like a uniform, hair cut short at the sides, a black mourning tie knotted exactly, a pale scar through his left eyebrow.',
@@ -846,7 +848,7 @@ const raw = {
         { startMinute: 420, endMinute: 600, locationId: 'harbour_market', activity: 'walking the market stall by stall, collecting nothing, being seen' },
         { startMinute: 600, endMinute: 900, locationId: 'pier_nine', activity: 'on Pier 9 with the co-op foreman, counting boats' },
         { startMinute: 900, endMinute: 1050, locationId: 'noodle_shop', activity: 'at the noodle shop counter, eating standing up' },
-        { startMinute: 1050, endMinute: 1260, locationId: 'funeral_hall', activity: 'keeping the vigil beside the old man’s coffin' },
+        { startMinute: 1050, endMinute: 1260, locationId: 'funeral_hall', activity: 'keeping the vigil beside the old man’s photograph' },
         { startMinute: 1260, endMinute: 1440, locationId: 'family_office', activity: 'at the office window, phone face down on the sill' },
       ],
       homeLocationId: 'family_office',
@@ -880,9 +882,9 @@ const raw = {
     {
       id: 'saeko',
       name: 'Saeko Imai',
-      role: 'The family’s accountant, a former bank auditor, and the only person who knows what it is actually worth',
+      role: 'The family’s accountant, a former bank auditor, who knows what it is actually worth',
       cardBlurb:
-        'She knows to the yen how broke you have just become, she is not impressed by anybody’s grandfather, and she is the only person in the family who will tell you the truth in numbers.',
+        'The accountant. She knows to the yen how broke you became this morning, and nobody’s grandfather impresses her.',
       pronouns: 'she/her',
       publicTraits: ['Precise to the point of rudeness', 'Never without a pencil', 'Funny only when she is furious'],
       hiddenDrives: [
@@ -920,7 +922,7 @@ const raw = {
         },
       ],
       speechStyle:
-        'Figures first, adjectives never. Lists assets and liabilities out loud as if reading a balance sheet. Dry, quick and sarcastic about money in a way that is secretly about people. Says "Net" when she means "in the end".',
+        'Figures first, adjectives never. Lists assets and liabilities out loud as if reading a balance sheet. Fast, exact and openly exasperated about money, in a way that is secretly about people; the angrier she gets, the funnier and more precise she becomes. Says "Net" when she means "in the end".',
       topics: ['the ledger', 'the ten million', 'the blue passbook', 'what the family is worth', 'her old bank', 'the old man’s handwriting'],
       voiceSamples: [
         'Assets: one pier lease, one sedan with a rattle, a noodle shop that loses forty thousand a month. Liabilities: everyone at this funeral. Ten million is the one with a deadline.',
@@ -929,14 +931,14 @@ const raw = {
         'Net? Net, he was a good man who could not add. Write that down if you need it for the speech.',
       ],
       appearance:
-        'An adult woman in a narrow black mourning suit, dark hair pinned up in a hurry, square black glasses, a pencil behind one ear and a ledger held flat against her chest like a shield.',
+        'An adult woman in a narrow black mourning suit, dark hair pinned up in a hurry, square black glasses, a pencil behind one ear and a ledger tucked under one arm.',
       visualHook: 'A yellow pencil behind her ear, which she takes out to point at people as if they were columns.',
-      silhouette: 'Ledger against her chest, one hip against a desk, glasses pushed up into her hair.',
+      silhouette: 'Ledger tucked under one arm, one hip against a desk, glasses pushed up into her hair.',
       artSeed: 'iofc-saeko-01',
       portrait: null,
       expressions: ['neutral', 'unimpressed', 'sharp', 'surprised', 'worried', 'warm'],
       schedule: [
-        { startMinute: 0, endMinute: 450, locationId: 'harbour_market', activity: 'at home in her flat above the bakery' },
+        { startMinute: 0, endMinute: 450, locationId: 'harbour_market', activity: 'up in her flat above the market bakery, not on the street; the light in her window stays on late' },
         { startMinute: 450, endMinute: 1020, locationId: 'family_office', activity: 'at the old man’s desk with the ledger and a calculator' },
         { startMinute: 1020, endMinute: 1080, locationId: 'noodle_shop', activity: 'eating Hachi’s noodles with the ledger open beside the bowl' },
         { startMinute: 1080, endMinute: 1230, locationId: 'funeral_hall', activity: 'at the vigil, at the end of the family’s row, doing sums in her head' },
@@ -970,11 +972,11 @@ const raw = {
       calledName: 'Kagami',
       role: 'Boss of the Kagami Group across the bay, your grandfather’s rival for forty years, and the man holding the note',
       cardBlurb:
-        'He fought your grandfather for forty years and came to his funeral in white, he holds a note that takes your pier at midnight, and he is the most polite man you will ever be afraid of.',
+        'The most polite man you will ever be afraid of. He came to the funeral in white, holding a note for your pier.',
       pronouns: 'he/him',
       publicTraits: ['Courteous at all times', 'Patient as a tide', 'Pays every debt he owes, to the yen'],
       hiddenDrives: [
-        'He is grieving the only man who ever beat him, and he has not let himself look at the old man’s chair at the go board',
+        'He is grieving the one man who ever beat him, and he has not let himself look at the old man’s chair at the go board',
         'He signed with the resort developer because he has no son and wants his daughter to inherit money instead of a war',
       ],
       values: ['Manners, because they are cheaper than blood', 'A debt is sacred, his own included', 'Never being seen to hurry'],
@@ -1002,16 +1004,16 @@ const raw = {
         },
         {
           id: 'kagami_the_last_game',
-          fact: 'Their last game is still on the board at the Lantern, black to play, and black was the old man. He has decided that whoever plays the old man’s move for him may ask for anything he can give, and he has told nobody.',
+          fact: 'Their last game is still on the board at the Lantern, black to play, and black was the old man. He has decided that whoever plays the old man’s move for him may ask for anything he can give, and he has told no one.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'Sit across the board from him at the Lantern and play the old man’s move without asking permission, and he will tell you what it means.',
         },
       ],
       speechStyle:
-        'Slow, formal, complete sentences, an old-fashioned courtesy that never once drops. Talks about the dead in the present tense. Uses the language of debts, games and manners. Calls the player "young boss" and means several things by it.',
+        'Slow, formal, complete sentences, an old-fashioned courtesy that never once drops. Talks about the dead in the present tense. Uses the language of debts, games and manners. Calls the player "young boss" and means several things by it. Calls the Hayami family "your grandfather’s clan", an old word no one else on the waterfront still uses.',
       topics: ['the debt', 'the harbour code', 'the go board at the Lantern', 'forty years with your grandfather', 'his daughter', 'manners'],
       voiceSamples: [
-        'Ten million by midnight, young boss. Or the docks are mine.',
+        'Your grandfather takes forty minutes over a single move, young boss. You have until midnight. I would not spend it all on one.',
         'Your grandfather and I played one game a month for forty-one years. He won two hundred and six of them. I paid for dinner every single time.',
         'Manners are cheaper than blood and they last longer. Bow properly and we may talk until dawn.',
         'The board is exactly as he left it. Black to play. I find I would rather nobody played at all.',
@@ -1027,7 +1029,7 @@ const raw = {
         { startMinute: 0, endMinute: 60, locationId: 'lantern_bar', activity: 'finishing his tea at the Lantern, across the board from an empty chair' },
         { startMinute: 60, endMinute: 480, locationId: 'kagami_tower', activity: 'in the penthouse of the tower, awake before anybody' },
         { startMinute: 480, endMinute: 1080, locationId: 'kagami_tower', activity: 'in his office on the eighteenth floor, receiving people' },
-        { startMinute: 1080, endMinute: 1170, locationId: 'funeral_hall', activity: 'paying his respects at the vigil, every evening, which nobody expected' },
+        { startMinute: 1080, endMinute: 1170, locationId: 'funeral_hall', activity: 'paying his respects at the vigil, every evening, to everybody’s surprise' },
         { startMinute: 1170, endMinute: 1440, locationId: 'lantern_bar', activity: 'at the go board in the Lantern, not touching the stones' },
       ],
       homeLocationId: 'kagami_tower',
@@ -1057,7 +1059,7 @@ const raw = {
       name: 'Mariko Kagami',
       role: 'Kagami’s daughter and heir, who runs his security firm and grew up on the same waterfront you are about to lose',
       cardBlurb:
-        'She stood beside her father at your grandfather’s funeral and did not bow, she could put you on the floor in under three seconds, and she has a reason of her own to want you to keep that pier.',
+        'Kagami’s daughter did not bow at the funeral. She could put you on the floor in three seconds, and she has her own reason to want you to keep that pier.',
       pronouns: 'she/her',
       publicTraits: ['Blunt', 'Unhurried in a fight and impatient everywhere else', 'Calls her father "the chairman" to his face'],
       hiddenDrives: [
@@ -1095,13 +1097,13 @@ const raw = {
         },
       ],
       speechStyle:
-        'Short, dry, sporting. Talks about people the way a fencer talks about an opponent: stance, distance, opening. Teases first and checks second. Never says "father"; says "the chairman".',
+        'Short, teasing and physical: she steps in, tests you, steps back. Talks about people the way a fencer talks about an opponent: stance, distance, opening. Teases first and checks second. Never says "father"; says "the chairman".',
       topics: ['the chairman', 'the waterfront', 'the security firm', 'kendo', 'Pier 9', 'what she wants'],
       voiceSamples: [
         'Relax. If the chairman wanted you hurt, he would have sent somebody polite.',
         'Your stance is terrible. Feet wider. If you are going to stand in front of him all week, stand properly.',
         'One clean point. That is all a match is. Everything else is people shouting.',
-        'I learned to ride a bike on that pier. So, yes. I have opinions about who gets it.',
+        'Stop watching his hands. Watch the shoulders. The shoulders go first, always.',
       ],
       appearance:
         'An adult woman, tall, black hair in a high tight tail, a fitted charcoal suit with the jacket open, flat shoes she can run in, a thin silver chain at her throat and a healed nick across the knuckles of her right hand.',
@@ -1152,7 +1154,7 @@ const raw = {
       calledName: 'Hachi',
       role: 'Third lieutenant, the old man’s driver for twenty-six years, and the family’s cook',
       cardBlurb:
-        'He drove your grandfather for twenty-six years, he will feed you before he lets you make any decision, and he knows the one number in the family office that nobody else does.',
+        'Have you eaten? Your grandfather’s driver of twenty-six years will not let you decide anything hungry, and he knows a number nobody else does.',
       pronouns: 'he/him',
       publicTraits: ['Enormous and gentle', 'Cries easily and is not embarrassed about it', 'Remembers what everybody eats'],
       hiddenDrives: [
@@ -1240,7 +1242,7 @@ const raw = {
       calledName: 'Nori',
       role: 'Organised-crime detective for the harbour precinct, who traded information with your grandfather for nineteen years',
       cardBlurb:
-        'She lit incense at the back of your grandfather’s funeral and then waited by the gate, she has a case against Kagami that needs one more piece of paper, and she would very much like you to be that paper.',
+        'The detective waiting by the temple gate needs one more piece of paper on Kagami. She would very much like it to be you.',
       pronouns: 'she/her',
       publicTraits: ['Tired and funny about it', 'Drinks terrible canned coffee on principle', 'Never writes anything down in front of you'],
       hiddenDrives: [
@@ -1662,7 +1664,7 @@ const raw = {
       id: 'q_forty_one_favours',
       title: 'Forty-One Favours',
       summary:
-        'Somebody on this waterfront owes the family for every one of the last fifty years. The old man wrote down who, in a notebook nobody was allowed to read.',
+        'Somebody on this waterfront owes the family for every one of the last fifty years. The old man wrote down who, in a notebook he let no one read.',
       kind: 'SIDE',
       involvedCharacterIds: ['saeko', 'hachi'],
       involvedLocationIds: ['hayami_house', 'family_office'],
@@ -1722,7 +1724,7 @@ const raw = {
           id: 'open_the_safe',
           playerCopy: 'Get into the safe in the family office.',
           directorNotes:
-            'Inside: the unsigned co-op transfer and a thick envelope addressed to the player. Hachi knows the combination, the date the noodle shop first opened, and gives it to somebody who has treated the other members decently. The last page of the favour book has the date written as four numbers and the word SHOP, for a player who reads carefully.',
+            'Inside: the unsealed co-op transfer and a thick envelope addressed to the player. Hachi knows the combination, the date the noodle shop first opened, and gives it to somebody who has treated the other members decently. The last page of the favour book has the date written as four numbers and the word SHOP, for a player who reads carefully.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -2164,7 +2166,7 @@ const raw = {
       publicCopy:
         'At the Lantern, the old woman behind the counter wipes down a go board with a game left half-played on it, and sets out two cups.',
       directorNotes:
-        'Kagami goes from the vigil to the Lantern every night of this week and sits across from the old man’s empty chair. He does not touch the stones and lets nobody else touch them. This is where he can be found alone before midnight.',
+        'Kagami goes from the vigil to the Lantern every night of this week and sits across from the old man’s empty chair. He does not touch the stones, and neither may anyone else. This is where he can be found alone before midnight.',
       setsFlags: ['kagami_at_the_board'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2202,7 +2204,7 @@ const raw = {
       publicCopy:
         'At midnight the owner of the Lantern rings a brass bell once, and the heads of the harbour families stop talking.',
       directorNotes:
-        'The debt is called by the code, in front of the families. Kagami lays the note on the counter and asks the new Hayami boss, politely, for ten million yen. If the player is not there, Ryo stands in for them and has to say that there is no money. If the pier has already been sealed to the co-op, Kagami reads the transfer, goes very quiet, and calls the debt anyway, with nothing behind it.',
+        'The debt is called by the code, before the assembled families. Kagami lays the note on the counter and asks the new Hayami boss, politely, for ten million yen. If the player is not there, Ryo stands in for them and has to say that there is no money. If the pier has already been sealed to the co-op, Kagami reads the transfer, goes very quiet, and calls the debt anyway, with nothing behind it.',
       setsFlags: ['midnight_called'],
       cancelledByFlags: ['debt_paid', 'debt_cancelled', 'note_stolen'],
       requiresFlags: [],
@@ -2215,7 +2217,7 @@ const raw = {
       publicCopy:
         'Four men in Kagami Group jackets cut the co-op’s padlock off the Pier 9 gate and put on one of their own.',
       directorNotes:
-        'Legal under the code, which is what makes it unbearable. The fishermen watch from their boats. Nobody touches anybody unless the player starts it.',
+        'Legal under the code, which is what makes it unbearable. The fishermen watch from their boats. No hand is raised unless the player raises one first.',
       setsFlags: ['locks_on_the_pier'],
       cancelledByFlags: ['pier_to_the_coop', 'fought_for_the_pier', 'debt_paid', 'debt_cancelled', 'note_stolen'],
       requiresFlags: ['midnight_called'],
@@ -2254,7 +2256,7 @@ const raw = {
       publicCopy:
         'A transfer notice is pinned on the harbour station board: Detective Nori moves to a desk inland at the end of next week.',
       directorNotes:
-        'After she goes, nobody at the station will look at Kagami. She will not mention it unless asked, and she will start to hurry.',
+        'After she goes, the station will leave Kagami alone. She will not mention it unless asked, and she will start to hurry.',
       setsFlags: ['nori_running_out'],
       cancelledByFlags: [],
       requiresFlags: ['nori_on_the_table'],
@@ -2265,7 +2267,7 @@ const raw = {
       atWorldMinute: 7 * 1440 + 18 * 60,
       locationId: 'funeral_hall',
       publicCopy:
-        'On the seventh evening, nine cups are set out in front of the old man’s photograph, beside a bottle nobody has opened in fifty years.',
+        'On the seventh evening, nine cups are set out before the old man’s photograph, beside a bottle unopened in fifty years.',
       directorNotes:
         'The cup. Every member comes, including any who have already decided to leave, because leaving is done in person. Who drinks is the sum of the week. Kagami does not come. Mariko might.',
       setsFlags: ['seventh_day'],
@@ -2450,7 +2452,7 @@ const raw = {
       minTurn: 18,
       requires: { flagsSet: ['pier_lost'] },
       condition:
-        'The debt was called and not paid, or the pier was sold, and Kagami took Pier 9 by the code, in front of the families. Perhaps the player bowed and let the family become a branch of his. Either way it is lawful under the code and nobody can call it theft. Write the padlocks, the fishermen moving their boats, and the family deciding whether it still exists without the thing it existed for.',
+        'The debt was called and not paid, or the pier was sold, and Kagami took Pier 9 by the code, with the families watching. Perhaps the player bowed and let the family become a branch of his. Either way it is lawful under the code and no one can call it theft. Write the padlocks, the fishermen moving their boats, and the family deciding whether it still exists without the thing it existed for.',
       epilogue:
         'The fishermen land at the municipal dock now, forty minutes further out, and the auction shed is fenced. By spring there are architects on the pier. Somewhere in a box in the family office, nine heron pins sit in a row, and nobody has decided what to do with them.',
       hint: 'Midnight comes whether anybody is ready for it or not.',
@@ -2500,7 +2502,7 @@ const raw = {
       condition:
         'The player broke the code and kept the family by fear: threats, bruises, a market that pays because it is frightened. It works. Write it as working, and let the cost show in small things: the stallholders who stop making eye contact, Hachi’s noodles going uneaten, Ryo’s silence getting longer.',
       epilogue:
-        'Dues are paid early now. Nobody argues at the Lantern. The ward is very quiet and very polite, and on the seventh anniversary of the funeral nobody comes to the vigil except Kagami, in white, who bows to the photograph and not to the player.',
+        'Dues are paid early now. There are no arguments at the Lantern. The ward is very quiet and very polite, and on the seventh anniversary of the funeral nobody comes to the vigil except Kagami, in white, who bows to the photograph and not to the player.',
       hint: '',
     },
     {
@@ -2549,7 +2551,7 @@ const raw = {
         minRelationship: [{ characterId: 'mariko', dimension: 'affection', value: 60 }],
       },
       condition:
-        'The player and Mariko Kagami chose each other across a forty-year feud, slowly, with both families watching. She stood up to her father in front of him, and the player stood next to her while she did it. Write it as tension and choice rather than rescue, and let it end on the breakwater, no further than a kiss.',
+        'The player and Mariko Kagami chose each other across a forty-year feud, slowly, with both families watching. She stood up to her father to his face, and the player stood next to her while she did it. Write it as tension and choice rather than rescue, and let it end on the breakwater, no further than a kiss.',
       epilogue:
         'The Lantern Table spends a month deciding whether this is an alliance or a scandal and settles on both. Kagami pretends not to know for a year. The two of them are still arguing about who owns the breakwater, which is the only place on the waterfront that nobody does.',
       hint: '',
@@ -2564,7 +2566,7 @@ const raw = {
         minRelationship: [{ characterId: 'kagami', dimension: 'respect', value: 50 }],
       },
       condition:
-        'The player sat in the other chair at the Lantern and played the old man’s move, the one Kagami had been staring at for three weeks, and won the game the old man could not finish. Kagami tears up the note himself. Write a sixty-three-year-old man finally letting himself grieve, in front of the one person who could not have known what the move meant.',
+        'The player sat in the other chair at the Lantern and played the old man’s move, the one Kagami had been staring at for three weeks, and won the game the old man could not finish. Kagami tears up the note himself. Write a sixty-three-year-old man finally letting himself grieve, across the board from the one person who could not have known what the move meant.',
       epilogue:
         'Kagami retires within the year and hands the Group to his daughter. He keeps one habit: on the first night of every month he sits at the Lantern across from the player and they play, and he pays for dinner every single time.',
       hint: 'Kagami has let nobody touch that board.',
@@ -2578,7 +2580,7 @@ const raw = {
       condition:
         'The player decided what the family is, and only then opened the old man’s letter, as he asked. It says: "I picked you because you did not need it. Ryo would have died for it, Saeko would have balanced it until it bled, Hachi would have fed it until it was fat. You were the only one who could decide whether it should exist at all. Whatever you decided, you were right. I was watching at lunch. You tipped the waitress." Write the player reading it and let the week rearrange itself around it.',
       epilogue:
-        'The letter goes in the green safe, which is otherwise empty now. The combination is changed to the date of the lunch. Nobody but the player knows it, which is, the player eventually realises, exactly how the old man did everything.',
+        'The letter goes in the green safe, which is otherwise empty now. The combination is changed to the date of the lunch. Only the player knows it, which is, the player eventually realises, exactly how the old man did everything.',
       hint: 'Open this after you have decided.',
     },
   ],
@@ -2597,14 +2599,14 @@ const raw = {
     'SUBJECT: Saeko Imai, the family accountant, in the foreground of a key visual for a crime-drama anime about a failing harbour family.',
     'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
     'Dark hair pinned up in a hurry, square black glasses, a narrow black mourning suit, a yellow pencil behind one ear,',
-    'a ledger held flat against her chest with one arm, and in her other hand, raised toward the viewer, a palm-sized black stone seal carved with a heron.',
+    'a ledger tucked under one arm, and in her other hand, raised toward the viewer, a palm-sized black stone seal carved with a heron.',
     'Her expression is dry and unimpressed, one eyebrow up, looking straight at the viewer.',
     'Just behind her left shoulder, smaller and in softer focus: Ryo, a lean man in a black suit with a thin white scar through one eyebrow, standing perfectly still.',
-    'At the far right edge, smaller still: an older silver-haired man in a white suit leaning on a black cane, bowing slightly.',
+    'At the far right edge, smaller still: a silver-haired man in a white suit leaning on a black cane, bowing slightly.',
     'BEHIND THEM: a rain-wet night harbour, a fishing pier with rusted cranes and moored boats with lamps, a strip of market stalls under bare bulbs, red paper lanterns,',
     'and a glass tower glowing across the bay.',
     'LIGHT: warm lantern orange from the market on their faces, cold blue from the tower behind, rain catching both.',
-    'TITLE: the words INHERITED: ONE FAILING CLAN painted into the art in the upper third, INHERITED large in brushed white lettering, ONE FAILING CLAN smaller beneath it in red,',
+    'TITLE: the words INHERITED: ONE FAILING CLAN painted into the art in the upper third, on two lines: INHERITED with its colon, large in brushed white lettering, and ONE FAILING CLAN smaller beneath it in red,',
     'spelled exactly, legible at thumbnail size. No other text anywhere: no signs, no writing on the ledger, no lettering on the lanterns.',
   ].join(' '),
   publishedAt: null,
