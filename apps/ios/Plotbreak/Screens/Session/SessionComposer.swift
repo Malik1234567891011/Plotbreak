@@ -134,6 +134,8 @@ struct SessionComposer: View {
 struct SessionSheet<Content: View>: View {
     let title: String
     var subtitle: String? = nil
+    /// Drawn at the right of the title (the quality sheet's balance chip).
+    var accessory: AnyView? = nil
     let onClose: () -> Void
     @ViewBuilder let content: () -> Content
     @Environment(\.translator) private var t
@@ -148,16 +150,29 @@ struct SessionSheet<Content: View>: View {
                 .accessibilityAddTraits(.isButton)
 
             ScrollView {
-                VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
-                    VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                        Txt(title, .h2)
+                VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                    // Design v3: a grabber, the title with its accessory, one quiet line.
+                    Capsule()
+                        .fill(Theme.Colors.borderStrong)
+                        .frame(width: 36, height: 5)
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, -Theme.Spacing.sm)
+                        .accessibilityHidden(true)
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack {
+                            Txt(title, .h2)
+                            Spacer(minLength: Theme.Spacing.sm)
+                            accessory
+                        }
                         if let subtitle {
-                            Txt(subtitle, .caption, color: Theme.Colors.textSecondary)
+                            Txt(subtitle, .caption, color: Theme.Colors.textMuted)
                         }
                     }
+                    .padding(.horizontal, Theme.Spacing.sm)
                     content()
                 }
-                .padding(Theme.gutter)
+                .padding(.horizontal, Theme.Spacing.md)
+                .padding(.vertical, Theme.Spacing.lg)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .scrollBounceBehavior(.basedOnSize)
@@ -229,54 +244,107 @@ struct SessionQualitySheet: View {
     let tiers: [QualityTierInfo]
     let current: QualityTier
     let balance: Int
+    /// The scene on screen, shown as the icon of the tiers that draw pictures.
+    var sceneArt: String? = nil
     let onSelect: (QualityTier) -> Void
     let onClose: () -> Void
     @Environment(\.translator) private var t
     @Environment(AppStore.self) private var store
 
     var body: some View {
-        SessionSheet(title: t("session.turn_quality"), subtitle: t("session.turn_quality_explainer"), onClose: onClose) {
-            ForEach(tiers) { tier in
-                let selected = tier.id == current
-                let affordable = balance >= tier.costCredits
-                Button {
-                    Haptic.play(.light)
-                    onSelect(tier.id)
-                } label: {
-                    HStack(alignment: .top) {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Txt(t(TierCopy.labelKey(tier.id)), .bodyStrong, color: selected ? Theme.Colors.accentPrimary : Theme.Colors.textPrimary)
-                            Txt(t(TierCopy.promiseKey(tier.id)), .caption, color: Theme.Colors.textSecondary)
-                            if tier.heroImageEligible {
-                                Txt(t("session.hero_frame_eligible"), .micro, color: Theme.Colors.textMuted)
-                            }
-                        }
-                        Spacer(minLength: Theme.Spacing.md)
-                        // What a player actually wants to know is how far their
-                        // balance goes at this tier.
-                        VStack(alignment: .trailing, spacing: 2) {
-                            Txt(Format.credits(tier.costCredits, locale: store.locale), .bodyStrong,
-                                color: affordable ? Theme.Colors.textPrimary : Theme.Colors.warning)
-                            Txt(affordable ? t("session.turns_left", ["count": balance / tier.costCredits]) : t("session.not_enough"),
-                                .micro, color: Theme.Colors.textMuted)
-                        }
+        SessionSheet(
+            title: t("session.turn_quality"),
+            subtitle: t("session.turn_quality_explainer"),
+            accessory: AnyView(CreditBalance(balance: balance, compact: false, locale: store.locale)),
+            onClose: onClose
+        ) {
+            // Design v3, after OOC's model picker: one row per tier, scannable
+            // at a glance. The picked row is filled; no outlines, no radios.
+            VStack(spacing: 2) {
+                ForEach(tiers) { tier in
+                    row(tier)
+                }
+            }
+        }
+    }
+
+    private func row(_ tier: QualityTierInfo) -> some View {
+        let selected = tier.id == current
+        let affordable = balance >= tier.costCredits
+        return Button {
+            Haptic.play(.light)
+            onSelect(tier.id)
+        } label: {
+            HStack(spacing: Theme.Spacing.md) {
+                icon(tier, selected: selected)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(t(TierCopy.labelKey(tier.id)))
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                    Text(t(TierCopy.promiseKey(tier.id)))
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: Theme.Spacing.sm)
+                // The cost in crystals. Design v3 shows no turn counts.
+                VStack(alignment: .trailing, spacing: 2) {
+                    HStack(spacing: 3) {
+                        CreditGlyph(size: 15)
+                        Text(Format.credits(tier.costCredits, locale: store.locale))
+                            .font(.system(size: 15, weight: .semibold))
+                            .monospacedDigit()
                     }
-                    .padding(Theme.Spacing.lg)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
-                            .strokeBorder(selected ? Theme.Colors.accentPrimary : Theme.Colors.borderSubtle, lineWidth: selected ? 1 : 0.5)
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    if !affordable {
+                        Text(t("session.not_enough"))
+                            .font(.system(size: 12))
+                            .foregroundStyle(Theme.Colors.textMuted)
                     }
                 }
-                .buttonStyle(PressScaleStyle())
-                .accessibilityLabel(t("session.tier_a11y", [
-                    "label": t(TierCopy.labelKey(tier.id)),
-                    "cost": tier.costCredits,
-                    "promise": t(TierCopy.promiseKey(tier.id)),
-                ]))
-                .accessibilityAddTraits(selected ? [.isSelected] : [])
             }
+            .padding(.horizontal, Theme.Spacing.sm)
+            .padding(.vertical, 10)
+            .frame(maxWidth: .infinity, minHeight: 68, alignment: .leading)
+            .background(selected ? Theme.Colors.bgRaised : .clear, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressOpacityStyle())
+        .accessibilityLabel(t("session.tier_a11y", [
+            "label": t(TierCopy.labelKey(tier.id)),
+            "cost": tier.costCredits,
+            "promise": t(TierCopy.promiseKey(tier.id)),
+        ]))
+        .accessibilityAddTraits(selected ? [.isSelected] : [])
+    }
+
+    /// A 44pt cell: a glyph for the text tiers, the scene itself for the tiers
+    /// that draw pictures, so "draws scenes" is seen rather than read.
+    @ViewBuilder
+    private func icon(_ tier: QualityTierInfo, selected: Bool) -> some View {
+        let cell = RoundedRectangle(cornerRadius: 10, style: .continuous)
+        if tier.heroImageEligible {
+            Color.clear
+                .frame(width: 44, height: 44)
+                .overlay {
+                    if let sceneArt {
+                        StoryArt(seed: tier.id.rawValue, title: "", uri: sceneArt)
+                    } else {
+                        Image(systemName: "photo")
+                            .font(.system(size: 18))
+                            .foregroundStyle(Theme.Colors.textSecondary)
+                    }
+                }
+                .background(selected ? Theme.Colors.borderSubtle : Theme.Colors.bgRaised, in: cell)
+                .clipShape(cell)
+                .accessibilityLabel(t("session.hero_frame_eligible"))
+        } else {
+            Image(systemName: tier.id == .QUICK ? "bolt" : "text.alignleft")
+                .font(.system(size: 18, weight: .medium))
+                .foregroundStyle(selected ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
+                .frame(width: 44, height: 44)
+                .background(selected ? Theme.Colors.borderSubtle : Theme.Colors.bgRaised, in: cell)
+                .accessibilityHidden(true)
         }
     }
 }

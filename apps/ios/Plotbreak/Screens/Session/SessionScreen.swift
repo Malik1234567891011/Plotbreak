@@ -270,6 +270,7 @@ struct SessionScreen: View {
                 tiers: TierCopy.tiers(store.bootstrap),
                 current: store.qualityTier,
                 balance: store.balance,
+                sceneArt: model.scene?.stageImage,
                 onSelect: { model.selectTier($0) },
                 onClose: { model.showQuality = false }
             )
