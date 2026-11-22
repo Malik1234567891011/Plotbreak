@@ -664,3 +664,62 @@ describe('the three invisible pressures', () => {
     }
   });
 });
+
+/** docs/stories-50/PIPELINE.md, "What the 49 writers need in the fixture". */
+describe('the art and release pipeline', () => {
+  it('directs its own cover, with a title line that spells the title', () => {
+    const direction = STORY.coverDirection;
+    const title = direction.slice(direction.indexOf('TITLE:'));
+    expect(direction).toMatch(/\bTITLE:/);
+    expect(title).toContain('Paid to Kill Me');
+    expect(title).toMatch(/upper third/);
+  });
+
+  it('keeps cover effects off his face and describes nobody by age', () => {
+    expect(STORY.coverDirection).toMatch(/FACE STAYS CLEAN/);
+    expect(STORY.coverDirection).not.toMatch(
+      /\b(?:young\w*|older|elderly|aged|adults?|twenty|thirty|forty|fifty|sixty|seventy|years? old|teen\w*|\d+)\b/i,
+    );
+  });
+
+  it('opens on a panel of the man who speaks first', () => {
+    expect(STORY.openingPanel!.alt.length).toBeLessThanOrEqual(200);
+    expect(STORY.openingPanel!.alt.startsWith('Kael ')).toBe(true);
+    expect(STORY.opening.slice(0, STORY.opening.indexOf('"'))).toContain('Kael');
+  });
+
+  it('draws every portrait from a concrete appearance', () => {
+    for (const c of STORY.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(80);
+    }
+  });
+
+  it('has no prologue and no release date yet', () => {
+    expect(STORY.prologue).toEqual([]);
+    expect(STORY.publishedAt).toBeNull();
+  });
+
+  it('puts the system where the narrator reads it', () => {
+    const letter = STORY.items.find((i) => i.id === 'odile_letter')!;
+    expect(STORY.rules.startingItems.map((i) => i.itemId)).toContain('odile_letter');
+    expect(letter.questItem).toBe(true);
+    for (const a of STORY.archetypes) {
+      expect(a.startingAbilities.length, a.id).toBeGreaterThan(0);
+      for (const id of a.startingAbilities) {
+        expect(STORY.abilities.find((x) => x.id === id)?.unlockedByDefault, `${a.id}: ${id}`).toBe(true);
+      }
+    }
+    const canon = STORY.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/rule four/);
+    expect(canon).toMatch(/made to look dead/);
+    expect(canon).toMatch(/by lunchtime/);
+    expect(STORY.rules.toneGuide.length).toBeGreaterThan(200);
+  });
+
+  it('gives every titled character the name people call them', () => {
+    for (const c of STORY.characters.filter((x) => /^(?:Lady|Lord|Dr\.|Sir)\s/.test(x.name))) {
+      expect(c.calledName, c.id).toBeTruthy();
+    }
+    expect(calledName(STORY.characters.find((c) => c.id === 'ines')!)).toBe('Ines');
+  });
+});

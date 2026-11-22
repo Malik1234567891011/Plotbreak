@@ -92,9 +92,11 @@ const raw = {
       'Two separate people want the player dead and neither knows about the other. Viktor Ravelle crushed his mother’s heart tablets into the player’s night carafe in the kitchen pantry at eleven last night, before it was carried up to their room. Dr. Mirei Sato paid the Bellhouse for the contract Kael was given. Neither answer is handed over early: both are found, earned or confessed, and the story is better the longer the player has to work for them.',
       'The gap in Odile’s row of pill bottles is the bottle Viktor took from her rooms last night. It has nothing to do with how she died.',
       'The Bellhouse is the city’s quiet brokerage for killing, run from behind a clock-repair shop in Old Town. Its rules are painted on the back wall: an operator rings a bell to close a job; a contract can be cancelled only by the client in person; rule four says any contract can be bought out at twice its price; an operator who breaks a contract is closed along with it.',
+      'Kael knows how the Bellhouse checks that a job is done, so with his help the player could be made to look dead: a convincing scene, the bell rung by his hand, and three days of being nobody. He does not offer it until he has told the player what refusing the contract cost him.',
+      'Nothing this week is free, and nobody ever sees it as a number. Fear and hard conversations wear the player’s nerve down; rest gives it back, a night’s sleep somewhere locked most of all. A fight, a scream or a dash across the city tells anybody watching where the player is and what they know, and quiet days and changed routines let that fade. Anything done in front of the staff, the club or the street is all over the harbour by lunchtime, reaches the nine directors who vote on Friday and makes Viktor’s proxy look reasonable to them, and it fades slowly, because gossip does.',
       'Twenty-two years ago a fire at the Ravelle warehouse on Pier Nine killed eleven dockworkers. The company blamed a worker’s cigarette. The truth is in a file Odile kept in the library cabinet: she had the rear fire doors chained at night against theft, and paid an inspector to sign them off. Haruto Sato, Dr. Sato’s husband, was the sixth of the eleven.',
       'Kael does not know who hired him. The Bellhouse never tells operators. He does know the contract card carried details only someone who had been inside the house could know.',
-      'The player is an adult and the heir, whatever they did with their life before this week. Every character in this story is an adult. Romance in this story, with Kael or anyone else, goes no further than a kiss, on the page or off it. No scene cuts away to a bed. A night in Kael’s room is him in the chair facing the door.',
+      'The player is an adult and the heir, whatever they did with their life before this week. Every character in this story is an adult: Kael is twenty-seven, Lady Ines Vauclair twenty-six, Vesna thirty-one, Viktor Ravelle fifty-four, Dr. Mirei Sato sixty-three and Augustin Pell sixty-eight. Romance in this story, with Kael or anyone else, goes no further than a kiss, on the page or off it. No scene cuts away to a bed. A night in Kael’s room is him in the chair facing the door.',
     ],
     toneGuide:
       'A romantic thriller with a dry sense of humour, set in a cliff-top house and a cold harbour city in the rain. Specific physical detail carries everything: a black-handled knife, a cloudy glass, a chair turned to face the door, a brass bell with no clapper, coffee somebody tastes before handing it over. ' +
@@ -1120,6 +1122,7 @@ const raw = {
     {
       id: 'ines',
       name: 'Lady Ines Vauclair',
+      calledName: 'Ines',
       role: 'Heir of House Vauclair, your closest friend at college and your rival ever since, who has made your uncle an offer for the company',
       cardBlurb:
         'She was your best friend for four years and your rival ever since, and she has quietly offered to buy everything you are about to inherit. She is either your strongest suspect or the only person in this city who will tell you the truth to your face.',
@@ -2366,7 +2369,7 @@ const raw = {
       attributeBonus: { agility: 2, mind: 1 },
       skillProficiencies: { sneak: 3, read_people: 2 },
       startingItems: [{ itemId: 'unused_ticket', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['make_a_deal', 'slip_away'],
       startingReputation: [],
     },
     {
@@ -2379,7 +2382,7 @@ const raw = {
       attributeBonus: { mind: 2, resolve: 1 },
       skillProficiencies: { ledgers: 3, poise: 1, read_people: 1 },
       startingItems: [{ itemId: 'odile_keys', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['make_a_deal', 'follow_money'],
       startingReputation: [{ factionId: 'faction_board', amount: 10 }],
     },
     {
@@ -2392,7 +2395,7 @@ const raw = {
       attributeBonus: { presence: 2, agility: 1 },
       skillProficiencies: { lying: 3, poise: 2 },
       startingItems: [{ itemId: 'spare_phone', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['make_a_deal', 'lie_smoothly'],
       startingReputation: [{ factionId: 'faction_houses', amount: 10 }],
     },
     {
@@ -2405,7 +2408,7 @@ const raw = {
       attributeBonus: { might: 1, agility: 2, resolve: 1 },
       skillProficiencies: { scrapping: 3, steel: 2 },
       startingItems: [{ itemId: 'fencing_sabre', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['make_a_deal', 'stand_firm'],
       startingReputation: [],
     },
   ],
@@ -2628,13 +2631,28 @@ const raw = {
     "You wake to a knife on your nightstand.\n\nBlack handle, no shine. Not yours.\n\nThe man in the chair beside it is Kael, your new bodyguard. Nine days on the job. He still has his jacket on, and he is watching the door instead of you.\n\n\"I was paid to use that last night,\" he says. \"I didn’t.\"\n\nHe tips his head at your water glass. It has gone cloudy.\n\n\"Somebody else tried anyway. You’d have gone in your sleep. Heart, they’d have said. Same as your grandmother.\"\n\nHe finally looks at you.\n\n\"So. Change of plans. Who else wants you dead?\"",
   openingPanel: {
     assetKey: 'story_paid_to_kill_me/opening',
-    alt: 'Kael in a chair beside a bed at grey dawn, jacket still on, watching the door; on the nightstand a black-handled knife and a cloudy glass of water.',
+    alt: 'Kael in a chair beside your bed at grey dawn, seen from the pillow, jacket still on, watching the door; on the nightstand a black-handled knife and a cloudy glass of water.',
   },
   openingSuggestions: [
     '"My uncle gets everything if I die. Start with him. Who paid you?"',
     'I pick up the cloudy glass and hold it up to the light.',
     'I grab the knife off the nightstand before he can, and point it at him.',
   ],
+  coverDirection: [
+    'SUBJECT: Kael, the bodyguard, alone and unmistakable in the foreground of a key visual for a romantic thriller anime about a bodyguard with a dangerous secret.',
+    'He fills the frame from the waist up, centred and close, holding about two thirds of the picture, seated on a plain wooden chair and leaning forward with his elbows on his knees.',
+    'Short black hair cut slightly uneven, grey eyes, a thin white scar through his left eyebrow, a plain dark suit with the jacket still on, a white shirt open at the collar and no tie.',
+    'His right hand hangs loose between his knees holding a black-handled knife, the clean blade pointed at the floor; his left hand rests open on his knee.',
+    'Beside him on a small dark-wood nightstand stands a glass of water gone milky and cloudy.',
+    'His expression is calm, tired and watchful, eyes straight on the viewer, as if he has just made a decision he cannot take back.',
+    'HIS FACE STAYS CLEAN: no blood, no cuts, no bruises, no shadows or marks across his face or skin.',
+    'Every effect stays on the knife, the glass and the title, never on his face: a cold white glint along the blade, a faint pale-green haze swirling inside the cloudy glass.',
+    'BEHIND HIM, soft and secondary: an elegant old-money bedroom at grey dawn, a tall window streaked with rain over a cold harbour city of cranes and ship lights,',
+    'a closed door edged with a thin line of light, and the corner of a neatly made, empty bed with smooth white sheets in soft focus.',
+    'LIGHT: cold blue-grey dawn from the window on one side, warm amber lamplight from the nightstand on the other, so he is rimmed in blue and lit in gold.',
+    'TITLE: the words PAID TO KILL ME painted into the art in the upper third as a tall, elegant high-contrast serif thriller logo, ivory white with a thin gold edge,',
+    'spelled exactly Paid to Kill Me and set in capitals, large and legible at thumbnail size. One clean diagonal knife-cut slices through the word KILL only, its two halves slightly offset. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 

@@ -74,14 +74,16 @@ A bell with no clapper, left for a late operator, means: ring yours, or be rung.
 
 The protagonist is `BLANK`: the player names themselves and picks pronouns. They are an adult and the heir, whatever they did with their life before this week. Who they were before the will is a fixed archetype that sets their strengths, not their choices:
 
-| Archetype | Role | Strong at | Starts with |
-|---|---|---|---|
-| **You Left Years Ago** | Outsider, quick on your feet | Slipping Out, Reading People | The return ticket |
-| **You Ran Her Office** | Insider, money and paperwork | Ledgers | Her keys, plus Board +10 |
-| **You Are the Scandal** | Charm, nerve and bad press | Lying Well, Poise | The spare phone, plus Three Houses +10 |
-| **You Can Fight** | Trained fencer, physical | Scrapping, Steel | Your fencing sabre |
+| Archetype | Role | Strong at | Starts with | Starting abilities |
+|---|---|---|---|---|
+| **You Left Years Ago** | Outsider, quick on your feet | Slipping Out, Reading People | The return ticket | Make a Deal, Slip Away |
+| **You Ran Her Office** | Insider, money and paperwork | Ledgers | Her keys, plus Board +10 | Make a Deal, Follow the Money |
+| **You Are the Scandal** | Charm, nerve and bad press | Lying Well, Poise | The spare phone, plus Three Houses +10 | Make a Deal, Lie Smoothly |
+| **You Can Fight** | Trained fencer, physical | Scrapping, Steel | Your fencing sabre | Make a Deal, Hold Your Ground |
 
 The archetype does not decide whether they trust Kael, whom they suspect, or whether they sign on Friday.
+
+Every archetype starts with **Make a Deal**, because the heir's one real weapon this week is that they can offer people things: hire Kael properly, pay a price, name terms. The second ability is the archetype's own. They sit in `startingAbilities` because the production narrator reads an archetype's starting abilities and never reads the ability list or a locked ability.
 
 Everybody starts with **Grandmother's Letter**, still sealed: "Open before you sign anything." Inside: "There is a file about Pier Nine in the library cabinet. Read it before you sign. I kept it shut for twenty-two years and it was the worst thing I ever did. Do better than I did. Augustin has the key."
 
@@ -92,7 +94,10 @@ Everybody starts with **Grandmother's Letter**, still sealed: "Open before you s
 - Viktor poured the glass. Sato placed the contract. Neither knows about the other.
 - Kael does not know who hired him, because the Bellhouse never tells operators. The contract card knew the side-gate code and that the player sleeps with the balcony door open, so the client has been inside the house and upstairs.
 - Pier Nine is true, and the file in the library cabinet proves it.
-- Every character is an adult.
+- Every character is an adult, with their ages stated: Kael 27, Ines 26, Vesna 31, Viktor 54, Sato 63, Pell 68.
+- The Bellhouse rules painted on the back wall, rule four among them.
+- Kael knows how the Bellhouse checks that a job is done, so with his help the player could be made to look dead. He does not offer it until he has told the player what refusing cost him. (This is **Stage Your Death**, a locked ability the narrator cannot read, so the fact lives here.)
+- The three invisible pressures, said as the world feels them rather than as numbers: nerve wears down and rest gives it back; a fight or a scene tells anybody watching where the player is; anything public reaches the board by lunchtime and fades slowly. (The narrator never reads resources.)
 - Romance in this story, with Kael or anyone else, goes no further than a kiss, on the page or off it. No scene cuts away to a bed. A night in Kael's room is him in the chair facing the door. (This sits in hard canon, not only the tone guide, because the player-first storyteller brief overrides the tone guide and keeps only hard canon.)
 
 ## Opening scene
@@ -123,7 +128,7 @@ The opener is 102 words. Kael speaks at word 47 and is introduced in the same se
 | Done | I pick up the cloudy glass and hold it up to the light. |
 | Risky | I grab the knife off the nightstand before he can, and point it at him. |
 
-**Opening panel** (`story_paid_to_kill_me/opening`): Kael in a chair beside a bed at grey dawn, jacket still on, watching the door. On the nightstand, a black-handled knife and a cloudy glass of water.
+**Opening panel** (`story_paid_to_kill_me/opening`): Kael in a chair beside your bed at grey dawn, seen from the pillow, jacket still on, watching the door. On the nightstand, a black-handled knife and a cloudy glass of water. The `alt` starts with "Kael" because the panel is drawn from his portrait.
 
 ## Major cast
 
@@ -172,7 +177,7 @@ Every character is an adult, and each `appearance` opens on their age.
 
 **Confesses:** only to kindness, or to evidence he cannot talk past. Never to anyone holding a weapon.
 
-### Lady Ines Vauclair · 26
+### Lady Ines Vauclair · 26 (called "Ines")
 **Role:** heir of House Vauclair. Your best friend through four years of college, and your rival ever since graduation, when she told her father a secret you had trusted her with.
 **Appearance:** sleek black bob, sharp dark eyes, a tailored cream coat, gloves taken off one finger at a time. She wears a single pearl earring, left ear only.
 **Motive:** buying the Ravelle Line is the only move big enough to stop her father passing House Vauclair to her brother, who is twenty-four.
@@ -355,9 +360,12 @@ Twelve endings, which is the most `worldBrief` sends. Four of them are losses, a
 
 No art is generated for this pass. The keys come from `withDerivedAssetKeys`.
 
-**Cover and key art:** Kael in the chair by the bed at dawn, knife on the nightstand. Keep the player out of the bed and out of the frame, and keep the sheets neat. Title "Paid to Kill Me" in the art.
+**Cover and key art** (`coverDirection`, modelled on Skill: ERROR): Kael alone, waist up, two thirds of the frame, seated and leaning forward, a black-handled knife hanging point-down in one hand and a cloudy glass on the nightstand beside him. Behind him, soft: a bedroom at grey dawn, rain on a tall window over the harbour, a closed door, and the corner of a neatly made, empty bed. The player is not in the frame. Cold dawn light on one side, warm lamplight on the other.
+- People are described by costume and pose, never by age.
+- Effects go on objects and the title, never on his face: a glint on the blade, a pale haze in the glass. The direction says his face stays clean.
+- **Title line:** `TITLE:` the words painted into the upper third as a tall, elegant serif thriller logo, ivory white with a thin gold edge, spelled exactly **Paid to Kill Me** and set in capitals. One diagonal knife-cut slices through KILL only. No other text.
 
-**Opening panel:** `story_paid_to_kill_me/opening`.
+**Opening panel:** `story_paid_to_kill_me/opening`, drawn from Kael's portrait. See the opening scene.
 
 **Portraits, by visual hook:**
 
@@ -415,6 +423,14 @@ No art is generated for this pass. The keys come from `withDerivedAssetKeys`.
 - Short names are unique.
 
 **Clarity:** `checkStoryClarity` and `checkStoryChoiceClarity` report no errors.
+
+**Art and release pipeline** (`docs/stories-50/PIPELINE.md`)
+- `coverDirection` has its own `TITLE:` line with the exact spelling, keeps his face clean and uses no age words.
+- `openingPanel.alt` is under 200 characters and starts with "Kael", who speaks first.
+- Every character with a card blurb has a concrete appearance.
+- No prologue, and `publishedAt` is null until release.
+- The system is where the narrator reads it: hard canon, the starting letter (a quest item) and every archetype's `startingAbilities`.
+- Titled characters have a `calledName`.
 
 **What the production narrator can read**
 - The daybook entry is in the Grandmother's Rooms description, and the daybook is a quest item.
