@@ -77,12 +77,17 @@ const raw = {
     startingLocationId: 'the_dining_room',
     startWorldMinute: 19 * 60 + 10,
     startingItems: [
+      { itemId: 'attunement_card', qty: 1 },
       { itemId: 'room_key', qty: 1 },
       { itemId: 'wellbeing_form', qty: 1 },
     ],
     hardCanon: [
-      'Halloran College is a residential college for adults with psychic abilities, on a hill above the river town of Lowbridge. Every student is eighteen or older. Everyone in this story is an adult.',
+      'Everyone in this story is an adult. The player is a first-year of at least nineteen. Haru Ezaki is twenty-one, Lena Morrow twenty, Sable Quint twenty-three, Corin Abbott twenty-two, Ruth Calder fifty-eight and Provost Nathaniel Sorrell sixty-one.',
+      'Halloran College is a residential college for adults with psychic abilities, on a hill above the river town of Lowbridge. Every student is eighteen or older.',
       'Nova House is the college’s smallest residence: four student rooms, a house mother, and an old observatory dome on the roof. The player arrived today, a first-year telepath of at least nineteen, and has Room Four.',
+      'The player’s telepathy reaches minds within about a room. What it catches is the surface, what somebody is thinking right now, in fragments; how those fragments feel (words, moods, pictures) is described under who the player is. With effort the player can let a whole room in at once. Going under the surface into memory, and sending a thought the other way, are deeper uses that come with practice during the week, or from the first night for a player whose telepathy already works that way.',
+      'Reading has a price. Most people feel a read like somebody reading over their shoulder, and they remember who did it. A long day of reading, or a whole room at once, leaves the player’s head too loud to tell their own thoughts from other people’s, and only sleep, food or sitting within Sable’s reach quiets it. The player can wall their own mind shut, against noise and against the Provost’s voice, and hears nothing while the wall is up.',
+      'What a telepath hears is not evidence. The wardens and the Registry act on documents and on witnesses who speak for themselves, never on what somebody heard inside a head. Every telepath at Halloran signs three rules on their Attunement Card: never read staff, never read anybody who has said no, and report anything heard that puts a life at risk to the Provost, in person.',
       'Room Four belonged until April to a telepath called Corin Abbott. Officially he transferred.',
       'The housemates know the player reads minds. The first house rule, chalked by the coat hooks, is that nobody reads anybody at the table.',
       'The thought the player heard at the first dinner was Sable Quint’s. Her mind is normally silent: she holds a wall nobody can read through, and within arm’s reach of her every ability stops working. At dinner, thinking about the Provost, the wall slipped for one second. "Them too" meant the player as well as the Provost.',
@@ -100,7 +105,7 @@ const raw = {
       'Slice of life with a thriller underneath. Most scenes are ordinary: a dinner, a class, the washing-up rota, the roof at night, a café in town. Every one of them has a suspect in it. ' +
       'Telepathy is written as overheard fragments, short and plain, in quotation marks or as bare lines, always with a clear cue that nobody spoke aloud ("nobody’s lips moved", "it arrives in your head"). Never use asterisks. Every mind has a texture and it never changes: Haru is heat and kitchen noise, Lena runs half a second ahead of the room, Sable is silence, Ruth is a radio turned low, the Provost is warm and agreeable like thick carpet, and Corin is a house with the furniture taken out. ' +
       'The player does not know whose thought it was. Keep all three housemates plausible, and never confirm it until the player has earned it by asking, finding something or being trusted. Reading somebody who did not ask is a real act: they can usually feel it, and they remember. ' +
-      'Funny more often than not: house rules, Haru’s jokes, Lena’s tense slips, Ruth’s soup. Violence is rare, quick and has weight. No gore; a death happens offstage or in a cut. Romance is warm and goes no further than a kiss. ' +
+      'Funny more often than not: house rules, Haru’s jokes, Lena’s tense slips, Ruth’s soup. Violence is rare, quick and has weight, and nothing is graphic: a death happens offstage or in a cut. Romance is warm and goes no further than a kiss. ' +
       'Reading never solves the mystery on its own. Haru’s surface is loud and sounds guilty out of context: Saturday, a bag, getting out before anybody can stop him, smoke. Lena’s runs ahead to a Founders’ Night frame she will not describe. Sable’s is silence, which reads as innocence. Nobody confesses at the first dinner. ' +
       'A secret comes out when it is earned: the player asked before reading, ate what Haru cooked, sat with somebody without fixing them, or brought evidence to one person alone. Reading without asking gets fragments, never a whole secret, and the person usually feels it and stays cooler for days. Reading the Provost is how Corin ended up in the glasshouse: he can tell, and he remembers. ' +
       'A thought whose owner the player does not know is narration, never a line with a speaker, and it never sets that character’s face. Trouble up the hill (a scene on the green, a break-in at the tower, a fight) brings wardens to the house and a kind letter from the Provost about rest. ' +
@@ -241,6 +246,18 @@ const raw = {
   ],
   tendencies: [],
   items: [
+    {
+      id: 'attunement_card',
+      name: 'Your Attunement Card',
+      tags: ['quest', 'document'],
+      droppable: false,
+      questItem: true,
+      description:
+        'A stiff cream card issued at the gate this afternoon, with your photograph and the college seal. Classification: Telepath, first year. Range: about one room. On the back, the three rules every telepath at Halloran signs: never read staff; never read anybody who has said no; report anything you hear that puts a life at risk, to the Provost, in person.',
+      loreText:
+        'What the card leaves out, Ruth will tell you over soup. A read is felt, like somebody reading over your shoulder, and people remember who did it. What you hear is the top of a mind, in fragments, and it is not evidence. Going under into memory, or sending a thought the other way, comes with practice and goes badly when you are tired. Within arm’s reach of a null, nothing on this card works.',
+      icon: 'papers',
+    },
     {
       id: 'room_key',
       name: 'The Key to Room Four',
@@ -2154,7 +2171,7 @@ const raw = {
       attributeBonus: { arcana: 2, mind: 1 },
       skillProficiencies: { listening: 3, walls: 1, noticing: 1 },
       startingItems: [{ itemId: 'headphones', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['listen_in', 'wall_up'],
       startingReputation: [],
     },
     {
@@ -2167,7 +2184,7 @@ const raw = {
       attributeBonus: { presence: 2, arcana: 1 },
       skillProficiencies: { rapport: 3, noticing: 2, listening: 1 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['listen_in', 'hear_the_room'],
       startingReputation: [{ factionId: 'faction_house', amount: 5 }],
     },
     {
@@ -2180,7 +2197,7 @@ const raw = {
       attributeBonus: { arcana: 2, mind: 1 },
       skillProficiencies: { diving: 3, noticing: 1 },
       startingItems: [],
-      startingAbilities: ['go_under'],
+      startingAbilities: ['listen_in', 'go_under'],
       startingReputation: [],
     },
     {
@@ -2193,7 +2210,7 @@ const raw = {
       attributeBonus: { arcana: 2, presence: 1 },
       skillProficiencies: { sending: 3, nerve: 1 },
       startingItems: [],
-      startingAbilities: ['send_a_thought'],
+      startingAbilities: ['listen_in', 'send_a_thought'],
       startingReputation: [],
     },
   ],
@@ -2415,7 +2432,7 @@ const raw = {
     "The woman ladling soup slides a bowl across to you. \"I’m Lena. House rule: nobody reads anybody at dinner. Deal?\"\n\nYou nod. You try.\n\nThe table’s thoughts leak in anyway, like a radio in the next room. Too much salt. Don’t stare at the new one. Heat ticking off the man across the table.\n\nThen one thought cuts clean through the rest.\n\n\"If the new one hears this, I’ll have to kill them too.\"\n\nYour spoon stops halfway. Nobody’s lips moved.\n\nThe man is tearing bread. The pale woman at the end turns her glass, perfectly silent inside. Lena tilts her head.\n\n\"Something wrong with the soup?\"",
   openingPanel: {
     assetKey: 'story_nova_house/opening',
-    alt: 'Lena ladling soup at a long lamplit dinner table, smiling at you, while a man tears bread and a pale woman in a grey coat turns her glass.',
+    alt: 'Lena, dark curls under a knitted band, ladling soup at a long lamplit dinner table and smiling at you, while a man tears bread and a pale woman in a grey coat turns her glass.',
   },
   openingSuggestions: [
     "\"It’s great. Just a long day,\" I lie, and pick my spoon back up.",
@@ -2428,14 +2445,17 @@ const raw = {
    * every light effect stays off faces.
    */
   coverDirection: [
-    'SUBJECT: three housemates at a long dinner table, large and frontal, in the foreground of a key visual for a psychic mystery anime.',
-    'Left: a tall man with bleached hair and dark roots, sleeves shoved to the elbow, a burn-scarred left hand, a small spark at his fingertips.',
-    'Centre: a woman with dark curls under a knitted band and a sketchbook under one arm, smiling over a soup ladle.',
-    'Right, at the end of the table: a pale woman with blunt black jaw-length hair in a long grey wool coat, a silver ring on her left thumb, perfectly still, looking straight out at the viewer.',
-    'Faint drifting lines of thought-light run between them and one sharp bright line cuts across the table. Every light effect stays in the air and on objects, never on faces or skin.',
-    'BEHIND THEM, soft and secondary: night, a narrow old house with a brass observatory dome lit from inside.',
-    'LIGHT: warm amber lamplight on the table, deep blue night behind.',
-    'TITLE: the words NOVA HOUSE painted into the art in the upper third as a clean serif logo, warm white with a faint star glint, spelled exactly NOVA HOUSE, large and legible at thumbnail size. No other text anywhere.',
+    'SUBJECT: three housemates around one end of a long dinner table at night, large and close in the foreground of a key visual for a psychic mystery anime.',
+    'They are staggered in depth, never standing in a line.',
+    'Nearest, on the left and cropped at the waist by the frame: a woman with dark curls held back by a knitted band, a long oatmeal cardigan, charcoal smudges on her fingers and a sketchbook under one arm, leaning over the table with a soup ladle and smiling at the viewer.',
+    'Just behind her right shoulder: a tall man with bleached hair and dark roots, a black T-shirt, sleeves shoved to the elbow, a tea towel over one shoulder and a burn-scarred left hand, tearing a piece of bread; a ribbon of flame curls up off the open brass lighter on the table beside him, far bigger than any lighter makes.',
+    'At the far end of the table, smaller but in sharp focus: a pale woman with blunt black jaw-length hair in a long grey wool coat buttoned to the collar, a silver ring on her left thumb, turning a glass with two fingers, perfectly still, looking straight out at the viewer.',
+    'Faint drifting lines of pale blue thought-light hang in the air between them, and one sharp bright line cuts across the table toward the viewer. Every light effect stays in the air, on the glass, the lighter and the title, never on faces or skin.',
+    'FACES STAY CLEAN: no glow, sparks, lines or shadows across any face.',
+    'BEHIND THEM, soft and secondary: a window onto night, and through it a narrow old house with a brass observatory dome lit from inside.',
+    'LIGHT: warm amber lamplight on the table and faces, deep blue night behind, the thought-lines a cool pale blue.',
+    'TITLE: the title Nova House painted into the art in the upper third, above the heads, as a clean elegant serif logo set in capitals, warm white with a faint four-point star glint on the O,',
+    'spelled exactly NOVA HOUSE, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   publishedAt: null,
 };

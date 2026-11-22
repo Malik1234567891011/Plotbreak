@@ -43,6 +43,16 @@ Nobody's lips moved.
 - **Lena Morrow sees the future as still frames:** always right about what, never about who. She has drawn Founders' Night: the Provost on the parlour floor, a spilled glass, a hand with a silver ring on the thumb, and the player in the doorway. She has never once broken a frame.
 - **Corin is not empty.** The settling missed one locked room in his mind: the list he read. A telepath who goes carefully can open it.
 
+### The telepathy (the story's system)
+
+Production never reads resources, locked abilities or step notes, so the system lives in three places the narrator does read: `hardCanon`, the **Attunement Card** in `rules.startingItems`, and each archetype's `startingAbilities`.
+
+- **Range and depth:** minds within about a room. The player catches the surface, what somebody is thinking right now, in fragments. Letting a whole room in at once is possible and loud. Going under into memory and sending a thought the other way are deeper uses that come with practice, or from the first night for the archetypes built on them.
+- **Price:** a read is felt, like somebody reading over your shoulder, and remembered. A long day of reading leaves the player unable to tell their thoughts from other people's; sleep, food or Sable's reach quiets it. A wall shuts out noise and the Provost's voice, and hears nothing while it is up.
+- **Not evidence:** wardens and the Registry act on documents and on witnesses who speak for themselves, never on what a telepath heard.
+- **The Attunement Card** (issued at the gate, always carried): Telepath, first year, range about one room, and the three rules every telepath signs: never read staff; never read anybody who has said no; report anything that puts a life at risk to the Provost, in person.
+- **Starting abilities:** every archetype has Listen In. You Hear Words adds Wall Up, You Feel Weather adds Open Up, You See Pictures adds Go Under, It Runs Both Ways adds Send.
+
 ## Tone and pacing
 
 - Slice of life first, thriller underneath. Dinners, classes, laundry, the roof at night, a trip into town.
@@ -221,8 +231,8 @@ Solve it by reading; solve it by asking; solve it by searching rooms. Accuse the
 
 ## Image plan
 
-**Cover (Tsubaki.3, title in the art: NOVA HOUSE).** Night, the narrow house with its brass observatory dome lit from inside. Foreground, three housemates at a long dinner table under warm lamplight: a tall man with bleached hair and a burn-scarred hand, sleeves shoved up, a small spark at his fingertips; a woman with dark curls and a sketchbook, smiling over a soup ladle; a pale woman in a grey coat at the end of the table, perfectly still, a silver ring on her thumb, looking straight out of the frame. Faint lines of drifting thought-light between them, one sharp line cutting across. Everyone is described by costume and pose only, with no age words (the Ace lesson in `infra/scripts/generate-art.ts`). Effects on objects, never on faces. The fixture's `coverDirection` carries this to PixAI.
+**Cover (Tsubaki.3, title in the art: NOVA HOUSE, serif capitals in the upper third).** Night, the narrow house with its brass observatory dome lit from inside, seen through a window. Foreground, three housemates staggered in depth at one end of a long dinner table under warm lamplight: nearest, a woman with dark curls and a sketchbook, leaning in with a soup ladle and smiling; behind her shoulder, a tall man with bleached hair and a burn-scarred hand, sleeves shoved up, tearing bread, a ribbon of flame curling off the brass lighter beside him; at the far end, a pale woman in a grey coat, perfectly still, a silver ring on her thumb, turning a glass and looking straight out of the frame. Faint lines of drifting thought-light between them, one sharp line cutting across. Everyone is described by costume and pose only, with no age words (the Ace lesson in `infra/scripts/generate-art.ts`). Effects on objects and the title, never on faces or skin. The fixture's `coverDirection` carries this to PixAI.
 
 **Portraits:** Haru, Lena, Sable, Ruth, Sorrell (Corin optional, sixth in cast order).  
 **Location stages:** Dining Room, Landing, Dome, Parlour, Orchard, Glasshouse, Provost's Tower, Lowbridge.  
-**Opening panel:** Lena ladling soup, smiling at the viewer; the man tearing bread; the pale woman turning her glass; warm lamplight.
+**Opening panel** (`story_nova_house/opening`, Lena's portrait as reference): Lena, dark curls under a knitted band, ladling soup and smiling at the viewer; the man tearing bread; the pale woman in a grey coat turning her glass; warm lamplight.
