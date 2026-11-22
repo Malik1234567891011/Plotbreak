@@ -219,6 +219,6 @@ All reached from the **Founders' Courtyard**.
 
 ## Image plan (for the art pass, not this commit)
 
-- **Cover:** Elara in the courtyard, thumb pushing her sword an inch from the scabbard, glaring up at the viewer; behind her a silver-haired noble in a charcoal coat caught mid-sentence, two hundred grey coats blurred in the background, the chapel spire and bell tower above. Title painted in: THE VILLAIN DIES IN CHAPTER THREE. Adults described by costume and pose only.
-- **Opening panel:** Elara at the moment of "Finish the sentence."
+- **Cover:** Elara in the courtyard, thumb pushing her sword an inch from the scabbard, glaring at the viewer; over her shoulder a silver-haired noble in a charcoal coat caught mid-sentence, his smirk turning to alarm; blank book pages drifting between them; grey coats blurred in the background, the chapel spire and bell tower above under a band of midnight blue. Title painted into the upper third in capitals on two lines, an ivory engraved serif with a red ribbon bookmark, spelled exactly The Villain Dies in Chapter Three. Effects stay on the pages, the blade and the title, never on faces. Adults described by costume and pose only.
+- **Opening panel:** Elara at the moment of "Finish the sentence." (`openingPanel.alt` starts with "Elara" so her portrait is the reference.)
 - **Location stages:** courtyard, great hall, kitchens, low dormitory, the Ring at dusk, the East Wing suite, the library cage, the governors' lodge, the chapel steps at midnight, the undercroft with the Cold Ember, the gate road.

@@ -409,11 +409,42 @@ describe('the cover', () => {
     expect(cover).toMatch(/no letters or numbers/i);
   });
 
+  it('gives the title its own TITLE: line, spelled exactly, and keeps every effect off faces', () => {
+    // generatedCoverPrompt drops the generic lower-third rules only when the
+    // direction carries its own TITLE: line.
+    const cover = S.coverDirection!;
+    const titleLine = cover.slice(cover.indexOf('TITLE:'));
+    expect(cover.indexOf('TITLE:')).toBeGreaterThan(-1);
+    expect(titleLine).toContain('The Villain Dies in Chapter Three');
+    expect(titleLine).toMatch(/upper third/);
+    expect(cover).toMatch(/never on a face/);
+    expect(cover).toMatch(/FACES STAY CLEAN/);
+  });
+
   it('declares the opening panel under the story’s own asset prefix', () => {
     expect(S.id).toBe('sv_the_villain_dies_in_chapter_three_1');
     expect(S.storyId).toBe('story_the_villain_dies_in_chapter_three');
     expect(S.openingPanel?.assetKey).toBe('story_the_villain_dies_in_chapter_three/opening');
     expect(S.openingPanel!.alt.length).toBeLessThanOrEqual(200);
+  });
+
+  it('starts the panel alt with the first name of whoever speaks in the opener', () => {
+    // opening-panel-art.ts uses that character's portrait as the reference.
+    const speaker = S.characters.find((c) => S.opening.includes(`says ${c.name}`))!;
+    expect(speaker.id).toBe('elara');
+    expect(S.openingPanel!.alt.startsWith(`${speaker.name.split(' ')[0]!} `)).toBe(true);
+  });
+
+  it('opens straight on the scene and has no release date yet', () => {
+    expect(S.prologue).toEqual([]);
+    expect(S.publishedAt).toBeNull();
+  });
+
+  it('says what every titled character is actually called', () => {
+    const TITLED = /^(Lady|Lord|Duke|Duchess|Sir|Dame|Master|Prince|Princess|King|Queen)\b/;
+    const titled = S.characters.filter((c) => TITLED.test(c.name));
+    expect(titled.map((c) => c.id).sort()).toEqual(['duke_grauen', 'viveka']);
+    for (const c of titled) expect(c.calledName, c.id).toBeTruthy();
   });
 });
 

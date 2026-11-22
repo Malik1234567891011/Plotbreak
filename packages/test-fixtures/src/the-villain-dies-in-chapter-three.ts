@@ -1029,6 +1029,7 @@ const raw = {
     {
       id: 'viveka',
       name: 'Lady Viveka Sorrel',
+      calledName: 'Viveka',
       role: 'Your fiancée by family arrangement, a second-year and heir of House Sorrel, who has written to you more than once a week for two years',
       cardBlurb:
         'She has sent you a hundred and forty letters, and most of them are still sealed in your desk drawer. The book gave her three lines and a cold stare. She has heard about the courtyard and wants to hear it from you, in person, today.',
@@ -2199,15 +2200,23 @@ const raw = {
     portrait: null,
   },
   coverDirection: [
-    'SUBJECT: a swordswoman in a grey academy coat stands in the foreground of a sunlit stone courtyard, thumb pushing a plain',
-    'soldier’s sword an inch out of its scabbard, glaring up past the viewer. Dark hair cropped at the jaw, a scholarship pin,',
-    'a mended cuff. Behind her and higher, a tall silver-haired nobleman in a charcoal coat with a silver clasp, caught',
-    'mid-sentence, one hand raised in a lazy dismissive gesture that is starting to falter. Between them a crowd of grey',
-    'coats frozen mid-whisper, softly blurred. Above everything the old chapel spire and a bell tower against a pale sky,',
-    'with a thin shadow of midnight blue creeping in from the top edge of the frame.',
-    'TITLE: painted into the art in bold elegant fantasy lettering across the upper third: THE VILLAIN DIES IN CHAPTER THREE.',
-    'Spell it exactly. No other text, no letters or numbers anywhere else in the image.',
-    'TONE: comic tension tipping into danger. Bright courtyard light on her, cool shadow on him. Faces clean and readable.',
+    'SUBJECT: Elara Wynn, the scholarship swordswoman, in the foreground of a key visual for a fantasy academy anime about a reader who wakes up as the villain of a book.',
+    'She fills the lower two thirds of the frame from the waist up, close and a little left of centre.',
+    'Dark hair cropped at the jaw and pinned back with a plain hairpin, a grey academy coat with a small scholarship pin and a mended cuff, a plain soldier’s sword in an old leather scabbard at her hip.',
+    'One hand holds her coat back from the hilt; her thumb pushes the blade an inch out of the scabbard, and that inch of bare steel flashes with a bright line of sunlight.',
+    'Her expression is furious and daring, chin up, glaring straight at the viewer.',
+    'OVER HER SHOULDER, a step behind and higher: a tall nobleman with swept silver-grey hair, a long charcoal coat with a silver tower clasp and grey gloves,',
+    'caught mid-sentence, one hand raised in a lazy dismissive gesture that is starting to falter, his smirk turning to alarm as he looks down at the blade.',
+    'BOTH FACES STAY CLEAN: no shadows, marks or effects on either face; both are fully lit and readable.',
+    'A few loose book pages drift through the air between them, edges curling and catching the light; the pages are blank, with no letters or numbers, nothing that reads as writing.',
+    'Every effect stays on the pages, the blade and the title, never on a face.',
+    'BEHIND THEM, soft and secondary: a sunlit stone academy courtyard, a blurred crowd in grey academy coats frozen mid-whisper,',
+    'and an old chapel spire with a bell tower against a pale morning sky, with a band of midnight blue creeping down from the top edge of the sky.',
+    'LIGHT: warm bright morning sun across her from the front, a cool blue rim light along his coat and silver hair.',
+    'TITLE: the title The Villain Dies in Chapter Three painted into the art across the upper third, above their heads and against the midnight-blue band,',
+    'set in capitals on two lines, THE VILLAIN DIES over IN CHAPTER THREE, as an elegant bold engraved serif book-title logo, ivory with a thin gold edge,',
+    'with a thin red ribbon bookmark trailing from the word THREE. Spelled exactly THE VILLAIN DIES IN CHAPTER THREE, large and legible at thumbnail size.',
+    'No other text anywhere.',
   ].join(' '),
   endings: [
     {
@@ -2374,7 +2383,7 @@ const raw = {
     "\"...commoner trash—\"\n\nThe words are already out. Your mouth. Not your voice. Not your body.\n\nA woman in academy grey closes her hand on a plain soldier's sword.\n\n\"Go on,\" says Elara Wynn. \"Finish it. I want every one of them to hear you.\"\n\nYou know this scene. You read it on a train, in chapter three of a novel you thought was mediocre. The spoiled noble finishes the insult. She beats him at dusk in nine seconds. He dies at midnight.\n\nYou are the spoiled noble.\n\nTwo hundred students have stopped breathing.\n\nHer thumb pushes the blade an inch out of its scabbard.\n\n\"Well, my lord? Finish the sentence.\"",
   openingPanel: {
     assetKey: 'story_the_villain_dies_in_chapter_three/opening',
-    alt: 'Elara in a grey academy coat, thumb pushing a plain sword an inch from its scabbard, glaring up across a silent sunlit stone courtyard.',
+    alt: 'Elara in a grey academy coat, thumb pushing a plain soldier’s sword an inch from its scabbard, glaring straight at you across a silent sunlit stone courtyard full of grey coats.',
   },
   openingSuggestions: [
     "\"I take it back. All of it. I'm sorry.\"",
