@@ -189,6 +189,88 @@ describe('everybody is an adult, and the bible says so', () => {
     const hits = texts.filter((t) => MINOR.test(t));
     expect(hits).toEqual([]);
   });
+
+  it('states every age in hard canon too, where the storyteller reads it', async () => {
+    const { readFileSync } = await import('node:fs');
+    const bible = readFileSync(
+      new URL('../../../docs/story-bibles/new50/02_VILLAIN_TRACK.md', import.meta.url),
+      'utf8',
+    );
+    const TENS = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+    const ONES = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    const inWords = (n: number): string => `${TENS[Math.floor(n / 10)]}${n % 10 ? `-${ONES[n % 10]}` : ''}`;
+    const canon = story.rules.hardCanon[0]!;
+    expect(canon).toMatch(/^Everyone in this story is an adult\./);
+    expect(canon).toMatch(/eighteen or older/);
+    for (const match of bible.matchAll(/^### (.+), (\d+)\s*$/gm)) {
+      expect(canon, match[1]).toMatch(new RegExp(`${match[1]}(?: is)? ${inWords(Number(match[2]))}\\b`));
+    }
+  });
+
+  it('describes people by build and costume, never by an age word', () => {
+    // Portraits and the cover are drawn from these, and an image model reads
+    // "twenty" or "student" as younger than it is.
+    const AGE_WORDS = /\b(teen\w*|girl|boy|young\w*|youth\w*|kid|child\w*|student|\d+)\b/i;
+    for (const c of story.characters) {
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (wo)?man\b/);
+      expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
+    }
+    expect(story.coverDirection).not.toMatch(AGE_WORDS);
+    expect(story.openingPanel?.alt).not.toMatch(AGE_WORDS);
+  });
+});
+
+describe('the art and release pipeline', () => {
+  it('puts the title in the art and every effect off her face', () => {
+    const cover = story.coverDirection;
+    expect(cover).toMatch(/\bTITLE:/);
+    expect(cover).toContain('"Villain Track"');
+    expect(cover).toContain('spelled exactly VILLAIN TRACK');
+    expect(cover).toContain('Celeste');
+    expect(cover).toMatch(/never on her face/i);
+    expect(cover).toMatch(/no letters and no numbers/i);
+  });
+
+  it('opens on a panel of the person asking the question', () => {
+    const panel = story.openingPanel!;
+    expect(panel.assetKey).toBe(`${story.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    // The art script takes the character whose first name starts the alt as
+    // the panel's reference portrait.
+    const subject = story.characters.find((c) => panel.alt.startsWith(c.name.split(' ')[0]!));
+    expect(subject?.id).toBe('celeste');
+    const lastBeat = story.opening.trim().split(/\n\s*\n/).at(-1)!;
+    expect(lastBeat).toContain('Celeste');
+    expect(lastBeat.trim()).toMatch(/\?"$/);
+  });
+
+  it('opens straight on the scene and is not dated yet', () => {
+    expect(story.prologue).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('calls titled people by the name the world uses', () => {
+    for (const c of story.characters.filter((x) => /^(Dean|Professor|Officer)\b/.test(x.name))) {
+      expect(c.calledName, c.id).toBeTruthy();
+      expect(c.name, c.id).toContain(c.calledName!);
+    }
+    expect(calledName(story.characters.find((c) => c.id === 'marrow')!)).toBe('Marrow');
+    expect(calledName(story.characters.find((c) => c.id === 'dray')!)).toBe('Dray');
+  });
+
+  it('puts the story’s system where the storyteller reads it', () => {
+    // runTurnPure never reads resources, step notes or locked abilities.
+    const canon = story.rules.hardCanon.join('\n');
+    expect(canon).toMatch(/villain name on Name Night/);
+    expect(canon).toMatch(/a limit and a cost/);
+    expect(canon).toMatch(/paper in front of a camera/);
+    expect(story.rules.startingItems.map((i) => i.itemId)).toContain('black_mask');
+    for (const arch of story.archetypes) {
+      expect(arch.startingAbilities.length, arch.id).toBeGreaterThan(0);
+      for (const id of arch.startingAbilities) expect(story.abilities.some((a) => a.id === id), id).toBe(true);
+    }
+    expect(story.rules.toneGuide.length).toBeGreaterThan(200);
+  });
 });
 
 describe('every launch-world invariant, applied here', () => {

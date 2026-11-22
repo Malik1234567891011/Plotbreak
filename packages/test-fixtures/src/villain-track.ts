@@ -87,19 +87,21 @@ const raw = {
       { itemId: 'acceptance_letter', qty: 1 },
     ],
     hardCanon: [
-      'Aurel Academy is a four-year, post-secondary academy for the gifted in the harbour city of Corvane. Every student is an adult, admitted at eighteen or older. The player is a first-year.',
+      'Everyone in this story is an adult. Celeste Moreau is twenty-two, Juno Pike twenty-three, Rafe Corrigan twenty, Officer Bram Tolle forty-one, Dean Marrow fifty-eight and Professor Anselm Dray sixty-three. Aurel Academy is a four-year, post-secondary academy for the gifted in the harbour city of Corvane: every student is admitted at eighteen or older, after secondary school, and the player is an adult first-year.',
       'The academy secretly runs a villain track, listed on the timetable as Applied Opposition with no room number and taught in Room Zero under the old chapel. Its masked students stage the crimes that hero students stop on camera, the villain always loses, and the one rule it says out loud is that nobody gets hurt.',
       'At the welcome masquerade, Dean Marrow handed the player a black lacquer mask and their first assignment: the First Badge off Celeste Moreau’s lapel, delivered to Room Zero by midnight.',
       'The First Badge, numbered 001, is the field licence the academy issues a year early to the top final-year on the hero programme. For the first week of term it opens every lock on campus, including one sealed drawer in the Registry.',
       'Professor Anselm Dray warned Celeste tonight that a first-year would try for her badge, and told her catching them is her final exam. Rafe Corrigan, another first-year, was given the same assignment as the player.',
       'Bridge Night, twenty-two years ago, when Dray defeated the villain called the Pale Duke on the Old Bridge, was staged. Dray wrote it. Dean Marrow is the Pale Duke. The signed script is in the sealed Registry drawer. This is discoverable and never owed to anybody.',
       'Page nine of this year’s festival script, a real charge under the east pier at 19:42 on Festival Night, was added by Dray. Marrow did not write it and does not know.',
-      'Everybody with a gift has exactly one, with limits. Nobody reads minds, nobody flies, and nobody comes back from the dead.',
+      'Everybody with a gift has exactly one, with a limit and a cost. Nobody reads minds, nobody flies, and nobody comes back from the dead. A gift used where people can see it gets remembered, and every risky move, gift or not, spends the nerve that keeps a liar’s hands steady. A night’s sleep gives the nerve back; nothing gives the memory back.',
       'The cast’s gifts: Celeste Moreau steps through light, out of one lit place and into any other lit place she can see, and in the dark she is only a very good athlete. Dean Marrow hears a lie told within ten paces as a wrong note. Juno Pike can fold anything she can palm into a pocket of air and bring it back later. Anselm Dray cannot be hurt for as long as he holds his breath. Rafe Corrigan throws any sound he has heard to anywhere he can see. Bram Tolle has no gift.',
+      'How the Track works: a recruit is only a first-year in a black mask until Room Zero gives them a villain name on Name Night, and only a named villain gets a part in a script. Marrow notices every time a recruit goes off the script, and the Track trusts that recruit a little less. Fights and gifts used in public bring Celeste and Officer Tolle closer to the face behind the black mask.',
+      'Nobody in Corvane will believe the Track exists on anybody’s word. Exposing it takes paper in front of a camera: page nine of the festival script, or the signed Bridge Night script.',
     ],
     toneGuide:
       'Sharp, quick and a little funny: a heist comedy with a conscience underneath it. Masks, lies and double meanings are the texture, and everybody in every scene is performing for somebody. ' +
-      'Fights are legible and mostly staged, and when one turns real the prose should feel the difference in the first line. Nobody bleeds on the page. The warehouse fire and the pier are told by what happened to people afterwards. ' +
+      'Fights are legible and mostly staged, and when one turns real the prose should feel the difference in the first line. Injuries stay off the page. The warehouse fire and the pier are told by what happened to people afterwards. ' +
       'Nobody on either side is a cartoon. Marrow believes in “nobody gets hurt” because he wrote it. Dray has a real argument, and the player is allowed to find it persuasive. ' +
       'Romance is rivalry first: flirtation, tension, the occasional honest moment, one kiss at most. Celeste can catch the player, outplay them and refuse them. A clumsy lift gets caught: she says the score out loud and lets go, because she wants to see the second attempt. The face at the top of a beat is Celeste’s whenever she is in the scene, and Marrow’s mask when he is. ' +
       'Refusing the badge is a real route and is never treated as failing to start the story. Never describe how the charge under the east pier is built, set or disarmed beyond somebody pulling it.',
@@ -856,7 +858,7 @@ const raw = {
         'Three rescues, three villains who fell exactly where the cameras were. Tell me that is luck. Please. I would like it to be luck.',
       ],
       appearance:
-        'Twenty-two, tall and athletic, sleek black hair in a low knot, a white silk half-mask pushed up into her hair, a fitted white gala suit with a gold badge on the lapel.',
+        'An adult woman, tall and athletic, sleek black hair in a low knot, sharp dark eyes, a white silk half-mask pushed up into her hair, and a fitted white gala suit with a small gold badge pinned on the lapel.',
       visualHook: 'A gold badge numbered 001 on a white lapel, and a white silk half-mask pushed up into her hair like sunglasses.',
       silhouette: 'Upright, one elbow on the bar, weight forward, turning a glass by its stem.',
       artSeed: 'vt-celeste-01',
@@ -948,7 +950,7 @@ const raw = {
         'You missed your cue. The house did not notice. I did.',
       ],
       appearance:
-        'Fifty-eight, very tall and thin in an immaculate black evening coat and grey gloves, a full-face mask of polished white bone with a carved, patient smile.',
+        'An older man, very tall and thin, grey hair swept straight back behind the edge of a full-face mask of polished white bone carved into a patient smile, an immaculate black evening coat, grey gloves, and a black cane with a silver head.',
       visualHook: 'A full-face mask of polished white bone, carved into a patient smile, that nobody has ever seen him take off.',
       silhouette: 'Very tall, very still, gloved hands folded on the head of a black cane.',
       artSeed: 'vt-marrow-01',
@@ -1029,7 +1031,7 @@ const raw = {
         'You get a name when you have earned one. Until then you are White Mask, and White Mask fetches coffee.',
       ],
       appearance:
-        'Twenty-three, short and wiry, cropped copper hair, a black waiter’s jacket with the sleeves pushed up, a brass stopwatch on a cord, old burn marks across the knuckles of her left hand.',
+        'An adult woman, short and wiry, cropped copper hair, quick grey eyes, a black waiter’s jacket with the sleeves pushed up over a white shirt, a brass stopwatch on a cord round her neck, and old pale burn scars across the knuckles of her left hand.',
       visualHook: 'A brass stopwatch on a cord around her neck, which she checks instead of a phone.',
       silhouette: 'Small and quick, a tray balanced on one hand, always half-turned toward an exit.',
       artSeed: 'vt-juno-01',
@@ -1109,7 +1111,7 @@ const raw = {
         'Here is what happens next, and I want to be clear it is not a threat. I write your answer down. Tomorrow I come back and see if it is still true.',
       ],
       appearance:
-        'Forty-one, heavy-set and weathered, close-cropped grey hair, a borrowed dinner jacket a size too small over a police lanyard.',
+        'An adult man, heavy-set and weathered, close-cropped grey hair, tired brown eyes, a borrowed black dinner jacket a size too small over a police lanyard, and a paper cup of coffee held in one big hand.',
       visualHook: 'A paper cup of precinct coffee he carries everywhere and never drinks.',
       silhouette: 'Broad and planted, one hand holding a paper cup, the other in the pocket of a jacket that does not fit.',
       artSeed: 'vt-tolle-01',
@@ -1189,7 +1191,7 @@ const raw = {
         'Fires can be contained. Doubts cannot. Remember that when you are frightened of the wrong thing.',
       ],
       appearance:
-        'Sixty-three, broad-shouldered and silver-haired, a famous jaw and a warm smile, a white scar through one eyebrow he points to when he tells the Bridge Night story.',
+        'An older man, broad-shouldered, thick silver hair, a famous square jaw and a warm smile, a thin white scar through one eyebrow, and a long pale-gold greatcoat over a dark dress suit, cut exactly like the bronze statue of him.',
       visualHook: 'A long pale-gold greatcoat, cut exactly like the bronze statue of him in the middle of the Quad.',
       silhouette: 'Broad, chin up, one hand raised mid-toast and the other on somebody’s shoulder.',
       artSeed: 'vt-dray-01',
@@ -1267,8 +1269,8 @@ const raw = {
         'They offered me the other side. Hero programme, real licence. All I have to do is say your name. I haven’t. I wanted you to hear that from me.',
       ],
       appearance:
-        'Twenty, lanky and sunburnt, shaggy salt-bleached hair, a day of stubble, rope-scarred fisherman’s hands, a rented tuxedo with the sleeves two inches short, a white intake mask tied badly.',
-      visualHook: 'A white intake mask tied badly and always slipping down his nose, and rope-scarred fisherman’s hands sticking out of a rented tuxedo’s short sleeves.',
+        'An adult man, lanky and sunburnt, shaggy salt-bleached hair, a day of stubble, rope-scarred fisherman’s hands, a rented black tuxedo with the sleeves two inches short, and a plain white card mask tied badly and slipping down his nose.',
+      visualHook: 'A plain white card mask tied badly and always slipping down his nose, and rope-scarred fisherman’s hands sticking out of a rented tuxedo’s short sleeves.',
       silhouette: 'Long and loose-limbed, hands always moving, leaning in as if sharing a secret.',
       artSeed: 'vt-rafe-01',
       portrait: null,
@@ -2423,13 +2425,29 @@ const raw = {
     "Every first-year at the welcome masquerade gets a white mask at the door.\n\nYou’re the only one who gets a second.\n\nA gloved hand presses it into your palm. Black lacquer, still warm. The man holding it wears a face of carved white bone.\n\n\"Dean Marrow,\" he says, as if you’d asked. \"Your letter came from my side of the academy. The side that loses. First assignment: her badge. By midnight.\"\n\nHe’s gone into the crowd before you can ask whose.\n\nSomeone leans on the bar beside you, gold badge on her lapel, and you know whose. The top hero student in the academy.\n\n\"Hi,\" she says. \"I’m Celeste. Have we met?\"",
   openingPanel: {
     assetKey: 'story_villain_track/opening',
-    alt: 'A gloved hand pressing a black lacquer mask into an open palm at a glittering masquerade, rows of white masks blurred behind.',
+    alt: 'Celeste leaning on the masquerade bar in a white gala suit, gold badge on her lapel, white half-mask pushed up into her hair, smiling at you as you hide a black lacquer mask in your palm.',
   },
   openingSuggestions: [
     '"Not yet. I’d remember that badge."',
     'I pocket the black mask and study how her badge is pinned.',
     'I lean in to admire the badge and lift it off her lapel.',
   ],
+  coverDirection: [
+    'SUBJECT: Celeste Moreau, the star of the hero programme, unmistakable in the foreground of a key visual for a superpower-academy heist anime: a glittering masquerade where a masked villain recruit has been sent to steal the badge off her lapel.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture, one elbow on a polished bar, half-turned toward the viewer over her shoulder.',
+    'Sleek black hair in a low knot, sharp dark eyes, a white silk half-mask pushed up into her hair, a fitted white gala suit with a small gold badge pinned on the lapel.',
+    'The badge is a plain gold shield with no letters and no numbers on it, and it catches the light.',
+    'Two fingers of one hand rest on the badge as if she knows exactly who is looking at it; the other hand turns a glass by its stem.',
+    'Her expression is a knowing, competitive smile, eyes straight at the viewer, one eyebrow raised.',
+    'HER FACE STAYS CLEAN: no sparkles, glints, light streaks or shadows on her face or skin.',
+    'Every gold glint and sparkle stays on the badge, the black mask and the title, never on her face.',
+    'BEHIND HER, over her other shoulder, smaller and in soft focus: a very tall, still figure in an immaculate black evening coat and grey gloves, his whole face hidden behind a mask of polished white bone carved into a patient smile,',
+    'holding out a glossy black lacquer mask with a thin gold-filled crack over one eye, offering it toward the viewer.',
+    'SETTING, soft and secondary: a masquerade under a vast glass roof at night, a blurred crowd in identical plain white masks, chandeliers, a string quartet, harbour lights beyond the glass.',
+    'LIGHT: warm gold chandelier light on her face and suit, cool blue night light through the glass roof behind, so she is rimmed in blue and lit in gold; the black lacquer mask carries one hard white highlight.',
+    'TITLE: the story title "Villain Track" painted into the art across the upper third as a bold sharp-serif heist-film logo, all capitals, VILLAIN TRACK, in bright gold letters with a glossy black lacquer outline and drop shadow.',
+    'Two words, spelled exactly VILLAIN TRACK, large and legible at thumbnail size. A hairline crack, like the one on the black mask, runs through the word VILLAIN only. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 

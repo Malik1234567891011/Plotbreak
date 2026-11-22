@@ -64,7 +64,9 @@ Everything else is open: take the badge, refuse it, tell Celeste, tell the polic
 - Marrow gave the player a black mask and the badge assignment at the masquerade.
 - Bridge Night was staged, Marrow is the Pale Duke, and the proof is in the sealed Registry drawer. This is discoverable and never owed.
 - Page nine of the festival script was written by Dray. Marrow does not know.
-- Gifts are personal and limited: one power each, with a cost.
+- Gifts are personal and limited: one power each, with a cost. A gift used in public gets remembered, and every risky move spends nerve that a night's sleep gives back.
+- A recruit has no part in a script until Room Zero gives them a villain name on Name Night. Going off the script costs the Track's trust.
+- Nobody believes the Track exists on anybody's word: exposing it takes paper in front of a camera.
 
 ## Opening scene (the opener)
 
@@ -225,5 +227,8 @@ Take the badge and deliver it · swap it for Juno's forgery so nobody knows it i
 
 ## Image plan (not generated in this pass)
 
-- **Cover:** Celeste in a white gala suit at a glass-roofed masquerade bar, a gold badge on her lapel, half-turned toward the viewer with a knowing smile; behind her, out of focus, a tall figure in a white bone mask holding out a black lacquer mask. Adults only, described by costume and pose. Title in the art when the PixAI pipeline runs.
-- **Opening panel:** a gloved hand pressing a black lacquer mask into an open palm, white masks blurred behind.
+The fixture carries all of it, to the pilot's rules (`docs/stories-50/PIPELINE.md`): people are described by costume and pose, never by age words, and every effect stays on objects and the title, never on a face.
+
+- **Cover** (`coverDirection`): Celeste from the waist up at a glass-roofed masquerade bar in a white gala suit, two fingers on the plain gold badge on her lapel, half-turned toward the viewer with a knowing smile. Behind her, smaller and out of focus, a very tall figure in a white bone mask holds out a black lacquer mask. Title painted into the upper third: VILLAIN TRACK, gold capitals with a black lacquer outline, a hairline crack through VILLAIN only. No other text, so the badge carries no number.
+- **Opening panel** (`openingPanel`, `story_villain_track/opening`): Celeste at the bar, smiling at you while you hide the black mask in your palm. She asks the opener's question, so her portrait is the panel's reference.
+- **Portraits**: every character's `appearance` starts "An adult woman", "An adult man" or "An older man". The ages live in this bible and in the first line of the fixture's hard canon.
