@@ -30,6 +30,7 @@
     "LibraryProposed.dc.html": {"x": 530, "y": 0, "w": 390, "h": 1500, "title": "Library · proposed", "page": "library"},
     "OnboardingCurrent.dc.html": {"x": 0, "y": 0, "w": 1680, "h": 960, "title": "Onboarding · current", "page": "onboarding"},
     "OnboardingProposed.dc.html": {"x": 1760, "y": 0, "w": 1760, "h": 980, "title": "Onboarding · proposed flow", "page": "onboarding"},
+    "CopyAudit.dc.html": {"x": 0, "y": 1120, "w": 1680, "h": 900, "title": "OOC overlap · original copy and tagline", "page": "onboarding"},
     "CreateCurrent.dc.html": {"x": 0, "y": 0, "w": 450, "h": 960, "title": "Create · current", "page": "create"},
     "CreateProposed.dc.html": {"x": 530, "y": 0, "w": 390, "h": 1500, "title": "Create · proposed landing", "page": "create"},
     "ProfileCurrent.dc.html": {"x": 0, "y": 0, "w": 450, "h": 960, "title": "Profile · current", "page": "profile"},
@@ -45,7 +46,7 @@
     "DetailCurrent.dc.html", "DetailProposed.dc.html",
     "PlayCurrent.dc.html", "PlayProposed.dc.html", "PlayEnd.dc.html",
     "LibraryCurrent.dc.html", "LibraryProposed.dc.html",
-    "OnboardingCurrent.dc.html", "OnboardingProposed.dc.html",
+    "OnboardingCurrent.dc.html", "OnboardingProposed.dc.html", "CopyAudit.dc.html",
     "CreateCurrent.dc.html", "CreateProposed.dc.html",
     "ProfileCurrent.dc.html", "ProfileProposed.dc.html",
     "WalletCurrent.dc.html", "WalletProposed.dc.html",
@@ -90,7 +91,6 @@
     "o2": {"x": 2160, "y": 1080, "w": 340, "fill": "purple", "page": "onboarding", "text": "2 · Pick vibes with pictures\nPick 3 tiles with art (Slow-burn romance, Dark mystery...). Feeds Picked for you and the first hero. OOC and Webtoon both ask; our current flow skips it."},
     "o3": {"x": 2560, "y": 1080, "w": 340, "fill": "purple", "page": "onboarding", "text": "3 · Name + age on one screen\nKeeps the legal 18+ gate, cuts a screen. The name is used in the very next beat, so the reason is visible."},
     "o4": {"x": 2960, "y": 1080, "w": 340, "fill": "purple", "page": "onboarding", "text": "4 · Ask for the account when there is something to save\nAfter beat 3: Save Kai's story, +600 credits. Tied to progress the player now owns. Needs product sign-off: today guests cannot reach Library."},
-
     "tCreate": {"x": 0, "y": -300, "text": "6 · Create: start from a sentence", "kind": "title1", "maxW": 1340, "page": "create"},
     "c1": {"x": 1000, "y": 0, "w": 340, "fill": "purple", "page": "create", "text": "1 · A prompt, not an empty state\nThe tab opens on a text box and example chips instead of a centred paragraph and one button. (The builder flow itself: docs/create/ooc-teardown.md.)"},
     "c2": {"x": 1000, "y": 320, "w": 340, "fill": "purple", "page": "create", "text": "2 · Remix a hit\nTemplates from trending tropes. A first world starts from a proven premise: the same tropes the story bot will target."},
@@ -102,7 +102,7 @@
     "pr3": {"x": 1000, "y": 640, "w": 340, "fill": "purple", "page": "profile", "text": "3 · The streak lives here too\nThe same 7-day strip as Home, so the daily habit has one consistent visual."},
 
     "tWallet": {"x": 0, "y": -300, "text": "8 · Wallet: earn first, then buy", "kind": "title1", "maxW": 1750, "page": "wallet"},
-    "w1": {"x": 1410, "y": 0, "w": 340, "fill": "purple", "page": "wallet", "text": "1 · Turns, not credits\nLead with \"about 37 turns left\". Credits are an abstraction; turns are what people are buying. The pack list already computes turns; promote them."},
+    "w1": {"x": 1410, "y": 0, "w": 340, "fill": "purple", "page": "wallet", "text": "1 · Turns, not credits\nLead with \"about 9 turns left\" (600 credits at ~62 a turn on Vivid). Credits are an abstraction; turns are what people are buying. The pack list already computes turns; promote them."},
     "w2": {"x": 1410, "y": 320, "w": 340, "fill": "purple", "page": "wallet", "text": "2 · The daily claim is a calendar\nA 7-day strip with a day-7 bonus replaces the \"Claim 300 daily credits\" bar. Missing a day visibly costs something."},
     "w3": {"x": 1410, "y": 640, "w": 340, "fill": "purple", "page": "wallet", "text": "3 · Free ways to earn, above the packs\nTower, missions, invite. Players who earn come back, and payers come from players who come back."},
     "w4": {"x": 1410, "y": 960, "w": 340, "fill": "purple", "page": "wallet", "text": "4 · Packs as a grid\nTwo columns, turns as the headline, one Best value tag. The Pass keeps its own card on top."},

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Profile proposed</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#08090E}
+.d{font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-0.01em}
+.h{font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;font-size:20px;letter-spacing:-0.01em;margin:0;color:#F7F8FA}
+.pin{display:inline-flex;flex:none;width:22px;height:22px;border-radius:11px;background:#FFE14D;color:#14120A;font:800 12px Inter,sans-serif;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(255,225,77,0.28)}
+</style>
+</helmet>
+<div style="width:390px;height:1300px;position:relative;overflow:hidden;background:#08090E;color:#F7F8FA;font-family:Inter,system-ui,sans-serif">
+  <div style="position:absolute;left:0;right:0;top:0;height:260px;background:radial-gradient(120% 90% at 30% 0%,#2B2160 0%,#08090E 70%)"></div>
+  <div style="position:relative;height:54px"></div>
+  <div style="position:relative;display:flex;justify-content:flex-end;padding:0 16px">
+    <button aria-label="Settings" style="width:38px;height:38px;border-radius:19px;border:0;background:rgba(255,255,255,0.08);color:#E7EAF0;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"></path></svg></button>
+  </div>
+  <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:-6px">
+    <div style="width:96px;height:96px;border-radius:48px;padding:3px;box-sizing:border-box;background:conic-gradient(#7C6CFF 0 62%,#2A2F3F 62% 100%)">
+      <div style="width:90px;height:90px;border-radius:45px;background:#1B1730;border:3px solid #08090E;box-sizing:border-box;display:flex;align-items:center;justify-content:center" class="d"><span style="font-size:36px;color:#C9C2FF">K</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px"><span class="d" style="font-size:26px">Kai</span><span class="pin">1</span></div>
+    <div style="font-size:14px;color:#B3B9C6">Level 3 storyteller · 62% to level 4</div>
+  </div>
+
+  <div style="position:relative;margin:20px 16px 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-radius:16px;background:#12141C;border:1px solid #20243A">
+    <sc-for list="{{stats}}" as="s" hint-placeholder-count="4">
+      <div style="padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:2px"><span class="d" style="font-size:20px;color:{{s.c}}">{{s.v}}</span><span style="font-size:12px;color:#9AA1AF">{{s.k}}</span></div>
+    </sc-for>
+  </div>
+
+  <!-- Streak -->
+  <div style="margin:16px 16px 0;padding:14px;border-radius:16px;background:#14161F;border:1px solid #23283A">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <svg width="16" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 3.5-1.5 5-1.5 7.5 0 1.3 1 2.5 2.5 2.5 2 0 3-1.7 2.6-4C18 10 20 12.6 20 15.5 20 19.6 16.4 22 12 22s-8-2.4-8-6.5C4 10 9.5 7.5 12 2z" fill="#FF4F6E"></path></svg>
+      <span style="font-size:15px;font-weight:700">4-day streak</span><span style="font-size:12px;color:#9AA1AF">· best 4</span><span class="pin" style="margin-left:auto">3</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">
+      <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;height:34px;border-radius:9px;background:{{d.bg}};color:{{d.fg}};font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">{{d.v}}</div><span style="font-size:11px;color:#8E95A4">{{d.day}}</span></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Relics -->
+  <div style="margin:26px 16px 0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px"><h2 class="h">Relic vault</h2><span class="pin">2</span></div>
+      <span style="font-size:14px;font-weight:700;color:#FFD475">2 of 34</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+      <sc-for list="{{relics}}" as="r" hint-placeholder-count="8">
+        <div style="aspect-ratio:1/1;border-radius:14px;background:{{r.bg}};border:{{r.border}};display:flex;align-items:center;justify-content:center">
+          <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="{{r.icon}}" fill="{{r.fill}}"></path></svg>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font-size:13px;color:#9AA1AF;margin-top:10px">Next: the Uchiha crest is hidden somewhere in Itachi, night 2.</div>
+  </div>
+
+  <!-- Badges -->
+  <div style="margin:26px 16px 0">
+    <h2 class="h" style="margin-bottom:12px">Badges</h2>
+    <div style="display:flex;gap:10px">
+      <sc-for list="{{badges}}" as="b" hint-placeholder-count="3">
+        <div style="flex:1;padding:12px 10px;border-radius:14px;background:#12141C;border:1px solid #20243A;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;opacity:{{b.o}}">
+          <span style="width:40px;height:40px;border-radius:20px;background:{{b.c}};display:flex;align-items:center;justify-content:center;color:#0B0D12;font-weight:900" class="d">{{b.i}}</span>
+          <span style="font-size:13px;font-weight:700">{{b.t}}</span><span style="font-size:11px;color:#9AA1AF;line-height:1.3">{{b.d}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <nav aria-label="Tabs" style="position:absolute;left:0;right:0;bottom:0;height:84px;background:rgba(10,11,16,0.92);border-top:1px solid #1C2030;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding-top:8px;box-sizing:border-box">
+    <sc-for list="{{nav}}" as="t" hint-placeholder-count="4">
+      <a href="#" style="display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:{{t.color}};font-size:11px;font-weight:600">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.icon}}"></path></svg>
+        {{t.label}}
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const gem = 'M12 2l7 6-7 14L5 8z', crest = 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 4a5 5 0 110 10 5 5 0 010-10z';
+    const found = (icon, fill, bg) => ({ icon, fill, bg, border: '1px solid ' + fill });
+    const lock = { icon: 'M12 3a9 9 0 100 18 9 9 0 000-18z', fill: '#1E2230', bg: '#0F1118', border: '1px solid #1E2230' };
+    const done = { bg: '#2A2140', fg: '#C9C2FF' };
+    return {
+      stats: [{ v: '3', k: 'stories', c: '#F7F8FA' }, { v: '47', k: 'beats', c: '#F7F8FA' }, { v: '3', k: 'endings', c: '#C9C2FF' }, { v: '4', k: 'day streak', c: '#FF8FA3' }],
+      days: [
+        Object.assign({ day: 'M', v: '✓' }, done), Object.assign({ day: 'T', v: '✓' }, done), Object.assign({ day: 'W', v: '✓' }, done),
+        { day: 'T', v: '✓', bg: '#FF4F6E', fg: '#fff' }, { day: 'F', v: '', bg: '#191C27', fg: '#8E95A4' }, { day: 'S', v: '', bg: '#191C27', fg: '#8E95A4' }, { day: 'S', v: '+1K', bg: '#191C27', fg: '#FFD475' }
+      ],
+      relics: [found(gem, '#A99FFF', '#1B1730'), found(crest, '#FFC24B', '#2A2210'), lock, lock, lock, lock, lock, lock],
+      badges: [
+        { i: 'B', t: 'Back For More', d: 'Returned to a world', c: '#9FF0C9', o: '1' },
+        { i: 'D', t: 'Deep In', d: '50 turns in one run', c: '#C9C2FF', o: '0.45' },
+        { i: 'N', t: 'No Expense Spared', d: '50 turns at top quality', c: '#FFD475', o: '0.45' }
+      ],
+      nav: [
+        { label: 'Home', color: '#7E8595', icon: 'M3 10.5L12 3l9 7.5V21h-6v-6H9v6H3z' },
+        { label: 'Library', color: '#7E8595', icon: 'M4 4h4v16H4zM10 4h4v16h-4zM16 5l3.5-1 2.5 15-3.5 1z' },
+        { label: 'Create', color: '#7E8595', icon: 'M12 3v18M3 12h18' },
+        { label: 'Profile', color: '#F7F8FA', icon: 'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 3.6-6 8-6s8 2 8 6' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

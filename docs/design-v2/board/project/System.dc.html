@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Night Broadcast design system</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
+<style>
+body{margin:0;background:#08090E}
+.d{font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-0.01em}
+.serif{font-family:'Source Serif 4',Georgia,serif}
+.k{font-size:12px;font-weight:800;letter-spacing:0.14em;color:#A99FFF}
+.sec{display:flex;flex-direction:column;gap:18px}
+.sec h2{margin:0;font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;font-size:30px;color:#F7F8FA}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#9AA1AF}
+.cell{padding:12px 14px;border-top:1px solid #1C2030;font-size:13px;line-height:1.4}
+</style>
+</helmet>
+<div style="width:1440px;height:2400px;box-sizing:border-box;padding:56px;background:#08090E;color:#F7F8FA;font-family:Inter,system-ui,sans-serif;display:flex;flex-direction:column;gap:56px">
+
+  <!-- Header -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span class="k">DESIGN SYSTEM</span>
+      <div class="d" style="font-size:64px;line-height:0.95">Night Broadcast</div>
+      <div style="font-size:16px;color:#B3B9C6;max-width:640px;line-height:1.5">A late-night channel: the art is the picture, the chrome is the on-screen graphics. Every token below maps to SwiftUI; the board uses Archivo and Source Serif 4 as web stand-ins for SF Pro Expanded and New York.</div>
+    </div>
+    <div style="display:flex;gap:12px">
+      <sc-for list="{{principles}}" as="p" hint-placeholder-count="3">
+        <div style="width:220px;padding:16px;border-radius:16px;background:#12141C;border:1px solid #20243A;display:flex;flex-direction:column;gap:6px">
+          <span class="d" style="font-size:17px">{{p.t}}</span>
+          <span style="font-size:13px;line-height:1.45;color:#B3B9C6">{{p.d}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Type -->
+  <div class="sec">
+    <span class="k">01 · TYPE</span>
+    <h2>Seven roles, three faces</h2>
+    <div role="table" style="border:1px solid #23283A;border-radius:16px;overflow:hidden">
+      <div role="row" style="display:grid;grid-template-columns:150px minmax(0,1fr) 200px 340px 150px;background:#151822;font-size:12px;font-weight:800;letter-spacing:0.08em;color:#9AA1AF">
+        <span role="columnheader" class="cell" style="border:0">ROLE</span><span role="columnheader" class="cell" style="border:0">SAMPLE</span><span role="columnheader" class="cell" style="border:0">SIZE / WEIGHT</span><span role="columnheader" class="cell" style="border:0">SWIFTUI</span><span role="columnheader" class="cell" style="border:0">TODAY</span>
+      </div>
+      <sc-for list="{{type}}" as="t" hint-placeholder-count="7">
+        <div role="row" style="display:grid;grid-template-columns:150px minmax(0,1fr) 200px 340px 150px;align-items:center">
+          <span role="cell" class="cell" style="font-weight:700">{{t.role}}</span>
+          <span role="cell" class="cell" style="font-family:{{t.ff}};font-size:{{t.fs}};font-weight:{{t.fw}};font-stretch:{{t.st}};line-height:1.15;letter-spacing:{{t.ls}};color:{{t.c}};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{t.sample}}</span>
+          <span role="cell" class="cell" style="color:#C3C9D4">{{t.spec}}</span>
+          <span role="cell" class="cell mono">{{t.swift}}</span>
+          <span role="cell" class="cell" style="color:#9AA1AF">{{t.cur}}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font-size:13px;color:#9AA1AF">All roles scale with Dynamic Type (relativeTo:). Narration keeps a 66-character measure: 16 pt side gutters on phone, max width 560 on iPad.</div>
+  </div>
+
+  <!-- Color -->
+  <div class="sec">
+    <span class="k">02 · COLOR</span>
+    <h2>Ink, three text greys, three signals</h2>
+    <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px">
+      <sc-for list="{{colors}}" as="c" hint-placeholder-count="12">
+        <div style="border-radius:16px;overflow:hidden;border:1px solid #23283A;background:#12141C">
+          <div style="height:84px;background:{{c.hex}};display:flex;align-items:flex-end;padding:10px;box-sizing:border-box"><span style="font-size:12px;font-weight:800;color:{{c.on}}">{{c.hex}}</span></div>
+          <div style="padding:10px 12px;display:flex;flex-direction:column;gap:3px">
+            <span style="font-size:14px;font-weight:700">{{c.name}}</span>
+            <span style="font-size:12px;color:#9AA1AF;line-height:1.35">{{c.role}}</span>
+            <span style="font-size:12px;font-weight:700;color:{{c.okc}}">{{c.cr}}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:12px">
+      <sc-for list="{{colorRules}}" as="r" hint-placeholder-count="3">
+        <div style="flex:1;padding:14px 16px;border-radius:14px;background:{{r.bg}};border:1px solid {{r.b}};font-size:13px;line-height:1.5;color:#D5DAE3"><b style="color:{{r.h}}">{{r.t}}</b> {{r.d}}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Spacing + radii -->
+  <div style="display:flex;gap:40px">
+    <div class="sec" style="flex:1">
+      <span class="k">03 · SPACING</span>
+      <h2>4-pt grid, three rhythms</h2>
+      <div style="display:flex;align-items:flex-end;gap:14px;height:90px">
+        <sc-for list="{{space}}" as="s" hint-placeholder-count="8">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:{{s.px}};height:{{s.px}};background:#7C6CFF;border-radius:3px;opacity:0.85"></span><span style="font-size:12px;color:#B3B9C6">{{s.v}}</span></div>
+        </sc-for>
+      </div>
+      <div style="font-size:13px;color:#B3B9C6;line-height:1.6">Screen gutter <b style="color:#F7F8FA">16</b> · card to card <b style="color:#F7F8FA">10</b> · inside a card <b style="color:#F7F8FA">12–16</b> · row header to row <b style="color:#F7F8FA">12</b> · row to row <b style="color:#F7F8FA">28</b> · tap targets <b style="color:#F7F8FA">44 min</b></div>
+    </div>
+    <div class="sec" style="flex:1">
+      <span class="k">04 · RADII</span>
+      <h2>Small art, big sheets</h2>
+      <div style="display:flex;align-items:flex-end;gap:16px;height:90px">
+        <sc-for list="{{radii}}" as="r" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:64px;height:64px;border-radius:{{r.px}};border:2px solid #A99FFF;background:#1B1730"></span><span style="font-size:12px;color:#B3B9C6;text-align:center">{{r.v}}</span></div>
+        </sc-for>
+      </div>
+      <div style="font-size:13px;color:#B3B9C6;line-height:1.6">Covers 10 · chips and inputs 14 · cards 16 · hero, sheets, the prompt box 20 · buttons and pills fully round. Use <span class="mono">.continuous</span> corners everywhere.</div>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="sec">
+    <span class="k">05 · CARDS</span>
+    <h2>Four cards build every shelf</h2>
+    <div style="display:flex;gap:28px;align-items:flex-start">
+
+      <div style="display:flex;flex-direction:column;gap:10px;width:200px">
+        <div style="position:relative;width:132px">
+          <img src="/_blob/2c7959d4b1a299084161312e9900f8ba" alt="" style="width:132px;height:198px;border-radius:10px;object-fit:cover;display:block">
+          <span style="position:absolute;top:8px;left:8px;height:20px;padding:0 6px;border-radius:5px;background:#FFC24B;color:#221800;font-size:10px;font-weight:800;display:flex;align-items:center">#1 THIS WEEK</span>
+        </div>
+        <div style="font-size:14px;font-weight:700">Itachi</div>
+        <div style="font-size:12px;color:#9AA1AF">2.9M plays · Studios</div>
+        <div style="font-size:12px;color:#C3C9D4;line-height:1.45;margin-top:4px"><b style="color:#F7F8FA">Cover</b> 2:3, radius 10. One tag max, top-left. Title 14 semibold, meta 12. Widths 108 / 132 / 168.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;width:300px">
+        <div style="width:300px;border-radius:16px;overflow:hidden;background:#12141C;border:1px solid #20243A">
+          <div style="height:150px;position:relative"><img src="/_blob/8ab86ee609616f3dda750032e6b29452" alt="" style="width:100%;height:100%;object-fit:cover"><span style="position:absolute;top:10px;left:10px;height:22px;padding:0 8px;border-radius:11px;background:#7C6CFF;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:3px;background:#fff"></span>YOUR TURN</span><span style="position:absolute;left:0;bottom:0;height:3px;width:30%;background:#A99FFF"></span></div>
+          <div style="padding:12px"><div class="serif" style="font-size:15px;line-height:1.45">Sasuke is still holding the shuriken out to you.</div><div style="font-size:12px;color:#9AA1AF;margin-top:6px">Itachi · beat 3 · 2h ago</div></div>
+        </div>
+        <div style="font-size:12px;color:#C3C9D4;line-height:1.45"><b style="color:#F7F8FA">Continue</b> 16:9 art, the last line in serif, progress on the art's bottom edge. The YOUR TURN pill is 13 pt+ bold so white on violet passes as large text.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;width:150px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:96px">
+          <img src="/_blob/4519fcb79e9f0fca2fd3c7d6dce03958" alt="" style="width:80px;height:80px;border-radius:40px;object-fit:cover;border:2px solid #2A2F3F">
+          <span style="font-size:13px;font-weight:700">Sasuke</span><span style="font-size:11px;color:#9AA1AF">Itachi</span>
+        </div>
+        <div style="font-size:12px;color:#C3C9D4;line-height:1.45"><b style="color:#F7F8FA">Character</b> circle 80, 2 pt ring (violet when they are in your active run). ~5 per story.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;width:280px">
+        <div style="width:280px;border-radius:16px;overflow:hidden;position:relative;height:200px">
+          <img src="/_blob/16b4c9b000e1ac3ecdda9587fadd344a" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,14,0) 30%,rgba(8,9,14,0.92) 100%)"></div>
+          <div style="position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-direction:column;gap:8px"><div class="serif" style="font-size:15px;line-height:1.4">"Don't open it. Whatever it says, don't."</div><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;color:#C3C9D4">Hush House · 312 players</span><span style="height:26px;padding:0 10px;border-radius:13px;background:#F7F8FA;color:#0B0D12;font-size:12px;font-weight:700;display:flex;align-items:center">Play from here</span></div></div>
+        </div>
+        <div style="font-size:12px;color:#C3C9D4;line-height:1.45"><b style="color:#F7F8FA">Moment</b> 7:5 scene image, one quoted line, a jump-in button. From other players' runs, never the viewer's own.</div>
+      </div>
+
+      <div style="flex:1;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:14px;font-weight:700">Tags</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{tags}}" as="t" hint-placeholder-count="5">
+            <span style="height:22px;padding:0 8px;border-radius:6px;background:{{t.bg}};color:{{t.fg}};font-size:11px;font-weight:800;letter-spacing:0.06em;display:flex;align-items:center">{{t.t}}</span>
+          </sc-for>
+        </div>
+        <div style="font-size:12px;color:#C3C9D4;line-height:1.5">One tag per card. Coral and gold carry dark ink text: white on coral is 3.2:1 and fails at 11 pt.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Motion -->
+  <div class="sec">
+    <span class="k">06 · MOTION</span>
+    <h2>Things move when something happened</h2>
+    <div role="table" style="border:1px solid #23283A;border-radius:16px;overflow:hidden">
+      <div role="row" style="display:grid;grid-template-columns:220px minmax(0,1fr) 330px 260px;background:#151822;font-size:12px;font-weight:800;letter-spacing:0.08em;color:#9AA1AF">
+        <span role="columnheader" class="cell" style="border:0">MOMENT</span><span role="columnheader" class="cell" style="border:0">WHAT MOVES</span><span role="columnheader" class="cell" style="border:0">SWIFTUI</span><span role="columnheader" class="cell" style="border:0">REDUCE MOTION</span>
+      </div>
+      <sc-for list="{{motion}}" as="m" hint-placeholder-count="7">
+        <div role="row" style="display:grid;grid-template-columns:220px minmax(0,1fr) 330px 260px">
+          <span role="cell" class="cell" style="font-weight:700">{{m.k}}</span>
+          <span role="cell" class="cell" style="color:#D5DAE3">{{m.d}}</span>
+          <span role="cell" class="cell mono">{{m.s}}</span>
+          <span role="cell" class="cell" style="color:#9AA1AF">{{m.r}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const ex = "'Archivo',sans-serif", ui = 'Inter,sans-serif', se = "'Source Serif 4',Georgia,serif";
+    const t = (role, sample, ff, fs, fw, st, ls, c, spec, swift, cur) => ({ role, sample, ff, fs, fw, st, ls, c, spec, swift, cur });
+    const pass = '#9FF0C9', warn = '#FFD475', fail = '#FF8FA3';
+    const col = (hex, name, role, cr, okc, on) => ({ hex, name, role, cr, okc, on });
+    return {
+      principles: [
+        { t: 'Art leads', d: 'Covers, key art and portraits fill the frame. Chrome sits on top in glass or fades away.' },
+        { t: 'Numbers are content', d: 'Plays, ranks, streaks and turns left are set big. Proof is the decoration.' },
+        { t: 'One signal at a time', d: 'Coral means live or new, gold means value, violet means you. Never two on one card.' }
+      ],
+      type: [
+        t('Title card', 'ITACHI', ex, '44px', '900', '125%', '-0.01em', '#F7F8FA', '40 / Black, Expanded', '.system(size:40, weight:.black).width(.expanded)', 'display 32 bold'),
+        t('Screen title', 'Create', ex, '30px', '800', '118%', '-0.01em', '#F7F8FA', '30 / Heavy, Expanded', '.system(size:30, weight:.heavy).width(.expanded)', 'h1 26'),
+        t('Row header', 'Top 10 today', ex, '20px', '800', '112%', '-0.01em', '#F7F8FA', '20 / Heavy, Expanded', '.title3.weight(.heavy).width(.expanded)', 'h3 18 semibold'),
+        t('Narration', 'She looks at Sasuke. Then at you.', se, '18px', '400', '100%', '0', '#F7F8FA', '18 / Regular, lh 1.6', '.system(.body, design:.serif)', 'body 17 sans'),
+        t('Body / UI', 'Pick three. Your first stories come from these.', ui, '16px', '500', '100%', '0', '#D5DAE3', '16 / Medium', '.body (SF Pro Text)', 'body 17'),
+        t('Meta', '2.9M plays · Plotbreak Studios', ui, '13px', '600', '100%', '0', '#B3B9C6', '13 / Semibold', '.footnote.weight(.semibold)', 'caption 13'),
+        t('Kicker', 'UCHIHA DISTRICT · 9:40 PM', ui, '12px', '800', '100%', '0.14em', '#C9C2FF', '12 / Heavy, caps, +14%', '.caption.weight(.heavy).tracking(1.6)', 'micro 11')
+      ],
+      colors: [
+        col('#08090E', 'Ink', 'App background (today #0B0D12)', 'base', '#9AA1AF', '#9AA1AF'),
+        col('#12141C', 'Raised', 'Cards, sheets, inputs', 'surface', '#9AA1AF', '#9AA1AF'),
+        col('#F7F8FA', 'Text 1', 'Titles, narration, light CTA fill', '18.7 : 1 AAA', pass, '#0B0D12'),
+        col('#B3B9C6', 'Text 2', 'Body, captions', '10.1 : 1 AAA', pass, '#0B0D12'),
+        col('#9AA1AF', 'Text 3', 'Meta, the dimmest text allowed', '7.7 : 1 AAA', pass, '#0B0D12'),
+        col('#707888', 'Muted (today)', 'textMuted in Theme.swift: retire it', '4.4 : 1 fails AA', fail, '#F7F8FA'),
+        col('#7C6CFF', 'Violet', 'You: your run, your turn, selection', '5.2 : 1 on ink', pass, '#F7F8FA'),
+        col('#A99FFF', 'Violet light', 'Violet as text, progress', '8.6 : 1 AAA', pass, '#0B0D12'),
+        col('#FF4F6E', 'Coral', 'Live, new, streak. Replaces pink #FF6B9E', '6.2 : 1 on ink', pass, '#0B0D12'),
+        col('#FFC24B', 'Gold', 'Credits, rank, rewards', '12.4 : 1 AAA', pass, '#221800'),
+        col('#9FF0C9', 'Mint', 'Up-trends, done states only', '14.9 : 1 AAA', pass, '#0B0D12'),
+        col('#FFE14D', 'Pin yellow', 'Board annotations only, never in app', 'board only', warn, '#14120A')
+      ],
+      colorRules: [
+        { t: 'Light CTA, not violet CTA.', d: 'The main button is #F7F8FA with ink text (18.3:1). White on violet is 3.9:1: fine at 18 pt bold, not for 15 pt labels.', bg: '#12141C', b: '#23283A', h: '#F7F8FA' },
+        { t: 'Ink text on coral and gold.', d: 'White on coral is 3.2:1. Small tags use #0B0D12 or #221800 on the fill.', bg: '#12141C', b: '#23283A', h: '#FF8FA3' },
+        { t: 'Retire #707888.', d: 'It is 4.4:1 on the current background and 4.1:1 on cards. #9AA1AF is the floor; #7E8595 (5.4:1) only for disabled tabs.', bg: '#2A1219', b: '#5A1A2E', h: '#FF8FA3' }
+      ],
+      space: [4, 8, 12, 16, 20, 24, 32, 48].map((v) => ({ v: String(v), px: Math.round(v * 1.3) + 'px' })),
+      radii: [{ v: '10 cover', px: '10px' }, { v: '14 chip', px: '14px' }, { v: '16 card', px: '16px' }, { v: '20 sheet', px: '20px' }, { v: '28 device', px: '28px' }, { v: 'full pill', px: '32px' }],
+      tags: [
+        { t: 'NEW', bg: '#FF4F6E', fg: '#0B0D12' },
+        { t: '#1 THIS WEEK', bg: '#FFC24B', fg: '#221800' },
+        { t: 'YOUR TURN', bg: '#7C6CFF', fg: '#FFFFFF' },
+        { t: 'STUDIOS', bg: '#1E2232', fg: '#C9C2FF' },
+        { t: '1.2K PLAYING', bg: '#2A1219', fg: '#FF8FA3' }
+      ],
+      motion: [
+        { k: 'Hero advances', d: 'Crossfade to the next story; the art drifts to 1.04 scale over the 6 s it is on screen; progress bar fills.', s: '.animation(.easeInOut(duration:0.4)) + scaleEffect over 6 s, linear', r: 'No auto-advance; swipe only' },
+        { k: 'Card press', d: 'Scale to 0.97 while held, spring back on release. Same on every tappable card.', s: '.spring(response:0.3, dampingFraction:0.7)', r: 'Opacity 0.8, no scale' },
+        { k: 'New beat arrives', d: 'Scene card un-blurs from 12 pt to 0 and fades in; narration streams after it.', s: 'blur(radius:) + opacity, .easeOut(0.5)', r: 'Fade only, 0.2 s' },
+        { k: 'Something changed', d: 'Delta chip slides up 12 pt and fades in, holds 2.5 s, then folds into the beat.', s: 'transition(.move(edge:.bottom).combined(with:.opacity)), 0.25 s', r: 'Fade only' },
+        { k: 'Streak +1, claim', d: 'Flame bounces once; the number rolls; one success haptic.', s: 'contentTransition(.numericText()) + .sensoryFeedback(.success)', r: 'Number swaps, haptic stays' },
+        { k: 'Top 10 reset', d: 'At midnight ranks re-sort with a matched-geometry move; climbers flash a mint arrow.', s: 'matchedGeometryEffect, .smooth(duration:0.5)', r: 'Re-sort with no movement' },
+        { k: 'Never', d: 'No looping shimmer on loaded content, no parallax on text, no animation on scroll alone.', s: 'redacted(.placeholder) only while loading', r: 'n/a' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wallet proposed</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#08090E}
+.d{font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-0.01em}
+.h{font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;font-size:20px;letter-spacing:-0.01em;margin:0;color:#F7F8FA}
+.pin{display:inline-flex;flex:none;width:22px;height:22px;border-radius:11px;background:#FFE14D;color:#14120A;font:800 12px Inter,sans-serif;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(255,225,77,0.28)}
+</style>
+</helmet>
+<div style="width:390px;height:1600px;position:relative;overflow:hidden;background:#08090E;color:#F7F8FA;font-family:Inter,system-ui,sans-serif">
+  <div style="height:54px"></div>
+  <div style="display:flex;align-items:center;gap:10px;padding:2px 12px 12px">
+    <button aria-label="Back" style="width:36px;height:36px;border-radius:18px;border:0;background:#161923;color:#E7EAF0;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+    <span style="flex:1;font-size:17px;font-weight:700">Wallet</span>
+    <span style="font-size:14px;font-weight:600;color:#B3B9C6">History</span>
+  </div>
+
+  <!-- Balance -->
+  <div style="margin:0 16px;padding:20px;border-radius:20px;background:radial-gradient(120% 120% at 0% 0%,#3A2D08 0%,#14161F 60%);border:1px solid #4A3A12;display:flex;flex-direction:column;gap:6px">
+    <div style="display:flex;align-items:center;gap:8px"><span style="font-size:12px;font-weight:800;letter-spacing:0.1em;color:#FFD475">YOU CAN PLAY</span><span class="pin">1</span></div>
+    <div class="d" style="font-size:48px;line-height:1">≈ 9 turns</div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:14px;color:#C3C9D4">
+      <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#FFC24B"></circle><path d="M12 6l4 6-4 6-4-6z" fill="#7A5300"></path></svg>
+      600 credits · about 62 a turn on Vivid
+    </div>
+  </div>
+
+  <!-- Daily -->
+  <div style="margin:16px 16px 0;padding:14px;border-radius:16px;background:#14161F;border:1px solid #23283A;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:8px"><div><div style="font-size:15px;font-weight:700">Daily credits · day 4</div><div style="font-size:12px;color:#9AA1AF">Day 7 pays 1,000 · resets in 6h 12m</div></div><span class="pin">2</span></div>
+      <button style="height:36px;padding:0 16px;border-radius:18px;border:0;background:#FFC24B;color:#221800;font:800 14px Inter,sans-serif">Claim +300</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">
+      <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+        <div style="height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;background:{{d.bg}};color:{{d.fg}};border:{{d.border}}">{{d.v}}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Earn -->
+  <div style="margin:26px 16px 0">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><h2 class="h">Free ways to earn</h2><span class="pin">3</span></div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{earn}}" as="e" hint-placeholder-count="3">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:#12141C;border:1px solid #20243A">
+          <span style="width:40px;height:40px;border-radius:12px;background:{{e.bg}};display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{e.fg}}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{e.icon}}"></path></svg></span>
+          <div style="flex:1"><div style="font-size:15px;font-weight:700">{{e.t}}</div><div style="font-size:12px;color:#9AA1AF">{{e.d}}</div></div>
+          <span style="font-size:13px;font-weight:800;color:#FFD475">{{e.r}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Pass -->
+  <div style="margin:26px 16px 0;padding:16px;border-radius:18px;background:linear-gradient(160deg,#2A2160 0%,#14161F 70%);border:1px solid #4A3E9A;display:flex;flex-direction:column;gap:10px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="d" style="font-size:22px">Plotbreak Pass</span><span style="font-size:14px;font-weight:700;color:#C9C2FF">$2.99 / week</span></div>
+    <div style="font-size:14px;line-height:1.5;color:#D5DAE3">+400 credits every day on top of the free 300: about 6 more turns a day. Request a story; the top request each month gets made.</div>
+    <button style="height:46px;border-radius:23px;border:0;background:#F7F8FA;color:#0B0D12;font:700 15px Inter,sans-serif">Get the Pass</button>
+  </div>
+
+  <!-- Packs -->
+  <div style="margin:26px 16px 0">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><h2 class="h">Credit packs</h2><span class="pin">4</span></div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+      <sc-for list="{{packs}}" as="p" hint-placeholder-count="6">
+        <div style="position:relative;padding:14px;border-radius:16px;background:#12141C;border:{{p.border}};display:flex;flex-direction:column;gap:4px">
+          <sc-if value="{{p.tag}}" hint-placeholder-val="{{false}}"><span style="position:absolute;top:-9px;left:12px;height:18px;padding:0 7px;border-radius:5px;background:{{p.tagBg}};color:#0B0D12;font-size:10px;font-weight:800;letter-spacing:0.06em;display:flex;align-items:center">{{p.tag}}</span></sc-if>
+          <span class="d" style="font-size:24px">{{p.turns}}</span>
+          <span style="font-size:12px;color:#9AA1AF">{{p.credits}}</span>
+          <span style="margin-top:8px;height:34px;border-radius:17px;background:#1E2232;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center">{{p.price}}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="text-align:center;font-size:12px;color:#8E95A4;margin-top:14px">Restore purchases · Credits never expire</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const done = { v: '✓', bg: '#2A2140', fg: '#C9C2FF', border: '1px solid #3B2F63' };
+    const next = { v: '+300', bg: '#191C27', fg: '#8E95A4', border: '1px solid #262B3B' };
+    const plain = '1px solid #23283A';
+    return {
+      days: [done, done, done, { v: '+300', bg: '#FFC24B', fg: '#221800', border: '1px solid #FFC24B' }, next, next, { v: '+1K', bg: '#191C27', fg: '#FFD475', border: '1px dashed #6B5520' }],
+      earn: [
+        { t: 'Climb the Tower', d: 'One climb a day · your first this week is free', r: 'Free', icon: 'M6 21V8l6-5 6 5v13M10 21v-5h4v5', bg: '#1B1730', fg: '#C9C2FF' },
+        { t: 'Welcome missions', d: '4 of 5 left', r: '+1,300', icon: 'M9 11l3 3 8-8M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2h9', bg: '#0F2A22', fg: '#9FF0C9' },
+        { t: 'Bring a friend', d: 'When they reach beat 5', r: '+600', icon: 'M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM19 8v6M22 11h-6', bg: '#2A1219', fg: '#FF8FA3' }
+      ],
+      packs: [
+        { turns: '16 turns', credits: '1,000 credits', price: '$1.49', border: plain, tag: '', tagBg: '' },
+        { turns: '33 turns', credits: '2,000 credits', price: '$2.89', border: plain, tag: '', tagBg: '' },
+        { turns: '171 turns', credits: '10,300 credits', price: '$14.49', border: '1.5px solid #7C6CFF', tag: 'POPULAR', tagBg: '#A99FFF' },
+        { turns: '350 turns', credits: '21,000 credits', price: '$28.49', border: plain, tag: '', tagBg: '' },
+        { turns: '891 turns', credits: '53,500 credits', price: '$71.00', border: '1.5px solid #FFC24B', tag: 'BEST VALUE', tagBg: '#FFC24B' },
+        { turns: '1,833 turns', credits: '110,000 credits', price: '$142.99', border: plain, tag: '', tagBg: '' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

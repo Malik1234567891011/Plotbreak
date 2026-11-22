@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OOC overlap and original copy</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+.d{font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-0.01em}
+</style>
+</helmet>
+<div style="width:1680px;height:900px;box-sizing:border-box;padding:36px 40px;background:#0B0D12;color:#F7F8FA;font-family:Inter,system-ui,sans-serif;display:flex;gap:40px">
+
+  <div style="flex:1.25;min-width:0;display:flex;flex-direction:column;gap:14px">
+    <div style="font-size:13px;font-weight:800;letter-spacing:0.14em;color:#FF8FA3">WHERE THE APP REPEATS OOC</div>
+    <h2 class="d" style="margin:0;font-size:30px">Seven strings, one tagline</h2>
+    <div style="font-size:14px;color:#9AA1AF;line-height:1.5">OOC copy from its App Store listing and public web locale files (research.md, section 2.1). Ours from apps/ios/Plotbreak/Resources/i18n/en.json.</div>
+    <div role="table" style="display:flex;flex-direction:column;border:1px solid #23283A;border-radius:14px;overflow:hidden;margin-top:4px">
+      <div role="row" style="display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,1fr) 92px;gap:14px;padding:10px 14px;background:#151822;font-size:12px;font-weight:800;letter-spacing:0.08em;color:#9AA1AF">
+        <span role="columnheader">WHERE</span><span role="columnheader">PLOTBREAK</span><span role="columnheader">OOC</span><span role="columnheader">MATCH</span>
+      </div>
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="7">
+        <div role="row" style="display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,1fr) 92px;gap:14px;padding:11px 14px;border-top:1px solid #1C2030;font-size:13px;line-height:1.4;align-items:start">
+          <span role="cell" style="color:#C3C9D4">{{r.where}}</span>
+          <span role="cell" style="color:#F7F8FA;font-weight:600">{{r.ours}}</span>
+          <span role="cell" style="color:#C3C9D4">{{r.ooc}}</span>
+          <span role="cell"><span style="display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:800;background:{{r.bg}};color:{{r.fg}}">{{r.match}}</span></span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font-size:13px;color:#9AA1AF;line-height:1.5">Also structural: onboarding runs name, age, genres, "titles picked for you" in OOC's order; the play header's quality pill (Vivid) sits where OOC's model pill (Superb) does. Tagline also appears in: logo lockups (docs/brand), the welcome-screen logo, App Store screenshots (docs/appstore-screenshots/compose.py), APP_STORE_FRANCE.md, the Discord welcome (services/api/src/discord-welcome.ts, Discord.swift) and the director's media prompts (packages/director).</div>
+  </div>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:14px">
+    <div style="font-size:13px;font-weight:800;letter-spacing:0.14em;color:#A99FFF">ORIGINAL REPLACEMENTS</div>
+    <h2 class="d" style="margin:0;font-size:30px">Tagline options</h2>
+    <sc-for list="{{tags}}" as="t" hint-placeholder-count="3">
+      <div style="padding:14px 16px;border-radius:14px;background:{{t.bg}};border:{{t.border}};display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;align-items:center;gap:10px"><span class="d" style="font-size:22px">{{t.en}}</span><span style="font-size:11px;font-weight:800;letter-spacing:0.08em;color:#FFD475">{{t.flag}}</span></div>
+        <div style="font-size:14px;color:#C3C9D4">FR: {{t.fr}}</div>
+        <div style="font-size:13px;color:#9AA1AF;line-height:1.45">{{t.why}}</div>
+      </div>
+    </sc-for>
+    <h3 style="margin:8px 0 0;font-size:15px;font-weight:700">New strings (EN; FR to the localization pass)</h3>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <sc-for list="{{strings}}" as="s" hint-placeholder-count="7">
+        <div style="display:grid;grid-template-columns:210px minmax(0,1fr);gap:12px;font-size:13px;line-height:1.4">
+          <code style="font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#9AA1AF">{{s.key}}</code>
+          <span style="color:#F7F8FA">{{s.text}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1680,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const exact = { match: 'EXACT', bg: '#4A1220', fg: '#FF9DB0' };
+    const near = { match: 'NEAR', bg: '#3A2A0C', fg: '#FFD475' };
+    const set = { match: 'SAME SET', bg: '#22263A', fg: '#C9CED8' };
+    const row = (where, ours, ooc, m) => Object.assign({ where, ours, ooc }, m);
+    return {
+      rows: [
+        row('Brand tagline (logo, welcome screen, store, Discord)', 'THE PLAYABLE ANIME', 'App Store name: "OOC - The Playable Anime"', exact),
+        row('onboarding.showcase_title', 'All set! Choose a title and play now.', 'All set! Choose a title and play now.', exact),
+        row('onboarding.name_title', 'What should characters call you?', 'What should characters call you?', exact),
+        row('story.info_title', 'Story Information', 'Story Information (detail modal title)', exact),
+        row('misc.sign_in_bonus', 'Sign up and get 600 credits! (tooltip over sign-in)', 'Sign up and get 500 credits! (same tooltip, same spot)', near),
+        row('discover.official_badge', 'ORIGINAL, top-right of the cover', '*ORIGINAL, top-right of the cover', near),
+        row('discover.category_main, rail.top_ranked, rail.trending', 'Main · Top ranked · Trending now', 'Main · Top Ranked · Trending Now', set)
+      ],
+      tags: [
+        { en: 'Break the plot.', fr: 'Casse l’intrigue.', flag: 'RECOMMENDED', why: 'The name says it and the glyph draws it: a bar cut once, the moment the player types. Nobody else can own it.', bg: '#1B1730', border: '1.5px solid #7C6CFF' },
+        { en: 'Anime that answers back.', fr: 'L’anime qui te répond.', flag: '', why: 'Keeps the anime promise, says what is new about it.', bg: '#12141C', border: '1px solid #23283A' },
+        { en: 'Your move. Every scene.', fr: 'À toi. À chaque scène.', flag: '', why: 'Action-first; works as an ad end card.', bg: '#12141C', border: '1px solid #23283A' }
+      ],
+      strings: [
+        { key: 'onboarding.name_title', text: 'Who’s stepping in? · The cast will say this name out loud.' },
+        { key: 'onboarding.showcase_title', text: 'Tonight’s first story · Picked from the three moods you chose.' },
+        { key: 'misc.sign_in_bonus', text: 'Keep your story · +600 credits (after beat 3, not on the first screen)' },
+        { key: 'story.info_title', text: 'Removed: the art is the header (a11y label: About {title})' },
+        { key: 'discover.category_main', text: 'For you' },
+        { key: 'rail.top_ranked / rail.trending', text: 'Top 10 today · Climbing this week' },
+        { key: 'discover.official_badge', text: 'Glyph + STUDIOS (the Plotbreak Studios byline)' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

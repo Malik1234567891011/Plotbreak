@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding proposed</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&amp;display=swap">
+<style>
+body{margin:0}
+.d{font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-0.01em}
+.pin{display:inline-flex;flex:none;width:22px;height:22px;border-radius:11px;background:#FFE14D;color:#14120A;font:800 12px Inter,sans-serif;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(255,225,77,0.28)}
+.serif{font-family:'Source Serif 4',Georgia,serif}
+.frame{width:390px;height:844px;border-radius:28px;overflow:hidden;position:relative;background:#08090E;color:#F7F8FA;box-shadow:0 6px 24px rgba(0,0,0,0.18)}
+.cap{font-size:13px;color:#4A5160;margin-top:10px}
+</style>
+</helmet>
+<div style="width:1760px;height:980px;box-sizing:border-box;padding:28px 40px;background:#E9EBEF;font-family:Inter,system-ui,sans-serif;color:#1B1F2A">
+  <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px">
+    <span style="font-size:13px;font-weight:700;letter-spacing:0.12em;color:#5B4BE0">PROPOSED</span>
+    <span style="font-size:14px;color:#4A5160">Play first, then 2 short questions, then the account when there is a story to save. All copy is new; none of it is OOC's.</span>
+  </div>
+  <div style="display:flex;gap:40px;font-family:Inter,system-ui,sans-serif">
+
+    <!-- 1 Cold open -->
+    <div>
+      <div class="frame">
+        <img src="/_blob/16b4c9b000e1ac3ecdda9587fadd344a" alt="Hush House key art" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 50%">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,14,0.6) 0%,rgba(8,9,14,0.05) 24%,rgba(8,9,14,0.2) 45%,rgba(8,9,14,0.95) 72%,#08090E 100%)"></div>
+        <div style="position:absolute;top:64px;left:20px;right:20px;display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:8px">
+            <svg width="12" height="22" viewBox="0 0 12 22" aria-hidden="true"><path d="M0 0h8v9.5L0 13z" fill="#7C6CFF"></path><path d="M0 15.6L8 12.1V22H0z" fill="#7C6CFF"></path></svg>
+            <div><div class="d" style="font-size:17px;letter-spacing:0.02em">PLOTBREAK</div><div style="font-size:11px;font-weight:700;letter-spacing:0.14em;color:#C9C2FF">BREAK THE PLOT</div></div>
+          </div>
+          <span class="pin">1</span>
+        </div>
+        <div style="position:absolute;left:20px;right:20px;bottom:40px;display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:12px;font-weight:800;letter-spacing:0.14em;color:#FF9DB0">HUSH HOUSE · 2:12 AM</span>
+          <p class="serif" style="margin:0;font-size:25px;line-height:1.32">Your new building has one rule: do not open the door at 2:13. It is 2:12. Someone is knocking.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">
+            <button style="height:52px;border-radius:26px;border:0;background:#F7F8FA;color:#0B0D12;font:700 16px Inter,sans-serif">Look through the peephole</button>
+            <button style="height:52px;border-radius:26px;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.08);color:#F7F8FA;font:700 16px Inter,sans-serif">Stay very still</button>
+          </div>
+          <div style="text-align:center;font-size:14px;font-weight:600;color:#B3B9C6">Not scary enough? See 56 other stories</div>
+        </div>
+      </div>
+      <div class="cap">1 · A real opener, two choices, zero forms</div>
+    </div>
+
+    <!-- 2 Vibes -->
+    <div>
+      <div class="frame">
+        <div style="padding:70px 20px 0">
+          <div style="display:flex;gap:4px;margin-bottom:22px"><span style="flex:1;height:3px;border-radius:2px;background:#7C6CFF"></span><span style="flex:1;height:3px;border-radius:2px;background:#262A3B"></span></div>
+          <div style="display:flex;align-items:center;gap:8px"><h2 class="d" style="margin:0;font-size:28px;line-height:1.05">What are you in the mood for?</h2><span class="pin">2</span></div>
+          <div style="font-size:15px;color:#9AA1AF;margin-top:8px">Pick three. Your first stories come from these.</div>
+        </div>
+        <div style="padding:20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+          <sc-for list="{{vibes}}" as="v" hint-placeholder-count="6">
+            <div style="height:118px;border-radius:16px;overflow:hidden;position:relative;border:{{v.border}}">
+              <img src="{{v.src}}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%">
+              <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,14,0.05) 20%,rgba(8,9,14,0.88) 100%)"></div>
+              <div style="position:absolute;left:10px;right:10px;bottom:9px;font-size:15px;font-weight:700;line-height:1.15">{{v.name}}</div>
+              <sc-if value="{{v.on}}" hint-placeholder-val="{{false}}"><span style="position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:12px;background:#7C6CFF;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">✓</span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="position:absolute;left:20px;right:20px;bottom:40px"><button style="width:100%;height:52px;border-radius:26px;border:0;background:#F7F8FA;color:#0B0D12;font:700 16px Inter,sans-serif">Continue · 3 picked</button></div>
+      </div>
+      <div class="cap">2 · Three vibes with art, feeds Picked for you</div>
+    </div>
+
+    <!-- 3 Name + age -->
+    <div>
+      <div class="frame">
+        <div style="padding:70px 20px 0">
+          <div style="display:flex;gap:4px;margin-bottom:22px"><span style="flex:1;height:3px;border-radius:2px;background:#7C6CFF"></span><span style="flex:1;height:3px;border-radius:2px;background:#7C6CFF"></span></div>
+          <div style="display:flex;align-items:center;gap:8px"><h2 class="d" style="margin:0;font-size:28px;line-height:1.05">Who’s stepping in?</h2><span class="pin">3</span></div>
+          <div style="font-size:15px;color:#9AA1AF;margin-top:8px">The cast will say this name out loud. Change it any time.</div>
+          <label for="nm" style="display:block;font-size:13px;font-weight:600;color:#C3C9D4;margin:26px 0 8px">Your name in the story</label>
+          <input id="nm" value="Kai" style="width:100%;box-sizing:border-box;height:52px;border-radius:14px;border:1.5px solid #7C6CFF;background:#12141C;color:#F7F8FA;font:600 18px Inter,sans-serif;padding:0 16px;outline:none">
+          <label for="yr" style="display:block;font-size:13px;font-weight:600;color:#C3C9D4;margin:22px 0 8px">Year you were born</label>
+          <div id="yr" style="height:132px;border-radius:14px;background:#12141C;border:1px solid #23283A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:17px;color:#5D6475">
+            <span>2005</span>
+            <span style="width:100%;text-align:center;padding:6px 0;background:#1C2030;color:#F7F8FA;font-weight:700;font-size:20px">2006</span>
+            <span>2007</span>
+          </div>
+          <div style="font-size:12px;color:#8E95A4;margin-top:10px;line-height:1.45">Plotbreak is for adults (18+). Your birth year is not shown to anyone.</div>
+        </div>
+        <div style="position:absolute;left:20px;right:20px;bottom:40px"><button style="width:100%;height:52px;border-radius:26px;border:0;background:#F7F8FA;color:#0B0D12;font:700 16px Inter,sans-serif">Start my story</button></div>
+      </div>
+      <div class="cap">3 · Name and age gate on one screen</div>
+    </div>
+
+    <!-- 4 Save sheet -->
+    <div>
+      <div class="frame">
+        <img src="/_blob/8ab86ee609616f3dda750032e6b29452" alt="" style="position:absolute;inset:0;width:100%;height:60%;object-fit:cover;filter:blur(2px) brightness(0.5)">
+        <div style="position:absolute;left:20px;right:20px;top:90px">
+          <p class="serif" style="margin:0;font-size:18px;line-height:1.6;color:rgba(221,225,232,0.55)">She looks at Sasuke. Then at you. Then, for one second too long, at your bag.</p>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:470px;border-radius:28px 28px 0 0;background:#12141C;border-top:1px solid #2A3040;padding:12px 20px 34px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px">
+          <span style="align-self:center;width:40px;height:5px;border-radius:3px;background:#3A4050"></span>
+          <div style="display:flex;align-items:center;gap:8px"><span class="pin">4</span><span style="font-size:12px;font-weight:800;letter-spacing:0.12em;color:#C9C2FF">BEAT 3 · YOUR STORY SO FAR</span></div>
+          <div class="d" style="font-size:26px;line-height:1.1">Keep Kai’s story</div>
+          <div style="font-size:15px;line-height:1.5;color:#B3B9C6">Right now it only lives on this phone. Save it to pick up anywhere, and get <b style="color:#FFD475">600 credits</b> to keep going.</div>
+          <button style="height:52px;border-radius:26px;border:0;background:#F7F8FA;color:#0B0D12;font:700 16px Inter,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="16" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.8 3.3-.8s2 .8 3.4.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4zM13.9 4.9c.7-.9 1.2-2 1.1-3.2-1 .1-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.1.1 2.3-.6 3-1.5z" fill="#0B0D12"></path></svg>Save with Apple</button>
+          <button style="height:52px;border-radius:26px;border:1px solid #2A3040;background:#1A1D28;color:#F7F8FA;font:700 16px Inter,sans-serif">Save with Google</button>
+          <div style="text-align:center;font-size:14px;font-weight:600;color:#9AA1AF">Not now, keep playing</div>
+        </div>
+      </div>
+      <div class="cap">4 · Account ask after beat 3, tied to progress</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1760,"height":980}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const B = (id) => '/_blob/' + id;
+    const on = '2px solid #7C6CFF', off = '1px solid #23283A';
+    return {
+      vibes: [
+        { name: 'Slow-burn romance', src: B('5590747193352576d80e080cf8209773'), on: true, border: on },
+        { name: 'Dark mystery', src: B('16b4c9b000e1ac3ecdda9587fadd344a'), on: true, border: on },
+        { name: 'Rivals and war', src: B('8ab86ee609616f3dda750032e6b29452'), on: false, border: off },
+        { name: 'Found family', src: B('3d852907db5976d88fefdd8653eb1b5d'), on: false, border: off },
+        { name: 'Other worlds', src: B('84c6c58137bf04d7dabcf7b903cfec0a'), on: true, border: on },
+        { name: 'Mecha and sci-fi', src: B('3a69e756a741867676aca391daaae491'), on: false, border: off }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

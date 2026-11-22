@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding current</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width:1680px;height:960px;box-sizing:border-box;padding:28px 30px;background:#E9EBEF;font-family:Inter,system-ui,sans-serif;color:#1B1F2A;display:flex;flex-direction:column;gap:14px">
+  <div style="display:flex;align-items:baseline;gap:12px">
+    <span style="font-size:13px;font-weight:700;letter-spacing:0.12em;color:#B4233C">CURRENT</span>
+    <span style="font-size:14px;color:#4A5160">Fresh install: sign-in wall, birth date, name, showcase. Red tags mark copy that repeats OOC word for word.</span>
+  </div>
+  <div style="display:flex;gap:20px">
+    <sc-for list="{{shots}}" as="s" hint-placeholder-count="4">
+      <figure style="margin:0;display:flex;flex-direction:column;gap:8px;width:390px">
+        <img src="{{s.src}}" alt="{{s.cap}}" style="width:390px;height:848px;object-fit:cover;border-radius:28px;display:block;box-shadow:0 6px 24px rgba(0,0,0,0.18)">
+        <figcaption style="font-size:13px;color:#4A5160;display:flex;flex-direction:column;gap:4px">
+          <span>{{s.cap}}</span>
+          <sc-if value="{{s.ooc}}" hint-placeholder-val="{{true}}"><span style="align-self:flex-start;padding:3px 8px;border-radius:6px;background:#B4233C;color:#fff;font-size:12px;font-weight:700">{{s.ooc}}</span></sc-if>
+        </figcaption>
+      </figure>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1680,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { shots: [
+      { src: '/_blob/aef1e62914d64f78e108d8ce94b331de', cap: 'First screen: two sign-in buttons over a blurred wall', ooc: 'OOC: "Sign up and get 500 credits!" tooltip, same spot' },
+      { src: '/_blob/e88aa3f10b1ab4cb4470c1b01ef12cdf', cap: 'Birth date picker', ooc: '' },
+      { src: '/_blob/b13984b6b688012e0799a9ca00039d29', cap: 'Name', ooc: 'OOC, exact: "What should characters call you?"' },
+      { src: '/_blob/7f8f31e76341c9cf5d387f436f908372', cap: 'Showcase of five stories', ooc: 'OOC, exact: "All set! Choose a title and play now."' }
+    ] };
+  }
+}
+</script>
+</body>
+</html>

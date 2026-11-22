@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tower proposed</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+.d{font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-0.01em}
+.h{font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;font-size:20px;letter-spacing:-0.01em;margin:0;color:#F7F8FA}
+.pin{display:inline-flex;flex:none;width:22px;height:22px;border-radius:11px;background:#FFE14D;color:#14120A;font:800 12px Inter,sans-serif;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(255,225,77,0.28)}
+.frame{width:390px;height:844px;border-radius:28px;overflow:hidden;position:relative;background:#08090E;color:#F7F8FA;box-shadow:0 6px 24px rgba(0,0,0,0.18)}
+</style>
+</helmet>
+<div style="width:900px;height:960px;box-sizing:border-box;padding:28px 40px;background:#E9EBEF;font-family:Inter,system-ui,sans-serif;color:#1B1F2A">
+  <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px">
+    <span style="font-size:13px;font-weight:700;letter-spacing:0.12em;color:#5B4BE0">PROPOSED</span>
+    <span style="font-size:14px;color:#4A5160">Payouts and arcs from docs/tower.md. Live counts are illustrative.</span>
+  </div>
+  <div style="display:flex;gap:40px">
+
+    <!-- 1 Home event card -->
+    <div class="frame">
+      <div style="height:54px"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 16px 12px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <svg width="11" height="20" viewBox="0 0 12 22" aria-hidden="true"><path d="M0 0h8v9.5L0 13z" fill="#7C6CFF"></path><path d="M0 15.6L8 12.1V22H0z" fill="#7C6CFF"></path></svg>
+          <span class="d" style="font-size:17px;letter-spacing:0.02em">PLOTBREAK</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <span style="height:30px;padding:0 10px;border-radius:15px;background:#1A1D28;font-size:13px;font-weight:700;color:#FF8FA3;display:flex;align-items:center">4 days</span>
+          <span style="height:30px;padding:0 10px;border-radius:15px;background:#1A1D28;font-size:13px;font-weight:700;color:#FFD475;display:flex;align-items:center">600</span>
+        </div>
+      </div>
+      <div style="margin:0 16px;height:96px;border-radius:16px;background:#12141C;border:1px solid #20243A;opacity:0.5;display:flex;align-items:center;padding:0 14px;gap:12px">
+        <img src="/_blob/2c7959d4b1a299084161312e9900f8ba" alt="" style="width:48px;height:72px;border-radius:8px;object-fit:cover">
+        <div style="font-size:13px;color:#C3C9D4">Continue · Itachi, beat 3</div>
+      </div>
+
+      <!-- Event card -->
+      <div style="margin:16px 16px 0;border-radius:20px;overflow:hidden;position:relative;background:linear-gradient(170deg,#3A0E1C 0%,#1A0B22 45%,#0E0F18 100%);border:1px solid #5A1A2E">
+        <svg width="190" height="250" viewBox="0 0 190 250" aria-hidden="true" style="position:absolute;right:-18px;top:-10px;opacity:0.5">
+          <circle cx="120" cy="60" r="44" fill="#FF4F6E" opacity="0.55"></circle>
+          <path d="M70 250V120l16-14v-26l14-12 14 12v26l16 14v130z" fill="#05060A"></path>
+          <path d="M96 140h8v12h-8zM96 172h8v12h-8zM96 204h8v12h-8z" fill="#FFC24B" opacity="0.8"></path>
+        </svg>
+        <div style="position:relative;padding:16px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="height:22px;padding:0 8px;border-radius:6px;background:#FF4F6E;color:#fff;font-size:11px;font-weight:800;letter-spacing:0.08em;display:flex;align-items:center">DAILY EVENT</span>
+            <span style="font-size:12px;font-weight:700;color:#FFB3C1">Today: Blood Moon</span>
+            <span class="pin" style="margin-left:auto">1</span>
+          </div>
+          <div class="d" style="font-size:30px;line-height:1">THE TOWER</div>
+          <div style="font-size:14px;line-height:1.45;color:#E2C9D0;max-width:220px">30 floors of duels. How high you get decides what you win.</div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-top:2px">
+            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px">
+              <sc-for list="{{ladder}}" as="l" hint-placeholder-count="7">
+                <span style="height:6px;border-radius:3px;background:{{l.c}}"></span>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px">
+              <sc-for list="{{ladder}}" as="l" hint-placeholder-count="7">
+                <span style="font-size:11px;font-weight:800;color:{{l.t}};text-align:center">{{l.pay}}</span>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:#C9A9B3"><span>Best today: floor 27</span><span>Resets in 6h 12m</span></div>
+          <button style="height:48px;border-radius:24px;border:0;background:#F7F8FA;color:#0B0D12;font:800 16px Inter,sans-serif">Climb free · up to 300</button>
+          <div style="text-align:center;font-size:12px;color:#B89AA4">Your first climb this week is free. After that, 30 credits.</div>
+        </div>
+      </div>
+
+      <div style="margin:22px 16px 0;display:flex;justify-content:space-between;align-items:baseline"><h2 class="h">Top 10 today</h2><span style="font-size:12px;color:#9AA1AF">Resets at midnight</span></div>
+      <div style="display:flex;gap:10px;padding:12px 16px 0;overflow:hidden">
+        <sc-for list="{{top}}" as="t" hint-placeholder-count="3">
+          <div style="flex:none;display:flex;align-items:flex-end">
+            <span class="d" style="font-size:64px;line-height:0.8;color:transparent;-webkit-text-stroke:2px #4A5068;margin-right:-10px">{{t.n}}</span>
+            <img src="{{t.src}}" alt="" style="width:84px;height:126px;border-radius:10px;object-fit:cover;position:relative">
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- 2 Results -->
+    <div class="frame" style="background:linear-gradient(180deg,#0E1A24 0%,#08090E 55%)">
+      <div style="height:54px"></div>
+      <div style="display:flex;justify-content:flex-end;padding:4px 16px">
+        <button aria-label="Close" style="width:36px;height:36px;border-radius:18px;border:0;background:#161923;color:#E7EAF0;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      </div>
+      <div style="padding:10px 20px 0;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center">
+        <div style="display:flex;align-items:center;gap:8px"><span style="font-size:12px;font-weight:800;letter-spacing:0.14em;color:#8FD3FF">SPIRIT SHRINE · FLOOR 14</span><span class="pin">2</span></div>
+        <div class="d" style="font-size:30px;line-height:1.05">The Oni Captain<br>got you.</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
+          <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#FFC24B"></circle><path d="M12 6l4 6-4 6-4-6z" fill="#7A5300"></path></svg>
+          <span class="d" style="font-size:44px;color:#FFD475">+60</span>
+        </div>
+        <div style="font-size:13px;color:#9AA1AF">Free climb · 1 more floor to reach the 120 tier</div>
+      </div>
+
+      <div style="margin:22px 20px 0">
+        <div style="display:grid;grid-template-columns:repeat(30,minmax(0,1fr));gap:2px">
+          <sc-for list="{{floors}}" as="f" hint-placeholder-count="30">
+            <span style="height:{{f.h}};border-radius:2px;background:{{f.c}};align-self:end"></span>
+          </sc-for>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#7E8595;margin-top:6px"><span>1</span><span>You: 14</span><span>Best today: 27</span><span>30</span></div>
+      </div>
+
+      <div style="margin:22px 20px 0;padding:16px;border-radius:18px;background:#12141C;border:1px solid #23283A;display:flex;flex-direction:column;align-items:center;gap:4px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:0.12em;color:#9AA1AF">NEXT CLIMB IN</span>
+        <span class="d" style="font-size:40px;font-variant-numeric:tabular-nums">14:12:08</span>
+        <span style="font-size:13px;color:#FF8FA3;font-weight:700">Climb streak 3 · tomorrow pays +15%</span>
+      </div>
+
+      <div style="position:absolute;left:20px;right:20px;bottom:40px;display:flex;flex-direction:column;gap:10px">
+        <button style="height:52px;border-radius:26px;border:0;background:#F7F8FA;color:#0B0D12;font:700 16px Inter,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B0D12" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"></path></svg>Remind me at 8:00 pm</button>
+        <button style="height:52px;border-radius:26px;border:1px solid #2A3040;background:#1A1D28;color:#F7F8FA;font:700 16px Inter,sans-serif">Practice floor 14 (no credits)</button>
+        <div style="text-align:center;font-size:14px;font-weight:600;color:#B3B9C6">Back to stories</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":900,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const B = (id) => '/_blob/' + id;
+    const pays = ['5', '30', '60', '120', '150', '200', '300'];
+    const ladder = pays.map((pay, i) => ({ pay, c: i === 6 ? '#FFC24B' : 'rgba(255,255,255,' + (0.18 + i * 0.09) + ')', t: i === 6 ? '#FFD475' : '#E2C9D0' }));
+    const floors = [];
+    for (let i = 1; i <= 30; i++) {
+      const mine = i <= 14, best = i === 27, boss = i % 5 === 0;
+      floors.push({ h: (boss ? 34 : 22) + 'px', c: best ? '#FF4F6E' : mine ? (i === 14 ? '#8FD3FF' : '#3E7FA8') : '#232838' });
+    }
+    return {
+      ladder,
+      floors,
+      top: [
+        { n: '1', src: B('2c7959d4b1a299084161312e9900f8ba') },
+        { n: '2', src: B('6d1fe1cd0be1cfefcda919adb2131f22') },
+        { n: '3', src: B('5956b5ae206499d5ecf5aec97e155ce6') }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
