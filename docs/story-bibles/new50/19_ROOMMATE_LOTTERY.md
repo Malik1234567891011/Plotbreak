@@ -105,7 +105,9 @@ after the hearing lives in the endings.
 - **13+.** No fan service. Separate rooms, a locked door, a bathroom schedule, a bathroom latch.
   Nobody walks in on anybody, and the story never stages an accidental glimpse; a player who tries
   finds it latched and loses her trust for the week. No lingering on bodies, no sexual content,
-  nothing about anyone's age except that they are adults.
+  nothing about anyone's age except that they are adults. (The romance and 13+ lines live in the
+  fixture's hard canon, not its tone guide: every image prompt carries the tone guide as its mood,
+  so the tone guide stays mood only, with no romance, body or age words.)
 - **The doorway.** She expects the player to fold, because everybody does once they recognise her.
   She respects stubbornness, laughs at a good joke despite herself, goes cold at anything that
   smells like a fan, and does not say why she needs the room. If the player drinks her coffee she is
@@ -129,6 +131,12 @@ or fall for her, is decided in play.
 - The override came from above Ms. Park, at Haneul's request. Yuri does not know.
 - Jonah runs Quadwatch. Ben is *lanternfish*.
 - No powers, no supernatural. Romance goes no further than a kiss.
+- Her door is the stake. Every phone in the lobby, every post, every loud word in a corridor brings
+  the campus closer to knowing which door is hers; her guard comes down only with time in the same
+  flat. (Production never reads resources, so the Exposure and Her Guard bands are spelled out here.)
+
+The player starts holding their assignment email (lottery number 0447), and every archetype starts
+with one ability the storyteller can read.
 
 ## Cast
 
@@ -294,6 +302,15 @@ Suggestions, three different moves:
 ## Cover
 
 Yuri alone, waist up, in the doorway of a bare dorm bedroom: oversized hoodie, sunglasses pushed up,
-a huge iced coffee, four pink suitcases. Two printed emails float between her and the viewer, no
-readable text. Title ROOMMATE LOTTERY painted in the upper third. Adults only, described by costume
-and pose, never by age words.
+a huge iced coffee raised like a timer, four pink suitcases. Two printed emails float between her and
+the viewer, no readable text. Described by costume and pose, never by age words.
+
+- **Title:** its own `TITLE:` line. The title Roommate Lottery in the upper third, above her head,
+  as a bold rounded bubble-letter logo in capitals on two lines (ROOMMATE, then LOTTERY larger),
+  white with a thick pink outline and a silver scratch-card shimmer, spelled exactly ROOMMATE LOTTERY
+  (the art generator capitalises the wordmark). No other text anywhere.
+- **Effects:** the sparkle and pink glow stay on the coffee, the ring light and the title. Her face
+  stays clean.
+- **Opening panel:** `story_roommate_lottery/opening`, its alt starting with "Yuri" so her portrait is
+  the panel's reference image.
+- No prologue; `publishedAt` stays null until release.

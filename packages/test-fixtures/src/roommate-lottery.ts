@@ -96,17 +96,20 @@ const raw = {
       'Yuri failed a required statistics course last spring and is retaking it this term. Failing it twice puts her on academic probation, and her parents think streaming is a hobby.',
       'The week: Haneul arrives Saturday afternoon with a non-disclosure agreement; Kit holds a floor meeting at eight on Saturday evening, before Yuri goes live at nine; the bounty goes up Sunday morning; a fire drill empties the building in the small hours of Monday; Haneul pitches a roommate reveal stream for Wednesday night; the hearing is Friday at ten.',
       'Nobody has powers and nothing supernatural happens. A shove is a shove: violence brings campus security, a conduct referral and a voided housing contract.',
+      'Her door is what is at stake all week. Every phone raised in the lobby, every post, every loud word about her in a corridor brings the campus closer to knowing which door is hers. If it gets out, people wait outside Linden House the way they waited downtown and she starts packing. Her guard comes down only with time in the same flat and with small things of hers kept private without being asked; until then she talks to the player in the stream voice.',
       'Yuri is not a prize and cannot be won. She can say no, change her mind, get angry and move out. Romance between anybody goes no further than a kiss on the page.',
-    ],
-    toneGuide:
-      'Fast, funny and specific, in short webnovel beats. This is a story about two strangers sharing one bathroom shelf, and the comedy lives in small physical things: the kettle, the bar of the fold-out sofa, the early alarm, the trombone in 12F, whose turn it is to buy milk. ' +
-      'Yuri has two voices. The stream voice is bright and an octave higher; the real one is flat, precise and very dry. The player is the only person who hears both, and that contrast is the romance. ' +
-      'The tension is privacy. Phones are everywhere, the lobby is the most dangerous room in the building, and a careless post is a real event with real consequences. ' +
-      'Romance is slow, earned and optional: teasing, tension, a hand held on a roof, at most a kiss. There is no fan service. Separate rooms, a locked door, a bathroom schedule; never linger on bodies or clothes. ' +
-      'Nobody has powers. A shove is a shove, and violence brings campus security and a conduct hearing. Nobody is a villain for wanting something, including whoever runs the gossip account. ' +
-      'If a scene has nothing at stake, let it be pleasant and short. The face at the top of a beat is Yuri’s whenever she is in the scene. ' +
-      'In the doorway she expects the player to fold, because everybody does once they recognise her. She respects stubbornness, laughs at a good joke despite herself, goes cold at anything that smells like a fan, and does not say why she needs the room. If the player drinks her coffee she is outraged for one full second and then, against her will, impressed. The empty cup does not settle it: the housing office does, and both of them stay until Friday. ' +
+      'Romance in this story is slow, earned and optional: teasing, tension, a hand held on a roof, and at most a kiss. No fan service: separate rooms, a locked door, a bathroom schedule, and nobody is ever described lingeringly, neither bodies nor clothes.',
       'Nobody walks in on anybody: the bathroom latches and the story never stages an accidental glimpse. A player who tries finds it latched, and loses her trust for the week.',
+    ],
+    // Every image prompt carries the tone guide as its mood, so the 13+ lines
+    // live in hard canon (the storyteller reads both) and this stays mood only.
+    toneGuide:
+      'Fast, funny and specific, in short webnovel beats. This is a story about two strangers sharing one flat and one kettle, and the comedy lives in small physical things: the kettle, the bar of the fold-out sofa, the early alarm, the trombone in 12F, whose turn it is to buy milk. ' +
+      'Yuri has two voices. The stream voice is bright and an octave higher; the real one is flat, precise and very dry. The player is the only person who hears both, and that contrast is the heart of the story. ' +
+      'The tension is privacy. Phones are everywhere, the lobby is the most dangerous room in the building, and a careless post is a real event with real consequences. ' +
+      'Nobody is a villain for wanting something, including whoever runs the gossip account. ' +
+      'If a scene has nothing at stake, let it be pleasant and short. The face at the top of a beat is Yuri’s whenever she is in the scene. ' +
+      'In the doorway she expects the player to fold, because everybody does once they recognise her. She respects stubbornness, laughs at a good joke despite herself, goes cold at anything that smells like a fan, and does not say why she needs the room. If the player drinks her coffee she is outraged for one full second and then, against her will, impressed. The empty cup does not settle it: the housing office does, and both of them stay until Friday.',
     proseStyle: 'webnovel',
     styleExamples: [
       'Yuri reads your email twice. Then hers. Then yours again.\n\n"Your lottery number is four-four-seven," she says. "Mine doesn’t have one."\n\nShe says it flatly, like a bug report.\n\nThe straw rattles at the bottom of the cup. She stops drinking.\n\n"Fine. Overtime."',
@@ -2362,16 +2365,19 @@ const raw = {
     'I take the coffee out of her hand and finish it in one long gulp.',
   ],
   coverDirection: [
-    'SUBJECT: Yuri Sakamoto, a famous streamer, alone and unmistakable in the foreground of a key visual for a campus romantic comedy anime.',
+    'SUBJECT: Yuri Sakamoto, a famous streamer, alone and unmistakable in the foreground of a key visual for a university romantic comedy anime.',
     'She fills the frame from the waist up, leaning in the doorway of a bare dorm bedroom, holding about two thirds of the picture.',
-    'An adult woman with long black hair and one pink streak, sunglasses pushed up on her head, a charcoal hoodie three sizes too big,',
-    'one hand holding a huge iced coffee with a straw, raised like a timer.',
+    'Long black hair with one pink streak, sunglasses pushed up on her head, a charcoal hoodie three sizes too big with the sleeves pushed back.',
+    'One hand holds a huge iced coffee with a straw, raised toward the viewer like a timer; the other hand rests on the doorframe.',
     'Her expression is a deadpan challenge with the corner of a smile, one eyebrow raised, looking straight at the viewer.',
+    'HER FACE STAYS CLEAN: no glow, sparkle, lens flare or marks on her face or skin.',
+    'The sparkle and the pink glow stay on the iced coffee, the ring light and the title, never on her face.',
     'Four matching pink suitcases stand beside her in the doorway.',
-    'BETWEEN HER AND THE VIEWER: two printed sheets of paper held up side by side, blank apart from soft grey lines: no letters, no numbers, nothing that reads as writing.',
-    'BEHIND HER, soft and secondary: a small bright dorm bedroom with a bare mattress, a desk under a window over a river, cardboard boxes, a ring light on a stand.',
-    'LIGHT: warm late-morning sun from the window and a cool pink glow from the ring light, so she is rimmed in pink and lit in gold.',
-    'TITLE: the words ROOMMATE LOTTERY painted into the art in the upper third as a bold rounded logo, white with a pink outline,',
+    'BETWEEN HER AND THE VIEWER: two printed sheets of paper floating side by side, blank apart from soft grey lines: no letters, no numbers, nothing that reads as writing.',
+    'BEHIND HER, soft and secondary: a bright, narrow dorm bedroom with a bare mattress, a desk under a window over a river, cardboard boxes, a ring light on a stand.',
+    'LIGHT: warm late-morning sun from the window across her hoodie and the suitcases, and a cool pink glow from the ring light behind her, so she is rimmed in pink against the gold.',
+    'TITLE: the title Roommate Lottery painted into the art in the upper third, above her head, as a bold rounded bubble-letter logo set in capitals on two lines,',
+    'ROOMMATE on the first line and LOTTERY larger on the second, white with a thick pink outline and a silver scratch-card shimmer across the letters,',
     'spelled exactly ROOMMATE LOTTERY, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   publishedAt: null,

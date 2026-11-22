@@ -105,14 +105,23 @@ describe('prose is prose', () => {
     expect(everything).not.toMatch(FORBIDDEN);
     expect(S.rules.allowsRomance).toBe(true);
     expect(S.rules.allowsCombat).toBe(false);
-    expect(S.rules.toneGuide).toMatch(/at most a kiss/);
+    const romance = S.rules.hardCanon.find((f) => f.startsWith('Romance in this story'))!;
+    expect(romance).toMatch(/at most a kiss/);
+    expect(romance).toMatch(/No fan service/);
     expect(S.rules.hardCanon.join(' ')).toMatch(/no further than a kiss/);
+  });
+
+  it('keeps the tone guide, which every image prompt carries as its mood, free of romance, body and age words', () => {
+    expect(S.rules.toneGuide).toMatch(/^Fast, funny and specific/);
+    expect(S.rules.toneGuide).not.toMatch(
+      /\b(adults?|kiss\w*|romance|romantic|flirt\w*|fan service|bod(y|ies)|lingering\w*|bath\w*|glimpse|young\w*|girls?|boys?)\b/i,
+    );
   });
 
   it('latches the bathroom, and says so where production reads it', () => {
     // Forced proximity with an unlockable bathroom is the walk-in setup.
     expect(S.rules.hardCanon[1]).toMatch(/bathroom with a latch/);
-    expect(S.rules.toneGuide).toMatch(/Nobody walks in on anybody/);
+    expect(S.rules.hardCanon.join(' ')).toMatch(/Nobody walks in on anybody/);
     const drill = S.worldEvents.find((e) => e.id === 'we_fire_drill')!;
     expect(drill.publicCopy).not.toMatch(/whatever they were wearing/);
   });
@@ -218,13 +227,81 @@ describe('everybody on the page is an adult, on the page', () => {
 });
 
 describe('the cover', () => {
-  it('puts the title in the art and her in front', () => {
-    const cover = S.coverDirection!;
-    expect(cover).toContain('ROOMMATE LOTTERY');
-    expect(cover).toContain('Yuri Sakamoto');
+  it('puts the title in the art, on its own TITLE line, spelled exactly', () => {
+    const cover = S.coverDirection;
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(cover.match(/TITLE:/g)).toHaveLength(1);
+    expect(title).toContain(`the title ${S.title} painted into the art in the upper third`);
+    // generate-art capitalises the wordmark, so the spelling line agrees with it.
+    expect(title).toContain(`spelled exactly ${S.title.toUpperCase()}, large and legible at thumbnail size`);
+    expect(title).toMatch(/No other text anywhere\.$/);
+    // The two emails are props, not a second place for lettering.
     expect(cover).toMatch(/no letters, no numbers/i);
-    expect(S.openingPanel?.assetKey).toBe('story_roommate_lottery/opening');
+  });
+
+  it('puts her alone in front, by costume and pose, never by an age word', () => {
+    const cover = S.coverDirection;
+    expect(cover).toMatch(/^SUBJECT: Yuri Sakamoto, .* alone and unmistakable in the foreground/);
+    expect(cover).not.toMatch(
+      /\b(teen\w*|girls?|boys?|young\w*|youth\w*|kids?|child\w*|student\w*|little|petite|small|adults?|older|aged?|\d+)\b/i,
+    );
+    // Hoodie and pose, nothing lingering.
+    expect(cover).not.toMatch(/\b(legs?|thighs?|skin-tight|figure|curv\w*|bare-\w*|cute)\b/i);
+  });
+
+  it('keeps every effect on the coffee, the ring light and the title, never on her face', () => {
+    const cover = S.coverDirection;
+    expect(cover).toMatch(/HER FACE STAYS CLEAN: no glow, sparkle, lens flare or marks on her face or skin\./);
+    expect(cover).toMatch(/stay on the iced coffee, the ring light and the title, never on her face/);
+  });
+});
+
+describe('the opening panel', () => {
+  it('is keyed to the story and drawn from the roommate who speaks first', () => {
+    const panel = S.openingPanel!;
+    expect(panel.assetKey).toBe(`${S.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    // opening-panel-art.ts takes the character whose first name starts the alt
+    // and uses that character's portrait as the reference image.
+    const named = S.characters.find((c) => panel.alt.startsWith(c.name.split(' ')[0]!))!;
+    expect(named.id).toBe('yuri');
+    expect(words(S.opening).slice(0, 60).join(' ')).toContain(named.name);
+    expect(panel.alt).not.toMatch(/\b(teen\w*|girls?|boys?|young\w*|kids?|child\w*|little|petite|adults?|legs?)\b/i);
+  });
+});
+
+describe('release shape', () => {
+  it('opens straight on the scene and has no release date yet', () => {
+    expect(S.prologue).toEqual([]);
     expect(S.publishedAt).toBeNull();
+  });
+
+  it('gives every face on a cast card a concrete appearance to draw from', () => {
+    for (const c of S.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(120);
+      expect(c.visualHook.trim(), c.id).not.toBe('');
+      expect(c.silhouette.trim(), c.id).not.toBe('');
+    }
+  });
+
+  it('names the housing officer the way the building does', () => {
+    // Nobody in Linden House calls her Park; the derived short name would.
+    expect(calledName(S.characters.find((c) => c.id === 'park')!)).toBe('Ms. Park');
+  });
+
+  it('puts the system where the storyteller reads it: hard canon, a starting item, a starting ability', async () => {
+    const canon = S.rules.hardCanon.join(' ');
+    // Production never reads resources, so the stake the Exposure and Her
+    // Guard bands track is spelled out in canon.
+    expect(canon).toMatch(/Her door is what is at stake all week/);
+    expect(canon).toMatch(/number 0447/);
+    expect(canon).toMatch(/hearing on Friday at ten/);
+    expect(S.rules.startingItems.map((i) => i.itemId)).toContain('housing_email');
+    const { worldBrief } = await import('@plotbreak/director');
+    for (const a of S.archetypes) {
+      expect(a.startingAbilities.length, a.id).toBeGreaterThanOrEqual(1);
+      expect(worldBrief(S, a.id), a.id).toContain('Her door is what is at stake all week');
+    }
   });
 });
 
