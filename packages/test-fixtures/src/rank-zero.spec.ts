@@ -125,6 +125,8 @@ describe('rule 1: the opener', () => {
     const first60 = opening.split(/\s+/).slice(0, 60).join(' ');
     expect(first60).toMatch(/[“"]/);
     expect(first60).toContain('says Riku Amano');
+    // Riku says it to the player, not to the room.
+    expect(first60).toContain('straight at you');
   });
 
   it('ends on a direct demand from a named character', () => {
@@ -138,7 +140,7 @@ describe('rule 1: the opener', () => {
   it('asks the player to know no proper noun the opening does not introduce', () => {
     const unintroduced = [
       'Lodestar', 'Gull Island', 'Calder', 'Gauge', 'Bureau', 'Trial Day', 'the Board',
-      'Atrium', 'Bowl', 'Mei', 'Calla', 'Hale', 'Halvorsen', 'Ada', 'Kole',
+      'Atrium', 'Bowl', 'Sana', 'Calla', 'Hale', 'Halvorsen', 'Ada', 'Kole',
       ...story.factions.map((f) => f.name),
       ...story.locations.map((l) => l.name),
     ];
@@ -157,12 +159,16 @@ describe('rule 1: the opener', () => {
     expect(done, 'one card is pure action').toHaveLength(1);
     const risky = cards.find((c) => !said.includes(c) && !done.includes(c))!;
     expect(risky).toMatch(/burning column/);
+    // The done card reaches for something the beat put in the room.
+    expect(done[0]).toContain('smoking printout');
+    expect(opening).toContain('smoking printout');
   });
 
   it('demonstrates both openers’ voices in their own samples', () => {
     const valk = story.characters.find((c) => c.id === 'valk')!;
     const riku = story.characters.find((c) => c.id === 'riku')!;
-    const line = 'Eleven thousand cadets on that machine. Not one fire. Explain this one.';
+    // 240 a year since the last fire nineteen years ago tops out near 4,560.
+    const line = 'Four thousand cadets on that machine. Not one fire. Explain this one.';
     expect(opening).toContain(line);
     expect(valk.voiceSamples.some((v) => v.includes(line))).toBe(true);
     expect(opening).toContain('Support track');
@@ -201,7 +207,7 @@ describe('rule 2: adults only', () => {
 
   it('pins the ages the bible states', () => {
     const ages = Object.fromEntries(story.characters.map((c) => [c.id, ageOf(c.appearance)]));
-    expect(ages).toEqual({ valk: 41, riku: 20, mei: 19, calla: 21, hale: 58, halvorsen: 34, ada: 38 });
+    expect(ages).toEqual({ valk: 41, riku: 20, sana: 19, calla: 21, hale: 58, halvorsen: 34, ada: 38 });
   });
 
   it('says in canon that the academy is post-secondary and the player is an adult', () => {
@@ -209,6 +215,21 @@ describe('rule 2: adults only', () => {
     expect(canon).toMatch(/college/i);
     expect(canon).toMatch(/at least eighteen/i);
     expect(canon).toMatch(/nineteen-year-old/i);
+  });
+
+  it('draws the three cadets as adults, never as small', () => {
+    for (const id of ['riku', 'sana', 'calla']) {
+      const c = story.characters.find((x) => x.id === id)!;
+      expect(c.appearance, id).toMatch(/^[A-Z][a-z-]+, an adult (wo)?man,/);
+      expect(c.appearance, id).not.toMatch(/\b(small|little|tiny|petite|young\w*)\b/i);
+    }
+  });
+
+  it('keeps staff and the ferry engineer out of any romance with a cadet', () => {
+    for (const id of ['valk', 'hale', 'halvorsen', 'ada']) {
+      const c = story.characters.find((x) => x.id === id)!;
+      expect(c.boundaries.some((b) => /^Will not .*flirt/.test(b)), id).toBe(true);
+    }
   });
 
   it('never uses a word that reads a character as a minor', () => {
@@ -677,6 +698,32 @@ describe('art', () => {
       ...derived.characters.map((c) => c.portrait),
     ];
     for (const key of keys) expect(key, String(key)).toMatch(/^story_rank_zero\//);
+  });
+
+  it('directs the cover by costume and pose, with the title as the only text', () => {
+    const cover = story.coverDirection;
+    expect(cover).toMatch(/\bTITLE: the words RANK ZERO\b/);
+    expect(cover).toMatch(/spelled exactly RANK ZERO/);
+    expect(cover).toMatch(/No other text, numbers or lettering anywhere/);
+    expect(cover).not.toMatch(/\b(teen\w*|girls?|boys?|young\w*|youth\w*|kids?|child\w*|student\w*|cadet\w*|academy|school|small|\d+)\b/i);
+    // The player is a back and a palm, never a face.
+    expect(cover).toMatch(/back to the viewer/);
+    expect(cover).toMatch(/never see their face/);
+  });
+});
+
+describe('the narrator is not handed the mysteries', () => {
+  it('fences the power and Riku’s offset in hard canon, the way it fences Ada', () => {
+    const canon = story.rules.hardCanon;
+    expect(canon.find((f) => f.startsWith('The player has a real power'))).toMatch(
+      /Nobody on the island knows this on intake morning, the player included/,
+    );
+    expect(canon.find((f) => f.startsWith('Riku Amano’s number'))).toMatch(/The player learns it only by finding it out/);
+    expect(canon.find((f) => f.includes('Ada Kole'))).toMatch(/never owed/);
+  });
+
+  it('lets the power show itself early, before anyone explains it', () => {
+    expect(story.rules.toneGuide).toMatch(/The first time something hits the player, let a little come back on its own/);
   });
 });
 

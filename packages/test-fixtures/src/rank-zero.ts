@@ -56,7 +56,7 @@ const raw = {
     'Six days to Trial Day',
     'Rivals with secrets',
     'Lying is a real option',
-    'Walk away whenever you like',
+    'Name anyone on Trial Day',
   ],
   contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY'],
   intensity: 'MODERATE',
@@ -76,9 +76,9 @@ const raw = {
       'Lodestar Academy is a four-year hero licensing college on Gull Island, in the bay off the city of Calder Bay. Every cadet is at least eighteen. The player is a nineteen-year-old first-year in an intake of 240.',
       'On intake morning every cadet is rated on the Gauge, a glass column owned by the Ratings Bureau that reads what a power pushes out as a number from 0 to 10,000. The number sets the track (Field 1–60, Support 61–180, Reserve 181–240) and the order on the Board in the atrium.',
       'The Gauge rated the player 0 and then caught fire in front of the whole intake. Nobody was hurt and the player’s hand was unmarked.',
-      'The player has a real power. It pushes nothing out on its own; when force is put into the player, the power takes it in and gives it back later, often all at once and not always where they aim. It is never “nothing”, and what it can become is for play to discover.',
+      'The player has a real power. It pushes nothing out on its own; when force is put into the player, the power takes it in and gives it back later, often all at once and not always where they aim. It is never “nothing”, and what it can become is for play to discover. Nobody on the island knows this on intake morning, the player included; it comes out only through what happens in play.',
       'Nineteen years ago the previous Gauge read zero for a cadet named Ada Kole and burned. The Bureau took her to its assessment floor for eighteen months; the record says she withdrew. Ines Valk and Okon Hale were both there. This is discoverable and never owed.',
-      'Riku Amano’s number was adjusted upward by an arrangement between his sponsoring agency and a Bureau technician. The automatic audit of the burned Gauge will find it.',
+      'Riku Amano’s number was adjusted upward by an arrangement between his sponsoring agency and a Bureau technician. The automatic audit of the burned Gauge will find it. Only Riku, his sponsor and that technician know; Halvorsen has found the offset and told nobody. The player learns it only by finding it out.',
       'Trial Day is on the seventh morning of term. Any cadet may challenge their number in a public bout in the Bowl, naming any sparring partner from the Board, before a panel of Valk, Hale and Halvorsen.',
       'Nobody on the island wants the player dead. The danger is being reclassified, taken to the Bureau’s assessment floor, expelled, or quietly kept at zero.',
     ],
@@ -87,7 +87,7 @@ const raw = {
       'Fights are sparring, drills and the odd brawl. Injuries are bruises, scrapes and burns a medic fixes in a scene. Nobody dies and nothing is graphic. ' +
       'Everyone here is an adult and is written as one. Romance is optional, flirtatious, tense and heartfelt, and goes no further than a kiss; never fan service, never lingering on bodies. ' +
       'The institution is not evil: Hale believes the numbers keep people safe and the Bureau is careful rather than cruel, and both can be argued with. Comedy lives in the mess, the dorm corridor and Calla. ' +
-      'The power stays mysterious in a concrete way: things get warm, glass ticks, a punch lands and comes back a second later. The face at the top of a beat is Valk’s or Riku’s whenever one of them is in the scene and the moment involves them.',
+      'The power stays mysterious in a concrete way: things get warm, glass ticks, a punch lands and comes back a second later. The first time something hits the player, let a little come back on its own (a mug cracks, the mat warms, a punch returns a second late) so the player sees the power before anyone explains it. The face at the top of a beat is Valk’s or Riku’s whenever one of them is in the scene and the moment involves them.',
     proseStyle: 'webnovel',
     styleExamples: [
       "Valk throws the medicine ball at your chest without warning.\n\nYou catch it. It weighs about as much as a fridge.\n\nYour knees hit the mat.\n\n\"Don’t hold it,\" she says. \"You’re holding it. Stop.\"\n\n\"It’s heavy—\"\n\n\"It’s four kilos. I made it heavy. You’re arguing with it.\"\n\nThe mat under your knees is getting warm.\n\nValk sees it. She doesn’t step back.\n\n\"There,\" she says quietly. \"Now give it back.\"",
@@ -137,7 +137,7 @@ const raw = {
         {
           upTo: 60,
           behaviour:
-            'The ordinary tiredness of a hard academy day. Fine for one more drill or one more difficult conversation, not both. Mei notices it before the player does and says so.',
+            'The ordinary tiredness of a hard academy day. Fine for one more drill or one more difficult conversation, not both. Sana notices it before the player does and says so.',
         },
         {
           upTo: 100,
@@ -202,7 +202,7 @@ const raw = {
         {
           upTo: 50,
           behaviour:
-            'Warm. Phones run hot in the player’s pocket, a mug gets uncomfortable to hold, and the player can feel something sitting under the breastbone waiting for a reason. Mei notices their temperature.',
+            'Warm. Phones run hot in the player’s pocket, a mug gets uncomfortable to hold, and the player can feel something sitting under the breastbone waiting for a reason. Sana notices their temperature.',
         },
         {
           upTo: 80,
@@ -245,7 +245,7 @@ const raw = {
       tags: ['quest', 'evidence'],
       questItem: true,
       description: 'A brass pin the length of a fingernail, sheared clean through. It held the backup dial’s needle from going below zero.',
-      loreText: 'Mei Tsuda pocketed it while the hall was emptying. She keeps it in the pocket of her medic jacket and has not told anybody why.',
+      loreText: 'Sana Tsuda pocketed it while the hall was emptying. She keeps it in the pocket of her medic jacket and has not told anybody why.',
       icon: 'pin',
     },
     {
@@ -585,7 +585,7 @@ const raw = {
       name: 'The Medical Wing',
       shortName: 'Medical',
       description:
-        'Eight treatment bays with green curtains, a smell of antiseptic and instant noodles, and a whiteboard of who is on shift. Mei Tsuda’s medic jacket hangs on the hook by bay three when she is working.',
+        'Eight treatment bays with green curtains, a smell of antiseptic and instant noodles, and a whiteboard of who is on shift. Sana Tsuda’s medic jacket hangs on the hook by bay three when she is working.',
       artDirection:
         'Clean modern academy infirmary, green curtained bays, a whiteboard rota, medical kits on steel trolleys, afternoon light through blinds. Calm and practical.',
       connections: [
@@ -595,7 +595,7 @@ const raw = {
       discoveredByDefault: true,
       mapPosition: { x: 1, y: 0 },
       takeableItems: [
-        { itemId: 'stop_pin', qty: 1, ownerId: 'mei', aka: ['pin', 'the pin', 'the stop pin', 'the brass pin'] },
+        { itemId: 'stop_pin', qty: 1, ownerId: 'sana', aka: ['pin', 'the pin', 'the stop pin', 'the brass pin'] },
       ],
     },
     {
@@ -804,9 +804,9 @@ const raw = {
       calledName: 'Valk',
       role: 'Combat instructor for the first years, ex-field hero, and the only person who walked into the smoke',
       cardBlurb:
-        'She walked into the fire instead of away from it, she wants an explanation from you right now, and she does not look surprised enough by any of this.',
+        'She walked into the fire instead of away from it. Now she wants an explanation from you, and she does not look nearly surprised enough.',
       pronouns: 'she/her',
-      publicTraits: ['Never repeats an order', 'Fair to the point of being frightening', 'Judges cadets by what they do, not their number'],
+      publicTraits: ['Never repeats an order', 'Marks her favourites harder than anyone', 'Judges cadets by what they do, not their number'],
       hiddenDrives: [
         'She has waited nineteen years for that machine to burn again, and she has not decided whether she is glad',
         'She wants one cadet the Gauge could not read to finish here, in public, on the academy’s own sand',
@@ -838,7 +838,7 @@ const raw = {
         'Clipped imperatives and one-word commands: "Cadet." "Again." "Hands." Talks about what you did, never about what you felt. Counts in reps and seconds. Never raises her voice, and never repeats herself.',
       topics: ['the fire', 'Trial Day', 'drills', 'the Bowl', 'the Gauge', 'her own rating', 'the Director'],
       voiceSamples: [
-        'Cadet. Eleven thousand cadets on that machine. Not one fire. Explain this one.',
+        'Cadet. Four thousand cadets on that machine. Not one fire. Explain this one.',
         'Again. Feet under your shoulders. You flinched left, so we fix left.',
         'I rated four hundred and ten. I don’t care what you rate. I care what happens when something hits you.',
         'Hands. Turn them over. Good. Now tell me why there isn’t a mark.',
@@ -884,9 +884,9 @@ const raw = {
     {
       id: 'riku',
       name: 'Riku Amano',
-      role: 'Number one on the Board, rated 9,412, sponsored by an agency since the day he could sign',
+      role: 'Number one on the Board, rated 9,412, sponsored by an agency since the day he turned eighteen',
       cardBlurb:
-        'He laughed first and loudest at your zero, he needs the fire to have been your fault and not the machine’s, and when nobody is filming he is a lot less sure of himself than you are.',
+        'He laughed first and loudest at your zero, and he needs the fire to have been your fault, not the machine’s. When nobody is filming, he is a lot less sure of himself than you are.',
       pronouns: 'he/him',
       publicTraits: ['Grins before he speaks', 'Talks about everything as a ranking', 'Genuinely the best fighter in the intake'],
       hiddenDrives: [
@@ -920,7 +920,7 @@ const raw = {
         'Name me on Trial Day. Go on. Biggest crowd you’ll ever get.',
       ],
       appearance:
-        'Twenty, lean and quick, black hair pushed back with a sweatband, the white Field-track jacket with an agency patch on the shoulder, and a grin that arrives before he does.',
+        'Twenty, an adult man, lean and quick, black hair pushed back with a sweatband, the white Field-track jacket with an agency patch on the shoulder, a lopsided grin, hands in his pockets.',
       visualHook: 'An agency patch on his white jacket that he rubs with his thumb when he is nervous.',
       silhouette: 'Hands in pockets, weight on his heels, chin up, the only still thing in a moving room.',
       artSeed: 'rz-riku-01',
@@ -965,9 +965,9 @@ const raw = {
       combatant: { health: 60, defenseDc: 17, damage: 10, tags: ['cadet', 'field', 'stillness'] },
     },
     {
-      id: 'mei',
-      name: 'Mei Tsuda',
-      role: 'Medic cadet on the Support track, rank 74, on duty beside the Gauge when it burned',
+      id: 'sana',
+      name: 'Sana Tsuda',
+      role: 'First-year medic cadet, rank 74 on the Support track, rated first thing and put straight on the medic station, so she was beside the Gauge when it burned',
       cardBlurb:
         'She was standing beside the backup dial when the scanner burned and she saw it read something it cannot read, and she will tell you what only once she trusts you.',
       pronouns: 'she/her',
@@ -987,7 +987,7 @@ const raw = {
       goals: ['Find out what the dial meant', 'Find a field partner for Trial Day'],
       secrets: [
         {
-          id: 'mei_the_dial',
+          id: 'sana_the_dial',
           fact: 'The backup dial behind the Gauge read below zero, which it is not built to do, and its needle broke the stop pin. She has the pin in her medic jacket.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you over tea in the Medical Wing once you have let her treat you without arguing, or once you have told her something true first.',
@@ -1003,10 +1003,10 @@ const raw = {
         'Field medic. That’s all I want. Somebody has to stand next to me on the sand.',
       ],
       appearance:
-        'Nineteen, small and neat, black hair in a low knot, a medic’s green armband over a Support-track jacket, a pen behind each ear.',
+        'Nineteen, an adult woman, neat and composed, black hair in a low knot, a medic’s green armband over a Support-track jacket, a pen behind each ear.',
       visualHook: 'Two pens, one red and one black, tucked behind her ears at all times.',
       silhouette: 'Crouched beside somebody, one hand flat on their shoulder, the other already reaching for a kit.',
-      artSeed: 'rz-mei-01',
+      artSeed: 'rz-sana-01',
       portrait: null,
       expressions: ['neutral', 'dry', 'concerned', 'warm', 'flustered'],
       schedule: [
@@ -1023,13 +1023,13 @@ const raw = {
       startingRelationship: { trust: 25, affection: 20, respect: 15, fear: 0, rivalry: 0 },
       gates: [
         {
-          id: 'mei_tells_you_what_she_saw',
+          id: 'sana_tells_you_what_she_saw',
           label: 'She tells you what the dial read',
           kind: 'TRUST',
           requires: { trust: 45 },
         },
         {
-          id: 'mei_close',
+          id: 'sana_close',
           label: 'More than a field partner',
           kind: 'ROMANCE',
           requires: { trust: 55, affection: 60 },
@@ -1079,7 +1079,7 @@ const raw = {
         'Want to hear what he sounded like when it caught fire? Hang on. Ready? Eeeep.',
       ],
       appearance:
-        'Twenty-one, curly brown hair escaping a scarf, a Reserve-track jacket covered in hand-drawn badges, big padded headphones around her neck.',
+        'Twenty-one, an adult woman, curly brown hair escaping a scarf, a Reserve-track jacket covered in hand-drawn badges, big padded headphones around her neck.',
       visualHook: 'Big padded headphones around her neck that she never puts on, because she can play anything she has heard herself.',
       silhouette: 'Leaning in a doorframe mid-sentence, one hand up doing an impression.',
       artSeed: 'rz-calla-01',
@@ -1121,7 +1121,7 @@ const raw = {
       calledName: 'Hale',
       role: 'Director of Lodestar Academy for fourteen years, former licensed hero, and the man with a statement for you to sign',
       cardBlurb:
-        'He would like you to sign a page saying the fire was a fault, he can speak into your ear from anywhere on the island, and he signed a paper like this once before.',
+        'He would like you to sign a page saying the fire was a fault, and he can speak into your ear from anywhere on the island. He has signed a paper like this once before.',
       pronouns: 'he/him',
       publicTraits: ['Warm and unhurried', 'Remembers every cadet’s full name', 'Never raises his voice'],
       hiddenDrives: [
@@ -1135,6 +1135,7 @@ const raw = {
       boundaries: [
         'Will not threaten a cadet outright',
         'Will not be shouted at in his own office, and ends the meeting politely the moment he is',
+        'Will not be flirted with by a cadet; closes it with one courteous sentence and carries on',
       ],
       goals: ['Get the statement signed before the Bureau asks for it', 'Keep the agencies in the gallery for Trial Day'],
       secrets: [
@@ -1209,6 +1210,7 @@ const raw = {
       boundaries: [
         'Will not scan anybody without their consent',
         'Will not falsify a reading, for the Director, the Bureau or you',
+        'Will not entertain a cadet’s flirting while their reading is on her bench; says so kindly and keeps working',
       ],
       goals: ['Get a second, proper reading of you', 'Finish the audit honestly'],
       secrets: [
@@ -1276,7 +1278,7 @@ const raw = {
       name: 'Ada Kole',
       role: 'The ferry’s engineer, who rarely comes up the ladder',
       cardBlurb:
-        'She has run the engine of the ferry you came in on for eleven years, she has never once set foot on the academy side of the island, and she stops dead when she sees the number on your band.',
+        'She has run the engine of the ferry you came in on for eleven years and has never once set foot on the academy side of the island. She stops dead when she sees the number on your band.',
       pronouns: 'she/her',
       publicTraits: ['Says very little', 'Very good with engines', 'Waves cadets through without taking their tokens'],
       hiddenDrives: [
@@ -1290,12 +1292,13 @@ const raw = {
       boundaries: [
         'Will not set foot on the academy side of the island',
         'Will not tell her story to anybody who has not asked her straight',
+        'Will not be flirted with by a cadet; looks at them until they stop, then goes back to the engine',
       ],
       goals: ['Keep her head down and the ferry running', 'Find out whether you are what she thinks you are'],
       secrets: [
         {
           id: 'ada_the_first_zero',
-          fact: 'Nineteen years ago the old Gauge read zero for her and burned. The Bureau kept her eighteen months on its assessment floor. She came back, withdrew, and took the ferry job.',
+          fact: 'Nineteen years ago the old Gauge read zero for her and burned. The Bureau kept her eighteen months on its assessment floor. She came back, withdrew, drifted for six years, and took the ferry job eleven years ago.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She says so herself, on the pier, to a player who already knows about the first fire and asks her straight.',
         },
@@ -1358,7 +1361,7 @@ const raw = {
       summary: 'The scanner read zero, then burned, in front of two hundred and forty cadets. Instructor Valk wants an answer now, and the Director will want one in writing by this afternoon.',
       kind: 'MAIN',
       startsActive: true,
-      involvedCharacterIds: ['valk', 'riku', 'mei', 'calla', 'hale'],
+      involvedCharacterIds: ['valk', 'riku', 'sana', 'calla', 'hale'],
       involvedLocationIds: ['intake_hall', 'director_tower'],
       knownRewardCopy: 'A place at the academy, on some track, and some idea of what the people in charge think happened.',
       steps: [
@@ -1493,7 +1496,7 @@ const raw = {
       title: 'What It Does',
       summary: 'Your power reads as nothing and burns the machine that looks for it. Somebody on this island can tell you what happened at the Gauge, and you have six days before you have to show it in public.',
       kind: 'MAIN',
-      involvedCharacterIds: ['halvorsen', 'mei', 'valk', 'riku', 'ada'],
+      involvedCharacterIds: ['halvorsen', 'sana', 'valk', 'riku', 'ada'],
       involvedLocationIds: ['rating_office', 'medical_wing', 'the_bowl', 'ferry_pier'],
       knownRewardCopy: 'A name for what your power does, and a way to give back what it takes on purpose.',
       discoverWhen: { flagsSet: ['fire_answered'] },
@@ -1502,7 +1505,7 @@ const raw = {
           id: 'find_someone_who_knows',
           playerCopy: 'Find somebody who can tell you what happened at the Gauge.',
           directorNotes:
-            'Four people hold a piece. Halvorsen saw the current go the wrong way and wants a consented rescan on her bench rig. Mei saw the backup dial go below zero. Valk will find out the physical way: she throws something heavy and watches what the player does with it. A player with the rating slip and a screwdriver can work it out alone. Whoever explains it, the plain version is the same: it takes in what is pushed into you and gives it back later.',
+            'Four people hold a piece. Halvorsen saw the current go the wrong way and wants a consented rescan on her bench rig. Sana saw the backup dial go below zero. Valk will find out the physical way: she throws something heavy and watches what the player does with it. A player with the rating slip and a screwdriver can work it out alone. Whoever explains it, the plain version is the same: it takes in what is pushed into you and gives it back later.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1516,9 +1519,9 @@ const raw = {
               closesFlags: [],
             },
             {
-              routeId: 'mei_told_you',
-              label: 'Get Mei to tell you what the dial read',
-              predicate: { minRelationship: [{ characterId: 'mei', dimension: 'trust', value: 45 }] },
+              routeId: 'sana_told_you',
+              label: 'Get Sana to tell you what the dial read',
+              predicate: { minRelationship: [{ characterId: 'sana', dimension: 'trust', value: 45 }] },
               setsFlags: ['knows:it_went_below_zero'],
               closesFlags: [],
             },
@@ -1609,7 +1612,7 @@ const raw = {
       title: 'Trial Day',
       summary: 'On the seventh morning any cadet may challenge their number in a public bout in the Bowl. The Board says you are last, with nothing. You can accept that, or name somebody above you and find out.',
       kind: 'MAIN',
-      involvedCharacterIds: ['valk', 'riku', 'mei', 'hale', 'halvorsen'],
+      involvedCharacterIds: ['valk', 'riku', 'sana', 'hale', 'halvorsen'],
       involvedLocationIds: ['the_bowl', 'atrium'],
       knownRewardCopy: 'A new number beside your name, or the same one by choice.',
       discoverWhen: { flagsSet: ['first_day_over'] },
@@ -1618,7 +1621,7 @@ const raw = {
           id: 'name_your_partner',
           playerCopy: 'Decide whether to challenge your number, and whom you will name.',
           directorNotes:
-            'Naming is public: the name goes up on the Board under yours. Riku expects to be named and will be insulted if he is not. Mei wants to be named as a partner for a joint demonstration. Naming Valk is permitted by the handbook and nobody has done it in twenty years. Taking the Support placement means not standing up at all, which is a real choice and should be written as one.',
+            'Naming is public: the name goes up on the Board under yours. Riku expects to be named and will be insulted if he is not. Sana wants to be named as a partner for a joint demonstration. Naming Valk is permitted by the handbook and nobody has done it in twenty years. Taking the Support placement means not standing up at all, which is a real choice and should be written as one.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1629,13 +1632,13 @@ const raw = {
                 minRelationship: [{ characterId: 'riku', dimension: 'rivalry', value: 40 }],
               },
               setsFlags: ['naming_riku'],
-              closesFlags: ['naming_mei', 'taking_support'],
+              closesFlags: ['naming_sana', 'taking_support'],
             },
             {
-              routeId: 'named_mei',
-              label: 'Stand up with Mei as your partner',
-              predicate: { minRelationship: [{ characterId: 'mei', dimension: 'trust', value: 55 }] },
-              setsFlags: ['naming_mei'],
+              routeId: 'named_sana',
+              label: 'Stand up with Sana as your partner',
+              predicate: { minRelationship: [{ characterId: 'sana', dimension: 'trust', value: 55 }] },
+              setsFlags: ['naming_sana'],
               closesFlags: ['naming_riku', 'taking_support'],
             },
             {
@@ -1646,14 +1649,14 @@ const raw = {
                 minRelationship: [{ characterId: 'valk', dimension: 'respect', value: 60 }],
               },
               setsFlags: ['naming_valk'],
-              closesFlags: ['naming_riku', 'naming_mei', 'taking_support'],
+              closesFlags: ['naming_riku', 'naming_sana', 'taking_support'],
             },
             {
               routeId: 'took_support',
               label: 'Take the Support placement and do not stand up',
               predicate: { flagsSet: ['signed_the_statement'] },
               setsFlags: ['taking_support'],
-              closesFlags: ['naming_riku', 'naming_mei', 'naming_valk'],
+              closesFlags: ['naming_riku', 'naming_sana', 'naming_valk'],
             },
           ],
           rewards: {
@@ -1688,8 +1691,8 @@ const raw = {
             },
             {
               routeId: 'passed_as_a_pair',
-              label: 'Pass with Mei, as a pair',
-              predicate: { atLocation: 'the_bowl', flagsSet: ['naming_mei', 'used:take_the_hit'] },
+              label: 'Pass with Sana, as a pair',
+              predicate: { atLocation: 'the_bowl', flagsSet: ['naming_sana', 'used:take_the_hit'] },
               setsFlags: ['field_track', 'field_partners'],
               closesFlags: ['stayed_at_zero', 'support_track'],
             },
@@ -1815,16 +1818,16 @@ const raw = {
     {
       id: 'q_second_opinion',
       title: 'A Second Opinion',
-      summary: 'Mei Tsuda was standing beside the backup dial when the scanner burned, and she saw it read something it cannot read. She wants a field partner for Trial Day more than she wants to say what.',
+      summary: 'Sana Tsuda was standing beside the backup dial when the scanner burned, and she saw it read something it cannot read. She wants a field partner for Trial Day more than she wants to say what.',
       kind: 'SIDE',
-      involvedCharacterIds: ['mei'],
+      involvedCharacterIds: ['sana'],
       involvedLocationIds: ['medical_wing', 'intake_hall'],
       knownRewardCopy: 'What the dial read, and somebody who will stand next to you on the sand.',
-      discoverWhen: { flagsSet: ['met:mei'] },
+      discoverWhen: { flagsSet: ['met:sana'] },
       steps: [
         {
-          id: 'what_mei_saw',
-          playerCopy: 'Find out what Mei saw on the backup dial.',
+          id: 'what_sana_saw',
+          playerCopy: 'Find out what Sana saw on the backup dial.',
           directorNotes:
             'She trades the truth for the truth, or for being allowed to treat the player without an argument. Taking the pin from her jacket without asking gets the answer and costs her trust, and she will notice it is gone by the end of her shift.',
           succeedWhen: null,
@@ -1832,66 +1835,66 @@ const raw = {
             {
               routeId: 'she_told_you',
               label: 'She tells you over tea',
-              predicate: { minRelationship: [{ characterId: 'mei', dimension: 'trust', value: 45 }] },
-              setsFlags: ['knows:it_went_below_zero', 'mei_told_you'],
-              closesFlags: ['took_meis_pin'],
+              predicate: { minRelationship: [{ characterId: 'sana', dimension: 'trust', value: 45 }] },
+              setsFlags: ['knows:it_went_below_zero', 'sana_told_you'],
+              closesFlags: ['took_sanas_pin'],
             },
             {
               routeId: 'took_the_pin',
               label: 'Take the pin from her jacket',
               predicate: { hasItems: ['stop_pin'] },
-              setsFlags: ['knows:it_went_below_zero', 'took_meis_pin'],
-              closesFlags: ['mei_told_you'],
+              setsFlags: ['knows:it_went_below_zero', 'took_sanas_pin'],
+              closesFlags: ['sana_told_you'],
             },
           ],
           rewards: {
             xp: 70,
             items: [],
-            flags: ['mei_on_side'],
+            flags: ['sana_on_side'],
             abilities: [],
             reputation: [],
           },
         },
         {
           id: 'partners',
-          playerCopy: 'Decide whether you and Mei stand up together on Trial Day.',
+          playerCopy: 'Decide whether you and Sana stand up together on Trial Day.',
           directorNotes:
             'She needs a field partner to move tracks, and the player needs somebody who can patch them up between exchanges. This can be practical, a friendship, or the start of something more, at whatever pace the player sets. If the player takes Support placement she goes alone and does not hold it against them out loud.',
-          enterWhen: { flagsSet: ['mei_on_side'] },
+          enterWhen: { flagsSet: ['sana_on_side'] },
           succeedWhen: null,
           succeedWhenAny: [
             {
               routeId: 'asked_her',
               label: 'Ask her straight',
               predicate: {
-                flagsSet: ['used:answer_straight', 'spoke:mei'],
-                minRelationship: [{ characterId: 'mei', dimension: 'affection', value: 50 }],
+                flagsSet: ['used:answer_straight', 'spoke:sana'],
+                minRelationship: [{ characterId: 'sana', dimension: 'affection', value: 50 }],
               },
-              setsFlags: ['mei_partner'],
-              closesFlags: ['mei_went_alone'],
+              setsFlags: ['sana_partner'],
+              closesFlags: ['sana_went_alone'],
             },
             {
               routeId: 'patched_each_other',
               label: 'Earn it in the treatment bay',
               predicate: {
                 flagsSet: ['used:patch_up'],
-                minRelationship: [{ characterId: 'mei', dimension: 'trust', value: 55 }],
+                minRelationship: [{ characterId: 'sana', dimension: 'trust', value: 55 }],
               },
-              setsFlags: ['mei_partner'],
-              closesFlags: ['mei_went_alone'],
+              setsFlags: ['sana_partner'],
+              closesFlags: ['sana_went_alone'],
             },
             {
               routeId: 'let_her_go',
               label: 'Let her stand up without you',
               predicate: { flagsSet: ['taking_support'] },
-              setsFlags: ['mei_went_alone'],
-              closesFlags: ['mei_partner'],
+              setsFlags: ['sana_went_alone'],
+              closesFlags: ['sana_partner'],
             },
           ],
           rewards: {
             xp: 90,
             items: [],
-            flags: ['mei_settled'],
+            flags: ['sana_settled'],
             abilities: [],
             reputation: [{ factionId: 'faction_intake', amount: 5 }],
           },
@@ -2096,7 +2099,7 @@ const raw = {
       atWorldMinute: 3 * 1440 + 9 * 60,
       locationId: 'atrium',
       publicCopy:
-        'A Ratings Bureau notice goes up beside the Board: the burned Gauge’s session logs are going to the capital for audit on Friday, and any cadet scanned on intake morning may be called for a retest.',
+        'A Ratings Bureau notice goes up beside the Board: the burned Gauge’s session logs are going to the capital for audit in two days, and any cadet scanned on intake morning may be called for a retest.',
       directorNotes:
         'Riku reads it twice and walks off fast. Halvorsen already knows what the audit will find. Cadets near the bottom of the Board are delighted; cadets near the top are not.',
       setsFlags: ['audit_ordered'],
@@ -2133,7 +2136,7 @@ const raw = {
         { characterId: 'hale', toLocationId: 'the_bowl' },
         { characterId: 'halvorsen', toLocationId: 'the_bowl' },
         { characterId: 'riku', toLocationId: 'the_bowl' },
-        { characterId: 'mei', toLocationId: 'the_bowl' },
+        { characterId: 'sana', toLocationId: 'the_bowl' },
       ],
     },
   ],
@@ -2199,7 +2202,7 @@ const raw = {
       role: 'Brawling and nerve',
       summary: 'You did unlicensed rescues in your district until a patrol caught you, and the academy place came instead of a charge, so you can take a punch and throw one.',
       playstyle: ['Physical', 'Fearless', 'Hard to scare'],
-      blurb: 'Three years of rooftops and alleys. People who hit you have had a habit of ending up on the floor a second later, and you always assumed you were just lucky.',
+      blurb: 'A year of rooftops and alleys. People who hit you have had a habit of ending up on the floor a second later, and you always assumed you were just lucky.',
       attributeBonus: { might: 3, agility: 1 },
       skillProficiencies: { brawling: 3, footwork: 1, nerve: 1 },
       startingItems: [{ itemId: 'grip_tape', qty: 1 }],
@@ -2250,7 +2253,7 @@ const raw = {
     {
       id: 'worldKnowsAboutYou',
       label: 'What does everyone here get wrong about you?',
-      helpText: 'One plain sentence is the right amount. The academy will believe it until you prove otherwise.',
+      helpText: 'One plain sentence is the right amount.',
       kind: 'TEXT',
       required: false,
       maxLength: 300,
@@ -2326,7 +2329,7 @@ const raw = {
       condition:
         'The player hit a member of staff and Lodestar did exactly what its handbook says. Do not make it cruel and do not make it unfair. Write the practical end: a bag, a band switched off, the ferry, and the engineer who waves them through without taking a token.',
       epilogue:
-        'Their band goes dark at the top of the pier. The ferry crosses in forty minutes like it always does. Halfway over, the engineer comes up the ladder for no reason she gives and sits on the bench across from them for the rest of the crossing, saying nothing, which is somehow the kindest thing anyone has done all week.',
+        'Their band goes dark at the top of the pier. The ferry crosses in forty minutes like it always does. Halfway over, the engineer comes up the ladder for no reason she gives and sits on the bench across from them for the rest of the crossing, saying nothing, which is the kindest thing anyone has done all week.',
       hint: '',
     },
     {
@@ -2353,7 +2356,7 @@ const raw = {
       condition:
         'Nobody gave the Bureau a reason not to, and the reclassification order went through. This is reachable by a player who did nothing wrong at all, and must not read as a punishment. Write it as a door closing politely: a car at the pier, a courteous officer, a building in the capital with very white walls, and the people on the island who tried and did not manage it.',
       epilogue:
-        'The assessment floor is warm, clean and kind, and nobody there lies about how long it will take. Letters arrive from the island every week: Calla’s are rumours, Mei’s are medical, Valk sends one line. The last one in the pile has no return address and says only "Breathe out first."',
+        'The assessment floor is warm, clean and kind, and nobody there lies about how long it will take. Letters arrive from the island every week: Calla’s are rumours, Sana’s are medical, Valk sends one line. The last one in the pile has no return address and says only "Breathe out first."',
       hint: 'Somebody with a Bureau badge could put something in writing for you.',
     },
     {
@@ -2405,13 +2408,13 @@ const raw = {
       rarity: 'RARE',
       minTurn: 35,
       requires: {
-        flagsSet: ['field_partners', 'mei_partner'],
-        minRelationship: [{ characterId: 'mei', dimension: 'trust', value: 60 }],
+        flagsSet: ['field_partners', 'sana_partner'],
+        minRelationship: [{ characterId: 'sana', dimension: 'trust', value: 60 }],
       },
       condition:
-        'The player and Mei stood up together and passed as a pair: one taking everything in, the other keeping them standing. Whether it is a friendship or more is whatever the player made it. Write the partnership as competent and specific: hand signals, a borrowed ache, a laugh at the worst moment.',
+        'The player and Sana stood up together and passed as a pair: one taking everything in, the other keeping them standing. Whether it is a friendship or more is whatever the player made it. Write the partnership as competent and specific: hand signals, a borrowed ache, a laugh at the worst moment.',
       epilogue:
-        'They are the first pair the panel has ever rated together, on one line of the Board, two names and one number. Mei moves her pens to one ear to make room for a Field-track badge. By the end of the year the medic tents ask for them by name.',
+        'They are the first pair the panel has ever rated together, on one line of the Board, two names and one number. Sana moves her pens to one ear to make room for a Field-track badge. By the end of the year the medic tents ask for them by name.',
       hint: '',
     },
     {
@@ -2440,16 +2443,40 @@ const raw = {
     },
   ],
   opening:
-    "The screen above the scanner reads 0.\n\nTwo hundred and forty cadets see it with you. Someone laughs.\n\n\"Zero,\" says Riku Amano, top name on the ranking board, not even trying to whisper. \"Support track. Enjoy the mop.\"\n\nThen the glass column under your palm goes hot. Then white. Then fire climbs it to the ceiling, and the hall scatters.\n\nA woman in a grey instructor’s coat walks into the smoke instead of out of it. She takes your wrist and turns your hand over. Not a mark on it.\n\n\"Cadet.\" Instructor Valk doesn’t raise her voice. \"Eleven thousand cadets on that machine. Not one fire. Explain this one.\"",
+    "The screen above the scanner reads 0.\n\nTwo hundred and forty cadets see it with you. Someone laughs.\n\n\"Zero,\" says Riku Amano, top name on the ranking board, loud, and straight at you. \"Support track. Enjoy the mop.\"\n\nThen the glass column under your palm goes hot. Then white. Then fire climbs it to the ceiling, and the hall scatters. The scanner spits out a smoking printout.\n\nA woman in a grey instructor’s coat walks into the smoke instead of out of it. She takes your wrist and turns your hand over. Not a mark on it.\n\n\"Cadet.\" Instructor Valk doesn’t raise her voice. \"Four thousand cadets on that machine. Not one fire. Explain this one.\"",
   openingPanel: {
     assetKey: 'story_rank_zero/opening',
     alt: 'A glass scanner column burning white to the ceiling of a crowded hall, an instructor in a long grey coat holding a cadet’s unmarked hand up while a grinning rival watches.',
   },
   openingSuggestions: [
-    "\"I don’t know. I put my hand on it and it said zero. That’s all I did.\"",
+    "\"I don’t know. It said zero. Then it did that.\"",
     'I snatch the smoking printout from the scanner’s slot before anyone else can.',
     "I put my palm back on the burning column. \"Run it again.\"",
   ],
+  /**
+   * The cover, by costume and pose only: no ages and no school words, because
+   * this prompt also carries the house appeal line and the no-minors rule, and
+   * that stack is what got Ace's cover refused. The player stays faceless, a
+   * back and one palm on the glass. The scanner's 0 is left off the screen so
+   * the read-back finds no text but the title.
+   */
+  coverDirection: [
+    'SUBJECT: the rival, front and centre in the foreground of a key visual for a superhero training anime about a power test that goes wrong.',
+    'He fills the lower two thirds of the frame from the waist up, close to the viewer: an adult man, lean and quick, black hair pushed back with a sweatband,',
+    'a white athletic team jacket with a plain sponsor patch on the shoulder, hands in his pockets, chin up.',
+    'He grins straight at the viewer, but his eyes have slid sideways toward the fire behind him and the grin is starting to slip.',
+    'BEHIND HIM, in the middle of the frame: a tall glass column erupting in white fire to the ceiling of a huge bright hall.',
+    'A figure in a dark training jacket stands with their back to the viewer, one open palm flat on the burning glass, untouched by the flames.',
+    'We never see their face: only their back, their shoulders and that one hand.',
+    'From the other side, striding into the smoke instead of away from it: a tall, square-shouldered woman with close-cropped iron-grey hair',
+    'in a long grey coat with the sleeves shoved up, one hand reaching for the figure’s wrist, calm while everyone else runs.',
+    'Around and above them, soft and secondary: a crowd in dark training jackets scattering, a viewing gallery, smoke and extinguisher foam.',
+    'The screen above the column is cracked and dark, showing nothing.',
+    'LIGHT: hard white fire-light from the column rims all three figures; cool steel-blue hall light everywhere else. Palette of white, charcoal, ember orange and steel blue.',
+    'TITLE: the words RANK ZERO painted into the art in the upper third as a bold, slightly italic athletic logo, white with an ember-orange glow',
+    'and a thin curl of smoke rising off the final O, spelled exactly RANK ZERO, large and legible at thumbnail size.',
+    'No other text, numbers or lettering anywhere, including on the screen, the jackets and the patch.',
+  ].join(' '),
   publishedAt: null,
 };
 

@@ -68,31 +68,31 @@ The player authors their name, pronouns, look, and anything about their past tha
 
 - Lodestar Academy is a four-year hero licensing college on an island; every cadet is at least eighteen; the player is a nineteen-year-old first-year in an intake of 240.
 - The Gauge rated the player 0, then caught fire in front of the whole intake. Nobody was hurt and the player's hand was unmarked.
-- The player has a real power. It pushes nothing out on its own; when force goes into the player, it takes the force in and gives it back later.
+- The player has a real power. It pushes nothing out on its own; when force goes into the player, it takes the force in and gives it back later. Nobody on the island knows this on intake morning, the player included; it comes out only through what happens in play.
 - Nineteen years ago the previous Gauge read zero for Ada Kole and burned. The Bureau took her; the record says she withdrew. Valk and Hale were there.
-- Riku Amano's number was adjusted upward by an arrangement between his sponsor and a Bureau technician; the audit of the burned Gauge will find it.
+- Riku Amano's number was adjusted upward by an arrangement between his sponsor and a Bureau technician; the audit of the burned Gauge will find it. Only Riku, his sponsor and that technician know; Halvorsen has found the offset and told nobody. The player learns it only by finding it out.
 - Trial Day is on the seventh morning: any cadet may challenge their number in a public bout before a panel.
 - Nobody on the island wants the player dead. The danger is being reclassified, taken to the Bureau's assessment floor, or quietly kept at zero.
 
-## Opening (the first beat, 109 words)
+## Opening (the first beat, 116 words)
 
 > The screen above the scanner reads 0.
 >
 > Two hundred and forty cadets see it with you. Someone laughs.
 >
-> "Zero," says Riku Amano, top name on the ranking board, not even trying to whisper. "Support track. Enjoy the mop."
+> "Zero," says Riku Amano, top name on the ranking board, loud, and straight at you. "Support track. Enjoy the mop."
 >
-> Then the glass column under your palm goes hot. Then white. Then fire climbs it to the ceiling, and the hall scatters.
+> Then the glass column under your palm goes hot. Then white. Then fire climbs it to the ceiling, and the hall scatters. The scanner spits out a smoking printout.
 >
 > A woman in a grey instructor's coat walks into the smoke instead of out of it. She takes your wrist and turns your hand over. Not a mark on it.
 >
-> "Cadet." Instructor Valk doesn't raise her voice. "Eleven thousand cadets on that machine. Not one fire. Explain this one."
+> "Cadet." Instructor Valk doesn't raise her voice. "Four thousand cadets on that machine. Not one fire. Explain this one."
 
-Checks: Riku speaks at word 19. It ends on a demand that needs an answer now. 109 words. The only names are the two people in the scene, each introduced by what they are.
+Checks: Riku speaks to the player at word 19. It ends on a demand that needs an answer now. 116 words. Four thousand is 240 a year since the last fire, nineteen years ago, less a margin: Valk is precise and does not lie to cadets. The printout in the beat is the thing card 2 reaches for. The only names are the two people in the scene, each introduced by what they are.
 
 **Suggestions** (said / done / risky):
 
-1. "I don't know. I put my hand on it and it said zero. That's all I did."
+1. "I don't know. It said zero. Then it did that."
 2. I snatch the smoking printout from the scanner's slot before anyone else can.
 3. I put my palm back on the burning column. "Run it again."
 
@@ -120,8 +120,9 @@ All seven are adults. Ages are fixed.
 **Voice:** grinning patter, nicknames ("Zero"), talks in rankings like a sports commentator. Drops it completely when nobody is filming.
 **Will not:** hit someone who is already down; admit fear in front of the Field table.
 
-### Mei Tsuda, 19
-**Role:** medic cadet, Support track, rank 74. On duty at the medic station beside the Gauge.
+### Sana Tsuda, 19
+Called Mei in the first draft; renamed after editor review, because a Mei on a hero academy's support track is a famous name already.
+**Role:** first-year medic cadet, Support track, rank 74. Rated first thing and put straight on the medic station beside the Gauge.
 **Power:** feels an injury by touch and closes small ones. Each one leaves her with a borrowed ache for an hour.
 **Immediate want:** to know what she saw.
 **Long-term want:** the Field track as a field medic, which needs a field partner on Trial Day.
@@ -148,7 +149,7 @@ All seven are adults. Ages are fixed.
 **Fear:** being the man who signed it twice.
 **Secrets:** he signed Ada Kole's transfer nineteen years ago; a standing Bureau order says any reading below zero must be reported within seventy-two hours, and he has not reported yours.
 **Voice:** warm, measured, "we", "Let's be practical." Full names.
-**Will not:** threaten a cadet outright; be shouted at in his own office.
+**Will not:** threaten a cadet outright; be shouted at in his own office; be flirted with by a cadet (one courteous sentence closes it).
 
 ### Dr. Noor Halvorsen, 34
 **Role:** the Ratings Bureau's resident technician. Built the current Gauge.
@@ -158,7 +159,7 @@ All seven are adults. Ages are fixed.
 **Fear:** her machine being the reason someone disappears.
 **Secrets:** her preliminary report is written and unsent; she has already found the recalibration line on Riku's session.
 **Voice:** fast, technical, units and figures, apologises for her own excitement.
-**Will not:** scan anyone without consent; falsify a reading.
+**Will not:** scan anyone without consent; falsify a reading; entertain a cadet's flirting while their reading is on her bench.
 
 ### Ada Kole, 38
 **Role:** the ferry's engineer. The cadet the old Gauge burned for.
@@ -168,13 +169,13 @@ All seven are adults. Ages are fixed.
 **Fear:** the white room on the Bureau's assessment floor.
 **Secret:** in a storm six years ago she ran the ferry's engine with no fuel in it for forty minutes.
 **Voice:** slow, few words, engine metaphors. "Breathe out first."
-**Will not:** set foot on the academy side of the island; tell her story to anyone who has not asked her straight.
+**Will not:** set foot on the academy side of the island; tell her story to anyone who has not asked her straight; be flirted with by a cadet.
 
 ## Places
 
 - **The Intake Hall** (start): the burned Gauge, 240 cadets, a medic station, a gallery.
 - **The Atrium:** the Board. The hub that connects everything.
-- **The Medical Wing:** Mei's shift; treatment bays.
+- **The Medical Wing:** Sana's shift; treatment bays.
 - **The Rating Office:** Halvorsen's lab under the hall; the burned coils; the session logs.
 - **The Old Hall:** the sealed east wing where the previous Gauge burned. Opens only once the player knows about the first fire.
 - **The Cadet Dorms:** Field floors at the top, Reserve corridor at the bottom by the bins.
@@ -209,7 +210,7 @@ All seven are adults. Ages are fixed.
 - **Off the Island** (uncommon): the player walks away.
 - **One of Ours** (uncommon): Valk's cadet, on the academy's own terms.
 - **Number One** (rare): the player takes the top of the Board from Riku.
-- **Field Partners** (rare): the player and Mei pass Trial Day as a pair.
+- **Field Partners** (rare): the player and Sana pass Trial Day as a pair.
 - **The Gauge Goes Dark** (rare): the rating system's failures go public and the Bureau switches the Gauge off.
 - **Two Zeros** (unique): Ada Kole comes up to the academy side of the island for Trial Day, the first time in nineteen years.
 
@@ -217,6 +218,6 @@ All seven are adults. Ages are fixed.
 
 Covers show adults described by costume and pose only.
 
-- **Cover:** a cadet in a dark training jacket stands in a crowded hall with one palm on a tall glass column that is erupting in white fire; the screen above reads a huge 0. In the foreground, a grinning rival in a white Field-track jacket with his hands in his pockets; behind, an instructor in a long grey coat striding into the smoke. Title RANK ZERO in the art.
+- **Cover** (the fixture's `coverDirection`): in the foreground, the rival in a white athletic jacket with a plain sponsor patch, hands in his pockets, grinning at the viewer while his eyes slide toward the fire. Behind him a tall glass column erupts in white fire; a figure in a dark training jacket stands with their back to the viewer, one palm flat on the glass, face never shown. From the other side an instructor in a long grey coat strides into the smoke. The screen above the column is cracked and dark: no 0, so the read-back finds no text but the title. Title RANK ZERO in the upper third, the only lettering. The direction uses costume and pose only: no ages, and no academy, cadet or school words.
 - **Location stages:** the intake hall with the burned column; the atrium Board wall; the sand arena; the seawall at night; the ferry engine room.
 - **Hero frames:** the fire; the first time the power gives something back; Trial Day; Ada on the pier.
