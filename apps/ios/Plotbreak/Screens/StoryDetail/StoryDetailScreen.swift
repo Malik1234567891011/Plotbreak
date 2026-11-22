@@ -8,10 +8,6 @@ import SwiftUI
 // expectations. §8.3: one primary CTA in the first viewport, two taps to start,
 // and content descriptors visible before entry.
 
-private enum DetailTab: CaseIterable {
-    case information, comments
-}
-
 struct StoryDetailScreen: View {
     let storyId: String
 
@@ -25,7 +21,10 @@ struct StoryDetailScreen: View {
     @State private var liked = false
     @State private var likes = 0
     @State private var castMember: CastMember?
-    @State private var tab: DetailTab = .information
+    @State private var aboutOpen = false
+    /// How far the page has scrolled; past the cover the top bar turns solid.
+    @State private var scrollY: CGFloat = 0
+    @State private var coverHeight: CGFloat = 585
     /// The world whose creator is about to be blocked. Confirmed first, because
     /// blocking removes everything they have made from this person's app, and
     /// they should not find that out by having already done it.
@@ -38,21 +37,24 @@ struct StoryDetailScreen: View {
     var body: some View {
         Screen {
             GeometryReader { geo in
-                VStack(spacing: 0) {
-                    header
-                    tabs
+                ZStack(alignment: .top) {
                     if let detail {
                         loaded(detail, width: geo.size.width)
                     } else if let loadError {
-                        InlineError(message: loadError)
-                            .padding(Theme.pageGutter)
-                        Spacer()
+                        VStack {
+                            InlineError(message: loadError)
+                                .padding(Theme.pageGutter)
+                                .padding(.top, 100)
+                            Spacer()
+                        }
                     } else {
-                        skeleton
+                        skeleton(width: geo.size.width)
                     }
+                    topBar
                 }
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
         .task(id: storyId) { await load() }
         .sheet(item: $castMember) { member in
             CastSheet(member: member) { castMember = nil }
@@ -85,57 +87,102 @@ struct StoryDetailScreen: View {
 
     // MARK: Chrome
 
-    /// Back, the page's name, and the like — the one social gesture that
-    /// deserves the header.
-    private var header: some View {
-        ScreenHeader(title: t("story.info_title"), backLabel: t("story.back"), onBack: { router.pop() }) {
+    /// Design v3: two glass buttons floating over the cover, back and more.
+    private var topBar: some View {
+        let solid = scrollY > coverHeight - 110
+        return HStack {
+            glassButton(systemName: "chevron.left", label: t("story.back")) { router.pop() }
+            Spacer()
+            Text(detail?.story.title ?? "")
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .lineLimit(1)
+                .opacity(solid ? 1 : 0)
+                .accessibilityHidden(!solid)
+            Spacer()
             if let story = detail?.story {
-                IconButton(liked ? t("story.unlike") : t("story.like"), action: { toggleLiked(story) }) {
-                    Image(systemName: liked ? "hand.thumbsup.fill" : "hand.thumbsup")
-                        .font(.system(size: 20, weight: .regular))
-                        .foregroundStyle(liked ? Theme.Colors.accentPrimary : Theme.Colors.textSecondary)
+                Menu {
+                    Button {
+                        router.present(.comments(storyId: story.storyId))
+                    } label: {
+                        Label(t("story.tab_comments"), systemImage: "text.bubble")
+                    }
+                    Button {
+                        toggleSaved(story)
+                    } label: {
+                        Label(saved ? t("story.remove_from_saved") : t("story.save_story"), systemImage: saved ? "bookmark.slash" : "bookmark")
+                    }
+                    Button(role: .destructive) {
+                        router.present(.report(targetType: "STORY", targetId: story.storyId))
+                    } label: {
+                        Label(t("story.report_story"), systemImage: "flag")
+                    }
+                    // Only for a world a person wrote. There is nobody to block
+                    // behind an official one, and offering it would be nonsense.
+                    if !story.official, !story.creatorId.isEmpty {
+                        Button(role: .destructive) {
+                            blockTarget = story
+                        } label: {
+                            Label(t("story.block_creator", ["name": story.creatorName]), systemImage: "person.slash")
+                        }
+                    }
+                } label: {
+                    glassFace(systemName: "ellipsis")
                 }
-                .accessibilityAddTraits(liked ? .isSelected : [])
+                .accessibilityLabel(t("story.more_a11y"))
             }
         }
+        .padding(.horizontal, Theme.pageGutter)
+        .padding(.top, Theme.Spacing.sm)
+        .padding(.bottom, Theme.Spacing.sm)
+        // Over the cover the buttons float; once the page scrolls past it, a
+        // solid ink bar with a hairline, so text never runs under the clock.
+        .background {
+            Theme.Colors.bgBase
+                .ignoresSafeArea(edges: .top)
+                .overlay(alignment: .bottom) {
+                    Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5)
+                }
+                .opacity(solid ? 1 : 0)
+        }
+        .animation(.easeOut(duration: Theme.Durations.short), value: solid)
     }
 
-    /// Information · Comments, as two halves with the active one underlined.
-    private var tabs: some View {
-        HStack(spacing: 0) {
-            ForEach(DetailTab.allCases, id: \.self) { item in
-                let active = tab == item
-                Button {
-                    Haptic.play(.light)
-                    withAnimation(.easeOut(duration: Theme.Durations.short)) { tab = item }
-                } label: {
-                    Text(item == .information ? t("story.tab_information") : t("story.tab_comments"))
-                        .font(.system(size: 17, weight: active ? .medium : .regular))
-                        .foregroundStyle(active ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
-                        .frame(maxWidth: .infinity, minHeight: 48)
-                        .overlay(alignment: .bottom) {
-                            Rectangle().fill(active ? Theme.Colors.textPrimary : Color.clear).frame(height: 2)
-                        }
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(PressOpacityStyle())
-                .accessibilityAddTraits(active ? [.isButton, .isSelected] : .isButton)
-            }
+    private func glassButton(systemName: String, label: String, action: @escaping () -> Void) -> some View {
+        Button {
+            Haptic.play(.light)
+            action()
+        } label: {
+            glassFace(systemName: systemName)
         }
-        .overlay(alignment: .bottom) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
+        .buttonStyle(PressOpacityStyle())
+        .accessibilityLabel(label)
+    }
+
+    private func glassFace(systemName: String) -> some View {
+        Image(systemName: systemName)
+            .font(.system(size: 16, weight: .semibold))
+            .foregroundStyle(Theme.Colors.textPrimary)
+            .frame(width: 44, height: 44)
+            .background(.ultraThinMaterial, in: Circle())
+            .background(Theme.Colors.bgBase.opacity(0.35), in: Circle())
+            .overlay { Circle().strokeBorder(Theme.Colors.textPrimary.opacity(0.12), lineWidth: 1) }
     }
 
     // MARK: Loading
 
-    private var skeleton: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
-            HStack { Spacer(); Skeleton(width: 166, height: 249, radius: Theme.Radius.field); Spacer() }
-                .padding(.vertical, 50)
-            Skeleton(height: 28, radius: 6).frame(maxWidth: 260, alignment: .leading)
-            Skeleton(height: 18, radius: 6).frame(maxWidth: 330, alignment: .leading)
+    private func skeleton(width: CGFloat) -> some View {
+        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+            Skeleton(height: (width * 1.5).rounded(), radius: 0)
+            Group {
+                Skeleton(height: 30, radius: 6).frame(maxWidth: 220, alignment: .leading)
+                Skeleton(height: 16, radius: 6).frame(maxWidth: 280, alignment: .leading)
+                Skeleton(height: 52, radius: 26)
+            }
+            .padding(.horizontal, Theme.pageGutter)
             Spacer()
         }
-        .padding(Theme.pageGutter)
+        .ignoresSafeArea(edges: .top)
     }
 
     private func load() async {
@@ -190,311 +237,296 @@ struct StoryDetailScreen: View {
 
     // MARK: Loaded
 
-    @ViewBuilder
+    /// Design v3 (board frame Story): the cover full width with its painted
+    /// title, then the facts in one quiet line, the hook, one Play, and the
+    /// sections as plain headed blocks. No boxes, no stat tiles, no tabs.
     private func loaded(_ detail: StoryDetailResponse, width: CGFloat) -> some View {
         let story = detail.story
-        switch tab {
-        case .comments:
-            CommentsView(
-                storyId: story.storyId,
-                signedIn: !store.isGuest,
-                variant: .full,
-                onSeeAll: {},
-                onSignIn: { router.present(.signIn) }
-            )
-        case .information:
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    coverBlock(story, width: width)
-
-                    VStack(alignment: .leading, spacing: 0) {
-                        titleRow(story)
-                        creatorChip(story)
-                            .padding(.top, 14)
-                        chipsRow(story, detail: detail)
-                            .padding(.top, 14)
-
-                        Text(t("story.description_heading"))
-                            .font(.system(size: 22, weight: .semibold))
-                            .foregroundStyle(Theme.Colors.textPrimary)
-                            .padding(.top, 28)
-                            .accessibilityAddTraits(.isHeader)
-                        // The hook, unless the premise opens with the same
-                        // words — then it would read twice in a row.
-                        if !detail.premise.hasPrefix(String(story.hook.prefix(40))) {
-                            Text(story.hook)
-                                .font(.system(size: 17))
-                                .lineSpacing(4)
-                                .foregroundStyle(Theme.Colors.textSecondary)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .padding(.top, 12)
-                        }
-                        // A premise is 200+ words and it is the one thing a
-                        // player reads before committing, so the authored
-                        // paragraph breaks get real spacing.
-                        ForEach(Array(detail.premise.paragraphs.enumerated()), id: \.offset) { _, paragraph in
-                            Txt(paragraph, .body, color: Theme.Colors.textSecondary, serif: true)
-                                .padding(.top, 12)
-                        }
-                        if !story.tags.isEmpty {
-                            Text(story.tags.map { "#" + $0.replacingOccurrences(of: " ", with: "") }.joined(separator: " "))
-                                .font(.system(size: 17))
-                                .foregroundStyle(Theme.Colors.textMuted)
-                                .padding(.top, 14)
-                        }
-                        statsRow(story)
-                            .padding(.top, 16)
-
-                        // Spec §8.3 — descriptors are visible before entry.
-                        if !story.contentDescriptors.isEmpty {
-                            descriptorsBlock(story)
-                                .padding(.top, 28)
-                        }
-                        if !detail.sessions.isEmpty {
-                            sessionsBlock(detail.sessions)
-                                .padding(.top, 28)
-                        }
-                        if !detail.cast.isEmpty {
-                            castBlock(detail.cast)
-                                .padding(.top, 28)
-                        }
-                        if !detail.creatorNote.isEmpty {
-                            creatorNote(detail.creatorNote)
-                                .padding(.top, 28)
-                        }
-                        if !detail.related.isEmpty {
-                            relatedBlock(detail.related)
-                                .padding(.top, 28)
-                        }
-                    }
-                    .padding(.horizontal, Theme.pageGutter)
-                    .padding(.top, 18)
+        return ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                // How far the page has scrolled, read straight off this probe.
+                GeometryReader { inner in
+                    let y = -inner.frame(in: .named("story.scroll")).minY
+                    Color.clear
+                        .onAppear { coverHeight = (width * 1.5).rounded() }
+                        .onChange(of: y) { _, value in scrollY = value }
                 }
-                // Every horizontal shelf below claims exactly this, so the
-                // column can never be widened from inside — see railWidth().
-                .environment(\.railWidth, width - Theme.pageGutter * 2)
-                .frame(width: width, alignment: .leading)
-                .padding(.bottom, Theme.Spacing.xxl)
+                .frame(height: 0)
+                StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
+                    .frame(width: width, height: (width * 1.5).rounded())
+                    .clipped()
+                    .accessibilityHidden(true)
+
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(story.title)
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, 20)
+                        .accessibilityAddTraits(.isHeader)
+                    Text(t("story.by_creator", ["name": story.creatorName]))
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                        .padding(.top, 2)
+                    statsLine(story)
+                        .padding(.top, 10)
+                    tagsRow(story, detail: detail)
+                        .padding(.top, 12)
+                    Text(story.hook)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, 16)
+
+                    cta(detail)
+                        .padding(.top, 16)
+
+                    about(detail)
+                        .padding(.top, 36)
+                    if !detail.sessions.isEmpty {
+                        sessionsBlock(detail.sessions)
+                            .padding(.top, 36)
+                    }
+                    if !detail.cast.isEmpty {
+                        castBlock(detail.cast)
+                            .padding(.top, 36)
+                    }
+                    if !detail.creatorNote.isEmpty {
+                        creatorNote(detail.creatorNote)
+                            .padding(.top, 36)
+                    }
+                    if !detail.related.isEmpty {
+                        relatedBlock(detail.related)
+                            .padding(.top, 36)
+                    }
+                }
+                .padding(.horizontal, Theme.pageGutter)
             }
-            .safeAreaInset(edge: .bottom, spacing: 0) { ctaBar(detail) }
+            // Every horizontal shelf below claims exactly this, so the
+            // column can never be widened from inside — see railWidth().
+            .environment(\.railWidth, width - Theme.pageGutter * 2)
+            .frame(width: width, alignment: .leading)
+            .padding(.bottom, Theme.Spacing.xxl)
         }
+        .coordinateSpace(name: "story.scroll")
+        .ignoresSafeArea(edges: .top)
     }
 
     // MARK: Sections
 
-    /// The cover, centred on a soft glow of its own colours.
-    private func coverBlock(_ story: StorySummary, width: CGFloat) -> some View {
-        ZStack {
-            RemoteImage((story.keyArt ?? story.coverImage)?.assetURL) { Color.clear }
-                .frame(width: width, height: 350)
-                .blur(radius: 50)
-                .opacity(0.35)
-                .clipped()
-            LinearGradient(
-                stops: [.init(color: Theme.Colors.bgBase.opacity(0.2), location: 0), .init(color: Theme.Colors.bgBase, location: 1)],
-                startPoint: .top, endPoint: .bottom
-            )
-            StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
-                .frame(width: 166, height: 249)
-                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
-                .overlay {
-                    RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous)
-                        .strokeBorder(Theme.Colors.textPrimary.opacity(0.4), lineWidth: 0.5)
-                }
-                .overlay(alignment: .topTrailing) {
-                    if story.official {
-                        Text(t("discover.official_badge"))
-                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                            .kerning(0.5)
-                            .foregroundStyle(Theme.Colors.textPrimary)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 5)
-                            .background(Theme.Colors.scrim, in: RoundedRectangle(cornerRadius: 6, style: .continuous))
-                            .padding(8)
-                    }
-                }
-                .shadow(color: .black.opacity(0.5), radius: 24, y: 12)
-        }
-        .frame(height: 350)
-        .clipped()
-        .accessibilityHidden(true)
-    }
-
-    private func titleRow(_ story: StorySummary) -> some View {
-        HStack(alignment: .top, spacing: Theme.Spacing.md) {
-            Text(story.title)
-                .font(.system(size: 26, weight: .semibold))
-                .foregroundStyle(Theme.Colors.textPrimary)
-                .fixedSize(horizontal: false, vertical: true)
-                .accessibilityAddTraits(.isHeader)
-            Spacer(minLength: 0)
-            Menu {
-                Button {
-                    toggleSaved(story)
-                } label: {
-                    Label(saved ? t("story.remove_from_saved") : t("story.save_story"), systemImage: saved ? "bookmark.slash" : "bookmark")
-                }
-                Button(role: .destructive) {
-                    router.present(.report(targetType: "STORY", targetId: story.storyId))
-                } label: {
-                    Label(t("story.report_story"), systemImage: "flag")
-                }
-                // Only for a world a person wrote. There is nobody to block
-                // behind an official one, and offering it would be nonsense.
-                if !story.official, !story.creatorId.isEmpty {
-                    Button(role: .destructive) {
-                        blockTarget = story
-                    } label: {
-                        Label(t("story.block_creator", ["name": story.creatorName]), systemImage: "person.slash")
-                    }
-                }
-            } label: {
-                Image(systemName: "ellipsis")
-                    .font(.system(size: 20, weight: .medium))
-                    .rotationEffect(.degrees(90))
-                    .foregroundStyle(Theme.Colors.textMuted)
-                    .frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
-                    .contentShape(Rectangle())
+    /// "▶ 1.6M plays · ♥ 86K likes", the numbers bright and the words quiet.
+    private func statsLine(_ story: StorySummary) -> some View {
+        HStack(spacing: 6) {
+            if story.runs > 0 {
+                stat("play.fill", Format.credits(story.runs, compact: true, locale: store.locale), t("create.metric_plays"))
             }
-            .accessibilityLabel(t("story.more_a11y"))
+            if story.runs > 0, likes > 0 {
+                Text(verbatim: "·").foregroundStyle(Theme.Colors.borderStrong)
+            }
+            if likes > 0 {
+                stat("heart.fill", Format.credits(likes, compact: true, locale: store.locale), t("create.metric_likes"))
+            }
+            if story.comments > 0 {
+                Text(verbatim: "·").foregroundStyle(Theme.Colors.borderStrong)
+                Button {
+                    router.present(.comments(storyId: story.storyId))
+                } label: {
+                    stat("text.bubble.fill", Format.credits(story.comments, compact: true, locale: store.locale), t("story.tab_comments").lowercased())
+                }
+                .buttonStyle(PressOpacityStyle())
+            }
+        }
+        .font(.system(size: 13))
+        .foregroundStyle(Theme.Colors.textSecondary)
+        .accessibilityElement(children: .combine)
+    }
+
+    private func stat(_ symbol: String, _ value: String, _ word: String) -> some View {
+        HStack(spacing: 4) {
+            Image(systemName: symbol).font(.system(size: 10))
+            Text(value).fontWeight(.semibold).foregroundStyle(Theme.Colors.textPrimary)
+            Text(word)
         }
     }
 
-    private func creatorChip(_ story: StorySummary) -> some View {
-        Text(t("story.creator_handle", ["name": story.creatorName]))
-            .font(.system(size: 17))
-            .foregroundStyle(Theme.Colors.textSecondary)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-            .overlay { RoundedRectangle(cornerRadius: 8, style: .continuous).strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5) }
-    }
-
-    /// Genre, shape and intensity, then what you can actually do here (§8.2).
-    private func chipsRow(_ story: StorySummary, detail: StoryDetailResponse) -> some View {
-        let words = [shapeWord(detail.stats.medianDepthLabel), intensityWord(detail.stats.intensity)]
-            + story.tags.prefix(2).map { t.category($0, fallback: $0) }
-            + story.mechanicsChips
+    /// Genre, shape and intensity as small filled tags (§8.2).
+    private func tagsRow(_ story: StorySummary, detail: StoryDetailResponse) -> some View {
+        let words = story.tags.prefix(3).map { t.category($0, fallback: $0) }
+            + [shapeWord(detail.stats.medianDepthLabel), intensityWord(detail.stats.intensity)]
         var seen = Set<String>()
         let unique = words.filter { !$0.isEmpty && seen.insert($0).inserted }
         return ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: Theme.Spacing.sm) {
+            HStack(spacing: 6) {
                 ForEach(unique, id: \.self) { word in
                     Text(word)
-                        .font(.system(size: 17))
+                        .font(.system(size: 12, weight: .medium))
                         .foregroundStyle(Theme.Colors.textSecondary)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .overlay { RoundedRectangle(cornerRadius: 8, style: .continuous).strokeBorder(Theme.Colors.borderStrong, lineWidth: 0.5) }
+                        .padding(.horizontal, 9)
+                        .padding(.vertical, 4)
+                        .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 6, style: .continuous))
                 }
             }
         }
         .railWidth()
     }
 
-    /// Views, likes, comments. No star ratings (§8.2).
-    private func statsRow(_ story: StorySummary) -> some View {
-        HStack(spacing: 22) {
-            statItem("eye", Format.credits(story.views, compact: true, locale: store.locale), label: t("story.stat_views"))
-            Button {
-                toggleLiked(story)
-            } label: {
-                statItem(liked ? "hand.thumbsup.fill" : "hand.thumbsup", Format.credits(likes, compact: true, locale: store.locale), label: liked ? t("story.unlike") : t("story.like"))
-            }
-            .buttonStyle(PressOpacityStyle())
-            Button {
-                tab = .comments
-            } label: {
-                statItem("text.bubble", Format.credits(story.comments, compact: true, locale: store.locale), label: t("story.tab_comments"))
-            }
-            .buttonStyle(PressOpacityStyle())
-        }
-    }
-
-    private func statItem(_ symbol: String, _ value: String, label: String) -> some View {
-        HStack(spacing: 6) {
-            Image(systemName: symbol)
-                .font(.system(size: 16, weight: .regular))
-            Text(value)
-                .font(.system(size: 17))
-        }
-        .foregroundStyle(Theme.Colors.textMuted)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(label): \(value)")
-    }
-
-    /// Spec §8.3 — one primary CTA, pinned. Continue when there is a run to
-    /// return to; New session beside it, because starting over leaves the old
-    /// run entirely alone.
-    ///
-    /// `Play` starts the story. It used to push the character-setup screen, so
-    /// the distance between wanting to play and playing was a form — and 53 of
-    /// the 197 people who reached that form never submitted a turn. Setup is
-    /// still here, one tap away, for the players it is actually for; it is no
-    /// longer the toll everybody pays. See `DefaultIdentity`.
-    private func ctaBar(_ detail: StoryDetailResponse) -> some View {
+    /// Spec §8.3 — one primary, in the first viewport. Play starts the story
+    /// with a default identity (`DefaultIdentity`); setup is one tap away for
+    /// whoever wants to author a character, worded as what it gives. Continue
+    /// takes over when there is a run to return to, and New session stays
+    /// beside it as text, because starting over leaves the old run alone.
+    private func cta(_ detail: StoryDetailResponse) -> some View {
         let continuing = detail.activeSessionId != nil
-        return VStack(spacing: 10) {
-            if continuing {
-                PBButton(t("story.continue"), variant: .light, size: .medium, haptic: .medium) {
-                    if let sessionId = detail.activeSessionId { router.push(.session(sessionId: sessionId)) }
-                }
-                PBButton(t("story.new_session"), loadingLabel: t("story.starting"),
-                         variant: .outline, size: .medium, loading: starting, disabled: starting,
-                         haptic: .medium) {
-                    Task { await play(detail) }
-                }
-            } else {
-                PBButton(t("story.play"), loadingLabel: t("story.starting"),
-                         variant: .light, loading: starting, disabled: starting,
-                         haptic: .medium) {
-                    Task { await play(detail) }
-                }
-            }
-            // Secondary on purpose, and worded as what it gives rather than as
-            // what it costs: this is the door for somebody who wants to author
-            // a character, not a step to get past.
-            PBButton(t("story.customize_character"), variant: .tertiary, size: .medium, disabled: starting) {
-                router.push(.characterSetup(storyId: detail.story.storyId))
-            }
-            if let startError {
-                Txt(startError, .caption, color: Theme.Colors.danger, center: true)
-            }
-        }
-        .padding(.horizontal, Theme.pageGutter)
-        .padding(.top, 14)
-        .padding(.bottom, Theme.Spacing.sm)
-        .background(Theme.Colors.bgBase)
-        .overlay(alignment: .top) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
-    }
-
-    /// Every run of this world, newest first.
-    private func sessionsBlock(_ sessions: [StoryRun]) -> some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Text(t("story.sessions_heading"))
-                .font(.system(size: 22, weight: .semibold))
-                .foregroundStyle(Theme.Colors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
-            ForEach(Array(sessions.enumerated()), id: \.element.sessionId) { index, session in
-                Card {
-                    HStack(alignment: .center, spacing: Theme.Spacing.md) {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Txt(sessionLine(session), .bodyStrong)
-                            HStack(spacing: Theme.Spacing.sm) {
-                                if index == 0 { Chip(t("story.session_latest"), tone: .accent) }
-                                if session.status == .COMPLETED { Chip(t("story.session_status_completed")) }
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        Button {
-                            router.push(.session(sessionId: session.sessionId))
-                        } label: {
-                            Txt(t("story.session_resume"), .bodyStrong, color: Theme.Colors.accentPrimary)
-                        }
-                        .buttonStyle(PressOpacityStyle())
-                        .accessibilityLabel(t("story.session_resume"))
+        let story = detail.story
+        return VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 10) {
+                if continuing {
+                    PBButton(t("story.continue"), variant: .light, haptic: .medium, icon: "play.fill") {
+                        if let sessionId = detail.activeSessionId { router.push(.session(sessionId: sessionId)) }
+                    }
+                } else {
+                    PBButton(t("story.play"), loadingLabel: t("story.starting"),
+                             variant: .light, loading: starting, disabled: starting,
+                             haptic: .medium, icon: "play.fill") {
+                        Task { await play(detail) }
                     }
                 }
+                Button {
+                    Haptic.play(.light)
+                    toggleLiked(story)
+                } label: {
+                    Image(systemName: liked ? "heart.fill" : "heart")
+                        .font(.system(size: 20, weight: .medium))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .frame(width: 52, height: 52)
+                        .background(Theme.Colors.bgRaised, in: Circle())
+                }
+                .buttonStyle(PressScaleStyle())
+                .accessibilityLabel(liked ? t("story.unlike") : t("story.like"))
+                .accessibilityAddTraits(liked ? .isSelected : [])
+            }
+            HStack {
+                Text(playingAs(detail))
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .lineLimit(1)
+                Spacer(minLength: Theme.Spacing.sm)
+                if continuing {
+                    Button {
+                        Task { await play(detail) }
+                    } label: {
+                        Text(starting ? t("story.starting") : t("story.new_session"))
+                    }
+                    .disabled(starting)
+                } else {
+                    Button {
+                        router.push(.characterSetup(storyId: story.storyId))
+                    } label: {
+                        Text(t("story.customize_character"))
+                    }
+                    .disabled(starting)
+                }
+            }
+            .font(.system(size: 15, weight: .semibold))
+            .foregroundStyle(Theme.Colors.textPrimary)
+            .buttonStyle(PressOpacityStyle())
+            if let startError {
+                Txt(startError, .caption, color: Theme.Colors.danger)
+            }
+        }
+    }
+
+    /// Who Play makes you: the default name, and the first role when the world
+    /// offers roles. The same identity `QuickStart` sends.
+    private func playingAs(_ detail: StoryDetailResponse) -> String {
+        let name = DefaultIdentity.build(for: detail, store: store).displayName
+        let line = t("library.playing_as", ["name": name])
+        guard let role = detail.archetypes.first?.name, !role.isEmpty else { return line }
+        return line + " · " + role
+    }
+
+    /// The premise, four lines and a More. Sans, not the story's serif: this is
+    /// the page talking about the story, not the story talking. Content
+    /// descriptors sit under it, visible before entry (§8.3).
+    private func about(_ detail: StoryDetailResponse) -> some View {
+        let story = detail.story
+        return VStack(alignment: .leading, spacing: 12) {
+            sectionHead(t("story.description_heading"))
+            VStack(alignment: .leading, spacing: 10) {
+                ForEach(Array((aboutOpen ? detail.premise.paragraphs : Array(detail.premise.paragraphs.prefix(1))).enumerated()), id: \.offset) { _, paragraph in
+                    Text(paragraph)
+                        .font(.system(size: 15))
+                        .lineSpacing(5)
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .lineLimit(aboutOpen ? nil : 4)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            if !aboutOpen {
+                Button {
+                    withAnimation(.easeOut(duration: Theme.Durations.short)) { aboutOpen = true }
+                } label: {
+                    Text(t("ui.read_more"))
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                }
+                .buttonStyle(PressOpacityStyle())
+            }
+            if !story.contentDescriptors.isEmpty {
+                Text(t("story.content_heading") + ": " + story.contentDescriptors.map(descriptorLabel).joined(separator: " · "))
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, 4)
+            }
+        }
+    }
+
+    private func sectionHead(_ title: String, trailing: String? = nil) -> some View {
+        HStack(alignment: .firstTextBaseline) {
+            Text(title)
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
+            Spacer(minLength: Theme.Spacing.sm)
+            if let trailing {
+                Text(trailing)
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+            }
+        }
+    }
+
+    /// Every run of this world, newest first, as plain rows.
+    private func sessionsBlock(_ sessions: [StoryRun]) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            sectionHead(t("story.sessions_heading"))
+                .padding(.bottom, 8)
+            ForEach(Array(sessions.prefix(5).enumerated()), id: \.element.sessionId) { index, session in
+                Button {
+                    router.push(.session(sessionId: session.sessionId))
+                } label: {
+                    HStack(spacing: Theme.Spacing.md) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(sessionLine(session))
+                                .font(.system(size: 15, weight: .medium))
+                                .foregroundStyle(Theme.Colors.textPrimary)
+                                .lineLimit(1)
+                            if index == 0 || session.status == .COMPLETED {
+                                Text(session.status == .COMPLETED ? t("story.session_status_completed") : t("story.session_latest"))
+                                    .font(.system(size: 13))
+                                    .foregroundStyle(Theme.Colors.textMuted)
+                            }
+                        }
+                        Spacer(minLength: Theme.Spacing.sm)
+                        Text(t("story.session_resume"))
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                    }
+                    .frame(minHeight: 52)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(PressOpacityStyle())
             }
         }
     }
@@ -507,27 +539,29 @@ struct StoryDetailScreen: View {
         return t("story.session_line", ["count": session.turnCount, "date": date])
     }
 
-    /// The carousel has to truncate, so the truncation has to be one tap from
-    /// the whole thing.
+    /// Faces as rounded squares, a name and a role; tap for the whole card.
     private func castBlock(_ cast: [CastMember]) -> some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Text(t("story.cast_heading"))
-                .font(.system(size: 22, weight: .semibold))
-                .foregroundStyle(Theme.Colors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHead(t("nav.characters"))
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top, spacing: Theme.Spacing.lg) {
+                HStack(alignment: .top, spacing: 12) {
                     ForEach(cast) { member in
                         Button {
                             castMember = member
                         } label: {
-                            VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                                CharacterPortrait(name: member.name, uri: member.portrait, size: 120)
-                                Txt(member.name, .bodyCompact, lineLimit: 1)
-                                Txt(member.cardBlurb.isEmpty ? member.role : member.cardBlurb, .caption,
-                                    color: Theme.Colors.textSecondary, lineLimit: 3)
+                            VStack(alignment: .leading, spacing: 0) {
+                                CharacterPortrait(name: member.name, uri: member.portrait, size: 76)
+                                Text(shortName(member.name))
+                                    .font(.system(size: 13, weight: .medium))
+                                    .foregroundStyle(Theme.Colors.textPrimary)
+                                    .lineLimit(1)
+                                    .padding(.top, 8)
+                                Text(shortRole(member.role))
+                                    .font(.system(size: 12))
+                                    .foregroundStyle(Theme.Colors.textMuted)
+                                    .lineLimit(1)
                             }
-                            .frame(width: 120, alignment: .leading)
+                            .frame(width: 76, alignment: .leading)
                         }
                         .buttonStyle(PressOpacityStyle(pressed: 0.8))
                         .accessibilityLabel(t("story.cast_a11y", ["name": member.name, "role": member.role]))
@@ -538,37 +572,44 @@ struct StoryDetailScreen: View {
         }
     }
 
-    /// Spec §8.3 — descriptors are visible before entry, never after.
-    private func descriptorsBlock(_ story: StorySummary) -> some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            SectionLabel(t("story.content_heading"))
-            FlowLayout(spacing: Theme.Spacing.sm) {
-                ForEach(story.contentDescriptors, id: \.self) { descriptor in
-                    Chip(descriptorLabel(descriptor), tone: descriptor == .PERMANENT_DEATH ? .warning : .neutral)
-                }
-            }
+    /// "Ayame Kurose" → "Ayame"; "Mrs Elara Vale" → "Mrs Vale". The card opens
+    /// on the full name.
+    private func shortName(_ name: String) -> String {
+        let words = name.split(separator: " ").map(String.init)
+        guard words.count > 1 else { return name }
+        let honorifics: Set<String> = ["mr", "mrs", "ms", "miss", "dr", "sir", "lady", "lord", "mx"]
+        if honorifics.contains(words[0].lowercased().trimmingCharacters(in: CharacterSet(charactersIn: "."))) {
+            return words[0] + " " + (words.last ?? "")
         }
+        return words[0]
+    }
+
+    /// The role up to its first comma or full stop: "Room 314, the night
+    /// clerk's neighbour" → "Room 314".
+    private func shortRole(_ role: String) -> String {
+        let cut = role.split(whereSeparator: { $0 == "," || $0 == "." || $0 == ";" }).first.map(String.init) ?? role
+        return cut.trimmingCharacters(in: .whitespaces)
     }
 
     private func creatorNote(_ note: String) -> some View {
-        Card {
-            VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                Txt(t("story.creator_note_heading"), .caption, color: Theme.Colors.textMuted)
-                Txt(note, .bodyCompact, color: Theme.Colors.textSecondary)
-            }
+        let heading = t("story.creator_note_heading").lowercased()
+        return VStack(alignment: .leading, spacing: 12) {
+            sectionHead(heading.prefix(1).uppercased() + heading.dropFirst())
+            Text(note)
+                .font(.system(size: 15))
+                .lineSpacing(5)
+                .foregroundStyle(Theme.Colors.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 
     private func relatedBlock(_ related: [StorySummary]) -> some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Text(t("story.related_heading"))
-                .font(.system(size: 22, weight: .semibold))
-                .foregroundStyle(Theme.Colors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
+        VStack(alignment: .leading, spacing: 12) {
+            sectionHead(t("story.related_heading"))
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top, spacing: Theme.Spacing.md) {
+                HStack(alignment: .top, spacing: 12) {
                     ForEach(related) { item in
-                        PortraitStoryCard(story: item, width: 98, locale: store.locale) {
+                        PortraitStoryCard(story: item, width: 104, locale: store.locale) {
                             router.push(.storyDetail(storyId: item.storyId))
                         }
                     }
