@@ -156,9 +156,28 @@ describe('everybody here is an adult, and the text never says otherwise', () => 
   const MINOR_CODED =
     /\b(kids?|child|children|childlike|childhood|teens?|teenagers?|teenage|minors?|underage|juvenile|adolescents?|schoolgirls?|schoolboys?|high school|middle school|boys?|girls?|thirteen|fourteen|fifteen|sixteen|seventeen)\b/i;
 
-  it('uses no age word that reads as younger than eighteen anywhere in the world', () => {
+  /**
+   * The one sentence allowed to contain those words is the hard-canon line
+   * that bans them by name, because the storyteller has no age rule of its own
+   * and obeys a named list better than a principle. It is one sentence with no
+   * full stop inside it, so it can be cut out exactly before the scan.
+   */
+  const BAN = /Words that read younger are banned[^.]*\./;
+
+  it('bans the words that read younger by name, in the hard canon the storyteller reads', () => {
+    const line = story.rules.hardCanon.find((l) => BAN.test(l));
+    expect(line, 'no ban sentence in the hard canon').toBeDefined();
+    const sentence = BAN.exec(line!)![0];
+    for (const word of ['kid', 'teen', 'teenager', 'boy', 'girl', 'school', 'high school', 'senior year', 'prom', 'teachers']) {
+      expect(sentence, word).toContain(`"${word}"`);
+    }
+    expect(line).toMatch(/no further than eighteen/);
+  });
+
+  it('uses no age word that reads as younger than eighteen anywhere else in the world', () => {
     const text = JSON.stringify(story);
-    expect(text.match(MINOR_CODED)?.[0] ?? null).toBeNull();
+    expect(text.match(BAN), 'the ban sentence is not found in the serialised world').not.toBeNull();
+    expect(text.replace(BAN, '').match(MINOR_CODED)?.[0] ?? null).toBeNull();
   });
 
   it('never ties a character to a younger age, even in the past tense', () => {

@@ -77,10 +77,16 @@ Only the player can see the window or hear the voice in it, which calls itself *
 
 Left alone, the night drifts back toward what happened.
 
-- Hide the crate before the party and Theo comes back from the marina store at 21:40 with a box of signal flares.
-- Talk Dad out of signing and Graham phones the house at 21:28 with ten percent more.
+- Hide the crate before the party and Theo comes back from the marina store at 21:40 (or as soon as he notices, if later) with a box of signal flares.
+- Talk Dad out of signing and Graham phones the house at 21:28 with ten percent more (or says it to Dad's face, if Dad is already at the lake house). Dad holds only if it was his own decision.
 
-A change holds when someone in the story **chooses** it. Moving the furniture does not make a change hold. This is the rule the whole story turns on, and the narrator should enforce it gently and consistently.
+A change holds when someone in the story **chooses** it. Moving the furniture does not make a change hold. This is the rule the whole story turns on, and the narrator should enforce it gently, consistently and always in plain sight, never behind the player's back. The times are in the fixture's hard canon, because production never reads quest notes or event times.
+
+### Knowing the future has limits
+
+- Saying what you could only know from the future costs more each time. Once, it is a joke. Twice, and people are kind about it (Jun asks if you are all right, Dad asks what you have eaten). After a few more, or after a fight anybody saw, the class is filming and Graham watches you like a problem; past that, somebody phones Dad and every true thing lands as a symptom.
+- The more tonight changes, the less memory is a map: after the first big change, people start saying lines the player has never heard.
+- The player remembers their own life and this one night, not the world's: no lottery numbers, match scores or share prices. What they know to the minute is tonight, the three regrets, what became of these people, and the lake rezoning. Small bets about tonight are fair game.
 
 ### At 6:10
 
@@ -93,13 +99,16 @@ When the bus pulls out, the window asks one question: **keep this draft** and li
 - The ache is that everyone they lost is right here and does not know.
 - Keep the clock visible. 22:00, 22:40, 23:00, 23:47, midnight, 6:10.
 - Nobody is a villain, including Graham.
-- Nobody at this party is drunk. The night goes wrong through fireworks, a signature, a lie and a missed meeting.
+- There is no alcohol at this party: the cups are cola and lemonade. The night goes wrong through fireworks, a signature, a lie and a missed meeting.
 - The System's lines are short, bracketed and dry. It never gives speeches.
 
 ## Ages and content (binding)
 
 - **Every character is 18 or older.** The graduating class are eighteen or nineteen. The player is eighteen in body and twenty-eight in memory.
 - Prose describes everyone as the adult they are, and never in looks, manner or words that read as younger than eighteen. The fixture avoids even past-tense age references ("since you were six"): friendships are "for as long as either of you can remember".
+- Words that read younger are banned in narration and dialogue: nobody is ever a "kid", "kids", "teen", "teenager", "boy" or "girl"; they are the class, the graduates, eighteen-year-olds, and Dad calls the player boss or by name, never "kid". What they graduated from is never called a school: never "high school", "senior year", "prom", "homeroom" or "teachers". It is "graduation", "the ceremony" and "the class".
+- Memories and flashbacks go back no further than eighteen: never a scene from anyone's childhood.
+- The production narrator has no age rule of its own, so all of the above is in the fixture's hard canon word for word. That one hard-canon sentence is the only place the banned words appear, and the spec cuts it out before scanning the rest of the world.
 - Romance with Sara is between two eighteen-year-olds who have liked each other for years. It can be flirtatious, tense and heartfelt, and goes as far as a kiss. No sexual content, no lingering body description.
 - The fire hurts nobody. A shove or a punch at the party is possible and is witnessed. No gore.
 - 13+ throughout.
@@ -275,7 +284,7 @@ Every place has a way in and a way out.
 1. **Whether you keep this second try** (finale). Seed: the tiny grey number in the window's corner. Payoff: at 6:10 the window asks *keep this draft?*
 2. **What Sara was going to say on the pier** (relationship). Seed: she keeps touching her jacket's inside pocket and checking the time. Payoff: two tickets, one in your name, in her handwriting.
 3. **The blue folder in the kitchen drawer** (relationship). Seed: Dad puts it away and says "garage stuff". Payoff: three pages, a price, and the fact that he found your letter in the bin in April.
-4. **Who lit the fireworks, and who says so** (rival). Seed: a crate in the trunk of Theo's silver car. Payoff: 22:40 on the boathouse roof, and Graham's hand on somebody's shoulder.
+4. **Who lit the fireworks, and who says so** (rival). Seed: a crate in the boot of Theo's silver car. Payoff: 22:40 on the boathouse roof, and Graham's hand on somebody's shoulder.
 5. **What happened on attempt one** (mystery, optional). Seed: ATTEMPT 2 in grey. Payoff: a log in your own handwriting: all ten points on Luck, three places at once, late to all of them.
 
 ## Emergent routes
@@ -311,20 +320,21 @@ Every place has a way in and a way out.
 
 > Ten minutes ago you were twenty-eight, asleep with an old bus ticket in your hand.
 >
-> Now Jun is shaking you awake. Your best friend. Eighteen, and still talking to you.
+> Now Jun is in your doorway, throwing a shoe at you. Your best friend. Eighteen, and still talking to you.
 >
 > "Up, graduate. You slept the whole afternoon."
 >
 > Your old bedroom. Your gown on the door. And over the blanket, a pale blue window only you can see:
 >
-> [Restart complete. Graduation day, 4:40 p.m.]
+> [Restart complete. Graduation day, 16:40.]
 > [10 points to allocate: Charm, Grit, Wits, Luck]
 >
-> Last time, tonight’s party ruined everything.
+> Last time, tonight cost your dad his garage, Jun his future, and you the person waiting on the pier.
 >
-> Jun tosses your shoes onto the bed. "Party’s at eight. You’re coming this time, right?"
+> Jun weighs the other shoe in his hand. "Party’s at eight. You’re coming this time, right?"
 
-- 92 words. A named character (Jun) is in the second paragraph and speaks at word 31.
+- 110 words. A named character (Jun) is in the second paragraph and speaks at word 36.
+- The stakes line seeds all three threads (the garage, Jun's academy place, the pier) before the first turn. The window uses 24-hour time, like every System line.
 - It ends on a direct question that needs an answer now.
 - Under 120 words. The only names are Jun, introduced as your best friend, and the four stat names, which the window explains.
 
@@ -336,6 +346,6 @@ Every place has a way in and a way out.
 
 ## Image plan (not generated here)
 
-- **Cover:** Jun in a bedroom doorway with a pair of shoes, grinning; a soft blue stat window with four bars glowing over an unmade bed; a graduation gown on the door; late summer light. Adults only, described by costume and pose. No lettering in the window.
+- **Cover:** Jun in a bedroom doorway with a shoe in one hand, grinning; a soft blue stat window with four bars glowing over an unmade bed; a graduation gown on the door; late summer light. Adults only, described by costume and pose: lean on the adult cues already authored (broad shoulders, buzzed hair, a man's build, the fire academy T-shirt). A grin in a bedroom doorway is exactly the frame an anime model draws young, so read the cover back for a youthful face before shipping, and regenerate if in doubt. No lettering in the window.
 - **Opening panel:** the same moment, from the bed.
 - **Stages:** the bedroom, the kitchen, Ferry Road at dusk, the garage, Main Street, the bakery, the hardware store alley, the bus shelter at dawn, the lake house party, the boathouse roof, the study, the old pier at night, the Save Room.

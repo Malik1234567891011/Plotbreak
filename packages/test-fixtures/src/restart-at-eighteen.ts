@@ -65,7 +65,7 @@ const raw = {
     'The night pulls back',
     'Keep the draft, or wake up',
   ],
-  contentDescriptors: ['ROMANCE', 'PSYCHOLOGICAL_THEMES', 'MORAL_AMBIGUITY'],
+  contentDescriptors: ['ROMANCE', 'PSYCHOLOGICAL_THEMES', 'MORAL_AMBIGUITY', 'LANGUAGE'],
   intensity: 'LIGHT',
   creatorNote:
     'You can fix one thing properly, all three badly, or nothing at all and spend the night in the garage with your dad, and every one of those is a real way to play this. The window pays you for changing things. It never tells you which change was worth it.',
@@ -91,27 +91,29 @@ const raw = {
     ],
     hardCanon: [
       'The player is twenty-eight in memory and eighteen in body. They fell asleep at twenty-eight holding an old bus ticket and woke at 16:40 on the afternoon of their graduation, in their old bedroom on Ferry Road. Ten years were undone for them and for nobody else. Nobody else remembers the first time.',
-      'Everyone in this story is eighteen or older. The graduating class are eighteen or nineteen. Describe everyone as the adult they are: never in looks, manner or words that read as younger than eighteen.',
+      'Everyone in this story is eighteen or older. The graduating class are eighteen or nineteen. Describe everyone as the adult they are: never in looks, manner or words that read as younger than eighteen. Words that read younger are banned in narration and in dialogue: nobody is ever a "kid", "kids", "teen", "teenager", "boy" or "girl" (they are the class, the graduates, eighteen-year-olds, and Dad calls the player boss or by name, never "kid"), and what they finished this morning is graduation, the ceremony, the class, never "school", "high school" or "senior year", with no "prom", "homeroom" or "teachers". Memories and flashbacks reach back no further than eighteen: nobody is ever shown, remembered or described at a younger age.',
       'Only the player can see the window or hear the voice in it, which calls itself the System. The window shows four stats, Charm, Grit, Wits and Luck, each starting at 2, with 10 unspent points. A stat at 5 is noticeable, at 8 remarkable, at 10 uncanny, and nothing goes above 10. Spending is instant and permanent, and the player feels it land.',
       'The System awards new points for changing what happened the first time: +1 for a small change that holds, +2 for changing what a person does, +3 for changing one of the three big things (the signature, the fire, the pier). It announces every award in one short bracketed line, with the time.',
       'What the stats do: Charm makes people listen a beat longer and forgive one strange remark. Grit lets the player hold a line, take a shove, stay awake, and say the hard thing without taking it back. Wits sharpens what they notice now and how exactly they remember the first time. Luck bends small coincidences: a green light, a dropped key, the right person turning round. No stat makes anybody act against their own character.',
       'The first night, exactly: 18:30 Dad comes home with a blue folder. 19:05 Sara texts "Are you actually coming tonight? I need to tell you something. In person." 19:15 Theo Ashcroft loads a crate of display rockets into his car behind the hardware store. 20:00 the party starts at the Ashcroft lake house. 21:30 Sara says "Old pier. Eleven. Please come." 22:00 Dad signs the garage over to Graham Ashcroft in his study. 22:40 Theo lights the crate on the boathouse roof, a rocket goes sideways into the boat shed and it burns; nobody is hurt. 22:55 Graham puts the blame on Jun, who was standing nearest. The player saw Theo light it and said nothing. 23:00 to 23:47 Sara waits on the old pier; the player never comes. 06:10 Sara leaves town on the first bus.',
       'What the ten years did: Jun lost his place at the fire service academy over the fire and stopped speaking to the player at twenty-two. The morning after the sale the player told Dad "I never asked you to do this, and I will never forgive you for it," and after that they spoke about twice a year. The player never saw Sara again; she is alive in the city, a stranger. At twenty-eight Sara’s mother sold the bakery, found an unused 6:10 ticket with the player’s name on it in Sara’s handwriting, and mailed it with no note. That ticket came back with the player and is still in their pocket.',
-      'Left alone, the night pulls back toward what happened. A crate hidden in one place becomes a box of flares in another; a talk that changed Dad’s mind is undone by one phone call. A change holds when somebody in the story chooses it, not when the player merely arranges it.',
+      'Left alone, the night pulls back toward what happened, always in plain sight and never behind the player’s back. If the crate goes missing, at 21:40 (or as soon as he notices, if that is later) Theo comes back from the marina store with a box of signal flares and climbs onto the boathouse roof anyway. If Dad decides not to sign, at 21:28 Graham phones the house with ten percent more (or says it to Dad’s face, if Dad is already at the lake house), and Dad holds only if it was his own decision. A change holds when somebody in the story chooses it, not when the player merely arranges it.',
+      'Saying what the player could only know from the future costs more each time. Once, it is a joke. Twice, and people are kind about it: Jun asks if the player is all right, Dad asks what they have eaten. After a few more, or after a fight anybody saw, the class is filming and Graham Ashcroft watches the player like a problem; past that, somebody phones Dad and every true thing lands as a symptom. And the more tonight changes, the less the player’s memory is a map: after the first big change, people start saying lines the player has never heard.',
+      'The player remembers their own life and this one night, not the world’s: no lottery numbers, match scores or share prices. What they know to the minute is tonight, the three regrets, what became of these people, and the lake rezoning that makes Dad’s lot worth nine times tonight’s price. Small bets about tonight are fair game.',
       'The System cannot touch the world, cannot talk to anybody but the player, cannot see further ahead than the player remembers, and will not fix anything. In the corner of the window, very small and grey, it says ATTEMPT 2. Nobody brings that up unless the player looks closely at the window or asks the System about itself.',
       'At 6:10, as the bus pulls out, the window asks one question: keep this draft and live forward from eighteen, or wake at twenty-eight and see what tonight changed. Either answer can be right.',
-      'Sara is leaving town on the 6:10 for her own reasons, and she does not need to be saved from it. Nobody in this story is a prize, and nobody is a villain, Graham Ashcroft included.',
+      'Sara is leaving town on the 6:10 for her own reasons, and she does not need to be saved from it. Nobody in this story is a prize, and nobody is a villain, Graham Ashcroft included. Romance goes as far as a kiss and no further.',
     ],
     toneGuide:
       'Warm, funny and sore, in the key of a good second-chance anime: a summer evening, cicadas, string lights, a bonfire, a group chat going off every forty seconds, and underneath it a twenty-eight-year-old who knows how all of it ends. ' +
       'The comedy is the gap between adult habits and an eighteen-year-old life: calling Dad by his first name by accident, knowing a song that has not come out yet, being tired at nine, being much too good at small talk with Graham Ashcroft. The ache is that everyone the player lost is right here and does not know. ' +
       'Keep the clock visible: the party at eight, ten, 10:40, eleven, 11:47, midnight, 6:10. The System speaks only in short bracketed lines with times in them, and never gives a speech. ' +
-      'Nobody at this party is drunk; the night goes wrong through fireworks, a signature, a lie and a missed meeting. Romance with Sara is between two eighteen-year-olds who have liked each other for years, and goes as far as a kiss. A shove or a punch at the party is possible, is seen by everybody, and changes how people look at the player. ' +
-      'The face at the top of a beat is whoever the player is talking to.',
+      'There is no alcohol at this party: the cups are cola and lemonade, and the night goes wrong through fireworks, a signature, a lie and a missed meeting. Romance with Sara is between two eighteen-year-olds who have liked each other for years, and goes as far as a kiss. A shove or a punch at the party is possible, is seen by everybody, and changes how people look at the player. ' +
+      'The face at the top of a beat is whoever the player is talking to. The player’s suggested replies never contain square brackets; only the System speaks in them.',
     proseStyle: 'webnovel',
     styleExamples: [
       "[22:31. Change detected: Jun is not on the boathouse rail. +2.]\n\nThe window blinks once and goes back to being the corner of your eye.\n\nJun is on the bonfire side of the lawn, holding two paper cups, staring at you.\n\n\"Why did you just walk me into a hedge?\"\n\n\"Bee,\" you say.\n\n\"There's no bee.\"\n\n\"There was a bee.\"",
-      "Dad doesn't look up from the folder.\n\n\"Garage stuff,\" he says. \"Go to your party.\"\n\nYou know what's on page three. You know what that lot sells for in three years.\n\n\"Dad. Look at me.\"\n\nHe does. He looks tired, and fifty-one, and younger than you remember him ever being.\n\n\"Since when do you say my name like it's a warning?\"",
+      "Dad doesn't look up from the folder.\n\n\"Garage stuff,\" he says. \"Go to your party.\"\n\nYou know what's on page three. You know what that lot sells for in three years.\n\n\"Dad. Look at me.\"\n\nHe does. He looks tired, and fifty-one, and younger than you remember him ever being.\n\n\"Since when do you say Dad like it's a warning?\"",
       "Sara is sitting on the end of the pier with her shoes off, and she doesn't turn round.\n\n\"You came,\" she says, like she'd bet against it.\n\n[23:02. This did not happen last time.]\n\nShe pats the boards beside her. There's an envelope in her lap, and the corner of it says 6:10.\n\n\"Sit down before I change my mind.\"",
     ],
     forkCostCredits: 120,
@@ -275,7 +277,7 @@ const raw = {
       tags: ['quest', 'document'],
       questItem: true,
       description:
-        'An offer of a place on the engineering course at the state university in the city, starting in September, folded small in your sticking desk drawer. The first time, you told everybody you never applied.',
+        'An offer of a place on the engineering course at the university in the city, starting in September, folded small in your sticking desk drawer. The first time, you told everybody you never applied.',
       loreText:
         'It has been flattened out under something heavy. You did not do that. Somebody took it out of the bin in April and put it back in your drawer.',
       icon: 'letter',
@@ -682,7 +684,7 @@ const raw = {
       description:
         'The Ashcroft summer house on the north shore: a deck bigger than your whole house, string lights, a bonfire on the lawn, a speaker system loud enough to reach the far bank, and ninety people from your class in various states of sunburn. Graham’s study is through the side door. The boathouse is down the lawn on the water.',
       artDirection:
-        'Large lakeside summer house at night during a party, a wide wooden deck with string lights, a bonfire on the lawn, young adults in summer clothes with phones out, a boathouse at the water’s edge below. Golden, loud, joyful.',
+        'Large lakeside summer house at night during a party, a wide wooden deck with string lights, a bonfire on the lawn, a crowd in summer clothes with phones out, a boathouse at the water’s edge below. Golden, loud, joyful.',
       connections: [
         { to: 'ferry_road', travelMinutes: 15, label: 'The lake road home' },
         { to: 'the_boathouse', travelMinutes: 3, label: 'Down the lawn to the boathouse' },
@@ -790,7 +792,7 @@ const raw = {
       id: 'faction_ferry_road',
       name: 'The Ferry Road Neighbours',
       description:
-        'The street you grew up on: Dad, the Dela Cruz family two doors down, and the neighbours who watched you and Jun ride bikes into the same hedge for years. They look after their own, they remember everything, and the first time round they watched you stop coming home.',
+        'The street you grew up on: Dad, the Dela Cruz family two doors down, and the neighbours who have watched you and Jun come and go past their windows for as long as anybody can remember. They look after their own, they remember everything, and the first time round they watched you and Dad stop speaking.',
       startingReputation: 45,
       ranks: [
         { atReputation: 0, label: 'From the street' },
@@ -909,7 +911,7 @@ const raw = {
       values: ['Turning up', 'Not leaving anybody behind at a party, a lake or a fight'],
       fears: ['Being the one everybody likes and nobody takes seriously', 'Losing the academy place before August'],
       socialStyle:
-        'Physical and loud. Throws things at you instead of saying hello. Goes very quiet and very still when something is actually wrong, which is how you know.',
+        'Physical and loud. Throws things at you instead of saying hello. Told something impossible, he treats it as a bit and plays along, then decides you have a fever and puts a hand on your forehead; only when you tell him something nobody but him could know does he go very quiet and very still, the way he does whenever something is actually wrong, which is how you know he is finally listening.',
       boundaries: [
         'Will not name names, including Theo’s, even to save himself',
         'Will not be lied to twice by the same person',
@@ -937,7 +939,7 @@ const raw = {
       topics: ['the party', 'the fire service academy', 'Theo', 'his family', 'the summer', 'what is wrong with you today'],
       voiceSamples: [
         'Party’s at eight. You’re coming this time, right? Right. Good. I already told everybody you were.',
-        'Why are you staring at me? Is it the shirt? It’s the shirt. Mum ironed it, I can’t change it now.',
+        'Why are you staring at me? Is it the shirt? It’s the shirt. I ironed it myself, I can’t change it now.',
         'I don’t name names, man. Not even his. You know that about me.',
         'Since when do you talk like my uncle? You sound exactly like my uncle. Stop it.',
       ],
@@ -1073,7 +1075,7 @@ const raw = {
       name: 'Theo Ashcroft',
       role: 'Host of tonight’s party, Graham Ashcroft’s son, and the one who lights the crate at 10:40',
       cardBlurb:
-        'He is throwing the party you are all going to, he has a crate of fireworks in his trunk, and the last time he let your best friend take the blame for what he did with them while you watched.',
+        'He is throwing the party you will all be talking about for ten years, he has a crate of rockets in the boot of his car and no idea how to light them, and he will let anybody but himself carry what happens next.',
       pronouns: 'he/him',
       publicTraits: ['Generous with everything his father paid for', 'Charming for exactly as long as he is the centre of the room', 'Never once says sorry'],
       hiddenDrives: [
@@ -1268,7 +1270,7 @@ const raw = {
         '[Graduation day. 16:40. 10 points unallocated.]',
         '[Change detected: the folder was opened at 18:52. The first time it was not. +2.]',
         '[You have asked four times. Still 22:00.]',
-        '[Attempt 1 put everything into Luck. Luck is not a plan.]',
+        '[Luck: 10. Uncanny. 0 unspent. 16:41.]',
       ],
       appearance:
         'A pale blue translucent panel the size of a paperback hanging at the edge of sight, with four glowing bars and a tiny grey number in one corner.',
@@ -1300,7 +1302,7 @@ const raw = {
   quests: [
     {
       id: 'q_graduation_night',
-      title: 'Restart at Eighteen',
+      title: 'The First Five Minutes',
       summary:
         'You woke up ten years younger at 16:40 on graduation day, with a window only you can see and ten points to spend. Jun is in the doorway wanting an answer about the party, and the party is where it all went wrong.',
       kind: 'MAIN',
@@ -1459,7 +1461,7 @@ const raw = {
       id: 'q_the_papers',
       title: 'The Papers at Ten',
       summary:
-        'The first time, Dad signed the garage over to Graham Ashcroft at ten tonight to pay for a college you had already turned down, and the next morning you said the worst thing you have ever said to anybody.',
+        'The first time, Dad signed the garage over to Graham Ashcroft at ten tonight to pay for a university place you had already turned down, and the next morning you said the worst thing you have ever said to anybody.',
       kind: 'MAIN',
       involvedCharacterIds: ['dad', 'graham'],
       involvedLocationIds: ['your_house', 'the_garage', 'the_study'],
@@ -1594,7 +1596,7 @@ const raw = {
           id: 'the_crate',
           playerCopy: 'Stop the boathouse fire, or be ready for it.',
           directorNotes:
-            'The crate leaves the hardware store in Theo’s trunk at 19:15 and is on the boathouse roof by 22:20. Jun is at the rail watching from 22:20, because that is where the music is. Taking the crate is easy and does not hold on its own: at 21:40 Theo comes back from the marina store with signal flares. Talking Theo down holds, because he chose it. Moving Jun keeps him clear, and leaves the question of who is standing nearest when it goes up.',
+            'The crate leaves the hardware store in the boot of Theo’s car at 19:15 and is on the boathouse roof by 22:20. Jun is at the rail watching from 22:20, because that is where the music is. Taking the crate is easy and does not hold on its own: at 21:40 Theo comes back from the marina store with signal flares. Talking Theo down holds, because he chose it. Moving Jun keeps him clear, and leaves the question of who is standing nearest when it goes up.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -2002,7 +2004,7 @@ const raw = {
       id: 'we_theo_loads_the_crate',
       atWorldMinute: 19 * 60 + 15,
       locationId: 'hardware_store',
-      publicCopy: 'In the alley behind Ashcroft Hardware, Theo Ashcroft loads a wooden crate of display rockets into the trunk of a silver car.',
+      publicCopy: 'In the alley behind Ashcroft Hardware, Theo Ashcroft loads a wooden crate of display rockets into the boot of a silver car.',
       directorNotes:
         'He bought them on his father’s account without asking. He is proud of them and does not know how to set them off. He will show anybody who asks, and takes it badly if somebody laughs.',
       setsFlags: ['crate_bought'],
@@ -2030,7 +2032,7 @@ const raw = {
       id: 'we_graham_calls_back',
       atWorldMinute: 21 * 60 + 28,
       locationId: 'your_house',
-      publicCopy: 'The house phone rings. It is Graham Ashcroft, and he has raised his offer by ten percent.',
+      publicCopy: 'At 21:28 the house phone rings. It is Graham Ashcroft, and he has raised his offer by ten percent.',
       directorNotes:
         'The night pulling back. If Dad decided this himself, he says no, hangs up, and stands in the kitchen for a minute with his hand still on the phone. If the player talked him into it, he wavers, and needs to hear it again from somebody he believes.',
       setsFlags: ['graham_called_back'],
@@ -2054,7 +2056,7 @@ const raw = {
       id: 'we_the_flares',
       atWorldMinute: 21 * 60 + 40,
       locationId: 'the_boathouse',
-      publicCopy: 'Theo comes back from the marina store with a smaller box of signal flares and a grin, and climbs onto the boathouse roof anyway.',
+      publicCopy: 'At 21:40 Theo comes back from the marina store with a smaller box of signal flares and a grin, and climbs onto the boathouse roof anyway.',
       directorNotes:
         'The night pulling itself back toward 10:40. Flares will not burn the shed down by themselves, but they will if nobody is watching at 10:40. The player gets one more chance at Theo, and this time it has to be him who decides.',
       setsFlags: ['flares_on_the_roof'],
@@ -2079,7 +2081,7 @@ const raw = {
       id: 'we_the_signature',
       atWorldMinute: 22 * 60,
       locationId: 'the_study',
-      publicCopy: 'In Graham Ashcroft’s study, Dad signs three pages with a borrowed fountain pen and shakes hands without smiling.',
+      publicCopy: 'At 22:00, in Graham Ashcroft’s study, Dad signs three pages with a borrowed fountain pen and shakes hands without smiling.',
       directorNotes:
         'Graham is courteous and pleased. Dad leaves by the side door at 22:15 and drives to the garage, where he sits in the dark. Nobody at the party knows this happened.',
       setsFlags: ['garage_sold'],
@@ -2092,7 +2094,7 @@ const raw = {
       atWorldMinute: 22 * 60 + 40,
       locationId: 'the_boathouse',
       publicCopy:
-        'A rocket goes sideways off the boathouse roof, straight through the open door of the boat shed, and the fuel cans inside catch. Everybody runs toward it with their phones up.',
+        'At 22:40 a rocket goes sideways off the boathouse roof, straight through the open door of the boat shed, and the fuel cans inside catch. Everybody runs toward it with their phones up.',
       directorNotes:
         'Nobody is hurt; everybody gets out. The shed burns for twenty minutes until the fire service arrives from the next town. Theo is on the roof with the lighter and then suddenly is not. Jun is standing nearest unless the player has moved him.',
       setsFlags: ['boathouse_burned'],
@@ -2217,7 +2219,7 @@ const raw = {
       id: 'p_ten_forty',
       kind: 'RIVAL',
       label: 'Who lit the fireworks, and who says so',
-      seedHint: 'A wooden crate in the trunk of Theo’s silver car, and Jun saying he would do anything for a good story.',
+      seedHint: 'A wooden crate in the boot of Theo’s silver car, and Jun saying he would do anything for a good story.',
       payoffHint: '10:40 on the boathouse roof, and Graham Ashcroft’s hand on somebody’s shoulder.',
       weight: 0.85,
     },
@@ -2388,7 +2390,7 @@ const raw = {
       condition:
         'Dad kept the garage because he chose to, the two of them said the true thing to each other, and the player kept this draft. Write it as concrete and unglamorous: the garage is still a struggling garage, the bank letters still come, and the player is going to the city anyway in September because he will not hear otherwise.',
       epilogue:
-        'The rezoning goes through in August and Dad sells the lot three years later for what it is actually worth, to somebody who is not Graham Ashcroft. He keeps one bay. On Sundays you call and he puts you on speaker so he can keep working.',
+        'The rezoning goes through next month and Dad sells the lot three years later for what it is actually worth, to somebody who is not Graham Ashcroft. He keeps one bay. On Sundays you call and he puts you on speaker so he can keep working.',
       hint: '',
     },
     {
@@ -2412,7 +2414,7 @@ const raw = {
       condition:
         'The player moved Jun off the rail, the shed burned anyway, and Graham Ashcroft found the next nearest person: them. They kept this draft knowing what it would cost. This is a trade, not a martyrdom, and the prose should be practical about what it means for the summer and the course in September.',
       epilogue:
-        'It costs you a semester and a summer of community service clearing the shore path. Jun starts at the academy in August and finds out why at Christmas, from Theo of all people, and does not speak to you for a week, and then does not stop.',
+        'It costs you a term and a summer of community service clearing the shore path. Jun starts at the academy in August and finds out why at Christmas, from Theo of all people, and does not speak to you for a week, and then does not stop.',
       hint: '',
     },
     {
@@ -2472,7 +2474,7 @@ const raw = {
       condition:
         'All three: Dad, Jun and Sara, each changed because they chose it, and the player kept this draft. The first attempt tried this and failed. Do not make it look easy and do not throw a parade. Write the morning after a very long night: Dad asleep in the chair, Jun asleep on the porch, and a text from a bus at 6:52.',
       epilogue:
-        'Nobody else knows anything happened. Dad keeps the garage, Jun starts in August, Sara buys the coat. For about a year you keep checking the corner of your eye for a number that is not there, and then one morning you forget to.',
+        'Nobody else knows anything happened. The garage is settled the way Dad chose, with you beside him, Jun starts in August, Sara buys the coat. For about a year you keep checking the corner of your eye for a number that is not there, and then one morning you forget to.',
       hint: '',
     },
     {
@@ -2489,10 +2491,10 @@ const raw = {
     },
   ],
   opening:
-    "Ten minutes ago you were twenty-eight, asleep with an old bus ticket in your hand.\n\nNow Jun is shaking you awake. Your best friend. Eighteen, and still talking to you.\n\n\"Up, graduate. You slept the whole afternoon.\"\n\nYour old bedroom. Your gown on the door. And over the blanket, a pale blue window only you can see:\n\n[Restart complete. Graduation day, 4:40 p.m.]\n[10 points to allocate: Charm, Grit, Wits, Luck]\n\nLast time, tonight’s party ruined everything.\n\nJun tosses your shoes onto the bed. \"Party’s at eight. You’re coming this time, right?\"",
+    "Ten minutes ago you were twenty-eight, asleep with an old bus ticket in your hand.\n\nNow Jun is in your doorway, throwing a shoe at you. Your best friend. Eighteen, and still talking to you.\n\n\"Up, graduate. You slept the whole afternoon.\"\n\nYour old bedroom. Your gown on the door. And over the blanket, a pale blue window only you can see:\n\n[Restart complete. Graduation day, 16:40.]\n[10 points to allocate: Charm, Grit, Wits, Luck]\n\nLast time, tonight cost your dad his garage, Jun his future, and you the person waiting on the pier.\n\nJun weighs the other shoe in his hand. \"Party’s at eight. You’re coming this time, right?\"",
   openingPanel: {
     assetKey: 'story_restart_at_eighteen/opening',
-    alt: 'Jun grinning in a bedroom doorway with a pair of shoes in one hand, while a pale blue window with four glowing bars hangs over an unmade bed in late-afternoon light.',
+    alt: 'Jun grinning in a bedroom doorway with a shoe in one hand, while a pale blue window with four glowing bars hangs over an unmade bed in late-afternoon light.',
   },
   openingSuggestions: [
     "\"Yeah, I’m coming. Who’s going to be there?\"",
