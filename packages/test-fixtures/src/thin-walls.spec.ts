@@ -436,8 +436,21 @@ describe('adults only', () => {
     }
   });
 
-  it('says so in hard canon', () => {
-    expect(story.rules.hardCanon.join(' ')).toMatch(/Everyone in this story is an adult/);
+  it('says so in hard canon, with every age, so the storyteller has them on every turn', () => {
+    const canon = story.rules.hardCanon[0]!;
+    expect(canon).toMatch(/^Everyone in this story is an adult\./);
+    expect(canon).toContain('The player is twenty-two');
+    expect(bible).toMatch(/^\| The player[^|\n]*\| 22 \|$/m);
+    for (const c of story.characters) expect(canon, c.id).toContain(c.name);
+  });
+
+  it('describes people by build and costume, never by an age word', () => {
+    const AGE_WORDS = /\b(teen\w*|girl|boy|young\w*|youth\w*|kid|child\w*|student|\d+)\b/i;
+    for (const c of story.characters) {
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (wo)?man\b/);
+      expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
+    }
+    expect(story.coverDirection).not.toMatch(AGE_WORDS);
   });
 
   it('uses no word that reads as a minor', () => {
@@ -456,6 +469,70 @@ describe('adults only', () => {
       ...story.archetypes.flatMap((a) => [a.summary, a.blurb].map((t) => [a.id, t] as [string, string])),
     ];
     for (const [where, text] of texts) expect(text, where).not.toMatch(MINOR);
+  });
+});
+
+describe('the system lives where the storyteller can read it', () => {
+  // Production's storyteller reads hard canon, quest items and the chosen
+  // archetype's starting abilities. It never reads resources, step notes or
+  // the rest of the ability list.
+  it('starts the player holding the moot problem, a quest item', () => {
+    expect(story.rules.startingItems.map((i) => i.itemId)).toContain('moot_problem');
+    expect(story.items.find((i) => i.id === 'moot_problem')?.questItem).toBe(true);
+    expect(story.items.find((i) => i.id === 'truce_note')?.questItem).toBe(true);
+  });
+
+  it('gives every background the wall plus one move of its own, all usable from turn one', () => {
+    const seconds = new Set<string>();
+    for (const a of story.archetypes) {
+      expect(a.startingAbilities, a.id).toContain('talk_through_the_wall');
+      expect(a.startingAbilities.length, a.id).toBe(2);
+      for (const id of a.startingAbilities) expect(ability(id).unlockedByDefault, `${a.id} ${id}`).toBe(true);
+      seconds.add(a.startingAbilities.find((id) => id !== 'talk_through_the_wall')!);
+    }
+    expect(seconds.size).toBe(story.archetypes.length);
+  });
+
+  it('spells out the truce, the breach, the wall and what it costs in hard canon', () => {
+    const canon = story.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/nobody rehearses aloud after midnight, nobody uses anything they heard through the wall, and nobody finds out/);
+    expect(canon).toMatch(/Arguing Penrose with Nadia, through the wall or face to face, is a breach/);
+    expect(canon).toMatch(/only turn Nadia’s argument against her once they have actually heard it/);
+    expect(canon).toMatch(/needling her, lying to her, listening in on her and using what was heard/);
+    expect(canon).toMatch(/likelier that the year finds out they are neighbours/);
+    expect(canon).toMatch(/withdraw from the Final Moot/);
+  });
+
+  it('never names a background in hard canon, so the other three stay unreal', () => {
+    const canon = story.rules.hardCanon.join('\n');
+    for (const a of story.archetypes) expect(canon, a.id).not.toContain(a.name);
+  });
+});
+
+describe('the art', () => {
+  it('paints the title into the cover and keeps every effect off her face', () => {
+    const cover = story.coverDirection!;
+    expect(cover).toMatch(/TITLE: .*THIN WALLS/);
+    expect(cover).toContain('spelled exactly THIN WALLS');
+    expect(cover).toContain('Nadia');
+    expect(cover).toMatch(/HER FACE STAYS CLEAN/);
+    expect(cover).toMatch(/No other text anywhere/);
+  });
+
+  it('draws the opening panel from Nadia’s portrait', () => {
+    const alt = story.openingPanel!.alt;
+    expect(alt.length).toBeLessThanOrEqual(200);
+    expect(alt.startsWith('Nadia')).toBe(true);
+  });
+
+  it('gives every carded character a concrete appearance', () => {
+    for (const c of story.characters) {
+      if ((c.cardBlurb ?? '').trim()) expect(c.appearance.length, c.id).toBeGreaterThan(80);
+    }
+  });
+
+  it('ships unpublished: publishedAt is set at release', () => {
+    expect(story.publishedAt).toBeNull();
   });
 });
 
@@ -484,8 +561,11 @@ describe('the wall cuts both ways', () => {
   });
 
   it('keeps what the wall carries out of anything intimate', () => {
-    expect(story.rules.toneGuide).toMatch(/never carries anything intimate/);
-    expect(story.rules.toneGuide).toMatch(/no further than a kiss/);
+    // Hard canon, not the tone guide: the tone guide is also the cover's mood text.
+    const canon = story.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/never carries anything intimate/);
+    expect(canon).toMatch(/no further than a kiss/);
+    expect(story.rules.toneGuide).not.toMatch(/\b(intimate|body|bodies|crying)\b|13\+/i);
     expect(story.contentDescriptors).toContain('ROMANCE');
     const prose = [
       ...story.endings.flatMap((e) => [e.condition, e.epilogue]),

@@ -5,6 +5,27 @@
 **One-line fantasy:** You have finished second to the same woman for three years. On Sunday she moved into the flat next door, and the wall between your desks is one sheet of plasterboard.
 **OOC evidence:** "Ex Moved in Next Door" and "She Thinks I Am in Love With Her" (the UGC proximity wave); Sharing an apartment with the popular girl (4.7M, #2 daily); our own Good Morning, Husband (64% take a turn), whose structure this copies.
 **Title collision search (2026-11-22):** no manga, webtoon, anime or light novel called "Thin Walls" found. Nearest are "walls" (a WEBTOON Canvas series) and "I Want to Be a Wall" (light novel); neither shares a premise.
+**Fixture:** `packages/test-fixtures/src/thin-walls.ts` (`THIN_WALLS`, `story_thin_walls`). **Spec:** `thin-walls.spec.ts`.
+**Protagonist:** BLANK. The player names themselves; the archetype is their background.
+
+## Adults only
+
+Every person in this story is an adult. Aldmoor is a university and the Final Moot is a final-year law
+school competition. The ages are canon and are also the first line of `hardCanon`, so the storyteller
+has them on every turn.
+
+| Who | Age |
+|---|---|
+| The player, final-year law student, second in the year | 22 |
+| Nadia Cho, first in the year | 22 |
+| Sam Ferreira, the player's flatmate | 22 |
+| Elliot Ashby, third in the year | 23 |
+| Theo Cho, Nadia's older brother | 27 |
+| Professor Ingrid Lund, Chair of Advocacy | 61 |
+| Everyone else in the year, the building and the faculty | adults |
+
+Covers, portraits and the opening panel describe people by costume and pose, never by age words.
+Every `appearance` opens "An adult woman", "An adult man" or "An older woman".
 
 ## Why this fantasy works
 
@@ -42,7 +63,11 @@ The truce is a romance device and a plot device at once. It is the only thing be
 
 ### Hard canon
 
-- Everyone in this story is an adult. The player and Nadia are final-year students in their twenties.
+The storyteller in production reads hard canon, quest items and the chosen archetype's starting
+abilities, and never the resources, step notes or the locked abilities. So the wall's rules, the truce,
+the breach and what each choice costs are written into `hardCanon` as facts, not left in the engine.
+
+- Everyone in this story is an adult: the player 22, Nadia 22, Sam 22, Elliot 23, Theo 27, Lund 61.
 - The player is second, by less than half a mark, for the third year running.
 - The Final Moot is in nine days. One clerkship. The bench is Lund and two judges.
 - The conferral rule disqualifies both finalists if proven, and the place goes to Elliot Ashby.
@@ -50,6 +75,14 @@ The truce is a romance device and a plot device at once. It is the only thing be
 - Nadia moved in on Sunday. Before tonight they had never spoken outside a seminar.
 - Theo Cho is Nadia's older brother. He left the same faculty six years ago and runs the night shift at the café opposite.
 - Lund already knows they are neighbours, from Nadia's hardship housing letter, and is waiting to see who tells her.
+- Arguing Penrose with Nadia, through the wall or face to face, is a breach; talking about anything else is not. A breach only ends them if somebody can prove it: a recording, a witness, or a confession.
+- The wall carries voices, kettles, music, alarms, phone calls home and, once, crying. It never carries anything intimate.
+- The truce note's three terms, and coffee at seven at the Lamplight.
+- The player can only turn Nadia's argument against her once they have actually heard it, by listening or because she told them. She will know which sentence.
+- Her guard wears down on its own; needling, lying, listening in and using what was heard put it back up.
+- Every wall conversation, door knock and public coffee makes it likelier the year finds out. Elliot already knows where the player lives.
+- Either finalist may withdraw; the other wins unopposed.
+- Romance can be flirtatious, tense and heartfelt, and goes no further than a kiss.
 
 ## Tone and pacing
 
@@ -65,7 +98,7 @@ The truce is a romance device and a plot device at once. It is the only thing be
 The player authors their name, pronouns, background (archetype), why they want the clerkship, and how they feel about Nadia at the start: rival, grudge, quiet crush, or nothing at all. Any of those can change.
 
 ### Minimal hard canon for the player
-- final-year law student, second in the year;
+- twenty-two, a final-year law student, second in the year;
 - lives in 3B with Sam;
 - argues for the landlord in the moot;
 - has never had a real conversation with Nadia before tonight.
@@ -147,6 +180,19 @@ Three suggestions, three different moves:
 - **Exposure** (good low): how close the year is to knowing the finalists live next door and talk through the wall. Every wall conversation, door knock and public coffee raises it a little; it settles over quiet days.
 - **Her Guard** (good low): how much of herself Nadia is holding back. Starts high. Living one wall apart wears it down by itself; needling, lying and using what you heard put it back up.
 
+## Archetypes (what kind of second place you are)
+
+Every background starts with Talk Through the Wall plus one move of its own, so the storyteller sees
+both. The player also starts holding the moot problem, a quest item; the truce note is under the front
+door of 3B, waiting to be picked up.
+
+| Id | Name | Gives |
+|---|---|---|
+| `arch_all_nighter` | The All-Nighter | Mind and Might, Argument; Work the Case; sixty pages of case notes |
+| `arch_natural` | The Natural | Presence, Advocacy and Banter; Needle Her; the year likes you |
+| `arch_night_shift` | The Night-Shift Student | Resolve, Listening; Listen In; two pairs of foam earplugs |
+| `arch_second_generation` | Second-Generation Lawyer | Resolve and Presence, Composure; Keep a Straight Face; the faculty watches you |
+
 ## Places
 
 - **The Wall**: the player's desk against the plasterboard; Nadia's desk on the other side. Start.
@@ -208,6 +254,25 @@ Three suggestions, three different moves:
 
 ## Image plan
 
-Cover: vertical premium anime romance key art. Nadia at her desk at night in a grey hoodie, red pen behind her ear, one palm flat against a pale wall, looking toward it with a half-smile as if listening; warm desk lamp on her side, cool blue on the far edge of the frame suggesting the other room. Law books, sticky notes, a paper cup from a café. Title painted in the art. No other text.
+**Cover** (`coverDirection`): vertical anime romantic-comedy key art. Nadia at her desk at night, waist up,
+close and slightly off centre: jaw-length black hair, reading glasses pushed up and forgotten, a red pen
+behind her ear, a plain oversized grey hoodie. One palm flat against a pale wall, leaning toward it as if
+listening, with a competitive half-smile, eyes to the viewer. Faint warm rings of light ripple across the
+plaster under her palm, like a voice passing through. Law books, sticky notes, a plain café cup, and a
+black suit jacket on the back of her chair. Warm lamp on her side, cool blue at the far edge of the
+frame. The player is never drawn: the other side of the wall is the empty seat.
 
-Opening panel: Nadia at her desk at 2 a.m., hand flat on the wall, mid-sentence, red pen behind her ear.
+- **Title:** THIN WALLS painted into the art in the upper third, a bold clean condensed serif logo,
+  white with a soft warm glow, a thin vertical seam of light between the two words. No other text.
+- **Effects** go on the wall and the title, never on her face.
+- She is described by costume and pose, never by age words.
+
+**Opening panel** (`openingPanel`, `story_thin_walls/opening`): "Nadia at her desk at two in the
+morning, one palm flat against the wall, a red pen behind her ear, lamplight on her side, talking to
+someone she cannot see." The alt starts with her first name because her portrait is the panel's
+reference image.
+
+**Portraits:** all five carded characters have a concrete `appearance`, in costume, with the visual hook
+(her red pen, Sam's studio headphones, Theo's order pad, Lund's gold pen, Elliot's signet ring).
+
+`publishedAt` stays `null` until release; there is no prologue.

@@ -35,8 +35,16 @@ import { StoryVersion } from '@plotbreak/contracts';
  * apart wears it down, and rises only when the player needles, lies, listens
  * or uses what they heard.
  *
- * Everyone in this story is an adult. The finalists are final-year law
- * students in their twenties; the youngest of the cast is twenty-two.
+ * The system has to live where the storyteller can read it. Production runs
+ * `runTurnPure`, which never sees resources, step notes or any ability except
+ * the chosen archetype's starting ones. So the truce terms, what counts as a
+ * breach, what using the wall costs and how the year finds out are all hard
+ * canon; the player starts holding the moot problem; and every archetype
+ * starts with Talk Through the Wall plus one move of its own. The tone guide is
+ * also the cover's mood text, so the 13+ limits on the wall sit in hard canon.
+ *
+ * Everyone in this story is an adult, and the first line of hard canon gives
+ * every age: the player twenty-two, the youngest of the cast twenty-two.
  */
 
 const raw = {
@@ -81,20 +89,26 @@ const raw = {
     startWorldMinute: 2 * 60 + 7,
     startingItems: [{ itemId: 'moot_problem', qty: 1 }],
     hardCanon: [
-      'Everyone in this story is an adult. The player and Nadia Cho are final-year law students in their twenties, and nobody in the cast is younger than twenty-two.',
+      'Everyone in this story is an adult. The player is twenty-two. Nadia Cho is twenty-two, Sam Ferreira twenty-two, Elliot Ashby twenty-three, Theo Cho twenty-seven and Professor Ingrid Lund sixty-one. Everyone else in the year, the building and the faculty is an adult too.',
       'The player has finished second in the year three years running, behind Nadia Cho, by less than half a mark each time. The rank list reads: 1. N. Cho 78.6, 2. the player 78.2, 3. E. Ashby 77.9.',
       'The Final Moot is in nine days, on Friday week at ten in the morning, in the Old Court. The top two argue it before a bench of three chaired by Professor Ingrid Lund. The winner is offered the Arden Clerkship: one paid year as clerk to an appeal judge. There is one place.',
       'The moot problem is Penrose v. Ashdown Lettings, a nuisance claim about a partition wall so thin it made a rented flat unlivable. Lund wrote it. Nadia argues for the tenant; the player argues for the landlord.',
-      'The conferral rule: counsel on opposite sides may not discuss the moot problem with each other before the moot. A proven breach disqualifies both of them, and the place goes to the third-ranked student, Elliot Ashby.',
+      'The conferral rule: counsel on opposite sides may not discuss the moot problem with each other before the moot. A proven breach disqualifies both of them, and the place goes to the third-ranked student, Elliot Ashby. Arguing Penrose with Nadia, through the wall or face to face, is a breach however good it feels; talking about anything else is not. A breach only ends them if somebody can prove it: a recording, a witness, or a confession.',
       'Flats 3B and 3C at 14 Larkin Street were one room until a single sheet of plasterboard split them. The player’s desk and Nadia’s desk stand back to back against it. Each can hear the other speak at normal volume, word for word. Neither can see through it. When Nadia is present at The Wall she is on her own side, in 3C, a voice through the plasterboard, unless the story has put her in 3B on the page.',
+      'The wall carries voices, a pen clicking, a kettle, music, laughter at a laptop, an alarm at 5:40, phone calls home and, once, late, crying. It never carries anything intimate, and nobody in this story listens in on anything a 13+ reader should not hear. If the player listens for anything private, the wall gives them a kettle, a closed door, or Nadia’s voice, dry, saying she can hear them not breathing.',
       'Nadia moved into 3C on Sunday. Before tonight the two of them had never spoken outside a seminar room. She has heard the player rehearse; the player has not heard her, because she rehearses in a whisper.',
+      'Nadia’s truce is a note under the player’s front door with three terms: nobody rehearses aloud after midnight, nobody uses anything they heard through the wall, and nobody finds out they are neighbours. Under them: coffee at seven at the Lamplight, if the player agrees.',
+      'Anything either of them hears through the wall can be used. The player can only turn Nadia’s argument against her once they have actually heard it, by listening at the wall while she rehearses or because she chose to tell them. In the moot it is a real advantage, and she will know exactly which sentence it came from.',
+      'Nadia’s guard is up tonight. Living one wall apart wears it down slowly on its own; needling her, lying to her, listening in on her and using what was heard put it straight back up.',
+      'Every conversation through the wall, every knock on a door at 14 Larkin Street and every coffee the two of them share in public makes it likelier that the year finds out they are neighbours. Elliot Ashby already knows where the player lives.',
+      'Either finalist may withdraw from the Final Moot before it is argued. The other then wins it unopposed and is offered the clerkship.',
       'Theo Cho is Nadia’s older brother. He left the same law faculty six years ago and runs the night shift at the Lamplight, the 24-hour café across the road.',
       'Professor Lund already knows the two finalists share a wall. She signed Nadia’s hardship housing letter and saw the address. She has said nothing to either of them.',
+      'Romance in this story can be flirtatious, tense and heartfelt, and goes no further than a kiss. Nobody’s body is described lingeringly.',
     ],
     toneGuide:
-      'Quick, warm and competitive. Banter is how these two say everything, and both of them are good at it: lines land, get answered, and get scored out loud. Law is texture, never homework — one sharp legal phrase per scene beats a paragraph of doctrine. ' +
-      'The wall carries voices, music, laughter, kettles, alarms, phone calls and, once, crying. It never carries anything intimate, and nobody in this story listens in on anything a 13+ reader should not hear. If the player listens for anything private, the wall gives them a kettle, a closed door, or her voice, dry, saying she can hear them not breathing. ' +
-      'Romance is slow-burn and goes no further than a kiss. Tension comes from proximity, honesty and timing, never from bodies, and nobody’s body is described lingeringly. Nobody is a villain: Elliot reads the rules more closely than anybody, Lund is strict and fair, Theo is kind and carrying something. ' +
+      'Quick, warm and competitive: a slow-burn romantic comedy between two rivals who are both very good at banter. Lines land, get answered, and get scored out loud. Law is texture, never homework — one sharp legal phrase per scene beats a paragraph of doctrine. ' +
+      'Late nights are lamplit, funny and a little reckless, and the tension comes from proximity, honesty and timing. Nobody is a villain: Elliot reads the rules more closely than anybody, Lund is strict and fair, Theo is kind and carrying something. ' +
       'Let quiet scenes be quiet — two people working on opposite sides of a wall at four in the morning, saying nothing, is a scene. The face at the top of a beat is Nadia’s whenever she is in the scene, including when she is only a voice through the plaster.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -855,7 +869,7 @@ const raw = {
         'Concession number two. I’m counting. Keep going, you’re doing beautifully.',
       ],
       appearance:
-        'Twenty-two, straight black hair cut sharply at the jaw, dark eyes, reading glasses pushed up into her hair and forgotten, a grey university hoodie at two in the morning and a pressed black suit jacket in daylight.',
+        'An adult woman, slim and upright, straight black hair cut sharply at the jaw, dark eyes, reading glasses pushed up into her hair and forgotten, a red pen tucked behind one ear, and a plain oversized grey hoodie with the sleeves pushed up to the elbow.',
       visualHook: 'A red pen tucked behind one ear, uncapped, which has ruined three collars.',
       silhouette: 'Upright at a desk with her knees pulled up onto the chair, one palm flat against the wall.',
       artSeed: 'tw-nadia-01',
@@ -950,7 +964,7 @@ const raw = {
         'I named the wall. Don’t ask. Fine: Gerald.',
       ],
       appearance:
-        'Twenty-two, tall and loose-limbed, curly brown hair, a cardigan with a burn on one sleeve, odd socks, always holding either a cereal bowl or a microphone.',
+        'An adult man, tall and loose-limbed, curly brown hair, big black studio headphones round his neck, a mustard cardigan with a burn on one sleeve over a plain white T-shirt, odd socks, and a handheld microphone in one hand.',
       visualHook: 'Big studio headphones worn round his neck at all times, cable trailing into a pocket.',
       silhouette: 'Leaning in a doorframe, cereal bowl in one hand, microphone in the other.',
       artSeed: 'tw-sam-01',
@@ -1030,7 +1044,7 @@ const raw = {
         'Long version costs you till the chairs are up. Grab a cloth.',
       ],
       appearance:
-        'Twenty-seven, broad and easy, black hair tied back, a café apron over a faded band shirt, flour on his forearms, a gentler version of his sister’s face.',
+        'An adult man, broad-shouldered and easy, black hair tied back in a short tail, a gentler version of his sister’s face, a dark green café apron over a faded black T-shirt, flour on his forearms, and an order pad in the apron pocket.',
       visualHook: 'A café order pad in his apron pocket with every regular’s usual written inside the cover.',
       silhouette: 'Leaning on both hands behind a counter, head tilted, waiting.',
       artSeed: 'tw-theo-01',
@@ -1121,7 +1135,7 @@ const raw = {
         'Res ipsa loquitur. The thing speaks for itself. Eventually, so should you.',
       ],
       appearance:
-        'Sixty-one, silver hair in a short severe cut, rimless glasses, a navy suit that has been the same suit for a decade.',
+        'An older woman, spare and very straight-backed, silver hair in a short severe cut, rimless glasses, a navy suit that has been the same suit for a decade over a white shirt buttoned to the collar, and an uncapped gold fountain pen in one hand.',
       visualHook: 'A gold fountain pen she never caps, tapped once on the desk when she has heard enough.',
       silhouette: 'Seated very straight behind a desk, hands folded, completely still.',
       artSeed: 'tw-lund-01',
@@ -1205,7 +1219,7 @@ const raw = {
         'Third is a lovely seat. You see everybody coming.',
       ],
       appearance:
-        'Twenty-three, fair hair neatly parted, an open friendly face, a navy cable-knit jumper over a collared shirt, an expensive watch he never checks.',
+        'An adult man, fair hair neatly parted, an open friendly face, a navy cable-knit jumper over a white collared shirt, an expensive steel watch he never checks, and a silver signet ring on his right hand.',
       visualHook: 'A silver signet ring he turns with his thumb just before he asks the real question.',
       silhouette: 'Relaxed in a library chair, one arm over the back of the next one, smiling.',
       artSeed: 'tw-elliot-01',
@@ -1979,7 +1993,7 @@ const raw = {
       attributeBonus: { mind: 2, might: 2 },
       skillProficiencies: { argument: 3, endurance: 2 },
       startingItems: [{ itemId: 'your_case_notes', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['talk_through_the_wall', 'prepare_the_case'],
       startingReputation: [{ factionId: 'faction_faculty', amount: 5 }],
     },
     {
@@ -1992,7 +2006,7 @@ const raw = {
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { advocacy: 3, banter: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['talk_through_the_wall', 'needle'],
       startingReputation: [{ factionId: 'faction_year', amount: 10 }],
     },
     {
@@ -2005,7 +2019,7 @@ const raw = {
       attributeBonus: { resolve: 2, mind: 1, might: 1 },
       skillProficiencies: { listening: 3, composure: 2 },
       startingItems: [{ itemId: 'earplugs', qty: 2 }],
-      startingAbilities: [],
+      startingAbilities: ['talk_through_the_wall', 'listen_in'],
       startingReputation: [{ factionId: 'faction_larkin', amount: 10 }],
     },
     {
@@ -2018,7 +2032,7 @@ const raw = {
       attributeBonus: { resolve: 2, presence: 2 },
       skillProficiencies: { composure: 3, instinct: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['talk_through_the_wall', 'keep_a_straight_face'],
       startingReputation: [{ factionId: 'faction_faculty', amount: 10 }],
     },
   ],
@@ -2251,14 +2265,17 @@ const raw = {
     '"No deal. You’ve heard my whole argument, and I haven’t heard a word of yours."',
   ],
   coverDirection: [
-    'SUBJECT: Nadia Cho, a law student, alone and unmistakable in the foreground of a key visual for a romantic comedy anime about two academic rivals who share one thin bedroom wall.',
-    'She fills the frame from the waist up, close and slightly off centre, holding about two thirds of the picture, seated at a desk at night.',
-    'Sharp jaw-length straight black hair, dark eyes, reading glasses pushed up into her hair and forgotten, a plain oversized grey hoodie with no lettering, a red pen tucked behind one ear.',
+    'SUBJECT: Nadia Cho, the rival next door, alone and unmistakable in the foreground of a key visual for a romantic comedy anime about two rivals for first place at law school whose desks share one thin wall.',
+    'She fills the frame from the waist up, close and slightly off centre, holding about two thirds of the picture, seated at her desk at night.',
+    'Sharp jaw-length straight black hair, dark eyes, reading glasses pushed up into her hair and forgotten, a red pen tucked behind one ear, a plain oversized grey hoodie with the sleeves pushed up.',
     'One palm rests flat against the pale wall beside her desk; she leans toward it as if listening, with a small competitive half-smile, eyes turned to the viewer.',
-    'On the desk, soft and secondary: law books, tabbed papers, sticky notes and a plain paper cafe cup.',
+    'Under her palm, faint warm rings of light ripple out across the plaster, like a voice passing through the wall.',
+    'HER FACE STAYS CLEAN: no light rings, glowing marks or lines on her face or skin. Every effect stays on the wall and the title.',
+    'On the desk, soft and secondary: law books, tabbed papers, sticky notes, a plain paper café cup, and a black suit jacket hung on the back of her chair.',
     'LIGHT: warm amber desk-lamp light on her side; cool blue night light on the far edge of the frame, suggesting the room on the other side of the wall.',
-    'TITLE: the words THIN WALLS painted into the art in the upper third as a bold clean logo, white with a warm glow, spelled exactly THIN WALLS, large and legible at thumbnail size.',
-    'No other text anywhere: nothing written on the books, papers, cup or hoodie.',
+    'TITLE: the words THIN WALLS painted into the art in the upper third as a bold, clean, condensed serif logo, white with a soft warm glow,',
+    'with one thin vertical line of light standing between THIN and WALLS like a seam in plaster, spelled exactly THIN WALLS, large and legible at thumbnail size.',
+    'No other text anywhere: nothing written on the books, papers, cup, jacket or hoodie.',
   ].join(' '),
   publishedAt: null,
 };
