@@ -52,8 +52,8 @@ enum ButtonVariant {
     var background: Color {
         switch self {
         case .primary: return Theme.Colors.accentPrimary
-        case .secondary: return Theme.Colors.bgRaised
-        case .tertiary, .dangerQuiet, .outline: return .clear
+        case .secondary, .outline: return Theme.Colors.bgRaised
+        case .tertiary, .dangerQuiet: return .clear
         case .danger: return Theme.Colors.danger
         case .light: return Theme.Colors.light
         case .neutral: return Theme.Colors.surfaceButton
@@ -72,8 +72,6 @@ enum ButtonVariant {
 
     var border: Color? {
         switch self {
-        case .secondary: return Theme.Colors.borderSubtle
-        case .outline: return Theme.Colors.borderStrong
         case .dangerQuiet: return Theme.Colors.danger
         default: return nil
         }
@@ -91,7 +89,7 @@ enum ButtonVariant {
     var weight: Font.Weight {
         switch self {
         case .primary: return .semibold
-        case .light, .outline, .neutral: return .medium
+        case .light, .outline, .neutral: return .semibold
         default: return .semibold
         }
     }
@@ -99,7 +97,7 @@ enum ButtonVariant {
 
 enum ButtonSize {
     case large, medium
-    var height: CGFloat { self == .large ? 50 : 46 }
+    var height: CGFloat { self == .large ? 52 : 44 }
 }
 
 struct PBButton: View {
@@ -154,12 +152,11 @@ struct PBButton: View {
             .foregroundStyle(flatDisabled ? Theme.Colors.disabledText : variant.foreground)
             .padding(.horizontal, Theme.Spacing.xl)
             .frame(maxWidth: full ? .infinity : nil, minHeight: size.height)
-            .background(flatDisabled ? Theme.Colors.disabledFill : variant.background,
-                        in: RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
+            // Design v3: everything your thumb presses is a capsule.
+            .background(flatDisabled ? Theme.Colors.disabledFill : variant.background, in: Capsule())
             .overlay {
                 if let border = variant.border {
-                    RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous)
-                        .strokeBorder(border, lineWidth: 0.5)
+                    Capsule().strokeBorder(border, lineWidth: 1)
                 }
             }
             .opacity(isDisabled && !flatDisabled ? 0.45 : 1)
@@ -249,10 +246,6 @@ struct Card<Content: View>: View {
             .padding(padded ? Theme.Spacing.lg : 0)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(background, in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
-                    .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
-            }
     }
 }
 
@@ -308,31 +301,32 @@ struct Chip: View {
     private var foreground: Color {
         switch style {
         case .filled: return selected ? Theme.Colors.textOnAccent : (tone == .neutral ? Theme.Colors.textSecondary : tone.color)
-        case .outlined: return selected ? Theme.Colors.accentPrimary : Theme.Colors.textSecondary
+        case .outlined: return selected ? Theme.Colors.textOnAccent : Theme.Colors.textPrimary
         }
     }
 
     private var fill: Color {
         switch style {
-        case .filled: return selected ? Theme.Colors.accentPrimary : Theme.Colors.bgElevated
-        case .outlined: return .clear
+        case .filled: return selected ? Theme.Colors.accentPrimary : Theme.Colors.bgRaised
+        case .outlined: return selected ? Theme.Colors.accentPrimary : .clear
         }
     }
 
+    /// Only an idle outlined chip draws a line; filled chips have none.
     private var stroke: Color {
-        selected ? Theme.Colors.accentPrimary : (style == .outlined ? Theme.Colors.borderStrong : Theme.Colors.borderSubtle)
+        style == .outlined && !selected ? Theme.Colors.borderStrong : .clear
     }
 
     private var content: some View {
         HStack(spacing: Theme.Spacing.xs) {
             if let icon { Text(icon).font(.system(size: 14)) }
-            Text(label).font(.system(size: 14, weight: selected ? .medium : .regular)).lineLimit(1)
+            Text(label).font(.system(size: 13, weight: selected ? .semibold : .medium)).lineLimit(1)
         }
         .foregroundStyle(foreground)
-        .padding(.horizontal, 15)
-        .padding(.vertical, 10)
+        .padding(.horizontal, 14)
+        .frame(minHeight: 32)
         .background(fill, in: Capsule())
-        .overlay { Capsule().strokeBorder(stroke, lineWidth: selected ? 1 : 0.5) }
+        .overlay { Capsule().strokeBorder(stroke, lineWidth: 1) }
     }
 
     var body: some View {
@@ -453,23 +447,56 @@ struct ChevronGlyph: View {
     }
 }
 
-/// The credit mark: a diamond in a rounded square, in the warning gold.
+/// The credit mark: the one crystal picture (design v3), the only currency
+/// mark in the app. `size` is the height of the line it sits in; `color` is
+/// kept for call sites and ignored, since the crystal is the one colour
+/// exception.
 struct CreditGlyph: View {
     var size: CGFloat = 21
     var color: Color = Theme.Colors.warning
 
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: size * 0.2, style: .continuous)
-                .strokeBorder(color, lineWidth: max(1.5, size * 0.08))
-                .frame(width: size * 0.78, height: size * 0.78)
-            Rectangle()
-                .fill(color)
-                .frame(width: size * 0.26, height: size * 0.26)
-                .rotationEffect(.degrees(45))
+        Image("Crystal")
+            .resizable()
+            .interpolation(.high)
+            .scaledToFit()
+            .frame(height: size)
+            .accessibilityHidden(true)
+    }
+}
+
+/// The crystal sized to sit inside a line of text, for `Text.crystals`.
+@MainActor
+enum CrystalImage {
+    private static var cache: [CGFloat: UIImage] = [:]
+
+    static func inline(_ fontSize: CGFloat) -> UIImage {
+        if let hit = cache[fontSize] { return hit }
+        guard let source = UIImage(named: "Crystal") else { return UIImage() }
+        let height = (fontSize * 1.05).rounded()
+        let width = source.size.width * height / source.size.height
+        let image = UIGraphicsImageRenderer(size: CGSize(width: width + fontSize * 0.12, height: height)).image { _ in
+            source.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
         }
-        .frame(width: size, height: size)
-        .accessibilityHidden(true)
+        cache[fontSize] = image
+        return image
+    }
+}
+
+extension Text {
+    /// `string` with every "◆" drawn as the crystal at `fontSize`. The catalogue
+    /// still writes credits as "◆300" (packages/i18n); this is where that glyph
+    /// becomes the one currency mark design v3 allows.
+    @MainActor
+    static func crystals(_ string: String, fontSize: CGFloat) -> Text {
+        let parts = string.components(separatedBy: "◆")
+        var text = Text(verbatim: parts[0])
+        for part in parts.dropFirst() {
+            text = text
+                + Text(Image(uiImage: CrystalImage.inline(fontSize))).baselineOffset(-fontSize * 0.17)
+                + Text(verbatim: part)
+        }
+        return text
     }
 }
 

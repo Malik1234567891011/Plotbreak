@@ -3,54 +3,55 @@ import UIKit
 
 // MARK: - Design tokens (spec §25)
 //
-// Twins of `packages/ui/src/tokens.ts`. Dark neutral foundation, one selective
-// accent, art gets the loudest colour. Dark-only at launch; every value is a
+// Design v3 "Ink" (docs/design-v3/AUDIT.md): warm ink black, paper white as the
+// only action colour, no brand hue; the art is the only loud thing. Dark-only at launch; every value is a
 // token so a light theme is a swap rather than a rewrite.
 
 enum Theme {
     enum Colors {
-        static let bgBase = Color(hex: 0x0B0D12)
-        static let bgElevated = Color(hex: 0x121620)
-        static let bgRaised = Color(hex: 0x191E2A)
+        static let bgBase = Color(hex: 0x0F0E0D)
+        static let bgElevated = Color(hex: 0x181715)
+        static let bgRaised = Color(hex: 0x22201D)
 
-        static let textPrimary = Color(hex: 0xF7F8FA)
-        static let textSecondary = Color(hex: 0xA7AFBE)
-        static let textMuted = Color(hex: 0x707888)
+        static let textPrimary = Color(hex: 0xF3EFE8)
+        static let textSecondary = Color(hex: 0xB4ADA3)
+        static let textMuted = Color(hex: 0x948E85)
         /// For text sitting on the accent fill.
-        static let textOnAccent = Color(hex: 0x0B0D12)
+        static let textOnAccent = Color(hex: 0x0F0E0D)
 
-        static let accentPrimary = Color(hex: 0x7C6CFF)
-        static let accentSecondary = Color(hex: 0xFF6B9E)
+        /// Design v3 "Ink" has no brand hue: paper is the only action colour.
+        static let accentPrimary = Color(hex: 0xF3EFE8)
+        static let accentSecondary = Color(hex: 0xB4ADA3)
 
-        static let success = Color(hex: 0x43D6A4)
-        static let warning = Color(hex: 0xF6BE55)
-        static let danger = Color(hex: 0xFF5B69)
+        static let success = Color(hex: 0xF3EFE8)
+        static let warning = Color(hex: 0xF3EFE8)
+        static let danger = Color(hex: 0xFF453A)
 
-        static let borderSubtle = Color(hex: 0x262C39)
-        static let borderStrong = Color(hex: 0x333B4C)
+        static let borderSubtle = Color(hex: 0x2E2B27)
+        static let borderStrong = Color(hex: 0x45413B)
         /// The half-point rule between list rows and under headers.
-        static let borderHairline = Color(hex: 0x1B2030)
+        static let borderHairline = Color(hex: 0x2E2B27)
 
         /// The redesign's second grey: hints, counters, subtitles under a title.
-        static let textDim = Color(hex: 0x8A909C)
+        static let textDim = Color(hex: 0x948E85)
         /// An inactive title in a header tab pair ("Worlds · Characters").
-        static let textInactive = Color(hex: 0x5A6070)
+        static let textInactive = Color(hex: 0x6E6860)
 
         /// The near-white fill of a "light" primary button, and its ink.
-        static let light = Color(hex: 0xFBFBFB)
-        static let textOnLight = Color(hex: 0x0B0D12)
+        static let light = Color(hex: 0xF3EFE8)
+        static let textOnLight = Color(hex: 0x0F0E0D)
         /// A neutral, art-agnostic button (Continue with Apple, the quality pill).
-        static let surfaceButton = Color(hex: 0x1B1E26)
+        static let surfaceButton = Color(hex: 0x22201D)
         /// The disabled primary button.
-        static let disabledFill = Color(hex: 0x3A3F4B)
-        static let disabledText = Color(hex: 0x8A909C)
+        static let disabledFill = Color(hex: 0x2E2B27)
+        static let disabledText = Color(hex: 0x6E6860)
         /// The empty track behind a progress bar.
-        static let track = Color(hex: 0x2A2F3B)
+        static let track = Color(hex: 0x2E2B27)
         /// The selected band of a wheel picker, and an unselected radio's fill.
-        static let wheelBand = Color(hex: 0x1E2330)
+        static let wheelBand = Color(hex: 0x22201D)
 
         /// Scrim behind sheets and full-screen media.
-        static let scrim = Color(red: 4 / 255, green: 6 / 255, blue: 11 / 255, opacity: 0.72)
+        static let scrim = Color(red: 15 / 255, green: 14 / 255, blue: 13 / 255, opacity: 0.72)
     }
 
     /// Spec §25.4 — base grid 4pt.
@@ -67,21 +68,20 @@ enum Theme {
     }
 
     /// Default horizontal phone gutter (§25.4).
-    static let gutter: CGFloat = 16
+    static let gutter: CGFloat = 20
 
     /// Spec §25.5 — do not round every container into a floating bubble.
     enum Radius {
-        static let control: CGFloat = 10
+        static let control: CGFloat = 8
         /// Inputs, selectable cards and the small cover thumbnails.
         static let field: CGFloat = 12
-        static let card: CGFloat = 14
+        static let card: CGFloat = 12
         static let large: CGFloat = 20
         static let pill: CGFloat = 999
     }
 
-    /// The redesign's horizontal page gutter: 14pt, a touch tighter than the
-    /// 16pt grid so a 393pt phone fits two 178pt cards side by side.
-    static let pageGutter: CGFloat = 14
+    /// The page gutter: 20pt on every screen edge (design v3 `margin`).
+    static let pageGutter: CGFloat = 20
 
     /// Spec §25.3. Body is 17pt because gameplay dialogue must be readable at
     /// arm's length. Sizes scale with Dynamic Type through `relativeTo`.
@@ -91,9 +91,9 @@ enum Theme {
         var size: CGFloat {
             switch self {
             case .display: return 32
-            case .h1: return 26
-            case .h2: return 22
-            case .h3: return 18
+            case .h1: return 28
+            case .h2: return 20
+            case .h3: return 17
             case .body, .bodyStrong: return 17
             case .bodyCompact: return 15
             case .caption: return 13
@@ -104,9 +104,9 @@ enum Theme {
         var lineHeight: CGFloat {
             switch self {
             case .display: return 38
-            case .h1: return 32
-            case .h2: return 28
-            case .h3: return 24
+            case .h1: return 34
+            case .h2: return 25
+            case .h3: return 22
             case .body, .bodyStrong: return 24
             case .bodyCompact: return 21
             case .caption: return 18
@@ -116,7 +116,8 @@ enum Theme {
 
         var weight: Font.Weight {
             switch self {
-            case .display, .h1, .h2, .h3, .bodyStrong: return .semibold
+            case .display, .h1: return .bold
+            case .h2, .h3, .bodyStrong: return .semibold
             case .micro: return .medium
             default: return .regular
             }

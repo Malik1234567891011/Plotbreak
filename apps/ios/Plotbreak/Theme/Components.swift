@@ -560,14 +560,18 @@ struct CreditBalance: View {
             Haptic.play(.light)
             onPress?()
         } label: {
-            HStack(spacing: Theme.Spacing.sm) {
-                CreditGlyph(size: 21)
+            // Design v3: the crystal and the number in one ink.2 capsule.
+            HStack(spacing: 5) {
+                CreditGlyph(size: 16)
                 Text(Format.credits(balance, compact: compact, locale: locale))
-                    .font(.system(size: 15, weight: .semibold, design: .monospaced))
+                    .font(.system(size: 15, weight: .semibold))
+                    .monospacedDigit()
                     .foregroundStyle(Theme.Colors.textPrimary)
             }
-            .padding(.horizontal, Theme.Spacing.sm)
-            .frame(minHeight: Theme.minTouchTarget - 8)
+            .padding(.horizontal, 12)
+            .frame(height: 30)
+            .background(Theme.Colors.bgRaised, in: Capsule())
+            .frame(minHeight: Theme.minTouchTarget)
             .contentShape(Rectangle())
         }
         .buttonStyle(PressOpacityStyle())
@@ -693,9 +697,8 @@ struct InlineError: View {
 
 // MARK: PortraitStoryCard
 
-/// The home shelf card: a 2:3 cover with an ORIGINAL pill top-right and, on a
-/// ranked shelf, the rank in a dark square top-left; under it the title on two
-/// lines and a muted line of runs and creator.
+/// The home shelf card (design v3): a 2:3 cover with 8pt corners and no badge,
+/// the title under it, and a quiet line of plays.
 struct PortraitStoryCard: View {
     @Environment(\.translator) private var t
 
@@ -708,8 +711,8 @@ struct PortraitStoryCard: View {
 
     private var metaLine: String {
         var parts: [String] = []
-        if story.runs > 0 { parts.append(Format.credits(story.runs, compact: true, locale: locale)) }
-        if !story.creatorName.isEmpty { parts.append(story.creatorName) }
+        // Design v3: plays only; the cover already says whose it is.
+        if story.runs > 0 { parts.append(Format.credits(story.runs, compact: true, locale: locale) + " " + t("create.metric_plays")) }
         return parts.joined(separator: " · ")
     }
 
@@ -719,10 +722,6 @@ struct PortraitStoryCard: View {
                 StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
                     .frame(width: width, height: (width * 1.5).rounded())
                     .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .strokeBorder(Theme.Colors.textPrimary.opacity(0.25), lineWidth: 0.5)
-                    }
                     .overlay(alignment: .topLeading) {
                         if let rank {
                             Text(String(rank))
@@ -733,20 +732,8 @@ struct PortraitStoryCard: View {
                                 .padding(4)
                         }
                     }
-                    .overlay(alignment: .topTrailing) {
-                        if story.official {
-                            Text(t("discover.official_badge"))
-                                .font(.system(size: 8, weight: .semibold, design: .monospaced))
-                                .kerning(0.5)
-                                .foregroundStyle(Theme.Colors.textPrimary)
-                                .padding(.horizontal, 5)
-                                .padding(.vertical, 3)
-                                .background(Theme.Colors.scrim, in: RoundedRectangle(cornerRadius: 4, style: .continuous))
-                                .padding(4)
-                        }
-                    }
                 Text(story.title)
-                    .font(.system(size: 15))
+                    .font(.system(size: 15, weight: .medium))
                     .foregroundStyle(Theme.Colors.textPrimary)
                     .lineLimit(2)
                     .multilineTextAlignment(.leading)
