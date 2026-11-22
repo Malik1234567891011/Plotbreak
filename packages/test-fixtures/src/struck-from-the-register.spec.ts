@@ -227,17 +227,31 @@ describe('adults only', () => {
     eighteen: 18, nineteen: 19, twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80,
     one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9,
   };
-  const ageOf = (appearance: string): number => {
-    const first = appearance.split(/[,\s]/)[0]!.toLowerCase();
-    return first.split('-').reduce((sum, part) => sum + (NUMBER[part] ?? Number.NaN), 0);
-  };
+  const ageOf = (spelled: string): number =>
+    spelled.toLowerCase().split('-').reduce((sum, part) => sum + (NUMBER[part] ?? Number.NaN), 0);
 
-  it('states an adult age at the start of every appearance', () => {
+  it('states every age in hard canon, all eighteen or over', () => {
+    expect(story.rules.hardCanon.join(' ')).toMatch(/The player is twenty-four/);
+    const canon = story.rules.hardCanon.find((line) => line.startsWith('Everyone in this story is an adult.'))!;
+    expect(canon).toBeDefined();
     for (const character of story.characters) {
-      const age = ageOf(character.appearance);
-      expect(Number.isNaN(age), `${character.id} has no stated age`).toBe(false);
-      expect(age, character.id).toBeGreaterThanOrEqual(18);
+      // "Siwon is twenty-two", "Han sixty-eight": the given name, then the spelled age.
+      const given = character.name.split(' ').at(-1)!;
+      const stated = canon.match(new RegExp(`\\b${given}(?: is)? ([a-z]+(?:-[a-z]+)?)\\b`));
+      expect(stated, `${character.id} has no stated age`).not.toBeNull();
+      expect(ageOf(stated![1]!), character.id).toBeGreaterThanOrEqual(18);
     }
+  });
+
+  it('describes people by build and costume, never by an age word', () => {
+    // Portraits are drawn from appearance and the cover from coverDirection.
+    const AGE_WORDS = /\b(teen\w*|girl|boy|young\w*|youth\w*|kid|child\w*|student|\d+)\b/i;
+    for (const character of story.characters) {
+      expect(character.appearance, character.id).toMatch(/^An (adult|older) (wo)?man\b/);
+      expect(character.appearance, character.id).not.toMatch(AGE_WORDS);
+    }
+    expect(story.coverDirection).not.toMatch(AGE_WORDS);
+    expect(story.coverDirection).not.toMatch(/\b(adult|older|old)\b/i);
   });
 
   it('describes nobody in words that read as a minor, anywhere the narrator reads', () => {
@@ -261,6 +275,66 @@ describe('adults only', () => {
     expect(romanceGates).toEqual(['yeon']);
     expect(story.rules.hardCanon.join(' ')).toMatch(/family and nothing else/);
     expect(story.rules.toneGuide).toMatch(/never further than a kiss/);
+  });
+});
+
+describe('the art and release pipeline', () => {
+  it('puts the title in the art and every effect off her face', () => {
+    const cover = story.coverDirection!;
+    expect(story.title).toBe('Struck From the Register');
+    expect(cover).toContain(`TITLE: the words ${story.title} painted into the art in the upper third`);
+    expect(cover).toContain(`spelled exactly ${story.title}`);
+    expect(cover).toMatch(/^SUBJECT: Seol Siwon/);
+    expect(cover).toContain('HER FACE STAYS CLEAN');
+    expect(cover).toMatch(/never on her face/);
+    expect(cover).toMatch(/No other text anywhere\.$/);
+  });
+
+  it('draws the opening panel from the person who speaks first', () => {
+    const panel = story.openingPanel!;
+    expect(panel.assetKey).toBe(`${story.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    // The panel script takes its reference portrait from the name the alt starts with.
+    const siwon = story.characters.find((c) => c.id === 'siwon')!;
+    expect(panel.alt.startsWith(siwon.name)).toBe(true);
+    expect(story.characters.find((c) => panel.alt.startsWith(c.name.split(' ')[0]!))?.id).toBe('siwon');
+    expect(story.opening).toMatch(/Siwon says/);
+  });
+
+  it('opens straight on the scene and ships unpublished', () => {
+    expect(story.prologue ?? []).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('gives a portrait-ready appearance to everybody with a card', () => {
+    for (const character of story.characters.filter((c) => c.cardBlurb.trim())) {
+      expect(character.appearance.length, character.id).toBeGreaterThan(80);
+    }
+  });
+
+  it('puts the system where the storyteller reads it', () => {
+    const canon = story.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/answering hand/);
+    expect(canon).toMatch(/How the days keep score/);
+    expect(story.rules.toneGuide.length).toBeGreaterThan(200);
+
+    const starting = story.rules.startingItems.map((i) => i.itemId);
+    expect(starting).toEqual(expect.arrayContaining(['your_sword', 'sword_token']));
+    for (const id of starting) expect(story.items.find((i) => i.id === id)?.questItem, id).toBe(true);
+    expect(story.items.find((i) => i.id === 'your_sword')!.description).toMatch(/When somebody swings at you/);
+
+    for (const archetype of story.archetypes) {
+      expect(archetype.startingAbilities[0], archetype.id).toBe('answer_the_blade');
+      for (const id of archetype.startingAbilities) {
+        expect(story.abilities.find((a) => a.id === id)?.unlockedByDefault, `${archetype.id}/${id}`).toBe(true);
+      }
+    }
+  });
+
+  it('gives every titled character the name people use', () => {
+    const jae = story.characters.find((c) => c.id === 'jae')!;
+    expect(jae.calledName).toBe('Grandmaster Jae');
+    for (const character of story.characters) expect(character.calledName, character.id).toBeTruthy();
   });
 });
 

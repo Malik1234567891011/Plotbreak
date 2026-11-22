@@ -280,11 +280,37 @@ the blade raised.
 
 ## Image plan (for the art step; not generated yet)
 
-- **Cover:** Siwon in house white, the short cutting blade raised over an open folding book on a lacquer
-  stand, kneeling rows behind her, morning light through paper screens; a second figure in the
-  foreground, back to the viewer, hand near a plain sword. Adults only, described by costume and pose.
-  Title painted in.
-- **Portraits:** Siwon, Grandmaster Jae, Han, Yeon, Doha, Minseo.
+The fixture's `coverDirection` and `openingPanel` are the versions PixAI reads; this is the brief.
+
+- **Cover:** Siwon alone in front, waist up, close, described by costume and pose only: long black hair
+  tied high with a cord of sword-grip binding, plain white training clothes with the sleeves tied back,
+  both hands holding the short cutting blade level over an open folding book on a black lacquer stand.
+  The pages carry only faint ruled lines, no writing. One thin red ink line across the page under the
+  blade, a white glint on the edge. Steady, set face, eyes on the viewer. Her face stays clean: no tears,
+  ink or red marks on it; every effect is on the blade, the page and the title. Behind her, soft: the
+  dark wooden hall, paper screens with morning light, rows kneeling in white, a still figure in grey on
+  the dais and one in dark gold by the door.
+
+  TITLE: Struck From the Register, painted into the upper third as a bold white brush-lettered logo with
+  a thin black ink edge, spelled exactly that way in title case with a lowercase "the", legible at
+  thumbnail size. One thin red brush stroke strikes through the word Register only, hiding no letter.
+  No other text.
+- **Portraits:** Siwon, Grandmaster Jae, Han, Yeon, Doha, Minseo. Each `appearance` opens "An adult
+  woman/man" or "An older man" and then gives build and costume; the ages live in hard canon and in the
+  cast headings above, never in an image prompt.
 - **Stages:** the register hall, the training yard, the whetstone room, the old woodshed, the pond
   pavilion, Sword Street, under the Long Bridge, the bout ground.
-- **Opening panel:** Siwon over the register with the blade raised, eyes wet, hands steady.
+- **Opening panel** (`story_struck_from_the_register/opening`): "Seol Siwon in house white, hair tied
+  high, holds a short blade level over an open folding book on a lacquer stand, hands steady, eyes on
+  you, rows of kneeling figures behind her." The alt starts with her name because the panel script takes
+  its reference portrait from the character the alt starts with.
+
+## Where the system lives
+
+The storyteller never reads resources, step notes or locked abilities, so the fixture says the same
+things where it does read: hard canon carries the answering hand, the right of contest, the sundown
+clock and a line on how the days keep score (city talk, the distance to Siwon, tiredness); the player
+starts holding their sword, whose description says the forms fail alone and the hand answers an attack,
+and the sword token that lapses at sundown; and every archetype starts with Answer the Blade plus one
+ability of its own (The First Cut, Read the Stance, Work the Room, Slip Away). There is no prologue,
+and `publishedAt` stays null until release.

@@ -23,7 +23,11 @@ import { StoryVersion } from '@plotbreak/contracts';
  * chosen archetype, the cast, location descriptions, quest titles and summaries,
  * world-event copy and ending conditions — not connections and not step notes.
  * So every location description says where it leads, and every quest summary
- * names its stakes in plain words.
+ * names its stakes in plain words. It never sees resources or the ability list
+ * either, except the chosen archetype's starting abilities, so the system lives
+ * where it can read it: the answering hand and the sundown clock in hard canon
+ * (with a line on how the days keep score), on the sword and token the player
+ * starts holding, and in Answer the Blade, which every archetype starts with.
  *
  * Three invisible variables. Stamina is the only GOOD_HIGH, because
  * `resolveRest` refills those and a night's sleep is the honest thing for that
@@ -98,7 +102,7 @@ const raw = {
     ],
     hardCanon: [
       'The player is twenty-four, the eldest grandchild of House Seol in the river city of Haseong, and was the heir until this morning. Siwon is the player’s younger sister and calls them brother; the bond between them is family and nothing else.',
-      'Everyone in this story is an adult. Every sword house in Haseong takes disciples at eighteen or older, so the forty kneeling in House Seol’s hall and the disciples across the bridge are grown men and women.',
+      'Everyone in this story is an adult. Siwon is twenty-two, Geum Yeon twenty-four, Seol Doha twenty-seven, Oh Minseo thirty-one, Han sixty-eight and Grandmaster Seol Jae seventy-four. Every sword house in Haseong takes disciples at eighteen or older, so the forty kneeling in House Seol’s hall and the disciples across the bridge are grown men and women.',
       'The player’s and Siwon’s parents died together when a barge went down on the river eleven years ago. Since then the Grandmaster has been the only head of family either of them has had.',
       'Every member of House Seol is written in the register, a folding book of mulberry paper on a stand in the register hall. The player failed the house’s lantern test (one first cut through a hanging lantern’s cord, so it drops upright and stays lit) three springs running, the last a month ago. Three failures and the name is struck.',
       'Whoever cuts a name from the register takes that person’s place. Before the cut, the struck person has the right of contest: a bout in the training yard against whoever holds the blade, to first clean touch or a yield. Win, and the name stays for a year and a day. Sword-house bouts are never fought to kill.',
@@ -110,6 +114,7 @@ const raw = {
       'Three days ago the Grandmaster told Siwon the real reason for the striking and made her promise not to tell the player. She agreed to hold the blade because otherwise their cousin Doha would have.',
       'House Geum has not had a true answering hand in three generations and teaches the second cut from books. Its heir, Geum Yeon, has come to the Seol morning rite every day this month as witness.',
       'The Spring Bout is fought on the island bout ground on the third day, at three in the afternoon. The draw is posted at noon on the second day.',
+      'How the days keep score, never shown as numbers: a fight in the street, real blood or a public scene becomes city talk, which brings the watch closer, raises prices and closes doors, and fades slowly when the player keeps quiet. Claiming the contest or refusing Siwon pushes her back into house formality; only time and plain words bring her close again. A tired player answers a half-beat late, and sleep, food or an hour at Han’s whetstone puts that right.',
     ],
     toneGuide:
       'Webtoon sword drama: fast, physical, clear. A fight is a decision made with the body and reads as one: distance, weight, who moved first, the sound steel makes when it is turned rather than met. ' +
@@ -256,7 +261,7 @@ const raw = {
       tags: ['weapon', 'personal'],
       questItem: true,
       droppable: true,
-      description: 'The sword the house gave you nine years ago: plain steel, a plain guard, very good balance, and your name cut into the tang under the grip.',
+      description: 'The sword the house gave you nine years ago: plain steel, a plain guard, very good balance, and your name cut into the tang under the grip. Alone in the yard it has never once cut the way the forms say. When somebody swings at you, it is already there.',
       loreText: 'Han has sharpened it every week for nine years without being asked. It is the only thing in the house with your name on it that nobody can cut out.',
       icon: 'sword',
     },
@@ -898,7 +903,7 @@ const raw = {
         'Hate me in the yard if you need to, brother. Just keep it out of Grandfather’s hearing.',
       ],
       appearance:
-        'Twenty-two, house white with the sleeves tied back, long black hair tied high with a cord, sharp dark eyes that are red at the rims this morning, and a straight back she never lets curve.',
+        'An adult woman, slim and quick, in house white with the sleeves tied back, long black hair tied high with a cord of sword-grip binding, sharp dark eyes, and a straight back she never lets curve.',
       visualHook: 'Her hair cord is a strip of sword-grip binding from the first practice sword she ever broke.',
       silhouette: 'Upright as a post, short blade raised level over an open book, elbows locked.',
       artSeed: 'sftr-siwon-01',
@@ -988,7 +993,7 @@ const raw = {
         'Buy me tea and I’ll tell you what my house has been paid every spring for a hundred and forty years.',
       ],
       appearance:
-        'Twenty-four, a fitted coat in House Geum’s dark gold over a fighter’s build, short black hair cut blunt at the jaw, an easy stance that is never off balance, and a witness’s brass seal at her belt.',
+        'An adult woman, a fitted coat in House Geum’s dark gold over a fighter’s build, short black hair cut blunt at the jaw, an easy stance that is never off balance, and a witness’s brass seal at her belt.',
       visualHook: 'A witness’s brass seal on a gold cord at her belt, which she turns over and over with one thumb while she watches.',
       silhouette: 'Weight on the back foot, arms loosely folded, head tilted as if pricing what she sees.',
       artSeed: 'sftr-yeon-01',
@@ -1070,7 +1075,7 @@ const raw = {
         'Sit. The tea is bitter because I let it steep. Some things should be.',
       ],
       appearance:
-        'Seventy-four, gaunt and very upright in grey house robes, white hair bound in an old-fashioned topknot, a face that has been arranged into nothing for so long it has stayed that way.',
+        'An older man, gaunt and very upright in grey house robes, white hair bound in an old-fashioned topknot, a face that has been arranged into nothing for so long it has stayed that way.',
       visualHook: 'A sword he never draws resting across his knees, its grip wrapped in faded white cord.',
       silhouette: 'Seated on a dais, both hands flat on the scabbard across his knees, perfectly still.',
       artSeed: 'sftr-jae-01',
@@ -1152,7 +1157,7 @@ const raw = {
         'Don’t thank me. Sit still while I work.',
       ],
       appearance:
-        'Sixty-eight, small and wiry in a patched servant’s jacket, grey stubble, forearms like knotted rope, and an old man’s squint that misses nothing that moves.',
+        'An older man, small and wiry in a patched servant’s jacket, grey stubble, forearms like knotted rope, and a narrow squint that misses nothing that moves.',
       visualHook: 'A whetstone always tucked in one sleeve, and a thin white scar across the back of his right hand.',
       silhouette: 'Hunched over a trough with a blade flat under his palms, or leaning on a rake at the edge of the yard.',
       artSeed: 'sftr-han-01',
@@ -1234,7 +1239,7 @@ const raw = {
         'Odds are odds, cousin. Somebody always loses money on the favourite.',
       ],
       appearance:
-        'Twenty-seven, tall and broad in immaculate house white, a handsome face set in a permanent half-smile, hair oiled flat, and a gambler’s silver ring he turns when he is nervous.',
+        'An adult man, tall and broad in immaculate house white, a handsome face set in a permanent half-smile, hair oiled flat, and a gambler’s silver ring he turns when he is nervous.',
       visualHook: 'A silver gambler’s ring on his thumb that he spins with his forefinger while he talks.',
       silhouette: 'Arms crossed, chin up, standing slightly in front of whoever he is with.',
       artSeed: 'sftr-doha-01',
@@ -1303,7 +1308,7 @@ const raw = {
         'I can’t help you. I can tell you which clause I’d read twice, if I were you.',
       ],
       appearance:
-        'Thirty-one, neat grey clerk’s coat with ink-stained cuffs, hair pinned up with two brushes, round spectacles, and the forearms of somebody who used to train every day.',
+        'An adult woman, a neat grey clerk’s coat with ink-stained cuffs, hair pinned up with two brushes, round spectacles, and the forearms of somebody who used to train every day.',
       visualHook: 'Two writing brushes pinned through her hair like hairpins, one of them always wet.',
       silhouette: 'Behind a long counter, one hand flat on an open ledger, the other on the bell rope.',
       artSeed: 'sftr-minseo-01',
@@ -2189,7 +2194,7 @@ const raw = {
       attributeBonus: { might: 2, resolve: 2 },
       skillProficiencies: { forms: 2, counter: 1, plain_speech: 2 },
       startingItems: [{ itemId: 'third_lantern', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['answer_the_blade', 'house_forms'],
       startingReputation: [{ factionId: 'faction_seol', amount: 10 }],
     },
     {
@@ -2202,7 +2207,7 @@ const raw = {
       attributeBonus: { mind: 3, presence: 1 },
       skillProficiencies: { swordlore: 3, bearing: 1, breath: 1 },
       startingItems: [{ itemId: 'form_notebook', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['answer_the_blade', 'read_the_stance'],
       startingReputation: [],
     },
     {
@@ -2215,7 +2220,7 @@ const raw = {
       attributeBonus: { presence: 3, mind: 1 },
       skillProficiencies: { bearing: 3, streetwise: 1, plain_speech: 1 },
       startingItems: [{ itemId: 'house_ledger', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['answer_the_blade', 'work_the_room'],
       startingReputation: [{ factionId: 'faction_seol', amount: 15 }],
     },
     {
@@ -2228,7 +2233,7 @@ const raw = {
       attributeBonus: { agility: 3, resolve: 1 },
       skillProficiencies: { counter: 3, streetwise: 2 },
       startingItems: [{ itemId: 'ring_mask', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['answer_the_blade', 'slip_away'],
       startingReputation: [{ factionId: 'faction_rings', amount: 20 }],
     },
   ],
@@ -2460,13 +2465,29 @@ const raw = {
     "Forty people kneel in the hall. Two are standing: you, and your sister.\n\nOn the stand lies the family register, open to your page. Your name is the last one in it.\n\nShe raises the house’s oldest blade over the paper.\n\n\"Say you’ll leave quietly, brother,\" Siwon says. \"Then I won’t have to fight you.\"\n\nHer hands are steady. Her eyes are not.\n\nOn the dais, your grandfather’s face shows nothing. By the door, a woman in another house’s gold watches you, not the blade.\n\nHouse law gives you one right: challenge whoever holds the blade, in the yard. Win, and your name stays.\n\nUnder her breath, Siwon is counting.\n\n\"Quietly, or the yard,\" she says. \"Answer me.\"",
   openingPanel: {
     assetKey: 'story_struck_from_the_register/opening',
-    alt: 'Siwon in house white holding a short blade level over an open folding book on a lacquer stand, eyes red, hands steady, kneeling rows behind her.',
+    alt: 'Seol Siwon in house white, hair tied high, holds a short blade level over an open folding book on a lacquer stand, hands steady, eyes on you, rows of kneeling figures behind her.',
   },
   openingSuggestions: [
     "\"I’ll go. But I want to hear why from you, Siwon. Not from him.\"",
     'I unbuckle my sword and lay it across my own name on the register.',
     "\"I claim the contest. The yard, sister. Now.\"",
   ],
+  coverDirection: [
+    'SUBJECT: Seol Siwon, the sister who holds the blade, alone and unmistakable in the foreground of a key visual for a martial-arts drama anime about a sword house cutting its heir out of the family book.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'Slim and straight-backed, long black hair tied high with a cord of sword-grip binding, sharp dark eyes, plain white martial-arts training clothes with the sleeves tied back at the shoulders.',
+    'Both hands hold a short single-edged blade level in front of her, elbows locked, its edge over an open folding book of pale paper on a black lacquer stand at the bottom of the frame.',
+    'The pages show only faint grey ruled lines: no letters, no numbers, nothing that reads as writing.',
+    'One thin line of red ink runs across the open page under the blade, and the blade’s edge catches a hard line of white light.',
+    'Her expression is steady and set, jaw tight, eyes straight at the viewer, holding something back.',
+    'HER FACE STAYS CLEAN: no tears, cuts, ink, red marks or shadows on her face or skin.',
+    'Every red ink and light effect stays on the blade, the page and the title, never on her face.',
+    'BEHIND HER, soft and secondary: a long dark wooden ancestral hall, paper screens with morning light coming through, rows of figures in white kneeling with their heads bowed,',
+    'a still figure in grey robes seated on a raised dais, and a figure in a dark gold coat by the door, all in soft focus.',
+    'LIGHT: pale cool morning light through the paper screens, a warm gold glow from the hall behind her, and a cold white glint along the blade.',
+    'TITLE: the words Struck From the Register painted into the art in the upper third as a bold white brush-lettered logo with a thin black ink edge,',
+    'spelled exactly Struck From the Register, in title case with a lowercase the, large and legible at thumbnail size. A single thin red brush stroke strikes through the word Register only, without hiding any letter. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 
