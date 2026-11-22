@@ -173,7 +173,36 @@ describe('the opener', () => {
 
   it('has an opening panel on the story’s own asset key', () => {
     expect(story.openingPanel?.assetKey).toBe('story_rescue_rating/opening');
-    expect(story.openingPanel?.alt.length ?? 0).toBeGreaterThan(40);
+    const alt = story.openingPanel?.alt ?? '';
+    expect(alt.length).toBeGreaterThan(40);
+    expect(alt.length).toBeLessThanOrEqual(200);
+    // The panel is drawn with the portrait of whoever the alt names first, and
+    // that has to be the person who speaks in the opener.
+    expect(alt.startsWith('Sloane ')).toBe(true);
+  });
+});
+
+describe('ready for the art and release pipeline', () => {
+  it('opens straight on the scene and has no release date yet', () => {
+    expect(story.prologue).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('gives every card a face to draw', () => {
+    for (const c of story.characters) {
+      if (!c.cardBlurb.trim()) continue;
+      expect(c.appearance.trim().length, c.id).toBeGreaterThan(80);
+    }
+  });
+
+  it('puts the camera in every player’s hands, where the narrator reads it', () => {
+    for (const archetype of story.archetypes) {
+      expect(archetype.startingAbilities, archetype.id).toContain('go_dark');
+      expect(worldBrief(story, archetype.id), archetype.id).toContain('Go Dark');
+    }
+    const cam = story.items.find((i) => i.id === 'shoulder_cam')!;
+    expect(cam.questItem).toBe(true);
+    expect(story.rules.startingItems.map((i) => i.itemId)).toContain('shoulder_cam');
   });
 });
 
@@ -515,18 +544,23 @@ describe('six voices', () => {
   });
 
   it('is a cast of adults, and says how old each of them is', () => {
+    // The ages live in the canon the narrator reads. The appearance, which the
+    // portraits are drawn from, says "An adult woman" or "An adult man" and no
+    // number, as the pilot's does.
     const AGES: Record<string, [number, string]> = {
-      sloane: [27, 'Twenty-seven'],
-      dante: [29, 'Twenty-nine'],
-      kit: [31, 'Thirty-one'],
-      vask: [44, 'Forty-four'],
-      mensah: [46, 'Forty-six'],
+      sloane: [27, 'Sloane Lyle is twenty-seven'],
+      dante: [29, 'Dante Roe twenty-nine'],
+      kit: [31, 'Kit Navarro thirty-one'],
+      vask: [44, 'Corinne Vask forty-four'],
+      mensah: [46, 'Tobiah Mensah forty-six'],
     };
+    const canon = story.rules.hardCanon.join(' ');
     for (const c of people) {
       const entry = AGES[c.id];
       expect(entry, `${c.id} has no stated age`).toBeDefined();
       expect(entry![0]).toBeGreaterThanOrEqual(18);
-      expect(c.appearance.startsWith(entry![1]), c.id).toBe(true);
+      expect(canon, c.id).toContain(entry![1]);
+      expect(c.appearance, c.id).toMatch(/^An adult (woman|man),/);
     }
     // The chat is a crowd, and the canon says who is allowed in it.
     const chat = story.characters.find((c) => c.id === 'chat')!;
@@ -594,11 +628,18 @@ describe('clarity and the director’s content bar', () => {
     }
   });
 
-  it('has a cover direction: one adult, a clean face, and the title as the only text', () => {
-    expect(story.coverDirection).toMatch(/adult woman, alone/);
-    expect(story.coverDirection).toMatch(/HER FACE STAYS CLEAN/);
-    expect(story.coverDirection).toMatch(/spelled exactly RESCUE RATING/);
-    expect(story.coverDirection).toMatch(/No other text anywhere/);
+  it('has a cover direction: one figure by costume and pose, a clean face, and the title as the only text', () => {
+    const cover = story.coverDirection ?? '';
+    expect(cover).toMatch(/^SUBJECT: Sloane Lyle,/);
+    // People on a cover are described by costume and pose, never by age words
+    // (PLAN.md section 7, the lesson of Ace's refused cover).
+    expect(cover).not.toMatch(/\b(adult|young|younger|old|older|aged?|years?|girl|boy|teen\w*)\b/i);
+    expect(cover).toMatch(/HER FACE STAYS CLEAN/);
+    expect(cover).toMatch(/never on her face/);
+    // Its own TITLE: line owns the lettering, spelled as the title is.
+    expect(cover).toMatch(/TITLE: .*upper third.*spelled exactly RESCUE RATING/);
+    expect(story.title.toUpperCase()).toBe('RESCUE RATING');
+    expect(cover).toMatch(/No other text anywhere/);
   });
 
   it('keeps the secrets out of the cast cards and the sample lines', () => {

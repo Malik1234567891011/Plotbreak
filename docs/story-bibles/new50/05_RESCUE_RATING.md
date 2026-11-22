@@ -128,7 +128,7 @@ Every character is an adult. Cast order is cover order.
 
 ### Dante Roe, 29
 **Role:** number one on the Ladder for four years, and the hero this crane was booked for.
-**Look:** tall, warm brown skin, close-cropped hair, an easy smile, a long white coat with a high collar lined in gold.
+**Look:** tall, warm brown skin, close-cropped hair, an easy smile, a long spotless white coat with a high collar lined in gold, worn open over a dark grey flight suit.
 **Power:** he can fall in any direction he chooses, at the speed of something dropped from a height. On camera it looks like flying.
 **Want:** get the case back to Tallyhouse quietly; sign the rookie before someone less friendly does.
 **Fear:** a real emergency, live, that he fails. He has not had an unscheduled call in two years.
@@ -138,7 +138,7 @@ Every character is an adult. Cast order is cover order.
 
 ### Kit Navarro, 31
 **Role:** your handler on the Bureau's night desk, the voice in your earpiece.
-**Look:** compact, curly dark hair held up with a pen, a headset round her neck, a Bureau fleece with chewed cuffs, three phones.
+**Look:** compact, curly dark hair held up with a pen, a headset round her neck, a navy Bureau fleece with chewed cuffs, three phones clipped along her belt.
 **Power:** she hears radio. All of it, in a city block.
 **Want:** keep your licence; get proof of the set pieces to somebody who cannot be bought.
 **Fear:** getting a rookie hurt by being right too loudly.
@@ -157,7 +157,7 @@ Every character is an adult. Cast order is cover order.
 
 ### Tobiah Mensah, 46
 **Role:** sergeant in Bureau Enforcement: the sirens.
-**Look:** big, grey-bearded, reading glasses pushed up on his head, an Enforcement jacket, a paper notebook.
+**Look:** big, grey-bearded, reading glasses pushed up on his head, a dark blue Enforcement jacket with reflective stripes across the shoulders, a paper notebook.
 **Power:** anybody he touches cannot use their power for a minute. It is why he makes the arrests.
 **Want:** bring in Sloane Lyle; find out why the crane fell.
 **Fear:** arresting the wrong person on camera.
@@ -241,4 +241,8 @@ Wednesday 21:40 start: the arm falls ten minutes before its 21:50 cue. Mensah co
 
 ## Image plan (later; no art in this pass)
 
-Cover: Sloane alone, waist up, mid-fall against the night sky with one hand reaching toward the viewer, the snapped crane and harbour lights behind, a column of falling star shapes at the edge, and RESCUE RATING as the only lettering. The player is BLANK, so the cover never paints them, and the chat column carries no letters, numbers or usernames. Every figure an adult, described by costume and pose. Effects on objects, never on faces. The full prompt is `coverDirection` in the fixture.
+Cover: Sloane alone, waist up, mid-fall against the night sky with one hand reaching toward the viewer, the snapped crane and harbour lights behind, a column of falling star shapes at the edge, and RESCUE RATING as the only lettering, in the upper third, on its own `TITLE:` line. The player is BLANK, so the cover never paints them, and the chat column carries no letters, numbers or usernames. Every figure an adult, described by costume and pose, never by age words. Effects on the case, the stars and the title, never on faces. The full prompt is `coverDirection` in the fixture.
+
+Opening panel (`openingPanel`, `story_rescue_rating/opening`): Sloane in your arms, seen from your point of view, smiling up at you on the roof. Its alt starts with her name, because her portrait is the panel's reference image.
+
+Portraits are drawn from each character's `appearance`, which starts "An adult woman" or "An adult man" and carries no number; the ages above are in `hardCanon`, where the narrator reads them. No prologue: the story opens straight on the roof. `publishedAt` stays null until release.

@@ -29,7 +29,9 @@ import { StoryVersion } from '@plotbreak/contracts';
  *
  * BLANK protagonist. The archetype is the player's power, and each one carries
  * its signature ability as a starting ability, because the archetype block is
- * the only place `worldBrief` tells the narrator what the player can do.
+ * the only place `worldBrief` tells the narrator what the player can do. Every
+ * archetype also starts with Go Dark, the camera switch, which is this story's
+ * system; the rest of it is in hard canon and the shoulder camera item.
  *
  * Three variables. Stamina is the only GOOD_HIGH, so resting restores the body
  * and nothing else. Heat is first among the descending pair because
@@ -82,7 +84,9 @@ const raw = {
       { itemId: 'licence_card', qty: 1 },
     ],
     hardCanon: [
-      'In Calder Bay about one person in thirty has a power. Only heroes licensed by the Rescue Bureau, at twenty-one or older, may use one in public. Six thousand and twelve licensed heroes are working tonight. Every character in this story is an adult.',
+      'In Calder Bay about one person in thirty has a power. Only heroes licensed by the Rescue Bureau, at twenty-one or older, may use one in public. Six thousand and twelve licensed heroes are working tonight.',
+      'Every character in this story is an adult: the player is twenty-one or older, Sloane Lyle is twenty-seven, Dante Roe twenty-nine, Kit Navarro thirty-one, Corinne Vask forty-four and Tobiah Mensah forty-six. Posting in the Feed’s chat needs a verified adult account.',
+      'The cast’s powers: Dante Roe can fall in any direction he chooses, at the speed of something dropped from a height, which on camera looks like flying. Kit Navarro hears radio, all of it, across a city block. Sergeant Mensah’s touch switches off anybody’s power for a minute. Corinne Vask has no power at all.',
       'Every licensed hero wears a shoulder camera that streams to the Feed, which the media company Tallyhouse runs under a city contract. Viewers rate each rescue from one to five stars while it happens. The rolling average sets the hero’s rank on the Ladder, recalculated every hour, and rank decides pay, calls and sponsors.',
       'A hero may switch the camera off for up to ten minutes on a call. Longer than that, or without a logged reason, puts the licence under review. While the camera is off there is no rating and no chat.',
       'The player is a licensed rookie, three months in, ranked 4,112, with no sponsor. Tonight they reached the failing crane at Pier Tower before anybody else because they listen to the open emergency scanner, and they caught a falling woman forty floors up, live.',
@@ -844,7 +848,7 @@ const raw = {
         'Big question, hero. Big questions cost a favour, and I already owe you one.',
       ],
       appearance:
-        'Twenty-seven, sharp-featured, short black hair with one streak bleached silver, dark grey eyes, a silver flight jacket with the sleeves pushed up, scraped knuckles, and a steel courier case cuffed to her left wrist.',
+        'An adult woman, sharp-featured, short black hair with one streak bleached silver, dark grey eyes, a silver flight jacket with the sleeves pushed up, scraped knuckles, and a steel courier case cuffed to her left wrist.',
       visualHook: 'One bleached silver streak in short black hair, and a steel case cuffed to her wrist.',
       silhouette: 'Light on her feet, half turned toward the nearest exit, one hand always free.',
       artSeed: 'rr-sloane-01',
@@ -932,7 +936,7 @@ const raw = {
         'Keep it, give it back, I genuinely don’t mind. I just want you to decide before somebody less friendly comes asking.',
       ],
       appearance:
-        'Twenty-nine, tall and broad-shouldered, warm brown skin, close-cropped dark hair, an easy wide smile, and a long white coat with a high collar lined in gold. His power lets him fall in any direction he chooses, which on camera looks like flying.',
+        'An adult man, tall and broad-shouldered, warm brown skin, close-cropped dark hair, an easy wide smile, and a long spotless white coat with a high collar lined in gold, worn open over a fitted dark grey flight suit.',
       visualHook: 'A long white coat that never gets dirty, its high collar lined in gold.',
       silhouette: 'Standing at a slight lean, as if the wind were coming from wherever he wants to go next.',
       artSeed: 'rr-dante-01',
@@ -1018,7 +1022,7 @@ const raw = {
         'Eat something. I’ve sent noodles to your building. Actual noodles, in a bag, with chopsticks.',
       ],
       appearance:
-        'Thirty-one, compact, curly dark hair tied up with a pen through it, a headset around her neck, a Bureau fleece with the cuffs chewed, and three phones.',
+        'An adult woman, compact, curly dark hair tied up with a pen through it, a headset around her neck, a navy Bureau fleece with the cuffs chewed, and three phones clipped along her belt.',
       visualHook: 'A headset around her neck and three phones lined up on the desk in front of her.',
       silhouette: 'Leaning over a desk on both fists, headset on, looking at six screens at once.',
       artSeed: 'rr-kit-01',
@@ -1105,7 +1109,7 @@ const raw = {
         'From the top, then. Slower this time, and with the case on the table between us.',
       ],
       appearance:
-        'Forty-four, slim, silver-blonde hair in a low knot, a pale grey suit, small round glasses, a production earpiece, and a tablet held flat against her chest.',
+        'An adult woman, slim, silver-blonde hair in a low knot, a pale grey suit, small round glasses, a production earpiece, and a tablet held flat against her chest.',
       visualHook: 'A production earpiece and a tablet held flat against her chest like a hymn book.',
       silhouette: 'Very upright and very still, hands folded over the tablet, head tilted to listen to her earpiece.',
       artSeed: 'rr-vask-01',
@@ -1179,7 +1183,7 @@ const raw = {
         'In order. You give me your report, I read it, I decide whether I believe it. Nobody needs to be clever tonight.',
       ],
       appearance:
-        'Forty-six, big and grey-bearded, dark skin, reading glasses pushed up on his head, a Bureau Enforcement jacket with SERGEANT across the back, and a paper notebook. Anybody he touches cannot use their power for a minute.',
+        'An adult man, big and grey-bearded, dark skin, reading glasses pushed up on his head, a dark blue Bureau Enforcement jacket with reflective stripes across the shoulders, and a small paper notebook open in one hand.',
       visualHook: 'A small paper notebook and a pencil, in a city where nobody writes anything down.',
       silhouette: 'Broad and unhurried, notebook open, head down, writing while you talk.',
       artSeed: 'rr-mensah-01',
@@ -1215,6 +1219,7 @@ const raw = {
     {
       id: 'chat',
       name: 'The Chat',
+      calledName: 'The Chat',
       role: 'Forty thousand strangers watching your shoulder camera, all typing at once',
       cardBlurb:
         'Every rescue you make is rated by them while it happens, and they turned on you the second they recognised her. They are loud, fickle, funny and sometimes right, and they never forgive a lie they catch you telling.',
@@ -1252,7 +1257,7 @@ const raw = {
         'WHY IS THE CAMERA OFF. WHAT ARE YOU HIDING',
       ],
       appearance:
-        'Not a person: a crowd, seen as one tall glowing column at the edge of your vision, a stream of coloured hearts, stars and blank speech bubbles under a five-star meter that never stops moving.',
+        'Not a person: a crowd, seen as one tall glowing column at the edge of your vision, a stream of coloured hearts, stars and blank speech bubbles rising under a row of five glowing stars that never stops filling and emptying. No letters, numbers or usernames anywhere.',
       visualHook: 'A five-star meter that never stops moving, above a glowing stream of hearts, stars and blank speech bubbles.',
       silhouette: 'A narrow column of light and floating shapes, always at the edge of your vision.',
       artSeed: 'rr-chat-01',
@@ -2052,7 +2057,7 @@ const raw = {
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { rescue: 3, scrapping: 1, power: 1 },
       startingItems: [{ itemId: 'field_kit', qty: 1 }],
-      startingAbilities: ['heavy_hands'],
+      startingAbilities: ['heavy_hands', 'go_dark'],
       startingReputation: [{ factionId: 'faction_viewers', amount: 5 }],
     },
     {
@@ -2065,7 +2070,7 @@ const raw = {
       attributeBonus: { agility: 3, presence: 1 },
       skillProficiencies: { footwork: 3, scene_sense: 1, power: 1 },
       startingItems: [{ itemId: 'field_kit', qty: 1 }],
-      startingAbilities: ['quickstep'],
+      startingAbilities: ['quickstep', 'go_dark'],
       startingReputation: [],
     },
     {
@@ -2078,7 +2083,7 @@ const raw = {
       attributeBonus: { arcana: 3, resolve: 1 },
       skillProficiencies: { power: 3, rescue: 1, candour: 1 },
       startingItems: [],
-      startingAbilities: ['glass_wall'],
+      startingAbilities: ['glass_wall', 'go_dark'],
       startingReputation: [{ factionId: 'faction_bureau', amount: 5 }],
     },
     {
@@ -2091,7 +2096,7 @@ const raw = {
       attributeBonus: { mind: 3, agility: 1 },
       skillProficiencies: { gear: 3, footwork: 1, scene_sense: 1 },
       startingItems: [{ itemId: 'grapple_line', qty: 1 }],
-      startingAbilities: ['line_and_cutters'],
+      startingAbilities: ['line_and_cutters', 'go_dark'],
       startingReputation: [{ factionId: 'faction_blind_spots', amount: 10 }],
     },
   ],
@@ -2307,7 +2312,7 @@ const raw = {
     "Forty floors up, the crane snaps, and you catch her.\n\nYour shoulder camera is live. The rating climbs: 4.8.\n\nThen the chat explodes.\n\nTHAT’S SLOANE LYLE\n\nFIRST FOOTAGE OF HER EVER\n\nROOKIE CAUGHT THE CITY’S MOST WANTED WOMAN\n\nSloane smiles up at you from your arms. \"Hi, hero. Put me down slowly and I’ll owe you one.\"\n\nIn your earpiece, your handler snaps: \"Do not let go of her.\"\n\nThe rating ticks down. 4.1. 3.6.\n\nThe steel case cuffed to her wrist starts to hum.\n\n\"Sirens in thirty seconds,\" Sloane says. \"So, hero. Do I walk, or do you hand me in?\"",
   openingPanel: {
     assetKey: 'story_rescue_rating/opening',
-    alt: 'Sloane in your arms on a night rooftop forty floors up, silver-streaked hair, a steel case cuffed to her wrist, smiling up at you, the snapped crane and harbour lights behind.',
+    alt: 'Sloane in your arms, seen from your point of view, on a night rooftop forty floors up: silver-streaked hair, a steel case cuffed to her wrist, smiling up at you, the snapped crane behind.',
   },
   openingSuggestions: [
     '"I’ll think about it. What’s in the case?"',
@@ -2315,13 +2320,19 @@ const raw = {
     'I reach up and switch my camera off.',
   ],
   coverDirection: [
-    'SUBJECT: Sloane Lyle, an adult woman, alone in the foreground of a key visual for a superhero action-romance anime.',
-    'Waist up, centred and close, mid-fall against a night sky, one hand reaching toward the viewer as if about to be caught.',
-    'Short black hair with one bleached silver streak, dark grey eyes, a silver flight jacket with the sleeves pushed up, scraped knuckles, a brushed-steel courier case cuffed to her left wrist, glowing faintly.',
-    'Sharp, amused half-smile, looking straight at the viewer. HER FACE STAYS CLEAN: no marks, glitch lines or overlays on her face or skin.',
+    'SUBJECT: Sloane Lyle, the city’s most wanted thief, alone and unmistakable in the foreground of a key visual for a superhero action-romance anime.',
+    'She fills the frame from the waist up, centred and close, mid-fall against a night sky, one hand reaching toward the viewer as if about to be caught,',
+    'the other arm trailing a brushed-steel courier case cuffed to her left wrist.',
+    'Short black hair with one bleached silver streak lifting in the wind, dark grey eyes, a silver flight jacket with the sleeves pushed up, scraped knuckles.',
+    'Her expression is a sharp, amused half-smile, looking straight at the viewer, not the least bit afraid of the drop.',
+    'The courier case glows faintly red along its seams.',
+    'HER FACE STAYS CLEAN: no marks, glitch lines, glow or overlays on her face or skin.',
+    'Every glow effect stays on the courier case, the star column and the title, never on her face.',
     'BEHIND HER, soft and secondary: an unfinished skyscraper roof forty floors up, a construction crane with its arm snapped and hanging, harbour lights far below, police lights in the street.',
     'At the right edge, a translucent column of glowing five-point star icons, some falling: shapes only, no letters, no numbers, no usernames, nothing that reads as writing.',
-    'TITLE: the words RESCUE RATING painted into the upper third as a bold condensed broadcast-style logo, white with a red glow, spelled exactly RESCUE RATING, legible at thumbnail size. No other text anywhere.',
+    'LIGHT: cold blue night light from above, warm orange harbour light from below rimming her silhouette, so she is lit in blue and edged in orange.',
+    'TITLE: the words RESCUE RATING painted into the art in the upper third as a bold condensed broadcast-style logo, white with a red glow,',
+    'spelled exactly RESCUE RATING, large and legible at thumbnail size. A single thin red bar sits under the word RATING. No other text anywhere.',
   ].join(' '),
   publishedAt: null,
 };
