@@ -4,8 +4,8 @@
 Only Male Student at the Witch Academy 1.5M, flipped.
 **Genre:** academy romance, rivals and roommates, comedy, a quiet mystery underneath
 **One-line fantasy:** You are the first woman ever to pass the entrance trial of the kingdom's knight
-academy, and you passed it first. Your four roommates vote on whether to keep you in seven days, and
-last night none of them said yes.
+academy, and you ranked first. In seven days your four roommates vote on keeping you. Last night, none
+of them said yes.
 
 ## Why this fantasy works
 
@@ -57,7 +57,7 @@ seventeen. Her lance did not take her on the seventh day, under pressure from th
 and her name was cut out of the register by the then Master of the Rolls, Anselm Greaves. The rolls say
 only: *Seventeen, sent home with thanks.* She was **Margery Holt**. She married the village armorer, and
 when he died she took over the forge inside the walls that threw her out. She is **Margery Dunmore**,
-the armorer, and her unmarked cadet sword hangs on the armory's back wall. **Sir Matthias Crane**, now
+the armorer, and her unmarked cadet sword hangs on the armory's back wall. **Sir Matthias Orme**, now
 Master-at-Arms, was in her lance and stood up and said no. Greaves kept the page.
 
 Nobody alive says any of this aloud. The player does not need to find it. If she does, it changes what
@@ -73,7 +73,7 @@ the Taking is.
   The canvas partition is about dignity. Romance is flirtatious, tense and earned, and goes no further
   than a kiss.
 - **Everyone is an adult** and is described by build and costume, never with a word that reads younger.
-- The sword is a language. Bouts are legible: distance, footwork, who is tired, what Crane writes in
+- The sword is a language. Bouts are legible: distance, footwork, who is tired, what Orme writes in
   his ledger. Bruises and a split lip at worst. Steel drawn in anger outside the yard is a scandal.
 - Sexism is the obstacle, written as people doing things rather than speeches: a bed moved, a number
   scraped off the board, a girth cut, tea offered. Allies are not saints; enemies are not stupid.
@@ -83,13 +83,20 @@ the Taking is.
 
 The player authors her name, what she looks like, why she sat the Trial, who taught her to fight (the
 archetype), and everything she does. She is a woman, nineteen, ranked first. Everything else is hers.
+Only her name and pronouns reach the storyteller, and production's Play button carries both over from
+the last story she played, so the fixture's hard canon says she is a woman whatever pronouns arrive.
+Why she sat the Trial is hers to say in play; the setup answer does not reach the storyteller.
 
 ### Minimal hard canon
-- Every character's age, all eighteen or older (below).
+- Every character's age, all eighteen or older (below). Everybody who appears on stage, porters,
+  stablehands, the Marshal's steward and villagers included, is an adult.
+- The player character is a woman; everyone at Blackthorn says she and her.
 - The Charter wording, the blind Trial, the ranking (player 1, Rowan 2, Aren 3, Gideon 4, Felix 5).
 - The Taking: seventh morning, chapel, out loud, three of four.
 - Nobody said yes last night. The bed is in the stables. Rowan held the door.
-- Cadet Seventeen is Margery Dunmore; Crane voted no; Greaves cut the page and kept it.
+- Nobody shares a bed, ever. If she takes Rowan's, he sleeps on the floor by the window without a
+  word and lies awake furious and impressed.
+- Cadet Seventeen is Margery Dunmore; Orme voted no; Greaves cut the page and kept it.
 
 ## The opener (turn zero, 119 words)
 
@@ -110,26 +117,26 @@ archetype), and everything she does. She is a woman, nineteen, ranked first. Eve
 > He looks at you. "So where are you sleeping tonight?"
 
 Suggestions, one said, one done, one risky:
-1. "I'll carry it up myself. Who's taking the other end?"
+1. "Then I'm carrying it back up. Who wants the other end?"
 2. I take Gideon's hand and shake it.
 3. I drop my bag on Rowan's bed and sit down.
 
 ## Major cast
 
-Ages: **the player 19, Rowan 20, Aren 20, Felix 20, Gideon 22, Marr 23, Dunmore 50, Crane 54, Greaves 61.**
+Ages: **the player 19, Rowan 20, Aren 20, Felix 20, Gideon 22, Marr 23, Dunmore 50, Orme 54, Greaves 61. Offstage: Queen Merewen 52, Lord Marshal Hargrave 58.**
 
 ### Rowan Ashby (20) — the rival
 **Role:** ranked second by four points; the fastest blade in the intake.
 **Wants:** a rematch in front of everybody; the Founding Tourney and the stipend that goes with it.
 **Fear:** going home second to a house that sold its furniture to send him.
 **Secret:** House Ashby's last manor is mortgaged against that stipend. His mother wrote: *if the woman
-ranks above you, we are finished.* He also held the door for the porters this morning.
+keeps First Seat, we are finished.* He also held the door for the porters this morning.
 **Voice:** clipped, sardonic, fencing words as insults, calls her "First" as a jab and later as a name.
 Never says please or sorry; does both with his hands.
 **Will not:** accept a thrown bout. Let him win on purpose and he never forgives it.
 **Romance:** rivals to more; the sparring stays sharp after the kiss.
 
-### Prince Aren Estravel (20) — the prince
+### Prince Aren Valcourt (20) — the prince
 **Role:** the Queen's second son, ranked third; the only one who defends her right to be there, and
 never her.
 **Wants:** to vote as himself and not as the Queen's son.
@@ -150,7 +157,8 @@ sentence.
 evening the Marshal's steward tells him the purse depends on his vote.
 **Voice:** very short sentences, plain words, forge talk (heat, temper, true). Says your name when he
 means it. "Other end."
-**Romance:** gentle and certain; a man who asks before he helps, until one day he doesn't need to.
+**Romance:** gentle and certain; a man who asks before he helps, until the day she tells him he
+does not need to.
 
 ### Felix Lorne (20) — the scholar
 **Role:** a clerk's son on a scholar's stipend, ranked fifth: the best written paper in forty years and
@@ -165,13 +173,13 @@ followed by a long version.
 
 ### Margery Dunmore (50) — the armorer
 **Role:** Mistress of the Armory for twenty years; the only other woman inside the walls.
-**Wants:** the player through the Taking without having to say a word; Crane to say it out loud once.
+**Wants:** the player through the Taking without having to say a word; Orme to say it out loud once.
 **Fear:** watching it happen the same way twice.
 **Secret:** she is Cadet Seventeen.
-**Voice:** workshop terse; measurements and instructions; calls everyone "cadet", the prince included.
+**Voice:** fitting-room terse; sizes, reach, grip and stance, never forge talk (that is Gideon's); calls everyone "cadet", the prince included.
 **Will not:** tell her story to someone asking out of curiosity; fight the player's battles.
 
-### Sir Matthias Crane (54) — the Master-at-Arms
+### Sir Matthias Orme (54) — the Master-at-Arms
 **Role:** runs the yard; voted to void her result; scored her blind bout the highest in twenty years.
 **Wants:** the intake through first term with nobody carried off the sand.
 **Fear:** that he is the same man he was at twenty-three.
@@ -195,7 +203,17 @@ them, and the regret is the threat. Never raises his voice.
 **Voice:** hearty, "lads", nicknames, jokes with a knife folded inside; "tradition" as a whole argument.
 **Will not:** cross the Provost, or fight anyone fairly if he can arrange not to.
 
-Offstage: **Queen Merewen** (the Crown), **Lord Marshal Hargrave** (the Old Houses).
+Offstage: **Queen Merewen** (52, the Crown), **Lord Marshal Hargrave** (58, the Old Houses).
+
+## When secrets come out
+
+The storyteller never reads `revealHint`, so each reveal rule also lives in the character's
+`boundaries`, which it reads as "Will not". Gideon mentions the purse only when somebody asks him
+kindly, in the stables, why he checks his horse's shoes twice a night. Aren repeats the letter only to
+somebody he trusts who asks him straight. Orme speaks of his own Taking only on the sea wall at night.
+Felix shows the gap only to somebody who has helped him in the Rolls Room, or on the fifth night.
+Rowan admits the door only after a fair bout, on the sea wall. Greaves never mentions the page; it
+has to be found. Card blurbs are public, so none of them carries a secret.
 
 ## Behavioral state (invisible)
 
@@ -215,7 +233,7 @@ the Provost's Lodging (the locked cabinet) · the Thorn Gate · Thornhollow, the
 ## World events
 
 Marr's lights-out "welcome" and the Cold Watch (night 0) · the dawn bell and the Stair Run (day 1) ·
-Crane pairs her with Rowan (day 1) · the Marshal's steward at Gideon's stall (day 2) · tea with the
+Orme pairs her with Rowan (day 1) · the Marshal's steward at Gideon's stall (day 2) · tea with the
 Provost (day 3) · the cut girth (day 4) · the hall decides the Queen fixed the Trial (day 5) · Felix
 finds the gap (night 5) · the Taking (day 7) · the Founding Tourney (day 10).
 
@@ -245,7 +263,7 @@ keep her secret · ride lanceless · walk out of the Thorn Gate · strike a mast
 - **Taken** (common) — three or four yes votes; relief more than triumph.
 - **Sent Home With Thanks** (common) — nobody took you; never written as your failure.
 - **The Road Down** (uncommon) — you walked out first, on your own terms.
-- **Struck From the Rolls** (uncommon) — you struck a master; the Provost got his excuse.
+- **The Ten-Minute Hearing** (uncommon) — you struck a master; the Provost got his excuse.
 - **First Seat** (rare) — taken, and the lance won the Tourney with you at its head.
 - **Lanceless** (rare) — nobody took you and you rode anyway, alone.
 - **Second to You** (rare) — Rowan.
@@ -262,3 +280,18 @@ helm under one arm, in the tower-room doorway; Rowan in the window seat with a s
 Aren standing with both hands on a table, Gideon ducking under a beam with a hand held out, Felix behind
 stacked books. Grey sea through five narrow windows. Opening panel key:
 `story_the_only_girl_at_blackthorn/opening`.
+
+**The title and the cover (owner decision, open).** The title says "Girl", the one word the spec
+exempts. PixAI covers paint the title into the image prompt, and PLAN §7.2 bans age words on covers.
+Until the owner decides, do not send the title to PixAI bare: either composite it afterwards with
+`cover-title.ts`, or put "a 19-year-old woman in cadet grey" beside it in the prompt, and read the
+result back for a youthful face. Renaming to "The Only Woman at Blackthorn" removes the risk.
+
+## Originality
+
+Title collision search (editor review, 2026-11-22): no exact match as anime, webtoon or manhwa. The
+nearest premise is the WEBTOON *Lady Knight*, where the first woman admitted to a knights' academy
+must joust in teams to stay. This story has no magic, lances of five and a vote, and shares no names
+or terms with it. Inside our own slate, the Master-at-Arms was renamed from Crane to Orme so he does
+not share a surname with #15's headmistress, and the expulsion ending was renamed so it is not one
+word from #31's title. Aren's house was renamed from Estravel, one letter from Le Guin's Estraven.

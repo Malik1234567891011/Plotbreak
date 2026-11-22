@@ -43,7 +43,7 @@ const raw = {
   version: 1,
   title: 'The Only Girl at Blackthorn',
   fantasyLabel: 'Ranked first. Nobody voted you in.',
-  hook: 'You are the first woman ever to pass the entrance trial at Blackthorn, the kingdom’s knight academy, and you passed it first. In seven days your four roommates vote on whether to keep you, and last night none of them said yes.',
+  hook: 'You are the first woman ever to pass the entrance trial at Blackthorn, the kingdom’s knight academy, and you ranked first. In seven days your four roommates vote on keeping you. Last night, none of them said yes.',
   premise:
     'For four hundred years Blackthorn has turned the kingdom’s best sons into knights. It is a fortress academy on a headland above a cold sea, three years long, and it has never admitted a woman.\n\n' +
     'Its entrance trial is judged blind. Every candidate fights, rides and sits the written paper in a closed helm, under a number, and the masters score the number. You wore forty-one. You ranked first.\n\n' +
@@ -80,27 +80,28 @@ const raw = {
     startWorldMinute: 18 * 60 + 40,
     startingItems: [{ itemId: 'trial_tabard', qty: 1 }],
     hardCanon: [
-      'Everyone in this story is an adult. The player is nineteen. Rowan Ashby is twenty, Prince Aren Estravel is twenty, Felix Lorne is twenty, Gideon Marsh is twenty-two, Leopold Marr is twenty-three, Margery Dunmore is fifty, Sir Matthias Crane is fifty-four and Lord Provost Anselm Greaves is sixty-one. By its own Charter, Blackthorn admits nobody under eighteen.',
+      'Everyone in this story is an adult. The player is nineteen. Rowan Ashby is twenty, Prince Aren Valcourt is twenty, Felix Lorne is twenty, Gideon Marsh is twenty-two, Leopold Marr is twenty-three, Margery Dunmore is fifty, Sir Matthias Orme is fifty-four and Lord Provost Anselm Greaves is sixty-one. Offstage, Queen Merewen is fifty-two and Lord Marshal Hargrave is fifty-eight. Everyone else who appears in a scene, porters, stablehands, the Marshal’s steward and Thornhollow’s villagers included, is an adult. By its own Charter, Blackthorn admits nobody under eighteen.',
       'Blackthorn is the Crown’s knight academy in the kingdom of Corveth: a four-hundred-year-old fortress on a headland above a grey sea, three years long, sixty cadets an intake. There is no magic in this world. Steel, horses, law and people.',
       'The Charter of Blackthorn reads: "Any subject of the Crown, of eighteen years and sound body, who passes the Trial shall be admitted, ranked and housed." It does not say man and it says nothing about a vote.',
       'The entrance Trial is judged blind: closed helms, numbered tabards, scores posted under the number before any name is read. The player wore forty-one and ranked first overall. Rowan ranked second by four points, Aren third, Gideon fourth, Felix fifth.',
       'When the player unhelmed in the chapel, the Provost tried to void the result and the Crown overruled him by rider the same day. Officially she is the first woman Blackthorn has ever admitted.',
+      'The player character is a woman; that is the premise. Whatever name and pronouns the player arrives with, the name is hers, and everyone at Blackthorn sees her and speaks of her as a woman: she and her.',
       'The top five of an intake are the First Lance and share the Rook, the top room of the north tower. By custom, not Charter, on the seventh morning each of the other four stands in the chapel and says yes or no to taking her. Three yes votes are needed. A cadet nobody takes is lanceless: sleeps in the common barracks, cannot ride in the Founding Tourney on the tenth day, and is sent home at the end of term with thanks.',
       'Last night, before the player arrived, the four held a practice vote. Nobody said yes. Rowan said no, Aren and Felix abstained, and Gideon was asleep.',
       'At dawn today porters carried the fifth bed out of the Rook to the stable yard on Leopold Marr’s word, after the Provost remarked to him that it was a fire risk. Rowan saw it and held the door for them.',
-      'Thirty-one years ago a woman passed the Trial in a helm as Cadet Seventeen, ranked ninth, and her lance did not take her. Anselm Greaves, then Master of the Rolls, cut her name out of the register and kept the page. She was Margery Holt. She is Margery Dunmore, the armorer, and her unmarked sword hangs on the armory wall. Matthias Crane was in her lance and said no. None of them has ever said this aloud.',
-      'Gideon’s horse, armour and fees are paid by Lord Marshal Hargrave of the Old Houses, who wants the player gone. The Queen, Aren’s mother, wrote to Aren on the player’s first day: keep her in.',
+      'Thirty-one years ago a woman passed the Trial in a helm as Cadet Seventeen, ranked ninth, and her lance did not take her. Anselm Greaves, then Master of the Rolls, cut her name out of the register and kept the page. She was Margery Holt. She is Margery Dunmore, the armorer, and her unmarked sword hangs on the armory wall. Matthias Orme was in her lance and said no. None of them has ever said this aloud.',
+      'Gideon’s horse, armour and fees are paid by Lord Marshal Hargrave of the Old Houses, who wants the player gone. The Queen, Aren’s mother, wrote to Aren on the player’s first day: keep her in. Neither Gideon nor Aren has told anybody.',
     ],
     toneGuide:
       'Comedy first, tension second, and the romance grows out of both. Four men and one woman in a tower room is funny because of boots, snoring, the window that never shuts and whose turn it is to fetch water, never because of bodies. ' +
-      'There is no fan service: no undressing, no bath or changing scenes, no lingering on anybody’s figure. The canvas partition is about dignity and nobody treats it as a joke for long. Romance is flirtatious, tense and earned, and goes no further than a kiss. Every one of the four can say no, change his mind, or be told no. ' +
+      'There is no fan service: no undressing, no bath or changing scenes, no lingering on anybody’s figure. The canvas partition is about dignity and nobody treats it as a joke for long. Nobody shares a bed, ever; whoever gives one up sleeps on the floor. Romance is flirtatious, tense and earned, and goes no further than a kiss. Every one of the four can say no, change his mind, or be told no. ' +
       'Everyone here is an adult; describe people by build, costume and what they do, never with a word that reads younger. ' +
-      'The sword is a language. Bouts are legible: distance, footwork, who is tired, what Crane writes in his ledger. Bruises and a split lip at worst; no gore, nobody maimed. Steel drawn in anger outside the yard is a scandal and the masters treat it as one. ' +
+      'The sword is a language. Bouts are legible: distance, footwork, who is tired, what Orme writes in his ledger. Bruises and a split lip at worst; no gore, nobody maimed. Steel drawn in anger outside the yard is a scandal and the masters treat it as one. ' +
       'Prejudice is the obstacle and it is written as people doing things, never as speeches: a bed moved, a number scraped off a board, a girth cut, tea offered. Allies are not saints and enemies are not stupid; the Provost believes he is protecting something. The player wins by being good at things in front of people and by choosing whom to trust, and nobody rescues her. ' +
       'Short scenes, sharp dialogue, specific objects. The face at the top of a beat is whichever roommate the moment is about.',
     proseStyle: 'webnovel',
     styleExamples: [
-      "Rowan doesn’t wait for the count.\n\nHis blade comes in low and fast, the way it did in the Trial, and you know it before it arrives.\n\nYou turn it. The sand hisses.\n\n\"Again,\" Crane says from the rail. He hasn’t looked up from his ledger.\n\nRowan resets. Breathing hard. Not smiling.\n\n\"You’ve seen that one.\"\n\n\"Twice.\"\n\n\"Then watch this one, First.\"\n\nForty cadets lean in.",
+      "Rowan doesn’t wait for the count.\n\nHis blade comes in low and fast, the way it did in the Trial, and you know it before it arrives.\n\nYou turn it. The sand hisses.\n\n\"Again,\" Orme says from the rail. He hasn’t looked up from his ledger.\n\nRowan resets. Breathing hard. Not smiling.\n\n\"You’ve seen that one.\"\n\n\"Twice.\"\n\n\"Then watch this one, First.\"\n\nForty cadets lean in.",
       "Gideon looks at the bed. Then at the stairs. Then at you.\n\n\"Four flights,\" he says.\n\n\"I know.\"\n\n\"Narrow at the third.\"\n\n\"I know.\"\n\nHe picks up the foot of it like it’s made of straw, and waits.\n\n\"Other end,\" he says. \"Yours.\"\n\nFrom the landing above, Felix calls down: \"For the record, I’m writing this down.\"",
     ],
     forkCostCredits: 120,
@@ -142,7 +143,7 @@ const raw = {
       displayPriority: 1,
       visible: false,
       zeroStateConsequence:
-        'Her legs are wet rope on the stair and her guard drops a hand’s width after every exchange. Everything she says comes out a beat late and a shade sharper than she meant it, and Crane can see it from the rail.',
+        'Her legs are wet rope on the stair and her guard drops a hand’s width after every exchange. Everything she says comes out a beat late and a shade sharper than she meant it, and Orme can see it from the rail.',
       color: '#C9A227',
       bands: [
         {
@@ -153,7 +154,7 @@ const raw = {
         {
           upTo: 60,
           behaviour:
-            'The honest tiredness of a day in the yard. Good for one more drill or one hard conversation, not both. Crane can see it from the rail and will say so, in one word, in front of everybody.',
+            'The honest tiredness of a day in the yard. Good for one more drill or one hard conversation, not both. Orme can see it from the rail and will say so, in one word, in front of everybody.',
         },
         {
           upTo: 100,
@@ -218,7 +219,7 @@ const raw = {
         {
           upTo: 50,
           behaviour:
-            'She is the main subject at every table and the stories are mixed. Half the hall saw the stair run and half heard about it from somebody who was not there. Cadets will still partner her in drill if Crane tells them to.',
+            'She is the main subject at every table and the stories are mixed. Half the hall saw the stair run and half heard about it from somebody who was not there. Cadets will still partner her in drill if Orme tells them to.',
         },
         {
           upTo: 80,
@@ -241,7 +242,7 @@ const raw = {
       tags: ['quest', 'personal'],
       questItem: true,
       droppable: false,
-      description: 'A white Trial tabard with a black 41 stitched on the chest and the back, sweat-stained at the collar. By custom the First Seat keeps hers. Nobody has told you whether the custom applies.',
+      description: 'A white Trial tabard with a black 41 stitched on the front and the back, sweat-stained at the collar. By custom the First Seat keeps hers. Nobody has told you whether the custom applies.',
       loreText: 'Forty-one was the last number issued this year. The clerk who handed it to you in the queue said "last one, lad" and has since asked to be moved to the kitchens.',
       icon: 'cloth',
     },
@@ -306,7 +307,7 @@ const raw = {
       tags: ['quest', 'document'],
       questItem: true,
       description: 'Black flakes and one curled corner in the Rook’s hearth, with half a royal seal still on it and four words you can read: "keep her in. M."',
-      loreText: 'Aren read it twice before he burned it. He did not stir the ashes afterwards, which is either carelessness or the opposite.',
+      loreText: 'Aren read it twice before he burned it. He did not stir the ashes afterwards, and Aren is never careless.',
       icon: 'letter',
     },
     {
@@ -542,7 +543,7 @@ const raw = {
     },
     {
       id: 'the_yard',
-      name: 'Crane’s Yard',
+      name: 'Orme’s Yard',
       shortName: 'The Yard',
       description:
         'A square of raked sand inside the inner wall, with wooden posts for cutting practice along one side and the ranking board painted on the chapel wall along the other. Your number is at the top of it in white. Somebody has already tried to scrape it off, and somebody else has painted it back.',
@@ -794,7 +795,7 @@ const raw = {
       name: 'Rowan Ashby',
       role: 'Ranked second in the Trial by four points, and the fastest blade in the intake',
       cardBlurb:
-        'He ranked second to you by four points, his family’s last hope was that he would rank first, and he has not decided yet whether he wants you gone or wants a rematch more.',
+        'He has not decided whether he wants you gone or wants a rematch more. He ranked second to you by four points, and his family’s last hope was that he would rank first.',
       pronouns: 'he/him',
       publicTraits: ['Fastest blade in the intake', 'Says the cutting thing first and never takes it back', 'Trains alone before the dawn bell'],
       hiddenDrives: [
@@ -808,6 +809,8 @@ const raw = {
       boundaries: [
         'Will not accept a thrown bout. Let him win on purpose and he will never forgive it',
         'Will not talk about his family anywhere with walls',
+        'Will not argue over his bed or share it: if she takes it, he sleeps on the floor by the window without a word and lies awake furious and impressed',
+        'Will not admit he held the door for the porters until after a fair bout with her, and then only on the sea wall',
       ],
       goals: ['Beat you in front of the whole intake', 'Win the Founding Tourney and the stipend that goes with it'],
       secrets: [
@@ -819,7 +822,7 @@ const raw = {
         },
         {
           id: 'rowan_the_mortgage',
-          fact: 'House Ashby’s last manor is mortgaged against the stipend paid to the lance that wins the Founding Tourney. His mother wrote to him the night of the Trial: if the woman ranks above you, we are finished.',
+          fact: 'House Ashby’s last manor is mortgaged against the stipend paid to the lance that wins the Founding Tourney. His mother wrote to him the night of the Trial: if the woman keeps First Seat, we are finished.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'Only on the sea wall at night, and only if he trusts you. Anywhere else he denies it flatly.',
         },
@@ -843,11 +846,13 @@ const raw = {
       schedule: [
         { startMinute: 0, endMinute: 330, locationId: 'the_rook', activity: 'asleep with his sword within reach' },
         { startMinute: 330, endMinute: 420, locationId: 'the_yard', activity: 'cutting at the posts alone before the bell' },
-        { startMinute: 420, endMinute: 720, locationId: 'the_yard', activity: 'morning drill under Crane' },
+        { startMinute: 420, endMinute: 720, locationId: 'the_yard', activity: 'morning drill under Orme' },
         { startMinute: 720, endMinute: 780, locationId: 'the_hall', activity: 'eating fast, one seat down from the empty chair' },
         { startMinute: 780, endMinute: 1020, locationId: 'the_tilt', activity: 'riding the lists until his horse is tired' },
         { startMinute: 1020, endMinute: 1080, locationId: 'the_hall', activity: 'supper, back to the wall' },
-        { startMinute: 1080, endMinute: 1440, locationId: 'the_rook', activity: 'in the window seat, oiling his blade' },
+        { startMinute: 1080, endMinute: 1260, locationId: 'the_rook', activity: 'in the window seat, oiling his blade' },
+        { startMinute: 1260, endMinute: 1320, locationId: 'the_cliff_walk', activity: 'walking the sea wall before lights-out, where nobody can hear him' },
+        { startMinute: 1320, endMinute: 1440, locationId: 'the_rook', activity: 'back in the window seat, blade across his knees' },
       ],
       homeLocationId: 'the_rook',
       knowledgeScope: ['rowan', 'house_ashby', 'the_trial', 'the_rook', 'swordwork', 'the_founding_tourney', 'the_fifth_bed'],
@@ -873,7 +878,7 @@ const raw = {
     },
     {
       id: 'aren',
-      name: 'Prince Aren Estravel',
+      name: 'Prince Aren Valcourt',
       calledName: 'Aren',
       role: 'The Queen’s second son, ranked third, and the only one in the tower who defends your right to be here',
       cardBlurb:
@@ -891,6 +896,7 @@ const raw = {
       boundaries: [
         'Will not lie for the Crown, though he will decline to answer',
         'Will not be thanked for doing what the rules require',
+        'Will not repeat what the letter said unless somebody he trusts asks him straight',
       ],
       goals: ['Vote as himself and not as the Queen’s son', 'Finish first term without anybody saying his name got him anything'],
       secrets: [
@@ -958,9 +964,9 @@ const raw = {
     {
       id: 'gideon',
       name: 'Gideon Marsh',
-      role: 'A smith’s son from the northern hills, ranked fourth, the biggest man in the intake and the first to offer you his hand',
+      role: 'A smith’s son from the northern hills, ranked fourth, and the quietest man in the tower',
       cardBlurb:
-        'He slept through the vote, he held out his hand to you before anybody else moved, and a lord who wants you gone is paying for his horse.',
+        'The biggest man in the intake, and the first to offer you his hand. He slept through the vote. He checks his horse’s shoes twice a night, like a man who expects to lose it.',
       pronouns: 'he/him',
       publicTraits: ['Enormous and very gentle', 'Asks before he helps', 'Falls asleep anywhere, instantly'],
       hiddenDrives: [
@@ -974,6 +980,7 @@ const raw = {
       boundaries: [
         'Will not fight anybody smaller than him outside the yard, whatever they say to him',
         'Will not take charity, though he will take a fair trade',
+        'Will not mention the Marshal’s purse until somebody asks him kindly, in the stables, why he checks his horse’s shoes twice a night',
       ],
       goals: ['Keep his horse', 'Vote the way he would have voted if he had been awake'],
       secrets: [
@@ -1021,7 +1028,7 @@ const raw = {
         },
         {
           id: 'gideon_stops_asking',
-          label: 'He stops asking before he helps',
+          label: 'You tell him he does not have to ask',
           kind: 'ROMANCE',
           requires: { trust: 60, affection: 65 },
         },
@@ -1050,6 +1057,7 @@ const raw = {
       boundaries: [
         'Will not vote on anything without evidence, including you, including himself',
         'Will not let anybody read his ledger',
+        'Will not show anybody the gap in the rolls until they have helped him in the Rolls Room, or until the fifth night',
       ],
       goals: ['Finish the history', 'Get through the yard this term without being carried off the sand'],
       secrets: [
@@ -1128,7 +1136,7 @@ const raw = {
         'Will not tell her story to somebody who asks out of curiosity',
         'Will not fight your battles for you; she will sharpen what you fight them with',
       ],
-      goals: ['Keep you in one piece until the tenth day', 'Make Matthias Crane say it out loud, once, before one of them dies'],
+      goals: ['Keep you in one piece until the tenth day', 'Make Matthias Orme say it out loud, once, before one of them dies'],
       secrets: [
         {
           id: 'dunmore_seventeen',
@@ -1138,10 +1146,10 @@ const raw = {
         },
       ],
       speechStyle:
-        'Workshop terse. Measurements, instructions, verbs first. Calls everybody "cadet" in the same flat tone. The rare joke arrives deadpan and is never repeated.',
-      topics: ['steel', 'fitting', 'the unmarked sword', 'Thornhollow', 'Matthias Crane', 'grip and stance'],
+        'Fitting-room terse. Sizes, reach, grip and stance, verbs first; she leaves the forge talk to the smiths. Calls everybody "cadet" in the same flat tone. The rare joke arrives deadpan and is never repeated.',
+      topics: ['steel', 'fitting', 'the unmarked sword', 'Thornhollow', 'Matthias Orme', 'grip and stance'],
       voiceSamples: [
-        'Arms up, cadet. Further. This jacket’s cut for a chest a hand wider than yours and I’ve got till supper.',
+        'Arms up, cadet. Further. This jacket’s cut for a reach a hand longer than yours and I’ve got till supper.',
         'Prince or pig farmer, every one of them lies about his shoulder width.',
         'Steel doesn’t care who’s holding it. Only thing up here that doesn’t.',
         'Don’t ask me about that sword. Ask me about your grip, which is wrong.',
@@ -1159,7 +1167,7 @@ const raw = {
         { startMinute: 1140, endMinute: 1440, locationId: 'thornhollow', activity: 'at The Broken Lance, one cup, back to the wall' },
       ],
       homeLocationId: 'thornhollow',
-      knowledgeScope: ['dunmore', 'the_armory', 'cadet_seventeen', 'thornhollow', 'matthias_crane', 'the_taking'],
+      knowledgeScope: ['dunmore', 'the_armory', 'cadet_seventeen', 'thornhollow', 'matthias_orme', 'the_taking'],
       startingRelationship: { trust: 20, affection: 15, respect: 25, fear: 0, rivalry: 0 },
       gates: [
         {
@@ -1181,12 +1189,12 @@ const raw = {
       combatant: { health: 40, defenseDc: 14, damage: 8, tags: ['armorer'] },
     },
     {
-      id: 'crane',
-      name: 'Sir Matthias Crane',
-      calledName: 'Crane',
+      id: 'orme',
+      name: 'Sir Matthias Orme',
+      calledName: 'Orme',
       role: 'Master-at-Arms. Runs the yard, voted to void your result, and scored your blind bout the highest in twenty years',
       cardBlurb:
-        'He voted to send you home, he scored your bout the highest in twenty years, and in his yard he will treat you exactly like everybody else, which is the hardest thing anyone here will do to you.',
+        'In his yard he will treat you exactly like everybody else, and that is the hardest thing anyone here will do to you. He voted to send you home. He scored your bout the highest in twenty years.',
       pronouns: 'he/him',
       publicTraits: ['Fair to the point of cruelty', 'Never praises anybody', 'Walks the sea wall every night, alone'],
       hiddenDrives: [
@@ -1200,11 +1208,12 @@ const raw = {
       boundaries: [
         'Will not favour you in the yard for any reason, including guilt',
         'Will not discuss the masters’ council with a cadet',
+        'Will not speak of his own Taking except on the sea wall at night, to a cadet he respects enough to be ashamed in front of',
       ],
       goals: ['Get the intake through first term with nobody carried off the sand', 'Say one true thing to Margery Dunmore before he retires'],
       secrets: [
         {
-          id: 'crane_said_no',
+          id: 'orme_said_no',
           fact: 'Thirty-one years ago he was in Cadet Seventeen’s lance and stood up in the chapel and said no, because the Provost of the day asked them to and he wanted his commission. He has worked across the yard from her for twenty years and they have only ever spoken about steel.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He tells you on the sea wall at night, if he respects you enough to be ashamed in front of you.',
@@ -1223,7 +1232,7 @@ const raw = {
         'Lean and weathered, close-cropped grey hair, a scar through one eyebrow, a master’s black coat with the thorn at the collar, a ledger always under one arm.',
       visualHook: 'A battered leather ledger under one arm, in which he writes down every bout, every day.',
       silhouette: 'Standing at the yard rail, ledger open, not looking up.',
-      artSeed: 'otgab-crane-01',
+      artSeed: 'otgab-orme-01',
       portrait: null,
       expressions: ['stern', 'neutral', 'reluctantly impressed', 'grave'],
       schedule: [
@@ -1236,11 +1245,11 @@ const raw = {
         { startMinute: 1260, endMinute: 1440, locationId: 'the_yard', activity: 'in his quarters with the lamp still on' },
       ],
       homeLocationId: 'the_yard',
-      knowledgeScope: ['crane', 'the_yard', 'cadet_seventeen', 'the_masters', 'the_founding_tourney', 'the_trial'],
+      knowledgeScope: ['orme', 'the_yard', 'cadet_seventeen', 'the_masters', 'the_founding_tourney', 'the_trial'],
       startingRelationship: { trust: 10, affection: 0, respect: 35, fear: 0, rivalry: 0 },
       gates: [
         {
-          id: 'crane_on_the_wall',
+          id: 'orme_on_the_wall',
           label: 'He tells you about his own Taking',
           kind: 'TRUST',
           requires: { trust: 40, respect: 60 },
@@ -1271,6 +1280,7 @@ const raw = {
       boundaries: [
         'Will never break a rule where it can be seen',
         'Will not raise his voice, at anybody, ever',
+        'Will never mention the page he kept; it can only be found',
       ],
       goals: ['See you lanceless on the seventh day and gone by the end of term, quietly, with thanks', 'Keep the Taking a custom nobody thinks to question'],
       secrets: [
@@ -1332,7 +1342,7 @@ const raw = {
       calledName: 'Marr',
       role: 'Captain of the Cadet Watch, a third-year, and the Provost’s favourite pair of hands',
       cardBlurb:
-        'He is the most popular senior at Blackthorn, he welcomed you with a joke and a cushion, and he is the one who had your bed carried down to the stables.',
+        'Captain of the Cadet Watch and the most popular senior at Blackthorn. He has a tradition planned for your first night, and he will tell you, warmly and often, that he is your friend.',
       pronouns: 'he/him',
       publicTraits: ['Charming in a crowd', 'Remembers everybody’s name and uses it', 'Calls everything tradition'],
       hiddenDrives: [
@@ -1405,7 +1415,7 @@ const raw = {
       summary: 'Your bed is in the stable yard, four flights down. Four men who did not vote for you are watching to see what you do about it, and it is getting dark.',
       kind: 'MAIN',
       startsActive: true,
-      involvedCharacterIds: ['rowan', 'aren', 'gideon', 'felix', 'marr', 'crane'],
+      involvedCharacterIds: ['rowan', 'aren', 'gideon', 'felix', 'marr', 'orme'],
       involvedLocationIds: ['the_rook', 'north_stair', 'the_stables', 'the_yard'],
       knownRewardCopy: 'A place to sleep, and a first idea of which of the four might ever say yes.',
       steps: [
@@ -1465,9 +1475,9 @@ const raw = {
         },
         {
           id: 'the_first_drill',
-          playerCopy: 'Survive your first morning in Crane’s yard.',
+          playerCopy: 'Survive your first morning in Orme’s yard.',
           directorNotes:
-            'The dawn bell, the Stair Run, and then Crane pairs her with Rowan in front of sixty cadets. Crane is scrupulously fair, which here means he gives her nothing and takes nothing away. Whatever she does, write the yard watching. A cadet who wins the stair run is talked about; a cadet who draws with Rowan is talked about more.',
+            'The dawn bell, the Stair Run, and then Orme pairs her with Rowan in front of sixty cadets. Orme is scrupulously fair, which here means he gives her nothing and takes nothing away. Whatever she does, write the yard watching. A cadet who wins the stair run is talked about; a cadet who draws with Rowan is talked about more.',
           enterWhen: { flagsSet: ['first_night_over'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1480,16 +1490,16 @@ const raw = {
             },
             {
               routeId: 'first_bout_with_rowan',
-              label: 'Take the bout with Rowan when Crane pairs you',
+              label: 'Take the bout with Rowan when Orme pairs you',
               predicate: { flagsSet: ['used:cross_blades', 'met:rowan'] },
               setsFlags: ['first_bout_with_rowan'],
               closesFlags: ['head_down'],
             },
             {
               routeId: 'read_the_master',
-              label: 'Watch Crane until you understand what he is scoring',
+              label: 'Watch Orme until you understand what he is scoring',
               predicate: { flagsSet: ['used:read_the_yard'] },
-              setsFlags: ['crane_noticed_you'],
+              setsFlags: ['orme_noticed_you'],
               closesFlags: [],
             },
             {
@@ -1515,7 +1525,7 @@ const raw = {
       title: 'The Taking',
       summary: 'On the seventh morning, in the chapel, each of your four roommates stands and says yes or no out loud. You need three. Last night the count was nothing.',
       kind: 'MAIN',
-      involvedCharacterIds: ['rowan', 'aren', 'gideon', 'felix', 'greaves', 'crane'],
+      involvedCharacterIds: ['rowan', 'aren', 'gideon', 'felix', 'greaves', 'orme'],
       involvedLocationIds: ['the_chapel', 'the_rook'],
       knownRewardCopy: 'A place in the First Lance, a horse in the Founding Tourney, and a bed nobody will move again.',
       discoverWhen: { flagsSet: ['first_night_over'] },
@@ -1592,7 +1602,7 @@ const raw = {
       title: 'Second Place',
       summary: 'Rowan Ashby ranked second to you by four points, and his family’s last hope was that he would rank first. He wants a rematch in front of the whole intake, and he will not take a refusal quietly.',
       kind: 'SIDE',
-      involvedCharacterIds: ['rowan', 'crane'],
+      involvedCharacterIds: ['rowan', 'orme'],
       involvedLocationIds: ['the_yard', 'the_cliff_walk', 'the_tilt'],
       knownRewardCopy: 'Rowan’s vote, one way or the other, and the truth about what he stands to lose.',
       discoverWhen: { flagsSet: ['first_night_over'] },
@@ -1762,7 +1772,7 @@ const raw = {
     {
       id: 'q_the_sponsors_purse',
       title: 'The Sponsor’s Purse',
-      summary: 'Gideon’s horse, armour and fees are paid for by Lord Marshal Hargrave, and the Marshal’s steward has come up the hill to tell him how to vote. Gideon has told nobody, and he has stopped sleeping.',
+      summary: 'Gideon’s horse, armour and fees are paid for by Lord Marshal Hargrave, and sooner or later the Marshal will send somebody up the hill to tell Gideon how to vote. Gideon has told nobody, and he checks his horse’s shoes twice a night.',
       kind: 'SIDE',
       involvedCharacterIds: ['gideon', 'dunmore'],
       involvedLocationIds: ['the_stables', 'the_armory', 'thornhollow'],
@@ -1881,7 +1891,7 @@ const raw = {
       title: 'Cadet Seventeen',
       summary: 'Thirty-one years ago somebody passed the Trial in a helm and was sent home after seven days. The register records a number and no name, and the sword on the armory’s back wall has no name on it either.',
       kind: 'LEAD',
-      involvedCharacterIds: ['dunmore', 'crane', 'greaves', 'felix'],
+      involvedCharacterIds: ['dunmore', 'orme', 'greaves', 'felix'],
       involvedLocationIds: ['the_armory', 'the_library', 'provost_house', 'the_chapel', 'the_cliff_walk'],
       knownRewardCopy: 'A name somebody cut out of the rolls, and what it means for the seventh morning.',
       discoverWhen: { flagsSet: ['knows:the_gap_in_the_rolls'] },
@@ -1890,7 +1900,7 @@ const raw = {
           id: 'find_seventeen',
           playerCopy: 'Find out who Cadet Seventeen was.',
           directorNotes:
-            'Optional, and it must feel optional: a player who never opens the register never sees a beat of this. For a player who is here, keep it physical and quiet: a rebound spine, a different black ink, a sword with nothing on the tang, a master who walks the sea wall every night to the same spot. Dunmore will only tell somebody who asks about the sword rather than about themselves. Crane will only tell somebody he respects enough to be ashamed in front of.',
+            'Optional, and it must feel optional: a player who never opens the register never sees a beat of this. For a player who is here, keep it physical and quiet: a rebound spine, a different black ink, a sword with nothing on the tang, a master who walks the sea wall every night to the same spot. Dunmore will only tell somebody who asks about the sword rather than about themselves. Orme will only tell somebody he respects enough to be ashamed in front of.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1904,14 +1914,14 @@ const raw = {
               closesFlags: [],
             },
             {
-              routeId: 'crane_confessed',
-              label: 'Crane tells you on the sea wall',
+              routeId: 'orme_confessed',
+              label: 'Orme tells you on the sea wall',
               predicate: {
-                flagsSet: ['spoke:crane'],
+                flagsSet: ['spoke:orme'],
                 atLocation: 'the_cliff_walk',
-                minRelationship: [{ characterId: 'crane', dimension: 'respect', value: 60 }],
+                minRelationship: [{ characterId: 'orme', dimension: 'respect', value: 60 }],
               },
-              setsFlags: ['knows:cadet_seventeen', 'crane_confessed'],
+              setsFlags: ['knows:cadet_seventeen', 'orme_confessed'],
               closesFlags: [],
             },
             {
@@ -1978,7 +1988,7 @@ const raw = {
       title: 'The Founding Tourney',
       summary: 'On the tenth day the first-year lances ride against each other on the tilt field in front of the masters, the village and a royal observer. The winning lance carries the intake’s banner for a year. A lanceless cadet does not ride.',
       kind: 'MAIN',
-      involvedCharacterIds: ['rowan', 'aren', 'gideon', 'felix', 'crane', 'greaves'],
+      involvedCharacterIds: ['rowan', 'aren', 'gideon', 'felix', 'orme', 'greaves'],
       involvedLocationIds: ['the_tilt', 'the_stables'],
       knownRewardCopy: 'The intake’s banner, the stipend that goes with it, and the whole of Thornhollow watching.',
       discoverWhen: { flagsSet: ['taking_done'] },
@@ -2039,7 +2049,7 @@ const raw = {
       summary: 'Blackthorn expels any cadet who strikes a master, and treats steel drawn in anger outside the yard as the next worst thing. The Provost has been waiting since the chapel for you to give him that.',
       kind: 'SIDE',
       startsActive: true,
-      involvedCharacterIds: ['greaves', 'crane', 'marr', 'rowan'],
+      involvedCharacterIds: ['greaves', 'orme', 'marr', 'rowan'],
       involvedLocationIds: ['provost_house', 'the_yard', 'the_chapel'],
       knownRewardCopy: 'Nothing good. This is what the masters do with an excuse.',
       steps: [
@@ -2060,7 +2070,7 @@ const raw = {
             {
               routeId: 'struck_the_master_at_arms',
               label: 'Strike the Master-at-Arms outside the yard',
-              predicate: { flagsSet: ['attacked:crane'] },
+              predicate: { flagsSet: ['attacked:orme'] },
               setsFlags: ['expelled'],
               closesFlags: ['taken'],
             },
@@ -2117,19 +2127,19 @@ const raw = {
       movesCharacters: [],
     },
     {
-      id: 'we_cranes_pairing',
+      id: 'we_ormes_pairing',
       atWorldMinute: 1440 + 7 * 60 + 10,
       locationId: 'the_yard',
       publicCopy:
-        'Sir Matthias Crane walks the line of first-years in the yard, stops in front of you, and pairs you with Rowan Ashby.',
+        'Sir Matthias Orme walks the line of first-years in the yard, stops in front of you, and pairs you with Rowan Ashby.',
       directorNotes:
-        'Crane pairs by rank, so this is simply the rule, and he says so in four words when anybody looks at him. Sixty cadets stop pretending to warm up. He writes in his ledger before either of them has moved.',
+        'Orme pairs by rank, so this is simply the rule, and he says so in four words when anybody looks at him. Sixty cadets stop pretending to warm up. He writes in his ledger before either of them has moved.',
       setsFlags: ['paired_with_rowan'],
       cancelledByFlags: ['expelled'],
       requiresFlags: [],
       movesCharacters: [
         { characterId: 'rowan', toLocationId: 'the_yard' },
-        { characterId: 'crane', toLocationId: 'the_yard' },
+        { characterId: 'orme', toLocationId: 'the_yard' },
       ],
     },
     {
@@ -2164,11 +2174,11 @@ const raw = {
       publicCopy:
         'At the riding drill your saddle shifts under you at the first turn: the girth has been cut most of the way through, cleanly, on the side nobody checks.',
       directorNotes:
-        'Two of Marr’s seniors went into the tack room on the third night; the stablehands know, and Gideon saw a senior’s boots in there. It should be survivable with a good ride and frightening without one. Crane sees it from the rail and stops the drill himself, which he has never done before.',
+        'Two of Marr’s seniors went into the tack room on the third night; the stablehands know, and Gideon saw a senior’s boots in there. It should be survivable with a good ride and frightening without one. Orme sees it from the rail and stops the drill himself, which he has never done before.',
       setsFlags: ['girth_was_cut'],
       cancelledByFlags: ['slept_in_the_stables', 'expelled'],
       requiresFlags: ['first_drill_done'],
-      movesCharacters: [{ characterId: 'crane', toLocationId: 'the_tilt' }],
+      movesCharacters: [{ characterId: 'orme', toLocationId: 'the_tilt' }],
     },
     {
       id: 'we_the_story_in_the_hall',
@@ -2200,7 +2210,7 @@ const raw = {
       locationId: 'the_chapel',
       publicCopy: 'The chapel bell rings for the Taking, and the whole intake files into the pews to watch the First Lance vote.',
       directorNotes:
-        'The Provost presides from his stall. Crane stands at the back. Dunmore is in the last pew, which she has never once been in on a Taking morning. The four stand in rank order and each says one word. Whatever the count, nobody in the pews makes a sound until the Provost speaks.',
+        'The Provost presides from his stall. Orme stands at the back. Dunmore is in the last pew, which she has never once been in on a Taking morning. The four stand in rank order and each says one word. Whatever the count, nobody in the pews makes a sound until the Provost speaks.',
       setsFlags: ['taking_day'],
       cancelledByFlags: ['expelled'],
       requiresFlags: [],
@@ -2210,7 +2220,7 @@ const raw = {
         { characterId: 'gideon', toLocationId: 'the_chapel' },
         { characterId: 'felix', toLocationId: 'the_chapel' },
         { characterId: 'greaves', toLocationId: 'the_chapel' },
-        { characterId: 'crane', toLocationId: 'the_chapel' },
+        { characterId: 'orme', toLocationId: 'the_chapel' },
         { characterId: 'dunmore', toLocationId: 'the_chapel' },
       ],
     },
@@ -2229,7 +2239,7 @@ const raw = {
         { characterId: 'aren', toLocationId: 'the_tilt' },
         { characterId: 'gideon', toLocationId: 'the_tilt' },
         { characterId: 'felix', toLocationId: 'the_tilt' },
-        { characterId: 'crane', toLocationId: 'the_tilt' },
+        { characterId: 'orme', toLocationId: 'the_tilt' },
         { characterId: 'greaves', toLocationId: 'the_tilt' },
         { characterId: 'marr', toLocationId: 'the_tilt' },
         { characterId: 'dunmore', toLocationId: 'the_tilt' },
@@ -2341,7 +2351,7 @@ const raw = {
       required: false,
       maxLength: 24,
       placeholder: 'e.g. she/her',
-      helpText: 'Blackthorn has never admitted a woman before you. Most players use she/her.',
+      helpText: 'You play the first woman Blackthorn has ever admitted, and everyone here calls you she.',
     },
     {
       id: 'archetype',
@@ -2363,7 +2373,7 @@ const raw = {
     {
       id: 'why_you_came',
       label: 'Why did you sit the Trial?',
-      helpText: 'A starting reason, not a promise. You can change your mind in the first scene and the story will keep up.',
+      helpText: 'A reason to hold in mind. Nobody at Blackthorn knows it unless you tell them in the story.',
       kind: 'CHOICE',
       advanced: true,
       options: [
@@ -2413,7 +2423,7 @@ const raw = {
       minTurn: 25,
       requires: { flagsSet: ['taken'], flagsUnset: ['expelled', 'left_the_map'] },
       condition:
-        'The lance took you, by three votes or by four, and you sleep in the Rook as a member of it rather than a guest. Play it as relief more than triumph: a bed carried back up, a seat at the table nobody comments on, Crane writing your bouts in the ledger in the same ink as everybody else’s. Whoever voted no should still be at breakfast and should still be awkward about it.',
+        'The lance took you, by three votes or by four, and you sleep in the Rook as a member of it rather than a guest. Play it as relief more than triumph: a bed carried back up, a seat at the table nobody comments on, Orme writing your bouts in the ledger in the same ink as everybody else’s. Whoever voted no should still be at breakfast and should still be awkward about it.',
       epilogue:
         'The fifth bed goes back behind the partition and stays there. By midwinter the partition has a coat hung on it, then four, and nobody can remember who started that. The number at the top of the yard board gets scraped off twice more before spring and repainted twice, the second time by somebody else.',
       hint: '',
@@ -2473,9 +2483,9 @@ const raw = {
       minTurn: 35,
       requires: { flagsSet: ['seventeen_restored'] },
       condition:
-        'The cut page was read aloud in the chapel and a name went back into the rolls after thirty-one years: Margery Holt, ranked ninth. Write Dunmore in the last pew and Crane standing up at the back. The Provost does not resign that day; he resigns at the end of term, by letter, citing his health. This ending is about her, not you.',
+        'The cut page was read aloud in the chapel and a name went back into the rolls after thirty-one years: Margery Holt, ranked ninth. Write Dunmore in the last pew and Orme standing up at the back. The Provost does not resign that day; he resigns at the end of term, by letter, citing his health. This ending is about her, not you.',
       epilogue:
-        'The armory’s back wall has a gap in it. The sword is in the rack by the door now with a name stamped on the tang, and on the last day of term Dunmore takes it down and walks the length of the yard with it once, in front of everybody, and puts it back. Crane watches from the rail and, for once, writes nothing down.',
+        'The armory’s back wall has a gap in it. The sword is in the rack by the door now with a name stamped on the tang, and on the last day of term Dunmore takes it down and walks the length of the yard with it once, in front of everybody, and puts it back. Orme watches from the rail and, for once, writes nothing down.',
       hint: 'The sword on the armory wall has no name on it.',
     },
     {
@@ -2492,7 +2502,7 @@ const raw = {
     },
     {
       id: 'end_struck_from_the_rolls',
-      name: 'Struck From the Rolls',
+      name: 'The Ten-Minute Hearing',
       rarity: 'UNCOMMON',
       minTurn: 8,
       requires: { flagsSet: ['expelled'] },
@@ -2514,7 +2524,7 @@ const raw = {
       condition:
         'Rowan stopped calling you First as an insult and started saying it like a name, and then said your real name, once, on the sea wall. Rivals into something else: the sparring stays sharp, the kiss happens where the wind is too loud for anybody to hear what was said before it, and he still wants the rematch afterwards.',
       epilogue:
-        'He never does beat you in the yard. He gets within a point twice that year and calls it a draw both times, loudly, to anybody who will listen. The Ashby manor is sold in the spring after all, and his mother writes that she is relieved, which nobody expected, least of all him.',
+        'He never does beat you in the yard. He gets within a point twice that year and calls it a draw both times, loudly, to anybody who will listen. The Ashby manor is sold in the spring after all, and his mother writes that she is relieved. Nobody expected that, least of all him.',
       hint: '',
     },
     {
@@ -2543,7 +2553,7 @@ const raw = {
         minRelationship: [{ characterId: 'gideon', dimension: 'affection', value: 75 }],
       },
       condition:
-        'Gideon voted yes knowing what it might cost him, and you made sure it did not cost him everything. Gentle and unhurried: the forge before dawn, the stables at night, a man who asks before he helps and then one day does not need to. If there is a kiss it is brief and certain and followed by him hitting his head on a doorframe.',
+        'Gideon voted yes knowing what it might cost him, and you made sure it did not cost him everything. Gentle and unhurried: the forge before dawn, the stables at night, a man who asks before he helps, until the day you tell him he does not need to. If there is a kiss it is brief and certain and followed by him hitting his head on a doorframe.',
       epilogue:
         'He keeps the horse. He also keeps the habit of checking its shoes twice a night, and now somebody goes with him. Dunmore lends him the forge for a week in summer, and the two of you make a new brass plate for the foot of the fifth bed, with your name on it.',
       hint: '',
@@ -2572,7 +2582,7 @@ const raw = {
     alt: 'A round stone tower room at dusk: four cadets in grey look up, one in a window seat with a sword across his knees, beside a canvas partition with only bare floor behind it.',
   },
   openingSuggestions: [
-    "\"I’ll carry it up myself. Who’s taking the other end?\"",
+    "\"Then I’m carrying it back up. Who wants the other end?\"",
     'I take Gideon’s hand and shake it.',
     'I drop my bag on Rowan’s bed and sit down.',
   ],

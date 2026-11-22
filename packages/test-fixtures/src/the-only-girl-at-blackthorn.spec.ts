@@ -50,7 +50,7 @@ const AGES: Record<string, number> = {
   gideon: 22,
   felix: 20,
   dunmore: 50,
-  crane: 54,
+  orme: 54,
   greaves: 61,
   marr: 23,
 };
@@ -139,7 +139,7 @@ describe('the opener hands the player a choice', () => {
     }
     expect(strays).toEqual([]);
     // And the academy, the Provost, the Taking and the Charter stay out of it.
-    expect(S.opening).not.toMatch(/Blackthorn|Provost|Taking|Charter|Crane|Felix/);
+    expect(S.opening).not.toMatch(/Blackthorn|Provost|Taking|Charter|Orme|Felix/);
   });
 
   it('offers three different moves: one said, one done, one risky', () => {
@@ -272,6 +272,24 @@ describe('the secrets are earned, not announced', () => {
     expect(ordinary.length).toBeGreaterThanOrEqual(10);
   });
 
+  it('keeps every secret off the public cast card, and its reveal rule where the storyteller reads it', () => {
+    const blurb = (id: string) => S.characters.find((c) => c.id === id)!.cardBlurb;
+    expect(blurb('marr')).not.toMatch(/\bbed\b|porters/i);
+    expect(blurb('gideon')).not.toMatch(/purse|Marshal|lord|paying/i);
+    // `revealHint` is never sent, so each rule is a boundary too.
+    const guards: Array<[string, RegExp]> = [
+      ['gideon', /Marshal’s purse/],
+      ['aren', /what the letter said/],
+      ['orme', /his own Taking/],
+      ['greaves', /the page he kept/],
+      ['felix', /gap in the rolls/],
+    ];
+    for (const [id, rule] of guards) {
+      const c = S.characters.find((x) => x.id === id)!;
+      expect(c.boundaries.some((b) => rule.test(b)), id).toBe(true);
+    }
+  });
+
   it('lets the burned letter be learned three ways, and lets each one cost something different', () => {
     const step = quest('q_the_burned_letter').steps[0]!;
     expect(step.succeedWhenAny.map((r) => r.routeId).sort()).toEqual(['greaves_told_you', 'he_told_you', 'read_the_ashes']);
@@ -292,6 +310,18 @@ describe('everybody on the page is an adult, on the page', () => {
       expect(AGES[c.id]!).toBeGreaterThanOrEqual(18);
       expect(canon, c.id).toContain(c.calledName ?? c.name.split(' ')[0]!);
     }
+    // The two offstage names the storyteller can bring on, and everybody else.
+    expect(canon).toContain('Queen Merewen is fifty-two');
+    expect(canon).toContain('Lord Marshal Hargrave is fifty-eight');
+    expect(canon).toMatch(/Everyone else who appears in a scene.*is an adult/);
+  });
+
+  it('makes her a woman whatever pronouns the last run carried over', () => {
+    // Play reuses the last story's pronouns, and the storyteller reads them
+    // every turn. The premise has to win.
+    expect(S.rules.hardCanon.some((f) => /player character is a woman.*she and her/.test(f))).toBe(true);
+    const pronouns = S.setupFields.find((f) => f.id === 'pronouns')!;
+    expect(pronouns.helpText).toMatch(/calls you she/);
   });
 
   it('describes people by build and costume, never by an age word', () => {
@@ -318,6 +348,14 @@ describe('thirteen-plus, and nothing is fan service', () => {
     const BANNED =
       /\b(nude|naked|nudity|cleavage|lingerie|breasts?|thighs?|undress\w*|sexy|sexual\w*|bedroom|bath\w*|gore|gory|blood\w*|suicid\w*|self-harm)\b/i;
     expect(material.match(BANNED)?.[0] ?? null).toBeNull();
+  });
+
+  it('never puts two people in one bed, and says what happens instead', () => {
+    // The turn-1 risky card is Rowan's bed, and step notes never reach the
+    // storyteller, so the guard lives where it reads: tone guide and boundaries.
+    expect(S.rules.toneGuide).toMatch(/Nobody shares a bed, ever/);
+    const rowan = S.characters.find((c) => c.id === 'rowan')!;
+    expect(rowan.boundaries.some((b) => /share it.*sleeps on the floor/.test(b))).toBe(true);
   });
 
   it('stops every romance at a kiss and says so', () => {
@@ -371,7 +409,7 @@ describe('art is not commissioned yet, and says so consistently', () => {
 describe('nobody is only there to react', () => {
   it('keeps the masters and Marr out of the Rook when the story starts', () => {
     const present = charactersPresent(start()).map((c) => c.characterId);
-    for (const id of ['dunmore', 'crane', 'greaves', 'marr']) expect(present).not.toContain(id);
+    for (const id of ['dunmore', 'orme', 'greaves', 'marr']) expect(present).not.toContain(id);
   });
 
   it('never drops a character into the opening scene by fallback', () => {
@@ -725,7 +763,7 @@ describe('it can end badly, early and in many ways', () => {
 
   it('ends the story by expulsion for striking a master, and only a master', () => {
     const expelling = routes.filter(({ route: r }) => r.setsFlags.includes('expelled')).map(({ route: r }) => r.predicate.flagsSet);
-    expect(expelling).toEqual([['attacked:greaves'], ['attacked:crane']]);
+    expect(expelling).toEqual([['attacked:greaves'], ['attacked:orme']]);
   });
 });
 
