@@ -65,25 +65,25 @@ const raw = {
     },
   ],
   premise:
-    'Seven years ago you met Victor Lane in a café in the city of Westharbor and signed his contract the same morning. You had written Parley, an engine that translates a phone call live, so two people who share no language each hear the other in their own. He had the money, the charm and a plan.\n\n' +
+    'Seven years ago you met Victor Lane in a rainy café by the canal and signed his contract the same morning. You had written Parley, an engine that translates a phone call live, so two people who share no language each hear the other in their own. He had the money, the charm and a plan.\n\n' +
     'Seven years later Parley was in every phone, Victor was on every magazine cover, and you were out. He took the patent, turned the board and your own sister against you, and used a clause you never read to buy back your shares for a dollar each.\n\n' +
     'On the night before the company went public you went to the old server room to take your code back. Your heart, which nobody had ever checked, gave out on the floor. Victor came in, picked up your phone, looked at you for a long time, and closed the door.\n\n' +
     'Then you woke up in the café, seven years early, with his hand held out and the same contract on the table.\n\n' +
-    'Nobody else remembers. You know what he will do this week: file your patent under his own name on Wednesday, and pitch your work as his on Friday. You have five days to stop him, beat him, or build it without him. Every change you make makes the future you remember less true, so he must not see you coming.',
+    'Nobody else remembers. You know what he will do this week: file your patent under his own name on Wednesday, and pitch your work as his on Friday. You have five days, until Demo Night on Friday, to stop him, beat him, or build it without him. Every change you make makes the future you remember less true, so he must not see you coming.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
   coverImage: null,
   keyArt: null,
-  tags: ['Revenge', 'Regression', 'Business', 'Thriller', 'Modern'],
+  tags: ['Revenge', 'Regression', 'Drama', 'Mystery', 'Business', 'Modern'],
   mechanicsChips: [
-    'You remember the next five days',
+    'You remember this whole week',
     'Every change blurs the future',
     'He must not see it coming',
     'Revenge is optional',
     'Your sister still talks to you',
   ],
-  contentDescriptors: ['ROMANCE', 'PSYCHOLOGICAL_THEMES', 'MORAL_AMBIGUITY'],
+  contentDescriptors: ['ROMANCE', 'PSYCHOLOGICAL_THEMES', 'MORAL_AMBIGUITY', 'ALCOHOL_REFERENCES'],
   intensity: 'MODERATE',
   creatorNote:
     'You can spend the whole week building your app with your sister, getting your heart checked and never speaking to Victor again, and that is a real way to play this. You can also sign his contract on purpose and take him apart from inside, or tell him to his face what he did and find out what a man like that does when he is frightened. Revenge is on the table. So is just living.',
@@ -101,7 +101,7 @@ const raw = {
       { itemId: 'your_phone', qty: 1 },
     ],
     hardCanon: [
-      'Everyone in this story is an adult. The player is twenty-six, in a body that is twenty-six again and a memory that is thirty-three. Victor Lane is thirty-one, Naomi Ito thirty-four, Sol twenty-three, Detective Celia Ruiz forty-six, Wendell Osei sixty-one and Arden Vos fifty-eight. Sol is in her final year at the Westharbor College of Art, a university-level art school.',
+      'Everyone in this story is an adult. The player is twenty-six, in a body that is twenty-six again and a memory that is thirty-three. Victor Lane is thirty-one, Naomi Ito thirty-four, Sol twenty-three, Detective Celia Ruiz forty-six, Wendell Osei sixty-one and Arden Vos fifty-eight. Owen Mercer, Victor’s first co-founder, was twenty-nine when he died three years ago. Sol is in her final year at the Westharbor College of Art, a university-level art school.',
       'The story opens on a rainy Monday at twenty to eleven in the Blue Hour Café on Canal Street, in the port city of Westharbor. Victor Lane has just introduced himself, held out his hand, and put a co-founder contract with an uncapped pen on the table. He came because he saw the player demo their engine at a university showcase and read their write-up on a programmers’ forum.',
       'The player wrote Parley: a translation engine that lets two people on a phone call speak different languages and each hear the other in their own, less than half a second behind. The only complete copy of the code is on the player’s old laptop, the one with the cracked hinge. There is no backup.',
       'The first life, which only the player remembers. They signed this contract today and emailed Victor the code at eleven that night. On Wednesday at nine Victor filed the patent on Parley with himself as the inventor. On Friday at Demo Night he pitched it as his, and Arden Vos offered two million for a fifth of the company that night. Parley went into every phone. Sol joined in year two as head of design. In year six Victor showed the board forged expense records, removed the player for cause under clause fourteen, and bought their shares back at a dollar each. Sol believed the records and voted with him, and the two of them did not speak again.',
@@ -113,11 +113,12 @@ const raw = {
       'Naomi Ito runs Lowtide Capital, a one-woman seed fund in a boathouse that backs boring things that work. Two weeks ago the player booked a meeting with her at the Blue Hour for half past eleven today. In the first life they never came and she waited forty minutes. After the board vote she sent them three lines: she was sorry, she would have backed them, call if they ever started again. They never called.',
       'Victor did this once before. Three years ago his first co-founder, Owen Mercer, had a severe asthma attack alone in a locked office during their company’s launch party. His phone and his inhaler were never found and it was ruled an accident. Eleven days later Wendell Osei’s office filed a correction naming Victor as sole inventor on Owen’s patent. Detective Celia Ruiz never believed the ruling, pushed it, and was moved to the cold-case desk for it. She still watches Victor in her own time, and she is at the corner table of the Blue Hour this morning, reading the same page of a newspaper.',
       'Arden Vos runs Vos Calder Ventures, the biggest money in Westharbor. Owen Mercer’s launch party was in a Vos Calder building, and its cameras were switched off that night. In the first life, on the night the player died, Vos Calder’s security team wiped the Halcott Building’s camera footage. The player does not know this.',
-      'There is a voice memo on the player’s phone that they have not recorded yet: fourteen seconds, dated seven years from now. It is their own voice, out of breath: "It wasn’t only him. Don’t sign. Call Sol." It surfaces only if the player goes looking, by going through their phone or standing on the seventh floor of the Halcott Building, and it is never played for them.',
+      'There is a voice memo on the player’s phone that they have not recorded yet: fourteen seconds, dated seven years from now. It is their own voice, out of breath: "It wasn’t only him. Don’t sign. Call Sol." It surfaces only if the player goes looking, by going through their phone or standing on the seventh floor of the Halcott Building, and it is never played unless the player plays it themselves.',
       'Sol, the player’s sister, sleeps on their sofa more nights than not. She is quietly filling in a form to leave art college on Friday and work full time at the noodle shop on Canal Street to cover the rent, and has told nobody. She has the family heart-rhythm condition that killed their father at forty-one; it is treated and she is fine. She booked the player a test at St. Brigid’s Hospital for Thursday at four, which they have cancelled twice. In the first life they never went.',
-      'The week, as the player remembers it: Naomi arrives at the Blue Hour at half past eleven on Monday. Ruiz knocks on the player’s door on Tuesday at quarter past nine; last time they slept through it and Sol sent her away. Victor files on Wednesday at nine. On Thursday a thunderstorm cuts the power on Canal Street from two until five, and the clinic appointment is at four. Demo Night at Founders’ Hall is Friday at seven, and the third team’s demo crashes on stage. Victor throws a party at his loft on Saturday at nine, and Vos arrives at ten.',
+      'The week, as the player remembers it: Naomi arrives at the Blue Hour at half past eleven on Monday. Victor files on Wednesday at nine. On Thursday a thunderstorm cuts the power on Canal Street from two until five, and the clinic appointment is at four. Demo Night at Founders’ Hall is Friday at seven, and the third team’s demo crashes on stage. Victor throws a party at his loft on Saturday at nine, and Vos arrives at ten. One thing about Tuesday the player does not remember, because they never knew it: at quarter past nine Detective Ruiz knocked on their door with two coffees while they slept after coding all night, and Sol sent her away.',
       'A punch is a punch. Violence brings the police, a night in a cell and Victor’s lawyers, and in a city where every founder drinks at the same three cafés, everybody hears by morning. Romance between anybody goes no further than a kiss on the page.',
       'Victor is not a monster to be defeated in one scene and Naomi is not a prize to be won. Victor is charming, generous in public and sometimes right. Naomi can say no, and does.',
+      'The clock counts days from the café: Day 1 is Monday, Day 2 Tuesday, Day 3 Wednesday, Day 4 Thursday, Day 5 Friday, Day 6 Saturday.',
     ],
     toneGuide:
       'Fast, specific and tense, in short webnovel beats. The world is small physical things: the uncapped pen, the cracked laptop hinge, the sticky note on the kettle, the brass timer on Osei’s desk, rain on the café glass. ' +
@@ -140,7 +141,7 @@ const raw = {
   skills: [
     { id: 'code', name: 'Code', attribute: 'mind', description: 'Forty-one thousand lines you wrote once already, and seven years of fixes nobody has thought of yet.' },
     { id: 'pitch', name: 'Pitch', attribute: 'presence', description: 'Making a person or a room full of strangers want something in four minutes.' },
-    { id: 'poker', name: 'Poker Face', attribute: 'resolve', description: 'Not showing what you know to a man who reads faces for a living.' },
+    { id: 'poker', name: 'Poker Face', attribute: 'resolve', description: 'Not showing what you know to a man who notices everything.' },
     { id: 'hindsight', name: 'Hindsight', attribute: 'arcana', description: 'Using what you remember of the next seven years without the memory going wrong on you.' },
     { id: 'digging', name: 'Digging', attribute: 'mind', description: 'Filings, registries, old news, and the paper trail a careful man still leaves.' },
     { id: 'bluffing', name: 'Bluffing', attribute: 'agility', description: 'A receptionist, a guest list, a locked door, and the right tone of voice.' },
@@ -220,7 +221,7 @@ const raw = {
         {
           upTo: 100,
           behaviour:
-            'He knows the player knows something and has stopped wondering what. He moves first, through lawyers and friends and the scene, and he is calm and generous about it in public, which is worse. He has started asking around about the player’s sister.',
+            'He knows the player knows something and has stopped wondering what. He moves first, through lawyers and friends and the scene, and he is calm and generous about it in public, which is harder to fight. He has started asking around about the player’s sister.',
         },
       ],
     },
@@ -822,7 +823,7 @@ const raw = {
       secrets: [
         {
           id: 'victor_owen',
-          fact: 'At Owen Mercer’s launch party he heard Owen on the floor of the locked office. He took Owen’s phone from the desk, walked back to the party and made a toast. He has told himself every day since that he did nothing, which is true.',
+          fact: 'At Owen Mercer’s launch party he walked into the office and found Owen on the floor, fighting for breath. He picked Owen’s phone and inhaler up off the desk, locked the door behind him, walked back to the party and made a toast. He has told himself every day since that he did nothing.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'Never confessed. It leaks only as a slip, a detail about that office nobody outside it could know, if the player gets him alone and talking about loyalty.',
         },
@@ -1094,7 +1095,7 @@ const raw = {
       topics: ['Owen Mercer', 'the Mercer box', 'Victor Lane', 'the cold-case desk', 'her notebook'],
       voiceSamples: [
         'For the record: you had coffee with Victor Lane at ten forty on Monday. Did you sign anything? Yes or no.',
-        'Owen Mercer kept an inhaler in every jacket he owned. They found none. I’d like somebody to explain that to me who isn’t paid to.',
+        'Owen Mercer kept his inhaler in a holder on his desk. They found the holder. I’d like somebody to explain that to me who isn’t paid to.',
         'I don’t do hunches. I do boxes. This one has been open three years.',
         'You can’t report a crime that hasn’t happened. You can tell me a story, and I’ll write it down, and we’ll see.',
       ],
@@ -1140,7 +1141,7 @@ const raw = {
       calledName: 'Osei',
       role: 'Patent attorney above the noodle shop, and the fastest on Canal Street',
       cardBlurb:
-        'He files faster than anybody in Westharbor, bills by the quarter hour, and is booked by Victor for Wednesday at nine. Whoever signs his engagement letter first owns your work, and he has a reason of his own to hope it is you.',
+        'He files faster than anybody in Westharbor, bills by the quarter hour, and is booked by Victor for Wednesday at nine. Whoever signs his engagement letter first is the one he files for, and he has a reason of his own to hope it is you.',
       pronouns: 'he/him',
       publicTraits: ['Exact about time and money', 'Unfailingly courteous', 'Has never filed anything late'],
       hiddenDrives: ['He wants one chance to put right the correction he filed for Victor three years ago, before he retires and it becomes permanent'],
@@ -2131,9 +2132,9 @@ const raw = {
       atWorldMinute: 23 * 60 + 50,
       locationId: null,
       publicCopy:
-        'Monday, ten to midnight. Your phone lights up with a notification from an app you have never opened: one voice memo, fourteen seconds long, dated seven years from now.',
+        'Monday, ten to midnight. Going through your phone, you find an app you have never opened, and in it one voice memo, fourteen seconds long, dated seven years from now.',
       directorNotes:
-        'Only for a player who has already used what they remember on purpose today. Do not play it for them and do not make it eerie. It is a notification on a cracked screen.',
+        'Only if the player is going through their phone on purpose, looking for something that should not be there. Otherwise this never happens, however much they have used what they remember. Never a notification to a player who did not look. Do not play it for them and do not make it eerie. It is a file on a cracked screen.',
       setsFlags: ['knows:the_memo'],
       cancelledByFlags: [],
       requiresFlags: ['used:call_the_future'],
@@ -2601,10 +2602,10 @@ const raw = {
   ],
   opening:
     '"Victor Lane." The man across the table holds out his hand. "I think we’re going to build something huge."\n\n' +
-    'You know that voice. The last time you heard it, you were on a cold floor, and he was closing a door.\n\n' +
+    'You know that face. The last time you saw it, you were on a cold floor, and he was closing a door.\n\n' +
     'Now rain runs down a café window. Your old laptop sits open in front of you, the one with the cracked hinge. Your phone says Monday. Seven years ago.\n\n' +
     'Same handshake. Same grey coat. Same contract on the table, a pen uncapped on top.\n\n' +
-    'Seven years ago, you signed it. Seven years later, he owned everything you built and let you die.\n\n' +
+    'The first time, you signed it. Seven years later, he owned everything you built and let you die.\n\n' +
     'Victor’s hand stays out. His smile doesn’t move.\n\n' +
     '"So. Partners?"',
   openingPanel: {
@@ -2613,7 +2614,7 @@ const raw = {
   },
   openingSuggestions: [
     '"Before I sign anything, read me clause fourteen. Out loud."',
-    'I turn the contract over and read the last page, the one I skipped last time.',
+    'I cap his pen, slide it back across the table, and close my laptop.',
     'I shake his hand, smile, and sign it. Exactly like last time.',
   ],
   coverDirection: [

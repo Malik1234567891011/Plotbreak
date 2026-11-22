@@ -40,13 +40,13 @@ Nobody knows why, including the player. Nobody else remembers. Nothing supernatu
 
 ### Hard canon
 
-- Everyone is an adult. Ages are fixed and listed under the cast.
+- Everyone is an adult. Ages are fixed and listed under the cast. Owen Mercer was 29 when he died.
 - The story opens on a rainy Monday at 10:40 in the Blue Hour Café. Victor has just introduced himself, held out his hand and put the contract and an uncapped pen on the table.
 - **Clause fourteen** assigns everything the player writes, now and later, to the company, and lets a board Victor controls remove a founder for cause and buy back their shares at a dollar each. Victor will cross it out if challenged, because he does not need it this week.
 - **The patent race.** Whoever files a complete application first owns Parley, and contesting it takes years. Victor has booked Osei for Wednesday at nine and files with or without a signature. If the player retains Osei first, Osei must turn Victor away for a conflict, and Victor files through a slower firm on Thursday at five. A filing needs a written technical description, Osei's fee of twelve hundred, and a signature. The player has about four hundred in the bank.
-- **Owen Mercer.** Three years ago Victor's first co-founder had a severe asthma attack alone in a locked office at their company's launch party. His phone and inhaler were never found; it was ruled an accident. Eleven days later Osei's office filed a correction making Victor the sole inventor on Owen's patent. Detective Celia Ruiz never believed the ruling, pushed it, and was moved to the cold-case desk for it.
+- **Owen Mercer.** Owen Mercer was 29 when he died. Three years ago Victor's first co-founder had a severe asthma attack alone in a locked office at their company's launch party. His phone and inhaler were never found; it was ruled an accident. Eleven days later Osei's office filed a correction making Victor the sole inventor on Owen's patent. Detective Celia Ruiz never believed the ruling, pushed it, and was moved to the cold-case desk for it.
 - **Arden Vos.** Owen's launch party was in a Vos Calder building with the cameras off. In the first life, Vos Calder's security team wiped the Halcott Building's cameras the night the player died. The player does not know this.
-- **The memo.** A fourteen-second voice memo, dated seven years from now, holds the player's own voice: "It wasn't only him. Don't sign. Call Sol." It surfaces only for a player who goes looking.
+- **The memo.** A fourteen-second voice memo, dated seven years from now, holds the player's own voice: "It wasn't only him. Don't sign. Call Sol." It surfaces only for a player who goes looking, and it is never played unless the player plays it themselves.
 - A punch is a punch. Violence brings the police, a night in a cell and Victor's lawyers. Romance goes no further than a kiss.
 
 ## Tone and pacing
@@ -75,13 +75,13 @@ The player authors their name, pronouns and what they were best at in the compan
 
 > "Victor Lane." The man across the table holds out his hand. "I think we're going to build something huge."
 >
-> You know that voice. The last time you heard it, you were on a cold floor, and he was closing a door.
+> You know that face. The last time you saw it, you were on a cold floor, and he was closing a door.
 >
 > Now rain runs down a café window. Your old laptop sits open in front of you, the one with the cracked hinge. Your phone says Monday. Seven years ago.
 >
 > Same handshake. Same grey coat. Same contract on the table, a pen uncapped on top.
 >
-> Seven years ago, you signed it. Seven years later, he owned everything you built and let you die.
+> The first time, you signed it. Seven years later, he owned everything you built and let you die.
 >
 > Victor's hand stays out. His smile doesn't move.
 >
@@ -92,7 +92,7 @@ A named person speaks in the first line. It ends on a direct question that needs
 **Suggestions** (said, done, risky):
 
 1. "Before I sign anything, read me clause fourteen. Out loud."
-2. I turn the contract over and read the last page, the one I skipped last time.
+2. I cap his pen, slide it back across the table, and close my laptop.
 3. I shake his hand, smile, and sign it. Exactly like last time.
 
 The risky one is the inside-job route: sign on purpose and take him apart from inside.
@@ -106,7 +106,7 @@ Every character is an adult. Ages are canon.
 **Want now:** the player's signature and the code by Monday night; Parley as his at Demo Night on Friday.
 **Underneath:** grew up counting coins for the electric meter and decided at nineteen never to be the one who needs something. He loves the product and believes the person who built it is the least important part of it.
 **Fear:** being ordinary; being found out by somebody he underestimated.
-**Secrets:** he heard Owen Mercer on the floor of that locked office, took his phone from the desk, went back to the party and made a toast, and has told himself every day since that he did nothing. He has eleven thousand dollars left and a loft he cannot pay for past next month. He has already told Arden Vos he owns the technology outright.
+**Secrets:** at Owen Mercer's launch party he walked into the office and found Owen on the floor, fighting for breath. He picked Owen's phone and inhaler up off the desk, locked the door behind him, walked back to the party and made a toast, and has told himself every day since that he did nothing. He has eleven thousand dollars left and a loft he cannot pay for past next month. He has already told Arden Vos he owns the technology outright.
 **Voice:** warm, quick, says your name a lot, "Here's the thing." Compliments precisely. Never raises his voice.
 **Look:** neat dark hair pushed back, charcoal wool coat, open-collared white shirt, a small pale scar through his left eyebrow he jokes about before anyone can ask.
 

@@ -358,7 +358,7 @@ describe('the memo is optional and behaves like it', () => {
   it('never plays the memo in hard canon for a player who did not go looking', () => {
     const memo = S.rules.hardCanon.find((line) => line.includes('voice memo'))!;
     expect(memo).toMatch(/only if the player goes looking/);
-    expect(memo).toMatch(/never played for them/);
+    expect(memo).toMatch(/never played unless the player plays it themselves/);
   });
 
   it('leaves most of the ending space reachable without it', () => {
