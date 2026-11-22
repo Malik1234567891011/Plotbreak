@@ -10,7 +10,7 @@
 
 The copy power is the most flexible power fantasy there is: every person in the academy is a possible weapon, and the only price is a handshake. That makes every character the player meets a decision, not scenery. Who do you touch before a fight? Whose hand do you refuse?
 
-Sixty seconds keeps it honest. The player is strong in bursts and powerless in between, so every fight has a clock, every borrowed power has to be learned in ten seconds, and the prose can count down. Copying is not free for the other person either: while you hold their power, they share it with you. That one rule turns a handshake into an intimacy, a theft, or a sabotage, depending on whose hand it is and when.
+Sixty seconds keeps it honest. The player is strong in bursts and powerless in between, so every fight has a clock, every borrowed power has to be learned in ten seconds, and the prose can count down. Copying is not free for the other person either: while you hold their power, they share it with you. That one rule turns a handshake into a kindness, a theft, or a sabotage, depending on whose hand it is and when.
 
 The famous moment is turn one. The player does not wait to find out what they can do. They are already in the air, in front of everybody, holding the top-ranked student's power and her hand, and she wants both back.
 
@@ -18,11 +18,11 @@ The famous moment is turn one. The player does not wait to find out what they ca
 
 **Larkspur Academy** trains licensed heroes. It is a four-year, post-secondary academy on a hill above **Velling**, a harbour city. It admits at eighteen. Every student and every member of staff in this story is an adult.
 
-Twelve hundred students are ranked on **the Board**, a wall-sized display in the Great Hall that updates at seven every morning. Rank moves only through sanctioned challenges in **the Pit**, refereed by faculty: anyone may challenge anyone. Win and you take their place; lose to somebody far above you and you drop fifty. The top ten get agency internships and the first licences. Off-the-books fights happen in **the Boathouse** and count for nothing except reputation.
+Twelve hundred students are ranked on **the Board**, a wall-sized display in the Great Hall that updates at seven every morning. Rank moves only through sanctioned challenges in **the Pit**, refereed by faculty: anyone may challenge anyone. Win and you take their place; lose to somebody far above you and you drop fifty. The top ten get the first placements with the rescue services and the first licences. Off-the-books fights happen in **the Boathouse** and count for nothing except reputation.
 
 About one adult in forty has a power. The national **Registry** classifies every power into a class: Field (changes an area), Form (changes your own body), Sense (perceives what others cannot), Make (produces something), and **Echo**.
 
-Echo class has had exactly one registrant before the player: **Arlo Wren**, twenty-six years ago. What happened to him is not public.
+Echo class has had exactly one registrant before the player: **Arlo Wren**, twenty-six years ago, when he was twenty-four (he is fifty now). What happened to him is not public.
 
 The player transfers into the second year. Their power:
 
@@ -64,7 +64,8 @@ The protagonist is **BLANK**: the player names themselves and sets pronouns. The
 - Copy rules as above: skin contact, sixty seconds, one at a time, fabric stops it, the owner shares control while you hold it.
 - Yuna Takeda is ranked first and her power is gravity.
 - Rank only moves through sanctioned challenges in the Pit.
-- One Echo before the player: Arlo Wren, twenty-six years ago.
+- One Echo before the player: Arlo Wren, twenty-six years ago, a twenty-four-year-old Larkspur fourth-year then and fifty now.
+- The player is twenty. Touching somebody with no power copies nothing; touching Adair, the player feels an empty place, as if something used to be there.
 - The Registrar must classify the player by **Friday at ten**: open (stay and compete) or restricted (leave with the Registry).
 - Holding past sixty is real, costly, and unknown to the player at the start.
 
@@ -72,7 +73,7 @@ The protagonist is **BLANK**: the player names themselves and sets pronouns. The
 
 > Your feet leave the floor.
 >
-> The student whose hand you just shook does not let go. Ranked first of twelve hundred, the hall told you that with its applause. Now she is staring at you like you picked her pocket.
+> The student whose hand you just shook does not let go. First of twelve hundred: the hall told you that with its applause. Now she is staring at you like you picked her pocket.
 >
 > "Give it back," Yuna says.
 >
@@ -84,7 +85,7 @@ The protagonist is **BLANK**: the player names themselves and sets pronouns. The
 >
 > Her grip tightens. "How are you doing that? Give it back. Now."
 
-103 words. Yuna speaks at word 41. It ends on a demand. The only proper noun is Yuna, introduced in the beat.
+102 words. Yuna speaks at word 40. It ends on a demand. The only proper noun is Yuna, introduced in the beat.
 
 Suggestions, one of each kind:
 
@@ -101,10 +102,10 @@ Ages are canon. Everybody is 18 or older.
 ### Yuna Takeda (21)
 **Role:** second-year, ranked #1 of 1,200 for fourteen months. Gravity (Field class): she can make anything she can see within about thirty metres up to ten times heavier, or nearly weightless, herself included.
 **Appearance:** black hair cut bluntly at the jaw, grey eyes, academy jacket zipped to the collar. **Visual hook:** two steel wrist weights, four kilos each, which she never takes off.
-**Want:** keep #1 to graduation and get a licence with a sea-rescue agency. She grew up in a port town and wants rescue work, not fame.
+**Want:** keep #1 to graduation and get a licence and a place with the sea-rescue service. She grew up in a port town and wants rescue work, not fame.
 **Fear:** losing control in front of people. The day her power gets bigger than she is.
-**Secrets:** her gravity has been getting stronger for a year. She sleeps with her bed bolted to the floor and the weights on, because twice she has woken up against the ceiling. And when the player copied her, the weight was shared for the first time in her life, and for forty seconds she could breathe all the way in. "Give it back" was fear. What came after was relief, and that frightens her more.
-**Voice:** quiet, exact, measures everything in kilos and seconds. Dry humour that arrives a beat late. "You weigh seventy-one kilos. I know, because for forty seconds I was carrying it."
+**Secrets:** her gravity has been getting stronger for a year. She sleeps with her bed bolted to the floor and the weights on, because twice she has woken up against the ceiling. And when the player copied her, the weight was shared for the first time in her life, and for a minute she could breathe all the way in. "Give it back" was fear. What came after was relief, and that frightens her more.
+**Voice:** quiet, exact, measures everything in kilos and seconds. Dry humour that arrives a beat late. "You weigh seventy-one kilos. I know, because for a minute I was carrying it."
 **Arc options:** rival, reluctant partner, the person on the roof at midnight, a kiss after a match she won, a title she lost because of you.
 
 ### Teo Vance (22)
@@ -115,11 +116,11 @@ Ages are canon. Everybody is 18 or older.
 **Voice:** fast, warm, everything in odds, ends sentences with "yeah?" "I had you at four to one to survive the week. Moved you to three. That's a compliment, yeah?"
 
 ### Professor Imogen Adair (47)
-**Role:** head of Power Theory and the combat fundamentals instructor. Was one of the best pros in the country for a decade before anyone at Larkspur was born. The faculty think she retired with an injury.
+**Role:** head of Power Theory and the combat fundamentals instructor. Was going to be one of the best in the country; the faculty think an injury ended it in her fourth year, before she was licensed.
 **Appearance:** cropped dark hair with a grey streak, rolled shirtsleeves, a long scar down her right forearm. **Visual hook:** a wristwatch worn on the inside of her wrist, which she checks every sixty seconds without seeming to know she does it.
 **Want:** to find out whether you can hold past sixty before the Registry does, and if you can, to teach you why you must not.
 **Hidden drive:** part of her wants to know whether her power still exists anywhere.
-**Secrets:** twenty-six years ago, as a fourth-year, her power (she could stop any moving object she looked at, for as long as she kept looking) was copied by her classmate Arlo Wren during the Velling pier collapse. He held it eleven minutes. It never came back. And she called the Registry herself the morning your transfer file arrived.
+**Secrets:** twenty-six years ago, as a fourth-year (she was twenty-one), her power (she could stop any moving object she looked at, for as long as she kept looking) was copied by her classmate Arlo Wren during the Velling pier collapse. He held it eleven minutes. It never came back. And she called the Registry herself the morning your transfer file arrived.
 **Voice:** a lecturer's precision and a drill instructor's economy. Asks questions in threes. Says "Again." as a full sentence. Talks about her own career in the past tense and never says why.
 
 ### Callum Rook, called Rook (23)
@@ -137,6 +138,18 @@ Ages are canon. Everybody is 18 or older.
 **Want:** classify you by Friday at ten. She does not want to restrict a twenty-year-old. She has done it once.
 **Secrets:** standing order: any Echo who demonstrably holds past sixty is restricted on the spot, with no hearing, and there is a car waiting at the harbour. And she processed Arlo Wren's restriction as a junior clerk. He is alive, in a Registry facility, and every year she visits he asks about Adair.
 **Voice:** gentle, procedural, reads her own questions aloud and writes down the pauses. "For the record, that was a yes. You can change it. I'll write down that you changed it."
+
+### Arlo Wren (50)
+Off the page until the Visiting Hours ending. Twenty-six years ago he was a 24-year-old Larkspur fourth-year and Adair's classmate when he held her power for eleven minutes at the pier collapse; he is now held in a Registry facility four hours down the coast, and asks Marsh about Adair every year.
+
+### Minor cast (copyable powers for turns 2 to 10)
+Named in the fixture's faction descriptions so the narrator has powers to hand the player early (the narrator never sees quest-step notes, so names that live only there do not exist in play). Rook's lieutenant and the plant-grower joke are these people.
+
+- **Moss Keller (20)**, #212, Back Row. Make: grows ivy out of bare stone. Useless in a fistfight. Rook sends him to the quad at Monday lunch to be copied in public.
+- **Dita Ferro (22)**, #64, Back Row, Rook's lieutenant. Form: skin that goes hard as tyre rubber.
+- **Sami and Nour Haddad (21)**, #140 and #141, Back Row twins. Field: one makes a room deafening, the other makes it silent.
+- **Hollis Grey (22)**, #2, Top Ten. Field: makes any floor slick as wet ice.
+- **Juno Achebe (21)**, #5, Top Ten. Make: pulls glass out of sand, which in the Pit is everywhere.
 
 ## Behavioural state (invisible)
 
@@ -157,7 +170,7 @@ Ages are canon. Everybody is 18 or older.
 - **The Infirmary:** for drops, bruises and people who copied the wrong power.
 - **The Registry Annex:** a borrowed office with a borrowed desk and Marsh's carbon copies.
 - **The Boathouse:** the Back Row's place on the shore. Off-the-books fights, a bowl of black rooks.
-- **Velling Harbour:** the town below. Noodle shop, ferry, the rebuilt pier with a plaque on it.
+- **Velling Harbour:** the town below. Noodle shop, ferry, the rebuilt pier with a bronze plaque listing the sixty-one people who walked off it.
 
 ## Five promises
 
@@ -170,6 +183,7 @@ Ages are canon. Everybody is 18 or older.
 ## Timeline
 
 - **Monday 09:12:** the handshake. 09:14 the copy runs out.
+- **Monday 13:00:** lunch on the quad. Moss, one of Rook's regulars, holds out a bare hand: "Go on, copy me."
 - **Monday 21:30:** Rook at the door of Room 4C with a black rook.
 - **Tuesday 07:00:** the Board posts you at 1,200. **10:00:** Marsh calls you in.
 - **Tuesday 20:30:** Teo hears the lock on Records Room 0 (if you are friends and have heard Wren's name).
@@ -193,7 +207,7 @@ Ages are canon. Everybody is 18 or older.
 - **Class: Echo, Open** (Common): cleared at the hearing; an ordinary, extraordinary year begins.
 - **The Quiet Copy** (Common): classified, and you chose to stay low on the Board where nobody studies you.
 - **Expelled** (Common): you hit the Registrar. Nothing on the Board matters after that.
-- **Top Ten** (Uncommon): front row of the hall by the end of the week.
+- **Top Ten** (Uncommon): front row of the hall by the end of the week, and a letter from the harbour rescue service.
 - **Rook's Second** (Uncommon): you shook her hand before the bell. Rook is #1, and you are his.
 - **Restricted** (Uncommon): you held past sixty, and the car at the harbour was real.
 - **Transfer Out** (Uncommon): you left.
@@ -205,9 +219,9 @@ Ages are canon. Everybody is 18 or older.
 
 ## Image plan
 
-Adults only, described by costume and pose, never by age words. No franchise symbols: no hero-school crests or costumes from existing series. Effects on objects, not on faces.
+Adults only, described by costume and pose, never by age words. No franchise symbols: no hero-academy crests or costumes from existing series. Effects on objects, not on faces.
 
-- **Cover (Tsubaki.3, title in the art: "ECHO CLASS"):** a student in a dark academy jacket floats a metre above a crowded hall floor, one hand locked in the grip of a composed young woman with jaw-length black hair and steel wrist weights, grey eyes narrowed. A water jug and three chairs drift around them. Faint concentric ripples in the air around their joined hands. The ranking board glows on the back wall, numbers unreadable. Cool blue and steel palette with one warm stage light.
+- **Cover (Tsubaki.3, title in the art: "ECHO CLASS"):** a figure in a dark open jacket, one black glove on and one hand bare, floats a metre above a crowded hall floor, one hand locked in the grip of a composed woman with jaw-length black hair and steel wrist weights, grey eyes narrowed. A water jug and three chairs drift around them. Faint concentric ripples in the air around their joined hands. The ranking board glows on the back wall, numbers unreadable. Cool blue and steel palette with one warm stage light.
 - **Portraits:** Yuna (zipped jacket, wrist weights), Teo (unplugged headphones, pocket jacket), Adair (watch on the inside of the wrist, forearm scar), Rook (black chess piece across knuckles), Marsh (fountain pen, clipboard).
 - **Stages:** Great Hall with the Board, the Quad, Residence Block, Room 4C, the Pit, Gym Roof at night, Adair's Lab, Records Room 0, Infirmary, Registry Annex, the Boathouse, Velling Harbour with the rebuilt pier.
 - **Opening panel:** Yuna gripping the player's hand as they float above the hall, a water jug drifting beside them.

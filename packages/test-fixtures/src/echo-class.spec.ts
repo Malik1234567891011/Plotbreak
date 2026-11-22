@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
@@ -15,6 +16,8 @@ import { ECHO_CLASS } from './echo-class.js';
  */
 
 const story = ECHO_CLASS;
+const bible = readFileSync(new URL('../../../docs/story-bibles/new50/06_ECHO_CLASS.md', import.meta.url), 'utf8');
+const imagePlan = bible.slice(bible.indexOf('## Image plan'));
 
 const start = (archetypeId = 'arch_stunt') =>
   createInitialState({
@@ -185,6 +188,13 @@ describe('the checkpoint checks', () => {
   it('speaks to the player in every character card', () => {
     const silent = story.characters.filter((c) => !/\byou\b/i.test(c.cardBlurb)).map((c) => c.id);
     expect(silent).toEqual([]);
+  });
+
+  it('keeps Teo’s card from giving away who he reports to', () => {
+    // `teo_reports` is the reveal of "Three to One" and the `teo_comes_clean`
+    // gate; the card may say he knew, never who asked or that he is paid.
+    const teo = story.characters.find((c) => c.id === 'teo')!;
+    expect(teo.cardBlurb).not.toMatch(/\b(?:pay|paid|paying|report|reports|reporting|Rook|debt|owes)\b/i);
   });
 
   it('gives every location a way in', () => {
@@ -453,22 +463,56 @@ describe('everyone is an adult and the content stays 13+', () => {
     }
   });
 
+  it('states every age in the bible, including the people who are only named', () => {
+    const named: Array<[string, number]> = [
+      ['Yuna Takeda', 21],
+      ['Teo Vance', 22],
+      ['Professor Imogen Adair', 47],
+      ['Callum Rook, called Rook', 23],
+      ['Registrar Delphine Marsh, called Marsh', 52],
+      ['Arlo Wren', 50],
+      ['Moss Keller', 20],
+      ['Dita Ferro', 22],
+      ['Sami and Nour Haddad', 21],
+      ['Hollis Grey', 22],
+      ['Juno Achebe', 21],
+    ];
+    for (const [name, age] of named) {
+      expect(age, name).toBeGreaterThanOrEqual(18);
+      expect(bible, name).toContain(`${name} (${age})`);
+    }
+  });
+
+  it('keeps Arlo Wren an adult wherever he is on the page', () => {
+    const visiting = story.endings.find((e) => e.id === 'end_visiting_hours')!;
+    expect(visiting.epilogue).toMatch(/Arlo Wren is fifty\b/);
+    expect(story.rules.hardCanon.join(' ')).toMatch(/Arlo Wren, then a twenty-four-year-old/);
+  });
+
   it('says the academy is post-secondary', () => {
     expect(story.premise).toMatch(/admits at eighteen/);
     expect(story.rules.hardCanon.join(' ')).toMatch(/post-secondary/);
   });
 
   it('uses no word that reads as a minor', () => {
-    const MINOR = /\b(?:girls?|boys?|kids?|teens?|teenagers?|teenage|child|children|childlike|minors?|schoolgirls?|schoolboys?|underage)\b/i;
+    const MINOR =
+      /\b(?:girls?|boys?|kids?|teens?|teenagers?|teenage|child|children|childlike|minors?|schools?|schoolgirls?|schoolboys?|underage|young)\b/i;
     const hits = playerFacing().filter(([, text]) => MINOR.test(text)).map(([field]) => field);
     expect(hits).toEqual([]);
+    // The cover and portraits are briefed from the bible, so its image plan
+    // and every art direction line are held to the same words.
+    expect(imagePlan, 'bible image plan').not.toMatch(MINOR);
+    const art = story.locations.filter((l) => MINOR.test(l.artDirection)).map((l) => l.id);
+    expect(art).toEqual([]);
   });
 
   it('borrows no franchise vocabulary', () => {
-    const FRANCHISE = /\b(?:quirks?|nen|chakra|hokage|hunter association|plus ultra|one for all|all might|pro heroes?|U\.A\.)\b/i;
+    const FRANCHISE =
+      /\b(?:quirks?|nen|chakra|hokage|hunter association|plus ultra|one for all|all might|pro heroes?|pros|U\.A\.)\b/i;
     const hits = playerFacing().filter(([, text]) => FRANCHISE.test(text)).map(([field]) => field);
     expect(hits).toEqual([]);
     expect(JSON.stringify(story)).not.toMatch(FRANCHISE);
+    expect(bible).not.toMatch(FRANCHISE);
   });
 });
 

@@ -16,8 +16,8 @@ import { StoryVersion } from '@plotbreak/contracts';
  *
  * The copy power works because it turns every person in the academy into a
  * decision. The one rule that makes it a story rather than a stat block: while
- * you hold somebody's power, they share it with you. A handshake is therefore an
- * intimacy, a theft, or a sabotage depending on whose hand and when — which is
+ * you hold somebody's power, they share it with you. A handshake is therefore a
+ * kindness, a theft, or a sabotage depending on whose hand and when — which is
  * exactly what Rook wants to buy on Thursday at four.
  *
  * The playable span is one week, Monday to the Friday hearing. Arlo Wren, the
@@ -45,14 +45,14 @@ const raw = {
   version: 1,
   title: 'Echo Class',
   fantasyLabel: 'Copy any power you touch. Sixty seconds.',
-  hook: 'On your first morning at a hero academy you shake hands with its top-ranked student, copy her gravity for sixty seconds, and float off the floor in front of the whole hall.',
+  hook: 'You copy any power you touch for sixty seconds. On your first morning at a hero academy you shake the top-ranked student’s hand, and float off the floor in front of everyone.',
   premise:
     'Larkspur Academy trains licensed heroes. It admits at eighteen, runs for four years, and ranks all twelve hundred of its students on one board in the main hall, updated every morning, in public.\n\n' +
     'You transfer into the second year with a power the intake office did not believe. Touch anyone who has a power, skin to skin, and you hold a copy of it for sixty seconds. Then it goes, and you have nothing again.\n\n' +
     'By tradition the top-ranked student shakes every transfer’s hand at the welcome assembly. This year that is Yuna Takeda, whose power is gravity, and who has not lost a match in fourteen months.\n\n' +
     'You shook her hand. Now you are floating above the floor of the Great Hall with everyone watching.\n\n' +
-    'So by tonight the whole academy knows what you can do. The bully at the back of the room wants to rent it. Your roommate already knew. A professor who checks her watch every sixty seconds wants a word, and a Registrar has come up from the city to put a class on your file by Friday: open, or restricted.\n\n' +
-    'Nobody has been registered Echo class in twenty-six years. You need to find out what happened to the last one before you find out the hard way.',
+    'So by tonight the whole academy knows what you can do. The bully at the back of the room wants to rent it. Your roommate already knew. A professor who checks her watch every sixty seconds wants a word, and a Registrar has come up from the city to decide by Friday whether your file says open or restricted.\n\n' +
+    'The Registry files a power like yours under one name, Echo class, and it has used that name once before, twenty-six years ago. You need to find out what happened to the last one before you find out the hard way.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
@@ -66,7 +66,7 @@ const raw = {
     'Climb a public ranking',
     'One handshake can cost a title',
   ],
-  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'PSYCHOLOGICAL_THEMES'],
+  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'PSYCHOLOGICAL_THEMES', 'MORAL_AMBIGUITY'],
   intensity: 'MODERATE',
   creatorNote:
     'You can climb the Board on borrowed powers, refuse to fight for a number, sell Rook one handshake, or spend the week on a roof helping the strongest student in the building carry something nobody else can see. A copy lasts sixty seconds. What you do inside those sixty seconds is the game.',
@@ -85,12 +85,14 @@ const raw = {
     ],
     hardCanon: [
       'Larkspur Academy is a four-year, post-secondary academy for licensed heroes on a hill above the harbour city of Velling. It admits at eighteen. Every student and every member of staff is an adult.',
+      'The player is twenty, a second-year transfer.',
       'The player’s power: skin-to-skin contact with somebody who has a power gives the player a copy of it for sixty seconds, felt as a count under the ribs. One copy at a time; a new touch replaces the old one. Fabric stops it: gloves, sleeves and jackets copy nothing.',
+      'Touching somebody with no power copies nothing. Touching Adair, the player feels an empty place, as if something used to be there.',
       'While the player holds a copy, the original owner keeps their power but shares control of it. It answers them half a beat late and feels like somebody else has a hand on it. When the copy ends it is theirs alone again.',
       'Without a copy the player has no power at all. When a copy ends there is a drop: a headache, heavy limbs, and for a minute the feel of the power they just lost.',
       'Yuna Takeda has been ranked first of twelve hundred for fourteen months. Her power is gravity. The player copied it by shaking her hand at the welcome assembly, and that is where the story starts.',
       'The Board in the Great Hall ranks every student and updates at seven every morning. Rank changes only through sanctioned challenges in the Pit, refereed by faculty. Anyone may challenge anyone; the winner takes the loser’s place, and losing to somebody ranked far above you costs fifty places. Fights in the Boathouse are off the books and change nothing on the Board.',
-      'The Registry classifies every power: Field, Form, Sense, Make, and Echo. Echo class has had exactly one registrant before the player, Arlo Wren, twenty-six years ago. What happened to him is not public.',
+      'The Registry classifies every power: Field, Form, Sense, Make, and Echo. Echo class has had one registrant before the player: Arlo Wren, then a twenty-four-year-old Larkspur fourth-year, twenty-six years ago. He is fifty now. What happened to him is not public.',
       'Sixty seconds is a habit and not a law: a copy can be held past it, and every minute past it more of the power leaves its owner. Nobody tells the player this on the first day, and they cannot do it until they know it is possible.',
       'Registrar Delphine Marsh must classify the player by Friday at ten: open (the player stays and competes like anybody else) or restricted (the player leaves with the Registry).',
     ],
@@ -114,7 +116,7 @@ const raw = {
     { id: 'holding', name: 'Holding', attribute: 'arcana', description: 'Feeling the edges of a copy and the count under your ribs, and what is on the other side of zero.' },
     { id: 'footwork', name: 'Footwork', attribute: 'agility', description: 'Getting close enough to touch somebody who would rather you did not.' },
     { id: 'brawling', name: 'Brawling', attribute: 'might', description: 'Fighting with no power at all, which is most of your life.' },
-    { id: 'reading', name: 'Reading', attribute: 'mind', description: 'Watching a power work and seeing exactly where it stops.' },
+    { id: 'reading', name: 'Reading', attribute: 'mind', description: 'Watching a power work and seeing where it stops.' },
     { id: 'front', name: 'Front', attribute: 'presence', description: 'Talking like you meant to do that.' },
     { id: 'composure', name: 'Composure', attribute: 'resolve', description: 'Keeping your face still while a hall, a Registrar or Rook is looking at it.' },
   ],
@@ -170,7 +172,7 @@ const raw = {
       displayPriority: 2,
       visible: false,
       zeroStateConsequence:
-        'Nobody official is watching. The player is a second-year with an odd power and a low rank, which on this hill is the most private thing a person can be.',
+        'Nobody official is watching. The player is a second-year with an odd power and a low rank, and at Larkspur nobody is more private than that.',
       color: '#8FB1C9',
       bands: [
         {
@@ -205,7 +207,7 @@ const raw = {
       displayPriority: 3,
       visible: false,
       zeroStateConsequence:
-        'Every copy ends exactly at zero and leaves nothing behind. The player is entirely themselves between handshakes.',
+        'Every copy ends at zero and leaves nothing behind. The player is entirely themselves between handshakes.',
       color: '#9D7BD8',
       bands: [
         {
@@ -315,7 +317,7 @@ const raw = {
       skillModifiers: { holding: 2 },
       description:
         'A water-stained student notebook from twenty-six years ago, in two people’s handwriting. Columns of times to the second with a power’s name beside each, and on the last used page a column of times that does not stop at sixty.',
-      loreText: 'The last column runs 0:60, 1:00, 2:00 and on to 11:00 in somebody else’s hand. Under it, in hers: “It did not come back.”',
+      loreText: 'The last column runs 0:58, 0:59, 1:00, 2:00 and on to 11:00 in somebody else’s hand. Under it, in hers: “It did not come back.”',
       icon: 'book',
     },
     {
@@ -423,8 +425,8 @@ const raw = {
       id: 'get_a_hand_on',
       name: 'Get a Hand On',
       tags: ['movement'],
-      description: 'Close the distance and get skin contact with somebody who would rather you did not: a wrist, a cheek, the back of a neck.',
-      affordances: ['grab', 'grab her wrist', 'grab his wrist', 'get a hand on him', 'get a hand on her', 'reach for', 'touch his neck', 'close in', 'get close'],
+      description: 'Close the distance and get skin contact with somebody who would rather you did not: a wrist, a forearm, a bare hand.',
+      affordances: ['grab', 'grab her wrist', 'grab his wrist', 'get a hand on him', 'get a hand on her', 'reach for', 'grab his hand', 'close in', 'get close'],
       costs: [
         { resourceId: 'stamina', amount: 7 },
         { resourceId: 'scrutiny', amount: 5 },
@@ -542,7 +544,7 @@ const raw = {
       description:
         'A wide paved square between the Great Hall, the Residence Block and the Pit, with a dry fountain in the middle that the Back Row sits on at lunch. Everybody eats on the steps where they can be seen, and where you sit is a statement about your rank.',
       artDirection:
-        'Sunny academy quadrangle, paved stone, a dry fountain with students sitting on its rim, wide steps full of students eating lunch, academic buildings on three sides, a sea view between them. Bright and busy.',
+        'Sunny academy quadrangle, paved stone, a dry fountain with people in dark academy jackets sitting on its rim, wide steps full of people eating lunch, academic buildings on three sides, a sea view between them. Bright and busy.',
       connections: [
         { to: 'great_hall', travelMinutes: 2, label: 'Into the Great Hall' },
         { to: 'the_dorms', travelMinutes: 3, label: 'Across to the Residence Block' },
@@ -563,7 +565,7 @@ const raw = {
       description:
         'Two wings of student rooms joined by a shared kitchen that always smells of instant noodles and toast. A noticeboard by the stairs carries every challenge result, printed and pinned, some with comments added in pen.',
       artDirection:
-        'Student residence common kitchen at evening, long table, mismatched mugs, a kettle, a corkboard covered in printed match results with handwritten comments, corridors leading off to two wings. Lived-in and noisy.',
+        'Residence hall common kitchen at evening, long table, mismatched mugs, a kettle, a corkboard covered in printed match results with handwritten comments, corridors leading off to two wings. Lived-in and noisy.',
       connections: [
         { to: 'the_quad', travelMinutes: 3, label: 'Back out to the quad' },
         { to: 'room_4c', travelMinutes: 1, label: 'Up to Room 4C' },
@@ -594,7 +596,7 @@ const raw = {
       description:
         'A sunken arena, sand over rubber, ringed by six tiers of benches. A referee’s box stands on stilts at one end, and a score display shows both fighters’ ranks in red. Sanctioned challenges only, faculty refereeing, and the result is on the Board by seven the next morning.',
       artDirection:
-        'Sunken circular training arena, pale sand floor, tiered benches packed with students, a referee box on tall stilts, a scoreboard with two glowing red numbers. Afternoon sun, dust in the air, tense and loud.',
+        'Sunken circular training arena, pale sand floor, tiered benches packed with people in dark academy jackets, a referee box on tall stilts, a scoreboard with two glowing red numbers. Afternoon sun, dust in the air, tense and loud.',
       connections: [
         { to: 'the_quad', travelMinutes: 3, label: 'Up the steps to the quad' },
         { to: 'gym_roof', travelMinutes: 2, label: 'Up the stairwell to the roof' },
@@ -685,7 +687,7 @@ const raw = {
       description:
         'An old timber boathouse on the shore below the hill, rowing shells racked on the walls and a chalk ring on the floor where off-the-books fights happen. A bowl of black chess rooks sits by the door. Nothing that happens here goes on the Board, which is the point.',
       artDirection:
-        'Old wooden boathouse interior at evening, rowing boats racked on the walls, a chalk circle on the plank floor, students lounging on crates, a bowl of black chess pieces by the door, water light through the slats.',
+        'Old wooden boathouse interior at evening, rowing boats racked on the walls, a chalk circle on the plank floor, people in dark academy jackets lounging on crates, a bowl of black chess pieces by the door, water light through the slats.',
       connections: [
         { to: 'the_quad', travelMinutes: 8, label: 'Up the shore path' },
         { to: 'velling_harbour', travelMinutes: 6, label: 'Along the shore to town' },
@@ -701,7 +703,7 @@ const raw = {
       name: 'Velling Harbour',
       shortName: 'Harbour',
       description:
-        'The town below the academy: ferries, a fish market, a noodle shop open until two, and the rebuilt pier with a bronze plaque listing sixty-one names. Students come down to be somewhere nobody is ranked.',
+        'The town below the academy: ferries, a fish market, a noodle shop open until two, and the rebuilt pier with a bronze plaque listing the sixty-one people who walked off it. Students come down to be somewhere nobody is ranked.',
       artDirection:
         'Harbour town at dusk below a hill, ferries, a lit noodle shop, a long rebuilt pier with a bronze plaque, fishing boats, a funicular climbing toward an academy on the hill. Warm lights on blue water.',
       connections: [
@@ -732,7 +734,7 @@ const raw = {
       id: 'faction_board',
       name: 'The Top Ten',
       description:
-        'The ten students at the top of the Board. They sit in the front row of every hall, get the agency internships and the first licences, and decide among themselves who is worth noticing.',
+        'The ten students at the top of the Board. They sit in the front row of every hall, get the first placements with the rescue services and the first licences, and decide among themselves who is worth noticing. Besides Yuna at one and Rook at nine: Hollis Grey (#2, Field: makes any floor slick as wet ice) and Juno Achebe (#5, Make: pulls glass out of sand, which in the Pit is everywhere).',
       startingReputation: 0,
       ranks: [
         { atReputation: 0, label: 'Unranked' },
@@ -747,7 +749,7 @@ const raw = {
       id: 'faction_back_row',
       name: 'The Back Row',
       description:
-        'About twenty students, ranked anywhere from ninth to three hundredth, who sit at the back of every room and settle things in the Boathouse. Rook runs it. Carrying one of his black rooks means they count you as theirs.',
+        'About twenty students, ranked anywhere from ninth to three hundredth, who sit at the back of every room and settle things in the Boathouse. Rook runs it. Carrying one of his black rooks means they count you as theirs. His regulars include Moss Keller (#212, Make: grows ivy out of bare stone, useless in a fistfight), Dita Ferro (#64, Form: skin that goes hard as tyre rubber), and the Haddad twins (#140 and #141, Field: one makes a room deafening, the other silent).',
       startingReputation: 0,
       ranks: [
         { atReputation: 0, label: 'New face' },
@@ -779,7 +781,7 @@ const raw = {
       name: 'Yuna Takeda',
       role: 'Second-year ranked first of twelve hundred. Gravity, and the hand you just shook',
       cardBlurb:
-        'She has held the top of the Board for fourteen months without once losing control, and for forty seconds this morning you were carrying half of what she carries.',
+        'She has held the top of the Board for fourteen months without once losing control, and for a minute this morning you were carrying half of what she carries.',
       pronouns: 'she/her',
       publicTraits: ['Never loses control in public', 'Polite in a way that ends conversations', 'Trains alone, always'],
       hiddenDrives: [
@@ -797,7 +799,7 @@ const raw = {
         'Being wanted for her power and for nothing else',
       ],
       socialStyle:
-        'Says less than anyone in the room and is listened to more. Watches hands before faces, because she knows exactly what a hand can do.',
+        'Says less than anyone in the room and is listened to more. Watches hands before faces, because she knows what a hand can do.',
       boundaries: [
         'Will not be touched without being asked first, and after this morning she means it literally',
         'Will not throw a match, take a bribe or accept a black rook, ever',
@@ -805,7 +807,7 @@ const raw = {
       ],
       goals: [
         'Hold the top of the Board through Thursday’s challenge from Rook',
-        'Find out exactly what the transfer did to her power, and whether they can do it again',
+        'Find out what the transfer did to her power, and whether they can do it again',
         'Get through the week without anybody noticing the weights are not for training',
       ],
       secrets: [
@@ -817,7 +819,7 @@ const raw = {
         },
         {
           id: 'yuna_relief',
-          fact: 'When the player copied her, the weight was shared for the first time in her life, and for forty seconds she could breathe all the way in. "Give it back" was fear. The relief afterwards frightens her more.',
+          fact: 'When the player copied her, the weight was shared for the first time in her life, and for a minute she could breathe all the way in. "Give it back" was fear. The relief afterwards frightens her more.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She says it on the roof, looking at the harbour rather than at you, if you ask what the handshake felt like from her side.',
         },
@@ -826,7 +828,7 @@ const raw = {
         'Quiet, exact and short. Measures everything in kilos, metres and seconds. Never raises her voice; lowers it instead. Dry humour arrives a beat after the line, as if she checked first whether it was allowed.',
       topics: ['her rank', 'gravity', 'the wrist weights', 'Thursday’s challenge', 'Rook', 'the port town she grew up in', 'sea rescue', 'what the copy felt like'],
       voiceSamples: [
-        'You weigh seventy-one kilos. I know, because for forty seconds I was carrying it.',
+        'You weigh seventy-one kilos. I know, because for a minute I was carrying it.',
         'Again, slower. If you drop that crate on the referee, the Board takes points off both of us.',
         'I don’t lose control. I have never lost control. Write that down somewhere you’ll see it.',
         'Eight kilos on my wrists, two bolts in the bed frame. Ask me why and your shoes will weigh as much as a car.',
@@ -892,7 +894,7 @@ const raw = {
       name: 'Teo Vance',
       role: 'Your roommate in 4C. Ranked three hundred and eighty-eighth; hears electricity, sells noodles and odds',
       cardBlurb:
-        'He has decided you are the most interesting thing to happen to Room 4C in two years, he knows everybody’s odds including yours, and somebody is paying him to tell them what you can do.',
+        'He has decided you are the most interesting thing to happen to Room 4C in two years, he has odds on everybody including you, and he knew what you could do before you told him.',
       pronouns: 'he/him',
       publicTraits: ['Talks fast and means most of it', 'Knows the odds on everything', 'Generous with noodles, stingy with sleep'],
       hiddenDrives: [
@@ -977,7 +979,7 @@ const raw = {
       id: 'adair',
       name: 'Professor Imogen Adair',
       calledName: 'Adair',
-      role: 'Head of Power Theory and combat fundamentals. Once one of the best licensed heroes in the country',
+      role: 'Head of Power Theory and combat fundamentals. Was going to be one of the best heroes in the country, until something ended it in her fourth year',
       cardBlurb:
         'She is the first adult to reach you when the copy runs out, she asks three questions and checks her watch, and she has been waiting twenty-six years for somebody like you to walk into her hall.',
       pronouns: 'she/her',
@@ -1003,7 +1005,7 @@ const raw = {
       secrets: [
         {
           id: 'adair_the_pier',
-          fact: 'Twenty-six years ago, as a fourth-year, her power (she could stop any moving thing she looked at, for as long as she kept looking) was copied by her classmate Arlo Wren during the Velling pier collapse. He held it for eleven minutes to keep the pier up while sixty-one people got off. It never came back. The faculty believe she retired with an injury.',
+          fact: 'Twenty-six years ago, as a fourth-year, her power (she could stop any moving thing she looked at, for as long as she kept looking) was copied by her classmate Arlo Wren during the Velling pier collapse. He held it for eleven minutes to keep the pier up while sixty-one people got off. It never came back. The faculty believe an injury ended her career before she was ever licensed.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you in the lab, with the clock running, if you have let go at sixty in front of her when you did not have to.',
         },
@@ -1026,7 +1028,7 @@ const raw = {
       appearance:
         'Forty-seven, cropped dark hair with a grey streak, rolled shirtsleeves, a long pale scar down her right forearm, reading glasses pushed up into her hair.',
       visualHook: 'A plain wristwatch worn on the inside of her wrist, which she checks every sixty seconds without seeming to know she is doing it.',
-      silhouette: 'Arms folded, weight back, standing exactly one step further away than anybody else in the room.',
+      silhouette: 'Arms folded, weight back, standing one step further away than anybody else in the room.',
       artSeed: 'ec-adair-01',
       portrait: null,
       expressions: ['neutral', 'stern', 'assessing', 'grave', 'sorry'],
@@ -1072,7 +1074,7 @@ const raw = {
       calledName: 'Rook',
       role: 'Third-year ranked ninth. Head of the Back Row, and the first person to make you an offer',
       cardBlurb:
-        'He has been ninth for two years, he challenges the top of the Board on Thursday, and he wants exactly one thing from you: a handshake with Yuna the second before the bell.',
+        'Ninth for two years and done waiting. On Thursday he challenges the top of the Board, and all he wants from you is one handshake with Yuna, the second before the bell.',
       pronouns: 'he/him',
       publicTraits: ['Polite, always', 'Never throws the first punch', 'Calls everybody by their rank'],
       hiddenDrives: [
@@ -1168,7 +1170,7 @@ const raw = {
       calledName: 'Marsh',
       role: 'Classification officer for the national Registry, with one file in her case. Yours',
       cardBlurb:
-        'She has come up from the city to put a class on your file by Friday at ten, open or restricted. She will tell you exactly what happens next, and she has ticked the second box once before.',
+        'By Friday at ten she ticks one of two boxes on your file, open or restricted. She will tell you plainly what happens after each, and she has ticked the second one once before.',
       pronouns: 'she/her',
       publicTraits: ['Gentle', 'Procedural to the bone', 'Writes down pauses'],
       hiddenDrives: [
@@ -1366,7 +1368,7 @@ const raw = {
           id: 'first_challenge',
           playerCopy: 'Win, or at least survive, your first sanctioned challenge in the Pit.',
           directorNotes:
-            'Pick an opponent who makes the copy interesting: somebody whose power is useless in the wrong hands, or Rook’s lieutenant who can only be beaten by touch. A copy fight is a sixty-second puzzle: get a hand on them, learn the power in ten seconds, use it for fifty. Winning bare-handed is the brawler’s route and the hall respects it more. Losing well is a real route: the player held their nerve, did not cheat, and the hall noticed. Refusing to climb at all, in Adair’s lab, is the player deciding the number is not the point, and Adair respects that most of all.',
+            'Pick an opponent who makes the copy interesting: somebody whose power is useless in the wrong hands, like Moss Keller’s ivy, or Rook’s lieutenant Dita Ferro, whose rubber skin can only be beaten by touch. A copy fight is a sixty-second puzzle: get a hand on them, learn the power in ten seconds, use it for fifty. Winning bare-handed is the brawler’s route and the hall respects it more. Losing well is a real route: the player held their nerve, did not cheat, and the hall noticed. Refusing to climb at all, in Adair’s lab, is the player deciding the number is not the point, and Adair respects that most of all.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1647,7 +1649,7 @@ const raw = {
           id: 'share_it',
           playerCopy: 'Decide what to do with the one thing nobody else on the hill can do for her.',
           directorNotes:
-            'The player is the only person alive who can take half of Yuna’s weight, for sixty seconds at a time. Offering it is intimate, and she has to agree; on the roof at midnight it is the closest thing in this story to a confession. Keeping her secret matters as much as helping. Selling it to Rook before Thursday is the worst thing the player can do to her, and it works.',
+            'The player is the only person alive who can take half of Yuna’s weight, for sixty seconds at a time. Offering it is a big thing to ask, and she has to agree; on the roof at midnight it is the closest thing in this story to a confession. Keeping her secret matters as much as helping. Selling it to Rook before Thursday is the worst thing the player can do to her, and it works.',
           enterWhen: { flagsSet: ['the_weight_is_known'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -2030,6 +2032,19 @@ const raw = {
       movesCharacters: [],
     },
     {
+      id: 'we_lunch_test',
+      atWorldMinute: 13 * 60,
+      locationId: 'the_quad',
+      publicCopy:
+        'A Back Row regular drops onto the fountain step beside you and holds out a bare hand with ivy growing between the knuckles. “Moss. Two-twelve. Go on, copy me. He wants to see your face when you do.” Up on the fountain rim, Rook raises his sandwich at you.',
+      directorNotes:
+        'Rook’s test, sent by proxy and in public. Moss grows ivy out of bare stone: useless in a fight, very funny in the wrong hands. The quad is watching to see what the transfer does with sixty seconds of it. Refusing is noticed too, and Rook likes that almost as much.',
+      setsFlags: ['back_row_tested'],
+      cancelledByFlags: [],
+      requiresFlags: ['first_echo_done'],
+      movesCharacters: [],
+    },
+    {
       id: 'we_rook_at_the_door',
       atWorldMinute: 21 * 60 + 30,
       locationId: 'room_4c',
@@ -2125,7 +2140,7 @@ const raw = {
       atWorldMinute: 3 * 1440 + 16 * 60,
       locationId: 'the_pit',
       publicCopy:
-        'Four o’clock. Every bench in the Pit is full. Yuna Takeda walks onto the sand from one side and Callum Rook from the other, and the referee’s box goes quiet.',
+        'Thursday, four o’clock. Every bench in the Pit is full. Yuna Takeda walks onto the sand from one side and Callum Rook from the other, and the referee’s box goes quiet.',
       directorNotes:
         'The title match. Rook lets her hit first, always. Whether the player is involved, and how, has been decided over the week; play it from there. If nobody interferes, Yuna wins narrowly and something about how she wins worries Adair.',
       setsFlags: ['title_match_over'],
@@ -2328,7 +2343,7 @@ const raw = {
       condition:
         'The player sat the hearing and came out open. Nothing else needs to be resolved: the rank, Rook, Yuna and the Wren file can all still be open questions. Play the ordinary first morning of being allowed to stay, with the Board updating at seven and a slip already in the box with their name on it.',
       epilogue:
-        'Marsh ticks the first box, signs it, and gives the player the carbon. The Board updates at seven the next morning and nobody remarks on it, which on this hill is a kind of welcome. Adair still checks her watch every time the player shakes anybody’s hand. She probably always will.',
+        'Marsh ticks the first box, signs it, and gives the player the carbon. The Board updates at seven the next morning and nobody remarks on it. At Larkspur, that counts as a welcome. Adair still checks her watch every time the player shakes anybody’s hand. She probably always will.',
       hint: '',
     },
     {
@@ -2368,7 +2383,7 @@ const raw = {
       condition:
         'The player got from twelve hundredth to the front row in a week, on borrowed powers or bare hands. Name who they beat and how. The top ten are not friends, but they are a set, and the player is in it now whether the others like it or not.',
       epilogue:
-        'The front row of the Great Hall has ten chairs and the player’s name is on one of them. Agencies start sending letters. Every student ranked below them now offers a handshake with their sleeve pulled down over their fingers, and the player has learned to find that funny.',
+        'The front row of the Great Hall has ten chairs and the player’s name is on one of them. The harbour rescue service sends a letter, and so do four others. Every student ranked below them now offers a handshake with their sleeve pulled down over their fingers, and the player has learned to find that funny.',
       hint: 'Anyone may challenge anyone.',
     },
     {
@@ -2420,7 +2435,7 @@ const raw = {
       condition:
         'The player challenged Yuna in the Pit, cleanly, and the top of the Board is theirs. It has to have been fair or this ending is wrong: no handshake before the bell, no secret sold. Write the fight from both sides, and let Yuna be the first to say so.',
       epilogue:
-        'For the first time in fifteen months the name at the top of the Board is not Yuna Takeda’s. She is second, and the next morning she is waiting at the Pit with a challenge slip already signed. The player has never had a better reason to get up early.',
+        'For the first time in fourteen months the name at the top of the Board is not Yuna Takeda’s. She is second, and the next morning she is waiting at the Pit with a challenge slip already signed. The player has never had a better reason to get up early.',
       hint: 'She has not lost in fourteen months.',
     },
     {
@@ -2482,12 +2497,12 @@ const raw = {
       condition:
         'The player knows Wren is alive, Adair stood up for them at the hearing, and Marsh trusts them enough to offer the drive. This ending is the three of them going to see the only other Echo. Do not resolve whether Adair forgives him. Let her walk into the room.',
       epilogue:
-        'The facility is four hours down the coast and looks like a school with no students. Arlo Wren is fifty, grey, and still smiles at whoever is looking at him. He shakes the player’s hand with his sleeve pulled down, out of habit. Then he looks past them at Adair, and nobody says anything for a long time.',
+        'The facility is four hours down the coast and looks like a campus with nobody on it. Arlo Wren is fifty, grey, and still smiles at whoever is looking at him. He shakes the player’s hand with his sleeve pulled down, out of habit. Then he looks past them at Adair, and nobody says anything for a long time.',
       hint: '',
     },
   ],
   opening:
-    "Your feet leave the floor.\n\nThe student whose hand you just shook does not let go. Ranked first of twelve hundred, the hall told you that with its applause. Now she is staring at you like you picked her pocket.\n\n\"Give it back,\" Yuna says.\n\nChairs scrape behind you. A water jug lifts off the welcome table and turns slowly in the air. Two hundred faces tilt up to follow you.\n\nHer power sits under your ribs, heavy as wet sand, and something in there is counting down.\n\nForty seconds left.\n\nHer grip tightens. \"How are you doing that? Give it back. Now.\"",
+    "Your feet leave the floor.\n\nThe student whose hand you just shook does not let go. First of twelve hundred: the hall told you that with its applause. Now she is staring at you like you picked her pocket.\n\n\"Give it back,\" Yuna says.\n\nChairs scrape behind you. A water jug lifts off the welcome table and turns slowly in the air. Two hundred faces tilt up to follow you.\n\nHer power sits under your ribs, heavy as wet sand, and something in there is counting down.\n\nForty seconds left.\n\nHer grip tightens. \"How are you doing that? Give it back. Now.\"",
   openingPanel: {
     assetKey: 'story_echo_class/opening',
     alt: 'Yuna, jaw-length black hair and steel wrist weights, gripping your hand as you float above a crowded academy hall, a water jug drifting in the air beside you.',
