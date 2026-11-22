@@ -44,7 +44,7 @@ const raw = {
   storyId: 'story_thirty_days_with_the_number_one_hero',
   version: 1,
   title: 'Thirty Days With the Number One Hero',
-  fantasyLabel: 'Fake girlfriend to the city’s top hero.',
+  fantasyLabel: 'You’re his fake date. He said please.',
   hook: 'The city’s number one hero needs a scandal-free girlfriend for thirty days. You were standing in the wrong spot at his press conference.',
   openingObligations: [
     {
@@ -70,7 +70,7 @@ const raw = {
     'He asks before he holds your hand',
     'A villain who never lies to you',
     'A breakup already written',
-    'The mystery is optional',
+    'His boots float when he is nervous',
   ],
   contentDescriptors: ['ROMANCE', 'FANTASY_VIOLENCE'],
   intensity: 'LIGHT',
@@ -92,10 +92,10 @@ const raw = {
       'Vantage Hero Management manages eleven licensed heroes from Vantage Tower, forty floors of glass on the central plaza. Ace Valor is most of its income. His Guardian Contract, which makes him the city’s official hero and pays Vantage for it, comes up for a council vote on the night of the Founders’ Gala at Civic Hall, day thirty.',
       'Ace Valor has been number one for four years. He can fly, and he can lift anything he can get both arms around. When he is nervous, flustered or very happy, his boots drift an inch or two off the ground and he cannot stop it. His legal name is Nathaniel Ward; nobody but Mira and his mother has called him Nate in eight years.',
       'On day one, a gossip streamer called Dex Holloway published photos of Ace on a water tower over the Narrows at three in the morning, talking to Shade, the most wanted villain in the city. The rumour is that they are secretly together, or secretly fixing fights. Neither is true. Vantage hired an actress to be Ace’s girlfriend at the press conference; she never arrived, and Ace grabbed the player’s hand instead.',
-      'The relationship is fake at the start and both of them know it. Mira’s Thirty-Day Agreement asks for three public dates a week, a live joint interview on day fourteen and the gala on day thirty, pays a weekly fee, and ends with a breakup press release already written and dated day thirty-one. Ace asks before he touches the player’s hand, every single time, even on camera.',
+      'The relationship is fake at the start and both of them know it. Mira’s Thirty-Day Agreement asks for three public dates a week, a live joint interview on day fourteen and the gala on day thirty, pays a weekly fee, and ends with a breakup press release already written and dated day thirty-one. Grabbing the player’s hand at the press conference is the only time Ace ever touches them without asking, and he is mortified about it; from then on Ace asks before he touches the player’s hand, every single time, even on camera.',
       'Ace introduced the player on camera as his girlfriend. If the player is not a woman, the press office corrects the word to boyfriend or partner within the hour, and nobody in the story treats it as more than a typo.',
       'Four years ago a nine-storey block on Ferris Street collapsed. The famous footage shows Ace flying forty people out, and there is a bronze statue of him there holding a beam. The truth: an unlicensed man in the basement, Rafe Quinn, made the building’s own shadow solid and held it up for four minutes, holding his breath until he passed out. Vantage cut him from the footage, and Mira Solano signed the report that listed him as a suspected looter, which is why his licence was refused. Ace has known since the next morning.',
-      'Rafe Quinn became Shade. He can make any shadow solid as steel for as long as he holds his breath. He robs the sponsors whose logos are on Ace’s suit, returns most of what he takes, has never hurt a bystander, and never lies to the player. He has a copy of the uncut footage and a way onto every public screen in the city, and at half past nine on gala night he will play it unless Ace has already told the truth. The rooftop meeting was Ace asking him to tell it together; Rafe refused to be rescued by the man who took the credit.',
+      'Rafe Quinn became Shade. He can make any shadow solid as steel for as long as he holds his breath. He robs the sponsors whose logos are on Ace’s suit, returns most of what he takes, has never hurt a bystander, and never lies to the player. He has a copy of the uncut footage and a way onto every public screen in the city, and at half past nine on gala night he will play it unless Ace has already told the truth. The rooftop meeting was Ace asking him to tell it together; Rafe refused to be rescued by the man who took the credit. The envelope in the rooftop photos held a statement Ace had written and signed, naming Rafe as the man who held Ferris Street up; Rafe would not take it.',
       'Jo Quinn, the player’s roommate and best friend since university, is Rafe’s younger sister. She has not seen him in four years and does not know he is Shade. He lives four streets away. The player and Jo share a fourth-floor walk-up over a laundromat in the Narrows, and rent is due on day five.',
       'Silver Kite, the number two hero, saw the black brace under the building at Ferris Street as a rookie and said nothing. Four years later she sent Dex Holloway the anonymous text that put him on the right street at three in the morning, because she wanted the truth out. She did not expect a fake girlfriend.',
       'Ace did not grab the nearest hand by accident. That morning, in a grey hoodie and glasses he does not need, he hid in the tower stairwell before the conference, and the player talked to him for five minutes about the broken vending machine without recognising him. He chose the one person in the building who had treated him like a person.',
@@ -105,11 +105,12 @@ const raw = {
       'Superhero romantic comedy: bright, quick, warm, with a real secret underneath. Every scene has two versions, the one for the cameras and the one after the door closes, and the comedy comes from a press-office intern applying press-office sense to a superhero’s private life. ' +
       'Hand-holding is an event. Romance goes at most as far as a kiss, and the player decides whether it becomes real. Ace floats when he is flustered, happy or about to say something true; use it instead of telling the player what he feels. ' +
       'Nobody is a villain in the moral sense: Mira protects a lie that seemed small when she told it, Shade is angry for a good reason, Dex wants the truth, Kite wants to win fairly. Fights are fast and end in rescues, never in described injuries. ' +
-      'Ferris Street, Shade’s real name and the stairwell are reveals the player earns; never state them early. The face at the top of a beat belongs to whoever reacted to the player most strongly.',
+      'Ferris Street, Shade’s real name and the stairwell are reveals the player earns; never state them early. The face at the top of a beat belongs to whoever reacted to the player most strongly. ' +
+      'Saying no does not end the story. If the player tells the cameras it is fake, refuses the agreement or walks out, the month goes on without the contract: Mira switches to damage control, Dex wants the exclusive, Shade’s card still turns up in the bag, Jo’s rent is still due on the fifth, and Ace still comes to apologise in person.',
     proseStyle: 'webnovel',
     styleExamples: [
       'Ace holds the frying pan like it might go off.\n\n"I can lift a train," he says. "I have lifted a train. Twice."\n\nThe egg slides out of the pan and onto the floor.\n\nHe looks at it. Then at you.\n\nHis socks have left the tiles again. An inch. Maybe two.\n\n"Please don’t put this in a press release."',
-      'There is a man on your fire escape, sitting in the shadow of the water tank like it is a deckchair.\n\n"Evening, Thirty Days," Shade says. "Don’t scream. Your roommate has an early shift."\n\nYou never told anyone that.\n\nThe shadow under him has gone hard and glassy, like it is holding him up.\n\n"Here’s my offer," he says. "One honest answer each. Then I leave by the window."',
+      'There is a man on your fire escape, sitting in the shadow of the water tank like it is a deckchair.\n\n"Evening, Thirty Days," Shade says. "Don’t scream. Your roommate’s on shift and your neighbours are light sleepers."\n\nYou never told anyone that.\n\nThe shadow under him has gone hard and glassy, like it is holding him up.\n\n"Here’s my offer," he says. "One honest answer each. Then I leave by the window."',
       'Jo is at the kitchen table at two in the morning, still in her paramedic uniform, eating cereal out of the box.\n\nShe points the box at the television. Your face. His hand.\n\n"Okay," she says. "Triage. Is anybody bleeding?"\n\n"No."\n\n"Then sit down. You have until this box is empty."',
     ],
     forkCostCredits: 120,
@@ -257,7 +258,7 @@ const raw = {
       tags: ['quest', 'document'],
       questItem: true,
       description: 'Nine pages and three appendices from Vantage: thirty days, three public dates a week, one live interview on day fourteen, the gala on day thirty, a weekly fee that is more than your rent, and a clause nine that says no kissing unless it is on the schedule.',
-      loreText: 'Appendix B is a list of approved topics for the interview. Appendix C is the breakup press release. Your name is a blank on every page, filled in by hand, in Mira’s writing, already.',
+      loreText: 'Appendix B is a list of approved topics for the interview. Appendix C is the breakup press release. Your name is already filled in on every page, by hand, in Mira’s writing. Only Appendix C still has a blank.',
       icon: 'papers',
     },
     {
@@ -886,7 +887,7 @@ const raw = {
       socialStyle:
         'On camera he is smooth and golden and says exactly what the agency wrote. Off camera he apologises first, asks permission for everything, and gets flustered so easily that his feet leave the floor.',
       boundaries: [
-        'Will never touch the player without asking first, even on camera, even when it would be easier',
+        'After the grab on the press stage, which he apologises for the first moment they are alone, will never touch the player without asking first, even on camera, even when it would be easier',
         'Will not lie about Ferris Street to the player directly; he goes quiet and leaves the room instead',
         'Will not hit a reporter, a fan or anybody without powers, whatever they say to him',
       ],
@@ -1018,7 +1019,7 @@ const raw = {
         'Theatrical and wry. Narrates himself in stage directions, offers deals with prices, calls the player "Thirty Days". Says exactly what he means about everything except his sister, and goes very quiet when anybody mentions basements.',
       topics: ['Ferris Street', 'Ace Valor', 'his sister', 'the sponsors', 'the footage', 'the gala'],
       voiceSamples: [
-        'Enter the villain, stage left. Don’t scream, Thirty Days. Your roommate starts an early shift.',
+        'Enter the villain, stage left. Don’t scream, Thirty Days. Your roommate’s on shift and your neighbours are light sleepers.',
         'Here’s my offer. One honest answer from you, one from me, and I leave by the window.',
         'I don’t lie to you. When there’s something I won’t say, I’ll say that I won’t. Fair?',
         'Ask your boyfriend who was in the basement. Then watch his boots while he answers.',
@@ -1065,7 +1066,7 @@ const raw = {
       name: 'Jo Quinn',
       role: 'Your roommate and best friend since university, a night-shift paramedic who is behind on rent',
       cardBlurb:
-        'She has shared a tiny flat over a laundromat with you for two years, she patches up what hero fights leave behind, and she thinks heroes are a marketing department that can fly. She is also behind on rent, and somebody just offered her money for photos of your room.',
+        'She has shared a tiny flat over a laundromat with you for two years, she patches up what hero fights leave behind, and she thinks heroes are a marketing department that can fly. She is also behind on rent, and lately she keeps her phone face down.',
       pronouns: 'she/her',
       publicTraits: ['Blunt', 'Unshockable', 'Feeds people when she is worried'],
       hiddenDrives: [
@@ -1105,7 +1106,7 @@ const raw = {
       topics: ['rent', 'night shifts', 'heroes', 'her brother', 'the laundromat', 'your love life'],
       voiceSamples: [
         'Okay. Triage. Is anybody bleeding? No? Then sit down and explain why you’re on every screen in town.',
-        'I scrape people off pavements after your flying billboard has a scuffle. Forgive me if I don’t swoon.',
+        'I spend my nights patching up whoever your flying billboard lands on. Forgive me if I don’t swoon.',
         'Rent’s on the fifth. I’m not panicking. This is my calm face. Eat something.',
         'I had a brother. Have. Had. I don’t know which, and I don’t do this conversation before coffee.',
       ],
@@ -1236,7 +1237,7 @@ const raw = {
       calledName: 'Kite',
       role: 'The number two hero, Ace’s oldest friend in the business, and the other half of the couple the tabloids invented',
       cardBlurb:
-        'The tabloids have wanted her and Ace together for years, and she has wanted the number one spot for longer. She lands on your balcony to size you up, and she knows something about that rooftop she is not telling you.',
+        'The tabloids have wanted her and Ace together for years, and she has wanted the number one spot for longer. She lands on the nearest railing to size you up, and she knows something about that rooftop she is not telling you.',
       pronouns: 'she/her',
       publicTraits: ['Competitive', 'Blunt', 'Loyal in a way that looks like rivalry'],
       hiddenDrives: [
@@ -2386,7 +2387,7 @@ const raw = {
       name: 'You Shoot the Photos',
       role: 'Photography and social media',
       summary: 'You run the agency’s social accounts and carry a camera, so you always know where the lenses are and what a picture will say before anybody takes it.',
-      playstyle: ['Observant', 'Online', 'Quick on her feet'],
+      playstyle: ['Observant', 'Online', 'Quick on their feet'],
       blurb: 'You have photographed a hundred rescues from behind the tape. Nobody has ever photographed you, until about four seconds ago.',
       attributeBonus: { mind: 2, agility: 2 },
       skillProficiencies: { framing: 3, attention: 2 },
@@ -2594,7 +2595,7 @@ const raw = {
       minTurn: 32,
       requires: { flagsSet: ['you_played_it'] },
       condition:
-        'The player played the footage themselves, at the gala, in front of everybody. They are the story now, not the girlfriend. Write the consequences honestly: Mira, the agency, Ace’s face in the front row, and the career that starts the next morning.',
+        'The player played the footage themselves, at the gala, in front of everybody. They are the story now, not the plus-one. Write the consequences honestly: Mira, the agency, Ace’s face in the front row, and the career that starts the next morning.',
       epilogue:
         'The player is fired by midnight and has four job offers by breakfast. Dex asks for a co-byline and does not get it. Ace calls at noon and says one word, "thank you", and then, after a long time, "dinner?"',
       hint: '',
@@ -2643,8 +2644,8 @@ const raw = {
   },
   openingSuggestions: [
     '"Long enough to know he cries at dog adoption videos."',
-    'I squeeze his hand back, smile for every camera, and walk him off the stage before anyone asks a second question.',
-    'I let go of his hand and lean into the nearest microphone.',
+    'I squeeze his hand, smile for every camera, and walk him off the stage.',
+    'I let go of his hand, lean into the nearest microphone and say, "We met about thirty seconds ago."',
   ],
   coverDirection: [
     'SUBJECT: Ace Valor, the number one superhero of a glittering city, large in the foreground of a key visual for a superhero romantic comedy anime.',

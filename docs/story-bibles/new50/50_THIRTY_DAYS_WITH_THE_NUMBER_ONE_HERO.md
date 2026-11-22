@@ -6,6 +6,7 @@
 a romance that hands you a relationship on turn one, rather than a courtship, is the shape that converts.
 **Hook:** The city's number one hero needs a scandal-free girlfriend for thirty days. You were standing in the wrong
 spot at his press conference.
+**Discover line (`fantasyLabel`, max 42 characters):** You're his fake date. He said please.
 **Fixture:** `packages/test-fixtures/src/thirty-days-with-the-number-one-hero.ts`
 (`THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO`, `story_thirty_days_with_the_number_one_hero`).
 **Spec:** `thirty-days-with-the-number-one-hero.spec.ts`.
@@ -47,8 +48,9 @@ one, the player did not choose it, and the whole game is deciding what to do wit
 marriage does not have: an audience. Every scene has two versions, the one for the cameras and the one after the
 door closes, and the player is the only person who sees both sides of the number one hero.
 
-The romance is slow on purpose. Ace asks before he touches the player's hand, every single time, even on camera. His
-feet leave the ground by an inch when he is flustered and he cannot stop it. That tell is the romance meter the
+The romance is slow on purpose. Grabbing the player's hand at the press conference is the only time Ace ever touches
+them without asking, and he is mortified about it; from then on he asks before he touches the player's hand, every
+single time, even on camera. His feet leave the ground by an inch when he is flustered and he cannot stop it. That tell is the romance meter the
 player can actually see, and it never needs a number.
 
 The love triangle is honest. Shade, the villain who noticed you, flirts like a stage villain and never lies to you.
@@ -90,7 +92,8 @@ narrator's clock reads "Day N" for two weeks and then "Week N", so every world e
   never hurt a bystander.
 - The rooftop meeting: Ace went to ask Rafe to tell the truth together. Rafe refused to be rescued by the man who
   took the credit, and gave him a deadline: on gala night at half past nine he will play the uncut footage on every
-  public screen in the city, unless Ace has said it first.
+  public screen in the city, unless Ace has said it first. The envelope in the rooftop photos held a statement Ace had
+  written and signed, naming Rafe as the man who held Ferris Street up; Rafe would not take it.
 - **Silver Kite** saw the brace at Ferris Street as a rookie and said nothing. Four years later she sent Dex Holloway
   the anonymous text that put him on the right street at three in the morning, because she wanted the truth out. She
   did not expect a fake girlfriend.
@@ -147,8 +150,8 @@ city". Ace's tell (his boots leave the floor) is planted in the first beat.
 **Opening suggestions** (said / done / risky):
 
 1. Said: `"Long enough to know he cries at dog adoption videos."`
-2. Done: `I squeeze his hand back, smile for every camera, and walk him off the stage before anyone asks a second question.`
-3. Risky: `I let go of his hand and lean into the nearest microphone.`
+2. Done: `I squeeze his hand, smile for every camera, and walk him off the stage.`
+3. Risky: `I let go of his hand, lean into the nearest microphone and say, "We met about thirty seconds ago."`
 
 ## Tone and pacing
 
@@ -160,6 +163,10 @@ city". Ace's tell (his boots leave the floor) is planted in the first beat.
 - Nobody is a villain in the moral sense. Mira protects a lie that seemed small when she told it; Shade is angry for a
   good reason; Dex wants the truth; Kite wants to win fairly.
 - Present tense, second person, webnovel cadence.
+- Saying no does not end the story. If the player tells the cameras it is fake, refuses the agreement or walks out,
+  the month goes on without the contract: Mira switches to damage control, Dex wants the exclusive, Shade's card still
+  turns up in the bag, Jo's rent is still due on the fifth, and Ace still comes to apologise in person. (This line is
+  in `toneGuide`, because the production storyteller never reads quest-step `directorNotes`.)
 
 ## Player starting authority
 
@@ -170,7 +177,8 @@ walk out is theirs every turn.
 ### Minimal hard canon
 
 - The relationship is fake at the start and both of them know it.
-- Ace asks before he touches the player, every time.
+- Grabbing the player's hand on the press stage is the only time Ace touches them without asking, and he is
+  mortified about it; from then on he asks before he touches the player, every time.
 - Shade never lies to the player. He withholds, and says so.
 - If the player is not a woman, the press office corrects "girlfriend" to boyfriend or partner within the hour, and
   nobody treats it as more than a typo.
@@ -191,7 +199,8 @@ Every one of them wants something that has nothing to do with the player.
 - **Long-term want:** One person in the city who calls him by his real name and means the man, not the poster.
 - **Fear:** That without the number he is nobody anyone would grab by the hand. Basements, since Ferris Street.
 - **Secrets:** Ferris Street; the stairwell; his name is Nate and nobody has used it in eight years.
-- **Boundaries:** Never touches the player without asking. Will not lie about Ferris Street to the player; he leaves
+- **Boundaries:** After the grab on the press stage, which he apologises for the first moment they are alone, never
+  touches the player without asking. Will not lie about Ferris Street to the player; he leaves
   the room instead. Will not hit anyone without powers.
 - **Voice:** Two voices. On camera: smooth, short heroic lines the agency wrote ("Nobody falls today."). Off camera:
   halting, over-polite, asks permission for small things, says please and sorry more than anyone in the city.

@@ -445,7 +445,7 @@ describe('the three checks every new story runs', () => {
   });
 
   it('addresses the player in every card blurb', () => {
-    for (const c of S.characters) expect(c.cardBlurb, c.id).toMatch(/\byour?\b/i);
+    for (const c of S.characters) expect(c.cardBlurb, c.id).toMatch(/\byou\b/i);
   });
 
   it('gives every place a way in', () => {
