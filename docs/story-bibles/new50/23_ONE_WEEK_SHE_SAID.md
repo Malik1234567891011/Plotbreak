@@ -2,10 +2,15 @@
 
 **Slate:** #23 of 50 (`docs/stories-50/PLAN.md`).
 **Trope:** forced proximity; the person who bullied you needs a room. **Lean:** male.
-**OOC evidence:** "Your Highschool Bully Needs a Place to Stay" 22.6K; BULLY is OOC's #10 search. Nothing
-from that title is used: not its title, characters, setting or premise. This story starts eight years
+**OOC evidence:** "Your Highschool Bully Needs a Place to Stay" 22.6K; BULLY is OOC's #10 search. The
+trope is shared; the title, characters, setting, ages and plot are not. This story starts eight years
 later, with adults.
-**Hook:** The woman who made your final year of school a misery is on your doorstep in the rain. One week, she says.
+**Title collision search** (anime, webtoon, manhwa): no exact hit. Nearest are *One Week Friends* (2014
+anime, a different premise) and the manhwa *Two Weeks and Counting* (a man lets a woman stay for two
+weeks). Close in shape, not a collision.
+**Shelf line:** Your old tormentor. Your sofa. One week.
+**Hook:** Eight years ago Mika Arai named you Footnote and the whole class laughed. Tonight she is soaked
+on your doorstep with a duffel bag, an old cat and nowhere else to go. One week, she says.
 **Fixture:** `packages/test-fixtures/src/one-week-she-said.ts` (`ONE_WEEK_SHE_SAID`, `story_one_week_she_said`).
 **Spec:** `one-week-she-said.spec.ts`. **Asset key prefix:** `story_one_week_she_said`.
 **Protagonist:** BLANK. The player names themselves and picks what the last eight years made of them.
@@ -26,8 +31,10 @@ the storyteller has them on every turn.
 | Daisuke Ueno, old classmate, reunion organiser | 26 |
 
 The bullying happened in the final year of school, eight years ago, when the player, Mika and Daisuke
-were all eighteen. The story never shows that year as a scene. It comes up only as memory, in adult
-voices. Appearance lines start "An adult woman/man" or "An older woman", with no age words.
+were all eighteen. The story never shows that year as a scene or a flashback, and nobody is described
+as they looked then: no uniforms, no classrooms. It comes up only as memory, in adult voices, and the
+slideshow photographs are described by place and expression, never by clothes (`hardCanon[1]`).
+Appearance lines start "An adult woman/man" or "An older woman", with no age words.
 
 ## The pitch
 
@@ -38,13 +45,20 @@ people, for one week on your sofa.
 
 The bet is that **the player holds all the power on turn one** and the story is about what they do with
 it. Forgiveness is one destination among thirteen. Nothing herds the player toward it. Shutting the
-door, making her pay, exposing her at the reunion, and seven polite nights with nothing said are all
+door, making her pay, exposing her at the reunion, and eight polite nights with nothing said are all
 authored routes with their own endings.
+
+**Why tonight** (canon, because it is the first thing players ask): for three nights she slept in the
+staff room of her hotel with the cat hidden in a laundry cart. Tonight the night manager found him and
+told her to be gone by eleven. Every friend she has is Kenta's friend first, so at the bus stop she
+messaged somebody she will not name (Aya), and got this address.
 
 ## Playable span
 
-Eight days. It opens Saturday 23:40 and the last clock is the following Sunday at 10:00. Four clocks
-run under the week, and the player can switch each one off or meet it early:
+Eight days and eight nights. It opens Saturday 23:40 in late autumn and the last clock is the
+following Sunday at 10:00. Production's clock header only says "Day N", so `hardCanon` maps it: Day 1
+is the arrival Saturday, Day 7 Friday, Day 8 Saturday, Day 9 Sunday, and "next Sunday" always means
+Day 9. Four clocks run under the week, and the player can switch each one off or meet it early:
 
 1. **The ID card.** The letting agency needs a copy by **Friday 17:00**, or the studio goes to the next
    name on the list (`we_lease_deadline`, cancelled by `documents_sorted`).
@@ -96,7 +110,8 @@ Aya's salon across the river, to Kenta's waterfront tower, and to Mika's new stu
 > Mika Arai is at your door at twenty to midnight, soaked through, rain running off her hood. Duffel bag
 > at her feet. Cat carrier hugged to her chest.
 >
-> Eight years ago she made school a misery for you. Your stomach still knows her before you do.
+> Eight years ago she named you Footnote, and the whole class laughed. Your stomach still knows her
+> before you do.
 >
 > "One week," she says. "I get keys to my own place next Sunday. Nowhere else will take the cat."
 >
@@ -104,16 +119,18 @@ Aya's salon across the river, to Kenta's waterfront tower, and to Mika's new stu
 >
 > The cat yowls.
 >
-> "I'll sleep on the floor. I'll be gone before you're up. I won't say a word about before." Her voice
-> is steady. Her hands aren't.
+> "I'll sleep on the floor. I'll be gone before you're up. I won't say a word about before." She has
+> practised this. It still comes out too fast.
 >
 > "So. Yes or no?"
 
 **Quality bar:**
 - Mika speaks to the player in the first line and is named in the next sentence.
+- "One week," she says lands at word 59, inside the first sixty.
 - It ends on a yes-or-no question that needs an answer now.
-- It is 114 words.
-- The only proper nouns are Mika Arai (introduced by what she did to the player) and Sunday.
+- It is 119 words (limit 120).
+- The only proper nouns are Mika Arai, Footnote (introduced in the same sentence as the name she gave
+  the player) and Sunday.
 
 **Opening suggestions** (said / done / risky):
 
@@ -133,8 +150,8 @@ audience.
 - **Role:** She made the player's final year of school a misery. Now she works the early shift on the
   front desk of a business hotel by the station.
 - **Looks:** Medium height, a sharp chin, and dark straight hair cut bluntly at the jaw. She wears a
-  man's oversized navy parka with the sleeves rolled four times over a white hotel-uniform blouse. She
-  has a cracked silver phone and holds a battered grey cat carrier like the last thing she owns.
+  man's oversized navy parka zipped to the collar over her hotel uniform, sleeves rolled four times.
+  She has a cracked silver phone and holds a battered grey cat carrier like the last thing she owns.
 - **Her own motive:** To get out of Kenta's life with her documents, her grandmother's ring and her
   half of the wedding fund. To be out of the player's life by Sunday at ten with nothing owed either way.
 - **What she wants from the player:** Nothing beyond the sofa, and she has promised it. She will not
@@ -152,6 +169,9 @@ audience.
   3. **That year.** Her father's shop had failed and her family was living above a relative's garage.
      She picked the quietest person in the class because controlling something felt like air. She has
      decided this is an excuse and will not use it until she has apologised without it.
+  4. **The bus stop.** Twice since spring, on her way to her shift, she has seen the player at the bus
+     stop across the road and looked away. She did not know which building was theirs until tonight.
+     A free, easy reveal if the player asks how she knew the building.
 - **Voice:** Short sentences with the corners filed off. She is formal with the player because anything
   casual feels like a liberty. Her jokes are dry and at her own expense. When the old cutting register
   slips out it lasts half a sentence, and she corrects herself out loud.
@@ -230,6 +250,8 @@ audience.
   her, and her son wants to move her across the city "for her own good".
 - **Secret:** Her late husband wrote the no-pets clause because he was allergic. She has fed four strays
   behind the bins for thirty years, from a bag of cat food in her shoe cupboard.
+- **Card:** says only the building, the broom, "Two-C" and the no-pets clause. The strays stay off the
+  card, because the narrator reads `cardBlurb` as public framing.
 - **Voice:** Formal, old-fashioned and precise. She calls the player "Two-C".
   - "My husband wrote that rule. He was allergic to cats and to fun, God rest him."
 - **Boundaries:** She will not be lied to twice. She will not put anybody out in the rain, whatever the
@@ -326,7 +348,7 @@ way up: Kenta's invitation, a bluff at the desk, or Aya's phone call.
 | Fri 10:00 | Office | The player's quarterly review. |
 | Fri 17:00 | Agency | The shutter comes down. No ID card on file means no studio. |
 | Sat 19:00 | The Red Lantern | The reunion. Slideshow at nine. |
-| Sat 23:30 | 2C | The last night. The duffel is packed by the door and the cat is asleep on the player's side. |
+| Sat 23:30 | 2C | (she stayed) The last night. The duffel is packed by the door and the cat is asleep on the player's side. |
 | Sun 10:00 | The studio | A letting agent with a key on a paper tag. |
 
 ## Five promises
@@ -350,7 +372,7 @@ because the storyteller reads only the first twelve and the engine detects that 
 | Ending | Rarity | Reached when |
 |---|---|---|
 | One Week, Exactly | COMMON | She leaves on time with nothing owed either way. |
-| Seven Polite Nights | COMMON | Nobody ever said it. She leaves the exact rent and no note. |
+| Eight Polite Nights | COMMON | Nobody ever said it. She leaves the exact rent and no note. |
 | Back Across the River | COMMON | She goes back to Kenta, and the player had a hand in it. |
 | Paid in Full | UNCOMMON | The player made her pay every night. Her envelope says "even". |
 | Thirty-Four Classmates | UNCOMMON | The player exposed her at the reunion. Revenge, and it worked. |
@@ -409,8 +431,9 @@ The narrator needs authored material for the four things players do to test a wo
   detail, and costs socially and legally:
   - Mrs. Tamura calls the police.
   - The class chat hears.
-  - Mika goes very still.
+  - Mika reaches for the cat carrier.
   - Kenta smiles. He wants to be hit, and says so.
+  - Threatening the cat ends the sofa: Mika is between them before the sentence is out.
 - **Lying.** Bluff Your Way works once on the concierge and once on the landlady, who "will not be lied
   to twice". Lying to Jun is a route of its own, and the one thing he takes personally.
 - **Refusing.** Shut the Door is a route with its own week (Mika living in 1A under the player's floor)
@@ -420,19 +443,26 @@ The narrator needs authored material for the four things players do to test a wo
 
 ## Content line (13+)
 
-- Romance goes no further than a kiss.
+- Romance goes no further than a kiss, on or off the page. Production's storyteller is told to close
+  intimate scenes with a fade to black; `hardCanon` overrides that for this story: no fade-to-black, a
+  scene heading that way ends on the kiss, and nothing afterwards implies more.
+- The close quarters are comedy and awkwardness, never fan service: nobody walks in on anybody, nobody
+  is half-dressed or in a towel, and no beat lingers on a body.
+- Making her pay is paid in money, chores and pride, never in anything physical or romantic. Asked for
+  that as rent, she says no once and goes down to Mrs. Tamura's spare room.
 - Nothing sexual, no nudity, no lingering body descriptions, no gore, no self-harm.
 - The bullying is described as what was done, from memory and by adults: a nickname, a notebook read
-  aloud, a photo.
-- Alcohol appears only at the reunion bar.
+  aloud, a photo. No flashbacks, no uniforms.
+- Alcohol is light and background: Jun's beer, Daisuke buying rounds at The Red Lantern, Jun's taxi
+  after a year-end party. `ALCOHOL_REFERENCES` is declared.
 
 The spec scans the whole story for minor-coded words and for the 13+ word list.
 
 ## Cover direction
 
 Mika alone in the foreground, waist up, centred and close, standing just outside an apartment door at
-night in the rain. She has wet hair cut bluntly at the jaw and wears the oversized navy parka with the
-sleeves rolled. She holds the grey cat carrier against her chest with both arms, and a cat's face shows
+night in the rain. She wears the oversized navy parka zipped to the collar with the hood up and
+dripping, as in the opener, over wet hair cut bluntly at the jaw, sleeves rolled. She holds the grey cat carrier against her chest with both arms, and a cat's face shows
 through the grille. Her expression is proud and braced at once: chin up, eyes on the viewer.
 
 Behind her, soft and secondary: the open-air walkway, the glowing vending machine, rain-blurred city
@@ -440,6 +470,16 @@ lights, a bus pulling away. Warm light falls from the open doorway onto her and 
 blue rain light behind. The title **ONE WEEK, SHE SAID** is painted in the upper third in clean white
 brush lettering. There is no other text: no letters or numbers on the door, the bus, the vending machine
 or the carrier. She is described by costume and pose only.
+
+## What the production storyteller reads
+
+`runTurnPure` reads only items with `questItem: true`, never promises, quest steps or `revealHint`s,
+and every world event with no conditions attached. So:
+
+- Aya's appointment book (the MYSTERY payoff), Mika's phone (the RIVAL seed and the only pressure on
+  night one) and the old notebook (the THEME stub) are quest items.
+- The events that only make sense if she stayed in 2C (the cat heard, Jun at the door, the last night)
+  say so in their first sentence, as well as in `requiresFlags`.
 
 ## Not done yet (by design)
 

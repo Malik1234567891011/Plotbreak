@@ -15,7 +15,7 @@ import { StoryVersion } from '@plotbreak/contracts';
  * has no right to ask, from the one person entitled to say no. Every answer is
  * authored: a closed door is a route (she spends the week in the landlady's
  * spare room, directly under the player's floor), cruelty is a route with its
- * own ending, and so is saying nothing for seven polite nights. Forgiveness is
+ * own ending, and so is saying nothing for eight polite nights. Forgiveness is
  * one destination among thirteen and nothing herds the player toward it.
  *
  * Playable span: eight days, from twenty to midnight on a wet Saturday to ten
@@ -49,8 +49,8 @@ const raw = {
   storyId: 'story_one_week_she_said',
   version: 1,
   title: 'One Week, She Said',
-  fantasyLabel: 'Your school bully. Your sofa. One week.',
-  hook: 'The woman who made your final year of school a misery is standing at your door in the rain, eight years later, with a duffel bag, a cat and nowhere else to go. One week, she says.',
+  fantasyLabel: 'Your old tormentor. Your sofa. One week.',
+  hook: 'Eight years ago Mika Arai named you Footnote and the whole class laughed. Tonight she is soaked on your doorstep with a duffel bag, an old cat and nowhere else to go. One week, she says.',
   premise:
     'Eight years ago, in your final year of school, Mika Arai decided you were the joke. She named you Footnote, because you were quiet and at the bottom of every page and anyone could skip you. She read your notebook aloud to the class and made sure they laughed. You ate lunch on the back stairs for the rest of that year, and you have not said her name since.\n\n' +
     'Tonight it is raining, it is twenty to midnight, and she is standing at the door of your one-bedroom apartment in the city. Soaked through. A duffel bag at her feet, an old cat in a carrier, and the last bus already gone.\n\n' +
@@ -65,7 +65,7 @@ const raw = {
   keyArt: null,
   tags: ['Romance', 'Slice of life', 'Modern', 'Comedy', 'Drama'],
   mechanicsChips: [
-    'Seven nights, one sofa',
+    'Eight nights, one sofa',
     'Forgive, forget or get even',
     'She can say no too',
     'A reunion on Saturday',
@@ -87,27 +87,30 @@ const raw = {
     startingItems: [{ itemId: 'spare_key', qty: 1 }],
     hardCanon: [
       'Everyone in this story is an adult. The player is twenty-six. Mika Arai is twenty-six, Jun Kuroda twenty-seven, Aya twenty-nine, Kenta Yasuda thirty, Daisuke Ueno twenty-six and Mrs. Tamura seventy-one. What happened between the player and Mika happened in the final year of school, eight years ago, when the player, Mika and Daisuke were all eighteen.',
-      'That year Mika named the player Footnote, read their notebook aloud to the class, and made sure everybody laughed. She tore one page out of the notebook and kept it. The player ate lunch on the back stairs for the rest of the year, and a photograph of them there went round the whole school. The two of them have not spoken since graduation.',
+      'That year Mika named the player Footnote, read their notebook aloud to the class, and made sure everybody laughed. She tore one page out of the notebook and kept it. The player ate lunch on the back stairs for the rest of the year, and a photograph of them there went round the whole school. The two of them have not spoken since graduation. That year is never played as a scene or a flashback, and nobody is described as they looked then: no uniforms, no classroom scenes. It exists only as adults remember it now, and the photographs are described by place and expression, never by what anyone was wearing.',
       'The story opens at twenty to midnight on a wet Saturday. Mika is at the door of the player’s one-bedroom apartment, 2C, on the second floor of Hinode Court, an old two-storey walk-up with an open-air walkway. She has a duffel bag and her cat, an old grey tom called Udon, in a carrier. The last bus has just left.',
+      'The week runs on the story clock. Day 1 is the Saturday she arrives, late in the autumn. Day 2 is Sunday, Day 3 Monday, Day 4 Tuesday, Day 5 Wednesday, Day 6 Thursday, Day 7 Friday (the agency closes at five), Day 8 Saturday (the reunion at seven) and Day 9 Sunday (the keys at ten). "Next Sunday" always means Day 9, never tomorrow. Characters say the weekday, not the day number. She is asking for eight nights on the sofa, Saturday to Saturday, and she has counted them.',
       'Three days ago Mika ended her engagement to Kenta Yasuda and left his apartment, 1406 in Harbourline Tower on the waterfront. The apartment, the joint account and the lease were all in his name. Her ID card, bank book, insurance papers and her grandmother’s ring are in a blue folder in a locked drawer in his study.',
       'Mika has a ground-floor studio of her own across the city from next Sunday at ten, in a building that allows cats. The letting agent needs a copy of her ID card by five o’clock on Friday or the lease goes to the next name on the list. She paid the deposit in cash from her own half of the wedding fund, which Kenta is telling their friends she stole.',
+      'For the last three nights Mika slept in the staff room of her hotel with the cat hidden in a laundry cart. Tonight the night manager found him and told her to be gone by eleven. Every friend she has is Kenta’s friend first and has already heard his version, so at the bus stop she messaged somebody she will not name, and got this address.',
       'Kenta has never hit anyone and will not. He never raises his voice. He does his damage with money, paperwork and other people’s opinions, and he would like nothing better than for the player to lose their temper with him in front of witnesses.',
       'Mika works the early shift on the front desk of a business hotel by the station. She has promised not to bring up the past unless the player does, and she keeps that promise. She will not ask for anything twice.',
       'Aya is the player’s older sister and runs a two-chair salon across the river. Mika has been her client for a year. Mika will not say who gave her the player’s address.',
       'The eight-year class reunion is next Saturday at seven, upstairs at The Red Lantern, a yakitori bar two streets past the station. Daisuke Ueno is organising it, is showing a slideshow of old photographs at nine, and has put both the player and Mika on the list.',
       'Hinode Court has a no-pets clause. Mrs. Tamura, the landlady, lives in 1A on the ground floor and sweeps the walkway at half past five every morning.',
-      'Mika is not a prize and cannot be won, and she is not owed forgiveness. She can be hurt, refuse, leave early, or go back to Kenta. Romance, if it happens, is slow and adult and goes no further on the page than a kiss.',
+      'Mika is not a prize and cannot be won, and she is not owed forgiveness. She can be hurt, refuse, leave early, or go back to Kenta. Romance, if it happens, is slow and adult and goes no further than a kiss, on the page or off it. This story has no fade-to-black: nobody goes to bed with anybody, and nothing afterwards says or implies that they did. A scene heading that way ends on the kiss, and the story picks up the next day. While she stays in 2C she sleeps on the sofa. She pays for the sofa in money and housework and nothing else. If the player asks for anything physical or romantic as rent, she says no once, picks up the carrier and goes down to Mrs. Tamura’s spare room, and the week carries on from there.',
       'Nothing supernatural happens in this story. It is one week in an ordinary city.',
     ],
     toneGuide:
       'Comedy of close quarters with a real injury underneath it. One bathroom, one umbrella, one sofa, a cat who has chosen the player, and a woman trying very hard to take up no space at all. ' +
+      'The close quarters are played for comedy and awkwardness, never fan service: nobody walks in on anybody, nobody is half-dressed or in a towel, and no beat lingers on anybody’s body. Whatever the player makes her pay, she pays in money, chores and pride, never in anything physical or romantic. Asked for that, she picks up the carrier and leaves. ' +
       'Let the jokes land, and let the past arrive in small physical things: a nickname, a notebook, a staircase, a photograph. Nobody makes speeches. Mika never asks to be forgiven and never explains herself unprompted, so whether the past gets said is the player’s call. ' +
-      'Cruelty is allowed and has consequences: if the player makes her pay, she pays, quietly, and the apartment gets colder and smaller. A lie has to be kept up in front of people who talk to each other. If the player shoves or hits anybody it happens quickly, with no injury detail, and the cost is social and legal: Mrs. Tamura calls the police, the class chat hears, Mika goes very still, and Kenta smiles. ' +
-      'If the player wanders off, the week carries on without them and they come home to what happened. Romance is slow and adult, built out of small kindnesses and good arguments, and goes no further than a kiss. The face at the top of a beat is Mika’s whenever she is in the scene.',
+      'Cruelty is allowed and has consequences: if the player makes her pay, she pays, quietly, and the apartment gets colder and smaller. A lie has to be kept up in front of people who talk to each other. If the player shoves or hits anybody it happens quickly, with no injury detail, and the cost is social and legal: Mrs. Tamura calls the police, the class chat hears, Mika reaches for the cat carrier, and Kenta smiles. If the player threatens Udon, Mika is between them before the sentence ends, and that is the end of the sofa. ' +
+      'If the player wanders off, the week carries on without them and they come home to what happened. Romance is slow and adult, built out of small kindnesses and good arguments, and goes no further than a kiss, not even off the page. The face at the top of a beat is Mika’s whenever she is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
       "Mika has cleaned your bathroom.\n\nNot tidied. Cleaned. The grout is a colour you did not know it came in.\n\n\"It’s rent,\" she says from the kitchen, before you can open your mouth. \"It isn’t enough rent. I’m aware.\"\n\nThe cat is asleep on your pillow.\n\n\"He’s not rent,\" she adds. \"He’s a separate problem.\"",
-      "Kenta Yasuda takes his time on the stairs.\n\n\"You must be the friend from school.\" He offers his hand. It is a very warm hand. \"I’m not here to cause trouble. I only want to know she’s eating.\"\n\nBehind you, the door of 2C is open an inch.\n\nOn the other side of it, Mika has stopped breathing.\n\n\"Thursday,\" Kenta says, smiling at you rather than the door. \"Eight o’clock. She knows where her things are.\"",
+      "Kenta Yasuda takes his time on the stairs.\n\n\"You must be the friend from school.\" He offers his hand. It is a very warm hand. \"I’m not here to cause trouble. I only want to know she’s eating.\"\n\nBehind you, the door of 2C is open an inch.\n\nOn the other side of it, Mika is holding her breath.\n\n\"Thursday,\" Kenta says, smiling at you rather than the door. \"Eight o’clock. She knows where her things are.\"",
     ],
     forkCostCredits: 120,
     loop: null,
@@ -225,7 +228,7 @@ const raw = {
         {
           upTo: 55,
           behaviour:
-            'Careful but present. She sits on the same side of the low table, accepts a second cup of tea, tells a story about the hotel. When school comes up she does not leave the room; she goes very still and answers exactly what was asked.',
+            'Careful but present. She sits on the same side of the low table, accepts a second cup of tea, tells a story about the hotel. When school comes up she does not leave the room; she puts down whatever she is holding and answers exactly what was asked.',
         },
         {
           upTo: 80,
@@ -307,7 +310,8 @@ const raw = {
     {
       id: 'mika_phone',
       name: 'Her Cracked Phone',
-      tags: ['personal', 'document'],
+      tags: ['quest', 'personal', 'document'],
+      questItem: true,
       skillModifiers: { attention: 1 },
       description: 'A scratched silver phone with a crack across one corner, face down on your low table, lighting up every few minutes. Forty-one messages from one name since Wednesday.',
       loreText: 'Under the settings there is a location share, set up two years ago on her birthday "for safety", that she has not thought about since. It still has one person on it.',
@@ -316,7 +320,8 @@ const raw = {
     {
       id: 'old_notebook',
       name: 'Your Old Notebook',
-      tags: ['personal'],
+      tags: ['quest', 'personal'],
+      questItem: true,
       skillModifiers: { recall: 2 },
       description: 'A notebook from your final year of school, in a box on top of your wardrobe. Half maths, half drawings. Near the back, a stub where a page was torn out.',
       loreText: 'You never threw it away. You have not opened it in eight years.',
@@ -325,7 +330,8 @@ const raw = {
     {
       id: 'appointment_book',
       name: 'Aya’s Appointment Book',
-      tags: ['document'],
+      tags: ['quest', 'document'],
+      questItem: true,
       description: 'A paper diary on the salon counter in Aya’s handwriting. One name comes round every six weeks for a year: M. Arai, cut and colour, Tuesdays.',
       loreText: 'Last Tuesday’s page has a note in the margin, underlined twice: "asked about you again".',
       icon: 'book',
@@ -413,7 +419,7 @@ const raw = {
       id: 'set_the_rules',
       name: 'Set the Rules',
       tags: ['social'],
-      description: 'Lay down the terms of the week: where she sleeps, who showers when, what the cat may touch, and the day she goes.',
+      description: 'Lay down the terms of the week: where she sleeps, who has the bathroom when, what the cat may touch, and the day she goes.',
       affordances: ['set some rules', 'lay down the rules', 'set terms', 'tell her the rules', 'make a deal', 'set conditions', 'let her in on conditions'],
       costs: [{ resourceId: 'energy', amount: 5 }],
       cooldownMinutes: 0,
@@ -588,7 +594,7 @@ const raw = {
       name: 'Apartment 2C',
       shortName: 'Your Place',
       description:
-        'Your one-bedroom on the second floor: an entryway barely wide enough for two pairs of shoes, a kitchen strip with a two-ring hob, a main room with a low table and a sofa that folds out into a bad bed, a bedroom door that does not lock, one bathroom, and a balcony just wide enough for the washing machine. Everything here was arranged for one person, and it shows.',
+        'Your one-bedroom on the second floor: an entryway barely wide enough for two pairs of shoes, a kitchen strip with a two-ring hob, a main room with a low table and a sofa that folds out into a bad bed, a bedroom door that sticks, one bathroom, and a balcony just wide enough for the washing machine. Everything here was arranged for one person, and it shows.',
       artDirection:
         'Small modern one-bedroom apartment at night, a narrow entryway with shoes, a kitchen strip, a low table and a fold-out sofa, rain on the balcony glass, warm lamp light. Tidy, single, slightly bare.',
       connections: [{ to: 'the_walkway', travelMinutes: 1, label: 'Out of the front door' }],
@@ -821,7 +827,7 @@ const raw = {
     {
       id: 'mika',
       name: 'Mika Arai',
-      role: 'The classmate who made your final year of school a misery, now soaked on your doorstep asking for seven nights',
+      role: 'The classmate who made your final year of school a misery, now soaked on your doorstep asking for eight nights',
       cardBlurb:
         'Eight years ago she made you the joke of the whole class. Tonight she has a duffel bag, an old cat, no home and one request, and she has promised never to mention the past unless you do.',
       pronouns: 'she/her',
@@ -872,6 +878,12 @@ const raw = {
           visibility: 'NPC_PRIVATE',
           revealHint: 'Only after she has apologised without it. If she starts to use it to explain herself, she stops halfway and takes it back.',
         },
+        {
+          id: 'mika_the_bus_stop',
+          fact: 'Twice since the spring, walking through the arcade to her shift, she has seen you at the bus stop across the road from your building, known you at once, and looked away. She did not know which building was yours until tonight.',
+          visibility: 'NPC_PRIVATE',
+          revealHint: 'If you ask how she knew the building, or whether she has seen you before tonight, she admits the bus stop straight away. It is the one easy question this week.',
+        },
       ],
       speechStyle:
         'Short sentences with the corners filed off. Polite to the point of formality with you, because anything casual feels like a liberty. Dry jokes at her own expense. When the old cutting register slips out it lasts half a sentence and she corrects herself out loud.',
@@ -884,7 +896,7 @@ const raw = {
         'Say it. Whatever it is. I thought worse about myself on the bus here.',
       ],
       appearance:
-        'An adult woman of medium height, a sharp chin, dark straight hair cut bluntly at the jaw and still wet, a man’s oversized navy parka over a white hotel-uniform blouse, a scratched silver phone with a cracked screen, and a battered grey cat carrier she holds like the last thing she owns.',
+        'An adult woman of medium height, a sharp chin, dark straight hair cut bluntly at the jaw and still wet, a man’s oversized navy parka zipped to the collar over her hotel uniform, a scratched silver phone with a cracked screen, and a battered grey cat carrier she holds like the last thing she owns.',
       visualHook: 'A man’s navy parka three sizes too big with the sleeves rolled four times, the only coat she grabbed on the way out.',
       silhouette: 'Shoulders up, cat carrier held in both arms against her chest, standing just outside the doorframe as if the step were a line.',
       artSeed: 'owss-mika-01',
@@ -893,7 +905,7 @@ const raw = {
       schedule: [
         { startMinute: 0, endMinute: 330, locationId: 'apartment_2c', activity: 'on the fold-out sofa, awake more than she lets on' },
         { startMinute: 330, endMinute: 400, locationId: 'the_riverbank', activity: 'running the embankment in the dark because she cannot lie still' },
-        { startMinute: 400, endMinute: 420, locationId: 'apartment_2c', activity: 'showered, dressed and out of the bathroom before you are up' },
+        { startMinute: 400, endMinute: 420, locationId: 'apartment_2c', activity: 'back from the run for ten minutes, and out of the door for work before you are up' },
         { startMinute: 420, endMinute: 900, locationId: 'the_arcade', activity: 'on the front desk of the business hotel by the station, smiling for a living' },
         { startMinute: 900, endMinute: 1080, locationId: 'the_arcade', activity: 'at the laundromat, everything she owns going round in one machine' },
         { startMinute: 1080, endMinute: 1440, locationId: 'apartment_2c', activity: 'cooking for two in a kitchen built for one, then pretending to read' },
@@ -1168,7 +1180,7 @@ const raw = {
       calledName: 'Mrs. Tamura',
       role: 'Your landlady. Lives in 1A, sweeps the walkway at half past five, and enforces the no-pets clause with her whole heart',
       cardBlurb:
-        'She owns your building, reads every name on every letterbox, and has a no-pets clause in your lease. She has also fed every stray cat on this street for thirty years, which you may be able to use.',
+        'She owns your building, sweeps the walkway at half past five every morning, and calls you Two-C. Your lease has a no-pets clause she enforces with her whole heart, and as of tonight there is a cat in your apartment.',
       pronouns: 'she/her',
       publicTraits: ['Up before the sun, every day', 'Knows every tenant she has ever had by their rubbish', 'Pretends to be stricter than she is'],
       hiddenDrives: [
@@ -2043,7 +2055,7 @@ const raw = {
       locationId: 'the_walkway',
       publicCopy: 'A cat yowls behind the door of 2C, and down on the walkway Mrs. Tamura’s broom stops mid-sweep.',
       directorNotes:
-        'She knows. She is not going to say so yet. She will knock at a civilised hour with a question about the recycling, and look past the player into the apartment while they answer.',
+        'Only if she is staying in 2C. She knows. She is not going to say so yet. She will knock at a civilised hour with a question about the recycling, and look past the player into the apartment while they answer.',
       setsFlags: ['tamura_heard_the_cat'],
       cancelledByFlags: ['tamura_knows'],
       requiresFlags: ['she_stays'],
@@ -2080,7 +2092,7 @@ const raw = {
       locationId: 'apartment_2c',
       publicCopy: 'Jun knocks at 2C with a bag of leftover food from an office party, and it is Mika who opens the door.',
       directorNotes:
-        'He recognises her from one drunken description eight months ago, which is enough. He does not shout, which is how the player can tell how angry he is. Whatever the player does next, he stays for dinner.',
+        'Only if she is staying in 2C. He recognises her from one drunken description at last year’s year-end party, which is enough. He does not shout, which is how the player can tell how angry he is. Whatever the player does next, he stays for dinner.',
       setsFlags: ['jun_saw_her'],
       cancelledByFlags: ['jun_knows'],
       requiresFlags: ['she_stays'],
@@ -2093,7 +2105,7 @@ const raw = {
       publicCopy:
         'Daisuke posts the final headcount for Saturday to the class chat. Two names are in bold: yours, marked maybe, and Mika Arai’s, marked coming.',
       directorNotes:
-        'Mika did not answer the invitation. Daisuke put her down himself. She sees it on her cracked phone and goes very still, and then asks, carefully, whether the player is going.',
+        'Mika did not answer the invitation. Daisuke put her down himself. She sees it on her cracked phone, puts the phone face down, and then asks, carefully, whether the player is going.',
       setsFlags: ['headcount_posted'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2180,10 +2192,10 @@ const raw = {
       locationId: 'apartment_2c',
       publicCopy: 'The last night. Her duffel is packed by the door, and the cat is asleep on your side of the sofa.',
       directorNotes:
-        'Whatever this week was, it is nearly over and both of them know it. She will not bring anything up. If something is going to be said tonight, the player says it.',
+        'Only if she has been staying in 2C. Whatever this week was, it is nearly over and both of them know it. She will not bring anything up. If something is going to be said tonight, the player says it.',
       setsFlags: ['last_night'],
       cancelledByFlags: ['she_went_back'],
-      requiresFlags: ['week_begun'],
+      requiresFlags: ['she_stays'],
       movesCharacters: [],
     },
     {
@@ -2212,7 +2224,7 @@ const raw = {
       id: 'p_what_is_owed',
       kind: 'RELATIONSHIP',
       label: 'What she owes you, and whether you want it paid',
-      seedHint: 'She promises on the step not to say a word about before, which is its own kind of answer.',
+      seedHint: 'Her promise on the step: not one word about before, unless the player starts it.',
       payoffHint: 'The apology in full, with no excuse attached; or a week in which it was never once said.',
       weight: 0.9,
     },
@@ -2321,7 +2333,7 @@ const raw = {
     {
       id: 'first_instinct',
       label: 'What is your first instinct when you see her face?',
-      helpText: 'A starting temperament, not a commitment. You can do the exact opposite on the doorstep and the story will keep up.',
+      helpText: 'A starting temperament, not a commitment. You can still do the exact opposite on the doorstep.',
       kind: 'CHOICE',
       advanced: true,
       options: [
@@ -2338,7 +2350,7 @@ const raw = {
       kind: 'TEXT',
       advanced: true,
       maxLength: 200,
-      placeholder: 'e.g. Taller than at school, work shirt still on, a towel round my neck and a face that has not decided anything yet.',
+      placeholder: 'e.g. Taller than at school, work shirt still on, a dish cloth over one shoulder and a face that has not decided anything yet.',
     },
   ],
   /**
@@ -2346,7 +2358,7 @@ const raw = {
    *
    * Thirteen destinations and forgiveness is not the default. Five are losses
    * or near-losses, and none of them is written as a punishment: a door kept
-   * shut, a week of revenge, seven polite nights with nothing said, a lapsed
+   * shut, a week of revenge, eight polite nights with nothing said, a lapsed
    * lease, and Mika going back across the river. "You Left Her the Keys" is
    * the walk-out and is last, because the storyteller only reads twelve and
    * the engine detects that one on its own.
@@ -2365,15 +2377,15 @@ const raw = {
       hint: '',
     },
     {
-      id: 'end_seven_polite_nights',
-      name: 'Seven Polite Nights',
+      id: 'end_eight_polite_nights',
+      name: 'Eight Polite Nights',
       rarity: 'COMMON',
       minTurn: 26,
       requires: { flagsSet: ['left_unsaid', 'she_moved_out'], flagsUnset: ['she_apologised'] },
       condition:
         'Nobody said it. The player was decent, the week was civil, and the one thing that brought her to this door in particular was never once put into words. This is a real outcome and not a failure: it was a decision, made every evening by changing the subject. Write a quiet week that ends on time with the thing still in the room.',
       epilogue:
-        'She leaves the apartment cleaner than she found it and an envelope on the low table with the exact rent for seven nights on a sofa, worked out to the coin. There is no note. For a year you mean to message her, and the reunion chat goes quiet again, and the name stays where it always was.',
+        'She leaves the apartment cleaner than she found it and an envelope on the low table with the exact rent for eight nights on a sofa, worked out to the coin. There is no note. For a year you mean to message her, and the reunion chat goes quiet again, and the name stays where it always was.',
       hint: '',
     },
     {
@@ -2395,7 +2407,7 @@ const raw = {
       minTurn: 20,
       requires: { flagsSet: ['made_her_pay', 'the_week_is_over'] },
       condition:
-        'The player made her pay for it, night after night, in the currency she once used on them: small and precise. She took it without arguing, which is its own kind of answer. Do not moralise and do not reward it. Write what the player got, which is exactly what they asked for, and what the apartment sounded like by Friday.',
+        'The player made her pay for it, night after night, in the currency she once used on them: small and precise. She took it without arguing and wrote every night down on the back of her cash envelope. Do not moralise and do not reward it. Write what the player got, which is exactly what they asked for, and what the apartment sounded like by Friday.',
       epilogue:
         'She leaves on Sunday with everything she brought and nothing she did not. The running total on the back of her cash envelope has been crossed out and replaced with one word you do not read until she has gone: even. For a long time you are not sure whether that was a peace offering or the last thing she will ever say to you.',
       hint: '',
@@ -2481,7 +2493,7 @@ const raw = {
       condition:
         'On the last morning the player asked her not to go yet, and meant it, after a week in which everything that needed saying was said. This is a romance and it is slow: two adults surprised by it and suspicious of it. Write the asking, the long pause, and a kiss if they both want one, and no further. She keeps the studio. She just does not go yet.',
       epilogue:
-        'She keeps the studio because it is hers and she fought for it, stays one more week, and then most weekends. The class chat finds out at Jun’s birthday and loses its mind. You draw her eventually, asleep against the arm of the sofa with the cat on her feet, and when she sees it she goes very quiet and asks if she can keep it.',
+        'She keeps the studio because it is hers and she fought for it, stays one more week, and after that comes round for dinner most weekends. The class chat finds out at Jun’s birthday and loses its mind. You draw her eventually, asleep against the arm of the sofa with the cat on her feet, and when she sees it she goes very quiet and asks if she can keep it.',
       hint: '',
     },
     {
@@ -2502,7 +2514,7 @@ const raw = {
       rarity: 'UNIQUE',
       minTurn: 36,
       requires: {
-        flagsSet: ['knows:the_torn_page', 'she_apologised', 'documents_sorted'],
+        flagsSet: ['knows:the_torn_page', 'she_gave_it_back', 'she_apologised', 'documents_sorted'],
         minRelationship: [{ characterId: 'mika', dimension: 'trust', value: 65 }],
       },
       condition:
@@ -2520,12 +2532,12 @@ const raw = {
       condition:
         'The player walked out of their own apartment and did not come back for the week, leaving Mika in it. That is a completely coherent thing to do when the past turns up on your sofa. Do not punish it and do not redeem it. Write the empty week from her side: the cat, the quiet, the spare key on the counter.',
       epilogue:
-        'When you come back the apartment is spotless, the sofa is a sofa, and there is an envelope on the low table with seven nights’ rent and a note in small square handwriting that says she understands, and that she always would have.',
+        'When you come back the apartment is spotless, the sofa is a sofa, and there is an envelope on the low table with eight nights’ rent and a note in small square handwriting that says she understands, and that she always would have.',
       hint: '',
     },
   ],
   opening:
-    "\"I know I don’t get to ask.\"\n\nMika Arai is at your door at twenty to midnight, soaked through, rain running off her hood. Duffel bag at her feet. Cat carrier hugged to her chest.\n\nEight years ago she made school a misery for you. Your stomach still knows her before you do.\n\n\"One week,\" she says. \"I get keys to my own place next Sunday. Nowhere else will take the cat.\"\n\nBehind her, the last bus pulls away from the stop.\n\nThe cat yowls.\n\n\"I’ll sleep on the floor. I’ll be gone before you’re up. I won’t say a word about before.\" Her voice is steady. Her hands aren’t.\n\n\"So. Yes or no?\"",
+    "\"I know I don’t get to ask.\"\n\nMika Arai is at your door at twenty to midnight, soaked through, rain running off her hood. Duffel bag at her feet. Cat carrier hugged to her chest.\n\nEight years ago she named you Footnote, and the whole class laughed. Your stomach still knows her before you do.\n\n\"One week,\" she says. \"I get keys to my own place next Sunday. Nowhere else will take the cat.\"\n\nBehind her, the last bus pulls away from the stop.\n\nThe cat yowls.\n\n\"I’ll sleep on the floor. I’ll be gone before you’re up. I won’t say a word about before.\" She has practised this. It still comes out too fast.\n\n\"So. Yes or no?\"",
   openingSuggestions: [
     "\"Why my door, Mika? I want the real answer first.\"",
     'I take the cat carrier out of her arms and step back to let her in.',
@@ -2534,7 +2546,7 @@ const raw = {
   coverDirection: [
     'SUBJECT: Mika Arai alone in the foreground of a key visual for a modern romance drama anime about two people forced to share a small apartment for one week.',
     'She fills the frame from the waist up, centred and close, standing just outside an apartment door at night in the rain.',
-    'Dark straight hair cut bluntly at the jaw and wet, a man’s oversized navy parka with the hood down and the sleeves rolled, rain beaded on her shoulders.',
+    'A man’s oversized navy parka zipped to the collar, the hood up and dripping over dark straight hair cut bluntly at the jaw, the sleeves rolled, rain beaded on her shoulders.',
     'She holds a battered grey cat carrier against her chest with both arms; a grey cat’s face is visible through the grille.',
     'Her expression is proud and braced at once: chin up, eyes steady on the viewer, mouth set, as if she has just asked for something she does not think she deserves.',
     'BEHIND HER, soft and secondary: an open-air apartment walkway with a dripping railing, a vending machine glowing by the stairs, city lights blurred by rain, and a bus pulling away under a streetlight.',

@@ -99,8 +99,9 @@ describe('the opener hands the player a choice', () => {
 
   it('names nobody the player is expected to know already', () => {
     // A capital letter that is not starting a sentence is a proper noun. The
-    // only one allowed is the woman at the door, and the day of the week.
-    const ALLOWED = new Set(['Mika', 'Arai', 'Sunday', 'I']);
+    // only ones allowed are the woman at the door, the name she gave the
+    // player (introduced in the same sentence), and the day of the week.
+    const ALLOWED = new Set(['Mika', 'Arai', 'Footnote', 'Sunday', 'I']);
     const strays: string[] = [];
     for (const m of S.opening.matchAll(/[A-Z][A-Za-z’'-]*/g)) {
       const before = S.opening.slice(0, m.index).replace(/[\s"“”[]+$/, '');
@@ -182,7 +183,7 @@ describe('every answer at the door is a story', () => {
     expect(silent.predicate.minRelationship).toEqual([]);
     expect(silent.predicate.hasItems).toEqual([]);
     expect(silent.predicate.afterWorldMinute).toBeDefined();
-    const ending = S.endings.find((e) => e.id === 'end_seven_polite_nights')!;
+    const ending = S.endings.find((e) => e.id === 'end_eight_polite_nights')!;
     expect(ending.requires.flagsSet).toContain('left_unsaid');
   });
 
@@ -323,6 +324,58 @@ describe('everybody on the page is an adult, on the page', () => {
     expect(S.rules.toneGuide).toMatch(/no further than a kiss/);
     expect(S.rules.toneGuide).toMatch(/no injury detail/);
   });
+
+  it('closes the fade-to-black the production storyteller would otherwise use', () => {
+    // The pure narrator's constitution moves intimacy off the page. Here the
+    // limit has to hold off the page too, and the sofa is never paid for in
+    // anything but money and chores.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/no further than a kiss, on the page or off it/);
+    expect(canon).toMatch(/no fade-to-black/);
+    expect(canon).toMatch(/money and housework and nothing else/);
+    expect(S.rules.toneGuide).toMatch(/never fan service/);
+    expect(S.rules.toneGuide).toMatch(/not even off the page/);
+  });
+
+  it('keeps the school year out of scenes and out of uniforms', () => {
+    expect(S.rules.hardCanon[1]).toMatch(/never played as a scene or a flashback/);
+    expect(S.rules.hardCanon[1]).toMatch(/no uniforms/);
+  });
+});
+
+describe('what the production storyteller can actually see', () => {
+  it('shows it the props the mystery and the rival hang on', () => {
+    // The pure narrator lists only quest items as objects the story turns on.
+    for (const id of ['appointment_book', 'mika_phone', 'old_notebook']) {
+      expect(S.items.find((i) => i.id === id)!.questItem, id).toBe(true);
+    }
+  });
+
+  it('maps the clock’s day numbers onto the weekdays the deadlines use', () => {
+    // formatStoryTime only says "Day N"; every deadline in canon is a weekday.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/Day 1 is the Saturday she arrives/);
+    expect(canon).toMatch(/Day 7 Friday/);
+    expect(canon).toMatch(/Day 9 Sunday/);
+    expect(canon).toMatch(/"Next Sunday" always means Day 9, never tomorrow/);
+  });
+
+  it('says why tonight, so the storyteller does not invent it on turn one', () => {
+    expect(S.rules.hardCanon.join(' ')).toMatch(/night manager found him/);
+  });
+
+  it('keeps the landlady’s secret off her card', () => {
+    expect(character('tamura').cardBlurb).not.toMatch(/stray|fed/i);
+  });
+
+  it('only stages the last night for a player who let her stay', () => {
+    // Production reads world events with no conditions, so the prose says it too.
+    for (const id of ['we_last_night', 'we_jun_turns_up', 'we_tamura_hears_the_cat']) {
+      const e = S.worldEvents.find((x) => x.id === id)!;
+      expect(e.requiresFlags, id).toEqual(['she_stays']);
+      expect(e.directorNotes, id).toMatch(/^Only if she (?:is|has been) staying in 2C\./);
+    }
+  });
 });
 
 describe('the three checks every new story runs', () => {
@@ -374,7 +427,7 @@ describe('it can end badly, early and in many ways', () => {
       'end_back_across_the_river',
       'end_the_door_stayed_shut',
       'end_paid_in_full',
-      'end_seven_polite_nights',
+      'end_eight_polite_nights',
       'end_one_more_week',
     ];
     for (const id of losses) expect(S.endings.some((e) => e.id === id), id).toBe(true);
