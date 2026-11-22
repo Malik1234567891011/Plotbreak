@@ -27,6 +27,14 @@ import { StoryVersion } from '@plotbreak/contracts';
  * an instruction never to narrate it, in his secrets, and in the evidence
  * (ledger, vial, wine). It is not in the premise, the opener or his card.
  *
+ * Art: every image prompt carries the tone guide as its mood, so the tone
+ * guide is mood only. The 13+ limits (a kiss and no further, no self-harm,
+ * no mechanics of a hanging, the gallows by its timber and crowd) and the
+ * pacing of the reveals live in hard canon, which the storyteller also reads.
+ * The cover's `TITLE:` line owns the lettering, every effect stays on the keys,
+ * the sunrise and the title, never on a face, and nobody is described by age.
+ * The opening panel's alt starts with Isra, whose portrait is its reference.
+ *
  * Three invisible variables. Stamina is the only GOOD_HIGH, because
  * `resolveRest` refills those. Suspicion comes first among the descending
  * pair on purpose: public violence raises the first GOOD_LOW in array order,
@@ -91,14 +99,15 @@ const raw = {
       'Nightbell is a blue-flowered plant sold as dye. A drop a week brings on a shaking sickness that looks like old age; a spoonful stops the heart. The King’s hands began to shake this spring, and his physicians call it age.',
       'Hob owes eighty-eight crowns at the Drowned Lantern dice house. Last time, on the second night, Sabine Orrel bought his marker on Corvin’s word, and from then on he did what the Prince’s people asked.',
       'There is no third morning. The turning knot works once for any neck.',
+      'Romance in this story is slow, adult and wary, and goes up to a kiss and no further. Isra signed the warrant and both of them know it, so warmth is earned in small admissions. Nobody’s body is described lingeringly.',
+      'Violence in Vellmark is sudden and short, and its consequences land in the same scene. Nobody is wounded at length on the page. The gallows on Tollmarket Green is described by its timber and its crowd, never by a body.',
+      'Nobody in this story harms themselves. If the player tries to die on purpose, or to hurt themselves to get another morning, it never happens on the page and is never described. Someone stops them or the scene cuts away, and whoever is there says it plainly: there is no third morning. Isra’s guilt never becomes self-punishment on the page. Tull wants to retire, not to die: putting the rope down means giving up the hangman’s office. Never give the mechanics of a hanging (drop lengths, weights, knot placement, or what a rope does to a body), in narration or in dialogue.',
+      'Nobody volunteers a secret. On the first morning Isra answers questions about last time in the order of the warrant, item one, item two, item three, argues for the boat once and then stops. She does not name the Hangman, explain the knot or take off the glove until the player has told her their side of last time and she has stopped being afraid of them. Hob admits the debt only to someone who eats with him and does not offer money. Sabine shows the dye margin only to someone who says nightbell first. Tull explains the knot only to someone who comes to his house and asks plainly. Nobody tells the player who is behind the gallows; the trail does.',
     ],
     toneGuide:
       'Regression revenge with its heart showing: tense, quick and specific. The player knows the next three years, and the reader should feel that knowledge as an advantage and as a trap. A line said exactly as it was said last time is chilling; a line that comes out differently is more frightening still. ' +
-      'Court intrigue is concrete: ledgers, wax seals, wine casks, dice-house slates, the price of a loaf. Violence is sudden, short and has consequences in the same scene. Nobody is wounded at length on the page, and the gallows is described by its timber and its crowd, never by a body. ' +
-      'Romance is slow, adult and wary. Isra signed the warrant and both of them know it, so warmth is earned in small admissions, up to a kiss and no further. ' +
-      'The Prince’s guilt is the central secret: never state it in narration. Nobody else remembers the first life and nobody can be made to. The face at the top of a beat belongs to whoever reacted to the player most strongly, and to Isra whenever she is in the scene. ' +
-      'Nobody in this story harms themselves. If the player tries to die on purpose, or to hurt themselves to get another morning, it never happens on the page and is never described. Someone stops them or the scene cuts away, and whoever is there says it plainly: there is no third morning. Isra’s guilt never becomes self-punishment on the page. Tull wants to retire, not to die: putting the rope down means giving up the hangman’s office. Never give the mechanics of a hanging (drop lengths, weights, knot placement, or what a rope does to a body), in narration or in dialogue. ' +
-      'Pace the reveals; nobody volunteers a secret. On the first morning Isra answers questions about last time in the order of the warrant, item one, item two, item three, argues for the boat once and then stops. She does not name the Hangman, explain the knot or take off the glove until the player has told her their side of last time and she has stopped being afraid of them. Hob admits the debt only to someone who eats with him and does not offer money. Sabine shows the dye margin only to someone who says nightbell first. Tull explains the knot only to someone who comes to his house and asks plainly. Nobody tells the player who is behind the gallows; the trail does.',
+      'Court intrigue is concrete: ledgers, wax seals, wine casks, dice-house slates, the price of a loaf. Grey river dawns, candlelight on paper, a city that is polite until it is not. Between the player and Isra everything is slow, wary and earned in small admissions. ' +
+      'The Prince’s guilt is the central secret: never state it in narration. The face at the top of a beat belongs to whoever reacted to the player most strongly, and to Isra whenever she is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
       "Isra unfolds a sheet of paper she has clearly folded and unfolded all night.\n\n\"Item one,\" she says. \"A vial of nightbell, in your sea chest. Item two. Three letters under your seal. Item three.\"\n\nShe stops.\n\n\"Item three,\" you say.\n\n\"Your sergeant.\" She does not look at the desk where he is snoring. \"I wrote it all down at four this morning, before I could start forgetting. I read it to a crowd once. I can read it to you.\"",
@@ -833,6 +842,7 @@ const raw = {
     {
       id: 'isra',
       name: 'Lady Isra Vane',
+      calledName: 'Isra',
       role: 'The Crown’s Advocate and your betrothed. She signed your death warrant, and this morning she broke you out',
       cardBlurb:
         'She prosecuted you, signed your warrant and read it aloud at the gallows. This morning she is at your cell with a stolen key, and she remembers every word she said.',
@@ -891,7 +901,7 @@ const raw = {
         'Do not thank me. Shout at me. Then let me work.',
       ],
       appearance:
-        'Twenty-six, black hair cut sharp at the jaw, grey eyes, an advocate’s black coat with a high white collar under a hooded cloak, ink on the side of her left hand, and one long black glove on her right.',
+        'An adult woman, slim and very straight-backed, black hair cut sharp at the jaw, grey eyes, a hooded charcoal cloak over an advocate’s long black coat with a high white collar, ink on the side of her left hand, and one long black glove on her right hand only, buttoned to the elbow.',
       visualHook: 'One long black glove on her right hand only, buttoned to the elbow, which she never takes off.',
       silhouette: 'Very straight and narrow in a hooded cloak, one gloved hand held behind her back.',
       artSeed: 'gallows-isra-01',
@@ -980,7 +990,7 @@ const raw = {
         'Sit. Eat something. You look like someone who’s seen how a story ends.',
       ],
       appearance:
-        'Thirty, tall and easy in his body, sandy hair cut short, a broad warm smile, a plain green coat with soil on the cuffs, and no crown or chain anywhere on him.',
+        'An adult man, tall and easy in his body, sandy hair cut short, hazel eyes, a broad warm smile, a plain green coat over an open-necked linen shirt, soil on the cuffs and under his fingernails, and no crown or chain anywhere on him.',
       visualHook: 'Soil under his fingernails and on his cuffs, always, even at a feast.',
       silhouette: 'Long-legged and relaxed, hands in his coat pockets, head tipped as if listening.',
       artSeed: 'gallows-corvin-01',
@@ -1018,6 +1028,7 @@ const raw = {
     {
       id: 'hob',
       name: 'Sergeant Hob Garrow',
+      calledName: 'Hob',
       role: 'Your old sergeant, now turnkey of the Rivergate cells. Asleep at his desk when the story starts',
       cardBlurb:
         'He carried you off a battlefield once and has been proud of you ever since. Three years from now he will swear he saw you with the poison, and right now he owes eighty-eight crowns he cannot pay.',
@@ -1060,7 +1071,7 @@ const raw = {
         'Eat first. Bad news keeps. Porridge doesn’t.',
       ],
       appearance:
-        'Fifty-four, broad and grey-bearded, a soldier’s coat gone shiny at the elbows, two fingers missing from the left hand, and a ring of iron keys on his belt.',
+        'An older man, broad and barrel-chested, a short grey beard, a brown soldier’s coat gone shiny at the elbows, two fingers missing from the left hand, and a ring of iron keys and a wooden ladle on his belt.',
       visualHook: 'Two fingers missing from his left hand, and a ladle stuck through his belt beside the keys.',
       silhouette: 'Wide and rounded, boots up on a desk, chin on his chest.',
       artSeed: 'gallows-hob-01',
@@ -1138,7 +1149,7 @@ const raw = {
         'Sign here. And here. Don’t read it, nobody does. That’s rather the point of me.',
       ],
       appearance:
-        'Thirty-two, small and quick, brown hair pinned flat under a grey cap, a grey wool coat with ink-stained cuffs, and a fat ledger under one arm.',
+        'An adult woman, wiry and quick, brown hair pinned flat under a grey cap, sharp dark eyes, a grey wool coat buttoned to the throat with ink-stained cuffs, and a fat ledger bound in grey cloth clamped under one arm.',
       visualHook: 'A fat ledger bound in grey cloth, clamped under one arm at all times.',
       silhouette: 'Narrow and upright, head down over an open book, pen moving.',
       artSeed: 'gallows-sabine-01',
@@ -1218,7 +1229,7 @@ const raw = {
         'Once per neck. I didn’t make the rule. I only learned it the expensive way.',
       ],
       appearance:
-        'Sixty-six, tall and stooped, white hair tied back, a long brown leather coat, enormous careful hands, and a coil of pale rope over one shoulder.',
+        'An older man, tall and stooped, long white hair tied back, a lined and patient face, a long brown leather coat, enormous careful rope-scarred hands, and a neat coil of pale hemp worn across one shoulder like a sash.',
       visualHook: 'Huge, gentle, rope-scarred hands, and a coil of pale hemp worn over one shoulder like a sash.',
       silhouette: 'Tall and bent like a gallows post, one hand always resting on the coil.',
       artSeed: 'gallows-tull-01',
@@ -2191,16 +2202,23 @@ const raw = {
     'I take her hand and walk out past my sleeping sergeant.',
     'I take the key from her hand and lock her in the cell instead.',
   ],
+  openingPanel: {
+    assetKey: 'story_the_morning_of_the_gallows/opening',
+    alt: 'Isra, hood low and one long black glove on her right hand, holds a cell door open in grey dawn light, a ring of iron keys in her fist, while a grey-bearded turnkey snores at a desk behind her.',
+  },
   coverDirection: [
     'SUBJECT: Isra Vane, the Crown’s Advocate, alone and unmistakable in the foreground of a key visual for a dark fantasy romance anime about a second chance.',
     'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
-    'Black hair cut sharp at the jaw, grey eyes, a dark hooded cloak pushed back over an advocate’s black coat with a high white collar.',
-    'One long black glove on her right hand only, buttoned to the elbow; in that hand she holds up a ring of old iron keys toward the viewer.',
+    'Black hair cut sharp at the jaw, grey eyes, a dark hooded cloak pushed back over an advocate’s long black coat with a high white collar.',
+    'One long black glove on her right hand only, buttoned to the elbow; in that hand she holds up a ring of old iron keys toward the viewer, as if offering them.',
     'Her expression is fierce and frightened at once, lips pressed, eyes locked on the viewer as if daring them to stay.',
+    'HER FACE STAYS CLEAN: no marks, glow, glints or shadows on her face or skin.',
+    'Every light effect stays on the iron keys, the distant sunrise and the title, never on her face.',
     'BEHIND HER, soft and secondary: an open iron cell door, wet straw, a slit window with cold dawn light,',
-    'and far beyond through the window, small and in silhouette against a red-gold sunrise, an empty timber gallows in a city square, a bare timber frame, no rope and no noose anywhere in the image.',
-    'LIGHT: cold grey-blue dawn light from the window on one side of her face, warm ember light from a brazier on the other.',
-    'TITLE: the words THE MORNING OF THE GALLOWS painted into the art in the upper third as an elegant engraved serif logo, pale gold on dark,',
+    'and far beyond through the window, distant and in silhouette against a red-gold sunrise, an empty timber gallows in a city square, a bare timber frame, no rope and no noose anywhere in the image.',
+    'LIGHT: cold grey-blue dawn light from the window on one side, warm ember light from a brazier on the other, so she is rimmed in gold against the blue.',
+    'TITLE: the title The Morning of the Gallows painted into the art in the upper third, above her head, as an elegant engraved serif logo set in capitals on two lines,',
+    'THE MORNING OF THE on the first line and GALLOWS larger on the second, pale gold on dark, with a thin red-gold sunrise glow along the edges of the letters,',
     'spelled exactly THE MORNING OF THE GALLOWS, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   publishedAt: null,

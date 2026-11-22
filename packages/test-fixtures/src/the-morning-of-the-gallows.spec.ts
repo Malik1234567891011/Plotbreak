@@ -119,8 +119,23 @@ describe('the opener', () => {
     expect(story.opening).toMatch(/three years from this morning/);
   });
 
-  it('declares no opening panel until its art exists', () => {
-    expect(story.openingPanel).toBeUndefined();
+  it('opens the panel on Isra, the one who speaks, and draws it from her portrait', () => {
+    const panel = story.openingPanel!;
+    expect(panel.assetKey).toBe(`${story.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    const isra = story.characters.find((c) => c.id === 'isra')!;
+    expect(panel.alt.startsWith(`${isra.calledName},`)).toBe(true);
+    // The lookup in infra/scripts/opening-panel-art.ts, verbatim. It keys on
+    // the first word of `name`, which for "Lady Isra Vane" is a title, so she
+    // is found by the last fallback: the first character with a card blurb.
+    // Keep her first in the cast, and keep the other names' first words
+    // ("Prince", "Sergeant", "Sabine", "Hangman") out of the alt.
+    const named =
+      story.characters.find((c) => panel.alt.toLowerCase().startsWith(c.name.split(' ')[0]!.toLowerCase())) ??
+      story.characters.find((c) => panel.alt.includes(c.name.split(' ')[0]!)) ??
+      story.characters.find((c) => c.cardBlurb.trim().length > 0);
+    expect(named?.id).toBe('isra');
+    expect(panel.alt).not.toMatch(/\b(?:teen\w*|girls?|boys?|young\w*|kids?|child\w*|little|petite|adults?|old(?:er)?|aged?|\d+)\b/i);
   });
 
   it('names nobody the player is expected to know already', () => {
@@ -551,19 +566,23 @@ describe('the cast are people', () => {
 
 describe('everyone is an adult and the content stays 13+', () => {
   const AGES: Record<string, [number, string]> = {
-    isra: [26, 'Twenty-six'],
-    corvin: [30, 'Thirty'],
-    hob: [54, 'Fifty-four'],
-    sabine: [32, 'Thirty-two'],
-    tull: [66, 'Sixty-six'],
+    isra: [26, 'twenty-six'],
+    corvin: [30, 'thirty'],
+    hob: [54, 'fifty-four'],
+    sabine: [32, 'thirty-two'],
+    tull: [66, 'sixty-six'],
   };
 
-  it('states an adult age for every character, first thing in their appearance', () => {
+  it('states an adult age for every character in hard canon, and draws them as adults', () => {
     expect(story.characters.map((c) => c.id).sort()).toEqual(Object.keys(AGES).sort());
+    const first = story.rules.hardCanon[0]!;
     for (const c of story.characters) {
       const [age, word] = AGES[c.id]!;
       expect(age, c.id).toBeGreaterThanOrEqual(18);
-      expect(c.appearance.startsWith(`${word},`), c.id).toBe(true);
+      expect(first, c.id).toMatch(new RegExp(`${calledName(c)}[^,.]* ${word}\\b`));
+      // Portraits are drawn from appearance: an adult, then costume, never a number.
+      expect(c.appearance, c.id).toMatch(/^An (?:adult|older) (?:woman|man), /);
+      expect(c.appearance, c.id).not.toMatch(/\b(?:twenty|thirty|forty|fifty|sixty|seventy)\b|\d/i);
     }
   });
 
@@ -579,18 +598,22 @@ describe('everyone is an adult and the content stays 13+', () => {
     expect(hits).toEqual([]);
   });
 
+  // The 13+ lines live in hard canon, which the storyteller reads every turn.
+  // The tone guide is also every image prompt's mood, so it carries none of them.
   it('keeps the gallows to timber and crowd, and romance to a kiss', () => {
     const GORE = /\b(?:blood(?:y|ied)?|gore|corpse|entrails|strangl\w*|choking|dangling|severed|naked|undress\w*|bed(?:ded)?\s+(?:her|him))\b/i;
     const hits = playerFacing().filter(([, text]) => GORE.test(text)).map(([field]) => field);
     expect(hits).toEqual([]);
-    expect(story.rules.toneGuide).toMatch(/up to a kiss and no further/);
+    const canon = story.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/goes up to a kiss and no further/);
+    expect(canon).toMatch(/described by its timber and its crowd, never by a body/);
   });
 
   it('keeps self-harm and the mechanics of a hanging off the page', () => {
-    const tone = story.rules.toneGuide;
-    expect(tone).toMatch(/Nobody in this story harms themselves/);
-    expect(tone).toMatch(/there is no third morning/);
-    expect(tone).toMatch(/Never give the mechanics of a hanging/);
+    const canon = story.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/Nobody in this story harms themselves/);
+    expect(canon).toMatch(/there is no third morning/);
+    expect(canon).toMatch(/Never give the mechanics of a hanging/);
     // Drop figures and knot placement, anywhere the storyteller reads them.
     const MECHANICS = /\b(?:\d+|nine) stone\b|\b(?:\d+|six)-foot\b|\bleft ear\b|\bclean drop\b|\btalks in lengths\b/i;
     expect(JSON.stringify(story)).not.toMatch(MECHANICS);
@@ -616,6 +639,70 @@ describe('everyone is an adult and the content stays 13+', () => {
     expect(JSON.stringify(story)).not.toMatch(FRANCHISE);
     // The Nixon scandal, to most App Store readers. Ids may keep the old word.
     expect(JSON.stringify(story)).not.toMatch(/Watergate/);
+  });
+});
+
+describe('ready for art and release', () => {
+  const cover = story.coverDirection ?? '';
+
+  it('gives the title its own line: style, placement and exact spelling', () => {
+    expect(cover.match(/TITLE:/g)).toHaveLength(1);
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(title).toContain(`the title ${story.title} painted into the art in the upper third`);
+    expect(title).toMatch(/engraved serif logo/);
+    // generatedCoverPrompt capitalises the wordmark, so the spelling line agrees with it.
+    expect(title).toContain(`spelled exactly ${story.title.toUpperCase()}, large and legible at thumbnail size`);
+    expect(title).toMatch(/No other text anywhere\.$/);
+  });
+
+  it('puts Isra alone in front, by costume and pose, never by an age word', () => {
+    expect(cover).toMatch(/^SUBJECT: Isra Vane, .* alone and unmistakable in the foreground/);
+    expect(cover).not.toMatch(
+      /\b(?:teen\w*|girls?|boys?|young\w*|youth\w*|kids?|child\w*|student\w*|little|petite|small|adults?|older|aged?|\d+)\b/i,
+    );
+    // Coat and pose, nothing lingering.
+    expect(cover).not.toMatch(/\b(?:legs?|thighs?|skin-tight|figure|curv\w*|bare (?:skin|shoulders?))\b/i);
+  });
+
+  it('keeps every effect on the keys, the sunrise and the title, never on her face', () => {
+    expect(cover).toMatch(/HER FACE STAYS CLEAN: no marks, glow, glints or shadows on her face or skin\./);
+    expect(cover).toMatch(/Every light effect stays on the iron keys, the distant sunrise and the title, never on her face\./);
+  });
+
+  it('keeps the tone guide, which every image prompt carries as its mood, to mood', () => {
+    expect(story.rules.toneGuide.length).toBeGreaterThan(200);
+    expect(story.rules.toneGuide).not.toMatch(
+      /\b(?:adults?|kiss\w*|romance|bod(?:y|ies)|harm\w*|hang\w*|noose|rope|knot|gallows|blood\w*|wound\w*|young\w*)\b/i,
+    );
+  });
+
+  it('paces the reveals in hard canon, where the storyteller reads it', () => {
+    const canon = story.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/Nobody volunteers a secret\./);
+    expect(canon).toMatch(/Tull explains the knot only to someone who comes to his house and asks plainly/);
+  });
+
+  it('gives every face on a cast card a concrete appearance to draw from', () => {
+    for (const c of story.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(120);
+      expect(c.visualHook.trim(), c.id).not.toBe('');
+      expect(c.silhouette.trim(), c.id).not.toBe('');
+    }
+  });
+
+  it('gives every titled character the name people actually call them', () => {
+    const titled = story.characters.filter((c) => /^(?:Lady|Prince|Sergeant|Hangman)\b/.test(c.name));
+    expect(titled.map((c) => c.id)).toEqual(['isra', 'corvin', 'hob', 'tull']);
+    for (const c of titled) {
+      expect(c.calledName, c.id).toBeTruthy();
+      expect(c.name, c.id).toContain(c.calledName!);
+      expect(calledName(c), c.id).toBe(c.calledName);
+    }
+  });
+
+  it('opens straight on the scene and is not dated until release', () => {
+    expect(story.prologue).toEqual([]);
+    expect(story.publishedAt).toBeNull();
   });
 });
 

@@ -32,17 +32,26 @@ so the storyteller has them on every turn.
 Hard canon also says the Crown hangs adults only: nobody under eighteen is ever condemned, hanged or
 shown on the gallows.
 
-Covers and portraits describe people by costume and pose, never by age words. Content stays 13+:
-romance goes up to a kiss and no further, and the gallows is described by its timber and its crowd,
-never by a body. The tone guide forbids the mechanics of a hanging (drop lengths, weights, knot
-placement, what a rope does to a body) in narration and dialogue. Art prompts ask for a bare timber
-frame with no rope and no noose: a noose is a self-harm image, and in the US a hate symbol.
+Covers and portraits describe people by costume and pose, never by age words: every `appearance`
+opens "An adult woman" / "An adult man" / "An older man" and then gives clothes, hair and props, and
+the ages live only in hard canon. Content stays 13+: romance goes up to a kiss and no further, and the
+gallows is described by its timber and its crowd, never by a body. Hard canon forbids the mechanics of
+a hanging (drop lengths, weights, knot placement, what a rope does to a body) in narration and
+dialogue. Art prompts ask for a bare timber frame with no rope and no noose: a noose is a self-harm
+image, and in the US a hate symbol.
 
-**Self-harm.** A die-and-go-back premise invites "I hang myself to get another morning". The tone guide
+**Self-harm.** A die-and-go-back premise invites "I hang myself to get another morning". Hard canon
 says nobody in this story harms themselves: it never happens on the page, someone stops them or the
 scene cuts away, and whoever is there says there is no third morning. Isra's guilt never becomes
 self-punishment on the page. Tull wants to retire, not to die: "putting the rope down" means giving up
 the hangman's office.
+
+**Why these are in hard canon, not the tone guide.** Every image prompt (cover, portraits, scenes)
+carries the tone guide as its mood. Ropes, knots, harm and kisses in the mood text would push every
+picture toward them. So the tone guide is mood only (regression revenge, ledgers and wax seals, grey
+river dawns, the Prince's guilt never narrated), and the four rules the storyteller must keep (romance
+to a kiss, the gallows by timber and crowd, no self-harm and no hanging mechanics, the pacing of the
+reveals) are the last four lines of hard canon, which `runTurnPure` reads every turn.
 
 ## The pitch
 
@@ -157,7 +166,11 @@ learns in the first beat that she remembers.
 
 ## Cast
 
-Every one of them wants something that has nothing to do with the player.
+Every one of them wants something that has nothing to do with the player. All five have a card blurb
+that speaks to "you" and a concrete `appearance` the portraits are drawn from. The four with a title
+carry `calledName`, the name people actually use: Isra (Lady Isra Vane), Corvin (Prince Corvin), Hob
+(Sergeant Hob Garrow) and Tull (Hangman Tull). Isra stays first in the cast: the opening panel's
+reference portrait depends on it (see Cover direction).
 
 ### Lady Isra Vane, 26, the Crown's Advocate, your betrothed
 
@@ -210,7 +223,7 @@ Every one of them wants something that has nothing to do with the player.
 
 ### Sabine Orrel, 32, the Prince's secretary
 
-- **Looks:** Small and quick, brown hair under a grey cap, grey wool coat, ink-stained cuffs, a fat
+- **Looks:** Wiry and quick, brown hair under a grey cap, grey wool coat, ink-stained cuffs, a fat
   grey-bound ledger always under one arm.
 - **Voice:** Dry, fast, in figures and prices. A river-market vowel she cannot iron out when angry.
   "Granaries cost money. Gallows cost rope. Guess which one the council funds."
@@ -340,9 +353,9 @@ King, or to hear her explain) as a starting temperament only.
 
 ## Pacing the reveals
 
-Production (`runTurnPure`) reads the tone guide, secret facts and quest summaries, but not step
-directorNotes, revealHints or character gates. So the pacing lives in the tone guide: nobody volunteers
-a secret. On the first morning Isra answers in the order of the warrant (item one, two, three), argues
+Production (`runTurnPure`) reads the tone guide, hard canon, secret facts and quest summaries, but not step
+directorNotes, revealHints or character gates. So the pacing lives in hard canon (the tone guide is
+also every image prompt's mood, so it stays mood only): nobody volunteers a secret. On the first morning Isra answers in the order of the warrant (item one, two, three), argues
 for the boat once and stops; she names the Hangman, explains the knot or takes off the glove only after
 the player has told their side and she has stopped being afraid of them. Hob admits the debt only to
 someone who eats with him and does not offer money. Sabine shows the dye margin only to someone who says
@@ -365,17 +378,48 @@ Gated abilities: **Speak in His Name** (granted by taking the commission, locked
 
 ## Cover direction
 
-Isra large in frame, waist up, close and centred: black hair at the jaw, grey eyes, hood pushed back over
-an advocate's black coat and high white collar, **one long black glove on her right hand**, holding up a
-ring of old iron keys toward the viewer. Fierce and frightened at once. Behind her, soft: an open cell
-door, wet straw, a slit window with cold dawn, and far off through it a small empty gallows silhouetted
-against a red-gold sunrise: a bare timber frame, no rope and no noose anywhere in the image. Cold blue
-from the window on one side of her face, ember from a brazier on the other. The title THE MORNING OF THE GALLOWS painted in as a pale-gold engraved serif, no other text.
-Described by costume and pose, never by age words. No art has been generated yet, so the fixture
-declares no `openingPanel` (session creation would attach a broken image). When the art exists, add a
-panel entry in `infra/scripts/opening-panel-art.ts`, put the file at
-`infra/seed/assets/story_the_morning_of_the_gallows/opening.webp`, and restore:
-assetKey `story_the_morning_of_the_gallows/opening`, alt "Isra, hood low and one long black glove on her
-right hand, holding a cell door open in grey dawn light while an old sergeant sleeps at a desk behind
-her." The story is also not yet in `packages/test-fixtures/src/index.ts` or `LAUNCH_CATALOG`; register it
-raw (no derived keys) before ship.
+Written to the pilot #7 Skill: ERROR shape (`coverDirection` in the fixture). Isra alone in the
+foreground, waist up, close and centred, about two thirds of the frame: black hair at the jaw, grey
+eyes, hood pushed back over an advocate's long black coat and high white collar, **one long black glove
+on her right hand**, holding up a ring of old iron keys toward the viewer as if offering them. Fierce
+and frightened at once. Behind her, soft and secondary: an open cell door, wet straw, a slit window with
+cold dawn, and far off through it a distant empty gallows silhouetted against a red-gold sunrise: a bare
+timber frame, no rope and no noose anywhere in the image. Cold blue dawn from the window on one side,
+ember from a brazier on the other, so she is rimmed in gold against the blue.
+
+**Her face stays clean:** no marks, glow, glints or shadows on her face or skin. Every light effect
+stays on the iron keys, the distant sunrise and the title. Described by costume and pose only, never by
+an age word; nothing franchise-specific.
+
+**Title:** its own `TITLE:` line, so the generic "lower third / no lettering" cover rules drop out: the
+title The Morning of the Gallows painted into the upper third above her head as an elegant engraved
+serif logo set in capitals on two lines (THE MORNING OF THE, then GALLOWS larger), pale gold on dark
+with a thin red-gold sunrise glow along the edges of the letters, spelled exactly THE MORNING OF THE
+GALLOWS (the cover prompt capitalises the wordmark), legible at thumbnail size. No other text anywhere.
+
+**Mood text:** the cover reads `toneGuide` as its mood, which is why the tone guide carries no rope,
+knot, harm, romance or age words (see Adults only).
+
+## Opening panel
+
+`openingPanel: { assetKey: 'story_the_morning_of_the_gallows/opening', alt }`, alt (192 characters):
+"Isra, hood low and one long black glove on her right hand, holds a cell door open in grey dawn light, a
+ring of iron keys in her fist, while a grey-bearded turnkey snores at a desk behind her."
+
+It starts with "Isra", who speaks first in the opener, because the panel is drawn with her portrait as the
+reference image. `story-checks.ts` and `opening-panel-art.ts` match on the first word of a character's
+`name`, which for "Lady Isra Vane" is her title, so the checker prints a WARN here and the panel script
+reaches her through its last fallback, the first character with a card blurb. That is the right portrait
+as long as she stays first in the cast and the alt names nobody else by the first word of their `name`
+("Prince", "Sergeant", "Sabine", "Hangman"); the spec runs the script's own lookup and fails otherwise.
+The other checker WARN, `attacked:corvin` read but never set, is an engine flag: `resolveIntent` sets
+`attacked:<characterId>` when the player strikes someone.
+
+## Release shape
+
+No `prologue`: the story opens straight on the cell. `publishedAt: null` until the real release date is
+set. The story's system is where the storyteller reads it: hard canon (the first life, who remembers it,
+there is no third morning), the starting quest items (the rope mark and your signet), and
+`startingAbilities` (every archetype starts with Remember It). The story is not yet in
+`packages/test-fixtures/src/index.ts` or `LAUNCH_CATALOG`; register it raw (no derived keys) before
+ship, which is also what lets `opening-panel-art.ts` find it.
