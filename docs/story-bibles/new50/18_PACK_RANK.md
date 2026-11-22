@@ -25,7 +25,9 @@ Rank is everything. It decides where you sleep, when you eat, which classes you 
 - **the Run:** the eleven-kilometre ridge course, first to stop loses;
 - **the Stare:** first to look away, flatten their ears or bare their throat loses.
 
-If the challenger wins, the two swap places. A newcomer's first bout is open: anyone may claim it. If the newcomer wins, they take the challenger's rank. If they lose, the challenger's den claims them and they go on the Order at the bottom of that den.
+If the challenger wins, the two swap places. A newcomer's first bout is open: anyone may claim it. If the newcomer wins, they take the challenger's number, and the challenger and everybody below drop one place. If they lose, the challenger's den claims them and they go on the Order at the bottom of that den. An unranked student who puts their own tray down on somebody and wins swaps in the ordinary way, which leaves the loser unranked (this is Pim's problem).
+
+There is one way onto the Order without a bout, and almost nobody remembers it is in the rules: if every member of a den signs for an unranked student before the full moon, that student goes on the wall at the bottom of that den without taking anybody's place. The Warren is the bottom of the Order and has not signed for anybody in years.
 
 On the seventh night the moon is full. The Order is read aloud, fixed for the year, and anyone still unranked is sent home the next morning. That same night is the **Moon Bout**, the one night the first rank can be challenged, by anybody in the top ten or anybody the first rank invites.
 
@@ -35,7 +37,7 @@ The player has no rank. On their first night they sit down at the only empty tab
 
 Thirty years ago a human named **Edda Marsh** (then 21, now 51, off-stage) climbed to seventh on the Order using the Run and the Stare. The night before she was due to challenge the first rank, Aurel Solenne, she fell on the north stair in the dark and broke her leg. She missed the full moon, was sent home unranked, and the Clan Council quietly stopped admitting humans "for their safety". Her name is scratched off the carved Order in the archive.
 
-She did not fall. Garrow Holt, Aurel's den second and Bryn's father, was waiting at the bottom of the stair. A fox bookmaker took one very large bet that night, "Marsh does not fight", in Garrow's name with Aurel's money, and wrote it down. A stag student named Halvard Stagg saw Garrow on the stair and said nothing, because the lions owned the hall and he wanted to stay on the wall.
+She did not fall. Garrow Holt, Aurel's den second and Bryn's father, was waiting at the bottom of the stair. The fox who kept the hall's boilers, and ran the book from them, took one very large bet that night, "Marsh does not fight", in Garrow's name with Aurel's money, and wrote it down. A stag student named Halvard Stagg saw Garrow on the stair and said nothing, because the lions owned the hall and he wanted to stay on the wall.
 
 Thirty years later Stagg is the combat coach and the Circle's referee, and he is the reason the Faculty admitted a human again. He pencilled one line under the seal of the player's admission letter: *After dark, use the south stair. — H.S.* Aurel Solenne now chairs the Clan Council and has written to his son, and separately to Bryn, asking that the human be gone before the full moon.
 
@@ -49,6 +51,9 @@ None of this has to come out. A player who never looks at the archive plays a co
 - Beastfolk are people. They are not animals, and nobody is a villain. Even Bryn, who is told to hurt the player, is a scholarship student who owes everything to the people asking.
 - Fights are legible and never gory: chalk, sweat, the count, who is still inside the ring. Injuries are bruises, a twisted wrist, at worst a night in the infirmary.
 - Romance is optional and slow: rivalry with heat, flirting, tension, at most a kiss. No fan service. Ears and tails are body language, never something the prose lingers on.
+- Refusing a challenge is a real answer: it costs face, never the story.
+- The Stare is never a free win for a human: it runs for minutes, the hall does everything it can to make the human laugh, blink or look away, and Ruka has outstared fourth-years twice her size.
+- Flat ears always mean yielding. A threatening beastfolk pricks their ears forward.
 - Webnovel prose: short beats, the face at the top of the beat is Ruka's whenever she is in the scene.
 
 ## Player starting authority
@@ -65,29 +70,30 @@ The player authors their name, pronouns, appearance, and one true sentence about
 ### Minimal hard canon
 
 - Ashgrove is post-secondary; every student is 18 to 25. The player is the first human in thirty years.
-- Rank changes only in the Circle; the challenged names the form; winners swap places; a newcomer's first bout is open.
+- Rank changes only in the Circle; the challenged names the form; winners swap places; a newcomer's first bout is open, and a newcomer who wins it takes the challenger's number while the challenger and everybody below drop one place.
+- One way onto the Order needs no bout: every member of a den signs for an unranked student before the full moon, and that student goes on at the bottom of that den. The Warren has not signed for anybody in years.
 - On the seventh night the Order is fixed and anyone unranked goes home.
-- Beastfolk show feelings in ears and tails, smell fear, and have a yield instinct. Humans have none of these.
+- Beastfolk show feelings in ears and tails, smell fear, and have a yield instinct (ears flat, throat bared). Humans have none of these.
 - Lio Solenne has been first for two years without being struck once.
-- Edda Marsh fell on the north stair thirty years ago; what really happened is discoverable and owed to nobody.
+- A human student fell on the north stair thirty years ago; what really happened is discoverable and owed to nobody. Hard canon leaves her name out so it cannot leak into a run that never looks; it lives in Stagg's, Bryn's and Fenn's secrets.
 
 ## The opener (turn 0)
 
 > The dining hall goes silent the way a forest does, all at once.
 >
-> A tray slams down on your table. Soup jumps. Grey wolf ears, flat back. A scar through one eyebrow.
+> A tray slams down on your table. Soup jumps. Grey wolf ears, pricked forward. A scar through one eyebrow.
 >
 > "Humans eat last," says Ruka. "You're at the first table. My table."
 >
 > Two hundred ears turn toward you. Somewhere a tail knocks over a cup.
 >
-> "A tray on your table is a challenge. You pick the form: hold, strike, run or stare." She leans in, close enough to show her teeth. "Or you pick up your bowl and go stand at the back of the line. All year."
+> "A tray on your table is a challenge. You pick the form: hold, strike, run or stare. Win, and you're second in this school." She leans in, close enough to show her teeth. "Or you pick up your bowl and go to the back of the line. All year."
 >
 > She taps the table twice.
 >
 > "Stand up or get up, human. Which?"
 
-112 words. Ruka speaks at word 33 and is named at word 37. It ends on a direct question. The only proper noun is Ruka, introduced by what she does before she is named.
+118 words. Ruka speaks at word 33 and is named at word 37. It ends on a direct question. The only proper noun is Ruka, introduced by what she does before she is named. The stake is said out loud (win and you are second in the school; refuse and you eat last all year), and it does not leak why she chose the human. Her ears are pricked forward, not flat: flat ears are the yield.
 
 **Suggestions** (said, done, risky):
 
@@ -101,7 +107,7 @@ All adults. Cast order is cover order: Ruka, Lio, Pim.
 
 ### Ruka Varn, 20, she/her, wolf
 **Role:** Second on the Order, second-year, leader of the Hill Pack. The face of the story.
-**Look:** Grey wolf ears with a notch in the left one, a scar through her left eyebrow, a uniform jacket with the sleeves torn off, taped hands.
+**Look:** Grey wolf ears with a notch in the left one, a scar through her left eyebrow, a dark canvas training jacket with the sleeves torn off, taped hands.
 **Public:** Blunt, physical, the hall's self-appointed enforcer of manners. Taps a table twice when she has decided something.
 **Why she put her tray down (what she will admit):** a newcomer who loses their first bout is claimed by the challenger's den and goes on the Order at the bottom of it. Losing to her is the safest way for a human to still be here at the full moon. She would rather die than say that out loud.
 **Why she put her tray down (what she will not):** when Lio roars, her knees go before her mind does. She has stepped into the Circle against him twice and yielded both times without being touched. She wants to watch someone who has never knelt and learn how they do it.
@@ -111,7 +117,7 @@ All adults. Cast order is cover order: Ruka, Lio, Pim.
 
 ### Lio Solenne, 21, he/him, lion
 **Role:** First on the Order for two years, third-year, heir to his father's seat on the Clan Council.
-**Look:** A heavy gold mane tied back, amber eyes, a pressed uniform, a signet ring he turns when he is thinking.
+**Look:** A heavy gold mane tied back, amber eyes, a tailored charcoal college coat, a signet ring he turns when he is thinking.
 **Public:** Courteous, generous, faintly bored, beautifully mannered.
 **Want:** someone who will not kneel. Every challenger has yielded to his roar before reaching him, so he has never been struck and does not know if he is actually any good. He trains alone in the empty Circle after midnight, badly.
 **Secret:** his father wrote asking him to see that the human is gone before the full moon. He has not decided what he thinks about that.
@@ -143,7 +149,7 @@ All adults. Cast order is cover order: Ruka, Lio, Pim.
 **Look:** Enormous fennec ears, a waistcoat with chalk dust on it, a pencil behind each ear, a coin always walking across her knuckles.
 **Public:** Charming, mercenary, has the human at forty to one against anybody.
 **Offer:** she will pay the player to lose to Ruka in the third minute rather than the first.
-**Secret:** her grandmother ran the book thirty years ago and kept a ledger. One page records "Marsh does not fight", a huge bet in Garrow Holt's name, the night before Edda Marsh fell. Fenn has never shown it to anyone, partly out of fear and partly because she owes Sunward House money.
+**Secret:** her grandmother kept the hall's boilers and ran the book from them thirty years ago, and she kept a ledger. One page records "Marsh does not fight", a huge bet in Garrow Holt's name, the night before Edda Marsh fell. Fenn has never shown it to anyone, partly out of fear and partly because she owes Sunward House money.
 **Will not:** bet against herself; sell the ledger.
 **Voice:** odds and prices, "darling", quick patter. *"Forty to one against you, darling, and that is me being sentimental."*
 
@@ -157,8 +163,8 @@ All adults. Cast order is cover order: Ruka, Lio, Pim.
 
 ### Off-stage
 
-- **Aurel Solenne**, the Pride-Lord, Lio's father, chair of the Clan Council. Writes beautiful letters.
-- **Garrow Holt**, Bryn's father, retired, Aurel's den second thirty years ago.
+- **Aurel Solenne**, 53, the Pride-Lord, Lio's father, chair of the Clan Council. Writes beautiful letters. First rank thirty years ago, at 23.
+- **Garrow Holt**, 54, Bryn's father, retired, Aurel's den second thirty years ago, at 24.
 - **Edda Marsh**, 51, the last human at Ashgrove. Runs a gym in one of the coastal cities. Can be written to.
 
 ## Places
@@ -177,7 +183,7 @@ All adults. Cast order is cover order: Ruka, Lio, Pim.
 | The Ridge Course | Eleven kilometres of cairns above the school; the Run | Circle, Hill Pack House |
 | The Infirmary | Six beds, liniment, a jar of sweets for anyone who yields politely | Circle, hall |
 | The Lower Gate | Iron gate, bus shelter, last bus at ten | Your room, Circle, Lantern Street |
-| Lantern Street | The town below: noodle stall, bathhouse, bus stop | Lower gate |
+| Lantern Street | The town below: noodle stall, laundrette, tea house, bus stop | Lower gate |
 
 ## Factions
 
@@ -232,7 +238,11 @@ Win the first bout and be second on day one; lose it and be claimed by the Hill 
 
 ## Image plan (for the art pass; nothing generated in this commit)
 
-- **Cover:** Ruka leaning over a dining table, tray slammed down, ears flat, scar, sleeveless jacket, taped hands; the human's back in the foreground; the painted Order behind her; warm hall light. Adults only, described by costume and pose.
+- **Cover:** Ruka leaning over a dining table, tray slammed down, ears pricked forward, scar, sleeveless training jacket, taped hands; the human's shoulder in the foreground; the painted Order behind her, blurred past reading; warm hall light; PACK RANK in chalk-stroke capitals. Adults only, described by costume and pose, with no "student", "uniform" or age words in the prompt. The fixture's `coverDirection` carries the exact brief.
 - **Portraits:** Ruka, Lio, Pim, Stagg, Fenn, Bryn, each with their visual hook (notched ear; gold mane and signet ring; brass ear tag; broken antler; coin on the knuckles; scholarship crest).
 - **Stages:** the Long Hall, the Circle at night with lanterns, the north stair in the dark, the archive with the scratched board, the ridge at dawn, the boiler room odds board, Sunward House dining room, the gatehouse room.
-- **Opening panel:** Ruka at the table, tray down, leaning in.
+- **Opening panel:** Ruka at the table, tray down, leaning in, ears forward.
+
+## Title check
+
+Searched at editor review: nothing comes up for "Pack Rank" as an anime, manga, webtoon or manhwa title, and nothing for "Ashgrove Academy". The near miss is *Seton Academy: Join the Pack!* (2020 anime): the only human at an animal school, and a wolf heroine who wants him in her pack. Nothing is copied: Pack Rank is an adult college with a ranking mechanic, Ruka is not building a pack, and the spec bans the name. Keep store and ad copy away from "join the pack" wording.

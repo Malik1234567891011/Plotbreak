@@ -45,7 +45,7 @@ const raw = {
   storyId: 'story_pack_rank',
   version: 1,
   title: 'Pack Rank',
-  fantasyLabel: 'No claws. No fangs. No reason to kneel.',
+  fantasyLabel: 'The only human. The wolf wants you first.',
   hook: 'At a college where rank is won by sparring, you are the first human in thirty years, and on your first night the wolf ranked second in the school slams her tray down on your table.',
   premise:
     'Ashgrove Academy is a four-year college in the hills for the beastfolk clans: wolves, lions, bears, foxes, hares and a dozen more, every one of them an adult with the ears, tail and nose to prove it. You arrived this morning, the first human it has admitted in thirty years.\n\n' +
@@ -69,7 +69,7 @@ const raw = {
   contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY'],
   intensity: 'MODERATE',
   creatorNote:
-    'You can win your place in the Circle, talk your way into a den, outrun a wolf on the ridge, or refuse every challenge and see how far that gets you. Ruka is not your enemy, even if she looks like one on the first night, and the prince is a great deal lonelier than he lets anyone see.',
+    'You can win your place in the Circle, talk your way into a den, outrun a wolf on the ridge, or refuse every challenge and see how far that gets you. Ruka is not your enemy, even if she looks like one on the first night, and the prince is much lonelier than he lets anyone see.',
   rules: {
     defeatMode: 'FAIL_FORWARD',
     progressionMode: 'MILESTONE',
@@ -83,21 +83,23 @@ const raw = {
     hardCanon: [
       'Ashgrove Academy is a four-year college for the beastfolk clans. Every student is an adult between eighteen and twenty-five. The player is the first human admitted in thirty years and arrived this morning.',
       'The Order is the ranked list of all two hundred and eleven students, painted in white on black boards on the end wall of the Long Hall and repainted after every bout. Rank sets meal order, rooms, classes and who steps aside. The player is not on it.',
-      'Rank changes only in the Circle. Anyone may challenge anyone ranked above them by putting their tray down on that person’s table; if the challenger wins, the two swap places. A newcomer’s first bout is open to anyone: if the newcomer wins they take the challenger’s rank, and if they lose the challenger’s den claims them and they go on the Order at the bottom of that den.',
+      'Rank changes only in the Circle. Anyone may challenge anyone ranked above them by putting their tray down on that person’s table; if the challenger wins, the two swap places. A newcomer’s first bout is open to anyone: if the newcomer wins they take the challenger’s number, and the challenger and everybody below drop one place, and if they lose the challenger’s den claims them and they go on the Order at the bottom of that den. An unranked student who puts their own tray down on somebody and wins swaps in the ordinary way, which leaves the loser unranked.',
+      'There is one way onto the Order without a bout, and almost nobody remembers it is in the rules: if every member of a den signs for an unranked student before the full moon, that student goes on the wall at the bottom of that den without taking anybody’s place. The Warren is the bottom of the Order and has not signed for anybody in years.',
       'The one challenged names the form. The Hold is grappling, won by a pin to a count of three or a yield. The Strike is padded, claws blunted, first to three clean touches. The Run is the eleven-kilometre ridge course, and the first to stop loses. The Stare is won when the other looks away, flattens their ears or bares their throat. No biting, ever. Coach Stagg referees and the bout ends when he says.',
       'On the seventh night the moon is full: the Order is read aloud and fixed for the year, and anyone unranked is sent home on the morning bus. That night is the Moon Bout, the only night the first rank can be challenged, by anyone in the top ten or anyone the first rank invites.',
       'Beastfolk ears and tails show what they feel, they can smell fear, and they have a yield instinct: faced with a stronger presence, the body flattens its ears and bares its throat, sometimes before the mind has decided. A lion’s roar sets it off in almost everyone. Humans have no tells beastfolk can read, smell of soap and very little else, and do not have the instinct at all.',
       'Lio Solenne of Sunward House has been first on the Order for two years and has never once been struck: every challenger has yielded to his roar before reaching him. Ruka Varn of the Hill Pack is second.',
-      'Thirty years ago a human student named Edda Marsh climbed to seventh. The night before she was due to challenge the first rank she fell on the north stair, broke her leg, missed the full moon and was sent home, and the clans stopped admitting humans. Her name is scratched off the carved Order in the archive. What really happened is discoverable and owed to nobody.',
+      'Thirty years ago a human student climbed to seventh. The night before she was due to challenge the first rank she fell on the north stair, broke her leg, missed the full moon and was sent home, and the clans stopped admitting humans. Her name is scratched off the carved Order in the archive. What really happened is discoverable and owed to nobody.',
     ],
     toneGuide:
       'Loud, physical and funny, a sports-academy story with real tension underneath. Customs are concrete: trays, chalk, the painted Order, the kitchen hatch, the count of three, ears going flat, a tail knocking a cup over. The human’s edge is never magic. It is a face nobody can read, no instinct to kneel, endurance, hands and stubbornness, and the cast should be visibly thrown by it. ' +
       'Beastfolk are people, not animals, and nobody is a villain: even the student asked to hurt the player is a scholarship student in debt to the people asking. Bouts are legible and kept clean: distance, grip, breath, who is still inside the chalk, a split lip at worst. ' +
       'Every character is an adult. Romance is optional and slow, rivalry with heat in it, at most a kiss, and never fan service: ears and tails are body language, not something the prose lingers on. ' +
-      'Keep the hall alive: two hundred students reacting as one, odds on a chalkboard, somebody repainting a line. If a scene has nothing at stake, make it funny and short. The face at the top of a beat is Ruka’s whenever she is in the scene.',
+      'Keep the hall alive: two hundred students reacting as one, odds on a chalkboard, somebody repainting a line. If a scene has nothing at stake, make it funny and short. The face at the top of a beat is Ruka’s whenever she is in the scene. ' +
+      'Refusing a challenge is a real answer: it costs face, never the story. The Stare is never a free win for a human either: it runs for minutes, the hall does everything it can to make the human laugh, blink or look away, and Ruka has outstared fourth-years twice her size. Flat ears always mean yielding; somebody squaring up pricks their ears forward.',
     proseStyle: 'webnovel',
     styleExamples: [
-      "Stagg chalks the ring and steps out of it.\n\n\"Stare,\" he says. \"First to look away. Begin.\"\n\nRuka’s ears go flat. The whole courtyard leans back from her like grass in a wind.\n\nYou feel nothing. Just a slightly awkward amount of eye contact with a stranger.\n\nTwenty seconds. Thirty.\n\nHer left ear twitches.\n\n\"Stop that,\" she says through her teeth.\n\n\"Stop what?\"\n\n\"Being nothing.\" The ear twitches again. Two hundred people stop breathing.",
+      "Stagg chalks the ring and steps out of it.\n\n\"Stare,\" he says. \"First to look away. Begin.\"\n\nRuka’s ears go up and forward, hard. The whole courtyard leans back from her like grass in a wind.\n\nYou feel nothing. Just a slightly awkward amount of eye contact with a stranger.\n\nTwenty seconds. Thirty.\n\nHer left ear twitches.\n\n\"Stop that,\" she says through her teeth.\n\n\"Stop what?\"\n\n\"Being nothing.\" The ear twitches again. Two hundred people stop breathing.",
       "Somebody knocks at six fifty-nine exactly.\n\nA rabbit-eared courier is on the step, out of breath, a honey bun in one hand and a folded note in the other.\n\n\"Pim. Two-eleven. Bottom of the wall. Hi.\" He pushes the bun at you. \"That’s free. The note isn’t.\"\n\nHis ears swivel toward the drive, then back.\n\n\"Also, and I didn’t tell you this,\" he says, \"you want the south stair after dark.\"",
     ],
     forkCostCredits: 120,
@@ -325,7 +327,7 @@ const raw = {
       tags: ['quest', 'document'],
       questItem: true,
       description:
-        'A framed photograph of the top ten from thirty years ago, posed in front of the Long Hall. In the front row is a human woman with cropped hair, grinning, and beside her a young stag with both antlers whole.',
+        'A framed photograph of the top ten from thirty years ago, posed in front of the Long Hall. In the front row is a human woman with cropped hair, grinning, and beside her a stag student with both antlers whole.',
       loreText:
         'The names are written along the bottom of the mount. One has been scratched out with the same tool, and the same force, as the board on the wall.',
       icon: 'photo',
@@ -530,7 +532,7 @@ const raw = {
       description:
         'The dining hall: eleven long tables in rank order, the first one under the painted Order and the last one by the kitchen hatch. The Order is two hundred and eleven names in white paint on black boards running the full height of the end wall, and a student with a brush repaints a line every time a bout changes one. Nobody sits above their number, and the first table eats first.',
       artDirection:
-        'A vast old stone dining hall at night, eleven long wooden tables, warm lantern light, a towering end wall of black boards painted with white names and numbers, a kitchen hatch with steam, crowds of students with animal ears and tails in academy uniforms. Loud, warm, crowded.',
+        'A vast old stone dining hall at night, eleven long wooden tables, warm lantern light, a towering end wall of black boards painted with white names and numbers, a kitchen hatch with steam, crowds of beastfolk in college sports jackets and work clothes. Loud, warm, crowded.',
       connections: [
         { to: 'the_circle', travelMinutes: 2, label: 'Out to the courtyard' },
         { to: 'north_stair', travelMinutes: 1, label: 'The north stair, the short way up' },
@@ -551,7 +553,7 @@ const raw = {
       description:
         'The old courtyard, flagstones worn smooth, and in the middle a ring of chalk six paces across that Coach Stagg redraws every evening. Lantern posts at the four corners, a stone bench where he sits, a cracked flagstone at the dead centre, and every window in three buildings looking down into it. Most bouts here last less than ten seconds, because most students yield.',
       artDirection:
-        'An old stone academy courtyard at night, a white chalk ring on worn flagstones, four iron lantern posts, a stone bench, lit windows on three sides with silhouettes of watching students. Cool blue night, warm lantern pools, dramatic.',
+        'An old stone academy courtyard at night, a white chalk ring on worn flagstones, four iron lantern posts, a stone bench, lit windows on three sides with silhouettes of watching beastfolk. Cool blue night, warm lantern pools, dramatic.',
       connections: [
         { to: 'long_hall', travelMinutes: 2, label: 'Back into the hall' },
         { to: 'hill_den', travelMinutes: 4, label: 'Up the hill path to the Hill Pack House' },
@@ -605,9 +607,9 @@ const raw = {
       name: 'Sunward House',
       shortName: 'Sunward',
       description:
-        'The lions’ house, south-facing and old money: deep carpets, a dining room with silver on the table, and portraits of every first rank Sunward has produced, which is most of them. Bryn Holt keeps the door. The lions eat here rather than in the Long Hall, a privilege nobody has been brave enough to question in living memory.',
+        'The lions’ house, south-facing and old money: deep carpets, a dining room with silver on the table, and portraits of every first rank Sunward has produced, and it has produced most of them. Bryn Holt keeps the door. The lions eat here rather than in the Long Hall, a privilege nobody has been brave enough to question since anyone can remember.',
       artDirection:
-        'A grand old stone house with tall south-facing windows, a candlelit dining room with silver and a long polished table, gilt-framed portraits of lion-eared students on the walls, a broad figure at the door. Rich gold and deep red, hushed.',
+        'A grand old stone house with tall south-facing windows, a candlelit dining room with silver and a long polished table, gilt-framed portraits of lion-eared men and women in formal coats on the walls, a broad figure at the door. Rich gold and deep red, hushed.',
       connections: [{ to: 'the_circle', travelMinutes: 4, label: 'Back down the drive to the courtyard' }],
       discoveredByDefault: true,
       mapPosition: { x: 1, y: 0 },
@@ -620,7 +622,7 @@ const raw = {
       description:
         'The Warren’s loft above the old stables: hammocks, pigeonholes stuffed with notes, a map of the grounds drawn on the wall in six colours of ink, and the cheapest beds in the school. The couriers carry notes, parcels and buns between every den for a coin a trip, and everything anybody sends passes through here first.',
       artDirection:
-        'A cosy cluttered loft above stables, wooden beams, hammocks, walls of pigeonholes stuffed with letters, a colourful hand-drawn map painted on the plaster, lamplight, rabbit-eared students sorting post. Busy, warm, scrappy.',
+        'A cosy cluttered loft above stables, wooden beams, hammocks, walls of pigeonholes stuffed with letters, a colourful hand-drawn map painted on the plaster, lamplight, rabbit-eared couriers sorting post. Busy, warm, scrappy.',
       connections: [{ to: 'the_circle', travelMinutes: 3, label: 'Down the ladder and round to the courtyard' }],
       discoveredByDefault: true,
       mapPosition: { x: 1, y: 2 },
@@ -732,9 +734,9 @@ const raw = {
       name: 'Lantern Street',
       shortName: 'Town',
       description:
-        'The one street of the market town below the academy: a noodle stall, a bathhouse, a hardware shop, the bus stop and a bar that serves students on condition they do not settle anything inside it. Humans pass through on the trade road, so nobody stares at you here, which after the hall is a strange relief.',
+        'The one street of the market town below the academy: a noodle stall, a laundrette, a hardware shop, the bus stop and a tea house that serves students on condition they do not settle anything inside it. Humans pass through on the trade road, so nobody stares at you here, which after the hall is a strange relief.',
       artDirection:
-        'A narrow small-town street at night strung with paper lanterns, a steaming noodle stall, a bathhouse sign, a bus stop, a mix of human and animal-eared townsfolk. Cosy, glowing, ordinary.',
+        'A narrow small-town street at night strung with paper lanterns, a steaming noodle stall, a laundrette’s steamy window, a bus stop, a mix of human and animal-eared townsfolk. Cosy, glowing, ordinary.',
       connections: [{ to: 'the_gate', travelMinutes: 10, label: 'Back up the road to the academy' }],
       discoveredByDefault: true,
       mapPosition: { x: -1, y: 4 },
@@ -746,7 +748,7 @@ const raw = {
       id: 'faction_faculty',
       name: 'Ashgrove Faculty',
       description:
-        'The staff who run the academy and keep the Circle’s rules: Coach Stagg, the nurse, the deans of each year. They admitted you, which half of them regret, and they stop a fight outside the chalk a great deal faster than one inside it.',
+        'The staff who run the academy and keep the Circle’s rules: Coach Stagg, the nurse, the deans of each year. They admitted you, which half of them regret, and they stop a fight outside the chalk much faster than one inside it.',
       startingReputation: 15,
       ranks: [
         { atReputation: 0, label: 'On probation' },
@@ -776,7 +778,7 @@ const raw = {
       id: 'faction_sunward',
       name: 'Sunward House',
       description:
-        'The lions’ den, with the bears and tigers who board with them. Old money, the first rank for most of the last century, and the house the clan council’s chair grew up in. They do not need to fight anybody, which is the whole point of them.',
+        'The lions’ den, with the bears and tigers who board with them. Old money, the first rank for most of the last century, and the house the clan council’s chair grew up in. They do not need to fight anybody. That is the whole point of them.',
       startingReputation: -10,
       ranks: [
         { atReputation: -30, label: 'Beneath notice' },
@@ -805,7 +807,7 @@ const raw = {
       id: 'faction_council',
       name: 'The Clan Council',
       description:
-        'The clans’ governing council in the city, chaired by Aurel Solenne, the Pride-Lord, who is Lio’s father. It pays the scholarships, voted to stop admitting humans thirty years ago, and is watching to see whether this one lasts the week. It writes letters in gold wax.',
+        'The clans’ governing council in the city, chaired by Aurel Solenne, fifty-three, the Pride-Lord, who is Lio’s father. It pays the scholarships, voted to stop admitting humans thirty years ago, and is watching to see whether this one lasts the week. It writes letters in gold wax.',
       startingReputation: -15,
       ranks: [
         { atReputation: -40, label: 'An embarrassment' },
@@ -823,7 +825,7 @@ const raw = {
       name: 'Ruka Varn',
       role: 'Second on the Order, leader of the Hill Pack, and the wolf whose tray is on your table',
       cardBlurb:
-        'She is second in the whole school, she has just challenged you in front of two hundred people, and she is watching how you stand a great deal more closely than whether you win.',
+        'She is second in the whole school, she has just challenged you in front of two hundred people, and she cares far more about how you stand than whether you win.',
       pronouns: 'she/her',
       publicTraits: [
         'Blunt to the point of rudeness',
@@ -871,9 +873,9 @@ const raw = {
         'When he roars, my knees decide before I do. Yours didn’t. Show me how.',
       ],
       appearance:
-        'Twenty, tall and rangy, grey wolf ears with a notch out of the left one, a scar through her left eyebrow, an academy uniform jacket with the sleeves torn off and taped hands.',
-      visualHook: 'A uniform jacket with both sleeves torn off at the shoulder, and a notch bitten out of her left ear.',
-      silhouette: 'Leaning in over a table on both fists, ears flat back, shoulders up.',
+        'Twenty, tall and rangy, grey wolf ears with a notch out of the left one, a scar through her left eyebrow, a dark canvas training jacket with the sleeves torn off and taped hands.',
+      visualHook: 'A training jacket with both sleeves torn off at the shoulder, and a notch bitten out of her left ear.',
+      silhouette: 'Leaning in over a table on both fists, ears forward, shoulders up.',
       artSeed: 'pr-ruka-01',
       portrait: null,
       expressions: ['neutral', 'stern', 'competitive', 'amused', 'warm', 'stung'],
@@ -921,7 +923,7 @@ const raw = {
       name: 'Lio Solenne',
       role: 'First on the Order for two years, heir to Sunward House, and the one person in the school nobody has ever touched',
       cardBlurb:
-        'He is the first rank, every challenger he has ever faced knelt before reaching him, and he has just realised you are the one person here who will not, which is the most interesting thing to happen to him in two years.',
+        'He is the first rank, every challenger he has ever faced knelt before reaching him, and you may be the one person here who will not, which would be the most interesting thing to happen to him in two years.',
       pronouns: 'he/him',
       publicTraits: ['Courteous to a fault', 'Generous with things that cost him nothing', 'Visibly bored by being obeyed'],
       hiddenDrives: [
@@ -944,7 +946,7 @@ const raw = {
       secrets: [
         {
           id: 'lio_the_letter',
-          fact: 'His father has written asking him to see that the human is gone before the full moon. The letter is in his desk at Sunward House and he has read it eleven times.',
+          fact: 'His father has written asking him to see that the human is gone before the full moon. The letter is in his desk at Sunward House and he has read it nine times.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He shows it to the player himself at dinner at Sunward House, if they have been honest with him about something that cost them.',
         },
@@ -965,7 +967,7 @@ const raw = {
         'My father writes beautiful letters. This one asks me to see that you are gone before the moon is full. I have not decided what I think about that yet.',
       ],
       appearance:
-        'Twenty-one, broad and easy, a heavy gold mane tied back at the neck, amber eyes, a pressed academy uniform with the cuffs turned back once, a signet ring on his right hand.',
+        'Twenty-one, broad and easy, a heavy gold mane tied back at the neck, amber eyes, a tailored charcoal college coat with the cuffs turned back once, a signet ring on his right hand.',
       visualHook: 'A heavy gold mane tied back with a plain black cord, and a lion signet ring he turns while he thinks.',
       silhouette: 'Upright and unhurried, one hand in a pocket, chin slightly raised, standing in the middle of a room as if it were built around him.',
       artSeed: 'pr-lio-01',
@@ -977,7 +979,7 @@ const raw = {
         { startMinute: 540, endMinute: 720, locationId: 'the_archive', activity: 'reading in the archive window seat' },
         { startMinute: 720, endMinute: 780, locationId: 'long_hall', activity: 'lunch at the first table, briefly' },
         { startMinute: 780, endMinute: 1080, locationId: 'the_circle', activity: 'on the bench by the chalk, holding court' },
-        { startMinute: 1080, endMinute: 1320, locationId: 'sunward_house', activity: 'dinner at Sunward House, eleven courses' },
+        { startMinute: 1080, endMinute: 1320, locationId: 'sunward_house', activity: 'dinner at Sunward House, seven courses' },
         { startMinute: 1320, endMinute: 1440, locationId: 'sunward_house', activity: 'writing letters he does not send' },
       ],
       homeLocationId: 'sunward_house',
@@ -1004,7 +1006,7 @@ const raw = {
         },
         {
           id: 'lio_close',
-          label: 'He stops asking permission',
+          label: 'He says what he wants without asking first',
           kind: 'ROMANCE',
           requires: { trust: 60, affection: 55, respect: 50 },
         },
@@ -1019,7 +1021,7 @@ const raw = {
       name: 'Pim Hollowell',
       role: 'Last on the Order, courier for the Warren, and the cheapest rank on the wall to take',
       cardBlurb:
-        'He is two hundred and eleventh out of two hundred and eleven, he knows where everybody in the school is at every hour, and he has worked out that the easiest way for you to get ranked is to beat him.',
+        'The easiest way for you to get ranked is to beat him, and he has worked that out. He is last on the wall, he knows where everybody in the school is at every hour, and he would very much like you to need him instead.',
       pronouns: 'he/him',
       publicTraits: ['Talks faster than he runs, which is fast', 'Knows every schedule in the school', 'Cannot keep his ears still'],
       hiddenDrives: [
@@ -1057,7 +1059,7 @@ const raw = {
         'Pim. Two-eleven. Bottom of the wall. Hi. The bun is free, the gossip costs.',
         'Right, so, four stairs in the main building and you want the south one after dark, and before you ask how I know, I deliver to everyone and I read envelopes.',
         'If you put your tray on my table you win, obviously, look at me, and then I’m unranked and on the morning bus. So please, please don’t.',
-        'Gold wax, lion seal, eleven o’clock post, two of them. I didn’t open either. I want that on record. I held them up to the lamp a bit.',
+        'Gold wax, lion seal, ten o’clock post, two of them. I didn’t open either. I want that on record. I held them up to the lamp a bit.',
       ],
       appearance:
         'Nineteen, slight and quick, long brown rabbit ears, a courier’s satchel bigger than his torso, ink on every finger and a scarf wound three times round his neck.',
@@ -1205,7 +1207,7 @@ const raw = {
       secrets: [
         {
           id: 'fenn_the_ledger',
-          fact: 'Her grandmother ran the book thirty years ago and kept a ledger. One page records a single very large bet the night before Edda Marsh fell, "Marsh does not fight", in Garrow Holt’s name and paid with Sunward money.',
+          fact: 'Her grandmother kept the hall’s boilers and ran the book from them thirty years ago, and she kept a ledger. One page records a single very large bet the night before Edda Marsh fell, "Marsh does not fight", in Garrow Holt’s name and paid with Sunward money.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She opens it for somebody she trusts who has turned down at least one of her offers, or for somebody who simply lifts it from the tin under her desk.',
         },
@@ -1516,7 +1518,7 @@ const raw = {
             {
               routeId: 'took_pims_place',
               label: 'Put your tray on Pim’s table and take his rank',
-              predicate: { flagsSet: ['used:lay_down_a_tray', 'spoke:pim'], atLocation: 'the_warren' },
+              predicate: { flagsSet: ['used:lay_down_a_tray', 'spoke:pim'], atLocation: 'long_hall' },
               setsFlags: ['on_the_order', 'sent_pim_down'],
               closesFlags: ['pim_pact'],
             },
@@ -2253,7 +2255,7 @@ const raw = {
     {
       id: 'worldKnowsAboutYou',
       label: 'What does the hall notice about you first?',
-      helpText: 'One plain sentence about who you are. The school will react to it.',
+      helpText: 'One plain sentence about who you are.',
       kind: 'TEXT',
       required: false,
       maxLength: 300,
@@ -2278,7 +2280,7 @@ const raw = {
       kind: 'TEXT',
       advanced: true,
       maxLength: 200,
-      placeholder: 'e.g. Twenty-two, short, a borrowed uniform jacket two sizes too big, and running shoes nobody here has seen before.',
+      placeholder: 'e.g. Twenty-two, short, a borrowed training jacket two sizes too big, and running shoes nobody here has seen before.',
     },
   ],
   /**
@@ -2300,7 +2302,7 @@ const raw = {
       condition:
         'The player got onto the Order by the full moon, by whatever route, and was in the hall to hear their number read aloud. Nothing spectacular happened; a human simply stayed, which at Ashgrove is spectacular enough.',
       epilogue:
-        'The student with the brush paints a new line near the bottom of the wall, in the same white as everybody else. By the end of the month nobody turns round when the human walks into the hall, which is exactly what the player wanted.',
+        'The student with the brush paints a new line near the bottom of the wall, in the same white as everybody else. By the end of the month nobody turns round when the human walks into the hall, and that is exactly what the player wanted.',
       hint: '',
     },
     {
@@ -2388,7 +2390,7 @@ const raw = {
       condition:
         'The player taught Ruka to stay on her feet through Lio’s roar, and at the Moon Bout she did. Whether she won does not matter. The ending belongs to her, and the player watched it from behind the chalk.',
       epilogue:
-        'Ruka stays standing for eleven seconds against the roar, the longest anybody has in two years, and lands one clean touch. Afterwards she finds the player in the crowd, taps their shoulder twice, and says their real name in front of everybody.',
+        'Ruka stays standing for fourteen seconds against the roar, the longest anybody has in two years, and lands one clean touch. Afterwards she finds the player in the crowd, taps their shoulder twice, and says their real name in front of everybody.',
       hint: '',
     },
     {
@@ -2429,16 +2431,23 @@ const raw = {
     },
   ],
   opening:
-    "The dining hall goes silent the way a forest does, all at once.\n\nA tray slams down on your table. Soup jumps. Grey wolf ears, flat back. A scar through one eyebrow.\n\n\"Humans eat last,\" says Ruka. \"You're at the first table. My table.\"\n\nTwo hundred ears turn toward you. Somewhere a tail knocks over a cup.\n\n\"A tray on your table is a challenge. You pick the form: hold, strike, run or stare.\" She leans in, close enough to show her teeth. \"Or you pick up your bowl and go stand at the back of the line. All year.\"\n\nShe taps the table twice.\n\n\"Stand up or get up, human. Which?\"",
+    "The dining hall goes silent the way a forest does, all at once.\n\nA tray slams down on your table. Soup jumps. Grey wolf ears, pricked forward. A scar through one eyebrow.\n\n\"Humans eat last,\" says Ruka. \"You're at the first table. My table.\"\n\nTwo hundred ears turn toward you. Somewhere a tail knocks over a cup.\n\n\"A tray on your table is a challenge. You pick the form: hold, strike, run or stare. Win, and you're second in this school.\" She leans in, close enough to show her teeth. \"Or you pick up your bowl and go to the back of the line. All year.\"\n\nShe taps the table twice.\n\n\"Stand up or get up, human. Which?\"",
   openingPanel: {
     assetKey: 'story_pack_rank/opening',
-    alt: 'Ruka, a grey-eared wolf student with a scarred eyebrow and a sleeveless uniform jacket, leaning over a dining-hall table on both fists, a tray slammed down, a crowded hall behind her.',
+    alt: 'Ruka, a grey-eared wolf woman, ears pricked forward, scarred eyebrow, sleeveless training jacket, leaning over a dining-hall table on both fists, a tray slammed down, a crowded hall behind her.',
   },
   openingSuggestions: [
     "\"I pick the stare.\" I look straight into her eyes and don't blink.",
     'I pick up my bowl and carry it to the back of the line.',
     'I take the bread roll off her tray and bite into it.',
   ],
+  coverDirection: [
+    'SUBJECT: Ruka Varn, a tall wolf-eared woman, leaning toward the viewer over a long wooden dining table on both fists, a tray just slammed down, soup splashing.',
+    'Grey wolf ears pricked hard forward with a notch in the left one, a scar through her left eyebrow, a sleeveless dark canvas training jacket, taped hands, a hard amused stare straight at the viewer.',
+    'Behind her, softly out of focus: a towering black wall striped with rows of small white painted lines, blurred past reading, in a warm lantern-lit stone hall, and a crowd of ear-and-tail silhouettes all turned toward the viewer.',
+    'The viewer’s shoulder is blurred in the foreground.',
+    'TITLE: "PACK RANK" in rough white chalk-stroke capitals across the top third, spelled exactly PACK RANK, large and legible at thumbnail size. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 
