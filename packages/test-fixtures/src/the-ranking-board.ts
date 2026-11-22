@@ -33,7 +33,14 @@ import { StoryVersion } from '@plotbreak/contracts';
  * the consequence this world wants. Hurt heals slowly and only goes up when
  * the player chooses to fight through something.
  *
- * Everyone at the Ridge is eighteen or older. The bible states every age.
+ * The board has to live where the storyteller can read it. Production runs
+ * `runTurnPure`, which never sees resources, step notes or locked abilities, so
+ * the rules are in hard canon, the student card is a starting quest item, and
+ * every archetype starts with the board's two verbs (call_out, walk_out) plus
+ * one move of its own.
+ *
+ * Everyone at the Ridge is eighteen or older. The bible and hard canon state
+ * every age.
  */
 
 const raw = {
@@ -80,6 +87,7 @@ const raw = {
     startWorldMinute: 7 * 60 + 50,
     startingItems: [{ itemId: 'student_card', qty: 1 }],
     hardCanon: [
+      'Everyone in this story is an adult. Soyeon Ryu is twenty-one, Tetsu Hamada twenty-two, Hajun Seol twenty-three, Minho Tak nineteen, Nari Hwang twenty-four and Coach Dam fifty-eight. The player, a transfer, is an adult too.',
       'Haneul Ridge College of Combat Arts ("the Ridge") stands on a hill above the harbour city of Garam Bay. Every student and every member of staff is eighteen or older. Nobody has powers, magic or a status window; they are people who are very good at fighting.',
       'The board is a glass screen on the north wall of the Yard showing the top hundred students by number. It re-sorts at 06:00 every morning when the bell rings.',
       'A challenge: touch your student card to a name, the named fighter taps their card to accept, and the challenger confirms on the glass. Anybody may challenge anybody. A fighter may decline, for free, any challenge from more than twenty places below. Within twenty places they get one refusal per term. Unranked students count as 101.',
@@ -851,7 +859,7 @@ const raw = {
         'The noodle place at the bottom of the steps closes at two. I’m there at one. Do what you like with that.',
       ],
       appearance:
-        'Twenty-one, lean and very still, black hair cropped at the jaw with one thin braid at the nape, a black training jacket zipped to the chin in every weather, dark watchful eyes.',
+        'An adult woman, lean and very still, black hair cropped at the jaw with one thin braid at the nape, dark watchful eyes, a plain black training jacket zipped to the chin over black track trousers, white tape wrapped round both hands, and an ID card on a black lanyard turned backwards against her chest.',
       visualHook: 'Her student card worn backwards on its lanyard, so the gold number 1 faces her chest and only she can see it.',
       silhouette: 'Upright and motionless, hands in jacket pockets, weight a fraction off her left side.',
       artSeed: 'trb-soyeon-01',
@@ -941,7 +949,7 @@ const raw = {
         'You want my room, transfer? Window sticks. Heating’s a joke. I’d still bleed for it.',
       ],
       appearance:
-        'Twenty-two, big through the shoulders, bleached buzzcut, a scar through his left eyebrow, a market tan, a Tower tracksuit a size too small.',
+        'An adult man, big through the shoulders and chest, a bleached-blond buzzcut, a thin scar through his left eyebrow, a sun-browned face, a navy tracksuit with a white stripe a size too small and pushed up at the sleeves, and taped knuckles.',
       visualHook: 'The number 87 shaved into the left side of his buzzcut, freshly re-shaved every Sunday night.',
       silhouette: 'Chin up, chest out, rolling his neck, always half a step closer than he needs to be.',
       artSeed: 'trb-tetsu-01',
@@ -1028,7 +1036,7 @@ const raw = {
         'Eleven seconds. You’ve seen the clip. Everyone has. I would like there to be a different one.',
       ],
       appearance:
-        'Twenty-three, tall and neat, hair combed back, a pressed white shirt with sleeves rolled exactly twice, an easy smile that reaches his eyes about half the time.',
+        'An adult man, tall and neat, black hair combed straight back, calm dark eyes, an easy smile that reaches them about half the time, a pressed white shirt with the sleeves rolled exactly twice, charcoal tailored trousers, a slim silver watch and a silver pen in his shirt pocket.',
       visualHook: 'A silver pen he clicks once, precisely, before he makes an offer.',
       silhouette: 'Seated, one arm along the back of a chair, perfectly at ease, never the first to stand.',
       artSeed: 'trb-hajun-01',
@@ -1106,7 +1114,7 @@ const raw = {
         'I’ve clipped four thousand challenges and been in zero. That’s the whole sad statistic.',
       ],
       appearance:
-        'Nineteen, slight, round glasses, a grey hoodie with chewed cuffs, hair that has given up, always carrying something.',
+        'An adult man, lanky and narrow-shouldered, messy black hair that has given up, a faint shadow of stubble, round wire-rimmed glasses, a baggy grey hoodie with chewed cuffs over a faded T-shirt, a canvas bag across his chest, and a tablet in a bright orange case always in one hand.',
       visualHook: 'A tablet in a bright orange case completely covered in stickers of fighters he admires.',
       silhouette: 'Hunched over a glowing screen, one knee bouncing, glasses pushed up into his hair.',
       artSeed: 'trb-minho-01',
@@ -1185,7 +1193,7 @@ const raw = {
         'You’re not going back out on that ankle. I’ll tape it. I’ll tape it badly, so you remember I said no.',
       ],
       appearance:
-        'Twenty-four, quick and sharp-eyed, dark hair twisted up in a clip, a clinic tabard over a sweatshirt, sleeves pushed to the elbow.',
+        'An adult woman, quick and sharp-eyed, dark brown hair twisted up in a tortoiseshell clip, a navy clinic tabard with an ice-cube pin over a grey sweatshirt, sleeves pushed to the elbow, and a roll of white athletic tape worn on her wrist like a bracelet.',
       visualHook: 'A roll of white athletic tape worn on her wrist like a bracelet, and an ice-cube pin on her tabard.',
       silhouette: 'Arms folded, head tilted, standing between you and the door.',
       artSeed: 'trb-nari-01',
@@ -1263,7 +1271,7 @@ const raw = {
         'Thirty years I’ve watched fighters climb the glass. The fast ones come down the same way. Sit.',
       ],
       appearance:
-        'Fifty-eight, compact and solid, grey hair cropped to the skull, forearms like rope, a faded national team jacket older than most of her students.',
+        'An older woman, compact and solid, grey hair cropped to the skull, a nose broken and set crooked, forearms like rope, a faded blue national-team track jacket over a black T-shirt, and a silver coach’s whistle on a cord round her neck.',
       visualHook: 'A nose broken and set crooked twice, and a coach’s whistle on a cord that nobody has ever heard her blow.',
       silhouette: 'Short, square, arms crossed, planted in a doorway as if she owns it.',
       artSeed: 'trb-dam-01',
@@ -2288,7 +2296,7 @@ const raw = {
       attributeBonus: { might: 2, resolve: 2 },
       skillProficiencies: { striking: 2, grit: 2, legwork: 1 },
       startingItems: [{ itemId: 'barley_tea', qty: 2 }],
-      startingAbilities: [],
+      startingAbilities: ['call_out', 'walk_out', 'press_forward'],
       startingReputation: [{ factionId: 'faction_annex', amount: 10 }],
     },
     {
@@ -2301,7 +2309,7 @@ const raw = {
       attributeBonus: { might: 2, agility: 1, resolve: 1 },
       skillProficiencies: { grappling: 3, grit: 1, reading: 1 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['call_out', 'walk_out', 'take_it_down'],
       startingReputation: [{ factionId: 'faction_proctors', amount: 10 }],
     },
     {
@@ -2314,7 +2322,7 @@ const raw = {
       attributeBonus: { agility: 2, arcana: 2 },
       skillProficiencies: { striking: 2, reading: 1, instinct: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['call_out', 'walk_out', 'make_them_miss'],
       startingReputation: [],
     },
     {
@@ -2327,7 +2335,7 @@ const raw = {
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { front: 3, striking: 1 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['call_out', 'walk_out', 'play_the_phones'],
       startingReputation: [
         { factionId: 'faction_hundred', amount: 10 },
         { factionId: 'faction_table', amount: 10 },
@@ -2343,7 +2351,7 @@ const raw = {
       attributeBonus: { mind: 2, resolve: 2 },
       skillProficiencies: { legwork: 3, front: 1, grit: 1 },
       startingItems: [{ itemId: 'their_old_card', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['call_out', 'walk_out', 'ask_around'],
       startingReputation: [],
     },
   ],
@@ -2586,13 +2594,29 @@ const raw = {
     "Your chest slams into the glass, and the whole board lights up.\n\nA hundred names. A hundred faces. Your student card is pressed flat against number 87.\n\nYou turn. Number 87 just shoved you. Same grin as on the screen, same 87 shaved into the side of his head.\n\n\"Whoops,\" says Tetsu. \"Your card touched my name, transfer. That's a challenge.\"\n\nHe taps his own card to the glass. Red letters flash:\n\nCHALLENGE ACCEPTED?\n\nAcross the courtyard, two hundred phones come up at once.\n\nTetsu steps into the white circle painted on the stones and raises his fists. \"Beat me, you get my number. Back out, and the board flags you a coward all term.\"\n\n\"So. Yes or no?\"",
   openingPanel: {
     assetKey: 'story_the_ranking_board/opening',
-    alt: 'Tetsu, a big grinning fighter with 87 shaved into his bleached buzzcut, standing in a painted white circle under a giant glass ranking board, fists up, phones raised all around.',
+    alt: 'Tetsu, grinning, 87 shaved into his bleached buzzcut, stands in a painted white circle under a giant glass ranking board with his fists up at you, as phones rise all round the courtyard.',
   },
   openingSuggestions: [
     '"I didn\'t touch your name. You threw me at it. No."',
     'I press my card back to the glass and step into the circle.',
     'I slide my card up the glass, past his name, all the way to number one.',
   ],
+  coverDirection: [
+    'SUBJECT: Soyeon Ryu, the number one fighter, in the foreground of a key visual for a martial-arts anime about a college that ranks its fighters on a giant glass wall, with Tetsu Hamada behind her and lower in the frame.',
+    'Soyeon fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'Black hair cropped at the jaw with one thin braid at the nape, dark watchful eyes, a plain black training jacket zipped to the chin, white tape wrapped round both hands, and an ID card on a black lanyard turned backwards against her chest.',
+    'She stands upright and perfectly still: her right hand raised loosely in a guard beside her chin, her left hand pushed into her jacket pocket. She looks straight at the viewer, calm and unimpressed, as if the viewer has just called her name.',
+    'Behind her and lower, smaller and to one side: Tetsu Hamada, big through the shoulders, a bleached-blond buzzcut, a thin scar through one eyebrow, a navy tracksuit with a white stripe a size too small, taped fists up, grinning, standing inside a white circle painted on grey flagstones.',
+    'Above and behind them both rises the ranking wall: a sheet of glass four storeys tall, a grid of glowing tiles with tiny blurred portrait squares, lit cold white, the topmost tile blazing red.',
+    'The wall shows only glowing tiles and blurred portraits: no letters, no numbers, nothing that reads as writing.',
+    'Effects stay on objects and on the title: a hairline crack running across the glass wall, red light pouring from the top tile, glints of light in the air above the circle, small bright phone screens.',
+    'THEIR FACES STAY CLEAN: no red streaks, cracks, glints, bruises or shadows on either face.',
+    'Every red effect stays on the glass wall and the title, never on their faces.',
+    'BEHIND THEM, soft and secondary: a stone college courtyard at dawn, a crowd in hoodies and track jackets at the edges of the frame holding up dozens of glowing phones, old concrete buildings and a tall dormitory tower against a pale sky over a harbour.',
+    'LIGHT: cold blue-white glow from the glass wall rims both of them, warm gold dawn light falls across Soyeon from the side, and one red accent from the top tile touches her shoulders and the stones.',
+    'TITLE: the words THE RANKING BOARD painted into the art in the upper third, across the top of the glass wall, as a bold condensed sports-broadcast logo, white with a red glow, like lettering lit up on glass,',
+    'spelled exactly THE RANKING BOARD, three words, large and legible at thumbnail size. A thin red scan line runs under the word BOARD only. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 

@@ -733,3 +733,62 @@ describe('the copy is the right length and says the right amount', () => {
     expect(new Set(story.promises.map((p) => p.kind))).toEqual(new Set(['FINALE', 'RIVAL', 'RELATIONSHIP', 'MYSTERY', 'THEME']));
   });
 });
+
+describe('the art and release pipeline (docs/stories-50/PIPELINE.md)', () => {
+  const AGE_WORDS = /\b(teen\w*|girl|boy|young\w*|youth\w*|kid|child\w*|student|\d+)\b/i;
+
+  it('states every cast age in hard canon, where the storyteller reads it', () => {
+    const canon = story.rules.hardCanon[0]!;
+    expect(canon).toMatch(/^Everyone in this story is an adult\./);
+    expect(canon).toMatch(/The player, a transfer, is an adult too\./);
+    for (const c of story.characters) expect(canon, c.id).toContain(calledName(c));
+  });
+
+  it('describes people by build and costume, never by an age word', () => {
+    for (const c of story.characters.filter((c) => c.cardBlurb.trim())) {
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (wo)?man\b/);
+      expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
+    }
+    expect(story.coverDirection).not.toMatch(AGE_WORDS);
+  });
+
+  it('paints the title into the cover and keeps every effect off the faces', () => {
+    const cover = story.coverDirection;
+    expect(cover).toMatch(/TITLE: the words THE RANKING BOARD /);
+    expect(cover).toContain('spelled exactly THE RANKING BOARD');
+    expect(cover.toUpperCase()).toContain(story.title.toUpperCase());
+    expect(cover).toContain('Soyeon');
+    expect(cover).toMatch(/never on their faces/i);
+    expect(cover).toMatch(/no letters, no numbers/i);
+  });
+
+  it('draws the opening panel around the man who speaks first', () => {
+    const panel = story.openingPanel!;
+    expect(panel.assetKey).toBe(`${story.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    const firstQuote = story.opening.search(/["“]/);
+    const speaker = story.characters.find((c) => story.opening.slice(firstQuote, firstQuote + 80).includes(calledName(c)));
+    expect(speaker?.id).toBe('tetsu');
+    expect(panel.alt.startsWith(`${calledName(speaker!)},`)).toBe(true);
+  });
+
+  it('opens straight on the scene and ships unpublished', () => {
+    expect(story.prologue ?? []).toHaveLength(0);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('puts the board itself where the storyteller reads it', () => {
+    expect(story.rules.startingItems.map((i) => i.itemId)).toContain('student_card');
+    expect(story.items.find((i) => i.id === 'student_card')?.questItem).toBe(true);
+    for (const a of story.archetypes) {
+      expect(a.startingAbilities, a.id).toEqual(expect.arrayContaining(['call_out', 'walk_out']));
+      expect(a.startingAbilities.length, a.id).toBeGreaterThanOrEqual(3);
+      for (const id of a.startingAbilities) {
+        expect(story.abilities.find((x) => x.id === id)?.unlockedByDefault, `${a.id}: ${id}`).toBe(true);
+      }
+    }
+    expect(new Set(story.archetypes.map((a) => a.startingAbilities[2])).size).toBe(story.archetypes.length);
+    expect(story.rules.toneGuide.trim().length).toBeGreaterThan(200);
+    expect(story.characters.find((c) => c.id === 'dam')?.calledName).toBe('Coach Dam');
+  });
+});

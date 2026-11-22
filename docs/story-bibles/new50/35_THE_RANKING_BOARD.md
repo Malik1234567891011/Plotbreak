@@ -59,7 +59,7 @@ The story succeeds if a player can spend ten turns doing nothing but sparring, e
 
 ## Player starting authority
 
-The player authors their own name, pronouns, how they look, and where they learned to fight (the archetype, which is the one piece of identity the storyteller reads). They decide whether to climb, refuse, cheat, investigate, fall for someone or leave. Reasonable details about their past become canon if they do not contradict the rules above.
+The player authors their own name, pronouns, how they look, and where they learned to fight (the archetype, which is the one piece of identity the storyteller reads). They decide whether to climb, refuse, cheat, investigate, fall for someone or leave. Reasonable details about their past become canon if they do not contradict the rules above. Every archetype starts with the board's two verbs, Put Your Card on a Name and Walk Out of the Circle, plus one move of its own (Walk Them Down, Take It to the Stones, Make Them Miss, Play to the Phones, Ask Around), because the storyteller reads only the chosen archetype's starting abilities.
 
 ## The opener (turn 1)
 
@@ -221,4 +221,10 @@ Climb clean with Coach Dam; climb fast on the Long Table's soft fights; say yes 
 
 ## Image plan (for later; no art generated with this bible)
 
-Cover: vertical, Soyeon Ryu in the foreground under red letters on a glass wall of a hundred small faces, training jacket zipped to the chin, card turned backwards; Tetsu behind and below with the 87 shaved into his head; phones raised in the crowd. Title in the art. Adults only, described by costume and pose. No franchise symbols.
+The fixture carries the art direction the pipeline reads (`docs/stories-50/PIPELINE.md`):
+
+- **Cover** (`coverDirection`): vertical. Soyeon Ryu in the foreground from the waist up, black training jacket zipped to the chin, taped hands, right hand in a loose guard and left hand in her pocket, ID card turned backwards; Tetsu behind and lower in the white circle, taped fists up, grinning. Behind them the glass wall as a grid of glowing tiles and blurred portraits with no letters or numbers, the top tile red, and phones raised at the edges. Effects (a crack in the glass, red light, glints) stay on objects and the title, never on faces. Title painted in the upper third across the wall: THE RANKING BOARD, a bold condensed sports-broadcast logo, white with a red glow, a red scan line under BOARD only, no other text.
+- **Opening panel** (`openingPanel`, `story_the_ranking_board/opening`): Tetsu, grinning, 87 shaved into his bleached buzzcut, fists up at you in the white circle under the board, phones rising round the courtyard. Drawn with Tetsu's portrait as the reference.
+- **Portraits**: every cast member's `appearance` opens "An adult man", "An adult woman" or "An older woman" and describes build, hair and costume, never an age word. Ages live in the roles and in hard canon.
+
+Adults only, described by costume and pose. No franchise symbols.
