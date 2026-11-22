@@ -3,7 +3,8 @@
 **Story #29.** Slug `cleanup-crew-e-rank`, fixture `packages/test-fixtures/src/cleanup-crew-e-rank.ts`, export `CLEANUP_CREW_E_RANK`, asset prefix `story_cleanup_crew_e_rank`.
 
 **Genre:** hunters and gates, dungeon action, workplace comedy, underdog. Male lean, playable by anyone.
-**Rating:** 13+. Fantasy violence with no blood, romance up to a kiss, moral ambiguity.
+**Rating:** 13+. Fantasy violence with no gore (monsters never bleed; people's injuries are stated briefly), romance up to a kiss, moral ambiguity.
+**Shelf label:** "E-rank cleaner. Six hours. Hidden class."
 **One-line fantasy:** You mop up after S-rank raids. Tonight the gate turns red behind them, with you, your partner and their healer still inside.
 
 ## Why this fantasy works
@@ -30,6 +31,7 @@ And a square of text that only you can see has just offered you a hidden class n
 
 ## World rules (hard canon, short form)
 
+- **Everyone is an adult.** The Bureau licenses nobody under nineteen, hunter or crew, so the player and every hunter and cleaner they meet are adults. This is the first hard-canon line, with every cast age, Ma Deok-sun's included.
 - Gates are doorways into dungeons. Kill the thing that keeps a dungeon and its gate turns white and folds shut within about a day.
 - **The Gate Bureau** ranks every hunter E to S on a scanner, licenses guilds and crews, signs gates clear and collapses the ones that go wrong. A rank measures how much damage a person can do, and nothing else.
 - **Cleanup crews** are E-rank contractors. They sweep ash, bag cores and tag rooms before a cleared gate folds. Paid by the hour, never on the broadcast.
@@ -38,6 +40,9 @@ And a square of text that only you can see has just offered you a hidden class n
 - **Protocol:** a relapse inside the city gets a collapse charge at 06:00. Director Baek can fire it, and she can wait.
 - **The System** speaks only in square brackets that only the player sees. It cannot lie in a notice, does not fight, and never accepts or refuses on the player's behalf.
 - A room a **Custodian** has swept and signed off cannot be rebuilt. Nobody at the Bureau knows this.
+- **What a Custodian can do**, all of it work: sign off a swept room so a relapse cannot rebuild it; ask the System for an inventory of a room (alive, broken, hidden, out of place); touch one rebuilt thing, a pillar, a pane or a hound, and put it back the way the raid left it, heavy work with about an hour before it can be done again; and, only by the written procedure in the ledger, close a whole gate for good. Anybody watching sees it happen.
+- **The hard way always exists.** Rebuilt stone can be shifted with a back under it, a hound can be beaten back to ash with a pole, a room can be swept. The class is faster and quieter, never the only way out.
+- **Fighting feeds the relapse.** Every fight in a relapsing gate makes the bell ring sooner and the rebuild climb faster. The pole is the expensive answer and the broom is the cheap one.
 - No healer can heal themselves.
 - The relapse has two causes, a cracked core that was never put out and a shard that left the core chamber. Who gets the blame is not decided.
 
@@ -58,27 +63,27 @@ And a square of text that only you can see has just offered you a hidden class n
 
 ## Tone and pacing
 
-Blue-collar dungeon action with jokes. Overtime rates, locker numbers, invoices, a kettle at the depot, soup at four in the morning. S-ranks are celebrities with sponsors and lawyers. Fights are short, physical and costly. Every fight makes the bell ring sooner, and cleaning is what actually works, so a swept, signed-off room should feel as good as a kill. Nobody is a cartoon. The captain made a bad call for a reason, the director has done the arithmetic on forty thousand people, and the foreman is loud because she is frightened. Romance is slow and dry and goes no further than a kiss.
+Blue-collar dungeon action with jokes. Overtime rates, locker numbers, invoices, a kettle at the depot, soup at four in the morning. S-ranks are celebrities with sponsors and lawyers. Fights are short, physical and costly. Every fight makes the bell ring sooner, and cleaning is what actually works, so a swept, signed-off room should feel as good as a kill. Inside the gate, twenty to thirty minutes pass in most beats, so six o'clock arrives while it still matters. Nobody is a cartoon. The captain made a bad call for a reason, the director has done the arithmetic on forty thousand people, and the foreman is loud because she is frightened. Romance is slow and dry and goes no further than a kiss.
 
 Pacing: the night is turns 1 to roughly 15, a hard six-hour clock with the seal audible the whole time. The week is turns 15 to 45: three or four set pieces (re-test, the guild's visit, the report, the basement gate) with room to wander between them.
 
 ## Player starting authority
 
-- **Who:** an E-rank cleaner on Pyo Aftermath Services, locker 31. Name and pronouns are the player's (`BLANK` protagonist).
+- **Who:** an E-rank cleaner on Pyo Aftermath Services, locker 31. Licensed, so nineteen or older. Name and pronouns are the player's (`BLANK` protagonist).
 - **Starting kit:** the crew vest. Everything else is on the floor of the hall or at the carts by the seal.
 - **Archetypes** (fixed for the whole story):
-  - **Former Hunter**: melee, lost a D licence to a knee injury. Brawling 3, the steel pole.
+  - **Former Hunter**: melee, lost an ordinary D licence to a knee injury. Brawling 3, the steel pole.
   - **Six-Year Lifer**: floor sense and craft. Night Crews and Pyo standing, the core bag.
   - **Dropout Medic**: first aid, the crew kit. Can talk Hae-won through her own injury.
   - **Fast Talker**: patter and bluffing, two warm cans.
 - **Abilities, unlocked:** Do the Job, Swing the Pole, Run For It, Talk Fast, Own It, Read the Floor, Patch Up, Stay Put, Say Yes, Say No.
 - **Abilities, class-gated** (granted by the first step's reward and gated by `took_the_class`, so a late yes works): Sign Off, Take Inventory, Put It Back. **Close Out** comes from the ledger in the unmapped room.
 
-## Opening scene (as shipped, 101 words)
+## Opening scene (as shipped, 116 words)
 
 > The light at the top of the ramp turns red.
 >
-> The way out just sealed. You're on the wrong side of it.
+> The way out just sealed. You're on the wrong side of it, holding a mop.
 >
 > "Hey. Cleaner."
 >
@@ -86,15 +91,15 @@ Pacing: the night is turns 1 to roughly 15, a hard six-hour clock with the seal 
 >
 > Far below, a bell rings. The ash around your boots starts to stir.
 >
-> "Run," she says. "You're E-rank. Go."
+> "Run," she says. "You are E-rank and I am pinned. That is not a hard sum."
 >
 > A pale square of text opens in the air in front of you. Nobody else can see it.
 >
 > [Hidden class found: Custodian.]
 >
-> [Accept?]
+> [Position vacant. Accept?]
 
-Checks: a named character speaks to the player within the first 60 words ("Hey. Cleaner." from Hae-won, introduced by what she is to you). It ends on a question that needs an answer now. It names nothing the player has to know already.
+Checks: a named character speaks to the player within the first 60 words ("Hey. Cleaner." from Hae-won at words 26-27, named at 28-29, introduced by what she is to you). It ends on a question that needs an answer now. It names nothing the player has to know already. The comedy and the voices start here: Hae-won describes her own danger like a chart note, and the System offers the class as a vacancy, in work-order language. The mop is in the player's hand so card 2 has something to drop.
 
 **Suggestions:**
 1. *Said:* "I'm not leaving you under there. What is that bell?"
@@ -108,7 +113,7 @@ Cast order is cover order. The System goes last so it does not take a cover slot
 ### Seo Hae-won, 24. S-rank healer, Goldcrest Guild
 - **Look:** black hair cut blunt at the jaw, a white-and-gold medic coat with one sleeve torn off for somebody else's tourniquet.
 - **Wants:** the cleaner out, even if she stays under the pillar. To walk out of her guild contract before it renews itself in nine days.
-- **Secrets:** her tablet holds the medic copy of the raid log (clear at 21:40, deep-check line blank). She has leased an empty shopfront near the depot for a free crew clinic.
+- **Secrets:** her tablet holds the medic copy of the raid log (clear at 21:40, deep-check line blank). She has leased an empty shopfront on Second Street, two streets from the depot, for a free crew clinic.
 - **Voice:** short imperatives, clinical nouns, very dry. Describes her own danger like a chart note. Calls the player "cleaner" until she decides to learn the real name, and the switch is an event. *"Run. You are E-rank and I am an S-rank liability with a pillar on my knee. That is not a hard sum."*
 - **Romance:** available, slow, dry, up to a kiss.
 
@@ -141,9 +146,13 @@ It has been running as long as the gates, twenty-three years. It is listed for c
 - **Look:** a pale rectangle of text at reading distance, edged in thin white light.
 - **Wants:** Gate 0419 closed properly. The city's fourteen overdue gates on somebody's list.
 - **Secrets:** its last Custodian was Ma Deok-sun, and it has kept her room on the stair exactly as she left it. It has never read rank and does not know what rank the player is.
-- **Voice:** square-bracketed notices only, in the language of work orders. Corrects imprecise wording. Never an exclamation mark. Sometimes a notice is plainly a person speaking, and it never acknowledges those. *[Correction: you did not clean that room. You moved the ash into the next one.]*
+- **Voice:** square-bracketed notices only, in the language of work orders. Corrects imprecise wording. Never an exclamation mark. Sometimes a notice is plainly a person speaking, and it never acknowledges those. An unanswered offer stays open; it asks once more at most, then waits without nagging. *[Hidden class found: Custodian.] [Position vacant. Accept?]* *[Correction: you did not clean that room. You moved the ash into the next one.]*
 
-Every speaking character is an adult. There are no minors anywhere in the story, and no academy setting.
+### Named, not cast
+- **Ma Deok-sun**, 44 when she stayed behind twenty years ago. A cleanup crew worker on the same crew as Baek and Pyo, and the last Custodian. She never appears; she is in the ledger, locker 12, Baek's and Pyo's secrets, the System's memory and the unique ending.
+- **The eleven trainees** in the basement gate on day 4 are first-contract hunters in their twenties.
+
+Every character, the player included, is an adult; the Bureau licenses nobody under nineteen. There are no minors anywhere in the story, and no academy setting.
 
 ## Places
 
@@ -153,7 +162,7 @@ Every speaking character is an adult. There are no minors anywhere in the story,
 - **The Glass Gallery:** black glass panes, reflections half a second late, light-eaters that dim your torch.
 - **The Bell Stair:** a shaft with hundreds of dead bronze bells on chains. You can hear the rebuild climbing it.
 - **The Core Chamber:** the cracked bronze core the size of a car and the Bell-Keeper in pieces around it.
-- **The Caretaker's Room** *(hidden, `saw_the_door`)*: a tidy room no map shows. A stool, a broom on two nails, a kettle, a twenty-year-old calendar, the ledger. The floor has been swept recently.
+- **The Caretaker's Room** *(hidden, `saw_the_door`)*: a tidy room no map shows. Only somebody holding the class can see its door. A stool, a broom on two nails, a kettle, a twenty-year-old calendar, the ledger. The floor has been swept recently.
 
 **The city**
 - **The Cordon:** car park level B4. Bureau tape, the broadcast van, Pyo's van, press, the collapse charge on a trolley.
@@ -188,12 +197,13 @@ The Gate Bureau (first, so public violence lands on it), Goldcrest Guild, Pyo Af
 | Day 1, 14:00 | (Class only) [Overdue: 14 sites.] The fourth is a guild tower. |
 | Day 1, 21:00 | The guild's cheerful recap. No hi-vis in it. |
 | Day 2, 11:00 | Ryu at the depot with pastries. |
-| Day 4, 20:00 | The basement gate turns red with eleven new hunters inside. Cancelled by cleaning it early. |
+| Day 4, 20:00 | The basement gate turns red with eleven first-contract hunters in their twenties inside. Cancelled by cleaning it early. |
 | Day 9, 12:00 | Hae-won's contract renews itself if nobody decided. |
 
 ## Emergent routes (quests)
 
 1. **Relapse** (main). First minute: say yes, say no, lift the pillar, splint her, stay, run, or let the minute pass. Then six hours: sign off the stair, put the core back, fight to the bottom with Hae-won, give the shard back, talk Baek into a breach, or be inside at six.
+   - **The Window** (side, starts active) keeps the offer open on its own track. The first minute closes on whichever route comes first, so without it a player who lifted the pillar or said no first could never say yes during the night. It closes at once for a first-minute yes and takes a yes whenever it comes (`took_the_class`, `took_it_late`).
 2. **Custodian** (main). Learn what the class is for (ask it, read the ledger, get Pyo to talk, or learn what you turned down). Then decide who knows: talk through the re-test, register with Baek, sign with Goldcrest, tell the crews, say yes late, or stay a cleaner on purpose.
 3. **What Jin Is Carrying** (side). Find the shard, then return it, hand it in (and the crew takes the blame), sell it for his mother, or keep it.
 4. **Incident Report 0419** (main). Find out it blames "contractor personnel". Then: the medic log, Hae-won testifies, you take it, bury it with Baek, or say nothing and it lands on Jin.
@@ -230,10 +240,12 @@ Six of the eleven never need the class, so refusing it in minute one closes a do
 ## Originality and rating notes
 
 - The setting, city, Bureau, guild, cast, monsters and the Custodian class are original. The plan row's genre is "hunters and gates", and the story uses only generic genre words: gate, dungeon, rank, guild, hunter, core, class.
-- It avoids franchise vocabulary and premises on purpose. No association of hunters, no "status/system window", no daily quests, no "player" class, no shadow army, no double dungeon, no awakening. The System is a maintenance process that talks in work orders and does not grant levels.
-- No blood, no gore, no lingering body descriptions. Injuries are stated briefly. Romance stays at a kiss.
-- Every character is 18 or older and their ages are stated above. The System is not a person.
+- It avoids franchise vocabulary and premises on purpose. No association of hunters, no "status/system window", no daily quests, no "player" class, no shadow army, no double dungeon, no "red gate" as a named term, no awakening. The System is a maintenance process that talks in work orders and does not grant levels. The shelf label was "Red gate" in the first draft; it now reads "Six hours" and the spec bans the phrase.
+- **Title search.** "Cleanup Crew, E-Rank" collides with no OOC title and no anime, webtoon or manhwa title found. The nearest existing work is the webtoon *The Dungeon Cleaning Life of a Once Genius Hunter* (a former genius hunter working as a dungeon cleaner, with a regression plot). Title and plot differ: our lead was never a genius, the Former Hunter archetype held an ordinary D licence, and the story is about a crew, a relapse and a report. Store copy should not lean on the phrase "dungeon cleaner".
+- **Known echoes, left for the creative owner.** The editors noted that an S-rank woman romance lead called Hae-won sits close to Solo Leveling's Cha Hae-in, and that an E-rank partner called Jin recalls Jin-woo. No name or term is copied. A rename is a find-and-replace and should happen before art is commissioned if it happens at all.
+- No gore, no lingering body descriptions. Monsters never bleed; people's injuries are stated briefly. Romance stays at a kiss.
+- Every character is 18 or older and their ages are stated above (19 is the licensing floor; Ma Deok-sun was 44). The System is not a person.
 
 ## Image plan (not generated)
 
-Art is not commissioned. Asset keys derive from `story_cleanup_crew_e_rank` through `withDerivedAssetKeys`. The opening panel key is `story_cleanup_crew_e_rank/opening`, showing Hae-won pinned in grey ash with red light from the seal and a pale floating square of text in the foreground. Cover cast in order: Hae-won, Jin, Ryu, Baek, Pyo.
+Art is not commissioned. Asset keys derive from `story_cleanup_crew_e_rank` through `withDerivedAssetKeys`. The opening panel key is `story_cleanup_crew_e_rank/opening`, showing Hae-won pinned in grey ash with red light from the seal and a pale floating square in the foreground, drawn as abstract lines of light with no legible letters. Cover cast in order: Hae-won, Jin, Ryu, Baek, Pyo. The System's portrait, if one is drawn, follows the same rule: abstract lines of light, no legible letters.

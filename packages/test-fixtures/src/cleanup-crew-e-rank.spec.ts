@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createInitialState, charactersPresent } from '@plotbreak/engine';
+import { advanceQuests, createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { CLEANUP_CREW_E_RANK as story } from './cleanup-crew-e-rank.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
@@ -179,6 +179,18 @@ describe('Cleanup Crew, E-Rank', () => {
       expect(ages).toEqual({ hae_won: 24, jin: 27, ryu: 29, baek: 51, pyo: 58 });
     });
 
+    it('tells the storyteller first that everyone is an adult, with every age', () => {
+      const canon = story.rules.hardCanon[0]!;
+      expect(canon).toMatch(/^Everyone in this story is an adult\./);
+      expect(canon).toMatch(/licenses nobody under nineteen/);
+      for (const age of ['twenty-four', 'twenty-seven', 'twenty-nine', 'fifty-one', 'fifty-eight', 'forty-four']) {
+        expect(canon, age).toContain(age);
+      }
+      // The trainees in the second relapse are stated as adults wherever they appear.
+      expect(allText).not.toMatch(/new-licence hunters/);
+      expect(story.worldEvents.find((e) => e.id === 'we_the_tower_goes_red')!.publicCopy).toMatch(/in their twenties/);
+    });
+
     it('keeps the System a voice rather than a person', () => {
       const system = story.characters.find((c) => c.id === 'the_system')!;
       expect(system.pronouns).toBe('it/its');
@@ -198,7 +210,7 @@ describe('Cleanup Crew, E-Rank', () => {
 
     it('borrows no franchise vocabulary', () => {
       expect(allText).not.toMatch(
-        /\b(hunter association|status window|system window|daily quest|shadow monarch|double dungeon|awakened|awakening|arise|quirk|nen|chakra|hokage|monarch)\b/i,
+        /\b(hunter association|status window|system window|daily quest|shadow monarch|double dungeon|red gate|awakened|awakening|arise|quirk|nen|chakra|hokage|monarch)\b/i,
       );
     });
 
@@ -569,6 +581,62 @@ describe('Cleanup Crew, E-Rank', () => {
       const needsClass = (e: (typeof story.endings)[number]) =>
         e.requires.flagsSet.some((f) => ['took_the_class', 'class_went_public', 'class_kept_quiet', 'signed_with_goldcrest', 'closed_the_tower_gate', 'found_the_ledger'].includes(f));
       expect(story.endings.filter((e) => !needsClass(e)).length).toBeGreaterThanOrEqual(5);
+    });
+
+    it('puts the class powers and the fight rule where the storyteller reads them', () => {
+      // Production reads hard canon, not ability descriptions or step notes.
+      const canon = story.rules.hardCanon.join(' ');
+      expect(canon).toMatch(/A Custodian can do four things/);
+      expect(canon).toMatch(/sign off a room/);
+      expect(canon).toMatch(/inventory of a room/);
+      expect(canon).toMatch(/cannot be done again for about an hour/);
+      expect(canon).toMatch(/close a whole gate for good/);
+      expect(canon).toMatch(/done the hard way, without the class/);
+      expect(canon).toMatch(/Every fight inside a relapsing gate makes the bell ring sooner/);
+    });
+
+    describe('on the engine path, a yes always lands', () => {
+      const play = (...abilities: string[]) => {
+        const state = start();
+        for (const id of abilities) {
+          state.flags[`used:${id}`] = true;
+          advanceQuests(state, story);
+        }
+        return state.flags;
+      };
+
+      it('takes a yes after the pillar was lifted first', () => {
+        const flags = play('do_the_job', 'accept_the_class');
+        expect(flags.took_the_class).toBe(true);
+        expect(flags.took_it_late).toBe(true);
+      });
+
+      it('takes a yes after a no, during the night', () => {
+        const flags = play('refuse_the_class', 'accept_the_class');
+        expect(flags.refused_the_class).toBe(true);
+        expect(flags.took_the_class).toBe(true);
+      });
+
+      it('takes a yes after a splint and a no', () => {
+        expect(play('patch_up', 'refuse_the_class', 'accept_the_class').took_the_class).toBe(true);
+      });
+
+      it('does not call a first-minute yes late', () => {
+        const flags = play('accept_the_class');
+        expect(flags.took_the_class).toBe(true);
+        expect(flags.took_it_late).toBeFalsy();
+      });
+
+      it('leaves the class alone for somebody who never says yes', () => {
+        expect(play('do_the_job', 'refuse_the_class').took_the_class).toBeFalsy();
+      });
+
+      it('lets a player who answered the window first still fight to the bottom', () => {
+        const fight = story.quests
+          .find((q) => q.id === 'q_the_relapse')!
+          .steps[1]!.succeedWhenAny.find((r) => r.routeId === 'fought_to_the_bottom')!;
+        expect(fight.predicate.flagsSet).not.toContain('freed_hae_won');
+      });
     });
 
     it('never spoils the mystery in the premise', () => {

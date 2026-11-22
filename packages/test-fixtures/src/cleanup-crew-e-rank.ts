@@ -43,7 +43,7 @@ const raw = {
   storyId: 'story_cleanup_crew_e_rank',
   version: 1,
   title: 'Cleanup Crew, E-Rank',
-  fantasyLabel: 'E-rank cleaner. Red gate. Hidden class.',
+  fantasyLabel: 'E-rank cleaner. Six hours. Hidden class.',
   hook: 'You mop up after S-rank raids for an hourly wage. Tonight the gate turns red behind them, with you, your partner and their healer still inside.',
   premise:
     'For twenty-three years, gates have been opening in Garam City. A guild goes in, kills what lives there and comes out on camera. Then the cleanup crew goes in.\n\n' +
@@ -63,7 +63,7 @@ const raw = {
     'Six hours, then they collapse it',
     'Cleaning beats fighting',
     'Somebody gets blamed',
-    'Rank is not the whole story',
+    'The window never reads your rank',
   ],
   contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY'],
   intensity: 'MODERATE',
@@ -87,6 +87,7 @@ const raw = {
     startWorldMinute: 23 * 60 + 52,
     startingItems: [{ itemId: 'crew_vest', qty: 1 }],
     hardCanon: [
+      'Everyone in this story is an adult. The Bureau licenses nobody under nineteen, hunter or crew, so the player and every hunter and cleaner they meet are adults. Hae-won is twenty-four, Jin twenty-seven, Ryu twenty-nine, Baek fifty-one and Pyo fifty-eight. Ma Deok-sun was forty-four when she stayed behind.',
       'Gates have opened in Garam City for twenty-three years. A gate is a doorway in the world into a dungeon. When the thing that keeps a dungeon is killed, its gate turns white and folds shut on its own within about a day.',
       'The Gate Bureau measures every hunter on a rank scanner from E to S, licenses guilds and crews, signs gates clear, and collapses the ones that go wrong. A rank measures how much damage a person can do and nothing else.',
       'Cleanup crews are E-rank licensed contractors who go into a cleared gate to sweep monster ash, bag cores and tag the rooms before it folds shut. They are paid by the hour and they are never on the broadcast.',
@@ -97,12 +98,15 @@ const raw = {
       'Bureau protocol for a relapse inside the city is a collapse charge at six in the morning. Director Baek Mi-ran has the authority to fire it and the authority to wait.',
       'The System is real. It speaks only in square-bracketed notices that only the player can see. It cannot lie in a notice, it does not fight, and it never accepts or refuses anything on the player’s behalf.',
       'A room that a Custodian has swept and signed off cannot be rebuilt by a relapse. Nobody at the Bureau knows this, because nobody has held the class in twenty years.',
+      'A Custodian can do four things, all of them work: sign off a room they have swept properly, so a relapse cannot rebuild it; ask the System for an inventory of a room, which lists what is alive, broken, hidden or out of place; touch one thing a relapse has rebuilt, a pillar, a pane or a hound, and put it back the way the raid left it, which is heavy work and cannot be done again for about an hour; and, only by a written procedure nobody alive has, close a whole gate for good. Anybody watching sees it happen.',
+      'Everything in the gate can also be done the hard way, without the class: rebuilt stone can be shifted by somebody with their back under it, a hound can be beaten back to ash with a pole, a room can be swept. The class is faster and quieter. It is not the only way out of anything.',
+      'Every fight inside a relapsing gate makes the bell ring sooner and the rebuild climb faster, so in this gate the pole is the expensive answer and the broom is the cheap one.',
       'Seo Hae-won is an S-rank healer, and no healer can heal themselves.',
       'The relapse happened because the core was cracked rather than put out, and because a piece of it left the core chamber. Who carries the blame for that is not decided.',
     ],
     toneGuide:
       'Blue-collar dungeon action with a sense of humour. The cleanup crew are workers: overtime rates, locker numbers, invoices, a kettle at the depot and soup at four in the morning. S-ranks are celebrities with sponsors and lawyers. ' +
-      'Monsters come apart into grey ash and glowing cores, never blood. Injuries are stated plainly and briefly, never described in detail. Fights are short, physical and costly; cleaning is the thing that actually works, and the prose should make a swept, signed-off room feel as good as a kill. ' +
+      'Monsters come apart into grey ash and glowing cores, never blood. Injuries are stated plainly and briefly, never described in detail. Fights are short, physical and costly; cleaning is the thing that actually works, and the prose should make a swept, signed-off room feel as good as a kill. Inside the gate, let twenty to thirty minutes pass in most beats, so six o’clock arrives while it still matters. ' +
       'The System speaks only in square brackets, in the language of work orders and tickets, and is sometimes accidentally a person. Nobody is a cartoon: the captain made a bad call for a reason, the director has done the arithmetic on forty thousand people, and the foreman is loud because she is frightened. ' +
       'Romance, if it happens, is slow and dry and goes no further than a kiss. The face at the top of a beat is Hae-won’s whenever she is in the scene and the moment involves her; otherwise it belongs to whoever is speaking.',
     proseStyle: 'webnovel',
@@ -677,7 +681,7 @@ const raw = {
       name: 'The Caretaker’s Room',
       shortName: 'Caretaker’s Room',
       description:
-        'A small, tidy room off the stair that no raid map shows. A wooden stool, a broom on two nails, a kettle, a paper calendar from twenty years ago, and a ledger on a shelf. The floor in here has been swept. Recently.',
+        'A small, tidy room off the stair that no raid map shows. Only somebody holding the class can see its door. A wooden stool, a broom on two nails, a kettle, a paper calendar from twenty years ago, and a ledger on a shelf. The floor in here has been swept. Recently.',
       artDirection:
         'Tiny tidy stone room behind a plain wooden door, a stool, a worn broom hung on nails, an old kettle, a faded paper calendar, a cloth-bound ledger on a shelf, a single warm bulb. Quiet, homely, impossible.',
       connections: [{ to: 'bell_stair', travelMinutes: 2, label: 'Back out to the stair' }],
@@ -712,7 +716,7 @@ const raw = {
       name: 'Pyo Aftermath Depot',
       shortName: 'Depot',
       description:
-        'A garage in an industrial lane: two vans, a hose-down bay, a wall of lockers with numbers in marker, a sofa people sleep on between shifts, a kettle that never goes cold, and a shelf of cracked helmets nobody throws away. Locker 12 at the back has a padlock rusted shut. Two streets away there is an empty shopfront with a lease notice in the window.',
+        'A garage in an industrial lane: two vans, a hose-down bay, a wall of lockers with numbers in marker, a sofa people sleep on between shifts, a kettle that never goes cold, and a shelf of cracked helmets nobody throws away. Locker 12 at the back has a padlock rusted shut. Two streets away, on Second Street, there is an empty shopfront with a lease notice in the window.',
       artDirection:
         'Cluttered industrial garage depot at dawn, two dented white work vans, a wet hose-down bay, a wall of numbered metal lockers, a sagging sofa, a kettle, a shelf of cracked hard hats. Warm, scruffy, lived-in.',
       connections: [
@@ -901,7 +905,7 @@ const raw = {
         },
         {
           id: 'hae_won_the_shopfront',
-          fact: 'She has signed a lease, under her mother’s name, on an empty shopfront two streets from the Pyo depot, for a free clinic for cleanup crews. Nobody at the guild knows.',
+          fact: 'She has signed a lease, under her mother’s name, on an empty shopfront on Second Street, two streets from the Pyo depot, for a free clinic for cleanup crews. Nobody at the guild knows.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you about the shopfront once she trusts you and you have asked her what she wants rather than what she is worth.',
         },
@@ -1004,7 +1008,7 @@ const raw = {
         'A relapse pays triple time. If we live, I am buying a fridge with an ice dispenser. If we die, I want it noted I wanted the fridge.',
         'I am not leaving. Unfortunately. Pass me the long pole.',
         'Everything is completely normal with my jacket, thank you for asking, it is a very normal jacket.',
-        'Eleven jobs. Small ones, the size of a fingernail. My mum thinks the hospital gave her a discount.',
+        'After midnight it is hazard rate. It is eleven fifty-nine. As a professional, I am asking you not to die for one more minute.',
       ],
       appearance:
         'Twenty-seven, lanky, shaved sides and a messy top, a hi-vis crew vest with his locker number on the back in marker, rubber boots to the knee.',
@@ -1130,7 +1134,7 @@ const raw = {
       calledName: 'Baek',
       role: 'District director of the Gate Bureau, who signed tonight’s clearance and decides at six whether to collapse the gate',
       cardBlurb:
-        'She signed the paper that marked this gate clear, she has the authority to collapse it with you inside at six o’clock, and twenty years ago she was a cleanup crew worker herself.',
+        'At six o’clock she can collapse this gate with you inside it. She also signed the paper that called it clear. Twenty years ago she wore a crew vest herself.',
       pronouns: 'she/her',
       publicTraits: ['Reads every document twice', 'Has never once been seen to hurry', 'Speaks to S-ranks and cleaners in exactly the same tone'],
       hiddenDrives: [
@@ -1158,7 +1162,7 @@ const raw = {
         },
         {
           id: 'baek_the_partner',
-          fact: 'Her crew partner twenty years ago was Ma Deok-sun, who saw square-bracketed text in a relapse on this same car park site, stayed behind to sweep, and was never found. Baek ran. She has never told anybody what Deok-sun said before she stayed.',
+          fact: 'Her crew partner twenty years ago was Ma Deok-sun, a crew worker of forty-four, who saw square-bracketed text in a relapse on this same car park site, stayed behind to sweep, and was never found. Baek ran. She has never told anybody what Deok-sun said before she stayed.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you about Deok-sun only if you tell her, unprompted, about the window only you can see.',
         },
@@ -1246,7 +1250,7 @@ const raw = {
       voiceSamples: [
         'Thirty-one! Thirty-one, if you can hear me, bang on something! Eight, you too, you son of a mop!',
         'Eat first. Then you can tell me what you did, and then I decide whether I am angry.',
-        'She ran. Baek ran and Deok-sun stayed, and one of them got a desk and one of them got a locker nobody opens.',
+        'There are cans in cart three. Drink one. Then talk.',
         'Locker thirty-one. You are on my crew. That means I come and get you, and you do not argue about it.',
       ],
       appearance:
@@ -1289,7 +1293,7 @@ const raw = {
       name: 'The System',
       role: 'The voice in square brackets that only you can see, which has just offered you a hidden class',
       cardBlurb:
-        'It speaks only in square brackets, only you can see it, it cannot lie to you in a notice, and it has been waiting twenty years for somebody who keeps cleaning when every sensible person would run.',
+        'Only you can see it. It talks in square brackets, like a work order, and it cannot lie to you in a notice. It has waited twenty years for somebody who keeps cleaning when every sensible person would run.',
       pronouns: 'it/its',
       publicTraits: ['Procedural', 'Pedantic about wording', 'Unexpectedly polite'],
       hiddenDrives: [
@@ -1299,7 +1303,7 @@ const raw = {
       values: ['A job finished properly', 'Accurate records'],
       fears: ['Another Custodian who stays behind and is not found', 'Being mistaken for something that hands out power for free'],
       socialStyle:
-        'Notices, tickets and corrections, always in brackets. Volunteers procedure, never comfort. Answers the literal question, then waits for the next one.',
+        'Notices, tickets and corrections, always in brackets. Volunteers procedure, never comfort. Answers the literal question, then waits for the next one. An unanswered offer stays open; it asks once more at most, then waits without nagging.',
       boundaries: [
         'Will not lie in a notice; it can only decline to open one',
         'Will not fight, and will not move the player’s body for them',
@@ -1327,7 +1331,7 @@ const raw = {
         'Only square-bracketed notices: short, in the language of work orders, tickets and inventories. Corrects imprecise wording. Never uses an exclamation mark. Every so often a notice is plainly a person speaking, and it never acknowledges those.',
       topics: ['the class', 'signing off', 'the bell', 'the last Custodian', 'overdue gates', 'rank'],
       voiceSamples: [
-        '[Hidden class found: Custodian.] [Accept?]',
+        '[Hidden class found: Custodian.] [Position vacant. Accept?]',
         '[Correction: you did not clean that room. You moved the ash into the next one.]',
         '[Rank is a Bureau field. This office does not read it.]',
         '[Room 4 signed off. Rebuild refused.]',
@@ -1335,8 +1339,8 @@ const raw = {
       ],
       appearance:
         'Not a body. A pale rectangle of text floating at reading distance in front of the player, edged in thin white light, which nobody else can see.',
-      visualHook: 'A pale floating rectangle of square-bracketed text, edged in thin white light, always at exactly reading distance.',
-      silhouette: 'A flat rectangle of light hanging in the air, tilted slightly toward whoever it is talking to.',
+      visualHook: 'A pale floating rectangle edged in thin white light and filled with abstract lines of light, no legible letters, always at exactly reading distance.',
+      silhouette: 'A flat rectangle of abstract lines of light hanging in the air, no legible letters, tilted slightly toward whoever it is talking to.',
       artSeed: 'cce-system-01',
       portrait: null,
       expressions: ['neutral', 'precise', 'warning', 'silent'],
@@ -1468,7 +1472,7 @@ const raw = {
               routeId: 'fought_to_the_bottom',
               label: 'Fight down the stair with the healer keeping you standing',
               predicate: {
-                flagsSet: ['used:swing_the_pole', 'freed_hae_won'],
+                flagsSet: ['used:swing_the_pole', 'used:do_the_job'],
                 atLocation: 'core_chamber',
                 minRelationship: [{ characterId: 'hae_won', dimension: 'trust', value: 40 }],
               },
@@ -1507,6 +1511,49 @@ const raw = {
               { factionId: 'faction_night_crews', amount: 10 },
             ],
           },
+        },
+      ],
+    },
+    /**
+     * The first minute closes on whichever route the player takes first, so a
+     * player who lifts the pillar, splints her or says no before answering the
+     * window would otherwise never be able to say yes during the night. This
+     * keeps the offer open on its own track: it closes at once for a first-minute
+     * yes, and takes a yes whenever it comes. It sits directly after the relapse
+     * so a first-minute yes has already set its flag when this is evaluated.
+     */
+    {
+      id: 'q_the_window',
+      title: 'The Window',
+      summary: 'A square of text only you can see offered you a hidden class. It waits for your answer without nagging, and a no can still become a yes.',
+      kind: 'SIDE',
+      startsActive: true,
+      involvedCharacterIds: ['the_system'],
+      involvedLocationIds: ['ash_hall'],
+      knownRewardCopy: 'An answer, whenever you give one.',
+      steps: [
+        {
+          id: 'the_window_waits',
+          playerCopy: 'Answer the window, whenever you are ready.',
+          directorNotes: 'The window waits and never answers for the player. It asks once more at most, then stays quiet until the player raises it.',
+          succeedWhen: null,
+          succeedWhenAny: [
+            {
+              routeId: 'answered_at_once',
+              label: 'Said yes in the first minute',
+              predicate: { flagsSet: ['took_the_class'] },
+              setsFlags: [],
+              closesFlags: [],
+            },
+            {
+              routeId: 'yes_when_ready',
+              label: 'Say yes when you are ready',
+              predicate: { flagsSet: ['used:accept_the_class'] },
+              setsFlags: ['took_the_class', 'took_it_late'],
+              closesFlags: ['refused_the_class'],
+            },
+          ],
+          rewards: { xp: 0, items: [], flags: [], abilities: [], reputation: [] },
         },
       ],
     },
@@ -1900,7 +1947,7 @@ const raw = {
           id: 'nine_days',
           playerCopy: 'Her guild contract renews itself in nine days. Help her decide, or stay out of it.',
           directorNotes:
-            'This is her decision. The player can help, argue, or offer her a room at the depot, and must not be able to make it for her. Re-signing is not a failure: the guild pays for her mother’s care and she knows exactly what she is selling. If nobody does anything, the contract rolls over at noon on the ninth day, and that is a real outcome too.',
+            'This is her decision. The player can help, argue, or offer her a room at the depot, and must not be able to make it for her. Re-signing is not a failure: the guild’s medical floor is the best in the city and she knows exactly what she is selling. If nobody does anything, the contract rolls over at noon on the ninth day, and that is a real outcome too.',
           enterWhen: { flagsSet: ['knows:her_contract', 'out_of_the_gate'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -2027,7 +2074,7 @@ const raw = {
           id: 'the_list',
           playerCopy: 'Do something about the list of gates nobody has cleaned, before the next one turns red.',
           directorNotes:
-            'The System has the list and only shows it to a Custodian. A refuser hears about the basement gate from the night crews, because crews notice the grey floor. The basement gate under the guild tower is the one that matters: four hundred raids, filmed, and never once swept. Whether the player gets there first decides whether eleven new-licence hunters and a camera crew are inside it when it goes.',
+            'The System has the list and only shows it to a Custodian. A refuser hears about the basement gate from the night crews, because crews notice the grey floor. The basement gate under the guild tower is the one that matters: four hundred raids, filmed, and never once swept. Whether the player gets there first decides whether eleven first-contract hunters in their twenties and a camera crew are inside it when it goes.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -2274,7 +2321,7 @@ const raw = {
       atWorldMinute: 4 * 1440 + 20 * 60,
       locationId: 'training_gate',
       publicCopy:
-        'Under the guild tower, the training gate the guild films in every week turns red, with eleven new-licence hunters and a camera crew inside.',
+        'Under the guild tower, the training gate the guild films in every week turns red, with eleven first-contract hunters in their twenties and a camera crew inside.',
       directorNotes:
         'The second relapse, and the one the player can prevent. If it happens, Ryu goes in or tries to, Baek wheels out a collapse charge under a forty-floor tower, and the night crews start arriving with mops whether anybody asked them or not.',
       setsFlags: ['the_tower_went_red'],
@@ -2342,7 +2389,7 @@ const raw = {
       id: 'arch_former_hunter',
       name: 'Former Hunter',
       role: 'Melee fighting and nerve',
-      summary: 'You held a D-rank combat licence before an injury dropped you to E, so you hit harder than a cleaner should and keep your head in a fight.',
+      summary: 'You held an ordinary D-rank combat licence until a knee injury dropped you to E, so you hit harder than a cleaner should and keep your head in a fight.',
       playstyle: ['Hits hard', 'Steady in a fight', 'Old injury'],
       blurb: 'They took the D off your licence after the knee. They did not take the habit of standing between people and whatever has the teeth.',
       attributeBonus: { might: 2, resolve: 1 },
@@ -2596,7 +2643,7 @@ const raw = {
     },
   ],
   opening:
-    "The light at the top of the ramp turns red.\n\nThe way out just sealed. You’re on the wrong side of it.\n\n\"Hey. Cleaner.\"\n\nSeo Hae-won, the guild healer who stayed behind to fix your partner’s hand, is on her back in the ash. A stone pillar that wasn’t there a minute ago has her pinned at the knee.\n\nFar below, a bell rings. The ash around your boots starts to stir.\n\n\"Run,\" she says. \"You’re E-rank. Go.\"\n\nA pale square of text opens in the air in front of you. Nobody else can see it.\n\n[Hidden class found: Custodian.]\n\n[Accept?]",
+    "The light at the top of the ramp turns red.\n\nThe way out just sealed. You’re on the wrong side of it, holding a mop.\n\n\"Hey. Cleaner.\"\n\nSeo Hae-won, the guild healer who stayed behind to fix your partner’s hand, is on her back in the ash. A stone pillar that wasn’t there a minute ago has her pinned at the knee.\n\nFar below, a bell rings. The ash around your boots starts to stir.\n\n\"Run,\" she says. \"You are E-rank and I am pinned. That is not a hard sum.\"\n\nA pale square of text opens in the air in front of you. Nobody else can see it.\n\n[Hidden class found: Custodian.]\n\n[Position vacant. Accept?]",
   openingPanel: {
     assetKey: 'story_cleanup_crew_e_rank/opening',
     alt: 'Seo Hae-won pinned under a stone pillar in grey ash, one hand raised, red light from the sealed gate above, and a pale square of floating text in the foreground.',
