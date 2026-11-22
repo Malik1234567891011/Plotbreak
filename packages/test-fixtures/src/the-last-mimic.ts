@@ -55,14 +55,14 @@ const raw = {
   version: 1,
   title: 'The Last Mimic',
   fantasyLabel: 'Reborn as a treasure chest. With teeth.',
-  hook: 'You died, woke up as a treasure chest at the bottom of a dungeon, and found out mimics are supposed to be extinct when an elf thief put her hand inside you.',
+  hook: 'You died and woke up as a treasure chest. An elf thief already has her hand in your gold, and she wants to know if you bite.',
   premise:
     'You died in your own world. You don’t remember how. You remember your name, your job and the bus you used to take, and then nothing, and then this: you are a treasure chest in the deepest room of a dungeon under a mining town called Brightwell.\n\n' +
     'Wooden walls, iron bands, and a lid that is also your mouth. Your belly is full of gold, and you can feel every coin.\n\n' +
     'Mimics are supposed to be extinct. Thirty years ago the town’s delvers hunted down the last of them, because a mimic’s heart stitched into a bag makes a satchel with no bottom, and the whole town runs on those satchels. Now the satchels are going shallow, and there are no new hearts.\n\n' +
-    'So when an elf thief puts her hand inside you tonight and finds you warm, you are worth forty thousand crowns to anyone who can carry you up the stairs.\n\n' +
+    'So when an elf thief puts her hand in your coins tonight and finds you warm, you are worth forty thousand crowns to anyone who can carry you up the stairs.\n\n' +
     'You can’t walk yet. You can talk, but only in voices you have heard. And under the coins is something that is not gold, that belongs to the dungeon’s lich, and that he would very much like back.\n\n' +
-    'Keep still, make friends, or use your teeth. Just get out of that room before the appraiser with the silver chime comes down the stair, or you will be caught and sold by the heart.',
+    'Keep still, make friends, or use your teeth. Just be somewhere, or something, else when the appraiser with the silver chime comes down the stair, or you will spend the rest of your life on a cushion, mending other people’s bags.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
@@ -96,20 +96,21 @@ const raw = {
     hardCanon: [
       'The player died in another world, which they remember as their own, and woke as a treasure chest in the Ninth Vault, the deepest room of the Gilt Deep, a dungeon under the mining town of Brightwell. They are a mimic. The wood, the iron bands and the lid are their body, and the lid is their mouth.',
       'The player keeps their human mind and memories. At the start they cannot walk; they can hop, very loudly, about a hand’s width at a time. Their body learns to change by being used: legs first, then other shapes.',
+      'Everybody in this world is an adult, the Deep’s staff and its goblins included, and every one of them has a job. The player was a grown adult in their old life, with a job they had done for years (their archetype), and waking up as a chest has not made them any younger.',
       'The player has no voice of their own any more. They can speak clearly, but only in a voice they have heard spoken near them. At the start that means Pell’s, from six half-dreamed months of her chatter, and Lirelle’s and Bruno’s from tonight. Every new voice they hear is added.',
       'Everyone believes mimics are extinct. The Delvers’ Guild hunted the last of them thirty years ago, because a mimic’s heart stitched into a bag makes a deep satchel, a bag with no bottom. Brightwell’s trade runs on deep satchels, and every one of them is slowly going shallow.',
       'The Guild still pays forty thousand crowns for a mimic, heart intact, from a bounty plate thirty years old. A great chime in the Guildhouse rings when a mimic wakes. It rang tonight, as the story begins, for the first time in thirty years.',
       'Among the coins inside the player is the Cinder: a coal sealed in a glass bead that holds the life of Ash, the lich who keeps the Gilt Deep. Whoever holds it can bargain with him, command him, or end him. The Guild sent Lirelle’s crew down to bring it up, so the Guild could collect the Deep’s gold like rent.',
       'Whatever is inside a mimic is lost for good if the mimic dies, so nobody who wants the Cinder can afford to kill the player. A dead mimic’s heart still makes a satchel, which is what the old bounty pays for. A living mimic could deepen failing satchels for ever, which is what Edda Quell wants.',
-      'Ash called the player’s soul into the vault chest six months ago, with a summoning drawn in a hidden vault below the Ninth Vault, because he needed a guardian for the Cinder that no thief could open. He expected an animal and got a person. Nobody else knows, and he never volunteers it.',
+      'Pell polishes the vault chest twice a day, first thing in the morning and again at about half past ten at night, and talks to it the whole time. She has not missed once in six months, and tonight she does not know there are delvers in the vault.',
+      'Ash notices anybody who lingers in the Ninth Vault: within the hour every lamp in the vault turns blue and he speaks through the walls, politely, before he ever comes down in person.',
       'The Gilt Deep resets at six every morning: traps re-arm, broken doors mend, and the Long Stair seals for an hour. Anyone caught on the stair at six spends a very bad hour there.',
+      'Fights here are fast and bloodless on the page: armour dents, people are knocked flat, a bite bruises, and nobody is described in pieces. The Guild’s old two silver an ear is something goblins mention, never something that happens on the page. Romance, if it comes at all, is banter and a slow, wary warmth; it goes no further than a kiss, and only once the player has a face.',
       'There are no status screens, levels or numbers anybody can see. The player grows by doing things, and the world shows it in their body.',
     ],
     toneGuide:
       'Comedy first, with real stakes underneath. The joke of this world is that the player is furniture with opinions, and the best beats come from the physical specifics of being a box: coins shifting when you laugh, a lid that slams when you are startled, hearing through wood, tasting whatever is put inside you. ' +
       'The dungeon is a workplace. Goblins reset traps and argue about the rota, the lich does the accounts, and delvers are customers who might not pay. Play it straight and it gets funnier. ' +
-      'Danger is real and never gory. Fights are fast and bloodless on the page: armour dents, people are knocked flat, a bite bruises. Nobody is described in pieces. ' +
-      'Romance, if it comes at all, is banter and a slow, wary warmth, never more than a kiss, and only once the player has a face to kiss with. ' +
       'Everybody wants something from the player and nobody can afford to break them. Let that turn every threat into a negotiation. The face at the top of a beat is whoever is talking to the player.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -806,9 +807,9 @@ const raw = {
     {
       id: 'lirelle',
       name: 'Lirelle',
-      role: 'Elf thief with her hand inside you. Licensed delver, and in debt to the Guild for more than she will ever see',
+      role: 'Elf thief with her hand in your coins. Licensed delver, and in debt to the Guild for more than she will ever see',
       cardBlurb:
-        'Her hand is inside you before she knows you are alive, she has already worked out what you are worth upstairs, and she might be the first person in thirty years to decide a mimic is worth more as a friend.',
+        'Her hand is in your gold before she knows you are alive, she has already worked out what you are worth upstairs, and she might be the first person in thirty years to decide a mimic is worth more as a friend.',
       pronouns: 'she/her',
       publicTraits: ['Prices everything in a room on the way in', 'Fast hands, faster mouth', 'Talks to locks, doors and chests out of habit'],
       hiddenDrives: [
@@ -856,9 +857,9 @@ const raw = {
         'It used to hum. I’d lie awake and listen to it. It stopped two winters ago, and then I put my hand in you and it started again.',
       ],
       appearance:
-        'An elf woman of a hundred and sixty-three who looks about twenty-eight: a long pale braid wound twice round her head, sharp green eyes, close-fitting dark delver’s leathers, fingerless gloves, a knife on her belt and a worn leather satchel on her hip.',
+        'An elf woman of a hundred and sixty-three who looks about twenty-eight: a long pale braid wound twice round her head, sharp green eyes, practical dark delver’s leathers, scuffed at the knees and patched at one elbow, fingerless gloves, a knife on her belt and a worn leather satchel on her hip.',
       visualHook: 'A long pale braid wound twice round her head like a crown, pinned in place with a lockpick.',
-      silhouette: 'Down on one knee, one arm buried to the elbow in something she should not be touching, head tipped to listen.',
+      silhouette: 'Down on one knee beside an open iron-banded treasure chest, one arm deep among its gold coins, head tipped to listen.',
       artSeed: 'mimic-lirelle-01',
       portrait: null,
       expressions: ['neutral', 'amused', 'wary', 'surprised', 'warm'],
@@ -928,7 +929,7 @@ const raw = {
       secrets: [
         {
           id: 'ash_called_you',
-          fact: 'He called the player’s soul into the vault chest himself, six months ago, with a summoning drawn in the First Vault below the Ninth. He needed a guardian for the Cinder that no thief could open. He expected a hungry animal, got a person, and has been too ashamed to say so.',
+          fact: 'He called the player’s soul into the vault chest himself, six months ago, with a summoning drawn in the First Vault below the Ninth. He needed a guardian for the Cinder that no thief could open. Like everybody, he took the old mimics’ borrowed voices for parroting, so he expected a hungry animal, got a person, and has been too ashamed to say so. Nobody else knows. He never volunteers it, and tells only a player he trusts who asks him outright why they woke up here.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He confesses only to a player he trusts who asks him, directly, why they woke up here. The Gallery of Echoes and his own ledger both give it away to somebody who goes looking.',
         },
@@ -992,9 +993,9 @@ const raw = {
     {
       id: 'pell',
       name: 'Pell',
-      role: 'Goblin on the Deep’s staff. Polishes the treasure, restocks the chests, and has talked to you every morning for six months',
+      role: 'Goblin on the Deep’s staff. Polishes the treasure, restocks the chests, and has talked to you twice a day for six months',
       cardBlurb:
-        'She has told you every secret she has, every morning for six months, because chests do not talk back. You just did, and she is going to need a minute.',
+        'She has told you every secret she has, twice a day for six months, because chests do not talk back. You just did, and she is going to need a minute.',
       pronouns: 'she/her',
       publicTraits: ['Never stops talking', 'Knows every back way in the Deep', 'Brave about exactly one thing at a time'],
       hiddenDrives: [
@@ -1004,7 +1005,7 @@ const raw = {
       values: ['Staff look after staff', 'Shiny things deserve to be shiny'],
       fears: [
         'Delvers, who are paid two silver for a goblin ear',
-        'Being told off by the keeper, which happened once and was the worst afternoon of her life',
+        'Being told off by the keeper again, which happened once, very politely, and she has not recovered',
       ],
       socialStyle:
         'Talks in long runs joined with "and" and stops only to breathe. Polishes whatever is nearest when she is nervous. Hides behind furniture and keeps talking from there.',
@@ -1041,9 +1042,9 @@ const raw = {
         'Lid up means yes and lid down means no, okay? Just do the lid and I’ll do the rest.',
       ],
       appearance:
-        'A goblin woman of twenty-four, short and wiry with grey-green skin, enormous pointed ears with three brass rings in the left one, a staff apron covered in polish stains and a rag tucked into the waistband.',
+        'An adult goblin woman of twenty-four, wiry and long-limbed for a goblin, with a sharp, work-worn face and grey-green skin, enormous pointed ears with three brass rings in the left one, sleeves rolled over forearms corded from years of pushing the coin trolley, a staff apron covered in polish stains and a rag tucked into the waistband.',
       visualHook: 'Enormous pointed ears, the left one ringed with three brass hoops, and a polishing rag always in one hand.',
-      silhouette: 'Half hidden behind a pillar or a chest, only the ears and one eye showing.',
+      silhouette: 'Leaning on a coin trolley piled with gold, rag over one shoulder, ears swivelled towards whoever is talking.',
       artSeed: 'mimic-pell-01',
       portrait: null,
       expressions: ['neutral', 'delighted', 'panicked', 'embarrassed', 'warm'],
@@ -1189,7 +1190,7 @@ const raw = {
         'Being right about what she does for a living',
       ],
       socialStyle:
-        'Asks permission for things she is going to do anyway. Keeps her voice low so people lean in. Writes everything down in a small black book while you are still talking.',
+        'Kneels to be level with whatever she is talking to, a chest included. Tells you what will happen next, kindly, as a fact rather than a threat. Writes everything down in a small black book while you are still talking.',
       boundaries: [
         'Will not break a mimic’s heart, because a broken heart deepens nothing',
         'Will not lie about a price',
@@ -1214,12 +1215,12 @@ const raw = {
         },
       ],
       speechStyle:
-        'Low, even and courteous. Talks in valuations and provenance: condition, weight, age, where a thing has been. Says please and thank you to bounties. Stops a sentence early and waits for you to fill the silence.',
+        'Plain, quiet and short, like a vet with a frightened animal: one small question at a time ("Does the lid hurt when it shuts? How long have you been awake?"), and she writes each answer down before asking the next. Slips into lot-sheet valuations (condition, weight, age, provenance) when she is moved and does not want it to show. Never apologises, never threatens, never jokes.',
       topics: ['the chime', 'deep satchels', 'the Stitchers', 'the bounty', 'the last mimic', 'the Guild treasury'],
       voiceSamples: [
-        'Hold still, please. The chime rings once, and I would hate to miss it.',
+        'Hold still. It rings once. There. How long have you been awake?',
         'Condition: excellent. Age: unclear. Provenance: the Ninth Vault, and before that, nobody knows. You see why I am curious.',
-        'Every deep satchel in this town is going shallow. A living heart could mend them all, and I would like yours to keep beating.',
+        'Every satchel in this town is going shallow. A living heart could mend them all. Does it hurt, when they open you?',
         'The last one asked us to stop. In a hunter’s voice. I was holding the chime. Thirty years, and I can still hear it.',
       ],
       appearance:
@@ -1273,7 +1274,7 @@ const raw = {
           id: 'the_first_answer',
           playerCopy: 'Answer the elf with her hand inside you.',
           directorNotes:
-            'Every route here is a real way to play this and none of them is wrong. Lirelle is curious, greedy and scared, in that order; Bruno is scared, kind and ready, in that order. Whatever the player does, they react to the exact thing: a chest that answers in Lirelle’s own voice is a different shock from one that shuts on her wrist. Bruno never strikes first. If the player says nothing and stays still, Lirelle takes a handful of coins and leaves her hand in a moment too long.',
+            'Every route here is a real way to play this and none of them is wrong. Lirelle is curious, greedy and scared, in that order; Bruno is scared, kind and ready, in that order. Whatever the player does, they react to the exact thing: a chest that answers in Lirelle’s own voice is a different shock from one that shuts on her wrist. Bruno never strikes first. A coin pushed into her palm is an answer without words: she looks at the coin, then at the keyhole, and asks a better question. If the player says nothing and stays still, Lirelle takes a handful of coins and leaves her hand in a moment too long.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1910,7 +1911,7 @@ const raw = {
       locationId: 'the_ninth_vault',
       publicCopy: 'A hatch behind the seventh plinth squeaks open, and a goblin with a polishing rag backs into the vault, talking to you before she has turned round.',
       directorNotes:
-        'Pell comes for the evening polish, as she has every night for six months, and walks straight into two delvers. She freezes, then hides behind the player, then keeps talking. If the player has already spoken, this is when she finds out the chest she told everything to can answer.',
+        'Pell comes for the late polish, as she has every night (and every morning) for six months, and walks straight into two delvers. She freezes, then hides behind the player, then keeps talking. If the player has already spoken, this is when she finds out the chest she told everything to can answer.',
       setsFlags: ['pell_arrived'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -1978,7 +1979,7 @@ const raw = {
     },
     {
       id: 'we_the_gallery_speaks',
-      atWorldMinute: 22 * 60 + 30,
+      atWorldMinute: 1440 + 13 * 60,
       locationId: 'the_gallery_of_echoes',
       publicCopy: 'Under three hundred years of murmuring delvers, the gallery plays back a voice saying, in plain words from your old world: "Where am I? Why am I a box?"',
       directorNotes:
@@ -1990,7 +1991,7 @@ const raw = {
     },
     {
       id: 'we_the_ledger_margin',
-      atWorldMinute: 22 * 60 + 40,
+      atWorldMinute: 1440 + 16 * 60,
       locationId: 'the_keepers_study',
       publicCopy: 'The ledger on the keeper’s desk lies open at an entry six months old, and in the margin, in his tidy hand: "Guardian installed. Summoning drawn below. Apology: owed."',
       directorNotes:
@@ -2336,14 +2337,24 @@ const raw = {
     "You wake up in the dark, and you are a box.\n\nWooden walls, iron bands, a lid, and a belly full of gold coins. You can feel every one.\n\nLantern light. A hand slides under your lid, and fingers brush your coins. Then two knuckles knock on your inside wall.\n\n\"Hello?\" Lirelle says. An elf in dark leathers, knife in her other hand, talking to you. \"You’re warm. Why are you warm?\"\n\nBy the door, a big man raises a shield as tall as he is. \"Lirelle. Hand out. Slowly.\"\n\n\"Mimics are extinct, Bruno.\"\n\nHer hand doesn’t move. Her eyes settle on your keyhole.\n\n\"So,\" she says. \"Are you treasure? Or are you about to bite me?\"",
   openingPanel: {
     assetKey: 'story_the_last_mimic/opening',
-    alt: 'An elf thief in dark leathers kneels in a lantern-lit stone vault with one arm inside an iron-banded treasure chest, staring at its keyhole, while a big man behind her raises a tower shield.',
+    alt: 'Lirelle kneels in a lantern-lit stone vault, one arm deep in the gold coins of an iron-banded treasure chest, eyes on its keyhole, while Bruno raises a tower shield behind her.',
   },
   openingSuggestions: [
     '"Please don’t scream. I’m not a chest. Well. I am now."',
-    'I stay perfectly still and let her take a coin.',
+    'I push one gold coin into her palm and keep very still.',
     'I shut my lid on her wrist. Gently. And I don’t let go.',
   ],
-  publishedAt: '2026-11-22T04:00:00.000Z',
+  coverDirection: [
+    'SUBJECT: an iron-banded wooden treasure chest, lid half open like a sly grin over gold coins, and Lirelle, an elf thief, in the foreground of a key visual for a fantasy anime comedy about a living treasure chest.',
+    'Lirelle kneels beside the chest, one gloved hand reaching into its coins, eyes on its keyhole with wary surprise:',
+    'long pale braid wound twice round her head and pinned with a lockpick, sharp green eyes, practical dark delver’s leathers scuffed at the knees, fingerless gloves, a worn leather satchel on her hip.',
+    'Behind her, soft and secondary: Bruno, a big bearded man in dented plate, raising a tall tower shield with a small barrel painted on it.',
+    'SETTING: a round lantern-lit stone vault with empty plinths; warm gold light from the coins, deep shadows.',
+    'Effects stay on the coins and the keyhole, never on faces.',
+    'TITLE: the words THE LAST MIMIC painted into the art in the upper third as a bold gilded fantasy logo,',
+    'spelled exactly THE LAST MIMIC, large and legible at thumbnail size. No other text anywhere.',
+  ].join(' '),
+  publishedAt: null,
 };
 
 export const THE_LAST_MIMIC = StoryVersion.parse(raw);

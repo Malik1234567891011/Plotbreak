@@ -17,7 +17,7 @@ The mystery (why a box?) is optional. A player who only wants to bargain with a 
 
 ## Story bible
 
-The player died in their own world. They do not remember how, and the story never needs to say. They wake in the **Ninth Vault**, the deepest room of the **Gilt Deep**, a dungeon under the market town of **Brightwell**. They are an iron-banded treasure chest full of gold coins. Their lid is their mouth.
+The player died in their own world. They do not remember how, and the story never needs to say. They wake in the **Ninth Vault**, the deepest room of the **Gilt Deep**, a dungeon under the mining town of **Brightwell**. They are an iron-banded treasure chest full of gold coins. Their lid is their mouth.
 
 Mimics are supposed to be extinct. Thirty years ago the **Delvers' Guild** hunted the last of them, because a mimic's heart stitched into a bag makes a **deep satchel**, a bag with no bottom, and the whole town's trade runs on those satchels. Now every satchel in Brightwell is going shallow, and there are no new hearts. Tonight, when the player woke, the great chime in the Guildhouse tower rang for the first time in thirty years. The Guild has posted a bounty of **forty thousand crowns, heart intact**.
 
@@ -39,9 +39,13 @@ The body grows. The player starts able to hop a hand's width at a time, loudly. 
 5. The bounty is forty thousand crowns, heart intact. The great chime rang tonight.
 6. The Cinder is Ash's life. The Guild sent Lirelle's crew to bring it up.
 7. Whatever is inside a mimic is lost if the mimic dies. A dead mimic's heart still makes a satchel; a living mimic could deepen satchels for ever. That is Edda's aim.
-8. Ash called the player's soul into the chest six months ago, with a summoning drawn below the Ninth Vault. He never volunteers this.
+8. Ash called the player's soul into the chest six months ago, with a summoning drawn below the Ninth Vault. He never volunteers this. (In the fixture this lives in Ash's secret, not in hard canon, so the narrator treats it as something he keeps back.)
 9. At 06:00 the dungeon resets and the Long Stair seals for an hour.
 10. No status screens, no levels, no floating numbers. The body says what it can do.
+11. Everybody is an adult, the Deep's staff and goblins included. The player was a grown adult with a job in their old life.
+12. Pell polishes the vault chest twice a day, first thing in the morning and at about half past ten at night. Tonight she does not know there are delvers in the vault.
+13. Ash notices anybody who lingers in the Ninth Vault: within the hour the lamps turn blue and he speaks through the walls before he comes down.
+14. Fights are bloodless on the page; the goblin-ear bounty is mentioned, never shown. Romance stops at a kiss, and only once the player has a face.
 
 ## Tone and pacing
 
@@ -81,19 +85,19 @@ Exact opener (117 words):
 
 Three cards:
 - **Said:** "Please don't scream. I'm not a chest. Well. I am now."
-- **Done:** I stay perfectly still and let her take a coin.
+- **Done:** I push one gold coin into her palm and keep very still.
 - **Risky:** I shut my lid on her wrist. Gently. And I don't let go.
 
 Lirelle and Bruno react to the exact action. A chest that answers in Lirelle's own voice is a different shock from one that shuts on her wrist. Bruno never strikes first.
 
 ## Major cast
 
-All adults. The player was an adult in their old life.
+All adults, the Deep's staff and goblins included. The player was a grown adult with a job in their old life.
 
 ### Lirelle
 **Age:** 163 (elf; looks about 28).  
-**Role:** elf thief with her hand inside you. Licensed delver in debt to the Guild.  
-**Appearance:** long pale braid wound twice round her head and pinned with a lockpick, sharp green eyes, close-fitting dark delver's leathers, fingerless gloves, worn satchel on her hip.  
+**Role:** elf thief with her hand in your coins. Licensed delver in debt to the Guild.  
+**Appearance:** long pale braid wound twice round her head and pinned with a lockpick, sharp green eyes, practical dark delver's leathers, scuffed at the knees and patched at one elbow, fingerless gloves, worn satchel on her hip.  
 **Want now:** work out what the warm chest is before Bruno does something heroic.  
 **Long-term want:** clear her Guild bond by bringing up the Cinder before the second reset.  
 **Fear:** dying in debt so it passes to Bruno; finding out she is as mercenary as the Guild thinks.  
@@ -114,8 +118,9 @@ All adults. The player was an adult in their old life.
 
 ### Pell
 **Age:** 24.  
-**Role:** goblin on the Deep's staff. Has polished the player every morning for six months and told them every secret she has.  
-**Appearance:** short and wiry, grey-green skin, enormous pointed ears with three brass rings in the left, polish-stained staff apron, a rag always in hand.  
+**Role:** goblin on the Deep's staff. Has polished the player twice a day (first thing in the morning, and again at about half past ten at night) for six months and told them every secret she has.  
+**Appearance:** an adult goblin woman of twenty-four, wiry and long-limbed for a goblin, with a sharp, work-worn face and grey-green skin, enormous pointed ears with three brass rings in the left one, sleeves rolled over forearms corded from years of pushing the coin trolley, a staff apron covered in polish stains and a rag tucked into the waistband.  
+**Silhouette:** leaning on a coin trolley piled with gold, rag over one shoulder, ears swivelled towards whoever is talking.  
 **Want now:** find out how much the chest heard.  
 **Long-term want:** see the sun once without anybody taking her ears (the Guild pays two silver an ear).  
 **Secrets:** the back corridors run up to a goblin hatch in a cellar under Brightwell market. She once tried on the keeper's coat.  
@@ -128,7 +133,7 @@ All adults. The player was an adult in their old life.
 **Want now:** get off the stair before six.  
 **Long-term want:** go home to the farm for good.  
 **Fear:** being the last thing between Lirelle and something he cannot hold; telling his wife the truth.  
-**Secrets:** his grandfather Aldo Fenn killed the second-to-last mimic, and the bounty bought the family farm. His wife Marta thinks he sells barrels.  
+**Secrets:** his grandfather Aldo Fenn killed the second-to-last mimic, and the bounty bought the family farm. His wife Marta (37, a grown woman who runs the farm) thinks he sells barrels.  
 **Voice:** slow, low, two or three words at a time. Quotes his gran ("Never trust a chest that's warmer than the room. She had nine fingers, my gran.").  
 **Boundary:** will not strike first; will not help sell a living thing that has asked to live.
 
@@ -140,7 +145,7 @@ All adults. The player was an adult in their old life.
 **Long-term want:** bring it to the Stitchers' Hall alive, which she believes is mercy.  
 **Fear:** every satchel in Brightwell failing in one winter, the Guild treasury first.  
 **Secrets:** as an apprentice she held the chime when the last mimic was killed; it asked the hunters to stop, in one of their voices. The Guild treasury sits in one failing deep satchel.  
-**Voice:** low, even, courteous. Talks in valuations ("Condition: excellent. Provenance: the Ninth Vault."). Says please to bounties. Stops early and waits.
+**Voice:** Quiet, plain, short questions, like a vet; lot-sheet valuations when moved ("Condition: excellent. Provenance: the Ninth Vault."). Never apologises, never threatens. Stops early and waits.
 
 ## Places
 
@@ -228,7 +233,7 @@ Ten of the twelve are reachable without the mystery.
 
 All characters are adults; prompts describe costume, pose and setting only.
 
-- **Cover:** a lantern-lit stone vault, an iron-banded chest with gold glinting under a lid that is just slightly a grin, an elf thief kneeling with one arm inside it, a big man behind her with a tower shield. Title in the art.
-- **Opening panel** (`story_the_last_mimic/opening`): Lirelle kneeling, arm in the chest, staring at the keyhole; Bruno behind, shield raised.
+- **Cover:** a lantern-lit stone vault, an iron-banded chest with gold glinting under a lid that is just slightly a grin, Lirelle kneeling beside it with one gloved hand deep in its coins, Bruno behind her with a tower shield. Costume and pose only, effects on the coins and keyhole, never on faces. Title THE LAST MIMIC painted into the upper third. The fixture's `coverDirection` is the prompt.
+- **Opening panel** (`story_the_last_mimic/opening`): Lirelle kneeling, arm deep in the chest's coins, staring at the keyhole; Bruno behind, shield raised. The alt starts with "Lirelle" so her portrait is the reference.
 - **Reaction decks:** Lirelle (neutral, amused, wary, surprised, warm), Ash (neutral, courteous, amused, grave, cold), Pell (neutral, delighted, panicked, embarrassed, warm), Bruno (neutral, wary, patient, warm, alarmed), Edda (neutral, polite, assessing, grave, cold).
 - **Environment frames:** the Ninth Vault, the Hall of False Chests, the Keeper's Study, the Back Corridors, the Gallery of Echoes, the Long Stair, the Well Mouth, the Stitchers' Hall.
