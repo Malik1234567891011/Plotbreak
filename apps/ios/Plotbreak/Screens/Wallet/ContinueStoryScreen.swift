@@ -40,6 +40,8 @@ struct ContinueStoryScreen: View {
     @State private var everSelected = false
     @State private var reachedCheckout = false
     @State private var purchased = false
+    /// The story's own art for the top of the screen.
+    @State private var art: String?
 
     /// The one offer this screen leads with.
     ///
@@ -80,40 +82,87 @@ struct ContinueStoryScreen: View {
 
     var body: some View {
         Screen {
-            VStack(spacing: 0) {
-                ScreenHeader(title: t("continue.title"), backLabel: t("wallet.close"),
-                             onBack: { dismiss(bought: false) })
-                .padding(.bottom, Theme.Spacing.xs)
+            ZStack(alignment: .top) {
+                // Design v3: the story's own art on top, scrimmed into the page.
+                // In an overlay so the art's own size never widens the page.
+                Color.clear
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 340)
+                    .overlay { StoryArt(seed: storyId, title: storyTitle, uri: art) }
+                    .clipped()
+                    .overlay {
+                        LinearGradient(stops: [
+                            .init(color: Theme.Colors.bgBase.opacity(0.25), location: 0),
+                            .init(color: Theme.Colors.bgBase.opacity(0.35), location: 0.4),
+                            .init(color: Theme.Colors.bgBase, location: 1),
+                        ], startPoint: .top, endPoint: .bottom)
+                    }
+                    .ignoresSafeArea(edges: .top)
+                    .accessibilityHidden(true)
 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
+                    VStack(alignment: .leading, spacing: 0) {
                         storyLine
+                            .padding(.top, 200)
                         if let headline {
-                            offerCard(headline)
-                        } else if offers.isEmpty {
-                            Skeleton(height: 148, radius: Theme.Radius.card)
-                        }
-                        freeRoutes
-                        // The moment earning matters most: out of credits, mid-story.
-                        TowerCard(source: "credit_wall", compact: true)
-                        if let pass = wallet?.pass, !pass.active {
-                            PassCard(pass: pass) {
-                                wallet = try? await store.api.wallet().wallet
+                            offerTile(headline)
+                                .padding(.top, Theme.Spacing.xl)
+                            PBButton(
+                                t("continue.cta", ["price": price(for: headline)]),
+                                loadingLabel: t("continue.working"),
+                                variant: .light,
+                                loading: busy == headline.productId,
+                                disabled: busy != nil
+                            ) {
+                                Task { await buy(headline) }
                             }
+                            .padding(.top, Theme.Spacing.lg)
+                        } else if offers.isEmpty {
+                            Skeleton(height: 164, radius: 16)
+                                .padding(.top, Theme.Spacing.xl)
                         }
-                        otherPacks
                         if let storeUnavailable {
-                            Txt(storeUnavailable, .micro, color: Theme.Colors.warning)
+                            Txt(storeUnavailable, .micro, color: Theme.Colors.textMuted)
+                                .padding(.top, Theme.Spacing.sm)
                         }
                         if let notice {
                             Txt(notice, .bodyCompact)
+                                .padding(.top, Theme.Spacing.md)
                                 .accessibilityAddTraits(.updatesFrequently)
                         }
+
+                        // Never hidden, and never framed as a lesser option, but
+                        // quiet: one line of free credits, then two links.
+                        freeRoutes
+                            .padding(.top, 28)
+                        links
+                            .padding(.top, Theme.Spacing.sm)
+                        // The moment earning matters most: out of credits, mid-story.
+                        TowerCard(source: "credit_wall", compact: true,
+                                  inset: EdgeInsets(top: Theme.Spacing.md, leading: 0, bottom: 0, trailing: 0))
                     }
                     .padding(.horizontal, Theme.pageGutter)
-                    .padding(.top, Theme.Spacing.md)
                     .padding(.bottom, Theme.Spacing.xxl)
                 }
+
+                HStack {
+                    Spacer()
+                    Button {
+                        Haptic.play(.light)
+                        dismiss(bought: false)
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .frame(width: 44, height: 44)
+                            .background(.ultraThinMaterial, in: Circle())
+                            .overlay { Circle().strokeBorder(Theme.Colors.textPrimary.opacity(0.12), lineWidth: 1) }
+                    }
+                    .buttonStyle(PressOpacityStyle())
+                    .accessibilityLabel(t("wallet.close"))
+                }
+                .padding(.horizontal, Theme.pageGutter)
+                .padding(.top, Theme.Spacing.sm)
             }
         }
         .overlay {
@@ -132,64 +181,103 @@ struct ContinueStoryScreen: View {
             store.purchases.translator = t
             await load()
         }
+        .task {
+            art = try? await store.api.storyDetail(storyId).story.keyArt
+        }
     }
 
     // MARK: Pieces
 
     /// What is waiting, named. "Your story" is an abstraction; the title is not.
     private var storyLine: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-            Txt(t("continue.heading"), .display)
-            Txt(t("continue.subheading", ["title": storyTitle]), .bodyCompact, color: Theme.Colors.textSecondary)
+        VStack(alignment: .leading, spacing: 6) {
+            Text(t("continue.heading"))
+                .font(.system(size: 28, weight: .bold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
+            Text(t("continue.subheading", ["title": storyTitle]))
+                .font(.system(size: 15))
+                .foregroundStyle(Theme.Colors.textSecondary)
         }
     }
 
-    private func offerCard(_ offer: StoreOffer) -> some View {
-        let doubled = offer.firstPurchaseOnly
+    /// The offer as a store pack (design v3): the same art as the Credits
+    /// store, the total with the crystal, the base crossed out, no turn count.
+    private func offerTile(_ offer: StoreOffer) -> some View {
         let flash = offer.tier == .FLASH
-        return Card {
-            VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                if flash {
-                    Chip(t("wallet.badge_flash"), tone: .accent)
-                } else if doubled {
-                    Chip(t("wallet.badge_first_purchase"), tone: .accent)
+        let tag: String? = flash ? t("wallet.badge_flash") : (offer.firstPurchaseOnly ? t("wallet.badge_first_purchase") : nil)
+        return HStack(spacing: 14) {
+            Image(packArt(offer))
+                .resizable()
+                .scaledToFit()
+                .frame(width: 132, height: 132)
+                .padding(.top, 10)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(spacing: 4) {
+                    CreditGlyph(size: 34)
+                    Text(Format.credits(offer.credits + offer.bonusCredits, locale: store.locale))
+                        .font(.system(size: 34, weight: .bold))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
+                if offer.bonusCredits > 0 {
+                    HStack(spacing: 5) {
+                        Text(Format.credits(offer.credits, locale: store.locale)).strikethrough()
+                        Text(t("wallet.bonus_badge", ["bonus": Format.credits(offer.bonusCredits, locale: store.locale)]))
+                    }
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
                 }
                 // The deadline, spelled out. It is a real row in the ledger and
                 // it really does lapse, so saying so is a fact rather than the
                 // manufactured urgency §3.8 rules out.
                 if flash, let deadline = flashDeadline {
-                    Txt(t("continue.flash_ends", ["when": countdown(to: deadline)]),
-                        .caption, color: Theme.Colors.warning)
-                }
-                // Turns first, and large. This is the number the player can
-                // actually reason about; the credits are the receipt.
-                // Credits lead here too, so the sheet and the wallet agree about
-                // what the headline number is.
-                Txt(t("continue.credits_headline", [
-                    "credits": Format.credits(offer.credits + offer.bonusCredits, locale: store.locale),
-                ]), .h1)
-                Txt(t("continue.turns_detail", [
-                    "count": turns(offer),
-                    "tier": t(TierCopy.labelKey(.VIVID)),
-                ]), .caption, color: Theme.Colors.textMuted)
-
-                PBButton(
-                    t("continue.cta", ["price": price(for: offer)]),
-                    loadingLabel: t("continue.working"),
-                    variant: .light,
-                    loading: busy == offer.productId,
-                    disabled: busy != nil
-                ) {
-                    Task { await buy(offer) }
+                    Text(t("continue.flash_ends", ["when": countdown(to: deadline)]))
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textSecondary)
                 }
             }
+            .padding(.top, 10)
+            Spacer(minLength: 0)
+        }
+        .padding(.leading, 10)
+        .padding(.trailing, Theme.Spacing.lg)
+        .frame(height: 164)
+        .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(alignment: .topLeading) {
+            if let tag {
+                Text(tag.uppercased())
+                    .font(.system(size: 11, weight: .bold))
+                    .kerning(0.4)
+                    .foregroundStyle(Theme.Colors.textOnLight)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(Theme.Colors.light, in: UnevenRoundedRectangle(
+                        topLeadingRadius: 16, bottomLeadingRadius: 0, bottomTrailingRadius: 10, topTrailingRadius: 0, style: .continuous))
+            }
+        }
+        .accessibilityElement(children: .combine)
+    }
+
+    /// The Credits store's picture for this pack, so the two screens agree.
+    private func packArt(_ offer: StoreOffer) -> String {
+        if offer.firstPurchaseOnly { return "PackFew" }
+        switch offer.credits {
+        case ..<2_000: return "PackOne"
+        case ..<10_000: return "PackFew"
+        case ..<20_000: return "PackPouch"
+        case ..<50_000: return "PackBasket"
+        case ..<100_000: return "PackCrate"
+        default: return "PackChest"
         }
     }
 
-    /// Never hidden, and never framed as a lesser option — somebody who would
-    /// rather wait a day should be able to see that they can.
+    /// Free credits, as quiet lines.
     private var freeRoutes: some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+        VStack(alignment: .leading, spacing: 0) {
             if wallet?.dailyClaimAvailable == true || passBonusWaiting {
                 Button {
                     Task { await claimDaily() }
@@ -223,23 +311,39 @@ struct ContinueStoryScreen: View {
     private func freeRow(icon: String, text: String, emphasised: Bool = false) -> some View {
         HStack(spacing: Theme.Spacing.sm) {
             Image(systemName: icon)
-                .font(.system(size: 15))
-                .foregroundStyle(emphasised ? Theme.Colors.accentPrimary : Theme.Colors.textMuted)
-            Txt(text, .bodyCompact, color: emphasised ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
+                .font(.system(size: 13))
+            Text(text)
+                .font(.system(size: 13, weight: emphasised ? .medium : .regular))
             Spacer(minLength: 0)
         }
-        .frame(minHeight: Theme.minTouchTarget)
+        .foregroundStyle(emphasised ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
+        .frame(minHeight: Theme.minTouchTarget - 8)
+        .contentShape(Rectangle())
     }
 
-    private var otherPacks: some View {
-        Button {
-            dismiss(bought: false)
-            router.present(.wallet(shortfall: shortfall))
-        } label: {
-            Txt(t("continue.see_all_packs"), .bodyCompact, color: Theme.Colors.accentPrimary)
-                .frame(maxWidth: .infinity, minHeight: Theme.minTouchTarget, alignment: .center)
+    /// Every pack, and the Pass, as two plain links.
+    private var links: some View {
+        HStack {
+            Button {
+                dismiss(bought: false)
+                router.present(.wallet(shortfall: shortfall))
+            } label: {
+                Text(t("continue.see_all_packs"))
+            }
+            Spacer(minLength: Theme.Spacing.md)
+            if let pass = wallet?.pass, !pass.active {
+                Button {
+                    dismiss(bought: false)
+                    router.present(.pass)
+                } label: {
+                    Text(t("pass.title"))
+                }
+            }
         }
+        .font(.system(size: 15, weight: .medium))
+        .foregroundStyle(Theme.Colors.textSecondary)
         .buttonStyle(PressOpacityStyle())
+        .frame(minHeight: Theme.minTouchTarget)
     }
 
     // MARK: Work
