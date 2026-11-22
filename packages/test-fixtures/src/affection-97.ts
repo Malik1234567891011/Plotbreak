@@ -32,7 +32,8 @@ import { StoryVersion } from '@plotbreak/contracts';
  * notes, promises, resources, or any ability except the chosen archetype's
  * starting one. So the rules of the window are written out in hard canon and
  * again on the quest item the player starts holding, and every archetype
- * starts with one ability that tells the storyteller what it is for.
+ * starts with one ability that tells the storyteller what it is for, plus
+ * Read the Number, which is the window itself.
  *
  * Three invisible variables. Composure is the one honest GOOD_HIGH, because
  * `resolveRest` refills those and a lady-in-waiting's poise genuinely runs out
@@ -1146,6 +1147,7 @@ const raw = {
     {
       id: 'bastien',
       name: 'Sir Bastien Roche',
+      calledName: 'Bastien',
       role: 'The prince’s sworn knight and oldest friend, who flirts with you in public and has no number over his head',
       cardBlurb:
         'He asks you to dance where the whole court can see, tells you a story about a mule instead of answering, and there is no window over his head to tell you whether he means a word of it.',
@@ -2312,7 +2314,7 @@ const raw = {
       attributeBonus: { presence: 3, resolve: 1 },
       skillProficiencies: { decorum: 3, wit: 1, old_stories: 1 },
       startingItems: [{ itemId: 'family_signet', qty: 1 }],
-      startingAbilities: ['invoke_precedence'],
+      startingAbilities: ['invoke_precedence', 'read_the_number'],
       startingReputation: [{ factionId: 'faction_household', amount: 10 }],
     },
     {
@@ -2327,7 +2329,7 @@ const raw = {
       attributeBonus: { mind: 3, presence: 1 },
       skillProficiencies: { accounts: 3, attention: 1, wit: 1 },
       startingItems: [{ itemId: 'letter_of_credit', qty: 1 }],
-      startingAbilities: ['read_the_ledger'],
+      startingAbilities: ['read_the_ledger', 'read_the_number'],
       startingReputation: [{ factionId: 'faction_ashgrove', amount: 10 }],
     },
     {
@@ -2342,7 +2344,7 @@ const raw = {
       attributeBonus: { might: 2, agility: 2 },
       skillProficiencies: { horse_and_blade: 3, discretion: 1, candour: 1 },
       startingItems: [{ itemId: 'stable_pass', qty: 1 }],
-      startingAbilities: ['quick_hands'],
+      startingAbilities: ['quick_hands', 'read_the_number'],
       startingReputation: [{ factionId: 'faction_guard', amount: 15 }],
     },
     {
@@ -2357,7 +2359,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { physic: 3, attention: 2 },
       startingItems: [{ itemId: 'physic_case', qty: 1 }],
-      startingAbilities: ['physicians_eye'],
+      startingAbilities: ['physicians_eye', 'read_the_number'],
       startingReputation: [],
     },
   ],
@@ -2564,7 +2566,7 @@ const raw = {
     'The crown prince, Aldric, has sent everyone out of the music room except you, the newest of his mother’s ladies-in-waiting.\n\nHe doesn’t sit. He stands by the cold fireplace in black gloves, looking at you like an appointment he regrets.\n\n"I despise you," he says. "I want that understood before the ball tonight."\n\nSince this morning, a small frame of light has hung above his head. Nobody else can see it. You’ve checked.\n\n[Affection 97 ▲]\n\nThe arrow went up when he said it.\n\n"You will keep to the far end of the ballroom. You will not speak to me. You will not dance with me."\n\n[Affection 98 ▲]\n\nHis jaw sets. "Do you understand?"',
   openingPanel: {
     assetKey: 'story_affection_97/opening',
-    alt: 'Crown Prince Aldric in a black coat and gloves stands by a cold fireplace in a blue music room, hands behind his back, a faint frame of light above his head.',
+    alt: 'Aldric, the Crown Prince, in a black court coat and gloves, stands by a cold fireplace in a faded blue music room, hands behind his back, chin raised, a faint frame of pale light above his head.',
   },
   openingSuggestions: [
     '"Perfectly, Your Highness. May I ask what I did to earn it?"',
@@ -2572,13 +2574,15 @@ const raw = {
     'I point at the air above his head. "Your Highness, there’s a number up there, and it just went up."',
   ],
   coverDirection: [
-    'SUBJECT: Crown Prince Aldric, a cold and handsome royal heir, alone in the foreground of a key visual for a romance anime set at a royal court.',
-    'He fills the frame from the waist up, close and slightly off-centre, turned three-quarters away with his chin raised, glancing sideways at the viewer with cool pale grey eyes and the faintest blush across his cheekbones.',
-    'Short black hair, a long severe face, a black court coat with silver embroidery buttoned to the high collar, black gloves, gloved hands clasped behind his back.',
-    'TITLE: the words AFFECTION: 97 painted into the art in the upper third, inside a floating translucent rectangular frame of pale lilac light that hovers just above his head, with a small glowing upward arrow after the number,',
+    'SUBJECT: Crown Prince Aldric, alone and unmistakable in the foreground of a key visual for a romance anime set at a royal court.',
+    'He fills the frame from the waist up, close and slightly off-centre, holding about two thirds of the picture.',
+    'Short black hair, pale grey eyes, a long severe handsome face, a black court coat with silver embroidery buttoned to the high collar, fitted black gloves, gloved hands clasped behind his back.',
+    'His shoulders are turned a little away and his chin is raised, but his face is toward the viewer and he looks at us sideways: cold, proud and caught out, with the faintest natural blush on his cheeks.',
+    'TITLE: the words AFFECTION: 97 painted into the art in the upper third, in clean bold capitals of soft glowing lilac light, set inside a floating translucent rectangular frame of pale lilac light that hovers just above his head, with a small glowing upward arrow after the number,',
     'spelled exactly AFFECTION: 97, large, crisp and legible at thumbnail size. No other text, letters or numbers anywhere.',
+    'HIS FACE STAYS CLEAN: no glow lines, light shapes, sparkles, numbers or marks on his face or skin. Every glow effect stays on the floating frame and the title, never on his face.',
     'BEHIND HIM, soft and secondary: a candlelit palace ballroom hung with pale pink roses, crystal chandeliers glowing out of focus.',
-    'LIGHT: warm candle gold on his face, a cool lilac glow from the frame above his head falling across his hair.',
+    'LIGHT: warm candle gold on his face and coat, a cool lilac glow from the frame above his head falling on his hair, so he is lit in gold and rimmed in lilac.',
   ].join(' '),
   publishedAt: null,
 };

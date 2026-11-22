@@ -139,6 +139,13 @@ describe('the opener hands the player a choice', () => {
 
   it('puts the opening panel where the asset pipeline will look', () => {
     expect(S.openingPanel?.assetKey).toBe('story_affection_97/opening');
+    // The speaker's portrait is the panel's reference image, so the alt opens on his name.
+    expect(S.openingPanel?.alt).toMatch(/^Aldric\b/);
+    expect(S.openingPanel!.alt.length).toBeLessThanOrEqual(200);
+    expect(S.coverDirection).toMatch(/\bTITLE:/);
+    expect(S.coverDirection).toMatch(/HIS FACE STAYS CLEAN/);
+    expect(S.prologue ?? []).toEqual([]);
+    expect(S.publishedAt).toBeNull();
     expect(withDerivedAssetKeys(S).coverImage).toBe('story_affection_97/cover');
   });
 });
@@ -272,6 +279,9 @@ describe('the window lives where the storyteller can read it', () => {
       for (const id of a.startingAbilities) expect(ability(id), `${a.id} -> ${id}`).toBeDefined();
     }
     expect(new Set(S.archetypes.map((a) => a.startingAbilities[0])).size).toBe(S.archetypes.length);
+    // The window is the story's system, and the storyteller only reads starting
+    // abilities, so every background starts able to read the number.
+    for (const a of S.archetypes) expect(a.startingAbilities, a.id).toContain('read_the_number');
   });
 
   it('never puts two archetype names where they would read as coexisting', () => {
@@ -417,6 +427,11 @@ describe('nobody is only there to react', () => {
     const called = S.characters.map((c) => calledName(c).toLowerCase());
     expect(new Set(called).size).toBe(called.length);
     expect(calledName(S.characters.find((c) => c.id === 'aldric')!)).toBe('Aldric');
+    // Everybody with a title on their name carries the name they are actually called.
+    const TITLED = /^(Crown Prince|Prince|Queen|King|Lady|Lord|Sir|Dame)\b/;
+    for (const c of S.characters.filter((ch) => TITLED.test(ch.name))) {
+      expect(c.calledName?.trim(), c.id).toBeTruthy();
+    }
     const unknown = S.characters.flatMap((c) => c.expressions.filter((e) => !knownExpression(e)).map((e) => `${c.id}:${e}`));
     expect(unknown).toEqual([]);
   });

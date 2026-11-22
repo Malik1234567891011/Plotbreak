@@ -212,6 +212,8 @@ Eleven, using every rarity. Several are losses, and none is written as a punishm
 
 ## Image plan
 
-**Cover:** Aldric alone in the foreground, waist up, black court coat and gloves, looking away coldly with the faintest colour on his face; the title AFFECTION: 97 painted in as the glowing frame of light above his head, with a small upward arrow. Behind him, soft and secondary, a candlelit ballroom. No other text.
+**Cover:** Aldric alone in the foreground, waist up, black court coat and gloves, shoulders turned away but face to the viewer, cold and caught out, with the faintest natural blush. The title, spelled exactly AFFECTION: 97, is painted into the upper third in bold glowing lilac capitals inside the floating frame of light above his head, with a small upward arrow. Every glow stays on the frame and the title, never on his face. Behind him, soft and secondary, a candlelit ballroom. No other text.
 
-**Opening panel:** Aldric by a cold fireplace in a blue music room, gloved hands behind his back, and a faint frame of light above his head.
+**Opening panel** (`story_affection_97/opening`; the alt starts with Aldric, whose portrait is its reference): Aldric by a cold fireplace in a faded blue music room, gloved hands behind his back, chin raised, and a faint frame of pale light above his head.
+
+**Fixture system:** the window lives in hard canon, in the starting quest item `the_window`, and in `Read the Number`, which every background starts with beside its own ability. Titled characters carry `calledName` (Aldric, Viola, Bastien, Ottilie, Cress). No prologue; `publishedAt` stays null until release.
