@@ -162,6 +162,38 @@ describe('the rule lives where the storyteller can read it', () => {
     }
   });
 
+  it('closes the shortcuts: only the terms undo it, and the Queen is no referee', () => {
+    // The pure storyteller is told the player can change any canon afterwards,
+    // so a fire mage burning the cord or a half-true answer would end the week
+    // on turn two unless canon says, in as many words, that neither works.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/Nothing but its three terms undoes the knot/);
+    expect(canon).toMatch(/convenient truth as a lie/);
+    expect(canon).toMatch(/grants neither candidate a private audience/);
+    expect(canon).toMatch(/only in open court/);
+  });
+
+  it('keeps the exam a secret the setup screen does not give away', () => {
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/never known who found the flaw/);
+    const grudge = S.setupFields.find((f) => f.id === 'the_grudge')!;
+    for (const o of grudge.options) expect(o.label, o.id).not.toMatch(/flaw|reported/i);
+    const why = steps.find((st) => st.id === 'why_it_was_split')!;
+    expect(why.directorNotes).toMatch(/never known who found the flaw/);
+    expect(why.directorNotes).not.toMatch(/\b(her|his) share\b/);
+  });
+
+  it('puts every reveal trigger where production reads it', () => {
+    // runTurnPure reads boundaries and secret facts, never revealHint.
+    const willNot = (id: string) => S.characters.find((c) => c.id === id)!.boundaries.join(' ');
+    expect(willNot('caius')).toMatch(/night before the exam/);
+    expect(willNot('caius')).toMatch(/why he suspects the Chancellor/);
+    expect(willNot('prin')).toMatch(/three late slips/);
+    expect(willNot('corvina')).toMatch(/once you have proof/);
+    expect(willNot('hollis')).toMatch(/where everybody was standing/);
+    expect(willNot('thessaly')).toMatch(/what the knot costs/);
+  });
+
   it('gives every school its own spell, reachable only by choosing it', () => {
     // The storyteller sees the chosen archetype's starting abilities and no others.
     const schools = new Set(S.archetypes.flatMap((a) => a.startingAbilities));
@@ -225,7 +257,19 @@ describe('everybody on the page is an adult, on the page', () => {
       expect(AGES[c.id]!).toBeGreaterThanOrEqual(18);
       expect(canon, c.id).toContain(c.calledName ?? c.name.split(' ')[0]!);
     }
-    expect(canon).toMatch(/takes students at nineteen/);
+    expect(canon).toMatch(/takes students from nineteen/);
+    // The Queen speaks and acts on the page, so she has an age too.
+    expect(canon).toContain('The Queen of Hesper is fifty-four');
+  });
+
+  it('caps romance at a kiss, off the page as well as on it', () => {
+    // The shared narrator lets intimacy happen off the page; a forced-proximity
+    // story in a 13+ app has to close that door itself.
+    expect(S.rules.toneGuide).toMatch(/Nothing goes further than a kiss, on the page or off it/);
+    expect(S.rules.toneGuide).toMatch(/no fade-to-black/);
+    expect(S.rules.toneGuide).toMatch(/cuts away before anyone undresses/);
+    for (const st of steps) expect(st.directorNotes, st.id).not.toMatch(/\bwash/i);
+    for (const e of S.worldEvents) expect(e.directorNotes, e.id).not.toMatch(/\bwash/i);
   });
 
   it('describes people by build and costume, never by an age word', () => {
@@ -571,6 +615,15 @@ describe('it can end badly, early and in many ways', () => {
     const conclave = S.worldEvents.find((e) => e.setsFlags.includes('conclave_day'))!;
     expect(conclave.requiresFlags).toEqual([]);
     expect(conclave.atWorldMinute).toBeGreaterThanOrEqual(7 * 1440);
+  });
+
+  it('gets a freed player through the Conclave without the court behind them', () => {
+    // Wards and mending start the court at 30, under the 35 that standing for
+    // the chair needs; without this, Still Rivals had no way in for them.
+    const free = routes.find(({ route }) => route.routeId === 'came_free')!.route;
+    expect(free.predicate.flagsSet).toEqual(['knot_untied', 'conclave_day']);
+    expect(free.predicate.minRelationship).toEqual([]);
+    expect(free.predicate.minFactionReputation).toEqual([]);
   });
 
   it('uses the whole rarity range', () => {

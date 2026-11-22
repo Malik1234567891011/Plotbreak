@@ -10,7 +10,7 @@
 ## Adults only
 
 Every person in this story is an adult. The ages are canon and are also the first line of `hardCanon`,
-so the storyteller has them on every turn. The royal college of mages takes students at nineteen; it is
+so the storyteller has them on every turn. The royal college of mages takes students from nineteen; it is
 post-secondary, and everyone who studied there did so as an adult.
 
 | Who | Age |
@@ -21,6 +21,7 @@ post-secondary, and everyone who studied there did so as an adult.
 | Prin Halloway, the player's apprentice | 20 |
 | Lady Corvina Ashdown, Chancellor to the Queen | 34 |
 | Hollis Brand, Master of Chambers | 31 |
+| The Queen of Hesper | 54 |
 
 Covers and portraits describe people by costume and pose, never by age words. Every `appearance`
 starts "An adult man", "An adult woman" or "An older woman".
@@ -61,6 +62,11 @@ can measure.
   written on paper slips and every answered slip is burned. That is why the knot set at three feet.
 - **The Conclave**, in seven days: the Queen confirms the successor, and the successor swears the
   archmage's oath. Under the oath law, **no mage bound to another by spell may swear the oath alone.**
+- **The Queen of Hesper**, fifty-four, watched the disputation from the dais and withdrew the moment the
+  fire turned green. Before the Conclave she grants neither candidate a private audience and will not
+  rule on the knot; an accusation reaches her only in open court, at the Conclave Ball or the Conclave,
+  with proof in hand. The Chancellor is the only person who sees her every day. (This closes the
+  "ask the Queen to ask Corvina" shortcut, since Corvina will not lie to the Queen when asked directly.)
 - **The Flood Year**, eleven years ago: the river rose, the Tower sealed the river wards to save the
   palace, and the water went into the docks instead. Eleven people drowned on Dock Row. Corvina's brother
   was one of them.
@@ -82,6 +88,12 @@ needed, which is why the suspect list is the whole hall.
 - **It notices lies.** A lie told aloud by one bound person to the other tightens the cord by about a
   hand's width for an hour. It ignores lies told to anyone else, and it does not punish silence. This is
   the comic engine of the whole week: two proud people who cannot lie to each other's faces.
+- **Nothing else undoes it.** Fire passes through the cord, blades and wards find nothing to cut, a
+  glamour can hide it but never lengthen it, and mending only slows the grey. The unpicking hears a
+  convenient truth as a lie: each answer must be the whole one, the thing the speaker would least like
+  the other to hear, and anything less tightens the cord instead of loosening it. This line is in hard
+  canon because the pure storyteller is told the player can change any canon afterwards, and without it
+  "I burn the cord" or "I want to beat you" ends the week on turn two.
 
 **How it comes off (the terms).** Written under every hostage knot, recorded in the treaty vault:
 1. **The writer's release.** Whoever wrote the names writes them again on one page, strikes them
@@ -92,6 +104,9 @@ needed, which is why the suspect list is the whole hall.
 3. **The forfeit.** One walks away and keeps walking. The one left behind loses the arm, and the knot
    breaks with it.
 
+The war treaties lie in the vault under the library, in the Chancery's charge, which is how Corvina
+copied the knot. Thessaly and Corvina know all three terms at the start; nobody else does.
+
 **The loophole.** The oath law's original wording, also in the vault: no bound mage may swear the oath
 *alone*. The first archmages of Hesper were two, bound, and swore it together. The premise says "alone"
 on purpose, as a fair clue.
@@ -100,6 +115,19 @@ In the engine: the cord is a quest item the player starts with (`hostage_knot`),
 it on every turn. The terms and the loophole live on another quest item (`treaty_roll`) and in hard canon.
 `unpick_the_knot`, `swear_together` and `name_the_writer` are gated abilities, each granted by the step
 where the player learns how (grant broadly, gate by flag).
+
+## Tone and the 13+ line
+
+A rivalry first and a romance second. Comedy comes from logistics and pride; the rule is never a joke.
+Romance goes as far as a kiss, on the page or off it: no fade-to-black, no night spent together, nothing
+implied afterwards. Washing, dressing and the privy happen behind the screen or a closed door, the prose
+cuts away before anyone undresses, and nobody's body is described. The shared narrator prompt otherwise
+lets intimacy happen off the page, so this line sits at the end of `toneGuide`, where production reads it.
+
+**Reveal triggers.** The pure storyteller reads each character's `boundaries` and each secret's `fact`,
+never `revealHint`. So every secret's trigger (Caius's honest question, Prin alone after the first night,
+Hollis asked where everybody stood, Thessaly asked straight, Corvina once there is proof) is also written
+as a boundary.
 
 ## Premise (as shipped)
 
@@ -148,7 +176,7 @@ where the player learns how (grant broadly, gate by flag).
 >
 > He stands, exactly three feet away.
 >
-> "One step left and I lose an arm. So. Where were you going?"
+> "One more step and I lose an arm. So. Where were you going?"
 
 **Quality bar:** Caius speaks to the player at word 32 and is named at word 37, inside the first 60. It ends on a direct question
 that needs an answer now. 119 words. The only proper noun is Caius Wren, introduced as "your rival since
@@ -159,7 +187,7 @@ explained.
 
 1. Said: `"To find whoever tied me to you. Keep up."`
 2. Done: `I take his left hand and check that the grey is really gone.`
-3. Risky: `I take one slow step back, just to see if he's bluffing.`
+3. Risky: `I step back. Slowly. Watching his face.`
 
 ## Cast
 
@@ -178,13 +206,15 @@ audience.
 - **Secret 1 (the exam):** Five years ago, the night before the final examination, he found the flaw in
   the player's final working. Cast in the hall it would have burned the room down. He took it to the
   examiners instead of to the player, asked them not to say who found it, then refused first prize unless
-  it was split and argued for three hours until it was. The player has hated him for the first half of
-  that story ever since.
+  it was split and argued for three hours until it was. The player has never known who found the flaw,
+  and has resented the split prize ever since.
 - **Secret 2 (the debt):** Two weeks ago Corvina offered to cancel the Wren debt if he withdrew. He wrote
   "No" across the bottom of her letter. He suspects her from the first minute and cannot say why without
   saying that.
 - **Boundaries:** Will not walk away from a knot while someone is on the other end of it. Will not take
-  the Chancellor's money. Will not let the player carry him.
+  the Chancellor's money. Will not let the player carry him. Will not tell the exam story until the
+  player has asked him one honest question about himself that has nothing to do with winning, and then
+  late and badly. Will not say why he suspects Corvina until he trusts the player with his family's debt.
 - **Voice:** Clipped, formal, exact. Counts steps and minutes out loud. Calls the player "Magister" when
   angry and by their first name exactly once. Answers an insult with a correction and a compliment with
   an insult.
@@ -206,7 +236,9 @@ audience.
 - **Secret 3:** She was chief examiner five years ago. She kept the minutes and knows why the prize was
   split.
 - **Boundaries:** Will not say whose name is in the letter before the Conclave. Cannot untie a knot she
-  did not write and will not pretend she can. Will not take off the glove in front of the court.
+  did not write and will not pretend she can. Will not take off the glove in front of the court. Will
+  not tell the story of her hand until someone asks her straight what the knot costs and does not try
+  to make her feel better about it.
 - **Voice:** Soft, amused, unhurried. Speaks in questions, says "my dears", pours tea while people panic.
   Every so often one completely plain sentence, and that is the one to listen to.
 
@@ -223,14 +255,17 @@ audience.
   wax. She has been sure since the fire went green that it was one of those, and she is terrified it will
   be blamed on her magister, or on her.
 - **Boundaries:** Will not lie to the player outright; she changes the subject, badly. Will not leave the
-  player alone with the Chancellor if she can help it. Will not touch the cord.
+  player alone with the Chancellor if she can help it. Will not touch the cord. Will not tell about the
+  late slips in front of Caius or where the Chancellor could hear; asked kindly and alone, after the
+  first night, she tells all of it.
 - **Voice:** Fast, earnest, numbered lists she abandons halfway. "Magister" every time. Apologises, then
   says the useful thing.
 
 ### Lady Corvina Ashdown, 34, Chancellor to the Queen
 
 - **Role:** Keeps the Queen's seal, the ledgers and the war treaties. Stood at the Queen's side during the
-  disputation and was the only person in the hall who did not look surprised.
+  disputation, was the first to reach the two of them when the fire went green, already quoting the law,
+  and was the only person in the hall who did not look surprised.
 - **Looks:** Composed and elegant, black hair in a severe coil, a high-necked deep green gown, the
   Chancellor's silver seal on a chain, a smear of green sealing wax on her right thumb.
 - **Her own motive:** Keep both candidates bound until the Conclave passes, so the chair lapses to the
@@ -242,6 +277,7 @@ audience.
   river wards to save the palace. Nobody in the Tower has ever said his name to her.
 - **Boundaries:** Will not let anyone actually lose an arm; she will unwrite the page herself first, and
   hate that she had to. Will not threaten the apprentice. Will not lie to the Queen when asked directly.
+  Will not deny writing the page once the player has proof; she negotiates instead.
 - **Voice:** Smooth, warm, legal. Says "of course" before every refusal. Never uses a threat when a fact
   will do.
 
@@ -258,7 +294,8 @@ audience.
 - **Secret 2:** His own bet, five years old: a month's wages on the two of them married by Midwinter, at
   forty to one.
 - **Boundaries:** Will not tell anyone where somebody slept. Will not fix the book. Will not let a guest of
-  the palace sleep in a corridor.
+  the palace sleep in a corridor. Will not say who he thinks wrote the page; asked where everybody was
+  standing, he tells it exactly, side door included.
 - **Voice:** Brisk, cheerful, practical. Measurements and odds. Full title once, first name ever after.
 
 ## Places
@@ -305,7 +342,7 @@ Every place has an inbound edge; the vault's is locked by flag and the flag is s
 |---|---|---|
 | Day 0, 14:00 | Gallery | Hollis arrives with porters, a painted screen and a cot, and asks which tower. |
 | Day 0, 19:00 | Hall | Supper: one free seat on each side of the two of them, and every head turns. |
-| Day 1, 07:00 | — | They wake to find the cord a hand shorter. Somebody lied in their sleep, or near enough. |
+| Day 1, 07:00 | — | They wake to find the cord a hand shorter: after midnight Caius said he was asleep when he was not. |
 | Day 1, 09:00 | — | One summons for two people: the Archmage will see them both at ten. |
 | Day 1, 10:00 | Gallery | A notice in the Chancellor's hand: no mage bound to another may swear the oath alone. |
 | Day 2, 02:10 | His tower | The West Tower's wards ring: somebody tried his door while they were elsewhere. |

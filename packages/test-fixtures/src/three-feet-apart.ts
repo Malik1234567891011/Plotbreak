@@ -16,7 +16,7 @@ import { StoryVersion } from '@plotbreak/contracts';
  * been fighting is the person they thought.
  *
  * The rule carries the whole week, so it is concrete and the opener shows it
- * working before anybody explains it: his hand greys, she walks back, it
+ * working before anybody explains it: his hand greys, you walk back, it
  * clears. The knot also tightens on a lie told across it, which is the comic
  * engine — two proud people who cannot lie to each other's faces — and the
  * romance engine, because the honest way off is a forced confession.
@@ -65,7 +65,7 @@ const raw = {
   contentDescriptors: ['ROMANCE', 'FANTASY_VIOLENCE'],
   intensity: 'LIGHT',
   creatorNote:
-    'Every door in this palace is a negotiation now. You can spend the week fighting him, fighting the court, or fighting the urge to stop fighting, and all three are real ways to play. He did not write the page. Somebody did, and she is counting on the two of you being too proud to work together for seven days.',
+    'Every door in this palace is a negotiation now. You can spend the week fighting him, fighting the court, or fighting the urge to stop fighting, and all three are real ways to play. He did not write the page. Somebody did, and whoever it was is counting on the two of you being too proud to work together for seven days.',
   rules: {
     defeatMode: 'FAIL_FORWARD',
     progressionMode: 'MILESTONE',
@@ -77,15 +77,17 @@ const raw = {
     startWorldMinute: 11 * 60 + 50,
     startingItems: [{ itemId: 'hostage_knot', qty: 1 }],
     hardCanon: [
-      'Everyone in this story is an adult. The player is a court mage of twenty-seven. Lord Caius Wren is twenty-eight, Archmage Thessaly Vane is sixty-one, Prin Halloway is twenty, Lady Corvina Ashdown is thirty-four, and Hollis Brand is thirty-one. The royal college of mages takes students at nineteen.',
+      'Everyone in this story is an adult. The player is a court mage of twenty-seven. Lord Caius Wren is twenty-eight, Archmage Thessaly Vane is sixty-one, Prin Halloway is twenty, Lady Corvina Ashdown is thirty-four, and Hollis Brand is thirty-one. The Queen of Hesper is fifty-four. The royal college of mages takes students from nineteen.',
       'The player and Caius met in their first week at the royal college of mages eight years ago, split first prize when they graduated five years ago, and have served as court mages of Hesper ever since, opposing each other on almost every question the court has asked. They have never once had a real conversation alone.',
       'At the disputation this morning a hostage knot tied the player’s left wrist to Caius’s left wrist: a cord of pale green light that only the two of them can touch. It hangs slack when they are close and pulls taut at three feet. Other people’s hands pass through it.',
       'The forfeit: past three feet, whoever is left behind (whoever moved less) starts to turn to cold grey stone from the fingertips up. Back inside three feet within about a minute and the grey drains away with no harm done. Past that minute the arm stays stone for good, and the knot breaks. Nobody bleeds. It is never written as a wound.',
       'A lie told aloud by one bound person to the other tightens the cord by about a hand’s width for an hour. The knot ignores lies told to anyone else and does not punish silence.',
       'By custom the court writes disputation questions on paper slips, the two candidates stand three feet apart on either side of the brazier in the Lantern Hall, and every answered slip is burned in its mage-fire. That is why the knot set at three feet.',
-      'The knot was written, not cast: both names on one page in one hand, the old hostage words beneath, burned in mage-fire. Lady Corvina Ashdown wrote it at her own desk, and her clerk handed it to Prin Halloway at the side door, folded like a late question. Prin tipped it into the fire with the others. Nobody in the hall knows this at the start, Prin only suspects it, and nothing reveals it unless the player finds it out.',
-      'The terms written under every hostage knot, kept in the treaty vault under the library: it comes off if the writer writes the names again, strikes them through and burns the page in mage-fire; or if the two bound unpick it together, hand to hand, each answering aloud and truthfully its one question, what do you want from the one you are bound to; or by the forfeit. Archmage Thessaly knows all three. Nobody else in the palace does at the start.',
+      'The knot was written, not cast: both names on one page in one hand, the old hostage words beneath, burned in mage-fire. Lady Corvina Ashdown wrote it at her own desk, and her clerk handed it to Prin Halloway at the side door, folded like a late question. Prin tipped it into the fire with the others. Nobody else in the hall knows whose hand it was at the start, Prin only suspects it, and nothing reveals it unless the player finds it out.',
+      'The terms written under every hostage knot, kept with the war treaties in the treaty vault under the library: it comes off if the writer writes the names again, strikes them through and burns the page in mage-fire; or if the two bound unpick it together, hand to hand, each answering aloud and truthfully its one question, what do you want from the one you are bound to; or by the forfeit. The treaties lie in that vault and the Chancery has charge of them, which is how Corvina copied the knot. Archmage Thessaly and Lady Corvina know all three terms; nobody else in the palace does at the start.',
+      'Nothing but its three terms undoes the knot. Fire passes through the cord, blades and wards find nothing to cut, a glamour can hide it but never lengthen it, and mending only slows the grey. The unpicking hears a convenient truth as a lie: each answer must be the whole one, the thing the speaker would least like the other to hear, and anything less tightens the cord instead of loosening it.',
       'Archmage Thessaly Vane retires at the Conclave on the seventh morning, when the Queen confirms her successor and the successor swears the archmage’s oath. The only two names on her list are the player’s and Caius’s. Under the oath law no mage bound to another by spell may swear the oath alone. The original wording in the treaty vault shows that the first archmages of Hesper were two, bound, and swore it together.',
+      'The Queen of Hesper watched the disputation from the dais and withdrew the moment the fire turned green. Before the Conclave she grants neither candidate a private audience and will not rule on the knot; an accusation reaches her only in open court, at the Conclave Ball or the Conclave, with proof in hand. The Chancellor is the only person who sees her every day.',
       'Caius did not write the page and will not walk away from a knot while someone is on the other end of it. He suspects Corvina from the first minute, because two weeks ago she offered to cancel his family’s debt if he withdrew, and he refused.',
       'Five years ago, the night before the final examination, Caius found a flaw in the player’s final working that would have set the examination hall on fire, took it to the examiners instead of to the player, and argued for three hours that first prize be split. The player has never known who found the flaw or why the prize was split.',
       'Thessaly’s left hand has been grey stone under a glove for forty years, from a hostage knot in the last war. Eleven years ago, in the Flood Year, the Tower sealed the river wards to save the palace and the water drowned eleven people on Dock Row, Corvina’s brother among them.',
@@ -94,10 +96,11 @@ const raw = {
       'Sharp, funny and charged. This is a rivalry first and a romance second, and the romance is earned by the rivalry: insults that are secretly compliments, competence that is secretly care, and a cord of light that turns every door, staircase, supper and bedtime into a negotiation. ' +
       'Comedy comes from logistics and pride. Tension comes from the rule, which is always real: grey creeping into a hand is never a joke. ' +
       'Romance is flirtatious, tense and heartfelt, and goes as far as a kiss. Shared rooms are comedy, played with a painted screen, terms, and two people pretending to be asleep; bodies are never lingered on. A fight is a duel of spells, never gore. ' +
-      'The court moves in the background whether or not anybody is looking. The face at the top of a beat is Caius’s whenever he is in the scene, which is nearly always.',
+      'The court moves in the background whether or not anybody is looking. The face at the top of a beat is Caius’s whenever he is in the scene, which is nearly always. ' +
+      'Nothing goes further than a kiss, on the page or off it: no fade-to-black, no night spent together, nothing implied afterwards. Washing, dressing and the privy happen behind the screen or a closed door, the prose cuts away before anyone undresses, and nobody’s body is described.',
     proseStyle: 'webnovel',
     styleExamples: [
-      "The stair up to his tower is exactly wide enough for one person.\n\n\"After you,\" Caius says.\n\n\"So you can tread on my hem the whole way up?\"\n\n\"So that if you fall, you fall on me.\" He considers it. \"Which I would hate.\"\n\nYou go up side by side, shoulders scraping stone, the cord swinging between your wrists.\n\nAt the top he stops, breathing hard and pretending not to.\n\n\"Three hundred and twelve,\" he says. \"I have never once counted them before tonight.\"",
+      "The stair up to his tower is exactly wide enough for one person.\n\n\"After you,\" Caius says.\n\n\"So you can tread on my hem the whole way up?\"\n\n\"So that if you fall, you fall on me.\" He considers it. \"Which I would hate.\"\n\nThe cord shortens by a hand’s width. He does not look at it.\n\nYou go up side by side, shoulders scraping stone, the cord swinging between your wrists.\n\nAt the top he stops, breathing hard and pretending not to.\n\n\"Three hundred and twelve,\" he says. \"I have never once counted them before tonight.\"",
       "Hollis Brand arrives with two porters, a painted screen and the face of a man who has been asked to solve a problem with furniture.\n\n\"Screen between you. Cot on this side, bed on that side.\" He snaps open a brass measuring rod. \"Two feet eleven in the gap. You’re welcome.\"\n\nCaius looks at the cot. Caius looks at you.\n\n\"I’ll take the cot,\" you both say.\n\nThe cord tightens by a hand’s width. Neither of you meant it.",
       "Archmage Thessaly pours three cups of tea and sets two of them across the desk, exactly three feet apart.\n\n\"I know that knot,\" she says. She does not look at the grey glove on her left hand. \"I know what it costs. What I want to know is which of you was going to walk away.\"\n\nNeither of you answers.\n\n\"Good,\" she says, and drinks her tea.",
     ],
@@ -926,6 +929,8 @@ const raw = {
         'Will not walk away from a knot while someone is on the other end of it, not from you and not from anyone',
         'Will not take the Chancellor’s money, whatever it costs his house',
         'Will not let you carry him anywhere; he would rather crawl',
+        'Will not tell you about the night before the exam until you have asked him one honest question about himself that has nothing to do with winning, and then late and badly',
+        'Will not say why he suspects the Chancellor until he trusts you with his family’s debt',
       ],
       goals: [
         'Get the knot off without anybody losing an arm, and without owing you for it',
@@ -950,7 +955,7 @@ const raw = {
         'Clipped, formal, exact. Counts steps, stairs and minutes out loud. Calls you "Magister" when he is angry and by your first name exactly once. Ends every argument with a correction.',
       topics: ['the knot', 'wards and bindings', 'the succession', 'the exam five years ago', 'the silver inkwell', 'his family'],
       voiceSamples: [
-        'One step left and I lose an arm. So. Where were you going?',
+        'One more step and I lose an arm. So. Where were you going?',
         'Three hundred and twelve stairs. I have climbed them for five years and never counted them until tonight.',
         'You are holding the cord like a leash, Magister. It is a knot. Have some respect for the craft.',
         'I did not write that page. If I wanted you ruined I would do it to your face, properly, with witnesses.',
@@ -1030,6 +1035,7 @@ const raw = {
         'Will not say whose name is in the sealed letter before the Conclave',
         'Cannot untie a knot she did not write, and will not pretend she can',
         'Will not take off the glove in front of the court',
+        'Will not tell the story of her hand until someone asks her straight what the knot costs and does not try to make her feel better about it',
       ],
       goals: [
         'Hand her chair to somebody who deserves it, at the Conclave, in seven days',
@@ -1121,6 +1127,7 @@ const raw = {
         'Will not lie to you outright; she changes the subject instead, badly',
         'Will not leave you alone with the Chancellor if she can help it',
         'Will not touch the cord, because she has read what bindings do to people who touch them uninvited',
+        'Will not tell you about the three late slips in front of him or anywhere the Chancellor could hear; asked kindly and alone, after the first night, she tells you all of it',
       ],
       goals: [
         'Find out what was on the three late slips before anybody else does',
@@ -1146,8 +1153,8 @@ const raw = {
       ],
       appearance:
         'An adult woman, tall, copper hair escaping a knot, round spectacles pushed up on her head, an apprentice’s grey coat with the sleeves rolled, and ink on every finger.',
-      visualHook: 'Round spectacles pushed up into copper hair, and a notebook held to her chest like a shield.',
-      silhouette: 'Leaning forward on her toes, notebook clutched in both arms.',
+      visualHook: 'Round spectacles pushed up into copper hair, and a notebook that never leaves her hand.',
+      silhouette: 'Standing square in an ink-stained apprentice’s coat, notebook under one arm.',
       artSeed: 'tfa-prin-01',
       portrait: null,
       expressions: ['worried', 'eager', 'surprised', 'guilty', 'warm'],
@@ -1180,7 +1187,7 @@ const raw = {
       name: 'Lady Corvina Ashdown',
       role: 'Chancellor to the Queen, keeper of the seal, the ledgers and the old war treaties',
       cardBlurb:
-        'She keeps the Queen’s seal, the Queen’s ledgers and the old war treaties, and she has never pretended to like the Tower. She was at your side the moment the fire went green, and she was the only person in the hall who did not look surprised.',
+        'She keeps the Queen’s seal, the Queen’s ledgers and the old war treaties, and she has never pretended to like the Tower. She was the first to reach you when the fire went green, already quoting the law, and the only person in the hall who did not look surprised.',
       pronouns: 'she/her',
       publicTraits: ['Perfectly courteous', 'Perfectly informed', 'Never in a hurry'],
       hiddenDrives: [
@@ -1198,6 +1205,7 @@ const raw = {
         'Will not let anybody actually lose an arm; she will unwrite the page herself first, and hate that she had to',
         'Will not threaten your apprentice; she considers it beneath the office',
         'Will not lie to the Queen when asked directly',
+        'Will not deny writing the page once you have proof; she negotiates instead',
       ],
       goals: [
         'Keep you both bound until the Conclave has passed and the chair has lapsed to the Crown',
@@ -1236,7 +1244,7 @@ const raw = {
       expressions: ['neutral', 'polite', 'calculating', 'cold', 'warm'],
       schedule: [
         { startMinute: 0, endMinute: 660, locationId: 'chancery', activity: 'at her desk before the clerks arrive' },
-        { startMinute: 660, endMinute: 780, locationId: 'lantern_hall', activity: 'at the Queen’s side, unsurprised' },
+        { startMinute: 660, endMinute: 780, locationId: 'lantern_hall', activity: 'first to the brazier from the Queen’s side, unsurprised' },
         { startMinute: 780, endMinute: 1140, locationId: 'chancery', activity: 'in the Seal Room, receiving' },
         { startMinute: 1140, endMinute: 1260, locationId: 'lantern_hall', activity: 'supper at the high table' },
         { startMinute: 1260, endMinute: 1440, locationId: 'chancery', activity: 'working late by one lamp' },
@@ -1268,7 +1276,7 @@ const raw = {
       name: 'Hollis Brand',
       role: 'Master of Chambers: every room, bed and supper seat in the palace',
       cardBlurb:
-        'Every room, bed and supper seat in the palace is his problem, and as of this morning you two are the biggest one. He has also run the court’s betting book on you and Caius for five years, and he has money on how it ends.',
+        'Every room, bed and supper seat in the palace is his problem, and as of this morning you two are the biggest one. For five years he has kept the court’s betting book on you and Caius, and somewhere in it is his own money on how this ends.',
       pronouns: 'he/him',
       publicTraits: ['Unflappable', 'Knows where everybody slept', 'Cheerful about disasters'],
       hiddenDrives: [
@@ -1282,6 +1290,7 @@ const raw = {
         'Will not tell anybody where somebody else slept',
         'Will not fix the betting book, even for you',
         'Will not let a guest of the palace spend a night on the floor of a passage',
+        'Will not say who he thinks wrote the page; asked where everybody was standing, he tells you exactly, side door included',
       ],
       goals: [
         'Get you both through Conclave week without a scandal or a stone arm',
@@ -1422,7 +1431,7 @@ const raw = {
           id: 'the_first_night',
           playerCopy: 'Get through the first night with nobody losing an arm.',
           directorNotes:
-            'Pure logistics comedy with an edge. One bed, or two towers; a screen, a cot, a door that will not close on a cord; who washes first, behind what; who is lying about being asleep. Hollis turns up with furniture. Keep it funny and keep it decent: the screen is the joke, not what is behind it. Somewhere after midnight one of them says one true thing in the dark, and neither of them mentions it in the morning.',
+            'Pure logistics comedy with an edge. One bed, or two towers; a screen, a cot, a door that will not close on a cord; who gets the window side, whose candle stays lit; who is lying about being asleep. Hollis turns up with furniture. Keep it funny and keep it decent: the screen is the joke, not what is behind it. Somewhere after midnight one of them says one true thing in the dark, and neither of them mentions it in the morning.',
           enterWhen: { flagsSet: ['knot_acknowledged'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1781,6 +1790,13 @@ const raw = {
               setsFlags: ['chair_lapsed'],
               closesFlags: ['you_stand', 'he_stands'],
             },
+            {
+              routeId: 'came_free',
+              label: 'Come to the Conclave free, with nothing promised',
+              predicate: { flagsSet: ['knot_untied', 'conclave_day'] },
+              setsFlags: [],
+              closesFlags: ['chair_lapsed'],
+            },
           ],
           rewards: {
             xp: 200,
@@ -1807,7 +1823,7 @@ const raw = {
           id: 'why_it_was_split',
           playerCopy: 'Find out why first prize was split.',
           directorNotes:
-            'The core of the enemies-to-lovers turn. The player has hated him for reporting the flaw; the other half is that he saved the hall and fought for her share of the prize. Heard from him, it is a confession he hates making. Read in the minutes, it is something the player knows that he does not know they know. Heard from Thessaly, it is gossip from the one person who was in the room.',
+            'The core of the enemies-to-lovers turn. The player has never known who found the flaw, only that the prize was split; the truth is that he found it, saved the hall, and argued three hours for the player’s share. Heard from him, it is a confession he hates making. Read in the minutes, it is something the player knows that he does not know they know. Heard from Thessaly, it is gossip from the one person who was in the room.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1960,7 +1976,7 @@ const raw = {
       publicCopy:
         'Supper in the Lantern Hall: the court has left exactly one empty seat on either side of the two of you, and every head turns when you sit down.',
       directorNotes:
-        'Two people eating with their bound wrists side by side, one fork hand each, while three hundred courtiers pretend not to watch. Corvina sends over a dish with her compliments. Thessaly does not look up once.',
+        'Two people eating side by side with the cord slung across his plate, while three hundred courtiers pretend not to watch. Corvina sends over a dish with her compliments. Thessaly does not look up once.',
       setsFlags: ['supper_watched'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -1973,7 +1989,7 @@ const raw = {
       publicCopy:
         'Morning: the cord is a hand’s width shorter than it was at midnight, which means one of you said something untrue out loud in the night.',
       directorNotes:
-        'Neither remembers. Late in the night the player asked whether he was awake and he said no. Let the accusation be the comedy and the truth come out sideways; it is the first proof that the knot hears lies.',
+        'Somewhere after midnight Caius said he was asleep when he was not, and he will not admit it. Let the accusation be the comedy and the truth come out sideways; it is the first proof that the knot hears lies.',
       setsFlags: ['knows:it_hears_lies'],
       cancelledByFlags: ['forfeit_paid'],
       requiresFlags: ['knot_acknowledged'],
@@ -2200,7 +2216,7 @@ const raw = {
       kind: 'CHOICE',
       advanced: true,
       options: [
-        { id: 'the_exam', label: 'He reported the flaw in my final working the night before the exam' },
+        { id: 'the_exam', label: 'The examiners split my first prize with him, and it was mine' },
         { id: 'the_votes', label: 'He has voted against me on every question for five years' },
         { id: 'the_ward', label: 'He rewrote my palace ward without asking, and it was better' },
         { id: 'no_hate', label: 'I do not hate him. I just like winning, and he is in the way' },
@@ -2369,15 +2385,15 @@ const raw = {
     'The title “THREE FEET APART” painted into the art in elegant lettering. No other text, no letters or numbers anywhere else.',
   ].join(' '),
   opening:
-    "The court’s last question went into the fire between you. The fire turned green, and a cord of light snapped tight around your left wrist.\n\nYou’d turned to leave. Four steps.\n\n\"Stop. Don’t take another one.\"\n\nCaius Wren, your rival since your first week at college, is on one knee by the brazier. The cord runs from your wrist to his. His left hand has gone grey as stone.\n\n\"Hostage knot,\" he says through his teeth. \"Past three feet, whoever’s left behind loses the arm.\"\n\nYou walk back. The grey drains out of his fingers.\n\nThe whole court is staring.\n\nHe stands, exactly three feet away.\n\n\"One step left and I lose an arm. So. Where were you going?\"",
+    "The court’s last question went into the fire between you. The fire turned green, and a cord of light snapped tight around your left wrist.\n\nYou’d turned to leave. Four steps.\n\n\"Stop. Don’t take another one.\"\n\nCaius Wren, your rival since your first week at college, is on one knee by the brazier. The cord runs from your wrist to his. His left hand has gone grey as stone.\n\n\"Hostage knot,\" he says through his teeth. \"Past three feet, whoever’s left behind loses the arm.\"\n\nYou walk back. The grey drains out of his fingers.\n\nThe whole court is staring.\n\nHe stands, exactly three feet away.\n\n\"One more step and I lose an arm. So. Where were you going?\"",
   openingPanel: {
     assetKey: 'story_three_feet_apart/opening',
-    alt: 'Caius Wren by a brazier of green fire in a lantern-lit hall, holding up his left wrist, a cord of pale green light running from it toward the viewer.',
+    alt: 'Lord Caius Wren by a brazier of green fire in a lantern-lit hall, holding up his left wrist, a cord of pale green light running from it toward the viewer.',
   },
   openingSuggestions: [
     '"To find whoever tied me to you. Keep up."',
     'I take his left hand and check that the grey is really gone.',
-    'I take one slow step back, just to see if he’s bluffing.',
+    'I step back. Slowly. Watching his face.',
   ],
   publishedAt: null,
 };
