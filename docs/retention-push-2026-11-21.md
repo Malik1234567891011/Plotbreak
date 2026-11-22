@@ -178,3 +178,21 @@ Simulator capture created guest `61aa9e7f-bf00-46a1-8604-1d944578e224` and sessi
   - EMOCHI unlocked a 30% offer.
   - Tolan texted a verification code after AutoFill submitted the user's number; the code was not confirmed.
 - Still parked: branch `feed/daily-freshness` (5 commits of home-screen fixes, in the worktree `.claude/worktrees/wf_4b52e988-1fd-1`). Its workflow stopped before its critics ran. Not deployed.
+
+## Update 2026-11-22: the 50 stories are in production, end to end
+
+- The user approved all 50 stories "asap", each released as soon as it's ready, with no weekly drops. The user topped up PixAI.
+- Pilot #7 Skill: ERROR was done by plotbreak-6f (01cbd79). The recipe is in `docs/stories-50/PIPELINE.md`. A story costs about 58K PixAI credits.
+- The other 49 run as one workflow (run `wf_fc8df5c0-88e`, script under `.claude/projects/.../workflows/scripts/`), in these steps:
+  1. Write the story in its own sparse worktree (`.claude/worktrees/story-<slug>`, branch `story/<slug>`).
+  2. Two editor reviews (hook, compliance), then fixes.
+  3. Conform the story to the pilot rules.
+  4. Under one lock in main: cherry-pick, then register raw.
+  5. PixAI art, with a cover check.
+  6. Under the lock again: optimize, wrap with derived keys, migrate locally, commit.
+  7. Smoke test, with a judge reading the transcript.
+  8. Under the lock: apply fixes and append the story to `docs/stories-50/READY.md`.
+- Release is not automated. Each release needs the full test suite, a merge with origin/main (main was 26 ahead and 11 behind), a push, and a prod migrate through `PROD_DATABASE_URL`. plotbreak-6f is preparing a release script with a dry run.
+- Root `.env` holds `PIXAI_API_KEY`, `OPENAI_API_KEY` and `PROD_DATABASE_URL`. The production URL is renamed on purpose, so no script picks it up by default.
+- Design v3 (plotbreak-0d) is finished: 24 screens, each with an inspiration card. Credits is a game-style shop. The board is https://claude.ai/artifact/ToYYtSnfTLYqfxH1AnxbBf. Waiting for the user's verdict on the look.
+- Phone incident: a blind tap opened Afizzy's $129.99 purchase sheet. It was cancelled and nothing was bought. Rule: look before every tap on the user's phone.
