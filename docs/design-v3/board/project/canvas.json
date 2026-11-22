@@ -245,7 +245,7 @@
    "x": 0,
    "y": 7338,
    "w": 390,
-   "h": 520,
+   "h": 540,
    "title": "Where it came from: Welcome"
   },
   "RefOnbProfile.dc.html": {
@@ -294,7 +294,7 @@
    "x": 940,
    "y": 9270,
    "w": 390,
-   "h": 520,
+   "h": 540,
    "title": "Where it came from: Your pitch"
   },
   "RefProfile.dc.html": {
@@ -308,14 +308,14 @@
    "x": 470,
    "y": 11338,
    "w": 390,
-   "h": 520,
+   "h": 720,
    "title": "Where it came from: Turn quality"
   },
   "RefPaywall.dc.html": {
    "x": 940,
    "y": 11338,
    "w": 390,
-   "h": 560,
+   "h": 1020,
    "title": "Where it came from: Out of credits"
   },
   "RefPass.dc.html": {

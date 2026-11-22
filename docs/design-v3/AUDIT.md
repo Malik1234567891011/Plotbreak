@@ -109,3 +109,30 @@ to match.
 - The play screen's structure: art full screen, smoked story panels, editable
   reply cards, the light composer with », and turn cost said once in words.
 - The chapter and ending title cards are the right place for the display serif.
+
+## Sweep to the new rule (board v36)
+
+Rebuilt by hand:
+
+- **Turn quality:** OOC-style picker. One row per tier: an icon, the name, one
+  line, and the cost in crystals with the turns left. The two picture tiers
+  show a real scene as their icon instead of a PICTURES tag. The picked row is
+  filled in, with no radio circles.
+- **Out of credits:** a store pack (the Credits three-crystal art, corner tag,
+  crossed-out 700) and one white buy button. Free credits and the Tower are now
+  two quiet links.
+
+Swept (sans titles, no kickers or rules, no outlined boxes, no text arrows,
+8pt art corners, filled tags):
+
+- Search, World sheet, Library, Create, Pitch, Profile, Pass, Welcome
+  (wordmark kept), Onboarding ×3 (the Showcase's off-palette tint is gone),
+  End card (arrow only).
+- Credits: flat tiles, the balance as a row instead of a centered stack, filled
+  quest slots, no gradients.
+- Tower: the 96pt 塔 is gone, the avatar is a circle, the 10pt tag is now 11pt.
+- Play and Writing: corner radius only.
+
+Left alone on purpose: Prologue, Chapter card and End card keep their title
+cards, because they sit inside the story. The System board still shows the old
+token sheet; it is rewritten with `DESIGN-SYSTEM.md` once Home is approved.

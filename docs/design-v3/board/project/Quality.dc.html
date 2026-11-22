@@ -8,50 +8,59 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@800&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#0F0E0D}
-a{color:#B4ADA3;text-decoration:none}a:hover{color:#F3EFE8}
-button{font:inherit;color:inherit;cursor:pointer}
+button{font:inherit;color:inherit;cursor:pointer;border:0;padding:0;background:none;text-align:left}
+.pg{position:relative;width:390px;height:844px;overflow:hidden;background:#0F0E0D;color:#F3EFE8;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+.sheet{position:absolute;left:0;right:0;bottom:0;padding:0 12px 34px;border-radius:20px 20px 0 0;background:#181715;box-shadow:inset 0 1px 0 rgba(243,239,232,0.08)}
+.cr{display:inline-block;height:1.05em;width:auto;vertical-align:-0.17em;margin-right:0.1em}
+.tier{display:flex;align-items:center;gap:12px;width:100%;min-height:68px;padding:10px 8px;box-sizing:border-box;border-radius:14px}
+.tier.on{background:#22201D}
+.ico{flex:none;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:#22201D;overflow:hidden}
+.tier.on .ico{background:#2E2B27}
+.ico img{display:block;width:44px;height:44px;object-fit:cover}
+.txt{flex:1;display:flex;flex-direction:column;min-width:0}
+.nm{font-size:17px;line-height:22px;font-weight:600}
+.ds{font-size:13px;line-height:18px;color:#B4ADA3}
+.cost{flex:none;display:flex;flex-direction:column;align-items:flex-end}
+.cost .c{font-size:15px;line-height:20px;font-weight:600}
+.cost .l{font-size:12px;line-height:16px;color:#948E85}
 </style>
 </helmet>
-<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #0F0E0D; color: #F3EFE8; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased">
-
+<div class="pg">
   <img src="/_blob/28a1c231a6b2d3c19ae7899b511169f4" alt="" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; object-fit: cover">
   <div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(15,14,13,0.62)"></div>
 
-  <section role="dialog" aria-labelledby="q-title" style="position: absolute; left: 0; right: 0; bottom: 0; height: 480px; border-radius: 20px 20px 0 0; background: #1C100F; box-shadow: inset 0 1px 0 rgba(243,239,232,0.10); padding: 0 20px">
+  <section class="sheet" role="dialog" aria-labelledby="q-title">
     <span aria-hidden="true" style="display: block; width: 36px; height: 5px; margin: 8px auto 0; border-radius: 3px; background: #45413B"></span>
-    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 16px">
-      <h1 id="q-title" style="margin: 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 22px; line-height: 28px">Turn quality</h1>
-      <span style="font-size: 13px; color: #B4ADA3; font-variant-numeric: tabular-nums">You have <img src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="credits" style="display: inline-block; height: 1.05em; width: auto; vertical-align: -0.17em; margin-right: 0.1em">1,240</span>
+    <div style="display: flex; align-items: center; justify-content: space-between; margin: 14px 8px 0">
+      <h1 id="q-title" style="margin: 0; font-size: 20px; line-height: 25px; font-weight: 600">Turn quality</h1>
+      <span style="display: flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 15px; background: #22201D; font-size: 15px; font-weight: 600"><img class="cr" src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="credits">1,240</span>
     </div>
-    <p style="margin: 4px 0 0; font-size: 13px; line-height: 18px; color: #948E85">Changes how the next turns are written. Switch any time.</p>
+    <p style="margin: 2px 8px 10px; font-size: 13px; line-height: 18px; color: #948E85">For your next turns. Change it any time.</p>
 
-    <div role="radiogroup" aria-labelledby="q-title" style="display: flex; flex-direction: column; margin-top: 12px">
-      <button role="radio" aria-checked="false" style="display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 0; border: 0; border-bottom: 1px solid rgba(243,239,232,0.10); background: none; text-align: left">
-        <span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 10px; box-shadow: inset 0 0 0 1.5px #45413B"></span>
-        <span style="display: flex; flex-direction: column; flex: 1"><span style="font-size: 17px; line-height: 22px; font-weight: 600">Quick</span><span style="font-size: 13px; line-height: 18px; color: #B4ADA3">Fast, concise turn</span></span>
-        <span style="display: flex; flex-direction: column; align-items: flex-end"><span style="font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums"><img src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="credits" style="display: inline-block; height: 1.05em; width: auto; vertical-align: -0.17em; margin-right: 0.1em">30</span><span style="font-size: 12px; color: #948E85; font-variant-numeric: tabular-nums">41 left</span></span>
+    <div role="radiogroup" aria-labelledby="q-title" style="display: flex; flex-direction: column; gap: 2px">
+      <button class="tier" role="radio" aria-checked="false">
+        <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B4ADA3" stroke-width="1.8" stroke-linejoin="round"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6z"></path></svg></span>
+        <span class="txt"><span class="nm">Quick</span><span class="ds">Short and fast</span></span>
+        <span class="cost"><span class="c"><img class="cr" src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="">30</span><span class="l">41 turns left</span></span>
       </button>
-      <button role="radio" aria-checked="true" style="display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 0; border: 0; border-bottom: 1px solid rgba(243,239,232,0.10); background: none; text-align: left">
-        <span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 10px; box-shadow: inset 0 0 0 6px #F3EFE8"></span>
-        <span style="display: flex; flex-direction: column; flex: 1"><span style="font-size: 17px; line-height: 22px; font-weight: 600">Vivid</span><span style="font-size: 13px; line-height: 18px; color: #B4ADA3">Richer dialogue and direction</span></span>
-        <span style="display: flex; flex-direction: column; align-items: flex-end"><span style="font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums"><img src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="credits" style="display: inline-block; height: 1.05em; width: auto; vertical-align: -0.17em; margin-right: 0.1em">60</span><span style="font-size: 12px; color: #948E85; font-variant-numeric: tabular-nums">20 left</span></span>
+      <button class="tier on" role="radio" aria-checked="true">
+        <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="1.8" stroke-linecap="round"><path d="M5 6.5h14M5 10.5h14M5 14.5h14M5 18.5h9"></path></svg></span>
+        <span class="txt"><span class="nm">Vivid</span><span class="ds">Richer dialogue and detail</span></span>
+        <span class="cost"><span class="c"><img class="cr" src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="">60</span><span class="l">20 turns left</span></span>
       </button>
-      <button role="radio" aria-checked="false" style="display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 0; border: 0; border-bottom: 1px solid rgba(243,239,232,0.10); background: none; text-align: left">
-        <span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 10px; box-shadow: inset 0 0 0 1.5px #45413B"></span>
-        <span style="display: flex; flex-direction: column; flex: 1"><span style="display: flex; align-items: center; gap: 8px"><span style="font-size: 17px; line-height: 22px; font-weight: 600">Cinematic</span><span style="padding: 2px 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px #45413B; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">PICTURES</span></span><span style="font-size: 13px; line-height: 18px; color: #B4ADA3">Best balance of immersion and speed</span></span>
-        <span style="display: flex; flex-direction: column; align-items: flex-end"><span style="font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums"><img src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="credits" style="display: inline-block; height: 1.05em; width: auto; vertical-align: -0.17em; margin-right: 0.1em">90</span><span style="font-size: 12px; color: #948E85; font-variant-numeric: tabular-nums">13 left</span></span>
+      <button class="tier" role="radio" aria-checked="false">
+        <span class="ico"><img src="/_blob/eab944e116db5a5cb773f0c2fd68d48c" alt="Draws scenes"></span>
+        <span class="txt"><span class="nm">Cinematic</span><span class="ds">Vivid, and draws the big scenes</span></span>
+        <span class="cost"><span class="c"><img class="cr" src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="">90</span><span class="l">13 turns left</span></span>
       </button>
-      <button role="radio" aria-checked="false" style="display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 0; border: 0; background: none; text-align: left">
-        <span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 10px; box-shadow: inset 0 0 0 1.5px #45413B"></span>
-        <span style="display: flex; flex-direction: column; flex: 1"><span style="display: flex; align-items: center; gap: 8px"><span style="font-size: 17px; line-height: 22px; font-weight: 600">Apex</span><span style="padding: 2px 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px #45413B; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">PICTURES</span></span><span style="font-size: 13px; line-height: 18px; color: #B4ADA3">Deepest reasoning and premium storytelling</span></span>
-        <span style="display: flex; flex-direction: column; align-items: flex-end"><span style="font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums"><img src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="credits" style="display: inline-block; height: 1.05em; width: auto; vertical-align: -0.17em; margin-right: 0.1em">195</span><span style="font-size: 12px; color: #948E85; font-variant-numeric: tabular-nums">6 left</span></span>
+      <button class="tier" role="radio" aria-checked="false">
+        <span class="ico"><img src="/_blob/15ef72e14e0b1610fb84a515d0ef73c8" alt="Draws scenes"></span>
+        <span class="txt"><span class="nm">Apex</span><span class="ds">Deepest writing, draws scenes</span></span>
+        <span class="cost"><span class="c"><img class="cr" src="/_blob/937f374ec4d1e8209161dbec9fddec46" alt="">195</span><span class="l">6 turns left</span></span>
       </button>
     </div>
-    <p style="margin: 10px 0 0; font-size: 12px; line-height: 16px; color: #948E85">PICTURES: the story can draw a scene for you on big moments.</p>
   </section>
 </div>
 </x-dc>
