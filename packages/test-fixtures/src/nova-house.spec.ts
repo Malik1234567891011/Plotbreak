@@ -480,6 +480,18 @@ describe('the murder happens unless somebody stops it', () => {
     expect(night.requiresFlags).toEqual([]);
   });
 
+  it('puts the vial in the one gold-rimmed glass, never the shared decanter', () => {
+    const night = story.worldEvents.find((e) => e.id === 'we_founders_night')!;
+    expect(night.directorNotes).toMatch(/vial is already in the gold-rimmed glass/);
+    expect(night.directorNotes).not.toMatch(/vial is already in the decanter/);
+  });
+
+  it('tells the storyteller which weekday Day 1 is, since the clock only says "Day N"', () => {
+    const canon = story.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/Day 1, a Sunday/);
+    expect(canon).toMatch(/Founders’ Night is Day 7, the following Saturday/);
+  });
+
   it('lets the poison go round with no relationship and no item', () => {
     const poison = routes.find(({ route }) => route.routeId === 'the_glass_went_round')!.route;
     expect(poison.predicate.minRelationship).toEqual([]);
@@ -683,6 +695,35 @@ describe('the copy', () => {
     const count = words(story.premise).length;
     expect(count).toBeGreaterThanOrEqual(120);
     expect(count).toBeLessThanOrEqual(250);
+  });
+
+  it('splits the premise the way the catalog content bar does: three or more paragraphs, none over 70 words', () => {
+    // The same split as director.spec.ts ("meets the §43.1 content bar"), so a
+    // long paragraph fails here instead of at registration.
+    const paragraphs = story.premise.split(/\n\s*\n/).filter((p) => p.trim().length > 0);
+    expect(paragraphs.length).toBeGreaterThanOrEqual(3);
+    for (const paragraph of paragraphs) expect(paragraph.split(/\s+/).length, paragraph).toBeLessThanOrEqual(70);
+  });
+
+  it('keeps the hook short enough that the reason to tap survives a two-line clamp', () => {
+    expect(story.hook.toLowerCase().indexOf('killing')).toBeGreaterThan(-1);
+    expect(story.hook.toLowerCase().indexOf('killing')).toBeLessThan(70);
+  });
+
+  it('paints the cover from a direction with the title in it, no age words and nothing on faces', () => {
+    const cover = story.coverDirection;
+    expect(cover).toMatch(/spelled exactly NOVA HOUSE/);
+    expect(cover).toMatch(/never on faces/);
+    expect(cover).not.toMatch(/\b(adult|adults|young|younger|teen|teens|teenage|child|children|kid|kids|girl|girls|boy|boys|minor|minors|age|aged|year-old|years old|student|students)\b/i);
+  });
+
+  it('keeps the cast cards from spoiling the Provost or Corin before turn one', () => {
+    const card = (id: string) => {
+      const c = story.characters.find((x) => x.id === id)!;
+      return `${c.role} ${c.cardBlurb}`;
+    };
+    expect(card('sorrell')).not.toMatch(/dead|kill|murder|settl/i);
+    expect(card('corin')).not.toMatch(/ability|remember|transfer|settl|April|Room Four/i);
   });
 
   it('keeps the fantasy label short enough for the card', () => {

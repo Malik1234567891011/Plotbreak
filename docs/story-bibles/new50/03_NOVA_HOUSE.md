@@ -3,6 +3,7 @@
 **Slate:** #3 of the 50 (drop 3). Psychic academy, slice of life, with a murder plot underneath.  
 **Audience lean:** both.  
 **OOC evidence:** Psychic Academy NOVA, 7.8M plays. Nothing is borrowed from it but the shelf it sits on: our college, house, cast, powers and plot are our own.  
+**Title check (PLAN §7.3):** "Nova" is the one distinctive word in OOC's Psychic Academy NOVA, on the same shelf. The title is not copied word for word, so it passes §7, but the owner should know. Editor search (2026-11-22) for "Nova House" with anime, webtoon and manhwa found no existing work of that name; the nearest is *Himote House* (2018 anime), a comedy with a different premise. If more distance is wanted, change only the display `title` and the cover TITLE line; keep storyId, slug and asset prefix.  
 **Genre:** slice of life, mystery, supernatural, light romance, drama.  
 **One-line fantasy:** You read minds. Your three housemates know it, and at your first dinner one of them thinks about killing you too.
 
@@ -51,6 +52,10 @@ Nobody's lips moved.
 - The player does not know whose thought it was. All three housemates stay plausible until the player earns the answer.
 - Violence is rare and has weight. No gore. Death happens offstage or in a cut. Romance can go as far as a kiss.
 - Reading somebody without asking is a real act with a real cost, and people can tell.
+- Reading never solves the mystery on its own. Haru's surface is loud and sounds guilty out of context (Saturday, a bag, getting out, smoke); Lena's runs ahead to a frame she will not describe; Sable's is silence, which reads as innocence. Nobody confesses at the first dinner. A secret comes out when it is earned: asking before reading, eating what Haru cooked, sitting with somebody without fixing them, or bringing evidence to one person alone. Reading without asking gets fragments, never a whole secret.
+- A thought whose owner the player does not know is narration, never a line with a speaker, and never sets that character's face.
+- Sable's slip at dinner was loud enough that every kind of telepath heard it as exact words.
+- This guidance lives in the fixture's `rules.toneGuide`, because production (`runTurnPure`) never reads quest-step notes or secret reveal hints.
 
 ## Player starting authority
 
@@ -68,7 +73,7 @@ The player authors: name, pronouns, look, how their telepathy feels (the archety
 >
 > You nod. You try.
 >
-> Their thoughts leak in anyway, like a radio in the next room. Too much salt. Don't stare at the new one. Heat ticking off the man across the table.
+> The table's thoughts leak in anyway, like a radio in the next room. Too much salt. Don't stare at the new one. Heat ticking off the man across the table.
 >
 > Then one thought cuts clean through the rest.
 >
@@ -103,7 +108,7 @@ Every character is an adult. Ages are stated and fixed.
 
 ### Lena Morrow (20) — precog, second-year
 **Role:** the friendly one who already knew you were coming. Asks the opening question.  
-**Look:** small and quick, dark curls under a knitted band, charcoal on her fingers, a sketchbook everywhere.  
+**Look:** quick and wiry, dark curls under a knitted band, charcoal on her fingers, a sketchbook everywhere.  
 **Want:** break one frame, once, to prove the future can be moved.  
 **Private:** she drew the player's face at the table three weeks ago, spoon halfway up. Her question in the opener was a test.  
 **Fear:** that every frame is fixed and she is only a witness.  
@@ -143,7 +148,7 @@ Every character is an adult. Ages are stated and fixed.
 **Look:** lanky, soft-spoken, soil on his knees, a cardigan with the elbows gone, a pencil stub behind his ear.  
 **State:** settled in April. No ability, no memory of Nova House, and a gap where last spring was.  
 **Private:** he keeps stopping at the Nova House gate without knowing why, and hums a song Sable used to play on the roof.  
-**Secret:** one locked room in his mind survived: the list of eleven names he read in Sorrell's head.  
+**Secret:** one locked room in his mind survived: the list he read in Sorrell's head, ten names and his own added at the bottom. (His page behind the wardrobe says "Eleven. Haru is next.")  
 **Voice:** gentle, pleasant, loses the thread, says "I think" a lot, talks about plants.
 
 ## Places
@@ -168,6 +173,8 @@ Every character is an adult. Ages are stated and fixed.
 
 ## The week (what the world does on its own)
 
+Day 1 is Sunday and Founders' Night is Day 7. The clock only shows "Day N", so hard canon states the weekdays.
+
 | When | What |
 |---|---|
 | Sunday 19:10 | First dinner. The thought. |
@@ -180,7 +187,7 @@ Every character is an adult. Ages are stated and fixed.
 | Wednesday 17:30 | Corin stops at the Nova House gate and cannot say why. |
 | Thursday 11:00 | The first wellbeing report is due. |
 | Friday 03:00 | Lena draws the frame again; this time the hands on the decanter are the player's. |
-| Saturday 21:00 | Founders' Night. The Provost raises his glass in the parlour. The newest resident pours. |
+| Saturday 21:00 | Founders' Night. The Provost raises his glass in the parlour. The newest resident pours from the decanter; the vial is already in the one gold-rimmed glass. |
 | Saturday 22:40 | The last bus leaves Lowbridge, with Haru on it unless somebody changed that. |
 
 ## Five promises
@@ -214,7 +221,7 @@ Solve it by reading; solve it by asking; solve it by searching rooms. Accuse the
 
 ## Image plan
 
-**Cover (Tsubaki.3, title in the art: NOVA HOUSE).** Night, the narrow house with its brass observatory dome lit from inside. Foreground, three housemates at a long dinner table under warm lamplight: a tall man with bleached hair and a burn-scarred hand, sleeves shoved up, a small spark at his fingertips; a woman with dark curls and a sketchbook, smiling over a soup ladle; a pale woman in a grey coat at the end of the table, perfectly still, a silver ring on her thumb, looking straight out of the frame. Faint lines of drifting thought-light between them, one sharp line cutting across. Everyone reads as an adult student, described by costume and pose only. Effects on objects, never on faces.
+**Cover (Tsubaki.3, title in the art: NOVA HOUSE).** Night, the narrow house with its brass observatory dome lit from inside. Foreground, three housemates at a long dinner table under warm lamplight: a tall man with bleached hair and a burn-scarred hand, sleeves shoved up, a small spark at his fingertips; a woman with dark curls and a sketchbook, smiling over a soup ladle; a pale woman in a grey coat at the end of the table, perfectly still, a silver ring on her thumb, looking straight out of the frame. Faint lines of drifting thought-light between them, one sharp line cutting across. Everyone is described by costume and pose only, with no age words (the Ace lesson in `infra/scripts/generate-art.ts`). Effects on objects, never on faces. The fixture's `coverDirection` carries this to PixAI.
 
 **Portraits:** Haru, Lena, Sable, Ruth, Sorrell (Corin optional, sixth in cast order).  
 **Location stages:** Dining Room, Landing, Dome, Parlour, Orchard, Glasshouse, Provost's Tower, Lowbridge.  

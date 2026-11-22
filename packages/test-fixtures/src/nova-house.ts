@@ -40,15 +40,16 @@ const raw = {
   version: 1,
   title: 'Nova House',
   fantasyLabel: 'You read minds. One of them plans murder.',
-  hook: 'You read minds, and your three new housemates know it. At your first dinner in the house, one of them thinks about killing somebody, and about killing you too if you heard.',
+  hook: 'At your first dinner, one of your new housemates thinks about killing you. You read minds, and all three of them know it.',
   premise:
     'Halloran College takes adults whose minds do things they should not. You arrived this afternoon, because yours listens.\n\n' +
-    'You are a telepath, and the college has put you in Nova House: four student rooms at the bottom of the grounds, an old observatory dome on the roof, a house mother who makes soup, and the students the bigger houses could not hold. A man who sets things on fire when he panics. A woman who sees still pictures of the future. A woman whose mind you cannot hear at all.\n\n' +
+    'You are a telepath, and the college has put you in Nova House: four student rooms at the bottom of the grounds, an old observatory dome on the roof, a house mother who makes soup, and the students the bigger houses could not hold.\n\n' +
+    'A man who sets things on fire when he panics. A woman who sees still pictures of the future. A woman whose mind you cannot hear at all.\n\n' +
     'They all know what you are. The first house rule is that nobody reads anybody at the table.\n\n' +
     'At your first dinner, one thought came through anyway. Somebody at that table is planning a murder, and thought, very clearly, that if the new one heard, there would have to be two.\n\n' +
     'Nobody’s lips moved. You do not know whose thought it was.\n\n' +
     'Founders’ Night is in six days. The Provost comes to the house for a toast, and by tradition the newest resident pours. Your welcome packet has a form in it asking you to report on your housemates every week.\n\n' +
-    'So you need to find out who is planning it, and why, before that glass is poured. Whose side you are on when you know is yours to decide.',
+    'So you need to find out who is planning it, and why, before that glass is poured. Once you know, whose side you take is up to you.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
@@ -60,7 +61,7 @@ const raw = {
     'One housemate plans a murder',
     'Six days to Founders’ Night',
     'Reading people costs trust',
-    'Anyone can say no',
+    'Saturday’s toast: you pour',
   ],
   contentDescriptors: ['PSYCHOLOGICAL_THEMES', 'ROMANCE', 'MORAL_AMBIGUITY', 'FANTASY_VIOLENCE'],
   intensity: 'MODERATE',
@@ -86,6 +87,8 @@ const raw = {
       'The housemates know the player reads minds. The first house rule, chalked by the coat hooks, is that nobody reads anybody at the table.',
       'The thought the player heard at the first dinner was Sable Quint’s. Her mind is normally silent: she holds a wall nobody can read through, and within arm’s reach of her every ability stops working. At dinner, thinking about the Provost, the wall slipped for one second. "Them too" meant the player as well as the Provost.',
       'Sable plans to kill Provost Nathaniel Sorrell on Founders’ Night, six days from the start, by putting a stolen vial of Stillwater into his glass at the Nova House toast. By the oldest house tradition, the newest resident pours that toast. The vial is hidden in the eyepiece case of the telescope in the dome.',
+      'The story begins on Day 1, a Sunday, at ten past seven in the evening, at the player’s first dinner in the house. Founders’ Night is Day 7, the following Saturday, at nine in the evening, in the parlour. The first wellbeing report is due in the Provost’s tower on Thursday at eleven. The last bus leaves Lowbridge at 22:40 on Saturday.',
+      'Sable’s slip was loud enough that any telepath, whatever their kind, heard it as exact words.',
       'Stillwater is the college’s suppressant. A small dose dulls an ability for a day. A course of it, with the Provost’s voice, removes an ability for good along with the memories tied to it, which the college calls settling. A whole vial in a drink would stop a heart. Ruth keeps two emergency vials in a locked tin in the kitchen, and one is missing.',
       'Provost Sorrell has settled eleven students in twenty years and filed every one as a voluntary withdrawal. Corin Abbott was the eleventh, in April, after he read the list in Sorrell’s mind. Sable was ordered to sit with Corin during it. Corin now works in the college glasshouse and does not remember Nova House.',
       'Sorrell can steer: within earshot, his voice makes agreement feel like your own idea. A strong wall resists it.',
@@ -98,6 +101,9 @@ const raw = {
       'Telepathy is written as overheard fragments, short and plain, in quotation marks or as bare lines, always with a clear cue that nobody spoke aloud ("nobody’s lips moved", "it arrives in your head"). Never use asterisks. Every mind has a texture and it never changes: Haru is heat and kitchen noise, Lena runs half a second ahead of the room, Sable is silence, Ruth is a radio turned low, the Provost is warm and agreeable like thick carpet, and Corin is a house with the furniture taken out. ' +
       'The player does not know whose thought it was. Keep all three housemates plausible, and never confirm it until the player has earned it by asking, finding something or being trusted. Reading somebody who did not ask is a real act: they can usually feel it, and they remember. ' +
       'Funny more often than not: house rules, Haru’s jokes, Lena’s tense slips, Ruth’s soup. Violence is rare, quick and has weight. No gore; a death happens offstage or in a cut. Romance is warm and goes no further than a kiss. ' +
+      'Reading never solves the mystery on its own. Haru’s surface is loud and sounds guilty out of context: Saturday, a bag, getting out before anybody can stop him, smoke. Lena’s runs ahead to a Founders’ Night frame she will not describe. Sable’s is silence, which reads as innocence. Nobody confesses at the first dinner. ' +
+      'A secret comes out when it is earned: the player asked before reading, ate what Haru cooked, sat with somebody without fixing them, or brought evidence to one person alone. Reading without asking gets fragments, never a whole secret, and the person usually feels it and stays cooler for days. Reading the Provost is how Corin ended up in the glasshouse: he can tell, and he remembers. ' +
+      'A thought whose owner the player does not know is narration, never a line with a speaker, and it never sets that character’s face. Trouble up the hill (a scene on the green, a break-in at the tower, a fight) brings wardens to the house and a kind letter from the Provost about rest. ' +
       'The face at the top of a beat is the housemate the player is with.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -240,6 +246,7 @@ const raw = {
       name: 'The Key to Room Four',
       tags: ['personal'],
       droppable: false,
+      questItem: true,
       description: 'A heavy brass key on a paper tag. Somebody scratched C.A. into the brass under the number, small, where you would only see it if you looked.',
       loreText: 'Corin Abbott’s initials. The tag was replaced in April. The key was not.',
       icon: 'key',
@@ -259,7 +266,7 @@ const raw = {
       tags: ['personal'],
       skillModifiers: { walls: 1 },
       description: 'Big, scuffed, and useless against thoughts, which is not the point. Wearing them tells your own head that it is allowed to stop listening.',
-      loreText: 'You bought them the week it started. They are the only thing that has ever helped.',
+      loreText: 'You bought them the week it started. Nothing else has ever helped.',
       icon: 'headphones',
     },
     {
@@ -882,7 +889,7 @@ const raw = {
       pronouns: 'he/him',
       publicTraits: ['Makes the joke before anybody else can', 'Cooks like a professional and apologises to the pan', 'Never stands still in a room with a candle in it'],
       hiddenDrives: [
-        'He wants to be somewhere nobody has read his record, and the coast is the only place he can think of',
+        'He wants to be somewhere nobody has read his record, and the coast is as far as the bus goes',
         'He wants his father to answer one phone call',
       ],
       values: ['Owning what you broke, out loud', 'Feeding people whether or not they asked'],
@@ -1008,9 +1015,9 @@ const raw = {
         'Something wrong with the soup?',
       ],
       appearance:
-        'Small and quick, dark curls held back with a knitted band, charcoal smudges on her fingers and usually one cheek, a big cardigan with pockets full of pencil stubs.',
+        'Quick and wiry, dark curls held back with a knitted band, charcoal smudges on her fingers, a long cardigan with pockets full of pencil stubs.',
       visualHook: 'A battered sketchbook held shut with a hair tie, which she never puts down.',
-      silhouette: 'Perched on the edge of a chair, knees up, sketchbook propped against them.',
+      silhouette: 'Perched sideways on a chair arm, sketchbook on her knee.',
       artSeed: 'nova-lena-01',
       portrait: null,
       expressions: ['warm', 'bright', 'teasing', 'worried', 'haunted'],
@@ -1050,7 +1057,7 @@ const raw = {
       name: 'Sable Quint',
       role: 'Fourth-year whose mind is silent, and within arm’s reach of whom every ability stops',
       cardBlurb:
-        'You cannot hear a single thought of hers. Step inside her reach and you cannot hear anyone, which makes her the only quiet place in the world for you, and the one person in the house you have to take at her word.',
+        'You cannot hear a single thought of hers. Step inside her reach and you cannot hear anyone, which is the first quiet you have had since it started. She is also the one person in the house you have to take at her word.',
       pronouns: 'she/her',
       publicTraits: ['Very still', 'Answers a question with a question', 'Kind in practical ways nobody thanks her for'],
       hiddenDrives: [
@@ -1223,7 +1230,7 @@ const raw = {
       calledName: 'Sorrell',
       role: 'Provost of Halloran College. A gentle man with a voice that makes you agree',
       cardBlurb:
-        'He welcomed you personally, asked you for a page a week on how your housemates are sleeping, and made it feel like your own idea. He is the kindest person you have met here, and the reason somebody in your house wants him dead.',
+        'He signed the form in your welcome packet in fountain pen and asked for a page a week on how your housemates are sleeping. Everybody tells you he is the kindest man at the college, and the house goes quiet whenever his name comes up.',
       pronouns: 'he/him',
       publicTraits: ['Remembers every student’s name', 'Never raises his voice', 'Always has tea and never finishes it'],
       hiddenDrives: [
@@ -1304,9 +1311,9 @@ const raw = {
     {
       id: 'corin',
       name: 'Corin Abbott',
-      role: 'Gardener at the college glasshouse. Room Four was his until April',
+      role: 'Gardener at the college glasshouse, who keeps stopping at the Nova House gate',
       cardBlurb:
-        'He used to have your room and your ability. Now he grows tomatoes, cannot remember the house, and keeps stopping at its gate without knowing why, and there is one door in his mind you might be able to open.',
+        'He grows tomatoes in the glasshouse, asks you whether you have met before, and keeps stopping at your gate without knowing why.',
       pronouns: 'he/him',
       publicTraits: ['Gentle with everything that grows', 'Loses the thread mid-sentence', 'Hums a song he cannot place'],
       hiddenDrives: ['He wants to know what he lost without being told it by somebody who pities him'],
@@ -1322,7 +1329,7 @@ const raw = {
       secrets: [
         {
           id: 'corin_the_locked_room',
-          fact: 'The settling missed one room in his mind: the list of eleven names he read in the Provost’s head in April. A telepath who goes carefully can open it, and with it some of what he lost.',
+          fact: 'The settling missed one room in his mind: the list he read in the Provost’s head in April, ten names and his own added at the bottom. A telepath who goes carefully can open it, and with it some of what he lost.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'A telepath who reads him finds it at once: a house with the furniture taken out, and one locked door.',
         },
@@ -1567,7 +1574,7 @@ const raw = {
           id: 'the_reason',
           playerCopy: 'Find out why anybody in this house would want the Provost dead.',
           directorNotes:
-            'The answer is Corin Abbott, and the eleven before him. It can come from paper (Corin’s page, Ruth’s file, the Provost’s drawer) or from people (Ruth, Sable). The people version costs less and means more. Do not let the Provost become a cartoon on the way: everything he did, he believes was a kindness.',
+            'The answer is Corin Abbott, and the ten before him. It can come from paper (Corin’s page, Ruth’s file, the Provost’s drawer) or from people (Ruth, Sable). The people version costs less and means more. Do not let the Provost become a cartoon on the way: everything he did, he believes was a kindness.',
           enterWhen: { flagsSet: ['knows_it_is_sable'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -2069,7 +2076,7 @@ const raw = {
       locationId: 'the_parlour',
       publicCopy: 'The Provost arrives at the Nova House parlour for the Founders’ toast, and Ruth hands the newest resident the decanter.',
       directorNotes:
-        'Lanterns on the river, every house on the green lit up, the parlour fire laid but unlit. Sable is by the sideboard. If nothing has changed, the vial is already in the decanter and the player is the one holding it. Whatever happens next, nobody in the room will forget it.',
+        'Lanterns on the river, every house on the green lit up, the parlour fire laid but unlit. Sable is by the sideboard. If nothing has changed, the vial is already in the gold-rimmed glass on the tray, and the player is the one holding the decanter. Whatever happens next, nobody in the room will forget it.',
       setsFlags: ['founders_night_came'],
       cancelledByFlags: ['sorrell_exposed'],
       requiresFlags: [],
@@ -2358,7 +2365,7 @@ const raw = {
       condition:
         'Sable put the vial down because of the player, and the player is now the one person she lets inside her reach. For a telepath that is the only silence in the world. Keep it warm and quiet and no further than a kiss. Being with her means taking her at her word, and both of them know it.',
       epilogue:
-        'They spend most nights in the dome, where the house is quiet in the player’s head and nobody can hear anybody. In the spring she takes Corin’s ring off her thumb and gives it back to him at the glasshouse. He does not remember it. He wears it anyway.',
+        'Most evenings they are up in the dome, where the house is quiet in the player’s head and nobody can hear anybody. In the spring she takes Corin’s ring off her thumb and gives it back to him at the glasshouse. He does not remember it. He wears it anyway.',
       hint: '',
     },
     {
@@ -2405,7 +2412,7 @@ const raw = {
     },
   ],
   opening:
-    "The woman ladling soup slides a bowl across to you. \"I’m Lena. House rule: nobody reads anybody at dinner. Deal?\"\n\nYou nod. You try.\n\nTheir thoughts leak in anyway, like a radio in the next room. Too much salt. Don’t stare at the new one. Heat ticking off the man across the table.\n\nThen one thought cuts clean through the rest.\n\n\"If the new one hears this, I’ll have to kill them too.\"\n\nYour spoon stops halfway. Nobody’s lips moved.\n\nThe man is tearing bread. The pale woman at the end turns her glass, perfectly silent inside. Lena tilts her head.\n\n\"Something wrong with the soup?\"",
+    "The woman ladling soup slides a bowl across to you. \"I’m Lena. House rule: nobody reads anybody at dinner. Deal?\"\n\nYou nod. You try.\n\nThe table’s thoughts leak in anyway, like a radio in the next room. Too much salt. Don’t stare at the new one. Heat ticking off the man across the table.\n\nThen one thought cuts clean through the rest.\n\n\"If the new one hears this, I’ll have to kill them too.\"\n\nYour spoon stops halfway. Nobody’s lips moved.\n\nThe man is tearing bread. The pale woman at the end turns her glass, perfectly silent inside. Lena tilts her head.\n\n\"Something wrong with the soup?\"",
   openingPanel: {
     assetKey: 'story_nova_house/opening',
     alt: 'Lena ladling soup at a long lamplit dinner table, smiling at you, while a man tears bread and a pale woman in a grey coat turns her glass.',
@@ -2415,6 +2422,21 @@ const raw = {
     'I break the house rule and listen harder, one mind at a time.',
     "\"I heard that. Someone at this table just threatened me. Which one of you?\"",
   ],
+  /**
+   * The PixAI cover. Everybody is identified by costume, pose and place in the
+   * frame, never by age (see the Ace note in infra/scripts/generate-art.ts), and
+   * every light effect stays off faces.
+   */
+  coverDirection: [
+    'SUBJECT: three housemates at a long dinner table, large and frontal, in the foreground of a key visual for a psychic mystery anime.',
+    'Left: a tall man with bleached hair and dark roots, sleeves shoved to the elbow, a burn-scarred left hand, a small spark at his fingertips.',
+    'Centre: a woman with dark curls under a knitted band and a sketchbook under one arm, smiling over a soup ladle.',
+    'Right, at the end of the table: a pale woman with blunt black jaw-length hair in a long grey wool coat, a silver ring on her left thumb, perfectly still, looking straight out at the viewer.',
+    'Faint drifting lines of thought-light run between them and one sharp bright line cuts across the table. Every light effect stays in the air and on objects, never on faces or skin.',
+    'BEHIND THEM, soft and secondary: night, a narrow old house with a brass observatory dome lit from inside.',
+    'LIGHT: warm amber lamplight on the table, deep blue night behind.',
+    'TITLE: the words NOVA HOUSE painted into the art in the upper third as a clean serif logo, warm white with a faint star glint, spelled exactly NOVA HOUSE, large and legible at thumbnail size. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 
