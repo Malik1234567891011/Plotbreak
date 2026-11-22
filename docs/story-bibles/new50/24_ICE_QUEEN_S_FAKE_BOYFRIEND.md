@@ -165,7 +165,8 @@ rattled. When genuinely amused she says "That is not funny" and has to look away
 
 ### Darren Cole (24)
 **Role:** heir to the Cole Group, business-school graduate student, the name printed beside hers.
-**Look:** broad-shouldered, wavy chestnut hair pushed back, an expensive camel overcoat worn open.
+**Look:** broad-shouldered, wavy chestnut hair pushed back, an expensive camel overcoat worn open over a
+navy sweater and an open-collared white shirt.
 **Immediate want:** find out whether this lie can survive his father's people.
 **Real want:** get out of Saturday without being the one who said no, and keep Lena.
 **Fear:** his father finding out about Lena before he has a plan; being exactly who everyone assumes.
@@ -179,8 +180,8 @@ inside it. Calls the player "boyfriend" with audible quotation marks.
 
 ### Mei (22)
 **Role:** the player's older sister, final-year journalism student, editor of the Fairholm Courier.
-**Look:** short and quick, a choppy black bob with a red streak, oversized glasses, a press lanyard
-over a denim jacket covered in pins.
+**Look:** brisk and sharp-eyed, a choppy black bob with a red streak, black-framed glasses, a press
+lanyard over a denim jacket covered in pins.
 **Immediate want:** find out what her sibling has got into.
 **Real want:** run the Cole gift story in Friday's edition, which a city paper's summer place depends
 on.
@@ -280,6 +281,10 @@ president.
   a fight on the quad raises it hardest.
 - **Frost** (good low): Akane's guard. Thaws slowly with time near the player; pushing her raises it.
 
+The storyteller never reads these numbers, so the fixture says the same thing in words: a hard-canon
+line, "How the week keeps score", and the player's phone, a quest item they start holding, which is
+where the gossip page and Mei live. Every job starts with Play the Part as well as its own ability.
+
 ## Five promises
 
 1. **Finale: midnight.** Seed: rule four in her handwriting. Payoff: somebody says out loud what this
@@ -332,12 +337,16 @@ The Announcement, The Breakup Statement, Not My Problem and Front Page, Friday.
 ## Image plan
 
 ### Cover direction
-Akane alone in front, waist up, close: an adult woman, long black hair, grey eyes, long white wool coat
-over a charcoal roll-neck sweater, silver pin on the coat lapel; one hand gripping a sleeve at the frame edge; chin up, cool look, the faintest
-blush. Behind her, soft: an autumn campus lawn, stone buildings, people on benches turning to stare, a
-man in a camel coat out of focus. Crisp noon light, cool blue shadow, warm gold leaves. Title painted
-in the upper third: ICE QUEEN'S FAKE BOYFRIEND, icy white with a pale blue edge, spelled exactly, legible
-at thumbnail size. No other text.
+Akane alone in front, waist up, close, described by costume and pose only: long black hair, grey eyes,
+long white wool coat over a charcoal roll-neck sweater, silver pin on the coat lapel; one hand gripping
+a sleeve at the frame edge, tight enough to crease it; chin up, cool look, and only the grip gives her
+away. A few ice crystals on the pin and the lapel. Her face stays clean: no frost, sparkle or blush
+lines on it. Behind her, soft: an autumn university lawn, stone buildings, people on benches turning to
+stare, a man in a camel coat out of focus. Crisp noon light, cool blue shadow, warm gold leaves.
+
+TITLE: Ice Queen's Fake Boyfriend, painted into the upper third as an elegant serif logo, icy white
+with a pale blue edge and a thin rim of frost on the letters, spelled exactly that way in title case,
+legible at thumbnail size. No other text. The fixture's `coverDirection` is the version PixAI reads.
 
 ### Opening panel
 Akane in the white coat gripping the player's arm on the crowded lawn, chin up, while the man in the

@@ -28,7 +28,11 @@ import { StoryVersion } from '@plotbreak/contracts';
  * archetype's starting abilities. So her four rules, the favour, the gala at
  * nine, the merger clause and why she picked the player are hard canon; the
  * deal, the invitation, the term sheet, the forum minutes and Mei's folder are
- * quest items.
+ * quest items. How the week keeps score (the audience checking every detail,
+ * and her guard) is hard canon too, and rides on the one quest item the player
+ * starts holding: their phone, which is where the gossip page and Mei live.
+ * Every job starts with Play the Part, the week's one constant verb, so the
+ * storyteller reads it whichever job the player picks.
  *
  * Three gated abilities, each granted by exactly one quest step and gated by a
  * flag (grant broadly, gate by flag): Call In the Favour once the terms are on
@@ -97,6 +101,7 @@ const raw = {
       'The Cole Foundation has offered the university a new library wing. On Thursday at five the student council votes on the part that touches students: the twenty-four-hour reading room becomes the Cole Room and closes at midnight. Ten councillors are split evenly and a tie goes to the president. Mei is investigating a side letter that ties the gift to "a family announcement".',
       'Mei edits the Fairholm Courier, the campus paper, which prints on Friday mornings at six. She has known the player all their life and can tell when they lie. She prints nothing she cannot prove and will not lie to her readers. She also edits "Hot Water", the paper’s warm, funny, anonymous advice column, and knows that Akane writes it. She has promised never to tell.',
       'Professor Ito teaches the rhetoric seminar the player and Akane share, and advises the student council. Twenty-eight years ago he and Evelyn, then Evelyn Lane, were together at this university for two years; she left him for the marriage that made Hollis & Lane. Neither of them has told Akane. On Tuesday he pairs the player and Akane for Friday’s debate.',
+      'How the week keeps score. Every public scene has an audience, and every detail of the lie can be checked against the last one: Darren compares answers, Mei hears both versions, and the anonymous campus gossip page posts whatever it is sent, usually within the hour, and keeps a timeline. A detail invented on Monday has to still be true on Friday. Akane’s guard works the other way: pushed with the hard question, she gets more formal and more polite, not less; given time, the roof, a bag of chips and nobody watching, she gets drier and funnier, and denies it.',
       'This is an ordinary modern campus. Nobody has powers. A fight on campus brings campus security within minutes, is on the anonymous gossip page within the hour, and becomes a council disciplinary matter, which Akane has to chair. Akane is not a prize and cannot be won: she can refuse, end the deal, or call it off in public. The player can refuse her, walk away or tell everyone the truth, and the story goes on.',
     ],
     toneGuide:
@@ -240,10 +245,13 @@ const raw = {
     {
       id: 'your_phone',
       name: 'Your Phone',
-      tags: ['personal'],
+      tags: ['quest', 'personal'],
+      questItem: true,
       droppable: false,
-      description: 'Cracked across one corner, eleven per cent battery, and a sister who has started typing to you three times since twenty to one.',
-      loreText: 'The group chat for your floor has been renamed twice since lunch. Neither name is printable.',
+      description:
+        'Cracked across one corner, eleven per cent battery. It is how the campus watches you this week: the anonymous gossip page, which posts whatever it is sent, and your sister Mei, who edits the campus paper and can tell from one text whether you are lying.',
+      loreText:
+        'Anything said in public this week ends up on the gossip page next to everything said before it, and by midweek somebody is keeping a timeline. The group chat for your floor has already been renamed twice. Neither name is printable.',
       icon: 'phone',
     },
     {
@@ -903,7 +911,7 @@ const raw = {
         'Do not apologise for my mother. She would not.',
       ],
       appearance:
-        'An adult woman, tall and very straight-backed, long black hair cut blunt at the waist, cool grey eyes, a long white wool coat over a charcoal roll-neck sweater.',
+        'An adult woman, tall and very straight-backed, long black hair cut blunt at the waist, cool grey eyes, a long white wool coat over a charcoal roll-neck sweater, and a silver council pin worn exactly level on the lapel.',
       visualHook: 'A silver council pin worn exactly level on her coat lapel, which she straightens whenever she is nervous.',
       silhouette: 'A long white coat, arms folded, chin up, standing perfectly still in a moving crowd.',
       artSeed: 'iqfb-akane-01',
@@ -985,7 +993,7 @@ const raw = {
         'Relax, boyfriend. I’m rooting for you. That should worry you more than it does.',
       ],
       appearance:
-        'An adult man, broad-shouldered and tanned, wavy chestnut hair pushed back, an easy grin that stops just short of his eyes.',
+        'An adult man, broad-shouldered and tanned, wavy chestnut hair pushed back, an easy grin that stops just short of his eyes, a camel overcoat worn open over a navy sweater and an open-collared white shirt.',
       visualHook: 'A camel overcoat that costs more than a year’s rent, worn open with the collar up.',
       silhouette: 'Hands in his coat pockets, leaning on whatever is nearest, taking up twice his share of a doorway.',
       artSeed: 'iqfb-darren-01',
@@ -1065,7 +1073,7 @@ const raw = {
         'Somebody’s paying for that library wing, and it isn’t with money. I just don’t know with what yet.',
       ],
       appearance:
-        'An adult woman, short and quick, a choppy black bob with one red streak, oversized glasses, a denim jacket covered in enamel pins.',
+        'An adult woman, brisk and sharp-eyed, a choppy black bob with one red streak, black-framed glasses, a denim jacket covered in enamel pins over a striped shirt.',
       visualHook: 'A press lanyard and a digital recorder clipped to her jacket, red light usually on.',
       silhouette: 'Leaning forward, recorder held out in one hand, two coffees balanced in the other.',
       artSeed: 'iqfb-mei-01',
@@ -1407,13 +1415,6 @@ const raw = {
               label: 'Let him see the truth',
               predicate: { flagsSet: ['told_darren', 'spoke:darren'] },
               setsFlags: ['darren_saw_through_it'],
-              closesFlags: ['passed_darrens_test'],
-            },
-            {
-              routeId: 'took_a_swing',
-              label: 'Hit him',
-              predicate: { flagsSet: ['attacked:darren'] },
-              setsFlags: ['fought_darren'],
               closesFlags: ['passed_darrens_test'],
             },
           ],
@@ -2244,7 +2245,7 @@ const raw = {
       attributeBonus: { presence: 2, mind: 1, agility: 1 },
       skillProficiencies: { attention: 3, banter: 2 },
       startingItems: [{ itemId: 'cart_notebook', qty: 1 }],
-      startingAbilities: ['read_the_room'],
+      startingAbilities: ['play_the_part', 'read_the_room'],
       startingReputation: [{ factionId: 'faction_campus', amount: 10 }],
     },
     {
@@ -2257,7 +2258,7 @@ const raw = {
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { acting: 3, improvise: 2 },
       startingItems: [{ itemId: 'rehearsal_script', qty: 1 }],
-      startingAbilities: ['spin_a_story'],
+      startingAbilities: ['play_the_part', 'spin_a_story'],
       startingReputation: [],
     },
     {
@@ -2270,7 +2271,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { argument: 3, candour: 1, attention: 1 },
       startingItems: [{ itemId: 'seminar_notes', qty: 1 }],
-      startingAbilities: ['come_clean'],
+      startingAbilities: ['play_the_part', 'come_clean'],
       startingReputation: [{ factionId: 'faction_council', amount: 5 }],
     },
     {
@@ -2283,7 +2284,7 @@ const raw = {
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { legwork: 3, timing: 1, candour: 1 },
       startingItems: [{ itemId: 'boathouse_key', qty: 1 }],
-      startingAbilities: ['do_the_legwork'],
+      startingAbilities: ['play_the_part', 'do_the_legwork'],
       startingReputation: [],
     },
   ],
@@ -2508,15 +2509,18 @@ const raw = {
     'I shake his hand. "Honestly? I’ve never met her before in my life."',
   ],
   coverDirection: [
-    'SUBJECT: Akane Hollis, the council president everyone calls the Ice Queen, alone and unmistakable in the foreground of a key visual for a campus romantic comedy anime.',
-    'She fills the frame from the waist up, close, holding about two thirds of the picture.',
-    'An adult woman, tall and straight-backed, long black hair cut blunt, cool grey eyes, a long white wool coat over a charcoal roll-neck sweater, a silver pin worn exactly level on the coat lapel.',
-    'One hand reaches toward the edge of the frame and grips a sleeve, as if she has just grabbed somebody’s arm.',
-    'Her chin is up and her look is cool and composed, with the faintest blush she is clearly refusing to acknowledge.',
+    'SUBJECT: Akane Hollis, the council president everyone calls the Ice Queen, alone and unmistakable in the foreground of a key visual for a romantic comedy anime set at an old city university.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'Tall and very straight-backed, long black hair cut blunt, cool grey eyes, a long white wool coat over a charcoal roll-neck sweater, a silver council pin worn exactly level on the coat lapel.',
+    'One hand reaches toward the edge of the frame and grips a dark coat sleeve tight enough to crease it, as if she has just grabbed somebody’s arm.',
+    'Her chin is up, her mouth is set and her look is cool and composed, straight at the viewer; only the grip on the sleeve gives her away.',
+    'A few fine ice crystals glint on the silver pin and along the lapel of the white coat.',
+    'HER FACE STAYS CLEAN: no frost, ice, sparkles, blush lines or marks on her face or skin.',
+    'Every frost effect stays on the pin, the coat lapel and the title, never on her face.',
     'BEHIND HER, soft and secondary: an autumn university lawn with gothic stone buildings, gold and red leaves, people on benches turning to stare, and a man in a camel coat out of focus.',
     'LIGHT: crisp noon sun, cool blue shadows and warm gold leaves, so she reads as ice against autumn.',
-    "TITLE: the words ICE QUEEN'S FAKE BOYFRIEND painted into the art in the upper third as an elegant logo, icy white with a pale blue edge,",
-    "spelled exactly ICE QUEEN'S FAKE BOYFRIEND, large and legible at thumbnail size. No other text anywhere.",
+    "TITLE: the words Ice Queen's Fake Boyfriend painted into the art in the upper third as an elegant high-contrast serif logo, icy white with a pale blue edge and a thin rim of frost on the letters,",
+    "spelled exactly Ice Queen's Fake Boyfriend, in title case with an apostrophe before the s, large and legible at thumbnail size. No other text anywhere.",
   ].join(' '),
   publishedAt: null,
 };

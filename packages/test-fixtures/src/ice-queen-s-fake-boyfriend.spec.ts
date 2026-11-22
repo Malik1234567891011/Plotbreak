@@ -280,9 +280,15 @@ describe('everybody on the page is an adult, on the page', () => {
 describe('the cover and the ids', () => {
   it('puts the title in the art and her alone in front', () => {
     const cover = S.coverDirection;
-    expect(cover).toContain("spelled exactly ICE QUEEN'S FAKE BOYFRIEND");
+    const title = S.title.replace(/’/g, "'");
+    expect(title).toBe("Ice Queen's Fake Boyfriend");
+    expect(cover).toContain(`TITLE: the words ${title} painted into the art in the upper third`);
+    expect(cover).toContain(`spelled exactly ${title}`);
     expect(cover).toContain('Akane Hollis');
-    expect(cover).toContain('An adult woman');
+    // Costume and pose, never an age word; effects on objects and the title, never on her face.
+    expect(cover).toContain('a long white wool coat');
+    expect(cover).not.toMatch(/\b(adult|older)\b/i);
+    expect(cover).toContain('HER FACE STAYS CLEAN');
     expect(cover).toMatch(/No other text anywhere/);
     expect(S.characters[0]?.id).toBe('akane');
   });
@@ -641,7 +647,17 @@ describe('the choices say what they do', () => {
     for (const a of S.archetypes) {
       expect(a.startingAbilities.length, a.id).toBeGreaterThanOrEqual(1);
       for (const id of a.startingAbilities) expect(ability(id).unlockedByDefault, `${a.id}/${id}`).toBe(true);
+      // The week's one constant verb, so the storyteller reads it whatever the job.
+      expect(a.startingAbilities[0], a.id).toBe('play_the_part');
     }
+  });
+
+  it('starts the player holding the quest item that carries the audience', () => {
+    const phone = S.items.find((i) => i.id === 'your_phone')!;
+    expect(S.rules.startingItems.map((i) => i.itemId)).toContain('your_phone');
+    expect(phone.questItem).toBe(true);
+    expect(phone.description).toMatch(/gossip page/);
+    expect(S.rules.hardCanon.join(' ')).toMatch(/How the week keeps score/);
   });
 });
 
