@@ -6,7 +6,7 @@ https://claude.ai/artifact/PbPa3UdC7dizZy7AU6uQRA
 | Workstream | Owner session | Output | Status |
 |---|---|---|---|
 | Redesign board, every page, current vs proposed | `plotbreak-ca` | https://claude.ai/artifact/8yRDJdhfSbAQe2wxSZYgpG, `docs/design-v2/` (commits e1c7df4, 9728056) | done |
-| Cover bake-off: PixAI (web UI, user's account) vs shipped covers | `plotbreak-80` | `docs/covers-pixai-test/` + board | in progress |
+| Cover bake-off: PixAI (web UI, user's account) vs shipped covers | `plotbreak-80` | https://claude.ai/artifact/81xKYkBXAGZHbBN46CuSRJ, `docs/covers-pixai-test/README.md` | done: keep the current pipeline (shipped covers win 4/5 at thumbnail; PixAI $0.03–0.11/cover with a membership; Itachi drew the franchise headband) |
 | Retention research (5 investigations, 2 independent re-checks) | `plotbreak-fd` (workflow `wf_1b745462-6dc`) | this file + `docs/retention/2026-11-21-*` | done |
 | Server-only feed fixes | `plotbreak-fd` | branch `feed/daily-freshness` (no deploy) | next |
 | Story bot | — | cost below; build after go/no-go | waiting on the user |
@@ -135,7 +135,7 @@ Targets (weekly cohorts, ~88 players/week so only big moves show): D1 any-open 1
 2. Featured reorder + first-day credits 10 → 20 turns?
 3. Build the story bot (1/day, official-grade, ~$71–80/month + ~10 h review)?
 4. New tagline (OOC copy appears word for word in 4 places; list in `docs/design-v2/README.md`).
-5. PixAI membership, only if PixAI wins the cover test.
+5. ~~PixAI membership~~ Settled: PixAI lost the cover test; the bot makes covers through OpenAI gpt-image.
 
 ## Production side effects of this push
 
