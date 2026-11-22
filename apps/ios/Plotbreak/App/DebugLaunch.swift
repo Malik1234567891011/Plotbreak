@@ -8,7 +8,8 @@ import SwiftUI
 //
 //   xcrun simctl launch <udid> com.plotbreak.app -pbOpen continueStory -pbStory <storyId>
 //
-// `pbOpen`: continueStory, pass, wallet, story, setup. `pbStory` is the story
+// `pbOpen`: continueStory, pass, wallet, story, setup, search, tower,
+// badges, relics, settings, session (`-pbSession <id>`). `pbStory` is the story
 // the story page, setup and the out-of-credits screen use. Compiled out of
 // Release, so it can never reach a player.
 
@@ -28,6 +29,12 @@ extension View {
             case "wallet": router.present(.wallet(shortfall: nil))
             case "story": router.push(.storyDetail(storyId: storyId))
             case "setup": router.push(.characterSetup(storyId: storyId))
+            case "search": router.present(.search)
+            case "tower": router.towerSource = "debug"
+            case "badges": router.present(.badges)
+            case "relics": router.present(.relics(source: "debug"))
+            case "settings": router.present(.settings)
+            case "session": router.push(.session(sessionId: defaults.string(forKey: "pbSession") ?? ""))
             default: break
             }
         }
