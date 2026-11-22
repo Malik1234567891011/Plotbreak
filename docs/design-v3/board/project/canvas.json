@@ -1,0 +1,52 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-11-22T04:56:00Z"},
+  "title": "Plotbreak Design v3",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 390, "h": 1880, "title": "Home (full scroll)"},
+    "Play.dc.html": {"x": 470, "y": 0, "w": 390, "h": 844, "title": "Play: your turn"},
+    "PlayWriting.dc.html": {"x": 940, "y": 0, "w": 390, "h": 844, "title": "Play: the story is writing"},
+    "ChapterCard.dc.html": {"x": 1410, "y": 0, "w": 390, "h": 844, "title": "Chapter card"},
+    "EndCard.dc.html": {"x": 1880, "y": 0, "w": 390, "h": 844, "title": "End card"},
+    "System.dc.html": {"x": 2350, "y": 0, "w": 1240, "h": 1100, "title": "Design system: Ink"},
+
+    "Story.dc.html": {"x": 0, "y": 2300, "w": 390, "h": 1720, "title": "Story page (full scroll)"},
+    "CharacterSetup.dc.html": {"x": 470, "y": 2300, "w": 390, "h": 1500, "title": "Who are you?"},
+    "WorldSheet.dc.html": {"x": 940, "y": 2300, "w": 390, "h": 844, "title": "World sheet"},
+    "Search.dc.html": {"x": 1410, "y": 2300, "w": 390, "h": 844, "title": "Search"},
+
+    "Welcome.dc.html": {"x": 0, "y": 4440, "w": 390, "h": 844, "title": "Welcome / sign in"},
+    "OnbProfile.dc.html": {"x": 470, "y": 4440, "w": 390, "h": 844, "title": "Onboarding: name and birthday"},
+    "OnbTaste.dc.html": {"x": 940, "y": 4440, "w": 390, "h": 844, "title": "Onboarding: what you like"},
+    "OnbShowcase.dc.html": {"x": 1410, "y": 4440, "w": 390, "h": 844, "title": "Onboarding: pick a first story"},
+    "Prologue.dc.html": {"x": 1880, "y": 4440, "w": 390, "h": 844, "title": "Prologue"},
+
+    "Library.dc.html": {"x": 0, "y": 5704, "w": 390, "h": 844, "title": "Library"},
+    "Create.dc.html": {"x": 470, "y": 5704, "w": 390, "h": 844, "title": "Create"},
+    "Pitch.dc.html": {"x": 940, "y": 5704, "w": 390, "h": 844, "title": "Create: your pitch"},
+    "Profile.dc.html": {"x": 1410, "y": 5704, "w": 390, "h": 1000, "title": "Profile"},
+
+    "Wallet.dc.html": {"x": 0, "y": 7124, "w": 390, "h": 1000, "title": "Credits"},
+    "Quality.dc.html": {"x": 470, "y": 7124, "w": 390, "h": 844, "title": "Turn quality"},
+    "Paywall.dc.html": {"x": 940, "y": 7124, "w": 390, "h": 844, "title": "Out of credits"},
+    "Pass.dc.html": {"x": 1410, "y": 7124, "w": 390, "h": 844, "title": "Plotbreak Pass"},
+    "Tower.dc.html": {"x": 1880, "y": 7124, "w": 390, "h": 1000, "title": "The Tower"}
+  },
+  "order": [
+    "Main.dc.html", "Play.dc.html", "PlayWriting.dc.html", "ChapterCard.dc.html", "EndCard.dc.html", "System.dc.html",
+    "Story.dc.html", "CharacterSetup.dc.html", "WorldSheet.dc.html", "Search.dc.html",
+    "Welcome.dc.html", "OnbProfile.dc.html", "OnbTaste.dc.html", "OnbShowcase.dc.html", "Prologue.dc.html",
+    "Library.dc.html", "Create.dc.html", "Pitch.dc.html", "Profile.dc.html",
+    "Wallet.dc.html", "Quality.dc.html", "Paywall.dc.html", "Pass.dc.html", "Tower.dc.html"
+  ],
+  "notes": {
+    "rowHome": {"x": 0, "y": -300, "text": "Home and play", "kind": "title1", "maxW": 3590},
+    "rowStory": {"x": 0, "y": 2000, "text": "Story and character", "kind": "title1", "maxW": 1800},
+    "rowFirstRun": {"x": 0, "y": 4140, "text": "First run", "kind": "title1", "maxW": 2270},
+    "rowTabs": {"x": 0, "y": 5404, "text": "Library, create, profile", "kind": "title1", "maxW": 1800},
+    "rowCredits": {"x": 0, "y": 6824, "text": "Credits and the Tower", "kind": "title1", "maxW": 2270}
+  },
+  "designSystems": []
+}
