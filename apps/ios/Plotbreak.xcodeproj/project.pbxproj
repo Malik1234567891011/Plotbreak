@@ -80,6 +80,7 @@
 		CA96F809A47D0ACAC2130D55 /* MyInformationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF3CA9088AD6E7AFC6991BE /* MyInformationScreen.swift */; };
 		CB92ACAF2246F48C6954675E /* BadgesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46E24C78BE4F30C595646D0 /* BadgesScreen.swift */; };
 		CC38AAE38610FC231B5E0C63 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BFBA0CD80BADAEAE409E44 /* Purchases.swift */; };
+		CE579DA4AB0BF773A293CFE2 /* PassScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC454AEAB4B2633CA2D816F /* PassScreen.swift */; };
 		D3A020B8146E23B6690E0A23 /* LibraryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AE93E2B965AEA2B633130F /* LibraryScreen.swift */; };
 		DA49DA3A9E1EBF033C600678 /* SwipeBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456FBF33A0FD5D6FC74ABEFB /* SwipeBack.swift */; };
 		DC5E34C974AC88FC2C4E4CB0 /* CreateModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7447ABD392C7DEA8623BFD /* CreateModels.swift */; };
@@ -162,6 +163,7 @@
 		87D520DD1346F266F41E2225 /* Local.xcconfig.example */ = {isa = PBXFileReference; path = Local.xcconfig.example; sourceTree = "<group>"; };
 		8B46E121F869C497A6CABA0E /* Plotbreak.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Plotbreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9D2BBC375F3042A1C42AF2 /* SessionComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionComposer.swift; sourceTree = "<group>"; };
+		8FC454AEAB4B2633CA2D816F /* PassScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassScreen.swift; sourceTree = "<group>"; };
 		931BC3451CE33278233890D0 /* tower.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = tower.html; sourceTree = "<group>"; };
 		9396267E53B1B3461FC0C577 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		963860CF3A5B30B3C5DE500A /* SessionStage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStage.swift; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 				F7E056B63AF7D0423B609A6E /* ContinueStoryScreen.swift */,
 				2D8B194E8CEBEA5F9940A992 /* CreditCelebration.swift */,
 				AC9DF5C6EFD7A8134D9FA3DD /* PassCard.swift */,
+				8FC454AEAB4B2633CA2D816F /* PassScreen.swift */,
 				320D3949CABE48C642D81594 /* StoryRequestsScreen.swift */,
 				6B31D5789C5DB71F78EC2A60 /* WalletScreen.swift */,
 			);
@@ -819,6 +822,7 @@
 				CA96F809A47D0ACAC2130D55 /* MyInformationScreen.swift in Sources */,
 				233E01DDAE25F90B145A9805 /* OnboardingScreens.swift in Sources */,
 				05C9253D54941FDFB3DCA089 /* PassCard.swift in Sources */,
+				CE579DA4AB0BF773A293CFE2 /* PassScreen.swift in Sources */,
 				32DEE17A0B7FA3A9044E55F8 /* PersonalizationScreen.swift in Sources */,
 				22A22E58B62A4DAEDAEA8CDB /* PitchScreen.swift in Sources */,
 				AF06B25A7FEE72D0079C9F6A /* PlotbreakApp.swift in Sources */,
