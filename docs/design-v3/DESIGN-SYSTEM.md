@@ -1,6 +1,12 @@
 # Plotbreak design system v3: "Ink"
 
 Status: proposal for the user's approval, 2026-11-22. No SwiftUI changes yet.
+
+**Being revised after Omar's review.** `AUDIT.md` lists where the screens break
+this document and proposes the rule to rebuild on: the art is the only loud
+thing, one UI typeface, no boxes, inline stats, one currency crystal. Home on
+the board already follows it. The other screens still follow this document
+until Home is approved; then this file is rewritten.
 Board: https://claude.ai/artifact/ToYYtSnfTLYqfxH1AnxbBf
 
 ## The idea in one line
@@ -83,8 +89,8 @@ cover). A player-made story gets one automatically.
 
 1. White (`paper`) fill with ink text marks the one thing to press next. There
    is at most one per screen.
-2. Nothing in the chrome is colored. Money and "new" are marked by a glyph and
-   by shape, not by a hue (see Credits mark, New tab).
+2. Nothing in the chrome is colored. Money is marked by the crystal picture and
+   "new" by a tab, not by a hue (see Credits mark, New tab).
 3. Check results and state changes use a glyph and a word (✓ Success, ▲ Trust),
    never green and red. This also keeps them readable for color-blind players.
 
@@ -184,7 +190,7 @@ glass on the floating layer.
 | Scene / stage 3:2 | full-bleed | Play background, chapter cards | Cropped to fill, centered on the vanishing point; darkened 0–20% by tint depending on brightness |
 | Portrait 2:3 on light paper | character square | Faces in play, cast row, World sheet | Faces are crops of the top 40%. The light paper ground is left as is, so faces read as cards on ink |
 | Prologue / opening 2:3 | full-bleed | Onboarding, prologue, end card | Full art, title card over the bottom third |
-| Pack icons 1:1 | none (cut out) | Credits store, first-purchase card, free-credit rows | **The one color exception**, like Character AI's candy beads. One PixAI set: moonstone crystals that read as ◆, then an indigo pouch, a black lacquer box and chest with red cord, and a red gift envelope for the first purchase. The picture grows with the price. Never used outside money surfaces. Files: `pack-icons/`. |
+| Crystal 1:1 | none (cut out) | Every currency spot; piles on the Credits store | **The one color exception**, like Character AI's candy beads. One PixAI crystal is the only currency mark. Pack tiles show the same crystal piled up (1, 2, 4, 7, 12, 17), composited, never regenerated, so it never changes cut or color. Files: `pack-icons/`. |
 | Blurred cover backdrop | full-width wash | Home top, story page top | Blur 40, `story.mid` multiply, fades to `ink.0` over 220pt |
 
 ## Components
@@ -207,9 +213,9 @@ bar. The screen title is `title.l` flush-left under the status bar.
 - Circle: 52pt `paper` circle with an ink glyph. Used for "next" in onboarding
   and for continue (»).
 
-**Credits mark.** ◆ (a filled diamond, the same as the Tower uses) in `paper`,
-followed by tabular `ui.meta` numbers: "◆ 1,240". The amber glyph goes. The
-balance in the header is a chip: an `ink.2` capsule. The cost before an action
+**Credits mark.** The crystal picture (`pack-icons/crystal-inline.png`), 1.05×
+the text height, followed by tabular numbers: "[crystal] 1,240". No ◆ glyph or
+SF Symbol diamond anywhere. The balance in the header is a chip: an `ink.2` capsule. The cost before an action
 is said once, in words: "◆60 a turn · about 20 turns left".
 
 **New tab.** A `paper` square tab, 3pt, in the cover's top-left, ink
