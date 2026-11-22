@@ -804,6 +804,19 @@ describe('the copy and the art', () => {
     for (const secret of ['attic', 'pension', 'pemberton', 'ellery', 'painting', 'loan', 'augustin']) {
       expect(premise, `the premise gives away "${secret}"`).not.toContain(secret);
     }
+    // The story page shows every cast card, and the chips and the creator's
+    // note, before the player taps Play. None of them may say where the
+    // creaking floorboard is or who is standing on it.
+    for (const c of STORY.characters) {
+      const card = `${c.role} ${c.cardBlurb} ${c.visualHook} ${c.silhouette} ${c.appearance} ${c.publicTraits.join(' ')}`.toLowerCase();
+      for (const secret of ['attic', 'box room']) {
+        expect(card, `${c.id}'s card gives away "${secret}"`).not.toContain(secret);
+      }
+    }
+    const storePage = [STORY.hook, STORY.fantasyLabel, STORY.creatorNote, ...STORY.mechanicsChips].join(' ').toLowerCase();
+    for (const secret of ['attic', 'box room']) {
+      expect(storePage, `the store page gives away "${secret}"`).not.toContain(secret);
+    }
   });
 
   it('keeps a blank protagonist and no prologue', () => {

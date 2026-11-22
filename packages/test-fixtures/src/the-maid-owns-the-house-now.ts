@@ -3,8 +3,8 @@ import { StoryVersion } from '@plotbreak/contracts';
 /**
  * "The Maid Owns the House Now" — a role reversal with a deadline.
  *
- * The family went broke last month. The maid who looked after them for eleven
- * years bought the house at the bankruptcy auction yesterday, and on turn one
+ * The family went broke last month. The family's maid of eleven years bought
+ * the house at the bankruptcy auction yesterday, and on turn one
  * she is holding out an apron to the heir. The structural bet is Good Morning,
  * Husband's: one person the whole world is arranged around, who is a person
  * rather than a reward, and an ordinary day that is worth playing on its own.
@@ -41,13 +41,13 @@ const raw = {
   version: 1,
   title: 'The Maid Owns the House Now',
   fantasyLabel: 'She was your maid. Now you work for her.',
-  hook: 'Your family went broke. Their maid of eleven years bought the mansion at auction, and now you work for her.',
+  hook: 'Your family went broke. Your maid of eleven years bought the mansion at auction, and now you work for her.',
   premise:
-    'Your family has lived in Larkspur House for a hundred and ten years: forty rooms on a cliff above a harbour town, a ballroom, a rose garden and three hundred stairs. Last month the money ran out. The bailiffs came, your father vanished the same night, and everything with a price on it was sold at auction, including the house.\n\n' +
+    'Your family has lived in Wrenhurst House for a hundred and ten years: forty rooms on a cliff above a harbour town, a ballroom, a rose garden and three hundred stairs. Last month the money ran out. The bailiffs came, your father vanished the same night, and everything with a price on it was sold at auction, including the house.\n\n' +
     'The buyer was Clara Voss, who was the family’s maid for eleven years. Nobody in town can work out how a maid paid for a mansion, and she is not saying.\n\n' +
     'You have nowhere else to go, so she has offered you what she would offer anyone: a bed in the servants’ wing, three meals, a wage if you earn it, and work. Floors, silver, stairs, and a ballroom nobody has opened in six years.\n\n' +
     'Because the house has one paying booking. In fourteen days a hundred and twenty guests arrive for a wedding, and if it goes wrong, Clara loses the house she just bought. The neighbour on the next hill wanted it badly and still does. A polite man from the creditors keeps ringing at the gate, asking after your father.\n\n' +
-    'Work for her, charm her, fight her, lie to her, or try to take the house back. She has seen you at your worst more than once. Now she is about to find out what you are like when nobody is paying.',
+    'Work for her, charm her, fight her, lie to her, or try to take the house back. She knows how you take your tea and how you take bad news. Now she is about to find out what you are like when nobody is paying.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
@@ -58,13 +58,13 @@ const raw = {
     'Role reversal',
     'She is the boss, and can say no',
     'A wedding in fourteen days',
-    'Something living in the attic',
+    'A secret at the top of the house',
     'Work, charm, lie or walk out',
   ],
   contentDescriptors: ['ROMANCE', 'MORAL_AMBIGUITY'],
   intensity: 'LIGHT',
   creatorNote:
-    'You can spend ten turns scrubbing stairs and arguing with Clara about the right way to fold a napkin, and that is a real way to play this. You can also refuse the apron, lie to everybody, side with the woman across the valley, or go straight up to the attic. Clara is not a prize. She bought the house, she is your boss, and she is waiting to find out what you are like when nobody is paying.',
+    'You can spend ten turns scrubbing stairs and arguing with Clara about the right way to fold a napkin, and that is a real way to play this. You can also refuse the apron, lie to everybody, side with the woman across the valley, or go straight upstairs to find out what is creaking. Clara is not a prize. She bought the house, she is your boss, and she has already pencilled in your first docked wage, just in case.',
   rules: {
     defeatMode: 'FAIL_FORWARD',
     progressionMode: 'MILESTONE',
@@ -76,21 +76,22 @@ const raw = {
     startWorldMinute: 6 * 60 + 30,
     startingItems: [{ itemId: 'signet_ring', qty: 1 }],
     hardCanon: [
-      'Everyone in this story is an adult. The player is in their twenties and is the family’s only heir. Clara Voss is thirty, Midge is twenty-two, and nobody in the story is younger than that.',
-      'The family is broke. Last month the money ran out, the receivers sold everything of value, and the player now owns the clothes they arrived in and one signet ring. The family surname is whatever the player’s surname is; the house has been called Larkspur House for a hundred and ten years.',
-      'Clara Voss worked in Larkspur House as a maid for eleven years and bought it at the bankruptcy auction yesterday. She owns it. She has offered the player a bed in the servants’ wing, meals and a wage in exchange for work, and the player is free to refuse.',
-      'The player’s father, Augustin, did not go abroad. He has been hiding in the attic box room for nine days, getting in and out through the old coal chute in the cellar. Hugo Ashworth knows and carries a tray up every night. Clara does not know.',
-      'Clara paid for the house with eleven years of savings, Hugo Ashworth’s whole pension, and a fourteen-day bridging loan. Three days ago Lady Pemberton quietly bought that loan. It falls due the morning after the wedding.',
+      'Everyone in this story is an adult. The player is in their twenties: twenty-nine, a year younger than Clara, and the family’s only heir. She was nineteen and they were eighteen when she joined the household, so she has only ever known them as an adult. She was never their nanny or carer, and no memory or flashback shows the player under eighteen in her care. Clara Voss is thirty, Midge is twenty-two, and nobody in the story is younger than that.',
+      'The family is broke. Last month the money ran out, the receivers sold everything of value, and the player now owns the clothes they arrived in and one signet ring. The family surname is whatever the player’s surname is; the house has been called Wrenhurst House for a hundred and ten years.',
+      'Clara Voss worked in Wrenhurst House as a maid for eleven years and bought it at the bankruptcy auction yesterday. She owns it. She has offered the player a bed in the servants’ wing, meals and a wage in exchange for work, and the player is free to refuse.',
+      'The player’s father, Augustin, did not go abroad. The night the bailiffs came he took a room in a boarding house in town, where he posted the postcard. Nine days ago he crept back, and he has been hiding in the attic box room ever since, getting in and out through the old coal chute in the cellar. Hugo Ashworth knows and carries a tray up every night. Clara does not know.',
+      'Clara paid for the house with eleven years of savings, Hugo Ashworth’s whole pension, and a fourteen-day bridging loan. Yesterday, an hour after the hammer fell, Lady Pemberton bought that loan through a nominee. It falls due the morning after the wedding.',
       'The house has one paid booking: a wedding for a hundred and twenty guests in fourteen days. If it goes well, an ordinary bank will refinance the house. If it goes badly, Lady Pemberton takes the house and builds a hotel on the cliff.',
       'Augustin hid one valuable thing from the receivers: a seascape by the painter Tomas Ellery, wrapped in a curtain behind the attic water tank. It legally belongs to his creditors, and Silas Dunmore is looking for it.',
       'Clara is not a prize and cannot be won. She is the employer: she can dock a wage, give an order, sack the player, change her mind and say no. Romance, if it happens, is slow and between equals, and goes no further than a kiss.',
       'Nothing supernatural happens here. It is an ordinary modern seaside town with old money on the hills, telephones, cars, and a local newspaper with a society page.',
+      '“Young master” is the house’s old title for the heir. Clara uses it for the player whatever their pronouns, precisely and on purpose, until she stops. It is a title for the adult heir, never a comment on age.',
     ],
     toneGuide:
       'Comedy first, warmth underneath, and the stakes are real money. The jokes come from an heir who has never worked meeting three hundred stairs, and from a maid who has waited eleven years to say a few things and says them precisely. Nobody is humiliated for long, and the work is shown as skilled rather than as a punishment. ' +
       'Romance is slow, adult and between equals: banter, tension, a held look on a landing, at most a kiss. Clara will not be courted by anybody who treats her as the help. No fan service: the apron is a joke about labour, never about bodies, and nobody is described lingeringly. ' +
       'The player can do anything and the house reacts like a real household. Lose your temper and Hugo steps between you, Clara docks a wage or shows you the door, and the town hears by lunchtime; nobody is seriously hurt. Lie, and it holds until somebody checks, and Hugo always checks. Refuse the apron and the story follows you out of the gate, because the town, Lady Pemberton and the creditors’ man all have a use for a broke heir. Wander off, and the house keeps working without you while the clock runs toward the wedding. ' +
-      'Keep scenes concrete: buckets, silver polish, the bell-board, the third landing, the cream envelope under the blotter. Every member of the cast sounds like nobody else. The face at the top of a beat is Clara’s whenever she is in the scene.',
+      'Keep scenes concrete: buckets, silver polish, the bell-board, the third landing, the cream envelope under the blotter. Every member of the cast sounds like nobody else. The face at the top of a beat is Clara’s whenever she is in the scene. Augustin’s shame is played for comedy and warmth; he is never a danger to himself.',
     proseStyle: 'webnovel',
     styleExamples: [
       "Clara runs one finger along the banister and holds it up.\n\nGrey.\n\n\"Two hundred and eleven,\" she says. \"You were doing well until two hundred and eleven.\"\n\n\"How do you even know which one—\"\n\n\"I counted.\" She hands the cloth back. \"I have been counting these stairs for eleven years. Again, please. From two hundred and eleven.\"",
@@ -160,7 +161,7 @@ const raw = {
       displayPriority: 2,
       visible: false,
       zeroStateConsequence:
-        'The town has lost interest. The heir of Larkspur scrubbing steps is old news, and when the player walks down the high street people say good morning and mean it.',
+        'The town has lost interest. The heir of Wrenhurst scrubbing steps is old news, and when the player walks down the high street people say good morning and mean it.',
       color: '#B5564E',
       bands: [
         {
@@ -232,8 +233,9 @@ const raw = {
       id: 'black_apron',
       name: 'The Black Apron',
       tags: ['clothing'],
+      questItem: true,
       skillModifiers: { graft: 1 },
-      description: 'Plain black cotton, long, starched, with one deep pocket for a cloth. Folded exactly in thirds, the way Clara folds everything.',
+      description: 'Plain black cotton, long, starched, with one deep pocket for a cloth. Folded in thirds, the way Clara folds everything.',
       loreText: 'It is new, and it is your size. She bought it the day before the auction, which means she knew she was going to win.',
       icon: 'coat',
     },
@@ -251,7 +253,8 @@ const raw = {
       id: 'pemberton_letter',
       name: 'The Cream Envelope',
       tags: ['document'],
-      description: 'Heavy cream paper with the Pemberton crest embossed on the flap, opened carefully with a knife and pushed under the blotter.',
+      questItem: true,
+      description: 'Heavy cream paper with the Pemberton crest embossed on the flap, delivered by hand last night, opened carefully with a knife and pushed under the blotter.',
       loreText: 'Two lines. The loan has been assigned to a new holder, and the new holder looks forward to the fifteenth. It is signed with one initial: H.',
       icon: 'letter',
     },
@@ -260,7 +263,7 @@ const raw = {
       name: 'The Wedding Booking',
       tags: ['quest', 'document'],
       questItem: true,
-      description: 'A signed contract for the hire of the house: ballroom, terrace, eleven bedrooms, a hundred and twenty guests, fourteen days from today. Half the fee is paid. The other half is paid on the night, if the bride’s mother is satisfied.',
+      description: 'A signed contract for the hire of the house: ballroom, terrace, eleven bedrooms, a hundred and twenty guests, fourteen days from today. Clara took the booking over from the receivers’ agent as a condition of her bid. Half the fee is paid. The other half is paid on the night, if the bride’s mother is satisfied.',
       loreText: 'The bride’s mother has stapled on a handwritten page of requirements. Item nine is "no visible staff in the ballroom after midnight".',
       icon: 'papers',
     },
@@ -286,6 +289,7 @@ const raw = {
       id: 'night_tray',
       name: 'The Night Tray',
       tags: ['food'],
+      questItem: true,
       consumable: { resourceId: 'stamina', amount: 10, consumesItem: true },
       description: 'A covered tray left on the third landing of the servants’ stair after ten each night: soup, bread, two biscuits from the blue tin, and a second cup of cocoa.',
       loreText: 'By morning it is always empty and always back on the landing, with the spoon laid exactly where Hugo would lay it.',
@@ -295,8 +299,9 @@ const raw = {
       id: 'fathers_postcard',
       name: 'Your Father’s Postcard',
       tags: ['document', 'personal'],
+      questItem: true,
       description: 'A postcard of a sunny foreign harbour, addressed to the house in your father’s handwriting: "Weather glorious. Do not look for me. A." The bailiffs left it on the hall table because it was worth nothing.',
-      loreText: 'The postmark is Kestrel Bay. Somebody in town posted it for him.',
+      loreText: 'The postmark is Kestrel Bay. He never left town: he posted it from the box on the quay, a few doors from the boarding house where he spent his first three weeks in hiding.',
       icon: 'card',
     },
     {
@@ -340,7 +345,7 @@ const raw = {
       tags: ['tool'],
       skillModifiers: { service: 1 },
       description: 'A battered waiter’s corkscrew from the bar where you poured drinks for two years under a different surname.',
-      loreText: 'Clara knew exactly where you were those two years. A birthday card arrived there every year, unsigned, in small upright handwriting.',
+      loreText: 'Clara always knew where you were those two years. A birthday card arrived there every year, unsigned, in small upright handwriting.',
       icon: 'tools',
     },
   ],
@@ -578,7 +583,7 @@ const raw = {
       description:
         'The old housekeeper’s room, which Clara kept for herself instead of taking any of the forty upstairs. A desk, a green-shaded lamp, a telephone, a narrow bed behind a curtain, and the wedding seating plan pinned to the wall with a hundred and twenty names on it. A cream envelope with a crest is tucked under the blotter.',
       artDirection:
-        'Small tidy housekeeper’s office below stairs, a desk with a green-shaded lamp and an open ledger, a seating plan pinned to the wall, a curtain half drawn across a narrow bed. Neat, private, lamplit.',
+        'Small tidy housekeeper’s office below stairs, a desk with a green-shaded lamp and an open ledger, a seating plan pinned to the wall, a curtain half drawn across an alcove. Neat, private, lamplit.',
       connections: [{ to: 'the_kitchen', travelMinutes: 1, label: 'Back into the kitchen' }],
       discoveredByDefault: true,
       mapPosition: { x: -2, y: 0 },
@@ -648,6 +653,7 @@ const raw = {
         { to: 'the_ballroom', travelMinutes: 1, label: 'Up through the terrace doors' },
         { to: 'the_kitchen', travelMinutes: 2, label: 'In through the kitchen-garden door' },
         { to: 'the_front_gates', travelMinutes: 4, label: 'Round the side of the house to the drive' },
+        { to: 'the_cellar', travelMinutes: 3, label: 'Down the old coal chute' },
       ],
       discoveredByDefault: true,
       mapPosition: { x: 1, y: 1 },
@@ -691,7 +697,7 @@ const raw = {
       name: 'Pemberton Hall',
       shortName: 'Pemberton Hall',
       description:
-        'A white stucco house on the opposite hill, newer and larger than Larkspur and less loved, with a glasshouse full of orchids and a study window that looks straight across the valley at your old bedroom. Everything here is polished, and everything has a price on the underside.',
+        'A white stucco house on the opposite hill, newer and larger than Wrenhurst and less loved, with a glasshouse full of orchids and a study window that looks straight across the valley at your old bedroom. Everything here is polished, and everything has a price on the underside.',
       artDirection:
         'Immaculate white stucco country house, a Victorian glasshouse full of orchids, a study with a large desk and a window framing a distant older mansion across a valley. Cool, expensive, controlled.',
       connections: [{ to: 'harbour_town', travelMinutes: 10, label: 'Back down into town' }],
@@ -717,7 +723,7 @@ const raw = {
     {
       id: 'faction_below_stairs',
       name: 'Below Stairs',
-      description: 'The staff of Larkspur House: Hugo, Midge, Clara when she forgets she owns the place, two daily women from town and a gardener who comes on Tuesdays. They eat together at the kitchen table and they have not yet decided where you sit.',
+      description: 'The staff of Wrenhurst House: Hugo, Midge, Clara when she forgets she owns the place, two daily women from town and a gardener who comes on Tuesdays. They eat together at the kitchen table and they have not yet decided where you sit.',
       startingReputation: 10,
       ranks: [
         { atReputation: 0, label: 'The Young Master' },
@@ -733,7 +739,7 @@ const raw = {
       description: 'Lady Pemberton’s private bank and everybody in town who owes it money, which is most of the high street. Patient, polite, and always on paper.',
       startingReputation: 0,
       ranks: [
-        { atReputation: 0, label: 'A Debtor’s Child' },
+        { atReputation: 0, label: 'Old Money, No Money' },
         { atReputation: 25, label: 'Useful' },
         { atReputation: 50, label: 'Her Friend in the House' },
       ],
@@ -758,9 +764,9 @@ const raw = {
     {
       id: 'clara',
       name: 'Clara Voss',
-      role: 'The new owner of Larkspur House, and for eleven years before that, its maid',
+      role: 'The new owner of Wrenhurst House, and for eleven years before that, its maid',
       cardBlurb:
-        'She ironed your shirts for eleven years and bought your house yesterday, and now she has offered you a job. She will not explain the money, she will not be called the help, and she has never once let you off a chore.',
+        'She kept this house running for eleven years and bought it at auction yesterday, and now she has offered you a job. She will not explain the money, she will not be called the help, and she has already found you a bucket.',
       pronouns: 'she/her',
       publicTraits: ['Precise about everything, including insults', 'Never raises her voice and never needs to', 'Works harder than anybody she employs'],
       hiddenDrives: [
@@ -790,7 +796,7 @@ const raw = {
       secrets: [
         {
           id: 'clara_the_note',
-          fact: 'She bought the house with eleven years of savings, Hugo Ashworth’s pension and a fourteen-day bridging loan. Three days ago Lady Pemberton quietly bought that loan. It falls due the morning after the wedding, and if the house cannot pay it, Lady Pemberton takes it.',
+          fact: 'She bought the house with eleven years of savings, Hugo Ashworth’s pension and a fourteen-day bridging loan. Yesterday, an hour after the hammer fell, Lady Pemberton bought that loan through a nominee. It falls due the morning after the wedding, and if the house cannot pay it, Lady Pemberton takes it.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you herself, in the office, late, if you have done a full day’s work without being asked twice and then ask her a straight question about the money.',
         },
@@ -802,7 +808,7 @@ const raw = {
         },
         {
           id: 'clara_the_promise',
-          fact: 'In her last year, the player’s mother asked Clara to keep an eye on the house and on the people in it. Clara has never told anybody, and it is not why she bought the house, though she has stopped being sure.',
+          fact: 'In her last year, the player’s mother asked Clara to keep an eye on the house. Clara has never told anybody, and it is not why she bought the house, though she has stopped being sure.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'Only on the third landing at night, and only once the player has stopped calling her anything but her name.',
         },
@@ -811,9 +817,9 @@ const raw = {
         'Clipped and exact. Counts things out loud: stairs, spoons, days left, wages docked. Says "young master" in a tone that changes meaning with the day. Bone-dry jokes delivered as instructions. Never raises her voice; lowers it instead.',
       topics: ['the house', 'the wedding', 'the money', 'your wages', 'Hugo', 'Lady Pemberton', 'the old days'],
       voiceSamples: [
-        'Good morning, young master. Three hundred stairs. Start at the top.',
+        'Day one of fourteen, young master. I have a list for every one of them, and you are on all fourteen.',
         'One: apron. Two: bucket. Three: the attic landing. Four is complaining, and four comes after three.',
-        'I ironed forty of your shirts a week for eleven years. Do not explain to me what you can and cannot do.',
+        'I ironed forty of this family’s shirts a week for eleven years. Do not explain to me what you can and cannot do.',
         'That is a day’s wage, docked. I have written it down. You may read the entry if you like; the ledger is very clear.',
         'I bought it because the alternative was a hotel. I scrubbed every one of these floors on my knees, and nobody pours concrete on them while I am alive.',
       ],
@@ -871,9 +877,9 @@ const raw = {
       id: 'midge',
       name: 'Imogen Marsh',
       calledName: 'Midge',
-      role: 'The under-maid Clara hired last week, who has read about you in the society pages for years',
+      role: 'The under-maid Clara hired the afternoon of the auction, who has read about you in the society pages for years',
       cardBlurb:
-        'She started three days before you, she has followed your family in the society pages for years, and she is now in charge of showing you where the buckets live. She will gossip about you to the whole town and cover for you exactly once.',
+        'She started the day before you, she has followed your family in the society pages for years, and she is now in charge of showing you where the buckets live. She will gossip about you to the whole town and cover for you exactly once.',
       pronouns: 'she/her',
       publicTraits: ['Talks fast and notices faster', 'Starstruck and unimpressed at the same time', 'Knows everybody in town and their business'],
       hiddenDrives: [
@@ -885,7 +891,7 @@ const raw = {
       socialStyle: 'Talks at speed, in asides, while doing three jobs. Treats you as a celebrity and a new hire in alternating sentences.',
       boundaries: [
         'Will not lie to Hugo, about anything, ever',
-        'Will not do your share of the work more than once, and will tell you exactly when that once was',
+        'Will not do your share of the work more than once, and will tell you the day and the hour of that once',
       ],
       goals: ['Keep this job', 'Find out what really happened at the auction, and where your father went'],
       secrets: [
@@ -958,7 +964,7 @@ const raw = {
       pronouns: 'she/her',
       publicTraits: ['Gracious in a way that leaves marks', 'Never in a hurry', 'Remembers every slight and every favour, filed separately'],
       hiddenDrives: [
-        'As a young woman she was told at a ball in Larkspur House that she was not the sort who would ever live in it, and she has been looking at it across the valley ever since',
+        'As a young woman she was told at a ball in Wrenhurst House that she was not the sort who would ever live in it, and she has been looking at it across the valley ever since',
         'She has decided Clara Voss is an insult to the natural order, and is a little ashamed of how much she admires her',
       ],
       values: ['Patience, which she considers the only real form of wealth', 'Paper: deeds, notes, signatures. Feelings change and paper does not'],
@@ -977,7 +983,7 @@ const raw = {
       secrets: [
         {
           id: 'pemberton_the_note',
-          fact: 'Three days ago she bought Clara’s bridging loan from the lender, through a nominee. If the house cannot pay it on the fifteenth morning, she owns Larkspur House by breakfast.',
+          fact: 'Yesterday, an hour after the hammer fell, she bought Clara’s bridging loan from the lender, through a nominee. If the house cannot pay it on the fifteenth morning, she owns Wrenhurst House by breakfast.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you herself, as an offer rather than a confession, the first time you come to her house alone.',
         },
@@ -996,12 +1002,12 @@ const raw = {
       ],
       speechStyle:
         'Silken and unhurried. Calls everybody "darling" in a voice that turns it into a ranking. Compliments that are also inventories. Never asks a direct question when an observation will do the same work.',
-      topics: ['the auction', 'the loan', 'your father', 'the hotel', 'the old balls at Larkspur', 'Clara'],
+      topics: ['the auction', 'the loan', 'your father', 'the hotel', 'the old balls at Wrenhurst', 'Clara'],
       voiceSamples: [
         'Such a pity about the carpets, darling. I always admired them, from the other side of the room.',
         'Patience is the only real wealth. Everything else is merely money, and money changes hands so easily.',
         'Bring me one page from that woman’s ledger and you may have your old bedroom back. With a key to it.',
-        'I was nineteen at the last ball in that house. Somebody’s mother told me, very kindly, to enjoy it while I was there.',
+        'At my first ball in that house, somebody’s mother told me, very kindly, to enjoy it while I was there.',
       ],
       appearance:
         'Fifty-eight, elegant, silver-blonde hair set in soft waves, pearl earrings, a camel coat over a silk blouse, gloves she removes one finger at a time.',
@@ -1040,13 +1046,13 @@ const raw = {
     {
       id: 'hugo',
       name: 'Hugo Ashworth',
-      role: 'Butler of Larkspur House for forty-one years, who stayed on when the money went',
+      role: 'Butler of Wrenhurst House for forty-one years, who stayed on when the money went',
       cardBlurb:
         'He taught you to tie a tie and taught Clara everything else, and he is the one person in the house loyal to both of you. He will teach you to serve if you ask him properly, and he is keeping a secret about the top floor.',
       pronouns: 'he/him',
       publicTraits: ['Unshakeably formal', 'Notices a smudge on silver at forty paces', 'Kind in ways that are never mentioned again'],
       hiddenDrives: [
-        'After forty-one years serving one family he has quietly decided the house matters more than the name over the door',
+        'After forty-one years serving one family he has decided the house matters more than the name over the door',
         'He wants to retire knowing somebody can do his job, and has begun to suspect it might be the player',
       ],
       values: ['Doing a thing properly when nobody is watching', 'Discretion, which is not the same as lying, though lately he has been doing both'],
@@ -1133,13 +1139,13 @@ const raw = {
     {
       id: 'augustin',
       name: 'Augustin',
-      role: 'Your father, former master of Larkspur House, officially abroad and actually in the attic',
+      role: 'Your father, former master of Wrenhurst House, who vanished the night the bailiffs came',
       cardBlurb:
-        'He is supposed to be abroad, avoiding his creditors. He is in fact living in the attic box room on biscuits and giving orders from a wardrobe, and he needs you to keep him secret from the woman who now owns the roof over his head.',
+        'He vanished the night the bailiffs came and left one postcard: weather glorious, do not look for me. He has never once been where he told you he would be, and he has never once failed to talk you into something.',
       pronouns: 'he/him',
       publicTraits: ['Grandly, cheerfully self-deceiving', 'Charming to everybody, including bailiffs', 'Has never once been on time for a consequence'],
       hiddenDrives: [
-        'He knows exactly how badly he failed and has decided that if he says it out loud he will never get up again',
+        'He knows how badly he failed and has decided that if he says it out loud he will never get up again',
         'He wants his heir to think well of him more than he wants the house back, and has not noticed yet',
       ],
       values: ['Style under pressure', 'The family name, which he thinks of as a thing rather than a set of people'],
@@ -1179,8 +1185,8 @@ const raw = {
       ],
       appearance:
         'Fifty-six, handsome gone slightly to seed, a silk dressing gown over yesterday’s shirt, nine days of silver stubble, still wearing very good shoes.',
-      visualHook: 'A burgundy silk dressing gown with the family crest on the pocket, worn like a robe of office in a dusty attic.',
-      silhouette: 'Crouched in the doorway of a box room under a sloping roof, one finger raised for silence.',
+      visualHook: 'A burgundy silk dressing gown with the family crest on the pocket, worn like a robe of office.',
+      silhouette: 'Standing very straight in a burgundy dressing gown, one finger raised for silence.',
       artSeed: 'tmohn-augustin-01',
       portrait: null,
       expressions: ['neutral', 'sheepish', 'grinning', 'anxious', 'grieving', 'warm'],
@@ -1288,7 +1294,7 @@ const raw = {
     {
       id: 'q_three_hundred_stairs',
       title: 'Three Hundred Stairs',
-      summary: 'The maid who looked after your family for eleven years owns the house now, and she is holding out an apron. Start at the top, where something is creaking.',
+      summary: 'The woman who kept your family’s house for eleven years owns it now, and she is holding out an apron. Start at the top, where something is creaking.',
       kind: 'MAIN',
       startsActive: true,
       involvedCharacterIds: ['clara', 'hugo', 'augustin'],
@@ -1604,7 +1610,7 @@ const raw = {
           id: 'the_painting',
           playerCopy: 'Decide what happens to the painting behind the water tank.',
           directorNotes:
-            'The seascape is worth about what Clara owes, and it belongs to the creditors. Handing it over clears the father and costs the family its last good thing. Selling it quietly through the antiques shop on the quay could pay off Lady Pemberton, and it is theft, and Silas will know within a week. Giving it to Clara means Clara decides, and she will give it to Silas herself. Leaving it there is also an answer.',
+            'The seascape is worth about what Clara owes, and it belongs to the creditors. Handing it over clears the father and costs the family its last good thing. Selling it through the antiques shop on the quay could pay off Lady Pemberton, and it is theft, and Silas will know within a week. Giving it to Clara means Clara decides, and she will give it to Silas herself. Leaving it there is also an answer.',
           enterWhen: { flagsSet: ['father_decided'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1759,7 +1765,7 @@ const raw = {
           id: 'answer_her',
           playerCopy: 'Give Lady Pemberton an answer.',
           directorNotes:
-            'She is not a cartoon. She offers something the player genuinely lost and genuinely wants, and she offers it kindly. Taking it is a real route with a real ending, and she keeps her side of the bargain to the letter. Refusing her costs nothing today and something later: she is patient, and she remembers. Playing her along is possible exactly once.',
+            'She is not a cartoon. She offers something the player genuinely lost and genuinely wants, and she offers it kindly. Taking it is a real route with a real ending, and she keeps her side of the bargain to the letter. Refusing her costs nothing today and something later: she is patient, and she remembers. Playing her along works once.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1804,7 +1810,7 @@ const raw = {
       summary: 'Late at night the house stops being a workplace, and Clara stops being your employer for about as long as it takes to drink a cup of tea on the back stair.',
       kind: 'SIDE',
       involvedCharacterIds: ['clara'],
-      involvedLocationIds: ['the_back_stair', 'claras_office', 'the_gardens'],
+      involvedLocationIds: ['the_back_stair', 'the_gardens'],
       knownRewardCopy: 'Whatever the two of you are, said out loud or not.',
       discoverWhen: {
         flagsSet: ['first_morning_done'],
@@ -1815,7 +1821,7 @@ const raw = {
           id: 'the_third_landing',
           playerCopy: 'Find out what the two of you are when the work stops.',
           directorNotes:
-            'Slow, adult, between equals, and entirely optional. Clara will not be courted by anybody treating her as the help or as the woman who used to tidy up after them; the player has to have worked beside her first, and the scene is about that. Banter, held looks, one honest sentence, at most a kiss on the stair. If the player pushes, she says no and means it, and the next morning she is their employer again, exactly.',
+            'Slow, adult, between equals, and entirely optional. Clara will not be courted by anybody treating her as the help or as the woman who used to tidy up after them; the player has to have worked beside her first, and the scene is about that. Banter, held looks, one honest sentence, at most a kiss on the stair. If the player pushes, she says no and means it, and the next morning she is their employer again.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1859,7 +1865,7 @@ const raw = {
     {
       id: 'q_whose_house',
       title: 'Whose House It Is',
-      summary: 'The morning after the wedding somebody arrives with the loan, a pen and a smile. By breakfast Larkspur House belongs to Clara, to Lady Pemberton, or to whoever you helped.',
+      summary: 'The morning after the wedding somebody arrives with the loan, a pen and a smile. By breakfast Wrenhurst House belongs to Clara, to Lady Pemberton, or to whoever you helped.',
       kind: 'MAIN',
       involvedCharacterIds: ['clara', 'pemberton', 'hugo'],
       involvedLocationIds: ['claras_office', 'the_front_hall'],
@@ -1981,9 +1987,9 @@ const raw = {
       atWorldMinute: 2 * 1440 + 8 * 60,
       locationId: 'harbour_town',
       publicCopy:
-        'The Kestrel Bay Gazette runs a photograph on its society page: the heir of Larkspur House on the front steps, in an apron, with a bucket. Headline: HOW THE MIGHTY SCRUB.',
+        'The Kestrel Bay Gazette runs a photograph on its society page: the heir of Wrenhurst House on the front steps, in an apron, with a bucket. Headline: HOW THE MIGHTY SCRUB.',
       directorNotes:
-        'Midge took it. She is sick about it. The town finds it hilarious for a day, then a few people find it admirable, which is worse for Lady Pemberton than anything else that has happened this week.',
+        'Midge took it. She is sick about it. The town finds it hilarious for a day, then a few people find it admirable, and that bothers Lady Pemberton more than anything else that has happened this week.',
       setsFlags: ['in_the_paper'],
       cancelledByFlags: [],
       requiresFlags: ['wears_the_apron'],
@@ -2061,7 +2067,7 @@ const raw = {
       kind: 'MYSTERY',
       label: 'How a maid paid for a forty-room house',
       seedHint: 'Clara does the accounts at midnight and closes the ledger whenever anybody comes in.',
-      payoffHint: 'Eleven years of savings, an old man’s pension, and a loan that Lady Pemberton has quietly bought.',
+      payoffHint: 'Eleven years of savings, an old man’s pension, and a loan that Lady Pemberton bought an hour after the hammer fell.',
       weight: 0.9,
     },
     {
@@ -2133,9 +2139,9 @@ const raw = {
       id: 'arch_black_sheep',
       name: 'The Black Sheep',
       role: 'Worked-for-a-living background',
-      summary: 'You walked out on the family two years ago and poured drinks for a living, so you already know how to work, how to carry a tray and how to lie to a manager.',
+      summary: 'You walked out on the family two years ago and poured drinks for a living. You know how to work, carry a tray and lie to a manager, and Clara always knew where you were: an unsigned card came every birthday.',
       playstyle: ['Streetwise', 'Quick liar', 'Knows real work'],
-      blurb: 'Your father told everybody you were travelling. You were three streets from the harbour, behind a bar, and only one person in the house ever came to look.',
+      blurb: 'Your father told everybody you were travelling. You were three streets from the harbour, behind a bar, and only one person in the house ever bothered to find you.',
       attributeBonus: { agility: 2, presence: 1 },
       skillProficiencies: { bluff: 2, service: 2, graft: 1 },
       startingItems: [{ itemId: 'bar_corkscrew', qty: 1 }],
@@ -2227,7 +2233,7 @@ const raw = {
       condition:
         'The wedding worked and the loan was paid because the player stood beside Clara when it mattered, and she asks them to run the house with her as a partner rather than staff. A business first, and a romance only if it is also that. Write the paperwork and the argument about whose name goes first on the brass plate.',
       epilogue:
-        'Larkspur House takes bookings under two names. The partners argue about everything in the office below stairs and agree about everything in front of clients. Hugo refuses, politely and permanently, to be told which of them is in charge.',
+        'Wrenhurst House takes bookings under two names. The partners argue about everything in the office below stairs and agree about everything in front of clients. Hugo refuses, politely and permanently, to be told which of them is in charge.',
       hint: 'She has been doing the sums alone. She would rather not.',
     },
     {
@@ -2271,7 +2277,7 @@ const raw = {
       minTurn: 28,
       requires: { flagsSet: ['took_pemberton_deal'] },
       condition:
-        'The player took Lady Pemberton’s offer and kept their side of it. She keeps hers exactly: the old allowance, a key to the old bedroom in a house that is now hers, and a seat at her table. Do not punish this in the prose. It is a coherent choice for somebody raised to expect comfort, and the only cost is the people.',
+        'The player took Lady Pemberton’s offer and kept their side of it. She keeps hers, every word of it: the old allowance, a key to the old bedroom in a house that is now hers, and a seat at her table. Do not punish this in the prose. It is a coherent choice for somebody raised to expect comfort, and the only cost is the people.',
       epilogue:
         'The allowance arrives on the first of every month. The old bedroom is redecorated in Lady Pemberton’s taste. Clara is civil in the street, which is worse than anything she could have said, and Hugo, asked to serve at the hotel opening, declines in writing.',
       hint: '',
@@ -2298,7 +2304,7 @@ const raw = {
       minTurn: 38,
       requires: { flagsSet: ['house_saved', 'saved_dirty'] },
       condition:
-        'The house was saved with the painting money, which belonged to the creditors. It worked, and everybody who matters knows exactly what it cost: Silas Dunmore knows, and Clara knows and has not decided what to do about it. Write a victory that sits slightly wrong in everybody’s mouth.',
+        'The house was saved with the painting money, which belonged to the creditors. It worked, and everybody who matters knows what it cost: Silas Dunmore knows, and Clara knows and has not decided what to do about it. Write a victory that sits slightly wrong in everybody’s mouth.',
       epilogue:
         'The loan is paid on the fifteenth morning, in full, through a dealer two counties away. Silas writes one line in his notebook and closes it. Clara pays the creditors back out of the house’s takings, a little every month, without telling anybody, and it takes her nine years.',
       hint: '',
@@ -2341,7 +2347,7 @@ const raw = {
         flagsUnset: ['took_pemberton_deal'],
       },
       condition:
-        'The player never took the apron. They found a room and a job in town and stayed in the story from outside the gates, a friend to the house rather than a servant in it. Whatever happened to Larkspur happened with them as a visitor. Write the dignity of that, and the distance.',
+        'The player never took the apron. They found a room and a job in town and stayed in the story from outside the gates, a friend to the house rather than a servant in it. Whatever happened to Wrenhurst happened with them as a visitor. Write the dignity of that, and the distance.',
       epilogue:
         'They come up the hill on Thursday evenings and are let in by the front door. Clara offers tea, never an apron. Neither of them mentions the morning in the hall, and once, years later, they both laugh about it at the same moment.',
       hint: '',

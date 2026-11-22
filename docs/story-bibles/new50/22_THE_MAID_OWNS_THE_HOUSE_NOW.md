@@ -1,7 +1,7 @@
 # THE MAID OWNS THE HOUSE NOW
 
 **Genre:** romantic comedy, role reversal, slice of life, light drama
-**One-line fantasy:** Your family went broke. Their maid of eleven years bought the mansion at auction, and now you work for her.
+**One-line fantasy:** Your family went broke. Your maid of eleven years bought the mansion at auction, and now you work for her.
 
 Fixture: `packages/test-fixtures/src/the-maid-owns-the-house-now.ts` (`THE_MAID_OWNS_THE_HOUSE_NOW`)
 Story id: `story_the_maid_owns_the_house_now` · asset prefix `story_the_maid_owns_the_house_now/`
@@ -16,18 +16,18 @@ A player can spend ten turns scrubbing stairs and arguing about napkins and have
 
 ## Story bible
 
-**Larkspur House**: forty rooms on a cliff above the harbour town of **Kestrel Bay**, owned by the player's family for a hundred and ten years. A ballroom, a rose garden, a servants' stair and three hundred stairs in total. Ordinary modern world: telephones, cars, a local paper with a society page. Nothing supernatural happens.
+**Wrenhurst House**: forty rooms on a cliff above the harbour town of **Kestrel Bay**, owned by the player's family for a hundred and ten years. A ballroom, a rose garden, a servants' stair and three hundred stairs in total. Ordinary modern world: telephones, cars, a local paper with a society page. Nothing supernatural happens.
 
-Last month the money ran out. The bailiffs came, the player's father vanished the same night, and the receivers sold everything with a price on it, including the house. Yesterday it went at auction to **Clara Voss**, thirty, the family's maid for eleven years. Nobody in town knows how a maid paid for a mansion.
+Last month the money ran out. The bailiffs came, the player's father vanished the same night, and the receivers sold everything with a price on it, including the house. Yesterday it went at auction to **Clara Voss**, thirty, the family's maid for eleven years. She joined the household at nineteen, when the player was eighteen. Nobody in town knows how a maid paid for a mansion.
 
-The player (mid-twenties, the only heir, BLANK protagonist, surname their own) owns the clothes they arrived in and one signet ring. Clara offers them what she would offer anyone: a bed in the servants' wing, meals, a wage if earned, and work.
+The player (twenty-nine, a year younger than Clara, the only heir, BLANK protagonist, surname their own) owns the clothes they arrived in and one signet ring. Clara offers them what she would offer anyone: a bed in the servants' wing, meals, a wage if earned, and work.
 
-The house has one paying booking: **a wedding for a hundred and twenty guests in fourteen days**. If it goes well, an ordinary bank refinances. If it goes badly, the house is lost.
+The house has one paying booking: **a wedding for a hundred and twenty guests in fourteen days**, which Clara took over from the receivers' agent as a condition of her bid. If it goes well, an ordinary bank refinances. If it goes badly, the house is lost.
 
 What the player does not know at the start:
 
-- **What she paid.** Eleven years of savings, Hugo's whole pension, and a fourteen-day bridging loan. Three days ago **Lady Pemberton** quietly bought that loan. It falls due the morning after the wedding.
-- **What is in the attic.** The player's father, **Augustin**, is not abroad. He has been living in the attic box room for nine days, getting in and out through the coal chute. Hugo carries him a tray every night. Clara does not know.
+- **What she paid.** Eleven years of savings, Hugo's whole pension, and a fourteen-day bridging loan. Yesterday, an hour after the hammer fell, **Lady Pemberton** bought that loan through a nominee. It falls due the morning after the wedding.
+- **What is in the attic.** The player's father, **Augustin**, is not abroad. He spent three weeks in a boarding house in town, where he posted the postcard, and has been living in the attic box room for the last nine days, getting in and out through the coal chute. Hugo carries him a tray every night. Clara does not know.
 - **What is behind the water tank.** A seascape by the painter Tomas Ellery, hidden from the receivers. It legally belongs to the creditors and is worth about what Clara owes.
 
 ## Tone and pacing
@@ -65,10 +65,11 @@ The player does not author: whether the family is broke, who owns the house, or 
 
 ### Minimal hard canon
 
-- Everyone is an adult. The player is in their twenties; Clara is thirty; Midge is twenty-two; nobody is younger.
+- Everyone is an adult. The player is twenty-nine and was eighteen when Clara arrived; Clara is thirty; Midge is twenty-two; nobody is younger.
+- Clara came to Wrenhurst House at nineteen. She was never the player's nanny or guardian, nothing in the story shows, remembers or flashes back to the player under eighteen, and "young master" is the household's title for the adult heir, never a comment on age. Clara uses it whatever the player's pronouns.
 - The family is broke; the player owns their clothes and a signet ring.
-- Clara bought Larkspur House at auction yesterday and owns it. The player may refuse her offer.
-- Augustin has hidden in the attic box room for nine days, via the coal chute. Hugo knows. Clara does not.
+- Clara bought Wrenhurst House at auction yesterday and owns it. The player may refuse her offer.
+- Augustin spent three weeks in a boarding house in town (where he posted the postcard), then hid in the attic box room for the last nine days, via the coal chute. Hugo knows. Clara does not.
 - Clara paid with savings, Hugo's pension and a fourteen-day loan, which Lady Pemberton has bought. It falls due the morning after the wedding.
 - One booking: a wedding for 120 in fourteen days. Success means a bank refinances; failure means Lady Pemberton takes the house and builds a hotel.
 - The Ellery seascape is behind the attic water tank and belongs to the creditors. Silas Dunmore is looking for it.
@@ -112,16 +113,16 @@ Every first move finishes the first step: take the apron, start work, bargain, p
 ## Major cast
 
 ### Clara Voss
-**Role:** new owner of Larkspur House; its maid for eleven years before that. Central relationship and employer.
+**Role:** new owner of Wrenhurst House; its maid for eleven years before that. Central relationship and employer.
 **Appearance:** thirty, tall and straight-backed, dark hair in a low knot, grey eyes, plain black dress with sleeves rolled, no jewellery. Visual hook: the old silver hand bell from the hall, on a black ribbon at her wrist, now rung for other people.
 **Want:** get the house through the wedding; find out whether the player is worth the bed she has given them.
 **Fear:** losing the house and having to tell Hugo where his pension went; that the player will only ever see her as staff.
-**Secret:** the loan and who holds it; she outbid Lady Pemberton by one bid to stop a hotel; the player's late mother once asked her to keep an eye on the house and its people.
+**Secret:** the loan and who holds it; she outbid Lady Pemberton by one bid to stop a hotel; the player's late mother once asked her to keep an eye on the house.
 **Voice:** clipped, exact, counts things aloud, says "young master" with a meaning that shifts by the day, docks wages in writing, never raises her voice. *"One: apron. Two: bucket. Three: the attic landing. Four is complaining, and four comes after three."*
 **Gates:** tells you the money (trust 62 after the first morning); drops the title (trust 58, respect 50); off the clock (romance: trust 65, affection 72, respect 50); names a partner (trust 70, respect 65, after learning Hugo's way).
 
 ### Imogen "Midge" Marsh
-**Role:** under-maid hired three days before the player; has followed the family in the society pages for years.
+**Role:** under-maid Clara hired the afternoon of the auction, a day before the player started; has followed the family in the society pages for years.
 **Appearance:** twenty-two, wiry and quick, freckled, red-brown hair escaping her cap, grey uniform, a man's wristwatch. Hook: pencil stub behind her ear, rolled society magazine.
 **Want:** keep this job; one day run a house like Clara does.
 **Fear:** being sacked; being the reason something bad happens to Clara.
@@ -133,7 +134,7 @@ Every first move finishes the first step: take the apron, start work, bargain, p
 **Appearance:** fifty-eight, silver-blonde waves, pearls, camel coat, gloves removed one finger at a time. Hook: a silver-topped cane she does not need.
 **Want:** collect on the loan and take the house; recruit the heir inside it.
 **Fear:** being laughed at in her own town; dying in the wrong house.
-**Secret:** she bought the loan; her bank made sure Larkspur was called in first when Augustin's venture failed; the hotel plans are already drawn.
+**Secret:** she bought the loan; her bank made sure Wrenhurst was called in first when Augustin's venture failed; the hotel plans are already drawn.
 **Voice:** silken, unhurried, "darling" as a ranking, compliments that are inventories. *"Such a pity about the carpets, darling."*
 
 ### Hugo Ashworth
@@ -146,7 +147,8 @@ Every first move finishes the first step: take the apron, start work, bargain, p
 
 ### Augustin
 **Role:** the player's father, former master of the house; officially abroad, actually in the attic.
-**Appearance:** fifty-six, handsome gone to seed, nine days of silver stubble, very good shoes. Hook: a burgundy silk dressing gown with the family crest, worn like a robe of office.
+**Card (public):** "Your father, former master of Wrenhurst House, who vanished the night the bailiffs came." The story page shows the cast before Play, so his role, blurb, hook and silhouette never mention the attic or the box room.
+**Appearance:** fifty-six, handsome gone to seed, nine days of silver stubble, very good shoes. Hook: a burgundy silk dressing gown with the family crest, worn like a robe of office. Shame played for comedy and warmth; never a danger to himself.
 **Want:** stay hidden until the summons lapses; get the house back with a plan involving the painting.
 **Fear:** facing his creditors; being seen by Clara hiding in a cupboard.
 **Secret:** the Ellery seascape; he signed the house as security for a failed harbour venture financed by Pemberton & Thorne.
@@ -179,13 +181,13 @@ All three are invisible and banded; the prose shows them.
 - **The Attic Rooms**: old servants' bedrooms, knocking water tank, the box room.
 - **The Kitchen**: iron range, long table, bell-board, Hugo's pantry, Clara's office.
 - **Clara's Office**: ledger, seating plan, cream envelope under the blotter.
-- **The Cellar**: empty racks, the coal chute with a freshly oiled bolt.
+- **The Cellar**: empty racks, the coal chute with a freshly oiled bolt (it runs both ways between the cellar and the garden).
 - **The Ballroom**: unlit chandelier, dust sheets, a pigeon in the musicians' gallery.
 - **The Long Gallery**: portraits and eleven guest bedrooms, the player's old room among them.
 - **The Rose Garden**: terraces to the sea wall, boathouse, a view of Pemberton Hall.
 - **The Front Gates**: lime avenue, crest, a bell on a chain, Silas.
 - **Kestrel Bay**: harbour town, bank, the Anchor, the Gazette, an antiques shop on the quay.
-- **Pemberton Hall**: white stucco, orchids, a study window aimed at Larkspur.
+- **Pemberton Hall**: white stucco, orchids, a study window aimed at Wrenhurst.
 
 **Objects:** signet ring, black apron (new, in the player's size, bought the day before the auction), Clara's ledger, the cream envelope signed "H", the wedding booking (item nine: no visible staff after midnight), the Ellery seascape, Hugo's keys (one unlabelled), the night tray, the father's postcard (postmarked Kestrel Bay), the house silver for twenty-four.
 
@@ -242,10 +244,10 @@ Attack, lie, refuse, wander: each has a mechanical home (Lose Your Temper, Cover
 
 ### Shared visual direction
 
-Polished anime key-art finish: clean linework, soft cel shading, cinematic seaside light, strong colour separation, readable silhouettes. Everyone is drawn as a clear adult. No fan service, no lingering body framing; costumes are working clothes and period-neutral modern dress. No generated typography.
+Polished anime key-art finish: clean linework, soft cel shading, cinematic seaside light, strong colour separation, readable silhouettes. No fan service, no lingering body framing; costumes are working clothes and period-neutral modern dress. No generated typography.
 
 ### Cover prompt
-Vertical romantic comedy anime key art. Clara Voss, a tall straight-backed thirty-year-old woman with dark hair in a low knot and level grey eyes, in a plain black dress with rolled sleeves, stands at the foot of a stripped marble staircase holding out a folded black apron toward the viewer, a silver hand bell on a ribbon at her wrist. Pale squares on the walls where paintings hung, grey dawn sea light through tall windows. Behind her, small on the landing, an elderly butler in a tailcoat pretends not to watch. Dry, warm, faintly amused. Title-safe space at the top.
+Vertical romantic comedy anime key art. Clara Voss, a tall straight-backed woman with dark hair in a low knot and level grey eyes, in a plain black dress with rolled sleeves, stands at the foot of a stripped marble staircase holding out a folded black apron toward the viewer, a silver hand bell on a ribbon at her wrist. Pale squares on the walls where paintings hung, grey dawn sea light through tall windows. Behind her, small on the landing, a silver-haired butler in a tailcoat pretends not to watch. Dry, warm, faintly amused. Title-safe space at the top.
 
 ### Opening panel
 `story_the_maid_owns_the_house_now/opening`: Clara in a plain black dress at the foot of a bare marble staircase, holding out a folded black apron, grey dawn light through tall windows.
