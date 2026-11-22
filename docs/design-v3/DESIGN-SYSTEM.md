@@ -111,6 +111,7 @@ are Source Serif, the font of the rejected design v2.
 
 | Role | Family | Size / line | Weight | Dynamic Type base | Used for |
 |---|---|---|---|---|---|
+| `title.xxl` | Kaisei Tokumin | 52–56 / +4, tracking −1% | 800 | Large Title | Chapter, end card and welcome titles only (short titles) |
 | `title.xl` | Kaisei Tokumin | 44 / 48, tracking −1% | 800 | Large Title | Title cards: chapter, end, onboarding headline, paywall headline |
 | `title.l` | Kaisei Tokumin | 30 / 36 | 800 | Title 1 | One per screen: tab titles, story name, balance number |
 | `title.m` | Kaisei Tokumin | 22 / 28 | 800 | Title 2 | Rank numerals, section titles on story pages, archetype names |
@@ -250,7 +251,7 @@ in our shapes.
 continues the scene. Above it sits the turn-quality line in `ui.meta`: "Vivid · ◆60 a
 turn · 20 left ›".
 
-**Check and state changes.** Square tags under a beat: "✓ READ THE ROOM ·
+**Check and state changes** (only if the engine path returns; production `runTurnPure` has no checks or deltas today, so the Play mockups show none). Square tags under a beat: "✓ READ THE ROOM ·
 SUCCESS", "▲ AYAME · TRUST", "▣ BRASS KEY". The glyph carries the meaning, not
 the color.
 
@@ -307,3 +308,28 @@ collects them).
 | SF Mono for credits | SF Pro tabular figures |
 | radii 10/12/14/20 | 3 (print), 24% (faces), capsule (yours), 20 (sheets) |
 | page gutter 14 | `margin` 20 |
+
+## The board, screen by screen
+
+All 24 artboards use real art from `infra/seed/assets` and real story text from
+`packages/test-fixtures`. Like and play counts are production numbers
+(`story_signals`, 2026-11-22). Board source: `board/project/`.
+
+| Screen | What changes from today |
+|---|---|
+| Home | Featured banner becomes a 3-cover manga page over a blurred copy of the lead cover. "Continue" shows the last line of your story, with the speaker's face. Ranked list uses big Mincho numerals and the story's one-line hook. Violet and amber gone. |
+| Play: your turn | Scene art full screen. Beats sit in smoked panels of the story's tint. Narration gray, dialogue white with a rounded-square face. Your line is round, with your circle. Reply cards are round, editable (pencil) and say-able (↑). Light composer with a separate » continue. Turn quality and cost sit above it in one line. |
+| Play: writing | The new beat opens on the art; a location kicker; text streams with a caret; » becomes a spinner, send becomes stop. No typing dots. |
+| Chapter card | New. Replaces the violet "Arc" card with a full-screen title card (Kaisei Tokumin, vertical 第二章). |
+| End card | New. Today no run ever ends. Ending title card with the real epilogue, cast faces, endings left, "Find another ending". |
+| Story page | Cover beside four stat cells (likes, plays, endings, people) as one panel page; title in Mincho; premise in book type; endings list with found / hidden. |
+| Who are you? | Archetypes as print cards with Mincho names; selection is a paper outline plus a check; reasons as a radio list; sticky "You enter as Ren" bar. |
+| World sheet | Sheet over the scene. Example content (Ayame's rules, who is here, what you carry). What data production can supply here is a separate question. |
+| Search | Field and filters are round; results are cover + hook rows. |
+| First run | Welcome over drifting cover columns with a title card; steps reduced to 3 (name + birthday together); Tolan-style light inputs and a reason line under every ask; one circle "next" in the same place. |
+| Prologue | Panels keep the art full screen; headline is a title card. |
+| Library | Each run shows its last line; finished runs show the ending's name as a title. |
+| Create / Pitch | One "Start from an idea" block replaces the white FAB; a draft with no cover gets a designed empty cover. |
+| Profile | Balance in Mincho digits with "about N turns"; relics and badges as rows with their real art; grouped settings list. |
+| Credits / Turn quality / Out of credits / Pass | No gold or violet. Every price says what it buys in turns at Vivid. The out-of-credits screen leads with your story's last line, not a countdown. |
+| Tower | Same game, Ink skin: 塔 title card, streak as squares (no fire emoji), payout ladder drawn as a narrowing tower with the real tiers and arc names. |

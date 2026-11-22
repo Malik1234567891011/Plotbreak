@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Create: your pitch</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@800&amp;family=Zen+Old+Mincho:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F0E0D}
+a{color:#B4ADA3;text-decoration:none}a:hover{color:#F3EFE8}
+button{font:inherit;color:inherit;cursor:pointer}
+textarea::placeholder{color:#948E85;opacity:1}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #0F0E0D; color: #F3EFE8; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased">
+
+  <header style="position: absolute; left: 20px; right: 20px; top: 54px; display: flex; align-items: center">
+    <a href="Create.dc.html" aria-label="Back" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+  </header>
+
+  <div style="position: absolute; left: 20px; right: 20px; top: 112px">
+    <h1 style="margin: 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 30px; line-height: 36px">What’s your story?</h1>
+
+    <div style="position: relative; margin-top: 18px; border-radius: 3px; background: #181715; box-shadow: inset 0 0 0 1px #45413B">
+      <label for="pitch" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Your premise</label>
+      <textarea id="pitch" rows="6" placeholder="Who are you, where are you, and what goes wrong?" style="display: block; width: 100%; box-sizing: border-box; height: 176px; padding: 14px 16px 30px; border: 0; outline: none; resize: none; background: transparent; color: #F3EFE8; font-family: 'Zen Old Mincho', serif; font-size: 17px; line-height: 26px">A night ferry between two islands that only runs when someone on board is about to make the worst decision of their life. You are the new deckhand, and tonight there are three passengers.</textarea>
+      <span style="position: absolute; right: 12px; bottom: 8px; font-size: 12px; line-height: 16px; color: #948E85; font-variant-numeric: tabular-nums">186 / 1,500</span>
+    </div>
+
+    <h2 style="margin: 26px 0 0; font-size: 17px; line-height: 22px; font-weight: 600">Tone</h2>
+    <div role="radiogroup" aria-label="Tone" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px">
+      <button role="radio" aria-checked="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: #22201D; box-shadow: inset 0 0 0 1px #2E2B27; font-size: 15px; font-weight: 500">Warm</button>
+      <button role="radio" aria-checked="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: #22201D; box-shadow: inset 0 0 0 1px #2E2B27; font-size: 15px; font-weight: 500">Funny</button>
+      <button role="radio" aria-checked="true" style="height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: #F3EFE8; color: #0F0E0D; font-size: 15px; font-weight: 600">Tense</button>
+      <button role="radio" aria-checked="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: #22201D; box-shadow: inset 0 0 0 1px #2E2B27; font-size: 15px; font-weight: 500">Grim</button>
+      <button role="radio" aria-checked="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: #22201D; box-shadow: inset 0 0 0 1px #2E2B27; font-size: 15px; font-weight: 500">Epic</button>
+      <button role="radio" aria-checked="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: #22201D; box-shadow: inset 0 0 0 1px #2E2B27; font-size: 15px; font-weight: 500">Dreamlike</button>
+    </div>
+
+    <h2 style="margin: 22px 0 0; font-size: 17px; line-height: 22px; font-weight: 600">Length</h2>
+    <div role="radiogroup" aria-label="Length" style="display: flex; margin-top: 10px; padding: 3px; border-radius: 22px; background: #22201D">
+      <button role="radio" aria-checked="false" style="flex: 1; height: 38px; border: 0; border-radius: 19px; background: none; font-size: 15px; font-weight: 500; color: #B4ADA3">Short</button>
+      <button role="radio" aria-checked="true" style="flex: 1; height: 38px; border: 0; border-radius: 19px; background: #45413B; font-size: 15px; font-weight: 600; color: #F3EFE8">Full</button>
+      <button role="radio" aria-checked="false" style="flex: 1; height: 38px; border: 0; border-radius: 19px; background: none; font-size: 15px; font-weight: 500; color: #B4ADA3">Long</button>
+    </div>
+
+    <h2 style="margin: 22px 0 0; font-size: 17px; line-height: 22px; font-weight: 600">Who do you play?</h2>
+    <div role="radiogroup" aria-label="Who do you play" style="display: flex; flex-direction: column; margin-top: 4px">
+      <button role="radio" aria-checked="true" style="display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0; border: 0; border-bottom: 1px solid #2E2B27; background: none; text-align: left; font-size: 15px"><span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 10px; box-shadow: inset 0 0 0 6px #F3EFE8"></span>Yourself</button>
+      <button role="radio" aria-checked="false" style="display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0; border: 0; background: none; text-align: left; font-size: 15px"><span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 10px; box-shadow: inset 0 0 0 1.5px #45413B"></span>Someone the story already knows</button>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 20px; right: 20px; bottom: 34px">
+    <a href="#" style="display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 26px; background: #F3EFE8; color: #0F0E0D; font-size: 17px; font-weight: 600">Build my story</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

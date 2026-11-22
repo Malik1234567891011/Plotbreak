@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Create</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@800&amp;family=Zen+Old+Mincho:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F0E0D}
+a{color:#B4ADA3;text-decoration:none}a:hover{color:#F3EFE8}
+button{font:inherit;color:inherit;cursor:pointer}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #0F0E0D; color: #F3EFE8; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased">
+
+  <header style="display: flex; align-items: center; height: 48px; margin-top: 54px; padding: 0 20px">
+    <h1 style="margin: 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 30px; line-height: 36px">Create</h1>
+  </header>
+
+  <section aria-labelledby="h-new" style="margin: 16px 20px 0; padding: 20px; border-radius: 3px; background: #181715; box-shadow: inset 0 0 0 1px #2E2B27">
+    <span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.12em; color: #B4ADA3">NEW STORY</span>
+    <h2 id="h-new" style="margin: 8px 0 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 22px; line-height: 28px">Start from an idea</h2>
+    <p style="margin: 6px 0 0; font-family: 'Zen Old Mincho', serif; font-weight: 500; font-size: 16px; line-height: 24px; color: #B4ADA3">Write the premise in a few lines. Plotbreak builds the world, the cast and the opening scene.</p>
+    <div style="display: flex; align-items: center; gap: 20px; margin-top: 18px">
+      <a href="Pitch.dc.html" style="display: inline-flex; align-items: center; height: 48px; padding: 0 24px; border-radius: 24px; background: #F3EFE8; color: #0F0E0D; font-size: 17px; font-weight: 600">Start a story</a>
+      <a href="#" style="font-size: 15px; font-weight: 500">Empty story →</a>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-mine" style="margin-top: 32px; padding: 0 20px">
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <h2 id="h-mine" style="margin: 0; font-size: 20px; line-height: 25px; font-weight: 600">Your stories</h2>
+      <div role="group" aria-label="Filter" style="display: flex; gap: 6px">
+        <button aria-pressed="true" style="height: 30px; padding: 0 12px; border: 0; border-radius: 15px; background: #F3EFE8; color: #0F0E0D; font-size: 13px; font-weight: 600">All</button>
+        <button aria-pressed="false" style="height: 30px; padding: 0 12px; border: 0; border-radius: 15px; background: #22201D; font-size: 13px; font-weight: 500">Drafts</button>
+        <button aria-pressed="false" style="height: 30px; padding: 0 12px; border: 0; border-radius: 15px; background: #22201D; font-size: 13px; font-weight: 500">Published</button>
+      </div>
+    </div>
+    <ul style="list-style: none; margin: 8px 0 0; padding: 0">
+      <li style="display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid #2E2B27">
+        <img src="/_blob/28b3e4851e0d9fa163d5c723c2478292" alt="La Chambre 314 cover" style="display: block; flex: none; width: 60px; height: 90px; object-fit: cover; border-radius: 3px">
+        <span style="display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0">
+          <span style="font-size: 17px; line-height: 22px; font-weight: 600">La Chambre 314</span>
+          <span style="align-self: flex-start; padding: 2px 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px #45413B; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">PUBLISHED</span>
+          <span style="font-size: 12px; line-height: 16px; color: #948E85; font-variant-numeric: tabular-nums">2 plays · 0 likes · French</span>
+        </span>
+        <button aria-label="Manage La Chambre 314" style="flex: none; width: 44px; height: 44px; border: 0; background: none"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="1.6" fill="#948E85"></circle><circle cx="12" cy="12" r="1.6" fill="#948E85"></circle><circle cx="18.5" cy="12" r="1.6" fill="#948E85"></circle></svg></button>
+      </li>
+      <li style="display: flex; align-items: center; gap: 14px; padding: 14px 0">
+        <span aria-hidden="true" style="display: flex; flex: none; align-items: flex-end; width: 60px; height: 90px; padding: 6px; box-sizing: border-box; border-radius: 3px; background: #22201D; box-shadow: inset 0 0 0 1px #45413B; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 12px; line-height: 14px; color: #B4ADA3">No cover yet</span>
+        <span style="display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0">
+          <span style="font-size: 17px; line-height: 22px; font-weight: 600">Untitled story</span>
+          <span style="align-self: flex-start; padding: 2px 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px #45413B; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">DRAFT</span>
+          <span style="font-size: 12px; line-height: 16px; color: #948E85">Step 3 of 8 · Cast</span>
+        </span>
+        <a href="#" aria-label="Keep writing Untitled story" style="flex: none; display: flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 18px; background: #22201D; box-shadow: inset 0 0 0 1px #45413B; color: #F3EFE8; font-size: 13px; font-weight: 600">Continue</a>
+      </li>
+    </ul>
+  </section>
+
+  <nav aria-label="Tabs" style="position: absolute; left: 20px; right: 20px; bottom: 30px; display: flex; height: 64px; border-radius: 32px; background: rgba(24,23,21,0.72); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.10)">
+    <a href="Main.dc.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #948E85">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M3.8 10.9 12 4l8.2 6.9V20.2H14.8v-5.6H9.2v5.6H3.8z"></path></svg>
+      <span style="font-size: 11px; line-height: 13px; font-weight: 500">Discover</span>
+    </a>
+    <a href="Library.dc.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #948E85">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h4v16H4zM10 4h4v16h-4zM15.6 5l3.6-.9 3 15.3-3.6.9z"></path></svg>
+      <span style="font-size: 11px; line-height: 13px; font-weight: 500">Library</span>
+    </a>
+    <a href="Create.dc.html" aria-current="page" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #F3EFE8">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5h7.5l-2 2H5.5v13h13v-5l2-2V19a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19V5A1.5 1.5 0 0 1 5 3.5z" fill="#F3EFE8"></path><path d="M17.5 3l3.5 3.5-8.8 8.8-4.7 1.2 1.2-4.7z" fill="#F3EFE8"></path></svg>
+      <span style="font-size: 11px; line-height: 13px; font-weight: 600">Create</span>
+    </a>
+    <a href="Profile.dc.html" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #948E85">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4.5 21c0-4.2 3.4-6.8 7.5-6.8s7.5 2.6 7.5 6.8"></path></svg>
+      <span style="font-size: 11px; line-height: 13px; font-weight: 500">Profile</span>
+    </a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
