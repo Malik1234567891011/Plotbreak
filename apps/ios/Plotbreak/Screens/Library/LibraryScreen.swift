@@ -26,8 +26,10 @@ struct LibraryScreen: View {
                     TabHeader(t("library.title")) {
                         IconButton(t("discover.search_worlds"), action: { router.present(.search) }) {
                             Image(systemName: "magnifyingglass")
-                                .font(.system(size: 21, weight: .medium))
+                                .font(.system(size: 15, weight: .semibold))
                                 .foregroundStyle(Theme.Colors.textPrimary)
+                                .frame(width: 36, height: 36)
+                                .background(Theme.Colors.bgRaised, in: Circle())
                         }
                     }
 
@@ -86,9 +88,9 @@ struct LibraryScreen: View {
             Spacer(minLength: 0)
         } else {
             ScrollView {
-                VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
+                VStack(alignment: .leading, spacing: 32) {
                     if sessions == nil {
-                        ForEach(0..<3, id: \.self) { _ in Skeleton(height: 100) }
+                        ForEach(0..<3, id: \.self) { _ in Skeleton(height: 84) }
                     }
                     if !active.isEmpty {
                         section(t("library.section_active"), active)
@@ -97,16 +99,20 @@ struct LibraryScreen: View {
                         section(t("library.section_finished"), finished)
                     }
                 }
-                .padding(Theme.pageGutter)
-                .padding(.top, 18)
+                .padding(.horizontal, Theme.pageGutter)
+                .padding(.top, Theme.Spacing.sm)
                 .padding(.bottom, Theme.Spacing.giant)
             }
         }
     }
 
     private func section(_ title: String, _ items: [SessionSummary]) -> some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            SectionLabel(title)
+        VStack(alignment: .leading, spacing: 0) {
+            Text(title.sentenceCased)
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
+                .padding(.bottom, 4)
             ForEach(items) { session in
                 SessionCard(
                     session: session,
@@ -187,29 +193,41 @@ private struct SessionCard: View {
     let onPress: () -> Void
     let onManage: () -> Void
 
+    /// Design v3: a plain row, the cover at 2:3 with an 8pt corner, the
+    /// title, then who you are and how far in. No box.
     var body: some View {
-        Card {
-            HStack(alignment: .top, spacing: Theme.Spacing.md) {
-                StoryArt(seed: session.storyId, title: session.title, uri: session.coverImage)
-                    .frame(width: 52, height: 68)
-                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
+        HStack(alignment: .top, spacing: 14) {
+            StoryArt(seed: session.storyId, title: session.title, uri: session.coverImage)
+                .frame(width: 56, height: 84)
+                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
 
-                VStack(alignment: .leading, spacing: 2) {
-                    Txt(session.title, .bodyStrong, lineLimit: 1)
-                    Txt(t("library.playing_as", ["name": session.displayName]), .caption, color: Theme.Colors.textSecondary)
-                    Txt(
-                        t("library.turns_and_date", ["count": session.turnCount, "date": Format.shortISODate(session.lastPlayedAt, locale: store.locale)]),
-                        .micro, color: Theme.Colors.textMuted
-                    )
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 8) {
+                    Text(session.title)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .lineLimit(1)
                     if session.forkedFromSessionId != nil {
-                        Chip(t("library.fork_badge"))
+                        Text(t("library.fork_badge"))
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundStyle(Theme.Colors.textSecondary)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 5, style: .continuous))
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-                IconButton(t("library.manage_run"), glyph: "⋯", color: Theme.Colors.textMuted, action: onManage)
+                Text(t("library.playing_as", ["name": session.displayName]) + " · "
+                     + t("library.turns_and_date", ["count": session.turnCount, "date": Format.shortISODate(session.lastPlayedAt, locale: store.locale)]))
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .lineLimit(2)
             }
+            .padding(.top, 6)
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            IconButton(t("library.manage_run"), glyph: "⋯", color: Theme.Colors.textMuted, action: onManage)
         }
+        .padding(.vertical, 10)
         .contentShape(Rectangle())
         .onTapGesture {
             Haptic.play(.light)
