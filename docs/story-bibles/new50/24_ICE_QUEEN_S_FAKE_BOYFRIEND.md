@@ -100,7 +100,9 @@ campus already knows about them. The archetype is characterisation, not a script
 
 - The player is an adult second-year student, twenty or older.
 - Akane introduced the player as her boyfriend at twenty to one on Monday, and the player has not
-  agreed to anything yet.
+  agreed to anything yet. Before that she had never once called the player by name.
+- She said "boyfriend" whatever the player's gender; the word stuck, the gossip page uses it, and
+  Darren keeps it as a nickname.
 - The gala announcement is Saturday at nine.
 - It was the forum three weeks ago that made her pick the player.
 
@@ -135,7 +137,11 @@ nickname is glossed in the sentence that uses it.
 3. Risky: I shake his hand. "Honestly? I've never met her before in my life."
 
 Whatever the player does, Darren leaves with a parting line about the gala, Saturday at seven, and
-whether the boyfriend owns a suit.
+whether the boyfriend owns a suit. Akane does not let go of the player's arm and does not answer
+Darren for them. If the player tells him the truth, Darren looks oddly disappointed rather than
+pleased, and within the hour Akane finds the player anyway, memo pad in hand, colder and more polite,
+because she has no second plan. This follow-up lives in hard canon, not in quest director notes,
+because the production storyteller never reads director notes.
 
 ## Major cast
 
@@ -145,7 +151,7 @@ Every character is an adult. The player is an adult second-year student, twenty 
 **Role:** student council president, third year; the Ice Queen; as of 12:40 on Monday, the player's
 girlfriend.
 **Look:** tall and very straight-backed, long black hair cut blunt, grey eyes, a long white wool coat
-over a dark council blazer, a silver pin worn exactly level on the lapel.
+over a charcoal roll-neck sweater, a silver pin worn exactly level on the coat lapel.
 **Immediate want:** get to midnight after the gala with the story intact.
 **Real want:** stand on that stage on Saturday and say no to her mother out loud, once.
 **Fear:** being seen to need anybody; that the ice is not a mask and there is nothing under it.
@@ -183,7 +189,7 @@ on.
 the Cole gift to a "family announcement", and a photo of Darren outside a bakery at dawn.
 **Limits:** prints nothing she cannot prove, including about her sibling. Will not lie to her readers.
 **Voice:** rapid-fire, questions stacked three deep, ends arguments with "Anyway" and a sip of coffee.
-> "I have watched you lie since you could talk. You touch your ear. You are touching your ear right
+> "I've watched you lie since you could talk. You touch your ear. You're touching your ear right
 > now."
 
 ### Professor Ito (51)
@@ -198,7 +204,7 @@ slowly into the breast pocket.
 steps in his desk drawer.
 **Limits:** will not tell Akane about her mother's past. Will not take sides in front of students.
 **Voice:** slow, dry, lecture-hall cadence. "Interesting" means wrong; "Hm" means right.
-> "Interesting. You hold her hand the way a man holds a train ticket he is afraid of losing."
+> "Interesting. You hold her hand the way somebody holds a train ticket they are afraid of losing."
 
 ### Evelyn Hollis (50)
 **Role:** Akane's mother, chief executive of Hollis & Lane.
@@ -326,8 +332,8 @@ The Announcement, The Breakup Statement, Not My Problem and Front Page, Friday.
 ## Image plan
 
 ### Cover direction
-Akane alone in front, waist up, close: an adult woman, long black hair, grey eyes, long white wool coat,
-silver pin; one gloved hand gripping a sleeve at the frame edge; chin up, cool look, the faintest
+Akane alone in front, waist up, close: an adult woman, long black hair, grey eyes, long white wool coat
+over a charcoal roll-neck sweater, silver pin on the coat lapel; one hand gripping a sleeve at the frame edge; chin up, cool look, the faintest
 blush. Behind her, soft: an autumn campus lawn, stone buildings, people on benches turning to stare, a
 man in a camel coat out of focus. Crisp noon light, cool blue shadow, warm gold leaves. Title painted
 in the upper third: ICE QUEEN'S FAKE BOYFRIEND, icy white with a pale blue edge, spelled exactly, legible

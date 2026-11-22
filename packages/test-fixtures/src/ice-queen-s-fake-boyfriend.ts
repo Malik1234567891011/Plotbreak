@@ -48,12 +48,12 @@ const raw = {
   storyId: 'story_ice_queen_s_fake_boyfriend',
   version: 1,
   title: 'Ice Queen’s Fake Boyfriend',
-  fantasyLabel: 'Her fake boyfriend until Saturday night.',
+  fantasyLabel: 'Six days to fake it. She chose you. Why?',
   hook: 'The student council president grabs your arm in front of the man following her: "This is my boyfriend."',
   premise:
-    'You are a second-year student at a big old city university, and until twenty to one this afternoon the student council president had never once looked at you.\n\n' +
+    'You are a second-year student at a big old city university, and until twenty to one this afternoon the student council president had never once said your name.\n\n' +
     'Her name is Akane Hollis. The whole campus calls her the Ice Queen, because in three years nobody has seen her laugh, lose an argument or hold anybody’s hand.\n\n' +
-    'Today she walked across the crowded quad, took your arm in front of thirty people and told the man following her that you are her boyfriend. He is Darren Cole, heir to the company her mother’s firm needs to merge with.\n\n' +
+    'Today she walked across the crowded quad, took your arm in front of thirty people and told the man following her that you are her boyfriend. He is Darren Cole, heir to the Cole Group, the company her mother has courted for a year.\n\n' +
     'On Saturday night, at the Chancellor’s Gala, both families plan to take the stage and announce Akane and Darren as a couple. She never agreed to it, and a real boyfriend is the one refusal her mother cannot wave away.\n\n' +
     'So she is asking you to be one, in public, until midnight after the gala. Holding hands is the limit. She will owe you any favour you name.\n\n' +
     'To make it work you have to fool an heir who has known her all her life, a mother who misses nothing, and your own older sister, who edits the campus paper and can tell when you are lying. Or you can refuse, tell everyone the truth, or ask her the obvious question: out of four hundred people on that lawn, why did she walk straight at you?\n\n' +
@@ -88,7 +88,7 @@ const raw = {
     hardCanon: [
       'Everyone in this story is an adult. The player is an adult, a second-year student at Fairholm University, twenty or older. Akane Hollis is twenty-one and in her third year; Darren Cole is twenty-four and a graduate student at the business school; Mei, the player’s older sister, is twenty-two and in her final year; Professor Ito is fifty-one; Evelyn Hollis is fifty. Offstage, Gideon Cole is sixty-one and Lena Ortiz, who runs the bakery on Mercer Street, is twenty-five.',
       'Fairholm University is a large old university in the middle of a city, built around a lawn called Founders’ Quad. The student council is eleven elected students who run the student union’s budget, the clubs and the twenty-four-hour library reading room. Its president is Akane Hollis, whom the whole campus calls the Ice Queen because in three years nobody has seen her laugh, lose an argument or hold anybody’s hand.',
-      'The story starts at twenty to one on a Monday in late October. Akane walked across the crowded quad, took the arm of the player, to whom she had never spoken, and told Darren Cole that the player is her boyfriend. Thirty people heard it and one of them had a phone. The player has not agreed to anything yet.',
+      'The story starts at twenty to one on a Monday in late October. Akane walked across the crowded quad, took the arm of the player, whom she had never once called by name, and told Darren Cole that the player is her boyfriend. Thirty people heard it and one of them had a phone. The player has not agreed to anything yet. Akane said boyfriend whatever the player’s gender; the word stuck, the gossip page uses it, and Darren keeps it as a nickname. On the quad she does not let go of the player’s arm and does not answer Darren for them. Whatever the player says, Darren leaves before the scene ends, with a line about the gala on Saturday and whether the boyfriend owns a suit. If the player tells Darren the truth, the story does not stop there: Darren looks oddly disappointed rather than pleased, and within the hour Akane finds the player anyway, memo pad in hand, colder and more polite, because she has no second plan.',
       'Evelyn Hollis, Akane’s mother, and Gideon Cole, Darren’s father, intend to take the stage at the Chancellor’s Gala, in the Great Hall this Saturday at nine in the evening, and announce Akane and Darren as a couple. The invitations already print their names together. Akane has never agreed to it. A real boyfriend, seen by everyone, is the one refusal her mother cannot wave away.',
       'Akane’s terms, written on a council memo pad before she asks: rule one, it ends at midnight after the gala with a friendly breakup in public; rule two, in public holding hands is the limit and nothing more happens unless both of them want it; rule three, nobody is told it is fake, not her mother, not Darren, not the player’s sister; rule four, if either of them starts to mean it, they say so, and the deal ends that night. In return she owes the player one favour of their choosing, anything within the power of the student council president.',
       'It was not random. Three weeks before the story starts, at the council’s open forum, the player was the only person who stood up and told Akane she was wrong to close the library reading room at midnight, and did not sit down when she stared. She changed the rule that night. She walked straight at the player on Monday because theirs was the one face she trusted not to flinch. She will say so only to somebody she trusts, and only if asked.',
@@ -311,7 +311,7 @@ const raw = {
       name: 'The Boathouse Photograph',
       tags: ['personal'],
       description:
-        'A small faded photograph of two students sitting on the boathouse steps, laughing at something outside the frame. One of them is a much younger Professor Ito. The other has Akane’s grey eyes.',
+        'A small faded photograph of two students sitting on the boathouse steps, laughing at something outside the frame. One of them is a twenty-three-year-old Professor Ito. The other has Akane’s grey eyes.',
       loreText: 'On the back, in pencil: "E. and D., the last day of term." Twenty-eight years ago.',
       icon: 'photo',
     },
@@ -356,7 +356,7 @@ const raw = {
       tags: ['personal', 'document'],
       skillModifiers: { acting: 1 },
       description: 'Your script from the drama society’s autumn play, lines highlighted, and in the margin of the love scene, in the director’s red pen: "Mean it."',
-      loreText: 'You play the second lead. The second lead gets the girl in act two and loses her in act three, which you have been told is character growth.',
+      loreText: 'You play the second lead. The second lead gets the heroine in act two and loses her in act three, which you have been told is character growth.',
       icon: 'book',
     },
     {
@@ -801,7 +801,7 @@ const raw = {
       id: 'faction_hollis',
       name: 'The Hollis Family',
       description:
-        'Evelyn Hollis, a townhouse in the old town, a portrait of a late husband in the hall, and Hollis & Lane, a hundred-year-old firm with three hundred employees and four months of money left.',
+        'Evelyn Hollis, a townhouse in the old town, a portrait of a late husband in the hall, and Hollis & Lane, the firm her marriage joined to the Lane name, with three hundred employees and four months of money left.',
       startingReputation: 0,
       ranks: [
         { atReputation: 0, label: 'A guest' },
@@ -846,7 +846,7 @@ const raw = {
       name: 'Akane Hollis',
       role: 'Student council president, third year, the one the whole campus calls the Ice Queen',
       cardBlurb:
-        'She grabbed your arm in front of thirty people and called you her boyfriend, she has six days to make everyone believe it, and she has not told you why she walked straight at you out of four hundred people.',
+        'She grabbed your arm in front of thirty people and called you her boyfriend. She has six days to make everyone believe it, and she will not say why she picked you.',
       pronouns: 'she/her',
       publicTraits: ['Composed to the point of frost', 'Exact about everything, including other people’s mistakes', 'Catastrophically bad at being liked, and aware of it'],
       hiddenDrives: [
@@ -899,12 +899,12 @@ const raw = {
         'You are about to help me. Nod when I squeeze. Name your price later.',
         'Rule two. In public you may hold my hand. Rule two does not cover looking at me like that.',
         'That is not funny. Stop it. That is still not funny.',
-        'I was wrong about the library. I put it in writing at eleven at night, and I have never forgiven you for it.',
+        'You want to know why you. Noted. It is not on today’s agenda.',
         'Do not apologise for my mother. She would not.',
       ],
       appearance:
-        'An adult woman, tall and very straight-backed, long black hair cut blunt at the waist, cool grey eyes, a long white wool coat over a dark council blazer.',
-      visualHook: 'A silver council pin worn exactly level on her lapel, which she straightens whenever she is nervous.',
+        'An adult woman, tall and very straight-backed, long black hair cut blunt at the waist, cool grey eyes, a long white wool coat over a charcoal roll-neck sweater.',
+      visualHook: 'A silver council pin worn exactly level on her coat lapel, which she straightens whenever she is nervous.',
       silhouette: 'A long white coat, arms folded, chin up, standing perfectly still in a moving crowd.',
       artSeed: 'iqfb-akane-01',
       portrait: null,
@@ -981,8 +981,8 @@ const raw = {
       voiceSamples: [
         'So how did you two meet? Take your time. I love a story.',
         'Quick round, boyfriend. Her birthday. Her middle name. Her coffee. Go.',
-        'Twenty years I have known her, and nobody has ever held her hand on that lawn. You are either very lucky or very bad at this.',
-        'Relax. I do not want to marry her either. I need your little lie to be better than it is.',
+        'Twenty years I’ve known her, and nobody’s ever held her hand on that lawn. You’re either very lucky or very bad at this.',
+        'Relax, boyfriend. I’m rooting for you. That should worry you more than it does.',
       ],
       appearance:
         'An adult man, broad-shouldered and tanned, wavy chestnut hair pushed back, an easy grin that stops just short of his eyes.',
@@ -1060,9 +1060,9 @@ const raw = {
       topics: ['the photo', 'the Courier', 'the Cole gift', 'your parents', 'the advice column', 'whether you are okay'],
       voiceSamples: [
         'You. Her. The president. Hand in hand on the gossip page, four hundred comments. Explain. Use small words.',
-        'I have watched you lie since you could talk. You touch your ear. You are touching your ear right now.',
-        'I print it if it is true and not one word if it is not. So look at me and tell me which. Anyway.',
-        'Somebody is paying for that library wing, and it is not with money. I just do not know with what yet.',
+        'I’ve watched you lie since you could talk. You touch your ear. You’re touching your ear right now.',
+        'I print it if it’s true and not one word if it isn’t. So look at me and tell me which. Anyway.',
+        'Somebody’s paying for that library wing, and it isn’t with money. I just don’t know with what yet.',
       ],
       appearance:
         'An adult woman, short and quick, a choppy black bob with one red streak, oversized glasses, a denim jacket covered in enamel pins.',
@@ -1107,7 +1107,7 @@ const raw = {
       calledName: 'Professor Ito',
       role: 'Rhetoric professor and faculty adviser to the student council',
       cardBlurb:
-        'He teaches the seminar you share with her, he knew it was fake the moment you walked in holding hands, and instead of saying so he has made the two of you debate partners.',
+        'He teaches the seminar you share with her, he will know it is fake the moment you walk in holding hands, and instead of saying so he is about to make the two of you debate partners.',
       pronouns: 'he/him',
       publicTraits: ['Dry as paper', 'Answers questions with better questions', 'Remembers every student’s best argument and their worst'],
       hiddenDrives: [
@@ -1135,9 +1135,9 @@ const raw = {
       topics: ['the debate motion', 'rhetoric', 'the council', 'the Cole gift', 'Evelyn Hollis', 'promises'],
       voiceSamples: [
         'The motion for Friday: a promise made for the wrong reasons still binds. You two will propose it. Together. Hm.',
-        'Interesting. You hold her hand the way a man holds a train ticket he is afraid of losing.',
+        'Interesting. You hold her hand the way somebody holds a train ticket they are afraid of losing.',
         'Twenty-four years of teaching. Nobody has ever fooled me with a romance. Several people have fooled themselves.',
-        'I knew her mother, once, before she was anybody’s mother. That is all, and it is already too much.',
+        'The opposition will argue that a promise is only as good as its reasons. Answer that by Friday. Ideally out loud.',
       ],
       appearance:
         'An older man, lean and slightly stooped, cropped grey hair, wire glasses, a tweed jacket that has seen a great many winters.',
@@ -1176,7 +1176,7 @@ const raw = {
       name: 'Evelyn Hollis',
       role: 'Akane’s mother, chief executive of the family firm Hollis & Lane',
       cardBlurb:
-        'She has asked to meet you at dinner on Wednesday, she will know within ten minutes what you are, and what she does about it depends on whether you can tell her something she does not already know.',
+        'She will want you at her table on Wednesday, she will know within ten minutes what you are, and what she does about it depends on whether you can tell her something she does not already know.',
       pronouns: 'she/her',
       publicTraits: ['Immaculate', 'Never asks a question she does not know the answer to', 'Surprisingly funny, very occasionally, and then never again that evening'],
       hiddenDrives: [
@@ -1495,7 +1495,7 @@ const raw = {
     {
       id: 'q_dinner_at_the_townhouse',
       title: 'Dinner at the Townhouse',
-      summary: 'Akane’s mother has invited you to dinner on Wednesday. She runs a hundred-year-old firm and is said to know what a person is within ten minutes.',
+      summary: 'Akane’s mother will want you at dinner on Wednesday. She runs Hollis & Lane, the family firm, and is said to know what a person is within ten minutes.',
       kind: 'MAIN',
       discoverWhen: { flagsSet: ['dinner_invitation'] },
       involvedCharacterIds: ['evelyn', 'akane'],
@@ -1612,7 +1612,7 @@ const raw = {
             {
               routeId: 'mei_ran_the_gift',
               label: 'Give her page nine',
-              predicate: { flagsSet: ['mei_knows', 'knows:the_merger'] },
+              predicate: { flagsSet: ['mei_knows', 'knows:the_merger'], beforeWorldMinute: 4 * 1440 + 6 * 60 },
               setsFlags: ['mei_ran_the_gift'],
               closesFlags: [],
             },
@@ -1789,7 +1789,7 @@ const raw = {
           id: 'the_speeches',
           playerCopy: 'Be in the Great Hall at nine, and decide what happens on that stage.',
           directorNotes:
-            'Saturday. Doors at half past six, the families on stage at nine. Akane is in grey, perfectly composed, and straightens her pin every four minutes. Gideon Cole arrives at eight. Evelyn and Professor Ito see each other across the room for the first time in twenty-eight years. Nobody is a villain at this party and the announcement is not evil; it is three hundred jobs and a mother who thinks she is protecting her daughter.',
+            'Saturday. Doors at half past six, the families on stage at nine. Akane is in grey, perfectly composed, and straightens her pin every four minutes. Gideon Cole arrives at eight. Evelyn and Professor Ito see each other across the room for the first time in twenty-eight years. The announcement is not evil: it is three hundred jobs and a mother who thinks she is protecting her daughter.',
           enterWhen: { flagsSet: ['gala_doors_open'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1947,7 +1947,7 @@ const raw = {
     {
       id: 'q_the_boathouse_steps',
       title: 'The Boathouse Photograph',
-      summary: 'Professor Ito went very quiet when you mentioned Akane’s mother, and her mother put her fork down when you mentioned him.',
+      summary: 'Professor Ito knew Akane’s mother once. Nobody will say how well.',
       kind: 'LEAD',
       discoverWhen: { flagsSet: ['dinner_done'] },
       involvedCharacterIds: ['ito', 'evelyn'],
@@ -2510,8 +2510,8 @@ const raw = {
   coverDirection: [
     'SUBJECT: Akane Hollis, the council president everyone calls the Ice Queen, alone and unmistakable in the foreground of a key visual for a campus romantic comedy anime.',
     'She fills the frame from the waist up, close, holding about two thirds of the picture.',
-    'An adult woman, tall and straight-backed, long black hair cut blunt, cool grey eyes, a long white wool coat over a dark blazer, a silver pin worn exactly level on the lapel.',
-    'One gloved hand reaches toward the edge of the frame and grips a sleeve, as if she has just grabbed somebody’s arm.',
+    'An adult woman, tall and straight-backed, long black hair cut blunt, cool grey eyes, a long white wool coat over a charcoal roll-neck sweater, a silver pin worn exactly level on the coat lapel.',
+    'One hand reaches toward the edge of the frame and grips a sleeve, as if she has just grabbed somebody’s arm.',
     'Her chin is up and her look is cool and composed, with the faintest blush she is clearly refusing to acknowledge.',
     'BEHIND HER, soft and secondary: an autumn university lawn with gothic stone buildings, gold and red leaves, people on benches turning to stare, and a man in a camel coat out of focus.',
     'LIGHT: crisp noon sun, cool blue shadows and warm gold leaves, so she reads as ice against autumn.',
