@@ -62,14 +62,17 @@ The player authors their name, pronouns, appearance, and one true sentence about
 
 | Archetype | What it gives | Lean |
 |---|---|---|
-| You Wrestled | Grappling, nerve, hand wraps, +5 with the Hill Pack | The Hold, getting back up |
-| You Ran Distance | Endurance, footwork, road shoes, +5 with the Warren | The Run, staying out of reach |
-| You Argued for a Living | Talk, bluffing, a pocket notebook, +5 with the Faculty | Deals, lies, avoiding fights |
-| You Studied the Clans | Clan customs, reading tells, a guide to clan manners, +5 with the Faculty | Rules, history, reading people |
+| You Wrestled | Grappling, nerve, hand wraps, Hold the Stare and Get Inside, +5 with the Hill Pack | The Hold, getting back up |
+| You Ran Distance | Endurance, footwork, road shoes, Hold the Stare and Outlast, +5 with the Warren | The Run, staying out of reach |
+| You Argued for a Living | Talk, bluffing, a pocket notebook, Hold the Stare and Poker Face, +5 with the Faculty | Deals, lies, avoiding fights |
+| You Studied the Clans | Clan customs, reading tells, a guide to clan manners, Hold the Stare and Read the Ears, +5 with the Faculty | Rules, history, reading people |
+
+Every archetype starts with Hold the Stare, the human edge, plus the one ability its training shows. The storyteller reads only the chosen archetype's `startingAbilities`, so they are what the player can visibly do.
 
 ### Minimal hard canon
 
 - Ashgrove is post-secondary; every student is 18 to 25. The player is the first human in thirty years.
+- Every named age is in hard canon (Ruka 20, Lio 21, Pim 19, Fenn 22, Bryn 23, Stagg 51). Appearances say "An adult woman" or "An older man" instead, because the art prompts paste them in verbatim and age numbers get image requests refused.
 - Rank changes only in the Circle; the challenged names the form; winners swap places; a newcomer's first bout is open, and a newcomer who wins it takes the challenger's number while the challenger and everybody below drop one place.
 - One way onto the Order needs no bout: every member of a den signs for an unranked student before the full moon, and that student goes on at the bottom of that den. The Warren has not signed for anybody in years.
 - On the seventh night the Order is fixed and anyone unranked goes home.
@@ -238,7 +241,7 @@ Win the first bout and be second on day one; lose it and be claimed by the Hill 
 
 ## Image plan (for the art pass; nothing generated in this commit)
 
-- **Cover:** Ruka leaning over a dining table, tray slammed down, ears pricked forward, scar, sleeveless training jacket, taped hands; the human's shoulder in the foreground; the painted Order behind her, blurred past reading; warm hall light; PACK RANK in chalk-stroke capitals. Adults only, described by costume and pose, with no "student", "uniform" or age words in the prompt. The fixture's `coverDirection` carries the exact brief.
+- **Cover:** Ruka leaning over a dining table, tray slammed down, ears pricked forward, scar, sleeveless training jacket, taped hands; the human's shoulder in the foreground; the painted Order behind her, blurred past reading; warm hall light; the title Pack Rank in rough white chalk-stroke lettering across the upper third, spelled exactly Pack Rank. Every effect (the soup splash, chalk dust) stays on objects and the title, never on her face. Adults only, described by costume and pose, with no "student", "uniform" or age words in the prompt. The fixture's `coverDirection` carries the exact brief.
 - **Portraits:** Ruka, Lio, Pim, Stagg, Fenn, Bryn, each with their visual hook (notched ear; gold mane and signet ring; brass ear tag; broken antler; coin on the knuckles; scholarship crest).
 - **Stages:** the Long Hall, the Circle at night with lanterns, the north stair in the dark, the archive with the scratched board, the ridge at dawn, the boiler room odds board, Sunward House dining room, the gatehouse room.
 - **Opening panel:** Ruka at the table, tray down, leaning in, ears forward.

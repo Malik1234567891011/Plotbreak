@@ -81,6 +81,7 @@ const raw = {
     startWorldMinute: 19 * 60 + 10,
     startingItems: [{ itemId: 'admission_letter', qty: 1 }],
     hardCanon: [
+      'Everyone in this story is an adult. Ruka Varn is twenty, Lio Solenne twenty-one, Pim Hollowell nineteen, Fenn Asari twenty-two, Bryn Holt twenty-three and Coach Halvard Stagg fifty-one. Every student at Ashgrove is at least eighteen, and so is the player.',
       'Ashgrove Academy is a four-year college for the beastfolk clans. Every student is an adult between eighteen and twenty-five. The player is the first human admitted in thirty years and arrived this morning.',
       'The Order is the ranked list of all two hundred and eleven students, painted in white on black boards on the end wall of the Long Hall and repainted after every bout. Rank sets meal order, rooms, classes and who steps aside. The player is not on it.',
       'Rank changes only in the Circle. Anyone may challenge anyone ranked above them by putting their tray down on that person’s table; if the challenger wins, the two swap places. A newcomer’s first bout is open to anyone: if the newcomer wins they take the challenger’s number, and the challenger and everybody below drop one place, and if they lose the challenger’s den claims them and they go on the Order at the bottom of that den. An unranked student who puts their own tray down on somebody and wins swaps in the ordinary way, which leaves the loser unranked.',
@@ -873,7 +874,7 @@ const raw = {
         'When he roars, my knees decide before I do. Yours didn’t. Show me how.',
       ],
       appearance:
-        'Twenty, tall and rangy, grey wolf ears with a notch out of the left one, a scar through her left eyebrow, a dark canvas training jacket with the sleeves torn off and taped hands.',
+        'An adult woman, tall and rangy, shaggy shoulder-length grey hair, grey wolf ears with a notch out of the left one and a thick grey wolf tail, pale gold eyes, a thin scar through her left eyebrow, a dark canvas training jacket with the sleeves torn off over a black athletic top, dark training trousers, and white tape wrapped round both hands.',
       visualHook: 'A training jacket with both sleeves torn off at the shoulder, and a notch bitten out of her left ear.',
       silhouette: 'Leaning in over a table on both fists, ears forward, shoulders up.',
       artSeed: 'pr-ruka-01',
@@ -967,7 +968,7 @@ const raw = {
         'My father writes beautiful letters. This one asks me to see that you are gone before the moon is full. I have not decided what I think about that yet.',
       ],
       appearance:
-        'Twenty-one, broad and easy, a heavy gold mane tied back at the neck, amber eyes, a tailored charcoal college coat with the cuffs turned back once, a signet ring on his right hand.',
+        'An adult man, broad-shouldered and easy, a heavy gold mane of hair tied back at the neck with a plain black cord, round tawny lion ears and a tufted lion tail, amber eyes, a tailored charcoal college coat with the cuffs turned back once over a white shirt, and a gold lion signet ring on his right hand.',
       visualHook: 'A heavy gold mane tied back with a plain black cord, and a lion signet ring he turns while he thinks.',
       silhouette: 'Upright and unhurried, one hand in a pocket, chin slightly raised, standing in the middle of a room as if it were built around him.',
       artSeed: 'pr-lio-01',
@@ -1062,7 +1063,7 @@ const raw = {
         'Gold wax, lion seal, ten o’clock post, two of them. I didn’t open either. I want that on record. I held them up to the lamp a bit.',
       ],
       appearance:
-        'Nineteen, slight and quick, long brown rabbit ears, a courier’s satchel bigger than his torso, ink on every finger and a scarf wound three times round his neck.',
+        'An adult man, lean and quick, messy chestnut-brown hair, long brown rabbit ears with a brass courier’s tag clipped through the tip of the left one, dark brown eyes, ink on every finger, a mustard scarf wound three times round his neck, and a heavy courier’s satchel slung across his chest, stuffed with envelopes.',
       visualHook: 'A brass courier’s tag clipped through the tip of his left ear, which flashes whenever the ear turns.',
       silhouette: 'Mid-stride, satchel swinging, ears up and swivelling in two different directions.',
       artSeed: 'pr-pim-01',
@@ -1147,7 +1148,7 @@ const raw = {
         'I chalk it, I count it, I stop it. Once I should have stopped something and did not. I have refereed every bout since.',
       ],
       appearance:
-        'Fifty-one, lean and weathered, stag ears and antlers, a grey coaching jacket buttoned to the throat, a stick of chalk always between his fingers.',
+        'An older man, lean and weathered, close-cropped grey hair and a short grey beard, deer ears, one antler whole and branching and the other broken off short, steady dark eyes, a grey coaching jacket buttoned to the throat, a whistle on a cord he never blows, and a stick of chalk always between his fingers.',
       visualHook: 'One antler whole and branching, the other broken off short a hand’s width above his head.',
       silhouette: 'Standing dead still at the edge of the chalk, hands behind his back, head tilted by the weight of one antler.',
       artSeed: 'pr-stagg-01',
@@ -1228,7 +1229,7 @@ const raw = {
         'My grandmother kept a book too. Hers has a page in it I’ve never shown anybody, and it isn’t for sale. Probably.',
       ],
       appearance:
-        'Twenty-two, small and sharp, enormous pale fennec ears, a waistcoat with chalk dust down the front, a pencil tucked behind each ear.',
+        'An adult woman, wiry and sharp-featured, sandy-blonde hair cut in a short bob, enormous pale fennec ears with a pencil tucked behind each one, a bushy cream fox tail, green eyes, a striped shirt with rolled sleeves under a waistcoat with chalk dust down the front, and a silver coin always walking across her knuckles.',
       visualHook: 'A silver coin that walks endlessly across her knuckles, one hand to the other, while she talks.',
       silhouette: 'Perched on the edge of a crate with one leg crossed, leaning forward, ears enormous against the boiler light.',
       artSeed: 'pr-fenn-01',
@@ -1310,7 +1311,7 @@ const raw = {
         'I can lift anything in this school. I’m finding out there are things I can’t carry.',
       ],
       appearance:
-        'Twenty-three, head and shoulders above everybody, broad and solid, round dark bear ears, a scholarship crest stitched on her sleeve and reading glasses kept in her breast pocket.',
+        'An adult woman, head and shoulders above everybody, broad and solid, dark brown hair in a thick low braid, round dark bear ears, warm brown eyes, small wire reading glasses on her nose, and a plain dark knit sweater with a scholarship crest stitched on the sleeve.',
       visualHook: 'Tiny wire reading glasses perched on an enormous frame, and a scholarship crest sewn on her sleeve.',
       silhouette: 'Filling a doorway completely, shoulders hunched to make herself smaller, hands folded in front.',
       artSeed: 'pr-bryn-01',
@@ -2198,7 +2199,7 @@ const raw = {
       attributeBonus: { might: 2, resolve: 1 },
       skillProficiencies: { grappling: 3, nerve: 1, endurance: 1 },
       startingItems: [{ itemId: 'hand_wraps', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['hold_the_stare', 'get_inside'],
       startingReputation: [{ factionId: 'faction_hill_pack', amount: 5 }],
     },
     {
@@ -2211,7 +2212,7 @@ const raw = {
       attributeBonus: { might: 1, agility: 2 },
       skillProficiencies: { endurance: 3, footwork: 2 },
       startingItems: [{ itemId: 'road_shoes', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['hold_the_stare', 'outlast'],
       startingReputation: [{ factionId: 'faction_warren', amount: 5 }],
     },
     {
@@ -2224,7 +2225,7 @@ const raw = {
       attributeBonus: { presence: 3 },
       skillProficiencies: { talk: 3, bluff: 2 },
       startingItems: [{ itemId: 'pocket_notebook', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['hold_the_stare', 'poker_face'],
       startingReputation: [{ factionId: 'faction_faculty', amount: 5 }],
     },
     {
@@ -2237,7 +2238,7 @@ const raw = {
       attributeBonus: { mind: 2, arcana: 2 },
       skillProficiencies: { customs: 3, tells: 2 },
       startingItems: [{ itemId: 'clan_manners', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['hold_the_stare', 'read_the_ears'],
       startingReputation: [{ factionId: 'faction_faculty', amount: 5 }],
     },
   ],
@@ -2434,7 +2435,7 @@ const raw = {
     "The dining hall goes silent the way a forest does, all at once.\n\nA tray slams down on your table. Soup jumps. Grey wolf ears, pricked forward. A scar through one eyebrow.\n\n\"Humans eat last,\" says Ruka. \"You're at the first table. My table.\"\n\nTwo hundred ears turn toward you. Somewhere a tail knocks over a cup.\n\n\"A tray on your table is a challenge. You pick the form: hold, strike, run or stare. Win, and you're second in this school.\" She leans in, close enough to show her teeth. \"Or you pick up your bowl and go to the back of the line. All year.\"\n\nShe taps the table twice.\n\n\"Stand up or get up, human. Which?\"",
   openingPanel: {
     assetKey: 'story_pack_rank/opening',
-    alt: 'Ruka, a grey-eared wolf woman, ears pricked forward, scarred eyebrow, sleeveless training jacket, leaning over a dining-hall table on both fists, a tray slammed down, a crowded hall behind her.',
+    alt: 'Ruka, grey wolf ears pricked forward, scarred eyebrow, sleeveless training jacket, leaning over your table on taped fists, her tray just slammed down, a crowded dining hall behind her.',
   },
   openingSuggestions: [
     "\"I pick the stare.\" I look straight into her eyes and don't blink.",
@@ -2442,11 +2443,18 @@ const raw = {
     'I take the bread roll off her tray and bite into it.',
   ],
   coverDirection: [
-    'SUBJECT: Ruka Varn, a tall wolf-eared woman, leaning toward the viewer over a long wooden dining table on both fists, a tray just slammed down, soup splashing.',
-    'Grey wolf ears pricked hard forward with a notch in the left one, a scar through her left eyebrow, a sleeveless dark canvas training jacket, taped hands, a hard amused stare straight at the viewer.',
-    'Behind her, softly out of focus: a towering black wall striped with rows of small white painted lines, blurred past reading, in a warm lantern-lit stone hall, and a crowd of ear-and-tail silhouettes all turned toward the viewer.',
-    'The viewer’s shoulder is blurred in the foreground.',
-    'TITLE: "PACK RANK" in rough white chalk-stroke capitals across the top third, spelled exactly PACK RANK, large and legible at thumbnail size. No other text anywhere.',
+    'SUBJECT: Ruka Varn, a wolf-eared fighter, alone and unmistakable in the foreground of a key visual for a rivalry fantasy anime set in a great stone dining hall.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture, leaning toward the viewer over a long wooden dining table on both taped fists.',
+    'Shaggy shoulder-length grey hair, tall grey wolf ears pricked hard forward with a notch out of the left one, pale gold eyes, a thin scar through her left eyebrow,',
+    'a dark canvas training jacket with the sleeves torn off over a black athletic top, white tape wrapped round both hands.',
+    'A metal dinner tray has just been slammed down between her fists: soup leaps out of the bowl in a frozen splash and a bread roll bounces into the air.',
+    'Her expression is a hard, amused challenge, eyes locked on the viewer, one corner of her mouth up.',
+    'HER FACE STAYS CLEAN: no splash, chalk dust, motion lines or shadows across her face; the only mark on it is the thin eyebrow scar. Every effect stays on the tray, the soup and the title.',
+    'BEHIND HER, soft and secondary: a towering black wall striped with rows of small white painted lines, blurred past reading, in a warm lantern-lit stone hall,',
+    'and a crowd of ear-and-tail silhouettes at long tables, all turned toward the viewer. The viewer’s shoulder is blurred at the bottom edge of the frame.',
+    'LIGHT: warm amber lantern light from above and behind rims her hair and ears in gold, with a cooler fill from the front so her eyes read at thumbnail size.',
+    'TITLE: the words Pack Rank painted into the art across the upper third in rough white chalk-stroke brush lettering, a capital P and a capital R and the rest lower case,',
+    'with a puff of chalk dust breaking off the final k, spelled exactly Pack Rank, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   publishedAt: null,
 };

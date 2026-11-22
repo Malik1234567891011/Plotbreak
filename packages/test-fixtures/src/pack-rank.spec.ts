@@ -169,14 +169,29 @@ describe('everybody is an adult, and it reads that way', () => {
     nineteen: 19, twenty: 20, 'twenty-one': 21, 'twenty-two': 22, 'twenty-three': 23, 'twenty-four': 24, 'fifty-one': 51,
   };
 
-  it('states every age in the appearance, and every age is 18 or over', () => {
+  it('states every age in hard canon, and every age is 18 or over', () => {
     expect(story.characters.map((c) => c.id).sort()).toEqual(Object.keys(AGES).sort());
+    const canon = story.rules.hardCanon.find((fact) => fact.startsWith('Everyone in this story is an adult.'));
+    expect(canon).toBeDefined();
     for (const c of story.characters) {
-      const lead = c.appearance.split(',')[0]!.toLowerCase();
-      expect(NUMBER[lead], `${c.id}: "${lead}"`).toBe(AGES[c.id]![1]);
-      expect(NUMBER[lead]!).toBeGreaterThanOrEqual(18);
       expect(c.name).toBe(AGES[c.id]![0]);
+      const word = Object.keys(NUMBER).find((w) => NUMBER[w] === AGES[c.id]![1])!;
+      expect(canon, c.id).toMatch(new RegExp(`${c.name}( is)? ${word}\\b(?!-)`));
+      expect(AGES[c.id]![1]).toBeGreaterThanOrEqual(18);
     }
+  });
+
+  // The art prompts paste `appearance`, `openingPanel.alt` and `coverDirection`
+  // in verbatim, and stacked age words get image requests refused. They say
+  // "adult" and describe costume and pose, as skill-error.ts does.
+  it('keeps age numbers out of everything the image prompts read', () => {
+    const ageWord = new RegExp(`\\b(${Object.keys(NUMBER).join('|')}|\\d+)\\b`, 'i');
+    for (const c of story.characters) {
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (woman|man),/);
+      expect(c.appearance, c.id).not.toMatch(ageWord);
+    }
+    expect(story.openingPanel?.alt ?? '').not.toMatch(ageWord);
+    expect(story.coverDirection ?? '').not.toMatch(ageWord);
   });
 
   it('states the same ages in the bible', () => {
@@ -491,6 +506,46 @@ describe('the state is small and does the engine’s homework', () => {
     for (const r of story.resources.filter((x) => x.polarity === 'GOOD_LOW')) {
       const raised = story.abilities.some((a) => a.costs.some((c) => c.resourceId === r.id && c.amount > 0));
       expect(raised, `${r.id} is inert`).toBe(true);
+    }
+  });
+});
+
+describe('ready for the art and release pipeline (docs/stories-50/PIPELINE.md)', () => {
+  it('paints the cover from its own brief, with the title spelled out', () => {
+    const cover = story.coverDirection ?? '';
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(cover.indexOf('TITLE:')).toBeGreaterThan(0);
+    expect(title).toContain('spelled exactly Pack Rank');
+    expect(cover).toMatch(/FACE STAYS CLEAN/);
+    expect(cover).not.toMatch(/\b(student|uniform|young|youthful|petite)\b/i);
+  });
+
+  it('draws the opening panel from the speaker of the opener', () => {
+    const alt = story.openingPanel?.alt ?? '';
+    expect(alt.length).toBeLessThanOrEqual(200);
+    expect(alt.startsWith('Ruka')).toBe(true);
+    expect(story.opening).toContain('says Ruka');
+  });
+
+  it('gives a concrete look to everybody with a card', () => {
+    for (const c of story.characters.filter((c) => c.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(120);
+      expect(c.appearance, c.id).toMatch(/\b(hair|mane)\b/);
+    }
+  });
+
+  it('opens straight on the scene and is not dated yet', () => {
+    expect(story.prologue ?? []).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('puts the system where the storyteller reads it', () => {
+    expect(story.rules.toneGuide.trim()).not.toBe('');
+    expect(story.rules.startingItems.map((i) => i.itemId)).toContain('admission_letter');
+    expect(story.items.find((i) => i.id === 'admission_letter')?.questItem).toBe(true);
+    for (const a of story.archetypes) {
+      expect(a.startingAbilities, a.id).toContain('hold_the_stare');
+      expect(a.startingAbilities.length, a.id).toBeGreaterThanOrEqual(2);
     }
   });
 });
