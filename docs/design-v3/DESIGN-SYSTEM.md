@@ -184,6 +184,7 @@ glass on the floating layer.
 | Scene / stage 3:2 | full-bleed | Play background, chapter cards | Cropped to fill, centered on the vanishing point; darkened 0–20% by tint depending on brightness |
 | Portrait 2:3 on light paper | character square | Faces in play, cast row, World sheet | Faces are crops of the top 40%. The light paper ground is left as is, so faces read as cards on ink |
 | Prologue / opening 2:3 | full-bleed | Onboarding, prologue, end card | Full art, title card over the bottom third |
+| Pack icons 1:1 | none (cut out) | Credits store, first-purchase card, free-credit rows | **The one color exception**, like Character AI's candy beads. One PixAI set: moonstone crystals that read as ◆, then an indigo pouch, a black lacquer box and chest with red cord, and a red gift envelope for the first purchase. The picture grows with the price. Never used outside money surfaces. Files: `pack-icons/`. |
 | Blurred cover backdrop | full-width wash | Home top, story page top | Blur 40, `story.mid` multiply, fades to `ink.0` over 220pt |
 
 ## Components
@@ -331,5 +332,11 @@ All 24 artboards use real art from `infra/seed/assets` and real story text from
 | Library | Each run shows its last line; finished runs show the ending's name as a title. |
 | Create / Pitch | One "Start from an idea" block replaces the white FAB; a draft with no cover gets a designed empty cover. |
 | Profile | Balance in Mincho digits with "about N turns"; relics and badges as rows with their real art; grouped settings list. |
-| Credits / Turn quality / Out of credits / Pass | No gold or violet. Every price says what it buys in turns at Vivid. The out-of-credits screen leads with your story's last line, not a countdown. |
+| Credits | Rebuilt as a game shop (Afizzy's pack grid, Character AI's Charms): big crystal over your balance, a first-purchase card, six pack tiles whose picture grows with the price, real bonuses on top, POPULAR and BEST VALUE only where the store already says so, turns under every amount, then the free ways to earn. |
+| Turn quality / Out of credits / Pass | No gold or violet. Every price says what it buys in turns at Vivid. The out-of-credits screen leads with your story's last line, not a countdown. |
 | Tower | Same game, Ink skin: 塔 title card, streak as squares (no fire emoji), payout ladder drawn as a narrowing tower with the real tiers and arc names. |
+
+Every screen on the board has a **Where it came from** card under it: the real
+screenshots it borrowed from (hands-on phone captures, OOC captures, or App
+Store frames) and three or four plain lines on what we took, what we changed and
+why. The reference images are listed in `board/blobs.tsv` as `ref_*`.
