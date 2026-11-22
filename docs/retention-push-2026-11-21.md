@@ -6,7 +6,7 @@ https://claude.ai/artifact/PbPa3UdC7dizZy7AU6uQRA
 | Workstream | Owner session | Output | Status |
 |---|---|---|---|
 | Redesign board, every page, current vs proposed | `plotbreak-ca` | https://claude.ai/artifact/8yRDJdhfSbAQe2wxSZYgpG, `docs/design-v2/` (commits e1c7df4, 9728056) | done |
-| Cover bake-off: PixAI (web UI, user's account) vs shipped covers | `plotbreak-80` | https://claude.ai/artifact/81xKYkBXAGZHbBN46CuSRJ, `docs/covers-pixai-test/README.md` | done: keep the current pipeline (shipped covers win 4/5 at thumbnail; PixAI $0.03–0.11/cover with a membership; Itachi drew the franchise headband) |
+| Cover bake-off: PixAI (web UI, user's account) vs shipped covers | `plotbreak-80` | https://claude.ai/artifact/81xKYkBXAGZHbBN46CuSRJ, `docs/covers-pixai-test/README.md` | done. The test recommended keeping the shipped pipeline (4/5 at thumbnail); **the user chose PixAI anyway** ("pixai generates way prettier covers"). Use Tsubaki.3 (3/3 clean titles; Flash added stray marks), $0.11/cover on Starter. Itachi drew the franchise headband: add a franchise-symbol check |
 | Retention research (5 investigations, 2 independent re-checks) | `plotbreak-fd` (workflow `wf_1b745462-6dc`) | this file + `docs/retention/2026-11-21-*` | done |
 | Server-only feed fixes | `plotbreak-fd` | branch `feed/daily-freshness` (no deploy) | next |
 | Story bot | — | cost below; build after go/no-go | waiting on the user |
@@ -108,6 +108,9 @@ Week 1, server only, no App Review:
 1. Feed that changes every day: New = newest first; Trending = last 72 h–7 d; Featured rotates daily
    around pinned best openers; played worlds pushed down; 3 rotating category rows/day; "Rising from the
    community"; Related worlds fixed; NEW badge flag. ~2 days. Built on a branch, no deploy without OK.
+   Board v2 (commit 4a54fe2) titles the 72 h row "Hot right now" because "Trending now" is OOC's exact
+   row name: match the server title. Board v2 onboarding (item 7) starts beat 1 with a default
+   archetype so the story's setup page is skipped; the server or client must support that.
 2. Featured order: lead with Good Morning Husband, Pink Tide, Zero Throne, Hush House; move Last Feather
    and Itachi out of slots 1–2. One production DB update (`story_editorial.featured_rank`). Needs OK.
 3. First-day credits 10 → 20 turns. ~1 hour. Extra cost ≈ $0.25 per wall-hitter, ~3/day → < $1/day.
@@ -135,7 +138,13 @@ Targets (weekly cohorts, ~88 players/week so only big moves show): D1 any-open 1
 2. Featured reorder + first-day credits 10 → 20 turns?
 3. Build the story bot (1/day, official-grade, ~$71–80/month + ~10 h review)?
 4. New tagline (OOC copy appears word for word in 4 places; list in `docs/design-v2/README.md`).
-5. ~~PixAI membership~~ Settled: PixAI lost the cover test; the bot makes covers through OpenAI gpt-image.
+5. PixAI: the user chose it for covers (2026-11-21). They buy Starter ($9.99/mo = 300k credits;
+   Tsubaki.3 = 3,400 credits/cover, enough for ~1 new story/day plus redoing the 27 official covers
+   once; 3/day needs Plus, $29.99) and create an API key (root `.env` locally, Railway for prod). Then
+   wire PixAI into the cover pipeline: provider switch, the existing gpt-4.1-mini title read-back,
+   a franchise-symbol check; the FR title swap stays on the gpt-image edit path. Redo the 6 Featured
+   covers first and show the user before any install or MEDIA_EPOCH bump.
+   Bot cost, plainly: ~$2.50/story → 1/day ≈ $75 + $10 PixAI ≈ $85/month; 3/day ≈ $225 + $30 ≈ $255.
 
 ## Production side effects of this push
 
