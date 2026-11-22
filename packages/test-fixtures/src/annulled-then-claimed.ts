@@ -84,6 +84,7 @@ const raw = {
     startWorldMinute: 22 * 60 + 40,
     startingItems: [{ itemId: 'engagement_ring', qty: 1 }],
     hardCanon: [
+      'Everyone in this story is an adult. The player is twenty-four. Grand Duke Kassian Vahl is twenty-nine, Crown Prince Edmund twenty-five, Lady Rosalind Crane twenty-one, Marquis Osric Mereval fifty-four, Bette Hollin twenty-seven, Captain Signe Brask thirty-four and Count Benedikt Crane forty-seven.',
       'The player is twenty-four, the sole heir of Marquis Osric Mereval, and was engaged to Crown Prince Edmund for four years, until he annulled the engagement tonight at the midsummer ball in front of the whole court.',
       'Grand Duke Kassian Vahl turns thirty at noon nine days from tonight. Under the Writ of Marches, a march lord still unmarried at thirty has his lands placed under a Crown steward until he weds. The steward already chosen is Count Benedikt Crane’s cousin.',
       'Lady Rosalind Crane cut the lace of her own gown at the spring garden party and let the court blame the player. What happened on the stair at the winter gala is genuinely disputed. The player’s sharp tongue is real and so are some of the cruel things the court repeats.',
@@ -95,6 +96,7 @@ const raw = {
       'There is no magic in this world. Power is law, money, rank, nerve and what people are willing to say in front of witnesses.',
       'The court calls Kassian the Butcher because, the spring after the Long Freeze, he stood up in open council and read out, name by name and figure by figure, every lord who had grown rich selling grain while the North went hungry. Three of them lost their titles by summer. Nobody at court has invited him anywhere since, he has never corrected the name, and nobody in the North uses it.',
       'The player and Kassian have spoken exactly twice before tonight, both times briefly. At the old Queen Dowager’s funeral two summers ago, the player told him that gloves worn indoors were either an insult or a coward’s habit; he said "Neither," and did not explain. At a council supper last winter, the player was the only person at the table who asked him how the North was eating, and he answered for twenty minutes.',
+      'Reputation is how this world keeps score. Anything the player says or does in front of witnesses is repeated across the capital by the next morning, larger, and the Halcourt Lantern prints the best of it; a word said in private stays private unless somebody repeats it. Keeping a calm face through a bad evening costs something, and a night’s sleep gives it back. Count Crane’s hold on the court, through his loans and the debts he has bought, grows every day that nobody moves against him.',
     ],
     toneGuide:
       'Villainess romance fantasy with teeth, played for tension and comedy in equal measure. A ballroom is a battlefield and the weapons are sentences: a cut delivered at exactly the right volume, a curtsey held a beat too long, a fan closed with a snap. The court is an audience that reacts to everything, and its reactions are where most of the comedy lives. ' +
@@ -979,6 +981,7 @@ const raw = {
     {
       id: 'rosalind',
       name: 'Lady Rosalind Crane',
+      calledName: 'Rosalind',
       role: 'The count’s niece on Edmund’s arm, whom the whole court believes you tormented',
       cardBlurb:
         'The court thinks you made her life a misery. She knows exactly which parts you did and which parts she arranged, and she is more frightened of tonight than you are.',
@@ -1217,6 +1220,7 @@ const raw = {
     {
       id: 'signe',
       name: 'Captain Signe Brask',
+      calledName: 'Signe',
       role: 'Captain of the grand duke’s guard, and the person who traced the grain',
       cardBlurb:
         'The duke’s captain thinks marrying you is a mistake and says so to your face. She also knows exactly why he chose you, and she has decided you will not hear it from her.',
@@ -2195,7 +2199,7 @@ const raw = {
       attributeBonus: { presence: 3, resolve: 1 },
       skillProficiencies: { tongue: 3, poise: 2 },
       startingItems: [{ itemId: 'dance_card', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['say_no', 'cut_them_dead', 'hold_your_ground'],
       startingReputation: [{ factionId: 'faction_court', amount: 10 }],
     },
     {
@@ -2208,7 +2212,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { ledgers: 3, protocol: 2 },
       startingItems: [{ itemId: 'grain_receipt', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['say_no', 'name_your_terms'],
       startingReputation: [{ factionId: 'faction_mereval', amount: 10 }],
     },
     {
@@ -2221,7 +2225,7 @@ const raw = {
       attributeBonus: { might: 2, agility: 2 },
       skillProficiencies: { riding: 3, nerve: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['say_no', 'ride_hard', 'say_it_plainly'],
       startingReputation: [{ factionId: 'faction_north', amount: 10 }],
     },
     {
@@ -2234,7 +2238,7 @@ const raw = {
       attributeBonus: { mind: 2, agility: 2 },
       skillProficiencies: { insight: 3, discretion: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['say_no', 'read_the_room', 'slip_away'],
       startingReputation: [{ factionId: 'faction_servants', amount: 15 }],
     },
   ],
@@ -2469,7 +2473,7 @@ const raw = {
     '"Marry me instead. Walk out of here on my arm with your head up, or stay and let them watch. Yes or no?"',
   openingPanel: {
     assetKey: 'story_annulled_then_claimed/opening',
-    alt: 'Grand Duke Kassian Vahl, tall in black with a scar through one eyebrow, holds out a gloved hand across a glittering ballroom while the whole court turns to stare.',
+    alt: 'Kassian, the Grand Duke, tall in black with a scar through one eyebrow, holds out a gloved hand to you across a glittering ballroom while the whole court turns to stare.',
   },
   openingSuggestions: [
     '"We’ve spoken twice in our lives, Your Grace. Why would I marry you?"',
@@ -2479,15 +2483,19 @@ const raw = {
   coverDirection: [
     'SUBJECT: Grand Duke Kassian Vahl, alone and unmistakable in the foreground of a key visual for a romance fantasy anime about a broken royal engagement.',
     'He fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
-    'A tall man with short black hair cut like a soldier’s, grey eyes and a pale scar through the left eyebrow,',
+    'Very tall, short black hair cut like a soldier’s, grey eyes and one thin pale scar through the left eyebrow,',
     'in a high-collared coat of northern black wool with silver buttons and silver embroidery at the cuffs, a dark cloak over one shoulder, black leather gloves.',
     'One gloved hand is held out toward the viewer, palm up, an offer and a question at once; the other hand rests behind his back.',
     'His expression is calm, direct and very slightly amused, looking straight at the viewer.',
+    'A few white rose petals drift through the air around his outstretched glove, and the crystal chandeliers behind him throw small points of sparkle.',
+    'HIS FACE STAYS CLEAN: the thin eyebrow scar is the only mark on it; no petals, sparkles, glare or shadows across his face or skin.',
+    'Every sparkle and petal stays on the glove, the chandeliers, the air and the title, never on his face.',
     'BEHIND HIM, soft and secondary: the mirrored Glass Ballroom of a summer palace, crystal chandeliers, tall mirrors full of candlelight,',
     'and a crowd in silk and jewels turned to stare at him, all in soft focus.',
-    'LIGHT: warm gold candlelight from the chandeliers rims his hair and shoulders, and cool silver moonlight from the tall windows falls across his face and the outstretched glove.',
-    'TITLE: the words ANNULLED, THEN CLAIMED painted into the art in the upper third as an elegant serif romance-fantasy logo, ivory with a thin gold edge,',
-    'spelled exactly ANNULLED, THEN CLAIMED, large and legible at thumbnail size. No other text anywhere.',
+    'LIGHT: warm gold candlelight from the chandeliers rims his hair and shoulders, and cool silver moonlight from the tall windows falls across the outstretched glove.',
+    'TITLE: the words ANNULLED, THEN CLAIMED painted into the art in the upper third, above his head, as an elegant serif romance-fantasy logo, ivory with a thin gold edge,',
+    'set on two centred lines, ANNULLED, on the first and THEN CLAIMED on the second, spelled exactly ANNULLED, THEN CLAIMED with the comma after ANNULLED,',
+    'large and legible at thumbnail size. A single fine gold crack runs through the word ANNULLED only. No other text anywhere.',
   ].join(' '),
   publishedAt: null,
 };

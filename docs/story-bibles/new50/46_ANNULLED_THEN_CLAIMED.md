@@ -45,12 +45,14 @@ Take his hand, or refuse him in front of everyone. Clear your name, or keep it a
 
 ### Backgrounds (archetypes)
 
-| Id | Name | Plain role | Strong at | Starts with |
-|---|---|---|---|---|
-| `arch_tongue` | The Sharpest Tongue | Talk as a weapon | Public cuts, holding a room | Dance card with "K.V." on the last waltz; Court +10 |
-| `arch_ledgers` | The Estate Keeper | Technical: money and contracts | Ledgers, court law | The grain receipt; House Mereval +10 |
-| `arch_saddle` | The Rider | Riding, speed and nerve | Riding, saying no | Northern March +10 |
-| `arch_watcher` | The Quiet Observer | Stealth and reading people | Insight, discretion | Servants' Stair +15 |
+| Id | Name | Plain role | Strong at | Starts with | Starting abilities |
+|---|---|---|---|---|---|
+| `arch_tongue` | The Sharpest Tongue | Talk as a weapon | Public cuts, holding a room | Dance card with "K.V." on the last waltz; Court +10 | Say No, Cut Them Dead, Keep Your Head Up |
+| `arch_ledgers` | The Estate Keeper | Technical: money and contracts | Ledgers, court law | The grain receipt; House Mereval +10 | Say No, Name Your Terms |
+| `arch_saddle` | The Rider | Riding, speed and nerve | Riding, saying no | Northern March +10 | Say No, Ride Hard, Say It Plainly |
+| `arch_watcher` | The Quiet Observer | Stealth and reading people | Insight, discretion | Servants' Stair +15 | Say No, Read the Room, Slip Away |
+
+Every background starts with Say No, because a refusal that is always allowed is this story's rule, and production's storyteller reads only the chosen background's starting abilities.
 
 ## Cast (everyone is an adult)
 
@@ -165,6 +167,8 @@ The story starts in the Glass Ballroom at 22:40 on the first night. Every locati
 - Rosalind cut her own gown. What happened on the winter stair is genuinely disputed.
 - "The Butcher" comes from a council speech, not a battlefield (see Kassian above). Nobody in the North uses the name.
 - The player and Kassian have spoken exactly twice before tonight (see The player).
+- **Reputation is how this world keeps score.** Anything said or done in front of witnesses is repeated across the capital by morning, larger, and the Halcourt Lantern prints the best of it; private words stay private unless repeated. Keeping a calm face costs something and a night's sleep gives it back. Crane's hold on the court grows every day nobody moves against him. (These are the three invisible variables, Scandal, Composure and Leverage, said in words, because the storyteller never reads resources.)
+- The first hard-canon line states that everyone is an adult and gives every age.
 
 ## Tone
 
@@ -248,7 +252,11 @@ Asked "why would I marry you?" on turn two, Kassian gives the true half (nine da
 
 ## Cover
 
-`coverDirection` in the fixture: Kassian alone, waist up, in black wool and silver with black gloves, one gloved hand held out toward the viewer; the mirrored Glass Ballroom and a staring crowd soft behind him; gold candlelight and silver moonlight; the title ANNULLED, THEN CLAIMED painted into the upper third, no other text. He is described by costume and pose, with no age words.
+`coverDirection` in the fixture: Kassian alone, waist up, in black wool and silver with black gloves, one gloved hand held out toward the viewer; a few white rose petals around the glove and sparkle on the chandeliers; the mirrored Glass Ballroom and a staring crowd soft behind him; gold candlelight and silver moonlight. Its `TITLE:` line paints ANNULLED, THEN CLAIMED into the upper third above his head as an elegant ivory serif logo with a thin gold edge, on two centred lines, spelled exactly that (in capitals, because the cover prompt uppercases the title), with one fine gold crack through ANNULLED only. No other text. Every petal and sparkle stays off his face, and the direction says so in capitals. He is described by costume and pose, with no age words.
+
+**Opening panel** (`story_annulled_then_claimed/opening`): "Kassian, the Grand Duke, tall in black with a scar through one eyebrow, holds out a gloved hand to you across a glittering ballroom while the whole court turns to stare." The alt opens on his first name because his portrait is the panel's reference; it also carries "Grand", the first word of his full name, which is what the panel script matches him by. `story-checks.ts` warns that the alt does not start with a character's full-name first word. That warning is expected for a titled speaker and is not a defect.
+
+**Fixture system:** the story's rules live in hard canon (the Writ, the register, the reputation line), in the starting quest item `engagement_ring`, and in each background's starting abilities. Titled characters carry `calledName` (Kassian, Edmund, Rosalind, Osric, Signe, Crane). No prologue; `publishedAt` stays null until release.
 
 ## Originality
 

@@ -731,3 +731,49 @@ describe('the store card keeps the mystery', () => {
     expect(lead.discoverWhen?.flagsSet).toEqual(['knows:the_deadline']);
   });
 });
+
+describe('the art and release pipeline', () => {
+  it('opens the panel on the duke, whose portrait is its reference', () => {
+    // The panel art is drawn from the speaker's portrait. The alt opens on his
+    // first name, and carries "Grand", the first word of his full name, which
+    // is what the panel script matches him by.
+    const alt = STORY.openingPanel?.alt ?? '';
+    expect(alt).toMatch(/^Kassian\b/);
+    expect(alt).toContain('Grand');
+    expect(alt.length).toBeLessThanOrEqual(200);
+  });
+
+  it('letters its own title into the cover and keeps every effect off his face', () => {
+    const cover = STORY.coverDirection ?? '';
+    expect(cover).toMatch(/\bTITLE:/);
+    // The cover prompt uppercases the title into its wordmark; the TITLE line matches it.
+    expect(cover).toContain(`spelled exactly ${STORY.title.toUpperCase()}`);
+    expect(cover).toContain('HIS FACE STAYS CLEAN');
+    expect(cover).not.toMatch(/\b(young|younger|youthful|boyish|girlish|teen\w*|aged)\b/i);
+  });
+
+  it('opens straight on the scene and has no release date yet', () => {
+    expect(STORY.prologue ?? []).toEqual([]);
+    expect(STORY.publishedAt).toBeNull();
+  });
+
+  it('puts the system where the storyteller reads it', () => {
+    // runTurnPure reads hard canon, the starting items and the chosen
+    // background's starting abilities. It never reads resources.
+    for (const a of STORY.archetypes) {
+      expect(a.startingAbilities, a.id).toContain('say_no');
+      expect(a.startingAbilities.length, a.id).toBeGreaterThanOrEqual(2);
+    }
+    expect(STORY.rules.hardCanon.join(' ')).toContain('Reputation is how this world keeps score');
+    expect(STORY.rules.hardCanon[0]).toMatch(/^Everyone in this story is an adult\./);
+    expect(STORY.rules.startingItems.map((i) => i.itemId)).toContain('engagement_ring');
+    expect(STORY.rules.toneGuide.trim()).not.toBe('');
+  });
+
+  it('gives everybody with a title the name they are actually called', () => {
+    const TITLED = /^(Grand Duke|Crown Prince|Prince|Princess|King|Queen|Lady|Lord|Marquis|Count|Captain|Sir|Dame)\b/;
+    for (const c of STORY.characters.filter((ch) => TITLED.test(ch.name))) {
+      expect(c.calledName?.trim(), c.id).toBeTruthy();
+    }
+  });
+});
