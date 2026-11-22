@@ -23,8 +23,14 @@ import { WalletService } from './wallet.js';
 
 const HOUR = 3_600_000;
 const DAY = 24 * HOUR;
-/** Saturday 21 November 2026, 15:00 UTC. */
-const TODAY = new Date('2026-11-21T15:00:00.000Z');
+/** When the catalogue last released anything: every release stamps a `publishedAt`. */
+const CATALOG_NEWEST = LAUNCH_CATALOG.flatMap((s) => (s.publishedAt ? [s.publishedAt] : [])).sort().at(-1)!;
+/**
+ * 15:00 UTC, three days after the latest release. Pinned to a fixed date
+ * (21 November) the clock fell behind the first new-50 release, which stamped 37
+ * worlds the next day: the official catalogue was then newer than "yesterday".
+ */
+const TODAY = new Date(Date.parse(CATALOG_NEWEST.slice(0, 10)) + 3 * DAY + 15 * HOUR);
 const TOMORROW = new Date(TODAY.getTime() + DAY);
 const ago = (ms: number, from: Date = TODAY): Date => new Date(from.getTime() - ms);
 
@@ -137,11 +143,11 @@ describe('New on Plotbreak', () => {
     const newest = idsOf(await discover(h), 'new');
 
     expect(newest[0]).toBe(yesterday.storyId);
-    // Then the catalogue by date: Last Feather (30 October) is the newest official world.
-    expect(newest[1]).toBe('story_last_feather');
+    // Then the catalogue by date, starting with its latest release.
     const dates = newest.map(
       (id) => [...LAUNCH_CATALOG, yesterday].find((s) => s.storyId === id)!.publishedAt!,
     );
+    expect(dates[1]).toBe(CATALOG_NEWEST);
     expect(dates).toEqual([...dates].sort().reverse());
   });
 

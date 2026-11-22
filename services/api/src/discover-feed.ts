@@ -104,12 +104,19 @@ export const NEW_LIMIT = 12;
  * A world with no date at all is left out rather than put first: it cannot
  * claim to be new. (The old summary code stamped an undated world with the
  * current time, which would have pinned three September worlds to the front.)
+ *
+ * Worlds published at the same instant take turns, by the day's shuffle. A
+ * release stamps its whole batch with one time (37 worlds on 22 November 2026),
+ * and the row holds twelve: broken on the id, it showed the same alphabetical
+ * twelve every day and never the other twenty-five. The shuffle is keyed on the
+ * UTC day, so the order still never changes on a refresh.
  */
-export function newestFirst(worlds: readonly ShelfWorld[]): string[] {
+export function newestFirst(worlds: readonly ShelfWorld[], day: string): string[] {
   return worlds
     .filter((world) => world.hasCover)
     .map((world) => ({ id: world.storyId, at: Date.parse(world.activity.firstPublishedAt ?? '') }))
     .filter((world) => Number.isFinite(world.at))
-    .sort((a, b) => b.at - a.at || compareText(a.id, b.id))
+    .map((world) => ({ ...world, key: dailyKey(day, world.id) }))
+    .sort((a, b) => b.at - a.at || compareText(a.key, b.key) || compareText(a.id, b.id))
     .map((world) => world.id);
 }

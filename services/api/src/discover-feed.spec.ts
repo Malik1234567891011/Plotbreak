@@ -3,6 +3,7 @@ import type { GameState } from '@plotbreak/contracts';
 import { LAUNCH_CATALOG } from '@plotbreak/test-fixtures';
 import {
   DAY_MS,
+  NEW_LIMIT,
   activityWindows,
   dailyShuffle,
   newestFirst,
@@ -97,26 +98,54 @@ describe('the daily shuffle', () => {
 
 describe('New on Plotbreak', () => {
   it('is newest first by first-publish date', () => {
-    const order = newestFirst([
-      world('a', { activity: { firstPublishedAt: '2026-09-10T00:00:00.000Z' } }),
-      world('b', { activity: { firstPublishedAt: '2026-11-20T00:00:00.000Z' } }),
-      world('c', { activity: { firstPublishedAt: '2026-10-30T00:00:00.000Z' } }),
-    ]);
+    const order = newestFirst(
+      [
+        world('a', { activity: { firstPublishedAt: '2026-09-10T00:00:00.000Z' } }),
+        world('b', { activity: { firstPublishedAt: '2026-11-20T00:00:00.000Z' } }),
+        world('c', { activity: { firstPublishedAt: '2026-10-30T00:00:00.000Z' } }),
+      ],
+      utcDay(NOW),
+    );
     expect(order).toEqual(['b', 'c', 'a']);
   });
 
   it('leaves out a world with no cover or no date, rather than putting it first', () => {
-    const order = newestFirst([
-      world('dated', { activity: { firstPublishedAt: '2026-09-10T00:00:00.000Z' } }),
-      world('undated'),
-      world('coverless', { hasCover: false, activity: { firstPublishedAt: '2026-11-21T00:00:00.000Z' } }),
-    ]);
+    const order = newestFirst(
+      [
+        world('dated', { activity: { firstPublishedAt: '2026-09-10T00:00:00.000Z' } }),
+        world('undated'),
+        world('coverless', { hasCover: false, activity: { firstPublishedAt: '2026-11-21T00:00:00.000Z' } }),
+      ],
+      utcDay(NOW),
+    );
     expect(order).toEqual(['dated']);
   });
 
-  it('breaks a tie on the id, so two worlds published together never swap on refresh', () => {
-    const at = { firstPublishedAt: '2026-11-20T00:00:00.000Z' };
-    expect(newestFirst([world('y', { activity: at }), world('x', { activity: at })])).toEqual(['x', 'y']);
+  describe('a batch released at one instant', () => {
+    // How a release lands: every story in it carries the one stamp release-stories wrote.
+    const at = { firstPublishedAt: '2026-11-22T18:19:46.004Z' };
+    const batch = ids(37).map(({ storyId }) => world(storyId, { activity: at }));
+    const today = utcDay(NOW);
+    const tomorrow = utcDay(new Date(NOW.getTime() + DAY_MS));
+
+    it('never swaps on refresh, whatever order the worlds arrive in', () => {
+      const order = newestFirst(batch, today);
+      expect(newestFirst([...batch].reverse(), today)).toEqual(order);
+      expect(newestFirst(batch, utcDay(new Date('2026-11-21T23:59:00.000Z')))).toEqual(order);
+    });
+
+    it('takes turns at the front: the day’s shuffle, not the alphabet', () => {
+      expect(newestFirst(batch, today)).toEqual(dailyShuffle(batch, today).map((w) => w.storyId));
+      const front = (day: string) => newestFirst(batch, day).slice(0, NEW_LIMIT);
+      expect(front(tomorrow)).not.toEqual(front(today));
+      expect(front(today)).not.toEqual(batch.slice(0, NEW_LIMIT).map((w) => w.storyId));
+    });
+
+    it('still puts anything published later ahead of the whole batch', () => {
+      const later = world('zz_later', { activity: { firstPublishedAt: '2026-11-23T09:00:00.000Z' } });
+      expect(newestFirst([...batch, later], today)[0]).toBe('zz_later');
+      expect(newestFirst([...batch, later], tomorrow)[0]).toBe('zz_later');
+    });
   });
 });
 

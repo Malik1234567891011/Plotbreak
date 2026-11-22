@@ -86,7 +86,7 @@ import { registerCreateRoutes } from './create-routes.js';
 import { TowerError, TowerService, towerEnabledFor } from './tower.js';
 import { CHARACTERS_BY_ID } from '@plotbreak/tower';
 import { visibilityContext, visibleStories } from './catalogue-visibility.js';
-import { NEW_LIMIT, activityWindows, newestFirst, type ShelfWorld } from './discover-feed.js';
+import { NEW_LIMIT, activityWindows, newestFirst, utcDay, type ShelfWorld } from './discover-feed.js';
 import type { StoryVersion } from '@plotbreak/contracts';
 import type { SessionRecord, StorySignals } from './repo/types.js';
 import { EMPTY_ACTIVITY, EMPTY_SIGNALS } from './repo/types.js';
@@ -685,7 +685,7 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     }
 
     // Newest first, by when each world was first published. See `newestFirst`.
-    const newest = summariesOf(newestFirst(worlds).slice(0, NEW_LIMIT));
+    const newest = summariesOf(newestFirst(worlds, utcDay(now)).slice(0, NEW_LIMIT));
     if (enough(6) && newest.length >= 2) {
       rails.push({
         id: 'new',
