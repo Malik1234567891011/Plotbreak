@@ -165,7 +165,8 @@ describe('the opener is the famous moment, and it asks', () => {
   it('names nobody the player has to know already', () => {
     // Every capitalised word that is not the start of a sentence or a quote
     // has to be introduced in the opener itself.
-    const introduced = new Set(['Prince', 'Edmund', 'Grand', 'Duke', 'Kassian', 'Vahl', 'I', 'I’ll']);
+    // "Butcher" is introduced as a name the court uses, and hardCanon says why.
+    const introduced = new Set(['Prince', 'Edmund', 'Grand', 'Duke', 'Kassian', 'Vahl', 'Butcher', 'I', 'I’ll']);
     const tokens = opening.split(/\s+/);
     const unknown: string[] = [];
     for (let i = 1; i < tokens.length; i++) {

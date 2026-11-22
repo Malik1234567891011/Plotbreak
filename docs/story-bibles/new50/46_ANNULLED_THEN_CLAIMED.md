@@ -6,11 +6,11 @@ Story #46. Villainess romance fantasy. Rated 13+.
 - Fixture: `packages/test-fixtures/src/annulled-then-claimed.ts` (export `ANNULLED_THEN_CLAIMED`, raw)
 - Spec: `packages/test-fixtures/src/annulled-then-claimed.spec.ts`
 - Asset key prefix: `story_annulled_then_claimed`
-- Not registered in `index.ts` yet. No art has been generated.
+- Not registered in `index.ts` yet. No art has been generated. When it is registered, run smoke as `--only=annulled_then_claimed` (underscores): smoke matches on `storyId`, so the hyphenated slug matches nothing and exits 0 having played no world.
 
 **Fantasy label:** Dumped at the ball. Claimed by the duke.
 
-**Hook:** The crown prince annuls your engagement in front of four hundred guests. Before anyone can laugh, the grand duke nobody invites calls out from the back of the hall: I'll take her.
+**Hook:** The crown prince annuls your engagement in front of four hundred guests. Before anyone can laugh, the grand duke nobody invites calls out from the back of the hall: "I'll take her."
 
 ## Why this fantasy works
 
@@ -25,15 +25,15 @@ What makes it a game instead of a wish-fulfilment conveyor belt:
 
 ## Premise
 
-For four years you were engaged to the crown prince. Tonight, at the midsummer ball, in front of four hundred guests, he annulled it. His reasons, read aloud: cruelty, jealousy, and what you did to Lady Rosalind, the sweet count's niece now standing on his arm.
+For four years you were engaged to the crown prince. Tonight, at the midsummer ball, in front of four hundred guests, he annulled it. His reasons, read aloud: cruelty, jealousy, and what you did to Lady Rosalind, the count's sweet niece now standing on his arm.
 
 Some of it is true. You do have a sharp tongue, and you have used it. Some of it is a lie, and you know exactly which parts.
 
-The whole hall was waiting for you to cry. Then the grand duke of the North, a man the court calls the Butcher and never invites anywhere, said from the back: I'll take her. He has spoken to you twice in your life. He has a reason, and it has a deadline.
+The whole hall was waiting for you to scream. Then the grand duke of the North, a man the court calls the Butcher and never invites anywhere, said from the back: "I'll take her." He has spoken to you twice in your life. He has a reason, and it has a deadline.
 
 You have until midnight to answer him in front of everyone. After that comes your father, who wants a word with you in the carriage; a city that will read about you over breakfast; and a royal hearing in three days that decides whose name you leave with.
 
-Take his hand. Refuse him. Clear your name, or wear it like a crown. Everyone in that ballroom wants something from you tonight, and for once none of them gets to decide it for you.
+Take his hand, or refuse him in front of everyone. Clear your name, or keep it and use it. Every person in that ballroom wants something from you before the week is out.
 
 ## The player
 
@@ -41,6 +41,7 @@ Take his hand. Refuse him. Clear your name, or wear it like a crown. Everyone in
 - Engaged to Crown Prince Edmund for four years, from twenty to twenty-four.
 - Protagonist is `BLANK`: the player sets their own name and pronouns. The setup asks for a name, pronouns, a background (archetype), what the court gets wrong about them, and optionally how they take public humiliation and what they look like.
 - Three winters ago, in the Long Freeze, the player paid from their own estate income for forty wagons of grain to reach the northern garrisons, signed "a friend of the March". Nobody at court knows.
+- The player and Kassian have spoken exactly twice before tonight, both briefly. At the old Queen Dowager's funeral two summers ago, the player told him that gloves worn indoors were either an insult or a coward's habit; he said "Neither," and did not explain (they hide frostbite). At a council supper last winter, the player was the only person at the table who asked him how the North was eating, and he answered for twenty minutes.
 
 ### Backgrounds (archetypes)
 
@@ -55,15 +56,19 @@ Take his hand. Refuse him. Clear your name, or wear it like a crown. Everyone in
 
 Array order in the fixture is cover order.
 
+Also in the story: the King, Edmund's father, 63; Lord Pellam, Crane's oldest creditor, 68; Crane's cousin, the would-be steward, 44. Every garrison captain, servant and clerk is an adult.
+
 ### Grand Duke Kassian Vahl, 29
 
 Grand duke of the Northern March. The court calls him the Butcher and never invites him anywhere. He turns thirty at noon in nine days.
+
+- **Why "the Butcher":** the court calls Kassian the Butcher because, the spring after the Long Freeze, he stood up in open council and read out, name by name and figure by figure, every lord who had grown rich selling grain while the North went hungry. Three of them lost their titles by summer. Nobody at court has invited him anywhere since, he has never corrected the name, and nobody in the North uses it.
 
 - **Wants:** to be married before noon on his thirtieth birthday so no Crown steward takes his lands, and to marry the one person at court he actually respects, on terms they can live with.
 - **Motive under it:** his captain traced the Long Freeze grain to the player two years ago. He came to a ball for the first time in six years so he would be standing at the back when Edmund did it.
 - **Fears:** that the player says yes only because there is nowhere else to stand; a steward in his hall and the North going hungry again.
 - **Secrets:** the grain; he signed "K.V." on the player's dance card hours before the annulment; frostbite scars under the black gloves.
-- **Hard limits:** never pressures anyone into marriage, never asks twice, never lies (he refuses to answer, and says so).
+- **Hard limits:** never pressures anyone into marriage, never asks twice, never lies (he refuses to answer, and says so). Will not tell the player about the grain at the ball or in front of anyone. Asked why them, he gives the true half (nine days, the Writ, and that they are the only person at court he respects) and says plainly that the rest waits until he trusts them.
 - **Voice:** short, plain sentences with no flattery. Dry humour said flat. Counts time in winters. Calls the player "my lady" until told otherwise.
   - "I said I'll take her. I didn't say I'd keep you. That part is your decision."
   - "I dance badly, I lie badly, and I don't ask twice. You'll come to like two of those."
@@ -91,6 +96,8 @@ Count Crane's niece, on Edmund's arm in white.
 - **Voice:** two voices. In public, breathy and apologetic, tagging sentences with "isn't it?". In private, flat, quick, all figures.
   - "I never wished you any harm, truly. It's all just so dreadful, isn't it?"
   - "Drop it. Nobody is listening now. Let's talk like two women who can add."
+- **Fears:** old Lord Pellam, and a life shut away in his house in the marshes.
+- **Look:** a tall, composed woman with pale blonde hair pinned up in an elaborate court style, grey-green eyes, a white silk gown with seed pearls, a beaded white reticule held in both hands.
 
 ### Marquis Osric Mereval, 54
 
@@ -109,16 +116,17 @@ The player's lady's maid for six years.
 - **Wants:** to get the player home in one piece; to confess before somebody else tells.
 - **Motive under it:** for a year a clerk from the Crane Counting House has paid her to report the player's movements. One report put Rosalind on the winter-gala stair at the same minute as the player.
 - **Voice:** quick, warm, below-stairs idiom: pins, hems, footmen's wagers, "my lady" constantly.
-  - "Below stairs they had the whole thing by nine o'clock. The footmen were taking wagers. I won four silver off the under-butler."
+  - "Below stairs they had the whole thing by eleven o'clock. The footmen were taking wagers. I won four silver off the under-butler."
 
 ### Captain Signe Brask, 34
 
 Captain of the duke's guard.
 
 - **Wants:** Kassian married before noon on the ninth day, or out of the capital before the steward is named.
-- **Motive under it:** her garrison at Greywatch ate that grain. She traced it to the player and resents owing a southern lady anything.
+- **Motive under it:** her garrison at Greywatch ate that grain. She traced it to the player two years ago, told Kassian, and resents owing a southern lady anything. She is certain, not searching, and has decided the player will not hear it from her.
 - **Voice:** terse northern soldier. Numbers first: miles, horses, hours. Mild oath: "Frost take it."
   - "Two horses saddled. Forty miles to the first post-house. He said to tell you nothing else."
+  - "Southerners send letters. Somebody, three winters back, sent wagons. I found out who. Ask him, not me."
 
 ### Count Benedikt Crane, 47
 
@@ -155,12 +163,14 @@ The story starts in the Glass Ballroom at 22:40 on the first night. Every locati
 - A marriage is binding only when both people sign the register in person, at the Chancery of Seals or before the march chaplain at Vahlhold. Nobody can be married by announcement, force or proxy.
 - Kassian will not pressure anyone. A refusal is final from his side. The player can still go to him.
 - Rosalind cut her own gown. What happened on the winter stair is genuinely disputed.
+- "The Butcher" comes from a council speech, not a battlefield (see Kassian above). Nobody in the North uses the name.
+- The player and Kassian have spoken exactly twice before tonight (see The player).
 
 ## Tone
 
 Villainess romance with teeth, tension and comedy in equal measure. A ballroom is a battlefield and the weapons are sentences. The court is an audience that reacts to everything.
 
-Romance is slow and well-mannered on the surface: banter, a hand held a moment too long, a cloak round somebody's shoulders, a dance that is really an argument. **It goes as far as a kiss and stops.** A closing door ends the scene, and the camera stays on faces and hands. Violence is rare and social: guards, scandal, a summons. Nobody bleeds on the page.
+Romance is slow and well-mannered on the surface: banter, a hand held a moment too long, a cloak round somebody's shoulders, a dance that is really an argument. **It goes as far as a kiss and stops there: the kiss ends the scene, the next beat starts somewhere else, later, and nothing is implied to have happened off the page.** A wedding ends at the register. The camera stays on faces and hands. Violence is rare and social: guards, scandal, a summons. Nobody bleeds on the page.
 
 ## The five promises
 
@@ -214,25 +224,31 @@ Romance is slow and well-mannered on the surface: banter, a hand held a moment t
 
 ## Opener
 
-> "Our engagement is annulled," Prince Edmund tells you, loud enough for the whole ballroom. "Four years. Done."
+> "We hereby annul our engagement," Prince Edmund tells you, pitched for the whole ballroom. "The realm deserves a kinder queen."
 >
 > The woman on his arm lowers her eyes, perfect in white. Four hundred guests wait for you to scream. It's what the villainess does.
 >
-> Then, from the back of the hall, a bored voice: "I'll take her."
+> From the back of the hall, a bored voice: "I'll take her."
 >
-> Every head turns. The crowd parts for a tall man in black with a scar through one eyebrow: Grand Duke Kassian Vahl, who never comes to balls.
+> Every head turns. The crowd parts for a tall man in black with a scar through one eyebrow: Grand Duke Kassian Vahl. The court calls him the Butcher.
 >
 > He stops in front of you and holds out a gloved hand.
 >
 > "Marry me instead. Walk out of here on my arm with your head up, or stay and let them watch. Yes or no?"
 
-116 words. A named character (Edmund) speaks to the player in the first sentence. It ends on a direct yes-or-no question that is due before midnight.
+119 words. A named character (Edmund) speaks to the player in the first sentence, in his royal "we", so he and the duke do not sound alike. "I'll take her" lands at word 55. It ends on a direct yes-or-no question that is due before midnight. "The Butcher" is explained in hard canon, so the narrator has a true answer when the player asks on turn two.
 
 **Suggestions:**
 
 - Said: "We've spoken twice in our lives, Your Grace. Why would I marry you?"
 - Done: I take his hand and walk out with him, without a glance back at Edmund.
-- Risky: I pull off the prince's ring, drop it into his wine glass, and only then answer the duke.
+- Risky: I pull off the prince's ring, drop it into Edmund's wine, and only then answer the duke.
+
+Asked "why would I marry you?" on turn two, Kassian gives the true half (nine days, the Writ, respect) and says the rest waits. That rule is in his boundaries, which production sends; quest notes and reveal hints are not sent.
+
+## Cover
+
+`coverDirection` in the fixture: Kassian alone, waist up, in black wool and silver with black gloves, one gloved hand held out toward the viewer; the mirrored Glass Ballroom and a staring crowd soft behind him; gold candlelight and silver moonlight; the title ANNULLED, THEN CLAIMED painted into the upper third, no other text. He is described by costume and pose, with no age words.
 
 ## Originality
 

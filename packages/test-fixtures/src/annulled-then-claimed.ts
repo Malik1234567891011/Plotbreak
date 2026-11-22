@@ -42,13 +42,13 @@ const raw = {
   version: 1,
   title: 'Annulled, Then Claimed',
   fantasyLabel: 'Dumped at the ball. Claimed by the duke.',
-  hook: 'The crown prince annuls your engagement in front of four hundred guests. Before anyone can laugh, the grand duke nobody invites calls out from the back of the hall: I’ll take her.',
+  hook: 'The crown prince annuls your engagement in front of four hundred guests. Before anyone can laugh, the grand duke nobody invites calls out from the back of the hall: “I’ll take her.”',
   premise:
-    'For four years you were engaged to the crown prince. Tonight, at the midsummer ball, in front of four hundred guests, he annulled it. His reasons, read aloud: cruelty, jealousy, and what you did to Lady Rosalind, the sweet count’s niece now standing on his arm.\n\n' +
+    'For four years you were engaged to the crown prince. Tonight, at the midsummer ball, in front of four hundred guests, he annulled it. His reasons, read aloud: cruelty, jealousy, and what you did to Lady Rosalind, the count’s sweet niece now standing on his arm.\n\n' +
     'Some of it is true. You do have a sharp tongue, and you have used it. Some of it is a lie, and you know exactly which parts.\n\n' +
-    'The whole hall was waiting for you to cry. Then the grand duke of the North, a man the court calls the Butcher and never invites anywhere, said from the back: I’ll take her. He has spoken to you twice in your life. He has a reason, and it has a deadline.\n\n' +
+    'The whole hall was waiting for you to scream. Then the grand duke of the North, a man the court calls the Butcher and never invites anywhere, said from the back: “I’ll take her.” He has spoken to you twice in your life. He has a reason, and it has a deadline.\n\n' +
     'You have until midnight to answer him in front of everyone. After that comes your father, who wants a word with you in the carriage; a city that will read about you over breakfast; and a royal hearing in three days that decides whose name you leave with.\n\n' +
-    'Take his hand. Refuse him. Clear your name, or wear it like a crown. Everyone in that ballroom wants something from you tonight, and for once none of them gets to decide it for you.',
+    'Take his hand, or refuse him in front of everyone. Clear your name, or keep it and use it. Every person in that ballroom wants something from you before the week is out.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
@@ -93,10 +93,12 @@ const raw = {
       'A marriage is binding only when both people sign the register in person, at the Chancery of Seals in the capital or before the march chaplain at Vahlhold. Nobody can be married by announcement, by force, or by somebody else’s signature.',
       'Kassian will not pressure anyone into marriage. If the player refuses him he will bow, leave, and never ask again. The player is free to go to him later.',
       'There is no magic in this world. Power is law, money, rank, nerve and what people are willing to say in front of witnesses.',
+      'The court calls Kassian the Butcher because, the spring after the Long Freeze, he stood up in open council and read out, name by name and figure by figure, every lord who had grown rich selling grain while the North went hungry. Three of them lost their titles by summer. Nobody at court has invited him anywhere since, he has never corrected the name, and nobody in the North uses it.',
+      'The player and Kassian have spoken exactly twice before tonight, both times briefly. At the old Queen Dowager’s funeral two summers ago, the player told him that gloves worn indoors were either an insult or a coward’s habit; he said "Neither," and did not explain. At a council supper last winter, the player was the only person at the table who asked him how the North was eating, and he answered for twenty minutes.',
     ],
     toneGuide:
       'Villainess romance fantasy with teeth, played for tension and comedy in equal measure. A ballroom is a battlefield and the weapons are sentences: a cut delivered at exactly the right volume, a curtsey held a beat too long, a fan closed with a snap. The court is an audience that reacts to everything, and its reactions are where most of the comedy lives. ' +
-      'The romance is slow and well-mannered on the surface: banter, a hand held a moment too long, a cloak put round somebody’s shoulders, a dance that is really an argument. It goes as far as a kiss and stops there; a closing door ends the scene, and the camera stays on faces and hands. Nobody is ever pressured into anything, and every man who wants the player can be refused and stays refused. ' +
+      'The romance is slow and well-mannered on the surface: banter, a hand held a moment too long, a cloak put round somebody’s shoulders, a dance that is really an argument. It goes as far as a kiss and stops there: the kiss ends the scene, the next beat starts somewhere else, later, and nothing is implied to have happened off the page. A wedding ends at the register. The camera stays on faces and hands. Nobody is ever pressured into anything, and every man who wants the player can be refused and stays refused. ' +
       'Violence is rare and social. A slapped prince is a summons and a scandal, palace guards arrive within a minute, and nobody bleeds on the page. ' +
       'Keep scenes concrete: the wax on a seal, the figures in a ledger, the exact words said in front of witnesses. Short beats, sharp dialogue, one clear question at the end. The face at the top of a beat is Kassian’s whenever he is in the scene.',
     proseStyle: 'webnovel',
@@ -815,6 +817,7 @@ const raw = {
         'Will not pressure anyone into marriage. A no is final from his side, and he will not ask twice',
         'Will not lie to the player. He will refuse to answer, and say that he is refusing',
         'Will not take off his gloves in front of the court',
+        'Will not tell the player about the grain at the ball or in front of anyone. Asked why them, he gives the true half (nine days, the Writ, and that they are the only person at court he respects) and says plainly that the rest waits until he trusts them',
       ],
       goals: [
         'Be married before noon on his thirtieth birthday, nine days from tonight, so no Crown steward takes his lands',
@@ -842,13 +845,13 @@ const raw = {
       ],
       speechStyle:
         'Short, plain sentences with no flattery in them. Dry humour delivered flat, so it takes a second to land. Counts time in winters. Calls the player "my lady" until told otherwise, then uses their name as if it cost him something.',
-      topics: ['the North', 'the nine days', 'why he chose you', 'his three broken engagements', 'the Long Freeze', 'his gloves', 'the contract'],
+      topics: ['the North', 'the nine days', 'why he chose you', 'why the court calls him the Butcher', 'the Long Freeze', 'his gloves', 'the contract'],
       voiceSamples: [
         'I said I’ll take her. I didn’t say I’d keep you. That part is your decision.',
         'I dance badly, I lie badly, and I don’t ask twice. You’ll come to like two of those.',
         'Nine days. I could have married anyone with a dowry and a pulse. I walked past forty of them to reach you.',
         'Say no and I bow, leave, and never mention it again. Say yes and I spend a year proving you right.',
-        'Frostbite. The winter the grain didn’t come. Most people flinch. You didn’t. Noted.',
+        'Frostbite. The winter the Crown’s grain didn’t come. Most people flinch. You didn’t. Noted.',
       ],
       appearance:
         'Twenty-nine, very tall, black hair cut short like a soldier’s, grey eyes, a pale scar through the left eyebrow, northern black wool and silver where everybody else wears silk.',
@@ -986,7 +989,7 @@ const raw = {
         'She envied the player for four years and has never once admitted it, even to herself',
       ],
       values: ['Being practical about what a woman without money can afford', 'Paying her debts eventually, in whatever currency she has'],
-      fears: ['Old Lord Pellam, and the house in the marshes he keeps for his wives', 'Being found out in front of the whole court'],
+      fears: ['Old Lord Pellam, and a life shut away in his house in the marshes', 'Being found out in front of the whole court'],
       socialStyle:
         'In public she lowers her eyes, apologises for things that are not her fault, and lets other people defend her. Alone, she drops the voice entirely and talks numbers.',
       boundaries: [
@@ -1021,9 +1024,9 @@ const raw = {
         'You were handed everything and you were cruel with it. I had to build my everything out of a ribbon and a lie.',
       ],
       appearance:
-        'Twenty-one, pale blonde hair in soft curls, large grey-green eyes, a white silk gown with seed pearls and a beaded white reticule she never puts down.',
+        'Twenty-one, a tall, composed woman with pale blonde hair pinned up in an elaborate court style, grey-green eyes, a white silk gown with seed pearls and a beaded white reticule she never puts down.',
       visualHook: 'A beaded white reticule she keeps hold of all night, as if it were a shield.',
-      silhouette: 'Slight and very still, half a step behind Edmund, eyes lowered.',
+      silhouette: 'Upright and very still half a step behind Edmund, eyes lowered, the reticule held in both hands.',
       artSeed: 'atc-rosalind-01',
       portrait: null,
       expressions: ['neutral', 'sorry', 'calculating', 'frightened', 'sharp'],
@@ -1145,7 +1148,7 @@ const raw = {
       name: 'Bette Hollin',
       role: 'Your lady’s maid for six years, and the best-informed person below stairs',
       cardBlurb:
-        'She has dressed you for every ball for six years, she hears every rumour below stairs before it reaches the ballroom, and she has been carrying something about you for a year that is getting heavy.',
+        'She has dressed you for every ball for six years, she hears every rumour below stairs before it reaches the ballroom, and for a year she has been keeping a secret about the winter gala that is getting heavy.',
       pronouns: 'she/her',
       publicTraits: ['Talks while she works and works while she talks', 'Knows every footman in the palace by name', 'Fiercely, loudly on your side'],
       hiddenDrives: [
@@ -1173,14 +1176,14 @@ const raw = {
       topics: ['the servants’ gossip', 'the footmen’s wagers', 'the winter gala', 'your gowns', 'the Counting House'],
       voiceSamples: [
         'Hold still, there’s a pin in your sleeve and half the palace in the corridor.',
-        'Below stairs they had the whole thing by nine o’clock. The footmen were taking wagers. I won four silver off the under-butler.',
+        'Below stairs they had the whole thing by eleven o’clock. The footmen were taking wagers. I won four silver off the under-butler.',
         'Begging your pardon, my lady, but if you’re running off with a duke, you’ll want your warm stockings.',
         'I’ve done something. Sit down first. And promise you’ll keep me on after.',
       ],
       appearance:
         'Twenty-seven, freckled, red-brown hair under a starched cap, a grey maid’s dress with a pincushion strapped to her wrist.',
       visualHook: 'A red velvet pincushion strapped to her left wrist like a bracer.',
-      silhouette: 'Small and quick, half turned toward a door, arms full of a velvet wrap.',
+      silhouette: 'Brisk and quick, half turned toward a door, arms full of a velvet wrap.',
       artSeed: 'atc-bette-01',
       portrait: null,
       expressions: ['neutral', 'grinning', 'worried', 'guilty'],
@@ -1216,7 +1219,7 @@ const raw = {
       name: 'Captain Signe Brask',
       role: 'Captain of the grand duke’s guard, and the person who traced the grain',
       cardBlurb:
-        'The duke’s captain thinks marrying you is a mistake and says so to your face. She has also spent three winters looking for one particular southerner, and she is starting to think it is you.',
+        'The duke’s captain thinks marrying you is a mistake and says so to your face. She also knows exactly why he chose you, and she has decided you will not hear it from her.',
       pronouns: 'she/her',
       publicTraits: ['Blunt to the point of rudeness', 'Has never once been impressed by a palace', 'Would walk into a fire for Kassian and complain all the way'],
       hiddenDrives: [
@@ -1244,11 +1247,11 @@ const raw = {
       ],
       speechStyle:
         'Terse northern soldier. Numbers first: miles, horses, hours. Mild northern oaths. Never uses a title she has not decided you deserve.',
-      topics: ['the Long Freeze', 'the garrisons', 'the duke’s horses', 'the North road', 'Kassian’s three broken engagements'],
+      topics: ['the Long Freeze', 'the garrisons', 'the duke’s horses', 'the North road', 'why the court calls Kassian the Butcher'],
       voiceSamples: [
         'Two horses saddled. Forty miles to the first post-house. He said to tell you nothing else.',
         'Frost take it. He’s going to make me like you.',
-        'Southerners send letters. Somebody, three winters back, sent wagons. I’ve been looking for that somebody ever since.',
+        'Southerners send letters. Somebody, three winters back, sent wagons. I found out who. Ask him, not me.',
         'I don’t guard doors I can’t see through. Open it or step away from it.',
       ],
       appearance:
@@ -1291,7 +1294,7 @@ const raw = {
       calledName: 'Crane',
       role: 'Rosalind’s uncle, banker to half the court, and the only guest who did not look surprised',
       cardBlurb:
-        'Every noble house in the capital owes him money, yours included since last month. He watched the annulment from the terrace without surprise, and he will name his price for you politely.',
+        'Every noble house in the capital owes him money, and he knows to the last crown what each of them is worth. He watched the annulment from the terrace without surprise, and he will name his price for you politely.',
       pronouns: 'he/him',
       publicTraits: ['Courteous to everyone, including people he is ruining', 'Never seen to raise his voice or hurry', 'A count by purchase, and sensitive about it'],
       hiddenDrives: [
@@ -1575,7 +1578,7 @@ const raw = {
             {
               routeId: 'wed_in_the_north',
               label: 'Ride north and marry at Vahlhold',
-              predicate: { atLocation: 'vahlhold', flagsSet: ['contract_signed'] },
+              predicate: { atLocation: 'vahlhold', flagsSet: ['contract_signed'], beforeWorldMinute: 9 * 1440 + 12 * 60 },
               setsFlags: ['married_the_duke', 'married_in_the_north'],
               closesFlags: [],
             },
@@ -1778,7 +1781,7 @@ const raw = {
     {
       id: 'q_silver_on_paper',
       title: 'Silver on Paper',
-      summary: 'Count Crane did not look surprised at the ball. He has made you an offer since, and a man like that does not make offers he cannot afford.',
+      summary: 'Count Crane did not look surprised at the ball. A man like that has already priced you, and sooner or later he will name the figure.',
       kind: 'LEAD',
       involvedCharacterIds: ['crane', 'edmund', 'rosalind', 'kassian'],
       involvedLocationIds: ['crane_counting_house', 'audience_hall', 'lantern_quarter'],
@@ -1971,7 +1974,7 @@ const raw = {
     {
       id: 'q_too_late',
       title: 'Too Late, Your Highness',
-      summary: 'Edmund has worked out what he threw away, and he is walking across the ballroom toward you.',
+      summary: 'If your name is ever cleared, Edmund will work out what he threw away, and come back to ask whether it is too late.',
       kind: 'SIDE',
       involvedCharacterIds: ['edmund'],
       involvedLocationIds: ['glass_ballroom', 'palace_gardens'],
@@ -2186,7 +2189,7 @@ const raw = {
       id: 'arch_tongue',
       name: 'The Sharpest Tongue',
       role: 'Talk as a weapon',
-      summary: 'You win rooms with words. You start strong at public cuts and at holding a room’s eye, and the court already dreads your opinion.',
+      summary: 'You win rooms with words: public cuts, holding a room’s eye, and a court that dreads your opinion. Your dance card is still on your wrist, and someone has written K.V. against the last waltz.',
       playstyle: ['Cutting', 'Public', 'Proud'],
       blurb: 'Four years at the prince’s side, and you have never once lost an argument at supper. You have lost a great many friends.',
       attributeBonus: { presence: 3, resolve: 1 },
@@ -2199,7 +2202,7 @@ const raw = {
       id: 'arch_ledgers',
       name: 'The Estate Keeper',
       role: 'Technical: money and contracts',
-      summary: 'You quietly ran your mother’s southern estates for three years, so you read accounts, loans and contracts better than most ministers.',
+      summary: 'You quietly ran your mother’s southern estates for three years, so you read accounts, loans and contracts better than most ministers. The receipt from that very bad winter is still in your writing box.',
       playstyle: ['Careful', 'Numbers', 'Patient'],
       blurb: 'The court thought you spent your summers sulking in the south. You spent them balancing books, and once, in a very bad winter, unbalancing them on purpose.',
       attributeBonus: { mind: 3, resolve: 1 },
@@ -2335,8 +2338,8 @@ const raw = {
       condition:
         'The truth about the grain is out between them, the North knows who its duchess is, and the marriage is real. The scene is the arrival at Vahlhold: the garrisons lining the road for a southern lady they have been looking for since the Long Freeze. Let Kassian say almost nothing and let the soldiers say the rest.',
       epilogue:
-        'Forty wagons, the captains say, every year on the same day, and every year she tells them she has no idea what they mean. Greywatch names its new granary after her. The duke pretends not to know who paid for the roof.',
-      hint: 'Somebody in the North has been looking for you for three winters.',
+        'Forty wagons, the captains say, every year on the same day, and every year the duchess tells them there must be some mistake. Greywatch names its new granary for the Duchess Vahl anyway. The duke pretends not to know who paid for the roof.',
+      hint: 'Somebody in the North found you two winters ago, and has not said so.',
     },
     {
       id: 'end_villainess_of_the_north',
@@ -2458,22 +2461,35 @@ const raw = {
     },
   ],
   opening:
-    '"Our engagement is annulled," Prince Edmund tells you, loud enough for the whole ballroom. "Four years. Done."\n\n' +
+    '"We hereby annul our engagement," Prince Edmund tells you, pitched for the whole ballroom. "The realm deserves a kinder queen."\n\n' +
     'The woman on his arm lowers her eyes, perfect in white. Four hundred guests wait for you to scream. It’s what the villainess does.\n\n' +
-    'Then, from the back of the hall, a bored voice: "I’ll take her."\n\n' +
-    'Every head turns. The crowd parts for a tall man in black with a scar through one eyebrow: Grand Duke Kassian Vahl, who never comes to balls.\n\n' +
+    'From the back of the hall, a bored voice: "I’ll take her."\n\n' +
+    'Every head turns. The crowd parts for a tall man in black with a scar through one eyebrow: Grand Duke Kassian Vahl. The court calls him the Butcher.\n\n' +
     'He stops in front of you and holds out a gloved hand.\n\n' +
     '"Marry me instead. Walk out of here on my arm with your head up, or stay and let them watch. Yes or no?"',
   openingPanel: {
     assetKey: 'story_annulled_then_claimed/opening',
-    alt: 'A tall man in black with a scar through one eyebrow holds out a gloved hand across a glittering ballroom while the whole court turns to stare.',
+    alt: 'Grand Duke Kassian Vahl, tall in black with a scar through one eyebrow, holds out a gloved hand across a glittering ballroom while the whole court turns to stare.',
   },
   openingSuggestions: [
     '"We’ve spoken twice in our lives, Your Grace. Why would I marry you?"',
     'I take his hand and walk out with him, without a glance back at Edmund.',
-    'I pull off the prince’s ring, drop it into his wine glass, and only then answer the duke.',
+    'I pull off the prince’s ring, drop it into Edmund’s wine, and only then answer the duke.',
   ],
-  publishedAt: '2026-11-22T04:00:00.000Z',
+  coverDirection: [
+    'SUBJECT: Grand Duke Kassian Vahl, alone and unmistakable in the foreground of a key visual for a romance fantasy anime about a broken royal engagement.',
+    'He fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'A tall man with short black hair cut like a soldier’s, grey eyes and a pale scar through the left eyebrow,',
+    'in a high-collared coat of northern black wool with silver buttons and silver embroidery at the cuffs, a dark cloak over one shoulder, black leather gloves.',
+    'One gloved hand is held out toward the viewer, palm up, an offer and a question at once; the other hand rests behind his back.',
+    'His expression is calm, direct and very slightly amused, looking straight at the viewer.',
+    'BEHIND HIM, soft and secondary: the mirrored Glass Ballroom of a summer palace, crystal chandeliers, tall mirrors full of candlelight,',
+    'and a crowd in silk and jewels turned to stare at him, all in soft focus.',
+    'LIGHT: warm gold candlelight from the chandeliers rims his hair and shoulders, and cool silver moonlight from the tall windows falls across his face and the outstretched glove.',
+    'TITLE: the words ANNULLED, THEN CLAIMED painted into the art in the upper third as an elegant serif romance-fantasy logo, ivory with a thin gold edge,',
+    'spelled exactly ANNULLED, THEN CLAIMED, large and legible at thumbnail size. No other text anywhere.',
+  ].join(' '),
+  publishedAt: null,
 };
 
 export const ANNULLED_THEN_CLAIMED = StoryVersion.parse(raw);
