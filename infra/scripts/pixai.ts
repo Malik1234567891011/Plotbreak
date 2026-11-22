@@ -31,7 +31,13 @@ const LEDGER = join(ROOT, 'docs/stories-50/pixai-ledger.tsv');
 
 export const TSUBAKI3 = '2024383379556065549';
 export const TSUBAKI2 = '1983308862240288769';
-export const MODELS = { tsubaki3: TSUBAKI3, tsubaki2: TSUBAKI2 } as const;
+/**
+ * SDXL models, added for the cover-style-v2 bake-off (2026-11-22). They publish no inference
+ * profiles, so a request for them carries no `mode`. Size range 512–1280, step 8 (tier 0).
+ */
+export const HARUKA2 = '1861558740588989558';
+export const HOSHINO2 = '1954632828118619567';
+export const MODELS = { tsubaki3: TSUBAKI3, tsubaki2: TSUBAKI2, haruka2: HARUKA2, hoshino2: HOSHINO2 } as const;
 export type PixaiModel = keyof typeof MODELS;
 /** Plus membership: $29.99 for 1,000,000 credits. */
 export const USD_PER_CREDIT = 29.99 / 1_000_000;
@@ -74,7 +80,8 @@ export interface PixaiRequest {
   readonly negativePrompt?: string;
   readonly width: number;
   readonly height: number;
-  readonly mode: PixaiMode;
+  /** Omit for models with no inference profiles (Haruka v2, Hoshino v2). */
+  readonly mode?: PixaiMode;
   /** Defaults to Tsubaki.3, the only model that takes `contextImages`. */
   readonly model?: PixaiModel;
   /** Media ids of up to 3 reference images (Tsubaki.3 only). */
@@ -182,7 +189,7 @@ export async function pixaiGenerate(req: PixaiRequest): Promise<PixaiResult> {
     width: req.width,
     height: req.height,
     batchSize: 1,
-    mode: req.mode,
+    ...(req.mode ? { mode: req.mode } : {}),
   };
   if (req.contextImages?.length) body.contextImages = req.contextImages.slice(0, 3);
 
@@ -192,12 +199,12 @@ export async function pixaiGenerate(req: PixaiRequest): Promise<PixaiResult> {
   try {
     task = await waitForTask(created.id);
   } catch (error) {
-    ledger({ when: new Date().toISOString(), label: req.label, model: req.model ?? 'tsubaki3', mode: req.mode, size: `${req.width}x${req.height}`, paidQuota: created.paidQuota, seconds: ((Date.now() - t0) / 1000).toFixed(1), status: 'lost', task: created.id });
+    ledger({ when: new Date().toISOString(), label: req.label, model: req.model ?? 'tsubaki3', mode: req.mode ?? 'default', size: `${req.width}x${req.height}`, paidQuota: created.paidQuota, seconds: ((Date.now() - t0) / 1000).toFixed(1), status: 'lost', task: created.id });
     throw error;
   }
   const seconds = ((Date.now() - t0) / 1000).toFixed(1);
   const paidQuota = task.paidQuota ?? created.paidQuota;
-  ledger({ when: new Date().toISOString(), label: req.label, model: req.model ?? 'tsubaki3', mode: req.mode, size: `${req.width}x${req.height}`, paidQuota, seconds, status: task.status, task: created.id });
+  ledger({ when: new Date().toISOString(), label: req.label, model: req.model ?? 'tsubaki3', mode: req.mode ?? 'default', size: `${req.width}x${req.height}`, paidQuota, seconds, status: task.status, task: created.id });
 
   const url = task.outputs?.mediaUrls?.find(Boolean);
   if (task.status !== 'completed' || !url) {
@@ -225,7 +232,7 @@ export async function pixaiGenerate(req: PixaiRequest): Promise<PixaiResult> {
     taskId: created.id,
     paidQuota,
     latencyMs: Date.now() - t0,
-    model: `pixai-${req.model ?? 'tsubaki3'}-${req.mode}`,
+    model: `pixai-${req.model ?? 'tsubaki3'}-${req.mode ?? 'default'}`,
   };
 }
 
