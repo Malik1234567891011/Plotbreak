@@ -48,13 +48,13 @@ struct SearchScreen: View {
                 HStack(spacing: 10) {
                     IconButton(t("story.back"), action: { router.dismissSheet() }) {
                         Image(systemName: "chevron.left")
-                            .font(.system(size: 22, weight: .medium))
+                            .font(.system(size: 20, weight: .semibold))
                             .foregroundStyle(Theme.Colors.textPrimary)
                     }
-                    HStack(spacing: Theme.Spacing.md) {
+                    HStack(spacing: Theme.Spacing.sm) {
                         Image(systemName: "magnifyingglass")
-                            .font(.system(size: 18, weight: .medium))
-                            .foregroundStyle(Theme.Colors.textDim)
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundStyle(Theme.Colors.textMuted)
                         TextField(t("discover.search_placeholder_short"), text: $query)
                             .font(.system(size: 15))
                             .foregroundStyle(Theme.Colors.textPrimary)
@@ -77,10 +77,10 @@ struct SearchScreen: View {
                             .accessibilityLabel(t("misc.close"))
                         }
                     }
-                    .padding(.horizontal, 18)
-                    .frame(minHeight: 46)
-                    .background(Theme.Colors.bgElevated, in: Capsule())
-                    .overlay { Capsule().strokeBorder(Theme.Colors.accentPrimary, lineWidth: 1.5) }
+                    .padding(.horizontal, 16)
+                    .frame(minHeight: 44)
+                    // Design v3: filled, no outline; the caret says it is focused.
+                    .background(Theme.Colors.bgRaised, in: Capsule())
                 }
                 .padding(.leading, Theme.Spacing.xs)
                 .padding(.trailing, Theme.pageGutter)
@@ -90,7 +90,7 @@ struct SearchScreen: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: Theme.Spacing.sm) {
                             ForEach(availableFilters, id: \.self) { filter in
-                                Chip(filter, selected: filters.contains(filter), style: .outlined) {
+                                Chip(filter, selected: filters.contains(filter)) {
                                     if let index = filters.firstIndex(of: filter) {
                                         filters.remove(at: index)
                                     } else {
@@ -140,7 +140,7 @@ struct SearchScreen: View {
             if !store.recentSearches.isEmpty {
                 HStack(alignment: .firstTextBaseline) {
                     Text(t("discover.search_recent"))
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: 20, weight: .semibold))
                         .foregroundStyle(Theme.Colors.textPrimary)
                         .accessibilityAddTraits(.isHeader)
                     Spacer(minLength: 0)
@@ -170,7 +170,7 @@ struct SearchScreen: View {
 
             if !popular.isEmpty {
                 Text(t("discover.search_popular"))
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(.system(size: 20, weight: .semibold))
                     .foregroundStyle(Theme.Colors.textPrimary)
                     .padding(.top, store.recentSearches.isEmpty ? 0 : 34)
                     .padding(.bottom, Theme.Spacing.xl)
@@ -207,9 +207,10 @@ struct SearchScreen: View {
                     HStack(spacing: 14) {
                         Text(String(index + 1))
                             .font(.system(size: 15, weight: top ? .semibold : .regular))
-                            .foregroundStyle(top ? Theme.Colors.accentPrimary : Theme.Colors.textMuted)
+                            .foregroundStyle(top ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
+                            .monospacedDigit()
                             .frame(width: 16, alignment: .leading)
-                        Text(label.uppercased())
+                        Text(label)
                             .font(.system(size: 15))
                             .foregroundStyle(top ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
                             .lineLimit(1)
@@ -281,7 +282,6 @@ private struct RecentTermChip: View {
         .padding(.trailing, 9)
         .padding(.vertical, 7)
         .background(Theme.Colors.bgRaised, in: Capsule())
-        .overlay { Capsule().strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5) }
     }
 }
 
@@ -307,23 +307,25 @@ private struct SearchResultRow: View {
             HStack(alignment: .center, spacing: Theme.Spacing.md) {
                 StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
                     .frame(width: 64, height: 96)
-                    .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous)
-                            .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
-                    }
-                VStack(alignment: .leading, spacing: 2) {
-                    Txt(story.title, .bodyStrong, lineLimit: 2)
-                    Txt(story.fantasyLabel, .caption, color: Theme.Colors.textSecondary, lineLimit: 1)
-                    if !metaLine.isEmpty {
-                        Txt(metaLine, .micro, color: Theme.Colors.textMuted, lineLimit: 1)
-                    }
-                    if story.likes > 0 {
-                        Txt(
-                            t("ui.story_likes", ["formatted": Format.credits(story.likes, compact: true, locale: locale), "count": story.likes]),
-                            .micro, color: Theme.Colors.textMuted, lineLimit: 1
-                        )
-                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                // Design v3 (board frame Search): the title, the hook, then the
+                // facts in one quiet line.
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(story.title)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .lineLimit(2)
+                    Text(story.hook.isEmpty ? story.fantasyLabel : story.hook)
+                        .font(.system(size: 15))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .lineLimit(2)
+                    Text(([metaLine] + (story.likes > 0
+                            ? [t("ui.story_likes", ["formatted": Format.credits(story.likes, compact: true, locale: locale), "count": story.likes])]
+                            : []))
+                            .filter { !$0.isEmpty }.joined(separator: " · "))
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                        .lineLimit(1)
                 }
                 Spacer(minLength: 0)
             }
