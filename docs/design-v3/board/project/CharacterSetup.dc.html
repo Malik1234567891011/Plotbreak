@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Who are you?</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@800&amp;family=Zen+Old+Mincho:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F0E0D}
+a{color:#B4ADA3;text-decoration:none}a:hover{color:#F3EFE8}
+button{font:inherit;color:inherit;cursor:pointer}
+input::placeholder{color:#948E85;opacity:1}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 1500px; overflow: hidden; background: #1C100F; color: #F3EFE8; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased">
+
+  <header style="position: absolute; left: 20px; right: 20px; top: 54px; display: flex; align-items: center">
+    <a href="Story.dc.html" aria-label="Back" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 22px; background: #22201D; box-shadow: inset 0 0 0 1px rgba(243,239,232,0.10)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+  </header>
+
+  <div style="padding: 118px 20px 0">
+    <span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.12em; color: #B4ADA3">HUSH HOUSE</span>
+    <h1 style="margin: 8px 0 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 30px; line-height: 36px">Who are you?</h1>
+    <p style="margin: 4px 0 0; font-family: 'Zen Old Mincho', serif; font-weight: 500; font-size: 17px; line-height: 26px; color: #B4ADA3">Room 312 is yours from tonight.</p>
+
+    <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; margin-top: 28px">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <label for="cs-name" style="font-size: 13px; line-height: 18px; font-weight: 500; color: #B4ADA3">Name on the tenancy</label>
+        <input id="cs-name" type="text" value="Ren" style="height: 48px; padding: 0 18px; border: 0; border-radius: 24px; background: #22201D; box-shadow: inset 0 0 0 1px #45413B; color: #F3EFE8; font-size: 17px; font-family: inherit; outline: none">
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <label for="cs-pro" style="font-size: 13px; line-height: 18px; font-weight: 500; color: #B4ADA3">Pronouns</label>
+        <input id="cs-pro" type="text" placeholder="they/them" style="height: 48px; padding: 0 18px; border: 0; border-radius: 24px; background: #22201D; box-shadow: inset 0 0 0 1px #2E2B27; color: #F3EFE8; font-size: 17px; font-family: inherit; outline: none">
+      </div>
+    </div>
+
+    <section aria-labelledby="h-arch" style="margin-top: 36px">
+      <h2 id="h-arch" style="margin: 0; font-size: 20px; line-height: 25px; font-weight: 600">What do you actually do?</h2>
+      <div role="radiogroup" aria-labelledby="h-arch" style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px">
+
+        <button role="radio" aria-checked="false" style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 0; border-radius: 3px; background: rgba(15,14,13,0.4); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.10); text-align: left">
+          <span style="display: flex; align-items: center; justify-content: space-between; width: 100%"><span style="font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 22px; line-height: 28px">Between Places</span><span aria-hidden="true" style="width: 22px; height: 22px; border-radius: 11px; box-shadow: inset 0 0 0 1.5px #45413B"></span></span>
+          <span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">NERVE AND ENDURANCE</span>
+          <span style="font-family: 'Zen Old Mincho', serif; font-weight: 500; font-size: 16px; line-height: 24px; color: #B4ADA3">You needed a room the same day and did not ask many questions. You are harder to frighten than most people, mostly through practice.</span>
+        </button>
+
+        <button role="radio" aria-checked="true" style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 0; border-radius: 3px; background: rgba(68,37,34,0.55); box-shadow: inset 0 0 0 1.5px #F3EFE8; text-align: left">
+          <span style="display: flex; align-items: center; justify-content: space-between; width: 100%"><span style="font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 22px; line-height: 28px">Night Shift</span><span aria-hidden="true" style="display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 11px; background: #F3EFE8"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0F0E0D" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></span>
+          <span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">PRACTICAL AND AWAKE</span>
+          <span style="font-family: 'Zen Old Mincho', serif; font-weight: 500; font-size: 16px; line-height: 24px; color: #F3EFE8">You work while the city sleeps, so two in the morning is an ordinary hour to you. You are good with your hands and better with people in a crisis.</span>
+          <span style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px">
+            <span style="padding: 4px 8px; border-radius: 3px; box-shadow: inset 0 0 0 1px #45413B; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">PRACTICAL</span>
+            <span style="padding: 4px 8px; border-radius: 3px; box-shadow: inset 0 0 0 1px #45413B; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">CALM IN TROUBLE</span>
+            <span style="padding: 4px 8px; border-radius: 3px; box-shadow: inset 0 0 0 1px #45413B; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">NEVER RESTED</span>
+          </span>
+        </button>
+
+        <button role="radio" aria-checked="false" style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 0; border-radius: 3px; background: rgba(15,14,13,0.4); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.10); text-align: left">
+          <span style="display: flex; align-items: center; justify-content: space-between; width: 100%"><span style="font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 22px; line-height: 28px">Reads Everything</span><span aria-hidden="true" style="width: 22px; height: 22px; border-radius: 11px; box-shadow: inset 0 0 0 1.5px #45413B"></span></span>
+          <span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">RECORDS AND PATTERNS</span>
+          <span style="font-family: 'Zen Old Mincho', serif; font-weight: 500; font-size: 16px; line-height: 24px; color: #B4ADA3">Archives, fire reports, planning applications. You are the one person on this street who knows what a building is legally allowed to forget.</span>
+        </button>
+
+        <button role="radio" aria-checked="false" style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 0; border-radius: 3px; background: rgba(15,14,13,0.4); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.10); text-align: left">
+          <span style="display: flex; align-items: center; justify-content: space-between; width: 100%"><span style="font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 22px; line-height: 28px">Camera On</span><span aria-hidden="true" style="width: 22px; height: 22px; border-radius: 11px; box-shadow: inset 0 0 0 1.5px #45413B"></span></span>
+          <span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">ATTENTION AND ACCESS</span>
+          <span style="font-family: 'Zen Old Mincho', serif; font-weight: 500; font-size: 16px; line-height: 24px; color: #B4ADA3">You document things, and people let you. You get into rooms other people are turned away from, and you get shouted at more.</span>
+        </button>
+      </div>
+      <button style="margin-top: 6px; height: 44px; padding: 0; border: 0; background: none; font-size: 15px; font-weight: 500; color: #B4ADA3">Write your own →</button>
+    </section>
+
+    <section aria-labelledby="h-why" style="margin-top: 24px">
+      <h2 id="h-why" style="margin: 0; font-size: 20px; line-height: 25px; font-weight: 600">Why did you need a room this week?</h2>
+      <div role="radiogroup" aria-labelledby="h-why" style="display: flex; flex-direction: column; margin-top: 10px">
+        <button role="radio" aria-checked="false" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0; border: 0; border-bottom: 1px solid rgba(243,239,232,0.10); background: none; text-align: left; font-size: 15px; line-height: 20px"><span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 10px; box-shadow: inset 0 0 0 1.5px #45413B"></span>You left somebody and took what you could carry</button>
+        <button role="radio" aria-checked="true" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0; border: 0; border-bottom: 1px solid rgba(243,239,232,0.10); background: none; text-align: left; font-size: 15px; line-height: 20px"><span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 10px; box-shadow: inset 0 0 0 6px #F3EFE8"></span>It was this or nothing, and this was cheaper</button>
+        <button role="radio" aria-checked="false" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0; border: 0; border-bottom: 1px solid rgba(243,239,232,0.10); background: none; text-align: left; font-size: 15px; line-height: 20px"><span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 10px; box-shadow: inset 0 0 0 1.5px #45413B"></span>Work moved you here at three weeks’ notice</button>
+        <button role="radio" aria-checked="false" style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0; border: 0; background: none; text-align: left; font-size: 15px; line-height: 20px"><span aria-hidden="true" style="flex: none; width: 20px; height: 20px; border-radius: 10px; box-shadow: inset 0 0 0 1.5px #45413B"></span>You already knew the name Hush House</button>
+      </div>
+    </section>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 20px 34px; background: rgba(28,16,15,0.86); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: inset 0 1px 0 rgba(243,239,232,0.10); display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; align-items: center; gap: 10px">
+      <span aria-hidden="true" style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 14px; background: #22201D; box-shadow: inset 0 0 0 1px #45413B; font-size: 13px; font-weight: 600">R</span>
+      <span style="font-size: 15px; line-height: 20px; color: #B4ADA3">You enter as <span style="color: #F3EFE8; font-weight: 600">Ren</span>, on the night shift.</span>
+    </div>
+    <a href="Play.dc.html" style="display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 26px; background: #F3EFE8; color: #0F0E0D; font-size: 17px; font-weight: 600">Move into 312</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

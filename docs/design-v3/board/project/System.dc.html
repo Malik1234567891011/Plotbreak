@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design system: Ink</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@800&amp;family=Zen+Old+Mincho:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F0E0D}
+button{font:inherit;color:inherit;cursor:pointer}
+</style>
+</helmet>
+<div style="width: 1240px; height: 1100px; box-sizing: border-box; padding: 56px; background: #0F0E0D; color: #F3EFE8; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; gap: 40px">
+
+  <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; padding-bottom: 28px; border-bottom: 1px solid #2E2B27">
+    <div>
+      <span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.12em; color: #B4ADA3">PLOTBREAK · DESIGN V3</span>
+      <h1 style="margin: 10px 0 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 64px; line-height: 64px">Ink</h1>
+    </div>
+    <p style="margin: 0; max-width: 620px; font-family: 'Zen Old Mincho', serif; font-weight: 500; font-size: 18px; line-height: 28px; color: #B4ADA3">Printed like a manga volume. Ink-black page, paper-white type, and the art is the only color. One loud voice: the title card. Square is the story, round is you.</p>
+  </header>
+
+  <div style="display: grid; grid-template-columns: 340px 470px 1fr; gap: 48px; flex: 1; min-height: 0">
+
+    <section aria-labelledby="s-color" style="display: flex; flex-direction: column; gap: 14px">
+      <h2 id="s-color" style="margin: 0 0 4px; font-size: 20px; line-height: 25px; font-weight: 600">Color</h2>
+      <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; line-height: 18px; font-variant-numeric: tabular-nums">
+        <div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 32px; border-radius: 3px; background: #0F0E0D; box-shadow: inset 0 0 0 1px #45413B"></span><span style="width: 92px; font-weight: 600">ink.0</span><span style="color: #948E85">#0F0E0D · the page</span></div>
+        <div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 32px; border-radius: 3px; background: #181715; box-shadow: inset 0 0 0 1px #2E2B27"></span><span style="width: 92px; font-weight: 600">ink.1</span><span style="color: #948E85">#181715 · rows, sheets</span></div>
+        <div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 32px; border-radius: 3px; background: #22201D"></span><span style="width: 92px; font-weight: 600">ink.2</span><span style="color: #948E85">#22201D · controls</span></div>
+        <div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 32px; border-radius: 3px; background: #2E2B27"></span><span style="width: 92px; font-weight: 600">line</span><span style="color: #948E85">#2E2B27 · hairlines</span></div>
+        <div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 32px; border-radius: 3px; background: #45413B"></span><span style="width: 92px; font-weight: 600">line.strong</span><span style="color: #948E85">#45413B · selected</span></div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px"><span style="width: 44px; height: 32px; border-radius: 3px; background: #F3EFE8"></span><span style="width: 92px; font-weight: 600">paper</span><span style="color: #948E85">#F3EFE8 · 16.8 : 1 · action</span></div>
+        <div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 32px; border-radius: 3px; background: #B4ADA3"></span><span style="width: 92px; font-weight: 600">paper.2</span><span style="color: #948E85">#B4ADA3 · 8.7 : 1 · narration</span></div>
+        <div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 32px; border-radius: 3px; background: #948E85"></span><span style="width: 92px; font-weight: 600">paper.3</span><span style="color: #948E85">#948E85 · 5.9 : 1 · meta</span></div>
+        <div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 32px; border-radius: 3px; background: #FF453A"></span><span style="width: 92px; font-weight: 600">danger</span><span style="color: #948E85">#FF453A · destructive only</span></div>
+      </div>
+
+      <h3 style="margin: 18px 0 0; font-size: 15px; line-height: 20px; font-weight: 600">Story tint, sampled from each cover</h3>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+        <div style="display: flex; flex-direction: column; gap: 6px"><img src="/_blob/8afce2f39b12936090017c98400a38d0" alt="Hush House cover" style="display: block; width: 100%; height: 96px; object-fit: cover; border-radius: 3px"><div style="display: flex; height: 24px"><span style="flex: 1; background: #1C100F"></span><span style="flex: 1; background: #442522"></span></div><span style="font-size: 11px; line-height: 13px; color: #948E85">Hush House</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><img src="/_blob/5ed8523f8a6c1309d9a23cd8ff9af12f" alt="Zero Throne cover" style="display: block; width: 100%; height: 96px; object-fit: cover; border-radius: 3px"><div style="display: flex; height: 24px"><span style="flex: 1; background: #0F161C"></span><span style="flex: 1; background: #223544"></span></div><span style="font-size: 11px; line-height: 13px; color: #948E85">Zero Throne</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><img src="/_blob/1a32f76c4e68eeba60cb2d2b60e278f6" alt="Itachi cover" style="display: block; width: 100%; height: 96px; object-fit: cover; border-radius: 3px"><div style="display: flex; height: 24px"><span style="flex: 1; background: #1C0F13"></span><span style="flex: 1; background: #44222B"></span></div><span style="font-size: 11px; line-height: 13px; color: #948E85">Itachi</span></div>
+      </div>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: #948E85">deep = HSL(hue, 30%, 8.5%) for panels and story screens. mid = HSL(hue, 34%, 20%) for washes and selection. No brand hue anywhere else.</p>
+    </section>
+
+    <section aria-labelledby="s-type" style="display: flex; flex-direction: column; gap: 14px">
+      <h2 id="s-type" style="margin: 0 0 4px; font-size: 20px; line-height: 25px; font-weight: 600">Type</h2>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid #2E2B27"><span style="font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 44px; line-height: 48px">Floor 0</span><span style="font-size: 12px; color: #948E85">title.xl · Kaisei Tokumin 800 · 44</span></div>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid #2E2B27"><span style="font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 30px; line-height: 36px">Discover</span><span style="font-size: 12px; color: #948E85">title.l · 30</span></div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid #2E2B27; font-family: 'Zen Old Mincho', serif; font-size: 17px; line-height: 28px">
+        <span style="color: #B4ADA3">She holds up one finger and keeps her eyes off the end of the hall.</span>
+        <span style="color: #F3EFE8">“If the light outside 309 turns red, you do not look.”</span>
+        <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; font-size: 12px; line-height: 16px; color: #948E85">story · Zen Old Mincho 400 · 17 / 28 · narration paper.2, dialogue paper</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 20px; line-height: 25px; font-weight: 600">Top ranked</span><span style="font-size: 12px; color: #948E85">ui.section · SF 600 · 20</span></div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 17px; line-height: 22px; font-weight: 600">Hush House</span><span style="font-size: 12px; color: #948E85">ui.headline · SF 600 · 17</span></div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 15px; line-height: 20px">I take the coffee and lean on the doorframe.</span><span style="font-size: 12px; color: #948E85">ui.body · 15</span></div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 13px; line-height: 18px; font-weight: 500">Red Moon Brigade</span><span style="font-size: 12px; color: #948E85">ui.label · 13</span></div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 12px; line-height: 16px; color: #948E85; font-variant-numeric: tabular-nums">as Ren · Turn 3 · 2 h ago</span><span style="font-size: 12px; color: #948E85">ui.meta · 12</span></div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">AYAME</span><span style="font-size: 12px; color: #948E85">ui.kicker · 11 caps</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="s-shape" style="display: flex; flex-direction: column; gap: 14px">
+      <h2 id="s-shape" style="margin: 0 0 4px; font-size: 20px; line-height: 25px; font-weight: 600">Shape: square is the story, round is you</h2>
+      <div style="display: flex; align-items: flex-end; gap: 18px">
+        <div style="display: flex; flex-direction: column; gap: 6px"><img src="/_blob/8afce2f39b12936090017c98400a38d0" alt="Hush House cover" style="display: block; width: 64px; height: 96px; object-fit: cover; border-radius: 3px"><span style="font-size: 11px; line-height: 13px; color: #948E85">Cover · 3</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><img src="/_blob/caf2d893a072f5d71a510c781de5af76" alt="Ayame" style="display: block; width: 56px; height: 56px; object-fit: cover; border-radius: 13px"><span style="font-size: 11px; line-height: 13px; color: #948E85">Face · 24%</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><span style="display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 28px; background: #22201D; box-shadow: inset 0 0 0 1px #45413B; font-size: 22px; font-weight: 600">R</span><span style="font-size: 11px; line-height: 13px; color: #948E85">You · circle</span></div>
+      </div>
+
+      <h3 style="margin: 14px 0 0; font-size: 15px; line-height: 20px; font-weight: 600">Buttons</h3>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+        <button style="height: 52px; padding: 0 28px; border: 0; border-radius: 26px; background: #F3EFE8; color: #0F0E0D; font-size: 17px; font-weight: 600">Play</button>
+        <button style="height: 44px; padding: 0 20px; border: 0; border-radius: 22px; background: #22201D; box-shadow: inset 0 0 0 1px #45413B; font-size: 15px; font-weight: 600">Claim</button>
+        <button style="height: 44px; padding: 0; border: 0; background: none; color: #B4ADA3; font-size: 15px; font-weight: 500">Not now →</button>
+        <button aria-label="Next" style="display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border: 0; border-radius: 26px; background: #F3EFE8"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F0E0D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></button>
+      </div>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: #948E85">One paper button per screen. A second choice is a text link with an arrow, never a second capsule.</p>
+
+      <h3 style="margin: 14px 0 0; font-size: 15px; line-height: 20px; font-weight: 600">Tags describe, chips act</h3>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <span style="padding: 4px 8px; border-radius: 3px; box-shadow: inset 0 0 0 1px #45413B; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">HORROR</span>
+        <span style="padding: 4px 8px; border-radius: 3px; box-shadow: inset 0 0 0 1px #45413B; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">MYSTERY</span>
+        <button style="height: 34px; padding: 0 16px; border: 0; border-radius: 17px; background: #F3EFE8; color: #0F0E0D; font-size: 13px; font-weight: 600">For you</button>
+        <button style="height: 34px; padding: 0 16px; border: 0; border-radius: 17px; background: #22201D; box-shadow: inset 0 0 0 1px #2E2B27; font-size: 13px; font-weight: 500">Romance</button>
+      </div>
+
+      <h3 style="margin: 14px 0 0; font-size: 15px; line-height: 20px; font-weight: 600">Spacing · 4pt grid</h3>
+      <div style="display: flex; align-items: flex-end; gap: 14px; font-size: 11px; line-height: 13px; color: #948E85">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 4px; height: 4px; background: #B4ADA3"></span>4 ink</div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; background: #B4ADA3"></span>8</div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; background: #B4ADA3"></span>12</div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 16px; height: 16px; background: #B4ADA3"></span>16</div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 20px; height: 20px; background: #F3EFE8"></span>20 edge</div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 24px; height: 24px; background: #B4ADA3"></span>24</div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="width: 36px; height: 36px; background: #B4ADA3"></span>36 section</div>
+      </div>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: #948E85">No shadows. Depth is the ink steps, hairlines, and glass on the floating layer only.</p>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
