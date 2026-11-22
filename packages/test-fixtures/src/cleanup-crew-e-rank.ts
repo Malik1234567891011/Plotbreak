@@ -30,6 +30,13 @@ import { StoryVersion } from '@plotbreak/contracts';
  * broadly by step rewards and gated by the `took_the_class` flag, so a player
  * who says no on turn one and yes on day three gets them without a dead route.
  *
+ * The system has to live where the storyteller can read it. Production runs
+ * `runTurnPure`, which reads hard canon, quest items and the chosen archetype's
+ * starting abilities, never resources, step notes or the locked ability list.
+ * So the class's four powers are spelled out in hard canon, the offer is a
+ * quest item the player starts holding (Your Window), and every archetype
+ * starts with its own trade, Do the Job, Say Yes and Say No.
+ *
  * Three variables. Stamina is the only GOOD_HIGH, because `resolveRest` refills
  * those and a nap should restore arms, not the plot. The Toll is the first
  * GOOD_LOW on purpose: PUBLIC_VIOLENCE and the generic cost path both take the
@@ -85,7 +92,10 @@ const raw = {
     allowsRomance: true,
     startingLocationId: 'ash_hall',
     startWorldMinute: 23 * 60 + 52,
-    startingItems: [{ itemId: 'crew_vest', qty: 1 }],
+    startingItems: [
+      { itemId: 'your_window', qty: 1 },
+      { itemId: 'crew_vest', qty: 1 },
+    ],
     hardCanon: [
       'Everyone in this story is an adult. The Bureau licenses nobody under nineteen, hunter or crew, so the player and every hunter and cleaner they meet are adults. Hae-won is twenty-four, Jin twenty-seven, Ryu twenty-nine, Baek fifty-one and Pyo fifty-eight. Ma Deok-sun was forty-four when she stayed behind.',
       'Gates have opened in Garam City for twenty-three years. A gate is a doorway in the world into a dungeon. When the thing that keeps a dungeon is killed, its gate turns white and folds shut on its own within about a day.',
@@ -242,6 +252,18 @@ const raw = {
   ],
   tendencies: [],
   items: [
+    {
+      id: 'your_window',
+      name: 'Your Window',
+      tags: ['quest', 'class'],
+      questItem: true,
+      droppable: false,
+      description:
+        'A pale square of text at reading distance, edged in thin white light, that only you can see. It opened when the gate sealed and it has not closed: [Hidden class found: Custodian.] [Position vacant. Accept?]',
+      loreText:
+        'Say yes and you are a Custodian. You can sign off a room you have swept so a relapse cannot rebuild it, ask for an inventory of a room, and put one rebuilt thing back the way the raid left it, about once an hour. Closing a whole gate takes a written procedure nobody alive has. Say no and the offer stays open, quietly. It asks once more at most, it never chooses for you, and it cannot lie in a notice.',
+      icon: 'page',
+    },
     {
       id: 'crew_vest',
       name: 'The Crew Vest',
@@ -920,7 +942,7 @@ const raw = {
         'Nobody from the guild came back. I counted. It took about four minutes to stop counting.',
       ],
       appearance:
-        'Twenty-four, black hair cut blunt at the jaw, sharp dark eyes, a white-and-gold guild medic coat over black field gear, all of it grey with ash.',
+        'Twenty-four, slim and straight-backed, black hair cut blunt at the jaw, sharp dark eyes under straight brows, a white-and-gold guild medic coat with the guild crest on the shoulder and the left sleeve torn off, black field gear and boots underneath, a cracked tablet clipped at her hip, all of it grey with ash.',
       visualHook: 'A white medic coat with the guild crest on the shoulder, one sleeve torn off to make a tourniquet for somebody else.',
       silhouette: 'Propped on one elbow in the ash, the other hand raised flat as if telling a whole room to stop.',
       artSeed: 'cce-haewon-01',
@@ -1011,7 +1033,7 @@ const raw = {
         'After midnight it is hazard rate. It is eleven fifty-nine. As a professional, I am asking you not to die for one more minute.',
       ],
       appearance:
-        'Twenty-seven, lanky, shaved sides and a messy top, a hi-vis crew vest with his locker number on the back in marker, rubber boots to the knee.',
+        'Twenty-seven, tall and lanky, shaved sides and a messy dark top, a quick lopsided grin, an orange hi-vis crew vest with reflective strips and his locker number on the back in black marker over a grey work jacket, rubber boots to the knee, and a fresh white bandage across one palm.',
       visualHook: 'Locker number 08 written on the back of his vest in fat black marker, and one hand that keeps drifting to his jacket pocket.',
       silhouette: 'Tall and thin, a squeegee pole held like a spear, one hand flat over a pocket.',
       artSeed: 'cce-jin-01',
@@ -1093,7 +1115,7 @@ const raw = {
         'Is she breathing? Just tell me that. You can hate me after.',
       ],
       appearance:
-        'Twenty-nine, tall, swept-back dark hair, a long black guild coat with gold trim, and a sword on his back he has never been photographed drawing outside a gate.',
+        'Twenty-nine, tall and broad-shouldered, swept-back dark hair, an easy camera-ready smile, a long black guild coat with gold trim and the guild crest over a fitted black shirt, black gloves, and a sword in a plain black scabbard on his back that he has never been photographed drawing outside a gate.',
       visualHook: 'A long black coat with gold trim and the guild crest, spotless even at a car park cordon at two in the morning.',
       silhouette: 'Tall and still, hands in his coat pockets, standing slightly in front of everybody else.',
       artSeed: 'cce-ryu-01',
@@ -1177,7 +1199,7 @@ const raw = {
         'Twenty years ago I wore a vest like yours. Mop away from the exit, never toward it. Somebody taught me that once.',
       ],
       appearance:
-        'Fifty-one, short iron-grey hair, reading glasses pushed up into it, a navy Bureau windbreaker over a pressed suit, and an old crew vest folded in her desk drawer.',
+        'Fifty-one, compact and square-shouldered, short iron-grey hair with reading glasses pushed up into it, a level unsmiling gaze, a navy Bureau windbreaker zipped to the throat over a pressed grey suit, a clipboard held flat against her chest, and an old crew vest folded in her desk drawer.',
       visualHook: 'A Bureau windbreaker zipped to the throat, with a faded locker number in marker on the inside of the collar.',
       silhouette: 'Square-shouldered and very still, a clipboard held flat against her chest like a shield.',
       artSeed: 'cce-baek-01',
@@ -1254,7 +1276,7 @@ const raw = {
         'Locker thirty-one. You are on my crew. That means I come and get you, and you do not argue about it.',
       ],
       appearance:
-        'Fifty-eight, short permed hair under a crew cap, a padded work jacket over a hi-vis vest, a bag of sunflower seeds in one pocket and a whistle on a cord.',
+        'Fifty-eight, short and solid, a tight grey-black perm under a navy crew cap, deep laugh lines and a permanent squint, a padded work jacket over an orange hi-vis vest, cargo trousers and steel-toed boots, a bag of sunflower seeds in one pocket and a steel whistle on a red cord round her neck.',
       visualHook: 'A steel whistle on a red cord, which she blows once at the start of every job and once at the end.',
       silhouette: 'Short and solid, feet planted wide, one hand cupped to her mouth to shout.',
       artSeed: 'cce-pyo-01',
@@ -1338,7 +1360,7 @@ const raw = {
         '[Logged. She also said that, the first time.]',
       ],
       appearance:
-        'Not a body. A pale rectangle of text floating at reading distance in front of the player, edged in thin white light, which nobody else can see.',
+        'Not a body. A pale rectangle floating at reading distance in front of the player, edged in thin white light and filled with lines of light that only the player can read as words, a small square cursor blinking at the bottom. Nobody else can see it.',
       visualHook: 'A pale floating rectangle edged in thin white light and filled with abstract lines of light, no legible letters, always at exactly reading distance.',
       silhouette: 'A flat rectangle of abstract lines of light hanging in the air, no legible letters, tilted slightly toward whoever it is talking to.',
       artSeed: 'cce-system-01',
@@ -2395,7 +2417,7 @@ const raw = {
       attributeBonus: { might: 2, resolve: 1 },
       skillProficiencies: { brawl: 3, staying: 1, footwork: 1 },
       startingItems: [{ itemId: 'steel_pole', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['swing_the_pole', 'do_the_job', 'accept_the_class', 'refuse_the_class'],
       startingReputation: [{ factionId: 'faction_bureau', amount: 5 }],
     },
     {
@@ -2408,7 +2430,7 @@ const raw = {
       attributeBonus: { mind: 2, might: 1 },
       skillProficiencies: { know_how: 3, graft: 2 },
       startingItems: [{ itemId: 'core_bag', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['read_the_floor', 'do_the_job', 'accept_the_class', 'refuse_the_class'],
       startingReputation: [
         { factionId: 'faction_night_crews', amount: 10 },
         { factionId: 'faction_pyo_crew', amount: 5 },
@@ -2424,7 +2446,7 @@ const raw = {
       attributeBonus: { mind: 2, resolve: 1 },
       skillProficiencies: { first_aid: 3, staying: 1 },
       startingItems: [{ itemId: 'crew_kit', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['patch_up', 'do_the_job', 'accept_the_class', 'refuse_the_class'],
       startingReputation: [],
     },
     {
@@ -2437,7 +2459,7 @@ const raw = {
       attributeBonus: { presence: 2, agility: 1 },
       skillProficiencies: { patter: 3, footwork: 1 },
       startingItems: [{ itemId: 'energy_drink', qty: 2 }],
-      startingAbilities: [],
+      startingAbilities: ['talk_fast', 'do_the_job', 'accept_the_class', 'refuse_the_class'],
       startingReputation: [{ factionId: 'faction_pyo_crew', amount: 5 }],
     },
   ],
@@ -2646,14 +2668,30 @@ const raw = {
     "The light at the top of the ramp turns red.\n\nThe way out just sealed. You’re on the wrong side of it, holding a mop.\n\n\"Hey. Cleaner.\"\n\nSeo Hae-won, the guild healer who stayed behind to fix your partner’s hand, is on her back in the ash. A stone pillar that wasn’t there a minute ago has her pinned at the knee.\n\nFar below, a bell rings. The ash around your boots starts to stir.\n\n\"Run,\" she says. \"You are E-rank and I am pinned. That is not a hard sum.\"\n\nA pale square of text opens in the air in front of you. Nobody else can see it.\n\n[Hidden class found: Custodian.]\n\n[Position vacant. Accept?]",
   openingPanel: {
     assetKey: 'story_cleanup_crew_e_rank/opening',
-    alt: 'Seo Hae-won pinned under a stone pillar in grey ash, one hand raised, red light from the sealed gate above, and a pale square of floating text in the foreground.',
+    alt: 'Seo Hae-won on her back in grey ash, white-and-gold medic coat, a stone pillar across her knee, one hand raised flat to stop you, red light from the sealed ramp, a pale square of light beside you.',
   },
   openingSuggestions: [
     "\"I’m not leaving you under there. What is that bell?\"",
     'I drop the mop, get my shoulder under the pillar and lift.',
     "I reach out and press the window. \"Accept.\"",
   ],
-  publishedAt: '2026-11-22T00:00:00.000Z',
+  coverDirection: [
+    'SUBJECT: two figures from a cleanup crew’s worst night, close and unmistakable in the foreground of a key visual for a dungeon-action anime about the people who clean up after the famous ones.',
+    'Front and centre, filling about two thirds of the frame from the waist up: the guild healer, black hair cut blunt at the jaw, sharp dark eyes, a white-and-gold medic coat with a crest on the shoulder and the left sleeve torn off, black field gear underneath, the coat dusted grey with ash.',
+    'She kneels in the ash and holds one hand up flat toward the viewer as if telling a whole room to stop. A soft white healing glow sits on that palm only.',
+    'Her expression is dry and unimpressed, eyebrows level, looking straight at the viewer.',
+    'Just behind her right shoulder and a head taller: her cleanup crew partner, tall and lanky, shaved sides and a messy dark top, an orange hi-vis crew vest with silver reflective strips over a grey work jacket, rubber boots to the knee.',
+    'He holds a two-metre steel squeegee pole with a black rubber blade across his body like a spear, braced, with a nervous lopsided grin, eyes on something below the frame.',
+    'In the lower foreground, between them and the viewer, a pale floating rectangle edged in thin white light, filled with abstract glowing lines and one small blinking square: no letters, no numbers, nothing that reads as writing.',
+    'BOTH FACES STAY CLEAN: no ash, glow, red marks, sparks or shadows on either face. Ash only on clothes and boots. Every effect stays on the floating rectangle, the healing glow on her palm, the cores, the sealed doorway and the title.',
+    'BEHIND THEM, soft and secondary: a vast underground hall the size of a train station, ankle-deep in grey ash, glowing blue cores scattered across the floor like dropped coins, stone pillars growing back up out of the floor,',
+    'and in soft focus, eyeless grey hounds made of ash rising out of the floor. At the top of a long concrete ramp, a doorway sealed by a glowing red membrane. Bare floodlights on stands, one tipped over.',
+    'LIGHT: hard red light from the sealed doorway above rims both figures, cool blue light from the cores below, and the white of the floating rectangle falls across her raised hand.',
+    'TITLE: the title Cleanup Crew, E-Rank painted into the art in the upper third, over the dark ceiling and the red glow, as a bold industrial stencil logo in capitals, safety orange with a white reflective-tape edge,',
+    'on two lines, CLEANUP CREW, on the first and E-RANK larger on the second, spelled exactly CLEANUP CREW, E-RANK with the comma and the hyphen, large and legible at thumbnail size.',
+    'A streak of grey ash crosses the bottom of the letters as if half swept away. No other text anywhere: no numbers, letters or logos on the vest, the coat, the carts or the walls.',
+  ].join(' '),
+  publishedAt: null,
 };
 
 export const CLEANUP_CREW_E_RANK = StoryVersion.parse(raw);

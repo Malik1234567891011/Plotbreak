@@ -70,12 +70,13 @@ Pacing: the night is turns 1 to roughly 15, a hard six-hour clock with the seal 
 ## Player starting authority
 
 - **Who:** an E-rank cleaner on Pyo Aftermath Services, locker 31. Licensed, so nineteen or older. Name and pronouns are the player's (`BLANK` protagonist).
-- **Starting kit:** the crew vest. Everything else is on the floor of the hall or at the carts by the seal.
+- **Starting kit:** the crew vest, and **Your Window**, a quest item that is the System's offer itself: the pale square only the player sees, still asking. Its lore spells out what a Custodian can do and that a no leaves the offer open. Production's storyteller reads quest items but not the ability list, so this is where the class lives besides hard canon. Everything else is on the floor of the hall or at the carts by the seal.
 - **Archetypes** (fixed for the whole story):
   - **Former Hunter**: melee, lost an ordinary D licence to a knee injury. Brawling 3, the steel pole.
   - **Six-Year Lifer**: floor sense and craft. Night Crews and Pyo standing, the core bag.
   - **Dropout Medic**: first aid, the crew kit. Can talk Hae-won through her own injury.
   - **Fast Talker**: patter and bluffing, two warm cans.
+- **Starting abilities** (the only abilities the storyteller reads): every archetype starts with its own trade plus Do the Job, Say Yes and Say No. Former Hunter: Swing the Pole. Six-Year Lifer: Read the Floor. Dropout Medic: Patch Up. Fast Talker: Talk Fast.
 - **Abilities, unlocked:** Do the Job, Swing the Pole, Run For It, Talk Fast, Own It, Read the Floor, Patch Up, Stay Put, Say Yes, Say No.
 - **Abilities, class-gated** (granted by the first step's reward and gated by `took_the_class`, so a late yes works): Sign Off, Take Inventory, Put It Back. **Close Out** comes from the ledger in the unmapped room.
 
@@ -248,4 +249,9 @@ Six of the eleven never need the class, so refusing it in minute one closes a do
 
 ## Image plan (not generated)
 
-Art is not commissioned. Asset keys derive from `story_cleanup_crew_e_rank` through `withDerivedAssetKeys`. The opening panel key is `story_cleanup_crew_e_rank/opening`, showing Hae-won pinned in grey ash with red light from the seal and a pale floating square in the foreground, drawn as abstract lines of light with no legible letters. Cover cast in order: Hae-won, Jin, Ryu, Baek, Pyo. The System's portrait, if one is drawn, follows the same rule: abstract lines of light, no legible letters.
+Art is not commissioned yet. Asset keys derive from `story_cleanup_crew_e_rank` through `withDerivedAssetKeys`. `publishedAt` stays null until release; there is no prologue.
+
+- **Cover** (`coverDirection`, with its own `TITLE:` line): the guild healer front and centre, kneeling in grey ash in the white-and-gold medic coat with one sleeve torn off, one hand up flat with a soft white glow on the palm; her crew partner a head taller behind her shoulder in orange hi-vis and rubber boots, the steel squeegee pole held across him like a spear; a pale floating rectangle of abstract light lines in the foreground, no letters. Behind them, the ash hall with blue cores, pillars growing back, ash hounds rising in soft focus, and the red-sealed doorway at the top of the ramp. Both faces stay clean; every effect is on the window, the palm, the cores, the seal and the title. People are described by costume and pose only, and the characters are not named in the direction.
+- **Title:** painted into the upper third as a bold industrial stencil logo in capitals, safety orange with a white reflective-tape edge, on two lines (CLEANUP CREW, / E-RANK), spelled exactly "Cleanup Crew, E-Rank" with the comma and the hyphen, a streak of ash across the bottom of the letters. No other text, including locker numbers on the vests.
+- **Opening panel** (`story_cleanup_crew_e_rank/opening`): the alt starts with "Seo", the first word of her name and the token the panel script matches, so Hae-won's portrait is the reference. Hae-won on her back in grey ash, a stone pillar across her knee, one hand raised to stop you, red light from the sealed ramp and a pale square of light beside you, drawn as abstract lines with no legible letters.
+- **Portraits:** every card has a concrete `appearance` that opens with the age. Cast order is Hae-won, Jin, Ryu, Baek, Pyo, the System. The System's portrait, if one is drawn, is abstract lines of light with no legible letters.

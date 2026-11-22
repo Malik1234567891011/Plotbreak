@@ -723,6 +723,36 @@ describe('Cleanup Crew, E-Rank', () => {
       for (const c of story.characters) expect(c.portrait, c.id).toBeNull();
     });
 
+    it('carries what the art and release pipeline reads', () => {
+      // docs/stories-50/PIPELINE.md, "What the 49 writers need in the fixture".
+      const cover = story.coverDirection;
+      expect(cover).toMatch(/\bTITLE:/);
+      expect(cover).toContain('Cleanup Crew, E-Rank');
+      expect(cover).toContain('CLEANUP CREW, E-RANK');
+      expect(cover).toMatch(/FACES STAY CLEAN/);
+      expect(cover).not.toMatch(/\b(young|younger|youthful|girl|boy|teen|aged|years old)\b/i);
+      const alt = story.openingPanel!.alt;
+      expect(alt.length).toBeLessThanOrEqual(200);
+      const hae = story.characters.find((c) => c.id === 'hae_won')!;
+      expect(alt.startsWith(hae.name.split(' ')[0]!), 'the panel art takes its reference from the first name').toBe(true);
+      expect(alt).toContain(calledName(hae));
+      for (const c of story.characters.filter((x) => x.cardBlurb.trim())) {
+        expect(c.appearance.length, c.id).toBeGreaterThan(80);
+      }
+      expect(story.prologue).toEqual([]);
+      expect(story.publishedAt).toBeNull();
+    });
+
+    it('puts the class offer in a starting quest item and every starting kit', () => {
+      const window = story.items.find((i) => i.id === 'your_window')!;
+      expect(window.questItem).toBe(true);
+      expect(story.rules.startingItems.map((i) => i.itemId)).toContain('your_window');
+      for (const a of story.archetypes) {
+        expect(a.startingAbilities, a.id).toEqual(expect.arrayContaining(['do_the_job', 'accept_the_class', 'refuse_the_class']));
+      }
+      expect(story.rules.toneGuide.length).toBeGreaterThan(200);
+    });
+
     it('derives asset keys under the story prefix', () => {
       const derived = withDerivedAssetKeys(story);
       expect(derived.coverImage).toMatch(/^story_cleanup_crew_e_rank\//);
