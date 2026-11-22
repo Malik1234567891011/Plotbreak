@@ -230,7 +230,15 @@ describe('the cover', () => {
     expect(title).toContain('Seven Years Early');
     expect(title).toMatch(/upper third/);
     expect(cover).toMatch(/HIS FACE STAYS CLEAN/);
-    expect(cover, 'people by costume and pose, not by age').not.toMatch(/\b(adult|older|aged?)\b/i);
+  });
+
+  it('draws him as the handsome male lead of cover-style-v2, clearly adult', () => {
+    const cover = S.coverDirection!;
+    // Victor is thirty-one in the hard canon; the cover says so in words, not digits.
+    expect(cover).toMatch(/strikingly handsome man in his early thirties/);
+    expect(cover).toMatch(/sharp jawline/);
+    expect(cover).toMatch(/open at the collar/);
+    expect(cover).not.toMatch(/\b(nude|naked|shirtless|nipples?|underwear|swim\w*|lying|sexy)\b/i);
   });
 
   it('opens on a panel of the one who speaks first, with no prologue', () => {

@@ -451,14 +451,13 @@ describe('the cover', () => {
     expect(title).toMatch(/No other text anywhere\.$/);
   });
 
-  it('puts the fox alone in front, by costume and pose, never by an age word', () => {
+  it('puts the fox alone in front, clearly adult, in the cover-style-v2 appeal and inside its limits', () => {
     const cover = S.coverDirection;
     expect(cover).toMatch(/^SUBJECT: Kuzuha, .* alone and unmistakable in the foreground/);
-    expect(cover).not.toMatch(
-      /\b(teen\w*|girls?|boys?|young\w*|youth\w*|kids?|child\w*|student\w*|little|petite|small|adults?|older|aged?|\d+)\b/i,
-    );
-    // Robes and pose, nothing lingering: no legs, skin, figure or curves.
-    expect(cover).not.toMatch(/\b(legs?|thighs?|skin-tight|figure|curv\w*|bare\w*|long-limbed)\b/i);
+    // v2 (docs/stories-50/cover-style-v2): an adult in her twenties, said in so many words.
+    expect(cover).toMatch(/grown woman who looks in her late twenties, tall, with a mature face and an adult figure/);
+    expect(cover).not.toMatch(/\b(teen\w*|girls?|boys?|young\w*|youth\w*|kids?|child\w*|student\w*|little|petite|school\w*|\d+)\b/i);
+    expect(cover).not.toMatch(/\b(nude|naked|nipples?|lingerie|underwear|bikini|swim\w*|spread|lying|sexy)\b/i);
   });
 
   it('keeps every effect on the tails, the lanterns and the title, never on her face', () => {

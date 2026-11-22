@@ -259,6 +259,13 @@ describe('the art it will ask for', () => {
     expect(cover).toMatch(/No other text anywhere/);
   });
 
+  it('draws her clearly adult, in the cover-style-v2 appeal and inside its limits', () => {
+    const cover = S.coverDirection!;
+    expect(cover).toMatch(/grown woman who looks in her late twenties, tall and long-limbed, with a mature face/);
+    expect(cover).not.toMatch(/\b(teen\w*|girls?|young\w*|youth\w*|kids?|child\w*|student\w*|little|petite|school\w*)\b/i);
+    expect(cover).not.toMatch(/\b(nude|naked|nipples?|lingerie|underwear|bikini|swim\w*|spread|lying|sexy)\b/i);
+  });
+
   it('declares an opening panel led by the character whose portrait it references', () => {
     expect(S.openingPanel?.assetKey).toBe('story_the_one_copper_inn/opening');
     expect(S.openingPanel!.alt.length).toBeLessThanOrEqual(200);

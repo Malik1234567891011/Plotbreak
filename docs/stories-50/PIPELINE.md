@@ -82,7 +82,9 @@ T3 pro small, T2 standard, T2 lite).
 
 - `coverDirection` with its own `TITLE:` line (style, placement, exact spelling). With it, the generic
   "lower third / no lettering" cover rules are dropped. Effects on objects and the title, never on faces;
-  describe people by costume and pose, never by age words. See `skill-error.ts`.
+  describe people by costume and pose, never by age words. See `skill-error.ts`. **Cover style v2
+  overrides the age-word rule for the lead:** say it in words ("a grown woman who looks in her late
+  twenties"), with the appeal and hard limits in `cover-style-v2/PROMPTS.md`.
 - `openingPanel: { assetKey: 'story_<id>/opening', alt }`, `alt` ≤ 200 chars and **starting with the
   character's first name**: that character's portrait is the panel's reference image.
 - A concrete `appearance` for every character with a `cardBlurb` (portraits are drawn from it).

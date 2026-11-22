@@ -237,14 +237,47 @@ function pickBy<T>(items: readonly T[], key: string): T {
  * them. Ages live in free-text `appearance`, so there is nothing to gate on
  * programmatically; the instruction has to carry the rule itself.
  */
-const CAST_APPEAL = [
+const CAST_APPEAL_ADULTS =
   'Adult characters are drawn attractive and stylish: flattering silhouettes, well-fitted clothing, ' +
-    'confident posture, expressive good-looking faces. Aim for the appeal of a commercial anime key ' +
-    'visual — alluring, never explicit.',
+  'confident posture, expressive good-looking faces. Aim for the appeal of a commercial anime key ' +
+  'visual — alluring, never explicit.';
+
+/** Carried by every cover prompt, after whichever appeal direction it overrides. */
+const MINORS_ABSOLUTE_RULE =
   'ABSOLUTE RULE, overriding everything above: any character who is a child or a teenager is drawn as ' +
-    'a child or a teenager. Age-appropriate clothing, age-appropriate build, no glamour, no suggestive ' +
-    'posing or framing of any kind. When the description gives an age under eighteen, or reads as a ' +
-    'student or a younger sibling, none of the appeal direction applies to them.',
+  'a child or a teenager. Age-appropriate clothing, age-appropriate build, no glamour, no suggestive ' +
+  'posing or framing of any kind. When the description gives an age under eighteen, or reads as a ' +
+  'student or a younger sibling, none of the appeal direction applies to them.';
+
+const CAST_APPEAL = [CAST_APPEAL_ADULTS, MINORS_ABSOLUTE_RULE].join(' ');
+
+/**
+ * Cover style v2: the appeal direction for official covers only (a
+ * `coverDirection` with its own `TITLE:` line). Creator covers keep
+ * `CAST_APPEAL` and get a byte-identical prompt; `cover-prompt.spec.ts` pins it.
+ *
+ * Why: next to OOC's shelf (`docs/ooc-app-2026-11-21/shots/12-new-ranking.png`)
+ * ours read modest and flat. Their top covers sell on one very attractive adult
+ * lead, large in frame, in a form-fitting outfit with some skin and a confident
+ * pose. The app is rated 13+, so the limits below travel with the appeal in
+ * every prompt, and every new-50 cast is adult.
+ */
+const OFFICIAL_COVER_APPEAL = [
+  'APPEAL, WHAT SELLS THIS COVER: commercial anime gacha and Webtoon key art.',
+  'The lead is drawn very attractive: a glamorous adult with a mature face and good proportions, large in ' +
+    'frame, in a confident, teasing or dynamic pose, never stiff or neutral.',
+  'Outfits are form-fitting and show some skin where the story allows it: bare shoulders, a neckline ' +
+    'with some cleavage, a bare midriff, a thigh-high slit, a fitted bodysuit, an off-shoulder kimono.',
+  'A male lead gets the same care: a fitted shirt with an open collar, a sharp jawline, a handsome, ' +
+    'confident look.',
+].join(' ');
+
+const OFFICIAL_COVER_LIMITS = [
+  'HARD LIMITS, overriding the appeal above: every character on the cover is clearly an adult in their ' +
+    'twenties or older, with a mature face and an adult build. Never a childlike face or body.',
+  'No nudity, no nipples, no underwear or lingerie as the outfit, no sexual acts, no sexual poses: no ' +
+    'spread legs, no lying down. Swimwear only when the story is set at a beach or a pool.',
+  'No sexualized school uniforms: in a school story the appeal comes from adult styling, never the uniform.',
 ].join(' ');
 
 /**
@@ -526,13 +559,15 @@ export function generatedCoverPrompt(story: StoryVersion, title: string): ImageP
             coverCast(story),
             hero ? `Setting behind them: ${hero.artDirection}` : null,
           ]),
-      CAST_APPEAL,
+      // Official covers (a TITLE: line) get the v2 appeal and its hard limits;
+      // creator covers keep the mild line, byte for byte.
+      directedTitle ? compose([OFFICIAL_COVER_APPEAL, OFFICIAL_COVER_LIMITS, MINORS_ABSOLUTE_RULE]) : CAST_APPEAL,
       `It must read at a glance as: ${story.fantasyLabel}`,
       `Mood: ${story.rules.toneGuide}`,
       'Faces large enough and contrast high enough that the characters are still readable at thumbnail size.',
       directedTitle ? null : 'Keep the lower third clear enough of busy detail that the title reads cleanly over it.',
       'No watermark, no signature, no speech bubbles, no borders, and no text other than the title.',
-      COVER_NEGATIVES,
+      directedTitle ? OFFICIAL_COVER_NEGATIVES : COVER_NEGATIVES,
       directedTitle ? NEGATIVES.replace(NO_TEXT_RULE, 'No captions, no watermarks, no signatures, no UI.') : NEGATIVES,
     ]),
   };
@@ -580,14 +615,21 @@ export function coverTitleSwapPrompt(
  * Every one of these is a specific way a set of generated covers collapses into
  * looking like one generated cover.
  */
-const COVER_NEGATIVES = [
+const FANSERVICE_NEGATIVE = 'Avoid: gratuitous cleavage, fanservice framing, or costume unrelated to the story.';
+
+const COVER_NEGATIVE_LINES = [
   'Avoid: a generic landscape with a tiny distant figure.',
   'Avoid: characters standing in a symmetrical line or triangle facing the camera.',
   'Avoid: the same young woman archetype used for every world.',
-  'Avoid: gratuitous cleavage, fanservice framing, or costume unrelated to the story.',
+  FANSERVICE_NEGATIVE,
   'Avoid: generic glowing particles, floating embers, or lens flare used as a substitute for content.',
   'Avoid: identical three-quarter hero pose, identical rim lighting, identical colour grade.',
-].join(' ');
+];
+
+const COVER_NEGATIVES = COVER_NEGATIVE_LINES.join(' ');
+
+/** Official covers: the same list without the anti-fanservice line (cover style v2). */
+const OFFICIAL_COVER_NEGATIVES = COVER_NEGATIVE_LINES.filter((line) => line !== FANSERVICE_NEGATIVE).join(' ');
 
 /**
  * The original direction, kept verbatim so the six worlds that shipped under it

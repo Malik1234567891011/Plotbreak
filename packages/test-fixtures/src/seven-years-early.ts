@@ -2626,9 +2626,9 @@ const raw = {
   ],
   coverDirection: [
     'SUBJECT: Victor Lane, a charming startup founder, alone and unmistakable in the foreground of a key visual for a revenge thriller anime.',
-    'He sits across a small café table from the viewer, seen from the waist up, centred and close, filling about two thirds of the frame.',
-    'Neat dark hair pushed back, warm brown eyes, a charcoal-grey wool coat over a white open-collared shirt, a slim silver watch on his left wrist.',
-    'He leans forward and holds his right hand out toward the viewer to shake, palm open, with a warm practised smile that does not reach his eyes.',
+    'He is a strikingly handsome man in his early thirties, tall and broad-shouldered, with a mature face and a sharp jawline, seen from the waist up across a small café table from the viewer, centred and close, filling about three quarters of the frame.',
+    'Neat dark hair pushed back with one loose strand falling over his brow, warm brown eyes, a charcoal-grey wool coat draped over his shoulders, a fitted white shirt open at the collar to the third button, showing his collarbones, sleeves rolled to the forearm, a slim silver watch on his left wrist.',
+    'He leans forward on one elbow and holds his right hand out toward the viewer to shake, palm open, with a warm, confident, practised smile that does not reach his eyes.',
     'ON THE TABLE between him and the viewer: a stapled contract and an uncapped fountain pen, the pages blank apart from soft grey lines:',
     'no letters, no numbers, nothing that reads as writing. Beside them, an old laptop with a cracked hinge.',
     'BEHIND HIM, soft and secondary: a rain-streaked café window with city lights blurred in the wet glass,',

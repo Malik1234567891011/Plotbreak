@@ -356,7 +356,13 @@ describe('the art', () => {
     expect(cover.startsWith('SUBJECT: Clara Voss')).toBe(true);
     expect(cover).toMatch(/HER FACE STAYS CLEAN/);
     expect(cover).toMatch(/not in a maid costume: no frills, no lace/);
-    expect(cover).not.toMatch(/\b(sexy|alluring|curvy|curvaceous|cleavage|figure|legs|skirt)\b/i);
+  });
+
+  it('draws her clearly adult, in the cover-style-v2 appeal and inside its limits', () => {
+    expect(cover).toMatch(/grown woman who looks in her late twenties, tall, with a mature face/);
+    expect(cover).not.toMatch(/\b(teen\w*|girls?|young\w*|youth\w*|kids?|child\w*|student\w*|little|petite|school\w*)\b/i);
+    // A maid story is where the costume trope lives: no lingerie, no French maid, no stockings.
+    expect(cover).not.toMatch(/\b(nude|naked|nipples?|lingerie|underwear|garters?|stockings?|french maid|swim\w*|lying|sexy)\b/i);
   });
 
   it('draws the opening panel from the portrait of the person who speaks first', () => {
