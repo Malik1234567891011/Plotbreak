@@ -35,3 +35,11 @@ done
 Then run `docs/stories-50/PIPELINE.md` step 3 with `--only=<storyId>/` (only the missing files
 are drawn), look at the cover, and do step 4 (wrap it in `withDerivedAssetKeys`) in the same
 sitting, so the art and the wrap reach the repo together.
+
+## Restored (2026-11-22, 14:45 EST)
+
+All four folders are back under `infra/seed/assets/<storyId>/` (every png and webp). The old v4
+covers of Every Platform a World, The Zombie Who Said Please and Three Feet Apart were **not**
+restored: cover style v2 replaces them, so they sit in `.claude/held-art/<storyId>/old-cover/`
+(kept, not deleted). Affection 97 never had one. Nothing else is held now; the new covers come
+from the cover-style-v2 batch (`cover-style-v2/BATCH1.DONE`).

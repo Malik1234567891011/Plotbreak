@@ -13,17 +13,15 @@ import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
  * live in places the storyteller reads, the player's one advantage stops
  * existing by turn three and the day stops leaning toward midnight.
  *
- * The world is not registered in `index.ts` yet, so the catalog, endings,
- * choice-clarity and protagonist specs do not see it. Their invariants are
- * repeated here against this one story, plus the three the 50-story checkpoint
- * added: gated abilities are granted, card blurbs address the player, and
- * every location has a way in.
+ * Written before the world was registered in `index.ts`, so the catalog,
+ * endings, choice-clarity and protagonist specs did not see it. Their
+ * invariants are repeated here against this one story, plus the three the
+ * 50-story checkpoint added: gated abilities are granted, card blurbs address
+ * the player, and every location has a way in.
  *
- * One of them cannot be repeated, only flagged: `protagonist.spec.ts` lists
- * the NAMED worlds by storyId and requires every other one to be BLANK. The
- * commit that registers this story must add
- * 'story_the_villain_dies_in_chapter_three' to that list, or `npm test` goes
- * red. What that spec checks of a NAMED world is repeated below.
+ * `protagonist.spec.ts` lists the NAMED worlds by storyId and requires every
+ * other one to be BLANK; 'story_the_villain_dies_in_chapter_three' is on that
+ * list. What that spec checks of a NAMED world is repeated below.
  */
 
 const S = THE_VILLAIN_DIES_IN_CHAPTER_THREE;

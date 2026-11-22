@@ -78,6 +78,7 @@ import { THE_ONLY_GIRL_AT_BLACKTHORN as THE_ONLY_GIRL_AT_BLACKTHORN_RAW } from '
 import { THE_WOLF_CLAN_S_GUEST as THE_WOLF_CLAN_S_GUEST_RAW } from './the-wolf-clan-s-guest.js';
 import { ANNULLED_THEN_CLAIMED as ANNULLED_THEN_CLAIMED_RAW } from './annulled-then-claimed.js';
 import { THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO as THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO_RAW } from './thirty-days-with-the-number-one-hero.js';
+import { THE_VILLAIN_DIES_IN_CHAPTER_THREE as THE_VILLAIN_DIES_IN_CHAPTER_THREE_RAW } from './the-villain-dies-in-chapter-three.js';
 
 
 export { withDerivedAssetKeys } from './derive-assets.js';
@@ -158,6 +159,7 @@ export const THE_ONLY_GIRL_AT_BLACKTHORN = THE_ONLY_GIRL_AT_BLACKTHORN_RAW;
 export const THE_WOLF_CLAN_S_GUEST = THE_WOLF_CLAN_S_GUEST_RAW;
 export const ANNULLED_THEN_CLAIMED = ANNULLED_THEN_CLAIMED_RAW;
 export const THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO = THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO_RAW;
+export const THE_VILLAIN_DIES_IN_CHAPTER_THREE = THE_VILLAIN_DIES_IN_CHAPTER_THREE_RAW;
 
 /**
  * These three shipped with null asset keys on purpose, and no longer need to.
@@ -301,4 +303,5 @@ export const LAUNCH_CATALOG = [
   THE_WOLF_CLAN_S_GUEST,
   ANNULLED_THEN_CLAIMED,
   THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO,
+  THE_VILLAIN_DIES_IN_CHAPTER_THREE,
 ] as const;

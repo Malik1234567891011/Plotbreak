@@ -51,7 +51,7 @@ const raw = {
     'Last night you fell asleep with it still open. This morning you woke in the academy courtyard, in front of two hundred students, in his body, halfway through his worst sentence.\n\n' +
     'The book was clear about the rest of today. He calls Elara Wynn commoner trash in front of the whole first year. She beats him in the Ring at dusk in nine seconds. After dark a note sends him under the chapel, to a relic his family buried there, and it takes him.\n\n' +
     'At midnight Cassian Dray, the hero, ends him on the chapel steps. Nobody mourns him, not even his butler.\n\n' +
-    'You know the script. The people around you do not, and they are not the flat characters you remember. Elara has a reason for that duel the author never wrote. Your butler has a letter in his coat he has not burned. Your father is on campus today, and the book never said why.\n\n' +
+    'You know the script, so you know exactly when you die. The people around you do not, and they are not the flat characters you remember. Elara has a reason for that duel the author never wrote. Your butler has a letter in his coat he has not burned. Your father is on campus today, and the book never said why.\n\n' +
     'Every scene you change makes the next page harder to read. You have fourteen hours to survive a chapter that was written to kill you.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',

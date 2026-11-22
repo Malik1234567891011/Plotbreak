@@ -42,7 +42,13 @@ describe('who the story thinks you are', () => {
     // takes the identity fields off the setup screen, so a world arriving here
     // by accident would silently stop asking the player who they are — which
     // is why adding one has to be an edit to this line.
-    const named = new Set(['story_itachi', 'story_ace', 'story_light']);
+    const named = new Set([
+      'story_itachi',
+      'story_ace',
+      'story_light',
+      // You wake inside the book's villain: everyone calls you Severin Grauen, he/him, and the death line names him.
+      'story_the_villain_dies_in_chapter_three',
+    ]);
     for (const story of LAUNCH_CATALOG) {
       if (named.has(story.storyId)) continue;
       expect(story.protagonist.kind, story.title).toBe('BLANK');
