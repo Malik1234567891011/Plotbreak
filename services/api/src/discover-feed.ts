@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import type { ActivityWindows } from './repo/types.js';
+import type { ActivityWindows, StoryActivity } from './repo/types.js';
 
 /**
  * The Discover shelves that are meant to change from one day to the next.
@@ -68,4 +68,48 @@ export function dailyShuffle<T extends { readonly storyId: string }>(items: read
 /** Byte order, not locale order: a hash or an id has no locale. */
 export function compareText(a: string, b: string): number {
   return a < b ? -1 : a > b ? 1 : 0;
+}
+
+/**
+ * What the shelves know about one world. Nothing about who is looking at it,
+ * so anything built from these alone is the same for every player who reads
+ * the shelf in that language on that day.
+ */
+export interface ShelfWorld {
+  readonly storyId: string;
+  readonly official: boolean;
+  /** A cover to put on a card. A shelf of grey placeholders is not a shelf. */
+  readonly hasCover: boolean;
+  /** A picture wide enough for the Featured banner: key art, or the cover. */
+  readonly hasBannerArt: boolean;
+  /** Derived categories (`catalog-taxonomy.ts`), as the chips file it. */
+  readonly categories: readonly string[];
+  readonly activity: StoryActivity;
+}
+
+// ---------------------------------------------------------------------------
+// New on Plotbreak
+// ---------------------------------------------------------------------------
+
+export const NEW_LIMIT = 12;
+
+/**
+ * Newest first, by first-publish date, cover required.
+ *
+ * This row used to be the bottom 30% of the score, reversed: the same three
+ * cards for a week, and six of the eight worlds published that week not in it
+ * at all. With about one player-made world a day, sorting by date is what
+ * makes its first card change almost daily.
+ *
+ * A world with no date at all is left out rather than put first: it cannot
+ * claim to be new. (The old summary code stamped an undated world with the
+ * current time, which would have pinned three September worlds to the front.)
+ */
+export function newestFirst(worlds: readonly ShelfWorld[]): string[] {
+  return worlds
+    .filter((world) => world.hasCover)
+    .map((world) => ({ id: world.storyId, at: Date.parse(world.activity.firstPublishedAt ?? '') }))
+    .filter((world) => Number.isFinite(world.at))
+    .sort((a, b) => b.at - a.at || compareText(a.id, b.id))
+    .map((world) => world.id);
 }

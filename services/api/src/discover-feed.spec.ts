@@ -5,17 +5,37 @@ import {
   DAY_MS,
   activityWindows,
   dailyShuffle,
+  newestFirst,
   utcDay,
   utcDayOfYear,
+  type ShelfWorld,
 } from './discover-feed.js';
 import { MemoryRepository } from './repo/memory.js';
-import type { SessionRecord } from './repo/types.js';
+import type { SessionRecord, StoryActivity } from './repo/types.js';
+import { EMPTY_ACTIVITY } from './repo/types.js';
 
 /** A Saturday, mid-afternoon UTC. Every spec here pins the day rather than reading the clock. */
 const NOW = new Date('2026-11-21T15:00:00.000Z');
 const hoursAgo = (hours: number, from: Date = NOW): Date => new Date(from.getTime() - hours * 3_600_000);
 const ids = (n: number): Array<{ storyId: string }> =>
   Array.from({ length: n }, (_, i) => ({ storyId: `story_${String(i).padStart(2, '0')}` }));
+
+/** One world as the shelves see it. Official, with art, untouched, unless told otherwise. */
+function world(
+  storyId: string,
+  overrides: Partial<Omit<ShelfWorld, 'activity'>> & { activity?: Partial<StoryActivity> } = {},
+): ShelfWorld {
+  const { activity, ...rest } = overrides;
+  return {
+    storyId,
+    official: true,
+    hasCover: true,
+    hasBannerArt: true,
+    categories: [],
+    ...rest,
+    activity: { ...EMPTY_ACTIVITY, ...activity },
+  };
+}
 
 function session(storyId: string, userId: string, createdAt: Date): SessionRecord {
   return {
@@ -72,6 +92,31 @@ describe('the daily shuffle', () => {
     const forwards = dailyShuffle(ids(20), '2026-11-21');
     const backwards = dailyShuffle([...ids(20)].reverse(), '2026-11-21');
     expect(backwards).toEqual(forwards);
+  });
+});
+
+describe('New on Plotbreak', () => {
+  it('is newest first by first-publish date', () => {
+    const order = newestFirst([
+      world('a', { activity: { firstPublishedAt: '2026-09-10T00:00:00.000Z' } }),
+      world('b', { activity: { firstPublishedAt: '2026-11-20T00:00:00.000Z' } }),
+      world('c', { activity: { firstPublishedAt: '2026-10-30T00:00:00.000Z' } }),
+    ]);
+    expect(order).toEqual(['b', 'c', 'a']);
+  });
+
+  it('leaves out a world with no cover or no date, rather than putting it first', () => {
+    const order = newestFirst([
+      world('dated', { activity: { firstPublishedAt: '2026-09-10T00:00:00.000Z' } }),
+      world('undated'),
+      world('coverless', { hasCover: false, activity: { firstPublishedAt: '2026-11-21T00:00:00.000Z' } }),
+    ]);
+    expect(order).toEqual(['dated']);
+  });
+
+  it('breaks a tie on the id, so two worlds published together never swap on refresh', () => {
+    const at = { firstPublishedAt: '2026-11-20T00:00:00.000Z' };
+    expect(newestFirst([world('y', { activity: at }), world('x', { activity: at })])).toEqual(['x', 'y']);
   });
 });
 

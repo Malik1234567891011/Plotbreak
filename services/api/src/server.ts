@@ -86,9 +86,10 @@ import { registerCreateRoutes } from './create-routes.js';
 import { TowerError, TowerService, towerEnabledFor } from './tower.js';
 import { CHARACTERS_BY_ID } from '@plotbreak/tower';
 import { visibilityContext, visibleStories } from './catalogue-visibility.js';
+import { NEW_LIMIT, activityWindows, newestFirst, type ShelfWorld } from './discover-feed.js';
 import type { StoryVersion } from '@plotbreak/contracts';
 import type { SessionRecord, StorySignals } from './repo/types.js';
-import { EMPTY_SIGNALS } from './repo/types.js';
+import { EMPTY_ACTIVITY, EMPTY_SIGNALS } from './repo/types.js';
 
 /**
  * Spec §33 — the `/v1` surface.
@@ -224,6 +225,12 @@ const CONTENT_DESCRIPTORS: ContentDescriptor[] = [
 export interface BuildServerOptions {
   readonly ctx?: AppContext;
   readonly logger?: boolean;
+  /**
+   * The clock the Discover shelves rotate on. Injected so a spec can pin the
+   * day: "the same all day, different tomorrow" is not testable against
+   * `Date.now()`.
+   */
+  readonly now?: () => Date;
 }
 
 /**
@@ -275,6 +282,7 @@ async function assetHealth(): Promise<{
 
 export function buildServer(options: BuildServerOptions = {}): FastifyInstance & { ctx: AppContext; hub: TurnStreamHub } {
   const ctx = options.ctx ?? createAppContext();
+  const clock = options.now ?? (() => new Date());
   const hub = new TurnStreamHub();
   const app = Fastify({ logger: options.logger ?? false });
 
@@ -449,6 +457,8 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
   // --- Discover (§33.2) ---
 
   app.get<{ Querystring: { tastes?: string; category?: string } }>('/v1/discover', async (request) => {
+    // Read once, so every shelf on this page agrees on what day it is.
+    const now = clock();
     const user = await optionalUser(ctx, request);
     const tastes = (request.query.tastes ?? '')
       .split(',')
@@ -498,13 +508,15 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     const signalsById = visibility.signals;
 
     // The social numbers, gathered in three queries for the whole shelf rather
-    // than per card.
+    // than per card. Recent activity (first publish, players and likes in the
+    // last 72 hours and 7 days) is one more, in the same round of queries.
     const visibleIds = visible.map((story) => story.storyId);
-    const [likeCounts, commentCounts, myLikes, editorial] = await Promise.all([
+    const [likeCounts, commentCounts, myLikes, editorial, activity] = await Promise.all([
       ctx.repo.countLikes(visibleIds),
       ctx.repo.countComments(visibleIds),
       user ? ctx.repo.getLikes(user.userId) : Promise.resolve([] as string[]),
       ctx.repo.getEditorial(),
+      ctx.repo.getStoryActivity(visibleIds, activityWindows(now)),
     ]);
     const likedByMe = new Set(myLikes);
     const staffPicks = new Set(editorial.filter((e) => e.staffPick).map((e) => e.storyId));
@@ -524,6 +536,25 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
 
     const ranked = rankStories(entries);
     const rails: DiscoverRail[] = [];
+
+    // What the moving shelves rank on: facts about each world and nothing
+    // about who is asking, so they come out the same for everybody reading
+    // this language today. The player's own history is applied afterwards.
+    const categoriesById = new Map(visible.map((story) => [story.storyId, categoriesFor(story)]));
+    const summaryById = new Map(ranked.map((summary) => [summary.storyId, summary]));
+    const worlds: ShelfWorld[] = ranked.map((summary) => ({
+      storyId: summary.storyId,
+      official: summary.official,
+      hasCover: summary.coverImage !== null,
+      hasBannerArt: (summary.keyArt ?? summary.coverImage) !== null,
+      categories: categoriesById.get(summary.storyId) ?? [],
+      activity: activity.get(summary.storyId) ?? EMPTY_ACTIVITY,
+    }));
+    const summariesOf = (ids: readonly string[]): StorySummary[] =>
+      ids.flatMap((id) => {
+        const summary = summaryById.get(id);
+        return summary ? [summary] : [];
+      });
 
     // A page is not a template to be filled. With nine worlds, four rails of
     // the same nine worlds is not abundance, it is the same shelf repeated —
@@ -653,7 +684,8 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       });
     }
 
-    const newest = [...ranked].reverse().slice(0, Math.max(1, Math.ceil(ranked.length * 0.3)));
+    // Newest first, by when each world was first published. See `newestFirst`.
+    const newest = summariesOf(newestFirst(worlds).slice(0, NEW_LIMIT));
     if (enough(6) && newest.length >= 2) {
       rails.push({
         id: 'new',
