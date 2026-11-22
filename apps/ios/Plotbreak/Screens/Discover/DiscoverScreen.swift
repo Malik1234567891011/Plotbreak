@@ -42,6 +42,8 @@ struct DiscoverScreen: View {
     /// A fresh shelf that arrives after that is held (`pending`) rather than
     /// swapped in under their thumb.
     @State private var hasScrolled = false
+    /// The page is scrolled off its top: the header draws its bottom rule.
+    @State private var scrolledOffTop = false
     /// A fresh response that arrived while the player was scrolling. Applied
     /// the next time the tab comes back into view.
     @State private var pending: DiscoverResponse?
@@ -188,6 +190,7 @@ struct DiscoverScreen: View {
                     .onPreferenceChange(ScrollOffsetKey.self) { y in
                         // Anything past a nudge counts as reading the shelf.
                         if y > 8 { hasScrolled = true }
+                        scrolledOffTop = y > 2
                     }
                 }
             }
@@ -259,6 +262,14 @@ struct DiscoverScreen: View {
         }
         .padding(.horizontal, Theme.pageGutter)
         .frame(height: 52)
+        // Solid ink, with a hairline once the page scrolls under it, so a row
+        // cut by the edge reads as passing under the header.
+        .background(Theme.Colors.bgBase)
+        .overlay(alignment: .bottom) {
+            Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5)
+                .opacity(scrolledOffTop ? 1 : 0)
+        }
+        .zIndex(1)
     }
 
     /// The search field, as a button: it opens the search sheet.
