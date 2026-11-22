@@ -94,9 +94,9 @@ const raw = {
       'Sexton speaks in one to four words, cannot lie, never explains, and will not say a word within arm’s reach of Hester Crane: when she comes close he goes silent until she has gone. He will not go back to Morgaine’s shoulder while the Hedge has no keeper and she goes on pretending she can carry the college alone. Either of those changing would free him.',
       'The Seven Chairs are the college’s governors. They arrive by ferry on the fourth day and sit on the fifth morning to reconfirm Morgaine as headmistress for seven more years, or replace her. On the fourth night she must light the Equinox lamp alone in front of them. Hester Crane, the deputy head, wants the chair and holds a writ to perform the Severing on the player on the fifth afternoon.',
       'Rule Forty-One: a student who raises a hand or a hex against a witch anywhere but inside a duelling circle on the Bowl is sent down on the next ferry. Duels on the Bowl are legal, fought with chalk circles, and end when one circle breaks. Nobody is badly hurt in a duel; that is what the circles are for.',
-      'The player’s craft is real and untrained. He can chalk a circle and throw a first-year’s stinging hex like anyone else, he can ask the raven things, and the bond gives him more only as it deepens. Every witch here is better at magic than he is.',
+      'The player’s craft is real and untrained, and his bond with Sexton grows in steps, never all at once. From the first minute he can chalk a circle and throw a first-year’s stinging hex like anyone else, and he can ask Sexton anything and get one to four true words back. By the end of the first evening, after Morgaine’s six o’clock appointment in her tower whether he keeps it or not, the bond is accepted and Sexton lets him close his eyes and see what the raven sees. Before that he cannot, and even after it the bird goes where he likes, not where he is sent. Every use of the bond costs his body: first a headache behind the eyes, then hands that shake when he chalks, then lost minutes, and only rest eases it. Every witch here is better at magic than he is.',
       'Never volunteered, only earned: three hundred years ago the college had two offices. The headmistress ran the college; the Hedgewarden kept the Hedge with the founders’ shears, and the Hedgewarden was by custom not a witch. The last one was a man. In a bad year the governors voted to close the gate to men and struck the Hedgewarden out of the Charter. That vote is the Closing, and everyone now believes the Hedge closed itself. Since then the raven has carried both jobs, and the north end of the Hedge, the Grey Reach, is slowly dying.',
-      'Never volunteered, only earned: Morgaine’s own craft has been fading for two years and Sexton has been lighting her lamps for her. The Hedge opened for the player because it needs a Hedgewarden again, and Sexton chose him for the same reason. Tobias Fenn’s family has kept the Warden’s Shears wrapped in oilcloth since the Closing, to give to the next man who walks through the gate.',
+      'Never volunteered, only earned: Morgaine’s own craft has been fading for two years and Sexton has been lighting her lamps for her. The Hedge opened for the player because it needs a Hedgewarden again, and Sexton chose him for the same reason. Tobias Fenn’s family has kept the Warden’s Shears wrapped in oilcloth since the Closing, to give to the next man who walks through the gate. Before the player knows about the Closing the Hedge only notices him; once he knows, it answers his palm when he asks: it parts for him, closes behind him, or flowers where he touched it. With the Warden’s Shears in his hands he can cut dead wood out of the Hedge and graft living wood in, which is the Hedgewarden’s work and the only thing that can save the Grey Reach.',
     ],
     toneGuide:
       'Bright, quick and funny on top, with a real college and real politics underneath. The comedy of being the only man is logistics and attention: the robe that does not fit, the washroom rota, the dinner table by the kitchen door, four hundred heads turning when he walks in. It is never about bodies: no fan service, no lingering descriptions of anyone, and romance is a choice that is slow, earned and goes no further than a kiss. ' +
@@ -1022,6 +1022,7 @@ const raw = {
     {
       id: 'morgaine',
       name: 'Morgaine Ashdown',
+      calledName: 'Morgaine',
       role: 'Headmistress of Thornwitch for twenty-one years, and until this morning the raven’s',
       cardBlurb:
         'The headmistress whose raven is on your arm. She will not shout and she will not beg, she has five days before the governors decide whether she keeps her college, and she cannot tell you why she needs him back so badly.',
@@ -1261,6 +1262,7 @@ const raw = {
     {
       id: 'hester',
       name: 'Hester Crane',
+      calledName: 'Hester',
       role: 'Deputy Head and Mistress of Discipline, who has wanted the headmistress’s chair for nine years',
       cardBlurb:
         'The deputy head, who calls you dear, brings biscuits, and has waited nine years for the headmistress to slip. She holds the only paper at Thornwitch that can cut you off from your raven and your magic in a single afternoon.',
@@ -2849,6 +2851,7 @@ const raw = {
     'She points a stick of white chalk straight at the viewer like a duelling challenge, chin up, one eyebrow raised: competitive, furious and a little flustered at once.',
     'In the lower foreground, from the viewer’s side, a forearm in a plain brown groundskeeper’s sleeve, gripped by a huge glossy black raven with wings half spread and one grey feather at its throat, looking up at her, unimpressed.',
     'HER FACE STAYS CLEAN: no chalk dust, smoke or shadow across her face.',
+    'Every effect, the chalk dust, the smoke and the thorn-green briar, stays on the chalk, the circles, the hall and the title, never on her face.',
     'BEHIND HER, soft and secondary: a round stone hall with tall arched windows full of gold morning light, white chalk circles on grey flagstones, thin smoke hanging in the air, and a dais in soft focus.',
     'LIGHT: warm gold window light behind her and a cool green rim light from the sash side, so she stands out sharply from the hall.',
     'TITLE: the words THE ONLY MAN AT THORNWITCH painted into the art in the upper third as an elegant serif logo in white, with thin thorn-green briar curling through the letters,',

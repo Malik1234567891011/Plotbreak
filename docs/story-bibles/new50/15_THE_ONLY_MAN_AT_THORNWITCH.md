@@ -118,9 +118,9 @@ Eleven entries in `rules.hardCanon`, in this order:
 6. Sexton's rules: one to four words, cannot lie, never explains, will not say a word within arm's reach of Hester (when she comes close he goes silent until she has gone), and the two changes that would free him.
 7. The clock: the Seven Chairs arrive on the fourth day, the Equinox lamp is that night, the Sitting is the fifth morning, and Hester's writ is for the fifth afternoon.
 8. Rule Forty-One: a hand or hex against a witch outside a duelling circle on the Bowl means being sent down. Duels end when a circle breaks, and nobody is badly hurt.
-9. The player's craft is real and untrained.
+9. The player's craft is real and untrained, and the bond grows in steps: he can ask the raven from the first minute, and sees through his eyes once the bond is accepted at the end of the first evening. Every use costs his body, from a headache to lost minutes, and only rest eases it.
 10. Never volunteered: the Closing, the Hedgewarden, the dying Grey Reach.
-11. Never volunteered: Morgaine's fading craft, why the Hedge opened, the Warden's Shears at Fenn's Landing.
+11. Never volunteered: Morgaine's fading craft, why the Hedge opened, the Warden's Shears at Fenn's Landing, and what a Hedgewarden can do: once he knows about the Closing the Hedge answers his palm, and with the shears he can cut out dead wood and graft in living wood.
 
 ## Opener
 
@@ -326,7 +326,7 @@ Polished anime key art. Adults only, described by costume and pose, never by age
 
 ### Cover direction
 
-Ivy Calder is the subject, waist up in the foreground, pointing a stick of white chalk at the viewer like a duelling challenge: competitive, furious and a little flustered. Dark auburn hair cut at the jaw, green eyes, black college robe, thorn-green sash worn exactly straight, a silver snake round her wrist. In the lower foreground, from the viewer's side, a forearm in a brown groundskeeper's sleeve gripped by a huge black raven with one grey throat feather, looking up at her, unimpressed. Behind her, soft: the round Calling Hall, gold window light, chalk circles, thin smoke. Her face stays clean.
+Ivy Calder is the subject, waist up in the foreground, pointing a stick of white chalk at the viewer like a duelling challenge: competitive, furious and a little flustered. Dark auburn hair cut at the jaw, green eyes, black college robe, thorn-green sash worn exactly straight, a silver snake round her wrist. In the lower foreground, from the viewer's side, a forearm in a brown groundskeeper's sleeve gripped by a huge black raven with one grey throat feather, looking up at her, unimpressed. Behind her, soft: the round Calling Hall, gold window light, chalk circles, thin smoke. Her face stays clean: every effect, the chalk dust, the smoke and the thorn-green briar, stays on the chalk, the circles, the hall and the title.
 
 **TITLE:** the words THE ONLY MAN AT THORNWITCH painted into the art in the upper third as an elegant serif logo in white with thin thorn-green briar through the letters, spelled exactly THE ONLY MAN AT THORNWITCH, legible at thumbnail size. No other text anywhere.
 
@@ -341,6 +341,7 @@ Every location carries its own `artDirection`. No art has been generated yet.
 ## Conventions this fixture follows
 
 - Exported raw as `StoryVersion.parse(raw)`, not wrapped in `withDerivedAssetKeys`. Not added to `index.ts`. `publishedAt: null`, no prologue.
+- Morgaine and Hester hold titles (Headmistress, Deputy Head), so both set `calledName` to their first names.
 - Production runs `runTurnPure`, which reads the premise, tone guide, hard canon, the chosen archetype, the full cast, the opening, style examples, places, quest items, factions, quest summaries, world events and the first twelve endings. It never reads resources, step notes, promises or non-starting abilities. So the raven's rule and the clock are in hard canon, the Hedge's letter is a starting quest item, every archetype starts with Ask the Raven, and event notes carry their own time.
 - The three checks: every gated ability is granted by a step reward, every card blurb says "you", and every location has an inbound edge.
 - Gates: `npx vitest run src/the-only-man-at-thornwitch.spec.ts` and `npx tsc --noEmit`, both from `packages/test-fixtures`. `infra/scripts/story-checks.ts` is not in the sparse worktree; run from the main checkout it passes, with warnings only for the `attacked:` flags, which the engine sets itself. Still to run before shipping: register the story in `index.ts`, `npm run migrate`, and `npm run smoke -- --only=the-only-man-at-thornwitch`.

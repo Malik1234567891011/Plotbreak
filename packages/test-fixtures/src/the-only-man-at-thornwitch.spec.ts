@@ -210,6 +210,21 @@ describe('the system lives where the storyteller can read it', () => {
     expect(canon).toMatch(/Severing/);
   });
 
+  it('spells out how the bond grows, since the storyteller never sees a locked ability', () => {
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/grows in steps/);
+    expect(canon).toMatch(/see what the raven sees/);
+    expect(canon).toMatch(/headache behind the eyes/);
+    expect(canon).toMatch(/answers his palm/);
+    expect(canon).toMatch(/cut dead wood out of the Hedge and graft living wood in/);
+  });
+
+  it('gives the titled characters the name they are called by', () => {
+    const byId = (id: string) => S.characters.find((c) => c.id === id)!;
+    expect(byId('morgaine').calledName).toBe('Morgaine');
+    expect(byId('hester').calledName).toBe('Hester');
+  });
+
   it('passes the premise clarity check with no errors', async () => {
     const { checkStoryClarity } = await import('@plotbreak/director');
     const report = checkStoryClarity(S);
@@ -426,6 +441,9 @@ describe('the cover', () => {
     expect(cover).toMatch(/No other text anywhere\.$/);
     expect(cover).toMatch(/^SUBJECT: Ivy Calder/);
     expect(cover).toMatch(/HER FACE STAYS CLEAN/);
+    expect(cover).toMatch(/stays on the chalk, the circles, the hall and the title, never on her face/);
+    expect(S.publishedAt).toBeNull();
+    expect(S.prologue).toEqual([]);
   });
 });
 
