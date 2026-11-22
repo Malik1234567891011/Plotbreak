@@ -159,8 +159,8 @@ describe('rule 1: the opener', () => {
 
   it('asks the player to know no proper noun the opening does not introduce', () => {
     const unintroduced = [
-      'Corvane', 'Kai', 'Brandt', 'Odile', 'Varenne', 'Emeric', 'Ilsabet', 'Severin', 'Bet', 'Tallis',
-      'Ruth', 'Wenna', 'Aubrel', 'Wyndle', 'Stilling', 'Burning King', 'Witness', 'Returning', 'Archivist',
+      'Corvane', 'Kai', 'Brandt', 'Odile', 'Castine', 'Emeric', 'Ilsabet', 'Severin', 'Bet', 'Tallis',
+      'Ruth', 'Wenna', 'Aubrel', 'Fallowmere', 'Stilling', 'Burning King', 'Witness', 'Returning', 'Archivist',
       ...story.factions.map((f) => f.name),
       ...story.locations.map((l) => l.name),
       ...story.items.filter((i) => i.questItem).map((i) => i.name),
@@ -201,6 +201,19 @@ describe('rule 1: the opener', () => {
   it('gives the first beat a panel under its own asset prefix', () => {
     expect(story.openingPanel?.assetKey).toBe('story_the_hero_s_spare/opening');
     expect(story.openingPanel?.alt).toMatch(/Mira Holt/);
+  });
+
+  it('shows the reading power before the first card asks about it', () => {
+    expect(opening).toMatch(/Gold writing glows under the white\. Nobody else sees it\./);
+    expect(story.openingSuggestions[0]).toMatch(/writing glowing in that chalk/);
+    expect(story.openingPanel?.alt).toMatch(/gold writing/);
+  });
+
+  it('authors what the chalk says where production reads it', () => {
+    // `worldBrief` sends hard canon but not the chalk stub, which is not a quest item.
+    const at = story.rules.hardCanon.findIndex((f) => /calling line/.test(f) && /Light of another sky/.test(f));
+    expect(at).toBeGreaterThan(0);
+    expect(story.rules.hardCanon[at]).toMatch(/and bring them here to stand/);
   });
 });
 
@@ -270,7 +283,7 @@ describe('rule 3: rated 13+', () => {
 describe('rule 4: original', () => {
   it('borrows no franchise vocabulary', () => {
     const FRANCHISE =
-      /\b(quirks?|quirkless|nen|chakra|hokage|jutsu|shinobi|hunter association|hunter exam|one for all|all might|pro heroes?|devil fruit|haki|cursed energy|stand users?|status window|system window|demon lord|demon king|shield hero|cardinal weapon|return by death|tempest|rimuru|overlord|ainz|konosuba|aqua|isekai'd|truck-kun|great sage)\b/i;
+      /\b(quirks?|quirkless|nen|chakra|hokage|jutsu|shinobi|hunter association|hunter exam|one for all|all might|pro heroes?|devil fruit|haki|cursed energy|stand users?|status window|system window|demon lord|demon king|shield hero|cardinal weapon|return by death|tempest|rimuru|overlord|ainz|konosuba|aqua|isekai'd|truck-kun|great sage|wyndle)\b/i;
     const hits = visibleText().filter((t) => FRANCHISE.test(t));
     expect(hits).toEqual([]);
   });
@@ -636,6 +649,29 @@ describe('what the storyteller is actually told', () => {
     expect(tone).toMatch(/wanders off/);
     expect(tone).toMatch(/disarmed, down or yielding/);
   });
+
+  it('gives the first day its pressure where production reads it', () => {
+    // Quest steps reach it as title and summary only, and world events with no timing.
+    const tone = story.rules.toneGuide;
+    expect(tone).toMatch(/Kai talks his way past his guards/);
+    expect(tone).toMatch(/at two in the afternoon Severin calls a Proving/);
+    expect(tone).toMatch(/at five Kai is invested/);
+  });
+
+  it('tells it what each background carried from home, in the blurb it actually sends', () => {
+    for (const option of story.archetypes) {
+      const item = story.items.find((i) => i.id === option.startingItems[0]!.itemId)!;
+      const noun = item.name.replace(/^(The|A|Pocket)\s+/i, '').split(' ').at(-1)!.toLowerCase();
+      expect(option.blurb.toLowerCase(), option.id).toContain(noun === 'kit' ? 'pouch' : noun);
+    }
+  });
+
+  it('keeps its own canon consistent', () => {
+    // The ninth hero burned Aubrel 331 years ago and eleven spares have gone back since.
+    expect(story.locations.find((l) => l.id === 'long_gallery')!.description).toMatch(/twenty heroes/);
+    expect(visibleText().filter((t) => /Tenth Burning|blade falls at once/.test(t))).toEqual([]);
+    expect(story.rules.hardCanon.join(' ')).toMatch(/six in the morning on Day 3/);
+  });
 });
 
 describe('the first minute takes any answer', () => {
@@ -822,6 +858,10 @@ describe('seven people, not seven functions', () => {
   it('keeps each voice’s signature where the bible puts it', () => {
     expect(character('odile').voiceSamples.join(' ')).not.toMatch(/\b\w+’(?:t|s|re|ll|ve|d|m)\b|\b\w+'(?:t|re|ll|ve|d|m)\b/);
     expect(character('odile').voiceSamples.join(' ')).toMatch(/\bfriend\b/);
+    // Odile's signature only means something if the people around her do contract.
+    for (const id of ['kai', 'mira', 'bet']) {
+      expect(character(id).voiceSamples.join(' '), id).toMatch(/\b\w+’(?:t|s|re|ll|m)\b/);
+    }
     expect(character('kai').voiceSamples.join(' ')).toMatch(/\bOkay\b/);
     expect(character('kai').voiceSamples.join(' ')).toMatch(/\bHonestly\b/);
     expect(character('severin').voiceSamples.join(' ')).toMatch(/It is written/);

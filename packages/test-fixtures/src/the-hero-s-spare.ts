@@ -45,7 +45,7 @@ const raw = {
   version: 1,
   title: 'The Hero’s Spare',
   fantasyLabel: 'Summoned by mistake. Sent back by sword.',
-  hook: 'A kingdom summons two people from our world by mistake. The hero gets a parade. You get a sword at your throat, one minute to explain yourself, and the only eyes in the city that can read the glowing writing on everything.',
+  hook: 'The kingdom summoned a hero and got two. He gets a parade. You get a sword at your throat, one minute to explain yourself, and the only eyes in the city that can read the glowing writing on everything.',
   premise:
     'The kingdom of Corvane lights its summoning circle once in a generation, when the grey fog in the north starts moving again. The circle is supposed to pull one hero out of another world.\n\n' +
     'This morning it pulled two. One is Kai Brandt, a bike courier from your world, with a mark of light burning on the back of his hand. The other is you. Your hands are empty.\n\n' +
@@ -83,11 +83,12 @@ const raw = {
     hardCanon: [
       'Everyone in this story is an adult. The player is an adult from our world, and Kai Brandt, at twenty-two, is the youngest person in the cast.',
       'This morning the summoning circle under the cathedral dome in Corvane’s capital pulled two people out of our world: Kai Brandt, whom it marked with a sun-shaped mark of light on the back of his right hand, and the player, whom it left unmarked.',
-      'The church calls a second arrival a spare. Spares are held in the Warden Cells and returned through the circle by the sword at the third dawn after the summoning, because the circle must cool for three days before it can send anyone through. Eleven spares have been returned in 331 years. The last, Ruth Abara, a bus driver from our world, was returned forty-seven years ago.',
+      'The church calls a second arrival a spare. Spares are held in the Warden Cells and returned through the circle by the sword at the third dawn after the summoning, because the circle must cool for three days before it can send anyone through. The morning of the summoning counts as the first dawn, so the Returning is at six in the morning on Day 3, two days after the summoning. Eleven spares have been returned in 331 years. The last was Ruth Abara, a bus driver from our world, fifty-one when she was returned forty-seven years ago.',
       'The player can see and read the circle’s script: faint gold writing on every enchanted thing, the locks, the oaths, the blades, the circle itself, Kai’s mark. Nobody else alive can see it. Reading takes looking and a moment; it is never instant and never a menu.',
+      'The chalk ring in the Ring Hall carries the circle’s calling line, one gold sentence running round and round: Light of another sky, come down, and bring them here to stand. Under it, in the same hand and the same size, two names were written this morning: Kai Brandt’s and the player’s own. Nobody else can see them. Anyone who knows the old rite would know the second name means the circle made no mistake.',
       'A line of the script can be crossed out, and only the player can do it, but only once somebody or something has told them it can be done. It takes touch and a held breath. The church can feel it happen nearby, and every line crossed out loosens the player’s hold on this world a little more.',
       'The circle always calls two: a Hero to carry the light and a Witness, left unwritten so that nothing written can bind them. The first page of the original rite says so in three words, Two shall come. The church has hidden that page for three centuries; the Archivist, Emeric Dahl, keeps it.',
-      'This morning High Priestess Odile Varenne wrote a hidden line into Kai’s mark: The bearer shall raise no hand nor word against the Circle’s voice. The mark burns when he thinks about refusing her. He thinks it is nerves.',
+      'This morning High Priestess Odile Castine wrote a hidden line into Kai’s mark: The bearer shall raise no hand nor word against the Circle’s voice. The mark burns when he thinks about refusing her. He thinks it is nerves.',
       'Three hundred and thirty-one years ago the ninth hero, remembered as the Burning King, burned the old capital, Aubrel, for nine days, until his Witness read his mark and crossed it out. Dying, he spoke a writ of his own and never finished it: Let nothing move until. That unfinished sentence is the Stilling, a grey fog from the north that leaves whatever it covers motionless, warm and not dead.',
       'The king of Corvane is not ill. He rode north to see the fog two years ago and came back stilled. Crown Princess Ilsabet rules as regent, and the court is told he has a fever.',
       'Mira Holt will not strike in the first minute, whatever the player does, and nobody says why on turn one. At the end of the minute the High Priestess pronounces the Returning for the third dawn. A good answer changes how everyone treats the player; it does not cancel the schedule.',
@@ -98,7 +99,8 @@ const raw = {
       'The power is never an instant win. Reading needs looking. Crossing out needs touch, a breath and a cost, and somebody in a white robe feels it. ' +
       'Violence is swords and fists with no gore: a fight ends with somebody disarmed, down or yielding, and it always costs the player standing with someone. A player who attacks Mira, runs, lies or refuses gets a real consequence and a story that keeps going, never a wall. ' +
       'Romance may be flirtatious, tense and heartfelt and goes no further than a kiss; never fan service. ' +
-      'Nobody is a cartoon. Odile is reasonable, Severin is grieving, Kai is scared, Ilsabet is honest about being dishonest, and Mira does her duty with her whole body and hates it with the rest of her. If the player wanders off, the city is full: market stalls, river barges, refugees at the north gate, and the clock still runs toward the third dawn.',
+      'Nobody is a cartoon. Odile is reasonable, Severin is grieving, Kai is scared, Ilsabet is honest about being dishonest, and Mira does her duty with her whole body and hates it with the rest of her. If the player wanders off, the city is full: market stalls, river barges, refugees at the north gate, and the clock still runs toward the third dawn. ' +
+      'After the pronouncement the spare is walked down to the Warden Cells, held but not chained. When a scene runs out of road, the first day has pressure ready: Kai talks his way past his guards to visit, because the player is the only person here from home, and repeats what Odile promised him as if testing whether it sounds true; Odile sends water with a kind question in it; at two in the afternoon Severin calls a Proving in the Wardens’ Yard; at five Kai is invested in the nave, and a player who can read sees which line on his hand lights up.',
     proseStyle: 'webnovel',
     styleExamples: [
       "The sand is half gone.\n\nMira doesn’t look at it. She doesn’t need to.\n\n\"Thirty seconds, spare.\"\n\nYou look past her blade at the chalk. The lines aren’t chalk. Not all of them. Under the white there’s writing, thin and gold, running in a ring like a sentence that never ends.\n\nYou read it out loud.\n\nThe priestess on the steps stops turning her glass.\n\nMira’s sword doesn’t move. Her eyes do. To the steps. Back to you.\n\n\"Again,\" she says. \"Slower.\"",
@@ -251,7 +253,7 @@ const raw = {
       name: 'Pocket First-Aid Kit',
       tags: ['medical', 'home'],
       skillModifiers: { first_aid: 1 },
-      description: 'A zipped pouch from a hospital locker: gloves, gauze, tape, antiseptic wipes, a foil blanket and two painkillers in a blister pack.',
+      description: 'A zipped work pouch, still clipped to your scrubs: gloves, gauze, tape, antiseptic wipes, a foil blanket and two painkillers in a blister pack.',
       loreText: 'The antiseptic smell alone makes the cathedral infirmary sisters stop and stare.',
       icon: 'medkit',
     },
@@ -665,9 +667,9 @@ const raw = {
       name: 'The Hero’s Rooms',
       shortName: 'Hero’s Rooms',
       description:
-        'Three gilded rooms off a guarded corridor, built for heroes and used once a generation: a bed big enough for four, a bath nobody has filled, a table of food Kai has not touched, and a portrait of the ninth hero turned to face the wall. Two Circle Guards on the door. The corridor is the only way back to the nave.',
+        'Three gilded rooms off a guarded corridor, built for heroes and used once a generation: a bed the size of a hay cart, a bath nobody has filled, a table of food Kai has not touched, and a portrait of the ninth hero turned to face the wall. Two Circle Guards on the door. The corridor is the only way back to the nave.',
       artDirection:
-        'Opulent gilded bedchamber, an enormous canopied bed, a long table of untouched food, a large portrait leaning face to the wall, a square delivery backpack dropped on silk sheets, a sword in a gold scabbard abandoned on a chair. Rich gold and cream, lonely.',
+        'Opulent gilded state room, a long table of untouched food, a large portrait leaning face to the wall, a square delivery backpack dropped by the door, a sword in a gold scabbard abandoned on a chair. Rich gold and cream, lonely.',
       connections: [{ to: 'cathedral_nave', travelMinutes: 3, label: 'Back along the guarded corridor' }],
       discoveredByDefault: true,
       mapPosition: { x: 1, y: 0 },
@@ -717,9 +719,9 @@ const raw = {
       name: 'The Long Gallery',
       shortName: 'The Palace',
       description:
-        'The palace’s great gallery, where the regent holds standing court because there are no chairs. Portraits of nine heroes line one wall; the ninth has been painted over grey. Clerks, petitioners, a fencing foil left on a window seat, and a desk with a stack of signed passes for the north road. The hill road is the only way back down to the market.',
+        'The palace’s great gallery, where the regent holds standing court because there are no chairs. Portraits of twenty heroes line one wall; the ninth has been painted over grey. Clerks, petitioners, a fencing foil left on a window seat, and a desk with a stack of signed passes for the north road. The hill road is the only way back down to the market.',
       artDirection:
-        'Long palace gallery with tall windows, nine large portraits on one wall with the last painted over flat grey, clerks with ledgers, a fencing foil on a window seat, a desk stacked with sealed passes. Cool silver light, polished floor.',
+        'Long palace gallery with tall windows, a long row of large portraits on one wall with one near the middle painted over flat grey, clerks with ledgers, a fencing foil on a window seat, a desk stacked with sealed passes. Cool silver light, polished floor.',
       connections: [{ to: 'lantern_market', travelMinutes: 10, label: 'Down the hill to the market' }],
       discoveredByDefault: true,
       mapPosition: { x: 1, y: 2 },
@@ -775,7 +777,7 @@ const raw = {
       id: 'faction_church',
       name: 'The Church of the Circle',
       description:
-        'High Priestess Odile Varenne, the Circle Guard under Knight-Captain Severin Ashby, and every priest, novice and infirmary sister in the cathedral. They light the circle, invest the hero, and return the spare. They believe, most of them sincerely, that a second arrival is a hollow echo sent by the fog.',
+        'High Priestess Odile Castine, the Circle Guard under Knight-Captain Severin Ashby, and every priest, novice and infirmary sister in the cathedral. They light the circle, invest the hero, and return the spare. They believe, most of them sincerely, that a second arrival is a hollow echo sent by the fog.',
       startingReputation: -15,
       ranks: [
         { atReputation: -100, label: 'The fog’s echo' },
@@ -858,13 +860,13 @@ const raw = {
       secrets: [
         {
           id: 'mira_the_letter',
-          fact: 'Her grandmother Wenna Holt held the blade at the last Returning, forty-seven years ago, and left a letter: She could read the circle. She read it to me while I held the blade, and I did it anyway. It can be crossed out, she said, if you know which line. Do not let them do it again. Mira keeps it behind the third bell in the tower.',
+          fact: 'Her grandmother, Wenna Holt, then forty-three, held the blade at the last Returning, forty-seven years ago, and left a letter: She could read the circle. She read it to me while I held the blade, and I did it anyway. It can be crossed out, she said, if you know which line. Do not let them do it again. Mira keeps it behind the third bell in the tower.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She shows it to you in the bell tower at night if she trusts you, or you find it behind the third bell yourself, and she knows the moment she sees your face.',
         },
         {
           id: 'mira_the_minute',
-          fact: 'Protocol says the blade falls at once on a second arrival. She made up the minute with the sword already moving, because of the letter, and has told nobody.',
+          fact: 'Protocol says nobody speaks to a second arrival: it is hooded, gagged and taken straight to the cells, because the church holds that the fog learns voices. She stopped her blade and asked a question instead, with the sword already moving, because of the letter. Odile turned her sandglass rather than shame a warden in front of the hero, and neither of them has mentioned it since.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She admits it only after you have read something to her that turned out true, and only in fewer than ten words.',
         },
@@ -874,9 +876,9 @@ const raw = {
       topics: ['the Returning', 'the third dawn', 'the cells', 'her grandmother', 'the minute', 'the wardens', 'the bell tower'],
       voiceSamples: [
         'One minute. What are you good for?',
-        'Forty seconds, spare. You are spending them staring at my sword.',
+        'Forty seconds, spare. You’re spending them staring at my sword.',
         'Nine cells. Eleven marks on that wall. I counted them on my first night here. I count them every night since.',
-        'Do not thank me. I stopped a blade. Half a job. Six generations of Holts and not one of us has done half a job.',
+        'Don’t thank me. I stopped a blade. Half a job. Six generations of Holts and not one of us has done half a job.',
         'Two hundred and twelve steps. Three creak. Step over the fourth, the ninetieth and the last.',
       ],
       appearance:
@@ -958,24 +960,24 @@ const raw = {
         },
       ],
       speechStyle:
-        'Fast, casual, full of home: delivery apps, rent, his star rating, a bike called nothing. Says okay before something stupid and honestly before a lie. Jokes sideways when anything hurts.',
+        'Fast, casual, full of home: delivery apps, rent, his star rating, a bike called nothing. Says okay before something stupid and honestly before a lie. Jokes sideways when anything hurts. Talks in contractions and slang; the only voice in the cathedral that sounds like home.',
       topics: ['the mark', 'home', 'his bike', 'the investiture', 'the oath', 'the north', 'whether heroes go home'],
       voiceSamples: [
-        'Okay. Okay. So the glowing hand is mine, the sword is for you, and everyone here is acting like that is normal.',
-        'They gave me a sword with a name. It has a name. My bike did not have a name and I loved that bike.',
+        'Okay. Okay. So I get the glowing hand, you get the sword, and everyone here’s acting like that’s normal.',
+        'They gave me a sword with a name. It has a name. My bike didn’t have a name and I loved that bike.',
         'Honestly? Super fine. Totally. Can you read what it says, though. Roughly. Ballpark.',
         'Four-point-nine stars. Four years of soup deliveries, up three flights, no lift, and nobody ever pointed a sword at me about it.',
-        'If they make me rehearse that oath again I am going to throw up on a priest, and that is going to become a whole thing.',
+        'If they make me rehearse that oath again I’m going to throw up on a priest, and that’s going to become a whole thing.',
       ],
       appearance:
-        'Twenty-two, lanky, messy dyed-blond hair with dark roots, a grey hoodie under a borrowed white surcoat, cycling gloves, a square delivery backpack, a sun-shaped mark of white light on the back of his right hand.',
+        'Twenty-two, lanky, messy dyed-blond hair with dark roots, a grey hoodie under a borrowed white surcoat, cycling gloves, a square delivery backpack, a sun-shaped mark of white light on the back of his right hand: a plain ring of eight short rays.',
       visualHook: 'A square courier backpack worn over ceremonial white, and a right hand that glows.',
       silhouette: 'Hunched in a hood, one hand held away from his body as if it belongs to somebody else.',
       artSeed: 'ths-kai-01',
       portrait: null,
       expressions: ['neutral', 'grinning', 'nervous', 'confused', 'angry', 'warm'],
       schedule: [
-        { startMinute: 0, endMinute: 420, locationId: 'hero_rooms', activity: 'lying awake in a bed big enough for four' },
+        { startMinute: 0, endMinute: 420, locationId: 'hero_rooms', activity: 'lying awake in a bed the size of a hay cart' },
         { startMinute: 420, endMinute: 600, locationId: 'ring_hall', activity: 'in the circle, staring at his own hand' },
         { startMinute: 600, endMinute: 960, locationId: 'hero_rooms', activity: 'being fitted for armour and taught to bow' },
         { startMinute: 960, endMinute: 1140, locationId: 'cathedral_nave', activity: 'rehearsing the investiture oath on the dais' },
@@ -1012,10 +1014,10 @@ const raw = {
     },
     {
       id: 'odile',
-      name: 'Odile Varenne',
+      name: 'Odile Castine',
       role: 'High Priestess of the Church of the Circle. She lit the circle and turned the sandglass',
       cardBlurb:
-        'She is the kindest person in the cathedral and the one scheduling your death. She will bring you water, ask about your family, and explain very gently why you have to go back at the third dawn.',
+        'She is scheduling your death, and she is the kindest person in the cathedral. She will bring you water, ask about your family, and explain very gently why you have to go back at the third dawn.',
       pronouns: 'she/her',
       publicTraits: ['Gentle in every word', 'Never uses a contraction', 'Thinks in sums of lives'],
       hiddenDrives: [
@@ -1265,19 +1267,19 @@ const raw = {
       goals: ['Prove at the Proving that the spare is hollow', 'See the Returning done at the third dawn, or sooner'],
       secrets: [
         {
-          id: 'severin_wyndle',
-          fact: 'At nineteen the fog took his village, Wyndle, and he walked out of it alone on the third day. On the inside of his left wrist is a faint line of the fog’s writing that he has never been able to see.',
+          id: 'severin_fallowmere',
+          fact: 'At nineteen the fog took his village, Fallowmere, and he walked out of it alone on the third day. On the inside of his left wrist is a faint line of the fog’s writing that he has never been able to see.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He lets you read his wrist only if you have shown him you can read something he can check, and he asks you, very quietly, not to lie about what it says.',
         },
       ],
       speechStyle:
-        'Scripture and verdicts. It is written. Speaks of you in the third person to whoever stands nearest. Formal, cold, every sentence complete, and one crack in the voice when Wyndle comes up.',
-      topics: ['the rite', 'the fog', 'Wyndle', 'the Proving', 'the Circle Guard', 'the spare'],
+        'Scripture and verdicts. It is written. Speaks of you in the third person to whoever stands nearest. Formal, cold, every sentence complete, and one crack in the voice when Fallowmere comes up.',
+      topics: ['the rite', 'the fog', 'Fallowmere', 'the Proving', 'the Circle Guard', 'the spare'],
       voiceSamples: [
         'It is written: one shall come, and one shall stand. Nothing is written about a second.',
         'Tell the spare to stop speaking. The grey learns our voices that way.',
-        'I walked out of Wyndle on the third day, alone. I know what the grey sends back, and it sends it back smiling.',
+        'I walked out of Fallowmere on the third day, alone. I know what the grey sends back, and it sends it back smiling.',
         'Knight-Captain of the Circle Guard, and sworn. Ask the warden whether her hand is steady. Mine has always been.',
       ],
       appearance:
@@ -1295,7 +1297,7 @@ const raw = {
         { startMinute: 1080, endMinute: 1440, locationId: 'cathedral_nave', activity: 'at the evening rite, then vigil again' },
       ],
       homeLocationId: 'cathedral_nave',
-      knowledgeScope: ['the_rite', 'the_stilling', 'wyndle', 'the_circle_guard', 'the_returning'],
+      knowledgeScope: ['the_rite', 'the_stilling', 'fallowmere', 'the_circle_guard', 'the_returning'],
       startingRelationship: { trust: -20, affection: 0, respect: 0, fear: 0, rivalry: 25 },
       gates: [
         {
@@ -1324,7 +1326,7 @@ const raw = {
         'She runs a smokehouse with a blue door and a back room where people stop existing and start again. She will sell you a new name, a cousin and a boat, and she has already noticed the glowing thing in your pocket.',
       pronouns: 'she/her',
       publicTraits: ['Makes up proverbs and blames her mother', 'Judges people by their footwear', 'Never in a hurry'],
-      hiddenDrives: ['She wants the phone, and she wants to know whether there is a world where her son did not drown'],
+      hiddenDrives: ['She wants the phone, and she wants to know whether there is a world where her grown son, a bargeman, did not drown'],
       values: ['A fair trade, paid on the spot', 'Never writing anything down'],
       fears: ['The Circle Guard finding the back room', 'Liking a customer'],
       socialStyle:
@@ -1346,7 +1348,7 @@ const raw = {
         'Unhurried, river-flat, invented proverbs credited to her mother. Prices everything aloud. Calls everyone sunshine. Looks at your boots before she answers.',
       topics: ['new names', 'the river', 'Tallow Row', 'her mother’s sayings', 'the church', 'your phone'],
       voiceSamples: [
-        'Mother used to say a new name is cheap and decent boots are not. Show me your boots.',
+        'Mother used to say a new name is cheap and decent boots aren’t. Show me your boots.',
         'Everybody who comes down these steps is running from something with a seal on it. Sit. Eel?',
         'Three silver for a name, five for a name with a cousin, and that glowing window in your pocket for a name with a whole family and a boat.',
         'Mother also said the river forgets faster than any priest. She got most things wrong, sunshine. Not that one.',
@@ -1719,7 +1721,7 @@ const raw = {
           id: 'the_third_dawn',
           playerCopy: 'Be alive, and still yourself, after the third dawn.',
           directorNotes:
-            'Somebody stands at the circle at six on the third morning, and what happens there was decided by everything before it. Mira can refuse to lift the blade. Kai can name the player his squire in front of the church. The regent can claim the player for the crown. The first page can be read aloud. Odile can quietly take the player off the schedule in exchange for silence. The player can be gone: in Tallow Row under a new name, or on the north road. Or nothing stopped it, and the blade comes down, and what happens to the player then is left as uncertain as the church has always left it. Every one of these is a real ending and none is a punishment.',
+            'Somebody stands at the circle at six on the third morning, and what happens there was decided by everything before it. Mira can refuse to lift the blade. Kai can name the player his second in front of the church. The regent can claim the player for the crown. The first page can be read aloud. Odile can quietly take the player off the schedule in exchange for silence. The player can be gone: in Tallow Row under a new name, or on the north road. Or nothing stopped it, and the blade comes down, and what happens to the player then is left as uncertain as the church has always left it. Every one of these is a real ending and none is a punishment.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1734,12 +1736,13 @@ const raw = {
             },
             {
               routeId: 'kai_names_you',
-              label: 'The hero names you his squire in front of the church',
+              label: 'The hero names you his second in front of the church',
               predicate: {
                 flagsSet: ['kai_is_talking_to_you'],
                 minRelationship: [{ characterId: 'kai', dimension: 'trust', value: 60 }],
+                afterWorldMinute: 1440 + 18 * 60,
               },
-              setsFlags: ['returning_stopped', 'kai_named_you_squire'],
+              setsFlags: ['returning_stopped', 'kai_named_you_second'],
               closesFlags: ['sent_back'],
             },
             {
@@ -1763,14 +1766,14 @@ const raw = {
             {
               routeId: 'odiles_bargain',
               label: 'Take the High Priestess’s quiet bargain',
-              predicate: { flagsSet: ['odile_owes_you'] },
+              predicate: { flagsSet: ['odile_owes_you'], afterWorldMinute: 1440 + 18 * 60 },
               setsFlags: ['returning_stopped', 'quiet_bargain'],
               closesFlags: ['sent_back', 'rite_read_aloud'],
             },
             {
               routeId: 'vanished_into_tallow',
               label: 'Disappear into Tallow Row under a new name',
-              predicate: { flagsSet: ['tallow_row_hides_you'], atLocation: 'tallow_row' },
+              predicate: { flagsSet: ['tallow_row_hides_you'], atLocation: 'tallow_row', afterWorldMinute: 1440 + 18 * 60 },
               setsFlags: ['escaped', 'hid_in_tallow_row'],
               closesFlags: ['sent_back'],
             },
@@ -2162,7 +2165,7 @@ const raw = {
       ],
     },
     {
-      id: 'we_the_tenth_burning',
+      id: 'we_kai_says_no',
       atWorldMinute: 2 * 1440 + 17 * 60,
       locationId: 'cathedral_nave',
       publicCopy:
@@ -2237,7 +2240,7 @@ const raw = {
       role: 'Healing and steady hands',
       summary: 'You kept people alive on night shifts, so you can treat wounds, keep your voice level with a blade at your throat, and the cathedral infirmary wants you.',
       playstyle: ['Steady', 'Heals people', 'Earns trust'],
-      blurb: 'Twelve years of night shifts. You have had worse people point worse things at you than a sergeant with a sword, and you have never once let anybody see your hands shake.',
+      blurb: 'Twelve years of night shifts. You have had worse people point worse things at you than a sergeant with a sword, and you have never once let anybody see your hands shake. Your work pouch is still clipped to your scrubs: gloves, gauze, antiseptic wipes, a foil blanket.',
       attributeBonus: { mind: 2, resolve: 2 },
       skillProficiencies: { first_aid: 3, composure: 2 },
       startingItems: [{ itemId: 'first_aid_kit', qty: 1 }],
@@ -2250,7 +2253,7 @@ const raw = {
       role: 'Technical craft and fixing',
       summary: 'You fixed wiring for a living, so locks, hinges, lamps and your own phone do more for you here, and the writing on a lock reads to you like a circuit.',
       playstyle: ['Practical', 'Fixes things', 'Finds a way out'],
-      blurb: 'Every enchanted lock in this city is a circuit somebody drew by hand. You have been reading other people’s bad wiring for fifteen years.',
+      blurb: 'Every enchanted lock in this city is a circuit somebody drew by hand. You have been reading other people’s bad wiring for fifteen years. Your multitool is still in your work trousers.',
       attributeBonus: { mind: 2, agility: 2 },
       skillProficiencies: { tinkering: 3, script: 1, sneaking: 1 },
       startingItems: [{ itemId: 'multitool', qty: 1 }],
@@ -2263,7 +2266,7 @@ const raw = {
       role: 'Reading and persuasion',
       summary: 'You read contracts for a living, so you spot the line in an oath, a rite or an order that somebody hoped you would skim, and argue it out loud.',
       playstyle: ['Talks well', 'Reads the small print', 'Slow to trust'],
-      blurb: 'A summoning rite is a contract in very old handwriting, and somebody in this cathedral has been counting on nobody ever reading the back page.',
+      blurb: 'A summoning rite is a contract in very old handwriting, and somebody in this cathedral has been counting on nobody ever reading the back page. A blue ballpoint pen, stolen from a courtroom, is in your pocket.',
       attributeBonus: { mind: 2, presence: 2 },
       skillProficiencies: { fine_print: 3, fast_talk: 2 },
       startingItems: [{ itemId: 'ballpoint_pen', qty: 1 }],
@@ -2276,7 +2279,7 @@ const raw = {
       role: 'Hand-to-hand fighting',
       summary: 'You fought in a ring for years, so you can take a hit, throw one back, stay calm and slip out of a grip, and the wardens respect anybody who can.',
       playstyle: ['Physical', 'Close range', 'Hard to rattle'],
-      blurb: 'You know exactly how far a sword arm reaches. It is about a foot further than a jab, and you have spent your whole life inside that foot.',
+      blurb: 'You know exactly how far a sword arm reaches. It is about a foot further than a jab, and you have spent your whole life inside that foot. Your hand wraps are rolled up in your hoodie pocket.',
       attributeBonus: { might: 3, agility: 1 },
       skillProficiencies: { brawling: 3, composure: 1, sneaking: 1 },
       startingItems: [{ itemId: 'hand_wraps', qty: 1 }],
@@ -2297,7 +2300,7 @@ const raw = {
     },
     {
       id: 'appearance',
-      label: 'What does the sergeant see over her sword?',
+      label: 'What do you look like? (Only your portrait uses this.)',
       kind: 'TEXT',
       advanced: true,
       maxLength: 200,
@@ -2334,9 +2337,9 @@ const raw = {
       name: 'The Hero’s Second',
       rarity: 'COMMON',
       minTurn: 24,
-      requires: { flagsSet: ['kai_named_you_squire'], flagsUnset: ['sent_back'] },
+      requires: { flagsSet: ['kai_named_you_second'], flagsUnset: ['sent_back'] },
       condition:
-        'Kai named the player his squire in front of the church, and the Returning could not go ahead without the hero’s consent. The two of them march north together. Write it as two people from the same world deciding to be each other’s home here, with all the jokes intact.',
+        'Kai named the player his second in front of the church, and the Returning could not go ahead without the hero’s consent. The two of them march north together. Write it as two people from the same world deciding to be each other’s home here, with all the jokes intact.',
       epilogue:
         'The army goes north with a hero at its head and a second rider beside him who reads the road signs nobody else can see. Kai still forgets his sword in chairs. The player still has the one song on their phone, and on the third night out, at a fire, they play it for him until the battery dies.',
       hint: 'He has to ask you, in front of all of them.',
@@ -2428,7 +2431,7 @@ const raw = {
       condition:
         'The player read the first page of the rite aloud where it could not be hidden again, and the church could not return the Witness the rite itself called for. This is the public ending. Let the crowd, Emeric, Odile and Severin each take it differently, and do not make any of them simple.',
       epilogue:
-        'The first page goes behind glass in the nave, where pilgrims queue to see three words. The rite is rewritten within the year. Emeric Dahl adds a final entry to the Book of Returnings, which reads, in full: No more. Odile Varenne resigns, and visits the Archive every week for the rest of her life.',
+        'The first page goes behind glass in the nave, where pilgrims queue to see three words. The rite is rewritten within the year. Emeric Dahl adds a final entry to the Book of Returnings, which reads, in full: No more. Odile Castine resigns, and visits the Archive every week for the rest of her life.',
       hint: 'Three words, said in the right room.',
     },
     {
@@ -2444,15 +2447,15 @@ const raw = {
       hint: 'Ruth never got to try.',
     },
     {
-      id: 'end_the_tenth_burning',
-      name: 'The Tenth Burning',
+      id: 'end_the_second_burning',
+      name: 'The Second Burning',
       rarity: 'RARE',
       minTurn: 30,
       requires: { flagsSet: ['kai_said_no', 'freed_without_telling'] },
       condition:
         'The player freed Kai’s hand and never told him why. He refused the church in front of a full nave, found he liked it, and the city is now living with a hero nobody can command. Write it as triumph with an edge: the player did a good thing in exactly the way the Burning King’s Witness once did.',
       epilogue:
-        'Kai is a good hero. He is also a hero nobody can tell what to do, and he knows it, and he is starting to enjoy it. The church calls it the Tenth Burning, not yet out loud. The player is the only person who knows the hand is empty, and watches it, every day, in case it is not.',
+        'Kai is a good hero. He is also a hero nobody can tell what to do, and he knows it, and he is starting to enjoy it. The church calls it the Second Burning, not yet out loud. The player is the only person who knows the hand is empty, and watches it, every day, in case it is not.',
       hint: '',
     },
     {
@@ -2471,20 +2474,20 @@ const raw = {
   coverDirection: [
     'Vertical anime key art for a summoning fantasy.',
     'Foreground: a tall woman sergeant in grey steel half-plate and a red sash, cropped black hair, a pale scar through one eyebrow, holding a sword perfectly level toward the viewer, expression unreadable.',
-    'Behind her, kneeling in a ring of smoking white chalk with faint gold writing in the lines: a lanky man in a grey hoodie under a white ceremonial surcoat with a square courier backpack, staring at a sun-shaped mark of white light blazing on the back of his hand.',
+    'Behind her, kneeling in a ring of smoking white chalk with faint gold writing in the lines: a lanky man in a grey hoodie under a white ceremonial surcoat with a square courier backpack, staring at a mark of white light blazing on the back of his hand, a plain ring of eight short rays.',
     'Above them on cathedral steps, a tall silver-haired priestess in white and gold robes turning a small brass sandglass.',
     'Dawn light through high cathedral windows, thin gold script drifting in the air.',
   ].join(' '),
   opening:
-    "A sword point stops against your throat.\n\n\"Don’t move,\" says the woman holding it. Red sash, scarred knuckles, no blink. \"Sergeant Mira Holt. The circle calls one hero. Today it called two.\"\n\nYou’re kneeling in a ring of smoking chalk. Beside you, a lanky man in a grey hoodie stares at his right hand, where a mark of light is burning.\n\nYour hands are empty.\n\nOn the steps above, a priestess in white turns a small sandglass over.\n\n\"He’s the hero,\" Mira says. \"You’re the spare. We send spares back the only way we know.\"\n\nThe sand starts to fall.\n\n\"One minute. What are you good for?\"",
+    "A sword point stops against your throat.\n\n\"Don’t move,\" says the woman holding it. Red sash, scarred knuckles, no blink. \"Sergeant Mira Holt. The circle calls one hero. Today it called two.\"\n\nYou’re kneeling in a ring of smoking chalk. Gold writing glows under the white. Nobody else sees it.\n\nBeside you, a lanky man in a grey hoodie stares at his right hand, where a mark of light is burning.\n\nYour hands are empty.\n\nOn the steps above, a priestess in white turns a sandglass over.\n\n\"He’s the hero,\" Mira says. \"You’re the spare. We send spares back the only way we know.\"\n\nThe sand starts to fall.\n\n\"One minute. What are you good for?\"",
   openingPanel: {
     assetKey: 'story_the_hero_s_spare/opening',
-    alt: 'Mira Holt in grey half-plate and a red sash, holding a sword level at the viewer’s throat in a domed stone hall, a ring of smoking chalk on the floor.',
+    alt: 'Mira Holt in grey half-plate and a red sash, holding a sword level at the viewer’s throat in a domed stone hall, a ring of smoking chalk on the floor with faint gold writing in its lines.',
   },
   openingSuggestions: [
     "\"I can read the writing glowing in that chalk. Every word. Can he?\"",
     'I hold up my phone and switch on the torch.',
-    "I ease the blade aside with two fingers and get to my feet. \"I’ll answer standing up.\"",
+    'I ease the blade aside and stand. "Ask me again."',
   ],
   publishedAt: null,
 };
