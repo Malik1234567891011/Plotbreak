@@ -53,7 +53,7 @@ describe('prose is prose', () => {
     expect(S.id).toBe('sv_human_row_three_1');
     expect(S.storyId).toBe('story_human_row_three');
     expect(S.openingPanel?.assetKey).toBe('story_human_row_three/opening');
-    expect(S.openingPanel?.alt).toMatch(/^Garra /);
+    expect(S.openingPanel?.alt).toMatch(/^Ishiko /);
     expect(S.publishedAt).toBeNull();
   });
 });
@@ -67,7 +67,7 @@ describe('the opener hands the player a choice', () => {
 
   it('has a named person talk to the player inside the first sixty words', () => {
     const head = words(S.opening).slice(0, 60).join(' ');
-    expect(head).toContain('Garra');
+    expect(head).toContain('Ishiko');
     expect(head).toContain('They told us you’d be bigger."');
     expect(head).toMatch(/"[^"]*\byou\b[^"]*"/);
   });
@@ -79,7 +79,7 @@ describe('the opener hands the player a choice', () => {
   it('names nobody the player is expected to know already', () => {
     // A capital letter that is not starting a sentence is a proper noun. Only
     // the two classmates the scene introduces may appear.
-    const ALLOWED = new Set(['Garra', 'Sylph', 'I']);
+    const ALLOWED = new Set(['Ishiko', 'Sylph', 'I']);
     const strays: string[] = [];
     for (const m of S.opening.matchAll(/[A-Z][A-Za-z’'-]*/g)) {
       const before = S.opening.slice(0, m.index).replace(/[\s"“”[]+$/, '');
@@ -98,6 +98,8 @@ describe('the opener hands the player a choice', () => {
     expect(risky).not.toMatch(/^"/);
     // The risky one goes for the register itself, in front of the whole room.
     expect(risky).toMatch(/real name over "Human"/);
+    // The done card is a stare, not a once-over: turn 1 never invites a body description.
+    expect(done).not.toMatch(/up and down|look \w+ over/i);
   });
 
   it('offers no opening card the parser turns into a fight', async () => {
@@ -127,6 +129,14 @@ describe('the system lives where the storyteller can read it', () => {
       expect(S.items.find((i) => i.id === id)?.questItem, id).toBe(true);
     }
     expect(S.items.find((i) => i.id === 'the_register')!.description).toContain('Human. Row three.');
+  });
+
+  it('answers the risky opening card in a field production reads', () => {
+    // worldBrief sends each quest as title and summary only, so what happens
+    // when the player reaches for the pen has to live on Mr. Bones himself.
+    const bones = S.characters.find((c) => c.id === 'bones')!;
+    expect(bones.boundaries.join(' ')).toMatch(/book closed on its fingers/);
+    expect(S.rules.hardCanon[3]).toMatch(/Walking out before answering is marked absent on the spot/);
   });
 
   it('gives every archetype the verb roll call asks for', () => {
@@ -171,12 +181,19 @@ describe('the week runs on a clock', () => {
     expect(vote.succeedWhenAny.at(-1)!.setsFlags).toEqual(['briar_closed']);
   });
 
+  it('holds the vote even for a player who never counted the lanterns', () => {
+    const lanterns = S.quests.find((q) => q.id === 'q_five_lanterns')!;
+    expect(lanterns.discoverWhen?.flagsSet).toEqual(['first_roll_done']);
+    const count = steps.find((s) => s.id === 'count_the_lanterns')!;
+    expect(count.succeedWhenAny.at(-1)!.predicate.flagsSet).toEqual(['vote_night']);
+  });
+
   it('carries out paragraph nine for two absences or harm to a named student', () => {
     const nine = steps.find((s) => s.id === 'stay_on_the_register')!;
     const collected = nine.succeedWhenAny.filter((r) => r.setsFlags.includes('collected'));
     expect(collected.some((r) => r.predicate.flagsSet.includes('marked_absent'))).toBe(true);
     expect(collected.some((r) => r.predicate.flagsSet.some((f) => f.startsWith('attacked:')))).toBe(true);
-    // A contest Garra agreed to is not paragraph nine.
+    // A contest Ishiko agreed to is not paragraph nine.
     expect(collected.some((r) => r.predicate.flagsSet.includes('attacked:garra'))).toBe(false);
   });
 });
@@ -211,6 +228,12 @@ describe('the last human is a lead, never a corridor', () => {
     const needing = S.endings.filter((e) => e.requires.flagsSet.some((f) => leadFlags.has(f))).map((e) => e.id);
     expect(needing.sort()).toEqual(['end_marked_at_last', 'end_the_next_keeper']);
   });
+
+  it('keeps her off the detail page', () => {
+    // Story Detail shows every cardBlurb before turn 1.
+    const keeper = S.characters.find((c) => c.id === 'keeper')!;
+    expect(keeper.cardBlurb).not.toMatch(/forty-one|Penhallow|\bAda\b|loaf|bread|human/i);
+  });
 });
 
 describe('everybody on the page is an adult, on the page', () => {
@@ -224,6 +247,11 @@ describe('everybody on the page is an adult, on the page', () => {
       expect(AGES[c.id]!).toBeGreaterThanOrEqual(18);
       expect(canon, c.id).toContain(c.calledName ?? c.name.split(' ')[0]!);
     }
+    // Off-cast adults the storyteller voices or names have ages too.
+    expect(canon).toMatch(/Gate-Warden Grenna is seventy-nine/);
+    expect(canon).toMatch(/Mr\. Pruitt, the Exchange Office clerk, is fifty-eight/);
+    expect(canon).toMatch(/June is sixty-six/);
+    expect(S.rules.hardCanon[2]).toMatch(/troll of twenty/);
   });
 
   it('describes people by build and costume, never by an age word', () => {
@@ -245,8 +273,21 @@ describe('the cover', () => {
   it('puts the title in the art and the oni in front', () => {
     const cover = S.coverDirection!;
     expect(cover).toContain('HUMAN, ROW THREE');
-    expect(cover).toContain('Garra');
+    expect(cover).toContain('Ishiko');
     expect(cover).toMatch(/no letters, no numbers/i);
+  });
+
+  it('poses and dresses everybody for a 13+ shelf', () => {
+    const RISKY = /leaning (forward|in)|toward the viewer|uniform|cleavage|soaked|white shirt/i;
+    expect(S.coverDirection).not.toMatch(RISKY);
+    for (const c of S.characters) {
+      expect(c.appearance, c.id).not.toMatch(RISKY);
+      expect(c.silhouette, c.id).not.toMatch(RISKY);
+    }
+  });
+
+  it('labels the bar and the wine bottles', () => {
+    expect(S.contentDescriptors).toContain('ALCOHOL_REFERENCES');
   });
 });
 
@@ -552,6 +593,13 @@ describe('it can end badly, early and in many ways', () => {
 
   it('uses the whole rarity range', () => {
     expect(new Set(S.endings.map((e) => e.rarity)).size).toBeGreaterThanOrEqual(4);
+  });
+
+  it('gates the Countess and Sylph endings on flags every path can set', () => {
+    // took_veys_tea and knows_sylphs_stake sit behind routes that close their
+    // step first, so the endings read flags that do not depend on route order.
+    expect(S.endings.find((e) => e.id === 'end_every_tooth')!.requires.flagsSet).toEqual(['briar_open', 'spoke:vey']);
+    expect(S.endings.find((e) => e.id === 'end_first_post')!.requires.flagsSet).toEqual(['briar_open', 'in_the_book']);
   });
 
   it('has real losses, not just flavours of winning', () => {

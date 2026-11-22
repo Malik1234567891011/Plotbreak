@@ -5,26 +5,32 @@
 **OOC evidence:** "Only Human in the Monster Academy" (New #2, Trending #2). Nothing here is taken from
 it but the trope: the title, the school, the cast, the rules and the plot are our own.
 **Hook:** Exchange year at a monster academy. At roll call they ask for the human, and every head turns.
+**Shelf label:** Thirty monsters. Every head turns to you.
 **Fixture:** `packages/test-fixtures/src/human-row-three.ts` (`HUMAN_ROW_THREE`, `story_human_row_three`).
 **Spec:** `human-row-three.spec.ts`.
 **Protagonist:** BLANK. The player names themselves; the archetype is why the Exchange Office picked them.
+**Name note:** the oni was called Garra in the first draft. Editor review renamed her Ishiko, because "Garra"
+is the common misspelling of a major anime character's name. Her id stays `garra`.
 
 ## Adults only
 
-Every person in this story is an adult. The ages are canon and are also written into `hardCanon[0]`, so
-the storyteller has them on every turn. Hollowmere is a post-secondary academy, and every student in it
+Every person in this story is an adult. The ages are canon and are also written into `hardCanon[0]` (the
+troll's into `hardCanon[2]`), so the storyteller has them on every turn. Hollowmere is a post-secondary academy, and every student in it
 is eighteen or over.
 
 | Who | Age |
 |---|---|
 | The player, the human exchange student | 21 |
-| Garra, oni of Gate House | 21 |
+| Ishiko, oni of Gate House | 21 |
 | Countess Ottilie Vey, vampire, head of the Council | 131 (turned at 28 and has looked it since) |
 | Sylph, harpy of the Roost | 22 |
 | Mr. Bones, skeleton, homeroom teacher | died at 51; has taught for 83 years since |
 | Teague, kelpie, head of Deep House | 24 |
 | The Keeper (Ada Penhallow), human | 61 |
-| Gate-Warden Grenna, Garra's grandmother (off-cast) | 79 |
+| Gate-Warden Grenna, Ishiko's grandmother (off-cast) | 79 |
+| Mr. Pruitt, Exchange Office clerk (off-cast) | 58 |
+| June Penhallow, Ada's sister (off-cast) | 66 |
+| The troll exchange student at the player's university (off-cast) | 20 |
 | The other students of Hollowmere | all eighteen or over |
 
 Covers and portraits describe people by build and costume, never by age words. Appearance lines start
@@ -43,7 +49,7 @@ she is the one person here who needs you to survive the week more than you do.
 ## Playable span
 
 Seven days at Hollowmere, from the first morning's roll call (day 0, 08:30) to the Lantern Vote on the
-seventh evening (day 6, 20:00). Roll call comes twice a day and is the small clock. The vote is the big
+seventh evening (day 6, 20:00). The first morning is a Monday. Roll call comes twice a day and is the small clock. The vote is the big
 one. Everything after the vote lives in the endings.
 
 ## The world, in plain words
@@ -58,7 +64,7 @@ one. Everything after the vote lives in the endings.
 - **Roll call:** Mr. Bones reads the register at 08:30 in homeroom and at 18:00 in the Great Hall.
 - **Paragraph nine:** a human absent from roll twice, or who seriously hurts anyone in the register, is
   collected by the Gate wardens and walked home. Mr. Bones will turn one absence into a late mark, once,
-  if the player comes and explains.
+  if the player comes and explains. Walking out before answering is marked absent on the spot.
 - **The Founders' ward:** on academy ground, harm aimed at anyone whose name is in the register turns
   aside (a punch lands as a shove). It stops at the academy wall, the lake's waterline and below the
   fifth level of the Stacks. "Human" is a description, so the ward only half answers: the player can be
@@ -77,13 +83,13 @@ lit keeps the Briar open.
 
 | House | Who | Leans | What moves it |
 |---|---|---|---|
-| Gate House (oni, the wardens' clans) | Garra | Dark: her grandmother's order | Garra lights it herself if she has measured the player and trusts them (`garra_lights_it`) |
+| Gate House (oni, the wardens' clans) | Ishiko | Dark: her grandmother's order | Ishiko lights it herself if she has measured the player and trusts them (`garra_lights_it`) |
 | The Roost (harpies, winged students) | Sylph | Lit: a post route over the Briar | Already lit, unless the player is collected |
 | Cellar House (vampires) | Countess Vey | Lit: the bottles | Already lit |
 | Deep House (kelpies, lake folk) | Teague | Dark, for sale | A bargain: carry his river map across (`teague_bargain_struck`) |
 | Bone House (the dead) | Mr. Bones | By the register | Lit for a named student, dark for a guest (`named_in_register`) |
 
-Cellar and Roost give two. The vote turns on getting a third: the register, Garra, or the lake.
+Cellar and Roost give two. The vote turns on getting a third: the register, Ishiko, or the lake.
 
 ## Premise (as shipped)
 
@@ -120,7 +126,7 @@ The last human sat in row three too. Nobody ever marked her absent.
 >
 > Every head in the room turns to you.
 >
-> Behind you, an oni woman leans over her desk. "Huh," Garra says. "They told us you'd be bigger."
+> Behind you, an oni woman leans over her desk. "Huh," Ishiko says. "They told us you'd be bigger."
 >
 > Somebody laughs. Nobody joins in.
 >
@@ -131,14 +137,14 @@ The last human sat in row three too. Nobody ever marked her absent.
 >
 > "Absent humans get collected," he says. "So. Present, or absent?"
 
-**Quality bar:** 108 words. Garra speaks to the player at word 49 and her line ends inside the first 60
-words. It ends on a direct question that must be answered now. The only proper nouns are Garra and
+**Quality bar:** 108 words. Ishiko's line to the player starts at word 48 ("Huh,"), her name is word 49,
+and the line ends at word 56. It ends on a direct question that must be answered now. The only proper nouns are Ishiko and
 Sylph, both introduced in the line where they appear ("an oni woman", "a harpy at the window").
 
 **Opening suggestions** (said / done / risky):
 
 1. Said: `"Present. And I do have a name, you know."`
-2. Done: `I turn round in my seat and look Garra up and down, slowly.`
+2. Done: `I stand up, turn round and look Ishiko in the eye.`
 3. Risky: `I walk up to the lectern, take his pen and write my real name over "Human".`
 
 ## Cast
@@ -146,11 +152,12 @@ Sylph, both introduced in the line where they appear ("an oni woman", "a harpy a
 Every one of them wants something this week that has nothing to do with the player. None of them is a
 pet or a prize.
 
-### Garra, 21, oni of Gate House
+### Ishiko, 21, oni of Gate House
 
 - **Role:** Sits in row four, directly behind the player. Heir to the Gate wardens. Head of Gate House.
 - **Looks:** Very tall and broad-shouldered, two short red horns, black hair tied back with rope, amber
-  eyes, a scar through one eyebrow, a uniform jacket with the sleeves torn off, a warden's iron gauntlet.
+  eyes, a scar through one eyebrow, a dark high-collared warden's coat buttoned to the throat with the sleeves torn off, a warden's iron
+  gauntlet.
 - **Her own motive:** Has wanted to see the human side since her first night watch on the gate, and has
   never said so. Tired of carrying her grandmother's lantern.
 - **Wants:** To measure the human (the stone, the rope or the table), and to decide Gate House's lantern
@@ -213,13 +220,17 @@ pet or a prize.
 - **Secret 1:** The open line, "Penhallow, Ada. Human. Row three.", which he reads silently every morning.
 - **Secret 2:** The player's real name is on a card in his breast pocket.
 - **Boundaries:** Will not falsify the register. Takes no side in class; outside class, one side, once.
+  Will not let anybody else write in the register: a hand that reaches for his pen gets the book closed on
+  its fingers, gently, and the room never forgets it. (This answers opening card 3, so it lives in his
+  `boundaries`, which production reads, and not only in quest notes, which it does not.)
 - **Voice:** Precise and schoolmasterly. Uses "present" and "absent" for everything. Very small jokes.
 
 ### Teague, 24, kelpie, head of Deep House
 
-- **Role:** Keeps the boathouse on the black lake. Every conversation is a bargain.
+- **Role:** Keeps the boathouse on the Mere. Every conversation is a bargain.
 - **Looks:** Lean and long-limbed, always-wet black hair with river weed in it, dark eyes with a green
-  shine, soaked white shirt under an oilskin, bare feet, a steady drip from his hems.
+  shine, a dark wool jumper that never quite dries under a buttoned
+  oilskin coat, bare feet, a steady drip from his hems.
 - **His own motive:** The lake is dying. A weir on the human side has thinned the river for sixty years.
 - **Wants:** His river map in a human hand that can open the weir. Deep House's lantern stays dark
   without it.
@@ -242,7 +253,7 @@ pet or a prize.
 - **Fear:** Going home to a place that kept no space for her. That the fighting at the gate the winter
   after she vanished was her fault, which it partly was.
 - **Secret 1:** Who she is.
-- **Secret 2:** She leaves the gifts on the gate-yard wall. It has always been Garra who finds them.
+- **Secret 2:** She leaves the gifts on the gate-yard wall. It has always been Ishiko who finds them.
 - **Boundaries:** Never goes above the fifth level. Will not tell Mr. Bones she is there; that is the
   Countess's to tell. Will not walk the old paths with anyone the Briar no longer counts as human.
 - **Voice:** Brisk, warm, slang forty years out of date. Questions about the human side in lists. "Pet."
@@ -251,7 +262,7 @@ pet or a prize.
 
 | Id | Place | What it is |
 |---|---|---|
-| `homeroom` | Homeroom | Tiered classroom under the bell tower. The register on its chain. Row three's card says HUMAN. Start. |
+| `homeroom` | Homeroom | Tiered classroom under the bell tower. The register on its chain. Row three's card says HUMAN. Mr. Bones teaches Accord Law here until lunch (this week: Humans: Habits and Hazards). Start. |
 | `the_cloister` | The Cloister | The hub. Every House has its own side of it to walk on. |
 | `great_hall` | The Great Hall | Five House tables under living roots, evening roll, five windows with empty iron hooks. |
 | `guest_room` | The Guest Room | Top of the tower stair, shut for forty-one years. Initials on the bed. A floorboard that creaks. |
@@ -261,7 +272,7 @@ pet or a prize.
 | `deep_stacks` | The Bottom of the Stacks | The Keeper's room. Undiscovered; opens on `found_the_stair`. |
 | `gate_yard` | The Gate Yard | Wardens' yard: the stone, the rope and the table. |
 | `the_briar` | The Briar Gate | The wall of thorn, the one gate and the brass bell. Outside the ward. Also reached from the bottom of the Stacks once `knows:the_old_paths` is set. |
-| `lake_dock` | The Black Lake | Boathouse, long dock, mooring rings hanging in the air. Outside the ward. |
+| `lake_dock` | The Mere | Boathouse, long dock, mooring rings hanging in the air. Outside the ward. |
 | `lanternside` | Lanternside | The town below the hill, outside the wall. |
 
 ## Factions
@@ -278,15 +289,16 @@ In this array order, so public violence costs Gate House standing and raises Ala
 ## Threads (quests)
 
 1. **Human, Row Three** (MAIN, starts active). Answer the register (present / stare the room down / take
-   Garra on / walk out), then get through day one (which table, the Countess's tea, the floorboard, the
+   Ishiko on / walk out), then get through day one (which table, the Countess's tea, the floorboard, the
    bread).
 2. **Paragraph Nine** (SIDE, starts active). Collected for two unexplained absences or for hurting a named
-   student; otherwise present all week. Garra is excluded, because a fight with her is a contest.
+   student; otherwise present all week. Ishiko is excluded, because a fight with her is a contest.
 3. **Your Name in the Register** (MAIN). Three House heads vouch in the Great Hall. Three combinations.
    Grants `named_in_register` and Call on the Register.
-4. **Five Lanterns** (MAIN). Count the lanterns, then the vote: lit by the register, by Garra, by the lake,
+4. **Five Lanterns** (MAIN, discovered after the first roll). Count the lanterns (the count closes on its own
+   when the seventh evening comes, so the vote can never stall), then the vote: lit by the register, by Ishiko, by the lake,
    or dark windows.
-5. **Garra's Measure** (SIDE). The stone, the rope or the table; refusing to her face; or reading the
+5. **Ishiko's Measure** (SIDE). The stone, the rope or the table; refusing to her face; or reading the
    notice board for her. Then what she does with her lantern once her grandmother arrives.
 6. **What the Lake Wants** (SIDE). Strike the bargain, refuse it, or say yes to the ride after the lake has
    sung your name.
@@ -300,9 +312,9 @@ In this array order, so public violence costs Gate House standing and raises Ala
 | When | Where | What |
 |---|---|---|
 | Day 0, 12:00 | Great Hall | Lunch bell. Five tables, no table for one. |
-| Day 0, 15:30 | Gate Yard | The measuring stone is rolled out. Garra waits on it. |
+| Day 0, 15:30 | Gate Yard | The measuring stone is rolled out. Ishiko waits on it. |
 | Day 0, 16:45 | Guest room | A black envelope: the Council requests our guest's company at sundown. |
-| Day 0, 18:00 | Great Hall | Evening roll. |
+| Day 0, 18:00 | Great Hall | Evening roll. A Gate warden by the door counts heads. |
 | Day 0, 23:10 | Anywhere | The lake sings the player's real name. |
 | Day 1, 08:25 | Homeroom | (only if the player has watched the room) The open line in the register. |
 | Day 2, 10:00 | Gate Yard | Gate-Warden Grenna rides in and asks where the human is. |
@@ -314,7 +326,7 @@ In this array order, so public violence costs Gate House standing and raises Ala
 1. **FINALE: five lanterns in the windows.** Seed: five iron lanterns on a sideboard. Payoff: the vote.
 2. **THEME: Human, or your name.** Seed: a card on a chair that says HUMAN. Payoff: three Houses standing,
    or the player saying Human will do.
-3. **RELATIONSHIP: what Garra does with the Gate lantern.** Payoff: her grandmother watching.
+3. **RELATIONSHIP: what Ishiko does with the Gate lantern.** Payoff: her grandmother watching.
 4. **RIVAL: what the Countess actually wants.** Payoff: the bottles, the letters, the promise to Ada.
 5. **MYSTERY: the line nobody ever marked.** Seed: initials on the guest-room bed. Payoff: the Keeper.
 
@@ -330,7 +342,7 @@ Twelve, because the storyteller reads the first twelve. Five are losses or close
 | Dark Windows | COMMON | The lanterns go in dark. The gate closes at midnight. |
 | Collected | COMMON | Paragraph nine carried out. |
 | Back Through the Gate | UNCOMMON | The player walks out (`left_the_map`, minTurn 15). |
-| Measured and Kept | RARE | Garra lights her lantern for the player in front of her grandmother. Up to a kiss. |
+| Measured and Kept | RARE | Ishiko lights her lantern for the player in front of her grandmother. Up to a kiss. |
 | Every Tooth | RARE | The Countess stops hiding that she needs the player. A kiss on a gloved hand. |
 | First Post Across | RARE | Sylph wins her book and flies the first post over the Briar. |
 | A Year and a Day | UNCOMMON | The player took the ride after the lake sang. Nobody drowns; the lake keeps them a year and a day. |
@@ -366,15 +378,18 @@ Gated abilities, each granted by a step and still gated by a flag:
 
 ## Content
 
-13+. Fantasy violence: contests, shoves and bruises, never serious injury on academy ground. Romance
-goes up to a kiss (Garra, the Countess, Sylph). No biting, by treaty. No sexual content, nudity,
+13+. Descriptors: FANTASY_VIOLENCE, ROMANCE, ALCOHOL_REFERENCES (the bartender archetype, drinks in the
+Great Hall). Fantasy violence: contests, shoves and bruises, never serious injury on academy ground. Romance
+goes up to a kiss (Ishiko, the Countess, Sylph). No biting, by treaty. No sexual content, nudity,
 lingering body description or gore. The lake ending is written as a fairy-tale keeping, not a drowning.
+Sylph's book is story only: a bet never costs or pays app credits.
 
 ## Cover direction
 
-Garra alone and large in the foreground, waist up, leaning over a scarred desk toward the viewer with
-both hands flat on it: red horns, rope-tied black hair, amber eyes, the scar, torn-sleeve jacket, iron
-gauntlet, a wide challenging grin. Behind her, soft and secondary: a tiered gothic classroom of monster
+Ishiko alone and large in the foreground, waist up, standing tall behind a scarred desk with both fists
+planted on it, looming down at the viewer: red horns, rope-tied black hair, amber eyes, the scar, a dark
+high-collared warden's coat buttoned to the throat with the sleeves torn off, iron gauntlet, a wide
+challenging grin. Modest and fully clothed, the coat closed to the collar. Behind her, soft and secondary: a tiered gothic classroom of monster
 classmates turned to stare; Sylph in the window seat; the Countess smiling with sharp teeth in the back
 row, in soft focus; Mr. Bones at the lectern with his pen over the register. Warm morning sun rims her
 horns in gold. The title HUMAN, ROW THREE is painted into the upper third as a hand-lettered chalk logo.

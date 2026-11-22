@@ -44,7 +44,7 @@ const raw = {
   storyId: 'story_human_row_three',
   version: 1,
   title: 'Human, Row Three',
-  fantasyLabel: 'Thirty monsters. One human. Roll call.',
+  fantasyLabel: 'Thirty monsters. Every head turns to you.',
   hook: 'Exchange year at a monster academy. At roll call they ask for the human, and every head turns.',
   premise:
     'You are the first human exchange student at Hollowmere Academy in forty-one years. It stands on the far side of the Briar, the mile-deep wall of thorn that has kept the human side and the monster side apart for longer than anyone has written down.\n\n' +
@@ -58,7 +58,7 @@ const raw = {
   official: true,
   coverImage: null,
   keyArt: null,
-  tags: ['School', 'Monsters', 'Romance', 'Comedy', 'Supernatural'],
+  tags: ['Magic academy', 'Monsters', 'Romance', 'Comedy', 'Supernatural'],
   mechanicsChips: [
     'Answer roll, or get collected',
     'Five Houses, five lanterns',
@@ -66,7 +66,7 @@ const raw = {
     'Every gift has a price',
     'A seat nobody marked absent',
   ],
-  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE'],
+  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'ALCOHOL_REFERENCES'],
   intensity: 'MODERATE',
   creatorNote:
     'You can spend the whole week answering roll, sitting at the wrong lunch table and losing to an oni at arm-wrestling, and that is a real way to play this. Every House wants something from you this week. Some of them want you gone. One of them needs you to survive the week more than you do, and is very good at hiding it.',
@@ -84,18 +84,18 @@ const raw = {
       { itemId: 'bag_of_human_things', qty: 1 },
     ],
     hardCanon: [
-      'Everyone in this story is an adult. The player is twenty-one. Garra is twenty-one, Sylph twenty-two and Teague twenty-four. Countess Vey is a hundred and thirty-one and has looked twenty-eight since the night she was turned. Mr. Bones died at fifty-one and has taught at Hollowmere for eighty-three years since. The Keeper is sixty-one. Hollowmere is a post-secondary academy and every student in it is eighteen or over.',
+      'Everyone in this story is an adult. The player is twenty-one. Ishiko is twenty-one, Sylph twenty-two and Teague twenty-four. Countess Vey is a hundred and thirty-one and has looked twenty-eight since the night she was turned. Mr. Bones died at fifty-one and has taught at Hollowmere for eighty-three years since. The Keeper is sixty-one. Gate-Warden Grenna is seventy-nine. Mr. Pruitt, the Exchange Office clerk, is fifty-eight. Ada’s sister June is sixty-six. Hollowmere is a post-secondary academy and every student in it is eighteen or over.',
       'Hollowmere Academy stands on the monster side of the Briar, a living wall of black thorn a mile deep that runs the whole length of the border. One gate goes through it, kept by the oni Gate wardens on this side and by the Exchange Office, one clerk and a brass bell, on the human side. Anyone who steps into the thorns anywhere but the gate comes out wherever the Briar decides.',
-      'The Briar Accord keeps the gate open and lets one student cross each way each year. The exchange stopped forty-one years ago and this is its first year back; this year’s monster student, a very polite troll, is at the player’s university. The Accord expires at midnight on the seventh night, and the human side will renew it only if the Exchange Office is told on the seventh evening that its student is present.',
-      'Mr. Bones takes roll from the register twice a day: half past eight in homeroom, and six in the evening at the head table of the Great Hall. Paragraph nine of the Accord: an exchange student absent from roll twice, or who seriously hurts anyone whose name is in the register, is collected by the Gate wardens and walked back through the gate, and the exchange is over. Mr. Bones will turn one absence into a late mark, once, if the player comes to him and explains.',
+      'The Briar Accord keeps the gate open and lets one student cross each way each year. The exchange stopped forty-one years ago and this is its first year back; this year’s monster student, a very polite troll of twenty, is at the player’s university. The Accord expires at midnight on the seventh night, and the human side will renew it only if the Exchange Office is told on the seventh evening that its student is present. The first morning of the week is a Monday.',
+      'Mr. Bones takes roll from the register twice a day: half past eight in homeroom, and six in the evening at the head table of the Great Hall. Paragraph nine of the Accord: an exchange student absent from roll twice, or who seriously hurts anyone whose name is in the register, is collected by the Gate wardens and walked back through the gate, and the exchange is over. Mr. Bones will turn one absence into a late mark, once, if the player comes to him and explains. Walking out before answering is marked absent on the spot.',
       'The register is under the Founders’ ward. On academy ground, harm aimed at anyone whose name is written in it turns aside: a punch lands as a shove, a curse comes out as a sneeze. The ward stops at the academy wall, at the lake’s waterline and below the fifth level of the Stacks. The player is written in only as "Human. Row three.", and the ward only half answers to a description: on academy ground they can be bruised, frightened and embarrassed, but not badly hurt.',
       'A description in the register is replaced by a name when the heads of three different Houses vouch for that student aloud in the Great Hall with the school present. Mr. Bones has the player’s real name on a card in his breast pocket, sent by the Exchange Office, and will not write it in on any other terms.',
-      'There are five Houses. Gate House is the oni, the warden clans’ own students. The Roost is the harpies and the other winged students. Cellar House is the vampires. Deep House is the kelpies and the lake folk. Bone House is the skeletons, ghosts and anyone else who has died at least once. Their heads are Garra, Sylph, Countess Vey, Teague and, for Bone House, Mr. Bones.',
+      'There are five Houses. Gate House is the oni, the warden clans’ own students. The Roost is the harpies and the other winged students. Cellar House is the vampires. Deep House is the kelpies and the lake folk. Bone House is the skeletons, ghosts and anyone else who has died at least once. Their heads are Ishiko, Sylph, Countess Vey, Teague and, for Bone House, Mr. Bones.',
       'On the seventh evening each House head sets an iron lantern in a Great Hall window, lit to keep the Briar open or dark to close it. Three lit keeps it open. Cellar House and the Roost lean lit. Gate House leans dark. Deep House will sell its lantern for a price. Mr. Bones sets Bone House’s lantern by the register: lit for a student with a name, dark for a guest.',
       'Food, drink, gifts and spoken bargains on this side of the Briar each put a little glamour on a human. A little is harmless and makes the place kinder to you. A lot, and the ward starts to count you as its own, and the gate stops letting you back through.',
       'Vampires at Hollowmere drink bottled blood that comes through the gate from human hospitals under the Accord. Biting anyone is a treaty crime. Cellar House has eleven months of bottles left, and nobody outside Cellar House knows it.',
-      'Forty-one years ago the last human exchange student, Ada Penhallow, sat in row three, walked down into the Stacks in her third week and was never marked present or absent again. The human side believes she died here. She did not. She is the Keeper of the bottom of the Stacks, whom most students think is a ghost, and Countess Vey hid her there at Ada’s own request. Her line in the register is still open.',
-      'Gate-Warden Grenna, Garra’s grandmother and captain of the wardens, lost her husband in the fighting at the gate the winter after Ada vanished. She wants the Briar closed and has told Garra to set Gate House’s lantern dark.',
+      'Forty-one years ago the last human exchange student, Ada Penhallow, sat in row three, walked down into the Stacks in her third week and was never marked present or absent again. The human side believes she died here. She did not. She is the Keeper of the bottom of the Stacks, whom most students think is a ghost, and Countess Vey hid her there at Ada’s own request. Her line in the register is still open. Nobody volunteers any of this; a player finds it only by going looking.',
+      'Gate-Warden Grenna, Ishiko’s grandmother and captain of the wardens, lost her husband in the fighting at the gate the winter after Ada vanished. She wants the Briar closed and has told Ishiko to set Gate House’s lantern dark.',
     ],
     toneGuide:
       'Monster-school comedy with a real clock under it. Funny, quick and physical: horns catch on doorframes, a harpy lands on a desk instead of sitting at it, the Cellar House table drinks from wine bottles with hospital labels. The player is the only human in every room and the room always notices, which is the joke and also the danger. ' +
@@ -103,7 +103,7 @@ const raw = {
       'Roll call comes twice a day and the prose should let the player feel it coming. The Keeper, the open line in the register and the last human are found by a player who goes looking and never handed to one who does not. Romance is slow, teasing and allowed up to a kiss. The face at the top of a beat belongs to whoever reacted to the player most strongly.',
     proseStyle: 'webnovel',
     styleExamples: [
-      "Garra drops a rope at your feet.\n\n\"Gate House custom,\" she says. \"The stone, the rope or the table. You pick.\"\n\nThe stone is the size of a sofa. The rope goes over a beam to something you cannot see. The table has two elbow dents worn into it.\n\n\"What happens if I don’t pick?\"\n\nShe thinks about it. Properly. Her horns tilt.\n\n\"Nobody’s ever not picked,\" she says. \"Huh.\"\n\nAt the gate, two wardens have stopped pretending not to watch.",
+      "Ishiko drops a rope at your feet.\n\n\"Gate House custom,\" she says. \"The stone, the rope or the table. You pick.\"\n\nThe stone is the size of a sofa. The rope goes over a beam to something you cannot see. The table has two elbow dents worn into it.\n\n\"What happens if I don’t pick?\"\n\nShe thinks about it. Properly. Her horns tilt.\n\n\"Nobody’s ever not picked,\" she says. \"Huh.\"\n\nAt the gate, two wardens have stopped pretending not to watch.",
       "The Countess pours from the left-hand pot into your cup and from the right-hand pot into hers. They are not the same colour.\n\n\"Sugar?\"\n\n\"Please.\"\n\nShe sets the tongs down. \"Your heart is going like a harpy at a window. Do relax. If I wanted you frightened I would not have used the good cups.\"\n\nShe smiles. You count, without meaning to. All of them.\n\n\"Now,\" she says. \"How many lanterns do you think you have?\"",
       "Sylph lands on the windowsill without knocking, folds her wings and writes something on her wrist.\n\n\"Day two,\" she says. \"Odds are down to five to one. Somebody’s putting money on you, Row Three, and it isn’t you.\"\n\n\"Who?\"\n\n\"Gossip costs one shiny thing or one true thing.\"\n\nYou hand her a coin from home. She bites it, frowns at the queen on it, and pockets it anyway.\n\n\"Wrong question,\" she says. \"Ask me how much.\"",
     ],
@@ -188,7 +188,7 @@ const raw = {
         {
           upTo: 78,
           behaviour:
-            'The wardens are getting paragraph nine ready. Two of them follow the player between classes, and a warden’s cart waits by the gate with its mule in harness. Garra is asked every evening where the human was all day, and is expected to know.',
+            'The wardens are getting paragraph nine ready. Two of them follow the player between classes, and a warden’s cart waits by the gate with its mule in harness. Ishiko is asked every evening where the human was all day, and is expected to know.',
         },
         {
           upTo: 100,
@@ -228,7 +228,7 @@ const raw = {
         {
           upTo: 100,
           behaviour:
-            'The player belongs to this side now. The gate will not let them back through, and only the old paths could take them home. The register would take their name without anybody vouching, which is the welcome Ada Penhallow got forty-one years ago.',
+            'The player belongs to this side now. The gate will not let them back through, and not even the old paths would have them. The register would take their name without anybody vouching, which is the welcome Ada Penhallow got forty-one years ago.',
         },
       ],
     },
@@ -309,7 +309,7 @@ const raw = {
       tags: ['quest', 'map'],
       questItem: true,
       description:
-        'A waxed chart of the river from the black lake to the Briar and out the other side, with a weir drawn on the human side in red ink and a note beside it: "This. Open this."',
+        'A waxed chart of the river from the Mere to the Briar and out the other side, with a weir drawn on the human side in red ink and a note beside it: "This. Open this."',
       loreText:
         'Drawn from what the Roost could see from the air. It has been folded and unfolded so often the weir is wearing through.',
       icon: 'map',
@@ -361,7 +361,7 @@ const raw = {
       name: 'Your Team Hoodie',
       tags: ['clothing'],
       description: 'University rowing club, grey, sleeves pushed up, your surname across the back in white letters.',
-      loreText: 'Garra has looked at it twice. On this side a garment with a name on it is either a challenge or a gift.',
+      loreText: 'Ishiko has looked at it twice. On this side a garment with a name on it is either a challenge or a gift.',
       icon: 'shirt',
     },
     {
@@ -608,7 +608,7 @@ const raw = {
       name: 'Homeroom',
       shortName: 'Homeroom',
       description:
-        'A tiered classroom under the bell tower: five rows of desks scored by claws and scorched in one corner, thirty students of thirty kinds, and a lectern at the front with the register chained to it. Row three has one chair with a card on it that says HUMAN. The window seat belongs to the Roost. The back row sits under shutters that never open.',
+        'A tiered classroom under the bell tower: five rows of desks scored by claws and scorched in one corner, thirty students of thirty kinds, and a lectern at the front with the register chained to it. Row three has one chair with a card on it that says HUMAN. The window seat belongs to the Roost. The back row sits under shutters that never open. Mr. Bones teaches Accord Law here until the lunch bell. This week’s lesson is Humans: Habits and Hazards, and the class has questions.',
       artDirection:
         'Tiered stone classroom in a gothic academy, morning light through tall windows, desks gouged by claws, a skeleton teacher at a lectern with a huge black ledger, classmates with horns, wings and fins filling the rows, one empty chair in the third row. Warm wood, cool stone, lively.',
       connections: [{ to: 'the_cloister', travelMinutes: 1, label: 'Out to the cloister' }],
@@ -768,7 +768,7 @@ const raw = {
     },
     {
       id: 'lake_dock',
-      name: 'The Black Lake',
+      name: 'The Mere',
       shortName: 'The Lake',
       description:
         'At the bottom of the cliff stair: a black lake so still it holds the academy upside down, a Deep House boathouse on stilts, and a long dock that runs out further than it needs to. The water has dropped a man’s height in sixty years and the old mooring rings hang in the air. The ward ends where the water starts.',
@@ -846,7 +846,7 @@ const raw = {
       id: 'faction_deep',
       name: 'Deep House',
       description:
-        'Kelpies, selkies and things with gills, who live in and under the black lake below the cliff. The lake has been sinking for sixty years because of a weir on the human side of the river. Their lantern goes dark unless somebody makes them an offer, and they keep every bargain to the letter.',
+        'Kelpies, selkies and things with gills, who live in and under the Mere below the cliff. The lake has been sinking for sixty years because of a weir on the human side of the river. Their lantern goes dark unless somebody makes them an offer, and they keep every bargain to the letter.',
       startingReputation: 0,
       ranks: [
         { atReputation: 0, label: 'Dry land' },
@@ -888,7 +888,7 @@ const raw = {
   characters: [
     {
       id: 'garra',
-      name: 'Garra',
+      name: 'Ishiko',
       role: 'Oni of Gate House, heir to the wardens, and the student sitting directly behind you',
       cardBlurb:
         'She sits in row four, directly behind you, with orders from her grandmother to find out what a human is made of. She was hoping for a fight. You will do for now.',
@@ -934,9 +934,9 @@ const raw = {
         'You stood up. Most things your size sit down when I lean.',
       ],
       appearance:
-        'An adult woman, very tall and broad-shouldered, two short red horns curving up from a mane of black hair tied back with a length of rope, amber eyes, a scar through one eyebrow, a dark academy uniform jacket with the sleeves torn off, and a warden’s iron gauntlet on one forearm.',
+        'An adult woman, very tall and broad-shouldered, two short red horns curving up from a mane of black hair tied back with a length of rope, amber eyes, a scar through one eyebrow, a dark high-collared warden’s coat, buttoned to the throat, with the sleeves torn off, and a warden’s iron gauntlet on one forearm.',
       visualHook: 'Two short red horns, and a warden’s iron gauntlet worn to class.',
-      silhouette: 'Huge in a doorway, leaning forward over a desk with both hands flat on it.',
+      silhouette: 'Huge in a doorway, or standing tall behind a desk with both fists planted on it.',
       artSeed: 'hrt-garra-01',
       portrait: null,
       expressions: ['neutral', 'grinning', 'surprised', 'annoyed', 'warm'],
@@ -983,7 +983,7 @@ const raw = {
       calledName: 'Vey',
       role: 'Head of the student Council and of Cellar House, a vampire who has refused to graduate for forty-four years',
       cardBlurb:
-        'She has run the Council since before your parents were born, she smiles at you with every tooth she has, and she is the only person on this side of the Briar who needs you to survive the week more than you do.',
+        'She has run the Council since before your parents were born, she pours your tea herself and listens to your pulse while you drink it, and she is the only person on this side of the Briar who needs you to survive the week more than you do.',
       pronouns: 'she/her',
       publicTraits: ['Courteous to a frightening degree', 'Never raises her voice and never needs to', 'Remembers every name, including the ones nobody else uses'],
       hiddenDrives: [
@@ -1079,7 +1079,7 @@ const raw = {
       name: 'Sylph',
       role: 'Harpy of the Roost, academy post-runner, and the bookmaker taking bets on how long you last',
       cardBlurb:
-        'She sits in the window seat with one wing on the sill, she has opened a book on how many days you last, and the odds are not kind. She has also bet her own wages on you, and would rather you never found out.',
+        'She sits in the window seat with one wing on the sill, she has opened a book on how many days you last, and the odds are not kind. Somebody in her book has bet a fortune on you lasting the week, and that secret costs more than one shiny thing.',
       pronouns: 'she/her',
       publicTraits: ['Talks fast and prices everything', 'Knows every rumour by lunchtime', 'Will not sit anywhere without a window'],
       hiddenDrives: [
@@ -1182,6 +1182,7 @@ const raw = {
       boundaries: [
         'Will not falsify the register for anybody, the Council included',
         'Will not take sides in class. Outside class he will take one, quietly, once',
+        'Will not let anybody else write in the register. A hand that reaches for his pen gets the book closed on its fingers, gently, and the room never forgets it',
       ],
       goals: ['Have every student present at every roll for one whole week', 'Close the open line in the register before he retires, which he has been promising to do for forty years'],
       secrets: [
@@ -1246,7 +1247,7 @@ const raw = {
     {
       id: 'teague',
       name: 'Teague',
-      role: 'Kelpie, head of Deep House, who keeps the boathouse on the black lake and makes every conversation a bargain',
+      role: 'Kelpie, head of Deep House, who keeps the boathouse on the Mere and makes every conversation a bargain',
       cardBlurb:
         'He is charming, soaking wet and entirely honest about the fact that kelpies drown people. He wants something carried across the Briar, and he will light Deep House’s lantern for you if you carry it.',
       pronouns: 'he/him',
@@ -1289,7 +1290,7 @@ const raw = {
         'The water likes you. That’s no compliment. Step back.',
       ],
       appearance:
-        'An adult man, lean and long-limbed, black hair that is always wet hanging over his face with river weed tangled through it, dark eyes with a green shine, a soaked white shirt under an oilskin coat, bare feet, and water dripping from his hems in a steady patter.',
+        'An adult man, lean and long-limbed, black hair that is always wet hanging over his face with river weed tangled through it, dark eyes with a green shine, a dark wool jumper that never quite dries, under a buttoned oilskin coat, bare feet, and water dripping from his hems in a steady patter.',
       visualHook: 'Hair that never dries, with weed in it, and a steady drip from his coat hem onto whatever he stands on.',
       silhouette: 'Sitting at the end of a dock with his feet in black water, half turned to look back at you.',
       artSeed: 'hrt-teague-01',
@@ -1297,7 +1298,7 @@ const raw = {
       expressions: ['neutral', 'warm', 'amused', 'warning', 'sad'],
       schedule: [
         { startMinute: 0, endMinute: 480, locationId: 'lake_dock', activity: 'in the lake, where the water is calm around him' },
-        { startMinute: 480, endMinute: 720, locationId: 'lake_dock', activity: 'teaching first-years to row, badly on purpose' },
+        { startMinute: 480, endMinute: 720, locationId: 'lake_dock', activity: 'teaching new students to row, badly on purpose' },
         { startMinute: 720, endMinute: 800, locationId: 'great_hall', activity: 'at the Deep House table, dripping on the bench' },
         { startMinute: 800, endMinute: 1080, locationId: 'lake_dock', activity: 'mending nets in the boathouse' },
         { startMinute: 1080, endMinute: 1170, locationId: 'great_hall', activity: 'at evening roll in his own puddle' },
@@ -1331,7 +1332,7 @@ const raw = {
       calledName: 'Keeper',
       role: 'Keeper of the bottom of the Stacks, whom most of the school believes is a ghost',
       cardBlurb:
-        'Most of the school thinks she is a ghost who reshelves books at night. She has been at the bottom of the library for forty-one years, she knows a way through the Briar that is not the gate, and she would very much like you to tell her what a loaf of bread costs now.',
+        'Most of the school thinks she is a ghost who reshelves books at night. Nobody has seen her above the fifth level of the library, and if you ever find the stair that goes all the way down, she will already have the kettle on.',
       pronouns: 'she/her',
       publicTraits: [
         'Asks three questions about your side for every one she answers about hers',
@@ -1364,9 +1365,9 @@ const raw = {
         },
         {
           id: 'keeper_the_gifts',
-          fact: 'For three years she has left things from her own time on the gate-yard wall for whoever stands the night watch: a bicycle bell, a snow globe, three postcards. It has always been Garra, and Garra keeps every one and thinks a ghost sends them.',
+          fact: 'For three years she has left things from her own time on the gate-yard wall for whoever stands the night watch: a bicycle bell, a snow globe, three postcards. It has always been Ishiko, and Ishiko keeps every one and thinks a ghost sends them.',
           visibility: 'NPC_PRIVATE',
-          revealHint: 'If Garra has shown you her box and you bring one of the postcards down the stair.',
+          revealHint: 'If Ishiko has shown you her box and you bring one of the postcards down the stair.',
         },
       ],
       speechStyle:
@@ -1425,7 +1426,7 @@ const raw = {
           id: 'first_roll',
           playerCopy: 'Answer the register.',
           directorNotes:
-            'Thirty monsters are watching and Mr. Bones has his pen raised. Every way of answering is a real answer and none of them is wrong. Garra wants a reaction, Sylph is already pricing it, the Countess is listening to the player’s pulse. If the player tries to write their own name in, Mr. Bones closes the book on their fingers, gently, and the room never forgets it. Walking out is allowed and is marked absent on the spot.',
+            'Thirty monsters are watching and Mr. Bones has his pen raised. Every way of answering is a real answer and none of them is wrong. Ishiko wants a reaction, Sylph is already pricing it, the Countess is listening to the player’s pulse. If the player tries to write their own name in, Mr. Bones closes the book on their fingers, gently, and the room never forgets it. Walking out is allowed and is marked absent on the spot.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1444,7 +1445,7 @@ const raw = {
             },
             {
               routeId: 'turned_to_garra',
-              label: 'Turn round and take Garra up on it first',
+              label: 'Turn round and take Ishiko up on it first',
               predicate: { flagsSet: ['used:take_the_challenge'] },
               setsFlags: ['answered_roll', 'measured_early'],
               closesFlags: ['marked_absent'],
@@ -1534,7 +1535,7 @@ const raw = {
           id: 'stay_on_the_register',
           playerCopy: 'Be present at every roll, and give the wardens no reason.',
           directorNotes:
-            'The wardens are not villains. They are carrying out a paragraph somebody else wrote, and Grenna would honestly rather the human went home in one piece. A fight Garra agreed to is a contest, not paragraph nine. Hurting anybody else in the register is. A missed roll can be put right once, by going to Mr. Bones and explaining; a second cannot.',
+            'The wardens are not villains. They are carrying out a paragraph somebody else wrote, and Grenna would honestly rather the human went home in one piece. A fight Ishiko agreed to is a contest, not paragraph nine. Hurting anybody else in the register is. A missed roll can be put right once, by going to Mr. Bones and explaining; a second cannot.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1605,12 +1606,12 @@ const raw = {
           id: 'three_houses',
           playerCopy: 'Get three House heads to vouch for you in front of the whole school.',
           directorNotes:
-            'Vouching is public and costs the one who does it: Garra defies her grandmother, Sylph backs her own bet in front of everybody, the Countess is seen to protect the human, Teague spends a bargain, and Mr. Bones breaks a forty-one-year habit. None of them does it for a player they have not got to know. A player who decides "Human" will do is entitled to that and loses nothing but the ward.',
+            'Vouching is public and costs the one who does it: Ishiko defies her grandmother, Sylph backs her own bet in front of everybody, the Countess is seen to protect the human, Teague spends a bargain, and Mr. Bones breaks a forty-one-year habit. None of them does it for a player they have not got to know. A player who decides "Human" will do is entitled to that and loses nothing but the ward.',
           succeedWhen: null,
           succeedWhenAny: [
             {
               routeId: 'gate_roost_cellar',
-              label: 'Garra, Sylph and the Countess stand up for you',
+              label: 'Ishiko, Sylph and the Countess stand up for you',
               predicate: {
                 atLocation: 'great_hall',
                 minRelationship: [
@@ -1638,7 +1639,7 @@ const raw = {
             },
             {
               routeId: 'gate_cellar_deep',
-              label: 'Garra, the Countess and Teague stand up for you',
+              label: 'Ishiko, the Countess and Teague stand up for you',
               predicate: {
                 atLocation: 'great_hall',
                 minRelationship: [
@@ -1670,7 +1671,7 @@ const raw = {
       involvedCharacterIds: ['vey', 'garra', 'sylph', 'teague', 'bones'],
       involvedLocationIds: ['council_chamber', 'great_hall', 'gate_yard', 'lake_dock', 'the_roost'],
       knownRewardCopy: 'The Briar open for another year, or closed for good, decided in one room on one evening.',
-      discoverWhen: { flagsSet: ['first_day_over'] },
+      discoverWhen: { flagsSet: ['first_roll_done'] },
       steps: [
         {
           id: 'count_the_lanterns',
@@ -1700,6 +1701,13 @@ const raw = {
               setsFlags: ['asked_every_house'],
               closesFlags: [],
             },
+            {
+              routeId: 'vote_came_anyway',
+              label: 'The seventh evening comes anyway',
+              predicate: { flagsSet: ['vote_night'] },
+              setsFlags: [],
+              closesFlags: [],
+            },
           ],
           rewards: {
             xp: 90,
@@ -1713,7 +1721,7 @@ const raw = {
           id: 'the_vote',
           playerCopy: 'Be in the Great Hall when the lanterns go into the windows.',
           directorNotes:
-            'One lantern at a time, and each head may say one sentence before setting theirs. Nothing is fixed in advance: what each head does comes from the week the player actually had. Doing nothing all week is a legitimate way to arrive here, and it ends with four windows dark.',
+            'One lantern at a time, and each head may say one sentence before setting theirs. Nothing is fixed in advance: what each head does comes from the week the player actually had. Doing nothing all week is a legitimate way to arrive here, and it ends with three windows dark.',
           enterWhen: { flagsSet: ['vote_night'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1726,7 +1734,7 @@ const raw = {
             },
             {
               routeId: 'lit_by_the_gate',
-              label: 'Garra lights the Gate House lantern in front of her grandmother',
+              label: 'Ishiko lights the Gate House lantern in front of her grandmother',
               predicate: { flagsSet: ['garra_lights_it', 'vote_night'], flagsUnset: ['collected'] },
               setsFlags: ['briar_open', 'gate_lantern_lit'],
               closesFlags: ['briar_closed'],
@@ -1758,20 +1766,20 @@ const raw = {
     },
     {
       id: 'q_the_measure',
-      title: 'Garra’s Measure',
+      title: 'Ishiko’s Measure',
       summary:
-        'Gate House measures every newcomer: the stone, the rope or the table. Garra has been told to find out what the human is made of, and her grandmother is riding in from the Briar to hear the answer.',
+        'Gate House measures every newcomer: the stone, the rope or the table. Ishiko has been told to find out what the human is made of, and her grandmother is riding in from the Briar to hear the answer.',
       kind: 'SIDE',
       involvedCharacterIds: ['garra'],
       involvedLocationIds: ['gate_yard', 'homeroom'],
-      knownRewardCopy: 'Gate House’s respect, and a say in what Garra does with its lantern.',
+      knownRewardCopy: 'Gate House’s respect, and a say in what Ishiko does with its lantern.',
       discoverWhen: { flagsSet: ['spoke:garra'] },
       steps: [
         {
           id: 'be_measured',
           playerCopy: 'Let Gate House measure you, or refuse to its face.',
           directorNotes:
-            'Losing well counts. Winning is nearly impossible and Garra will be thrilled if it happens. Refusing to her face, standing in the Gate Yard, is a real measure and she respects it more than hiding. Noticing she cannot read the notice board, and quietly reading it for her, measures something else entirely.',
+            'Losing well counts. Winning is nearly impossible and Ishiko will be thrilled if it happens. Refusing to her face, standing in the Gate Yard, is a real measure and she respects it more than hiding. Noticing she cannot read the notice board, and quietly reading it for her, measures something else entirely.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1806,9 +1814,9 @@ const raw = {
         },
         {
           id: 'her_lantern',
-          playerCopy: 'Find out what Garra does with Gate House’s lantern while her grandmother watches.',
+          playerCopy: 'Find out what Ishiko does with Gate House’s lantern while her grandmother watches.',
           directorNotes:
-            'Grenna is in the yard and has told Garra exactly what to do. Garra will not be talked into defying her by a speech. She will do it for somebody she has measured and trusts, and she will tell them first, in the yard, at night.',
+            'Grenna is in the yard and has told Ishiko exactly what to do. Ishiko will not be talked into defying her by a speech. She will do it for somebody she has measured and trusts, and she will tell them first, in the yard, at night.',
           enterWhen: { flagsSet: ['grenna_arrived', 'measured'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1841,7 +1849,7 @@ const raw = {
       id: 'q_the_lake',
       title: 'What the Lake Wants',
       summary:
-        'The black lake is going to mud because of a weir on the human side. Teague will light Deep House’s lantern for a human who carries his map across the Briar. Kelpies keep bargains exactly. They also drown people.',
+        'The Mere is going to mud because of a weir on the human side. Teague will light Deep House’s lantern for a human who carries his map across the Briar. Kelpies keep bargains exactly. They also drown people.',
       kind: 'SIDE',
       involvedCharacterIds: ['teague'],
       involvedLocationIds: ['lake_dock'],
@@ -2090,9 +2098,9 @@ const raw = {
       atWorldMinute: 15 * 60 + 30,
       locationId: 'gate_yard',
       publicCopy:
-        'Two wardens roll the measuring stone into the middle of the Gate Yard. Garra sits on it with her arms folded, facing the cloister arch, and waits for the human.',
+        'Two wardens roll the measuring stone into the middle of the Gate Yard. Ishiko sits on it with her arms folded, facing the cloister arch, and waits for the human.',
       directorNotes:
-        'Gate House custom, not a threat, and Garra is openly delighted if the player comes. If they do not, she comes to find them and carries the question to wherever they are. Refusing to her face is a real answer and she respects it more than hiding.',
+        'Gate House custom, not a threat, and Ishiko is openly delighted if the player comes. If they do not, she comes to find them and carries the question to wherever they are. Refusing to her face is a real answer and she respects it more than hiding.',
       setsFlags: ['measuring_called'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2115,7 +2123,7 @@ const raw = {
       id: 'we_evening_roll',
       atWorldMinute: 18 * 60,
       locationId: 'great_hall',
-      publicCopy: 'Evening roll. Mr. Bones stands at the head table with the register open and reads every line aloud, the human’s last.',
+      publicCopy: 'Evening roll. Mr. Bones stands at the head table with the register open and reads every line aloud, the human’s last. By the door, a Gate warden with a slate is counting heads.',
       directorNotes:
         'If the player is not in the hall, he marks them late once and sends a harpy to find them. If they were already marked absent this morning and have not been to explain, the second mark goes in and paragraph nine begins. The whole hall goes quiet for the human’s line, every time.',
       setsFlags: ['evening_roll_day_one'],
@@ -2155,7 +2163,7 @@ const raw = {
       publicCopy:
         'Gate-Warden Grenna rides in through the academy gate with six wardens behind her, gets down from her mule, and asks the whole yard one question: where is the human?',
       directorNotes:
-        'She has come to see paragraph nine carried out if there is any excuse, and to watch Garra set the Gate lantern dark. She is not cruel. She buried her husband at the gate forty-one years ago and has been right about humans ever since. She will look the player over once and say what she thinks to their face.',
+        'She has come to see paragraph nine carried out if there is any excuse, and to watch Ishiko set the Gate lantern dark. She is not cruel. She buried her husband at the gate forty-one years ago and has been right about humans ever since. She will look the player over once and say what she thinks to their face.',
       setsFlags: ['grenna_arrived'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2214,9 +2222,9 @@ const raw = {
     {
       id: 'p_garras_lantern',
       kind: 'RELATIONSHIP',
-      label: 'What Garra does with the Gate lantern',
+      label: 'What Ishiko does with the Gate lantern',
       seedHint: 'An oni told to find out what the human is made of, who was hoping for a fight.',
-      payoffHint: 'Her grandmother watching from the end of the hall while Garra decides whose lantern it is.',
+      payoffHint: 'Her grandmother watching from the end of the hall while Ishiko decides whose lantern it is.',
       weight: 0.85,
     },
     {
@@ -2256,7 +2264,7 @@ const raw = {
       name: 'You Played to Win',
       role: 'University athlete: strength and nerve',
       summary:
-        'You rowed for your university, so you are the strongest human anybody here has met, which is about a third as strong as Garra. You do not back down, and that is going to matter.',
+        'You rowed for your university, so you are the strongest human anybody here has met, which is about a third as strong as Ishiko. You do not back down, and that is going to matter.',
       playstyle: ['Physical', 'Takes challenges', 'Never backs down'],
       blurb: 'Early mornings, cold water and a coach who shouted. Nothing on this side of the Briar has shouted at you yet in a way that compares.',
       attributeBonus: { might: 3, resolve: 1 },
@@ -2369,7 +2377,7 @@ const raw = {
       condition:
         'Three House heads stood up for the player in the Great Hall, Mr. Bones took the card out of his pocket, and the Briar stayed open with the Bone House lantern lit for a name. This is belonging, earned in a week, and it should feel heavier than winning: the player is one of theirs now, with everything that means.',
       epilogue:
-        'The card on the chair in row three says your name now, in copperplate. The ward answers to it. Garra still calls you Small on Mondays, out of habit. Every morning Mr. Bones reads your line like a full sentence, and once, in the spring, he does not bother to look up.',
+        'The card on the chair in row three says your name now, in copperplate. The ward answers to it. Ishiko still calls you Small on Mondays, out of habit. Every morning Mr. Bones reads your line like a full sentence, and once, in the spring, he does not bother to look up.',
       hint: 'Three Houses, out loud, in the Great Hall.',
     },
     {
@@ -2430,9 +2438,9 @@ const raw = {
         minRelationship: [{ characterId: 'garra', dimension: 'affection', value: 60 }],
       },
       condition:
-        'Garra lit the Gate House lantern in front of her grandmother, for the player, and the Briar stays open. Whatever is between the two of them was earned at the stone, the rope or the table, and it is loud, physical and entirely unembarrassed. Up to a kiss, and she will probably win that too.',
+        'Ishiko lit the Gate House lantern in front of her grandmother, for the player, and the Briar stays open. Whatever is between the two of them was earned at the stone, the rope or the table, and it is loud, competitive and entirely unembarrassed. Up to a kiss, and she will probably win that too.',
       epilogue:
-        'Grenna does not speak to her granddaughter for a month and then sends her a new gauntlet without a note. In the spring Garra crosses the Briar as next year’s exchange student, with a box of postcards she can finally read, and her glasses on, and you meet her at the gate.',
+        'Grenna does not speak to her granddaughter for a month and then sends her a new gauntlet without a note. In the spring Ishiko crosses the Briar as next year’s exchange student, with a box of postcards she can finally read, and her glasses on, and you meet her at the gate.',
       hint: 'She was hoping for a fight.',
     },
     {
@@ -2441,7 +2449,7 @@ const raw = {
       rarity: 'RARE',
       minTurn: 38,
       requires: {
-        flagsSet: ['briar_open', 'took_veys_tea'],
+        flagsSet: ['briar_open', 'spoke:vey'],
         minRelationship: [
           { characterId: 'vey', dimension: 'trust', value: 70 },
           { characterId: 'vey', dimension: 'affection', value: 55 },
@@ -2459,11 +2467,11 @@ const raw = {
       rarity: 'RARE',
       minTurn: 38,
       requires: {
-        flagsSet: ['briar_open', 'knows_sylphs_stake'],
+        flagsSet: ['briar_open', 'in_the_book'],
         minRelationship: [{ characterId: 'sylph', dimension: 'trust', value: 60 }],
       },
       condition:
-        'The Briar stays open, Sylph won her book, and the player knew all along that she had bet on them. The Roost gets its route. Write the morning after the vote: a harpy with a pinned wing standing on the top of the bell tower with the first sack of post for the human side, and a reason to come back.',
+        'The Briar stays open, Sylph won her book, and the player got into it and earned enough of her trust to learn whose money was on them. The Roost gets its route. Write the morning after the vote: a harpy with a pinned wing standing on the top of the bell tower with the first sack of post for the human side, and a reason to come back.',
       epilogue:
         'She flies it in eleven minutes and complains about every one of them. The first letter in the sack is addressed to you, from her, and it says: "Seven to one. Told you." She charges you postage on the reply.',
       hint: '',
@@ -2501,25 +2509,25 @@ const raw = {
       condition:
         'The player took the Keeper’s keys so Ada could go home, and stayed at the bottom of the Stacks in her place. It is a choice and not a trap, and it should be written as one: the player knows what they are giving up and has decided this side of the Briar is where they live now.',
       epilogue:
-        'There is a new ghost at the bottom of the Stacks, according to the first-years, and it reshelves books in the wrong order on purpose. Mr. Bones reads a new open line every morning without saying it, and this time he smiles. Somebody leaves a postcard on the gate-yard wall each spring, addressed to you, from June.',
+        'There is a new ghost at the bottom of the Stacks, according to the new students, and it reshelves books in the wrong order on purpose. Mr. Bones reads a new open line every morning without saying it, and this time he smiles. Somebody leaves a postcard on the gate-yard wall each spring, addressed to you, from June.',
       hint: '',
     },
   ],
   opening:
-    "A skeleton in a grey suit runs a finger bone down the register.\n\n\"Sylph.\" A harpy at the window lifts one wing.\n\nThe finger stops.\n\n\"Human,\" he reads. \"Row three.\"\n\nEvery head in the room turns to you.\n\nBehind you, an oni woman leans over her desk. \"Huh,\" Garra says. \"They told us you’d be bigger.\"\n\nSomebody laughs. Nobody joins in.\n\nHorns, fins, feathers, one eye in a jar: thirty classmates, all watching you. In the back row, a pale woman in a crimson sash smiles at you with every tooth she has.\n\nThe skeleton lifts his pen.\n\n\"Absent humans get collected,\" he says. \"So. Present, or absent?\"",
+    "A skeleton in a grey suit runs a finger bone down the register.\n\n\"Sylph.\" A harpy at the window lifts one wing.\n\nThe finger stops.\n\n\"Human,\" he reads. \"Row three.\"\n\nEvery head in the room turns to you.\n\nBehind you, an oni woman leans over her desk. \"Huh,\" Ishiko says. \"They told us you’d be bigger.\"\n\nSomebody laughs. Nobody joins in.\n\nHorns, fins, feathers, one eye in a jar: thirty classmates, all watching you. In the back row, a pale woman in a crimson sash smiles at you with every tooth she has.\n\nThe skeleton lifts his pen.\n\n\"Absent humans get collected,\" he says. \"So. Present, or absent?\"",
   openingPanel: {
     assetKey: 'story_human_row_three/opening',
-    alt: 'Garra leaning over her desk from the row behind, red horns and iron gauntlet, grinning down at you while a skeleton teacher at the lectern holds his pen over the register.',
+    alt: 'Ishiko looming over her desk from the row behind, red horns and iron gauntlet, grinning down at you while a skeleton teacher at the lectern holds his pen over the register.',
   },
   openingSuggestions: [
     "\"Present. And I do have a name, you know.\"",
-    'I turn round in my seat and look Garra up and down, slowly.',
+    'I stand up, turn round and look Ishiko in the eye.',
     'I walk up to the lectern, take his pen and write my real name over "Human".',
   ],
   coverDirection: [
-    'SUBJECT: Garra, a tall oni woman, alone and unmistakable in the foreground of a key visual for a monster-academy comedy anime.',
-    'She fills the frame from the waist up, leaning forward over a scarred wooden desk toward the viewer with both hands flat on it, holding about two thirds of the picture.',
-    'Two short red horns curving up from a mane of black hair tied back with a rope, amber eyes, a scar through one eyebrow, a dark uniform jacket with the sleeves torn off, and a warden’s iron gauntlet on one forearm.',
+    'SUBJECT: Ishiko, a tall oni woman, alone and unmistakable in the foreground of a key visual for a monster-academy comedy anime.',
+    'She fills the frame from the waist up, standing tall behind a scarred wooden desk, both fists planted on it, looming down at the viewer, holding about two thirds of the picture.',
+    'Two short red horns curving up from a mane of black hair tied back with a rope, amber eyes, a scar through one eyebrow, a dark high-collared warden’s coat, buttoned to the throat, with the sleeves torn off, and a warden’s iron gauntlet on one forearm. She is modest and fully clothed, her coat closed to the collar.',
     'Her expression is a wide, challenging grin with one eyebrow raised, looking straight at the viewer as if sizing them up.',
     'BEHIND HER, soft and secondary: a tiered gothic classroom full of monster classmates turned to stare, horns, wings and fins; a winged woman with grey-blue feathers in the window seat; in the back row a pale woman in a crimson sash smiling with sharp teeth, in soft focus.',
     'At one side, partly out of frame, a skeleton teacher in a grey suit at a lectern, pen raised over a huge black ledger.',
