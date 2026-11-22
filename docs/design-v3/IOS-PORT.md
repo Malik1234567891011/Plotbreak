@@ -25,6 +25,10 @@ pushed (a push deploys the API; Omar approves pushes).
 | Credits | d273f71 | Shop grid, one tap per pack opens Apple's sheet; no turn counts |
 | Out of credits | ade1f79 | Story art, store pack, one button, quiet free routes; PassCard deleted |
 | Turn quality | 7ea6d19 | Tier rows with scene thumbnail on picture tiers; crystal costs, no turns left |
+| Home scroll fix | dcd4436 | The header hairline and the "don't swap the shelf mid-read" guard never fired (preference never arrived); now read with onChange |
+| Portraits | 004afc5 | Characters rounded squares (24%), you a circle |
+| Story page | b4edc44 | Full-width cover, glass back/more, inline stats, Play + like, sans About with Read more, faces rail; comments moved to the more menu; solid bar past the cover |
+| Who are you? | 7bac21c | Skip (QuickStart), name + pronouns side by side, 2-column role grid, details under it |
 
 ## Not matched (needs data or copy)
 
@@ -33,6 +37,10 @@ pushed (a push deploys the API; Omar approves pushes).
   `recapLine`. Backend change.
 - Out of credits: the board's character quote at the top needs the session's
   last line and speaker; the screen only gets ids and the title.
+- Story page: no endings data in `StoryDetailResponse` (the board's 1-of-5
+  endings row is skipped), and no share link for a story (no share button).
+- Who are you?: the board's role tiles have a picture each; `SetupArchetype`
+  has no image, so the tiles are text only.
 - Copy that needs new keys in packages/i18n (plotbreak-1a adds them):
   - `pass.headline` "400 credits, every day" (now "400 credits" + tagline)
   - `pass.perk_daily_v3` "2,800 credits a week" / "Paid daily, for as long as you keep it"
@@ -43,10 +51,18 @@ pushed (a push deploys the API; Omar approves pushes).
   - `wallet.claim` "Claim" (the daily pill shows "+300")
   - `discover.continue_meta` "as {name} · Turn {n} · {when}"
   - `tower.card_streak` without the 🔥 (stripped in Swift for now)
+  - `story.about_heading` "About" (now "Description"), `story.official_byline`
+    "A Plotbreak original" (now "by Plotbreak Studios"), `story.you_play_as`
+    "You play as {name}, {role}" (now "as Ren · Night Shift"),
+    `story.change` "Change" (now "Customize character")
+  - `setup.name_short` "Name", `setup.role_heading` "Your role",
+    `setup.play_as` "Play as {name}" (now "Enter"),
+    `setup.subheading_optional` "Optional. Skip it and you play as {name}, {role}."
+  - `continue.heading_v3` "Out of credits", `continue.paused` "{title} is paused at turn {turn}. Nothing is lost."
   - the four `◆` strings in tower.* are drawn as the crystal by `Text.crystals`;
     the notification body cannot show an image and still says ◆300.
 
 ## Next
 
-Story page, Who are you, then the sweep: Search, Library, Create, Pitch,
-Profile, Tower, World sheet, onboarding, Prologue, Play.
+The sweep: Search, Library, Create, Pitch, Profile, Tower, World sheet,
+onboarding, Prologue, Play.
