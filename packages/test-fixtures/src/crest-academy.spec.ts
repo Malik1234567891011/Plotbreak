@@ -345,10 +345,67 @@ describe('the cover', () => {
     expect(cover).toMatch(/no letters, no numbers/i);
   });
 
+  it('gives the title its own line: style, placement and exact spelling', () => {
+    const cover = S.coverDirection!;
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(cover).toMatch(/TITLE: /);
+    expect(title).toMatch(/upper third/);
+    expect(title).toMatch(/logo/);
+    expect(title).toMatch(/spelled exactly CREST ACADEMY/);
+    expect(title).toMatch(/No other text anywhere\.$/);
+    expect(S.title.toUpperCase()).toBe('CREST ACADEMY');
+  });
+
+  it('keeps every effect on objects and the title, never on a face', () => {
+    expect(S.coverDirection).toMatch(/Every light effect stays on the window, the blade and the title, never on her face\./);
+  });
+
   it('declares the opening panel under the story’s own asset prefix', () => {
     expect(S.storyId).toBe('story_crest_academy');
     expect(S.openingPanel?.assetKey).toBe('story_crest_academy/opening');
     expect(S.openingPanel!.alt.length).toBeLessThanOrEqual(200);
+  });
+
+  it('opens the panel on Seraphine, the one who speaks in the opener, and draws it from her portrait', () => {
+    const alt = S.openingPanel!.alt;
+    const seraphine = S.characters.find((c) => c.id === 'seraphine')!;
+    expect(S.opening).toMatch(/^"Commoner\." Across the duelling ring, a noblewoman/);
+    expect(alt.startsWith(`${seraphine.calledName} `)).toBe(true);
+    // The lookup in infra/scripts/opening-panel-art.ts, verbatim. It keys on
+    // the first word of `name`, which for "Lady Seraphine Aldric" is a title,
+    // so she is found by the last fallback: the first character with a card
+    // blurb. Keep her first in the cast.
+    const named =
+      S.characters.find((c) => alt.toLowerCase().startsWith(c.name.split(' ')[0]!.toLowerCase())) ??
+      S.characters.find((c) => alt.includes(c.name.split(' ')[0]!)) ??
+      S.characters.find((c) => c.cardBlurb.trim().length > 0);
+    expect(named?.id).toBe('seraphine');
+  });
+});
+
+describe('ready for art and release', () => {
+  it('gives every character with a card a concrete appearance', () => {
+    for (const c of S.characters.filter((x) => x.cardBlurb.trim())) {
+      expect((c.appearance ?? '').length, c.id).toBeGreaterThanOrEqual(100);
+    }
+  });
+
+  it('opens straight on the scene and is not dated until release', () => {
+    expect(S.prologue).toEqual([]);
+    expect(S.publishedAt).toBeNull();
+  });
+
+  it('gives every titled character the name people actually call them', () => {
+    const titled = S.characters.filter((c) => /^(Lady|Lord|Princess|Instructor)\b/.test(c.name));
+    expect(titled.map((c) => c.id)).toEqual(['seraphine', 'isolde', 'brannoch', 'varro', 'piers']);
+    for (const c of titled) {
+      expect(c.calledName, c.id).toBeTruthy();
+      expect(c.name, c.id).toContain(c.calledName!);
+    }
+  });
+
+  it('sets the tone guide the cover’s mood is read from', () => {
+    expect(S.rules.toneGuide.length).toBeGreaterThan(200);
   });
 });
 
