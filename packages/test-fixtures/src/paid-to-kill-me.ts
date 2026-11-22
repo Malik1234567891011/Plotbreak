@@ -87,6 +87,7 @@ const raw = {
     startingItems: [{ itemId: 'odile_letter', qty: 1 }],
     hardCanon: [
       'Odile Ravelle, who built the Ravelle Line, died in her sleep twelve days ago aged eighty-eight. Her heart gave out naturally. Dr. Mirei Sato signed the certificate and it is true.',
+      'Nothing supernatural happens in this story. Nobody flies, vanishes, reads minds or walks through walls, the player included. If the player tries something impossible, it does not happen; one plain line says so, and the scene goes on from where the player stands.',
       'Her will leaves the controlling share of the Ravelle Line to the player. It becomes theirs when they sign at the board meeting at Ravelle Tower on Friday at ten. If the player dies before signing, it passes to their uncle, Viktor Ravelle. If they do not turn up, the board votes Viktor in as chair.',
       'Kael is a contract operator for the Bellhouse, placed in the house as the player’s bodyguard nine days ago through the security agency Viktor hired after the funeral. He was given a contract on the player’s life, to be done before the signing. Last night he came to do it and did not. He has never refused a contract before. The Bellhouse sends that agency’s card, unasked, to the households around every contract it takes; that is how it reached Lady Ines the week of the funeral.',
       'Two separate people want the player dead and neither knows about the other. Viktor Ravelle crushed his mother’s heart tablets into the player’s night carafe in the kitchen pantry at eleven last night, before it was carried up to their room. Dr. Mirei Sato paid the Bellhouse for the contract Kael was given. Neither answer is handed over early: both are found, earned or confessed, and the story is better the longer the player has to work for them.',
@@ -2631,7 +2632,7 @@ const raw = {
     "You wake to a knife on your nightstand.\n\nBlack handle, no shine. Not yours.\n\nThe man in the chair beside it is Kael, your new bodyguard. Nine days on the job. He still has his jacket on, and he is watching the door instead of you.\n\n\"I was paid to use that last night,\" he says. \"I didn’t.\"\n\nHe tips his head at your water glass. It has gone cloudy.\n\n\"Somebody else tried anyway. You’d have gone in your sleep. Heart, they’d have said. Same as your grandmother.\"\n\nHe finally looks at you.\n\n\"So. Change of plans. Who else wants you dead?\"",
   openingPanel: {
     assetKey: 'story_paid_to_kill_me/opening',
-    alt: 'Kael in a chair beside your bed at grey dawn, seen from the pillow, jacket still on, watching the door; on the nightstand a black-handled knife and a cloudy glass of water.',
+    alt: 'Kael sitting upright in an armchair beside your bed at grey dawn, jacket still on, eyes on the door; on the nightstand between you a black-handled knife and a cloudy glass of water.',
   },
   openingSuggestions: [
     '"My uncle gets everything if I die. Start with him. Who paid you?"',

@@ -87,7 +87,7 @@ const raw = {
     startingItems: [{ itemId: 'trial_tabard', qty: 1 }],
     hardCanon: [
       'Everyone in this story is an adult. The player is nineteen. Rowan Ashby is twenty, Prince Aren Valcourt is twenty, Felix Lorne is twenty, Gideon Marsh is twenty-two, Leopold Marr is twenty-three, Margery Dunmore is fifty, Sir Matthias Orme is fifty-four and Lord Provost Anselm Greaves is sixty-one. Offstage, Queen Merewen is fifty-two and Lord Marshal Hargrave is fifty-eight. Everyone else who appears in a scene, porters, stablehands, the Marshal’s steward and Thornhollow’s villagers included, is an adult. By its own Charter, Blackthorn admits nobody under eighteen.',
-      'Blackthorn is the Crown’s knight academy in the kingdom of Corveth: a four-hundred-year-old fortress on a headland above a grey sea, three years long, sixty cadets an intake. There is no magic in this world. Steel, horses, law and people.',
+      'Blackthorn is the Crown’s knight academy in the kingdom of Corveth: a four-hundred-year-old fortress on a headland above a grey sea, three years long, sixty cadets an intake. There is no magic in this world. Steel, horses, law and people. Nobody flies, vanishes, reads minds or walks through walls, the player included: if the player tries something impossible, it does not happen; one plain line says so, and the scene goes on from where the player stands.',
       'The Charter of Blackthorn reads: "Any subject of the Crown, of eighteen years and sound body, who passes the Trial shall be admitted, ranked and housed." It does not say man and it says nothing about a vote.',
       'The entrance Trial is judged blind: closed helms, numbered tabards, scores posted under the number before any name is read. The player wore forty-one and ranked first overall. Rowan ranked second by four points, Aren third, Gideon fourth, Felix fifth.',
       'When the player unhelmed in the chapel, the Provost tried to void the result and the Crown overruled him by rider the same day. Officially she is the first woman Blackthorn has ever admitted.',
@@ -2586,7 +2586,7 @@ const raw = {
     "Four beds. Behind a canvas partition, a clean square of floor where the fifth should be.\n\nFour cadets look up at you.\n\n\"Wrong room,\" says the one in the window seat, sword across his knees. Rowan. Second in the entrance trial. Second to you.\n\n\"Right room,\" says the one with the signet ring. Aren. \"She ranked first. The board is the board.\"\n\nThe biggest holds out a hand the size of a shield. \"Gideon.\"\n\nThe fourth turns a page and says nothing.\n\nRowan nods at the clean square. \"Porters took your bed to the stables at dawn. We vote on you in seven days. Last night nobody said yes.\"\n\nHe looks at you. \"So where are you sleeping tonight?\"",
   openingPanel: {
     assetKey: 'story_the_only_girl_at_blackthorn/opening',
-    alt: 'Rowan in the window seat of a round stone tower room at dusk, sword across his knees, staring up at you; three cadets in grey behind him, and a canvas partition hiding a bare square of floor.',
+    alt: 'Rowan on the window seat inside a round stone dormitory with four narrow beds at dusk, sword across his knees, looking up at you; three cadets on the beds, a canvas partition hiding a bare corner.',
   },
   openingSuggestions: [
     "\"Then I’m carrying it back up. Who wants the other end?\"",
