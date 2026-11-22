@@ -44517,5 +44517,2914 @@
       "latencyMs": 54535,
       "createdAt": "2026-11-22T11:22:49.135Z"
     }
+  },
+  "story_paid_to_kill_me/cover": {
+    "styleVersion": "plotbreak-cover-v4-generated"
+  },
+  "story_paid_to_kill_me/stage_odile_suite": {
+    "assetKey": "story_paid_to_kill_me/stage_odile_suite",
+    "file": "story_paid_to_kill_me/stage_odile_suite.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Grandmother’s Rooms: Shut since the morning she was found.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329634991801303",
+      "promptHash": "dc2250abe465739f64215e3470b9917a",
+      "seed": "sv_paid_to_kill_me_1:loc:odile_suite:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13259,
+      "createdAt": "2026-11-22T19:51:24.159Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_east_gallery": {
+    "assetKey": "story_paid_to_kill_me/stage_east_gallery",
+    "file": "story_paid_to_kill_me/stage_east_gallery.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The East Gallery: A long corridor of family portraits ending at your door.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329635384882632",
+      "promptHash": "23e39f00216fc7a110be82c6fd1b3647",
+      "seed": "sv_paid_to_kill_me_1:loc:east_gallery:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13412,
+      "createdAt": "2026-11-22T19:51:24.312Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_your_bedroom": {
+    "assetKey": "story_paid_to_kill_me/stage_your_bedroom",
+    "file": "story_paid_to_kill_me/stage_your_bedroom.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Your Room: The heir’s rooms at the end of the east wing: a high bed, a balcony door you always leave open an inch, a desk with your grandmother’s sealed letter on it, and a chair that has been turned round to face the door.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329634910472529",
+      "promptHash": "467d8a28af66a975329f9bd9e5d8943b",
+      "seed": "sv_paid_to_kill_me_1:loc:your_bedroom:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15056,
+      "createdAt": "2026-11-22T19:51:25.958Z"
+    }
+  },
+  "story_he_burned_the_capital/cover": {
+    "styleVersion": "plotbreak-cover-v4-generated"
+  },
+  "story_he_burned_the_capital/stage_the_infirmary": {
+    "assetKey": "story_he_burned_the_capital/stage_the_infirmary",
+    "file": "story_he_burned_the_capital/stage_the_infirmary.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Infirmary: Twelve beds under a low roof, a fire that never goes out, and a smell of vinegar and willow bark.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329635154195901",
+      "promptHash": "84a4249935e7024351b1f55ce962b426",
+      "seed": "sv_he_burned_the_capital_1:loc:the_infirmary:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15414,
+      "createdAt": "2026-11-22T19:51:26.315Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_the_cloister": {
+    "assetKey": "story_he_burned_the_capital/stage_the_cloister",
+    "file": "story_he_burned_the_capital/stage_the_cloister.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Cloister: A covered walk round a square herb garden, lamps every ten paces, and the sound of the lake behind the north wall.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329635723858897",
+      "promptHash": "91c2b3c4253af585ca440af58bcbd9e8",
+      "seed": "sv_he_burned_the_capital_1:loc:the_cloister:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15869,
+      "createdAt": "2026-11-22T19:51:26.771Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_your_cell": {
+    "assetKey": "story_he_burned_the_capital/stage_your_cell",
+    "file": "story_he_burned_the_capital/stage_your_cell.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Your Cell: A whitewashed room nine feet by seven: two narrow cots, a jug and basin, a hook for a cloak, a window onto the lake.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329636226117378",
+      "promptHash": "44ca5cbfc4e819dc0a1fe06aa8b76c76",
+      "seed": "sv_he_burned_the_capital_1:loc:your_cell:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15883,
+      "createdAt": "2026-11-22T19:51:26.783Z"
+    }
+  },
+  "story_he_burned_the_capital/key": {
+    "assetKey": "story_he_burned_the_capital/key",
+    "file": "story_he_burned_the_capital/key.png",
+    "kind": "KEY_ART",
+    "alt": "Key art for He Burned the Capital",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329634726376872",
+      "promptHash": "d13cec7091a5c2f080f12cfcdc91d688",
+      "seed": "sv_he_burned_the_capital_1:key:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17143,
+      "createdAt": "2026-11-22T19:51:28.012Z"
+    }
+  },
+  "story_paid_to_kill_me/key": {
+    "assetKey": "story_paid_to_kill_me/key",
+    "file": "story_paid_to_kill_me/key.png",
+    "kind": "KEY_ART",
+    "alt": "Key art for Paid to Kill Me",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329635583996503",
+      "promptHash": "b8aa272942074b9d8e92e55def947957",
+      "seed": "sv_paid_to_kill_me_1:key:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17767,
+      "createdAt": "2026-11-22T19:51:28.646Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_stillwater_chapel": {
+    "assetKey": "story_he_burned_the_capital/stage_stillwater_chapel",
+    "file": "story_he_burned_the_capital/stage_stillwater_chapel.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Chapel: A long cold chapel lit by two hundred candles, with a carved altar rail and a grey veil folded on it.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329635524324792",
+      "promptHash": "7e8496536d3eff083477b58acae01be4",
+      "seed": "sv_he_burned_the_capital_1:loc:stillwater_chapel:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 19778,
+      "createdAt": "2026-11-22T19:51:30.678Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_west_wing": {
+    "assetKey": "story_paid_to_kill_me/stage_west_wing",
+    "file": "story_paid_to_kill_me/stage_west_wing.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The West Wing: Where Viktor has been staying since the funeral: a guest suite with the curtains drawn at noon, unopened letters from a harbour finance house fanned across the desk, and a navy coat over a chair with something small and heavy in the pocket.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329635824858748",
+      "promptHash": "ca157ba20fdb4c6bec27cf9e6fc9a761",
+      "seed": "sv_paid_to_kill_me_1:loc:west_wing:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 20022,
+      "createdAt": "2026-11-22T19:51:30.923Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_kitchens": {
+    "assetKey": "story_paid_to_kill_me/stage_kitchens",
+    "file": "story_paid_to_kill_me/stage_kitchens.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Kitchens: Copper pans, a radio, the long staff table, and the pantry where the night water is poured into carafes at ten.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329697503160171",
+      "promptHash": "339993f215ffc5f3ca45a03ae17c0493",
+      "seed": "sv_paid_to_kill_me_1:loc:kitchens:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 12979,
+      "createdAt": "2026-11-22T19:51:38.945Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_great_hall": {
+    "assetKey": "story_paid_to_kill_me/stage_great_hall",
+    "file": "story_paid_to_kill_me/stage_great_hall.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Great Hall: The heart of the house: a long table where breakfast is laid whether anybody wants it or not, a fireplace big enough to stand in, and the grand stair up to the galleries.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329689969130602",
+      "promptHash": "95bb7b46f88d7d9ce48e52bf4e3f9610",
+      "seed": "sv_paid_to_kill_me_1:loc:great_hall:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15085,
+      "createdAt": "2026-11-22T19:51:39.258Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_the_bell_tower": {
+    "assetKey": "story_he_burned_the_capital/stage_the_bell_tower",
+    "file": "story_he_burned_the_capital/stage_the_bell_tower.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Bell Tower: One bell, a ladder, a wooden book chest and a window on each side.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329698794309456",
+      "promptHash": "741bdbccbe51b94fe357678ea1c13ffe",
+      "seed": "sv_he_burned_the_capital_1:loc:the_bell_tower:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 14957,
+      "createdAt": "2026-11-22T19:51:41.287Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_library": {
+    "assetKey": "story_paid_to_kill_me/stage_library",
+    "file": "story_paid_to_kill_me/stage_library.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Library: Three storeys of books nobody in the family has read, a reading table with Pell’s copies of the will laid out for you, and one locked glass-fronted cabinet whose key nobody in the house admits to having.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329690568395680",
+      "promptHash": "5301bbeffc71a9fe16be4ad5a936e89b",
+      "seed": "sv_paid_to_kill_me_1:loc:library:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17085,
+      "createdAt": "2026-11-22T19:51:41.406Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_the_roof": {
+    "assetKey": "story_paid_to_kill_me/stage_the_roof",
+    "file": "story_paid_to_kill_me/stage_the_roof.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Roof Walk: A railed walk between the chimneys, with the whole harbour below and the lights of Ravelle Tower across the water.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329708687571826",
+      "promptHash": "97eadc3478546c4d15aa02b1823638bb",
+      "seed": "sv_paid_to_kill_me_1:loc:the_roof:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 12922,
+      "createdAt": "2026-11-22T19:51:41.581Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_the_gatehouse": {
+    "assetKey": "story_he_burned_the_capital/stage_the_gatehouse",
+    "file": "story_he_burned_the_capital/stage_the_gatehouse.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Gatehouse: A thick arch with an oak gate and an iron bar, a porter’s lodge, and a line of white stones set across the road outside: the boundary of the house rule.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329700710005432",
+      "promptHash": "de0d7b5033e42f0f08f487a2ed6d4888",
+      "seed": "sv_he_burned_the_capital_1:loc:the_gatehouse:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 14862,
+      "createdAt": "2026-11-22T19:51:41.648Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_the_ardent_camp": {
+    "assetKey": "story_he_burned_the_capital/stage_the_ardent_camp",
+    "file": "story_he_burned_the_capital/stage_the_ardent_camp.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "His Camp: Twelve riders, twenty horses and one fire on the meadow outside the wall, close enough to see the gate and far enough not to crowd it.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329700871744218",
+      "promptHash": "c28b566d7c0977e2c3e48d88dca5b4c0",
+      "seed": "sv_he_burned_the_capital_1:loc:the_ardent_camp:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15148,
+      "createdAt": "2026-11-22T19:51:41.940Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_the_lake_shore": {
+    "assetKey": "story_he_burned_the_capital/stage_the_lake_shore",
+    "file": "story_he_burned_the_capital/stage_the_lake_shore.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Boathouse: A timber boathouse on the black lake below the orchard wall, three boats, a jetty and a lantern hook.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329706089450513",
+      "promptHash": "8c0efe71b3ba5786d940324cd53de768",
+      "seed": "sv_he_burned_the_capital_1:loc:the_lake_shore:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15060,
+      "createdAt": "2026-11-22T19:51:43.083Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_mossford": {
+    "assetKey": "story_he_burned_the_capital/stage_mossford",
+    "file": "story_he_burned_the_capital/stage_mossford.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Mossford: A grey stone village at the foot of the lake: a ferry, a smithy, a chapel without a priest and the Heron inn, where a prince is staying under a borrowed name with a saddlebag he never lets the ostler carry.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329717191616247",
+      "promptHash": "4677cb0b55584a5480d32cb03dcd74e1",
+      "seed": "sv_he_burned_the_capital_1:loc:mossford:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13339,
+      "createdAt": "2026-11-22T19:51:44.030Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_motor_court": {
+    "assetKey": "story_paid_to_kill_me/stage_motor_court",
+    "file": "story_paid_to_kill_me/stage_motor_court.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Motor Court: Gravel, a dry fountain, three cars and Kael’s black motorbike, and the iron gates down to the cliff road into Old Town.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329718347760397",
+      "promptHash": "935803622ba99f767fed29d60e08d83a",
+      "seed": "sv_paid_to_kill_me_1:loc:motor_court:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 14128,
+      "createdAt": "2026-11-22T19:51:45.069Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_old_town": {
+    "assetKey": "story_paid_to_kill_me/stage_old_town",
+    "file": "story_paid_to_kill_me/stage_old_town.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Old Town: Steep lanes of shuttered shops and lantern-lit stairs between the cliff and the harbour.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329751965135693",
+      "promptHash": "7a85fd0b1d2b9a6a99774c8d76637367",
+      "seed": "sv_paid_to_kill_me_1:loc:old_town:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13160,
+      "createdAt": "2026-11-22T19:51:52.116Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_sato_clinic": {
+    "assetKey": "story_paid_to_kill_me/stage_sato_clinic",
+    "file": "story_paid_to_kill_me/stage_sato_clinic.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Dr. Sato’s Clinic: Two rooms up a flight of stairs off the fish-market lane: a waiting room with three chairs and a fern, an examination room that smells of antiseptic and green tea, and, on the wall behind her desk, a framed photograph of a smiling man in a crane driver’s jacket.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329753130414168",
+      "promptHash": "94a0c094a2fbe3f5737beae010d6c68f",
+      "seed": "sv_paid_to_kill_me_1:loc:sato_clinic:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15449,
+      "createdAt": "2026-11-22T19:51:54.718Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_bell_shop": {
+    "assetKey": "story_paid_to_kill_me/stage_bell_shop",
+    "file": "story_paid_to_kill_me/stage_bell_shop.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Clock Shop: A narrow clock-repair shop with a hundred clocks on the walls, all set to slightly different times.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329762236767276",
+      "promptHash": "1a02cb8a0d42f277ff469c3af362598e",
+      "seed": "sv_paid_to_kill_me_1:loc:bell_shop:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13404,
+      "createdAt": "2026-11-22T19:51:54.819Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_kael_room": {
+    "assetKey": "story_paid_to_kill_me/stage_kael_room",
+    "file": "story_paid_to_kill_me/stage_kael_room.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Kael’s Room: A rented room above the noodle bar: one chair, one narrow bed made with hard corners, a kettle, a canvas bag packed and waiting by the door with two train tickets dated Saturday in the outside pocket, and nothing at all on the walls.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329763179527472",
+      "promptHash": "e8d45d3ad7105679a16d5a482279134d",
+      "seed": "sv_paid_to_kill_me_1:loc:kael_room:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13756,
+      "createdAt": "2026-11-22T19:51:55.348Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_the_capital_road": {
+    "assetKey": "story_he_burned_the_capital/stage_the_capital_road",
+    "file": "story_he_burned_the_capital/stage_the_capital_road.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The South Road: The road from the capital, crowded since the fire with handcarts, singed bedding and people walking north to anybody who will feed them.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329761893479456",
+      "promptHash": "b01af13a1189f155f2746e0e14b71455",
+      "seed": "sv_he_burned_the_capital_1:loc:the_capital_road:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15663,
+      "createdAt": "2026-11-22T19:51:56.960Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_the_ashen_capital": {
+    "assetKey": "story_he_burned_the_capital/stage_the_ashen_capital",
+    "file": "story_he_burned_the_capital/stage_the_ashen_capital.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Aubrais, Burned: The upper city of Aubrais is roofless black stone for a mile.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329763472531343",
+      "promptHash": "f798973ce81efa9413d4988137f37730",
+      "seed": "sv_he_burned_the_capital_1:loc:the_ashen_capital:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15690,
+      "createdAt": "2026-11-22T19:51:57.348Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_the_north_road": {
+    "assetKey": "story_he_burned_the_capital/stage_the_north_road",
+    "file": "story_he_burned_the_capital/stage_the_north_road.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The North Road: A mountain road climbing toward the pass between pines and old snow, with Ardent waystones every mile.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329764506988223",
+      "promptHash": "7ef47519e51cc97f8f4fa0dac7201f73",
+      "seed": "sv_he_burned_the_capital_1:loc:the_north_road:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15497,
+      "createdAt": "2026-11-22T19:51:57.452Z"
+    }
+  },
+  "story_he_burned_the_capital/stage_hollowfell": {
+    "assetKey": "story_he_burned_the_capital/stage_hollowfell",
+    "file": "story_he_burned_the_capital/stage_hollowfell.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Hollowfell: The Ardent fortress in the pass: black stone, three hundred years of snow, a great hall with a hearth that has not gone out since the oath was sworn, and a household that has been told you are coming and has no idea what you will be like.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329769224176718",
+      "promptHash": "25a7386d197a7f4efdc7909dfac8db70",
+      "seed": "sv_he_burned_the_capital_1:loc:hollowfell:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17517,
+      "createdAt": "2026-11-22T19:52:00.610Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_harbour_front": {
+    "assetKey": "story_paid_to_kill_me/stage_harbour_front",
+    "file": "story_paid_to_kill_me/stage_harbour_front.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Harbour Front: Cranes, ferries, gulls and rain.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329779428044522",
+      "promptHash": "165f725121dcd0c7f3a74640973ec32a",
+      "seed": "sv_paid_to_kill_me_1:loc:harbour_front:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15938,
+      "createdAt": "2026-11-22T19:52:01.020Z"
+    }
+  },
+  "story_he_burned_the_capital/lucien": {
+    "assetKey": "story_he_burned_the_capital/lucien",
+    "file": "story_he_burned_the_capital/lucien.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grand Duke Lucien Ardent, Grand Duke of the northern passes, the man you were promised to, and the man the whole kingdom says burned the capital looking for you",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329774932624634",
+      "promptHash": "e67d549042a603ed7ea1ea1ea3472633",
+      "seed": "hbtc-lucien-01",
+      "costUsd": 0.081,
+      "latencyMs": 18025,
+      "createdAt": "2026-11-22T19:52:02.068Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_pier_nine": {
+    "assetKey": "story_paid_to_kill_me/stage_pier_nine",
+    "file": "story_paid_to_kill_me/stage_pier_nine.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Pier Nine: The warehouse that burned twenty-two years ago, left standing as a blackened shell.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329806985989435",
+      "promptHash": "e312f3f253fa0d9d5de6fad43fe2aa44",
+      "seed": "sv_paid_to_kill_me_1:loc:pier_nine:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13215,
+      "createdAt": "2026-11-22T19:52:05.340Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_vauclair_club": {
+    "assetKey": "story_paid_to_kill_me/stage_vauclair_club",
+    "file": "story_paid_to_kill_me/stage_vauclair_club.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Vauclair Club: A members’ club on the hill where the three shipping families have dined, bargained and married each other for a century.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329818394887467",
+      "promptHash": "4e5c15b8e8ce8f218081bab129391bf0",
+      "seed": "sv_paid_to_kill_me_1:loc:vauclair_club:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13007,
+      "createdAt": "2026-11-22T19:52:07.837Z"
+    }
+  },
+  "story_paid_to_kill_me/stage_ravelle_tower": {
+    "assetKey": "story_paid_to_kill_me/stage_ravelle_tower",
+    "file": "story_paid_to_kill_me/stage_ravelle_tower.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Ravelle Tower: The company’s glass headquarters on the waterfront: thirty-one floors, a lobby with a brass model of the first Ravelle ship, an archive in the basement, and the boardroom at the top where you sign on Friday at ten, or do not.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329818121374146",
+      "promptHash": "231267a95d1fda219eeb72ab9e5c69e2",
+      "seed": "sv_paid_to_kill_me_1:loc:ravelle_tower:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15305,
+      "createdAt": "2026-11-22T19:52:10.032Z"
+    }
+  },
+  "story_he_burned_the_capital/remy": {
+    "assetKey": "story_he_burned_the_capital/remy",
+    "file": "story_he_burned_the_capital/remy.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Prince Remy, The King’s second son, who paid for your horses the night you ran and has come back to the lake with a boat",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329827618858631",
+      "promptHash": "fef5794e626a35ee14398457d8e14db2",
+      "seed": "hbtc-remy-01",
+      "costUsd": 0.081,
+      "latencyMs": 13424,
+      "createdAt": "2026-11-22T19:52:10.393Z"
+    }
+  },
+  "story_he_burned_the_capital/mara": {
+    "assetKey": "story_he_burned_the_capital/mara",
+    "file": "story_he_burned_the_capital/mara.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Mara Ferrand, Your maid for six years, who ran with you, and who has been writing letters",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329829011367662",
+      "promptHash": "14a06f1d5101abc96378940c1808e9b5",
+      "seed": "hbtc-mara-01",
+      "costUsd": 0.081,
+      "latencyMs": 13060,
+      "createdAt": "2026-11-22T19:52:10.425Z"
+    }
+  },
+  "story_paid_to_kill_me/kael": {
+    "assetKey": "story_paid_to_kill_me/kael",
+    "file": "story_paid_to_kill_me/kael.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Kael, Your bodyguard of nine days, and the Bellhouse operator who was paid to kill you before Friday",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329821285279071",
+      "promptHash": "0e083190eb98ea39a7033100be3df43c",
+      "seed": "ptkm-kael-01",
+      "costUsd": 0.081,
+      "latencyMs": 15557,
+      "createdAt": "2026-11-22T19:52:10.921Z"
+    }
+  },
+  "story_he_burned_the_capital/agathe": {
+    "assetKey": "story_he_burned_the_capital/agathe",
+    "file": "story_he_burned_the_capital/agathe.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sister Agathe, Prioress of Stillwater, once an army surgeon, and the only person in the building who is not afraid of him",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329830134807567",
+      "promptHash": "27d55a3c7e08a002c46c76736b09bee5",
+      "seed": "hbtc-agathe-01",
+      "costUsd": 0.081,
+      "latencyMs": 15382,
+      "createdAt": "2026-11-22T19:52:12.844Z"
+    }
+  },
+  "story_paid_to_kill_me/viktor": {
+    "assetKey": "story_paid_to_kill_me/viktor",
+    "file": "story_paid_to_kill_me/viktor.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Viktor Ravelle, Your uncle, acting chair of the Ravelle Line for twenty years, and the man who inherits everything if you die before Friday",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329844679707878",
+      "promptHash": "cbe03581a80e9bc6e12db401ff3eb72b",
+      "seed": "ptkm-viktor-01",
+      "costUsd": 0.081,
+      "latencyMs": 13197,
+      "createdAt": "2026-11-22T19:52:14.227Z"
+    }
+  },
+  "story_he_burned_the_capital/ottilie": {
+    "assetKey": "story_he_burned_the_capital/ottilie",
+    "file": "story_he_burned_the_capital/ottilie.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Captain Ottilie Ferrand, Captain of the Grand Duke’s riders, Mara’s older sister, and nobody’s admirer of yours",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329843119723900",
+      "promptHash": "3e6f64f08a5a74c8f93211e1109cbff5",
+      "seed": "hbtc-ottilie-01",
+      "costUsd": 0.081,
+      "latencyMs": 15389,
+      "createdAt": "2026-11-22T19:52:16.013Z"
+    }
+  },
+  "story_paid_to_kill_me/ines": {
+    "assetKey": "story_paid_to_kill_me/ines",
+    "file": "story_paid_to_kill_me/ines.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Lady Ines Vauclair, Heir of House Vauclair, your closest friend at college and your rival ever since, who has made your uncle an offer for the company",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329862787007473",
+      "promptHash": "65bab932b093215fe8c0ba5f66b0d1e2",
+      "seed": "ptkm-ines-01",
+      "costUsd": 0.081,
+      "latencyMs": 13326,
+      "createdAt": "2026-11-22T19:52:18.678Z"
+    }
+  },
+  "story_paid_to_kill_me/sato": {
+    "assetKey": "story_paid_to_kill_me/sato",
+    "file": "story_paid_to_kill_me/sato.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Dr. Mirei Sato, Your grandmother’s doctor for thirty years, who signed her death certificate and still checks on you every morning",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329873238720524",
+      "promptHash": "bfe943cdf09abf38c9745c91bb8322c0",
+      "seed": "ptkm-sato-01",
+      "costUsd": 0.081,
+      "latencyMs": 13060,
+      "createdAt": "2026-11-22T19:52:20.907Z"
+    }
+  },
+  "story_paid_to_kill_me/vesna": {
+    "assetKey": "story_paid_to_kill_me/vesna",
+    "file": "story_paid_to_kill_me/vesna.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Vesna, The Bellhouse’s closer, who trained Kael, and who is sent when a contract runs late",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329882752348694",
+      "promptHash": "9f139eda04db8ff28c2a7eb07171eea9",
+      "seed": "ptkm-vesna-01",
+      "costUsd": 0.081,
+      "latencyMs": 11243,
+      "createdAt": "2026-11-22T19:52:21.284Z"
+    }
+  },
+  "story_he_burned_the_capital/isaure": {
+    "assetKey": "story_he_burned_the_capital/isaure",
+    "file": "story_he_burned_the_capital/isaure.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Justiciar Isaure Dane, The crown’s Justiciar, sent with forty riders and a warrant for you both, who wants the truth more than she wants a traitor",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329848854440108",
+      "promptHash": "0b0df9c8263226935c4fe609cbc3ea5c",
+      "seed": "hbtc-isaure-01",
+      "costUsd": 0.081,
+      "latencyMs": 21620,
+      "createdAt": "2026-11-22T19:52:23.703Z"
+    }
+  },
+  "story_paid_to_kill_me/pell": {
+    "assetKey": "story_paid_to_kill_me/pell",
+    "file": "story_paid_to_kill_me/pell.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Augustin Pell, Executor of your grandmother’s will and keeper of Friday’s signing, the one man in the city nobody has managed to bribe",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081329886229368054",
+      "promptHash": "d19ff600269178719a8b29eeb1afc058",
+      "seed": "ptkm-pell-01",
+      "costUsd": 0.081,
+      "latencyMs": 15237,
+      "createdAt": "2026-11-22T19:52:26.168Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/cover": {
+    "styleVersion": "plotbreak-cover-v4-generated"
+  },
+  "story_the_only_girl_at_blackthorn/key": {
+    "assetKey": "story_the_only_girl_at_blackthorn/key",
+    "file": "story_the_only_girl_at_blackthorn/key.png",
+    "kind": "KEY_ART",
+    "alt": "Key art for The Only Girl at Blackthorn",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330212672045718",
+      "promptHash": "383560e8d5927d4d053bebd51a6d4ae8",
+      "seed": "sv_the_only_girl_at_blackthorn_1:key:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15482,
+      "createdAt": "2026-11-22T19:53:44.132Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_the_hall": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_the_hall",
+    "file": "story_the_only_girl_at_blackthorn/stage_the_hall.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Long Hall: Sixty first-years at four long tables ranked by the Trial, seniors above them, masters at the high table under the old banners.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330212866229884",
+      "promptHash": "dc25c998ad0698c160796faaa14439c6",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:the_hall:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15457,
+      "createdAt": "2026-11-22T19:53:44.146Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_the_yard": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_the_yard",
+    "file": "story_the_only_girl_at_blackthorn/stage_the_yard.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Orme’s Yard: A square of raked sand inside the inner wall, with wooden posts for cutting practice along one side and the ranking board painted on the chapel wall along the other.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330213447292508",
+      "promptHash": "f18de4fd0b179086b89634919e59f8bf",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:the_yard:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15596,
+      "createdAt": "2026-11-22T19:53:44.271Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_the_rook": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_the_rook",
+    "file": "story_the_only_girl_at_blackthorn/stage_the_rook.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Rook: The top room of the north tower, four flights up, built for five.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330213233719042",
+      "promptHash": "e5b90b4b554006f3e7e42e2ea819a39a",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:the_rook:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15598,
+      "createdAt": "2026-11-22T19:53:44.282Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_north_stair": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_north_stair",
+    "file": "story_the_only_girl_at_blackthorn/stage_north_stair.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The North Stair: Ninety-six stone steps, worn into dips, narrow at the third landing, with a lance door on every floor.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330213261292732",
+      "promptHash": "9b4c2928b5208ba93acb721c5b49d342",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:north_stair:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 22745,
+      "createdAt": "2026-11-22T19:53:51.419Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_the_armory": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_the_armory",
+    "file": "story_the_only_girl_at_blackthorn/stage_the_armory.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Armory: Racks of practice steel, padded jackets on pegs by size, a forge that is never quite out, and Margery Dunmore, who has fitted every cadet at Blackthorn for twenty years.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330277585528386",
+      "promptHash": "e7ce8911a907b03df86febe50febf5b7",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:the_armory:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13795,
+      "createdAt": "2026-11-22T19:53:58.082Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_the_library": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_the_library",
+    "file": "story_the_only_girl_at_blackthorn/stage_the_library.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Rolls Room: A long cold room under the chapel that keeps the register: four hundred years of cadets, one line each, number and name, in nine handwritings.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330276901469300",
+      "promptHash": "9021c9ce75c8d11bce0cde11747062b2",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:the_library:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15331,
+      "createdAt": "2026-11-22T19:53:59.482Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_the_stables": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_the_stables",
+    "file": "story_the_only_girl_at_blackthorn/stage_the_stables.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Stables: Forty stalls, a hayloft, a tack room that is supposed to be locked, and the warm smell of horses and leather.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330277870353550",
+      "promptHash": "0e0bf192d79ea40ee9cadd1b13a6d104",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:the_stables:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15832,
+      "createdAt": "2026-11-22T19:54:00.124Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/cover": {
+    "styleVersion": "plotbreak-cover-v4-generated"
+  },
+  "story_the_wolf_clan_s_guest/stage_the_warm_tent": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_the_warm_tent",
+    "file": "story_the_wolf_clan_s_guest/stage_the_warm_tent.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Warm Tent: Sil’s healing tent at the low end of camp: a ring of hides over bent poles, a fire that never goes out, bundles of drying bark hanging from every pole, and the fur bed nearest the heat that you woke up in.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330292226658139",
+      "promptHash": "de468b0c965db6519bbdad75c6521b23",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:the_warm_tent:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13751,
+      "createdAt": "2026-11-22T19:54:01.095Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_the_chapel": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_the_chapel",
+    "file": "story_the_only_girl_at_blackthorn/stage_the_chapel.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Chapel of the Oath: Bare stone, one tall window, rows of oak pews, and the Charter cut into the floor in front of the altar so that every cadet who swears the oath kneels on it.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330277206855068",
+      "promptHash": "e9cc86dbb5b085b233373a427747b7cb",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:the_chapel:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17558,
+      "createdAt": "2026-11-22T19:54:01.715Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_the_long_fire": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_the_long_fire",
+    "file": "story_the_wolf_clan_s_guest/stage_the_long_fire.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Long Fire: The heart of the winter camp: a trench fire as long as three tents, ringed with log benches, where forty-odd wolf-kin eat, argue and hold council.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330292409261882",
+      "promptHash": "c32254cd626fed9bba65968aec5cdfb5",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:the_long_fire:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15852,
+      "createdAt": "2026-11-22T19:54:03.197Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_mothers_lodge": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_mothers_lodge",
+    "file": "story_the_wolf_clan_s_guest/stage_mothers_lodge.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Clan Mother’s Lodge: The only timber-framed lodge in camp, hung with old hunting gear and a loom with a half-finished blanket on it.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330292592748504",
+      "promptHash": "99ee25ea36019b04a0452b02066c8f52",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:mothers_lodge:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17878,
+      "createdAt": "2026-11-22T19:54:05.224Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/key": {
+    "assetKey": "story_the_wolf_clan_s_guest/key",
+    "file": "story_the_wolf_clan_s_guest/key.png",
+    "kind": "KEY_ART",
+    "alt": "Key art for The Wolf Clan’s Guest",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330291929668797",
+      "promptHash": "c524e55483dca923bb501de5e451de47",
+      "seed": "sv_the_wolf_clan_s_guest_1:key:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17922,
+      "createdAt": "2026-11-22T19:54:05.238Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_the_sons_lodge": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_the_sons_lodge",
+    "file": "story_the_wolf_clan_s_guest/stage_the_sons_lodge.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Brothers’ Lodge: A long tent with four hearths and hide curtains between them, where the four brothers sleep, argue and leave their boots in each other’s way.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330292109221914",
+      "promptHash": "a89eca24c792bde21fe6a58ebbfcb91e",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:the_sons_lodge:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 18001,
+      "createdAt": "2026-11-22T19:54:05.348Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_the_tilt": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_the_tilt",
+    "file": "story_the_only_girl_at_blackthorn/stage_the_tilt.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Tilt Field: Outside the inner wall, a long strip of turf with a wooden barrier down the middle, viewing stands on one side and the sea on the other.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330307923590721",
+      "promptHash": "b27785c43787e6acabe173638f716027",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:the_tilt:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15565,
+      "createdAt": "2026-11-22T19:54:06.998Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_the_cliff_walk": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_the_cliff_walk",
+    "file": "story_the_only_girl_at_blackthorn/stage_the_cliff_walk.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Cliff Walk: A path along the top of the sea wall, with the wind loud enough that two people have to stand close to hear each other.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330335668469395",
+      "promptHash": "a537372a4ead465383b5a7636c756dfd",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:the_cliff_walk:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13250,
+      "createdAt": "2026-11-22T19:54:11.342Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_the_stores": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_the_stores",
+    "file": "story_the_wolf_clan_s_guest/stage_the_stores.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Stores: Smokehouse, drying racks and a larder dug in under turf.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330347980989131",
+      "promptHash": "9ec13a7c29f9c79c906d7e476f91e3a9",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:the_stores:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13188,
+      "createdAt": "2026-11-22T19:54:14.293Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_provost_house": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_provost_house",
+    "file": "story_the_only_girl_at_blackthorn/stage_provost_house.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Provost’s Lodging: A tall house in the inner court with polished floors, a fire that is always lit, and tea served in thin cups.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330341286183370",
+      "promptHash": "fff086599385c341a70afe068efd803a",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:provost_house:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15286,
+      "createdAt": "2026-11-22T19:54:14.787Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_thorn_gate": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_thorn_gate",
+    "file": "story_the_only_girl_at_blackthorn/stage_thorn_gate.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Thorn Gate: The only way in or out: an iron gate under a gatehouse with the academy’s black thorn carved above it.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330343927054237",
+      "promptHash": "3418f3c71424ecebc569616ce60dc21b",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:thorn_gate:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15475,
+      "createdAt": "2026-11-22T19:54:15.612Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_the_ice_lake": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_the_ice_lake",
+    "file": "story_the_wolf_clan_s_guest/stage_the_ice_lake.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Ice Lake: A frozen lake below camp, black ice swept clear in patches, with a line of fishing holes cut across it.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330357010692351",
+      "promptHash": "84ee83f836374c90a19378fb973e8bbc",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:the_ice_lake:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13202,
+      "createdAt": "2026-11-22T19:54:16.412Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/stage_thornhollow": {
+    "assetKey": "story_the_only_girl_at_blackthorn/stage_thornhollow",
+    "file": "story_the_only_girl_at_blackthorn/stage_thornhollow.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Thornhollow: The village under the headland: a harbour, a smithy, forty houses and The Broken Lance, the inn where seniors drink on rest days.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330350937973572",
+      "promptHash": "d1eb9a3d2b7bb5c9a597e07d8deebeb8",
+      "seed": "sv_the_only_girl_at_blackthorn_1:loc:thornhollow:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15520,
+      "createdAt": "2026-11-22T19:54:17.251Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/rowan": {
+    "assetKey": "story_the_only_girl_at_blackthorn/rowan",
+    "file": "story_the_only_girl_at_blackthorn/rowan.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Rowan Ashby, Ranked second in the Trial by four points, and the fastest blade in the intake",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330372971211037",
+      "promptHash": "a3d64b9ec365f8fa81b7e25319e2f28e",
+      "seed": "otgab-rowan-01",
+      "costUsd": 0.081,
+      "latencyMs": 13402,
+      "createdAt": "2026-11-22T19:54:20.409Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_the_high_pass": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_the_high_pass",
+    "file": "story_the_wolf_clan_s_guest/stage_the_high_pass.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The High Pass: A white saddle between two peaks, marked with guide-poles that are already half buried.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330365754651951",
+      "promptHash": "b758a9dc82b9b58ee07935298d931c5e",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:the_high_pass:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15201,
+      "createdAt": "2026-11-22T19:54:20.452Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_the_boundary_stones": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_the_boundary_stones",
+    "file": "story_the_wolf_clan_s_guest/stage_the_boundary_stones.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Boundary Stones: A ring of seven standing stones at the top of the pass, where clan land ends and the Company’s road begins.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330365990244120",
+      "promptHash": "5999c84ffdce2438068049bd95b15b59",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:the_boundary_stones:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15206,
+      "createdAt": "2026-11-22T19:54:20.565Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/aren": {
+    "assetKey": "story_the_only_girl_at_blackthorn/aren",
+    "file": "story_the_only_girl_at_blackthorn/aren.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Prince Aren Valcourt, The Queen’s second son, ranked third, and the only one in the tower who defends your right to be here",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330391406572731",
+      "promptHash": "49be69593cfc8284b533348d302f49c9",
+      "seed": "otgab-aren-01",
+      "costUsd": 0.081,
+      "latencyMs": 15396,
+      "createdAt": "2026-11-22T19:54:26.747Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_the_lookout": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_the_lookout",
+    "file": "story_the_wolf_clan_s_guest/stage_the_lookout.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Lookout: A spur of rock above camp with a windbreak of stacked stones, where somebody always watches the pass.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330365490628738",
+      "promptHash": "dc4c1543d26d572307b722eaa8c9fb5b",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:the_lookout:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 23721,
+      "createdAt": "2026-11-22T19:54:28.958Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_company_post": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_company_post",
+    "file": "story_the_wolf_clan_s_guest/stage_company_post.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Company Post: A timber stockade at the foot of the south road, with a counting room, a store, a stove that never goes out and a smell of lamp oil and wet wool.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330403935917210",
+      "promptHash": "78feb8051c86e9f3115318b0dc467442",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:company_post:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15456,
+      "createdAt": "2026-11-22T19:54:29.762Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/gideon": {
+    "assetKey": "story_the_only_girl_at_blackthorn/gideon",
+    "file": "story_the_only_girl_at_blackthorn/gideon.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Gideon Marsh, A smith’s son from the northern hills, ranked fourth, and the quietest man in the tower",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330405787280644",
+      "promptHash": "f909ea68d0a2cae2d50c3d6e1f2300b4",
+      "seed": "otgab-gideon-01",
+      "costUsd": 0.081,
+      "latencyMs": 15477,
+      "createdAt": "2026-11-22T19:54:30.281Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/dunmore": {
+    "assetKey": "story_the_only_girl_at_blackthorn/dunmore",
+    "file": "story_the_only_girl_at_blackthorn/dunmore.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Margery Dunmore, Mistress of the Armory for twenty years, and the only other woman inside the walls",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330416236255973",
+      "promptHash": "72fabdb5e86bfc7315de0f73bf3ebfea",
+      "seed": "otgab-dunmore-01",
+      "costUsd": 0.081,
+      "latencyMs": 13260,
+      "createdAt": "2026-11-22T19:54:30.520Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_the_old_den": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_the_old_den",
+    "file": "story_the_wolf_clan_s_guest/stage_the_old_den.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Old Den: A dry cave in the eastern rocks above the pass, older than the camp, with claw marks on the walls far too high for any wild wolf.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330412529531498",
+      "promptHash": "45a4887a9da17682be6a51032f0199d5",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:the_old_den:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15395,
+      "createdAt": "2026-11-22T19:54:31.820Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/felix": {
+    "assetKey": "story_the_only_girl_at_blackthorn/felix",
+    "file": "story_the_only_girl_at_blackthorn/felix.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Felix Lorne, A clerk’s son on a scholar’s stipend, ranked fifth, with the best written paper in forty years and the worst sword",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330409309044008",
+      "promptHash": "e375939aee8617872a1949641655c9b0",
+      "seed": "otgab-felix-01",
+      "costUsd": 0.081,
+      "latencyMs": 17437,
+      "createdAt": "2026-11-22T19:54:33.065Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/orme": {
+    "assetKey": "story_the_only_girl_at_blackthorn/orme",
+    "file": "story_the_only_girl_at_blackthorn/orme.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sir Matthias Orme, Master-at-Arms. Runs the yard, voted to void your result, and scored your blind bout the highest in twenty years",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330429492359927",
+      "promptHash": "34461724797fbf0894aead7e64df84d5",
+      "seed": "otgab-orme-01",
+      "costUsd": 0.081,
+      "latencyMs": 13267,
+      "createdAt": "2026-11-22T19:54:33.689Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/varek": {
+    "assetKey": "story_the_wolf_clan_s_guest/varek",
+    "file": "story_the_wolf_clan_s_guest/varek.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Varek, The eldest brother, who leads the clan’s hunters and is expected to lead the clan",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330429968407669",
+      "promptHash": "df2b6c448cf95f1c50bcd83b4a979895",
+      "seed": "twcg-varek-01",
+      "costUsd": 0.081,
+      "latencyMs": 15454,
+      "createdAt": "2026-11-22T19:54:36.028Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/stage_the_cold_ridge": {
+    "assetKey": "story_the_wolf_clan_s_guest/stage_the_cold_ridge",
+    "file": "story_the_wolf_clan_s_guest/stage_the_cold_ridge.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Cold Ridge Camp: The other wolf clan’s winter camp, two hours east along the ridge: more hunters, fewer tents, and almost no flour.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330429410565219",
+      "promptHash": "7c83ff9fe8159a0e5c4dac81bc22c4a6",
+      "seed": "sv_the_wolf_clan_s_guest_1:loc:the_cold_ridge:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17424,
+      "createdAt": "2026-11-22T19:54:37.893Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/greaves": {
+    "assetKey": "story_the_only_girl_at_blackthorn/greaves",
+    "file": "story_the_only_girl_at_blackthorn/greaves.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Lord Provost Anselm Greaves, Head of Blackthorn, once its Master of the Rolls, and the man who tried to void your result in the chapel",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330455779191418",
+      "promptHash": "0a0a8cb44748d71f51c266664c52b28a",
+      "seed": "otgab-greaves-01",
+      "costUsd": 0.081,
+      "latencyMs": 15321,
+      "createdAt": "2026-11-22T19:54:42.079Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/ronan": {
+    "assetKey": "story_the_wolf_clan_s_guest/ronan",
+    "file": "story_the_wolf_clan_s_guest/ronan.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ronan, The third brother, the clan’s best hunter and loudest voice, who found you face-down in a drift",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330464885179060",
+      "promptHash": "59b3c3fa1252a79085b2c791d851674f",
+      "seed": "twcg-ronan-01",
+      "costUsd": 0.081,
+      "latencyMs": 15203,
+      "createdAt": "2026-11-22T19:54:44.171Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/sil": {
+    "assetKey": "story_the_wolf_clan_s_guest/sil",
+    "file": "story_the_wolf_clan_s_guest/sil.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Sil, The second brother and the clan’s healer, whose tent you woke up in",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330468581159486",
+      "promptHash": "e5b596cb45f44f898d6e3a12e46c3230",
+      "seed": "twcg-sil-01",
+      "costUsd": 0.081,
+      "latencyMs": 15454,
+      "createdAt": "2026-11-22T19:54:45.227Z"
+    }
+  },
+  "story_the_only_girl_at_blackthorn/marr": {
+    "assetKey": "story_the_only_girl_at_blackthorn/marr",
+    "file": "story_the_only_girl_at_blackthorn/marr.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Leopold Marr, Captain of the Cadet Watch, a third-year, and the Provost’s favourite pair of hands",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330470818482949",
+      "promptHash": "bb34254c7e6a710bd290bb94c3cbdf2b",
+      "seed": "otgab-marr-01",
+      "costUsd": 0.081,
+      "latencyMs": 15338,
+      "createdAt": "2026-11-22T19:54:45.631Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/tam": {
+    "assetKey": "story_the_wolf_clan_s_guest/tam",
+    "file": "story_the_wolf_clan_s_guest/tam.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Tam, The fourth brother, who carried you three miles through the storm",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330477000394011",
+      "promptHash": "5b1fb772a0099e39eac0ab750d28498a",
+      "seed": "twcg-tam-01",
+      "costUsd": 0.081,
+      "latencyMs": 15215,
+      "createdAt": "2026-11-22T19:54:47.045Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/aud": {
+    "assetKey": "story_the_wolf_clan_s_guest/aud",
+    "file": "story_the_wolf_clan_s_guest/aud.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Clan Mother Aud, The brothers’ mother and head of the Greyhowe clan, who decides whether a guest stays",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330494561070653",
+      "promptHash": "00d4f087bb99bb600cde6fde7c0b60fb",
+      "seed": "twcg-aud-01",
+      "costUsd": 0.081,
+      "latencyMs": 13581,
+      "createdAt": "2026-11-22T19:54:49.619Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/dagny": {
+    "assetKey": "story_the_wolf_clan_s_guest/dagny",
+    "file": "story_the_wolf_clan_s_guest/dagny.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Dagny of the Cold Ridge, Heir of the Cold Ridge clan, betrothed to Varek by two mothers who did not ask either of them",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330502928707405",
+      "promptHash": "af8eb18633d13faf11606c92ea433dcd",
+      "seed": "twcg-dagny-01",
+      "costUsd": 0.081,
+      "latencyMs": 15911,
+      "createdAt": "2026-11-22T19:54:53.814Z"
+    }
+  },
+  "story_the_wolf_clan_s_guest/kell": {
+    "assetKey": "story_the_wolf_clan_s_guest/kell",
+    "file": "story_the_wolf_clan_s_guest/kell.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Matthias Kell, Factor of the Company post at the foot of the south road, and the man who hired your caravan",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330529212492270",
+      "promptHash": "fa5b049b8841dd064c9350d055d86fa3",
+      "seed": "twcg-kell-01",
+      "costUsd": 0.081,
+      "latencyMs": 15719,
+      "createdAt": "2026-11-22T19:54:59.900Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/cover": {
+    "styleVersion": "plotbreak-cover-v4-generated"
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_the_penthouse": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_the_penthouse",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_the_penthouse.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Penthouse: The top floor of Vantage Tower, owned by the agency and furnished like a showroom: white sofas nobody sits on, a kitchen with every gadget and nothing in the fridge, a guest room with a lock on the inside, and a balcony with no railing on one side, because he never needed one.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330780004429535",
+      "promptHash": "48c14c946237adbeade32bb104563c3f",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:the_penthouse:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13802,
+      "createdAt": "2026-11-22T19:55:57.605Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_tower_plaza": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_tower_plaza",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_tower_plaza.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Vantage Plaza: A stage on the glass plaza at the foot of Vantage Tower: a podium, a blue backdrop printed with the agency’s logo, and a pen of forty photographers who all shout at once.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330779356070770",
+      "promptHash": "f46076253f0654cf8c6c1d1ed5f1a77c",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:tower_plaza:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15357,
+      "createdAt": "2026-11-22T19:55:59.159Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_vantage_tower": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_vantage_tower",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_vantage_tower.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Vantage Tower: Forty floors of glass.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330779743991157",
+      "promptHash": "f7f62e3bf3f11ddbf860b1443b0ed670",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:vantage_tower:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15724,
+      "createdAt": "2026-11-22T19:55:59.528Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/key": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/key",
+    "file": "story_thirty_days_with_the_number_one_hero/key.png",
+    "kind": "KEY_ART",
+    "alt": "Key art for Thirty Days With the Number One Hero",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330779792278399",
+      "promptHash": "64e104561ce33414639f263f29d09d0d",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:key:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15870,
+      "createdAt": "2026-11-22T19:55:59.646Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_tower_archive": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_tower_archive",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_tower_archive.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Archive: The basement of Vantage Tower: rolling shelves of hard drives, every rescue the agency has ever filmed, from three angles.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330780181246953",
+      "promptHash": "ebfb21c66b5f59eeec88887ff1d51c5f",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:tower_archive:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15867,
+      "createdAt": "2026-11-22T19:55:59.672Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_your_flat": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_your_flat",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_your_flat.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Your Flat: A fourth-floor walk-up over a laundromat in the Narrows that you share with Jo: two small bedrooms, a sofa with a dent in it, a kitchen the size of a phone box, and a window onto the fire escape.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330837202150661",
+      "promptHash": "81b7fafe99251acc63540a6ffb4c177e",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:your_flat:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15384,
+      "createdAt": "2026-11-22T19:56:12.998Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_the_rooftops": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_the_rooftops",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_the_rooftops.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Rooftops: Flat roofs, water towers and washing lines over the Narrows, close enough to step between.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330844995385336",
+      "promptHash": "438cfb300b392673dd7544663fb8434e",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:the_rooftops:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15344,
+      "createdAt": "2026-11-22T19:56:14.882Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_the_starlight": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_the_starlight",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_the_starlight.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Starlight: A shut cinema on the edge of the Narrows, its marquee letters long gone.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330845582370273",
+      "promptHash": "7b2786282108bbdd5fce1c52cf896099",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:the_starlight:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15248,
+      "createdAt": "2026-11-22T19:56:14.904Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_ferris_street": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_ferris_street",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_ferris_street.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Ferris Street: A rebuilt nine-storey block with a memorial plaque listing forty people who walked out alive, and a bronze statue of Ace holding a beam over his head.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330845972658193",
+      "promptHash": "6a7a5e5b517cdc8c0781f22c48d7679f",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:ferris_street:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15626,
+      "createdAt": "2026-11-22T19:56:15.308Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_the_narrows": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_the_narrows",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_the_narrows.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Narrows: Your neighbourhood: narrow streets of walk-ups under a tangle of washing lines and power cables, a noodle stand that never closes, the laundromat, and a wall where somebody keeps painting Shade’s silhouette and somebody else keeps painting over it.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330843724954391",
+      "promptHash": "2fa5e2642affd35c7e440b211b43d68e",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:the_narrows:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17652,
+      "createdAt": "2026-11-22T19:56:16.825Z"
+    }
+  },
+  "story_annulled_then_claimed/cover": {
+    "styleVersion": "plotbreak-cover-v4-generated"
+  },
+  "story_annulled_then_claimed/stage_glass_ballroom": {
+    "assetKey": "story_annulled_then_claimed/stage_glass_ballroom",
+    "file": "story_annulled_then_claimed/stage_glass_ballroom.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Glass Ballroom: The great ballroom of the Summer Palace, walled with tall windows and mirrors so that every scandal is seen from four angles at once.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330905360467262",
+      "promptHash": "42f14c5c8670e6662280a00202aee121",
+      "seed": "sv_annulled_then_claimed_1:loc:glass_ballroom:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13333,
+      "createdAt": "2026-11-22T19:56:27.200Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_retiring_room": {
+    "assetKey": "story_annulled_then_claimed/stage_retiring_room",
+    "file": "story_annulled_then_claimed/stage_retiring_room.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Ladies’ Retiring Room: A small mirrored sitting room off the ballroom with velvet couches, a low fire, and a table of pins, salts and powder.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330906122572318",
+      "promptHash": "c7772287d5e3f1fc9b008f93f0331091",
+      "seed": "sv_annulled_then_claimed_1:loc:retiring_room:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15704,
+      "createdAt": "2026-11-22T19:56:29.571Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_palace_gardens": {
+    "assetKey": "story_annulled_then_claimed/stage_palace_gardens",
+    "file": "story_annulled_then_claimed/stage_palace_gardens.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Palace Gardens: Hedged walks, a long fountain and a rose maze below the terrace, with the prince’s apartments looking down on all of it.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330906023167325",
+      "promptHash": "32f6a87dedbf5fefbc6a409dc3f5f564",
+      "seed": "sv_annulled_then_claimed_1:loc:palace_gardens:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15713,
+      "createdAt": "2026-11-22T19:56:29.581Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_civic_square": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_civic_square",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_civic_square.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Civic Square: The city’s main square: Civic Hall with its columns, where the council meets and the Founders’ Gala is held; a clock tower with a hero lookout at the top; and a screen three storeys high that shows the Hero Ranking every Monday at nine.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330910121522578",
+      "promptHash": "c4832da587b17f31bcda0f7468d6146f",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:civic_square:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15715,
+      "createdAt": "2026-11-22T19:56:30.610Z"
+    }
+  },
+  "story_annulled_then_claimed/key": {
+    "assetKey": "story_annulled_then_claimed/key",
+    "file": "story_annulled_then_claimed/key.png",
+    "kind": "KEY_ART",
+    "alt": "Key art for Annulled, Then Claimed",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330905394322517",
+      "promptHash": "ab047381f50dfd5838b183bd1009f52f",
+      "seed": "sv_annulled_then_claimed_1:key:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17530,
+      "createdAt": "2026-11-22T19:56:31.365Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_moon_terrace": {
+    "assetKey": "story_annulled_then_claimed/stage_moon_terrace",
+    "file": "story_annulled_then_claimed/stage_moon_terrace.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Moon Terrace: A long stone terrace outside the ballroom, lit by lanterns and the moon, with the whole room visible through the glass behind it.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330905671146594",
+      "promptHash": "5a1c41c353eb5e784b34bab4eaa063ca",
+      "seed": "sv_annulled_then_claimed_1:loc:moon_terrace:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17611,
+      "createdAt": "2026-11-22T19:56:31.479Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/shade": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/shade",
+    "file": "story_thirty_days_with_the_number_one_hero/shade.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Shade, Number one on the city’s most-wanted list, who robs Ace’s sponsors and has never hurt a bystander",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330917861469948",
+      "promptHash": "e4559a8ac6b74f72ee191c0c64582c4b",
+      "seed": "tdh-shade-01",
+      "costUsd": 0.081,
+      "latencyMs": 15341,
+      "createdAt": "2026-11-22T19:56:32.180Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_the_boardwalk": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_the_boardwalk",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_the_boardwalk.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Boardwalk: The harbour pier: food stalls, a carousel, an arcade of claw machines full of Ace plushies, and a long railing over the water where couples get photographed.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330901711422692",
+      "promptHash": "bd1bbc4d5da5e30480584a67176ea4f2",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:the_boardwalk:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 19594,
+      "createdAt": "2026-11-22T19:56:32.611Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/ace": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/ace",
+    "file": "story_thirty_days_with_the_number_one_hero/ace.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Ace Valor, The number one hero in the city for four years, and your fake boyfriend for thirty days",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330911374442336",
+      "promptHash": "a41d35632434baeb7e47c4fd95580af2",
+      "seed": "tdh-ace-01",
+      "costUsd": 0.081,
+      "latencyMs": 17389,
+      "createdAt": "2026-11-22T19:56:32.707Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/stage_dex_studio": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/stage_dex_studio",
+    "file": "story_thirty_days_with_the_number_one_hero/stage_dex_studio.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Dex’s Studio: One room above a bar in the Narrows: ring lights, three monitors, a sofa where guests sit when Dex is live, and a corkboard of photographs joined with red string.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330909961401020",
+      "promptHash": "79c442ed54cc38765faa0cbfd0215c71",
+      "seed": "sv_thirty_days_with_the_number_one_hero_1:loc:dex_studio:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17812,
+      "createdAt": "2026-11-22T19:56:32.726Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_carriage_court": {
+    "assetKey": "story_annulled_then_claimed/stage_carriage_court",
+    "file": "story_annulled_then_claimed/stage_carriage_court.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Carriage Court: A cobbled courtyard at the foot of the grand stair, crowded with coaches, footmen and horses steaming in the cold.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330960915997609",
+      "promptHash": "32081a04f29a867c79fe13a66ff22068",
+      "seed": "sv_annulled_then_claimed_1:loc:carriage_court:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15231,
+      "createdAt": "2026-11-22T19:56:42.446Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_mereval_townhouse": {
+    "assetKey": "story_annulled_then_claimed/stage_mereval_townhouse",
+    "file": "story_annulled_then_claimed/stage_mereval_townhouse.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Mereval Townhouse: A tall narrow house on the best square in the capital, all dark wood and old portraits, kept exactly as it was when your mother was alive.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330971270059013",
+      "promptHash": "f1d4968075551f9c94b7519b70e58ccb",
+      "seed": "sv_annulled_then_claimed_1:loc:mereval_townhouse:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13302,
+      "createdAt": "2026-11-22T19:56:42.896Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_lantern_quarter": {
+    "assetKey": "story_annulled_then_claimed/stage_lantern_quarter",
+    "file": "story_annulled_then_claimed/stage_lantern_quarter.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Lantern Quarter: The capital’s busiest streets: printers, dressmakers, coffee houses and the offices of the Halcourt Lantern, the broadsheet that prints the court’s secrets before breakfast.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330978456005910",
+      "promptHash": "a665aa844e3857dade5fc851c78fec76",
+      "seed": "sv_annulled_then_claimed_1:loc:lantern_quarter:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13058,
+      "createdAt": "2026-11-22T19:56:44.441Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_audience_hall": {
+    "assetKey": "story_annulled_then_claimed/stage_audience_hall",
+    "file": "story_annulled_then_claimed/stage_audience_hall.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Audience Hall: The King’s hall of judgment: a long cold room with a raised throne, a council bench, and a public gallery whose seats are sold for any hearing worth watching.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330971114757026",
+      "promptHash": "7554c98c69b61be34d98c2208b01aef4",
+      "seed": "sv_annulled_then_claimed_1:loc:audience_hall:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15486,
+      "createdAt": "2026-11-22T19:56:45.067Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/jo": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/jo",
+    "file": "story_thirty_days_with_the_number_one_hero/jo.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Jo Quinn, Your roommate and best friend since university, a night-shift paramedic who is behind on rent",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330976224815557",
+      "promptHash": "ace3c0612ce7b0627d81b906f01bfe28",
+      "seed": "tdh-jo-01",
+      "costUsd": 0.081,
+      "latencyMs": 15554,
+      "createdAt": "2026-11-22T19:56:46.179Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_vahl_residence": {
+    "assetKey": "story_annulled_then_claimed/stage_vahl_residence",
+    "file": "story_annulled_then_claimed/stage_vahl_residence.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Duke’s House: The grand duke’s house in the capital, rented by the season and barely furnished: bare floors, a fire in every room, northern soldiers in the kitchen and a sword yard where the garden should be.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330979032160948",
+      "promptHash": "9e8cffb6ad15650b007e196753ba9bef",
+      "seed": "sv_annulled_then_claimed_1:loc:vahl_residence:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15164,
+      "createdAt": "2026-11-22T19:56:46.666Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/kite": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/kite",
+    "file": "story_thirty_days_with_the_number_one_hero/kite.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Silver Kite, The number two hero, Ace’s oldest friend in the business, and the other half of the couple the tabloids invented",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330983755987632",
+      "promptHash": "ec6908c6ca73a3a2819692c383ed9e4a",
+      "seed": "tdh-kite-01",
+      "costUsd": 0.081,
+      "latencyMs": 15037,
+      "createdAt": "2026-11-22T19:56:47.660Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/mira": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/mira",
+    "file": "story_thirty_days_with_the_number_one_hero/mira.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Mira Solano, Head of talent at Vantage Hero Management, Ace’s manager since he was nineteen, and the author of the thirty-day plan",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330982315502841",
+      "promptHash": "de83f51df14dda050ebb1fcaf73f8f19",
+      "seed": "tdh-mira-01",
+      "costUsd": 0.081,
+      "latencyMs": 15492,
+      "createdAt": "2026-11-22T19:56:47.683Z"
+    }
+  },
+  "story_thirty_days_with_the_number_one_hero/dex": {
+    "assetKey": "story_thirty_days_with_the_number_one_hero/dex",
+    "file": "story_thirty_days_with_the_number_one_hero/dex.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Dex Holloway, The gossip streamer who published the rooftop photos and is sure the relationship is fake",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081330984416291522",
+      "promptHash": "556dfca68e0bcc608b7c191988072867",
+      "seed": "tdh-dex-01",
+      "costUsd": 0.081,
+      "latencyMs": 15418,
+      "createdAt": "2026-11-22T19:56:48.143Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_crane_counting_house": {
+    "assetKey": "story_annulled_then_claimed/stage_crane_counting_house",
+    "file": "story_annulled_then_claimed/stage_crane_counting_house.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Crane Counting House: A handsome bank on Coin Street with a marble front, a hall of quiet clerks and a vault below.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331026810519352",
+      "promptHash": "0dca602132841ff09db25c64ad282632",
+      "seed": "sv_annulled_then_claimed_1:loc:crane_counting_house:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15251,
+      "createdAt": "2026-11-22T19:56:58.159Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_the_chancery": {
+    "assetKey": "story_annulled_then_claimed/stage_the_chancery",
+    "file": "story_annulled_then_claimed/stage_the_chancery.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Chancery of Seals: A domed hall of clerks, ledgers and wax, where every marriage, land grant and title in the kingdom is sealed into the register.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331024914032954",
+      "promptHash": "f2044b37664a786bc27c94994b34d4f4",
+      "seed": "sv_annulled_then_claimed_1:loc:the_chancery:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17267,
+      "createdAt": "2026-11-22T19:56:59.722Z"
+    }
+  },
+  "story_annulled_then_claimed/stage_vahlhold": {
+    "assetKey": "story_annulled_then_claimed/stage_vahlhold",
+    "file": "story_annulled_then_claimed/stage_vahlhold.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "Vahlhold: The grand duke’s castle in the North: black stone, deep snow, fires burning day and night, and a garrison that has heard a great deal about the southern lady its duke went to the capital for.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331033452454597",
+      "promptHash": "a61668fa3809dfb8741bbb5c99453882",
+      "seed": "sv_annulled_then_claimed_1:loc:vahlhold:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15332,
+      "createdAt": "2026-11-22T19:56:59.787Z"
+    }
+  },
+  "story_annulled_then_claimed/kassian": {
+    "assetKey": "story_annulled_then_claimed/kassian",
+    "file": "story_annulled_then_claimed/kassian.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Grand Duke Kassian Vahl, Grand duke of the Northern March, who has just offered to marry you in front of the whole court",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331036039148912",
+      "promptHash": "6c98c70efc1d3b7a20ed5a55ae07a80e",
+      "seed": "atc-kassian-01",
+      "costUsd": 0.081,
+      "latencyMs": 15176,
+      "createdAt": "2026-11-22T19:57:00.255Z"
+    }
+  },
+  "story_annulled_then_claimed/edmund": {
+    "assetKey": "story_annulled_then_claimed/edmund",
+    "file": "story_annulled_then_claimed/edmund.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Crown Prince Edmund, The crown prince who just annulled your engagement in front of four hundred guests",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331042790813985",
+      "promptHash": "5a47b0efa3566e66277ac9901d25cc31",
+      "seed": "atc-edmund-01",
+      "costUsd": 0.081,
+      "latencyMs": 13655,
+      "createdAt": "2026-11-22T19:57:00.335Z"
+    }
+  },
+  "story_annulled_then_claimed/rosalind": {
+    "assetKey": "story_annulled_then_claimed/rosalind",
+    "file": "story_annulled_then_claimed/rosalind.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Lady Rosalind Crane, The count’s niece on Edmund’s arm, whom the whole court believes you tormented",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331090890432697",
+      "promptHash": "971206013a7ad73eafea66459bb21287",
+      "seed": "atc-rosalind-01",
+      "costUsd": 0.081,
+      "latencyMs": 15154,
+      "createdAt": "2026-11-22T19:57:13.323Z"
+    }
+  },
+  "story_annulled_then_claimed/osric": {
+    "assetKey": "story_annulled_then_claimed/osric",
+    "file": "story_annulled_then_claimed/osric.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Marquis Osric Mereval, Your father, head of House Mereval and a member of the King’s council",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331097243068395",
+      "promptHash": "11fd33ffc5d93bc967d6a970204d40c0",
+      "seed": "atc-osric-01",
+      "costUsd": 0.081,
+      "latencyMs": 14994,
+      "createdAt": "2026-11-22T19:57:14.731Z"
+    }
+  },
+  "story_annulled_then_claimed/crane": {
+    "assetKey": "story_annulled_then_claimed/crane",
+    "file": "story_annulled_then_claimed/crane.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Count Benedikt Crane, Rosalind’s uncle, banker to half the court, and the only guest who did not look surprised",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331100000461312",
+      "promptHash": "2e756877eb7eca8c3b22b5f08539cae4",
+      "seed": "atc-crane-01",
+      "costUsd": 0.081,
+      "latencyMs": 15402,
+      "createdAt": "2026-11-22T19:57:15.747Z"
+    }
+  },
+  "story_annulled_then_claimed/signe": {
+    "assetKey": "story_annulled_then_claimed/signe",
+    "file": "story_annulled_then_claimed/signe.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Captain Signe Brask, Captain of the grand duke’s guard, and the person who traced the grain",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331099831503604",
+      "promptHash": "53d3b19d7eabad24c265a4201282479e",
+      "seed": "atc-signe-01",
+      "costUsd": 0.081,
+      "latencyMs": 17204,
+      "createdAt": "2026-11-22T19:57:17.471Z"
+    }
+  },
+  "story_annulled_then_claimed/bette": {
+    "assetKey": "story_annulled_then_claimed/bette",
+    "file": "story_annulled_then_claimed/bette.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Bette Hollin, Your lady’s maid for six years, and the best-informed person below stairs",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331097486729903",
+      "promptHash": "5c102432403a29dee8a6871acd094b71",
+      "seed": "atc-bette-01",
+      "costUsd": 0.081,
+      "latencyMs": 19073,
+      "createdAt": "2026-11-22T19:57:18.869Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/cover": {
+    "styleVersion": "plotbreak-cover-v4-generated"
+  },
+  "story_the_villain_dies_in_chapter_three/stage_great_hall": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_great_hall",
+    "file": "story_the_villain_dies_in_chapter_three/stage_great_hall.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Great Hall: Long oak tables under tall windows, the High Table on its dais where the governors and the noble students sit, and the long scholarship table by the kitchen doors where the commoners eat.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331430741917645",
+      "promptHash": "b66da917b5fadff2a986c1128b93f9b9",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:great_hall:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13216,
+      "createdAt": "2026-11-22T19:58:32.421Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/stage_founders_courtyard": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_founders_courtyard",
+    "file": "story_the_villain_dies_in_chapter_three/stage_founders_courtyard.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Founders’ Courtyard: Pale flagstones inside a cloister, a dry fountain with four bronze founders, and the bell tower at the north corner that rings noon and midnight.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331430897493470",
+      "promptHash": "fcdbff6f8311008358c97fbb77033e45",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:founders_courtyard:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15295,
+      "createdAt": "2026-11-22T19:58:34.471Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/stage_low_dormitory": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_low_dormitory",
+    "file": "story_the_villain_dies_in_chapter_three/stage_low_dormitory.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Low Dormitory: Scholarship rooms over the old stables, reached by an outside stair.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331431404617699",
+      "promptHash": "9ed8808ebf5436199ed9c41367ecacf8",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:low_dormitory:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15276,
+      "createdAt": "2026-11-22T19:58:34.482Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/stage_the_kitchens": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_the_kitchens",
+    "file": "story_the_villain_dies_in_chapter_three/stage_the_kitchens.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Kitchens: Copper pots, a bread oven the size of a cart, and nine people shouting orders at each other in a good mood.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331431345098488",
+      "promptHash": "7d32a11169380be9833eae8c92b30d19",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:the_kitchens:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15314,
+      "createdAt": "2026-11-22T19:58:34.518Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/key": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/key",
+    "file": "story_the_villain_dies_in_chapter_three/key.png",
+    "kind": "KEY_ART",
+    "alt": "Key art for The Villain Dies in Chapter Three",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331431622729213",
+      "promptHash": "acccdac66f4ebf8fe50c5c428c95eb86",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:key:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 19562,
+      "createdAt": "2026-11-22T19:58:38.766Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/stage_dueling_ring": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_dueling_ring",
+    "file": "story_the_villain_dies_in_chapter_three/stage_dueling_ring.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Ring: A circle of raked sand inside tiered stone stands, with a chalk board at the entrance where the day’s duels are posted.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331486235952375",
+      "promptHash": "27a82e4e17276bd97f5ffaed5ed996e8",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:dueling_ring:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15142,
+      "createdAt": "2026-11-22T19:58:47.572Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/stage_governors_lodge": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_governors_lodge",
+    "file": "story_the_villain_dies_in_chapter_three/stage_governors_lodge.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Governors’ Lodge: A grey stone house on the hill above the courtyard where the Board of Governors sits, and where Duke Ulric Grauen is staying this week.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331495178208763",
+      "promptHash": "2701f70f71921270c7aa8b7d15eddcb3",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:governors_lodge:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15621,
+      "createdAt": "2026-11-22T19:58:50.149Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/stage_chapel_steps": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_chapel_steps",
+    "file": "story_the_villain_dies_in_chapter_three/stage_chapel_steps.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Chapel Steps: Seven worn steps up to the old chapel, which nobody uses for services any more.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331512998561443",
+      "promptHash": "e54551729f8fda524d0b8f6453905877",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:chapel_steps:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15562,
+      "createdAt": "2026-11-22T19:58:54.343Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/stage_east_wing": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_east_wing",
+    "file": "story_the_villain_dies_in_chapter_three/stage_east_wing.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The East Wing: The nobles’ residence: a carpeted gallery of suites.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331494815553509",
+      "promptHash": "a01c0cad891870dcd074e5b5e346c9ee",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:east_wing:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 20378,
+      "createdAt": "2026-11-22T19:58:54.860Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/stage_founders_library": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_founders_library",
+    "file": "story_the_villain_dies_in_chapter_three/stage_founders_library.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Founders’ Library: Three floors of stacks around a reading room, and at the back a locked archive cage of founders’ documents that nobody has asked to see in years, among them the founders’ record of how the undercroft was sealed.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331494993109854",
+      "promptHash": "af32c75c0bf9ef6cb1f4e2e858bc3deb",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:founders_library:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 20382,
+      "createdAt": "2026-11-22T19:58:54.874Z"
+    }
+  },
+  "story_three_feet_apart/stage_winter_garden": {
+    "assetKey": "story_three_feet_apart/stage_winter_garden",
+    "file": "story_three_feet_apart/stage_winter_garden.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Winter Garden: A glasshouse at the end of the gallery: orange trees in tubs, a stone fountain, a bench exactly wide enough for two people who are not speaking to each other, and the only quiet in the palace during Conclave week.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331533352635308",
+      "promptHash": "e5a3ad236332ecfe76db0daf0de4f9cd",
+      "seed": "sv_three_feet_apart_1:loc:winter_garden:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15262,
+      "createdAt": "2026-11-22T19:58:58.912Z"
+    }
+  },
+  "story_three_feet_apart/caius": {
+    "assetKey": "story_three_feet_apart/caius",
+    "file": "story_three_feet_apart/caius.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Lord Caius Wren, Your rival court mage since college, the court’s binder, and the other end of the cord",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331533696568249",
+      "promptHash": "7acf5e36b71ad9e8438c0c9d17f13fba",
+      "seed": "tfa-caius-01",
+      "costUsd": 0.081,
+      "latencyMs": 15697,
+      "createdAt": "2026-11-22T19:58:59.374Z"
+    }
+  },
+  "story_three_feet_apart/stage_bridge_market": {
+    "assetKey": "story_three_feet_apart/stage_bridge_market",
+    "file": "story_three_feet_apart/stage_bridge_market.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Bridge Market: The town below the palace: a market built along the old bridge, stalls of hot chestnuts and cheap ribbon, the river underneath, and nobody who cares who you are.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331533434465358",
+      "promptHash": "b429dfe5ed2ba78834cae15ffd9a67c9",
+      "seed": "sv_three_feet_apart_1:loc:bridge_market:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15709,
+      "createdAt": "2026-11-22T19:58:59.384Z"
+    }
+  },
+  "story_three_feet_apart/stage_mages_yard": {
+    "assetKey": "story_three_feet_apart/stage_mages_yard",
+    "file": "story_three_feet_apart/stage_mages_yard.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Mages’ Yard: A walled courtyard of scorched flagstones where the court mages practise and, once in a generation, duel.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331533574715466",
+      "promptHash": "35f54568285f24ee457aae46bddc7125",
+      "seed": "sv_three_feet_apart_1:loc:mages_yard:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 15718,
+      "createdAt": "2026-11-22T19:58:59.394Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/stage_the_undercroft": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_the_undercroft",
+    "file": "story_the_villain_dies_in_chapter_three/stage_the_undercroft.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Undercroft: A low vault under the chapel, older than the academy above it, with seven founders’ marks cut into the walls.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331549645450791",
+      "promptHash": "01c88f6345c6225e58c86a975039ff90",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:the_undercroft:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 13263,
+      "createdAt": "2026-11-22T19:59:00.848Z"
+    }
+  },
+  "story_three_feet_apart/stage_palace_kitchens": {
+    "assetKey": "story_three_feet_apart/stage_palace_kitchens",
+    "file": "story_three_feet_apart/stage_palace_kitchens.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Kitchens: Hot, loud and lit all night: a long scrubbed table, a bread oven the size of a cart, and cooks who feed anyone who comes down after midnight and repeat nothing they hear.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331533970598597",
+      "promptHash": "07799ecb3ff73e091f4bac968890f7e3",
+      "seed": "sv_three_feet_apart_1:loc:palace_kitchens:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 20311,
+      "createdAt": "2026-11-22T19:59:03.986Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/stage_the_gate_road": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/stage_the_gate_road",
+    "file": "story_the_villain_dies_in_chapter_three/stage_the_gate_road.png",
+    "kind": "LOCATION_STAGE",
+    "alt": "The Gate and the Road Down: The academy’s main gate, a porter’s lodge, and the long road winding down the hill to the town and the river.",
+    "width": 1536,
+    "height": 1024,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331560898210490",
+      "promptHash": "fa0b99fee9eb0fdc0d10599dab1f9a9d",
+      "seed": "sv_the_villain_dies_in_chapter_three_1:loc:the_gate_road:anima-v1",
+      "costUsd": 0.081,
+      "latencyMs": 17661,
+      "createdAt": "2026-11-22T19:59:07.820Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/felis": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/felis",
+    "file": "story_the_villain_dies_in_chapter_three/felis.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Felis Corran, Your butler, who has dressed you every morning for fourteen years and is carrying an order from your father he has not decided whether to obey",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331581852218652",
+      "promptHash": "e114accf341970bac1fa179882256768",
+      "seed": "tvd3-felis-01",
+      "costUsd": 0.081,
+      "latencyMs": 13624,
+      "createdAt": "2026-11-22T19:59:08.507Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/elara": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/elara",
+    "file": "story_the_villain_dies_in_chapter_three/elara.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Elara Wynn, The heroine of the book: a scholarship swordswoman from the North March, and the woman whose sword decides how your first day ends",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331578046922091",
+      "promptHash": "e06a100ce83aeabb3aadcedc0d85f684",
+      "seed": "tvd3-elara-01",
+      "costUsd": 0.081,
+      "latencyMs": 15501,
+      "createdAt": "2026-11-22T19:59:09.861Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/cassian": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/cassian",
+    "file": "story_the_villain_dies_in_chapter_three/cassian.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Cassian Dray, The hero of the book: a carter’s son on a scholarship, working the kitchens to pay for it, who in the book’s version of tonight ends you on the chapel steps",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331582161932846",
+      "promptHash": "ef6726cc50e5c4ccaaa3767efe398fc9",
+      "seed": "tvd3-cassian-01",
+      "costUsd": 0.081,
+      "latencyMs": 15916,
+      "createdAt": "2026-11-22T19:59:10.792Z"
+    }
+  },
+  "story_three_feet_apart/hollis": {
+    "assetKey": "story_three_feet_apart/hollis",
+    "file": "story_three_feet_apart/hollis.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Hollis Brand, Master of Chambers: every room, bed and supper seat in the palace",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331599644491983",
+      "promptHash": "5cfb33b50d0883c8e72db23f3e785cae",
+      "seed": "tfa-hollis-01",
+      "costUsd": 0.081,
+      "latencyMs": 13304,
+      "createdAt": "2026-11-22T19:59:12.707Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/viveka": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/viveka",
+    "file": "story_the_villain_dies_in_chapter_three/viveka.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Lady Viveka Sorrel, Your fiancée by family arrangement, a second-year and heir of House Sorrel, who has written to you more than once a week for two years",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331605346986351",
+      "promptHash": "5837d0f4b110e1102bfa8c8d21be2775",
+      "seed": "tvd3-viveka-01",
+      "costUsd": 0.081,
+      "latencyMs": 13188,
+      "createdAt": "2026-11-22T19:59:14.046Z"
+    }
+  },
+  "story_three_feet_apart/thessaly": {
+    "assetKey": "story_three_feet_apart/thessaly",
+    "file": "story_three_feet_apart/thessaly.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Archmage Thessaly Vane, The retiring Royal Archmage, who put both your names on the list for her chair",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331597333430396",
+      "promptHash": "e5b74ef17b336ff360664348ea381fc5",
+      "seed": "tfa-thessaly-01",
+      "costUsd": 0.081,
+      "latencyMs": 15339,
+      "createdAt": "2026-11-22T19:59:14.265Z"
+    }
+  },
+  "story_three_feet_apart/corvina": {
+    "assetKey": "story_three_feet_apart/corvina",
+    "file": "story_three_feet_apart/corvina.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Lady Corvina Ashdown, Chancellor to the Queen, keeper of the seal, the ledgers and the old war treaties",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331599706522450",
+      "promptHash": "8ebd40a9688d4f05dbd00a854f031602",
+      "seed": "tfa-corvina-01",
+      "costUsd": 0.081,
+      "latencyMs": 15586,
+      "createdAt": "2026-11-22T19:59:14.980Z"
+    }
+  },
+  "story_three_feet_apart/prin": {
+    "assetKey": "story_three_feet_apart/prin",
+    "file": "story_three_feet_apart/prin.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Prin Halloway, Your apprentice for two years, who tipped the basket of questions into the fire",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331599485108420",
+      "promptHash": "c8a2e2655d1b7de6d464f36b3cddd701",
+      "seed": "tfa-prin-01",
+      "costUsd": 0.081,
+      "latencyMs": 17492,
+      "createdAt": "2026-11-22T19:59:16.877Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/duke_grauen": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/duke_grauen",
+    "file": "story_the_villain_dies_in_chapter_three/duke_grauen.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Duke Ulric Grauen, Your father, chair of the academy’s Board of Governors this year, on campus today for reasons the book never gave",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331634896076673",
+      "promptHash": "5fdf5fe27d4887f81d282fec7f248bb4",
+      "seed": "tvd3-duke-01",
+      "costUsd": 0.081,
+      "latencyMs": 13259,
+      "createdAt": "2026-11-22T19:59:21.091Z"
+    }
+  },
+  "story_the_villain_dies_in_chapter_three/odalys": {
+    "assetKey": "story_the_villain_dies_in_chapter_three/odalys",
+    "file": "story_the_villain_dies_in_chapter_three/odalys.png",
+    "kind": "CHARACTER_PORTRAIT",
+    "alt": "Odalys Kerr, Master-at-Arms of the academy, keeper of the Duel Code and the Ring, and the only member of staff who walks past the chapel’s crypt door every night on purpose",
+    "width": 1024,
+    "height": 1536,
+    "styleVersion": "anima-v1",
+    "provenance": {
+      "provider": "pixai",
+      "model": "pixai-tsubaki2-lite",
+      "requestId": "2081331637849708675",
+      "promptHash": "9e42f7971559207a697a8a0b4278d400",
+      "seed": "tvd3-kerr-01",
+      "costUsd": 0.081,
+      "latencyMs": 15351,
+      "createdAt": "2026-11-22T19:59:23.869Z"
+    }
   }
 }
