@@ -806,8 +806,51 @@ describe('the copy', () => {
 
   it('keeps the store card free of what the player has to find out', () => {
     for (const text of [story.premise, story.hook, story.fantasyLabel]) {
-      for (const secret of ['June', 'cold room', 'trust', '1966', 'Arthur', 'lender', 'second phone', 'boatyard']) {
+      for (const secret of [
+        'June',
+        'cold room',
+        'trust',
+        '1966',
+        'Arthur',
+        'lender',
+        'second phone',
+        'boatyard',
+        'order sheet',
+        'kitchen corridor',
+        '11:40',
+      ]) {
         expect(text, secret).not.toContain(secret);
+      }
+    }
+  });
+
+  it('keeps the cast cards on the story page free of what the player has to find out', () => {
+    // projections.ts ships role, cardBlurb, publicTraits and appearance to the
+    // Story Detail cast carousel, and the creator note sits on the same page,
+    // all before turn one.
+    const shown: Array<[string, string]> = [
+      ['creatorNote', story.creatorNote],
+      ...story.characters.flatMap((c) =>
+        [c.role, c.cardBlurb, c.appearance, ...c.publicTraits].map((t) => [c.id, t] as [string, string]),
+      ),
+    ];
+    const SECRETS = [
+      'cold room',
+      'photograph',
+      'order sheet',
+      '11:40',
+      'kitchen corridor',
+      'told her so',
+      'lender',
+      'second phone',
+      'boatyard',
+      '1966',
+      'Arthur',
+    ];
+    // Whole words, so "The wedding photographer" is not read as "the photograph".
+    for (const [where, text] of shown) {
+      for (const secret of SECRETS) {
+        expect(text, `${where}: ${secret}`).not.toMatch(new RegExp(`\\b${secret}\\b`, 'i'));
       }
     }
   });

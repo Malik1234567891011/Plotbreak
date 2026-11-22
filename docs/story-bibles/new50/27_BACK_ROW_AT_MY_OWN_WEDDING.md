@@ -36,7 +36,7 @@ The ceremony is at noon in the **Glass Chapel**, a white iron and glass chapel o
 | 01:20 to 03:00 | Elena calls the player eleven times. The coast road has no signal. She leaves one voicemail at 02:47. | On the dead phone |
 | 04:00 | The player's phone dies in the car outside the jeweller's. | Yes |
 | 05:40 | Elena shows June the photo and asks if it is her. June says "I don't know what you want me to say." Elena takes it as a yes. | No |
-| 05:52 | Marcus tells June to reprint the welcome board and place cards with his name. | No |
+| 05:52 | Marcus tells June to reprint the place cards and orders of service with his name, and to correct the welcome board by hand because it cannot be reprinted in time. | No |
 | 06:00 | Marcus tells Constance the player phoned him at three to call the wedding off. | No |
 | 06:10 | Constance, as a trustee, tells Elena the trust says "married", not to whom. Marcus offers. Elena says yes, on paper. | No |
 | 07:02 | The jeweller hands the player the ring. Receipt: cleaning only, dropped off by M. Hale fourteen days ago, no urgency noted. | Yes |
@@ -44,7 +44,7 @@ The ceremony is at noon in the **Glass Chapel**, a white iron and glass chapel o
 | 07:30 | The hotel seamstress lets the player's wedding suit out at the shoulders for Marcus. | No |
 | 08:30 to 12:00 | A lorry closes the coast road for ninety minutes. The player arrives at 12:04. | Yes |
 
-The reprint order (05:52) was placed eighteen minutes before Elena said yes (06:10). That is the proof of premeditation, and June has the sheet.
+The reprint order (05:52: new place cards and orders of service, the welcome board to be corrected by hand, which is why the player's name is struck through in marker) was placed eighteen minutes before Elena said yes (06:10). That is the proof of premeditation, and June has the sheet.
 
 ### Why it has to be today
 
@@ -58,7 +58,7 @@ Two reasons, and he tells himself the first while acting on the second. He has l
 
 ### Why Grandmother does not turn around (the family pattern)
 
-In 1966 Constance Hale, then twenty-one, stood at this same altar waiting for Arthur Hale, who never came. She married his younger brother Edwin, the player's grandfather, that afternoon and was happy for fifty-two years. In 1979 she found a letter from Arthur in Edwin's desk, posted from abroad in 1967 and never given to her: Edwin had sent him across the county the night before the wedding on an errand that did not need doing. She kept the letter, kept the marriage, and told nobody.
+In 1966 Constance Hale, then twenty-one, stood at this same altar waiting for Arthur Hale, then twenty-six, who never came. She married his younger brother Edwin, then twenty-four, the player's grandfather, that afternoon and was happy for fifty-two years. In 1979 she found a letter from Arthur in Edwin's desk, posted from abroad in 1967 and never given to her: Edwin had sent him across the county the night before the wedding on an errand that did not need doing. She kept the letter, kept the marriage, and told nobody.
 
 So when Marcus stood up this morning, she saw history repeating in the version she has spent sixty years believing was the right one. The moment the player says "he sent me to the city at ten to midnight", she will understand exactly what happened, and it will cost her something to say so.
 
@@ -75,19 +75,23 @@ This thread is optional and hidden. A player who never tells her about the erran
 
 ## Player starting authority
 
-The player names themselves and chooses what they do for a living (the archetype). Fixed by the world: they are the younger Hale grandson, Marcus's brother, Elena's groom of the morning, and innocent of what the photograph shows. Everything else, including whether they still want Elena, is theirs.
+The player names themselves and chooses what they do for a living (the archetype). The player is thirty-one. Fixed by the world: they are the younger Hale grandson, Marcus's brother, Elena's groom of the morning, and innocent of what the photograph shows. Everything else, including whether they still want Elena, is theirs.
 
 ### Minimal hard canon
 
-- Everyone in this story is an adult (ages below).
+- Everyone in this story is an adult (ages below). The player is thirty-one; Desmond Ward is sixty-two.
 - The player did not cheat. The photo is a hug, cropped.
+- The player remembers the cold room clearly: a cold room full of the wrong flowers, June crying, a hug that lasted about ten seconds. Nobody has told them anybody saw it. The first time the cold room, the flowers or June's tears come up, the narrator gives the player that memory in a single line, so they are never arguing blind.
 - Marcus took and sent the photo, invented the errand, ordered the reprint before Elena agreed, and lied to Constance.
 - Elena must be married before midnight or lose the trust and her father's yard.
 - Elena's marriage to Marcus is, to her, a marriage on paper.
 - Constance names the next keeper of the Hale in her toast at eight.
 - Nobody is married until the vows are said and the register in the vestry is signed by willing people.
+- The swap is lawful. The Hale's chapel holds its own licence, and here a chapel wedding needs only the vows, two witnesses and the register signed in the vestry, so no paperwork carries the player's name and no technicality can stop it. Only somebody saying no can. The trustees will accept whichever register entry is signed before midnight.
+- Today runs to a schedule: vows 12:20, family photographs 13:10, the lender's man at the bar 15:30, reception 18:00, toast 20:00, first dance 21:00, Elena's thirtieth birthday at midnight.
 - Benny Castellano's contract is with the couple on it: Elena Ward and the player.
 - Violence is a scuffle, never a fight scene.
+- Nobody falls, jumps or is pushed from the cliff path or the boathouse steps, and nobody hurts themselves. If the player goes towards the edge in despair, somebody who cares about them, Sami first, is already on the path, and the scene becomes two people on Edwin's bench.
 
 ## The opener (turn 1)
 
@@ -99,7 +103,7 @@ Starting location: the Glass Chapel, 12:04. Present: Elena, Marcus, Grandmother 
 >
 > "I’m sorry," Elena says, loud enough for the back row. "I called you eleven times."
 >
-> The welcome board by the door says ELENA &, then your name, struck through in black marker. MARCUS is written above it.
+> The welcome board by the door reads ELENA &, and then your name, struck through in black marker, with MARCUS written above it.
 >
 > The ring box you drove all night to collect is still in your pocket.
 >
@@ -107,7 +111,7 @@ Starting location: the Glass Chapel, 12:04. Present: Elena, Marcus, Grandmother 
 >
 > "Please," Elena says. "Sit in the back. Can you do that for me?"
 
-112 words. Elena speaks at word 41 and the beat ends on her question.
+113 words. Elena speaks at word 41 and the beat ends on her question.
 
 Suggestions (said, done, risky):
 
@@ -170,7 +174,7 @@ Cast array order is cover order: Elena, Marcus, Grandmother Hale.
 **Role:** the player's best friend since university, best man, paramedic.  
 **Appearance:** broad and cheerful, close-cropped black hair, navy best-man suit with the white flower still pinned on.  
 **Want:** get the player through today in one piece.  
-**Fear:** the player doing something permanent in front of two hundred witnesses.  
+**Fear:** the player throwing a punch or a ring in front of everybody that they can never take back; the player driving after the bar.  
 **Secrets:** Marcus borrowed six thousand from him last spring and never paid it back; he has a phone charger in his pocket.  
 **Boundaries:** will not lie to Elena for the player; will not let the player drive after the bar; will not stand up as best man for Marcus.  
 **Voice:** paramedic deadpan. Checks pupils and breathing and turns it into a joke halfway through.  
@@ -187,7 +191,7 @@ Cast array order is cover order: Elena, Marcus, Grandmother Hale.
 **Voice:** wry, technical. Gives times as camera settings and evidence as frames. Never says anybody is wrong; says what the light shows.  
 **Sample:** "Golden hour is seven-forty. Whatever you are going to do, do it facing west."
 
-Offstage, named only: Desmond Ward (Elena's father, boatyard owner); Edwin Hale (the player's late grandfather); Arthur Hale (Edwin's older brother, long dead); the officiant; the lender's man in the grey suit.
+Minor or offstage, named only: Desmond Ward (62, Elena's father, boatyard owner, a guest today); Edwin Hale (the player's late grandfather, twenty-four at his 1966 wedding, died in 2018); Arthur Hale (Edwin's older brother, twenty-six in 1966, long dead); the officiant (an adult, no age given on page); the lender's man in the grey suit (an adult).
 
 ## Places
 
@@ -248,7 +252,7 @@ Every place has at least one way in. Nothing is locked.
 | The Coast Road | Uncommon | The player walked out and drove. Reachable early. |
 | Raise a Glass | Uncommon | Marcus exposed at the toast. Revenge, public, survivable. |
 | A Year on Paper | Uncommon | Elena keeps the paper marriage for the money, knowing the truth; the annulment is coming. |
-| The Groom Who Won | Uncommon | The player ruined Marcus in public and lost Elena doing it. |
+| The Last Word | Uncommon | The player ruined Marcus in public and lost Elena doing it. |
 | Before Midnight | Rare | Elena marries the player at 23:50 in the empty chapel. |
 | Somebody Else's Sailing Club | Rare | Elena and the player choose each other and let the money go. |
 | The Keys to the Hale | Rare | Grandmother names the player. |
@@ -261,7 +265,9 @@ Every place has at least one way in. Nothing is locked.
 - Every character is an adult, ages stated above. No age words that read as a minor anywhere in the fixture.
 - No sexual content, no nudity, no lingering body description. Romance up to a kiss.
 - Violence is a scuffle, over in seconds, nobody badly hurt.
+- The cliff path is a private place, never a dangerous one: hard canon says nobody falls, jumps or hurts themselves, and a player heading for the edge in despair finds Sami already there. Sami's fear names the act (a punch, a thrown ring, a drive after the bar), so nothing in the text reads as self-harm.
 - Original premise: the errand, the cropped hug, the midnight trust and the 1966 echo are this story's own. No franchise names, terms or symbols.
+- Title collision search (PLAN section 7.3, done at editor review on 2026-11-22): no anime, manga, webtoon or manhwa titled "Back Row at My Own Wedding" was found. The nearest results were *365 Days to the Wedding*, *Marriage Blues* and *Wedding Impossible*, none of them this title or premise. The ending once called "The Groom Who Won" was renamed "The Last Word" because it echoed the OOC title "The Groom Who Was Replaced".
 
 ## Image plan
 

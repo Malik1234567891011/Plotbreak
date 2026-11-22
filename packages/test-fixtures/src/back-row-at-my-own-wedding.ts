@@ -50,7 +50,7 @@ const raw = {
     'You got back to the Hale, the clifftop hotel your family has run for a hundred years, at four minutes past twelve. Your wedding started at twelve.\n\n' +
     'Your brother is at the altar in your suit. Your bride is holding his hand. Your name has been crossed off the welcome board, and two hundred guests are waiting to see what you do.\n\n' +
     'Somebody showed Elena something in the night. Somebody told your grandmother you had called it off. You did not do either of the things they think you did. You have about fifteen minutes before the vows, and until midnight to find out why it had to be today.\n\n' +
-    'Stop it, or sit in the back and watch. Win her back, ruin him, or walk out to the car park and keep driving. Everybody in that chapel is keeping a secret, including the bride.',
+    'Stop it, or sit in the back and watch. Win her back, ruin him, or walk out to the car park and keep driving. Your grandmother has not turned around, and your brother has not stopped checking his phone.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
@@ -67,7 +67,7 @@ const raw = {
   contentDescriptors: ['ROMANCE', 'PSYCHOLOGICAL_THEMES', 'ALCOHOL_REFERENCES', 'MORAL_AMBIGUITY'],
   intensity: 'MODERATE',
   creatorNote:
-    'You can stop this wedding in the first minute, or sit in the back row and watch it happen, and both are real ways to play. You are innocent, and that is settled. What is not settled is what you do about it, because almost everybody who wronged you this morning had a reason, and the one who did not is your brother.',
+    'You can stop this wedding in the first minute, or sit in the back row and watch it happen, and both are real ways to play. You are innocent, and that is settled. What is not settled is what you do about it, because almost everybody who wronged you this morning had a reason, and the one whose reason you will like least is your brother.',
   rules: {
     defeatMode: 'FAIL_FORWARD',
     progressionMode: 'MILESTONE',
@@ -84,22 +84,26 @@ const raw = {
       { itemId: 'your_vows', qty: 1 },
     ],
     hardCanon: [
-      'Everyone in this story is an adult. Elena Ward is twenty-nine and turns thirty at midnight. Marcus Hale is thirty-three, Constance Hale eighty-one, June Arden twenty-nine, Sami Rahal thirty and Benny Castellano forty-six. The player is the groom, the younger Hale grandson, and a grown man with a job of his own.',
+      'Everyone in this story is an adult. Elena Ward is twenty-nine and turns thirty at midnight. Marcus Hale is thirty-three, Constance Hale eighty-one, June Arden twenty-nine, Sami Rahal thirty and Benny Castellano forty-six. Desmond Ward, Elena’s father, is sixty-two. The player is the groom, the younger Hale grandson, thirty-one, with a job of their own.',
+      'The player remembers the cold room clearly: a cold room full of the wrong flowers, June crying, a hug that lasted about ten seconds. Nobody has told them that anybody saw it. The first time the cold room, the flowers or June’s tears come up, give the player that memory in a single line, so they are never arguing blind.',
       'The player did not cheat on Elena. At 11:40 last night, in the flower cold room under the hotel kitchens, June Arden cried over a ruined flower delivery and the player hugged her. That is all that happened.',
       'Marcus Hale photographed that hug through the round window in the cold-room door, cropped it so it reads as a kiss, and sent it to Elena at 1:14 a.m. from a cheap second phone with the message "Ask him about the cold room." The second phone is in the inside pocket of his own jacket, over a chair in the gatehouse.',
       'At 11:50 p.m. Marcus sent the player to the city to collect their grandmother’s ring from the jeweller, saying it had to be done tonight. It did not: the jeweller had cleaned it a week ago and noted no urgency. The coast road has no signal, the player’s phone died at four, and Elena called eleven times between 1:20 and 3:00.',
-      'At 5:40 a.m. Elena showed June the photograph and asked if it was her. June, mortified, said "I don’t know what you want me to say", and Elena took that as a yes. At 5:52 Marcus told June to reprint the welcome board and the place cards with his name. At 6:00 he told Constance the player had phoned him at three to call the wedding off. At 6:10 Elena agreed to marry Marcus. He gave the reprint order eighteen minutes before she said yes, and June has the order sheet with the time on it.',
+      'At 5:40 a.m. Elena showed June the photograph and asked if it was her. June, mortified, said "I don’t know what you want me to say", and Elena took that as a yes. At 5:52 Marcus told June to reprint the place cards and the orders of service with his name, and to correct the welcome board by hand because it could not be reprinted in time. At 6:00 he told Constance the player had phoned him at three to call the wedding off. At 6:10 Elena agreed to marry Marcus. He gave the reprint order eighteen minutes before she said yes, and June has the order sheet with the time on it.',
       'Elena must be married before her thirtieth birthday, which begins at midnight tonight, or her late mother’s trust passes to a sailing foundation and the money her father Desmond Ward’s boatyard needs by Monday goes with it. Sixty people work at that yard. She never told the player, because she wanted to be sure he was not marrying a deadline. Constance is a trustee and knows. Marcus read the papers on Constance’s desk in March.',
       'Elena agreed to Marcus as a marriage on paper: sign today, the trust pays out, end it quietly within a year. Marcus agreed to that and does not mean it.',
       'Marcus owes 380,000 to a private lender since his restaurant closed. Nobody in the family knows. Constance will name the next keeper of the Hale in her toast at eight tonight, and the Hale is the only thing Marcus could borrow against.',
-      'In 1966 Constance, then twenty-one, stood at this altar waiting for Arthur Hale, who never came. She married his younger brother Edwin, the player’s grandfather, that afternoon and was happy for fifty-two years. In 1979 she found a letter from Arthur in Edwin’s desk: Edwin had sent him across the county the night before the wedding on an errand that did not need doing. She kept the letter in her study and has told nobody.',
+      'In 1966 Constance, then twenty-one, stood at this altar waiting for Arthur Hale, then twenty-six, who never came. She married his younger brother Edwin, then twenty-four, the player’s grandfather, that afternoon and was happy for fifty-two years. In 1979 she found a letter from Arthur in Edwin’s desk: Edwin had sent him across the county the night before the wedding on an errand that did not need doing. She kept the letter in her study and has told nobody.',
       'Nobody is married until the vows are said and the register in the chapel vestry is signed. The officiant will not sign for anybody who is not willing, and is in the building until midnight.',
+      'The swap is lawful. The Hale’s chapel holds its own licence, and here a chapel wedding needs only the vows, two witnesses and the register signed in the vestry, so no paperwork carries the player’s name and no technicality can stop it. Only somebody saying no can. The trustees will accept whichever register entry is signed before midnight.',
+      'Today runs to a schedule: vows at 12:20, family photographs at 1:10, a man from Marcus’s lender at the terrace bar at half past three, the reception in the Long Room at six, Constance’s toast at eight, the first dance at nine, and Elena’s thirtieth birthday at midnight.',
       'Violence here is a scuffle, never a fight scene. If the player swings at or grabs somebody it is over in seconds, guests and staff pull people apart, nobody is badly hurt, and it costs the player the room.',
+      'Nobody in this story falls, jumps or is pushed from the cliff path or the boathouse steps, and nobody hurts themselves. If the player goes towards the edge in despair, somebody who cares about them, Sami first, is already on the path, and the scene becomes two people on Edwin’s bench.',
       'Benny Castellano’s photography contract is with the couple named on it, Elena Ward and the player. He hands raw files only to them.',
     ],
     toneGuide:
       'A wedding-day drama with a comic spine. Humiliation is played straight and the people around it are funny: a paramedic best man doing triage on the groom, a planner talking into a headset, a grandmother who refers to the hotel as a person. ' +
-      'Carry scenes on small physical detail — the suit an inch short at the wrist, the gold watch on the wrong wrist, two hundred yellow flowers that should have been white, a cake with two names iced on it, table nineteen by the kitchen doors. ' +
+      'Carry scenes on small physical detail — the suit an inch short at the wrist, the gold watch on the wrong wrist, buckets of yellow flowers that should have been white, a cake with two names iced on it, table nineteen by the kitchen doors. ' +
       'Two hundred guests are a pressure, not extras: anything public spreads, and phones come out. Nobody is a cartoon. Marcus is warm and reasonable and that is what makes him dangerous; Elena is cold because she is frightened. ' +
       'Revenge is always available and always has a price, named concretely: her father’s yard, June’s job, sixty years of Grandmother’s story. Romance is tense and heartfelt, up to a kiss, and never more. The face at the top of a beat is whoever the player is facing; in the chapel, it is Elena’s.',
     proseStyle: 'webnovel',
@@ -154,7 +158,7 @@ const raw = {
         {
           upTo: 25,
           behaviour:
-            'Running on nothing. The player’s voice goes up half a tone, their hands do things on their own, and every sentence comes out either too loud or too late. This is the band where a reasonable plan becomes a scene in front of the cake, and where ten minutes on a bench on the cliff path is the correct move.',
+            'Running on nothing. The player’s voice goes up half a tone, their hands do things on their own, and every sentence comes out either too loud or too late. This is the band where a reasonable plan becomes a scene in front of the cake, and where ten minutes sitting down somewhere quiet with Sami, or anybody else on their side, is the correct move.',
         },
         {
           upTo: 60,
@@ -189,7 +193,7 @@ const raw = {
         {
           upTo: 50,
           behaviour:
-            'Two hundred people with a story they will tell for years and nothing new to add to it yet. Heads turn when the player walks in and turn back slightly too fast. Elena’s father is watching. Anything said in a doorway is all over the terrace in ten minutes.',
+            'A whole wedding with a story it will tell for years and nothing new to add to it yet. Heads turn when the player walks in and turn back slightly too fast. Elena’s father is watching. Anything said in a doorway is all over the terrace in ten minutes.',
         },
         {
           upTo: 80,
@@ -266,6 +270,7 @@ const raw = {
       id: 'jeweller_receipt',
       name: 'The Jeweller’s Receipt',
       tags: ['document'],
+      questItem: true,
       skillModifiers: { eye: 1 },
       description:
         'Collected 07:02. Cleaning only. Dropped off by M. Hale, fourteen days ago. At the bottom, in the jeweller’s neat hand: "No urgency noted."',
@@ -296,7 +301,7 @@ const raw = {
       tags: ['tool'],
       skillModifiers: { eye: 1 },
       description: 'A pocket battery pack and a short cable. Enough to bring a dead phone back in about ten minutes.',
-      loreText: 'It has a strip of tape on it with your name in marker, because people at work kept walking off with it.',
+      loreText: 'The front desk keeps a whole drawer of these in lost property, left behind by guests, and sensible people carry their own.',
       icon: 'battery',
     },
     {
@@ -307,7 +312,7 @@ const raw = {
       description:
         'A printout of the picture Elena was sent at 1:14 this morning: you and June Arden in the flower cold room, close, through a round window, cropped tight. It looks exactly like a kiss.',
       loreText:
-        'Uncropped, it would show June’s face wet, your hand flat on her back, and two hundred yellow flowers that should have been white.',
+        'Uncropped, it would show June’s face wet, your hand flat on her back, and buckets of yellow flowers that should have been white.',
       icon: 'photo',
     },
     {
@@ -326,7 +331,7 @@ const raw = {
       tags: ['quest', 'document', 'evidence'],
       questItem: true,
       description:
-        'June’s print-room job sheet: new welcome board, new place cards, groom’s name changed to Marcus Hale. Ordered 05:52. Signed by Marcus.',
+        'June’s print-room job sheet: new place cards and orders of service, groom’s name changed to Marcus Hale, welcome board to be corrected by hand. Ordered 05:52. Signed by Marcus.',
       loreText: 'Elena agreed to marry him at 06:10. The order was placed eighteen minutes before she said yes.',
       icon: 'papers',
     },
@@ -540,7 +545,7 @@ const raw = {
       id: 'take_the_microphone',
       name: 'Take the Microphone',
       tags: ['social'],
-      description: 'Speak to the whole room at once, and let two hundred people hear exactly what you have to say.',
+      description: 'Speak to the whole room at once, and let every guest in it hear exactly what you have to say.',
       affordances: ['take the mic', 'microphone', 'give a toast', 'make a speech', 'raise a glass', 'tell everyone', 'announce'],
       costs: [
         { resourceId: 'gossip', amount: 25 },
@@ -644,7 +649,7 @@ const raw = {
       name: 'The Glass Chapel',
       shortName: 'Chapel',
       description:
-        'A chapel of white-painted iron and glass on the very edge of the cliff: two hundred white chairs in rows, wisteria trained over the roof, and the sea filling every window behind the altar. The back row is eleven chairs by the doors, and from there you can see every face that turns.',
+        'A chapel of white-painted iron and glass on the very edge of the cliff: rows of white chairs with every one taken, wisteria trained over the roof, and the sea filling every window behind the altar. The back row is eleven chairs by the doors, and from there you can see every face that turns.',
       artDirection:
         'Bright glass and white iron wedding chapel on a sea cliff at noon, rows of white chairs full of guests, wisteria hanging over a glass roof, deep blue sea behind the altar, white flowers everywhere. Luminous, crowded, tense.',
       connections: [
@@ -660,7 +665,7 @@ const raw = {
       name: 'The Vestry',
       shortName: 'Vestry',
       description:
-        'A narrow room behind the altar with a table, the register in a leather cover, the officiant’s folder, a box of tissues nobody has opened, and a window onto nothing but sea. It is the only room within forty feet of the altar with a door that shuts.',
+        'A narrow room behind the altar with a table, the register in a leather cover, the officiant’s folder, a box of tissues nobody has opened, and a window onto nothing but sea. Beside the register sits a plain gold band in a high-street box, the ring Marcus bought at nine this morning, with its receipt folded under the cushion: two cards declined before a third went through. It is the only room within forty feet of the altar with a door that shuts.',
       artDirection:
         'Small wood-panelled vestry behind a chapel altar, an open leather register on a table, a ring box, a window full of sea and sky, one chair. Quiet, close, private.',
       connections: [{ to: 'the_chapel', travelMinutes: 1, label: 'Back out to the altar' }],
@@ -846,7 +851,7 @@ const raw = {
       name: 'The Car Park',
       shortName: 'Car Park',
       description:
-        'Gravel, two hundred guests’ cars, a white car with ribbons on it that nobody has told what to do, and yours, still ticking from the coast road, with the driver’s door not quite shut. From here the road goes anywhere.',
+        'Gravel, rows of guests’ cars, a white car with ribbons on it that nobody has told what to do, and yours, still ticking from the coast road, with the driver’s door not quite shut. From here the road goes anywhere.',
       artDirection:
         'Gravel hotel car park on a clifftop, rows of guests’ cars, a white wedding car with ribbons, one dusty car with its door ajar, the coast road winding away. Open, tempting, final.',
       connections: [
@@ -864,7 +869,7 @@ const raw = {
       description:
         'A narrow path along the cliff top with a rail on the sea side, gorse on the other, and a bench with a brass plate for Edwin Hale. It is the one place on the estate where nobody from the wedding can see you, and the only place with a phone signal strong enough for a private call.',
       artDirection:
-        'Narrow clifftop path at golden hour, a wooden rail above a long drop to the sea, yellow gorse, a weathered bench with a brass plaque, the hotel small in the distance. Windy, private, beautiful.',
+        'Narrow clifftop path at golden hour, a sturdy wooden rail on the sea side, yellow gorse, a weathered bench with a brass plaque, the hotel small in the distance. Windy, private, beautiful.',
       connections: [
         { to: 'the_wisteria_lawn', travelMinutes: 4, label: 'Back through the hedge to the lawn' },
         { to: 'the_boathouse', travelMinutes: 6, label: 'Down the steps to the beach' },
@@ -951,7 +956,7 @@ const raw = {
       name: 'Elena Ward',
       role: 'The bride. Your fiancée until some time this morning, a litigation lawyer, and the only person in the chapel with a deadline',
       cardBlurb:
-        'She loved you yesterday, she believes a photograph today, and she is asking you, very politely, in front of everyone, to sit in the back. She will not be talked round. She can be shown, if you find something to show her.',
+        'She loved you yesterday. Today she is asking you, very politely, in front of everyone, to sit in the back. She will not be talked round. She can be shown, if you find something to show her.',
       pronouns: 'she/her',
       publicTraits: ['Precise to the point of cruelty when frightened', 'Composed in public, always', 'Will not be rescued'],
       hiddenDrives: [
@@ -964,7 +969,7 @@ const raw = {
         'Turning thirty at midnight with nothing signed and her father’s yard gone on Monday',
       ],
       socialStyle:
-        'Cross-examines. Short questions, one at a time, and she waits for the answer rather than filling the silence. She gets quieter as she gets angrier.',
+        'Cross-examines. Short questions, one at a time, and she waits for the answer rather than filling the silence. She gets quieter as she gets angrier. Says why it had to be today only behind a shut door, and only once you stop defending yourself and ask.',
       boundaries: [
         'Will not be told what she saw. She will be shown something else, or nothing',
         'Will not be touched today unless she reaches first',
@@ -1061,7 +1066,7 @@ const raw = {
       cardBlurb:
         'He is the charming one, the one every aunt asks after, and the one standing where you should be. He will tell you he did it for the family, and he will say it so warmly that you will want to believe him.',
       pronouns: 'he/him',
-      publicTraits: ['Charming in every room he has ever walked into', 'Generous with money he does not have', 'Never raises his voice'],
+      publicTraits: ['Charming in every room he has ever walked into', 'Buys the round before anybody asks', 'Never raises his voice'],
       hiddenDrives: [
         'He has loved Elena since before you met her, introduced you to her himself, and has never forgiven himself for it',
         'He owes 380,000 to a lender since his restaurant closed, and the Hale is the only thing he could borrow against',
@@ -1077,6 +1082,7 @@ const raw = {
       boundaries: [
         'Will not hit back. He knows exactly how it looks if he lets you swing first',
         'Will not admit anything in front of Grandmother Hale',
+        'Will not admit the photograph, even alone, until you have proof in your hand and nobody else can hear',
         'Will not hurt Elena on purpose',
       ],
       goals: [
@@ -1157,7 +1163,7 @@ const raw = {
       calledName: 'Grandmother Hale',
       role: 'Your grandmother. Owner of the Hale for fifty-eight years, and the only person in the chapel who is not surprised',
       cardBlurb:
-        'She believes you phoned at three in the morning to call it off, because your brother told her so. She will name who gets the hotel in her toast tonight, and right now it is not going to be you.',
+        'She did not turn around when you walked in, because somebody had already told her a story about you, and she believed it. Tonight she names who gets the hotel, and right now it is not going to be you.',
       pronouns: 'she/her',
       publicTraits: ['Has never raised her voice', 'Speaks of the hotel as if it were a person', 'Decides things once'],
       hiddenDrives: [
@@ -1172,6 +1178,7 @@ const raw = {
         'Will not discuss family business in front of guests',
         'Will not change her mind because somebody shouts',
         'Will not hear a word against Edwin Hale, her late husband, until she has said it herself',
+        'Will not speak of 1966 unless you have told her, alone, who sent you to the city at ten to midnight, and then asked her straight',
       ],
       goals: [
         'Get both grandsons through the day without a public disgrace',
@@ -1181,7 +1188,7 @@ const raw = {
       secrets: [
         {
           id: 'constance_arthur',
-          fact: 'In 1966 she waited at this altar for Arthur Hale, who never came, and married his younger brother Edwin that afternoon. In 1979 she found Arthur’s letter in Edwin’s desk: Edwin had sent him away on an errand the night before. She kept the letter, kept the marriage, and told nobody.',
+          fact: 'In 1966 she waited at this altar for Arthur Hale, then twenty-six, who never came, and married his younger brother Edwin, then twenty-four, that afternoon. In 1979 she found Arthur’s letter in Edwin’s desk: Edwin had sent him away on an errand the night before. She kept the letter, kept the marriage, and told nobody.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'Only after you have told her about the errand, alone, and asked her straight what really happened in 1966.',
         },
@@ -1255,9 +1262,9 @@ const raw = {
       name: 'June Arden',
       role: 'Events manager at the Hale, who planned this wedding with you for eleven months',
       cardBlurb:
-        'She is in the photograph with you, she knows exactly what it shows, and she has been too ashamed since twenty to six this morning to say so. She also has the order sheet that proves your brother planned this.',
+        'She has run this day to the minute for eleven months, and since you walked in she has not once looked at you. She keeps starting to say something, and stopping.',
       pronouns: 'she/her',
-      publicTraits: ['Runs two hundred people from a headset without raising her voice', 'Apologises to furniture', 'Remembers every guest’s allergy'],
+      publicTraits: ['Runs a whole wedding from a headset without raising her voice', 'Apologises to furniture', 'Remembers every guest’s allergy'],
       hiddenDrives: [
         'She has been half in love with you for about four months, and that is exactly why she froze when Elena asked her',
         'She wants to undo what her silence did without losing the job her flat comes with',
@@ -1273,6 +1280,8 @@ const raw = {
         'Will not lie for Marcus, even to keep her job',
         'Will not say what she feels about you while you are still somebody else’s groom',
         'Will not leave her staff in the middle of a service',
+        'Will not hand the order sheet to anybody who might make her the scandal',
+        'Will not be used to make Elena jealous; she sees it at once and leaves the room',
       ],
       goals: [
         'Get the day through without anybody getting hurt',
@@ -1288,7 +1297,7 @@ const raw = {
         },
         {
           id: 'june_the_order',
-          fact: 'Marcus told her to reprint the welcome board and the place cards at 5:52, eighteen minutes before Elena agreed to marry him. She has the order sheet with his signature and the time.',
+          fact: 'Marcus told her to reprint the place cards and correct the welcome board at 5:52, eighteen minutes before Elena agreed to marry him. She has the order sheet with his signature and the time.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She shows it to you once she trusts that you will not use her as the scandal.',
         },
@@ -1300,7 +1309,7 @@ const raw = {
         },
       ],
       speechStyle:
-        'Run-sheet English: times to the minute, "copy", "standing by", "go". Professional politeness that cracks into fast, honest, slightly too much. Never swears on the headset; swears quietly off it.',
+        'Run-sheet English: times to the minute, "copy", "standing by", "go". Professional politeness that cracks into fast, honest, slightly too much. Never loses her temper on the headset; mutters at the run sheet off it.',
       topics: ['the cold room', 'the flowers', 'the place cards', 'the reprint order', 'the run sheet', 'the staff', 'her job'],
       voiceSamples: [
         'Twelve-oh-six. Ceremony’s live, vows in fourteen minutes, and I am not supposed to be telling you any of that.',
@@ -1360,11 +1369,11 @@ const raw = {
       pronouns: 'he/him',
       publicTraits: ['Unshakeable in a real crisis', 'Hopeless in a social one', 'Loyal past the point of sense'],
       hiddenDrives: [
-        'He has never liked Marcus and has spent four years being polite about it for your sake',
-        'He is frightened you will do something today that you cannot take back, because he has seen what that looks like at three in the morning from the back of an ambulance',
+        'He has never liked Marcus and has spent ten years being polite about it for your sake',
+        'He is frightened you will do something today you cannot take back, a punch at your brother or a drive after the bar, because he has driven too many people to hospital after one bad decision at a party',
       ],
       values: ['Showing up', 'Saying it plainly'],
-      fears: ['You doing something permanent in front of two hundred witnesses', 'Being useless when it matters'],
+      fears: ['You throwing a punch or a ring in front of everybody that you can never take back', 'Being useless when it matters'],
       socialStyle:
         'Triage first: checks you over, makes a joke, then asks the one question that matters. Stands between you and trouble without being asked.',
       boundaries: [
@@ -1438,7 +1447,7 @@ const raw = {
       name: 'Benny Castellano',
       role: 'The wedding photographer, hired by June, who has shot six hundred weddings and photographs everything',
       cardBlurb:
-        'He was shooting the kitchen corridor at 11:40 last night for behind-the-scenes and has no idea what he caught. His contract is with the couple named on it, and one of them is you.',
+        'He has shot six hundred weddings, never deletes a frame and never takes sides. His contract is with the couple named on it, and the couple named on it is still Elena and you.',
       pronouns: 'he/him',
       publicTraits: ['Sees everything through a long lens', 'Neutral as a matter of professional pride', 'Talks about light the way other people talk about weather'],
       hiddenDrives: [
@@ -1520,12 +1529,12 @@ const raw = {
     {
       id: 'q_back_row',
       title: 'Back Row',
-      summary: 'Your bride has asked you, in front of two hundred guests, to sit in the back while she marries your brother. The vows are about fifteen minutes away.',
+      summary: 'Your bride has asked you, in front of the whole chapel, to sit in the back while she marries your brother. The vows are about fifteen minutes away.',
       kind: 'MAIN',
       startsActive: true,
       involvedCharacterIds: ['elena', 'marcus', 'constance'],
       involvedLocationIds: ['the_chapel', 'the_vestry'],
-      knownRewardCopy: 'An answer, given in public, and whatever two hundred people make of it.',
+      knownRewardCopy: 'An answer, given in public, and whatever the guests make of it.',
       steps: [
         {
           id: 'the_aisle',
@@ -1589,7 +1598,7 @@ const raw = {
           id: 'the_vows',
           playerCopy: 'Find out whether anybody says vows today.',
           directorNotes:
-            'If nothing stopped it, the vows happen at twenty past twelve and the register is signed by half past. Elena’s voice is steady and she does not look at the back row. If the ceremony was stopped, the officiant closes the folder, the quartet starts playing something to cover it, and two hundred people stand up at once. A pause is only a pause: Elena gives the player an hour, not an answer.',
+            'If nothing stopped it, the vows happen at twenty past twelve and the register is signed by half past. Elena’s voice is steady and she does not look at the back row. If the ceremony was stopped, the officiant closes the folder, the quartet starts playing something to cover it, and the whole chapel stands up at once. A pause is only a pause: Elena gives the player an hour, not an answer.',
           enterWhen: { flagsSet: ['the_aisle_answered'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1982,7 +1991,7 @@ const raw = {
       kind: 'MAIN',
       involvedCharacterIds: ['constance', 'marcus', 'elena', 'june'],
       involvedLocationIds: ['the_long_room', 'constance_study'],
-      knownRewardCopy: 'Whatever you say to two hundred people, and whose name comes out of the envelope.',
+      knownRewardCopy: 'Whatever you say to the whole room, and whose name comes out of the envelope.',
       discoverWhen: { flagsSet: ['the_aisle_answered'] },
       steps: [
         {
@@ -2044,14 +2053,14 @@ const raw = {
             {
               routeId: 'she_named_nobody',
               label: 'She tears it in half and gives the Hale to its staff',
-              predicate: { flagsSet: ['constance_knows_the_errand', 'marcus_exposed'] },
+              predicate: { flagsSet: ['constance_knows_the_errand', 'the_toast_happened'] },
               setsFlags: ['the_hale_to_the_staff'],
               closesFlags: ['constance_named_you', 'constance_named_marcus'],
             },
             {
               routeId: 'she_named_marcus',
               label: 'She reads your brother’s name',
-              predicate: { flagsSet: ['the_toast_happened'] },
+              predicate: { flagsSet: ['the_toast_happened'], flagsUnset: ['constance_knows_the_errand'] },
               setsFlags: ['constance_named_marcus'],
               closesFlags: ['constance_named_you', 'the_hale_to_the_staff'],
             },
@@ -2259,7 +2268,7 @@ const raw = {
       atWorldMinute: 13 * 60 + 10,
       locationId: 'the_wisteria_lawn',
       publicCopy:
-        'Benny Castellano calls for the groom’s family under the wisteria, and there is a long, awful pause while two hundred people work out what that means now.',
+        'Benny Castellano calls for the groom’s family under the wisteria, and there is a long, awful pause while the whole lawn works out what that means now.',
       directorNotes:
         'Only if the vows were said. Benny does his job: he arranges the Hales in rows, asks Grandmother to sit, and leaves a gap at the end where the player would have stood. If the player stands in it, he takes the picture anyway.',
       setsFlags: [],
@@ -2298,7 +2307,7 @@ const raw = {
       atWorldMinute: 18 * 60,
       locationId: 'the_long_room',
       publicCopy:
-        'The double doors to the Long Room open, the band starts, and two hundred people find their names on a seating chart that has been changed twice since breakfast.',
+        'The double doors to the Long Room open, the band starts, and the guests find their names on a seating chart that has been changed twice since breakfast.',
       directorNotes:
         'The reception happens whatever state the wedding is in, because the food is paid for and Grandmother Hale has decided it will. The microphone by the dance floor is live from here on.',
       setsFlags: ['reception_open'],
@@ -2495,7 +2504,7 @@ const raw = {
     {
       id: 'what_you_want',
       label: 'Walking in, what do you want most?',
-      helpText: 'Where your head is at in the doorway, not a promise. You can change your mind before the vows and the world will keep up.',
+      helpText: 'Where your head is at in the doorway, not a promise. You can change your mind at any point today.',
       kind: 'CHOICE',
       advanced: true,
       options: [
@@ -2575,7 +2584,7 @@ const raw = {
       minTurn: 25,
       requires: { flagsSet: ['exposed_in_public', 'marcus_exposed'], flagsUnset: ['ruined_marcus'] },
       condition:
-        'The player took the microphone at the reception and told two hundred people, with proof and with times, exactly what their brother did, and then stopped. That is revenge, public and survivable. Write the price as well as the win: Elena heard it at the same moment as her father’s whole boatyard did, and she will not forget who chose the room.',
+        'The player took the microphone at the reception and told the whole room, with proof and with times, exactly what their brother did, and then stopped. That is revenge, public and survivable. Write the price as well as the win: Elena heard it at the same moment as her father’s whole boatyard did, and she will not forget who chose the room.',
       epilogue:
         'Two hundred people tell the story for twenty years and every version has the toast in it. Marcus keeps his job and loses every Sunday lunch for a year. One of Elena’s aunts sends a card every Christmas that just says: still the better brother.',
       hint: '',
@@ -2604,7 +2613,7 @@ const raw = {
       condition:
         'The player walked out to the car park, got into the car that still smelled of the coast road, and drove. No scene, no proof, no explanation to anybody. Do not make it a defeat and do not make it brave. It is a completely reasonable thing to do when your own wedding has been taken off you.',
       epilogue:
-        'Eleven missed calls becomes forty by the evening. The ring box is still in the glovebox a month later. Grandmother Hale writes once, by hand, two lines, and the second line is: the last man who drove away from that chapel was not wrong to.',
+        'Eleven missed calls becomes forty by the evening. The ring box is still in the glovebox a month later. Grandmother Hale writes once, by hand, two lines, and the second line is: the last man sent away from that chapel the night before a wedding was not the one at fault either.',
       hint: '',
     },
     {
@@ -2648,12 +2657,12 @@ const raw = {
     },
     {
       id: 'end_the_groom_who_won',
-      name: 'The Groom Who Won',
+      name: 'The Last Word',
       rarity: 'UNCOMMON',
       minTurn: 28,
       requires: { flagsSet: ['ruined_marcus', 'exposed_in_public'], flagsUnset: ['elena_chose_you'] },
       condition:
-        'The player took the microphone, proved everything, and finished their brother in front of two hundred people. It worked. Write the price as plainly as the win: Elena found out in front of her father’s whole boatyard, Grandmother had to watch, and the player has to be the man who did it for the rest of their life.',
+        'The player took the microphone, proved everything, and finished their brother in front of everybody. It worked. Write the price as plainly as the win: Elena found out in front of her father’s whole boatyard, Grandmother had to watch, and the player has to be the man who did it for the rest of their life.',
       epilogue:
         'The clip is everywhere by Tuesday. Marcus leaves the country, and the lender does not stop at Marcus. Elena sends one message, three weeks later, which says thank you and goodbye in the same sentence, and the player reads it far more often than is healthy.',
       hint: '',
@@ -2687,7 +2696,7 @@ const raw = {
     },
   ],
   opening:
-    "Two hundred guests turn as the chapel doors bang shut behind you.\n\nAt the altar, your brother Marcus is wearing your suit. Beside him, in the dress you were never allowed to see, your bride lets go of his hand.\n\n\"I’m sorry,\" Elena says, loud enough for the back row. \"I called you eleven times.\"\n\nThe welcome board by the door says ELENA &, then your name, struck through in black marker. MARCUS is written above it.\n\nThe ring box you drove all night to collect is still in your pocket.\n\nYour grandmother, front pew, does not turn around.\n\n\"Please,\" Elena says. \"Sit in the back. Can you do that for me?\"",
+    "Two hundred guests turn as the chapel doors bang shut behind you.\n\nAt the altar, your brother Marcus is wearing your suit. Beside him, in the dress you were never allowed to see, your bride lets go of his hand.\n\n\"I’m sorry,\" Elena says, loud enough for the back row. \"I called you eleven times.\"\n\nThe welcome board by the door reads ELENA &, and then your name, struck through in black marker, with MARCUS written above it.\n\nThe ring box you drove all night to collect is still in your pocket.\n\nYour grandmother, front pew, does not turn around.\n\n\"Please,\" Elena says. \"Sit in the back. Can you do that for me?\"",
   openingPanel: {
     assetKey: 'story_back_row_at_my_own_wedding/opening',
     alt: 'Elena in an ivory high-necked wedding dress at a glass chapel altar above the sea, letting go of the groom’s hand and looking down the aisle, guests turning.',
