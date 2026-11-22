@@ -180,6 +180,62 @@ describe('content stays at thirteen and up, and stays original', () => {
   });
 });
 
+describe('the cover, the opening panel and the release', () => {
+  it('gives the title its own TITLE: line, spelled exactly, and keeps every effect off faces', () => {
+    // generatedCoverPrompt drops the generic lower-third rules only when the
+    // direction carries its own TITLE: line.
+    const cover = S.coverDirection!;
+    expect(cover.indexOf('TITLE:')).toBeGreaterThan(-1);
+    const titleLine = cover.slice(cover.indexOf('TITLE:'));
+    expect(titleLine).toContain('Noodles or Blood');
+    expect(titleLine).toContain('Spelled exactly NOODLES OR BLOOD');
+    expect(titleLine).toMatch(/upper third/);
+    expect(cover).toMatch(/HIS FACE STAYS CLEAN/);
+    expect(cover).toMatch(/never on a face/);
+    expect(cover).toMatch(/No other text anywhere/);
+  });
+
+  it('declares the opening panel under the story’s own asset prefix', () => {
+    expect(S.id).toBe('sv_noodles_or_blood_1');
+    expect(S.storyId).toBe('story_noodles_or_blood');
+    expect(S.openingPanel?.assetKey).toBe('story_noodles_or_blood/opening');
+    expect(S.openingPanel!.alt.length).toBeLessThanOrEqual(200);
+  });
+
+  it('starts the panel alt with the first name of whoever speaks in the opener', () => {
+    // opening-panel-art.ts uses that character's portrait as the reference.
+    const firstNamed = S.characters
+      .map((c) => ({ c, at: S.opening.indexOf(calledName(c)) }))
+      .filter((x) => x.at >= 0)
+      .sort((a, b) => a.at - b.at)[0]!.c;
+    expect(firstNamed.id).toBe('daigo');
+    expect(S.openingPanel!.alt.startsWith(`${firstNamed.name.split(' ')[0]!} `)).toBe(true);
+  });
+
+  it('draws a portrait for everybody with a card', () => {
+    for (const c of S.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance.length, c.id).toBeGreaterThan(80);
+    }
+  });
+
+  it('opens straight on the scene and has no release date yet', () => {
+    expect(S.prologue).toEqual([]);
+    expect(S.publishedAt).toBeNull();
+  });
+
+  it('says what everybody is actually called', () => {
+    for (const c of S.characters) expect(c.calledName, c.id).toBeTruthy();
+  });
+
+  it('tells the storyteller what the invisible variables look like', () => {
+    // Production's storyteller never reads resources, so the warden's
+    // attention and the landing's bruises have to be in hard canon.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/warden’s attention/);
+    expect(canon).toMatch(/Bruises from the landing/);
+  });
+});
+
 describe('the rent is the opener, and every answer to it is a route', () => {
   it('starts the rent and the record live, and nothing else', () => {
     expect(S.quests.filter((q) => q.startsActive).map((q) => q.id)).toEqual(['q_rent_is_due', 'q_on_the_record']);

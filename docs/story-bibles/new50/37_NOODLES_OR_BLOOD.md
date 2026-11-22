@@ -5,7 +5,7 @@
 **Hook:** Rent’s due on your first night: noodles for the whole floor, or a fight on the back stairs.
 **Fantasy label:** Pay the floor in noodles, or in bruises.
 **Fixture:** `packages/test-fixtures/src/noodles-or-blood.ts` (`NOODLES_OR_BLOOD`, `story_noodles_or_blood`, `sv_noodles_or_blood_1`). **Spec:** `noodles-or-blood.spec.ts`.
-**Asset key prefix:** `story_noodles_or_blood`. No art yet, so no `openingPanel` and no prologue.
+**Asset key prefix:** `story_noodles_or_blood`. `openingPanel` is `story_noodles_or_blood/opening`, its alt starting with Daigo (the opener's speaker, whose portrait is the panel's reference). No prologue; `publishedAt` stays null until release.
 **Protagonist:** BLANK. The player names themselves; the archetype is the trade they study.
 
 ## Adults only
@@ -338,11 +338,20 @@ The archetype is fixed for the whole story and cannot be changed later.
 ## Cover direction
 
 A key visual for a trade-college dormitory comedy anime. Daigo sprawled in a plastic chair, boots up
-beside a leaning tower of empty noodle bowls, the corridor behind him with residents in work clothes
-(mechanic's overalls, a chef's jacket, paint-stained hoodies, work boots) leaning out of doorways and
-Rumi unimpressed in one of them. No school uniforms. Fluorescent
-green-white light, steam, a red exit sign over the stairwell door. No blood, injuries or weapons.
-Title **NOODLES OR BLOOD** painted into the art in the upper third. No other text.
+beside a leaning tower of empty noodle bowls and a steaming dented pot, the corridor behind him with
+residents in work clothes (mechanic's overalls, a chef's jacket, paint-stained hoodies, work boots)
+leaning out of doorways and Rumi unimpressed in one of them. No school uniforms. Fluorescent
+green-white light, a small red lamp (not a lettered exit sign) over the stairwell door. No injuries or
+weapons. People are described by build, costume and pose only, never by age words.
+
+The fixture's `coverDirection` has its own `TITLE:` line: the title Noodles or Blood painted into the
+upper third in capitals as a hand-brushed ink logo, NOODLES in creamy white with wooden chopsticks
+crossed behind it, a smaller OR, BLOOD in red with one drip of chili oil off the last letter, spelled
+exactly NOODLES OR BLOOD. Effects stay on objects and the title: the steam on the pot, the red on the
+title, never on a face. No other text anywhere.
+
+**Opening panel:** Daigo at "Rent's due, Transfer.": scorched welding jacket, boots on the table beside
+the tower of bowls, grinning at the viewer while the corridor watches.
 
 ## Originality
 
@@ -357,9 +366,11 @@ Title **NOODLES OR BLOOD** painted into the art in the upper third. No other tex
 
 - Not registered in `index.ts` (task said not to edit it). Add the export and catalog entry there,
   then `npm run migrate` and a new session.
-- Add `openingPanel` and art keys once art exists (`story_noodles_or_blood/...`). `release-stories.ts`
-  refuses a story without `openingPanel`, and the story must be exported through `withDerivedAssetKeys`
-  in `index.ts` before any catalog spec covers it.
+- `openingPanel` is declared; the art itself is not drawn yet. Register the story raw in `index.ts`,
+  draw the art (`docs/stories-50/PIPELINE.md` step 3), then export it through `withDerivedAssetKeys`
+  before any catalog spec covers it. Set `publishedAt` to the real date at release.
+- The storyteller never reads resources, so hard canon spells out what the warden's attention (Heat),
+  the landing's bruises (Bruising) and a long day (Stamina) look like in the fiction.
 - After registering, run smoke with the storyId substring: `npm run smoke -- --only=noodles_or_blood`
   (underscores). The filter is `storyId.includes(only)`, so the hyphen slug matches no world and passes
   having played nothing. The run must print `swept Noodles or Blood`.
