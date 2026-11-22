@@ -389,8 +389,33 @@ Sylph's book is story only: a bet never costs or pays app credits.
 Ishiko alone and large in the foreground, waist up, standing tall behind a scarred desk with both fists
 planted on it, looming down at the viewer: red horns, rope-tied black hair, amber eyes, the scar, a dark
 high-collared warden's coat buttoned to the throat with the sleeves torn off, iron gauntlet, a wide
-challenging grin. Modest and fully clothed, the coat closed to the collar. Behind her, soft and secondary: a tiered gothic classroom of monster
-classmates turned to stare; Sylph in the window seat; the Countess smiling with sharp teeth in the back
-row, in soft focus; Mr. Bones at the lectern with his pen over the register. Warm morning sun rims her
-horns in gold. The title HUMAN, ROW THREE is painted into the upper third as a hand-lettered chalk logo.
-No other text: the ledger and walls show abstract marks only, no letters and no numbers. No age words.
+challenging grin. Behind her, soft and secondary: a tiered gothic lecture hall of monster classmates
+turned to stare; Sylph in her flight jacket in the window seat; the Countess in her council coat and
+sash, smiling with sharp teeth in the back row, in soft focus; Mr. Bones at the lectern with his pen over
+the register. Warm morning sun rims her horns in gold. No other text: the ledger and walls show abstract
+marks only, no letters and no numbers.
+
+- **Title.** The fixture's `coverDirection` has its own `TITLE:` line, so the generic "lower third / no
+  lettering" rules drop out of the prompt: the title Human, Row Three in the upper third as a bold
+  hand-lettered chalk logo, white with a thin red outline and a little chalk dust coming off the letters,
+  lettered in capitals and spelled exactly HUMAN, ROW THREE with the comma.
+- **Effects.** The chalk dust, the red outline and the glint of iron stay on the desk, the gauntlet and
+  the title. Her face stays clean apart from the one thin scar.
+- **People.** Everyone is described by costume and pose, never by an age word. There is no "modest" or
+  "fully clothed" line: the coat buttoned to the throat says it, and stacking clothing-state words is what
+  got Ace's cover refused (`infra/scripts/generate-art.ts`).
+
+## Opening panel and release
+
+- `openingPanel`: `story_human_row_three/opening`. The alt starts with "Ishiko", the first person to
+  speak to the player, so her portrait is the panel's reference: she looms over her desk from row four
+  while Mr. Bones holds his pen over the register. 172 characters (max 200).
+- No prologue: the story opens straight on roll call. `publishedAt: null` until the release sets it.
+- The system the storyteller needs (roll call, paragraph nine, the ward, naming, the lanterns, glamour)
+  is in `hardCanon`; the player starts holding the exchange papers with paragraph nine on them, and every
+  archetype starts with Answer for Yourself. `calledName`: Vey, Mr. Bones, Keeper. `toneGuide` doubles
+  as the cover's mood text.
+- `story-checks.ts` prints four WARNs for `attacked:sylph`, `attacked:vey`, `attacked:bones` and
+  `attacked:teague`. Those flags are written by the engine when a character is attacked
+  (`packages/engine/src/resolve.ts`), not by story data; the checker's list of engine-written prefixes
+  does not include `attacked:`. Not a story bug.

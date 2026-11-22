@@ -54,7 +54,19 @@ describe('prose is prose', () => {
     expect(S.storyId).toBe('story_human_row_three');
     expect(S.openingPanel?.assetKey).toBe('story_human_row_three/opening');
     expect(S.openingPanel?.alt).toMatch(/^Ishiko /);
+    expect(S.openingPanel!.alt.length).toBeLessThanOrEqual(200);
     expect(S.publishedAt).toBeNull();
+    expect(S.prologue).toHaveLength(0);
+  });
+
+  it('draws the opening panel from the cast member who talks to you in the opener', () => {
+    // The panel script uses the character whose first name starts the alt as
+    // its reference portrait, so that character has to be in the scene.
+    const first = S.openingPanel!.alt.split(' ')[0]!;
+    const named = S.characters.find((c) => c.name.split(' ')[0] === first)!;
+    expect(named.id).toBe('garra');
+    expect(S.opening).toContain(`${first} says.`);
+    expect(named.appearance.length).toBeGreaterThan(80);
   });
 });
 
@@ -151,6 +163,15 @@ describe('the system lives where the storyteller can read it', () => {
     expect(canon).toMatch(/Founders’ ward/);
     expect(canon).toMatch(/heads of three different Houses vouch/);
     expect(canon).toMatch(/Three lit keeps it open/);
+  });
+
+  it('calls the titled cast by the name the room uses, and sets the tone', () => {
+    const called = (id: string) => S.characters.find((c) => c.id === id)!.calledName;
+    expect(called('vey')).toBe('Vey');
+    expect(called('bones')).toBe('Mr. Bones');
+    expect(called('keeper')).toBe('Keeper');
+    // toneGuide is also the cover's mood text.
+    expect(S.rules.toneGuide).toMatch(/^Monster-school comedy with a real clock under it\./);
   });
 });
 
@@ -275,6 +296,26 @@ describe('the cover', () => {
     expect(cover).toContain('HUMAN, ROW THREE');
     expect(cover).toContain('Ishiko');
     expect(cover).toMatch(/no letters, no numbers/i);
+  });
+
+  it('gives the title its own line: style, placement and exact spelling', () => {
+    // A TITLE: line owns the lettering, so the generic "lower third / no
+    // lettering" cover rules drop out of the prompt (generatedCoverPrompt).
+    const cover = S.coverDirection!;
+    expect(cover.match(/TITLE:/g)).toHaveLength(1);
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(title).toContain(S.title);
+    expect(title).toMatch(/upper third/);
+    expect(title).toMatch(/chalk logo/);
+    expect(title).toMatch(/spelled exactly HUMAN, ROW THREE\b/);
+  });
+
+  it('keeps every effect on the objects and the title, never on her face', () => {
+    const cover = S.coverDirection!;
+    expect(cover).toMatch(/HER FACE STAYS CLEAN/);
+    expect(cover).toMatch(/stays on the desk, the gauntlet and the title, never on her face/);
+    // The generate-art lesson: dress people by costume, do not stack clothing-state words.
+    expect(cover).not.toMatch(/fully clothed|modest/i);
   });
 
   it('poses and dresses everybody for a 13+ shelf', () => {

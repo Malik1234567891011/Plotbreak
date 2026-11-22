@@ -37,6 +37,11 @@ import { StoryVersion } from '@plotbreak/contracts';
  * human in a fight is exactly what brings the wardens. Glamour is what this
  * side of the Briar puts on you each time you eat its food or strike its
  * bargains; it makes the place kinder and the gate stiffer.
+ *
+ * Art: the cover's `TITLE:` line owns the lettering, and every effect stays on
+ * the desk, the gauntlet and the title, never on Ishiko's face. The opening
+ * panel's alt starts with "Ishiko", who is the first to speak to the player,
+ * so her portrait is the panel's reference image.
  */
 
 const raw = {
@@ -2525,14 +2530,18 @@ const raw = {
     'I walk up to the lectern, take his pen and write my real name over "Human".',
   ],
   coverDirection: [
-    'SUBJECT: Ishiko, a tall oni woman, alone and unmistakable in the foreground of a key visual for a monster-academy comedy anime.',
+    'SUBJECT: Ishiko, a tall oni warden, alone and unmistakable in the foreground of a key visual for a monster-academy comedy anime.',
     'She fills the frame from the waist up, standing tall behind a scarred wooden desk, both fists planted on it, looming down at the viewer, holding about two thirds of the picture.',
-    'Two short red horns curving up from a mane of black hair tied back with a rope, amber eyes, a scar through one eyebrow, a dark high-collared warden’s coat, buttoned to the throat, with the sleeves torn off, and a warden’s iron gauntlet on one forearm. She is modest and fully clothed, her coat closed to the collar.',
+    'Two short red horns curving up from a mane of black hair tied back with a rope, amber eyes, a thin scar through one eyebrow, a dark high-collared warden’s coat buttoned to the throat with the sleeves torn off, and a warden’s iron gauntlet on one forearm.',
     'Her expression is a wide, challenging grin with one eyebrow raised, looking straight at the viewer as if sizing them up.',
-    'BEHIND HER, soft and secondary: a tiered gothic classroom full of monster classmates turned to stare, horns, wings and fins; a winged woman with grey-blue feathers in the window seat; in the back row a pale woman in a crimson sash smiling with sharp teeth, in soft focus.',
+    'HER FACE STAYS CLEAN apart from that one thin scar: no chalk dust, smudges, marks or shadow across her face or skin.',
+    'Every effect, the chalk dust, the red outline and the glint of iron, stays on the desk, the gauntlet and the title, never on her face.',
+    'BEHIND HER, soft and secondary: a tiered gothic lecture hall full of monster classmates turned to stare, horns, wings and fins;',
+    'a harpy in a scuffed flight jacket with grey-blue wings folded in the window seat; in the back row a pale vampire in a black council coat and crimson sash, smiling with sharp teeth, in soft focus.',
     'At one side, partly out of frame, a skeleton teacher in a grey suit at a lectern, pen raised over a huge black ledger.',
     'LIGHT: warm morning sun through tall windows behind her, rimming her horns in gold, with cool shadow in the back row.',
-    'TITLE: the words HUMAN, ROW THREE painted into the art in the upper third as a bold hand-lettered chalk logo, white with a thin red outline, spelled exactly HUMAN, ROW THREE, large and legible at thumbnail size.',
+    'TITLE: the story title, Human, Row Three, painted into the art in the upper third as a bold hand-lettered chalk logo, white with a thin red outline and a little chalk dust drifting off the letters,',
+    'lettered in capitals and spelled exactly HUMAN, ROW THREE, with the comma after HUMAN, large and legible at thumbnail size.',
     'No other text anywhere: the ledger pages and the walls show only abstract marks, no letters, no numbers.',
   ].join(' '),
   publishedAt: null,
