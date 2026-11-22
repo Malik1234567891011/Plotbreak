@@ -94,12 +94,12 @@ The player is the new night stationmaster, an adult, and authors the rest:
 
 | Archetype | Role | What it gives |
 |---|---|---|
-| You Worked the Railways | Timetables and authority | Authority, a printed timetable, standing with the Night Staff |
-| You Worked Night Shifts | Calm and listening | Listening and reading people, two cups of station tea, standing with the Regulars |
-| You Missed a Train Once | Station instinct and luck | Station lore and rummaging, your own expired return stub |
-| You Kept the Door | Steps in when it turns physical | Footwork and brawn |
+| You Worked the Railways | Timetables and authority | Authority, a printed timetable, standing with the Night Staff; starts with Lay Down the Rules |
+| You Worked Night Shifts | Calm and listening | Listening and reading people, two cups of station tea, standing with the Regulars; starts with Hear Them Out |
+| You Missed a Train Once | Station instinct and luck | Station lore and rummaging, your own expired return stub; starts with Walk the Lines |
+| You Kept the Door | Steps in when it turns physical | Footwork and brawn; starts with Step Between |
 
-The archetype never decides who gets the ticket or whether the player stays.
+Every archetype also starts with Clip a Ticket, and every player starts holding the golden ticket, the brass punch and Ida's envelope. The storyteller reads only hard canon, quest items and the chosen archetype's starting abilities, so that is where the station's system lives. The archetype never decides who gets the ticket or whether the player stays.
 
 ## Opening
 
@@ -134,7 +134,7 @@ All five are adults. The player is an adult.
 ### Ren Shiomi — 27
 
 **Role:** samurai of House Uraga, stranded behind Platform 4.
-**Appearance:** tall and narrow, hair tied back and singed at the ends, a scorched travelling coat over plain dark armour, two swords, soot on one cheek. A black lacquered box tied at his hip with red cord.
+**Appearance:** tall and narrow, black hair tied back in a short tail and singed at the ends, dark steady eyes, a scorched charcoal travelling coat over plain dark lacquered armour, two swords at his left hip. A black lacquered box tied at his right hip with red cord.
 **Says he wants:** to get home before his lord's castle burns at dawn.
 **Actually wants:** his lord means to burn Castle Akebono at dawn with the besieging army inside it. Three hundred townspeople are asleep in the lower bailey and have not been told. Ren intends to open the river gate and get them out. That is treason, and House Uraga executes traitors.
 **Second secret:** the lacquered box holds his clan's ancestral flame. His lord's last order was to carry it out and keep the house alive. It is the light that could relight Platform 4, at the cost of the flame.
@@ -307,11 +307,15 @@ The porters, the Regulars, Okafor's crew, the Uraga retainers, the water-seller,
 
 ### Cover direction
 
-Vertical anime key art at night in a vast iron-and-glass railway station, nine platforms under different coloured lamps, three of them dark. Foreground: an oak ticket counter with one golden ticket and three hands reaching for it. Behind it: a samurai in a scorched travelling coat with a black lacquered box at his hip; an astronaut in an orange pressure suit with her helmet under one arm; a pale vampire queen in a high-collared black lace gown with a glowing moonstone ring over her glove. Warm gaslight against cold platform light, glossy premium finish, title-safe space at the bottom, no text.
+Ren is the subject, waist-up and centred behind an oak ticket counter, one hand flat on a single glowing golden ticket, calm and grave, looking at the viewer. Two more hands reach for the ticket from the edges of the frame: an orange pressure-suit cuff and a black glove with a glowing moonstone ring. Just behind him, smaller, the astronaut (orange pressure suit, helmet under one arm, white beacon) and the pale vampire queen (high-collared black lace gown, black hair pinned with silver). Behind them, soft: a vast iron-and-glass station at night, platforms under amber, green and violet lamps, three dark, and a stopped clock with no numerals. Warm gaslight in front, cold blue platform light behind.
+
+Every glow stays on the ticket, the ring, the beacon, the lamps and the title, never on a face. People are described by costume and pose only.
+
+**TITLE:** EVERY PLATFORM A WORLD, painted into the art in the upper third as an art-deco railway-sign logo, cream-gold letters with a brass outline and a soft lamp glow, on two lines (EVERY PLATFORM / A WORLD), a thin line of golden light under it like a rail. Spelled exactly that. No other text: no platform numbers, no signs, no numerals.
 
 ### Opening panel
 
-Ren across an oak counter, one scarred hand on a golden ticket beside an astronaut's orange cuff and a queen's black glove with a moonstone ring. (The alt names Ren so the panel generator keeps his face as the subject.)
+`story_every_platform_a_world/opening`. Alt: Ren in a scorched travelling coat across an oak counter, one hand flat on a glowing golden ticket beside an astronaut's orange cuff and a queen's black glove with a moonstone ring. (The alt starts with Ren because he speaks first, and the panel generator uses his portrait as the reference image.)
 
 ### Hero triggers
 

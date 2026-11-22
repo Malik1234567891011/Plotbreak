@@ -25,6 +25,13 @@ import { StoryVersion } from '@plotbreak/contracts';
  * ledger has to be read, Lost Property has to be searched. A player who punches
  * on turn one has made a real choice and the night still has five hours in it.
  *
+ * The system has to live where the storyteller can read it. Production runs
+ * `runTurnPure`, which never sees resources, step notes or locked abilities. So
+ * the station's rules, the deadlines and every age are in hard canon, the
+ * ticket, the punch and Ida's envelope are quest items the player starts
+ * holding, and every archetype starts with Clip a Ticket plus the one thing
+ * their old job taught them.
+ *
  * Three variables. Stamina is the one GOOD_HIGH, because `resolveRest` refills
  * those and a night shift genuinely runs out. Dimming is first among the
  * descending pair because PUBLIC_VIOLENCE and the generic cost path both take
@@ -63,10 +70,20 @@ const raw = {
   creatorNote:
     'You can punch the ticket on your first turn and spend the night living with it. You can also leave all three of them at the counter and go looking for a second ticket, a better question, or a world of your own. Six platforms are open to you. The three that matter are dark. Somebody has to be at the lamp at six, and it does not have to be you.',
   coverDirection: [
-    'Vertical anime key art at night inside a vast iron-and-glass railway station between worlds, nine platforms fanning away under lamps of different colours, three of the lamps dark.',
-    'Foreground: an oak ticket counter behind a brass grille, one golden ticket lying on the wood, three hands reaching for it at once.',
-    'Behind the counter, three travellers who do not belong together: a tall samurai in a scorched travelling coat with a black lacquered box tied at his hip; a woman astronaut in an orange pressure suit with her helmet under one arm and a blinking white beacon on her chest; a pale vampire queen in a high-collared black lace gown, a moonstone ring glowing over her long black glove.',
-    'Warm gaslight against cold platform light, a stopped station clock overhead, glossy premium finish, clean title-safe space at the bottom.',
+    'SUBJECT: Ren, a samurai stranded in a railway station between worlds, alone and unmistakable in the foreground of a key visual for a fantasy anime about three travellers and one ticket.',
+    'He fills the frame from the waist up, centred and close, behind an oak ticket counter, holding about two thirds of the picture.',
+    'Black hair tied back in a short tail and singed at the ends, dark steady eyes, a scorched charcoal travelling coat over plain dark lacquered armour, two swords at his left hip, a black lacquered box tied at his right hip with red cord.',
+    'One hand rests flat on a single golden ticket lying on the counter. The ticket glows warm gold and is the brightest thing in the picture.',
+    'Two more hands reach in for the same ticket from the edges of the frame: from the left an orange pressure-suit cuff, from the right a long black glove with a glowing moonstone ring.',
+    'Just behind him, smaller and softer, one at each shoulder: an astronaut in an orange pressure suit with her helmet under one arm and a small white beacon blinking on her chest, and a pale vampire queen in a high-collared black lace gown, her black hair pinned up with silver.',
+    'His expression is calm and grave, looking straight at the viewer, waiting for an answer.',
+    'EVERY FACE STAYS CLEAN: no soot, glow, shadows or marks on any face or skin.',
+    'Every glow stays on the ticket, the moonstone ring, the beacon, the platform lamps and the title, never on a face.',
+    'BEHIND THEM, soft and secondary: a vast iron-and-glass railway station at night, platforms fanning away under lamps of different colours, amber, green and violet, three of the lamps dark,',
+    'and a large station clock with plain tick marks and no numerals, its hands stopped.',
+    'LIGHT: warm gaslight from the counter and the golden ticket across their faces, cold blue platform light behind, so they are rimmed in blue and lit in gold.',
+    'TITLE: the words EVERY PLATFORM A WORLD painted into the art in the upper third as an elegant art-deco railway-sign logo, cream-gold letters with a thin brass outline and a soft lamp glow, set on two lines, EVERY PLATFORM above A WORLD,',
+    'spelled exactly EVERY PLATFORM A WORLD, large and legible at thumbnail size. A thin line of golden light runs under the letters like a rail. No other text anywhere: no platform numbers, no signs, no numerals.',
   ].join(' '),
   rules: {
     defeatMode: 'FAIL_FORWARD',
@@ -83,11 +100,12 @@ const raw = {
       { itemId: 'idas_envelope', qty: 1 },
     ],
     hardCanon: [
+      'Everyone in this story is an adult. The player is an adult. Ren Shiomi is twenty-seven, Commander Adaeze Okafor thirty-eight and Ida Fennimore seventy-three. Queen Isolde is three hundred and twelve and looks about thirty. The Conductor looks about sixty and is centuries older. Lord Casimir is two hundred and forty-one, Lord Uraga Shigemasa fifty-eight, the lamp-wright at the Owl Market about sixty, and Okafor’s engineer thirty-four. The porters, the Regulars, Okafor’s crew, the Uraga retainers and the townspeople in the lower bailey are all adults.',
       'Lantern Cross is a railway station between worlds. It opens at dusk and closes at dawn. It has nine platforms, and while a platform’s lamp burns, its train runs to one world.',
       'The player is the new night stationmaster, an adult, on their first shift. Ida Fennimore, stationmaster for forty-one years, handed over her brass ticket punch at sunset and took the 21:10 from Platform 1 to retire on the Salt Coast.',
       'At midnight the lamps of Platforms 4, 6 and 8 went out, because Ida had been keeping those three weak lamps lit by hand. The station clock stopped at the same moment. Platforms 1, 2, 3, 5, 7 and 9 are lit and running.',
       'Trimming by hand only keeps a weak lamp from going out. A lamp that has gone dark will not take a match, a wick or a hand: only a golden ticket punched for it, or a light from its own world given freely, relights it. Nothing crosses a dark line, not a train, not a tender, not a traveller on foot; past a dark platform the tunnel ends in cold brick.',
-      'Three travellers are stranded: Ren Shiomi of House Uraga behind Platform 4, Commander Adaeze Okafor of the survey ship Long Patience behind Platform 6, and Queen Isolde of Ostravel behind Platform 8. All three are adults, and so is everyone else in this story.',
+      'Three travellers are stranded: Ren Shiomi of House Uraga behind Platform 4, Commander Adaeze Okafor of the survey ship Long Patience behind Platform 6, and Queen Isolde of Ostravel behind Platform 8.',
       'There is one golden ticket. It came in an envelope addressed to the player, because every stationmaster is given one, once, to anywhere. Punched for a dark platform it relights that lamp long enough for one train, one passenger, one trip.',
       'Only the stationmaster’s punch validates a ticket. In anyone else’s hand the punch is cold brass and will not close.',
       'A dark lamp can also be relit by a light carried from its own world and given up freely by the person who carried it: Ren’s clan flame, Okafor’s survey beacon, Isolde’s moonstone crown-ring. A stolen light will not catch. Nobody volunteers this. The Conductor, Ida’s ledger, Lost Property and the lamp-wright at the Owl Market can each be made to give it up.',
@@ -946,7 +964,7 @@ const raw = {
         'My lord gave me an order and a box. So far I have kept the box.',
       ],
       appearance:
-        'Twenty-seven, tall and narrow, hair tied back and singed at the ends, a scorched travelling coat over plain dark armour, two swords, and soot on one cheek he has not noticed.',
+        'An adult man, tall and narrow, black hair tied back in a short tail and singed at the ends, dark steady eyes, a scorched charcoal travelling coat over plain dark lacquered armour, two swords at his left hip, and a black lacquered box tied at his right hip with red cord.',
       visualHook: 'A black lacquered box tied at his hip with red cord, which he touches whenever anyone mentions home.',
       silhouette: 'Upright, one hand resting on the box rather than the sword, standing slightly too still.',
       artSeed: 'epaw-ren-01',
@@ -1041,7 +1059,7 @@ const raw = {
         'Copy. I’ll be scared at ten past four. It’s on the list.',
       ],
       appearance:
-        'Thirty-eight, close-cropped hair going grey at one temple, dark skin with a fresh burn across the knuckles, an orange pressure suit with the collar ring open and sleeves pushed up, a grey thermal underneath, helmet under one arm.',
+        'An adult woman, square-shouldered, close-cropped black hair going grey at one temple, dark brown skin, brown eyes, a fresh burn across the knuckles of one hand, an orange pressure suit with the collar ring open and the sleeves pushed up over a grey thermal, a white survey beacon clipped to her chest, and her helmet under one arm.',
       visualHook: 'A survey beacon clipped to her chest that blinks white every four seconds, the only steady light on a dark platform.',
       silhouette: 'Square-shouldered, helmet on her hip, weight forward, already halfway through a plan.',
       artSeed: 'epaw-okafor-01',
@@ -1145,7 +1163,7 @@ const raw = {
         'I have sat through eleven coronations, darling, and I can tell you they are mostly hats.',
       ],
       appearance:
-        'Three hundred and twelve, looks about thirty. Black hair pinned up with silver, pale skin, a high-collared gown of black lace and velvet, long gloves, and a moonstone ring worn over the glove.',
+        'An adult woman, tall and straight, long black hair pinned up with silver combs, very pale skin, silver-grey eyes, a high-collared gown of black lace and velvet, long black gloves, and a moonstone ring in old silver worn over the left glove.',
       visualHook: 'A moonstone ring worn over her black glove that brightens, very slightly, whenever she says the word home.',
       silhouette: 'Tall and straight in a high black collar, one gloved hand raised, the ring catching the light.',
       artSeed: 'epaw-isolde-01',
@@ -1190,6 +1208,7 @@ const raw = {
     {
       id: 'conductor',
       name: 'The Conductor',
+      calledName: 'The Conductor',
       role: 'Runs every train through Lantern Cross, answers exactly the question asked, and cannot climb the stairs to the lamp',
       cardBlurb:
         'He knows every rule of the station and will tell you any of them, provided you ask the exact right question; ask the wrong one and you get a precise, true and useless answer.',
@@ -1238,7 +1257,7 @@ const raw = {
         'At 06:00 someone will be standing at the lamp, or no one will. I have seen both.',
       ],
       appearance:
-        'Looks about sixty and is centuries older: tall, lean, a weathered face with deep lines and grey stubble, a long black coat with brass buttons, white gloves, and a peaked cap. A silver pocket watch on a chain that keeps running when every clock in the station has stopped.',
+        'An older man, very tall and lean, a weathered face with deep lines and short grey stubble, grey hair under a black peaked cap, a long black conductor’s coat with brass buttons, white gloves, and a silver pocket watch on a chain. His face is always plainly visible.',
       visualHook: 'A silver pocket watch on a chain that keeps running when every clock in the station has stopped.',
       silhouette: 'Very tall and very straight at the far end of a platform, gloved hands folded over a closed watch.',
       artSeed: 'epaw-conductor-01',
@@ -1318,7 +1337,7 @@ const raw = {
         'Tell Isolde she can have my chair. Don’t tell her I said so.',
       ],
       appearance:
-        'Seventy-three, short and broad, white hair cut short, a swimming towel round her neck, a cardigan with brass station buttons she has not taken off, and a purse she never puts down.',
+        'An older woman, short and broad, white hair cut short, round cheeks and bright brown eyes, a striped swimming towel round her neck, a navy cardigan with brass station buttons she has not taken off, and a worn leather purse held shut with a rubber band.',
       visualHook: 'A worn leather purse held shut with a rubber band, which she keeps on her knee at all times.',
       silhouette: 'Short and square on a harbour bench, towel round her shoulders, a fork in one hand.',
       artSeed: 'epaw-ida-01',
@@ -2319,7 +2338,7 @@ const raw = {
       attributeBonus: { resolve: 2, mind: 1 },
       skillProficiencies: { authority: 3, station_lore: 1, reading_people: 1 },
       startingItems: [{ itemId: 'station_timetable', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['clip_a_ticket', 'lay_down_the_rules'],
       startingReputation: [{ factionId: 'faction_station', amount: 10 }],
     },
     {
@@ -2333,7 +2352,7 @@ const raw = {
       attributeBonus: { presence: 2, resolve: 1 },
       skillProficiencies: { listening: 3, reading_people: 2 },
       startingItems: [{ itemId: 'station_tea', qty: 2 }],
-      startingAbilities: [],
+      startingAbilities: ['clip_a_ticket', 'hear_them_out'],
       startingReputation: [{ factionId: 'faction_regulars', amount: 10 }],
     },
     {
@@ -2347,7 +2366,7 @@ const raw = {
       attributeBonus: { arcana: 3 },
       skillProficiencies: { station_lore: 3, rummaging: 2 },
       startingItems: [{ itemId: 'your_old_stub', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['clip_a_ticket', 'walk_the_lines'],
       startingReputation: [
         { factionId: 'faction_station', amount: 5 },
         { factionId: 'faction_regulars', amount: 5 },
@@ -2364,7 +2383,7 @@ const raw = {
       attributeBonus: { might: 2, agility: 2 },
       skillProficiencies: { footwork: 3, brawn: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['clip_a_ticket', 'step_between'],
       startingReputation: [],
     },
   ],
@@ -2588,14 +2607,14 @@ const raw = {
     "A golden ticket lies on your counter. Three hands are on it.\n\n\"Stationmaster.\" The samurai doesn’t raise his voice. \"I am Ren. My lord’s castle burns at dawn.\"\n\n\"Item one: my crew has four hours of air,\" says the astronaut beside him, helmet under her arm.\n\nThe third is a queen in black lace, pale as the clock face above her. \"They crown my cousin at moonset. I intend to be there to object.\"\n\nBehind them, three platforms stand dark. Each led to a different world until midnight. One ticket can wake one of them, and only your punch makes it valid.\n\nNobody lets go.\n\n\"One ticket,\" Ren says. \"Choose, stationmaster. Who rides?\"",
   openingPanel: {
     assetKey: 'story_every_platform_a_world/opening',
-    alt: 'Ren across an oak counter, one scarred hand on a golden ticket beside an astronaut’s orange cuff and a queen’s black glove with a moonstone ring.',
+    alt: 'Ren in a scorched travelling coat across an oak counter, one hand flat on a glowing golden ticket beside an astronaut’s orange cuff and a queen’s black glove with a moonstone ring.',
   },
   openingSuggestions: [
     "\"Hands off, all of you. I’m hearing each of you out first.\"",
     'I take the ticket out from under their hands and hold it out to the astronaut.',
     "I put my hand flat on top of all three. \"Actually, it’s mine.\"",
   ],
-  publishedAt: '2026-11-22T04:00:00.000Z',
+  publishedAt: null,
 };
 
 export const EVERY_PLATFORM_A_WORLD = StoryVersion.parse(raw);

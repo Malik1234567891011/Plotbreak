@@ -90,6 +90,47 @@ describe('ids and art follow the house conventions', () => {
   });
 });
 
+describe('ready for the art and release pipeline', () => {
+  const AGE_WORDS = /\b(teen\w*|girl|boy|young\w*|youth\w*|kid|child\w*|student|\d+)\b/i;
+
+  it('letters the title into the cover and keeps every glow off faces', () => {
+    const cover = story.coverDirection!;
+    expect(cover).toMatch(/\bTITLE:/);
+    expect(cover).toContain('spelled exactly EVERY PLATFORM A WORLD');
+    expect(cover).toContain('Ren');
+    expect(cover).toMatch(/never on a face/i);
+    expect(cover).not.toMatch(AGE_WORDS);
+  });
+
+  it('draws the opening panel from the speaker’s portrait', () => {
+    expect(story.openingPanel!.alt.startsWith('Ren ')).toBe(true);
+  });
+
+  it('describes every portrait by build and costume, never by an age word', () => {
+    for (const c of story.characters.filter((c) => c.cardBlurb.trim())) {
+      expect(c.appearance, c.id).toMatch(/^An (adult|older) (wo)?man\b/);
+      expect(c.appearance, c.id).not.toMatch(AGE_WORDS);
+    }
+  });
+
+  it('opens on the scene and is not dated until release', () => {
+    expect(story.prologue).toEqual([]);
+    expect(story.publishedAt).toBeNull();
+  });
+
+  it('puts the system where the storyteller reads it', () => {
+    const canon = story.rules.hardCanon.join(' ');
+    for (const c of story.characters) expect(canon, c.id).toContain(calledName(c));
+    expect(story.rules.hardCanon[0]).toMatch(/^Everyone in this story is an adult\./);
+    expect(story.rules.startingItems.map((i) => i.itemId)).toEqual(
+      expect.arrayContaining(['golden_ticket', 'ticket_punch']),
+    );
+    for (const a of story.archetypes) expect(a.startingAbilities, a.id).toContain('clip_a_ticket');
+    expect(calledName(story.characters.find((c) => c.id === 'conductor')!)).toBe('The Conductor');
+    expect(story.rules.toneGuide.trim().length).toBeGreaterThan(0);
+  });
+});
+
 describe('the opener is a choice, not a lore dump', () => {
   const opening = story.opening;
 
