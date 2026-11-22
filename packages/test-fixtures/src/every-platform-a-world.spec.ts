@@ -3,6 +3,7 @@ import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { EVERY_PLATFORM_A_WORLD } from './every-platform-a-world.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Every Platform a World, held to the promise on its own card: three hands on
@@ -115,7 +116,7 @@ describe('ready for the art and release pipeline', () => {
 
   it('opens on the scene and is not dated until release', () => {
     expect(story.prologue).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('puts the system where the storyteller reads it', () => {

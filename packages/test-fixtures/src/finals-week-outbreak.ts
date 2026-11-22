@@ -2343,7 +2343,7 @@ const raw = {
     'spelled exactly FINALS WEEK OUTBREAK, large and legible at thumbnail size. A thin crack, like cracked frosted glass, runs through the word OUTBREAK only.',
     'No other text anywhere: no letters, no numbers, no signs, nothing written on the walls.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const FINALS_WEEK_OUTBREAK = StoryVersion.parse(raw);

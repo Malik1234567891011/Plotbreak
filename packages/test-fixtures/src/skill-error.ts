@@ -2140,7 +2140,7 @@ const raw = {
     'TITLE: the words SKILL: ERROR painted into the art in the upper third as a bold condensed game-interface logo, white with a cyan glow,',
     'spelled exactly SKILL: ERROR, large and legible at thumbnail size. A red glitch slice cuts through the word ERROR only. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const SKILL_ERROR = StoryVersion.parse(raw);

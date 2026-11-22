@@ -2488,7 +2488,7 @@ const raw = {
     'TITLE: the words Struck From the Register painted into the art in the upper third as a bold white brush-lettered logo with a thin black ink edge,',
     'spelled exactly Struck From the Register, in title case with a lowercase the, large and legible at thumbnail size. A single thin red brush stroke strikes through the word Register only, without hiding any letter. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const STRUCK_FROM_THE_REGISTER = StoryVersion.parse(raw);

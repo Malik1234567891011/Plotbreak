@@ -2520,7 +2520,7 @@ const raw = {
     'I hold up my phone and switch on the torch.',
     'I ease the blade aside and stand. "Ask me again."',
   ],
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THE_HERO_S_SPARE = StoryVersion.parse(raw);

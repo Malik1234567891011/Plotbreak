@@ -3,6 +3,7 @@ import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts
 import { checkStoryChoiceClarity, checkStoryClarity, RuleBasedIntentParser } from '@plotbreak/director';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { THREE_HEROINES_AND_A_PORTER } from './three-heroines-and-a-porter.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Three Heroines and a Porter, held to the promises on its own card: three
@@ -370,7 +371,7 @@ describe('the cover', () => {
 
   it('opens straight on the scene and is not dated until release', () => {
     expect((S as { prologue?: unknown[] }).prologue ?? []).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('gives every titled character the name they are called by', () => {

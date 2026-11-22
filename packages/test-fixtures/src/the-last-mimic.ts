@@ -68,7 +68,7 @@ const raw = {
     'Mimics are supposed to be extinct. Thirty years ago the town’s delvers hunted down the last of them, because a mimic’s heart stitched into a bag makes a satchel with no bottom, and the whole town runs on those satchels. Now the satchels are going shallow, and there are no new hearts.\n\n' +
     'So when an elf thief puts her hand in your coins tonight and finds you warm, you are worth forty thousand crowns to anyone who can carry you up the stairs.\n\n' +
     'You can’t walk yet. You can talk, but only in voices you have heard. And under the coins is something that is not gold, that belongs to the dungeon’s lich, and that he would very much like back.\n\n' +
-    'Keep still, make friends, or use your teeth. Just be somewhere, or something, else when the appraiser with the silver chime comes down the stair, or you will spend the rest of your life on a cushion, mending other people’s bags.',
+    'Keep still, make friends, or use your teeth. Just be somewhere, or something, else when the appraiser with the silver chime comes down the stair. Get caught, and you will spend the rest of your life on a cushion, mending other people’s bags.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
@@ -2368,7 +2368,7 @@ const raw = {
     'TITLE: the words THE LAST MIMIC painted into the art in the upper third as a bold gilded fantasy logo, chunky carved capitals in gold leaf edged in dark iron like the bands of a treasure chest, one coin-bright glint on the first M,',
     'spelled exactly THE LAST MIMIC, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THE_LAST_MIMIC = StoryVersion.parse(raw);

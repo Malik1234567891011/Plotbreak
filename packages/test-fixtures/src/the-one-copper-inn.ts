@@ -2433,7 +2433,7 @@ const raw = {
     'TITLE: the words THE ONE-COPPER INN painted into the art in the upper third as a hand-painted wooden inn-sign logo, cream letters with gold edging on dark wood,',
     'spelled exactly THE ONE-COPPER INN, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THE_ONE_COPPER_INN = StoryVersion.parse(raw);

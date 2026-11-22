@@ -4,6 +4,7 @@ import { createInitialState, charactersPresent, deriveCustomBuild } from '@plotb
 import { checkStoryChoiceClarity, checkStoryClarity } from '@plotbreak/director';
 import { THREE_SKILLS_A_MORNING } from './three-skills-a-morning.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Three Skills a Morning, held to its own card: three cards at dawn, a gallows
@@ -126,9 +127,9 @@ describe('ready for the art and release pipeline', () => {
     }
   });
 
-  it('opens straight on the scene and is not dated yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(story.prologue ?? []).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('starts every archetype with the draw, where the storyteller reads it', () => {

@@ -8,6 +8,7 @@ import {
   worldBrief,
 } from '@plotbreak/director';
 import { RESCUE_RATING } from './rescue-rating.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Rescue Rating, held to the promise on its card: the best save of your life,
@@ -183,9 +184,9 @@ describe('the opener', () => {
 });
 
 describe('ready for the art and release pipeline', () => {
-  it('opens straight on the scene and has no release date yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(story.prologue).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('gives every card a face to draw', () => {

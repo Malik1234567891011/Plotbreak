@@ -2601,7 +2601,7 @@ const raw = {
     'TITLE: the words THREE HEROINES AND A PORTER painted into the art in the upper third as a bold fantasy-adventure logo, white with a warm gold glow and a thin dark outline,',
     'spelled exactly THREE HEROINES AND A PORTER, large and legible at thumbnail size, with the word PORTER on its own line and a short length of orange climbing rope underlining it. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THREE_HEROINES_AND_A_PORTER = StoryVersion.parse(raw);

@@ -2955,7 +2955,7 @@ const raw = {
     'TITLE: the words One Miracle a Day painted into the art across the upper third, over the sky, as a bold hand-lettered storybook logo, warm white with a thin gold glow,',
     'spelled exactly One Miracle a Day, large and legible at thumbnail size. A few gold sparks rise off the lettering only. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const ONE_MIRACLE_A_DAY = StoryVersion.parse(raw);

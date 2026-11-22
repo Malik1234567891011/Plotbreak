@@ -2540,7 +2540,7 @@ const raw = {
     'TITLE: the title Restart at Eighteen painted into the art in the upper third, across the night sky, as clean bold rounded capitals in white with a soft pale blue glow like the stat window,',
     'spelled exactly RESTART AT EIGHTEEN, large and legible at thumbnail size. A thin pale blue progress bar runs under the word EIGHTEEN, and a small circular rewind arrow is worked into the first letter R. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const RESTART_AT_EIGHTEEN = StoryVersion.parse(raw);

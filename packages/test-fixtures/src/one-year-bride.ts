@@ -2334,7 +2334,7 @@ const raw = {
     'spelled exactly ONE-YEAR BRIDE, with the hyphen between ONE and YEAR, large and legible at thumbnail size.',
     'The thread loops between the letters without hiding any of them. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const ONE_YEAR_BRIDE = StoryVersion.parse(raw);

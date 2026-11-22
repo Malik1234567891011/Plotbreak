@@ -2692,7 +2692,7 @@ const raw = {
     'on two lines, CLEANUP CREW, on the first and E-RANK larger on the second, spelled exactly CLEANUP CREW, E-RANK with the comma and the hyphen, large and legible at thumbnail size.',
     'A streak of grey ash crosses the bottom of the letters as if half swept away. No other text anywhere: no numbers, letters or logos on the vest, the coat, the carts or the walls.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const CLEANUP_CREW_E_RANK = StoryVersion.parse(raw);

@@ -2604,7 +2604,7 @@ const raw = {
     'TITLE: the title Ten Points to Expulsion painted into the art in the upper third as a stacked bold condensed wordmark in capitals: TEN POINTS on the first line in white with a soft gold glow like a lit scoreboard, TO EXPULSION on the second line in deep red,',
     'spelled exactly TEN POINTS TO EXPULSION, large and legible at thumbnail size. A thin red warning line glows under the word EXPULSION only. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const TEN_POINTS_TO_EXPULSION = StoryVersion.parse(raw);

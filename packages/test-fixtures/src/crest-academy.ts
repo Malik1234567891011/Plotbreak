@@ -2611,7 +2611,7 @@ const raw = {
     'TITLE: the words CREST ACADEMY painted into the art in the upper third as an elegant bold fantasy-academy logo, silver with a gold edge and a small plain silver badge stamped with an open hand between the words,',
     'spelled exactly CREST ACADEMY, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const CREST_ACADEMY = StoryVersion.parse(raw);

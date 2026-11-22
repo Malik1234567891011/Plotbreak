@@ -2522,7 +2522,7 @@ const raw = {
     "TITLE: the words Ice Queen's Fake Boyfriend painted into the art in the upper third as an elegant high-contrast serif logo, icy white with a pale blue edge and a thin rim of frost on the letters,",
     "spelled exactly Ice Queen's Fake Boyfriend, in title case with an apostrophe before the s, large and legible at thumbnail size. No other text anywhere.",
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const ICE_QUEEN_S_FAKE_BOYFRIEND = StoryVersion.parse(raw);

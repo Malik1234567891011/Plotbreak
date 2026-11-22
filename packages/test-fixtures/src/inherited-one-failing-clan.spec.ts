@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { charactersPresent, createInitialState, locationForSchedule } from '@plotbreak/engine';
 import { INHERITED_ONE_FAILING_CLAN as S } from './inherited-one-failing-clan.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * "Inherited: One Failing Clan" is a story about a family the player did not
@@ -811,9 +812,9 @@ describe('Inherited: One Failing Clan', () => {
       }
     });
 
-    it('has no prologue and no release date yet', () => {
+    it('has no prologue and is dated only at release', () => {
       expect(S.prologue ?? []).toEqual([]);
-      expect(S.publishedAt).toBeNull();
+      expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
     });
   });
 });

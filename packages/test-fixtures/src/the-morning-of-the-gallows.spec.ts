@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { THE_MORNING_OF_THE_GALLOWS } from './the-morning-of-the-gallows.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The Morning of the Gallows, held to the promise on its own card: you were
@@ -702,7 +703,7 @@ describe('ready for art and release', () => {
 
   it('opens straight on the scene and is not dated until release', () => {
     expect(story.prologue).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 });
 

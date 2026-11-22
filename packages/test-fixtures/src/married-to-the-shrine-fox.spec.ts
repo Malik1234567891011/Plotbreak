@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { MARRIED_TO_THE_SHRINE_FOX } from './married-to-the-shrine-fox.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Married to the Shrine Fox, held to the promise on its own card: a fox who
@@ -486,9 +487,9 @@ describe('the opening panel', () => {
 });
 
 describe('release shape', () => {
-  it('opens straight on the scene and has no release date yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(S.prologue).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('gives every face on a cast card a concrete appearance to draw from', () => {

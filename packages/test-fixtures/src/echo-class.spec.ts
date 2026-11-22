@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { ECHO_CLASS } from './echo-class.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Echo Class, held to the promise on its own card: copy any power you touch,
@@ -547,9 +548,9 @@ describe('ready for art and release (docs/stories-50/PIPELINE.md)', () => {
     expect(vague).toEqual([]);
   });
 
-  it('opens straight on the scene and is not dated yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(story.prologue).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('puts the system where the storyteller reads it', () => {

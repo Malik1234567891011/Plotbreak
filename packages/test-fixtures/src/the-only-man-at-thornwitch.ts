@@ -2857,7 +2857,7 @@ const raw = {
     'TITLE: the words THE ONLY MAN AT THORNWITCH painted into the art in the upper third as an elegant serif logo in white, with thin thorn-green briar curling through the letters,',
     'spelled exactly THE ONLY MAN AT THORNWITCH, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THE_ONLY_MAN_AT_THORNWITCH = StoryVersion.parse(raw);

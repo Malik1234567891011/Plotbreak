@@ -2575,7 +2575,7 @@ const raw = {
     'spelled exactly ONE WEEK, SHE SAID, with the comma after WEEK, large and legible at thumbnail size.',
     'No other text anywhere: no letters or numbers on the door, the bus, the vending machine or the carrier.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const ONE_WEEK_SHE_SAID = StoryVersion.parse(raw);

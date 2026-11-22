@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { SEVEN_YEARS_EARLY } from './seven-years-early.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Seven Years Early, held to the promises on its own card: you remember the
@@ -219,7 +220,7 @@ describe('the cover', () => {
     expect(cover).toMatch(/no letters, no numbers/i);
     expect(cover).toMatch(/No other text anywhere\./);
     expect(S.openingPanel?.assetKey).toBe('story_seven_years_early/opening');
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('gives the title its own line and keeps every effect off his face', () => {

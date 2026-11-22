@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { NOODLES_OR_BLOOD } from './noodles-or-blood.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Noodles or Blood, held to the promises on its own card: a rent you can pay,
@@ -218,9 +219,9 @@ describe('the cover, the opening panel and the release', () => {
     }
   });
 
-  it('opens straight on the scene and has no release date yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(S.prologue).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('says what everybody is actually called', () => {

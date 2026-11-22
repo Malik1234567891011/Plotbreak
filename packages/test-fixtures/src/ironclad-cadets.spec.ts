@@ -3,6 +3,7 @@ import { charactersPresent, createInitialState } from '@plotbreak/engine';
 import type { StoryVersion } from '@plotbreak/contracts';
 import { IRONCLAD_CADETS } from './ironclad-cadets.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Unit Nine (working title Ironclad Cadets, which the ids keep), held to the
@@ -293,10 +294,10 @@ describe('it is its own story', () => {
 });
 
 describe('ready for art and release (docs/stories-50/PIPELINE.md)', () => {
-  it('opens straight on the scene and ships unpublished', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(story.prologue).toEqual([]);
     // Null until release day; a date set now makes the API report it updated on every request.
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('gives every carded character a concrete appearance to paint a portrait from', () => {

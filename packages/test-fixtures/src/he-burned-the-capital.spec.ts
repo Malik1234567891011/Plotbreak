@@ -3,6 +3,7 @@ import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { HE_BURNED_THE_CAPITAL } from './he-burned-the-capital.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * He Burned the Capital, held to the promise in its own opener: the most
@@ -823,9 +824,9 @@ describe('the art it will ask for', () => {
     }
   });
 
-  it('opens straight on the scene and ships unpublished', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(S.prologue).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 });
 

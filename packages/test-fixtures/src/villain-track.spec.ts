@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { abilityEffect, archetypeGrants, calledName, knownExpression } from '@plotbreak/contracts';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { VILLAIN_TRACK } from './villain-track.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Villain Track, held to the promise on its own card: a player handed a black
@@ -244,9 +245,9 @@ describe('the art and release pipeline', () => {
     expect(lastBeat.trim()).toMatch(/\?"$/);
   });
 
-  it('opens straight on the scene and is not dated yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(story.prologue).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('calls titled people by the name the world uses', () => {

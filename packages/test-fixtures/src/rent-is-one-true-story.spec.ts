@@ -3,6 +3,7 @@ import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { RENT_IS_ONE_TRUE_STORY as STORY } from './rent-is-one-true-story.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Rent Is One True Story, held to what the premise promises and to every gate
@@ -768,7 +769,7 @@ describe('art is declared, not drawn', () => {
 
   it('opens straight on the scene and is not dated until release', () => {
     expect(STORY.prologue ?? []).toEqual([]);
-    expect(STORY.publishedAt).toBeNull();
+    expect(isReleaseDate(STORY.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('gives every background the rent as something it can do, plus one thing of its own', () => {

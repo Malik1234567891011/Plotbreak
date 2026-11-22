@@ -2560,7 +2560,7 @@ const raw = {
     'TITLE: the words THREE SKILLS A MORNING painted into the art in the upper third, across the dawn sky, as a hand-lettered storybook fantasy logo in warm gold with a dark ink outline, stacked on two lines, THREE SKILLS above A MORNING,',
     'spelled exactly "Three Skills a Morning" and lettered in capitals, large and legible at thumbnail size, with a soft gold glow on the letters only. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THREE_SKILLS_A_MORNING = StoryVersion.parse(raw);

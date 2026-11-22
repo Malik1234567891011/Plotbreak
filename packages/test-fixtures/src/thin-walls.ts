@@ -2278,7 +2278,7 @@ const raw = {
     'with one thin vertical line of light standing between THIN and WALLS like a seam in plaster, spelled exactly THIN WALLS, large and legible at thumbnail size.',
     'No other text anywhere: nothing written on the books, papers, cup, jacket or hoodie.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THIN_WALLS = StoryVersion.parse(raw);

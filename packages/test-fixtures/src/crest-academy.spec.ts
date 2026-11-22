@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { CREST_ACADEMY } from './crest-academy.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Crest Academy, held to the promise on its own card: five points to spend and
@@ -392,7 +393,7 @@ describe('ready for art and release', () => {
 
   it('opens straight on the scene and is not dated until release', () => {
     expect(S.prologue).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('gives every titled character the name people actually call them', () => {

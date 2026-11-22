@@ -3,6 +3,7 @@ import { advanceQuests, createInitialState, charactersPresent } from '@plotbreak
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { CLEANUP_CREW_E_RANK as story } from './cleanup-crew-e-rank.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Cleanup Crew, E-Rank is not in the launch catalog yet, so none of the
@@ -740,7 +741,7 @@ describe('Cleanup Crew, E-Rank', () => {
         expect(c.appearance.length, c.id).toBeGreaterThan(80);
       }
       expect(story.prologue).toEqual([]);
-      expect(story.publishedAt).toBeNull();
+      expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
     });
 
     it('puts the class offer in a starting quest item and every starting kit', () => {

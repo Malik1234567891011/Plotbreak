@@ -2616,7 +2616,7 @@ const raw = {
     'and ONE FAILING CLAN smaller beneath it in red lacquer capitals, chipped at one edge,',
     'spelled exactly INHERITED: ONE FAILING CLAN, large and legible at thumbnail size. No other text anywhere: no signs, no writing on the ledger, no lettering on the lanterns, the boats or the seal.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const INHERITED_ONE_FAILING_CLAN = StoryVersion.parse(raw);

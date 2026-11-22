@@ -98,7 +98,7 @@ side of the Briar, the mile-deep wall of thorn that has kept the human side and 
 for longer than anyone has written down.
 
 The Briar Accord keeps one gate open and lets one student cross each way each year. It runs out at
-midnight on the seventh night, and the human side will renew it only if its student is still present
+midnight on the seventh night, and the human side will not renew it unless its student is still present
 when the week ends.
 
 That student is you. The register in homeroom has you down as "Human. Row three." Not your name. A

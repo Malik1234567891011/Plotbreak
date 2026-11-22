@@ -2414,7 +2414,7 @@ const raw = {
     'THE MAID OWNS on the first line and THE HOUSE NOW larger on the second, ivory-white letters with a thin black outline, an antique-gold edge and a soft warm glow, and one small gold house key hanging from a ribbon under the last line,',
     'spelled exactly THE MAID OWNS THE HOUSE NOW, large and legible at thumbnail size. No other text anywhere: nothing written on the apron, the walls or the bell.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THE_MAID_OWNS_THE_HOUSE_NOW = StoryVersion.parse(raw);

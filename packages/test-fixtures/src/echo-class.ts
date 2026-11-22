@@ -2536,7 +2536,7 @@ const raw = {
     'TITLE: the title Echo Class painted into the art in the upper third, above her head, as the words ECHO CLASS in a bold heavy condensed sans-serif logo, steel white with a cold blue edge,',
     'spelled exactly ECHO CLASS, two words, large and legible at thumbnail size. One thin ring of the same ripple passes through the word ECHO only, leaving every letter readable. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const ECHO_CLASS = StoryVersion.parse(raw);

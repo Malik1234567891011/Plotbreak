@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { THE_ONLY_GIRL_AT_BLACKTHORN } from './the-only-girl-at-blackthorn.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The Only Girl at Blackthorn, held to the promise on its own card: ranked
@@ -449,7 +450,7 @@ describe('art is not commissioned yet, and says so consistently', () => {
 
   it('opens straight on the scene and is not dated until release', () => {
     expect((S as { prologue?: unknown[] }).prologue ?? []).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 });
 

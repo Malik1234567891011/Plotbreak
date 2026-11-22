@@ -4,6 +4,7 @@ import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts
 import { createInitialState, charactersPresent, locationForSchedule } from '@plotbreak/engine';
 import { withDerivedAssetKeys } from './derive-assets.js';
 import { THE_RANKING_BOARD } from './the-ranking-board.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The Ranking Board, held to the slate's quality bar (docs/stories-50/PLAN.md
@@ -772,9 +773,9 @@ describe('the art and release pipeline (docs/stories-50/PIPELINE.md)', () => {
     expect(panel.alt.startsWith(`${calledName(speaker!)},`)).toBe(true);
   });
 
-  it('opens straight on the scene and ships unpublished', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(story.prologue ?? []).toHaveLength(0);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('puts the board itself where the storyteller reads it', () => {

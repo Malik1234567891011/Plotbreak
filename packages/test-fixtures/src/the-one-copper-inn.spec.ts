@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { THE_ONE_COPPER_INN } from './the-one-copper-inn.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The One-Copper Inn, held to the promise on its own card: that patching a
@@ -276,11 +277,11 @@ describe('the art it will ask for', () => {
     expect(new Set(keys).size).toBe(keys.length);
   });
 
-  it('ships raw: no hand-written art keys and no release date yet', () => {
+  it('ships raw: no hand-written art keys, and dated only at release', () => {
     expect(S.coverImage).toBeNull();
     expect(S.keyArt).toBeNull();
     for (const c of S.characters) expect(c.portrait, c.id).toBeNull();
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
     expect(S.prologue).toEqual([]);
   });
 

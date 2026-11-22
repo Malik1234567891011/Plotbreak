@@ -52,7 +52,8 @@ const raw = {
   fantasyLabel: 'They hanged you once. Not this time.',
   hook: 'Hanged for treason, you wake three years earlier, and the woman who signed your warrant is at your cell with a key.',
   premise:
-    'Three years from now, you were hanged in the city square for poisoning the old king. You did not do it. A vial of poison was found in your quarters, three letters under your own seal were read to the court, and your old sergeant swore he saw you with the vial. The Crown’s Advocate who prosecuted the case and signed your death warrant was Lady Isra Vane, who was going to marry you.\n\n' +
+    'Three years from now, you were hanged in the city square for poisoning the old king. You did not do it. A vial of poison was found in your quarters, three letters under your own seal were read to the court, and your old sergeant swore he saw you with the vial.\n\n' +
+    'The Crown’s Advocate who prosecuted the case and signed your death warrant was Lady Isra Vane, who was going to marry you.\n\n' +
     'This morning you woke in a cell under the Rivergate, three years earlier, on the one night you ever spent locked up: the night after you refused an order to turn your company’s crossbows on a bread riot. There is a rope mark on your neck that does not fade.\n\n' +
     'Isra remembers too. She is at the cell door with a stolen key, and a boat is waiting on the river until the seven o’clock bell.\n\n' +
     'At nine, if you are still here, Prince Corvin will walk down those stairs, praise you for refusing, and make you captain of his guard. Last time that was the best day of your life. Six days later, at the Feast of Oaths, you knelt and put your signet ring, which seals your every order, in his hand.\n\n' +
@@ -2223,7 +2224,7 @@ const raw = {
     'THE MORNING OF THE on the first line and GALLOWS larger on the second, pale gold on dark, with a thin red-gold sunrise glow along the edges of the letters,',
     'spelled exactly THE MORNING OF THE GALLOWS, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THE_MORNING_OF_THE_GALLOWS = StoryVersion.parse(raw);

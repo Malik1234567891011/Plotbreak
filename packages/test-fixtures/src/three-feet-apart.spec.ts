@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { THREE_FEET_APART } from './three-feet-apart.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Three Feet Apart, held to the promise on its own card: a rule you can
@@ -115,7 +116,7 @@ describe('ids and art follow the house convention', () => {
     expect(S.id).toBe('sv_three_feet_apart_1');
     expect(S.storyId).toBe('story_three_feet_apart');
     expect(S.openingPanel?.assetKey).toBe('story_three_feet_apart/opening');
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('derives every asset key under the same prefix', () => {

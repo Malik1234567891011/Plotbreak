@@ -2360,7 +2360,7 @@ const raw = {
     'TITLE: the words RENT IS ONE TRUE STORY painted into the art in the upper third as an elegant tall serif wordmark in warm ivory with a soft candle-gold glow, set in two or three stacked lines,',
     'spelled exactly RENT IS ONE TRUE STORY, large and legible at thumbnail size. The word TRUE alone burns a little brighter gold than the rest. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const RENT_IS_ONE_TRUE_STORY = StoryVersion.parse(raw);

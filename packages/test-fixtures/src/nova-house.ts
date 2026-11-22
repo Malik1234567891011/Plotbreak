@@ -2459,7 +2459,7 @@ const raw = {
     'TITLE: the title Nova House painted into the art in the upper third, above the heads, as a clean elegant serif logo set in capitals, warm white with a faint four-point star glint on the O,',
     'spelled exactly NOVA HOUSE, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const NOVA_HOUSE = StoryVersion.parse(raw);

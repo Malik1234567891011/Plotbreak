@@ -4,6 +4,7 @@ import { charactersPresent, createInitialState } from '@plotbreak/engine';
 import { RuleBasedIntentParser, checkStoryChoiceClarity, checkStoryClarity } from '@plotbreak/director';
 import { THE_CULT_MASTER_WAKES_AS_A_SERVANT as STORY } from './the-cult-master-wakes-as-a-servant.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The Cult Master Wakes as a Servant, held to the promise on its own card: a
@@ -684,7 +685,7 @@ describe('assets', () => {
     expect(STORY.id).toBe('sv_the_cult_master_wakes_as_a_servant_1');
     // The drop sets the publish date; until then null, or the API reports the
     // story as updated on every request. No prologue: it opens on the scene.
-    expect(STORY.publishedAt).toBeNull();
+    expect(isReleaseDate(STORY.publishedAt), RELEASE_DATE_RULE).toBe(true);
     expect(STORY.prologue).toEqual([]);
     const derived = withDerivedAssetKeys(STORY);
     const keys = [

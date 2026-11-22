@@ -2448,7 +2448,7 @@ const raw = {
     'TITLE: the story title "Villain Track" painted into the art across the upper third as a bold sharp-serif heist-film logo, all capitals, VILLAIN TRACK, in bright gold letters with a glossy black lacquer outline and drop shadow.',
     'Two words, spelled exactly VILLAIN TRACK, large and legible at thumbnail size. A hairline crack, like the one on the black mask, runs through the word VILLAIN only. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const VILLAIN_TRACK = StoryVersion.parse(raw);

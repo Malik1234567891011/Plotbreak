@@ -2617,7 +2617,7 @@ const raw = {
     'TITLE: the words THE RANKING BOARD painted into the art in the upper third, across the top of the glass wall, as a bold condensed sports-broadcast logo, white with a red glow, like lettering lit up on glass,',
     'spelled exactly THE RANKING BOARD, three words, large and legible at thumbnail size. A thin red scan line runs under the word BOARD only. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THE_RANKING_BOARD = StoryVersion.parse(raw);

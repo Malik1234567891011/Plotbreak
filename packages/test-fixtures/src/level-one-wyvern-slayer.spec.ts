@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { knownExpression } from '@plotbreak/contracts';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { LEVEL_ONE_WYVERN_SLAYER } from './level-one-wyvern-slayer.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Level One, Wyvern Slayer, held to the promise on its own card: the player is
@@ -499,7 +500,7 @@ describe('it fits every history', () => {
 
 describe('ready for the release script', () => {
   it('ships undated, so release-stories stamps it on the day it goes out', () => {
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('carries a tag that files it on the Fantasy shelf', () => {

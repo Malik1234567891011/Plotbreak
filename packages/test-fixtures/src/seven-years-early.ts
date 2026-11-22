@@ -2639,7 +2639,7 @@ const raw = {
     'TITLE: the title Seven Years Early painted into the art in the upper third, lettered in capitals as a bold, sharp serif logo, white with a thin crimson edge,',
     'spelled exactly SEVEN YEARS EARLY, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const SEVEN_YEARS_EARLY = StoryVersion.parse(raw);

@@ -3,6 +3,7 @@ import { createInitialState, charactersPresent, locationForSchedule } from '@plo
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { CUT_LOOSE_AT_FLOOR_99 as STORY } from './cut-loose-at-floor-99.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Cut Loose at Floor 99, held to the thing on its card: the betrayal is turn
@@ -882,9 +883,9 @@ describe('the release pipeline', () => {
     expect(panel.alt.startsWith(`${speakers[0]} `)).toBe(true);
   });
 
-  it('has no prologue and no release date yet', () => {
+  it('has no prologue and is dated only at release', () => {
     expect(STORY.prologue).toEqual([]);
-    expect(STORY.publishedAt).toBeNull();
+    expect(isReleaseDate(STORY.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('gives every carded character a portrait to be drawn from', () => {

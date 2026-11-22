@@ -3,6 +3,7 @@ import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { checkStoryChoiceClarity, checkStoryClarity } from '@plotbreak/director';
 import { RESTART_AT_EIGHTEEN as story } from './restart-at-eighteen.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Restart at Eighteen, held to the promise on its own card: one night, three
@@ -638,7 +639,7 @@ describe('ready for the art and release pipeline', () => {
 
   it('has no prologue and no release date until the drop', () => {
     expect(story.prologue ?? []).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('puts the system where the storyteller reads it: hard canon, a starting quest item, starting abilities', () => {

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { ONE_WEEK_SHE_SAID } from './one-week-she-said.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * One Week, She Said, held to the promise on its own card: the player holds all
@@ -412,7 +413,7 @@ describe('ready for the art run', () => {
     }
     expect(character('mika').appearance).not.toMatch(/\buniform\b/i);
     expect(S.prologue).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('keeps the cover’s mood text free of the things it rules out', () => {

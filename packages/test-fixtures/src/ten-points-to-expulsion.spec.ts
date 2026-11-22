@@ -16,6 +16,7 @@ import {
 } from '@plotbreak/director';
 import { TEN_POINTS_TO_EXPULSION } from './ten-points-to-expulsion.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Ten Points to Expulsion, held to the slate's binding rules and to every
@@ -876,7 +877,7 @@ describe('art', () => {
 describe('release pipeline', () => {
   it('has no prologue and no release date until it ships', () => {
     expect((story as { prologue?: unknown[] }).prologue ?? []).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('puts the system where the storyteller reads it: canon, the band, and every background’s abilities', () => {

@@ -4,6 +4,7 @@ import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { withDerivedAssetKeys } from './derive-assets.js';
 import { THIN_WALLS } from './thin-walls.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Thin Walls, held to the things its bible cannot survive getting wrong.
@@ -531,8 +532,8 @@ describe('the art', () => {
     }
   });
 
-  it('ships unpublished: publishedAt is set at release', () => {
-    expect(story.publishedAt).toBeNull();
+  it('is dated only at release: release-stories stamps publishedAt', () => {
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 });
 

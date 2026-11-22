@@ -54,7 +54,7 @@ const raw = {
   premise:
     'Last night, at ten to midnight, your brother Marcus asked you for a favour: drive to the city and collect your grandmother’s ring from the jeweller, because it had to be on Elena’s finger at noon. You took the coast road, where there is no signal. You slept in the car outside the jeweller’s. Your phone died at four.\n\n' +
     'You got back to the Hale, the clifftop hotel your family has run for a hundred years, at four minutes past twelve. Your wedding started at twelve.\n\n' +
-    'Your brother is at the altar in your suit. Your bride is holding his hand. Your name has been crossed off the welcome board, and two hundred guests are waiting to see what you do.\n\n' +
+    'Your brother is at the altar in your suit. Your bride is holding his hand. Your name has been crossed off the welcome board, and two hundred guests are watching the door to see what you do.\n\n' +
     'Somebody showed Elena something in the night. Somebody told your grandmother you had called it off. You did not do either of the things they think you did. You have about fifteen minutes before the vows, and until midnight to find out why it had to be today.\n\n' +
     'Stop it, or sit in the back and watch. Win her back, ruin him, or walk out to the car park and keep driving. Your grandmother has not turned around, and your brother has not stopped checking his phone.',
   creatorId: 'creator_official',
@@ -2733,7 +2733,7 @@ const raw = {
     'on two lines, BACK ROW AT above MY OWN WEDDING, with WEDDING the largest, spelled exactly BACK ROW AT MY OWN WEDDING, large and legible at thumbnail size.',
     'One thin hand-drawn black marker line strikes through the word MY only, the way a name is crossed off a welcome board, with MY still readable under it. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const BACK_ROW_AT_MY_OWN_WEDDING = StoryVersion.parse(raw);

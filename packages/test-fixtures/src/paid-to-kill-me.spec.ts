@@ -3,6 +3,7 @@ import { createInitialState, charactersPresent, locationForSchedule } from '@plo
 import { abilityEffect, archetypeGrants, calledName, knownExpression } from '@plotbreak/contracts';
 import { withDerivedAssetKeys } from './derive-assets.js';
 import { PAID_TO_KILL_ME as RAW } from './paid-to-kill-me.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Paid to Kill Me, held to the rules every new world is held to, plus the ones
@@ -694,9 +695,9 @@ describe('the art and release pipeline', () => {
     }
   });
 
-  it('has no prologue and no release date yet', () => {
+  it('has no prologue and is dated only at release', () => {
     expect(STORY.prologue).toEqual([]);
-    expect(STORY.publishedAt).toBeNull();
+    expect(isReleaseDate(STORY.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('puts the system where the narrator reads it', () => {

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO } from './thirty-days-with-the-number-one-hero.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Thirty Days With the Number One Hero, held to the promises on its own card:
@@ -237,9 +238,9 @@ describe('the art and release pipeline', () => {
     expect(S.characters.find((c) => c.cardBlurb.trim())!.id).toBe('ace');
   });
 
-  it('opens straight on the scene and is not dated yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(S.prologue ?? []).toHaveLength(0);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('draws every portrait from one concrete look, with its hook above the waist', () => {

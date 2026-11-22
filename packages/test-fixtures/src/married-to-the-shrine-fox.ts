@@ -2522,7 +2522,7 @@ const raw = {
     'MARRIED TO THE on the first line and SHRINE FOX larger on the second, white with a soft gold glow along the brushstrokes,',
     'spelled exactly MARRIED TO THE SHRINE FOX, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const MARRIED_TO_THE_SHRINE_FOX = StoryVersion.parse(raw);

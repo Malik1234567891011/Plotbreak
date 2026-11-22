@@ -3,6 +3,7 @@ import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, archetypeGrants } from '@plotbreak/contracts';
 import { STRUCK_FROM_THE_REGISTER as story } from './struck-from-the-register.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Struck From the Register, held to the bar slate #31 was written against.
@@ -301,9 +302,9 @@ describe('the art and release pipeline', () => {
     expect(story.opening).toMatch(/Siwon says/);
   });
 
-  it('opens straight on the scene and ships unpublished', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(story.prologue ?? []).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('gives a portrait-ready appearance to everybody with a card', () => {

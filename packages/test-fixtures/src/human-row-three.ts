@@ -53,7 +53,7 @@ const raw = {
   hook: 'Exchange year at a monster academy. At roll call they ask for the human, and every head turns.',
   premise:
     'You are the first human exchange student at Hollowmere Academy in forty-one years. It stands on the far side of the Briar, the mile-deep wall of thorn that has kept the human side and the monster side apart for longer than anyone has written down.\n\n' +
-    'The Briar Accord keeps one gate open and lets one student cross each way each year. It runs out at midnight on the seventh night, and the human side will renew it only if its student is still present when the week ends.\n\n' +
+    'The Briar Accord keeps one gate open and lets one student cross each way each year. It runs out at midnight on the seventh night, and the human side will not renew it unless its student is still present when the week ends.\n\n' +
     'That student is you. The register in homeroom has you down as "Human. Row three." Not your name. A skeleton called Mr. Bones reads it aloud twice a day, and paragraph nine of the Accord is plain: an absent human gets collected by the Gate wardens and walked home.\n\n' +
     'Your classmates have horns, wings, gills and opinions. The oni behind you has been told to find out what you are made of. The harpy at the window is taking bets on how long you last. The vampire who runs the Council smiles at you with every tooth she has.\n\n' +
     'On the seventh evening each of the five Houses sets a lantern in a Great Hall window, lit or dark, and the Briar stays open or closes for good.\n\n' +
@@ -2545,7 +2545,7 @@ const raw = {
     'lettered in capitals and spelled exactly HUMAN, ROW THREE, with the comma after HUMAN, large and legible at thumbnail size.',
     'No other text anywhere: the ledger pages and the walls show only abstract marks, no letters, no numbers.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const HUMAN_ROW_THREE = StoryVersion.parse(raw);

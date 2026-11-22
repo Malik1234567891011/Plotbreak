@@ -49,7 +49,8 @@ const raw = {
   hook: 'At a college where rank is won by sparring, you are the first human in thirty years, and on your first night the wolf ranked second in the school slams her tray down on your table.',
   premise:
     'Ashgrove Academy is a four-year college in the hills for the beastfolk clans: wolves, lions, bears, foxes, hares and a dozen more, every one of them an adult with the ears, tail and nose to prove it. You arrived this morning, the first human it has admitted in thirty years.\n\n' +
-    'Rank decides everything here: where you sleep, when you eat, who steps aside in a corridor. Every student is numbered on the Order, the list painted on the dining-hall wall, and a number only changes in the Circle, a chalk ring in the old courtyard. Put your tray down on somebody’s table and you have challenged them. The one challenged picks the form: a hold, a strike, a run or a stare.\n\n' +
+    'Rank decides everything here: where you sleep, when you eat, who steps aside in a corridor. Every student is numbered on the Order, the list painted on the dining-hall wall, and a number only changes in the Circle, a chalk ring in the old courtyard.\n\n' +
+    'Put your tray down on somebody’s table and you have challenged them. The one challenged picks the form: a hold, a strike, a run or a stare.\n\n' +
     'You have no rank yet, so you eat last. On the seventh night the moon is full, the Order is fixed for the year, and anyone still unranked is sent home. You have seven days to get on it.\n\n' +
     'You have no claws and no fangs. You also have no ears that flatten when you lie, and none of the instinct that makes beastfolk bare their throats when somebody stronger growls. Nobody here knows what to do with that.\n\n' +
     'On your first night, the second-ranked student in the school puts her tray down on your table.',
@@ -2457,7 +2458,7 @@ const raw = {
     'TITLE: the words Pack Rank painted into the art across the upper third in rough white chalk-stroke brush lettering, a capital P and a capital R and the rest lower case,',
     'with a puff of chalk dust breaking off the final k, spelled exactly Pack Rank, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const PACK_RANK = StoryVersion.parse(raw);

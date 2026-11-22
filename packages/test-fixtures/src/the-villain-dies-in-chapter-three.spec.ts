@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { THE_VILLAIN_DIES_IN_CHAPTER_THREE } from './the-villain-dies-in-chapter-three.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The Villain Dies in Chapter Three, held to the promise on its own card: you
@@ -435,9 +436,9 @@ describe('the cover', () => {
     expect(S.openingPanel!.alt.startsWith(`${speaker.name.split(' ')[0]!} `)).toBe(true);
   });
 
-  it('opens straight on the scene and has no release date yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(S.prologue).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('says what every titled character is actually called', () => {

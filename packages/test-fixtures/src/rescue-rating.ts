@@ -2335,7 +2335,7 @@ const raw = {
     'TITLE: the words RESCUE RATING painted into the art in the upper third as a bold condensed broadcast-style logo, white with a red glow,',
     'spelled exactly RESCUE RATING, large and legible at thumbnail size. A single thin red bar sits under the word RATING. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const RESCUE_RATING = StoryVersion.parse(raw);

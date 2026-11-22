@@ -2500,7 +2500,7 @@ const raw = {
     'on two lines: THE CULT MASTER large, and WAKES AS A SERVANT smaller beneath it. Spelled exactly The Cult Master Wakes as a Servant, large and legible at thumbnail size.',
     'A single wisp of black ink-smoke trails off the last letter only. No other text anywhere: no lettering on the lanterns, the robes, the sword or the yoke.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const THE_CULT_MASTER_WAKES_AS_A_SERVANT = StoryVersion.parse(raw);

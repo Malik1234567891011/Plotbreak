@@ -3,6 +3,7 @@ import { createInitialState, charactersPresent, locationForSchedule } from '@plo
 import { abilityEffect, archetypeGrants, calledName, knownExpression } from '@plotbreak/contracts';
 import { THE_MAID_OWNS_THE_HOUSE_NOW as STORY } from './the-maid-owns-the-house-now.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The Maid Owns the House Now, held to its own bible and to every catalog-wide
@@ -371,8 +372,8 @@ describe('the art', () => {
     }
   });
 
-  it('ships unpublished: publishedAt is set at release', () => {
-    expect(STORY.publishedAt).toBeNull();
+  it('is dated only at release: release-stories stamps publishedAt', () => {
+    expect(isReleaseDate(STORY.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 });
 

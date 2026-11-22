@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createInitialState, charactersPresent, deriveTurnSeed } from '@plotbreak/engine';
 import { THE_ZOMBIE_WHO_SAID_PLEASE as STORY } from './the-zombie-who-said-please.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The Zombie Who Said Please, held to its own card and to the catalog's bar.
@@ -744,9 +745,9 @@ describe('the art and release pipeline (docs/stories-50/PIPELINE.md)', () => {
     }
   });
 
-  it('opens straight on the scene and is not yet published', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(STORY.prologue).toEqual([]);
-    expect(STORY.publishedAt).toBeNull();
+    expect(isReleaseDate(STORY.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('puts the grey’s rules where the narrator reads them', () => {

@@ -11,6 +11,7 @@ import {
 } from '@plotbreak/director';
 import { THE_HERO_S_SPARE } from './the-hero-s-spare.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The Hero's Spare, held to the promise on its own card: that the person the
@@ -954,7 +955,7 @@ describe('art', () => {
 
   it('opens straight on the scene and leaves the release date to release day', () => {
     expect(story.prologue).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 });
 

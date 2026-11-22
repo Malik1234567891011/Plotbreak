@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { THE_ONLY_MAN_AT_THORNWITCH } from './the-only-man-at-thornwitch.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The Only Man at Thornwitch, held to the promise on its own card: the raven
@@ -442,7 +443,7 @@ describe('the cover', () => {
     expect(cover).toMatch(/^SUBJECT: Ivy Calder/);
     expect(cover).toMatch(/HER FACE STAYS CLEAN/);
     expect(cover).toMatch(/stays on the chalk, the circles, the hall and the title, never on her face/);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
     expect(S.prologue).toEqual([]);
   });
 });

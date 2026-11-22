@@ -5,6 +5,7 @@ import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { THE_WOLF_CLAN_S_GUEST } from './the-wolf-clan-s-guest.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * The Wolf Clan's Guest, held to the promises on its own card: four brothers
@@ -252,9 +253,9 @@ describe('the art and release pipeline', () => {
     expect(S.opening).toContain('I’m Varek.');
   });
 
-  it('opens straight on the scene and is not dated yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(S.prologue).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('calls titled people by the name the world uses', () => {

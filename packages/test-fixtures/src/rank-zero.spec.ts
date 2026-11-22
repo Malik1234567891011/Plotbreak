@@ -16,6 +16,7 @@ import {
 } from '@plotbreak/director';
 import { RANK_ZERO } from './rank-zero.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Rank Zero, held to the slate's binding rules and to every structural bar the
@@ -751,9 +752,9 @@ describe('art', () => {
 });
 
 describe('release shape', () => {
-  it('opens straight on the scene and has no release date yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(story.prologue ?? []).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('gives every titled character the name the room uses', () => {

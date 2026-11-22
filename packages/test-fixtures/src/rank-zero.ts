@@ -2484,7 +2484,7 @@ const raw = {
     'and a thin curl of smoke rising off the final O, spelled exactly RANK ZERO, large and legible at thumbnail size.',
     'No other text, numbers or lettering anywhere, including on the screen, the jackets and the patch.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const RANK_ZERO = StoryVersion.parse(raw);

@@ -5,6 +5,7 @@ import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts
 import { ICE_QUEEN_S_FAKE_BOYFRIEND } from './ice-queen-s-fake-boyfriend.js';
 import { GOOD_MORNING_HUSBAND } from './good-morning-husband.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Ice Queen's Fake Boyfriend, held to the promises on its own card: a partner
@@ -305,7 +306,7 @@ describe('the cover and the ids', () => {
     expect(S.coverImage).toBeNull();
     expect(S.keyArt).toBeNull();
     for (const c of S.characters) expect(c.portrait, c.id).toBeNull();
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
     const derived = withDerivedAssetKeys(S);
     expect(derived.coverImage).toBe(`story_${SLUG}/cover`);
     expect(derived.keyArt).toBe(`story_${SLUG}/key`);

@@ -4,6 +4,7 @@ import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression, type QuestPredicate } from '@plotbreak/contracts';
 import { PACK_RANK } from './pack-rank.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Pack Rank, held to the promise on its own card: no claws, no fangs, no
@@ -534,9 +535,9 @@ describe('ready for the art and release pipeline (docs/stories-50/PIPELINE.md)',
     }
   });
 
-  it('opens straight on the scene and is not dated yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(story.prologue ?? []).toEqual([]);
-    expect(story.publishedAt).toBeNull();
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('puts the system where the storyteller reads it', () => {

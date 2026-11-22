@@ -3,6 +3,7 @@ import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts
 import { createInitialState, charactersPresent, locationForSchedule } from '@plotbreak/engine';
 import { ANNULLED_THEN_CLAIMED as RAW } from './annulled-then-claimed.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Annulled, Then Claimed, held to the rules every new world in this batch
@@ -752,9 +753,9 @@ describe('the art and release pipeline', () => {
     expect(cover).not.toMatch(/\b(young|younger|youthful|boyish|girlish|teen\w*|aged)\b/i);
   });
 
-  it('opens straight on the scene and has no release date yet', () => {
+  it('opens straight on the scene and is dated only at release', () => {
     expect(STORY.prologue ?? []).toEqual([]);
-    expect(STORY.publishedAt).toBeNull();
+    expect(isReleaseDate(STORY.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('puts the system where the storyteller reads it', () => {

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { abilityEffect, archetypeGrants, calledName, knownExpression } from '@plotbreak/contracts';
 import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { HUMAN_ROW_THREE } from './human-row-three.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Human, Row Three, held to the promises on its own card: a roll call that has
@@ -55,7 +56,7 @@ describe('prose is prose', () => {
     expect(S.openingPanel?.assetKey).toBe('story_human_row_three/opening');
     expect(S.openingPanel?.alt).toMatch(/^Ishiko /);
     expect(S.openingPanel!.alt.length).toBeLessThanOrEqual(200);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
     expect(S.prologue).toHaveLength(0);
   });
 

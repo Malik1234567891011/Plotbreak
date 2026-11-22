@@ -2583,7 +2583,7 @@ const raw = {
     'TITLE: the words UNIT NINE painted into the art in the upper third as a bold stencilled industrial logo, off-white with chipped paint edges and a thin red alarm glow behind the letters,',
     'spelled exactly UNIT NINE, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const IRONCLAD_CADETS = StoryVersion.parse(raw);

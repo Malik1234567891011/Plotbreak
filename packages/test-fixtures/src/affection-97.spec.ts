@@ -5,6 +5,7 @@ import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { AFFECTION_97 } from './affection-97.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Affection: 97, held to the promises on its own card: a prince who says he
@@ -145,7 +146,7 @@ describe('the opener hands the player a choice', () => {
     expect(S.coverDirection).toMatch(/\bTITLE:/);
     expect(S.coverDirection).toMatch(/HIS FACE STAYS CLEAN/);
     expect(S.prologue ?? []).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
     expect(withDerivedAssetKeys(S).coverImage).toBe('story_affection_97/cover');
   });
 });

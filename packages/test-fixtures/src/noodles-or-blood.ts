@@ -2463,7 +2463,7 @@ const raw = {
     'NOODLES in thick creamy white brush strokes with a pair of wooden chopsticks crossed behind the word, a smaller OR between, and BLOOD in heavy red brush strokes with one drip of red chili oil running off the last letter.',
     'Spelled exactly NOODLES OR BLOOD, large and legible at thumbnail size. No other text anywhere: no signs, no labels, nothing written on the bowls, the doors or the clothes.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const NOODLES_OR_BLOOD = StoryVersion.parse(raw);

@@ -4,6 +4,7 @@ import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { abilityEffect, calledName, knownExpression } from '@plotbreak/contracts';
 import { withDerivedAssetKeys } from './derive-assets.js';
 import { BACK_ROW_AT_MY_OWN_WEDDING } from './back-row-at-my-own-wedding.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Back Row at My Own Wedding, held to the things its bible cannot survive
@@ -463,8 +464,8 @@ describe('the art and release pipeline (docs/stories-50/PIPELINE.md)', () => {
     }
   });
 
-  it('ships unpublished, with no prologue', () => {
-    expect(story.publishedAt).toBeNull();
+  it('has no prologue and is dated only at release', () => {
+    expect(isReleaseDate(story.publishedAt), RELEASE_DATE_RULE).toBe(true);
     expect(story.prologue ?? []).toEqual([]);
   });
 

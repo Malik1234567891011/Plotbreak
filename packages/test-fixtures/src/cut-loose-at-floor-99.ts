@@ -2600,7 +2600,7 @@ const raw = {
     'CUT LOOSE AT on the first line and FLOOR 99 on the second, larger. One thin glowing blue thread runs through the letters, and a single clean diagonal knife cut slices through the word CUT only.',
     'Spelled exactly CUT LOOSE AT FLOOR 99, every letter and both nines, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-22T18:19:46.004Z',
 };
 
 export const CUT_LOOSE_AT_FLOOR_99 = StoryVersion.parse(raw);

@@ -3,6 +3,7 @@ import { createInitialState, charactersPresent } from '@plotbreak/engine';
 import { calledName, coverAssetKey, knownExpression } from '@plotbreak/contracts';
 import { withDerivedAssetKeys } from './derive-assets.js';
 import { FINALS_WEEK_OUTBREAK } from './finals-week-outbreak.js';
+import { isReleaseDate, RELEASE_DATE_RULE } from './release-date.js';
 
 /**
  * Finals Week Outbreak, held to the promises on its own card: the sick ones
@@ -336,9 +337,9 @@ describe('it is ready for art and release', () => {
     expect(S.openingPanel?.alt).toMatch(/^Nora\b/);
   });
 
-  it('has no prologue and no release date yet', () => {
+  it('has no prologue and is dated only at release', () => {
     expect(S.prologue).toEqual([]);
-    expect(S.publishedAt).toBeNull();
+    expect(isReleaseDate(S.publishedAt), RELEASE_DATE_RULE).toBe(true);
   });
 
   it('hands the storyteller the laptop and the one rule everybody can use', () => {
