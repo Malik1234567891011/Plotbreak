@@ -112,9 +112,14 @@ describe('the opener hands the player a choice', () => {
     expect(n).toBeLessThanOrEqual(120);
   });
 
-  it('has a named person speak inside the first sixty words', () => {
+  it('has a named person speak to the player inside the first sixty words', () => {
+    // To the player, not about them: "You leave", never "That one leaves".
     const head = words(S.opening).slice(0, 60).join(' ');
-    expect(head).toMatch(/"Classless," says Sir Bastian/);
+    expect(head).toMatch(/"Classless," says Sir Bastian, the knight who commands their escort\. "You leave/);
+  });
+
+  it('keeps the shelf line’s promise in the first breath', () => {
+    expect(words(S.opening).slice(0, 20).join(' ')).toMatch(/All three SSS\./);
   });
 
   it('ends on a direct question the player has to answer', () => {
@@ -123,8 +128,9 @@ describe('the opener hands the player a choice', () => {
 
   it('names nobody the player is expected to know already', () => {
     // A capital letter that is not starting a sentence is a proper noun. Only
-    // the people in the room and the classes the crystal just read may appear.
-    const ALLOWED = new Set(['Sir', 'Bastian', 'Rin', 'Maya', 'Saki', 'Sword', 'Saint', 'Archmage']);
+    // the people in the room, the classes the crystal just read and their
+    // grade may appear.
+    const ALLOWED = new Set(['Sir', 'Bastian', 'Rin', 'Maya', 'Saki', 'Sword', 'Saint', 'Archmage', 'SSS']);
     const strays: string[] = [];
     for (const m of S.opening.matchAll(/[A-Z][A-Za-z’'-]*/g)) {
       const before = S.opening.slice(0, m.index).replace(/[\s"“”[]+$/, '');
@@ -141,8 +147,17 @@ describe('the opener hands the player a choice', () => {
     expect(said).toMatch(/^"/);
     expect(done).not.toMatch(/^"/);
     expect(risky).not.toMatch(/^"/);
+    // The done one answers Maya's "who cooks?" instead of Saki's vote, so it
+    // is a different choice and not the said card acted out.
+    expect(done).toMatch(/stove/);
     // The risky one is the crystal, in front of the whole Choir.
     expect(risky).toMatch(/crystal/);
+  });
+
+  it('puts what the risky card does where production can read it', () => {
+    // runTurnPure reads hard canon, never step notes or promises.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/holds it there, it does not light: it frosts over/);
   });
 
   it('offers no opening card the parser turns into a fight', async () => {
@@ -179,10 +194,28 @@ describe('the system lives where the storyteller can read it', () => {
     expect(canon).toMatch(/settling/);
     expect(canon).toMatch(/loses nothing and remembers everything/);
     expect(canon).toMatch(/cannot gain one/);
+    expect(canon).toMatch(/frosts over/);
     expect(canon).toMatch(/Revealed only through play, never early/);
     expect(canon).toContain('PORTER');
-    expect(canon).toMatch(/The Sending is real/);
+    expect(canon).toMatch(/never early: the Sending is real/);
+    expect(canon).toMatch(/never early: her name in the reading book is Helen Marsh/);
     expect(canon).toMatch(/not prizes/);
+  });
+
+  it('never tells the storyteller two things about the player’s class at once', () => {
+    // "No class, however they ask" and "the struck class is PORTER" were both
+    // fixed truth; the first now leaves room for the second.
+    const canon = S.rules.hardCanon.join(' ');
+    expect(canon).not.toMatch(/The player has no class\b/);
+    expect(canon).toMatch(/none of the Choir’s classes/);
+    expect(canon).toMatch(/what the crystal did read under their hand is the struck line/);
+  });
+
+  it('tells the storyteller what trouble costs, and that it never kills', () => {
+    // runTurnPure reads neither defeatMode nor the resource bands.
+    expect(S.rules.toneGuide).toMatch(/marched to the side gate under guard, not killed/);
+    expect(S.rules.toneGuide).toMatch(/The player is never killed this week/);
+    expect(S.rules.toneGuide).toMatch(/no bed-sharing/);
   });
 
   it('authors exactly as many endings as the storyteller reads', () => {
@@ -261,6 +294,7 @@ describe('everybody on the page is an adult, on the page', () => {
     const canon = S.rules.hardCanon[0]!;
     expect(canon).toMatch(/^Everyone in this story is an adult\./);
     expect(canon).toMatch(/The player is in their twenties/);
+    expect(canon).toMatch(/never under eighteen whatever they type/);
     for (const c of S.characters) {
       expect(AGES[c.id], `${c.id} has no stated age`).toBeDefined();
       expect(AGES[c.id]!).toBeGreaterThanOrEqual(18);
@@ -276,6 +310,19 @@ describe('everybody on the page is an adult, on the page', () => {
     }
     expect(S.coverDirection).not.toMatch(AGE_WORDS);
     expect(S.hook).not.toMatch(/\b(teen\w*|girl|boy|kid|child\w*|schoolgirl)\b/i);
+  });
+
+  it('never sizes a heroine down for the image models', () => {
+    // "Small" on a young woman pushes anime generators younger: the Ace lesson.
+    const SIZE_WORDS = /\b(small|petite|tiny|little|slight)\b/i;
+    for (const id of ['rin', 'maya', 'saki']) {
+      const c = S.characters.find((x) => x.id === id)!;
+      const build = c.appearance.split(/\shair\b/)[0]!;
+      expect(build, id).not.toMatch(SIZE_WORDS);
+      expect(c.silhouette, id).not.toMatch(SIZE_WORDS);
+      const cover = S.coverDirection!.split(`${calledName(c)},`)[1]!.split(/\shair\b/)[0]!;
+      expect(cover, id).not.toMatch(SIZE_WORDS);
+    }
   });
 });
 
@@ -589,6 +636,25 @@ describe('it can end badly, early and in many ways', () => {
     for (const flag of ['rin_said_it', 'maya_said_it', 'saki_said_it']) {
       expect(S.endings.some((e) => e.requires.flagsSet.includes(flag)), flag).toBe(true);
     }
+  });
+
+  it('never lets an easy route finish a heroine’s quest before she can say it', () => {
+    // A step completes on its first satisfied route, so the hard route shares
+    // a step with nothing: it waits in a second step of its own.
+    for (const [questId, flag] of [
+      ['q_rin', 'rin_said_it'],
+      ['q_maya', 'maya_said_it'],
+      ['q_saki', 'saki_said_it'],
+    ] as const) {
+      const q = quest(questId);
+      const holder = q.steps.find((st) => st.succeedWhenAny.some((r) => r.setsFlags.includes(flag)))!;
+      expect(holder.succeedWhenAny, questId).toHaveLength(1);
+      expect(q.steps.indexOf(holder), questId).toBe(1);
+      expect(holder.enterWhen?.flagsSet, questId).toEqual(q.steps[0]!.rewards.flags);
+    }
+    // Deciding for Saki still closes her ending.
+    const saki = quest('q_saki').steps[1]!.succeedWhenAny[0]!;
+    expect(saki.predicate.flagsUnset).toContain('decided_for_saki');
   });
 });
 

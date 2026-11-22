@@ -95,25 +95,27 @@ const raw = {
       { itemId: 'your_phone', qty: 1 },
     ],
     hardCanon: [
-      'Everyone in this story is an adult. The player is in their twenties, twenty-two unless they say otherwise. Rin Morikawa is twenty-two, Maya Tanabe twenty-three, Saki Hirose twenty-one, Sir Bastian Vell thirty-five, High Cantor Odessa Marrin fifty-seven, Grete Holm forty-eight and Hesper sixty-three. Rin, Maya, Saki and the player are adult members of the same university hiking club and are written as adults throughout.',
+      'Everyone in this story is an adult. The player is in their twenties, twenty-two unless they give another adult age, and is never under eighteen whatever they type. Rin Morikawa is twenty-two, Maya Tanabe twenty-three, Saki Hirose twenty-one, Sir Bastian Vell thirty-five, High Cantor Odessa Marrin fifty-seven, Grete Holm forty-eight and Hesper sixty-three. Rin, Maya, Saki and the player are adult members of the same university hiking club and are written as adults throughout.',
       'The four of them were roped together on the last ridge of a mountain, in fog, when a white light took the ridge away. This evening they woke in the Hall of Calling, under the High Chapel of Varnhold, capital of the kingdom of Varn. Rin is the club captain and tied the knots. The player always carried the big pack with the stove in it.',
       'The Choir is Varn’s priesthood. Its rite, the Calling, pulls heroes from another world when the kingdom is losing a war it cannot win alone. The circle cut into the Hall’s floor has three seats. The Choir called three. The player came through on the rope, tied to the other three, and landed outside the circle.',
-      'The reading crystal on the Hall’s altar names a called hero’s class. It read Rin as Sword Saint, Maya as Archmage and Saki as Saint, all at SSS, the highest grade in the Choir’s books, and nobody has ever been read at SSS three times in one night. Under the player’s hand the crystal stayed dark. The player has no class and cannot gain one, however they ask.',
+      'The reading crystal on the Hall’s altar names a called hero’s class. It read Rin as Sword Saint, Maya as Archmage and Saki as Saint, all at SSS, the highest grade in the Choir’s books, and nobody has ever been read at SSS three times in one night. Under the player’s hand the crystal stayed dark. The player has none of the Choir’s classes and cannot gain one, however they ask; what the crystal did read under their hand is the struck line below, revealed only through play.',
+      'If the player puts a hand back on the reading crystal and holds it there, it does not light: it frosts over, white, in the exact shape of their hand, and the High Cantor has a novice scrub it clean before anybody else can look closely. In the Hall no priest will say what it means; they go silent or leave the room.',
       'The war: in the east a grey tide is eating Varn. Whatever it covers loses its colour and its sound, and grey, silent figures walk back out of it, the faded, which move like the people or animals they used to be and fall to grey dust when struck hard. The last Calling, forty-one years ago, pushed the grey back to the river Wend. It has crossed the river again.',
       'Sir Bastian Vell commands the forty knights escorting the heroes. His written order from the High Cantor: the classless one is put out of the side gate tonight with forty silver crowns and a travel writ for the north road. The heroes march east with his company at dawn on the seventh morning, with sixty porters carrying the baggage.',
       'Every art a called class performs is paid for with a memory of the world the hero came from. Small arts take small memories, big arts take big ones, and nothing visible happens: the hero simply cannot find the thing afterwards. The Choir knows and calls it settling. Rin, Maya and Saki have not been told. Natives of Varn are read at eighteen and get small trade classes, Cooper or Drover or Weaver, that cost nothing.',
-      'The player has no class, so the player loses nothing and remembers everything about home and about the other three. Telling, cooking or showing a lost thing back to one of them in enough detail gives it back to her. It does not stop the cost. It slows it.',
+      'The player has no called class, so the player loses nothing and remembers everything about home and about the other three. Telling, cooking or showing a lost thing back to one of them in enough detail gives it back to her. It does not stop the cost. It slows it.',
       'Nobody of the Choir can speak a lie in the Hall of Calling, under the crystal. They can stay silent, or leave the room.',
-      'Revealed only through play, never early: High Cantor Odessa Marrin scraped the player’s line out of the reading book with a knife, and under the scraping is the word PORTER. Three hundred years ago a Calling brought a fourth on a tether, as this one did. A porter carries what is given to them: a weight beyond their strength, a wound off somebody, the cost of an art, a whole class off a hero. That porter carried that Calling’s heroes home before the war was won, the kingdom nearly fell, and the Choir struck the class from its books.',
-      'The Sending is real: the Calling can be run backwards from the Hall to send the called home. It needs somebody to aim it with a memory of home strong enough to hold, which is exactly what the classes burn. The last Calling never went home because by the time the grey was pushed back none of them remembered where home was.',
-      'Hesper, the archer in the Choir’s walled garden, is the last living hero of the last Calling and remembers nothing from before it. Her name in the reading book is Helen Marsh. Sir Bastian is her son, born six years after her Calling. She stopped knowing him the year he became a squire, calls him Captain, and he brings her pears every dawn.',
+      'Revealed only through play, never early: the crystal did read the player, as a breath of white frost gone before anybody but the High Cantor saw it. Odessa Marrin held the pen that night, wrote the word down by habit, saw what she had written, and within the hour scraped the player’s line out of the reading book with a knife. Under the scraping is the word PORTER. Three hundred years ago a Calling brought a fourth on a tether, as this one did. A porter carries what is given to them: a weight beyond their strength, a wound off somebody, the cost of an art, a whole class off a hero. That porter carried that Calling’s heroes home before the war was won, the kingdom nearly fell, and the Choir struck the class from its books.',
+      'Revealed only through play, never early: the Sending is real. The Calling can be run backwards from the Hall to send the called home. It needs somebody to aim it with a memory of home strong enough to hold, which is exactly what the classes burn. The last Calling never went home because by the time the grey was pushed back none of them remembered where home was.',
+      'Hesper, the archer in the Choir’s walled garden, is the last living hero of the last Calling and remembers nothing from before it. She calls Sir Bastian Captain, and he brings her pears every dawn. Revealed only through play, never early: her name in the reading book is Helen Marsh, and Bastian is her son, born six years after her Calling; she stopped knowing him the year he became a squire.',
       'Rin, Maya and Saki are people with their own wants this week, not prizes. Each of them can refuse the player, be annoyed with them, or decide something without them.',
     ],
     toneGuide:
       'Isekai ensemble comedy with a real cost underneath. The four of them are a club: in-jokes, a nickname (Rin calls the player Pack), arguments about who carries what, whose turn it is to cook and who gets the one couch. Comedy comes first, and when a memory goes, name it plainly: a dog’s name, the colour of a door, a birthday. ' +
       'Each heroine wants something specific this week and says so. None of them is a prize, and any of them can refuse. Fights are quick and physical, a knight, a faded on the wall, a brawl in a kitchen, with no gore and no lingering wounds. ' +
-      'Romance is flirtatious, tense and heartfelt, never further than a kiss, and never fan service: no bath or changing-room scenes, no accidental-touch jokes, no lingering on bodies. ' +
-      'The porter and the scraped line are reveals the player earns by pulling on them. Never state them early, and a player who never asks gets a complete week of three heroines, a kitchen and a knight. The face at the top of a beat belongs to whoever reacted to the player most strongly.',
+      'Romance is flirtatious, tense and heartfelt, never further than a kiss, and never fan service: no bath or changing-room scenes, no accidental-touch jokes, no lingering on bodies, and no bed-sharing or who-sleeps-where innuendo; the couch argument is about the couch. ' +
+      'The porter and the scraped line are reveals the player earns by pulling on them. Never state them early, and a player who never asks gets a complete week of three heroines, a kitchen and a knight. The face at the top of a beat belongs to whoever reacted to the player most strongly. ' +
+      'Trouble has a set answer in this palace. A classless stranger who strikes a knight, steals, threatens a heroine or is caught where they are forbidden is disarmed and marched to the side gate under guard, not killed; only the three heroines refusing together, out loud, can stop it, and Bastian counts every incident aloud afterwards. Being put out is never the end: the Low Market is outside, and the wall is lower than it looks. The player is never killed this week: a lost fight, with a knight or with a faded on the east road, ends bruised, grey-touched for a day, carried back, or put out of the gate.',
     proseStyle: 'webnovel',
     styleExamples: [
       'The post falls in two halves, clean as paper.\n\nThe knights cheer. Rin doesn’t move.\n\n"Pack." She doesn’t turn round. "What was my dog called?"\n\n"Biscuit."\n\n"Biscuit." She says it twice more under her breath, like she’s tying it off. "Right. Obviously. I knew that."\n\nIt takes her two tries to sheathe the sword.',
@@ -644,7 +646,7 @@ const raw = {
       name: 'The Glass Tower',
       shortName: 'The Tower',
       description:
-        'The Choir’s mage tower: nine floors of lenses, burn-marked tables and books that hum when you open them. Maya has taken over the fourth floor and labelled everything. One window blew out on the first afternoon and is boarded over.',
+        'The Choir’s mage tower: nine floors of lenses, burn-marked tables and books that hum when you open them. By the second day Maya has taken over the fourth floor and labelled everything, and one window has blown out and been boarded over.',
       artDirection:
         'Tall fantasy mage tower interior, spiral stairs, brass lenses and floating sparks, long tables scorched black, handwritten paper labels stuck on everything, one boarded window. Blue light, clutter, mischief.',
       connections: [
@@ -910,7 +912,7 @@ const raw = {
       name: 'Maya Tanabe',
       role: 'Physics postgraduate, read tonight as an Archmage. She wants you close',
       cardBlurb:
-        'She already knows every spell in the tower and treats them like lab work. She wants you close for the stove, the food and her experiments, and because you are the one person here she trusts.',
+        'She has been an Archmage for ten minutes and is already running it like lab work. She wants you close for the stove, the food and her experiments, and because you are the one person here she trusts.',
       pronouns: 'she/her',
       publicTraits: ['Talks in numbered lists', 'Always hungry', 'Deadpan until something explodes'],
       hiddenDrives: [
@@ -1032,9 +1034,9 @@ const raw = {
         'Decide. Out loud. Before somebody else does it for you.',
       ],
       appearance:
-        'An adult woman, small and composed, chin-length brown hair held back with a plain clip, calm grey eyes, a white Choir healer’s mantle over a green fleece and hiking trousers, and a first-aid pouch on her belt she will not take off.',
+        'An adult woman of medium height, composed, with a nurse’s steady posture, chin-length brown hair held back with a plain clip, calm grey eyes, a white Choir healer’s mantle over a green fleece and hiking trousers, and a first-aid pouch on her belt she will not take off.',
       visualHook: 'A worn green fleece under a white healer’s mantle, and a first-aid pouch she keeps one hand on.',
-      silhouette: 'Small and very still, stepping in between, one hand held out flat.',
+      silhouette: 'Very still, stepping in between, one hand held out flat.',
       artSeed: 'thaap-saki-01',
       portrait: null,
       expressions: ['neutral', 'quiet', 'warm', 'worried', 'determined'],
@@ -1616,7 +1618,7 @@ const raw = {
     {
       id: 'q_struck_line',
       title: 'The Struck Line',
-      summary: 'The crystal stayed dark under your hand, and the Choir has been very careful about that ever since. Your line in their reading book has been scraped out with a knife, and there is a word under the scraping.',
+      summary: 'Something about the dark crystal did not add up, and the Choir has been very careful with you since you noticed. Your line in their reading book has been scraped out with a knife.',
       kind: 'LEAD',
       startsActive: false,
       involvedCharacterIds: ['odessa', 'grete', 'hesper'],
@@ -1943,24 +1945,11 @@ const raw = {
       steps: [
         {
           id: 'rin_lets_go',
-          playerCopy: 'Get Rin to say why she wants you gone.',
+          playerCopy: 'Get Rin to stop arguing with you.',
           directorNotes:
-            'She will not say it while anybody else is in the room, and she will not say it to somebody who has argued with her about it that day. She can be outlasted, out-carried or told plainly that the knots were good. If romance is where this goes, it stays at a kiss and she is terrible at it, and both of those are fine.',
+            'She can be outlasted, out-carried or told that the knots were good. None of that makes her say why she wants the player off the road east; it only makes her stop arguing about it, which is the first time she has stopped since the ridge.',
           succeedWhen: null,
           succeedWhenAny: [
-            {
-              routeId: 'rin_says_it',
-              label: 'She says it, plainly, to your face',
-              predicate: {
-                flagsSet: ['spoke:rin'],
-                minRelationship: [
-                  { characterId: 'rin', dimension: 'trust', value: 62 },
-                  { characterId: 'rin', dimension: 'affection', value: 72 },
-                ],
-              },
-              setsFlags: ['rin_said_it'],
-              closesFlags: [],
-            },
             {
               routeId: 'told_her_the_knots_held',
               label: 'Tell her the knots held',
@@ -1981,6 +1970,30 @@ const raw = {
           ],
           rewards: { xp: 100, items: [], flags: ['rin_answered'], abilities: [], reputation: [] },
         },
+        {
+          id: 'rin_says_why',
+          playerCopy: 'Get Rin to say why she wants you gone.',
+          directorNotes:
+            'She will not say it while anybody else is in the room, and she will not say it to somebody who has argued with her about it that day. If romance is where this goes, it stays at a kiss and she is terrible at it.',
+          enterWhen: { flagsSet: ['rin_answered'] },
+          succeedWhen: null,
+          succeedWhenAny: [
+            {
+              routeId: 'rin_says_it',
+              label: 'She says it to your face',
+              predicate: {
+                flagsSet: ['spoke:rin'],
+                minRelationship: [
+                  { characterId: 'rin', dimension: 'trust', value: 62 },
+                  { characterId: 'rin', dimension: 'affection', value: 72 },
+                ],
+              },
+              setsFlags: ['rin_said_it'],
+              closesFlags: [],
+            },
+          ],
+          rewards: { xp: 120, items: [], flags: [], abilities: [], reputation: [] },
+        },
       ],
     },
     {
@@ -1995,24 +2008,11 @@ const raw = {
       steps: [
         {
           id: 'the_control_group',
-          playerCopy: 'Be Maya’s control group, and find out what entry fifty-two says.',
+          playerCopy: 'Be Maya’s control group.',
           directorNotes:
             'She frames everything as an experiment because it is the only way she can ask for anything. Feeding her is the shortest road to her. Asking her to charge the phone with a spark works, and costs her a memory she will not notice is gone, which the player will.',
           succeedWhen: null,
           succeedWhenAny: [
-            {
-              routeId: 'maya_says_it',
-              label: 'She says it without a hypothesis in front of it',
-              predicate: {
-                flagsSet: ['spoke:maya'],
-                minRelationship: [
-                  { characterId: 'maya', dimension: 'trust', value: 65 },
-                  { characterId: 'maya', dimension: 'affection', value: 72 },
-                ],
-              },
-              setsFlags: ['maya_said_it'],
-              closesFlags: [],
-            },
             {
               routeId: 'fed_the_scientist',
               label: 'Cook her something from home',
@@ -2030,6 +2030,30 @@ const raw = {
           ],
           rewards: { xp: 100, items: [], flags: ['maya_answered'], abilities: [], reputation: [] },
         },
+        {
+          id: 'entry_fifty_two',
+          playerCopy: 'Find out what entry fifty-two says, and what she wants instead of a hypothesis.',
+          directorNotes:
+            'She will put a hypothesis in front of it every time she gets close, and the player can wait her out. If romance is where this goes, it is fast, nerdy and deadpan, and stays at a kiss.',
+          enterWhen: { flagsSet: ['maya_answered'] },
+          succeedWhen: null,
+          succeedWhenAny: [
+            {
+              routeId: 'maya_says_it',
+              label: 'She says it without a hypothesis in front of it',
+              predicate: {
+                flagsSet: ['spoke:maya'],
+                minRelationship: [
+                  { characterId: 'maya', dimension: 'trust', value: 65 },
+                  { characterId: 'maya', dimension: 'affection', value: 72 },
+                ],
+              },
+              setsFlags: ['maya_said_it'],
+              closesFlags: [],
+            },
+          ],
+          rewards: { xp: 120, items: [], flags: [], abilities: [], reputation: [] },
+        },
       ],
     },
     {
@@ -2044,24 +2068,11 @@ const raw = {
       steps: [
         {
           id: 'saki_chooses',
-          playerCopy: 'Find out what Saki wants, without deciding it for her.',
+          playerCopy: 'Ask Saki what she wants, without deciding it for her.',
           directorNotes:
             'The only way to lose her is to decide for her. Talking her round, however kindly, gets agreement and then a very quiet Saki who stops asking the player anything. Asking and then not arguing with the answer is the whole trick, and it is harder than it sounds.',
           succeedWhen: null,
           succeedWhenAny: [
-            {
-              routeId: 'saki_says_it',
-              label: 'She says what she wants, out loud',
-              predicate: {
-                flagsSet: ['spoke:saki'],
-                minRelationship: [
-                  { characterId: 'saki', dimension: 'trust', value: 65 },
-                  { characterId: 'saki', dimension: 'affection', value: 70 },
-                ],
-              },
-              setsFlags: ['saki_said_it'],
-              closesFlags: [],
-            },
             {
               routeId: 'asked_and_listened',
               label: 'Ask her, and do not argue with the answer',
@@ -2078,6 +2089,31 @@ const raw = {
             },
           ],
           rewards: { xp: 100, items: [], flags: ['saki_answered'], abilities: [], reputation: [] },
+        },
+        {
+          id: 'saki_decides',
+          playerCopy: 'Let Saki decide what she wants, out loud.',
+          directorNotes:
+            'She decides in her own time, and only for somebody who never decided for her. Whether she wants home at all is hers to say. If romance is where this goes, it is quiet and certain, and stays at a kiss.',
+          enterWhen: { flagsSet: ['saki_answered'] },
+          succeedWhen: null,
+          succeedWhenAny: [
+            {
+              routeId: 'saki_says_it',
+              label: 'She says what she wants, out loud',
+              predicate: {
+                flagsSet: ['spoke:saki'],
+                flagsUnset: ['decided_for_saki'],
+                minRelationship: [
+                  { characterId: 'saki', dimension: 'trust', value: 65 },
+                  { characterId: 'saki', dimension: 'affection', value: 70 },
+                ],
+              },
+              setsFlags: ['saki_said_it'],
+              closesFlags: [],
+            },
+          ],
+          rewards: { xp: 120, items: [], flags: [], abilities: [], reputation: [] },
         },
       ],
     },
@@ -2527,13 +2563,13 @@ const raw = {
     },
   ],
   opening:
-    'The crystal on the altar blazed gold three times. Sword Saint. Archmage. Saint. One for each woman you came here with.\n\n' +
+    'The crystal on the altar blazed gold three times. Sword Saint. Archmage. Saint. All three SSS. One for each woman you came here with.\n\n' +
     'Then your hand. Nothing. Not a flicker.\n\n' +
-    '"Classless," says Sir Bastian, the knight who commands their escort. "That one leaves by the side gate tonight, with a purse."\n\n' +
+    '"Classless," says Sir Bastian, the knight who commands their escort. "You leave by the side gate tonight, with a purse."\n\n' +
     'Rin, your club captain, wearing a sword she didn’t own this morning, won’t look at you. "Good. We move faster without the pack."\n\n' +
-    '"Then who cooks?" snaps Maya, sparks crawling off her fingers.\n\n' +
+    '"Then who cooks?" snaps Maya, the physicist, sparks crawling off her fingers.\n\n' +
     'Bastian’s hand settles on his hilt.\n\n' +
-    'Saki, the quiet one, steps between them all and looks only at you.\n\n' +
+    'Saki, the quiet one, steps between them and looks only at you.\n\n' +
     '"Don’t let them vote on you. You decide. Are you coming with us, or not?"',
   openingPanel: {
     assetKey: 'story_three_heroines_and_a_porter/opening',
@@ -2541,14 +2577,14 @@ const raw = {
   },
   openingSuggestions: [
     '"I’m coming. Somebody has to carry the tents."',
-    'I shoulder the club pack, walk past Bastian, and stand beside Saki.',
+    'I set the camp stove on the altar steps, light it, and start the noodles.',
     'I put my hand back on the crystal and hold it there. "Read me again."',
   ],
   coverDirection: [
     'SUBJECT: three adult women in a fantasy summoning hall, lit gold from below by a glowing crystal, with one figure in the foreground seen from behind under a huge hiking backpack.',
     'LEFT: Rin, tall and athletic, short ragged black hair, a red hiking shell jacket over a steel breastplate, a long straight sword held low, a cut length of orange climbing rope knotted at her hip, glaring sideways.',
     'CENTRE: Maya, round glasses, long dark hair in a messy bun with a pencil through it, a grey hoodie under a midnight-blue mage’s robe rolled to the elbows, small blue sparks crawling over her raised fingertips, mid-argument.',
-    'RIGHT: Saki, small and calm, chin-length brown hair with a plain clip, a white healer’s mantle over a green fleece, one hand held out flat as if stepping between two people, looking straight at the viewer.',
+    'RIGHT: Saki, calm and steady, of medium height, chin-length brown hair with a plain clip, a white healer’s mantle over a green fleece, one hand held out flat as if stepping between two people, looking straight at the viewer.',
     'FOREGROUND: the porter, seen from behind and from the shoulders up, face never shown, a battered hiking pack with a camp stove and a rolled tent strapped to it.',
     'All four are dressed for a mountain: practical, layered and fully covered. No fan service. The comedy is in the expressions, an argument in progress.',
     'BEHIND THEM: a vast vaulted stone hall, a circle carved into the floor with three stone seats, the crystal blazing gold on a black altar, white-robed priests in soft focus.',

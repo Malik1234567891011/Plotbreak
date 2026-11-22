@@ -54,21 +54,29 @@ lines are marked there as reveals the player earns.
   has three seats. The player came through on the rope, tied to the other
   three, and landed outside it.
 - **The crystal.** It names a called hero's class and grade. Three SSS readings
-  in one night has never happened. Under the player it stayed dark, and no
-  class can be gained later.
+  in one night has never happened. Under the player it stayed dark, and the
+  player can gain none of the Choir's classes later; what it did read is the
+  struck line below. A hand put back on it and held there does not light it:
+  the crystal frosts over, white, in the exact shape of the hand, and the High
+  Cantor has a novice scrub it clean before anybody looks closely. In the Hall
+  no priest will say what it means; they go silent or leave the room. This is
+  in hard canon, because production never reads step notes or promises.
 - **The price.** Every art a called class performs takes a memory of home.
   Small arts take small memories and big ones take big ones. The hero simply
   cannot find the thing afterwards. The Choir knows and calls it *settling*.
   The three have not been told. Natives are read at eighteen and get trade
   classes (Cooper, Drover, Weaver) that cost nothing.
-- **The exemption.** The player has no class, so loses nothing and remembers
+- **The exemption.** The player has no called class, so loses nothing and remembers
   everything about home and about the other three. Telling, cooking or showing
   a lost thing back in enough detail returns it. That slows the cost. It does
   not stop it.
 - **No lies under the crystal.** Nobody of the Choir can speak a lie in the
   Hall of Calling. They can stay silent, or leave the room.
-- **The struck line (earned).** The High Cantor scraped the player's line out
-  of the reading book with a knife. Under it is the word **PORTER**. Three
+- **The struck line (earned).** The crystal did read the player, as a breath of
+  white frost gone before anybody but the High Cantor saw it. She held the pen
+  that night, wrote the word by habit, saw what she had written, and within the
+  hour scraped the player's line out of the reading book with a knife. Under it
+  is the word **PORTER**. Three
   hundred years ago a Calling brought a fourth on a tether. A porter carries
   what is given to them: a weight, a wound, the cost of an art, a whole class.
   That porter carried that Calling's heroes home before the war was won, the
@@ -77,9 +85,12 @@ lines are marked there as reveals the player earns.
   somebody to aim it with a memory of home strong enough to hold, which is
   exactly what the classes burn.
 - **The archer.** Hesper, in the Choir's walled garden, is the last hero of the
-  last Calling. Her name in the book is Helen Marsh, twenty-two when called.
-  Sir Bastian is her son, born six years after. She calls him Captain. He
-  brings her pears every dawn.
+  last Calling. She calls Sir Bastian Captain, and he brings her pears every
+  dawn. Earned: her name in the book is Helen Marsh, twenty-two when called,
+  and Bastian is her son, born six years after.
+
+In hard canon the struck line, the Sending and the Helen Marsh half of the
+archer all open with "Revealed only through play, never early:".
 
 ## Tone
 
@@ -92,40 +103,56 @@ Each heroine wants something specific this week and says so. None of them is a
 prize, and any of them can refuse. Fights are quick and physical with no gore.
 Romance is flirtatious, tense and heartfelt, never further than a kiss, and
 never fan service: no bath or changing-room scenes, no accidental-touch jokes,
-no lingering on bodies.
+no lingering on bodies, and no bed-sharing or who-sleeps-where innuendo. The
+couch argument is about the couch.
+
+Trouble has a set answer, written into the tone guide because production reads
+neither `defeatMode` nor the Suspicion bands. A classless stranger who strikes
+a knight, steals, threatens a heroine or is caught where they are forbidden is
+disarmed and marched to the side gate under guard, not killed. Only the three
+heroines refusing together, out loud, can stop it, and Bastian counts every
+incident aloud afterwards. Being put out is never the end. The player is never
+killed this week: a lost fight ends bruised, grey-touched for a day, carried
+back, or put out of the gate.
 
 ## The opener
 
-116 words. Sir Bastian speaks at word 29. It ends on Saki's direct question.
-It uses no proper noun the player has to know already.
+119 words. Sir Bastian speaks to you at word 32 ("Classless," then "You
+leave"). The shelf line's SSS is said in the first sixteen words. It ends on
+Saki's direct question. It uses no proper noun the player has to know already.
 
 > The crystal on the altar blazed gold three times. Sword Saint. Archmage.
-> Saint. One for each woman you came here with.
+> Saint. All three SSS. One for each woman you came here with.
 >
 > Then your hand. Nothing. Not a flicker.
 >
-> "Classless," says Sir Bastian, the knight who commands their escort. "That
-> one leaves by the side gate tonight, with a purse."
+> "Classless," says Sir Bastian, the knight who commands their escort. "You
+> leave by the side gate tonight, with a purse."
 >
 > Rin, your club captain, wearing a sword she didn't own this morning, won't
 > look at you. "Good. We move faster without the pack."
 >
-> "Then who cooks?" snaps Maya, sparks crawling off her fingers.
+> "Then who cooks?" snaps Maya, the physicist, sparks crawling off her fingers.
 >
 > Bastian's hand settles on his hilt.
 >
-> Saki, the quiet one, steps between them all and looks only at you.
+> Saki, the quiet one, steps between them and looks only at you.
 >
 > "Don't let them vote on you. You decide. Are you coming with us, or not?"
 
 **Suggestions**
 
 1. *Said:* "I'm coming. Somebody has to carry the tents."
-2. *Done:* I shoulder the club pack, walk past Bastian, and stand beside Saki.
+2. *Done:* I set the camp stove on the altar steps, light it, and start the noodles.
 3. *Risky:* I put my hand back on the crystal and hold it there. "Read me again."
+
+Three different choices: the said card answers Saki, the done card answers
+Maya's "who cooks?" and skips the vote (route `cooked_on_the_altar_steps`), and
+the risky card asks the crystal instead of anybody in the room.
 
 The risky card is also the first door into the mystery: a hand held on the
 crystal frosts it over, and the Choir scrubs the frost before anybody looks.
+That rule is in hard canon, so the storyteller plays it on turn 1.
 
 **Starting state:** 19:40 on day 0, in the Hall of Calling, at the evening
 vigil. The player holds the club pack, the cut rope and their phone (nine
@@ -134,7 +161,8 @@ percent battery). Obligation: Sir Bastian's order, due by 22:00.
 ## Cast
 
 Cast order is cover-casting order. Every one of them is an adult. The player is
-in their twenties, twenty-two unless they say otherwise.
+in their twenties, twenty-two unless they give another adult age, and is never
+under eighteen whatever they type.
 
 | Character | Age | Role | Wants this week |
 |---|---|---|---|
@@ -309,7 +337,14 @@ the Navigator, the Pack Mule, the Treasurer.
   choose the last load. The three loads close each other.
 - **The Iron Door**, **The Woman in the Garden**, **Strap and Tally** (side).
 - One side quest per heroine: **The Captain's Knots**, **Entry Fifty-Two**,
-  **Nobody Decides for Saki**. Deciding for Saki closes her best ending.
+  **Nobody Decides for Saki**. Each has two steps: first she stops arguing (or
+  gets fed, or gets asked), then she says it in her own words. The second step
+  holds only her own-words route, because a step completes on its first
+  satisfied route and an easy one would otherwise end it first. Deciding for
+  Saki closes her best ending.
+- The Struck Line's summary says only that the Choir got careful "since you
+  noticed" and that the line was scraped, never that a word is under it: the
+  storyteller reads every quest summary from turn 1.
 
 ## Endings
 
@@ -335,6 +370,15 @@ Losses written without punishment: the drift (2), the early walk (4) and the
 one left behind (5). The kingdom loses something real in each of the three
 porter endings.
 
+## Originality
+
+- Title collision search (recorded at editor review): the exact title searched
+  with anime, webtoon and manhwa found no work of that name. The nearest hits
+  are stories about a hero party's baggage carrier, with different titles and
+  premises.
+- No franchise terms. Sword Saint, Archmage, Saint and SSS are generic genre
+  words. No OOC title, character or premise is copied.
+
 ## Image plan
 
 - **Cover:** the three heroines lit gold from the crystal, mid-argument; the
@@ -345,3 +389,6 @@ porter endings.
   between a knight with his hand on his sword and you, the crystal dark behind
   her, Rin and Maya arguing in gold light.
 - Portraits in cast order. Expressions use the generator's words only.
+- Saki is described by pose and costume, never as small: "of medium height,
+  composed, with a nurse's steady posture". Size words on a young woman push
+  the anime models younger (the Ace lesson).
