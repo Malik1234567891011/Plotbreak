@@ -76,7 +76,8 @@ describe('the opener hands the player a choice', () => {
   });
 
   it('ends on a question the player has to answer now', () => {
-    expect(S.opening.trim()).toMatch(/"And you didn’t see me\. Yes or no\?"$/);
+    // No contraction: she is frightened, and her voice drops them when she is.
+    expect(S.opening.trim()).toMatch(/"And you did not see me\. Yes or no\?"$/);
   });
 
   it('names nobody the player is expected to know already', () => {

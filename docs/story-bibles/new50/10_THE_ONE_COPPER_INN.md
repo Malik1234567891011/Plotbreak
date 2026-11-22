@@ -121,7 +121,7 @@ to play it.
 >
 > The woman doesn't turn round.
 >
-> "One room," she says. "And you didn't see me. Yes or no?"
+> "One room," she says. "And you did not see me. Yes or no?"
 
 **Quality bar:** Ember speaks to the player inside the first 60 words. It ends on a direct yes-or-no
 question that needs an answer now, because the torches are coming. Under 120 words. The only proper
@@ -130,9 +130,11 @@ something whatever the answer: she is a guest, hidden, refused, or the player is
 
 **Opening suggestions** (said / done / risky):
 
-1. Said: `"Yes. Top of the stairs, the only room with a roof. Who's after you?"`
-2. Done: `I pocket the scale, hand her the key to Room Four, and blow out every lamp in the room.`
-   (A trap the player does not know about yet: the charter only holds while the lamp is lit.)
+1. Said: `"Yes. Top of the stairs, the only room with a roof. Now: what are you?"`
+2. Done: `I pocket the scale, hand her the key to Room Four, and put out every light in the house, the lamp over the door too.`
+   (A trap the player does not know about yet: the charter only holds while the lamp is lit. The
+   player lit that lamp at dusk, for the first time in twenty years, which is how Ember and Marla
+   both saw it.)
 3. Risky: `I take Tobin's lantern and walk out into the rain to meet the torches.`
 
 ## Cast
@@ -144,7 +146,8 @@ being an audience. Order in the fixture is cover-casting order: Ember, Wren, Tob
 
 - **Role:** Your first guest. Wounded, hunted, and paying in a currency that could get her caught.
 - **Looks:** Tall and long-limbed, two dark swept-back horns, copper-red hair worn loose, amber eyes
-  with slit pupils, a travel-stained dark green cloak over a plain linen shirt, one arm held stiff.
+  with slit pupils, a travel-stained dark green hooded cloak fastened at the throat, over a
+  high-collared dark wool tunic, one arm held stiff.
   Rain steams off her.
 - **Her own motive:** Seven nights under a roof, unseen, so the tear across her shoulder (her left wing
   in her own shape) closes and she can fly. And, underneath, to find out whether the cook who fed her
@@ -158,7 +161,12 @@ being an audience. Order in the fixture is cover-casting order: Ember, Wren, Tob
 - **Secret 3:** Her true name, given, is a promise: whoever holds it can call her once, from anywhere,
   and she will come. She has never given it to a human.
 - **Boundaries:** Will not beg, and will leave by the window, wound or not, before anyone puts a collar
-  on her. Will not use fire under a roof that sheltered her unless a life depends on it.
+  on her. Will not turn her fire on anybody under a roof that sheltered her unless a life depends on
+  it. Lighting a cold range is another matter, and it costs her the wound every time. Will not take
+  her tunic off to have the wound seen to; a seam unpicked over the shoulder blade is enough.
+- **If refused a room:** she does not argue. She takes the scale back, goes out the back into the
+  rain, and lies up in the hayloft over the mare, the only other sound roof on the property, where
+  Tobin finds her before the hunters do.
 - **Voice:** Formal and a little archaic, short sentences, no contractions when frightened. Calls things
   by what they are: "the wound", "your fire", "the men with hooks". Very dry, perfectly straight-faced.
 - **Romance:** available, slow, warm, and allowed to stay unspoken. Up to a kiss.
@@ -190,7 +198,7 @@ being an audience. Order in the fixture is cover-casting order: Ember, Wren, Tob
 ### Tobin Ashby, 22, the stablehand who came with the inn
 
 - **Role:** Has lived in the stable loft for six years and kept it spotless in a building with no
-  roof. Nobody told him it was sold, so he kept working. Calls the player "Boss" because they own it.
+  roof. Nobody told him to stop, so he kept working. Calls the player "Boss" because they own it.
 - **Looks:** Very tall and broad, shaggy straw-coloured hair, a sunburned face, patched work trousers
   and braces over a collarless shirt, a stable lantern always in one hand.
 - **His own motive:** Keep his job and his loft. He wants the inn alive because it is the only place
@@ -210,7 +218,7 @@ being an audience. Order in the fixture is cover-casting order: Ember, Wren, Tob
 
 - **Role:** Your only neighbour. Cooked at Wren's Rest for thirty years. Talked the Reeve into selling
   you the place for a copper, for reasons she has not shared.
-- **Looks:** Small and quick, white hair pinned up under a blue headscarf, a flour-dusted apron over a
+- **Looks:** Wiry and quick, white hair pinned up under a blue headscarf, a flour-dusted apron over a
   brown wool dress, sleeves pushed up, a covered basket on one arm.
 - **Her own motive:** Hear the inn full one more time. Talk to Ember alone, once.
 - **Fear:** Dying with the inn still dark. That Ember remembers her as a cook's helper with flour on
@@ -359,7 +367,8 @@ Each gives one ordinary ability, so the storyteller sees what the player is good
 ## Cover direction
 
 A rain-dark inn common room at midnight. Ember large in frame, waist up, close and centred, behind a
-worn wooden counter, hood half back over two dark swept-back horns, copper-red hair wet, amber eyes on
+worn wooden counter, hood pushed back off two dark swept-back horns, the cloak fastened at the throat
+over a high-collared dark wool tunic, copper-red hair wet, amber eyes on
 the viewer, one hand setting down a glowing red-gold scale. Warm firelight from a big hearth on one
 side, cold blue rain light from a broken shutter on the other, and through it, small and far off,
 a line of torches on a hill. The title "THE ONE-COPPER INN" painted into the art as a hand-painted

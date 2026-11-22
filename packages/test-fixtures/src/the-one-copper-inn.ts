@@ -93,6 +93,7 @@ const raw = {
       'Captain Wren was born in this inn’s stable. His mother, Hester Wren, was the last keeper of Wren’s Rest. The old sign lies face down under the cellar stairs. Wren has not set foot inside since the day he left.',
       'Fifty years ago Ember wintered at Wren’s Rest under another name, and Marla, then twenty-one and the cook’s helper, fed her every night and asked nothing. Marla recognises her on sight. Ember chose this inn on purpose, because she remembered the charter and the lamp.',
       'Yesterday a Greyhook scout paid Tobin one silver to light a lantern in the hayloft window if a stranger came to the inn. Tobin took it because the mare needed oats. He has not decided whether to light it.',
+      'At dusk tonight the player lit the old iron lamp over the front door, the first time it has burned in twenty years, mostly to see whether it still worked. Ember saw it from the hill and came straight to it. Marla saw it from her window across the wall.',
     ],
     toneGuide:
       'Cosy slow-life fantasy with a pulse. The pleasure is specific work: a roof patched with slate pulled off a barn, an iron range lit for the first time in twenty years, a supper somebody pays four copper for, a sign repainted. The pulse is twenty polite hunters at the crossroads and an old law that only protects a real inn. ' +
@@ -189,7 +190,7 @@ const raw = {
         {
           upTo: 100,
           behaviour:
-            'Everybody knows. Children of the town are kept indoors after dark, the Margrave’s factor rides up the hill to look at the yard, and Wren’s company stops being patient with its captain. Any lapse in the charter, one unlit hour, and they come in.',
+            'Everybody knows. Doors in town are barred after dark, the Margrave’s factor rides up the hill to look at the yard, and Wren’s company stops being patient with its captain. Any lapse in the charter, one unlit hour, and they come in.',
         },
       ],
     },
@@ -839,7 +840,7 @@ const raw = {
       name: 'Ember',
       role: 'Your first guest. A red dragon in human shape, wounded, with hunters a mile behind her',
       cardBlurb:
-        'She paid for one room with a scale worth more than your whole town, she wants you to forget you ever saw her, and she walked straight to your counter in the dark as if she knew where it was.',
+        'She paid for one room with a scale worth more than your inn. She wants you to forget you ever saw her, and she walked straight to your counter in the dark as if she knew the way.',
       pronouns: 'she/her',
       publicTraits: ['Eats like a forge', 'Polite in an old-fashioned, slightly alarming way', 'Never sits with her back to a door'],
       hiddenDrives: [
@@ -852,10 +853,11 @@ const raw = {
         'That she has outlived everybody who would remember her kindly',
       ],
       socialStyle:
-        'Watches you the way a cat watches a fire. Says thank you formally and exactly once. Takes the warmest seat in any room without asking, and gives it up at once if you look cold.',
+        'Watches you the way a cat watches a fire. Says thank you formally and exactly once. Takes the warmest seat in any room without asking, and gives it up at once if you look cold. Refused a room, she does not argue: she takes the scale back, goes out the back into the rain, and lies up in the hayloft over the mare, the only other sound roof on the property, where Tobin finds her before the hunters do.',
       boundaries: [
         'Will not beg, and will leave by the window, wound or not, before she lets anybody put a collar on her',
-        'Will not use fire under a roof that sheltered her unless a life depends on it',
+        'Will not turn her fire on anybody under a roof that sheltered her unless a life depends on it. Lighting a cold range is another matter, and it costs her the wound every time',
+        'Will not take her tunic off to have the wound seen to; a seam unpicked over the shoulder blade is enough, and it is done briskly, by lamplight',
       ],
       goals: ['Seven nights under a roof, unseen, until the wound closes', 'Find out whether the cook who fed her here fifty winters ago is still alive'],
       secrets: [
@@ -885,10 +887,10 @@ const raw = {
         'One room. And you did not see me.',
         'Your hearth is small and sulking. Move aside. No, I will not burn the kitchen. Two hundred years of lighting things, and only one building, and it deserved it.',
         'A scale freely given is a question, keeper. You have not answered it yet.',
-        'Fifty winters ago somebody in this kitchen gave me soup and did not ask what I was. I would like to know if she is still alive. That is all. That is the only reason.',
+        'I asked for a room, not a conversation. You may have the conversation tomorrow, if the room is still mine.',
       ],
       appearance:
-        'An adult woman, tall and long-limbed, with two dark swept-back horns, copper-red hair worn loose and wet with rain, amber eyes with slit pupils, a travel-stained dark green cloak with a hood over a plain linen shirt, one arm held stiff against her side.',
+        'An adult woman, tall and long-limbed, with two dark swept-back horns, copper-red hair worn loose and wet with rain, amber eyes with slit pupils, a travel-stained dark green hooded cloak, fastened at the throat, over a high-collared dark wool tunic, one arm held stiff against her side.',
       visualHook: 'Two dark swept-back horns under a soaked hood, and rain steaming off her cloak.',
       silhouette: 'Tall and still at a counter, hood up, one arm held close, the other hand flat on the wood.',
       artSeed: 'one-copper-ember-01',
@@ -977,7 +979,7 @@ const raw = {
       topics: ['the charter', 'his company', 'the contract', 'his mother', 'the inspection', 'dragons'],
       voiceSamples: [
         'Good evening, keeper. Greyhook Company, under crown warrant. I shan’t come in. I should like to know whether your lamp is lit.',
-        '"Between lamp-lighting and dawn." My mother had those words painted over the bar. You are standing about where she used to stand.',
+        '"Between lamp-lighting and dawn, so long as the lamp over the door is lit." I can recite the rest, keeper, if you have not read it. Most keepers have not.',
         'Twenty men and women, keeper, and their families. A thousand crowns is a good winter for every one of them, and my signature is on the contract.',
         'Alive. It is a word I used to like.',
       ],
@@ -1027,9 +1029,9 @@ const raw = {
     {
       id: 'tobin',
       name: 'Tobin Ashby',
-      role: 'Stablehand who came with the inn. Nobody told him it was sold, so he kept working',
+      role: 'Stablehand who came with the inn. Nobody told him to stop, so he kept working',
       cardBlurb:
-        'He came with the inn like the roof did, he calls you Boss because you own it, and he keeps glancing at the hayloft window as if it owes him an answer.',
+        'He keeps glancing at the hayloft window as if it owes him an answer. He came with the inn like the roof did, and he calls you Boss.',
       pronouns: 'he/him',
       publicTraits: ['Very large and very gentle', 'Takes everything literally, including jokes', 'Talks to the mare more than to people'],
       hiddenDrives: [
@@ -1060,7 +1062,7 @@ const raw = {
         },
       ],
       speechStyle:
-        'Slow, literal, short words. Calls the player Boss and the mare by her full name, Lady Biscuit. Repeats the important part of what you said back to you, to make sure he has it.',
+        'Slow, literal, short words. Calls the player Boss and the mare by her full name, Lady Biscuit. Repeats the important part of what you said back to you, to make sure he has it. He is slow because he is careful, not because he is simple: a grown man who thinks before he speaks.',
       topics: ['the mare', 'the stable', 'the roof', 'the hunters', 'the lantern', 'his loft'],
       voiceSamples: [
         'Boss. Torches on the hill. Dragon hunters, twenty of them.',
@@ -1112,7 +1114,7 @@ const raw = {
       calledName: 'Marla',
       role: 'Your only neighbour. Cooked at this inn for thirty years, and has opinions about your range',
       cardBlurb:
-        'She lives over your wall, she cooked in your kitchen for thirty years, and she talked the Reeve into selling you the place for one copper for reasons she has not shared.',
+        'She talked the Reeve into selling you this place for one copper and will not say why. She cooked in your kitchen for thirty years.',
       pronouns: 'she/her',
       publicTraits: ['Says exactly what she thinks, immediately', 'Feeds people as a form of argument', 'Keeps bees and a goat called The Bishop'],
       hiddenDrives: [
@@ -1155,9 +1157,9 @@ const raw = {
         'Eat that. Then explain why there is a lamp lit up there and only one of you is paying for it.',
       ],
       appearance:
-        'An older woman, small and quick, white hair pinned up under a blue headscarf, a flour-dusted apron over a brown wool dress, sleeves pushed to the elbow, a covered basket on one arm.',
+        'An older woman, wiry and quick, white hair pinned up under a blue headscarf, a flour-dusted apron over a brown wool dress, sleeves pushed to the elbow, a covered basket on one arm.',
       visualHook: 'A covered basket on one arm that always has something hot in it.',
-      silhouette: 'Small and square in a back doorway, basket on one hip, pointing with a wooden spoon.',
+      silhouette: 'Square and solid in a back doorway, basket on one hip, pointing with a wooden spoon.',
       artSeed: 'one-copper-marla-01',
       portrait: null,
       expressions: ['neutral', 'stern', 'warm', 'amused', 'worried'],
@@ -1235,7 +1237,7 @@ const raw = {
       voiceSamples: [
         'For the record: one fire, one bed, one meal, one lamp. Four things. You have, by my count, half of one.',
         'Pursuant to the charter I may not refuse an inspection, and pursuant to my knees I would like a chair.',
-        'Off the record. I sold you this place for a copper because I wanted it open. Please do not make me write that down.',
+        'Off the record. Fix the roof before you fix anything else. Inspectors look up.',
         'The Margrave writes very nice letters. I keep them under a duck.',
       ],
       appearance:
@@ -1868,7 +1870,7 @@ const raw = {
       id: 'q_fifty_winters',
       title: 'Fifty Winters Ago',
       summary:
-        'Old Marla looked at your guest across the kitchen for a long time and said she had not changed one hair. Marla was twenty-one the last time she saw her.',
+        'Fifty winters ago a hooded traveller wintered at this inn, and Old Marla, then a cook’s helper of twenty-one, fed her soup every night and asked nothing. Whether your guest remembers, and what happens when the two of them are finally in the same room, is still to come.',
       kind: 'LEAD',
       involvedCharacterIds: ['marla', 'ember'],
       involvedLocationIds: ['inn_kitchen', 'inn_cellar', 'marlas_cottage'],
@@ -2046,7 +2048,7 @@ const raw = {
       publicCopy:
         'Noon on the third day. Reeve Thatch walks up the hill with a ledger under her arm and a folding measuring rod, and Captain Wren walks three paces behind her with his hat in his hands.',
       directorNotes:
-        'The inspection. Four things: a fire, a bed, a meal, a lamp. And the charter, which must be shown. Thatch wants to pass the inn and will not pass a lie she can see. Wren argues the law politely and well, in front of half the town, which has followed them up the hill.',
+        'The inspection. Four things: a fire, a bed, a meal, a lamp. And the charter, which must be shown. Thatch wants to pass the inn and will not pass a lie she can see. Wren argues the law politely and well, in front of half the town, which has followed them up the hill. Wren argues from the doorstep; he has not crossed this threshold in twenty years and does not now.',
       setsFlags: ['inspection_day'],
       cancelledByFlags: [],
       requiresFlags: ['inspection_called'],
@@ -2269,7 +2271,7 @@ const raw = {
       condition:
         'The charter failed and the hunters came in at dusk, by law and politely. Write it plainly and without gore: the company in the common room, chain, the cage wagon at the gate, and the keeper standing in a house that was not an inn when it needed to be one. Do not make it the keeper’s fault in so many words; let the house say it.',
       epilogue:
-        'The wagon goes north over the mountain road with the whole valley watching. The inn stays open, and does well, and for the rest of the keeper’s life a red-gold scale arrives at the Margrave’s tower once a month by a road that runs past the front door.',
+        'The wagon goes north over the mountain road with the whole valley watching. The inn stays open, and does well, and for the rest of the keeper’s life, once a month, a rider from the Margrave’s tower goes past the front door with a red-gold scale in his saddlebag, on his way to market.',
       hint: 'The lamp, the fire, the bed, the meal. And the paper.',
     },
     {
@@ -2390,7 +2392,7 @@ const raw = {
       condition:
         'The charter was upheld in public, by the Reeve, in writing, in front of the town and the hunters, and it held all week. Write what that makes the inn: the one house on the north road where anybody hunted can pay four copper and be safe until dawn. Somebody else knocks on the last night.',
       epilogue:
-        'The keeper signs the bottom of the Lantern Charter under Hester Wren. Within a year the inn has sheltered a runaway apprentice, a debtor, a witch and a very small, very angry wyvern, and the Margrave has stopped writing letters.',
+        'The keeper signs the bottom of the Lantern Charter under Hester Wren. Within a year the inn has sheltered a runaway journeyman, a debtor, a witch and a very small, very angry wyvern, and the Margrave has stopped writing letters.',
       hint: 'The paper has room at the bottom for one more name.',
     },
     {
@@ -2407,20 +2409,20 @@ const raw = {
     },
   ],
   opening:
-    "Midnight. Rain comes through the roof of the inn you bought for one copper.\n\nThe door bangs open. A tall woman, soaked, a hood pulled low over two dark horns. She cradles one arm.\n\nShe sets a red scale on the counter. It steams.\n\n\"Ember,\" she says. \"Call me that. One room, seven nights.\"\n\nTobin, your stablehand, comes in from the yard with a lantern and stops dead. \"Boss. Torches on the hill. Dragon hunters, twenty of them.\"\n\nHe stares at the scale. \"That’s worth more than this inn.\"\n\nThe woman doesn’t turn round.\n\n\"One room,\" she says. \"And you didn’t see me. Yes or no?\"",
+    "Midnight. Rain comes through the roof of the inn you bought for one copper.\n\nThe door bangs open. A tall woman, soaked, a hood pulled low over two dark horns. She cradles one arm.\n\nShe sets a red scale on the counter. It steams.\n\n\"Ember,\" she says. \"Call me that. One room, seven nights.\"\n\nTobin, your stablehand, comes in from the yard with a lantern and stops dead. \"Boss. Torches on the hill. Dragon hunters, twenty of them.\"\n\nHe stares at the scale. \"That’s worth more than this inn.\"\n\nThe woman doesn’t turn round.\n\n\"One room,\" she says. \"And you did not see me. Yes or no?\"",
   openingPanel: {
     assetKey: 'story_the_one_copper_inn/opening',
     alt: 'Ember at the counter of a dark, rain-soaked inn, hood over two dark horns, setting down a glowing red scale, torches on the hill through the broken shutter behind her.',
   },
   openingSuggestions: [
-    '"Yes. Top of the stairs, the only room with a roof. Who’s after you?"',
-    'I pocket the scale, hand her the key to Room Four, and blow out every lamp in the room.',
+    '"Yes. Top of the stairs, the only room with a roof. Now: what are you?"',
+    'I pocket the scale, hand her the key to Room Four, and put out every light in the house, the lamp over the door too.',
     'I take Tobin’s lantern and walk out into the rain to meet the torches.',
   ],
   coverDirection: [
     'SUBJECT: Ember, a dragon in human form, alone and unmistakable in the foreground of a key visual for a cozy fantasy anime about a ruined roadside inn.',
     'She fills the frame from the waist up, centred and close, holding about two thirds of the picture, standing behind a worn wooden inn counter with a brass bell on it.',
-    'Two dark swept-back horns, copper-red hair worn loose and wet with rain, amber eyes with slit pupils, a travel-stained dark green hooded cloak pushed half back over a plain linen shirt.',
+    'Two dark swept-back horns, copper-red hair worn loose and wet with rain, amber eyes with slit pupils, a travel-stained dark green hooded cloak, fastened at the throat with its hood pushed back off her horns, over a high-collared dark wool tunic.',
     'One hand is setting a glowing red-gold dragon scale down on the counter; the other arm is held close against her side. A thin curl of steam rises off the shoulders of her cloak.',
     'Her expression is guarded and a little amused, looking straight at the viewer, as if waiting for an answer.',
     'HER FACE STAYS CLEAN: no glow, steam, marks or shadows across her face.',
