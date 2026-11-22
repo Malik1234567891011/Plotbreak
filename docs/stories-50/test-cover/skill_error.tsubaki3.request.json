@@ -1,0 +1,9 @@
+{
+  "modelVersionId": "2024383379556065549",
+  "prompt": "(2060 chars, see prompt file)",
+  "negativePrompt": "watermark, signature, subtitle, extra words, gibberish text, lowres, blurry, bad anatomy, extra fingers, deformed hands, nsfw, nude, child",
+  "width": 1152,
+  "height": 1744,
+  "batchSize": 1,
+  "mode": "pro"
+}

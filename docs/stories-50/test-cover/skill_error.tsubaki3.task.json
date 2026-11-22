@@ -1,0 +1,32 @@
+{
+  "id": "2081103461460594622",
+  "userId": "2081061647365754340",
+  "status": "completed",
+  "retryCount": 0,
+  "cancelability": "NOT_CANCELABLE",
+  "experimentEnrollment": "NOT_ENROLLED",
+  "createdAt": "2026-11-22T04:52:27.366Z",
+  "updatedAt": "2026-11-22T04:53:05.838Z",
+  "startedAt": "2026-11-22T04:52:42.708Z",
+  "endAt": "2026-11-22T04:53:05.837Z",
+  "paidQuota": 4400,
+  "isPublished": false,
+  "artworkCount": 0,
+  "width": 1152,
+  "height": 1744,
+  "imageType": "webp",
+  "prompts": "Anime light-novel / mobile-game cover illustration, portrait 2:3, premium polished Japanese anime key visual quality (like a modern seasonal anime poster or a Webtoon original cover). Glossy, detailed digital anime painting with clean lineart, luminous eyes, soft rim light, rich color depth. Not flat, not sketchy, not western cartoon, not 3D.\n\nTHE TITLE IS PART OF THE ART. Render the words \"SKILL: ERROR\" as a bespoke logo: bold condensed sci-fi game-interface lettering in white with a cyan glow, with a red glitch slice cutting through the word ERROR, placed in the upper third, large and perfectly legible, spelled exactly \"SKILL: ERROR\". No other text anywhere.\n\nSCENE: a vast fantasy throne-room summoning hall. Marble floor with a glowing summoning circle, tall stained-glass windows, hanging banners, a king's throne in soft focus behind. In the air in front of the viewer floats a translucent blue game status window that is cracking and glitching, overflowing with red shards and static. The window shows only abstract glowing bars and a red warning triangle, no letters and no numbers.\n\nCHARACTER, large in frame, waist up, centred and close, filling about two thirds of the cover: SELENE VARRE, an adult court mage of twenty-four. Long silver hair with a few thin braids, violet eyes, a dark navy and gold high-collared mage robe with a silver chain. One gloved hand is raised toward the broken status window, the other grips a tall staff. Her expression is alarmed and fascinated, a little afraid, looking straight at the viewer. Cyan light from the window on her face, warm gold light from the hall behind, red glitch light flickering on her cheek.\n\nMOOD: the moment a royal court realises the newcomer is far stronger than anyone in the room. Every person in the image is an adult. Commercial anime appeal, tasteful, nothing explicit. Composed so her face and the title read at thumbnail size, strong silhouette separation, high contrast. No watermark, no signature, no extra text, no logos other than the title, no speech bubbles, no borders.",
+  "priority": 1000,
+  "batchSize": 1,
+  "taskKind": "t2i",
+  "isSensitive": false,
+  "outputs": {
+    "mediaIds": [
+      "790804082445866256"
+    ],
+    "mediaUrls": [
+      "https://d2doj8oszwtcqy.cloudfront.net/images/temp/6a6c4f2b-ae9f-464c-85ea-75a2f7c0e1c7?Expires=1795323786&Key-Pair-Id=K1QNL3S474VQ35&Signature=bH8TVInBCfliFKkEewGfv3s81m1kEjMKXGbcAMf3kAoCH1hye36MysfVbycs9p22UveO8uG6WPGDPdwZoZ3xQaxpnGzjv-mk~zo9DmAqP0SCIl9dkjhv0fl51F8ATr5v33Yzi8nWboGp3hdw1GPP1SPH6XhZ1jop95fd1umnUizemBB3B6WOpJ8AdBoCSpmg1P257r7nojpzSC5IkL9YcToleAFaxlnjJFPuKC0x0LaGvEb8HQZmrWjMs6L8SRMAp9Ok78BefNH8TBruwdNqGhlBJ0fbKaKjSju116hOY8~Eihfzcg8YMcVCEYL2kfz~-YJoR6AAWy32E0Xx5~K14A__"
+    ],
+    "seed": "4039295777348623"
+  }
+}
