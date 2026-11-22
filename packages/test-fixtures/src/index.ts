@@ -75,6 +75,9 @@ import { THREE_FEET_APART as THREE_FEET_APART_RAW } from './three-feet-apart.js'
 import { PAID_TO_KILL_ME as PAID_TO_KILL_ME_RAW } from './paid-to-kill-me.js';
 import { HE_BURNED_THE_CAPITAL as HE_BURNED_THE_CAPITAL_RAW } from './he-burned-the-capital.js';
 import { THE_ONLY_GIRL_AT_BLACKTHORN as THE_ONLY_GIRL_AT_BLACKTHORN_RAW } from './the-only-girl-at-blackthorn.js';
+import { THE_WOLF_CLAN_S_GUEST as THE_WOLF_CLAN_S_GUEST_RAW } from './the-wolf-clan-s-guest.js';
+import { ANNULLED_THEN_CLAIMED as ANNULLED_THEN_CLAIMED_RAW } from './annulled-then-claimed.js';
+import { THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO as THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO_RAW } from './thirty-days-with-the-number-one-hero.js';
 
 
 export { withDerivedAssetKeys } from './derive-assets.js';
@@ -152,6 +155,9 @@ export const THREE_FEET_APART = THREE_FEET_APART_RAW;
 export const PAID_TO_KILL_ME = PAID_TO_KILL_ME_RAW;
 export const HE_BURNED_THE_CAPITAL = HE_BURNED_THE_CAPITAL_RAW;
 export const THE_ONLY_GIRL_AT_BLACKTHORN = THE_ONLY_GIRL_AT_BLACKTHORN_RAW;
+export const THE_WOLF_CLAN_S_GUEST = THE_WOLF_CLAN_S_GUEST_RAW;
+export const ANNULLED_THEN_CLAIMED = ANNULLED_THEN_CLAIMED_RAW;
+export const THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO = THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO_RAW;
 
 /**
  * These three shipped with null asset keys on purpose, and no longer need to.
@@ -292,4 +298,7 @@ export const LAUNCH_CATALOG = [
   PAID_TO_KILL_ME,
   HE_BURNED_THE_CAPITAL,
   THE_ONLY_GIRL_AT_BLACKTHORN,
+  THE_WOLF_CLAN_S_GUEST,
+  ANNULLED_THEN_CLAIMED,
+  THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO,
 ] as const;
