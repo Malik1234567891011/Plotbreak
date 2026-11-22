@@ -191,7 +191,7 @@ describe('the opener', () => {
 
 describe('adults only, and 13+', () => {
   const AGES: Record<string, number> = {
-    lucan: 25,
+    lucan: 26,
     voice: 87,
     elsbeth: 24,
     taro: 27,
@@ -223,6 +223,20 @@ describe('adults only, and 13+', () => {
     }
   });
 
+  it('states the player’s age and keeps the years adding up', () => {
+    // "Best friend for eight years" has to start at eighteen, not seventeen,
+    // and the storyteller only reads hard canon for the player.
+    const canon = STORY.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/The player is twenty-six/);
+    expect(canon).toMatch(/met at the delvers’ hostel at eighteen/);
+    expect(AGES.lucan! - 8).toBeGreaterThanOrEqual(18);
+    // Join dates: Bran five years ago, Elsbeth three, Kes two.
+    expect(AGES.bran! - 5).toBeGreaterThanOrEqual(18);
+    expect(AGES.elsbeth! - 3).toBeGreaterThanOrEqual(18);
+    expect(AGES.kes! - 2).toBeGreaterThanOrEqual(18);
+    expect(canon).toMatch(/Bran joined five years ago, Elsbeth three years ago and Kes two years ago/);
+  });
+
   it('never uses a childlike or minor-coded word', () => {
     const MINOR =
       /\b(child|children|childlike|kid|kids|teen|teens|teenage|teenager|girl|girls|boy|boys|minor|minors|underage|schoolgirl|schoolboy|school uniform|loli|youngster|little sister|little brother|petite)\b/i;
@@ -243,6 +257,27 @@ describe('original', () => {
     const BORROWED =
       /\b(Aincrad|Kirito|Asuna|Sung Jin|Jinwoo|Solo Leveling|Shadow Monarch|Rimuru|Tempest|Ainz|Nazarick|Overlord|Danmachi|Bell Cranel|Hestia|Made in Abyss|Abyss|Nanachi|Shield Hero|Naofumi|Dungeon Meshi|Laios|Delicious in Dungeon|Frieren|Himmel|Hunter Association|Gate of|S-rank|A-rank|E-rank|status window|system window|level up|levelled up|leveled up|isekai|reincarnat\w*|Banished from the Hero|Beast Tamer|Ragna|Reg\b|Riko|Ozen|Bondrewd|Naruto|Konoha|Itachi|Akatsuki|Goku|Luffy|Zoro|Gojo|Sukuna|Mana Stone|Dungeon Core|Hero Party)\b/i;
     for (const [where, text] of allProse()) expect(text, where).not.toMatch(BORROWED);
+  });
+
+  it('never draws her held or sealed in the rock', () => {
+    const hollow = STORY.locations.find((l) => l.id === 'agathes_hollow')!;
+    const sealed = /\b(held in|sealed|encased|embedded|to the shoulders|up to her shoulders|in the rock)\b/i;
+    expect(`${hollow.description} ${hollow.artDirection}`).not.toMatch(sealed);
+    const voice = STORY.characters.find((c) => c.id === 'voice')!;
+    for (const s of voice.secrets) expect(s.fact, s.id).not.toMatch(sealed);
+  });
+
+  it('draws the Rim as a walled city, not rings around a pit', () => {
+    const rim = STORY.locations.find((l) => l.id === 'the_rim')!;
+    expect(rim.artDirection).not.toMatch(/terraced|rings around|giant dark pit/i);
+  });
+});
+
+describe('the catalog', () => {
+  it('uses tags the category rail files', () => {
+    // services/api/src/catalog-taxonomy.ts: Dark fantasy -> Fantasy,
+    // Monsters -> Action, Mystery -> Mystery, Survival -> Adventure.
+    expect(STORY.tags).toEqual(expect.arrayContaining(['Dark fantasy', 'Monsters', 'Mystery', 'Survival']));
   });
 });
 
@@ -332,6 +367,16 @@ describe('turn one is the fall', () => {
     expect(canon).toMatch(/thread/);
     expect(STORY.premise).toMatch(/threads are still tied/);
   });
+
+  it('tells the storyteller a tug cannot kill anybody on turn one', () => {
+    // The risky card pulls Lucan's thread. Production never reads the bible,
+    // the abilities or the quest notes, so the calibration lives in hard canon
+    // or the villain and the Heartglass can go into the pit on turn one.
+    const canon = STORY.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/never enough by itself to throw anybody off a ledge or kill them/);
+    expect(canon).toMatch(/over hours, not in the same instant/);
+    expect(canon).toMatch(/Kes catches his collar/);
+  });
 });
 
 describe('the Voice', () => {
@@ -342,6 +387,28 @@ describe('the Voice', () => {
     for (const text of [STORY.premise, STORY.hook, STORY.fantasyLabel, STORY.opening, voice.cardBlurb]) {
       expect(text).not.toMatch(/Agathe|Lorne/);
     }
+  });
+
+  it('keeps the store page from giving away who she is or what Sallow did', () => {
+    // projections.ts sends every cast role and cardBlurb to the story page.
+    const sallow = STORY.characters.find((c) => c.id === 'sallow')!;
+    const SPOILER = /sixty-one|did to somebody|rope he cut|exactly what was just done/i;
+    for (const [where, text] of [
+      ['hook', STORY.hook],
+      ['fantasyLabel', STORY.fantasyLabel],
+      ['sallow.role', sallow.role],
+      ['sallow.cardBlurb', sallow.cardBlurb],
+      ['voice.role', voice.role],
+      ['voice.cardBlurb', voice.cardBlurb],
+    ] as const) {
+      expect(text, where).not.toMatch(SPOILER);
+    }
+  });
+
+  it('tells the storyteller how her name is earned, since reveal hints never reach it', () => {
+    const boundaries = voice.boundaries.join(' ');
+    expect(boundaries).toMatch(/what happened to her rather than what she is/);
+    expect(boundaries).toMatch(/badge/);
   });
 
   it('cannot be fought, and will not force the player', () => {

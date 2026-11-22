@@ -39,7 +39,7 @@ const raw = {
   version: 1,
   title: 'Cut Loose at Floor 99',
   fantasyLabel: 'They cut your rope. The dark caught you.',
-  hook: 'Your party cut your rope on the dungeon’s last charted floor so the prize would split four ways. At the bottom of the fall, something that has waited sixty-one years says your name.',
+  hook: 'Your party cut your rope on the dungeon’s last charted floor so the prize would split four ways. You can still feel all four of them climbing. And something at the bottom says your name.',
   premise:
     'The Deepway is a dungeon of ninety-nine floors under the city of Lowmarch, and for sixty years every guild in the city has paid crews to reach the bottom.\n\n' +
     'Your crew, Highwater, did it today. You are its support mage, a binder: you tie thin threads of mana to the people beside you, so they take less hurt, keep their footing and feel a fall coming before it happens. They called it shields. It was most of the reason they were still alive.\n\n' +
@@ -52,9 +52,9 @@ const raw = {
   official: true,
   coverImage: null,
   keyArt: null,
-  tags: ['Action', 'Fantasy', 'Revenge', 'Dungeon', 'Betrayal'],
+  tags: ['Dark fantasy', 'Monsters', 'Mystery', 'Survival', 'Revenge'],
   mechanicsChips: [
-    'Your wards are still on them',
+    'Your threads are still on them',
     'Every betrayer is different',
     'A voice with her own plans',
     'Revenge is one road of many',
@@ -79,13 +79,13 @@ const raw = {
     ],
     hardCanon: [
       'The Deepway is a dungeon of ninety-nine charted floors under the city of Lowmarch. Nobody had cleared Floor 99 until today. Below it is a floor on no chart, the Sump, where everything that falls anywhere in the Deepway ends up.',
-      'The player is Highwater’s support mage, a binder. A binder ties thin threads of mana to people: the threads take a share of their hurt, steady their footing and warn them before a fall. When the story begins, four threads are still tied, to Lucan, Elsbeth, Kes and Bran, and the player can feel each one. The player can hold them, cut one, let all four go, listen down one, or tug one.',
+      'The player is Highwater’s support mage, a binder. A binder ties thin threads of mana to people: the threads take a share of their hurt, steady their footing and warn them before a fall. When the story begins, four threads are still tied, to Lucan, Elsbeth, Kes and Bran, and the player can feel each one. The player can hold them, cut one, let all four go, listen down one, or tug one. A thread is felt, not hauled like a rope. A hard tug lands as a jolt, a cold shock at the wrist or a stumble, never enough by itself to throw anybody off a ledge or kill them. Cutting a thread or letting go only takes the ward away; after that the danger comes from the Long Stair and the waking deep, over hours, not in the same instant. If the player pulls Lucan’s thread hard, he stumbles on a ledge two floors up and Kes catches his collar.',
       'At ten past six in the evening Lucan Harrow cut the player’s rope over the pit on Floor 99 and said four shares beat five. Kes agreed beforehand. Elsbeth saw the knife and looked away. Bran was two flights up the stair with the lamp and was told the player slipped.',
       'The Voice is real, not a hallucination. She cannot leave the Sump on her own, she does not lie outright, and she withholds a great deal, including her name.',
       'Highwater took the Heartglass from the vault behind the Last Door. Since it left the vault the deep floors have been waking, slowly. Only a binder can hold it without the deep waking around them.',
       'The Tally House writes every delver in and out of the Deepway and keeps the Book of the Lost. Under the Delvers’ Peace no delver raises a blade against another below the Rim, and a cut rope proven in front of the Tallykeeper strips the cutter of share, sponsor and the right to go down again.',
-      'There is no wayline below Floor 98. The guild lift starts at Waycamp Ninety. Climbing out from the Sump takes days, not hours.',
-      'Every character in this story is an adult. Nobody is owed the player’s forgiveness and nobody is owed their revenge: the player can hold, cut, forgive, expose, bargain, stay below or walk away, and none of these is the correct one.',
+      'There is no wayline below Waycamp Ninety: below it there are only stairs and ropes, and the guild lift starts there. Climbing out from the Sump takes days, not hours.',
+      'Every character in this story is an adult, the player included. The player is twenty-six: they and Lucan met at the delvers’ hostel at eighteen and founded Highwater together that year, eight years ago. Bran joined five years ago, Elsbeth three years ago and Kes two years ago. Nobody is owed the player’s forgiveness and nobody is owed their revenge: the player can hold, cut, forgive, expose, bargain, stay below or walk away, and none of these is the correct one.',
     ],
     toneGuide:
       'Dungeon action with a betrayal at the centre. Short paragraphs, one hard image each, dialogue that cuts. The dungeon is physical: rope, lamp oil, wet stone, hours and floors. Threads are felt in the wrists and fingertips — a hum, a tug, a sudden cold — and the craft is shown by what it does, never by numbers. ' +
@@ -682,9 +682,9 @@ const raw = {
       name: 'The Hollow',
       shortName: 'The Hollow',
       description:
-        'A dry, warm pocket behind the Rope Field where the lichen grows thickest. Set into the wall, held in pale rock to the shoulders, a woman in a binder’s long coat sleeps with her eyes closed. A thread of light runs from her wrist into the stone.',
+        'A dry, warm pocket behind the Rope Field where the lichen grows thickest. On a stone bench, in a binder’s long coat gone green with lichen, a woman sits upright with her eyes closed and her hands in her lap, breathing once a minute. A thread of light runs from her wrist down into the floor.',
       artDirection:
-        'Small warm cave pocket thick with glowing blue lichen, a woman in a long old-fashioned coat held upright in pale stone up to her shoulders, eyes closed, peaceful, a single glowing thread running from her wrist into the rock. Quiet, sacred, strange.',
+        'Small warm cave pocket thick with glowing blue lichen, a woman in a long old-fashioned coat seated upright on a stone bench, eyes closed, hands folded, a single glowing thread running from her wrist into the floor. Quiet, sacred, strange.',
       connections: [{ to: 'the_rope_field', travelMinutes: 3, label: 'Back out to the ropes' }],
       discoveredByDefault: false,
       mapPosition: { x: 2, y: 6 },
@@ -722,7 +722,7 @@ const raw = {
       discoveredByDefault: true,
       mapPosition: { x: 0, y: 3 },
       takeableItems: [
-        { itemId: 'rust_rope', qty: 1, ownerId: 'taro', aka: ['rope', 'a rope', 'their rope', 'rust rope'] },
+        { itemId: 'rust_rope', qty: 1, ownerId: 'taro', aka: ['their rope', 'rust rope', 'red rope', 'salvage rope'] },
       ],
     },
     {
@@ -748,7 +748,7 @@ const raw = {
       name: 'Waycamp Ninety',
       shortName: 'Waycamp 90',
       description:
-        'The deepest guild camp in the Deepway: a stone platform on the ninetieth floor with a lift-cage on chains that runs up to the Rim, bunks, a Tally House clerk’s hut, and a board where crews chalk their names. Highwater is chalked at the top tonight, with a 4 beside it.',
+        'The deepest guild camp in the Deepway: a stone platform on the ninetieth floor with a lift-cage on chains that runs up to the Rim, bunks, a Tally House clerk’s hut, and a board where crews chalk their names. Highwater is still chalked at the top from the way down, with a 5 beside it.',
       artDirection:
         'Fortified underground camp platform with a heavy iron lift cage hanging on chains, wooden bunks, a small hut, a large slate board with chalked crew names, guild banners, lanterns. Industrial, crowded, tense.',
       connections: [
@@ -769,7 +769,7 @@ const raw = {
       description:
         'The city of Lowmarch, built in rings around the mouth of the Deepway. Lamp-shops, rope-sellers, the lift-heads, guild halls, and the families of every delver below, who watch the lift-cages come up and count heads.',
       artDirection:
-        'Fantasy city built in terraced rings around a giant dark pit, lift cages on chains rising from it, crowded markets with lanterns and ropes for sale, guild halls with banners, evening light. Busy, vertical, alive.',
+        'Walled fantasy market quarter around a great stone lift-house built over a dungeon mouth, iron lift cages on chains, crowded market stalls with lanterns and coils of rope for sale, guild halls with banners, evening light. Busy, crowded, alive.',
       connections: [
         { to: 'waycamp_ninety', travelMinutes: 720, label: 'The lift back down' },
         { to: 'tally_house', travelMinutes: 10, label: 'To the Tally House at the lift-head' },
@@ -871,7 +871,7 @@ const raw = {
     {
       id: 'lucan',
       name: 'Lucan Harrow',
-      role: 'Highwater’s leader and swordsman, your best friend since you shared a bunk at the delvers’ hostel, and the man who cut your rope',
+      role: 'Highwater’s leader and swordsman, your best friend since you shared a bunk at the delvers’ hostel at eighteen, and the man who cut your rope',
       cardBlurb:
         'He has been your best friend for eight years, he cut your rope himself, and he told the others it was about money so he would never have to say what it was really about. He has no idea you are alive.',
       pronouns: 'he/him',
@@ -880,7 +880,7 @@ const raw = {
         'He owes the Gilt Rope forty-five thousand crowns he borrowed against this clear. Five shares does not pay it. Four does.',
         'He read the guild’s letter offering you a crew of your own, and could not stand being the one left behind',
       ],
-      values: ['Being the one everybody looks at when the door opens', 'Highwater, which he founded and believes is his'],
+      values: ['Being the one everybody looks at when the door opens', 'Highwater, which the two of you founded and he believes is his'],
       fears: ['Being ordinary', 'That you are alive, and that he is relieved about it'],
       socialStyle:
         'Warm, funny and generous in a crowd; goes very still and very polite when cornered, which is how you always knew he was lying.',
@@ -916,7 +916,7 @@ const raw = {
         'I kept your knife. No idea why I’m telling you.',
       ],
       appearance:
-        'Twenty-five, tall, sun-blond hair cut short for the helm, an easy smile that reaches his eyes on purpose, dented plate under a faded sky-blue guild sash.',
+        'Twenty-six, tall, sun-blond hair cut short for the helm, an easy smile that reaches his eyes on purpose, dented plate under a faded sky-blue guild sash.',
       visualHook: 'A sky-blue guild sash knotted at the shoulder with a knot only the two of you know how to tie.',
       silhouette: 'Long sword on his back, one hand always resting on the lead box at his hip.',
       artSeed: 'cl99-lucan-01',
@@ -969,7 +969,7 @@ const raw = {
         'Warm, curious and teasing, and then suddenly very still and exact when something matters to her. Never raises her voice. Has never needed to.',
       boundaries: [
         'Will not force you to do anything, because a binding that is forced does not hold',
-        'Will not say her own name until you have earned it, because a name is the one thing the deep cannot take',
+        'Will not say her own name until you have earned it, because a name is the one thing the deep cannot take. You earn it by asking what happened to her rather than what she is, or by saying the name scratched on her badge out loud; then she tells you plainly',
       ],
       goals: [
         'Get you to carry her thread up out of the Deepway',
@@ -984,7 +984,7 @@ const raw = {
         },
         {
           id: 'voice_the_way_out',
-          fact: 'She cannot leave the Sump unless a binder ties her thread to their own and carries it up. If they do, she is with them in every thread they tie for as long as they allow it. Her body sleeps in the rock of the Hollow behind the Rope Field.',
+          fact: 'She cannot leave the Sump unless a binder ties her thread to their own and carries it up. If they do, she is with them in every thread they tie for as long as they allow it. Her body sleeps, sitting up, in the Hollow behind the Rope Field.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She explains it once you know her name, plainly, and asks rather than tells.',
         },
@@ -1085,7 +1085,7 @@ const raw = {
       ],
       appearance:
         'Twenty-four, compact and quick, dark hair in a practical braid, a grey healer’s apron over a padded jacket, iodine stains on her cuffs.',
-      visualHook: 'A grey healer’s apron with eleven pockets, every one of them full.',
+      visualHook: 'A grey healer’s apron with a dozen pockets, every one of them full.',
       silhouette: 'Kneeling, sleeves rolled to the elbow, both hands busy.',
       artSeed: 'cl99-elsbeth-01',
       portrait: null,
@@ -1162,7 +1162,7 @@ const raw = {
       voiceSamples: [
         'Well, look what climbed out of the drain. Friend, you are worth a fortune right now and you are dripping on my maps.',
         'Rope’s thirty crowns a length. For you, tonight, forty. Grief’s expensive.',
-        'Nineteen floors I’ve come second to Lucan Harrow. I’d come second on every one again before I’d do what he just did.',
+        'Three years I’ve come second to Lucan Harrow. I’d come second for three more before I’d do what he just did.',
         'Say it out loud and it’s a deal. I don’t sign things. Paper burns.',
       ],
       appearance:
@@ -1281,9 +1281,9 @@ const raw = {
       cardBlurb:
         'He was two flights up with the lamp when your rope went, and Lucan told him you slipped. He is the only one of the four who would come back for you, if anybody told him the truth.',
       pronouns: 'he/him',
-      publicTraits: ['Enormous and gentle', 'Says about eleven words a day', 'Carries whoever is tired'],
+      publicTraits: ['Enormous and gentle', 'Says about ten words a day', 'Carries whoever is tired'],
       hiddenDrives: [
-        'He promised his wife Odette this is his last descent, and means to keep it whatever it costs',
+        'He promised his wife Odette, thirty, this is his last descent, and means to keep it whatever it costs',
         'He has noticed Lucan will not look him in the eye and has decided not to ask why yet',
       ],
       values: ['Holding the line so everybody behind him gets home', 'Telling the truth slowly'],
@@ -1355,9 +1355,9 @@ const raw = {
       id: 'sallow',
       name: 'Odran Sallow',
       calledName: 'Sallow',
-      role: 'Guildmaster of the Gilt Rope, eighty-eight, who founded the biggest guild in Lowmarch on a prize from Floor 61 and a rope he cut there',
+      role: 'Guildmaster of the Gilt Rope, eighty-eight, who founded the biggest guild in Lowmarch on a prize from Floor 61',
       cardBlurb:
-        'He sponsored your descent and is waiting at the top for the Heartglass. Sixty-one years ago he did to somebody exactly what was just done to you, and he is the only person in the city who will be glad you lived.',
+        'He sponsored your descent and is waiting at the top of the city for the Heartglass. He is courteous to everybody, never forgets a debt, and is the only person in Lowmarch who will be glad you lived.',
       pronouns: 'he/him',
       publicTraits: ['Courteous to everybody, especially the people he is about to ruin', 'Never forgets a debt in either direction', 'Walks with a cane he does not need'],
       hiddenDrives: [
@@ -1391,12 +1391,12 @@ const raw = {
         },
       ],
       speechStyle:
-        'Formal, slow and courteous. Calls everybody “young” something. Every sentence finishes. Uses the passive voice for anything he has done: “a rope was lost”.',
+        'Formal, slow and courteous. Addresses everybody by their trade: “delver”, “binder”, “healer”. Every sentence finishes. Uses the passive voice for anything he has done: “a rope was lost”.',
       topics: ['the guild', 'the Heartglass', 'binders', 'debts', 'Floor 61', 'tea'],
       voiceSamples: [
         'Sit, please. Tea first; we are not animals.',
         'Ropes are lost every season. The Deepway takes a share. It always has.',
-        'I am eighty-eight years old, young delver, and I have never once raised my voice. Consider why I have never needed to.',
+        'I am eighty-eight years old, delver, and I have never once raised my voice. Consider why I have never needed to.',
         'A binder, alive. How very fortunate. For both of us, I suspect.',
       ],
       appearance:
@@ -1597,7 +1597,7 @@ const raw = {
       id: 'q_the_climb',
       title: 'Ninety-Nine Floors',
       summary:
-        'Climb out of the Deepway with no rope and no crew. One floor up, the Rust Company is camped and counting lamps. Above them, the four people who left you are a day ahead on the Long Stair.',
+        'Climb out of the Deepway with no rope and no crew. One floor up, the Rust Company is camped and counting lamps. Above them, the four people who left you are already climbing toward the Long Stair, hours ahead of you and gaining.',
       kind: 'MAIN',
       discoverWhen: { flagsSet: ['knows:the_threads'] },
       involvedCharacterIds: ['taro', 'lucan', 'elsbeth', 'kes', 'bran'],
@@ -1681,7 +1681,7 @@ const raw = {
           id: 'catch_them',
           playerCopy: 'Catch up with Highwater.',
           directorNotes:
-            'They are a day ahead and slowed by a climb that is harder than they understand. Where the player catches them decides the scene: on the Stair in the dark, at the Waycamp by the lift, or not at all until the Rim, where the player is already standing when the lift comes up.',
+            'They are hours ahead, and slowed by a climb that is harder than they understand. Where the player catches them decides the scene: on the Stair in the dark, at the Waycamp by the lift, or not at all until the Rim, where the player is already standing when the lift comes up.',
           enterWhen: { flagsSet: ['past_ninety_eight'] },
           succeedWhenAny: [
             {
@@ -1871,7 +1871,7 @@ const raw = {
           id: 'what_is_left_of_her',
           playerCopy: 'Decide what to do about her.',
           directorNotes:
-            'Her body sleeps in the rock of the Hollow, a thread of light running from her wrist into the stone. She asks to be carried out; she does not demand it. Letting her go is a mercy she has thought about. Staying with her is a real ending and should be offered without judgement.',
+            'Her body sleeps, sitting up on a stone bench in the Hollow, a thread of light running from her wrist down into the floor. She asks to be carried out; she does not demand it. Letting her go is a mercy she has thought about. Staying with her is a real ending and should be offered without judgement.',
           enterWhen: { flagsSet: ['knows:her_name'] },
           succeedWhenAny: [
             {
@@ -2229,9 +2229,9 @@ const raw = {
       id: 'we_waycamp_ninety',
       atWorldMinute: 48 * 60 + 7 * 60,
       locationId: 'waycamp_ninety',
-      publicCopy: 'Highwater stumbles into Waycamp Ninety, three of them, and asks for the first cage up.',
+      publicCopy: 'Highwater stumbles into Waycamp Ninety and asks for the first cage up.',
       directorNotes:
-        'Lucan, Kes and Bran reach the lift. Lucan chalks HIGHWATER at the top of the board with a 4 beside it, and nobody corrects him.',
+        'Lucan, Kes and Bran reach the lift, and Elsbeth with them if she never turned back. Lucan rubs out the 5 and chalks HIGHWATER at the top of the board with a 4 beside it, and nobody corrects him.',
       setsFlags: ['highwater_at_ninety'],
       movesCharacters: [
         { characterId: 'lucan', toLocationId: 'waycamp_ninety' },
@@ -2255,7 +2255,7 @@ const raw = {
       locationId: 'gilt_rope_hall',
       publicCopy: 'The Gilt Rope Hall lights every lamp for the clearing of Floor 99, and every guild in Lowmarch comes to watch.',
       directorNotes:
-        'Sallow receives the Heartglass at the head of the long table, in front of everybody. Highwater is toasted as four. If the player walks in alive, it is the most public room in the city.',
+        'If Lucan still carries the Heartglass, Sallow receives it at the head of the long table, in front of everybody; if not, Sallow has to explain to every guild in the city why the box is not on the table. Highwater is toasted as four. If the player walks in alive, it is the most public room in the city.',
       setsFlags: ['ceremony_night'],
       cancelledByFlags: ['heartglass_returned'],
       movesCharacters: [
@@ -2337,7 +2337,7 @@ const raw = {
     {
       id: 'arch_knot',
       name: 'You Tied the Knots',
-      role: 'Ropes, locks and fine binding',
+      role: 'Strong magic, ropes and locks',
       summary: 'You rigged every rope and anchor the party used, so your threads are the strongest and you can hold a door, a gate or a lift shut against anybody.',
       playstyle: ['Precise', 'Quiet', 'Strong magic'],
       blurb: 'Lucan cut a rope you had tied yourself, and you noticed even while falling that he had to saw at it.',
@@ -2350,7 +2350,7 @@ const raw = {
     {
       id: 'arch_talker',
       name: 'You Did the Talking',
-      role: 'Deals, debts and people',
+      role: 'Talk, deals and debts',
       summary: 'You handled the lift slots, the rope, the cookfires and the favours, so half the Deepway owes you something and you know exactly who.',
       playstyle: ['Social', 'Bargainer', 'Well connected'],
       blurb: 'Lucan shook the hands. You wrote down who owed what, and the people who owe you know it was you.',
@@ -2375,7 +2375,7 @@ const raw = {
     {
       id: 'worldKnowsAboutYou',
       label: 'What did the four of them never notice about you?',
-      helpText: 'One thing about you that was true for eight years and nobody in Highwater ever saw. One plain sentence is the right amount.',
+      helpText: 'One thing about you that was true the whole time you were in Highwater, and that nobody in it ever saw. One plain sentence is the right amount.',
       kind: 'TEXT',
       required: false,
       maxLength: 300,
@@ -2554,10 +2554,10 @@ const raw = {
     },
   ],
   opening:
-    "You hang over the pit on the ninety-ninth floor, and the rope is all that holds you.\n\nLucan kneels at the edge, his knife on the rope. Your best friend for eight years. Behind him, Elsbeth, your healer, looks away.\n\n\"Nothing personal,\" Lucan says. \"Four shares beat five.\"\n\nThe rope parts.\n\nYou fall a long way. Black water. Stone.\n\nIn the dark, a woman’s voice, pleased: \"Finally.\"\n\nBlue light spreads along the wall in the shape of her. She says your name like she has practised it.\n\n\"Your wards are still tied to them. Four threads, climbing away from you, and you’re still holding them up.\n\n\"So. Do they get to reach the top?\"",
+    "You hang over the pit on the ninety-ninth floor, and the rope is all that holds you.\n\nLucan kneels at the edge, his knife on the rope. Your best friend for eight years. Behind him, Elsbeth, your healer, looks away.\n\n\"Nothing personal,\" Lucan says. \"Four shares beat five.\"\n\nThe rope parts.\n\nYou fall a long way. Black water. Stone.\n\nIn the dark, a woman’s voice, pleased: \"Finally.\"\n\nBlue light spreads along the wall in the shape of her. She says your name like she has practised it.\n\n\"Your threads are still tied to them, my dear. All four, climbing away, and you’re still holding them up.\n\n\"So. Do they get to reach the top?\"",
   openingPanel: {
     assetKey: "story_cut_loose_at_floor_99/opening",
-    alt: "Lucan kneeling at the edge of a black pit in a vast underground hall, his knife on a taut rope, Elsbeth turned away behind him, lamplight from below.",
+    alt: "Lucan kneeling at the edge of a black pit in a vast underground hall, his knife on a taut rope, Elsbeth turned away behind him, lamplight on the ledge.",
   },
   openingSuggestions: [
     "\"Who are you? And how do you know my name?\"",

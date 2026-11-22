@@ -2,7 +2,7 @@
 
 **Slate:** #25 · Exiled from the party · audience lean M · App Store 13+
 **Genre:** dungeon action, betrayal and revenge, mystery, a little romance
-**One-line fantasy:** Your party cut your rope on the dungeon's last charted floor so the prize would split four ways. At the bottom of the fall, something that has waited sixty-one years says your name.
+**One-line fantasy:** Your party cut your rope on the dungeon's last charted floor so the prize would split four ways. You can still feel all four of them climbing. And something at the bottom says your name.
 **Fixture:** `packages/test-fixtures/src/cut-loose-at-floor-99.ts` · export `CUT_LOOSE_AT_FLOOR_99` · storyId `story_cut_loose_at_floor_99`
 **OOC evidence:** The Betrayal 5.2M; Kicked Out of the S Rank Party 568K. Nothing here is copied from either: no title, character, term or premise.
 **Collision check (2026-11-22):** a web search for the exact title returned nothing. The proper nouns (Lowmarch, the Deepway, the Heartglass, the Gilt Rope Guild, the Rust Company, the Tally House) were chosen to avoid known anime, manga, game and web-novel terms.
@@ -55,7 +55,7 @@ The player fell past the bottom of every map into the Sump.
 
 1. **Why Lucan really did it.** The money is real and it is not the whole of it. On Floor 70, Elsbeth found a letter from the Gilt Rope offering *the player* a crew of their own. She told Lucan, thinking he would be glad. He took the letter, never passed it on, and three floors later started talking about shares. "Nothing personal" is the most personal thing he has ever said.
 2. **Why the Gilt Rope wanted the player.** Only a binder can hold the Heartglass without the deep floors waking around it. Odran Sallow sponsored Highwater *for its support mage* and wrote that letter. Lucan has just thrown away the only thing Sallow wanted from the expedition, and does not know it.
-3. **Who the Voice is.** Sixty-one years ago, on Floor 61, Odran Sallow cut the rope of his own party's binder, **Agathe Lorne**, so that the founding prize would split four ways. The Gilt Rope Guild was built on that prize. Its gold rope emblem is that rope. Agathe fell to the Sump and survived by tying her own thread to the floor. Her body sleeps in the rock of a hollow behind the Rope Field. What speaks is her, in the lichen-light, and she can reach anywhere on the bottom floor and, faintly, along any thread.
+3. **Who the Voice is.** Sixty-one years ago, on Floor 61, Odran Sallow cut the rope of his own party's binder, **Agathe Lorne**, so that the founding prize would split four ways. The Gilt Rope Guild was built on that prize. Its gold rope emblem is that rope. Agathe fell to the Sump and survived by tying her own thread to the floor. Her body sleeps, sitting upright on a stone bench, in a hollow behind the Rope Field. What speaks is her, in the lichen-light, and she can reach anywhere on the bottom floor and, faintly, along any thread.
 4. **Why she says "Finally."** Sound runs down the Deepway. She has heard every name spoken in it for sixty-one years, and she heard the player tying threads and humming on the forty-first floor. A binder fell. She has waited for one since the day she landed.
 5. **What the Heartglass does.** In its vault it keeps the Deepway asleep. Out of the vault and not held by a binder, the deep floors wake, slowly: first the walls tick, then the stairs bite, then things from below Floor 90 come up. Whoever holds it, and can bind, can put the deep back to sleep, or wake it on purpose.
 
@@ -67,6 +67,8 @@ At story start four threads are still tied: Lucan, Elsbeth, Kes, Bran. The playe
 - **cut one**, or **let all four go** (the Long Stair stops being kind);
 - **listen down one** (hear what is said at the other end, including things nobody would say to the player's face);
 - **tug one** (a warning, a signal, or a fright; Bran, who was told a lie, can be told the truth this way).
+
+A thread is felt, not hauled like a rope. A hard tug lands as a jolt, a cold shock at the wrist or a stumble, never enough by itself to throw anybody off a ledge or kill them. Cutting a thread or letting go only takes the ward away; after that the danger comes from the Long Stair and the waking deep, over hours, not in the same instant. This is in hard canon so turn one cannot drop Lucan and the Heartglass into the pit.
 
 Elsbeth can feel her thread too. If she can still feel it, she knows the player is alive, and on the second day she turns round and comes back down alone.
 
@@ -102,12 +104,13 @@ The player authors:
 ### Minimal hard canon
 
 - The Deepway has ninety-nine charted floors and one uncharted floor below them, the Sump.
-- The player is Highwater's binder; four threads are still tied when the story begins.
+- The player is Highwater's binder; four threads are still tied when the story begins. A tug jolts, it never throws anybody off a ledge; letting go takes the ward away and the Stair does the rest over hours.
+- The player is twenty-six. They and Lucan met at the delvers' hostel at eighteen and founded Highwater that year. Bran joined five years ago, Elsbeth three, Kes two.
 - Lucan cut the rope at 18:10. Kes agreed; Elsbeth looked away; Bran was told the player slipped.
 - The Voice is real, cannot leave on her own, and does not lie outright. She withholds.
 - The Heartglass left its vault today and the deep floors have started to wake.
 - The Tally House records the dead; a proven cut rope is the gravest crime in Lowmarch.
-- Climbing out takes days. There is no wayline below Floor 98.
+- Climbing out takes days. There is no wayline below Waycamp Ninety.
 
 ## The opener (turn 1)
 
@@ -127,7 +130,7 @@ The player authors:
 >
 > Blue light spreads along the wall in the shape of her. She says your name like she has practised it.
 >
-> "Your wards are still tied to them. Four threads, climbing away from you, and you’re still holding them up.
+> "Your threads are still tied to them, my dear. All four, climbing away, and you’re still holding them up.
 >
 > "So. Do they get to reach the top?"
 
@@ -143,7 +146,11 @@ The Voice reacts to the exact move. If the player pulls, Lucan stumbles on a led
 
 Every character is an adult. Ages are as of the day of the fall.
 
-### Lucan Harrow, 25
+### The player, 26
+
+Highwater's binder. Met Lucan at eighteen, sharing a bunk at the delvers' hostel; they founded Highwater together that year. Name and pronouns are the player's; what they did with their threads is the archetype.
+
+### Lucan Harrow, 26
 
 **Role:** Highwater's leader and swordsman, the player's best friend since they shared a bunk at the delvers' hostel at eighteen, and the man who cut the rope.
 **Wants:** sell the Heartglass at the Gilt Rope Hall, clear his 45,000-crown debt, keep the other three believing it was the only way.
@@ -157,16 +164,16 @@ Every character is an adult. Ages are as of the day of the fall.
 
 **Role:** what speaks on the bottom floor. The binder of the party that founded the Gilt Rope Guild, cut loose on Floor 61 sixty-one years ago. The shape she makes in the lichen-light is the woman she was at twenty-six.
 **Wants:** a binder to carry her thread out; to stand in front of Odran Sallow.
-**Hides:** her name, until it is earned; that her body sleeps in the rock of the Hollow; that the Heartglass would let her leave alone.
+**Hides:** her name, until it is earned; that her body sleeps, sitting up, in the Hollow; that the Heartglass would let her leave alone.
 **Fears:** another sixty years; that there is not enough of her left to walk out with.
-**Boundary:** she will not force the player to do anything, because a forced binding does not hold.
+**Boundary:** she will not force the player to do anything, because a forced binding does not hold. She gives her name when it is earned: when the player asks what happened to her rather than what she is, or says the name on her badge out loud. That rule is in her boundaries in the fixture, because the storyteller never reads reveal hints.
 **Voice:** old-fashioned and precise, sixty years out of date ("shall", "rather", "my dear"). Asks questions she already knows the answers to. Laughs at things that are not funny, because nothing has been funny for a very long time.
 > "Finally."
 > "I shall not make you do anything. A thread that is forced does not hold. Ask any of the four you are still holding up."
 
 ### Elsbeth Marr, 24
 
-**Role:** Highwater's healer, who saw Lucan's knife and looked at the wall.
+**Role:** Highwater's healer, who joined three years ago at twenty-one, saw Lucan's knife and looked at the wall.
 **Wants:** to go back down and find out whether the player is dead; to say what she did without asking to be forgiven for it.
 **Hides:** she is the one who told Lucan about the letter, on Floor 70; she has been in love with the player for two years and decided on Floor 99 that she had lost the right to say so.
 **Fears:** that she is a coward and always has been.
@@ -185,7 +192,7 @@ Every character is an adult. Ages are as of the day of the fall.
 
 ### Kestrel "Kes" Ivo, 22
 
-**Role:** Highwater's scout and archer. Agreed to the four shares because she did the arithmetic.
+**Role:** Highwater's scout and archer, who joined two years ago at twenty. Agreed to the four shares because she did the arithmetic.
 **Wants:** her share, to clear the mortgage on her mother's house in the Rim; to work out why the climb up is so much harder than the descent was.
 **Hides:** she has seen Lucan's debt note and knows the number.
 **Fears:** owing the player her life, and knowing it.
@@ -194,8 +201,8 @@ Every character is an adult. Ages are as of the day of the fall.
 
 ### Bran Tull, 31
 
-**Role:** Highwater's shieldbearer. Two flights up with the lamp when the rope went.
-**Wants:** to go home to his wife, Odette, with his share; to find out why Lucan keeps checking the box instead of the stair.
+**Role:** Highwater's shieldbearer, who joined five years ago at twenty-six. Two flights up with the lamp when the rope went.
+**Wants:** to go home to his wife, Odette (30), with his share; to find out why Lucan keeps checking the box instead of the stair.
 **Hides:** he saw the cut end when Lucan threw it into the pit, and has been not-thinking about it ever since.
 **Fears:** finding out he carried the lamp for a murder.
 **Voice:** very few words, low and slow. Uses names. Asks one question and waits for the whole answer. Never swears.
@@ -226,7 +233,7 @@ Every character is an adult. Ages are as of the day of the fall.
 - **The Sump** (start). The floor under the last floor. A black pool, a shore of sixty years of fallen things, cold blue lichen that brightens when somebody speaks.
 - **The Rope Field.** A cavern where every cut rope in the Deepway hangs from the ceiling like roots. Guild badges in the silt. A camp ring and tally marks from long ago.
 - **The Echo Shaft.** A dry chimney where sound from every floor comes down. What you say into it goes up.
-- **The Hollow** (hidden until her name is known). Agathe's body, asleep in the rock, a thread of light running from her wrist into the stone.
+- **The Hollow** (hidden until her name is known). Agathe's body, asleep and sitting upright on a stone bench, her coat green with lichen, breathing once a minute, a thread of light running from her wrist down into the floor.
 - **The Spine.** A drain shaft climbing from the Sump to the underside of Floor 99. Things that eat lamplight live in its cracks.
 
 **The charted deep**
@@ -253,7 +260,7 @@ Every place has a way in. The Hollow is the only one that is hidden, and it open
 ## Five promises
 
 1. **What you do to the man who cut your rope** (finale). Seed: a rope end cut too clean to be anything but a knife. Payoff: Lucan face to face, with the Heartglass, the letter he never passed on, and nobody left on his side.
-2. **Who the voice in the dark used to be** (mystery). Seed: she says your name like she has practised it, and will not say her own. Payoff: a founder's badge in the Rope Field, and a woman asleep in the rock behind it.
+2. **Who the voice in the dark used to be** (mystery). Seed: she says your name like she has practised it, and will not say her own. Payoff: a founder's badge in the Rope Field, and a woman asleep on a stone bench in the hollow behind it.
 3. **The one who looked at the wall** (relationship). Seed: one thread keeps tugging gently, as if somebody is checking it is still there. Payoff: Elsbeth coming back down alone, and what she told Lucan on Floor 70.
 4. **The man who did it first** (boss). Seed: a gold rope stamped on a sixty-one-year-old badge, the same as on the sponsor's contract. Payoff: Odran Sallow at the head of his table, and the rope he cut on Floor 61.
 5. **What a support mage was actually worth** (theme). Seed: the Long Stair bites on the way up; it never once did on the way down. Payoff: four people learning, one floor at a time, what the player was holding.
@@ -305,5 +312,5 @@ Adults only, described by costume and pose, never by age words.
 
 - **Cover:** a figure falling into darkness with a cut rope trailing, four faint glowing threads still running from their hand up toward four small lantern lights far above; at the top of the frame, Lucan's silhouette at the edge of a ledge holding a knife; cold blue light on wet stone at the bottom. Title in the art.
 - **Opening panel:** Lucan kneeling at the edge of the pit in lantern light, sword on his back, knife resting on a taut rope that runs down into the dark.
-- **Location stages:** the Sump, the Rope Field, the Spine, the Last Door, Rust Company Camp, the Long Stair, Waycamp Ninety, the Rim, the Tally House, the Gilt Rope Hall.
-- **Hero triggers:** the first time a held thread saves somebody on the stair; Elsbeth's lamp coming back down; the clean cut shown to Taro; the Hollow; Lucan face to face at Waycamp Ninety; the Book of the Lost; the Gilt Rope Hall ceremony.
+- **Location stages:** the Sump, the Rope Field, the Spine, the Last Door, Rust Company Camp, the Long Stair, Waycamp Ninety, the Rim, the Tally House, the Gilt Rope Hall. The Rim is drawn as a walled market quarter around a great stone lift-house over the dungeon mouth, never as terraced rings around an open pit.
+- **Hero triggers:** the first time a held thread saves somebody on the stair; Elsbeth's lamp coming back down; the clean cut shown to Taro; the Hollow (Agathe seated asleep on a stone bench, never held or sealed in rock); Lucan face to face at Waycamp Ninety; the Book of the Lost; the Gilt Rope Hall ceremony.
