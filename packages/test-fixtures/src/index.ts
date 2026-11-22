@@ -30,6 +30,7 @@ import { LAST_SERVICE as LAST_SERVICE_RAW } from './last-service.js';
 import { PINK_TIDE as PINK_TIDE_RAW } from './pink-tide.js';
 import { LAST_FEATHER as LAST_FEATHER_RAW } from './last-feather.js';
 import { SKILL_ERROR as SKILL_ERROR_RAW } from './skill-error.js';
+import { VILLAIN_TRACK as VILLAIN_TRACK_RAW } from './villain-track.js';
 
 
 export { withDerivedAssetKeys } from './derive-assets.js';
@@ -60,6 +61,8 @@ export const PINK_TIDE = withDerivedAssetKeys(PINK_TIDE_RAW);
 export const LAST_FEATHER = withDerivedAssetKeys(LAST_FEATHER_RAW);
 /** New-50 pilot (#7). Art drawn on PixAI; see docs/stories-50/PIPELINE.md. */
 export const SKILL_ERROR = withDerivedAssetKeys(SKILL_ERROR_RAW);
+/** New-50 #2, registered raw (before art). */
+export const VILLAIN_TRACK = VILLAIN_TRACK_RAW;
 
 /**
  * These three shipped with null asset keys on purpose, and no longer need to.
@@ -155,4 +158,5 @@ export const LAUNCH_CATALOG = [
   LIGHT,
   LAST_FEATHER,
   SKILL_ERROR,
+  VILLAIN_TRACK,
 ] as const;
