@@ -72,7 +72,7 @@ The player authors their name, pronouns, background (archetype), why they want t
 
 ## Opening scene (turn 1)
 
-2:07 a.m. The player is reading their closing argument aloud for the fourth time. Three knocks on the wall by the desk. Nadia introduces herself through the plaster ("Also from first place"), tells them their second point is good and that this is a problem for her, says she left a note under their front door at midnight, sets out the three terms, and asks: truce, or does she knock every time they say "respectfully"?
+2:07 a.m. The player is reading their closing argument aloud for the fourth time. Three knocks on the wall by the desk. Nadia introduces herself through the plaster ("Also first place"), tells them their second point is good and that this is a problem for her, says she left a note under their front door at midnight, sets out the three terms, and asks: truce, or does she knock every time they say "respectfully"?
 
 The player can accept, counter-offer, refuse, lie that they never heard a word, point out she has heard their whole case while they have heard none of hers, go round and knock on her actual door, put an ear to the wall, wake Sam, or ignore her. She reacts to the exact thing, through the wall.
 
@@ -90,7 +90,7 @@ The player can accept, counter-offer, refuse, lie that they never heard a word, 
 >
 > "So. Truce? Or do I knock every time you say 'respectfully'?"
 
-119 words. Nadia speaks from word 28; the last line is a direct question.
+119 words. Nadia speaks from word 28; the last line is a direct question. That is one word of margin under the 120-word cap: any later edit to the opener must cut a word for every word it adds.
 
 Three suggestions, three different moves:
 - **Said:** "Deal. But I want it in writing, and you're buying the coffee."
@@ -107,7 +107,7 @@ Three suggestions, three different moves:
 **Fear:** that she is only first because she sleeps less than everybody else; turning into her brother, or into the parents who never forgave him.
 **Secrets:** she saw the player's name on the post box when she viewed 3C and signed the lease that afternoon ("it was the rent"); a page at the back of her case notebook titled "Through the wall", none of it about the moot; a large firm has offered her a training contract her parents want her to take, answer due the day after the moot, and she will take it if she loses.
 **Voice:** exact, quick, dry. Numbers her points ("Three terms."), keeps count of your concessions out loud, drops the courtroom register mid-sentence when something lands and picks it straight back up. Much braver through a wall than through a door.
-**Will not:** be let win; discuss her family with anybody who has not met Theo.
+**Will not:** be let win; talk about her parents through the wall (that needs an open door).
 
 ### Sam Ferreira (22)
 **Role:** the player's flatmate in 3B; final-year sound engineering student.
@@ -129,7 +129,7 @@ Three suggestions, three different moves:
 **Role:** Chair of Advocacy. Wrote the moot problem, chairs the bench, decides the clerkship. Lives on a narrowboat moored on the canal behind Larkin Street.
 **Appearance:** short severe silver hair, rimless glasses, the same navy suit for a decade, a gold fountain pen she never caps and taps once on the desk when she has heard enough.
 **Want:** one great moot before she retires, from the two people who could give it to her; a second funded clerkship out of the faculty board.
-**Secrets:** she signed Nadia's hardship housing letter and has known since Monday that the finalists share a wall; she has asked the board for a second clerkship and will hear the day before the moot; six years ago she signed the complaint against Theo, and the student who made it withdrew the statement by letter after Theo had gone.
+**Secrets:** she signed Nadia's hardship housing letter and has known since Monday that the finalists share a wall; she has asked the board for a second clerkship and will hear the day before the moot; six years ago she signed the complaint against Theo, and the student who made it withdrew the statement by letter after Theo had gone; she has never seen the withdrawal.
 **Voice:** short declaratives, surname first, no filler. Asks one question and stops completely. Uses legal Latin once per conversation, correctly.
 **Will not:** bend the conferral rule for anyone; discuss another student's file.
 

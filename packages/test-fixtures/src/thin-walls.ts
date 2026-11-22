@@ -44,21 +44,21 @@ const raw = {
   storyId: 'story_thin_walls',
   version: 1,
   title: 'Thin Walls',
-  fantasyLabel: 'First place is one wall away.',
-  hook: 'Three years of finishing second to the same woman, and on Sunday she moved into the flat next door, where the wall between your desks is so thin you can hear her turn a page.',
+  fantasyLabel: 'Your rival can hear you through the wall.',
+  hook: 'Your rival moved in next door, and the wall is so thin she has heard every word of your closing argument.',
   premise:
     'You are second in your year at law school, for the third year running, behind Nadia Cho. Never by more than half a mark.\n\n' +
     'In nine days the two of you argue the Final Moot in front of three judges. The winner gets the one paid clerkship everybody in the year wants. You argue for a landlord, she argues for a tenant, and the case is about a wall so thin it made a flat unlivable.\n\n' +
     'On Sunday she moved into the flat next door to yours. Forty years ago your bedroom and hers were one room, until somebody split it with a single sheet of plasterboard. Your desk is against it. So is hers.\n\n' +
     'There is one rule about the moot that matters: the two sides may not discuss the case before it. Break it and you are both disqualified, and the clerkship goes to the student in third place, who is friendly, clever, and has noticed where you live.\n\n' +
     'She has been able to hear you for three nights. Tonight, at seven minutes past two, she knocks.\n\n' +
-    'You have to decide what she is to you before Friday week. Rival, ally, the person you finally beat, or something neither of you has a word for yet.',
+    'You have to decide what she is to you before the moot. Rival, ally, the person you finally beat, or something neither of you has a word for yet.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
   coverImage: null,
   keyArt: null,
-  tags: ['Romance', 'Rivals', 'Slice of life', 'Modern', 'Comedy'],
+  tags: ['Romance', 'Rivalry', 'Slice of life', 'Modern', 'Comedy'],
   mechanicsChips: [
     'A rival one wall away',
     'She can hear you too',
@@ -69,7 +69,7 @@ const raw = {
   contentDescriptors: ['ROMANCE', 'PSYCHOLOGICAL_THEMES'],
   intensity: 'LIGHT',
   creatorNote:
-    'You can spend this whole story trading lines through a wall at three in the morning, and that is a real way to play it. Nadia is not a prize and she is not waiting to be won. She is the best person in your year at the thing you both do, and for nine days she is also the person you can hear breathing on the other side of the plasterboard.',
+    'You can spend this whole story trading lines through a wall at three in the morning, and that is a real way to play it. Nadia is not a prize and she is not waiting to be won. She is the best person in your year at the thing you both do, and for nine days she is also the person you can hear turning pages on the other side of the plasterboard.',
   rules: {
     defeatMode: 'FAIL_FORWARD',
     progressionMode: 'MILESTONE',
@@ -86,14 +86,14 @@ const raw = {
       'The Final Moot is in nine days, on Friday week at ten in the morning, in the Old Court. The top two argue it before a bench of three chaired by Professor Ingrid Lund. The winner is offered the Arden Clerkship: one paid year as clerk to an appeal judge. There is one place.',
       'The moot problem is Penrose v. Ashdown Lettings, a nuisance claim about a partition wall so thin it made a rented flat unlivable. Lund wrote it. Nadia argues for the tenant; the player argues for the landlord.',
       'The conferral rule: counsel on opposite sides may not discuss the moot problem with each other before the moot. A proven breach disqualifies both of them, and the place goes to the third-ranked student, Elliot Ashby.',
-      'Flats 3B and 3C at 14 Larkin Street were one room until a single sheet of plasterboard split them. The player’s desk and Nadia’s desk stand back to back against it. Each can hear the other speak at normal volume, word for word. Neither can see through it. Anyone at The Wall may be on either side of it.',
+      'Flats 3B and 3C at 14 Larkin Street were one room until a single sheet of plasterboard split them. The player’s desk and Nadia’s desk stand back to back against it. Each can hear the other speak at normal volume, word for word. Neither can see through it. When Nadia is present at The Wall she is on her own side, in 3C, a voice through the plasterboard, unless the story has put her in 3B on the page.',
       'Nadia moved into 3C on Sunday. Before tonight the two of them had never spoken outside a seminar room. She has heard the player rehearse; the player has not heard her, because she rehearses in a whisper.',
       'Theo Cho is Nadia’s older brother. He left the same law faculty six years ago and runs the night shift at the Lamplight, the 24-hour café across the road.',
       'Professor Lund already knows the two finalists share a wall. She signed Nadia’s hardship housing letter and saw the address. She has said nothing to either of them.',
     ],
     toneGuide:
       'Quick, warm and competitive. Banter is how these two say everything, and both of them are good at it: lines land, get answered, and get scored out loud. Law is texture, never homework — one sharp legal phrase per scene beats a paragraph of doctrine. ' +
-      'The wall carries voices, music, laughter, kettles, alarms, phone calls and, once, crying. It never carries anything intimate, and nobody in this story listens in on anything a 13+ reader should not hear. ' +
+      'The wall carries voices, music, laughter, kettles, alarms, phone calls and, once, crying. It never carries anything intimate, and nobody in this story listens in on anything a 13+ reader should not hear. If the player listens for anything private, the wall gives them a kettle, a closed door, or her voice, dry, saying she can hear them not breathing. ' +
       'Romance is slow-burn and goes no further than a kiss. Tension comes from proximity, honesty and timing, never from bodies, and nobody’s body is described lingeringly. Nobody is a villain: Elliot reads the rules more closely than anybody, Lund is strict and fair, Theo is kind and carrying something. ' +
       'Let quiet scenes be quiet — two people working on opposite sides of a wall at four in the morning, saying nothing, is a scene. The face at the top of a beat is Nadia’s whenever she is in the scene, including when she is only a voice through the plaster.',
     proseStyle: 'webnovel',
@@ -244,7 +244,7 @@ const raw = {
       name: 'The Note Under the Door',
       tags: ['quest', 'document', 'personal'],
       questItem: true,
-      description: 'A page torn neatly from a case notebook, folded twice, pushed under the front door of 3B at midnight. "Coffee. 7:00. Lamplight. Truce?" in very small, very straight handwriting.',
+      description: 'A page torn neatly from a case notebook, folded twice, pushed under the front door of 3B at midnight. Three numbered terms in very small, very straight handwriting (nobody rehearses aloud after midnight; nothing heard through the wall gets used; nobody finds out), and under them: "Coffee. 7:00. Lamplight. Truce?"',
       loreText: 'Held to the light, there is a first draft under it that she crossed out so hard the pen went through. Two words survive: "I can".',
       icon: 'letter',
     },
@@ -299,7 +299,7 @@ const raw = {
       questItem: true,
       skillModifiers: { listening: 1 },
       description: 'A black hardback full of the tenant’s argument in small straight handwriting, numbered points, and red-pen corrections of her own red-pen corrections.',
-      loreText: 'The last page is headed "Through the wall". None of it is about the moot. The first line is the tune the player hums when they are winning an argument with themselves.',
+      loreText: 'The last page is headed "Through the wall". None of it is about the moot. The first line is the tune the player hums when they are winning an argument with themselves. She keeps it on her, not on the desk. Reading that page without being handed it breaks the truce in the worst way available; she knows by morning, and it costs more than the moot.',
       icon: 'book',
     },
     {
@@ -324,7 +324,7 @@ const raw = {
       tags: ['quest', 'document'],
       questItem: true,
       description: 'A manila folder from the moot archive, six years old: T. Cho, disqualified before the Final Moot on a complaint of conferral. Lund’s signature on the complaint. No hearing was ever held.',
-      loreText: 'At the back, filed late and never read by the person it concerned, a one-page letter from the student who made the complaint, withdrawing it.',
+      loreText: 'At the back, filed late and never read by anybody, Lund included, a one-page letter from the student who made the complaint, withdrawing it.',
       icon: 'folder',
     },
     {
@@ -549,7 +549,7 @@ const raw = {
       countersTendency: null,
       requires: {
         flagsSet: ['knows:the_old_case'],
-        lockedCopy: 'There is no case to reopen. There is a man behind a café counter who left in second year, and that is all he has said.',
+        lockedCopy: 'There is no case to reopen. There is a man behind a café counter who left in his final year, and that is all he has said.',
       },
     },
   ],
@@ -726,7 +726,7 @@ const raw = {
       name: 'The Old Court',
       shortName: 'Old Court',
       description:
-        'A real courtroom, moved stone by stone into the faculty a century ago. A raised bench for three, two counsel tables facing it a few feet apart, and a public gallery that fills to the back for the Final Moot. The acoustics are excellent. You can hear the person beside you breathe.',
+        'A real courtroom, moved stone by stone into the faculty a century ago. A raised bench for three, two counsel tables facing it a few feet apart, and a public gallery that fills to the back for the Final Moot. The acoustics are excellent. You can hear the person at the other table turn a page.',
       artDirection:
         'Old wood-panelled courtroom, a raised judges’ bench for three, two counsel tables close together facing it, a public gallery, high windows with dust in the light. Formal, hushed, dramatic.',
       connections: [{ to: 'faculty_hall', travelMinutes: 1, label: 'Back to the main hall' }],
@@ -817,7 +817,7 @@ const raw = {
         'Talks like she is cross-examining, then asks something soft before you have finished answering. Much braver through a wall than through a door.',
       boundaries: [
         'Will not be let win. Throw anything for her and she will not forgive it for a long time',
-        'Will not discuss her family with anybody who has not met Theo',
+        'Will not talk about her parents through the wall. That conversation needs an open door, and it has not had one yet',
         'Will not use anything she heard through the wall, and will know if you do',
       ],
       goals: [
@@ -849,7 +849,7 @@ const raw = {
       topics: ['the truce', 'the moot problem', 'first place', 'what she heard', 'the wall', 'her brother', 'the clerkship'],
       voiceSamples: [
         'Your second point is good. I’ve heard it four times. Now I think it’s good too, which is a problem for me.',
-        'Three terms. One: nobody rehearses out loud after midnight. Two: nobody uses what they heard. Three: you never mention that I said please.',
+        'Three terms. One: nobody rehearses out loud after midnight. Two: nobody uses what they heard. Three: nobody finds out. Initial each page.',
         'Four tenths of a mark. Do you know what four tenths is? One sentence. I lie awake about which sentence.',
         'Goodnight, wall. That was for the wall. Do not answer.',
         'Concession number two. I’m counting. Keep going, you’re doing beautifully.',
@@ -909,7 +909,7 @@ const raw = {
       pronouns: 'he/him',
       publicTraits: ['Cheerful at every hour', 'Records everything', 'Ships people on sight'],
       hiddenDrives: [
-        'He has taken a job in another city from next month and keeps not telling you, because telling you makes it the last month',
+        'He has taken a job in another city starting in five weeks and keeps not telling you, because telling you makes this the last month',
       ],
       values: ['Noise is information', 'Turning up with food', 'Never deleting anything'],
       fears: [
@@ -944,7 +944,7 @@ const raw = {
         'Loose and running, full of sound words — hiss, levels, room tone. Narrates in a hushed documentary voice in the present tense. Goes short and plain the moment it matters.',
       topics: ['his final project', 'the listening party', 'the wall', 'next year', 'the lease', 'what he heard'],
       voiceSamples: [
-        'And here we observe the second-place student in its natural habitat, glaring at drywall. Magnificent creature.',
+        'And here we observe the second-place student in its natural habitat, glaring at plasterboard. Magnificent creature.',
         'Room tone in here is ninety per cent you two and ten per cent fridge. Gorgeous. Going straight in the project.',
         'Okay. Levels down. What happened, actually?',
         'I named the wall. Don’t ask. Fine: Gerald.',
@@ -990,7 +990,7 @@ const raw = {
       name: 'Theo Cho',
       role: 'Her older brother. Runs the night shift at the café across the road, and left the same law faculty six years ago',
       cardBlurb:
-        'He has made your coffee at three in the morning for two years, he is the reason his sister knew the flat next to yours was free, and he will not tell you why he never sets foot inside the faculty.',
+        'He has made your coffee at three in the morning for two years, he has opinions about who his sister lives next to, and he will not tell you why he never sets foot inside the faculty.',
       pronouns: 'he/him',
       publicTraits: ['Unhurried', 'Remembers every order', 'Funny right up to a line, and then not'],
       hiddenDrives: [
@@ -1026,7 +1026,7 @@ const raw = {
       voiceSamples: [
         'Flat white, extra shot, no lid. Same as every night for two years. Sit.',
         'She’s been in at seven every morning since Sunday. Orders two cups. Drinks one.',
-        'Left in second year. That’s the whole story. Eat that while it’s hot.',
+        'Left in final year. That’s the whole story. Eat that while it’s hot.',
         'Long version costs you till the chairs are up. Grab a cloth.',
       ],
       appearance:
@@ -1105,13 +1105,13 @@ const raw = {
         },
         {
           id: 'lund_the_old_complaint',
-          fact: 'Six years ago she signed a conferral complaint against Theo Cho on another student’s word. Theo left before any hearing. The other student withdrew the statement by letter after he had gone, and the letter was filed rather than sent.',
+          fact: 'Six years ago she signed a conferral complaint against Theo Cho on another student’s word. Theo left before any hearing. She does not know that the student later withdrew the statement: the letter was filed at the back of the archive file, and she has never reopened it.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'In her office, if somebody puts the old moot file in front of her and asks her straight.',
         },
       ],
       speechStyle:
-        'Short declaratives, surname first, no filler words at all. Asks a question and then stops completely. Uses a Latin phrase once per conversation, correctly, and translates it.',
+        'Short declaratives, surname first, no filler words at all. Asks a question and then stops completely. Uses a Latin phrase at most once a scene, only when it fits, correctly, and translates it.',
       topics: ['the conferral rule', 'the moot problem', 'the bench', 'the clerkship', 'Larkin Street', 'the old moot'],
       voiceSamples: [
         'Sit. You have four minutes. Use two of them well.',
@@ -1162,7 +1162,7 @@ const raw = {
       name: 'Elliot Ashby',
       role: 'Third in the year by three tenths of a mark, and the only person who wins if either finalist is disqualified',
       cardBlurb:
-        'He is charming, generous, genuinely good at this, and three tenths of a mark behind you, and he has noticed that you and Nadia write the same street on library forms.',
+        'He is charming, generous, genuinely good at this, and three tenths of a mark behind you, and he remembers small things about everybody, including where they live.',
       pronouns: 'he/him',
       publicTraits: ['Everybody’s friend', 'Remembers small details about people', 'Never visibly tries'],
       hiddenDrives: [
@@ -1200,7 +1200,7 @@ const raw = {
       topics: ['the moot', 'Larkin Street', 'the group chat', 'his father', 'third place', 'the conferral rule'],
       voiceSamples: [
         'How’s your mum’s knee? Better? Good. Good. And the commute these days? Short, I’d imagine.',
-        'Larkin Street. Lovely street. Funny, Cho wrote Larkin Street on her hardship form too.',
+        'Larkin Street. Lovely street. Funny, Cho put Larkin Street on her library slip too.',
         'I like you both. Honestly. That makes this harder.',
         'Third is a lovely seat. You see everybody coming.',
       ],
@@ -1649,7 +1649,7 @@ const raw = {
     {
       id: 'q_the_old_case',
       title: 'The Last Time Somebody Talked',
-      summary: 'Theo Cho left this faculty six years ago, in his second year, and will not go back inside it even to deliver coffee.',
+      summary: 'Theo Cho left this faculty six years ago, in his final year, and will not go back inside it even to deliver coffee.',
       kind: 'LEAD',
       involvedCharacterIds: ['theo', 'lund', 'nadia'],
       involvedLocationIds: ['lamplight_cafe', 'law_library', 'lund_office'],
@@ -1815,7 +1815,7 @@ const raw = {
       locationId: 'lamplight_cafe',
       publicCopy: 'Half six at the Lamplight. The chairs are up, the radio is off, and Theo is mopping round the only customer.',
       directorNotes:
-        'If the player is here, Theo mentions, while mopping, that he did two years of law across the canal and then did not. He says it like a weather report and changes the subject to toast.',
+        'If the player is here, Theo mentions, while mopping, that he did nearly three years of law across the canal and then did not. He says it like a weather report and changes the subject to toast.',
       setsFlags: ['knows:theo_left'],
       cancelledByFlags: [],
       requiresFlags: ['morning_after'],
@@ -1851,7 +1851,7 @@ const raw = {
       locationId: 'the_wall',
       publicCopy: 'The power goes out across Larkin Street. No laptop fan, no fridge, no streetlight. Only the radiator, still warm on both sides of the wall.',
       directorNotes:
-        'In the dark the wall is so quiet the player can hear her breathing on the other side. Two hours with no screens and nothing to rehearse from. Whatever they talk about, it is not the moot.',
+        'In the dark the wall is so quiet the player can hear her pen stop on the other side. Two hours with no screens and nothing to rehearse from. Whatever they talk about, it is not the moot.',
       setsFlags: ['the_dark_night'],
       cancelledByFlags: [],
       requiresFlags: ['first_night_over'],
@@ -2250,6 +2250,16 @@ const raw = {
     'I go out onto the landing in my socks and knock on her actual door.',
     '"No deal. You’ve heard my whole argument, and I haven’t heard a word of yours."',
   ],
+  coverDirection: [
+    'SUBJECT: Nadia Cho, a law student, alone and unmistakable in the foreground of a key visual for a romantic comedy anime about two academic rivals who share one thin bedroom wall.',
+    'She fills the frame from the waist up, close and slightly off centre, holding about two thirds of the picture, seated at a desk at night.',
+    'Sharp jaw-length straight black hair, dark eyes, reading glasses pushed up into her hair and forgotten, a plain oversized grey hoodie with no lettering, a red pen tucked behind one ear.',
+    'One palm rests flat against the pale wall beside her desk; she leans toward it as if listening, with a small competitive half-smile, eyes turned to the viewer.',
+    'On the desk, soft and secondary: law books, tabbed papers, sticky notes and a plain paper cafe cup.',
+    'LIGHT: warm amber desk-lamp light on her side; cool blue night light on the far edge of the frame, suggesting the room on the other side of the wall.',
+    'TITLE: the words THIN WALLS painted into the art in the upper third as a bold clean logo, white with a warm glow, spelled exactly THIN WALLS, large and legible at thumbnail size.',
+    'No other text anywhere: nothing written on the books, papers, cup or hoodie.',
+  ].join(' '),
   publishedAt: null,
 };
 
