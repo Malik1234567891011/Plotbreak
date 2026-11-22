@@ -5,8 +5,9 @@ import { IRONCLAD_CADETS } from './ironclad-cadets.js';
 import { withDerivedAssetKeys } from './derive-assets.js';
 
 /**
- * Ironclad Cadets, held to the promise on its own card: the suit opened for the
- * mechanic, and everything after that is the player's to decide.
+ * Unit Nine (working title Ironclad Cadets, which the ids keep), held to the
+ * promise on its own card: the suit is scrap at six and it asked you to stay,
+ * and everything after that is the player's to decide.
  *
  * This world is not in LAUNCH_CATALOG yet, so none of the catalog-wide specs
  * see it. The structural checks they would run are ported here for this one
@@ -77,6 +78,7 @@ const playerFacing = (): string =>
     ...story.promises.flatMap((p) => [p.label, p.seedHint, p.payoffHint]),
     ...story.archetypes.flatMap((a) => [a.name, a.role, a.summary, a.blurb]),
     ...story.endings.flatMap((e) => [e.name, e.condition, e.epilogue, e.hint]),
+    story.coverDirection,
   ].join('\n');
 
 describe('the three checkpoint checks', () => {
@@ -179,7 +181,7 @@ describe('the opener', () => {
 });
 
 describe('everybody is an adult', () => {
-  const AGES: Record<string, number> = { kaede: 22, noa: 23, haldor: 22, ruiz: 52, graf: 58 };
+  const AGES: Record<string, number> = { kaede: 22, tova: 23, haldor: 22, ruiz: 52, graf: 58 };
   const NUMBER_WORDS: Record<number, string> = {
     22: 'Twenty-two',
     23: 'Twenty-three',
@@ -208,11 +210,13 @@ describe('everybody is an adult', () => {
     expect(canon).toMatch(/Everybody at the academy is an adult/);
     expect(canon).toMatch(/twenty-one-year-old/);
     expect(canon).toMatch(/eighteen or older/);
+    // The one named character who never appears on stage still has an age.
+    expect(canon).toMatch(/Paz Ruiz, who was thirty/);
   });
 
   it('uses no word that reads a character as a minor', () => {
     const MINOR =
-      /\b(kid|kids|child|children|childlike|teen|teens|teenage|teenager|boy|boys|girl|girls|minor|minors|underage|schoolgirl|schoolboy|high school|middle school|loli|little sister|little brother)\b/i;
+      /\b(kid|kids|child|children|childlike|teen|teens|teenage|teenager|boy|boys|girl|girls|minor|minors|underage|schoolgirl|schoolboy|high school|middle school|loli|little sister|little brother|young|adolescent|adolescents|juvenile|juveniles|youth|youths|youngster|youngsters|freshman|freshmen|sophomore|sophomores|preteen|preteens|tween|tweens)\b/i;
     const hit = playerFacing().match(MINOR);
     expect(hit?.[0] ?? null).toBeNull();
   });
@@ -226,7 +230,7 @@ describe('the 13+ ceiling', () => {
 
   it('has no sexual content, nudity, gore or self-harm anywhere', () => {
     const BANNED =
-      /\b(sex|sexy|sexual|naked|nude|nudity|undress\w*|lingerie|breasts?|cleavage|thighs?|curves|seduc\w*|aroused|bedroom eyes|gore|gory|entrails|disembowel\w*|decapitat\w*|dismember\w*|suicide|suicidal|self-harm|slit (?:her|his|their) wrists?)\b/i;
+      /\b(sex|sexy|sexual|naked|nude|nudity|undress\w*|lingerie|breasts?|cleavage|thighs?|curves|seduc\w*|aroused|bedroom eyes|gore|gory|entrails|disembowel\w*|decapitat\w*|dismember\w*|blood\w*|bleed\w*|corpses?|suicide|suicidal|self-harm|slit (?:her|his|their) wrists?)\b/i;
     const hit = playerFacing().match(BANNED);
     expect(hit?.[0] ?? null).toBeNull();
   });
@@ -242,9 +246,24 @@ describe('the 13+ ceiling', () => {
 describe('it is its own story', () => {
   it('borrows no franchise names or terms', () => {
     const FRANCHISE =
-      /\b(Gundam|Zaku|Newtype|Evangelion|NERV|Neon Genesis|Code Geass|Knightmare|Franxx|Pacific Rim|Jaeger|Kaiju|Drift compatib\w*|Mazinger|Macross|Gurren|Lagann|Zoids|Titanfall|Armored Core|Voltron|Transformers?|Autobots?|Decepticons?|Escaflowne|Patlabor|Full Metal Panic|Arbalest|Aldnoah|Kyoukai|Valvrave|Eureka Seven|Getter|Robotech|Battletech|Mechwarrior)\b/i;
+      /\b(Gundam|Zaku|Newtype|Evangelion|NERV|Neon Genesis|Code Geass|Knightmare|Franxx|Pacific Rim|Jaeger|Kaiju|Drift compatib\w*|Mazinger|Macross|Gurren|Lagann|Zoids|Titanfall|Armored Core|Voltron|Transformers?|Autobots?|Decepticons?|Escaflowne|Patlabor|Full Metal Panic|Arbalest|Aldnoah|Kyoukai|Valvrave|Eureka Seven|Getter|Robotech|Battletech|Mechwarrior|Mech Cadets?|Mech Cadet Yu)\b/i;
     const hit = playerFacing().match(FRANCHISE);
     expect(hit?.[0] ?? null).toBeNull();
+  });
+
+  it('keeps the shelf title clear of Mech Cadets', () => {
+    // The working title "Ironclad Cadets" was one synonym from Netflix's "Mech Cadets",
+    // which has the same hook: a cleaner chosen by the academy's machine.
+    expect(story.title).toBe('Unit Nine');
+    expect(story.title).not.toMatch(/cadet|mech/i);
+    expect(story.fantasyLabel).not.toMatch(/mechanic|ace\b/i);
+  });
+
+  it('art-directs its own cover, with the title spelled into it', () => {
+    expect(story.coverDirection.trim().length).toBeGreaterThan(200);
+    expect(story.coverDirection).toContain('TITLE:');
+    expect(story.coverDirection).toContain(`spelled exactly ${story.title.toUpperCase()}`);
+    expect(story.coverDirection).toMatch(/No other text anywhere/);
   });
 
   it('is written in English and ships with no literal backslash-n', () => {
@@ -400,8 +419,8 @@ describe('the cast', () => {
     const sample = (id: string) => story.characters.find((c) => c.id === id)!.voiceSamples;
     // Kaede never uses a contraction.
     for (const line of sample('kaede')) expect(line, line).not.toMatch(/\w[’']\w/);
-    // Noa checks you are still with her.
-    expect(sample('noa').join(' ')).toMatch(/yeah\?/);
+    // Tova checks you are still with her.
+    expect(sample('tova').join(' ')).toMatch(/yeah\?/);
     // Haldor says "one" when he is being superior.
     expect(sample('haldor').join(' ')).toMatch(/\bOne doesn’t|\bone cares/);
     // Ruiz gives work orders and talks to the suit.

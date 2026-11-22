@@ -1,8 +1,13 @@
 import { StoryVersion } from '@plotbreak/contracts';
 
 /**
- * "Ironclad Cadets" — the suit nobody could wake opens for the person who was
- * only there to clean it.
+ * "Unit Nine" — the suit nobody could wake opens for the person who was only
+ * there to clean it.
+ *
+ * Working title was "Ironclad Cadets", which is why the ids, the slug and the
+ * asset prefix still say ironclad_cadets. The title changed because "Ironclad
+ * Cadets" sat one synonym away from Netflix's "Mech Cadets", whose hook is also
+ * a cleaner chosen by the academy's machine. Players never see the ids.
  *
  * The structural bet is a school story told from the wrong end of the
  * building. Every academy world puts the player on the ranking board. This one
@@ -15,10 +20,14 @@ import { StoryVersion } from '@plotbreak/contracts';
  *
  * Playable span is nine days and a night: the six hours before the cutters
  * arrive, then the nine days to the academy's Trials, with a derelict walking
- * out of the sea on the fifth night. What happened eleven years ago at
- * Gullwater is backstory carried in Pip's log, in Bo Ruiz's silence and in
- * Commandant Graf's refusals, and it is an optional lead: a player who never
- * asks Pip about its last crew gets a complete rival-to-partner academy story.
+ * out of the sea on the sixth night. The clock labels the opening night Day 1,
+ * so the Trials are Day 10 and Kaede's Northgate deadline is noon on Day 8;
+ * the canon says it that way so the narrator and the clock agree.
+ *
+ * What happened eleven years ago at Gullwater is backstory carried in Pip's
+ * log, in Bo Ruiz's silence and in Commandant Graf's refusals, and it is an
+ * optional lead: a player who never asks Pip about its last crew gets a
+ * complete rival-to-partner academy story.
  *
  * The answer to "why me" is mechanical rather than mystical, on purpose. Unit
  * Nine is a two-seat suit that keys from the rear, the academy dropped the
@@ -41,12 +50,12 @@ const raw = {
   id: 'sv_ironclad_cadets_1',
   storyId: 'story_ironclad_cadets',
   version: 1,
-  title: 'Ironclad Cadets',
-  fantasyLabel: 'It opened for the mechanic, not the ace.',
-  hook: 'The war suit nobody could wake is due at the scrapyard at six. Tonight it sealed itself around the mechanic who was only there to clean it.',
+  title: 'Unit Nine',
+  fantasyLabel: 'Scrap at six. It asked you to stay.',
+  hook: 'The war suit nobody could wake just sealed you inside while you were cleaning its back seat on the night shift. It is due for scrap at six.',
   premise:
     'You are twenty-one, you work nights in the hangars of a pilot academy on a sea cliff, and your job tonight was to clean a dead war suit before it goes to the scrapyard.\n\n' +
-    'Unit Nine is nine metres of armour that has refused every pilot for eleven years. The best cadet in the school tried for two years and it never once opened for her. So the academy signed the order, and the cutters take it apart at six this morning.\n\n' +
+    'Unit Nine is nine metres of armour that has refused every pilot for eleven years. The best cadet in the school tried for two years and it never once opened for her. So the academy signed the order, and the cutters take it apart at six in the morning.\n\n' +
     'You were wiping down the back seat, the one nobody uses. The panel under your hand went warm, the hatch sealed, and a voice in the speaker asked you, very politely, not to leave.\n\n' +
     'Now the alarms are going, the cadet who wanted this suit is outside the glass, and the commandant who signed the order will want to know why a mechanic did what her best pilots could not.\n\n' +
     'You have until six to keep the suit in one piece. After that there are nine days until the academy trials decide whether it fights or gets cut after all, and a voice in your ear that is keeping a secret about its last crew.\n\n' +
@@ -58,13 +67,13 @@ const raw = {
   keyArt: null,
   tags: ['Mecha', 'School', 'Military', 'Rivalry', 'Action'],
   mechanicsChips: [
-    'A mechanic, not a cadet',
-    'The suit talks back',
-    'Two seats, one machine',
-    'A rival who wanted it first',
     'Six hours to save it',
+    'Two seats, one machine',
+    'The suit talks back',
+    'A mechanic, not a cadet',
+    'A rival who wanted it first',
   ],
-  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'PSYCHOLOGICAL_THEMES'],
+  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'PSYCHOLOGICAL_THEMES', 'ALCOHOL_REFERENCES', 'MORAL_AMBIGUITY'],
   intensity: 'MODERATE',
   creatorNote:
     'You can climb out on turn one, keep your head down, and spend nine days as the mechanic who did one odd thing once. You can also take the controls. Kaede wanted this suit for two years and will not pretend otherwise, Bo Ruiz has kept it running out of his own pocket for eleven, and Pip has been waiting all that time for somebody to sit in the back.',
@@ -83,15 +92,15 @@ const raw = {
     ],
     hardCanon: [
       'The player is a twenty-one-year-old night-shift mechanic at Gullwater Head Academy, a pilot academy on a sea cliff above the harbour town of Gullwater. The player is crew, not a cadet, and is not on the ranking Board.',
-      'Everybody at the academy is an adult. Cadets enlist at eighteen or older; the youngest person in this story is the player, at twenty-one.',
+      'Everybody at the academy is an adult. Cadets enlist at eighteen or older, so even a first-year cadet is at least eighteen. The youngest named character is the player, at twenty-one.',
       'Ironclads are nine-metre armoured suits. A suit has to key to a pilot through the seat before it will move, and a suit that will not key will not so much as lift a hand.',
       'Unit Nine is a two-seat ironclad built twenty-three years ago by the Quist Foundry: a front seat that steers and a rear engineer’s seat that keys the suit. The academy dropped two-crew doctrine eleven years ago, and since then Unit Nine has refused every pilot who tried it from the front.',
       'At 23:10 tonight Unit Nine keyed to the player, who was cleaning the rear seat, and sealed its hatch. Its onboard intelligence, Pip, spoke for the first time in eleven years.',
       'Commandant Ilse Graf signed Unit Nine’s decommission order. The cutters arrive at the breakers’ yard at 06:00 and the suit is scheduled to be cut for scrap by seven.',
       'Derelicts, called rustbacks on the headland, are automated war walkers left over from the Long War sixty years ago. A few still wander south out of the Hollow Coast every year, and academy pilots hold the Seawall against them.',
-      'The academy Trials are on the ninth day: ranked bouts in the Pit, judged by inspectors from the Defence Ministry, who decide the academy’s budget and which suits stay in service. The rival Northgate Institute fields a team.',
+      'The academy Trials open at ten in the morning on Day 10, nine days after tonight: ranked bouts in the Pit, judged by inspectors from the Defence Ministry, who decide the academy’s budget and which suits stay in service. The rival Northgate Institute fields a team.',
       'Pip will not hold anybody in the cockpit who asks twice to leave, will not walk on people or let its hands be used on them, and will not lift its limiter unless both seats are filled and the engineer asks.',
-      'Eleven years ago at Gullwater, Ilse Graf was Unit Nine’s front-seat pilot. She overrode Pip’s limiter to stop a derelict before it reached the harbour, the overload killed the engineer, Paz Ruiz, in the rear seat, and the official report blamed a reactor fault. Paz was Bo Ruiz’s younger sister. Pip’s log holds Graf’s voice giving the order. Almost nobody alive knows this.',
+      'Eleven years ago at Gullwater, Ilse Graf was Unit Nine’s front-seat pilot. She overrode Pip’s limiter to stop a derelict before it reached the harbour, the overload killed the engineer in the rear seat, Paz Ruiz, who was thirty, and the official report blamed a reactor fault. Paz was Bo Ruiz’s younger sister. Pip’s log holds Graf’s voice giving the order. Almost nobody alive knows this.',
     ],
     toneGuide:
       'Loud, quick and physical, with a bruise underneath. This is a school story with nine-metre machines in it: a ranking board over the mess hall, rivalries conducted in front of two hundred people, sparring bouts in a bowl cut into the cliff, and a hangar at night that smells of coffee and hydraulic fluid. ' +
@@ -295,13 +304,13 @@ const raw = {
       icon: 'tools',
     },
     {
-      id: 'noa_noodles',
-      name: 'Noa’s Emergency Noodles',
+      id: 'tova_noodles',
+      name: 'Tova’s Emergency Noodles',
       tags: ['food'],
       stackable: true,
       maxStack: 6,
       consumable: { resourceId: 'stamina', amount: 15, consumesItem: true },
-      description: 'Cup noodles from her mother’s stall in town, extra chilli, kept in a crate under Noa’s bunk for night-shift emergencies, which by her definition is most nights.',
+      description: 'Cup noodles from her mother’s stall in town, extra chilli, kept in a crate under Tova’s bunk for night-shift emergencies, which by her definition is most nights.',
       loreText: 'She keeps a tally on the crate lid of who has eaten how many. You are on eleven.',
       icon: 'food',
     },
@@ -310,7 +319,7 @@ const raw = {
       name: 'The Northgate Offer',
       tags: ['document', 'personal'],
       description: 'A heavy cream envelope from the rival academy offering Kaede Strand a place and a new suit. The acceptance slip inside is already signed and has not been sent.',
-      loreText: 'The offer lapses at noon on the seventh day. She signed it the night the decommission order went up on the hangar board.',
+      loreText: 'The offer lapses at noon on Day 8. She signed it the night the decommission order went up on the hangar board.',
       icon: 'letter',
     },
     {
@@ -377,7 +386,7 @@ const raw = {
       id: 'boat_shed_key',
       name: 'A Boat Shed Key',
       tags: ['personal'],
-      description: 'The key to your family’s old boat shed at the foot of the cliff, where a back path climbs to the breakers’ yard without passing a single checkpoint.',
+      description: 'The key to your family’s old boat shed at the foot of the cliff, where a back path runs along to the breakers’ yard without passing a single checkpoint.',
       loreText: 'Half the harbour has used that path at one time or another. The academy has never once noticed.',
       icon: 'key',
     },
@@ -589,7 +598,7 @@ const raw = {
       name: 'The Main Hangar',
       shortName: 'Main Hangar',
       description:
-        'Six working gantries with cadet suits in for service, the smell of hydraulic fluid and burnt coffee, and a radio nobody admits to owning. The Chief’s glass office in the corner is called the Fishbowl. Doors lead to the bunkhouse, the mess hall, the sparring pit and the command tower, Hangar Nine is down the row, and the cliff road runs down to town.',
+        'Six working gantries with cadet suits in for service, the smell of hydraulic fluid and burnt coffee, and a radio nobody admits to owning. The Chief’s glass office in the corner is called the Fishbowl. On the Chief’s bench an engraved torque wrench gets oiled every Sunday and never used, beside a ring-bound two-crew manual nobody has opened in eleven years. Doors lead to the bunkhouse, the mess hall, the sparring pit and the command tower, Hangar Nine is down the row, and the cliff road runs down to town.',
       artDirection:
         'Large busy mech hangar, six service gantries with armoured suits in various states of repair, sparks, a glass-walled supervisor’s office in the corner, orange-overalled crew, coffee cups on toolboxes. Warm industrial light.',
       connections: [
@@ -612,14 +621,14 @@ const raw = {
       name: 'The Bunkhouse',
       shortName: 'Bunkhouse',
       description:
-        'Twelve bunks in a prefab behind the main hangar, a kettle that trips the fuse, a dartboard with a cadet’s photo pinned to it, and a shift roster on the door. Your bunk is the bottom one under Noa Brask’s, and her noodle crate lives under both.',
+        'Twelve bunks in a prefab behind the main hangar, a kettle that trips the fuse, a dartboard with a cadet’s photo pinned to it, and a shift roster on the door. Your bunk is the bottom one under Tova Brask’s, and her noodle crate lives under both.',
       artDirection:
         'Cramped prefab crew bunkroom at night, metal bunk beds, overalls on hooks, a kettle and mugs on a shelf, a dartboard, string lights, a crate of instant noodles. Messy, warm, lived-in.',
       connections: [{ to: 'main_hangar', travelMinutes: 3, label: 'Back to the hangar' }],
       discoveredByDefault: true,
       mapPosition: { x: -1, y: 1 },
       takeableItems: [
-        { itemId: 'noa_noodles', qty: 3, ownerId: 'noa', aka: ['noodles', 'cup noodles', 'the noodles', 'emergency noodles'] },
+        { itemId: 'tova_noodles', qty: 3, ownerId: 'tova', aka: ['noodles', 'cup noodles', 'the noodles', 'emergency noodles'] },
       ],
     },
     {
@@ -663,7 +672,7 @@ const raw = {
       description:
         'Three storeys of cadet rooms with a duty desk at the door that checks passes after ten. First-rank cadets get the top floor and a view of the sea. A mechanic in here at night needs a reason or a jacket. The only way in is through the mess.',
       artDirection:
-        'Academy dormitory corridor at night, numbered doors, a duty desk with a lamp, uniform jackets on hooks, a tall window over the sea. Neat, institutional, quiet.',
+        'Military academy barracks corridor at night, numbered doors, a duty desk with a lamp, uniform jackets on hooks, a tall window over the sea. Neat, institutional, quiet.',
       connections: [{ to: 'the_mess', travelMinutes: 2, label: 'Back through to the mess' }],
       discoveredByDefault: true,
       mapPosition: { x: 2, y: 1 },
@@ -696,12 +705,13 @@ const raw = {
       name: 'The Breakers’ Yard',
       shortName: 'Breakers’ Yard',
       description:
-        'A concrete apron at the foot of the cliff where retired suits are cut for scrap: a cutting rig on rails, a crane, a heap of armour plate rusting in the spray. The slipway rail climbs to Hangar Nine and a service road runs along to the Seawall.',
+        'A concrete apron at the foot of the cliff where retired suits are cut for scrap: a cutting rig on rails, a crane, a heap of armour plate rusting in the spray. The rig will not start without the fist-sized fuse in its padlocked power box. The slipway rail climbs to Hangar Nine, a service road runs along to the Seawall, and a back path past the boat sheds drops to town.',
       artDirection:
         'Industrial scrapyard at the base of a sea cliff at dawn, a huge cutting rig on rails, a crane, piles of rusted armour plates, a slipway rail climbing the cliff, grey sea spray. Bleak, heavy, cold blue light.',
       connections: [
         { to: 'hangar_nine', travelMinutes: 4, label: 'Up the slipway rail' },
         { to: 'the_seawall', travelMinutes: 6, label: 'The service road to the Seawall' },
+        { to: 'gullwater', travelMinutes: 10, label: 'The back path past the boat sheds' },
       ],
       discoveredByDefault: true,
       mapPosition: { x: -1, y: 0 },
@@ -733,12 +743,13 @@ const raw = {
       name: 'Gullwater',
       shortName: 'Town',
       description:
-        'The harbour town under the headland: a fish market, two bars, a noodle stall run by Noa’s mother, and four thousand people who live behind the Seawall and know exactly what the academy is for. The Anchor is the bar where the hangar crews drink. The cliff road climbs to the main hangar and steps lead up to the Seawall.',
+        'The harbour town under the headland: a fish market, two bars, a noodle stall run by Tova’s mother, and four thousand people who live behind the Seawall and know exactly what the academy is for. The Anchor is the bar where the hangar crews drink. The cliff road climbs to the main hangar, steps lead up to the Seawall, and a back path past the boat sheds runs along the foot of the cliff to the breakers’ yard.',
       artDirection:
         'Small stacked harbour town at the foot of a cliff at evening, fishing boats, a noodle stall with steam and paper lanterns, a crowded bar called the Anchor, an academy tower lit on the headland above. Cosy, salty, busy.',
       connections: [
         { to: 'main_hangar', travelMinutes: 15, label: 'Up the cliff road' },
         { to: 'the_seawall', travelMinutes: 8, label: 'Up the steps to the Seawall' },
+        { to: 'breakers_yard', travelMinutes: 10, label: 'The back path to the breakers’ yard' },
       ],
       discoveredByDefault: true,
       mapPosition: { x: 0, y: -1 },
@@ -793,7 +804,7 @@ const raw = {
     },
     {
       id: 'faction_cadets',
-      name: 'The Cadet Corps',
+      name: 'The Cadet Wing',
       description:
         'Two hundred cadet pilots ranked by name on the Board above the mess. Kaede Strand is first and Haldor Quist second. Most of them have never learned a mechanic’s name, and all of them want to know why Unit Nine opened for one.',
       startingReputation: 0,
@@ -843,7 +854,7 @@ const raw = {
       calledName: 'Kaede',
       role: 'Cadet lieutenant, first on the Board, and the pilot who tried to wake Unit Nine forty-one times',
       cardBlurb:
-        'She is the best cadet in the academy, she spent two years trying to make this suit open for her, and tonight it opened for you instead while she watched from the ladder.',
+        'The suit opened for you instead of her. She is the best cadet in the academy, she tried forty-one times in two years, and tonight she watched it happen from the ladder.',
       pronouns: 'she/her',
       publicTraits: ['First on the Board and works harder than anybody under it', 'Clipped, precise and very hard to impress', 'Logs everything'],
       hiddenDrives: [
@@ -860,7 +871,7 @@ const raw = {
       ],
       goals: [
         'Find out what the mechanic did that she could not',
-        'Decide before noon on the seventh day whether to send the signed Northgate acceptance',
+        'Decide before noon on Day 8 whether to send the signed Northgate acceptance',
       ],
       secrets: [
         {
@@ -871,9 +882,9 @@ const raw = {
         },
         {
           id: 'kaede_northgate',
-          fact: 'The rival Northgate Institute has offered her a place and a new suit. She signed the acceptance the night the decommission order went up and has not sent it. The offer lapses at noon on the seventh day.',
+          fact: 'The rival Northgate Institute has offered her a place and a new suit. She signed the acceptance the night the decommission order went up and has not sent it. The offer lapses at noon on Day 8.',
           visibility: 'NPC_PRIVATE',
-          revealHint: 'Noa has seen the envelope in the post room. Kaede admits it if asked directly at the foot of the gantry, at night, when nobody else is there.',
+          revealHint: 'Tova has seen the envelope in the post room. Kaede admits it if asked directly at the foot of the gantry, at night, when nobody else is there.',
         },
       ],
       speechStyle:
@@ -893,13 +904,13 @@ const raw = {
       portrait: null,
       expressions: ['neutral', 'annoyed', 'surprised', 'worried', 'warm'],
       schedule: [
-        { startMinute: 0, endMinute: 360, locationId: 'cadet_quarters', activity: 'in her room on the top floor, lights off at last' },
+        { startMinute: 0, endMinute: 360, locationId: 'cadet_quarters', activity: 'in her room on the top floor, asleep at last' },
         { startMinute: 360, endMinute: 480, locationId: 'the_pit', activity: 'dawn drills, alone, before anybody else is up' },
         { startMinute: 480, endMinute: 780, locationId: 'the_pit', activity: 'morning bouts and instructing first-years' },
         { startMinute: 780, endMinute: 840, locationId: 'the_mess', activity: 'lunch at the top table, reading her log' },
         { startMinute: 840, endMinute: 1080, locationId: 'the_pit', activity: 'afternoon sparring' },
         { startMinute: 1080, endMinute: 1200, locationId: 'the_mess', activity: 'dinner under the Board' },
-        { startMinute: 1200, endMinute: 1380, locationId: 'cadet_quarters', activity: 'study hall, then her room' },
+        { startMinute: 1200, endMinute: 1380, locationId: 'cadet_quarters', activity: 'evening simulator hours, then her room' },
         { startMinute: 1380, endMinute: 1440, locationId: 'hangar_nine', activity: 'at the foot of Unit Nine’s gantry, saying goodbye' },
       ],
       homeLocationId: 'cadet_quarters',
@@ -931,9 +942,9 @@ const raw = {
       combatant: null,
     },
     {
-      id: 'noa',
-      name: 'Noa Brask',
-      calledName: 'Noa',
+      id: 'tova',
+      name: 'Tova Brask',
+      calledName: 'Tova',
       role: 'Your bunkmate on the night shift, and the loudest mechanic in the hangar',
       cardBlurb:
         'She has covered for you three times this month and brings you noodles you did not ask for, and she wants a pilot’s seat badly enough that she has done something about it you would not like.',
@@ -954,13 +965,13 @@ const raw = {
       goals: ['Get her third shot at the pilot exam before her contract runs out', 'Keep you out of trouble long enough to enjoy you being in it'],
       secrets: [
         {
-          id: 'noa_told_the_tower',
+          id: 'tova_told_the_tower',
           fact: 'Three weeks ago she told the Commandant’s adjutant that Unit Nine’s link light flickered while you were cleaning it. The tower moved the scrapping up to tonight, and she got her exam slot.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you herself if you ask her straight what she knows about the order being moved up, once she has seen the suit open for you.',
         },
         {
-          id: 'noa_weak_link',
+          id: 'tova_weak_link',
           fact: 'Her link reading is weak, never zero. In the front seat of a suit that already has an engineer keyed in the back, she might well take.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'Pip mentions it if asked whether anybody else on the night shift has ever sat in its front seat.',
@@ -979,7 +990,7 @@ const raw = {
         'Twenty-three, dark curly hair stuffed under a red bandana, hangar overalls tied off by the sleeves, a fork and a pencil in the same chest pocket.',
       visualHook: 'A red bandana with a crooked little wrench she stitched on herself.',
       silhouette: 'Perched on an upturned crate with a cup of noodles, pointing with the fork.',
-      artSeed: 'ic-noa-01',
+      artSeed: 'ic-tova-01',
       portrait: null,
       expressions: ['neutral', 'amused', 'worried', 'guilty', 'surprised'],
       schedule: [
@@ -995,13 +1006,13 @@ const raw = {
       startingRelationship: { trust: 55, affection: 50, respect: 30, fear: 0, rivalry: 0 },
       gates: [
         {
-          id: 'noa_comes_clean',
+          id: 'tova_comes_clean',
           label: 'She tells you what she told the tower',
           kind: 'TRUST',
           requires: { trust: 55, flagsSet: ['first_night_over'] },
         },
         {
-          id: 'noa_front_seat',
+          id: 'tova_front_seat',
           label: 'She asks, very quietly, whether she could try the front seat',
           kind: 'ALLIANCE',
           requires: { trust: 60, flagsSet: ['knows:the_back_seat'] },
@@ -1070,7 +1081,7 @@ const raw = {
         { startMinute: 720, endMinute: 810, locationId: 'the_mess', activity: 'lunch at the top table' },
         { startMinute: 810, endMinute: 1080, locationId: 'the_pit', activity: 'afternoon sparring and form drills' },
         { startMinute: 1080, endMinute: 1260, locationId: 'gullwater', activity: 'dinner in town on family money' },
-        { startMinute: 1260, endMinute: 1440, locationId: 'cadet_quarters', activity: 'study hall and an early night' },
+        { startMinute: 1260, endMinute: 1440, locationId: 'cadet_quarters', activity: 'evening simulator hours and an early night' },
       ],
       homeLocationId: 'cadet_quarters',
       knowledgeScope: ['the_board', 'quist_foundry', 'unit_nine_design', 'the_seawall', 'kaede'],
@@ -1104,7 +1115,7 @@ const raw = {
       pronouns: 'he/him',
       publicTraits: ['Never raises his voice in the hangar', 'Knows every part number by heart', 'Gentler with machines than with people'],
       hiddenDrives: [
-        'His younger sister Paz died in Unit Nine’s rear seat eleven years ago, and he has never let anybody strip it',
+        'His younger sister Paz died in Unit Nine’s rear seat eleven years ago, at thirty, and he has never let anybody strip it',
         'He put you on Unit Nine because you talk to machines while you work, and Paz did too',
       ],
       values: ['A job done right when nobody is checking', 'Looking after your own crew first'],
@@ -1119,7 +1130,7 @@ const raw = {
       secrets: [
         {
           id: 'ruiz_paz',
-          fact: 'Paz Ruiz, his sister, was Unit Nine’s engineer at Gullwater eleven years ago. The report says a reactor fault killed her. He has never believed it and never been able to prove otherwise.',
+          fact: 'Paz Ruiz, his sister, was thirty and Unit Nine’s engineer at Gullwater eleven years ago. The report says a reactor fault killed her. He has never believed it and never been able to prove otherwise.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He tells you at the foot of the gantry, talking to the suit rather than to you, if you ask him why he keeps Nine running.',
         },
@@ -1127,7 +1138,7 @@ const raw = {
           id: 'ruiz_parts',
           fact: 'For eleven years he has taken parts off the scrap list to keep Unit Nine serviceable, which is theft on paper and a firing offence.',
           visibility: 'NPC_PRIVATE',
-          revealHint: 'Noa knows and Graf suspects. He admits it the moment anybody else is about to be blamed for it.',
+          revealHint: 'Tova knows and Graf suspects. He admits it the moment anybody else is about to be blamed for it.',
         },
       ],
       speechStyle:
@@ -1218,7 +1229,7 @@ const raw = {
         'Sit down. Tea? No? Then let us talk about what we are going to do with you.',
         'We signed that order for sound reasons, and we shall sign the next one for equally sound reasons. Thank you for understanding.',
         'Nine days. If it can win in front of the Ministry, we will find it a budget line. If it cannot, we will find it a cutter.',
-        'I flew it once. That is all anybody needs to know about that, and it is all anybody is going to know.',
+        'I flew it once. We do not discuss that, and I would be so grateful if you did not either. Thank you. More tea?',
       ],
       appearance:
         'Fifty-eight, silver hair pinned flat, a dark commandant’s coat with no medals on it, a black cane she uses on stairs and nowhere else.',
@@ -1298,7 +1309,7 @@ const raw = {
       voiceSamples: [
         'Please don’t. They’re cutting me up at six.',
         'Three things, Engineer. One: hello. Two: you’ve cleaned my contacts for a hundred and nineteen nights and you always do the left side twice. Three: please stay put a little longer.',
-        'The front seat steers. The back seat decides whether we should. Nobody’s sat back here since Paz. Sorry. Skip that one.',
+        'The front seat steers. The back seat decides whether we should. Nobody’s sat back here since my last engineer. Sorry. Skip that one.',
         'I’ll open the hatch if you ask me twice. I’d like it noted that I am asking you once, very nicely, to stay.',
       ],
       appearance:
@@ -1490,7 +1501,7 @@ const raw = {
       title: 'Six O’Clock',
       summary: 'The cutters arrive at the breakers’ yard at six with a signed order and a tow tractor. Unit Nine is scheduled to be scrap by seven.',
       kind: 'MAIN',
-      involvedCharacterIds: ['pip', 'ruiz', 'graf', 'noa'],
+      involvedCharacterIds: ['pip', 'ruiz', 'graf', 'tova'],
       involvedLocationIds: ['hangar_nine', 'breakers_yard', 'command_tower'],
       knownRewardCopy: 'A suit that is still in one piece at seven, or the part of it that matters, in a box.',
       discoverWhen: { flagsSet: ['knows:unit_nine_is_awake'] },
@@ -1578,9 +1589,9 @@ const raw = {
     {
       id: 'q_the_trials',
       title: 'Nine Days',
-      summary: 'Graf’s terms, whoever forced them: Unit Nine fights at the Trials on the ninth day, in front of the Ministry. If it wins it stays in service. If it loses, the cutters come back.',
+      summary: 'If Unit Nine is still in one piece after six, the Commandant’s terms are simple: it fights at the Trials on Day 10, in front of the Ministry. Win and it stays in service. Lose and the cutters come back.',
       kind: 'MAIN',
-      involvedCharacterIds: ['kaede', 'haldor', 'graf', 'pip', 'noa'],
+      involvedCharacterIds: ['kaede', 'haldor', 'graf', 'pip', 'tova'],
       involvedLocationIds: ['the_pit', 'hangar_nine', 'command_tower', 'the_mess'],
       knownRewardCopy: 'A place for Unit Nine, and maybe for you, decided in public in the Pit.',
       discoverWhen: { flagsSet: ['scrapping_stopped'] },
@@ -1690,7 +1701,7 @@ const raw = {
           id: 'who_sits_in_front',
           playerCopy: 'Decide who sits in the front seat when the Trials start.',
           directorNotes:
-            'The central choice of the story and it has no correct answer. Kaede is the best pilot in the school and has to accept sitting in front of a mechanic. Haldor is nearly as good, has a family claim on the design, and is frightened of freezing. Noa has wanted a pilot’s seat her whole life and has a secret she has not told the player. Flying alone works and costs the suit dearly. Pip lifts its limiter only for a full crew, and says so.',
+            'The central choice of the story and it has no correct answer. Kaede is the best pilot in the school and has to accept sitting in front of a mechanic. Haldor is nearly as good, has a family claim on the design, and is frightened of freezing. Tova has wanted a pilot’s seat her whole life and has a secret she has not told the player. Flying alone works and costs the suit dearly. Pip lifts its limiter only for a full crew, and says so.',
           enterWhen: { flagsSet: ['knows:the_back_seat'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1702,7 +1713,7 @@ const raw = {
                 minRelationship: [{ characterId: 'kaede', dimension: 'trust', value: 45 }],
               },
               setsFlags: ['kaede_is_your_pilot', 'pip_lifts_the_limiter'],
-              closesFlags: ['haldor_is_your_pilot', 'noa_is_your_pilot', 'flying_solo'],
+              closesFlags: ['haldor_is_your_pilot', 'tova_is_your_pilot', 'flying_solo'],
             },
             {
               routeId: 'haldor_in_front',
@@ -1712,16 +1723,16 @@ const raw = {
                 minRelationship: [{ characterId: 'haldor', dimension: 'respect', value: 35 }],
               },
               setsFlags: ['haldor_is_your_pilot', 'pip_lifts_the_limiter'],
-              closesFlags: ['kaede_is_your_pilot', 'noa_is_your_pilot', 'flying_solo'],
+              closesFlags: ['kaede_is_your_pilot', 'tova_is_your_pilot', 'flying_solo'],
             },
             {
-              routeId: 'noa_in_front',
-              label: 'Put Noa in the front seat',
+              routeId: 'tova_in_front',
+              label: 'Put Tova in the front seat',
               predicate: {
-                flagsSet: ['used:key_both_seats', 'spoke:noa'],
-                minRelationship: [{ characterId: 'noa', dimension: 'trust', value: 60 }],
+                flagsSet: ['used:key_both_seats', 'spoke:tova'],
+                minRelationship: [{ characterId: 'tova', dimension: 'trust', value: 60 }],
               },
-              setsFlags: ['noa_is_your_pilot', 'pip_lifts_the_limiter'],
+              setsFlags: ['tova_is_your_pilot', 'pip_lifts_the_limiter'],
               closesFlags: ['kaede_is_your_pilot', 'haldor_is_your_pilot', 'flying_solo'],
             },
             {
@@ -1729,7 +1740,7 @@ const raw = {
               label: 'Fly it alone from the back',
               predicate: { flagsSet: ['used:take_a_step', 'knows:the_back_seat'] },
               setsFlags: ['flying_solo'],
-              closesFlags: ['kaede_is_your_pilot', 'haldor_is_your_pilot', 'noa_is_your_pilot'],
+              closesFlags: ['kaede_is_your_pilot', 'haldor_is_your_pilot', 'tova_is_your_pilot'],
             },
           ],
           rewards: {
@@ -1786,7 +1797,7 @@ const raw = {
     {
       id: 'q_the_seawall',
       title: 'Something Walked Out Of The Sea',
-      summary: 'A rustback the height of a house has come ashore at the Seawall in the middle of the night, and the town is behind it.',
+      summary: 'Every year or two a rustback the height of a house walks out of the surf at the Seawall at night, with the town behind it. Nobody on the headland knows when the next one comes.',
       kind: 'MAIN',
       involvedCharacterIds: ['kaede', 'haldor', 'graf'],
       involvedLocationIds: ['the_seawall', 'gullwater', 'hangar_nine'],
@@ -1842,7 +1853,7 @@ const raw = {
     {
       id: 'q_eleven_years',
       title: 'Eleven Years Ago At Gullwater',
-      summary: 'Pip said a name and then went quiet for four minutes. The report says a reactor fault. Somebody in the back seat died, and the pilot was never named.',
+      summary: 'Somebody sat in Unit Nine’s back seat eleven years ago and did not come home. The official report says a reactor fault and never names the pilot, and nobody has ever asked Pip.',
       kind: 'LEAD',
       involvedCharacterIds: ['pip', 'ruiz', 'graf'],
       involvedLocationIds: ['hangar_nine', 'command_tower', 'main_hangar'],
@@ -1953,9 +1964,9 @@ const raw = {
     {
       id: 'q_noon_in_the_pit',
       title: 'Noon, In The Pit',
-      summary: 'Haldor Quist dropped a challenge slip on your tray in front of two hundred cadets. Blunted blades, tomorrow, noon.',
+      summary: 'Any cadet may challenge any rostered pilot to a bout in the Pit, blunted blades at noon, in front of the whole mess. Haldor Quist wants Unit Nine, and he keeps white challenge slips in his pocket.',
       kind: 'SIDE',
-      involvedCharacterIds: ['haldor', 'kaede', 'noa'],
+      involvedCharacterIds: ['haldor', 'kaede', 'tova'],
       involvedLocationIds: ['the_pit', 'the_mess'],
       knownRewardCopy: 'Standing among the cadets, one way or another.',
       discoverWhen: { flagsSet: ['haldor_challenged'] },
@@ -2014,7 +2025,7 @@ const raw = {
       title: 'Who Told The Tower',
       summary: 'The scrapping was moved up three weeks, to tonight, after somebody told the command tower Unit Nine had flickered. Only the night shift knew.',
       kind: 'SIDE',
-      involvedCharacterIds: ['noa', 'ruiz', 'graf'],
+      involvedCharacterIds: ['tova', 'ruiz', 'graf'],
       involvedLocationIds: ['mechanics_bunkhouse', 'command_tower', 'main_hangar'],
       knownRewardCopy: 'The name of whoever talked, and what you do about a friend.',
       discoverWhen: { flagsSet: ['first_night_over'] },
@@ -2023,31 +2034,31 @@ const raw = {
           id: 'find_who_talked',
           playerCopy: 'Find out who told the tower about Unit Nine.',
           directorNotes:
-            'It was Noa, for an exam slot, three weeks before the suit opened, and she did not know it would move the date. She is ashamed and will tell the player herself if asked straight. Finding it in the adjutant’s visitors’ log first is the version where she does not get to. Never asking is a choice as well.',
+            'It was Tova, for an exam slot, three weeks before the suit opened, and she did not know it would move the date. She is ashamed and will tell the player herself if asked straight. Finding it in the adjutant’s visitors’ log first is the version where she does not get to. Never asking is a choice as well.',
           succeedWhen: null,
           succeedWhenAny: [
             {
-              routeId: 'noa_told_you',
-              label: 'Ask Noa straight out',
+              routeId: 'tova_told_you',
+              label: 'Ask Tova straight out',
               predicate: {
-                flagsSet: ['used:level_with_them', 'spoke:noa'],
-                minRelationship: [{ characterId: 'noa', dimension: 'trust', value: 55 }],
+                flagsSet: ['used:level_with_them', 'spoke:tova'],
+                minRelationship: [{ characterId: 'tova', dimension: 'trust', value: 55 }],
               },
-              setsFlags: ['noa_confessed'],
-              closesFlags: ['caught_noa'],
+              setsFlags: ['tova_confessed'],
+              closesFlags: ['caught_tova'],
             },
             {
               routeId: 'found_her_name',
               label: 'Find her name in the visitors’ log',
               predicate: { flagsSet: ['used:size_it_up'], atLocation: 'command_tower' },
-              setsFlags: ['caught_noa'],
-              closesFlags: ['noa_confessed'],
+              setsFlags: ['caught_tova'],
+              closesFlags: ['tova_confessed'],
             },
             {
               routeId: 'never_asked',
               label: 'Decide you do not want to know',
-              predicate: { flagsSet: ['spoke:noa', 'six_oclock_passed'] },
-              setsFlags: ['never_asked_noa'],
+              predicate: { flagsSet: ['spoke:tova', 'six_oclock_passed'] },
+              setsFlags: ['never_asked_tova'],
               closesFlags: [],
             },
           ],
@@ -2070,7 +2081,7 @@ const raw = {
       publicCopy:
         'Two academy police in white helmets jog down the hangar row with torches, following the alarm to the last gantry.',
       directorNotes:
-        'They are young, bored, and have never seen Unit Nine do anything. They want a name, a reason and to go back to their desk. Kaede outranks them and they know it.',
+        'They are two duty officers in their twenties, bored, who have never seen Unit Nine do anything. They want a name, a reason and to go back to their desk. Kaede outranks them and they know it.',
       setsFlags: ['police_on_the_row'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -2420,7 +2431,7 @@ const raw = {
       condition:
         'The player flew Unit Nine alone from the back and won without the limiter, which should not have been possible and nearly was not. The suit is badly hurt and so is the player’s standing with the people who offered to sit in front. Write the cost plainly: the repairs, the pride, the empty seat.',
       epilogue:
-        'Unit Nine spends six weeks on Ruiz’s bench. Pip is polite about it and asks, every few days, whether there is anybody the player would like it to meet. The front seat stays empty until the player decides otherwise.',
+        'Unit Nine spends six weeks on Ruiz’s bench. Pip is polite about it and asks, every few days, whether there is anybody you would like it to meet. The front seat stays empty until you decide otherwise.',
       hint: '',
     },
     {
@@ -2432,7 +2443,7 @@ const raw = {
       condition:
         'Unit Nine lost at the Trials. It was an eleven-year-old suit against people who train every day, and losing must not read as a punishment for playing badly. The Ministry’s verdict comes in the afternoon. Write what the crew does with the time it has left, and let Pip be the one who makes it bearable.',
       epilogue:
-        'The cutters come back on a Tuesday. Ruiz pulls Pip’s core himself, before they start, and it lives on a shelf in the Fishbowl after that, offering opinions about the radio. The player is still on the night shift, and has started teaching the first-years how to clean contacts properly.',
+        'The cutters come back on a Tuesday. Ruiz pulls Pip’s core himself, before they start, and it lives on a shelf in the Fishbowl after that, offering opinions about the radio. You are still on the night shift, and you have started teaching the first-year cadets how to clean contacts properly.',
       hint: '',
     },
     {
@@ -2507,7 +2518,7 @@ const raw = {
       condition:
         'The player lied to the academy police, nobody vouched for them, and Graf’s hearing took their pass. They are off the headland and Unit Nine is somebody else’s problem now. Do not make it a tragedy; make it a door that closed because of a specific choice, and let somebody from the night shift come down to the harbour to say so.',
       epilogue:
-        'You get a job on the boats in Gullwater. Twice a week a mechanic in orange buys noodles from Noa’s mother’s stall and leaves you the news from the hangar. The last piece of news is about who sits in Unit Nine’s back seat now.',
+        'You get a job on the boats in Gullwater. Twice a week a mechanic in orange buys noodles from Tova’s mother’s stall and leaves you the news from the hangar. The last piece of news is about who sits in Unit Nine’s back seat now.',
       hint: '',
     },
     {
@@ -2524,16 +2535,32 @@ const raw = {
     },
   ],
   opening:
-    "The hatch slams shut behind you. You were only cleaning the back seat.\n\nLocks shoot home. Screens nobody has seen lit in eleven years flood the cockpit amber.\n\nA woman in a cadet flight jacket is on the ladder outside, face at the glass.\n\n\"That is my suit,\" says Kaede Strand. \"Two years it would not open for me. Get out before they see you.\"\n\nDown the hangar row, the alarms start.\n\nA voice comes from the speaker by your ear, quiet and very polite. \"Please don’t. They’re cutting me up at six.\"\n\nKaede slaps her palm flat on the glass.\n\n\"Mechanic. Are you getting out, or am I pulling you out?\"",
+    "The war suit’s hatch slams shut behind you. You were only cleaning the back seat.\n\nLocks shoot home. Screens nobody has seen lit in eleven years flood the cockpit amber.\n\nA woman in a cadet flight jacket is on the ladder outside, face at the glass.\n\n\"That is my suit,\" says Kaede Strand. \"Two years it would not open for me. Get out before they see you.\"\n\nDown the hangar row, the alarms start.\n\nA voice comes from the speaker by your ear, quiet and very polite. \"Please don’t. They’re cutting me up at six.\"\n\nKaede slaps her palm flat on the glass.\n\n\"Mechanic. Are you getting out, or am I pulling you out?\"",
   openingPanel: {
     assetKey: 'story_ironclad_cadets/opening',
-    alt: 'Kaede in a navy cadet flight jacket on a gantry ladder, palm flat on the amber-lit cockpit glass of a grey-green armoured suit, red hangar alarms turning behind her.',
+    alt: 'Kaede in a navy pilot’s flight jacket with a lieutenant’s stripe, on a gantry ladder, palm flat on the amber-lit cockpit glass of a grey-green armoured suit, red alarms behind her.',
   },
   openingSuggestions: [
     "\"I was cleaning the seat, I swear! It shut on me. Who just said please?\"",
     'I find the hatch release and climb out slowly, hands where she can see them.',
     "I put my hands on the controls. \"Okay, voice. You want to live past six? Then walk.\"",
   ],
+  /**
+   * The PixAI cover. Kaede by costume and pose, never by age words (PLAN §7
+   * cover rule), the suit behind her with none of the head shapes that read as
+   * an existing franchise, and the title painted into the art.
+   */
+  coverDirection: [
+    'SUBJECT: Kaede Strand, a pilot, alone and unmistakable in the foreground of a key visual for a mecha anime about a war suit that was due for scrap.',
+    'She fills the frame from the waist up, holding about two thirds of the picture, standing on a steel gantry ladder.',
+    'Black hair cut blunt at the jaw, a navy pilot’s flight jacket with a lieutenant’s stripe on the cuff, a grease smear on one sleeve, a swollen logbook jammed in her jacket pocket.',
+    'One palm flat on amber-lit cockpit glass beside her, looking straight at the viewer, furious and astonished at once.',
+    'BEHIND HER, soft and secondary: a scuffed grey-green nine-metre armoured suit with a blunt rounded helm, standing in a rusted service gantry in a dim hangar at night,',
+    'a red tag wired to its knee, red alarm beacons turning. No V-shaped head crest, no single horn, no twin-eye visor, no insignia, numbers or lettering on the armour.',
+    'LIGHT: warm amber from the cockpit glass across her face and hand, red alarm light rimming her from behind, cold blue hangar shadows.',
+    'TITLE: the words UNIT NINE painted into the art in the upper third as a bold stencilled industrial logo, off-white with chipped edges,',
+    'spelled exactly UNIT NINE, large and legible at thumbnail size. No other text anywhere.',
+  ].join(' '),
   publishedAt: null,
 };
 

@@ -1,10 +1,12 @@
-# IRONCLAD CADETS
+# UNIT NINE
 
+**Title:** Unit Nine. The working title was *Ironclad Cadets*; the slug, export, ids and asset prefix keep it, because players never see them.
 **Slug:** `ironclad-cadets` · **Export:** `IRONCLAD_CADETS` · **Ids:** `sv_ironclad_cadets_1` / `story_ironclad_cadets` · **Assets:** `story_ironclad_cadets/…`
 **Genre:** mecha academy, rivalry, action, slow-burn romance
-**Rating:** 13+ (fantasy violence, romance up to a kiss, grief)
-**One-line fantasy:** You are the night-shift mechanic, and the war suit nobody could wake just opened for you instead of the academy's best pilot.
-**Store label:** "It opened for the mechanic, not the ace."
+**Rating:** 13+ (fantasy violence, romance up to a kiss, grief, alcohol references, moral ambiguity)
+**One-line fantasy:** The war suit nobody could wake is scrap at six, and tonight it sealed you into its back seat on the night shift and asked you, very politely, to stay.
+**Store label:** "Scrap at six. It asked you to stay."
+**Hook:** "The war suit nobody could wake just sealed you inside while you were cleaning its back seat on the night shift. It is due for scrap at six."
 
 ## Why this fantasy works
 
@@ -16,7 +18,7 @@ The answer to "why me" is mechanical, not mystical. Unit Nine is a two-seat suit
 
 You are twenty-one, you work nights in the hangars of a pilot academy on a sea cliff, and your job tonight was to clean a dead war suit before it goes to the scrapyard.
 
-Unit Nine is nine metres of armour that has refused every pilot for eleven years. The best cadet in the school tried for two years and it never once opened for her. So the academy signed the order, and the cutters take it apart at six this morning.
+Unit Nine is nine metres of armour that has refused every pilot for eleven years. The best cadet in the school tried for two years and it never once opened for her. So the academy signed the order, and the cutters take it apart at six in the morning.
 
 You were wiping down the back seat, the one nobody uses. The panel under your hand went warm, the hatch sealed, and a voice in the speaker asked you, very politely, not to leave.
 
@@ -34,13 +36,13 @@ What you do with any of it is yours. Climb out and keep your head down, or take 
 
 **Rustbacks** (formally: derelicts) are automated war walkers left over from the Long War, sixty years ago. A few still wander south out of the **Hollow Coast** every year. Academy pilots hold the **Seawall** against them, and that is the academy's whole reason to exist as far as the town is concerned.
 
-**The Trials** fall on the ninth day. They are ranked bouts in the Pit, judged by Defence Ministry inspectors who set the academy's budget and decide which suits stay in service. The richer rival school, the **Northgate Institute**, fields a team. A draft Ministry plan would fold the academy into Northgate after the Trials.
+**The Trials** open at 10:00 on Day 10, nine days after tonight. (The clock labels the opening night Day 1, so the canon names days the way the player sees them.) They are ranked bouts in the Pit, judged by Defence Ministry inspectors who set the academy's budget and decide which suits stay in service. The richer rival school, the **Northgate Institute**, fields a team. A draft Ministry plan would fold the academy into Northgate after the Trials.
 
 **Unit Nine** is a two-seat ironclad that the Quist Foundry built twenty-three years ago. The front seat steers. The rear (engineer's) seat keys the suit. Its onboard intelligence is **Pip**.
 
 **Tonight.** At 23:10 Unit Nine keyed to the player while they cleaned the rear seat contacts, sealed its hatch, and Pip spoke for the first time in eleven years. A decommission order signed by Commandant Graf sends it to the cutters at the breakers' yard at 06:00.
 
-**The hidden truth (optional lead).** Eleven years ago at Gullwater, Ilse Graf flew Unit Nine from the front seat. She overrode Pip's limiter to stop a derelict before it reached the harbour. The overload killed the engineer in the rear seat, **Paz Ruiz**, who was Chief Bo Ruiz's younger sister. The town was saved, and the report blamed a reactor fault. Pip's log holds Graf's voice giving the order. A player who never asks Pip about its last crew never sees a beat of this and still gets a complete story.
+**The hidden truth (optional lead).** Eleven years ago at Gullwater, Ilse Graf flew Unit Nine from the front seat. She overrode Pip's limiter to stop a derelict before it reached the harbour. The overload killed the engineer in the rear seat, **Paz Ruiz**, thirty when she died, Chief Bo Ruiz's younger sister. The town was saved, and the report blamed a reactor fault. Pip's log holds Graf's voice giving the order. A player who never asks Pip about its last crew never sees a beat of this and still gets a complete story.
 
 **Pip's three rules** (hard canon):
 1. It will not hold anybody in the cockpit who asks twice to leave.
@@ -66,6 +68,8 @@ The protagonist is `BLANK`. The setup heading is "Who was cleaning the back seat
 - an optional first instinct
 - what Kaede sees through the glass
 
+In production only the name, pronouns and archetype reach the storyteller (`runTurnPure` reads `archetypeId`, `displayName` and `pronouns` for a `BLANK` protagonist). The hangar sentence and first instinct reach only the legacy engine path, and the glass description feeds only the portrait generator. Treat those three as setup flavour, not starting authority.
+
 ### Minimal hard canon
 - The player is a **twenty-one-year-old** night-shift mechanic. They are crew, not a cadet, and they are not on the Board.
 - Everyone at the academy is an adult. Cadets enlist at eighteen or older.
@@ -77,13 +81,13 @@ The protagonist is `BLANK`. The setup heading is "Who was cleaning the back seat
 | Id | Name | Role | Grants |
 |---|---|---|---|
 | `arch_garage` | You Grew Up In A Garage | Technical craft and repairs | mind +2, might +1; tinkering 3, hauling 1, noticing 1; tool roll; Hangar Crews +10 |
-| `arch_washout` | You Washed Out | Pilot training, unfinished | agility +2, resolve +1; piloting 2, nerve 2; old cadet badge; Cadet Corps +10 |
+| `arch_washout` | You Washed Out | Pilot training, unfinished | agility +2, resolve +1; piloting 2, nerve 2; old cadet badge; Cadet Wing +10 |
 | `arch_talker` | You Talk To Machines | Social and machine affinity | arcana +2, presence +1; linking 3, bluffing 2; diagnostic slate |
 | `arch_harbour` | You Grew Up Below The Cliff | Salvage and stealth background | might +2, agility +1; slipping 3, hauling 2; boat shed key; Harbour Families +15 |
 
-## Opening scene (as shipped, 112 words)
+## Opening scene (as shipped, 114 words)
 
-> The hatch slams shut behind you. You were only cleaning the back seat.
+> The war suit’s hatch slams shut behind you. You were only cleaning the back seat.
 >
 > Locks shoot home. Screens nobody has seen lit in eleven years flood the cockpit amber.
 >
@@ -100,7 +104,8 @@ The protagonist is `BLANK`. The setup heading is "Who was cleaning the back seat
 > "Mechanic. Are you getting out, or am I pulling you out?"
 
 How it meets the opener rules:
-- A named character, Kaede, speaks at word 45.
+- A named character, Kaede, speaks at word 47, and her name lands at words 52-53.
+- "War suit" in the first line sets the scale without naming anything.
 - It ends on a direct demand that is phrased as a question.
 - It names nothing the player has to know already. Unit Nine, Pip, the academy and Gullwater are all left for later beats.
 
@@ -109,7 +114,9 @@ How it meets the opener rules:
 2. *Done:* I find the hatch release and climb out slowly, hands where she can see them.
 3. *Risky:* I put my hands on the controls. "Okay, voice. You want to live past six? Then walk."
 
-**Opening panel:** Kaede in a navy cadet flight jacket on a gantry ladder, palm flat on the amber-lit cockpit glass, red hangar alarms turning behind her.
+**Opening panel:** Kaede in a navy pilot's flight jacket with a lieutenant's stripe, on a gantry ladder, palm flat on the amber-lit cockpit glass of a grey-green armoured suit, red alarms behind her. ("Pilot's jacket with a lieutenant's stripe" reads older to image models than "cadet flight jacket".)
+
+**Cover (`coverDirection`):** Kaede alone in the foreground from the waist up on a gantry ladder, by costume and pose and never by age words: blunt black bob, navy flight jacket with a lieutenant's stripe, grease smear, swollen logbook, palm on amber cockpit glass, furious and astonished. Behind her, soft, the scuffed grey-green nine-metre suit with a blunt rounded helm, red tag on its knee, red beacons; no V-crest, horn, twin-eye visor, insignia or lettering. Title UNIT NINE painted in the upper third as a stencilled industrial logo, spelled exactly, no other text.
 
 At 23:10 the only characters in Hangar Nine are Kaede (scheduled there 23:00–24:00, saying goodbye to the suit) and Pip. Two academy police arrive at 23:25. Chief Ruiz walks down the row at 23:35.
 
@@ -120,11 +127,11 @@ Every character is an adult. Ages are stated here and repeated at the start of e
 ### Kaede Strand, 22
 **Role:** Final-year cadet lieutenant, first on the Board. She tried to wake Unit Nine forty-one times.
 **Appearance:** Black hair cut blunt at the jaw, navy flight jacket with the first-rank stripe, and a grease smear on one sleeve that she would deny. Her logbook is swollen with forty-one dated entries.
-**Wants:** to find out what the mechanic did that she could not. She also has to decide, by noon on day 7, whether to send her signed Northgate acceptance.
+**Wants:** to find out what the mechanic did that she could not. She also has to decide, by noon on Day 8, whether to send her signed Northgate acceptance.
 **Fears:** being ordinary after all, and being pitied by the person who got the thing she wanted.
 **Secrets:**
 - Her link scores have always been average. Her rank is all work and nerve, and she believes Unit Nine could tell.
-- She holds a Northgate offer that lapses at noon on day 7.
+- She holds a Northgate offer that lapses at noon on Day 8.
 **Voice:** Never uses contractions. Counts attempts aloud. Calls the player "Mechanic" until they have earned a name.
 - "That is my suit. Two years it would not open for me. Get out before they see you."
 - "Front seat. Harness, then link, then you talk to me and only me. If you freeze, say freeze. I will not shout. I will be very calm, which is worse."
@@ -135,7 +142,7 @@ Every character is an adult. Ages are stated here and repeated at the start of e
 - Romance at trust 65 and affection 55.
 **Arc:** rival, then partner, possibly more. Either she climbs into the front seat with the player behind her, or she signs with Northgate and meets them across the Pit.
 
-### Noa Brask, 23
+### Tova Brask, 23
 **Role:** The player's bunkmate on the night shift and the loudest mechanic in the hangar.
 **Appearance:** Curly hair under a red bandana with a stitched wrench on it, overalls tied off at the sleeves, a fork and a pencil in the same pocket.
 **Wants:** a third shot at the pilot exam, and to keep the player out of trouble long enough to enjoy them being in it.
@@ -211,7 +218,7 @@ The factions are listed with the academy staff first, so public violence costs t
 |---|---|
 | The Academy Staff | 10 |
 | The Hangar Crews | 30 |
-| The Cadet Corps | 0 |
+| The Cadet Wing | 0 |
 | The Harbour Families | 20 |
 | The Northgate Institute | −10 |
 
@@ -223,14 +230,16 @@ All edges are two-way unless marked.
 |---|---|---|
 | **Hangar Nine** (start) | main hangar 2, breakers' yard 4 | Unit Nine in its rusted gantry; Pip's core is takeable here |
 | **The Main Hangar** | Hangar Nine, bunkhouse, mess, Pit, tower, town (15) | Ruiz's glass office, the Fishbowl; the two-crew manual and Paz's wrench |
-| **The Bunkhouse** | main hangar | Noa's noodle crate |
+| **The Bunkhouse** | main hangar | Tova's noodle crate |
 | **The Mess Hall** | main hangar, cadet block, Pit, tower | The Board hangs above the serving hatch |
 | **The Pit** | main hangar, mess | The sparring bowl where the Trials are held |
 | **The Cadet Block** | mess | Kaede's Northgate letter and Haldor's jacket |
 | **The Command Tower** | main hangar, mess | Graf's office, the decommission order and the Gullwater report |
-| **The Breakers' Yard** | Hangar Nine, Seawall | The cutting rig and its fuse |
+| **The Breakers' Yard** | Hangar Nine, Seawall, town (10, the back path past the boat sheds) | The cutting rig and its fuse |
 | **The Seawall** | breakers' yard, town; Hollow Coast (40, locked by `cleared_for_the_coast`) | Gun posts and flares |
-| **Gullwater** (town) | main hangar, Seawall | The noodle stall and the Anchor bar |
+| **Gullwater** (town) | main hangar, Seawall, breakers' yard (back path) | The noodle stall and the Anchor bar |
+
+The narrator in production reads location descriptions but never non-quest items, quest step notes or routes. So the things a player should be able to find are written into the descriptions: the Main Hangar names Paz's engraved wrench and the two-crew manual on the Chief's bench, and the Breakers' Yard names the fuse in the rig's padlocked power box. Quest summaries reach the narrator from turn 1 with no gating, so every summary is written as a standing situation, never as an event that has already happened.
 | **The Hollow Coast** | Seawall | Not discovered by default; holds a derelict serial plate |
 
 ## Active story pressures (world events)
@@ -265,14 +274,14 @@ All edges are two-way unless marked.
 - **Nine Days** (MAIN)
   - Get onto the roster as a provisional cadet or as crew.
   - Learn what the back seat is for, from Pip, Haldor's drawings, the manual or Ruiz. This grants Key Both Seats.
-  - Choose who sits in front: Kaede, Haldor, Noa, or nobody. This grants Open It Up.
+  - Choose who sits in front: Kaede, Haldor, Tova, or nobody. This grants Open It Up.
   - Fight the Trials. The `lost_it` route needs no mistake.
 - **Something Walked Out Of The Sea** (MAIN, opens when the rustback comes ashore). Fight it, fix the guns, clear the harbour, or stay away.
 - **Eleven Years Ago At Gullwater** (LEAD, optional)
   - Hear the log, read the report, or let Ruiz grieve.
   - Then decide what the truth is for: make it public, make Graf say it, tell only Ruiz, keep it, or believe the report.
 - **Noon, In The Pit** (SIDE). Beat Haldor, lose honestly, talk him down, or refuse.
-- **Who Told The Tower** (SIDE). Noa confesses, you catch her in the visitors' log, or you never ask.
+- **Who Told The Tower** (SIDE). Tova confesses, you catch her in the visitors' log, or you never ask.
 
 **Gated abilities:**
 - **Key Both Seats** requires `knows:the_back_seat`, which is granted by the reward of the `the_back_seat` step.
@@ -307,6 +316,11 @@ Ten of the twelve endings are reachable by a player who never touches the Gullwa
 
 ## Content guardrails
 
-- **Adults only.** The cast is 21 to 58, Pip is a machine, and the academy is post-secondary. The spec rejects minor-reading words anywhere a player can read.
+- **Adults only.** The cast is 21 to 58 (Paz Ruiz was 30 when she died), Pip is a machine, and the academy is post-secondary. Even a first-year cadet is at least eighteen, and the youngest named character is the player at twenty-one. Nobody is called "young": the academy police are "two duty officers in their twenties". The spec rejects minor-reading words anywhere a player can read.
 - **13+.** Romance goes up to a kiss. There is no sexual content, no nudity and no lingering body description. Injuries are stated plainly and briefly, with no gore and no self-harm detail. The spec sweeps for all of these.
 - **Original.** No franchise names or terms; the spec blocks the obvious mecha franchises. "Ironclad", "derelict" and "two-seat suit" are generic genre words.
+  - **Title.** The working title *Ironclad Cadets* was one synonym away from Netflix's *Mech Cadets* (2023, from Boom! Studios' *Mech Cadet Yu*), which has the same hook: a cleaner at a pilot academy is chosen by the academy's mech over the top cadet. The old store label stated that premise word for word. The shelf title is now **Unit Nine**, the label leads on the scrapping and the voice, and the spec blocks "Mech Cadet(s)".
+  - **Collision search (2026-11-22).** "Unit Nine" with anime, manga, webtoon, manhwa and mecha: no series of that name (closest: the manhwa *Beast 9*). "The Back Seat" with the same terms: no series of that name either (closest: the manhwa *My Master Is a Backseat Gamer*), but the phrase pulls adult manhwa results, so it was not used for a 13+ shelf. Rerun before shipping if the title changes again.
+  - **Names.** The bunkmate was renamed from Noa to **Tova** Brask: a woman named Noa who wants a mecha seat echoed Patlabor's Noa Izumi. Nell and Tamsin were avoided because slate stories #8 and #12 use them.
+  - **Faction.** The cadets are the **Cadet Wing**, not the "Cadet Corps", which is Attack on Titan's English term and sat too close next to a wall against giants from the sea.
+  - **Resemblance, not a rule break.** A washout archetype, a co-pilot who died in the old suit, giants from the sea against a coastal wall, a two-pilot link, an arrogant rival and a commander with a secret line up with Pacific Rim. The mechanic, the scrapyard and Pip carry the story's own identity. Do not add anything closer.
