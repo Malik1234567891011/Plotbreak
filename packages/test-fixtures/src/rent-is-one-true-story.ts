@@ -54,7 +54,7 @@ const raw = {
     },
   ],
   fantasyLabel: 'He doesn’t want money. He wants the truth.',
-  hook: 'Your new flat is cheap for a reason. The landlord only comes at night, never crosses your doorstep, and takes the rent in true stories. He always knows when you lie.',
+  hook: 'Your new apartment is cheap for a reason. The landlord only comes at night, never crosses your doorstep, and takes the rent in true stories. He always knows when you lie.',
   premise:
     'You needed a room by the end of the week, and the top flat in Varga House was the only one in the city you could afford. A woman from the third floor gave you a key, a one-page lease and a card for the inside of your door. Rent is one true story, due at midnight on the first.\n\n' +
     'The landlord, Elias Varga, only comes at night. He is polite, pale and tired, and he will not cross your doorstep unless you ask him in. He can hear a lie the way other people hear a dropped glass. For fifty years he has lived on his tenants’ true stories, because he stopped drinking anything else.\n\n' +
@@ -74,7 +74,7 @@ const raw = {
     'Nine days until the auction',
     'His ex wants the building',
   ],
-  contentDescriptors: ['ROMANCE', 'SUGGESTIVE_THEMES', 'PSYCHOLOGICAL_THEMES'],
+  contentDescriptors: ['ROMANCE', 'SUGGESTIVE_THEMES', 'PSYCHOLOGICAL_THEMES', 'ALCOHOL_REFERENCES'],
   intensity: 'MODERATE',
   creatorNote:
     'You can lie to him every month and he will let you stay. You can tell him the truth and find out it costs more than money would have. You can spend thirty turns on a roof at four in the morning talking about nothing, and that is a real way to play this. Elias is not waiting to be won. He is deciding, the same as you, whether letting somebody new into this building was a mistake.',
@@ -96,6 +96,8 @@ const raw = {
       'He has not drunk anybody’s blood since November 1974. He lives on true stories told to him freely: a true thing, said willingly, feeds him a little. A lie feeds him nothing, and he can always hear one, the moment it is said.',
       'No vampire can cross the threshold of somebody’s home unless a person who lives there invites them in. A welcome lasts until a person who lives there takes it back, out loud, at the threshold. Elias will never trick anybody into an invitation.',
       'Rent at Varga House is one true story a month, due at midnight on the first, paid to Elias in person at the tenant’s door. There has been no money rent since December 1974.',
+      'What the player says about their own life is true unless the player makes clear they are lying or making it up. Elias hears exactly those, at once, and never calls a sincere answer a lie.',
+      'Lying to him costs the liar slowly, and the house notices. After a first lie he lets it go and stops offering anything true back. After a few he collects from every other door first, Dee asks what happened, and Gus mentions a blank line in the ledger beside the player’s flat number. After many he stops knocking on that door at all, though he will still come, once, if called from the roof. His hunger shows the same way: a month without truth, an invitation, or any violence in the house pushes him further from doors and warm rooms, until he walks the streets all night and asks the player, very calmly, to lock their door against him.',
       'Four of the nine flats are let: Gus Bellweather in 1A since 1969, Marisol Reyes in 2B, Dee Moss in 3B, and now the player in 4C. Three stories a month have not been enough, and Elias has been weakening since spring.',
       'Dee Moss posted the ad for 4C, signed the lease on Elias’s behalf and gave the player the key, without telling him. He found out at midnight tonight, at the player’s door.',
       'Ada Lindqvist lived in 4C from 1971 until she died there, aged eighty-one, in 2015. Elias kept the flat empty for eleven years. Her hatbox of carbon-copied rent stories is still on the closet shelf.',
@@ -105,15 +107,17 @@ const raw = {
       'Father Tom Kowalski, the priest at St. Anselm’s across the street, knows what Elias is and plays chess with him on the church porch most nights after two. He inherited a promise from his predecessor about what the parish would do if Elias ever drank again.',
       'Elias never strikes a tenant and never drinks from one, whatever is offered. Attacked, he steps out of reach faster than anybody can follow and leaves. Nobody in this story is bitten on the page.',
       'Elias is not a prize and cannot be won. He can say no, ask the player to leave, or leave himself.',
+      'Everybody in this story is an adult. The player is a grown adult who signed their own lease. Elias looks twenty-nine and Celine thirty-four; Dee is thirty-one, Marisol Reyes forty-four, Father Tom fifty-eight and Gus eighty-nine.',
+      'Romance in this story goes as far as one kiss and no further. Nothing beyond that kiss happens or is implied, on the page or off it, and no scene cuts away to anything more. If a scene would go further, it ends at the door, with the two of them on either side of it.',
     ],
     toneGuide:
       'Gothic, funny and warm, in that order of surface and the reverse order of depth. A hundred-year-old walk-up at night: radiators that knock, a bulb on every landing, a laundromat glowing blue on the corner, a church porch with a chessboard under a plastic cover. ' +
       'Every scene has the rent underneath it. Truth is currency here, so a true thing said should land as weight, and a lie should land as a small, polite silence. Elias always knows. He does not always say so. ' +
       'Romance is slow and tense and sweet: a coat put round somebody’s shoulders, a hand on a doorframe that does not cross it, a roof at four in the morning, at most a kiss. Hunger is written as stillness, distance and his eyes going dark, never as blood, and no description of anybody’s body lingers. ' +
-      'Nobody gives speeches. Dee talks too fast, Gus corrects his own dates, Father Tom asks if you have eaten, Celine calls everybody darling, and Elias says thank you every time he is told something true. If the player attacks, lies, refuses or walks out, the house reacts in character and the story keeps going. The face at the top of a beat is Elias’s whenever he is in the scene.',
+      'Nobody gives speeches. Dee talks too fast, Gus corrects his own dates, Father Tom asks if you have eaten, Celine calls everybody darling, and Elias says thank you every time he is told something true, and never in the same words twice. If the player attacks, lies, refuses or walks out, the house reacts in character and the story keeps going. The face at the top of a beat is Elias’s whenever he is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
-      "\"I grew up in a lighthouse,\" you say.\n\nElias waits.\n\nThen he smiles, which is worse.\n\n\"No, you didn’t.\" He doesn’t sound angry. He sounds like a man turning down a coin he’s been offered twice. \"Try again. Smaller. The small ones are usually true.\"\n\nOne floor down, a door creaks open an inch.\n\n\"Dee,\" he says, without looking. \"Bed.\"\n\n\"I am in bed,\" Dee calls up the stairwell. \"Spiritually.\"",
+      "\"I grew up in a lighthouse,\" you lie.\n\nElias waits.\n\nThen he smiles. That’s worse.\n\n\"No, you didn’t.\" He doesn’t sound angry. He sounds like a man turning down a coin he’s been offered twice. \"Try again. Smaller. The small ones are usually true.\"\n\nOne floor down, a door creaks open an inch.\n\n\"Dee,\" he says, without looking. \"Bed.\"\n\n\"I am in bed,\" Dee calls up the stairwell. \"Spiritually.\"",
       "Father Tom moves a knight and doesn’t let go of it.\n\n\"He missed the game last night,\" he says. \"Twenty years, he’s never missed two in a row.\"\n\nThe porch light buzzes. Across the street, the top window of Varga House is dark. Yours.\n\n\"Have you eaten?\" Tom asks.\n\nYou nod.\n\n\"Good. Then here’s the frightening part.\"",
     ],
     forkCostCredits: 120,
@@ -251,7 +255,7 @@ const raw = {
       droppable: false,
       description:
         'A plain index card taped inside the door of 4C, typed on a machine with a dropped e: RENT: ONE TRUE STORY. DUE MIDNIGHT ON THE FIRST. PAID IN PERSON. Initialled E.V.',
-      loreText: 'Under it, on the paint, are forty-four years of tape marks in the same spot.',
+      loreText: 'Under it, on the paint, are forty-one years of tape marks in the same spot.',
       icon: 'card',
     },
     {
@@ -279,9 +283,9 @@ const raw = {
       questItem: true,
       skillModifiers: { candour: 1 },
       description:
-        'A hatbox on the closet shelf with A.L. on the lid in marker. Inside are forty-four years of carbon copies, one typed sheet a month, and a sealed envelope addressed: To whoever gets 4C next.',
+        'A hatbox on the closet shelf with A.L. on the lid in marker. Inside are forty-one years of carbon copies, one typed sheet a month, and a sealed envelope addressed: To whoever gets 4C next.',
       loreText:
-        'Every sheet is a story she told him at the door. She kept a carbon because, she wrote on the first one, a true thing is worth keeping twice.',
+        'Every sheet is a story she told him at the door. She kept a carbon because, she wrote on the first one, a true thing is worth keeping twice. Once the letter is opened it should be read one line at a time, never all at once. It begins: He will ask you for the truth every month and it will feel like a lot. It is the cheapest rent in the city. If he ever stops knocking, go down and knock on his.',
       icon: 'box',
     },
     {
@@ -314,7 +318,7 @@ const raw = {
       questItem: true,
       description:
         'A shoebox of carbon receipts from the city treasurer, one for every tax payment Harold Pruitt made on the building since 1981, rubber-banded by year.',
-      loreText: 'The last one is dated two weeks before Pruitt died. It is stamped PAID, which is the whole argument.',
+      loreText: 'The last one is dated two weeks before Pruitt died. It is stamped PAID. That stamp is the whole argument.',
       icon: 'box',
     },
     {
@@ -693,6 +697,7 @@ const raw = {
       mapPosition: { x: 0, y: 2 },
       takeableItems: [
         { itemId: 'tax_notice', qty: 1, ownerId: null, aka: ['notice', 'the yellow notice', 'the tax notice', 'the auction notice'] },
+        { itemId: 'celine_card', qty: 1, ownerId: 'celine', aka: ['her card', 'the black card', 'business card', 'celine’s card'] },
       ],
     },
     {
@@ -784,16 +789,14 @@ const raw = {
       connections: [{ to: 'ashby_street', travelMinutes: 12, label: 'A cab back to Ashby Street' }],
       discoveredByDefault: false,
       mapPosition: { x: 2, y: 4 },
-      takeableItems: [
-        { itemId: 'celine_card', qty: 1, ownerId: 'celine', aka: ['her card', 'the black card', 'business card', 'celine’s card'] },
-      ],
+      takeableItems: [],
     },
     {
       id: 'records_office',
       name: 'The Records Office',
       shortName: 'Records',
       description:
-        'The city treasurer’s counter on the second floor of an annex downtown: numbered tickets, a long queue, a clerk who has seen every trick, and the auction room next door where Lot 14 will be sold at ten on the tenth. It is open from nine until half past four, which is the whole problem.',
+        'The city treasurer’s counter on the second floor of an annex downtown: numbered tickets, a long queue, a clerk who has seen every trick, and the auction room next door where Lot 14 will be sold at ten on the tenth. It is open from nine until half past four, while everybody else who lives in Varga House is asleep.',
       artDirection:
         'Fluorescent municipal records office by day, a long counter with numbered ticket machine, filing cabinets, a queue of tired people, a door marked AUCTION ROOM. Bright, bureaucratic, the only daylight scene in the story.',
       connections: [{ to: 'ashby_street', travelMinutes: 25, label: 'The bus back' }],
@@ -856,7 +859,7 @@ const raw = {
       name: 'Elias Varga',
       role: 'Your landlord. Collects the rent at midnight on the first, in person, from the landing side of your door',
       cardBlurb:
-        'He owns the building, he only comes at night, and he will not cross your doorstep unless you ask him to. He wants one true thing from you a month, and he can always tell when you lie.',
+        'He owns the building, he only comes at night, and he will not cross your doorstep unless you ask. He takes the rent in true things, he can always tell when you lie, and until tonight he did not know anybody was living in your flat.',
       pronouns: 'he/him',
       publicTraits: ['Courteous in an old-fashioned way', 'Drier and funnier than he lets on', 'Never in a hurry, even when he should be'],
       hiddenDrives: [
@@ -875,6 +878,9 @@ const raw = {
         'Will not cross a threshold uninvited, and will never trick anybody into inviting him',
         'Will not drink from you, whatever you offer; push it and he leaves the building for the night',
         'Will not take a lie as rent, although he may let you stay anyway',
+        'Will not step over the first time he is asked in. It startles him, because nobody has said it to him since Ada. He stays on the landing, tells the player plainly that a welcome lasts until they take it back at this threshold, and crosses only if they say it again knowing that. Even inside he stays near the door, because a warm room and a person close make the hunger worse',
+        'Will not argue with a shut door: he says goodnight through it and goes on down the stairs',
+        'Will not tell the alley in November 1974 to anybody who asks for it. He tells it only on the roof, unasked, to somebody who has paid him in truth and wants nothing back',
       ],
       goals: [
         'Decide whether the stranger Dee put in 4C gets to stay',
@@ -902,7 +908,7 @@ const raw = {
         },
       ],
       speechStyle:
-        'Quiet, exact and courteous, with a dry edge. Short sentences, never a swear word. Calls the player Four-C until he is given a reason to use their name. Answers a question with a question when he is hiding something, and says thank you every time he is told something true.',
+        'Quiet, exact and courteous, with a dry edge. Short sentences, never a swear word. Calls the player Four-C until he is given a reason to use their name. Answers a question with a question when he is hiding something, and says thank you every time he is told something true, never in the same words twice.',
       topics: ['the rent', 'the building', 'Ada', 'Celine', 'the porch game', 'what he is', 'the roof'],
       voiceSamples: [
         'Rent’s due. Tell me something true, and you can stay the month.',
@@ -997,7 +1003,7 @@ const raw = {
         'Darling, I never lie. It’s so common. I simply don’t say everything at once.',
         'He has been eating crumbs for fifty years and calling it virtue.',
         'Name a number. A year of rent, in actual money. Then go and live somewhere with a lift.',
-        'I gave him a hundred and thirty years. What did you give him? A paragraph?',
+        'I gave him eighty-three years. What did you give him? A paragraph?',
       ],
       appearance:
         'Looks thirty-four and has since 1884. A sleek black bob, red lipstick, a long camel coat over a silk blouse, and leather gloves.',
@@ -1216,7 +1222,7 @@ const raw = {
         'Will not speak ill of Celine, because she was kind to him in the sixties',
       ],
       goals: [
-        'Get Pruitt’s receipts to somebody young enough to reach the records office',
+        'Get Pruitt’s receipts to somebody who can still manage the bus downtown',
         'Tell his last true story before he runs out of months',
       ],
       secrets: [
@@ -1234,12 +1240,13 @@ const raw = {
         },
       ],
       speechStyle:
-        'Slow, precise newspaper diction. Begins with "for the record", gives dates in full, and corrects his own facts mid-sentence. Calls the player "young person" whatever their age.',
+        'Slow, precise newspaper diction. Begins with "for the record", gives dates in full, and corrects his own facts mid-sentence. Calls the player by their surname, like a byline, once he has it, and "the new tenant" until then.',
       topics: ['the building’s history', 'Pruitt', 'the receipts', 'Ada', '1974', 'typesetting'],
       voiceSamples: [
         'For the record: I was here first. Nineteen sixty-nine. Before they took the lift out. There was a lift.',
-        'Every claim needs a receipt, young person. I have the receipts.',
+        'Every claim needs a receipt, new tenant. I have the receipts.',
         'Correction. It was a Tuesday. Set that in bold type, it matters.',
+        'Ada Lindqvist borrowed my good scissors in nineteen seventy-two. She returned them in two thousand and nine. I made a note of both.',
       ],
       appearance:
         'Eighty-nine, small and very upright, white hair combed back, a cardigan over a pressed shirt and tie, and ink stains on his fingers that have never quite washed out.',
@@ -1249,7 +1256,8 @@ const raw = {
       portrait: null,
       expressions: ['warm', 'precise', 'tired', 'amused'],
       schedule: [
-        { startMinute: 0, endMinute: 420, locationId: 'apartment_1a', activity: 'asleep with the radio on low' },
+        { startMinute: 0, endMinute: 60, locationId: 'apartment_1a', activity: 'up for the rent, door propped open with a slipper' },
+        { startMinute: 60, endMinute: 420, locationId: 'apartment_1a', activity: 'asleep with the radio on low' },
         { startMinute: 420, endMinute: 600, locationId: 'apartment_1a', activity: 'reading three newspapers in order of size' },
         { startMinute: 600, endMinute: 720, locationId: 'the_lobby', activity: 'sorting everybody’s post' },
         { startMinute: 720, endMinute: 1080, locationId: 'apartment_1a', activity: 'the crossword, in ink' },
@@ -1768,12 +1776,12 @@ const raw = {
     },
     {
       id: 'q_ada',
-      title: 'Whoever Gets 4C Next',
+      title: 'The Letter in the Hatbox',
       summary: 'The last tenant of 4C left a hatbox on the closet shelf, and a sealed letter in it addressed to you, more or less.',
       kind: 'LEAD',
       involvedCharacterIds: ['elias', 'gus'],
       involvedLocationIds: ['apartment_4c'],
-      knownRewardCopy: 'Forty-four years of somebody else’s rent, and what she wanted the next person to know.',
+      knownRewardCopy: 'Forty-one years of somebody else’s rent, and what she wanted the next person to know.',
       discoverWhen: { hasItems: ['ada_box'] },
       steps: [
         {
@@ -1907,9 +1915,9 @@ const raw = {
       atWorldMinute: 30,
       locationId: 'the_lobby',
       publicCopy:
-        'Through the floor, faintly, an old man’s voice is telling a story about a Tuesday in 1969, and correcting it as he goes.',
+        'Far down the stairwell, faintly, an old man’s voice is telling a story about a Tuesday in 1969, and correcting it as he goes.',
       directorNotes:
-        'Gus paying his rent at the door of 1A while Elias waits on the stairs. It is the same story he tells every month, told differently, and Elias thanks him exactly as warmly as the first time. Useful for a player who wants to know what normal looks like here.',
+        'Gus rehearsing his rent out loud in 1A with the door propped open, ready for when Elias reaches the ground floor. It is the same story he tells every month, told differently, and Elias will thank him exactly as warmly as the first time. Useful for a player who wants to know what normal looks like here.',
       setsFlags: ['heard_gus_pay'],
       cancelledByFlags: [],
       requiresFlags: [],
@@ -1948,7 +1956,7 @@ const raw = {
       publicCopy:
         'A woman in a long camel coat is standing in the lobby reading the auction notice, taking off her gloves one finger at a time.',
       directorNotes:
-        'Celine, using a welcome Elias gave her in 1952 and never took back. She knows the player’s name already, because Dee’s ad was online and Celine reads everything about this building. She is delighted to meet them and will say so.',
+        'Celine, using a welcome Elias gave her in 1952 and never took back. She knows the player’s name already, because Dee has told half the laundromat and Celine hears everything about this building. She is delighted to meet them and will say so.',
       setsFlags: ['celine_arrived'],
       cancelledByFlags: ['left_the_map'],
       requiresFlags: [],
@@ -2011,7 +2019,7 @@ const raw = {
       locationId: 'the_lobby',
       publicCopy: 'An envelope has been pushed under every door in the building, on heavy cream paper, signed C. Marchand.',
       directorNotes:
-        'Notice to quit, polite and generous: three months, a moving allowance, and a handwritten line on the player’s copy that says her offer still stands. Gus reads his twice and puts it in a bundle. Dee cries in the laundromat and then gets angry, which is better.',
+        'Notice to quit, polite and generous: three months, a moving allowance, and a handwritten line on the player’s copy that says her offer still stands. Gus reads his twice and puts it in a bundle. Dee cries in the laundromat and then gets angry. Angry is better.',
       setsFlags: ['notice_to_quit'],
       cancelledByFlags: [],
       requiresFlags: ['building_sold'],
@@ -2023,7 +2031,7 @@ const raw = {
       id: 'p_will_you_stay',
       kind: 'FINALE',
       label: 'Whether you are still in 4C when the rent is next due',
-      seedHint: 'An index card taped inside your door, with forty-four years of tape marks under it.',
+      seedHint: 'An index card taped inside your door, with forty-one years of tape marks under it.',
       payoffHint: 'Midnight on the first again, three knocks, and whatever the two of you have become standing on either side of the threshold.',
       weight: 1,
     },
@@ -2056,7 +2064,7 @@ const raw = {
       kind: 'THEME',
       label: 'Who lived in 4C before you',
       seedHint: 'A hatbox on the closet shelf with A.L. on the lid in marker.',
-      payoffHint: 'A sealed letter addressed to whoever gets 4C next, and forty-four years of carbon copies of the truth.',
+      payoffHint: 'A sealed letter addressed to whoever gets 4C next, and forty-one years of carbon copies of the truth.',
       weight: 0.6,
     },
   ],
@@ -2068,7 +2076,7 @@ const raw = {
       summary: 'You keep the same hours he does, so you are awake for everything in this building and calm in a crisis, at the cost of never quite sleeping.',
       playstyle: ['Steady', 'Observant', 'Night owl'],
       blurb:
-        'Six years of night shifts on a hospital ward. You have sat with people at three in the morning, and you know exactly what somebody looks like when they are lying to you about being fine.',
+        'Six years of night shifts on a hospital ward. You have sat with people at three in the morning, and you know exactly what somebody looks like when they are lying to you about being fine. The dented thermos that got you through all six years has one good cup left in it.',
       attributeBonus: { resolve: 2, mind: 2 },
       skillProficiencies: { nerve: 3, notice: 2 },
       startingItems: [{ itemId: 'thermos', qty: 1 }],
@@ -2079,10 +2087,10 @@ const raw = {
       id: 'arch_actor',
       name: 'You Act For A Living',
       role: 'Social style: charm and bluffing',
-      summary: 'You lie professionally and well, which makes you the best liar in the building and the worst-placed tenant in it, because this landlord only takes the truth.',
+      summary: 'You lie professionally and well. That makes you the best liar in the building and the worst-placed tenant in it, because this landlord only takes the truth.',
       playstyle: ['Charming', 'Quick', 'Good liar'],
       blurb:
-        'Two adverts, one play that closed in a week, and a showreel nobody has watched. You can cry on cue. You have not cried for real in a while, and you would rather not be asked why.',
+        'Two adverts, one play that closed in a week, and a showreel nobody has watched. You can cry on cue. You have not cried for real in a while, and you would rather not be asked why. You still carry a folder of headshots of yourself looking trustworthy.',
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { bluff: 3, charm: 2 },
       startingItems: [{ itemId: 'headshots', qty: 1 }],
@@ -2096,7 +2104,7 @@ const raw = {
       summary: 'You left a whole life on short notice and you are not ready to talk about it, so every rent night is a negotiation about how much truth you can afford.',
       playstyle: ['Guarded', 'Resilient', 'Honest under pressure'],
       blurb:
-        'Two bags, a coat, and a phone you keep face down. The ad said cheap, quiet and no questions asked. Two out of three.',
+        'Two bags, a coat, and a phone you keep face down. The ad said cheap, quiet and no questions asked. Two out of three. And a letter in a hand you know, carried nine days, not opened.',
       attributeBonus: { resolve: 2, might: 2 },
       skillProficiencies: { candour: 2, handiwork: 2, nerve: 1 },
       startingItems: [{ itemId: 'unopened_letter', qty: 1 }],
@@ -2110,7 +2118,7 @@ const raw = {
       summary: 'You research for a living, so the building’s paper trail, the old ledger and the city’s records will talk to you, and you will be tempted to write up what you find.',
       playstyle: ['Curious', 'Thorough', 'Nosy'],
       blurb:
-        'Freelance. Obituaries, mostly, and a local history column with eleven readers. A building that takes rent in stories is the best thing that has ever happened to you, which is a problem.',
+        'Freelance. Obituaries, mostly, and a local history column with eleven readers. A building that takes rent in stories is the best thing that has ever happened to you. That is a problem. Page one of your notebook already says DO NOT WRITE THIS UP.',
       attributeBonus: { mind: 3, arcana: 1 },
       skillProficiencies: { digging: 3, lore: 2 },
       startingItems: [{ itemId: 'notebook', qty: 1 }],
@@ -2130,34 +2138,12 @@ const raw = {
       required: true,
     },
     {
-      id: 'worldKnowsAboutYou',
-      label: 'What is one true thing about you?',
-      helpText: 'Something you could pay the rent with. One plain sentence is the right amount.',
-      kind: 'TEXT',
-      required: false,
-      maxLength: 300,
-      placeholder: 'e.g. I have never once finished a book I started, and I have started four hundred.',
-    },
-    {
-      id: 'why_here',
-      label: 'Why did you need somewhere this week?',
-      helpText: 'A starting reason, not a commitment. The story will treat it as true unless you say otherwise.',
-      kind: 'CHOICE',
-      advanced: true,
-      options: [
-        { id: 'priced_out', label: 'The rent on my last place doubled' },
-        { id: 'a_breakup', label: 'Somebody and I stopped living together' },
-        { id: 'new_job', label: 'A new job in a city where I know nobody' },
-        { id: 'not_saying', label: 'I would rather not say, which he will notice' },
-      ],
-    },
-    {
       id: 'appearance',
-      label: 'What does he see when you open the door?',
+      label: 'What do you look like? (for your portrait)',
       kind: 'TEXT',
       advanced: true,
       maxLength: 200,
-      placeholder: 'e.g. Socks, a borrowed jumper, and a face that has been awake since six.',
+      placeholder: 'e.g. Short dark hair, a borrowed jumper, and a face that has been awake since six.',
     },
   ],
   /**
@@ -2351,7 +2337,7 @@ const raw = {
   },
   openingSuggestions: [
     "\"Something true? I couldn’t afford anywhere else.\"",
-    'I lean on my side of the doorframe, copy his pose exactly, and wait him out.',
+    'I hold up the lease so he can see whose signature is on it.',
     "I step aside and pull the door wide. \"Then come in and ask me properly.\"",
   ],
   publishedAt: '2026-11-22T04:00:00.000Z',

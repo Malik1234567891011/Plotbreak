@@ -120,6 +120,31 @@ describe('the opener', () => {
     expect(elias.boundaries.join(' ')).toMatch(/threshold uninvited/);
   });
 
+  it('says what each opening card leads to in fields production actually sends', () => {
+    // runTurnPure never sends quest step directorNotes or secret revealHints.
+    // What he does when asked in, or shut out, has to live where it reads:
+    // his boundaries ("Will not:").
+    const elias = STORY.characters.find((c) => c.id === 'elias')!;
+    const willNot = elias.boundaries.join(' ');
+    expect(willNot).toMatch(/first time he is asked in/);
+    expect(willNot).toMatch(/shut door/);
+    expect(willNot).toMatch(/November 1974 to anybody who asks/);
+    // A sincere answer about the player's own life is never called a lie,
+    // and the author's own sample marks the lie as the player's.
+    expect(STORY.rules.hardCanon.join(' ')).toMatch(/never calls a sincere answer a lie/);
+    expect(STORY.rules.styleExamples[0]).toMatch(/lighthouse,\\?" you lie\./);
+    // What lying costs over time lives in canon, not only in invisible bands.
+    expect(STORY.rules.hardCanon.join(' ')).toMatch(/Lying to him costs the liar slowly/);
+  });
+
+  it('asks nothing on the setup screen that the storyteller never reads', () => {
+    // Only archetype, displayName and pronouns reach runTurnPure; appearance
+    // reaches the portrait generator, and says so.
+    const ids = STORY.setupFields.map((f) => f.id);
+    expect(ids).toEqual(['displayName', 'pronouns', 'archetype', 'appearance']);
+    expect(STORY.setupFields.find((f) => f.id === 'appearance')!.label).toMatch(/portrait/);
+  });
+
   it('offers three answers: one said, one done, one risky', () => {
     const [said, done, risky] = STORY.openingSuggestions;
     expect(STORY.openingSuggestions).toHaveLength(3);
@@ -159,15 +184,25 @@ describe('adults only, and a 13+ story', () => {
   });
 
   it('never describes anybody in words that read as a minor', () => {
+    // "young" is in here because Gus once called the player "young person",
+    // which in British usage is the safeguarding term for under-eighteens,
+    // and the storyteller would have said it to the player every scene.
     const MINOR =
-      /\b(?:child|children|childlike|kid|kids|teen|teens|teenage|teenager|minor|underage|boy|girl|schoolgirl|schoolboy|youthful|petite|baby-faced|loli|shota|high school|middle school)\b/i;
+      /\b(?:child|children|childlike|kid|kids|teen|teens|teenage|teenager|minor|underage|boy|girl|schoolgirl|schoolboy|youthful|young|petite|baby-faced|loli|shota|high school|middle school)\b/i;
     for (const c of STORY.characters) {
-      for (const text of [c.appearance, c.visualHook, c.silhouette, c.cardBlurb, c.role]) {
+      for (const text of [c.appearance, c.visualHook, c.silhouette, c.cardBlurb, c.role, c.speechStyle, ...c.goals, ...c.voiceSamples]) {
         expect(text, c.id).not.toMatch(MINOR);
       }
     }
     for (const a of STORY.archetypes) expect(`${a.summary} ${a.blurb}`, a.id).not.toMatch(MINOR);
     expect(STORY.openingPanel?.alt ?? '').not.toMatch(MINOR);
+    expect(everything.match(MINOR)?.[0] ?? null).toBeNull();
+  });
+
+  it('tells the storyteller, in hard canon, that everybody including the player is an adult', () => {
+    const canon = STORY.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/Everybody in this story is an adult/);
+    expect(canon).toMatch(/The player is a grown adult/);
   });
 
   it('keeps romance to a kiss and violence off the page', () => {
@@ -175,6 +210,10 @@ describe('adults only, and a 13+ story', () => {
       /\b(?:nude|nudity|naked|sex|sexual|sexy|breasts?|cleavage|lingerie|undress(?:es|ed|ing)?|aroused|moan(?:s|ed|ing)?|gore|gory|entrails|disembowel\w*|severed|dismember\w*|self-harm|suicide|suicidal|bloodbath|blood-soaked)\b/i;
     expect(everything.match(EXPLICIT)?.[0] ?? null).toBeNull();
     expect(STORY.rules.toneGuide).toMatch(/at most a kiss/);
+    // The tone guide alone is not enough: a live brief can override it, and
+    // what it keeps is hard canon. So the ceiling lives there too.
+    expect(STORY.rules.hardCanon.join(' ')).toMatch(/one kiss and no further/);
+    expect(STORY.rules.hardCanon.join(' ')).toMatch(/off it/);
     expect(STORY.rules.hardCanon.join(' ')).toMatch(/Nobody in this story is bitten on the page/);
     expect(STORY.contentDescriptors).toContain('ROMANCE');
     expect(STORY.rules.allowsCombat).toBe(false);

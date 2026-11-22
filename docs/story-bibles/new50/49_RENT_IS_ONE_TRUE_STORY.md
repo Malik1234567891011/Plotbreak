@@ -4,7 +4,7 @@
 
 **Genre:** vampire romance, proximity, gothic slice of life, light mystery
 **Rating:** 13+. Romance goes as far as a kiss. Hunger is written as stillness and distance; nobody is bitten on the page.
-**One-line fantasy:** Your cheap new flat comes with a landlord who only knocks at midnight, never crosses your doorstep, and takes the rent in true stories. He always knows when you lie.
+**One-line fantasy:** Your cheap new apartment comes with a landlord who only knocks at midnight, never crosses your doorstep, and takes the rent in true stories. He always knows when you lie.
 
 ## Why this fantasy works
 
@@ -37,12 +37,12 @@ The playable span is nine days, from the first rent night to the auction. The au
 - Gothic, funny and warm, in that order of surface and the reverse order of depth.
 - A true thing lands as weight. A lie lands as a small, polite silence. Elias always knows and does not always say so.
 - Romance is slow: a coat round somebody's shoulders, a hand on a doorframe that does not cross it, the roof at four in the morning, at most a kiss.
-- Nobody gives speeches. Dee talks too fast, Gus corrects his own dates, Tom asks if you have eaten, Celine calls everybody darling, and Elias says thank you after every true thing.
+- Nobody gives speeches. Dee talks too fast, Gus corrects his own dates, Tom asks if you have eaten, Celine calls everybody darling, and Elias says thank you after every true thing, never in the same words twice.
 - If the player attacks, lies, refuses or walks out, the house reacts in character and the story keeps going. Elias never strikes a tenant; attacked, he steps out of reach and leaves.
 
 ## Player starting authority
 
-The player authors their name, pronouns, job (one of four backgrounds), one true thing about themselves, why they needed a room this week, and what Elias sees when they open the door. The player is an adult; the story never asks for or states an age below that.
+The player authors their name, pronouns, job (one of four backgrounds) and, for their portrait only, what they look like. The storyteller reads only the name, pronouns and background, so the setup asks nothing else: every true thing about the player arrives at the door, in their own words. Whatever the player says about their own life is true unless they make clear they are lying. The player is a grown adult who signed their own lease; the story never asks for or states an age below that.
 
 **Backgrounds** (fixed for the whole story):
 - **You Work Nights.** Hospital night shifts. Nerve and noticing. Starts with a thermos.
@@ -57,12 +57,16 @@ The player authors their name, pronouns, job (one of four backgrounds), one true
 - Rent is one true story, at midnight on the first.
 - Elias never drinks from the player and never strikes a tenant. Nobody is bitten on the page.
 - Elias is not a prize and cannot be won.
+- What the player says about their own life is true unless they make clear they are lying. Elias hears those at once and never calls a sincere answer a lie.
+- Lying costs slowly and the house notices: first he stops offering anything back, then he collects from every other door first and Gus finds a blank line in the ledger, then he stops knocking. Hunger shows the same way, from the landing to the street.
+- Everybody in this story is an adult, the player included.
+- Romance goes as far as one kiss and no further, on the page or off it. A scene that would go further ends at the door.
 
 ## Prologue
 
 Two bags and four boxes up five flights. A bare mattress. A radiator that knocks like somebody asking to come in. A window that looks straight across at a lit church.
 
-Taped inside the door, an index card typed on a machine with a dropped e. Under it, forty-four years of tape marks in the same spot.
+Taped inside the door, an index card typed on a machine with a dropped e. Under it, forty-one years of tape marks in the same spot.
 
 Midnight.
 
@@ -84,14 +88,14 @@ Midnight.
 >
 > "Rent's due. Tell me something true, and you can stay the month."
 
-Elias speaks at word 46 and names himself. It ends on a demand that needs an answer now. The only proper nouns are his name, which he gives, and the player's own door.
+Elias speaks at word 48 and names himself. It ends on a demand that needs an answer now. The only proper nouns are his name, which he gives, and the player's own door.
 
 **Suggestions:**
 - Said: "Something true? I couldn't afford anywhere else."
-- Done: I lean on my side of the doorframe, copy his pose exactly, and wait him out.
+- Done: I hold up the lease so he can see whose signature is on it.
 - Risky: I step aside and pull the door wide. "Then come in and ask me properly."
 
-Every answer is real. A true thing gets a thank-you. A lie gets a mild "No, you didn't" and is remembered. An invitation startles him, because nobody has said it since Ada. Shutting the door is allowed; he goes on down the stairs.
+Every answer is real. A true thing gets a thank-you. A lie the player marks as a lie gets a mild "No, you didn't" and is remembered; a sincere answer is never called a lie. The lease brings out Dee's purple signature, which is how he learns somebody let the flat behind his back. An invitation startles him, because nobody has said it since Ada: he stays on the landing, says plainly that a welcome lasts until it is taken back at this threshold, and crosses only if the player says it again knowing that. Shutting the door is allowed; he says goodnight through it and goes on down the stairs.
 
 ## Major cast
 
@@ -104,7 +108,8 @@ Cast order is cover order. Every character is an adult.
 **Want:** decide whether the stranger Dee put in 4C gets to stay; keep the building from Celine without asking anybody for help.
 **Fear:** being hungry enough one night to stop being himself; outliving a tenant he is fond of, again; Celine being right.
 **Secrets:** the alley in November 1974; how close to the edge he is; what Ada was to him.
-**Voice:** quiet, exact, dry. Short sentences. Calls the player "Four-C" until he has a reason to use their name. Says "Thank you" after every true thing. "I don't come in. It isn't superstition. Well. It's mostly manners."
+**Voice:** quiet, exact, dry. Short sentences. Calls the player "Four-C" until he has a reason to use their name. Says "Thank you" after every true thing, never in the same words twice. "I don't come in. It isn't superstition. Well. It's mostly manners."
+**Will not:** step over the first time he is asked in; argue with a shut door; tell the alley in November 1974 to anybody who asks for it (he tells it only on the roof, unasked, to somebody who has paid in truth and wants nothing back).
 
 ### Celine Marchand
 **Age:** 34. Made in 1884 at thirty-four.
@@ -137,12 +142,12 @@ Cast order is cover order. Every character is an adult.
 **Age:** 89.
 **Role:** oldest tenant, 1A since 1969; retired newspaper typesetter.
 **Appearance:** small and very upright, white hair combed back, cardigan over a pressed shirt and tie, ink-stained fingertips.
-**Want:** get Pruitt's receipts to somebody young enough to reach the records office; tell his last true story before he runs out of months.
+**Want:** get Pruitt's receipts to somebody who can still manage the bus downtown; tell his last true story before he runs out of months.
 **Fear:** dying owing anybody anything.
 **Secrets:** the receipts under his bed; he found Elias shaking on the stairs before dawn in November 1974 and walked him across to the church.
-**Voice:** slow newspaper diction. "For the record." "Correction." Calls the player "young person" whatever their age.
+**Voice:** slow newspaper diction. "For the record." "Correction." Calls the player by their surname, like a byline, once he has it, and "the new tenant" until then.
 
-**Mentioned, never on stage:** Marisol Reyes (44, 2B, night-bus driver); Ada Lindqvist (4C 1971 to 2015, died at 81); Harold Pruitt (the lawyer, died last spring); Father Michael Doyle (Tom's predecessor, made the 1974 promise).
+**Mentioned, never on stage:** Marisol Reyes (44, 2B, night-bus driver); Ada Lindqvist (4C 1971 to 2015, died at 81); Harold Pruitt (the lawyer, died last spring at 77); Father Michael Doyle (Tom's predecessor, made the 1974 promise, died in 2006 at 84).
 
 ## Places
 
@@ -167,6 +172,8 @@ Cast order is cover order. Every character is an adult.
 - **His Hunger:** starts high. Asking anybody in, or any violence in the house, raises it. True stories and time let it drift down. High hunger means he keeps to the landing, then leaves the building at night.
 - **Arrears:** the truth owed. Lying adds to it. High arrears means he collects from everyone else first, then stops knocking.
 
+Production never reads these numbers, so hard canon carries what lying, hunger and violence cost over time, and Elias's boundaries carry what an invitation costs on the night it is said.
+
 ## Keyword / lore book
 
 - **The rent:** one true story, midnight on the first, at the door, in person. Money rent ended December 1974.
@@ -179,7 +186,7 @@ Cast order is cover order. Every character is an adult.
 
 ## Five promises
 
-1. **FINALE: Will you stay?** Seed: the card on the door and forty-four years of tape marks. Payoff: midnight on the first again, three knocks, and whatever the two of them have become on either side of the threshold.
+1. **FINALE: Will you stay?** Seed: the card on the door and forty-one years of tape marks. Payoff: midnight on the first again, three knocks, and whatever the two of them have become on either side of the threshold.
 2. **RELATIONSHIP: What he becomes to you.** Seed: his shoes stop exactly at your doorway. Payoff: the roof hatch ten minutes before sunrise, and one of them saying the true thing first.
 3. **MYSTERY: Why truth keeps him alive.** Seed: the thank-you after every true thing; the blank lines in the ledger. Payoff: November 1974.
 4. **RIVAL: Celine and the auction.** Seed: the yellow notice with OVER MY DEAD BODY under it in purple. Payoff: Lot 14 at ten past ten, and a woman deciding whether to let him go.
@@ -187,7 +194,7 @@ Cast order is cover order. Every character is an adult.
 
 ## Active pressures
 
-- Night 1, 00:00: the first rent. 00:30 Gus pays through the floor. 00:50 Dee on the stairs with two mugs.
+- Night 1, 00:00: the first rent. 00:30 Gus rehearses his rent aloud in 1A, door propped open. 00:50 Dee on the stairs with two mugs.
 - Day 1, 18:00: the tax-sale notice goes up in the lobby.
 - Night 2, 23:30: Celine in the lobby, reading the notice.
 - Night 3, 02:10: Elias misses the chess game, if nobody has paid him anything true.
@@ -221,7 +228,7 @@ Pay in truth and settle in; lie every month and see what it costs him; ask him i
 Follow the shared visual direction in `docs/story-bibles/03_GOOD_MORNING_HUSBAND.md`: polished anime/manhwa key art, clean linework, soft cel shading, readable silhouettes, no generated text. Adults are described by costume, pose and setting; nothing lingers on bodies.
 
 ### Cover prompt
-Vertical gothic romance anime key art. Elias Varga, a pale man who looks twenty-nine, tall, dark hair a little too long, long charcoal overcoat and white buttoned collar, leaning on the frame of an open apartment door at midnight, hands in his pockets, shoes stopped exactly at the threshold. Warm lamplight from inside the flat on one side, a dim stairwell with a single bulb behind him. A typed index card taped inside the door. Deep blue and warm amber palette, quiet tension, title-safe space at the top, no text.
+Vertical gothic romance anime key art. Elias Varga, a tall pale man, dark hair a little too long, long charcoal overcoat and white buttoned collar, leaning on the frame of an open apartment door at midnight, hands in his pockets, shoes stopped exactly at the threshold. Warm lamplight from inside the flat on one side, a dim stairwell with a single bulb behind him. A typed index card taped inside the door. Deep blue and warm amber palette, quiet tension, title-safe space at the top, no text.
 
 ### Opening panel
 `story_rent_is_one_true_story/opening`: the same doorway, from inside the flat: bare mattress and boxes in the foreground, Elias on the landing.
