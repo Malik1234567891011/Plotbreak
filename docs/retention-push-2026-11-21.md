@@ -156,3 +156,25 @@ Targets (weekly cohorts, ~88 players/week so only big moves show): D1 any-open 1
 
 Simulator capture created guest `61aa9e7f-bf00-46a1-8604-1d944578e224` and session
 `sess_4f306127-a6a5-42bc-99b9-e6dccdd28246`. Exclude from stats.
+
+## Update 2026-11-21 (evening): research done, two tracks started
+
+- Hands-on research is committed:
+  - `docs/ooc-app-2026-11-21/`: OOC teardown, 71 stories, tropes.
+  - `docs/competitor-ui-2026-11-21/`: 16 apps from App Store screenshots, plus hands-on passes of Character AI, Swerve, EMOCHI, Afizzy and Tolan.
+- The user's direction:
+  - The UI follows Character AI's strictness, not OOC's look.
+  - Study visual UI only, not feature ideas.
+- **Redesign** went to session plotbreak-0d.
+  - Deliverables: `docs/design-v3/` with a design system and mockups of every screen. Home and play screen come first.
+  - No SwiftUI changes until the user approves the look.
+- **50-story plan** went to session plotbreak-6f.
+  - Deliverable: `docs/stories-50/PLAN.md`, a slate built on OOC evidence, with the pipeline, credit budget and release drops.
+  - One PixAI test call is allowed once `PIXAI_API_KEY` is in the root `.env`. No other spending before the user approves.
+- The user subscribed to PixAI Plus.
+- Side effects on the user's phone from the hands-on pass, all on third-party apps, nothing bought or shared:
+  - Character AI made a guest account.
+  - Afizzy spent 19 free coins.
+  - EMOCHI unlocked a 30% offer.
+  - Tolan texted a verification code after AutoFill submitted the user's number; the code was not confirmed.
+- Still parked: branch `feed/daily-freshness` (5 commits of home-screen fixes, in the worktree `.claude/worktrees/wf_4b52e988-1fd-1`). Its workflow stopped before its critics ran. Not deployed.
