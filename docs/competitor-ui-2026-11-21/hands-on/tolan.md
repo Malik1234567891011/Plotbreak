@@ -103,3 +103,82 @@ the only cheap note.
 ## Not reached
 
 Everything after the name screen: the companion, chat, home, paywall.
+
+## Second pass (logged in)
+
+Second session, same phone. Shot names are `tolan2-NN-*.png`. Colors sampled
+from the captures. **Stopped again, at the phone-number step**, which is
+account creation (SMS verification). See "Mishap" below.
+
+### Onboarding, one line per screen
+
+| # | Screen | Shot |
+|---|---|---|
+| 4 | "What's your name?" with "Kai" typed. The **chevron in the white circle goes from gray (#9B9CA4) to near-black (#3B3A4A) once the field has text**: the only enabled/disabled signal, no dimmed button | tolan2-01-open, tolan2-02-name-filled |
+| 5 | "And when's your birthday?" One light capsule split into **MM / DD / YYYY with thin slashes**, placeholders in ~#9A9AA0, then 01 / 27 / 2006 in 17pt semibold dark (#272838). 13pt gray line under it: "We'll send you a surprise on your birthday!" | tolan2-06-birthday-empty, tolan2-07-birthday-filled |
+| 6 | "What's your phone number?" Same capsule, placeholder "(415) 555-0172", 11pt gray reason ("This helps us recover your Tolan if something happens..."), and **"I'll do it later →" as a 13pt semibold white text link under the circle button** | (shot deleted: it showed the user's number) |
+| 7 | "Enter the code we sent": a white chevron back top-left (the first back affordance in the whole flow), the code in the same capsule, "Didn't get a text? **Send again**" 11pt. Not continued | (shot deleted: it showed the user's number) |
+
+### What the second pass adds to the design read
+
+- Every screen so far is **one centered title, one light capsule, one gray
+  line, one white circle**. Title 22pt heavy white (Tolan's tight grotesk),
+  centered at ~y150. Capsule #E6E6E8, ~44pt tall, ~16pt side margins, text
+  centered. The reason line is 11-13pt ~#9A9A9A, centered, under the capsule,
+  and always says *why* ("We'll send you a surprise on your birthday!").
+- Background is the same star-speckled indigo all the way down: #0B0A14 at the
+  top to #1D192C near the bottom, with a soft rainbow glow (the creature)
+  rising from the bottom edge under the circle button.
+- **Skip is a text link under the main button, with an arrow** ("I'll do it
+  later →"), never a second button. Back only appears on the code screen.
+- The date field is one control, not a wheel or three fields: segments and
+  slashes inside a single capsule, filled left to right as you type.
+- Share sheet (tolan2-04-share-sheet): #F2F2F6 card, 24pt top radius, a phone-
+  framed thumbnail of the capture at left, "Share screenshot to:" 13pt
+  semibold, Messages and Instagram 56pt icons with 10pt labels, a 28pt black
+  circle X. It appears ~2s after every capture and covers the bottom 210pt,
+  including the continue button.
+
+### Mishap
+
+- A tap landed on the share sheet's Instagram icon while it was covering the
+  continue button, and iOS asked "Tolan wants to open Instagram". Cancelled;
+  nothing was shared.
+- **On the phone-number screen the user's number got submitted** and Tolan
+  texted a code, which iOS auto-filled on the next screen. I did not type the
+  number or tap the AutoFill suggestion; the only taps were the share-sheet
+  close (X) and "I'll do it later". Most likely one of them landed after the
+  late share sheet had shifted focus, or iOS accepted the AutoFill suggestion.
+  **I did not press continue on the code screen**, so the number should not
+  be verified in Tolan. I left the app at that screen and deleted both shots
+  that showed the number.
+
+### UI patterns to steal (second pass)
+
+1. **Enable state shown by the glyph, not the button** (onboarding;
+   tolan2-01-open vs tolan2-02-name-filled). The white circle stays white;
+   only the chevron goes from gray to black. Calmer than a dimmed button.
+2. **A reason line under every ask, written as a promise** (onboarding;
+   tolan2-06-birthday-empty): "We'll send you a surprise on your birthday!"
+   13pt gray, centered. If Plotbreak ever asks for anything, the line under it
+   says what the player gets.
+3. **Skip as a text link with an arrow under the main button** (onboarding,
+   paywall): "I'll do it later →" 13pt semibold white. Never a second
+   capsule.
+4. **Segmented date inside one capsule** (onboarding;
+   tolan2-07-birthday-filled). One light capsule, MM / DD / YYYY with thin
+   slashes, auto-advancing. Fewer parts than a wheel or three boxes.
+
+### What looks generic or cheap (second pass)
+
+- **Name, birthday, phone, code: four personal-data steps** before the
+  companion appears. The phone step has a skip, but the screen still leads with
+  the AutoFill number.
+- The share sheet after every capture covers the continue button. It caused
+  both mishaps in this study.
+
+### Not reached (second pass)
+
+- Everything after the phone step: the companion reveal, chat, home, paywall.
+  Reaching them needs a verified phone or a working skip; neither was safe to
+  try again.
