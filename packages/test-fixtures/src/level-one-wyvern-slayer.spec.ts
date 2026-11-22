@@ -100,8 +100,8 @@ describe('the opener hands the player a choice', () => {
     expect(head).toContain('"You dragged that in? Alone?"');
   });
 
-  it('ends on a demand the player has to answer', () => {
-    expect(S.opening.trim()).toMatch(/Porter, a silver a day\. Take it, or carry your lizard home\."$/);
+  it('ends on a demand the player has to answer now', () => {
+    expect(S.opening.trim()).toMatch(/Porter, a silver a day\. Take it now, or carry your lizard home\."$/);
   });
 
   it('names nobody the player is expected to know already', () => {
@@ -133,6 +133,7 @@ describe('the opener hands the player a choice', () => {
   });
 
   it('draws the opening panel on Tamsin, with nothing in it to read', () => {
+    expect(S.openingPanel!.assetKey).toBe(`${S.storyId}/opening`);
     const alt = S.openingPanel!.alt;
     expect(alt.startsWith('Tamsin ')).toBe(true);
     expect(alt.length).toBeLessThanOrEqual(200);
@@ -378,7 +379,10 @@ describe('everybody on the page is an adult, on the page', () => {
       expect(c.visualHook, c.id).not.toMatch(AGE_WORDS);
       expect(c.silhouette, c.id).not.toMatch(AGE_WORDS);
     }
+    // The cover goes further: no age word at all, not even "adult". The house
+    // rules carry the age policy (generate-art.ts, Ace's refused cover).
     expect(S.coverDirection).not.toMatch(AGE_WORDS);
+    expect(S.coverDirection).not.toMatch(/\b(adult|older|aged?)\b/i);
   });
 
   it('has nobody anywhere in it who reads as under eighteen', () => {
@@ -396,6 +400,9 @@ describe('original, and nobody else’s words', () => {
   it('puts the title in the cover art and keeps every other word out of it', () => {
     const cover = S.coverDirection;
     expect(cover).toContain('LEVEL ONE, WYVERN SLAYER');
+    // Its own TITLE: line owns the lettering, so the generic cover rules drop.
+    expect(cover).toMatch(/\bTITLE: .*spelled exactly LEVEL ONE, WYVERN SLAYER\b/);
+    expect(cover).toMatch(/HER FACE STAYS CLEAN/);
     expect(cover).toContain('Fia Quenby');
     expect(cover).toMatch(/no letters, no numbers/i);
     expect(cover).toMatch(/no blood and no wound/i);

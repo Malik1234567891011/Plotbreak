@@ -1007,7 +1007,7 @@ const raw = {
         'Warm, quick salesman’s cadence. Puts a price on everything, threats included. Says "friend" right before something costs you. Never raises his voice; he lowers it.',
       topics: ['the offer', 'his party', 'the bounty', 'the eye-stone', 'A-rank', 'the ridge'],
       voiceSamples: [
-        'Porter, a silver a day. Take it, or carry your lizard home.',
+        'Porter, a silver a day. Take it now, or carry your lizard home.',
         'Everybody in this hall has a price, friend. Mine is high and fair. Yours is a silver, and that is me being generous in front of witnesses.',
         'Thirty-eight. Do you know what thirty-eight buys in this town? Credit. Doors. Patience. One buys you a broom.',
         'Let’s not make this ugly. Ugly is expensive, and you cannot afford it.',
@@ -2283,22 +2283,25 @@ const raw = {
    * The cover is Fia, because she is the one person in the opener who is not
    * laughing, and the head stays behind her as a prop: closed eyes, no wound.
    * The crystal glows and says nothing, so the only words in the art are the
-   * title.
+   * title. Fia is described by build, costume and pose, never by an age word,
+   * and every glow stays on the crystal, the tape and the title, off her face.
    */
   coverDirection: [
     'SUBJECT: Fia Quenby, a mage, alone and unmistakable in the foreground of a key visual for a fantasy adventure anime about a guild that measured somebody wrong.',
     'She fills the frame from the waist up, slightly off centre, holding about two thirds of the picture.',
-    'An adult woman with a cloud of copper hair held back by a chalk-dusted ribbon, bright green eyes, freckles, a plum-coloured mage’s coat with brass buttons and sleeves shoved past the elbow, and a tailor’s measuring tape worn round her neck like a scarf.',
+    'Lean and quick, a cloud of copper hair held back by a chalk-dusted ribbon, bright green eyes, freckles, a plum-coloured mage’s coat with brass buttons and sleeves shoved past the elbow, and a tailor’s measuring tape worn round her neck like a scarf.',
     'She holds the measuring tape stretched taut between both hands toward the viewer and grins, delighted, as if she has just proved something to a room that laughed at her.',
+    'HER FACE STAYS CLEAN: no chalk dust, glow, smudges or shadows on her face or skin. The crystal’s glow stays on the crystal, the tape and the title, never on her face.',
     'BEHIND HER, huge and secondary: a colossal horned wyvern head resting on the plank floor of a timber guild hall, eyes closed, dark green scales, no blood and no wound in view.',
     'Five old pale wyvern skulls hang from the rafters above, and armoured adventurers at a fireside table laugh in soft focus.',
     'On a reception counter to one side, a fist-sized guild crystal on a brass stand glows pale blue. It shows only light: no letters, no numbers, nothing that reads as writing.',
     'LIGHT: warm amber lamplight from the hall, and a cool blue rim light from the crystal on her hair and the tape.',
-    'TITLE: the words LEVEL ONE, WYVERN SLAYER painted into the art in the upper third as a bold fantasy-adventure logo, LEVEL ONE small and plain above WYVERN SLAYER large, gold with a dark outline,',
+    'TITLE: the words LEVEL ONE, WYVERN SLAYER painted into the art in the upper third, above her head, as a bold fantasy-adventure logo on two lines,',
+    'LEVEL ONE, with its comma, small and plain on the first line, and WYVERN SLAYER large on the second, gold with a dark outline and a thin pale-blue crystal glint along the letter edges,',
     'spelled exactly LEVEL ONE, WYVERN SLAYER, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   opening:
-    "The crystal on the guild counter glows, hesitates, and lights one number.\n\nLEVEL 1.\n\nThe receptionist reads it aloud to the whole hall, then looks past you. Her badge says TAMSIN. \"You dragged that in? Alone?\"\n\nBehind you, a horned wyvern’s head the size of a hay cart fills half the hall. Eleven miles, on a rope.\n\nThe B-rank table laughs first. Then everyone, except a woman measuring the wound with a tape.\n\nA man in polished armour sets one silver coin by your hand.\n\n\"Gale. B-rank.\" He smiles at the head, not at you. \"A kill like that needs a real party’s name on it. Porter, a silver a day. Take it, or carry your lizard home.\"",
+    "The crystal on the guild counter glows, hesitates, and lights one number.\n\nLEVEL 1.\n\nThe receptionist reads it aloud to the whole hall, then looks past you. Her badge says TAMSIN. \"You dragged that in? Alone?\"\n\nBehind you, a horned wyvern’s head the size of a hay cart fills half the hall. Eleven miles, on a rope.\n\nThe B-rank table laughs first. Then everyone, except a woman measuring the wound with a tape.\n\nA man in polished armour sets one silver coin by your hand.\n\n\"Gale. B-rank.\" He smiles at the head, not at you. \"A kill like that needs a real party’s name on it. Porter, a silver a day. Take it now, or carry your lizard home.\"",
   openingPanel: {
     assetKey: 'story_level_one_wyvern_slayer/opening',
     alt: 'Tamsin behind the guild counter, two pencils in her black hair, looking over her spectacles at a colossal wyvern head filling the hall, as a smiling armoured man sets down one silver coin.',

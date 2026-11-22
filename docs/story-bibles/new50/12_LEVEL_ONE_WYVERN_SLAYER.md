@@ -119,7 +119,7 @@ Every character is an adult. Ages are stated here and in the fixture's hard cano
 **Fear:** being found out as the man who ran. Being exactly as good as his number and no better.  
 **Secrets:** he left Harl on the ridge. He plans to come over the carcass yard wall after midnight with a jeweller's hammer and crack the eye-stone himself.  
 **Voice:** warm salesman's cadence. Puts a price on everything, threats included. Says "friend" just before something costs you. Lowers his voice instead of raising it.  
-> "Porter, a silver a day. Take it, or carry your lizard home."
+> "Porter, a silver a day. Take it now, or carry your lizard home."
 
 ### Hadric Orsk, 63
 **Role:** guildmaster. A big, slow former wyvern hand with a ruined left knee.  
@@ -230,7 +230,9 @@ Because the Farmhand killed the wyvern with a fence post and the Soldier carries
 
 ## Cover
 
-Fia in the foreground, waist up, holding her measuring tape taut toward the viewer and grinning as if she has just proved something. Behind her the wyvern head lies on the hall floor, eyes closed, no wound in view; skulls on the rafters; the laughing B-rank table in soft focus. The crystal glows and shows no letters or numbers. The title LEVEL ONE, WYVERN SLAYER is painted into the upper third, the only text in the art. The full brief is `coverDirection` in the fixture.
+Fia in the foreground, waist up, holding her measuring tape taut toward the viewer and grinning as if she has just proved something. Behind her the wyvern head lies on the hall floor, eyes closed, no wound in view; skulls on the rafters; the laughing B-rank table in soft focus. The crystal glows and shows no letters or numbers. The title LEVEL ONE, WYVERN SLAYER is painted into the upper third on two lines (LEVEL ONE, small; WYVERN SLAYER large), gold with a thin crystal-blue glint, the only text in the art. Fia is described by build, costume and pose, never by an age word, and every glow stays on the crystal, the tape and the title, never on her face. The full brief is `coverDirection` in the fixture.
+
+**Opening panel:** Tamsin behind the counter, looking over her spectacles at the head, as Gale sets down his coin. Tamsin leads the alt text because she is the first person who speaks, and her portrait is the panel's reference.
 
 ## The opener
 
@@ -246,9 +248,9 @@ Fia in the foreground, waist up, holding her measuring tape taut toward the view
 >
 > A man in polished armour sets one silver coin by your hand.
 >
-> "Gale. B-rank." He smiles at the head, not at you. "A kill like that needs a real party's name on it. Porter, a silver a day. Take it, or carry your lizard home."
+> "Gale. B-rank." He smiles at the head, not at you. "A kill like that needs a real party's name on it. Porter, a silver a day. Take it now, or carry your lizard home."
 
-118 words. Tamsin speaks to the player at word 32. It ends on Gale's demand. Every name in it is introduced inside it. Fia is in it unnamed, as the one person not laughing.
+119 words. Tamsin speaks to the player at word 32. It ends on Gale's demand, with the coin already on the counter and "now" in it. Every name in it is introduced inside it. Fia is in it unnamed, as the one person not laughing.
 
 **Suggestions** (said, done, risky):
 
