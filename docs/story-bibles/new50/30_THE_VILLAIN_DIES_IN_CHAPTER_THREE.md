@@ -14,7 +14,7 @@ So the core loop is a trade: knowing the book keeps you safe, and acting on it p
 
 ## Story bible
 
-The player was reading a web novel called *A Sword for the Lowborn*: a carter's son at a royal academy, a swordswoman with a temper, and a spoiled duke's heir called **Severin Grauen** who exists to be hated for three chapters and then die. Last night they fell asleep reading it. This morning they woke in the **Founders' Courtyard** of **Vellmar Royal Academy**, in Severin's body, halfway through his worst sentence.
+The player was reading a web novel called *A Sword for the Lowborn*: a carter's son at a royal academy, a swordswoman with a temper, and a spoiled duke's heir called **Severin Grauen** who exists to be hated for three chapters and then die. Last night they fell asleep with it still open. This morning they woke in the **Founders' Courtyard** of **Vellmar Royal Academy**, in front of two hundred students, in Severin's body, halfway through his worst sentence.
 
 **Chapter three, as written:**
 
@@ -35,7 +35,7 @@ The player was reading a web novel called *A Sword for the Lowborn*: a carter's 
 - Cassian has dreamed of the chapel steps for a month. He saw the face at the bottom of them for the first time this morning. It was Severin's.
 - The undercroft can be sealed for good, by a Grauen hand and seven founders' words. The book never mentions it. The Master-at-Arms knows the words and was told they only work in a Grauen's mouth.
 
-**The pull of the book.** Nobody here knows they are in a story. People do what they would actually do. But the day keeps bending back toward the book's scenes until the player changes the *reason* for a scene and not just its time: a dodged duel gets rescheduled rather than dropped, the note still arrives, Cassian still finds himself on the chapel steps near midnight without knowing why. Every scene the player breaks makes the next page of their memory less reliable.
+**The pull of the book.** Nobody here knows they are in a story. People do what they would actually do. But the day keeps bending back toward the book's scenes until the player changes the *reason* for a scene and not just its time: a dodged duel gets rescheduled rather than dropped, the note still arrives, Cassian still finds himself on the chapel steps near midnight without knowing why. Every scene the player breaks makes the next page of their memory less reliable. The pull answers the player: every time they lean on Severin's name and menace, or act on what the book says is coming, the day leans harder toward the book's scenes, midnight included; every scene they break for a new reason loosens it.
 
 **Playable span.** Chapter three's day, from 9:40 in the morning to the midnight bell, then the morning of "chapter four", the first day the book never wrote. The second arc of the novel (the Ember awake, the Duke ascendant, Cassian's rise) lives in the endings.
 
@@ -58,7 +58,7 @@ The player was reading a web novel called *A Sword for the Lowborn*: a carter's 
 
 ## The player
 
-**Named protagonist: Severin Grauen, 20, he/him.** Heir of House Grauen, first-year at Vellmar. Tall, silver-grey hair, a charcoal coat with the house's grey tower on the clasp, and a face built for sneering. Since this morning, someone else is behind it.
+**Named protagonist: Severin Grauen, 20, he/him.** Heir of House Grauen, first-year at Vellmar. Tall, silver-grey hair, a charcoal coat with the house's grey tower on the clasp, and a face built for sneering. The book called him lazy and never gave him a mother; in truth he trained alone at night until his dueling gloves wore through, and a page torn from his pocketbook has left a stub with one word on it: "Mother". Since this morning, someone else is behind that face.
 
 The setup screen does not ask for a name or a face. It asks **how you read the book**, which decides what you remember and what you are good at:
 
@@ -77,7 +77,7 @@ The opener is the first beat. Elara speaks inside the first sixty words and the 
 
 > "...commoner trash—"
 >
-> The words are already out. Your mouth. Your voice. Not your body.
+> The words are already out. Your mouth. Not your voice. Not your body.
 >
 > A woman in academy grey closes her hand on a plain soldier's sword.
 >
@@ -96,7 +96,7 @@ The opener is the first beat. Elara speaks inside the first sixty words and the 
 Suggestions, three different moves:
 
 - **Said:** "I take it back. All of it. I'm sorry."
-- **Done:** I bow to her, low, in front of all of them.
+- **Done:** I look past her blade into the crowd for the face that kills me at midnight.
 - **Risky:** I finish the line word for word, exactly as the book wrote it.
 
 Present at the start: Elara, Cassian (in the crowd with a crate from the kitchens), Felis (one step behind you, holding your coat). Odalys Kerr arrives at ten.
@@ -127,7 +127,7 @@ Present at the start: Elara, Cassian (in the crowd with a crate from the kitchen
 **Want:** get through today without having to choose; keep the promise he made to the late Duchess to look after her son.  
 **Fear:** that he will do what he is told tonight, the way he always has; that he made Severin cruel by never once telling him no.  
 **Secrets:** the Duke's written order and the undercroft key, both in his coat pocket. He takes two sugars, and nobody has ever asked.  
-**Voice:** formal, dry, unhurried; times to the minute; "my lord" at a different temperature every time.  
+**Voice:** formal, dry, unhurried; times to the minute; "my lord" at a different temperature every time. His gloved hand drifts to his coat pocket whenever anybody says "chapel", and he does not know he does it.  
 **Twist on the book:** the book's last line says not even the butler mourned. The book was wrong about that too.
 
 ### Duke Ulric Grauen, 53
@@ -139,7 +139,7 @@ Present at the start: Elara, Cassian (in the crowd with a crate from the kitchen
 **Voice:** few words, ledger language (cost, spend, worth, balance), never asks a question he does not know the answer to, calls his son by his full name.  
 **Limits:** never confesses in front of a witness; never wakes the Ember with his own hand.
 
-### Odalys Kerr, 46
+### Odalys Kerr, 50
 **Role:** Master-at-Arms; keeper of the Duel Code and the Ring.  
 **Look:** compact and weathered, grey hair in a short braid, a scar across the bridge of her nose, a leather arming coat, a brass bell on her belt, a blunt dueling sword across her shoulders.  
 **Want:** a clean duel at dusk; no Grauen near the chapel tonight.  
@@ -152,7 +152,7 @@ Present at the start: Elara, Cassian (in the crowd with a crate from the kitchen
 **Look:** slight and very upright, pale blonde hair in a braided crown, a deep green coat with a silver lily at the collar, ink on the side of her writing hand.  
 **Want:** end the engagement in her own handwriting before term ends; keep her house's vote out of the Duke's pocket.  
 **Fear:** a lifetime married to the man in the courtyard; nobody ever reading what she actually writes.  
-**Secrets:** Severin wrote back once, three years ago, four lines about a hawk. She has kept it. The Duke has offered to forgive a Sorrel debt for her mother's vote.  
+**Secrets:** Severin wrote back once, two years ago, four lines about a hawk. She has kept it. The Duke has offered to forgive a Sorrel debt for her mother's vote.  
 **Voice:** arch, elegant, long sentences with a sting at the end; drafts, postscripts, seals.  
 **Twist on the book:** the book gave her three lines and a cold stare. There are a hundred and forty letters from her in Severin's desk, most of them unopened.
 
@@ -206,14 +206,14 @@ All reached from the **Founders' Courtyard**.
 |---|---|---|
 | **Chapter Four** | Common | Alive at sunrise, the Ember asleep, the house still yours. The first morning the book never wrote. |
 | **Sent Down** | Common | Steel drawn in the courtyard and nobody covered it. Expelled on day two. Alive, and out. |
-| **As Written** | Uncommon | The player woke the Ember and walked up the chapel steps to the hero. The chapter ends as written, except for who mourns. |
+| **As It Was Written** | Uncommon | The player woke the Ember and walked up the chapel steps to the hero. The chapter ends as written, except for who mourns. |
 | **Second Lead** | Uncommon | Talked to Cassian on the steps at midnight instead of dying there. Rival and friend, the part the book never had. |
 | **The Board Sits** | Uncommon | Laid the Duke's order before the Board. He is removed; the player is the house, at twenty, with its debts. |
 | **Not My Story** | Uncommon | Walked out of the gate on the first day. The book goes on without its villain. |
 | **The Door Stays Shut** | Rare | Sealed the undercroft for good. The novel's second arc never happens; everybody has to get strong the slow way. |
 | **A Better Villain** | Rare | Woke the Ember and kept yourself. The hero now has somebody worth beating, on the player's terms. |
 | **Off the Page** | Rare | Gave Elara back what the house took. A kiss on the Ring's sand at the end of term. |
-| **Answered** | Rare | Answered Viveka's letters, all of them, and found out who wrote back about the hawk. |
+| **Letter One Hundred and Forty-One** | Rare | Answered Viveka's letters, all of them, and found out who wrote back about the hawk. |
 | **Nobody's Heir** | Rare | Gave back the signet. Stayed at Vellmar as nobody, at the scholarship table. |
 | **His Grace** | Unique | Made the Duke need you, then shut the door he wanted open. |
 

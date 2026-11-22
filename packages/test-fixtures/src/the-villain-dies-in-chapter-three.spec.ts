@@ -12,11 +12,17 @@ import { THE_VILLAIN_DIES_IN_CHAPTER_THREE } from './the-villain-dies-in-chapter
  * live in places the storyteller reads, the player's one advantage stops
  * existing by turn three and the day stops leaning toward midnight.
  *
- * The world is not registered in `index.ts` yet, so the catalog, endings and
- * choice-clarity specs do not see it. Every invariant they would apply is
+ * The world is not registered in `index.ts` yet, so the catalog, endings,
+ * choice-clarity and protagonist specs do not see it. Their invariants are
  * repeated here against this one story, plus the three the 50-story checkpoint
  * added: gated abilities are granted, card blurbs address the player, and
  * every location has a way in.
+ *
+ * One of them cannot be repeated, only flagged: `protagonist.spec.ts` lists
+ * the NAMED worlds by storyId and requires every other one to be BLANK. The
+ * commit that registers this story must add
+ * 'story_the_villain_dies_in_chapter_three' to that list, or `npm test` goes
+ * red. What that spec checks of a NAMED world is repeated below.
  */
 
 const S = THE_VILLAIN_DIES_IN_CHAPTER_THREE;
@@ -144,6 +150,11 @@ describe('the opener hands the player a choice', () => {
     // The risky one does exactly what the book says gets you killed.
     expect(risky).toMatch(/finish the line/i);
     expect(risky).toMatch(/book/);
+    // Only the said card backs down. A bow is the same apology done with the
+    // body, and both lead to the same furious second beat.
+    for (const card of [done, risky]) expect(card).not.toMatch(/\b(bow|kneel|sorry|apologi[sz]e|take it back)\b/i);
+    // The done card acts on what the player knows from the book.
+    expect(done).toMatch(/midnight/);
   });
 
   it('offers no opening card the parser turns into a fight', async () => {
@@ -184,6 +195,30 @@ describe('the foreknowledge lives where the storyteller can read it', () => {
     expect(canon).toMatch(/Cold Ember/);
   });
 
+  it('tells the storyteller both halves of the trade, since it never reads resources or abilities', () => {
+    // Leaning on the villain or on the book pulls the day back; breaking a
+    // scene for a new reason loosens it. Without the first half, three of four
+    // archetypes play a world where foreknowledge is free.
+    const pull = S.rules.hardCanon.find((fact) => fact.startsWith('The book pulls'))!;
+    expect(pull).toMatch(/The pull answers the player/);
+    expect(pull).toMatch(/name and menace/);
+    expect(pull).toMatch(/what the book says is coming/);
+    expect(pull).toMatch(/loosens it/);
+  });
+
+  it('gives the storyteller the villain’s line word for word, so every session finishes it the same way', () => {
+    const pages = S.items.find((i) => i.id === 'pages_you_remember')!;
+    expect(pages.description).toMatch(/word for word, "\.\.\.commoner trash [^"]+"/);
+    expect(ability('play_the_villain').affordances).toContain('finish the line');
+  });
+
+  it('keeps every card blurb true to the secrets the storyteller also reads', () => {
+    // He wrote back once, about a hawk. Her card may not say he never did.
+    const viveka = S.characters.find((c) => c.id === 'viveka')!;
+    expect(viveka.secrets.map((s) => s.fact).join(' ')).toMatch(/wrote back/);
+    expect(viveka.cardBlurb).not.toMatch(/answered none|never (once )?(answered|wrote)/i);
+  });
+
   it('keeps the archetype names out of canon and premise, so only the chosen one is shown', () => {
     const shown = `${S.rules.hardCanon.join(' ')} ${S.premise}`;
     for (const a of S.archetypes) expect(shown, a.id).not.toContain(a.name);
@@ -196,6 +231,39 @@ describe('the foreknowledge lives where the storyteller can read it', () => {
     expect(ids).not.toContain('displayName');
     expect(ids).not.toContain('pronouns');
     expect(ids).toContain('archetype');
+  });
+
+  it('passes what protagonist.spec asks of every NAMED world', () => {
+    // Repeated here because that spec only sees registered worlds, and lists
+    // the NAMED ones by storyId; see the header.
+    const p = S.protagonist;
+    expect(p.kind).toBe('NAMED');
+    expect(p.name.trim().length).toBeGreaterThan(0);
+    expect(p.pronouns).not.toBe('');
+    expect(p.setupHeading).not.toBe('');
+    expect(S.setupFields.map((f) => f.id)).not.toContain('appearance');
+  });
+
+  it('asks a setup question its options actually answer', () => {
+    // "How far" is not answered by "You Skipped to the Fights" or "You Read
+    // the Comments". How you read it is.
+    const field = S.setupFields.find((f) => f.kind === 'ARCHETYPE')!;
+    expect(field.label).toMatch(/how did you read the book/i);
+    expect(S.protagonist.setupHeading).toMatch(/reader/i);
+  });
+});
+
+describe('the shelf can find it', () => {
+  it('files it under School and Fantasy, not only Action', async () => {
+    // The academy is the main pull, so a reader browsing School has to see it.
+    // The taxonomy lives in the API; loaded by path so this package keeps its
+    // one-way dependency and tsc's rootDir.
+    const { fileURLToPath } = await import('node:url');
+    const path = fileURLToPath(new URL('../../../services/api/src/catalog-taxonomy.ts', import.meta.url));
+    const { categoriesFor } = (await import(/* @vite-ignore */ path)) as {
+      categoriesFor: (story: typeof S) => string[];
+    };
+    expect(categoriesFor(S)).toEqual(expect.arrayContaining(['action', 'fantasy', 'school']));
   });
 });
 
@@ -259,6 +327,30 @@ describe('everybody on the page is an adult, on the page', () => {
       expect(ages.get(c.name)!, c.name).toBeGreaterThanOrEqual(18);
       expect(canon, c.id).toContain(c.name);
     }
+  });
+
+  it('puts nobody under eighteen in a backstory either', async () => {
+    // Kerr lost to a Grauen in the Ring thirty years ago, and Vellmar admits
+    // nobody under eighteen; Viveka's hawk letter is from two years ago. Every
+    // "N years ago" a character carries has to land them at eighteen or over.
+    const { readFileSync } = await import('node:fs');
+    const bible = readFileSync(
+      new URL('../../../docs/story-bibles/new50/30_THE_VILLAIN_DIES_IN_CHAPTER_THREE.md', import.meta.url),
+      'utf8',
+    );
+    const ages = new Map<string, number>();
+    for (const match of bible.matchAll(/^### (.+), (\d+)\s*$/gm)) ages.set(match[1]!, Number(match[2]));
+    const NUMBER: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, ten: 10, twenty: 20, thirty: 30 };
+    for (const c of S.characters) {
+      const own = [...c.hiddenDrives, ...c.secrets.map((s) => s.fact), c.role].join(' ');
+      for (const m of own.matchAll(/\b(\w+) years ago\b/gi)) {
+        const n = NUMBER[m[1]!.toLowerCase()] ?? Number(m[1]);
+        expect(Number.isFinite(n), `${c.id}: "${m[0]}" is not a number this check knows`).toBe(true);
+        expect(ages.get(c.name)! - n, `${c.id}: ${m[0]}`).toBeGreaterThanOrEqual(18);
+      }
+    }
+    // The man who beat Kerr was the Duke, so he was in the Ring then too.
+    expect(ages.get('Duke Ulric Grauen')! - 30).toBeGreaterThanOrEqual(18);
   });
 
   it('describes people by build and costume, never by an age word', () => {

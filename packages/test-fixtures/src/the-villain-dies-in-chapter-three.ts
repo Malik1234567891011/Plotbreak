@@ -48,7 +48,7 @@ const raw = {
   hook: 'You wake up mid-insult in the body of a web novel’s spoiled villain, on the exact line that gets him killed by midnight, and the heroine already has her hand on her sword.',
   premise:
     'It was a web novel called A Sword for the Lowborn, and you read it on the train home: a carter’s son at a royal academy, a swordswoman with a temper, and a spoiled duke’s heir named Severin Grauen who exists to be hated for three chapters and then die.\n\n' +
-    'Last night you fell asleep reading it. This morning you woke in the academy courtyard, in his body, halfway through his worst sentence.\n\n' +
+    'Last night you fell asleep with it still open. This morning you woke in the academy courtyard, in front of two hundred students, in his body, halfway through his worst sentence.\n\n' +
     'The book was clear about the rest of today. He calls Elara Wynn commoner trash in front of the whole first year. She beats him in the Ring at dusk in nine seconds. After dark a note sends him under the chapel, to a relic his family buried there, and it takes him.\n\n' +
     'At midnight Cassian Dray, the hero, ends him on the chapel steps. Nobody mourns him, not even his butler.\n\n' +
     'You know the script. The people around you do not, and they are not the flat characters you remember. Elara has a reason for that duel the author never wrote. Your butler has a letter in his coat he has not burned. Your father is on campus today, and the book never said why.\n\n' +
@@ -58,7 +58,10 @@ const raw = {
   official: true,
   coverImage: null,
   keyArt: null,
-  tags: ['Fantasy', 'Academy', 'Transmigration', 'Comedy', 'Action'],
+  // Tags are matched against services/api/src/catalog-taxonomy.ts: High fantasy
+  // files it under Fantasy, Rivalry under Action, and "academy" plus "student"
+  // in the premise under School.
+  tags: ['High fantasy', 'Rivalry', 'Transmigration', 'Comedy', 'Academy'],
   mechanicsChips: [
     'You know the script',
     'Every change blurs the pages',
@@ -85,20 +88,21 @@ const raw = {
       { itemId: 'grauen_signet', qty: 1 },
     ],
     hardCanon: [
-      'Everyone in this story is an adult. The player, in Severin Grauen’s body, is twenty. Elara Wynn is nineteen, Cassian Dray twenty, Lady Viveka Sorrel twenty, Felis Corran thirty-four, Odalys Kerr forty-six and Duke Ulric Grauen fifty-three. Vellmar Royal Academy admits nobody under eighteen, and its first-years are nineteen and twenty.',
+      'Everyone in this story is an adult. The player, in Severin Grauen’s body, is twenty. Elara Wynn is nineteen, Cassian Dray twenty, Lady Viveka Sorrel twenty, Felis Corran thirty-four, Odalys Kerr fifty and Duke Ulric Grauen fifty-three. Vellmar Royal Academy admits nobody under eighteen, and its first-years are nineteen and twenty.',
       'The player has woken inside a web novel they were reading, in the body of its first villain, Severin Grauen, heir of House Grauen, on the morning of chapter three. Nobody in this world knows that, nobody knows they are in a book, and nobody will believe the player without very good evidence.',
       'Chapter three, as the book wrote it: Severin calls Elara Wynn commoner trash in the Founders’ Courtyard; the duel is posted at the noon bell; she beats him in the Ring at dusk in nine seconds; after dark a note sends him through the iron door under the chapel, where the Cold Ember wakes and takes him over; at midnight Cassian Dray ends him on the chapel steps with a practice sword that turns to light. The chapter’s last line says nobody mourned him, not even his butler.',
       'The Duel Code: an insult given before witnesses is taken back before the noon bell or answered in the Ring at dusk, officiated by the Master-at-Arms. A yield is honourable; a forfeit is not. Drawing steel anywhere outside the Ring is grounds for expulsion, whoever you are.',
       'The Cold Ember is House Grauen’s founding relic, sealed under the chapel since the academy was built over it two hundred years ago. It wakes only for a Grauen hand and takes the one who wakes it. It can also be sealed for good, by a Grauen hand and seven founders’ words, which the book never mentions.',
       'Duke Ulric Grauen wrote the note and ordered Felis Corran, in his own hand, to leave the undercroft door unlocked tonight and make sure his son hears what lies beneath it. The Duke means to hold the Ember once it is awake and needs a Grauen he can spare. Felis carries the order and the iron key in his coat pocket and has not decided whether to obey.',
       'House Grauen seized Elara Wynn’s family mill on the North March for eleven crowns of debt last winter. House Grauen itself is near ruin; its spring debts will finish it.',
-      'The book pulls. People do what they would actually do, not what the book had them do, but the day keeps bending back toward the book’s scenes until the player changes the reason for a scene rather than its time: a dodged duel gets rescheduled, the note still arrives, Cassian still finds himself on the chapel steps near midnight without knowing why. Every scene the player breaks makes their memory of the following pages less reliable.',
+      'The book pulls. People do what they would actually do, not what the book had them do, but the day keeps bending back toward the book’s scenes until the player changes the reason for a scene rather than its time: a dodged duel gets rescheduled, the note still arrives, Cassian still finds himself on the chapel steps near midnight without knowing why. Every scene the player breaks makes their memory of the following pages less reliable. The pull answers the player. Every time they lean on Severin’s name and menace, or act on what the book says is coming, the day leans harder toward the book’s scenes, midnight included; every scene they break for a new reason loosens it.',
       'How much of the novel the player read depends on who they are, and differs between readers. None of them knows for certain who ordered the door left open: the serial had not got that far when they fell asleep.',
     ],
     toneGuide:
       'Fast, sharp and funny, then suddenly not. The comedy is the gap between what the player knows and what everybody assumes about Severin Grauen; the weight is discovering that the people the book flattened have reasons. ' +
       'Keep beats short and physical: a hand on a hilt, a bell, a door, two hundred people pretending not to listen. Fights are quick, readable and never graphic — a cut sleeve, a bruise, a blade at the throat, a yield — and the Code means most of them happen in the Ring. Death, when it comes, is one clean line and offstage. ' +
       'Romance with Elara or Viveka can be tense, flirtatious and heartfelt and goes no further than a kiss; no fan service, and no lingering on bodies. Nobody in this world talks as though they were in a book. ' +
+      'Apologising, running, fighting, playing the villain better than he ever did and walking out of the gate are all real ways to play this day; none of them is the wrong answer, and the world keeps up with each. ' +
       'The face at the top of a beat is whoever is speaking to the player, most often Elara in the first hour.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -235,7 +239,7 @@ const raw = {
       questItem: true,
       droppable: false,
       description:
-        'Not an object. The chapter as you read it, in the order it happens: the insult in the courtyard at mid-morning; the duel chalked on the board at the noon bell; the Ring at dusk, nine seconds, a low cut, the shoulder, the disarm; a note under the door after dark; the iron door under the chapel standing open; the Cold Ember waking; the chapel steps at the midnight bell, and Cassian Dray’s practice sword turning to light.',
+        'Not an object. The chapter as you read it, in the order it happens: the insult in the courtyard at mid-morning, which the book finishes, word for word, "...commoner trash should thank the gods a Grauen let it through the gate"; the duel chalked on the board at the noon bell; the Ring at dusk, nine seconds, a low cut, the shoulder, the disarm; a note under the door after dark; the iron door under the chapel standing open; the Cold Ember waking; the chapel steps at the midnight bell, and Cassian Dray’s practice sword turning to light.',
       loreText:
         'The last line, which you remember word for word because you rolled your eyes at it: "Nobody mourned Severin Grauen, not even the man who had dressed him every morning for fourteen years." Every scene you change, the next page of it goes a little grey at the edges.',
       icon: 'book',
@@ -361,7 +365,7 @@ const raw = {
       name: 'Play the Villain',
       tags: ['social'],
       description: 'Use the Grauen name, the drawl and the look everybody is expecting. It works, and every time it works the day leans closer to the book.',
-      affordances: ['sneer', 'threaten', 'intimidate', 'pull rank', 'use my name', 'play the villain', 'finish the sentence', 'insult'],
+      affordances: ['sneer', 'threaten', 'intimidate', 'pull rank', 'use my name', 'play the villain', 'finish the sentence', 'finish the line', 'insult'],
       costs: [
         { resourceId: 'script', amount: 10 },
         { resourceId: 'scandal', amount: 5 },
@@ -637,7 +641,7 @@ const raw = {
       name: 'The Founders’ Library',
       shortName: 'Library',
       description:
-        'Three floors of stacks around a reading room, and at the back a locked archive cage of founders’ documents that nobody has asked to see in years. Elara studies here in the afternoons with the same page open for an hour. The doors open back onto the courtyard.',
+        'Three floors of stacks around a reading room, and at the back a locked archive cage of founders’ documents that nobody has asked to see in years, among them the founders’ record of how the undercroft was sealed. Elara studies here in the afternoons with the same page open for an hour. The doors open back onto the courtyard.',
       artDirection:
         'Old academy library, three galleried floors of shelves, a reading room with green lamps, an iron archive cage at the back full of rolled documents. Dusty gold light.',
       connections: [{ to: 'founders_courtyard', travelMinutes: 3, label: 'Back to the courtyard' }],
@@ -727,7 +731,7 @@ const raw = {
       id: 'faction_grauen',
       name: 'House Grauen',
       description:
-        'Your father’s house: the North March, its failing mines and mortgages, forty retainers and a seat on the Crown Council it is about to lose. It has spent one Grauen a generation for two hundred years and does not discuss it.',
+        'Your father’s house: the North March, its failing mines and mortgages, forty retainers and a seat on the Crown Council it is about to lose. It has spent one Grauen a generation on its wars, debts and marriages for two hundred years, and does not discuss it.',
       startingReputation: 40,
       ranks: [
         { atReputation: 0, label: 'A disappointment' },
@@ -957,7 +961,7 @@ const raw = {
       values: ['Service done properly is a form of respect, even when the master does not deserve it', 'A promise made to a dying woman outranks an order from a living man'],
       fears: ['That he will do what he is told tonight, the way he always has', 'That he made Severin what he became by never once telling him no'],
       socialStyle:
-        'Anticipates. Has your coat before you are cold and your excuse before you need it. Never contradicts you in public, and always does in private, by saying nothing at all.',
+        'Anticipates. Has your coat before you are cold and your excuse before you need it. Never contradicts you in public, and always does in private, by saying nothing at all. His gloved hand drifts to his coat pocket whenever anybody says the word chapel, and he does not know he does it.',
       boundaries: ['Will not lie to you directly; he will only decline to answer', 'Will not raise a hand against a Grauen, whatever the Grauen has done'],
       goals: ['Get through today without having to choose', 'Keep the promise he made to your mother, which was to look after you'],
       secrets: [
@@ -1025,14 +1029,14 @@ const raw = {
     {
       id: 'viveka',
       name: 'Lady Viveka Sorrel',
-      role: 'Your fiancée by family arrangement, a second-year and heir of House Sorrel, who has written to you every week for three years',
+      role: 'Your fiancée by family arrangement, a second-year and heir of House Sorrel, who has written to you more than once a week for two years',
       cardBlurb:
-        'She has sent you a hundred and forty letters and you have answered none of them. The book gave her three lines and a cold stare. She has heard about the courtyard and wants to hear it from you, in person, today.',
+        'She has sent you a hundred and forty letters, and most of them are still sealed in your desk drawer. The book gave her three lines and a cold stare. She has heard about the courtyard and wants to hear it from you, in person, today.',
       pronouns: 'she/her',
       publicTraits: ['The sharpest tongue on the High Table', 'Writes everything down', 'Kind where nobody can see it'],
       hiddenDrives: [
         'She wants to be the one to end the engagement, cleanly, before anybody can say she was jilted by a monster',
-        'Under that, she wants the person who wrote back to her once, three years ago, to turn out to have been real',
+        'Under that, she wants the person who wrote back to her once, two years ago, to turn out to have been real',
       ],
       values: ['A letter deserves an answer', 'Never let them see you need anything'],
       fears: ['Being married to the man in the courtyard for the rest of her life', 'That nobody will ever read what she actually writes'],
@@ -1043,7 +1047,7 @@ const raw = {
       secrets: [
         {
           id: 'viveka_the_hawk',
-          fact: 'Three years ago, once, Severin wrote back: four lines about a hawk he had lost. She has kept it in her writing case ever since, and it is the reason she kept writing.',
+          fact: 'Two years ago, once, Severin wrote back: four lines about a hawk he had lost. She has kept it in her writing case ever since, and it is the reason she kept writing.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'If you have read some of her letters and quote one back to her, she shows you the hawk letter.',
         },
@@ -1062,6 +1066,7 @@ const raw = {
         'I heard about the courtyard before I had my gloves off. Tell me the version you would put in writing.',
         'If this engagement is ending, it ends in my handwriting.',
         'You wrote back once. Four lines, about a hawk. I would very much like to know who that was.',
+        'Letter ninety-one, in case you never reached it: you never answered about the hawk, so I have decided it lived.',
       ],
       appearance:
         'An adult woman, slight and very upright, pale blonde hair in an elaborate braided crown, a deep green academy coat with a silver lily at the collar, ink on the side of her writing hand that she has stopped trying to hide.',
@@ -1308,6 +1313,16 @@ const raw = {
               predicate: { flagsSet: ['attacked:elara'] },
               setsFlags: ['drew_steel_outside_the_ring', 'duel_called'],
               closesFlags: ['apologised'],
+            },
+            {
+              // The Code's own fallback: a line nobody took back by the noon
+              // bell is a duel. Without it, any first reply that is none of the
+              // above leaves the whole day waiting on this step.
+              routeId: 'let_it_stand',
+              label: 'Let the line stand until the noon bell',
+              predicate: { afterWorldMinute: 12 * 60 },
+              setsFlags: ['duel_called'],
+              closesFlags: [],
             },
           ],
           rewards: { xp: 40, items: [], flags: ['first_scene_over'], abilities: [], reputation: [] },
@@ -1619,7 +1634,9 @@ const raw = {
               label: 'Hear it from the scholarship table',
               predicate: {
                 flagsSet: ['visited:low_dormitory'],
-                minFactionReputation: [{ factionId: 'faction_commons', value: 0 }],
+                // The table starts at -25. Anything better than that means you
+                // have stopped sneering, which is all they ask.
+                minFactionReputation: [{ factionId: 'faction_commons', value: -15 }],
               },
               setsFlags: ['knows:the_mill'],
               closesFlags: [],
@@ -2029,7 +2046,7 @@ const raw = {
       directorNotes:
         'Kerr gives evidence in four sentences. Unless the Duke has been given a reason to make it go away, the vote is to send the player down, and Kerr is asked to ring the bell at the gate.',
       setsFlags: ['expelled'],
-      cancelledByFlags: ['duke_bargain', 'fought_elara'],
+      cancelledByFlags: ['duke_bargain'],
       requiresFlags: ['drew_steel_outside_the_ring'],
       movesCharacters: [{ characterId: 'odalys', toLocationId: 'governors_lodge' }],
     },
@@ -2141,7 +2158,7 @@ const raw = {
   setupFields: [
     {
       id: 'archetype',
-      label: 'How far into the book did you get?',
+      label: 'How did you read the book?',
       helpText:
         'How you read the novel you woke up in sets what you remember and what you are good at. It is fixed for the whole story. It does not decide whether you finish the sentence, who you trust, or whether you are alive after midnight — all of that is yours.',
       kind: 'ARCHETYPE',
@@ -2177,7 +2194,7 @@ const raw = {
     name: 'Severin Grauen',
     pronouns: 'he/him',
     description:
-      'Twenty, heir of House Grauen, a first-year at Vellmar. Tall, silver-grey hair, a charcoal coat with the house’s grey tower on the clasp, and a face built for sneering. Since this morning somebody else is behind it: a reader from another world who knows how chapter three ends.',
+      'Twenty, heir of House Grauen, a first-year at Vellmar. Tall, silver-grey hair, a charcoal coat with the house’s grey tower on the clasp, and a face built for sneering. The book called him lazy and never gave him a mother; in truth he trained alone at night until his dueling gloves wore through, and a page torn out of his pocketbook has left a stub with one word on it in his hand: "Mother". Since this morning somebody else is behind that face: a reader from another world who knows how chapter three ends.',
     setupHeading: 'What kind of reader are you?',
     portrait: null,
   },
@@ -2354,14 +2371,14 @@ const raw = {
     },
   ],
   opening:
-    "\"...commoner trash—\"\n\nThe words are already out. Your mouth. Your voice. Not your body.\n\nA woman in academy grey closes her hand on a plain soldier's sword.\n\n\"Go on,\" says Elara Wynn. \"Finish it. I want every one of them to hear you.\"\n\nYou know this scene. You read it on a train, in chapter three of a novel you thought was mediocre. The spoiled noble finishes the insult. She beats him at dusk in nine seconds. He dies at midnight.\n\nYou are the spoiled noble.\n\nTwo hundred students have stopped breathing.\n\nHer thumb pushes the blade an inch out of its scabbard.\n\n\"Well, my lord? Finish the sentence.\"",
+    "\"...commoner trash—\"\n\nThe words are already out. Your mouth. Not your voice. Not your body.\n\nA woman in academy grey closes her hand on a plain soldier's sword.\n\n\"Go on,\" says Elara Wynn. \"Finish it. I want every one of them to hear you.\"\n\nYou know this scene. You read it on a train, in chapter three of a novel you thought was mediocre. The spoiled noble finishes the insult. She beats him at dusk in nine seconds. He dies at midnight.\n\nYou are the spoiled noble.\n\nTwo hundred students have stopped breathing.\n\nHer thumb pushes the blade an inch out of its scabbard.\n\n\"Well, my lord? Finish the sentence.\"",
   openingPanel: {
     assetKey: 'story_the_villain_dies_in_chapter_three/opening',
     alt: 'Elara in a grey academy coat, thumb pushing a plain sword an inch from its scabbard, glaring up across a silent sunlit stone courtyard.',
   },
   openingSuggestions: [
     "\"I take it back. All of it. I'm sorry.\"",
-    'I bow to her, low, in front of all of them.',
+    'I look past her blade into the crowd for the face that kills me at midnight.',
     'I finish the line word for word, exactly as the book wrote it.',
   ],
   publishedAt: null,
