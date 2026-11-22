@@ -27,6 +27,12 @@ import { StoryVersion } from '@plotbreak/contracts';
  * she said yes, and June's own word — so a player who fails one is never
  * locked out of the truth.
  *
+ * Production runs `runTurnPure`, which never reads step notes, resources or
+ * locked abilities. So the proof rule and the four proofs are spelled out in
+ * hard canon, the ring, the dead phone and the jeweller's receipt are starting
+ * items, and every archetype starts with Rebuild the Night plus the one move
+ * its job is good at, which is all the storyteller sees of the player's build.
+ *
  * The 1966 thread is the optional mystery, the way Platform 11 is in Good
  * Morning, Husband: hidden behind a flag only a player who tells their
  * grandmother about the errand can set. A player who never does gets a
@@ -90,6 +96,7 @@ const raw = {
       'Marcus Hale photographed that hug through the round window in the cold-room door, cropped it so it reads as a kiss, and sent it to Elena at 1:14 a.m. from a cheap second phone with the message "Ask him about the cold room." The second phone is in the inside pocket of his own jacket, over a chair in the gatehouse.',
       'At 11:50 p.m. Marcus sent the player to the city to collect their grandmother’s ring from the jeweller, saying it had to be done tonight. It did not: the jeweller had cleaned it a week ago and noted no urgency. The coast road has no signal, the player’s phone died at four, and Elena called eleven times between 1:20 and 3:00.',
       'At 5:40 a.m. Elena showed June the photograph and asked if it was her. June, mortified, said "I don’t know what you want me to say", and Elena took that as a yes. At 5:52 Marcus told June to reprint the place cards and the orders of service with his name, and to correct the welcome board by hand because it could not be reprinted in time. At 6:00 he told Constance the player had phoned him at three to call the wedding off. At 6:10 Elena agreed to marry Marcus. He gave the reprint order eighteen minutes before she said yes, and June has the order sheet with the time on it.',
+      'Proof, not pleading. Elena cannot be argued, charmed or begged out of what she was shown; she changes her mind only when she is shown something else. Four things prove the photograph is a cropped hug, and any one of them, put in front of her with its time on it, makes her stop and look: frame 2214 on Benny Castellano’s rehearsal memory card, showing Marcus at the cold-room window at 11:40 with his phone raised; the second phone in Marcus’s jacket in the gatehouse; June’s 5:52 reprint order; and June telling Elena herself what happened in the cold room.',
       'Elena must be married before her thirtieth birthday, which begins at midnight tonight, or her late mother’s trust passes to a sailing foundation and the money her father Desmond Ward’s boatyard needs by Monday goes with it. Sixty people work at that yard. She never told the player, because she wanted to be sure he was not marrying a deadline. Constance is a trustee and knows. Marcus read the papers on Constance’s desk in March.',
       'Elena agreed to Marcus as a marriage on paper: sign today, the trust pays out, end it quietly within a year. Marcus agreed to that and does not mean it.',
       'Marcus owes 380,000 to a private lender since his restaurant closed. Nobody in the family knows. Constance will name the next keeper of the Hale in her toast at eight tonight, and the Hale is the only thing Marcus could borrow against.',
@@ -1010,7 +1017,7 @@ const raw = {
         'I am marrying a deadline, not a man. You would have known that if I had ever been brave enough to say it.',
       ],
       appearance:
-        'Twenty-nine, dark hair in a low knot with one sprig of white wisteria in it, a long-sleeved, high-necked ivory wedding dress, and a calm face that is doing a great deal of work.',
+        'An adult woman, slim and very straight-backed, dark brown hair in a low knot with one sprig of white wisteria in it, dark eyes, a long-sleeved, high-necked ivory wedding dress, a small gold watch on her right wrist, and a calm face that is doing a great deal of work.',
       visualHook: 'Her late mother’s small gold watch, worn on the wrong wrist with a wedding dress and checked far too often.',
       silhouette: 'Very straight, bouquet held low in both hands like a gavel, chin up.',
       artSeed: 'brw-elena-01',
@@ -1120,7 +1127,7 @@ const raw = {
         'Go on, then. Two hundred witnesses, and every one of them will remember who swung first.',
       ],
       appearance:
-        'Thirty-three, handsome in an easy, sunlit way, sandy hair pushed back, wearing your charcoal wedding suit, let out at the shoulders this morning and an inch short in the sleeves.',
+        'An adult man, tall and handsome in an easy, sunlit way, sandy hair pushed back, light blue eyes, a ready smile, wearing your charcoal wedding suit with a white rose in the buttonhole, let out at the shoulders this morning and an inch short in the sleeves, so his shirt cuffs show.',
       visualHook: 'Your wedding suit on the wrong brother: let out at the shoulders, an inch short at the wrists.',
       silhouette: 'Loose and open, one hand always resting on somebody else’s shoulder.',
       artSeed: 'brw-marcus-01',
@@ -1215,7 +1222,7 @@ const raw = {
         'Tell me where you were at ten to midnight. Slowly. Leave nothing out.',
       ],
       appearance:
-        'Eighty-one, white hair set in a perfect wave, pearls, a dove-grey silk suit, and a silver-topped cane she does not need and carries anyway.',
+        'An elderly woman, small and very upright, white hair set in a perfect wave, pale grey eyes, a double string of pearls, a dove-grey silk suit, and a black cane with a silver top that she does not need and carries anyway.',
       visualHook: 'A silver-topped cane she does not need, held across her knees like a sceptre.',
       silhouette: 'Upright and small in the front pew, the back of her head as eloquent as anybody’s face.',
       artSeed: 'brw-constance-01',
@@ -1318,7 +1325,7 @@ const raw = {
         'She asked me if it was me. I said I didn’t know what she wanted me to say. That sentence is going on my headstone.',
       ],
       appearance:
-        'Twenty-nine, auburn hair in a no-nonsense ponytail, a black events suit, a headset round her neck, and flat shoes for a fourteen-hour day.',
+        'An adult woman, auburn hair in a no-nonsense ponytail, green eyes, a light dusting of freckles, a black events suit, a headset round her neck, a clipboard held against her chest, and flat black shoes for a fourteen-hour day.',
       visualHook: 'A headset worn round her neck all day, which she talks into without looking away from you.',
       silhouette: 'Clipboard against her chest, half turned towards the next problem.',
       artSeed: 'brw-june-01',
@@ -1406,7 +1413,7 @@ const raw = {
         'He still owes me six grand from last spring. Never said anything, because he’s family. Yours, I mean. Not mine, thank God.',
       ],
       appearance:
-        'Thirty, broad and cheerful, close-cropped black hair, the navy best-man suit he was fitted for, with the white best-man flower still pinned on.',
+        'An adult man, broad-shouldered and cheerful, close-cropped black hair, dark eyes, a wide easy grin, the navy best-man suit he was fitted for, tie loosened, with the white best-man flower still pinned on.',
       visualHook: 'The best man’s white flower, still pinned on, slightly crushed from an aunt’s hug.',
       silhouette: 'Big and planted, arms folded, standing slightly in front of you.',
       artSeed: 'brw-sami-01',
@@ -1487,7 +1494,7 @@ const raw = {
         'The contract says raw files go to the couple. The couple on my contract is her and you. So technically, you are my client.',
       ],
       appearance:
-        'Forty-six, bald, a grey beard, two cameras on crossed straps over a black waistcoat, and trainers he swears are formal.',
+        'A middle-aged man, stocky and bald, a short grey beard, a black waistcoat over a white shirt with the sleeves rolled, two cameras on crossed straps, and white trainers he swears are formal.',
       visualHook: 'Two cameras on crossed straps, one long lens and one short, never both put down at once.',
       silhouette: 'Crouched low at the end of an aisle, one eye shut.',
       artSeed: 'brw-benny-01',
@@ -2438,7 +2445,7 @@ const raw = {
       attributeBonus: { agility: 2, presence: 1 },
       skillProficiencies: { corridors: 3, charm: 1, instinct: 1 },
       startingItems: [{ itemId: 'master_key', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['rebuild_the_night', 'staff_doors'],
       startingReputation: [{ factionId: 'faction_staff', amount: 15 }],
     },
     {
@@ -2451,7 +2458,7 @@ const raw = {
       attributeBonus: { mind: 3, resolve: 1 },
       skillProficiencies: { eye: 3, nerve: 1 },
       startingItems: [{ itemId: 'battery_pack', qty: 1 }],
-      startingAbilities: [],
+      startingAbilities: ['rebuild_the_night', 'read_the_room'],
       startingReputation: [],
     },
     {
@@ -2464,7 +2471,7 @@ const raw = {
       attributeBonus: { presence: 3, agility: 1 },
       skillProficiencies: { speaking: 3, charm: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['rebuild_the_night', 'take_the_microphone'],
       startingReputation: [{ factionId: 'faction_guests', amount: 10 }],
     },
     {
@@ -2477,7 +2484,7 @@ const raw = {
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { muscle: 3, nerve: 2 },
       startingItems: [],
-      startingAbilities: [],
+      startingAbilities: ['rebuild_the_night', 'say_it_to_his_face'],
       startingReputation: [{ factionId: 'faction_wards', amount: 10 }],
     },
   ],
@@ -2699,14 +2706,33 @@ const raw = {
     "Two hundred guests turn as the chapel doors bang shut behind you.\n\nAt the altar, your brother Marcus is wearing your suit. Beside him, in the dress you were never allowed to see, your bride lets go of his hand.\n\n\"I’m sorry,\" Elena says, loud enough for the back row. \"I called you eleven times.\"\n\nThe welcome board by the door reads ELENA &, and then your name, struck through in black marker, with MARCUS written above it.\n\nThe ring box you drove all night to collect is still in your pocket.\n\nYour grandmother, front pew, does not turn around.\n\n\"Please,\" Elena says. \"Sit in the back. Can you do that for me?\"",
   openingPanel: {
     assetKey: 'story_back_row_at_my_own_wedding/opening',
-    alt: 'Elena in an ivory high-necked wedding dress at a glass chapel altar above the sea, letting go of the groom’s hand and looking down the aisle, guests turning.',
+    alt: 'Elena in a high-necked ivory wedding dress at the altar of a glass chapel above the sea, letting go of the hand of a man in a charcoal suit, looking down the aisle at you, guests turning.',
   },
   openingSuggestions: [
     "\"I’m not sitting anywhere until you tell me what I’m supposed to have done.\"",
     'I take a seat in the back row, fold my arms, and watch my brother’s hands.',
     'I walk straight up the aisle and open the ring box in front of everyone.',
   ],
-  publishedAt: '2026-11-22T04:00:00.000Z',
+  coverDirection: [
+    'SUBJECT: Elena Ward, the bride, in the foreground of a key visual for a modern romantic drama anime about a wedding that has gone to the wrong brother.',
+    'She fills the frame from the waist up, slightly left of centre and close, holding about two thirds of the picture, turned back over her shoulder to look straight at the viewer.',
+    'Dark brown hair in a low knot with one sprig of white wisteria in it, dark eyes, a long-sleeved, high-necked ivory wedding dress, a small gold watch on her right wrist,',
+    'and a bouquet of yellow ranunculus held low in both hands like a gavel.',
+    'Her expression is composed and hurt at once: chin up, lips pressed together, eyes bright and steady.',
+    'HER FACE STAYS CLEAN: no marks, streaks, sparkles or shadows on her face or skin.',
+    'Half a step behind her at the altar, smaller in the frame: the groom, Marcus, tall, sandy hair pushed back, an easy smile gone uncertain,',
+    'in a charcoal wedding suit an inch too short at the wrists so his white shirt cuffs show, his hand just let go of hers.',
+    'In the lower right foreground, seen from behind and slightly out of focus: one shoulder of a travel-creased dark suit and a hand holding up an open velvet ring box,',
+    'a worn gold ring with a small sea-green stone in it catching a bright star of light.',
+    'Every sparkle and light effect stays on the ring, the glass roof and the title, never on a face.',
+    'BEHIND THEM, soft and secondary: the inside of a white iron and glass chapel on a sea cliff at noon, wisteria hanging over the glass roof,',
+    'rows of white chairs with guests turned round in their seats, and a deep blue sea filling the windows behind the altar.',
+    'LIGHT: bright white noon light through the glass, a cool blue cast from the sea behind the altar, warm gold glints on the ring and the watch.',
+    'TITLE: the words Back Row at My Own Wedding painted into the art in the upper third, across the glass roof and the sky, as an elegant engraved wedding-invitation serif in ivory with a thin gold edge,',
+    'on two lines, BACK ROW AT above MY OWN WEDDING, with WEDDING the largest, spelled exactly BACK ROW AT MY OWN WEDDING, large and legible at thumbnail size.',
+    'One thin hand-drawn black marker line strikes through the word MY only, the way a name is crossed off a welcome board, with MY still readable under it. No other text anywhere.',
+  ].join(' '),
+  publishedAt: null,
 };
 
 export const BACK_ROW_AT_MY_OWN_WEDDING = StoryVersion.parse(raw);

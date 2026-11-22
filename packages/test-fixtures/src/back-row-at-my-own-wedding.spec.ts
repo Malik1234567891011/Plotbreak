@@ -438,6 +438,51 @@ describe('catalog-style wiring', () => {
   });
 });
 
+describe('the art and release pipeline (docs/stories-50/PIPELINE.md)', () => {
+  it('directs its own cover, with the title spelled out and no effects or age words on people', () => {
+    const cover = story.coverDirection;
+    const title = cover.slice(cover.indexOf('TITLE:'));
+    expect(cover).toMatch(/\bTITLE:/);
+    expect(title).toContain('Back Row at My Own Wedding');
+    expect(title).toContain('spelled exactly BACK ROW AT MY OWN WEDDING');
+    expect(cover).toMatch(/never on a face/);
+    expect(cover).not.toMatch(/\b(young|youthful|teen\w*|aged|elderly|middle-aged|years old)\b/i);
+  });
+
+  it('opens on a panel of the character who speaks first', () => {
+    const alt = story.openingPanel?.alt ?? '';
+    expect(alt.length).toBeLessThanOrEqual(200);
+    expect(alt.startsWith('Elena ')).toBe(true);
+  });
+
+  it('gives every card a concrete appearance to draw', () => {
+    for (const c of story.characters) {
+      if (!c.cardBlurb.trim()) continue;
+      expect(c.appearance.length, c.id).toBeGreaterThan(100);
+      expect(c.appearance, c.id).not.toMatch(/^(Twenty|Thirty|Forty|Fifty|Sixty|Seventy|Eighty)/);
+    }
+  });
+
+  it('ships unpublished, with no prologue', () => {
+    expect(story.publishedAt).toBeNull();
+    expect(story.prologue ?? []).toEqual([]);
+  });
+
+  it('puts the system where the storyteller reads it', () => {
+    expect(story.rules.hardCanon.join(' ')).toMatch(/\bProof, not pleading\./);
+    expect(story.rules.startingItems.map((i) => i.itemId)).toEqual(
+      expect.arrayContaining(['hale_ring', 'your_phone', 'jeweller_receipt']),
+    );
+    for (const a of story.archetypes) {
+      expect(a.startingAbilities[0], a.id).toBe('rebuild_the_night');
+      expect(a.startingAbilities.length, a.id).toBe(2);
+    }
+    expect(new Set(story.archetypes.map((a) => a.startingAbilities[1])).size).toBe(story.archetypes.length);
+    expect(story.rules.toneGuide.length).toBeGreaterThan(200);
+    expect(character('constance').calledName).toBe('Grandmother Hale');
+  });
+});
+
 describe('adults only, and 13+', () => {
   const bible = readFileSync(
     new URL('../../../docs/story-bibles/new50/27_BACK_ROW_AT_MY_OWN_WEDDING.md', import.meta.url),

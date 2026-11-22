@@ -77,12 +77,24 @@ This thread is optional and hidden. A player who never tells her about the erran
 
 The player names themselves and chooses what they do for a living (the archetype). The player is thirty-one. Fixed by the world: they are the younger Hale grandson, Marcus's brother, Elena's groom of the morning, and innocent of what the photograph shows. Everything else, including whether they still want Elena, is theirs.
 
+Four jobs, and the only part of the build the storyteller reads is the chosen job's starting abilities. Every job starts with **Rebuild the Night** (the player lived last night and can put it back together from the phone and the receipt), plus one move of its own:
+
+| Job | Starting item | Starting abilities |
+|---|---|---|
+| Front desk at the Hale | Master key card | Rebuild the Night, Use the Staff Doors |
+| Insurance claims investigator | Battery pack | Rebuild the Night, Read the Room |
+| Sales | none | Rebuild the Night, Take the Microphone |
+| Boxing coach | none | Rebuild the Night, Say It to His Face |
+
+Everyone also starts holding Grandmother's ring in its box, the dead phone, the jeweller's receipt and their vows.
+
 ### Minimal hard canon
 
 - Everyone in this story is an adult (ages below). The player is thirty-one; Desmond Ward is sixty-two.
 - The player did not cheat. The photo is a hug, cropped.
 - The player remembers the cold room clearly: a cold room full of the wrong flowers, June crying, a hug that lasted about ten seconds. Nobody has told them anybody saw it. The first time the cold room, the flowers or June's tears come up, the narrator gives the player that memory in a single line, so they are never arguing blind.
 - Marcus took and sent the photo, invented the errand, ordered the reprint before Elena agreed, and lied to Constance.
+- Proof, not pleading. Elena cannot be argued, charmed or begged out of what she was shown, only shown something else. Any one of four proofs, put in front of her with its time on it, makes her stop and look: Benny's frame 2214, the second phone, June's 05:52 reprint order, or June telling her herself.
 - Elena must be married before midnight or lose the trust and her father's yard.
 - Elena's marriage to Marcus is, to her, a marriage on paper.
 - Constance names the next keeper of the Hale in her toast at eight.
@@ -271,8 +283,8 @@ Every place has at least one way in. Nothing is locked.
 
 ## Image plan
 
-**Cover:** vertical anime key art. A bride in a long-sleeved high-necked ivory dress at the altar of a glass clifftop chapel, turning back over her shoulder, bouquet held low; beside her a man in a charcoal suit whose sleeves are slightly too short; in the foreground, from behind, a figure in a travel-creased suit holding an open ring box. Wisteria, white chairs, dark blue sea through glass. Title in the art: "Back Row at My Own Wedding". Adults described by costume and pose only.
+**Cover:** vertical anime key art. A bride in a long-sleeved high-necked ivory dress at the altar of a glass clifftop chapel, turning back over her shoulder, bouquet of yellow ranunculus held low; half a step behind her a man in a charcoal suit whose sleeves are an inch too short; in the foreground, from behind, a figure in a travel-creased suit holding an open ring box, the ring catching the light. Wisteria, white chairs, dark blue sea through glass. Title in the art, upper third: "Back Row at My Own Wedding" in an ivory and gold wedding-invitation serif on two lines, with one thin black marker line through MY, like a name crossed off a welcome board. Effects stay on the ring, the glass and the title, never on faces. People described by costume and pose only. The fixture's `coverDirection` is the exact brief.
 
-**Opening panel:** Elena at the altar, letting go of Marcus's hand, looking down the aisle at the viewer, two hundred guests turned in their seats.
+**Opening panel:** Elena at the altar, letting go of Marcus's hand, looking down the aisle at the viewer, two hundred guests turned in their seats. `openingPanel.alt` starts with "Elena", so her portrait is the panel's reference image.
 
 **Locations:** the Glass Chapel at noon; the flower cold room's round window; the Long Room with the cake; the cliff path at dusk; the Gatehouse with a jacket over a chair.
