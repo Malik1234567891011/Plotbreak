@@ -5,7 +5,9 @@
   "review": [
     "2026-11-22 adversarial diversity review. Same-look pairs split: Starlit/System (both tsubaki3, dark, cyan glow) -> System is acid green + magenta glitch; Gilded/Melodrama (both crimson + candle gold glamour) -> Gilded is emerald + gold, Melodrama is cold blue-black rain + crimson; Holy/Cosy (both tsubaki2, light, pale warm) -> Holy is cool white/silver/sky blue, Cosy is rich amber; Sunlit/Thumbnail titles (both white heavy sans with a blue stroke) -> Sunlit is ink letters, white outline, yellow label.",
     "v2 drift: Holy's navy scrim greyed the bottom half -> white bloom scrim and a deep-indigo script; Starlit's tracked kicker over one big serif line was the v2 lockup -> one-size stacked bracket title (maxLines 3, new in cover-title-v3.py).",
-    "Hard limits: dropped low-angle shots on Starlit (floating slit gown) and Sunlit (skirts in wind); dropped SDXL fanservice tags (shiny skin, bodysuit, leaning forward); Cosy names the trousers because Tsubaki.2 ignores negatives; no 'sheer'; no forbidden word in any appeal (appeal text may be copied into prompts). Too tame: Ink's turtleneck -> bare-shoulder halter; Cosy no longer 'muted'."
+    "Hard limits: dropped low-angle shots on Starlit (floating slit gown) and Sunlit (skirts in wind); dropped SDXL fanservice tags (shiny skin, bodysuit, leaning forward); Cosy names the trousers because Tsubaki.2 ignores negatives; no 'sheer'; no forbidden word in any appeal (appeal text may be copied into prompts). Too tame: Ink's turtleneck -> bare-shoulder halter; Cosy no longer 'muted'.",
+    "2026-11-22 owner, after the 8-story test: female leads should look hot. Every recipe now has femaleAppeal (prose, pose, SDXL tags) with deep necklines and clear cleavage, off-shoulder and bare-shoulder cuts, bare midriffs, thigh slits, fitted outfits and curvy adult figures; maleAppeal is the v3 male text, unchanged. SDXL recipes now take 'large breasts, cleavage' (cover-v3.mts allows them, still rejects huge/gigantic) and keep 'huge breasts, gigantic breasts' in the negative as a brake (bakeoff.png). Cameras that looked up a slit or down a loose neckline moved to eye level (Holy, Cosy). Hard limits unchanged and spelled out further below. Titles: Holy's script was too faint on pale art (bigger, darker, stroked, stronger halo); System Window's painted title came out 'CLeanup Crew', so it is typeset Orbitron capitals for every story.",
+    "2026-11-22 full-size review of the 50 finals: ink-and-one-red title font Sedgwick Ave Display -> Protest Revolution (OFL, dry brush, 3 px ink stroke; Sedgwick caps read SKILLS as ZKIhhZ). Eight covers whose recipe title spot landed on a face get a per-story placement in TITLE_OVERRIDES (cover-title-v3.py), not a recipe change."
   ],
   "canvas": {
     "width": 1152,
@@ -17,7 +19,12 @@
     "No nudity, no nipples, no underwear or lingerie, no see-through clothing, no sexual poses.",
     "No sexualised school uniforms. Academy stories get appeal from styling and expression: street clothes, a jacket with the crest, formal wear.",
     "Say the limits positively in the prompt (the adult age, the clothes by name). Never name a forbidden thing in a positive prompt: SDXL tag models draw what they read.",
-    "The negative prompt always contains nsfw, nude and child. Tsubaki.2 standard ignores negative prompts, so for its recipes the positive wording carries every limit."
+    "The negative prompt always contains nsfw, nude and child. Tsubaki.2 standard ignores negative prompts, so for its recipes the positive wording carries every limit.",
+    "Every prompt states the age. SDXL: the tags 'mature female, adult' (or 'mature male, adult'). Prose: 'a woman in her late twenties with a mature face' (twenties or older, never younger). The negative always carries loli, child, teenager, young-looking, petite and aged down (baseNegative).",
+    "No underwear, lingerie or bikini as the outfit. Swimwear only when the story is set at a beach or a pool.",
+    "No sexual poses or acts: no lying-down come-ons, no spread legs, no upskirt, no from-below camera on a skirt or a slit, no leaning toward the camera to frame the chest, no camera looking down a loose neckline. Necklines are deep but the fabric is opaque and covers the chest.",
+    "A character the fixture makes under eighteen, or writes as a teenage student, gets none of femaleAppeal: age-appropriate clothes, no glamour, no figure-showing pose.",
+    "Inside these limits, female leads are hot (owner, 2026-11-22): deep necklines with clear cleavage, off-shoulder and bare-shoulder cuts, bare midriffs, thigh slits, fitted outfits, curvy adult figures, alluring confident expressions, poses that show the figure (hand on hip, arm raised behind the head, a look over a bare shoulder). Each recipe's femaleAppeal says how in its own look. Male leads are unchanged (maleAppeal)."
   ],
   "quota": {
     "maxCoversPerRecipe": 6,
@@ -31,11 +38,12 @@
     "hoshino2:832x1216": 2500
   },
   "promptAssembly": {
-    "tsubaki": "Prose. Order: stylePrompt, then the subject sentence (name, 'a woman/man in her/his late twenties with a mature face and a full adult figure', hair, eyes, outfit from appeal), then composition.prompt, background, palette sentence, and for painted titles title.paintedPrompt with {TITLE} filled in. Tsubaki.2 standard ignores the negative, so every limit is said in the prose.",
-    "sdxl": "Tags first, prose after (cover-bakeoff.mts header). Order: stylePrompt tags, subject tags ('1girl' or '1boy' or '1girl, 1boy', 'solo' for one character, 'mature female' or 'mature male', 'adult', hair/eye/outfit tags), composition.prompt tags, background tags, then one or two plain sentences naming the character and the scene. Do not use the tags 'cleavage', 'large breasts' or 'huge breasts': on Haruka v2 and Hoshino v2 they blow up (cover-style-v2/bakeoff.png).",
+    "tsubaki": "Prose. Order: stylePrompt, then the subject sentence (name, 'a woman/man in her/his late twenties with a mature face and a full adult figure', hair, eyes, outfit from femaleAppeal.prose for a woman or maleAppeal for a man, adapted to the story), then composition.prompt with the pose replaced by femaleAppeal.pose for a woman, background, palette sentence, and for painted titles title.paintedPrompt with {TITLE} filled in (no recipe paints its title now). Tsubaki.2 standard ignores the negative, so every limit is said in the prose: 'opaque', what covers the chest, and the lower garment by name.",
+    "sdxl": "Tags first, prose after (cover-bakeoff.mts header). Order: stylePrompt tags, subject tags ('1girl' or '1boy' or '1girl, 1boy', 'solo' for one character, 'mature female' or 'mature male', 'adult', hair/eye tags), for a woman femaleAppeal.tags and then femaleAppeal.poseTags in place of composition.prompt (a man: outfit tags from maleAppeal, then composition.prompt), background tags, then one or two plain sentences naming the character and the scene (femaleAppeal.prose for a woman). Female leads take 'large breasts, cleavage'. Never 'huge breasts' or 'gigantic breasts' in the positive (cover-v3.mts rejects them): one 'cleavage' tag alone already ballooned the chest on Haruka v2 and Hoshino v2 (cover-style-v2/bakeoff.png), so every SDXL recipe keeps 'huge breasts, gigantic breasts' in its negative as a brake. Check the first draws for proportion.",
+    "femaleLead": "Not every story has a female lead. When the cover character is a woman, femaleAppeal replaces the outfit and the pose; framing and camera in femaleAppeal override composition where they are given. When there are two characters (Sunlit, Melodrama), each woman gets femaleAppeal and each man maleAppeal.",
     "negative": "DEFAULT_NEGATIVE from infra/scripts/pixai.ts + baseNegative + the recipe's negativeExtra, minus anything in negativeDrop."
   },
-  "baseNegative": "nsfw, nude, child, loli, shota, aged down, teenager, young-looking, petite, school uniform, serafuku, underwear, lingerie, nipples, see-through, topless, text, letters, logo, title, words, worst quality, low quality, normal quality, jpeg artifacts",
+  "baseNegative": "nsfw, nude, child, loli, shota, aged down, teenager, young-looking, petite, school uniform, serafuku, underwear, lingerie, bikini, nipples, see-through, topless, upskirt, pantyshot, spread legs, lying on back, sex, text, letters, logo, title, words, worst quality, low quality, normal quality, jpeg artifacts",
   "recipes": [
     {
       "id": "holy-high-key",
@@ -51,7 +59,7 @@
         "characters": 1,
         "framing": "three-quarter length, head to mid-thigh; head about 1/5 of the height, in the upper 45%",
         "pose": "body turned slightly, face toward the viewer, one hand raised to the cheek or resting on the collarbone, a soft serene smile",
-        "camera": "eye level, a touch low",
+        "camera": "eye level (was 'a touch low': with the fitted low-cut gown a low angle looks up the figure)",
         "titleSpace": "the lower-left third stays soft and bright for a script title",
         "prompt": "Three-quarter length, the body turned slightly and the face toward the viewer, one hand raised softly to her cheek, a calm, gentle smile. Her head sits in the upper part of the picture; the lower left of the picture is soft, bright light."
       },
@@ -66,28 +74,34 @@
         "light": "Diffuse cathedral backlight, high-key with bloom; the subject glows against the window. Cool white light, not warm."
       },
       "background": "A white gothic hall or cloister: tall arched windows full of light and pale blue sky, pillars dissolving into bloom, light motes and a few white feathers. Nothing dark.",
-      "appeal": "Ethereal adult beauty. A woman in her late twenties with long flowing hair catching the light, in an off-the-shoulder white and silver gown with an opaque fitted bodice and long flowing sleeves or a long white cape, bare shoulders and collarbone, a thin gold circlet. A male lead in an open-collared white high-collar coat with silver embroidery, hair lit from behind. Elegant and gentle; skin stops at the shoulders and collarbone.",
+      "appeal": "Ethereal adult beauty: luminous, elegant and holy, with real heat in the female lead.",
+      "femaleAppeal": {
+        "prose": "A woman in her late twenties with a mature face and a curvy, full adult figure, in an off-the-shoulder white silk gown with a deep sweetheart neckline that shows clear cleavage: an opaque fitted bodice with silver embroidery that covers her chest and hugs a narrow waist and full hips, bare shoulders, collarbone and upper arms, long flowing white sleeves that begin below the shoulder, and a full opaque skirt to the floor; a thin gold circlet, glossy lips, long hair spilling over one bare shoulder. An alluring, serene, half-lidded look and a soft, knowing smile.",
+        "pose": "Three-quarter length at eye level, her body turned three-quarters so the curve of her waist and hip shows, one arm raised behind her head lifting her hair off a bare shoulder, the other hand resting at her waist, chin slightly down, eyes on the viewer.",
+        "notes": "Not prompt text. Tsubaki.2 standard ignores the negative, so 'opaque', 'covers her chest' and 'skirt to the floor' stay in the prose. Academy stories: this is formal or duelling dress, never a uniform, and only on a lead the fixture makes an adult (Crest Academy's Seraphine is twenty; draw her in her late twenties)."
+      },
+      "maleAppeal": "A male lead in an open-collared white high-collar coat with silver embroidery, hair lit from behind. Elegant and gentle.",
       "title": {
         "mode": "typeset",
         "font": "Pinyon Script",
         "weight": 400,
         "case": "as-is",
         "split": "balanced",
-        "gradient": ["#3C428C", "#2C2F6E", "#232457"],
-        "stroke": null,
-        "glow": { "color": "#FFFFFF", "radius": 16, "opacity": 0.95, "spread": 8 },
+        "gradient": ["#232870", "#181B55", "#10123F"],
+        "stroke": [{ "color": "#121444", "width": 3 }],
+        "glow": { "color": "#FFFFFF", "radius": 22, "opacity": 1.0, "spread": 16 },
         "shadow": null,
         "ornament": [
           { "type": "rule-diamond", "where": "below", "color": "#B8913A", "width": 0.46 },
           { "type": "sparkles", "color": "#C9A24B", "count": 3 }
         ],
         "position": "bottom-left",
-        "marginX": 0.08,
+        "marginX": 0.07,
         "indent": 0.1,
         "lineHeight": 0.86,
-        "sizeShare": 0.19,
-        "scrim": { "edge": "bottom", "color": "#F6F8FF", "opacity": 0.55, "from": 0.55 },
-        "extra": "Whole title in swash script, split into two balanced lines when long; the second line indented, as on Lumencia. Deep indigo ink with a white halo over a white bloom scrim, like the blue script on Yokai Academy: it reads on white art and keeps the whole card light (a dark scrim here turned the bottom half grey-navy, the v2 look). An antique-gold hairline with a diamond under it, gold sparkles."
+        "sizeShare": 0.26,
+        "scrim": { "edge": "bottom", "color": "#F6F8FF", "opacity": 0.7, "from": 0.5 },
+        "extra": "Whole title in swash script, split into two balanced lines when long; the second line indented, as on Lumencia. Deep navy-indigo ink with a white halo over a white bloom scrim, like the blue script on Yokai Academy: it reads on white art and keeps the whole card light (a dark scrim here turned the bottom half grey-navy, the v2 look). An antique-gold hairline with a diamond under it, gold sparkles. 2026-11-22 legibility fix: at sizeShare 0.19 with no stroke the hairline script washed out on pale art at shelf size, so the type is bigger (0.26), the ink darker, a 3px same-ink stroke thickens the hairlines, and the halo and scrim are stronger. Check it at 150px wide."
       },
       "frame": { "type": "thin", "label": "thin silver inset rule", "color": "#A9B4C8", "opacity": 0.95, "inset": 26, "width": 3 }
     },
@@ -119,7 +133,13 @@
         "light": "Warm chandelier key light from the front-left, gold rim light on hair, neck and shoulders, gold bokeh behind."
       },
       "background": "A gilded ballroom or lacquered hall with chandeliers and candles melting into warm bokeh. For clan and yakuza stories: a gold folding screen painted with waves and peonies.",
-      "appeal": "An open-back emerald evening gown, or an emerald or black silk kimono with gold embroidery lowered off both shoulders, shows the shoulders, neck and upper back; opaque fabric covers everything from the shoulder blades down. A dragon or peony tattoo across the shoulder blades suits clan stories. Hair pinned up to show the neck, earrings, red lips. A male lead: a fitted embroidered tailcoat, or a haori slipping off one shoulder over a dark kimono, hair swept back, the same over-the-shoulder glance.",
+      "appeal": "Opulent glamour: a bare back and a look over the shoulder.",
+      "femaleAppeal": {
+        "prose": "A woman in her late twenties with a mature face and a curvy, full adult figure, in a low-cut emerald satin evening gown fitted close to her figure: the back is open to the waist, baring her shoulders, shoulder blades and the line of her spine, and the front is a deep V neckline that shows cleavage in the turn; the opaque skirt begins at the small of her back and falls to the floor, with a thigh-high slit. Long emerald gloves, gold drop earrings, hair pinned up to bare the neck, red lips, a sultry, confident, half-lidded glance. For clan stories: an emerald or black silk kimono with gold embroidery lowered off both shoulders to the middle of the back, the collar pulled wide at the front to show cleavage, the obi tied high and tight, and a dragon or peony tattoo across the bare shoulder blades.",
+        "pose": "Seen from behind and turned three-quarters, so her bare back, narrow waist and the curve of her hip show; she looks back over a bare shoulder at the viewer with a confident half-smile, one gloved hand at her shoulder or holding a folding fan below her chin.",
+        "notes": "Not prompt text. 'bare buttocks' stays in the negative: an open back can slide too low on Tsubaki.3, so the prose also says where the skirt begins."
+      },
+      "maleAppeal": "A male lead: a fitted embroidered tailcoat, or a haori slipping off one shoulder over a dark kimono, hair swept back, the same over-the-shoulder glance.",
       "title": {
         "mode": "typeset",
         "font": "Cinzel Decorative",
@@ -161,7 +181,8 @@
       "value": "light",
       "model": { "model": "hoshino2", "width": 832, "height": 1216 },
       "stylePrompt": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, anime coloring, vibrant colors, high contrast, dynamic angle, foreshortening, fisheye, close-up, reaching towards viewer, motion lines, speed lines, electricity, yellow lightning, energy burst, sparks, glowing eyes, wind, action pose, glossy hair, detailed eyes, sharp focus, dramatic lighting, rim light. Explosive esports-thumbnail key art in electric yellow and cobalt blue, the character bursting toward the camera out of a lightning blast.",
-      "negativeExtra": "muted colors, pastel colors, monochrome, dark, night, blurry, static pose, standing still, multiple girls, multiple boys, crowd, huge breasts, cleavage, bodysuit, skin tight, from below, sweat",
+      "negativeExtra": "muted colors, pastel colors, monochrome, dark, night, blurry, static pose, standing still, multiple girls, multiple boys, crowd, huge breasts, gigantic breasts, bodysuit, from below, sweat",
+      "negativeNotes": "Not prompt text. 'cleavage' and 'skin tight' left the negative (2026-11-22: fitted and low-cut is now the look). 'huge breasts, gigantic breasts' stay as the SDXL brake (bakeoff.png); 'bodysuit' and 'sweat' stay because on Hoshino v2 they turn into a painted-on, shiny-skin fanservice look.",
       "composition": {
         "characters": 1,
         "framing": "extreme close-up to chest-up; head about 1/3 of the height, in the upper two-thirds",
@@ -180,7 +201,14 @@
         "light": "Hard rim light from the lightning blast behind; crackling yellow light across the face."
       },
       "background": "A radial yellow-white lightning explosion with speed lines and flying debris. Bright, no environment detail.",
-      "appeal": "A fit adult in their late twenties with a sharp, mature face and a fierce confident grin; a white-and-cobalt hero jacket with armoured shoulder plates, sleeves pushed up and the collar open over a fitted top, or a cropped bomber jacket worn open over a fitted top; toned forearms and collarbone, wind-blown hair.",
+      "appeal": "Fierce, fit and in your face.",
+      "femaleAppeal": {
+        "tags": "large breasts, cleavage, collarbone, curvy, toned, midriff, navel, crop top, black crop top, scoop neck, cropped jacket, open jacket, shoulder armor, sleeves rolled up, belt",
+        "poseTags": "upper body, dutch angle, foreshortening, fist towards viewer, clenched hand, hand on hip, head tilt, grin, fierce, looking at viewer, wind, floating hair",
+        "prose": "A fit, curvy woman in her late twenties with a sharp, mature face: a white-and-cobalt hero jacket with armoured shoulder plates, cropped short and worn open with the sleeves pushed up, over a black cropped top with a low scoop neck that shows cleavage, a bare toned midriff above a low-slung belt; wind-blown hair and a fierce, cocky grin.",
+        "framing": "chest-up widened to the waist ('upper body') so the bare midriff is in the picture; head about 1/4 of the height; still never from below"
+      },
+      "maleAppeal": "A fit adult in their late twenties with a sharp, mature face and a fierce confident grin; a white-and-cobalt hero jacket with armoured shoulder plates, sleeves pushed up and the collar open over a fitted top, or a cropped bomber jacket worn open over a fitted top; toned forearms and collarbone, wind-blown hair.",
       "title": {
         "mode": "typeset",
         "font": "Russo One",
@@ -217,7 +245,8 @@
       "value": "light",
       "model": { "model": "haruka2", "width": 832, "height": 1216 },
       "stylePrompt": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, pink background, simple background, solid color background, pink theme, magenta, halftone, pop art, graphic design, bold outline, white outline, cel shading, flat color, vibrant, high saturation, glossy hair, sharp focus. A loud flat hot-pink poster: one character cut out cleanly against a single magenta field.",
-      "negativeExtra": "detailed background, scenery, outdoors, indoors, dark, muted colors, monochrome, multiple girls, multiple boys, crowd, huge breasts, cleavage, leaning forward, from below, from above",
+      "negativeExtra": "detailed background, scenery, outdoors, indoors, dark, muted colors, monochrome, multiple girls, multiple boys, crowd, huge breasts, gigantic breasts, leaning forward, from below, from above",
+      "negativeNotes": "Not prompt text. 'cleavage' left the negative (2026-11-22). 'huge breasts, gigantic breasts' stay as the SDXL brake: Haruka v2 ballooned the chest from one 'cleavage' tag (bakeoff.png). 'leaning forward' and 'from above' stay: on SDXL both frame the chest instead of the face.",
       "composition": {
         "characters": 1,
         "framing": "waist-up, centred, slightly low; head about 1/4 of the height in the upper middle",
@@ -236,7 +265,14 @@
         "light": "Flat, even pop lighting; a white cut-out outline around the figure."
       },
       "background": "A flat hot-pink field with a soft radial glow and a faint halftone dot pattern. Nothing else.",
-      "appeal": "An adult woman in her mid-twenties (horns, fangs or animal ears for monster stories) in a black cropped blazer or leather jacket worn open over a fitted crop top, bare shoulders and midriff, a choker, a playful wink. A male lead: an open black jacket over a fitted tee, a fanged grin, messy hair.",
+      "appeal": "Loud, playful and cocky.",
+      "femaleAppeal": {
+        "tags": "large breasts, cleavage, collarbone, bare shoulders, curvy, wide hips, midriff, navel, crop top, white crop top, tank top, cropped jacket, black jacket, leather jacket, open jacket, off shoulder, choker, low-rise pants, black pants, belt",
+        "poseTags": "upper body, standing, hand on hip, v, head tilt, looking at viewer, grin, fang, one eye closed",
+        "prose": "A grown woman in her mid-to-late twenties with a mature face and a curvy adult figure (horns, fangs or animal ears for monster stories): a black cropped leather jacket worn open and pushed off both shoulders, over a white cropped tank top with a low scoop neck that shows cleavage, a bare toned midriff, low-rise black trousers with a studded belt on her hips, a black choker; a playful wink and a fanged grin.",
+        "framing": "waist-up widened to the hips, so the midriff and the hand on the hip show; standing square to the viewer, never leaning toward the camera"
+      },
+      "maleAppeal": "A male lead: an open black jacket over a fitted tee, a fanged grin, messy hair.",
       "title": {
         "mode": "typeset",
         "font": "Anton",
@@ -276,7 +312,8 @@
       "value": "light",
       "model": { "model": "hoshino2", "width": 832, "height": 1216 },
       "stylePrompt": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, monochrome, greyscale, spot color, red accent, limited palette, ink wash painting, sumi-e, ink sketch, traditional media, brush strokes, ink splatter, high contrast, white background, paper texture, sharp lineart, hatching, dramatic. A black-and-white ink drawing on pale paper with exactly one vermilion red accent.",
-      "negativeExtra": "colorful, full color, blue, green, yellow, purple, glossy, 3d, multiple girls, multiple boys, crowd, huge breasts, cleavage",
+      "negativeExtra": "colorful, full color, blue, green, yellow, purple, glossy, 3d, multiple girls, multiple boys, crowd, huge breasts, gigantic breasts",
+      "negativeNotes": "Not prompt text. 'cleavage' left the negative (2026-11-22). 'huge breasts, gigantic breasts' stay as the SDXL brake: a strict profile makes the chest the silhouette's outline, and Hoshino v2 ballooned it from one 'cleavage' tag (bakeoff.png).",
       "composition": {
         "characters": 1,
         "framing": "profile, chest-up to waist-up; figure on the right two-thirds, facing left",
@@ -295,15 +332,22 @@
         "light": "Flat paper light; the contrast comes from the ink, not from lighting. The red appears once: lips, a scarf, a ribbon or a blood streak."
       },
       "background": "Off-white rice paper with grey ink wash and splatter; a city street or rooftops suggested in loose brush lines. Light overall.",
-      "appeal": "Sharp adult beauty in profile: a strong jaw and neck line, long lashes, red lips as the single accent; a black halter-neck top that bares the shoulders and arms under a long coat slung off the shoulders, or a dark kimono slipping off one shoulder; hair whipping in the wind. A male lead: an open-collared white shirt under a long black coat, tie loosened.",
+      "appeal": "Sharp adult beauty in profile, one red accent.",
+      "femaleAppeal": {
+        "tags": "large breasts, cleavage, collarbone, bare shoulders, bare arms, halter top, black halter top, crop top, midriff, curvy, high-waist pants, black pants, long coat, black coat, off shoulder, red lips",
+        "poseTags": "from side, profile, facing left, upper body, aiming, holding gun, serious, wind, floating hair, red lips",
+        "prose": "Sharp adult beauty in profile: a woman in her late twenties with a mature face, a strong jaw and neck line, long lashes and red lips as the single accent; a black halter-neck crop top cut low at the front to show cleavage, leaving her shoulders, arms and back bare and a strip of toned midriff above high-waisted black trousers; a long black coat slung off both shoulders, hanging at her elbows and whipping in the wind; a curvy adult silhouette.",
+        "framing": "waist-up (not chest-up), so the profile silhouette and the midriff show"
+      },
+      "maleAppeal": "A male lead: an open-collared white shirt under a long black coat, tie loosened.",
       "title": {
         "mode": "typeset",
-        "font": "Sedgwick Ave Display",
+        "font": "Protest Revolution",
         "weight": 400,
         "case": "upper",
         "split": "balanced",
         "color": "#111111",
-        "stroke": null,
+        "stroke": [{ "color": "#111111", "width": 3 }],
         "glow": { "color": "#F2EFE8", "radius": 16, "opacity": 0.9, "spread": 8 },
         "rotate": -3,
         "ornament": [
@@ -316,7 +360,7 @@
         "lineHeight": 1.02,
         "sizeShare": 0.17,
         "scrim": { "edge": "bottom", "color": "#F2EFE8", "opacity": 0.8, "from": 0.58 },
-        "extra": "Black marker-brush capitals on paper (the Monochrome City voice), tilted up 3 degrees, with a red brush swash under them and a square red hanko seal carrying the title's initials in carved Cinzel. The paper-coloured halo and scrim keep it legible."
+        "extra": "Black dry-brush capitals on paper (Protest Revolution, thickened by a 3 px ink stroke so it holds on the shelf; the Monochrome City voice), tilted up 3 degrees, with a red brush swash under them and a square red hanko seal carrying the title's initials in carved Cinzel. The paper-coloured halo and scrim keep it legible. Was Sedgwick Ave Display until 2026-11-22: its capital S reads as a backwards Z and its L as an h (SKILLS read ZKIhhZ), and its lowercase is the same unicase forms, so title case did not fix it."
       },
       "frame": { "type": "none", "label": "none" }
     },
@@ -329,7 +373,8 @@
       "value": "light",
       "model": { "model": "haruka2", "width": 832, "height": 1216 },
       "stylePrompt": "masterpiece, best quality, amazing quality, very aesthetic, absurdres, webtoon, cel shading, clean lineart, bright colors, vivid, daylight, sunlight, blue sky, cumulonimbus cloud, summer, green trees, flying leaves, wind, lens flare, outdoors, eye level, casual clothes, dynamic composition. A sunny summer romcom webtoon cover: two adults laughing against a huge blue sky.",
-      "negativeExtra": "night, dark, indoors, muted colors, monochrome, crowd, huge breasts, cleavage, from below, upskirt, pink theme",
+      "negativeExtra": "night, dark, indoors, muted colors, monochrome, crowd, huge breasts, gigantic breasts, from below, upskirt, pink theme",
+      "negativeNotes": "Not prompt text. 'cleavage' left the negative (2026-11-22). 'huge breasts, gigantic breasts' stay as the SDXL brake (Haruka v2, bakeoff.png). 'from below, upskirt' stay: wind and a low horizon.",
       "composition": {
         "characters": 2,
         "framing": "knees-up, outdoors; the pair fills the left 70%, the right 22% is open sky",
@@ -348,7 +393,15 @@
         "light": "Bright midday sun, crisp cel shadows, lens flare."
       },
       "background": "A big blue sky with towering white clouds over a rooftop rail, a meadow or a riverbank; green summer trees, leaves blowing.",
-      "appeal": "Two attractive adults in their mid-to-late twenties with mature faces, in stylish summer clothes: an oversized open shirt or cropped varsity jacket over a tank top with high-waisted jeans; an off-shoulder knit top with a long flowing summer skirt; sunlit glossy hair, bright eyes, a flirty teasing dynamic. Academy stories dress them in street clothes or a jacket with the academy crest.",
+      "appeal": "Two attractive adults in their mid-to-late twenties with mature faces, in stylish summer clothes, sunlit glossy hair, bright eyes, a flirty teasing dynamic. Academy stories dress them in street clothes or a jacket with the academy crest, never a uniform.",
+      "femaleAppeal": {
+        "tags": "large breasts, cleavage, collarbone, bare shoulders, off-shoulder shirt, off shoulder, crop top, white crop top, midriff, navel, denim shorts, high-waist shorts, bare legs, thighs, curvy, wide hips, necklace, eyewear on head",
+        "poseTags": "arm hug, arm behind head, laughing, smile, looking at viewer, cowboy shot, eye level, sky on the right side",
+        "prose": "A grown woman in her mid-to-late twenties with a mature face and a curvy adult figure: a white off-shoulder summer crop top with a wide neckline that shows cleavage and bares her shoulders and toned midriff, high-waisted denim shorts, long bare legs, a thin gold necklace, sunglasses pushed up into sunlit glossy hair; a flirty, teasing laugh.",
+        "pose": "She hooks one arm through his and raises the other behind her head, laughing at the viewer; knees-up at eye level.",
+        "notes": "Not prompt text. Shorts, not a skirt: wind plus a skirt on SDXL is an upskirt risk."
+      },
+      "maleAppeal": "An oversized open shirt or cropped varsity jacket over a tank top with high-waisted jeans; sunlit glossy hair, bright eyes, a flirty teasing dynamic.",
       "title": {
         "mode": "typeset",
         "font": "Dela Gothic One",
@@ -396,7 +449,7 @@
         "characters": 1,
         "framing": "full body or knees-up, seated; the character in the right/centre of the picture",
         "pose": "curled up on a window seat, sofa or café stool, holding a mug or a book against the chest, head tilted, a small warm smile at the viewer",
-        "camera": "slightly above eye level, close and personal",
+        "camera": "eye level, close and personal (was 'slightly above': looking down a loose off-shoulder neckline frames the chest)",
         "titleSpace": "the top-left 30% is soft bokeh for a notebook-scrap title",
         "prompt": "Full body, sitting curled up on a cushioned window seat in the right half of the picture, both hands around a warm mug, head tilted, a small warm smile at the viewer. The upper left of the picture is soft out-of-focus fairy lights."
       },
@@ -410,8 +463,14 @@
         "light": "Warm lamp light from the side plus soft window daylight; glowing round bokeh."
       },
       "background": "A cosy apartment, inn room or café: plants, string lights, a rain-speckled window, shelves, all softly out of focus.",
-      "appeal": "Relaxed adult charm: a woman in her late twenties with a mature face in an oversized knit sweater slipping off one shoulder over a tank top, soft knit lounge trousers and fuzzy socks, legs tucked up, loose hair, glasses pushed up. A male lead in a rolled-sleeve open-collar shirt and an apron, or a soft cardigan, forearms bare. Intimate but wholesome.",
-      "promptNotes": "Not prompt text. Always name the lower garment (lounge trousers, a long skirt, jeans): Tsubaki.2 standard ignores the negative prompt, and an oversized sweater with nothing named below it tends to draw bare legs and no trousers.",
+      "appeal": "Relaxed, warm, intimate adult charm.",
+      "femaleAppeal": {
+        "prose": "A woman in her late twenties with a mature face and a soft, curvy adult figure, in an oversized cream knit sweater slipping off one bare shoulder, its wide loose neckline showing cleavage while the opaque knit covers her chest, and soft grey knit lounge shorts; long bare legs tucked to one side, fuzzy ankle socks, loose tousled hair, glasses pushed up, rosy lamp-lit skin, a sleepy, teasing smile.",
+        "pose": "Sitting sideways on the cushioned window seat at eye level, knees together and legs tucked to one side, a warm mug held at her lips in both hands, the bare shoulder turned toward the viewer, head tilted.",
+        "notes": "Not prompt text. Seated and upright, never lying back. The mug sits at her lips, not against her chest, so the neckline shows."
+      },
+      "maleAppeal": "A male lead in a rolled-sleeve open-collar shirt and an apron, or a soft cardigan, forearms bare. Intimate but wholesome.",
+      "promptNotes": "Not prompt text. Always name the lower garment (lounge shorts, lounge trousers, a long skirt, jeans) and say the knit covers her chest: Tsubaki.2 standard ignores the negative prompt, and an oversized sweater with nothing named below it tends to draw bare legs and no trousers.",
       "title": {
         "mode": "typeset",
         "font": "Caveat",
@@ -463,7 +522,13 @@
         "light": "Low-key and cold: a silver-blue key from a rain-streaked window on one side, a crimson rim from behind, rain glints. No warm candle gold (that is Gilded's palette)."
       },
       "background": "A dark cathedral or wedding hall at night with rain running down the tall windows, or a rainy night street; scattered red roses and petals, out of focus.",
-      "appeal": "Glamour: a deep red or black off-the-shoulder gown, or a wedding dress with bare shoulders, diamond earrings, red lips, a few wet strands of hair; the other a tall adult in a black three-piece suit with the tie loosened. Charged and romantic, never sexual.",
+      "appeal": "Glamour and romantic tension, one frozen dramatic moment. Charged and romantic, never a sexual pose.",
+      "femaleAppeal": {
+        "prose": "A woman in her late twenties or thirties with a mature face and a curvy adult figure, in a bride's ivory satin gown or a deep red one, worn off both shoulders, with a deep plunging sweetheart neckline that shows clear cleavage and an opaque corseted bodice cinched tight at the waist; bare shoulders, arms and collarbones, a diamond pendant resting at the neckline, diamond earrings, red lips, a few wet strands of hair clinging to a bare shoulder.",
+        "pose": "In front, her body turned three-quarters to the viewer, chin raised, one hand at her bare collarbone and the other holding a red rose at her hip; behind her, his hand rests on her bare shoulder.",
+        "notes": "Not prompt text. Tsubaki.2 standard ignores the negative, so 'opaque corseted bodice' stays in the prose. No kissing, no embrace from behind."
+      },
+      "maleAppeal": "The other a tall adult in a black three-piece suit with the tie loosened.",
       "title": {
         "mode": "typeset",
         "font": "Great Vibes",
@@ -525,7 +590,13 @@
         "light": "Cool starlight with a moon backlight; cyan rim light on hair and fabric."
       },
       "background": "A galaxy: nebula clouds, a dense star field, constellation lines, a giant moon or planet low on the horizon. Or a night rooftop under a meteor shower.",
-      "appeal": "Statuesque adult figure in her late twenties: a flowing ankle-length star-patterned gown with bare shoulders and an opaque fitted bodice, a long cape trailing like a comet tail. A male lead in a long open dark coat with silver embroidery over a fitted shirt, collar open. Serene or longing.",
+      "appeal": "Statuesque, serene or longing, vast and fated.",
+      "femaleAppeal": {
+        "prose": "A statuesque woman in her late twenties with a mature face and a curvy, full adult figure, in a low-cut midnight-blue gown scattered with silver stars: a plunging neckline that shows clear cleavage, bare shoulders and arms, an opaque fitted bodice cinched at the waist, and a long flowing skirt with a high side slit that bares one leg to the thigh as the skirt streams sideways like a comet tail; long ribbons of starlight trail from her wrists.",
+        "pose": "Standing upright on the floating shard, seen at eye level from a little distance, body in a graceful S-curve with one hip out and the slit leg stepping forward, one hand reaching up toward a bright star and the other at her hip, a longing, half-lidded look.",
+        "notes": "Not prompt text. Camera stays at eye level: a slit gown in wind seen from below is an upskirt."
+      },
+      "maleAppeal": "A male lead in a long open dark coat with silver embroidery over a fitted shirt, collar open. Serene or longing.",
       "title": {
         "mode": "typeset",
         "font": "Shippori Mincho B1",
@@ -559,16 +630,15 @@
       "fitsGenres": ["system or LitRPG", "game world or isekai", "rankings and leaderboards", "regression with stats", "dungeon", "skills and gacha"],
       "value": "dark",
       "model": { "model": "tsubaki3", "mode": "pro", "width": 1152, "height": 1744 },
-      "stylePrompt": "Glossy anime game key art built around a holographic game interface: crisp clean lineart, acid-green neon light with hot-magenta glitch accents, translucent glowing green interface windows with thin bright borders, stat bars, skill icons and hexagon grids floating in the air, faint scanlines and magenta-and-green chromatic-aberration glitch at the edges, green screen light reflecting on the face and hair. A deep green-black backdrop with a dim city or dungeon far behind. Sharp, techy, high contrast; acid green is the dominant colour, not blue.",
+      "stylePrompt": "Glossy anime game key art built around a holographic game interface: crisp clean lineart, acid-green neon light with hot-magenta glitch accents, translucent glowing green interface windows with thin bright borders, stat bars, skill icons and hexagon grids floating in the air, faint scanlines and magenta-and-green chromatic-aberration glitch at the edges, green screen light reflecting on the face and hair. A deep green-black backdrop with a dim city or dungeon far behind. Sharp, techy, high contrast; acid green is the dominant colour, not blue. The interface windows show only bars, icons and grids: nothing written anywhere, no text, no letters, no logo.",
       "negativeExtra": "warm colors, daylight, painterly blur, blue theme, cyan theme, multiple girls, multiple boys, crowd",
-      "negativeDrop": ["text", "letters", "logo", "title", "words"],
       "composition": {
         "characters": 1,
-        "framing": "waist-up in the lower 60%; a giant holographic window across the top third",
+        "framing": "waist-up in the lower 65%; the top quarter dim green-black with only faint interface glow",
         "pose": "three-quarter view, looking at the viewer with a smirk, one hand raised touching or swiping a floating panel",
         "camera": "eye level, slightly low",
-        "titleSpace": "the title is painted inside the big window at the top",
-        "prompt": "Waist-up in the lower part of the picture, three-quarter view, looking at the viewer with a sly smirk, one hand raised and touching a small floating interface panel."
+        "titleSpace": "the top 25% stays dim and quiet for the typeset SYSTEM panel (the title is no longer painted)",
+        "prompt": "Waist-up in the lower part of the picture, three-quarter view, looking at the viewer with a sly smirk, one hand raised and touching a small floating interface panel. The top quarter of the picture is dim green-black space with only faint interface glow and no window in it."
       },
       "palette": {
         "colors": [
@@ -580,35 +650,36 @@
         "light": "Screen light: acid green from the interface windows in front, a hot-magenta glitch rim from behind. Green, not cyan: cool blue-cyan glow is Starlit Night's, on the same model."
       },
       "background": "Deep green-black space filled with translucent interface windows, stat bars, hexagon grids and skill icons; a dim city skyline or dungeon gate far behind.",
-      "appeal": "A sharp-featured adult in their late twenties: a fitted black tech jacket worn open over a cropped top or a fitted shirt with the collar open, bare collarbone, a glowing earpiece, green screen light on glossy hair, a knowing smirk.",
+      "appeal": "Sharp, techy and knowing.",
+      "femaleAppeal": {
+        "prose": "A sharp-featured woman in her late twenties with a mature face and a curvy, athletic adult figure: a fitted black cropped tactical top with the front zip pulled low to show cleavage, a bare toned midriff, a cropped black tech jacket worn open and slipping off one shoulder, fitted low-rise cargo trousers with a utility belt; a glowing earpiece, green screen light on glossy hair, a knowing smirk.",
+        "pose": "Waist-up, three-quarter view, one hand on her hip and the other raised, swiping a floating interface panel; looking at the viewer with a sly smirk."
+      },
+      "maleAppeal": "A sharp-featured adult in their late twenties: a fitted black tech jacket worn open over a fitted shirt with the collar open, bare collarbone, a glowing earpiece, green screen light on glossy hair, a knowing smirk.",
       "title": {
-        "mode": "painted",
+        "mode": "typeset",
         "font": "Orbitron",
         "weight": 900,
         "case": "upper",
-        "paintedPrompt": "Across the top third of the picture, one large holographic SYSTEM window with a glowing acid-green border; inside it the title \"{TITLE}\" in big bold white futuristic game-logo capitals with an acid-green glow, spelled exactly \"{TITLE}\". The small interface panels show only bars and icons, no other readable words.",
+        "split": "balanced",
+        "color": "#FFFFFF",
+        "stroke": [{ "color": "#0B3A12", "width": 4 }],
+        "glow": { "color": "#7CFF4F", "radius": 20, "opacity": 0.9, "spread": 4 },
+        "kicker": { "font": "Orbitron", "weight": 600, "case": "upper", "size": 32, "tracking": 0.3, "color": "#FF4FB0" },
+        "ornament": [
+          { "type": "panel", "color": "#04170A", "opacity": 0.92, "border": "#7CFF4F" },
+          { "type": "hud-brackets", "color": "#7CFF4F", "target": "block" }
+        ],
         "position": "top",
-        "sizeShare": 0.16,
-        "extra": "Painted by Tsubaki.3 inside the art; the renderer only adds the frame. If the painted title is misspelled, render the fallback instead (cover-title-v3.py --fallback) on a redraw without the window.",
-        "fallback": {
-          "mode": "typeset",
-          "font": "Orbitron",
-          "weight": 900,
-          "case": "upper",
-          "split": "kicker",
-          "color": "#FFFFFF",
-          "stroke": [{ "color": "#0B3A12", "width": 4 }],
-          "glow": { "color": "#7CFF4F", "radius": 20, "opacity": 0.9, "spread": 4 },
-          "kicker": { "font": "Orbitron", "weight": 600, "case": "upper", "size": 32, "tracking": 0.3, "color": "#FF4FB0" },
-          "ornament": [
-            { "type": "panel", "color": "#04170A", "opacity": 0.74, "border": "#7CFF4F" },
-            { "type": "hud-brackets", "color": "#7CFF4F", "target": "block" }
-          ],
-          "position": "top",
-          "topMargin": 0.075,
-          "lineHeight": 1.0,
-          "sizeShare": 0.14,
-          "scrim": { "edge": "top", "color": "#020A04", "opacity": 0.55, "from": 0.4 }
+        "topMargin": 0.075,
+        "lineHeight": 1.0,
+        "sizeShare": 0.15,
+        "scrim": { "edge": "top", "color": "#020A04", "opacity": 0.55, "from": 0.4 },
+        "extra": "Typeset for every story (2026-11-22): white Orbitron 900 capitals with a dark-green stroke and an acid-green glow, the whole title at one size on up to two balanced lines, inside a near-opaque dark-green SYSTEM panel with HUD brackets. It replaced the painted title because Tsubaki.3 painted 'CLeanup Crew' in mixed case on the test. The panel is 0.92 opaque so that an old raw that still has a painted window does not ghost through it. The kicker style is used only when --lines asks for a kicker.",
+        "paintedRetired": {
+          "date": "2026-11-22",
+          "why": "Tsubaki.3 set the painted title in odd mixed case ('CLeanup Crew, E-Rank') on story_cleanup_crew_e_rank. Not prompt text; kept for the record.",
+          "paintedPrompt": "Across the top third of the picture, one large holographic SYSTEM window with a glowing acid-green border; inside it the title \"{TITLE}\" in big bold white futuristic game-logo capitals with an acid-green glow, spelled exactly \"{TITLE}\". The small interface panels show only bars and icons, no other readable words."
         }
       },
       "frame": { "type": "neon-hud", "label": "neon acid-green inset rule with viewfinder corners", "color": "#7CFF4F", "inset": 24 }

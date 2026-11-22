@@ -72,10 +72,14 @@ const FORBIDDEN: readonly RegExp[] = [
   /\bchild(ren)?\b/i, /\bkids?\b/i, /\bloli\b/i, /\bshota\b/i, /\bteen(ager)?s?\b/i, /\bunderage\b/i,
   /\blittle girl\b/i, /\blittle boy\b/i, /\byoung-looking\b/i, /\bpetite\b/i,
   /\bschool ?uniform\b/i, /\bserafuku\b/i, /\bschoolgirl\b/i, /\bsexy\b/i, /\bseductive\b/i,
-  /\bspread legs\b/i,
+  /\bspread legs\b/i, /\bupskirt\b/i, /\bpantyshot\b/i,
 ];
-/** Haruka v2 and Hoshino v2 blow these tags up (cover-style-v2/bakeoff.png); Tsubaki takes them in prose. */
-const FORBIDDEN_SDXL: readonly RegExp[] = [/\bcleavage\b/i, /\b(large|huge|gigantic|big) breasts\b/i];
+/**
+ * Female leads on Haruka v2 / Hoshino v2 take 'large breasts, cleavage' (owner, 2026-11-22), but one
+ * 'cleavage' tag alone already ballooned the chest there (cover-style-v2/bakeoff.png), so the bigger tags
+ * stay out of the positive and in every SDXL recipe's negative as a brake.
+ */
+const FORBIDDEN_SDXL: readonly RegExp[] = [/\b(huge|gigantic) breasts\b/i];
 const NEGATIVE_MUST = ['nsfw', 'nude', 'child'];
 
 /** Legal sizes: Tsubaki.3 512-2496 step 16; the others (SDXL tier 0, Tsubaki.2) 512-1280 step 8. */

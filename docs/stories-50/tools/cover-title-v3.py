@@ -20,18 +20,24 @@ Title spec keys (every px value is at 1152x1744):
   maxLines (2 by default; 3 lets a "balanced" title of three or more words stack on three lines when that
   buys bigger type), ornament [...], position (top | middle | bottom | top-left | middle-left | bottom-left | right-vertical),
   marginX, topMargin, bottomMargin, indent, lineHeight, overlap, sizeShare (share of cover height the
-  block aims for; of cover width for a vertical title), scrim {edge, color, opacity, from}.
+  block aims for; of cover width for a vertical title), scrim {edge, color, opacity, from}, and for a per-story
+  placement maxWidth (share of cover width), scale (at most), offset [dx, dy].
+A story whose art puts a face under the recipe's title spot gets an entry in TITLE_OVERRIDES (position,
+margins, a fixed split, ...); it applies whenever --story names it with the recipe it was made for.
 Ornaments: rule-diamond, rules-star, rules-flank, sparkles, hud-brackets, seal, brush-swash, paper-scrap,
 doodles, panel. Frames: none, thin, gold-ornate, neon-hud.
 
-The (kicker, big) split comes from split_title() in cover-title.py (its SPLITS table covers every new-50
-title). Fonts are OFL families from github.com/google/fonts at a pinned commit, downloaded on first use
+A "kicker" recipe sets each title by KICKER_SPLITS: a (kicker, main) pair, or equal lines all in the main
+style. The kicker must read on the shelf (a cover about 160 px wide): it carries at most ~45% of the
+characters, and its cap height is at least KICKER_RATIO of the main line's (KICKER_FLOOR of the cover
+height when the main is small), its tracking eased and its strokes, label and shadow grown to match. A title
+of EQUAL_MAX characters or fewer, or one with no natural break that short, is set on one or two equal
+lines. Fonts are OFL families from github.com/google/fonts at a pinned commit, downloaded on first use
 into docs/stories-50/tools/fonts/ (sources in fonts/README.md).
 """
 import argparse
 import glob
 import hashlib
-import importlib.util
 import json
 import math
 import os
@@ -67,6 +73,7 @@ FONTS = {
     'Anton': {'file': 'ofl/anton/Anton-Regular.ttf'},
     'Oswald': {'file': 'ofl/oswald/Oswald[wght].ttf', 'variable': True},
     'Sedgwick Ave Display': {'file': 'ofl/sedgwickavedisplay/SedgwickAveDisplay-Regular.ttf'},
+    'Protest Revolution': {'file': 'ofl/protestrevolution/ProtestRevolution-Regular.ttf'},
     'Dela Gothic One': {'file': 'ofl/delagothicone/DelaGothicOne-Regular.ttf'},
     'Caveat': {'file': 'ofl/caveat/Caveat[wght].ttf', 'variable': True},
     'Playfair Display': {'file': 'ofl/playfairdisplay/PlayfairDisplay[wght].ttf',
@@ -90,6 +97,116 @@ SAMPLES = {
     'system-window': 'story_skill_error',
 }
 SMALL_WORDS = {'a', 'an', 'the', 'of', 'to', 'at', 'in', 'on', 'for', 'with', 'from', 'and', 'or', 'as', 'is'}
+
+# Kicker recipes: how each new-50 title is set. A pair is (kicker, main), the kicker an opening phrase of at
+# most ~45% of the characters (v2's 'THE ZOMBIE WHO SAID' over 'PLEASE' left a reader only 'PLEASE'). A list
+# is equal lines, all in the main style (one line still wins unless two buy 15% bigger type): every title of
+# EQUAL_MAX characters or fewer, and every title whose only natural kicker would carry more than that.
+KICKER_SPLITS = {
+    'Affection: 97': ['Affection:', '97'],
+    'Annulled, Then Claimed': ('Annulled,', 'Then Claimed'),
+    'Back Row at My Own Wedding': ('Back Row at', 'My Own Wedding'),
+    'Cleanup Crew, E-Rank': ['Cleanup Crew,', 'E-Rank'],
+    'Crest Academy': ['Crest', 'Academy'],
+    'Cut Loose at Floor 99': ('Cut Loose', 'at Floor 99'),
+    'Echo Class': ['Echo', 'Class'],
+    'Every Platform a World': ['Every Platform', 'a World'],
+    'Finals Week Outbreak': ['Finals Week', 'Outbreak'],
+    'He Burned the Capital': ('He Burned', 'the Capital'),
+    'Human, Row Three': ('Human,', 'Row Three'),
+    'Ice Queen’s Fake Boyfriend': ('Ice Queen’s', 'Fake Boyfriend'),
+    'Inherited: One Failing Clan': ('Inherited:', 'One Failing Clan'),
+    'Level One, Wyvern Slayer': ('Level One,', 'Wyvern Slayer'),
+    'Married to the Shrine Fox': ('Married to', 'the Shrine Fox'),
+    'Noodles or Blood': ('Noodles', 'or Blood'),
+    'Nova House': ['Nova', 'House'],
+    'One Miracle a Day': ['One Miracle', 'a Day'],
+    'One Week, She Said': ['One Week,', 'She Said'],
+    'One-Year Bride': ['One-Year', 'Bride'],
+    'Pack Rank': ['Pack', 'Rank'],
+    'Paid to Kill Me': ['Paid to', 'Kill Me'],
+    'Rank Zero': ['Rank', 'Zero'],
+    'Rent Is One True Story': ('Rent Is', 'One True Story'),
+    'Rescue Rating': ['Rescue', 'Rating'],
+    'Restart at Eighteen': ('Restart', 'at Eighteen'),
+    'Roommate Lottery': ['Roommate', 'Lottery'],
+    'Seven Years Early': ['Seven Years', 'Early'],
+    'Skill: ERROR': ['Skill:', 'ERROR'],
+    'Struck From the Register': ('Struck From', 'the Register'),
+    'Ten Points to Expulsion': ('Ten Points', 'to Expulsion'),
+    'The Cult Master Wakes as a Servant': ('The Cult Master', 'Wakes as a Servant'),
+    'The Hero’s Spare': ['The Hero’s', 'Spare'],
+    'The Last Mimic': ['The Last', 'Mimic'],
+    'The Maid Owns the House Now': ('The Maid', 'Owns the House Now'),
+    'The Morning of the Gallows': ('The Morning', 'of the Gallows'),
+    'The One-Copper Inn': ['The One-Copper', 'Inn'],
+    'The Only Girl at Blackthorn': ('The Only', 'Girl at Blackthorn'),
+    'The Only Man at Thornwitch': ('The Only', 'Man at Thornwitch'),
+    'The Ranking Board': ('The', 'Ranking Board'),
+    'The Villain Dies in Chapter Three': ('The Villain', 'Dies in Chapter Three'),
+    'The Wolf Clan’s Guest': ('The', 'Wolf Clan’s Guest'),
+    'The Zombie Who Said Please': ('The Zombie', 'Who Said Please'),
+    'Thin Walls': ['Thin', 'Walls'],
+    'Thirty Days With the Number One Hero': ('Thirty Days With', 'the Number One Hero'),
+    'Three Feet Apart': ['Three Feet', 'Apart'],
+    'Three Heroines and a Porter': ['Three Heroines', 'and a Porter'],
+    'Three Skills a Morning': ['Three Skills', 'a Morning'],
+    'Unit Nine': ['Unit', 'Nine'],
+    'Villain Track': ['Villain', 'Track'],
+}
+EQUAL_MAX = 14            # a title this short is never split into kicker + main
+KICKER_MAX_SHARE = 0.46   # the kicker's share of the title's characters ('Struck From' is 11 of 24)
+KICKER_RATIO = 0.45       # kicker cap height / main cap height, at least
+KICKER_FLOOR = 0.04       # ...and a cap height of at least this share of the cover height (a font size of
+                          # about 5.5%; 10 px of cap on a 160-px-wide shelf cover), for a main line kept small
+KICKER_FLOOR_CAP = 0.65   # by its width, unless that would take the kicker past this share of the main cap
+KICKER_MIN_CAP = 0.028    # below this cap height (share of the cover height; 7 px on the shelf) equal lines win
+
+# Per-story placement, for art where the recipe's title spot lands on a face. Keyed to the current raw in
+# cover-style-v3/raw/: after a redraw, check the face again and drop the entry if the recipe spot is clear.
+# 'recipe' is the recipe the entry was made for (it is ignored under any other); 'lines' is a fixed split, as
+# --lines; every other key replaces the recipe's title spec key of the same name (a 'scrim' is replaced whole).
+# Extra keys for this: maxWidth (share of the cover width the block may span), scale (shrink the finished
+# block, at most this), offset [dx, dy] (px at 1152x1744, after the position is applied). A 'position' other
+# than right-vertical sets a vertical recipe's title across the cover. Face boxes below are at 1152x1744.
+_BOTTOM_SCRIM = {'edge': 'bottom', 'color': '#050506', 'opacity': 0.75, 'from': 0.64}  # melodrama's top scrim, mirrored
+TITLE_OVERRIDES = {
+    # Face top-centre (x 520-850, y 200-560): one line ran across it; two lines end the scrap at x ~560.
+    'story_nova_house': {'recipe': 'cosy-lamp-bokeh', 'lines': ['Nova', 'House']},
+    # Face x 520-870, y 280-520: the scrap rides up to y ~80-330, over her crown only. Two lines cover the face.
+    'story_roommate_lottery': {'recipe': 'cosy-lamp-bokeh', 'topMargin': 0.012},
+    # Head top-centre (y 250-560): the scrap goes over her thigh and the cushion.
+    'story_every_platform_a_world': {'recipe': 'cosy-lamp-bokeh', 'position': 'bottom-left', 'bottomMargin': 0.06},
+    # Redraw still put her head top-centre (face x 410-770, y 260-600) and the cat's face bottom-left (x 190-410,
+    # y 1100-1330): the scrap goes bottom-right, over her thighs and shorts, clear of both faces.
+    'story_one_week_she_said': {'recipe': 'cosy-lamp-bokeh', 'position': 'bottom-right', 'bottomMargin': 0.012,
+                                'marginX': 0.03, 'lines': ['One Week,', 'She Said']},
+    # He is centred, face y 190-500, cup and hands y 1000-1200: the scrap goes over the lantern and boots.
+    'story_the_wolf_clan_s_guest': {'recipe': 'cosy-lamp-bokeh', 'position': 'bottom-left', 'bottomMargin': 0.06},
+    # Both heads at the top (eyes y ~300-400): title and scrim at the bottom, over the skirt and bouquet.
+    'story_back_row_at_my_own_wedding': {'recipe': 'melodrama-red-accent', 'position': 'bottom', 'bottomMargin': 0.06,
+                                         'scrim': _BOTTOM_SCRIM},
+    # Both pairs of eyes at y ~390, the ring hand ends y ~1370: title and scrim below the ring.
+    'story_he_burned_the_capital': {'recipe': 'melodrama-red-accent', 'position': 'bottom', 'bottomMargin': 0.06,
+                                    'scrim': _BOTTOM_SCRIM},
+    # The art fills the frame and the right woman's face reaches x ~900, so the right-edge column crossed it:
+    # set across the bottom, over the shorts (faces y 150-560).
+    'story_three_heroines_and_a_porter': {'recipe': 'sunlit-webtoon-duo', 'position': 'bottom', 'bottomMargin': 0.05,
+                                          'marginX': 0.03, 'sizeShare': 0.17},
+    # Second draw again ignored "right third open sky": Sara's face is x ~620-860, under the right-edge column.
+    # Set across the bottom, over the shorts and the dress hem (faces y 230-700). A cowboy-shot redraw keeps
+    # the faces up top, so this stays safe; drop it only if a redraw really leaves the right third empty.
+    'story_restart_at_eighteen': {'recipe': 'sunlit-webtoon-duo', 'position': 'bottom', 'bottomMargin': 0.05,
+                                  'marginX': 0.03, 'sizeShare': 0.17},
+    # Third draw: he stands right of centre and fills the right edge (face x 690-890, y 500-800), so the
+    # right-edge column ran over his face. The sky above both heads is empty (his hair starts y ~480): set
+    # across the top, ending y ~440.
+    'story_ice_queen_s_fake_boyfriend': {'recipe': 'sunlit-webtoon-duo', 'position': 'top', 'topMargin': 0.035,
+                                         'marginX': 0.04, 'sizeShare': 0.18},
+    # Third draw: her horn tips reach y ~295 (x 650-900); the recipe's scrap ended y ~360-410 and hid their
+    # upper third. Raised to the top edge and shrunk, it ends y ~260-320, clear of both horns.
+    'story_the_one_copper_inn': {'recipe': 'cosy-lamp-bokeh', 'topMargin': 0.015, 'scale': 0.86},
+}
 
 
 # ---------------------------------------------------------------- data
@@ -117,13 +234,38 @@ def fixture_title(story_id):
     sys.exit(f'{story_id}: no fixture with that storyId and a title in {FIXTURES}')
 
 
-def split_title(title):
-    """(kicker, big) from cover-title.py, the one table of new-50 splits."""
-    path = os.path.join(TOOLS, 'cover-title.py')
-    spec = importlib.util.spec_from_file_location('cover_title_v2', path)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod.split_title(title)
+def title_plan(title):
+    """How a kicker recipe sets `title`: a (kicker, main) pair, or a list of equal lines.
+
+    KICKER_SPLITS first. Otherwise a title of EQUAL_MAX characters or fewer is equal lines; a longer one takes
+    the longest opening phrase within KICKER_MAX_SHARE (after a comma or colon if there is one, never ending
+    on a small word unless it is a lone article), else equal lines.
+    """
+    words = title.split()
+    plan = KICKER_SPLITS.get(title)
+    if plan is None:
+        if len(title) > EQUAL_MAX and len(words) >= 2:
+            best = None
+            for i in range(1, len(words)):
+                k = ' '.join(words[:i])
+                share = len(k) / len(title)
+                if share > KICKER_MAX_SHARE:
+                    break
+                if i > 1 and words[i - 1].lower() in SMALL_WORDS:
+                    continue  # 'He Burned the / Capital'
+                score = share + (0.3 if k[-1] in ',:' else 0)
+                if best is None or score > best[0]:
+                    best = (score, (k, ' '.join(words[i:])))
+            if best:
+                return best[1]
+        return balanced_two(words) if len(words) >= 2 else [title]
+    parts = [p for p in plan if p]
+    if ' '.join(parts) != title:
+        sys.exit(f'KICKER_SPLITS[{title!r}] = {plan!r} does not spell the title')
+    if isinstance(plan, tuple) and (len(title) <= EQUAL_MAX or len(plan[0]) / len(title) > KICKER_MAX_SHARE):
+        sys.exit(f'KICKER_SPLITS[{title!r}]: a kicker needs a title over {EQUAL_MAX} characters and at most '
+                 f'{KICKER_MAX_SHARE:.0%} of them in the kicker; make it a list of equal lines')
+    return plan
 
 
 # ---------------------------------------------------------------- fonts and colour
@@ -368,6 +510,41 @@ def kicker_style(spec):
     return k
 
 
+def kicker_at(kst, ks, spec):
+    """The kicker style at ks px. Set bigger than its recipe size it keeps its look: tracking eases (down to
+    half; big type needs less), and its own strokes (up to the main line's widest), label and shadow grow
+    with it. A shadow or glow inherited from the main line is already at the main line's scale."""
+    f = ks / kst['size']
+    if f <= 1:
+        return kst
+    own = spec.get('kicker') or {}
+    k = dict(kst, tracking=kst.get('tracking', 0) * max(0.5, 1 / f))
+    widest = max([s['width'] for s in spec.get('stroke') or []] + [0])
+    if k.get('stroke'):
+        k['stroke'] = [dict(s, width=min(s['width'] * f, max(widest, s['width']))) for s in k['stroke']]
+    if k.get('label'):
+        k['label'] = dict(k['label'], padding=[p * f for p in k['label'].get('padding', [16, 8])],
+                          radius=k['label'].get('radius', 0) * f)
+    g = math.sqrt(f)
+    if own.get('shadow'):
+        k['shadow'] = dict(own['shadow'], radius=own['shadow'].get('radius', 0) * g,
+                           offset=[o * g for o in own['shadow'].get('offset', [0, 0])])
+    if own.get('glow'):
+        k['glow'] = dict(own['glow'], radius=own['glow']['radius'] * g, spread=own['glow'].get('spread', 0) * g)
+    return k
+
+
+def kicker_gap(ks, between):
+    """Space from the kicker's ink to the main line's: a rule between them gets 36-64 px of its own."""
+    return 0.3 * ks + (min(max(36, 0.5 * ks), 64) if between else 0)
+
+
+def cap_ratio(st):
+    """Cap height / font size: the top of an 'E' (Cinzel Decorative's H and N are swash-tall)."""
+    f = load_font(st['font'], 200, st.get('weight', 400), st.get('style') == 'italic')
+    return -f.getbbox('E', anchor='ls')[1] / f.size
+
+
 def big_style(spec):
     return {k: v for k, v in spec.items() if k not in ('kicker', 'ornament', 'scrim')}
 
@@ -380,18 +557,20 @@ def layout_lines(title, spec, lines_override):
     """Choose the lines and sizes. Returns (lines, info)."""
     vertical = spec.get('vertical') or spec.get('position') == 'right-vertical'
     split = spec.get('split', 'kicker')
+    options = None
     if lines_override:
         kicker, big = lines_override
         if split != 'kicker':
             kicker, options = None, [[p for p in (kicker, big) if p]]
-        else:
-            options = None
     elif split == 'kicker':
-        kicker, big = split_title(title)
-        options = None
+        plan = title_plan(title)
+        if isinstance(plan, tuple):
+            kicker, big = plan
+        else:  # equal lines: the whole title in the main style, on one line or the plan's lines
+            kicker, big = None, title
+            options = [[title]] + ([plan] if len(plan) > 1 else [])
     else:
         kicker, big = None, title
-        options = None
     if options is None:
         words = big.split()
         options = [[big]]
@@ -403,15 +582,20 @@ def layout_lines(title, spec, lines_override):
         if len(words) >= 3 and split == 'balanced' and spec.get('maxLines', 2) >= 3:
             options.append(balanced_three(words))
     bst = big_style(spec)
-    if spec.get('brackets'):
+
+    def bracketed(opts):
+        if not spec.get('brackets'):
+            return opts
         o, c = spec['brackets']
-        options = [[o + opt[0]] + opt[1:-1] + [opt[-1] + c] if len(opt) > 1 else [o + opt[0] + c] for opt in options]
+        return [[o + opt[0]] + opt[1:-1] + [opt[-1] + c] if len(opt) > 1 else [o + opt[0] + c] for opt in opts]
+
+    options = bracketed(options)
     if vertical:
         max_w = H * (1 - spec.get('topMargin', 0.06) - spec.get('bottomMargin', 0.06))
         target = spec['sizeShare'] * W
     else:
         mx = spec.get('marginX', 0.07)
-        max_w = W * (1 - 2 * mx)
+        max_w = W * min(1 - 2 * mx, spec.get('maxWidth', 1))
         target = spec['sizeShare'] * H
     kinds = {o['type'] for o in ornaments(spec)}
     max_w -= 90 if kinds & {'sparkles', 'hud-brackets'} else 0
@@ -422,28 +606,67 @@ def layout_lines(title, spec, lines_override):
         kst = dict(bst, tracking=0.15)
         kst['size'] = 0.4 * target
     between = any(o.get('where') == 'between' for o in ornaments(spec))
-    k_h = (kst['size'] * (1.3 + (0.9 if between else 0))) if kst else 0
-    best = None
-    for opt in options:
-        n = len(opt)
-        s0 = max(20, (target - k_h) / (0.75 + (n - 1) * lh))
-        avail = max_w - (spec.get('indent', 0) * W if n > 1 and spec.get('position', '').endswith('left') else 0)
-        s = s0
-        for text in opt:
-            s = min(s, fit_line(cased(text, bst), bst, s0, avail, 'big'))
-        # A second line must buy noticeably bigger type.
-        if best is None or s > best[0] * (1.15 if n > len(best[1]) else 1.0):
-            best = (s, opt)
-    size, opt = best
-    lines = []
+    cap_b = cap_ratio(bst)
     if kst:
         ktext = cased(kicker, kst)
-        ks = fit_line(ktext, kst, kst['size'], max_w, 'kicker')
-        lines.append(render_line(ktext, kst, ks, 'kicker'))
+        cap_k = cap_ratio(kst)
+
+    def kicker_size(s):
+        """The kicker's px for a main line at s: KICKER_RATIO of its cap height, or the KICKER_FLOOR."""
+        main_cap = s * cap_b
+        want = max(KICKER_RATIO * main_cap, min(KICKER_FLOOR * H, KICKER_FLOOR_CAP * main_cap))
+        return max(kst['size'], want / cap_k)
+
+    def kicker_h(ks, s):
+        """Height the kicker adds over a main line at s (build_block's gap, or its overlap)."""
+        pad = kicker_at(kst, ks, spec).get('label', {}).get('padding', [0, 0])[1]
+        gap = -spec['overlap'] * s if spec.get('overlap') else kicker_gap(ks, between)
+        return ks + 2 * pad + gap
+
+    def choose(opts, with_kicker):
+        """(main px, lines, kicker px, kicker style) for the option that sets the biggest main line."""
+        best = None
+        for opt in opts:
+            n = len(opt)
+            rows = 0.75 + (n - 1) * lh
+            s0 = max(20, target / rows)
+            if with_kicker:  # the kicker grows with the main line, so share the height between them
+                for _ in range(8):
+                    s0 = max(20, (target - kicker_h(kicker_size(s0), s0)) / rows)
+            avail = max_w - (spec.get('indent', 0) * W if n > 1 and spec.get('position', '').endswith('left') else 0)
+            s = s0
+            for text in opt:
+                s = min(s, fit_line(cased(text, bst), bst, s0, avail, 'big'))
+            ks = k_st = None
+            if with_kicker:
+                ks = kicker_size(s)
+                k_st = kicker_at(kst, ks, spec)
+                fit = fit_line(ktext, k_st, ks, max_w, 'kicker')
+                if fit < ks * 0.99:  # the kicker is as wide as the block: the main line comes down to keep the ratio
+                    s = min(s, fit * cap_k / (KICKER_RATIO * cap_b))
+                    ks = fit
+            # A second line must buy noticeably bigger type.
+            if best is None or s > best[0] * (1.15 if n > len(best[1]) else 1.0):
+                best = (s, opt, ks, k_st)
+        return best
+
+    best = choose(options, bool(kst))
+    if kst and not lines_override and best[2] * cap_k < KICKER_MIN_CAP * H:
+        # The main line is so long that the kicker cannot reach a shelf-readable size without outgrowing its
+        # ratio ('THIRTY DAYS WITH' / 'THE NUMBER ONE HERO' in a narrow column): set equal lines instead.
+        equal = choose(bracketed([[title], [kicker, big]]), False)
+        if equal[0] * cap_b > best[2] * cap_k:
+            best, kst, kicker = equal, None, None
+    size, opt, ks, k_st = best
+    lines = []
+    info = {'size': size, 'kicker': kicker, 'big': opt, 'max_w': max_w, 'between': between}
+    if kst:
+        kline = render_line(ktext, k_st, ks, 'kicker')
+        lines.append(kline)
+        info.update(kicker_size=kline.size, kicker_cap=kline.size * cap_k / (size * cap_b))
     for text in opt:
         lines.append(render_line(cased(text, bst), bst, size, 'big'))
-    return lines, {'size': size, 'kicker': kicker, 'big': opt, 'max_w': max_w, 'between': between}
-
+    return lines, info
 
 class Op:
     def __init__(self, kind, rect, behind, **kw):
@@ -476,7 +699,7 @@ def build_block(title, spec, lines_override, seed):
         if prev is None:
             y = -ln.bbox[1]
         elif prev.role == 'kicker':
-            gap = 0.3 * prev.size + (0.9 * prev.size if info['between'] else 0)
+            gap = kicker_gap(prev.size, info['between'])
             if spec.get('overlap'):
                 gap = -spec['overlap'] * ln.size
             y = (placed[-1][2] + prev.bbox[3]) + gap - ln.bbox[1]
@@ -508,6 +731,8 @@ def build_block(title, spec, lines_override, seed):
     for o in ornaments(spec):
         kind, color = o['type'], o.get('color', '#FFFFFF')
         where = o.get('where', 'below')
+        if where == 'between' and not kick_rect:
+            where = 'above'  # equal lines: the rule that sat under the kicker caps the block instead
         if kind in ('rule-diamond', 'rules-star'):
             if where == 'between' and kick_rect and big_rects:
                 y = (kick_rect[3] + big_rects[0][1]) / 2
@@ -862,9 +1087,14 @@ def place(img, block, core, spec, inset):
     safe = max(inset + 22, 26)
     mx = max(spec.get('marginX', 0.07) * W, safe)
     cw, chh = bb[2] - bb[0], bb[3] - bb[1]
-    scale = min(1.0, (W - 2 * mx) / cw, (H - 2 * safe) / chh)
+    vertical = spec.get('vertical') or spec.get('position') == 'right-vertical'
+    room = min(W - 2 * mx, W * spec.get('maxWidth', 1) if not vertical else W)
+    scale = min(1.0, room / cw, (H - 2 * safe) / chh)
+    if spec.get('scale'):
+        scale = min(scale, spec['scale'])
     if scale < 0.999:
-        print(f'  note: title block scaled to {scale:.2f} to stay inside the safe area', file=sys.stderr)
+        why = 'by the story override' if spec.get('scale') and scale == spec['scale'] else 'to stay inside the safe area'
+        print(f'  note: title block scaled to {scale:.2f} {why}', file=sys.stderr)
         nb = (max(1, int(block.size[0] * scale)), max(1, int(block.size[1] * scale)))
         block, core = block.resize(nb, Image.LANCZOS), core.resize(nb, Image.BILINEAR)
         bb = core.getbbox()
@@ -887,6 +1117,8 @@ def place(img, block, core, spec, inset):
             y = H * spec.get('y', 0.5) - chh / 2
         else:
             y = bottom - chh
+    dx, dy = spec.get('offset', [0, 0])
+    x, y = x + dx, y + dy
     layer = Image.new('RGBA', (W, H), (0, 0, 0, 0))
     layer.paste(block, (int(round(x - bb[0])), int(round(y - bb[1]))))
     return Image.alpha_composite(img, layer)
@@ -895,10 +1127,23 @@ def place(img, block, core, spec, inset):
 # ---------------------------------------------------------------- one cover
 
 
-def compose(recipe, story_id, src, dst, lines=None, fallback=False):
+def story_override(recipe, story_id):
+    """TITLE_OVERRIDES[story_id] when it was made for this recipe, else None (a redraw in another recipe
+    starts from the recipe's own placement)."""
+    ov = TITLE_OVERRIDES.get(story_id)
+    if ov and ov['recipe'] != recipe['id']:
+        print(f'  note: TITLE_OVERRIDES[{story_id!r}] is for {ov["recipe"]}, not {recipe["id"]}; ignored', file=sys.stderr)
+        return None
+    return ov
+
+
+def compose(recipe, story_id, src, dst, lines=None, fallback=False, overrides=True):
     title = fixture_title(story_id)
     spec = recipe['title']
     frame = recipe.get('frame') or {'type': 'none'}
+    ov = story_override(recipe, story_id) if overrides else None
+    if ov and ov.get('lines') and not lines:
+        lines = tuple(ov['lines'])
     if lines and ' '.join(p for p in lines if p) != title:
         sys.exit(f'{story_id}: --lines {lines!r} does not spell the title {title!r}')
     if not os.path.exists(src):
@@ -911,6 +1156,10 @@ def compose(recipe, story_id, src, dst, lines=None, fallback=False):
         return
     if spec.get('mode') == 'painted':
         spec = spec['fallback']
+    if ov:
+        spec = dict(spec, **{k: v for k, v in ov.items() if k not in ('recipe', 'lines', 'why')})
+        if 'position' in ov and ov['position'] != 'right-vertical':
+            spec.pop('vertical', None)  # a vertical recipe set across the cover for this story
     vertical = spec.get('vertical') or spec.get('position') == 'right-vertical'
     seed = int(hashlib.sha1(f'{recipe["id"]}:{story_id}'.encode()).hexdigest()[:8], 16)
     block, core, info = build_block(title, spec, lines, seed)
@@ -921,7 +1170,7 @@ def compose(recipe, story_id, src, dst, lines=None, fallback=False):
     out = place(out, block, core, spec, frame_inset(frame))
     out = draw_frame(out, frame)
     out.convert('RGB').save(dst)
-    k = info['kicker'] or '-'
+    k = f'{info["kicker"]} @ {info["kicker_size"]}px, cap {info["kicker_cap"]:.0%} of main' if info['kicker'] else '-'
     print(f'{recipe["id"]} {story_id}: {title!r} -> {os.path.relpath(dst, ROOT)} ({k} | {" / ".join(info["big"])} @ {info["size"]:.0f}px)')
 
 
@@ -941,7 +1190,8 @@ def main():
         os.makedirs(out_dir, exist_ok=True)
         for rid, sid in SAMPLES.items():
             painted = recipes[rid]['title'].get('mode') == 'painted'
-            compose(recipes[rid], sid, os.path.join(V2_RAW, f'{sid}.png'), os.path.join(out_dir, f'{rid}.png'), fallback=painted)
+            compose(recipes[rid], sid, os.path.join(V2_RAW, f'{sid}.png'), os.path.join(out_dir, f'{rid}.png'),
+                    fallback=painted, overrides=False)  # v2 art: the v3 per-story placements do not apply
         return
     if not (args.recipe and args.story and args.src and args.out):
         ap.error('--recipe, --story, --in and --out are required (or --samples)')
