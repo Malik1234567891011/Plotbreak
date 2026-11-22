@@ -139,41 +139,75 @@ struct CharacterSetupScreen: View {
         }
     }
 
+    /// Design v3: a round back button, and Skip — setup is optional, and
+    /// skipping starts the story with the same identity the Story page's Play
+    /// would use (`QuickStart`).
     private var header: some View {
         HStack {
-            IconButton(t("setup.back"), action: { router.pop() }) {
-                Txt("‹", .h2)
+            Button {
+                Haptic.play(.light)
+                router.pop()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .frame(width: 44, height: 44)
+                    .background(Theme.Colors.bgRaised, in: Circle())
             }
+            .buttonStyle(PressOpacityStyle())
+            .accessibilityLabel(t("setup.back"))
             Spacer(minLength: 0)
-            Txt(detail?.story.title ?? "", .caption, color: Theme.Colors.textMuted, lineLimit: 1)
-            Spacer(minLength: 0)
-            Color.clear.frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
+            if let detail {
+                Button {
+                    Task { await skip(detail) }
+                } label: {
+                    Text(t("onboarding.skip"))
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .padding(.horizontal, 18)
+                        .frame(height: 36)
+                        .background(Theme.Colors.bgRaised, in: Capsule())
+                        .frame(minHeight: Theme.minTouchTarget)
+                }
+                .buttonStyle(PressOpacityStyle())
+                .disabled(starting)
+            }
         }
-        .padding(.horizontal, Theme.gutter)
+        .padding(.horizontal, Theme.pageGutter)
+        .padding(.top, Theme.Spacing.xs)
     }
 
     private func form(_ detail: StoryDetailResponse) -> some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: Theme.Spacing.xxl) {
-                VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+            VStack(alignment: .leading, spacing: 28) {
+                VStack(alignment: .leading, spacing: 6) {
                     // A world's own `setupHeading` is world content, in the
                     // language that world was authored in, and wins when set.
-                    Txt(named
+                    Text(named
                         ? (detail.protagonist?.setupHeading.isEmpty == false
                             ? detail.protagonist!.setupHeading
                             : t("setup.heading_named", ["name": canonName]))
-                        : t("setup.heading"), .display)
-                    Txt(t(named ? "setup.subheading_named" : "setup.subheading"), .bodyCompact, color: Theme.Colors.textSecondary)
+                        : t("setup.heading"))
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityAddTraits(.isHeader)
+                    Text(t(named ? "setup.subheading_named" : "setup.subheading"))
+                        .font(.system(size: 15))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
+                // Name and pronouns side by side, the name taking the room.
                 if !named {
-                    VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
+                    HStack(alignment: .top, spacing: 12) {
                         SetupField(label: t("setup.name_label"), value: $displayName,
                                    placeholder: placeholderFor(detail, "displayName", t("setup.name_placeholder")),
                                    maxLength: 40, required: true)
                         SetupField(label: t("setup.pronouns_label"), value: $pronouns,
-                                   placeholder: placeholderFor(detail, "pronouns", t("setup.pronouns_placeholder")),
+                                   placeholder: "they/them",
                                    maxLength: 24)
+                            .frame(width: 132)
                     }
                 }
 
@@ -206,21 +240,12 @@ struct CharacterSetupScreen: View {
                     advancedSection
                 }
 
-                // Spec §9.4 — a tiny canon summary, never a stat block.
-                if !effectiveName.isEmpty {
-                    Card {
-                        VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                            Txt(t("setup.enter_as"), .caption, color: Theme.Colors.textMuted)
-                            Txt(summaryLine, .bodyStrong)
-                        }
-                    }
-                }
-
                 if let error {
                     Txt(error, .bodyCompact, color: Theme.Colors.danger)
                 }
             }
-            .padding(Theme.gutter)
+            .padding(.horizontal, Theme.pageGutter)
+            .padding(.top, Theme.Spacing.lg)
             .padding(.bottom, Theme.Spacing.giant)
         }
         .scrollDismissesKeyboard(.interactively)
@@ -267,69 +292,110 @@ struct CharacterSetupScreen: View {
 
     /// The heading and the explainer come from the story, because the screen
     /// has to say what the system is before it asks you to pick inside it.
+    ///
+    /// Design v3: the roles as a two-column grid of filled tiles (name and what
+    /// it is), the picked one ringed in paper with a check. What it means —
+    /// the summary, what it grants, the world's own line — reads once, under
+    /// the grid, for the picked role only.
     private func archetypePicker(_ detail: StoryDetailResponse) -> some View {
-        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                Txt(archetypeField?.label ?? t("setup.archetype_heading"), .h3)
+        VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(archetypeField?.label ?? t("setup.archetype_heading"))
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .accessibilityAddTraits(.isHeader)
                 if let help = archetypeField?.helpText, !help.isEmpty {
-                    Txt(help, .bodyCompact, color: Theme.Colors.textSecondary)
+                    Text(help)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
 
-            VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
                 ForEach(detail.archetypes) { option in
                     let selected = archetypeId == option.id
                     Button {
                         Haptic.play(.light)
                         archetypeId = selected ? nil : option.id
                     } label: {
-                        SelectableCard(selected: selected) {
-                            VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                                // Layer 1: what this is, in words that need no lore.
-                                FlowLayout(spacing: Theme.Spacing.sm) {
-                                    Txt(option.name, .bodyStrong, color: selected ? Theme.Colors.accentPrimary : Theme.Colors.textPrimary)
-                                    Txt(option.role, .caption, color: Theme.Colors.textMuted)
-                                }
-                                Txt(option.summary, .bodyCompact)
-                                FlowLayout(spacing: Theme.Spacing.xs) {
-                                    ForEach(option.playstyle, id: \.self) { tag in Chip(tag) }
-                                }
-                                // What it actually does, only once you are looking at it.
-                                if selected {
-                                    GrantList(grants: option.grants)
-                                }
-                                // Layer 2: the world's voice. Never carrying the meaning.
-                                Txt(option.blurb, .caption, color: Theme.Colors.textSecondary)
-                            }
-                        }
+                        roleTile(title: option.name, line: option.role, selected: selected)
                     }
                     .buttonStyle(PressOpacityStyle(pressed: 0.85))
                     .accessibilityLabel(t("setup.archetype_a11y", ["name": option.name, "role": option.role, "summary": option.summary]))
                     .accessibilityAddTraits(selected ? .isSelected : [])
                 }
-
                 Button {
                     Haptic.play(.light)
                     archetypeId = usingCustomArchetype ? nil : customChoice
                 } label: {
-                    SelectableCard(selected: usingCustomArchetype, dashed: true) {
-                        VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                            Txt(t("setup.something_else"), .bodyStrong,
-                                color: usingCustomArchetype ? Theme.Colors.accentPrimary : Theme.Colors.textPrimary)
-                            Txt(t("setup.custom_background_body"), .bodyCompact)
-                        }
-                    }
+                    roleTile(title: t("setup.something_else"), line: t("setup.write_own_background"), selected: usingCustomArchetype)
                 }
                 .buttonStyle(PressOpacityStyle(pressed: 0.85))
                 .accessibilityLabel(t("setup.write_own_background"))
                 .accessibilityAddTraits(usingCustomArchetype ? .isSelected : [])
             }
 
+            if let option = archetype {
+                VStack(alignment: .leading, spacing: 10) {
+                    (Text(option.name + ". ").fontWeight(.semibold).foregroundStyle(Theme.Colors.textPrimary)
+                        + Text(option.summary))
+                        .font(.system(size: 15))
+                        .lineSpacing(3)
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                    GrantList(grants: option.grants)
+                    if !option.blurb.isEmpty {
+                        Text(option.blurb)
+                            .font(.system(size: 13))
+                            .foregroundStyle(Theme.Colors.textMuted)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                .padding(.top, 4)
+            }
+
             if usingCustomArchetype {
+                Text(t("setup.custom_background_body"))
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .fixedSize(horizontal: false, vertical: true)
                 SetupField(label: t("setup.custom_background_label"), value: $customArchetype,
                            placeholder: t("setup.custom_background_placeholder"), maxLength: 240, multiline: true)
             }
         }
+    }
+
+    private func roleTile(title: String, line: String, selected: Bool) -> some View {
+        let shape = RoundedRectangle(cornerRadius: 16, style: .continuous)
+        return VStack(alignment: .leading, spacing: 4) {
+            Text(title)
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+            Text(line)
+                .font(.system(size: 13))
+                .foregroundStyle(Theme.Colors.textSecondary)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+            Spacer(minLength: 0)
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, minHeight: 96, alignment: .topLeading)
+        .background(Theme.Colors.bgElevated, in: shape)
+        .overlay { if selected { shape.strokeBorder(Theme.Colors.textPrimary, lineWidth: 2) } }
+        .overlay(alignment: .topTrailing) {
+            if selected {
+                Image(systemName: "checkmark")
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundStyle(Theme.Colors.textOnLight)
+                    .frame(width: 22, height: 22)
+                    .background(Theme.Colors.light, in: Circle())
+                    .padding(10)
+            }
+        }
+        .contentShape(shape)
     }
 
     private var advancedSection: some View {
@@ -371,25 +437,56 @@ struct CharacterSetupScreen: View {
         }
     }
 
+    /// Spec §9.4 — a tiny canon summary, never a stat block: who you will
+    /// enter as, one quiet line over the one button.
     private var footer: some View {
         VStack(spacing: Theme.Spacing.sm) {
-            PBDivider()
-            PBButton(t("setup.enter"), loadingLabel: t("setup.entering"), loading: starting,
+            if detail != nil, !summaryLine.isEmpty {
+                Text(t("setup.enter_as").lowercased().prefix(1).uppercased() + t("setup.enter_as").lowercased().dropFirst() + " " + summaryLine)
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .lineLimit(1)
+            }
+            PBButton(t("setup.enter"), loadingLabel: t("setup.entering"), variant: .light, loading: starting,
                      disabled: !canStart, haptic: .medium) {
                 Task { await start() }
             }
-            .padding(.top, Theme.Spacing.xs)
             if !advancedFields.isEmpty {
-                PBButton(advanced ? t("setup.use_quick_setup") : t("setup.customize_more"), variant: .tertiary) {
+                Button {
                     advanced.toggle()
+                } label: {
+                    Text(advanced ? t("setup.use_quick_setup") : t("setup.customize_more"))
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .frame(maxWidth: .infinity, minHeight: Theme.minTouchTarget)
                 }
+                .buttonStyle(PressOpacityStyle())
             }
         }
-        .padding(.horizontal, Theme.gutter)
+        .padding(.horizontal, Theme.pageGutter)
+        .padding(.top, Theme.Spacing.sm)
         .background(Theme.Colors.bgBase)
     }
 
     // MARK: Actions
+
+    /// Skip: start now with the default identity, exactly as the Story page's
+    /// Play does. A shortfall opens the store; anything else is said here.
+    private func skip(_ detail: StoryDetailResponse) async {
+        guard !starting else { return }
+        starting = true
+        error = nil
+        defer { starting = false }
+        do {
+            let sessionId = try await QuickStart.start(detail, store: store, startPath: "instant")
+            router.push(.session(sessionId: sessionId))
+        } catch {
+            if let api = error as? APIError, api.isInsufficientCredits {
+                router.present(.wallet(shortfall: api.shortfall))
+            }
+            self.error = error is APIError ? error.playerMessage : t("setup.could_not_start")
+        }
+    }
 
     /// §9.1 setup fatigue: a player who has entered a story before has already
     /// said who they are, so the fields start from that answer, falling back to
@@ -573,7 +670,11 @@ struct SetupField: View {
         VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Txt(label + (required ? " *" : ""), .caption, color: Theme.Colors.textSecondary)
+                    Text(label)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
                     if let hint {
                         Txt(hint, .micro, color: Theme.Colors.textMuted)
                     }
@@ -605,10 +706,11 @@ private struct SetupInput: View {
         .font(.system(size: 17))
         .foregroundStyle(Theme.Colors.textPrimary)
         .tint(Theme.Colors.accentPrimary)
-        .padding(.horizontal, Theme.Spacing.lg)
+        .padding(.horizontal, 18)
         .padding(.vertical, Theme.Spacing.md)
         .frame(minHeight: multiline ? 88 : 48, alignment: multiline ? .topLeading : .leading)
-        .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
+        // Design v3: filled, no outline; a single line is a capsule.
+        .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: multiline ? 16 : 24, style: .continuous))
         .onChange(of: value) { _, next in
             if let maxLength, next.count > maxLength { value = String(next.prefix(maxLength)) }
         }
@@ -630,14 +732,14 @@ struct SelectableCard<Content: View>: View {
         content()
             .padding(Theme.Spacing.lg)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .overlay {
-                RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous)
-                    .strokeBorder(
-                        selected ? Theme.Colors.accentPrimary : Theme.Colors.borderSubtle,
-                        style: StrokeStyle(lineWidth: selected ? 1 : 0.5, dash: dashed ? [6, 4] : [])
-                    )
+                // Design v3: no resting outline; the picked one is ringed in paper.
+                if selected {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .strokeBorder(Theme.Colors.textPrimary, lineWidth: 2)
+                }
             }
-            .contentShape(RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
+            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 }
