@@ -82,12 +82,13 @@ The player names themselves and picks where their strength came from (the archet
 - The player killed an adult wyvern alone the night before and dragged its head into town.
 - When a monster dies, its draw goes into whoever killed it. The crystal reads level from draw.
 - The player does not take draw. The crystal's 1 is accurate about draw and wrong about everything else.
-- The draw is sealed in the eye-stone for about three days. Cracked, it goes into whoever cracks it. Uncracked, it can be sold.
+- The draw is sealed in the eye-stone for about three days. Cracked, it goes into whoever cracks it. If the player cracks it, the draw still does not go into them: it goes into the nearest other hand on the pieces, or, with no other hand on them, bleeds away and the stone goes dark. Uncracked, it can be sold.
 - Rule Twelve: a bounty above your rank goes to your escorting party or stays with the hall.
 - The mate is alive and will reach the town within three nights unless something changes that.
 - Gale's party ran from this wyvern eight days ago and left Harl on the ridge. Tamsin logged it.
 - The five rafter skulls were killed by founders with the player's trait. Orsk knows.
 - The player's strength is their own, from their past. No curse, no god, no hidden screen, no voice in their head.
+- Fights end in bruises, breaks and a split lip, never gore. Romance goes no further than a kiss. (These limits live in hard canon, not the tone guide, because the tone guide is also the cover's mood line.)
 
 ## Cast
 
@@ -95,12 +96,12 @@ Every character is an adult. Ages are stated here and in the fixture's hard cano
 
 ### Fia Quenby, 22
 **Role:** a mage, level thirty-one on paper, and the only person in the hall who believes the player.  
-**Looks:** slight and quick, a cloud of copper hair tied back with a chalk-dusted ribbon, green eyes, a plum mage's coat she has slept in, a tailor's measuring tape worn like a scarf.  
+**Looks:** lean and quick, a cloud of copper hair tied back with a chalk-dusted ribbon, green eyes, a plum mage's coat she has slept in, a tailor's measuring tape worn like a scarf.  
 **Motive:** proving the crystal measures the wrong thing, and finding one partner who chose her for what she can actually do.  
 **Fear:** being found out. Her family paid the Ascent House for twenty-six of her thirty-one levels through escorted kills.  
 **Secrets:** the bought levels. And Gale dropped her from the Ninefold a month ago for "slowing them down", three weeks before the ridge trip. Harl was the only one who was kind to her, and he has not spoken to anyone from the party since.  
 **Voice:** fast, breathless, self-interrupting. Gives measurements as proof, says "technically" and "sorry", and keeps going. Her sentences only get short when she is frightened.  
-> "Sorry, can I, sorry. The cut. It goes through two plates of neck armour at one angle, no second stroke."
+> "Sorry, can I, sorry. The wound. Two plates of neck armour, one angle, no second blow."
 
 ### Tamsin Wick, 27
 **Role:** the guild receptionist. Runs the counter, the crystal and the day book.  
@@ -183,7 +184,7 @@ Three variables, all invisible.
 - **First evening:** a carter races into the square. Something with a wingspan like a barn roof crossed the east road. Everybody now knows about the mate.
 - **First night, after midnight:** Gale and two of the Ninefold come over the yard wall with a hammer. If nobody is there, he cracks the stone.
 - **Second morning:** the heir's coach arrives. The rafter plates catch the light for a player who has been looking around.
-- **Second noon:** Orsk calls a proving in the yard. Whoever can show the cut that killed the wyvern gets the kill.
+- **Second noon:** Orsk calls a proving in the yard. Whoever can show the blow that killed the wyvern gets the kill.
 - **Second night:** a cow is taken from the ford meadow.
 - **Third night:** the old watch bell rings for the first time in sixty years, and the mate comes down over the ford.
 
@@ -225,6 +226,8 @@ Mutually exclusive histories. None of their names appears in the hard canon, the
 - **The Discharged Soldier**: six years on a border shield line where the officers kept every kill. A dented shield. Full Swing, Read the Hall.
 - **The Farmhand**: a hill farm, and a fence post that has seen off everything that came for the sheep. Full Swing, Say It Plain.
 
+Because the Farmhand killed the wyvern with a fence post and the Soldier carries a shield, nothing the storyteller reads about the wound assumes a blade: it was one blow, through two plates of neck armour.
+
 ## Cover
 
 Fia in the foreground, waist up, holding her measuring tape taut toward the viewer and grinning as if she has just proved something. Behind her the wyvern head lies on the hall floor, eyes closed, no wound in view; skulls on the rafters; the laughing B-rank table in soft focus. The crystal glows and shows no letters or numbers. The title LEVEL ONE, WYVERN SLAYER is painted into the upper third, the only text in the art. The full brief is `coverDirection` in the fixture.
@@ -239,13 +242,13 @@ Fia in the foreground, waist up, holding her measuring tape taut toward the view
 >
 > Behind you, a horned wyvern's head the size of a hay cart fills half the hall. Eleven miles, on a rope.
 >
-> The B-rank table laughs first. Then everyone.
+> The B-rank table laughs first. Then everyone, except a woman measuring the wound with a tape.
 >
 > A man in polished armour sets one silver coin by your hand.
 >
 > "Gale. B-rank." He smiles at the head, not at you. "A kill like that needs a real party's name on it. Porter, a silver a day. Take it, or carry your lizard home."
 
-109 words. Tamsin speaks to the player at word 32. It ends on Gale's demand. Every name in it is introduced inside it.
+118 words. Tamsin speaks to the player at word 32. It ends on Gale's demand. Every name in it is introduced inside it. Fia is in it unnamed, as the one person not laughing.
 
 **Suggestions** (said, done, risky):
 

@@ -47,13 +47,13 @@ const raw = {
     'Everyone who joins the guild puts a hand on the guild crystal, which reads their level. When a monster dies, its strength goes into whoever killed it. The guild calls that the draw, and your level is how much of it you carry.\n\n' +
     'Yours says level one. The wyvern’s draw did not go into you, and nobody in the hall has ever seen that happen. So it is still in the head, sealed in a stone behind its eye, and whoever cracks that stone in the next three days takes all of it.\n\n' +
     'By the guild’s own rules a level one cannot be paid for a wyvern. The strongest party in the room has just offered you a silver a day to carry their bags, and their name on your kill.\n\n' +
-    'You need to keep what you killed and prove what you can do. Wyverns also hunt in pairs, and the other one is following the smell of the head.',
+    'You need to keep what you killed and prove what you can do. Wyverns pair for life, and the dead one’s mate is following the smell of the head.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
   official: true,
   coverImage: null,
   keyArt: null,
-  tags: ['Fantasy', 'Action', 'Adventure', 'Comedy', 'Rivalry'],
+  tags: ['High fantasy', 'Adventure', 'Monsters', 'Rivalry', 'Comedy'],
   mechanicsChips: [
     'Strong from turn one',
     'The number is wrong',
@@ -83,22 +83,23 @@ const raw = {
       'The player killed an adult wyvern alone on Scald Ridge the night before the story starts, and dragged its head eleven miles into Kestrel Ford. It happened, the head is real, and nobody can make it not have happened.',
       'When a monster dies, its strength, called the draw, goes into whoever killed it. The guild crystal reads a person’s level from the draw they carry. Levels measure draw taken, never skill.',
       'The player does not take draw. The wyvern’s draw did not go into them, the crystal reads them at level 1, and that reading is accurate about the draw and wrong about everything else.',
-      'The wyvern’s unspent draw is sealed in the eye-stone behind its left eye for about three days. Whoever cracks the stone takes all of it, roughly fifteen levels. Uncracked, the stone can be sold.',
+      'The wyvern’s unspent draw is sealed in the eye-stone behind its left eye for about three days. Whoever cracks the stone takes all of it, roughly fifteen levels. If the player cracks it, the draw still does not go into them: it goes into the nearest other hand on the pieces, or, with no other hand on them, bleeds away and the stone goes dark. Uncracked, the stone can be sold.',
       'Rule Twelve in the guild’s rulebook: a bounty above a hunter’s rank is paid to the party that escorted them, or it stays with the hall. A level 1 cannot be paid for a wyvern.',
       'Wyverns pair for life. The dead wyvern’s mate is alive and follows the smell of its partner’s draw: on the head, on whoever handles it, and on whoever cracks the stone. It reaches the town within three nights unless something changes that.',
       'Eight days ago Gale Marrick’s party went up Scald Ridge for this wyvern, ran, and left their porter Harl Benning on the ridge with a broken leg. Tamsin Wick logged it in the day book. The hall does not know.',
       'The five wyvern skulls on the guild hall rafters were killed by the guild’s founders before the crystal existed. The draw never went into the founders either. Guildmaster Orsk knows this and has told nobody.',
       'The player’s strength is real and is their own, built in their own life before this town. It is no curse, no gift from a god, no hidden screen and no voice in their head, and nobody in this world will explain it as one.',
+      'Fights end in bruises, breaks and a split lip, never gore. Romance, with anyone, goes no further than a kiss.',
     ],
     toneGuide:
       'An underdog power fantasy played straight and funny. The player is genuinely strong from the first line, and the joke is never that they are weak: it is that the room keeps measuring them wrong, and how long it takes each person to notice. ' +
-      'Fights are short, physical and readable: distance, footing, one good blow. A B-rank is genuinely dangerous, a wyvern is a disaster, and nobody shrugs off a hit. Injuries are bruises, breaks and a split lip, never gore. The head is a huge, heavy, smelly prop and never a horror piece. ' +
+      'Fights are short, physical and readable: distance, footing, one good blow. A B-rank is genuinely dangerous, a wyvern is a disaster, and nobody shrugs off a hit. The head is a huge, heavy, smelly prop and never a horror piece. ' +
       'Everybody wants something concrete — a bounty, a stone, a rule kept, a debt paid — and says so in their own voice. Gale is a rival, not a villain: charming, frightened and good at his job. ' +
       'The crystal’s number is a running joke that is also the whole economy. Let people read it, quote it and be wrong about it. Never explain the player’s strength as a curse, a god, a hidden screen or a voice in their head. It is theirs. ' +
-      'Romance, if it happens, is awkward, warm and slow, and goes no further than a kiss. The face at the top of a beat is Fia’s or Tamsin’s whenever one of them is in the scene and the moment involves her.',
+      'Romance, if it happens, is awkward, warm and slow. The face at the top of a beat is Fia’s or Tamsin’s whenever one of them is in the scene and the moment involves her.',
     proseStyle: 'webnovel',
     styleExamples: [
-      'Tamsin doesn’t look up.\n\n"Name."\n\nYou tell her.\n\n"Level."\n\nThe crystal answers for you. 1.\n\n"Purpose of visit."\n\nYou point over your shoulder. The wyvern’s head is wedged in the doorway. Two hunters are trying to climb over it to get in.\n\nTamsin looks at the head. At the crystal. At you.\n\nShe puts one stamp down and picks up a different one.\n\n"I need the rule for this," she says. "Give me a minute. I’m fairly sure there isn’t one."',
+      'Tamsin opens the day book without looking up.\n\n"Name."\n\nYou tell her.\n\n"Level."\n\nThe crystal answers for you, again. 1.\n\n"Kill."\n\nYou point over your shoulder. The wyvern’s head is taking up half the floor. Two hunters are trying to climb over it to reach the notice board.\n\nTamsin looks at the head. At the crystal. At you.\n\nShe puts one stamp down and picks up a different one.\n\n"I need the rule for this," she says. "Give me a minute. I’m fairly sure there isn’t one."',
       'Gale’s sword is out before anyone sees him draw it. B-rank fast.\n\nYour hands are empty.\n\n"Last chance, friend. Walk away and this was a misunderstanding."\n\nThe hall goes quiet enough to hear the crystal hum.\n\nYou step in, inside the swing he hasn’t made yet, and close your hand round his wrist.\n\nHe can’t lift it.\n\nHe tries again. His face does something complicated.\n\nFrom the back, Fia, much too loud: "Forty degrees. I said. I measured."',
     ],
     forkCostCredits: 120,
@@ -233,7 +234,7 @@ const raw = {
       tags: ['quest', 'trophy'],
       questItem: true,
       droppable: false,
-      description: 'An adult wyvern’s head, horned, the size of a hay cart, severed with one clean cut. It weighs more than three people and smells worse than ten.',
+      description: 'An adult wyvern’s head, horned, the size of a hay cart. Whatever killed it went through two plates of neck armour in one blow. It weighs more than three people and smells worse than ten.',
       loreText: 'Behind the left eye, under the lid, is the eye-stone: a dark jewel that holds the draw the wyvern gave up when it died. It glows faintly at night. It will not glow for long.',
       icon: 'skull',
     },
@@ -257,7 +258,8 @@ const raw = {
     {
       id: 'guild_tag',
       name: 'The Iron Tag',
-      tags: ['personal', 'document'],
+      tags: ['quest', 'personal', 'document'],
+      questItem: true,
       description: 'A guild registration tag on a leather cord, stamped with your name and a single number: 1.',
       loreText: 'The stamp for the number one is the newest stamp on Tamsin’s rack. It has barely been used.',
       icon: 'card',
@@ -273,7 +275,8 @@ const raw = {
     {
       id: 'wyvern_notice',
       name: 'The Wyvern Notice',
-      tags: ['document'],
+      tags: ['quest', 'document'],
+      questItem: true,
       skillModifiers: { notice: 1 },
       description: 'The bounty poster for your wyvern: three hundred gold, posted twelve days ago. Under it, in Tamsin’s small hand, one ranked party’s name, struck through, and the word “attempted”.',
       loreText: 'The struck-through name is the Ninefold. The date beside it is eight days ago.',
@@ -806,7 +809,7 @@ const raw = {
       name: 'Fia Quenby',
       role: 'A mage at level thirty-one on paper, dropped from Gale’s party a month ago, and the only person in the hall measuring the wound instead of laughing',
       cardBlurb:
-        'She believes you before anybody else does, because she measured the cut on your wyvern and no level one could have made it. She also has a number that is too high, and she would very much like you not to ask about it.',
+        'She believes you before anybody else does, because she measured the wound on your wyvern and no level one could have made it. She also has a number that is too high, and she would very much like you not to ask about it.',
       pronouns: 'she/her',
       publicTraits: ['Measures everything', 'Talks fastest when she is right', 'Brave on paper, nervous in rooms'],
       hiddenDrives: [
@@ -841,15 +844,15 @@ const raw = {
       ],
       speechStyle:
         'Fast, breathless, self-interrupting. Gives measurements as proof and apologises for them. Says "technically" and "sorry" and keeps going. Her sentences only get short when she is frightened.',
-      topics: ['the cut on the wyvern', 'the crystal', 'her charts', 'her level', 'Gale’s party', 'the three spells she can cast'],
+      topics: ['the wound on the wyvern', 'the crystal', 'her charts', 'her level', 'Gale’s party', 'the three spells she can cast'],
       voiceSamples: [
-        'Sorry, can I, sorry. The cut. It goes through two plates of neck armour at one angle, no second stroke. Do you understand how rare one stroke is?',
+        'Sorry, can I, sorry. The wound. Two plates of neck armour, one angle, no second blow. Do you understand how rare one blow is?',
         'Technically the crystal is never wrong. It just answers a question nobody asked it. I have charts. I have so many charts.',
         'My reading is thirty-one. My mother paid for twenty-six of those. I can cast three spells, and one of them makes tea warmer.',
-        'If you were lying I would know, because liars do not cut at forty degrees. That is not an expression. I measured it.',
+        'If you were lying I would know, because liars do not hit at forty degrees. That is not an expression. I measured it.',
       ],
       appearance:
-        'An adult woman, slight and quick, a cloud of copper hair held back with a chalk-dusted ribbon, bright green eyes, freckles, ink on her fingers, and an expensive plum-coloured mage’s coat with brass buttons that she has visibly slept in.',
+        'An adult woman, lean and quick, a cloud of copper hair held back with a chalk-dusted ribbon, bright green eyes, freckles, ink on her fingers, and an expensive plum-coloured mage’s coat with brass buttons that she has visibly slept in.',
       visualHook: 'A tailor’s measuring tape worn round her neck like a scarf, with a stick of chalk tied to one end.',
       silhouette: 'Leaning in too close to something, notebook up, coat sleeves shoved past the elbow.',
       artSeed: 'lows-fia-01',
@@ -895,7 +898,7 @@ const raw = {
       name: 'Tamsin Wick',
       role: 'The guild receptionist. She runs the counter, the crystal and the day book, and she has just read your number aloud to the whole hall',
       cardBlurb:
-        'She has to enter your kill under somebody’s name, the rules say it cannot be yours, and she is quietly looking for a technicality that says it can.',
+        'She has to enter your kill under somebody’s name, the rules say it cannot be yours, and without once looking up at you she is hunting for a technicality that says it can.',
       pronouns: 'she/her',
       publicTraits: ['Knows every rule by number', 'Unflappable at a counter', 'Dry enough to strike a match on'],
       hiddenDrives: [
@@ -971,7 +974,7 @@ const raw = {
       name: 'Gale Marrick',
       role: 'Leader of the Ninefold, the best B-rank party in the hall, level thirty-eight, and the first person to put a price on you',
       cardBlurb:
-        'He wants your wyvern’s head with his party’s name on it, he will pay you a silver a day to carry it for him, and he is being very friendly about it for a man with his hand that close to his sword.',
+        'He wants your wyvern’s head with his party’s name on it, he will pay you a silver a day to carry the party’s bags, and he is being very friendly about it for a man with his hand that close to his sword.',
       pronouns: 'he/him',
       publicTraits: ['Charming in public', 'Good with a sword and better with a room', 'Always pays his round'],
       hiddenDrives: [
@@ -1423,7 +1426,7 @@ const raw = {
           id: 'the_claim',
           playerCopy: 'Get the kill entered under a name. Yours, if you can.',
           directorNotes:
-            'Orsk will rule, but only on something the whole hall can see. The proving in the yard is that: show the cut, in public, and the kill is yours whatever the crystal says. Exposing Gale works too, and costs Gale everything. Letting his party have it is a real choice for a player who took the silver, and it is not the end of their story.',
+            'Orsk will rule, but only on something the whole hall can see. The proving in the yard is that: show the blow, in public, and the kill is yours whatever the crystal says. Exposing Gale works too, and costs Gale everything. Letting his party have it is a real choice for a player who took the silver, and it is not the end of their story.',
           enterWhen: { flagsSet: ['first_night_over'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -1865,7 +1868,7 @@ const raw = {
       publicCopy:
         'A runner in Ascent House grey puts a sealed letter on the counter with your name spelled wrong on it, and waits to be told there is no reply.',
       directorNotes:
-        'Four hundred gold for the eye-stone, uncracked. More than the bounty. Marguerite expects a yes by tomorrow and has already told her client it is done. Tamsin watches the letter change hands and writes something small.',
+        'Four hundred gold for the eye-stone, uncracked. More than the bounty. Marguerite expects a yes by tomorrow and has already told her client it is done. Tamsin watches the letter change hands and writes something small. Not if the stone is already cracked or sold.',
       setsFlags: ['ascent_made_an_offer'],
       cancelledByFlags: ['stone_cracked', 'sold_the_stone'],
       requiresFlags: [],
@@ -1891,7 +1894,7 @@ const raw = {
       publicCopy:
         'Three shapes come over the carcass yard wall with a shuttered lantern. One of them is carrying a jeweller’s hammer and walking the way Gale Marrick walks.',
       directorNotes:
-        'Gale and two of the Ninefold, after the eye-stone. If the player is here, this is a fight in the dark that Gale very much does not want, and a conversation he wants even less. If nobody is here, he cracks it, takes fifteen levels by morning, and the scent of the dead wyvern is now on him.',
+        'Gale and two of the Ninefold, after the eye-stone. If the player is here, this is a fight in the dark that Gale very much does not want, and a conversation he wants even less. If nobody is here, he cracks it, takes fifteen levels by morning, and the scent of the dead wyvern is now on him. Not if the stone is already cracked or sold.',
       setsFlags: ['gale_tried_the_stone'],
       cancelledByFlags: ['stone_cracked', 'sold_the_stone'],
       requiresFlags: [],
@@ -1928,9 +1931,9 @@ const raw = {
       atWorldMinute: 24 * 60 + 12 * 60,
       locationId: 'carcass_yard',
       publicCopy:
-        'The hall bell rings twice. The guildmaster has called a proving in the yard: whoever can show the hall the cut that killed that wyvern gets the kill.',
+        'The hall bell rings twice. The guildmaster has called a proving in the yard: whoever can show the hall the blow that killed that wyvern gets the kill.',
       directorNotes:
-        'Orsk’s way of overruling Rule Twelve with a reason the whole hall can see. Half the town crowds the yard walls. Gale is expected to try, and knows he cannot make that cut. Tamsin brings the day book.',
+        'Orsk’s way of overruling Rule Twelve with a reason the whole hall can see. Half the town crowds the yard walls. Gale is expected to try, and knows he cannot land that blow. Tamsin brings the day book. Only once the head has got through its first night, and not if the kill has already been settled.',
       setsFlags: ['proving_called'],
       cancelledByFlags: ['claim_settled'],
       requiresFlags: ['first_night_over'],
@@ -2016,7 +2019,7 @@ const raw = {
       id: 'arch_hermit',
       name: 'The Hermit’s Disciple',
       role: 'Sword technique, ten years of it',
-      summary: 'An old swordsman on a mountain taught you one cut for ten years, so your blade work is the best in the hall and your practice with people is not.',
+      summary: 'An old swordsman on a mountain taught you one cut for ten years, so your blade work is the best in the hall and you have not held a real conversation since.',
       playstyle: ['One perfect cut', 'Patient', 'Awkward with people'],
       blurb: 'He never told you his name. He told you the cut was finished when the thing in front of it did not know it had happened.',
       attributeBonus: { might: 2, agility: 2 },
@@ -2126,7 +2129,7 @@ const raw = {
       minTurn: 20,
       requires: { flagsSet: ['porter_for_gale', 'gale_got_the_kill'] },
       condition:
-        'The player took the silver and carried for the Ninefold, and the Ninefold’s name went on the wyvern. Write it bitter-funny, never as a failure: a wyvern slayer carrying pots up a mountain for a man who could not make that cut, getting paid on time, and knowing something about the party that the party does not know about itself.',
+        'The player took the silver and carried for the Ninefold, and the Ninefold’s name went on the wyvern. Write it bitter-funny, never as a failure: a wyvern slayer carrying pots up a mountain for a man who could not have landed that blow, getting paid on time, and knowing something about the party that the party does not know about itself.',
       epilogue:
         'The Ninefold makes A-rank in the spring. Their porter carries the heaviest load in the valley without breathing hard, eats twice as much as anyone, and has a way of being exactly where the trouble is a second before it arrives. Gale pays on time, every week, and never once turns his back on them.',
       hint: '',
@@ -2290,22 +2293,22 @@ const raw = {
     'BEHIND HER, huge and secondary: a colossal horned wyvern head resting on the plank floor of a timber guild hall, eyes closed, dark green scales, no blood and no wound in view.',
     'Five old pale wyvern skulls hang from the rafters above, and armoured adventurers at a fireside table laugh in soft focus.',
     'On a reception counter to one side, a fist-sized guild crystal on a brass stand glows pale blue. It shows only light: no letters, no numbers, nothing that reads as writing.',
-    'LIGHT: warm amber lamplight from the hall, and a cool blue glow from the crystal across her face and the tape.',
+    'LIGHT: warm amber lamplight from the hall, and a cool blue rim light from the crystal on her hair and the tape.',
     'TITLE: the words LEVEL ONE, WYVERN SLAYER painted into the art in the upper third as a bold fantasy-adventure logo, LEVEL ONE small and plain above WYVERN SLAYER large, gold with a dark outline,',
     'spelled exactly LEVEL ONE, WYVERN SLAYER, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   opening:
-    "The crystal on the guild counter glows, hesitates, and lights one number.\n\nLEVEL 1.\n\nThe receptionist reads it aloud to the whole hall, then looks past you. Her badge says TAMSIN. \"You dragged that in? Alone?\"\n\nBehind you, a horned wyvern’s head the size of a hay cart fills half the hall. Eleven miles, on a rope.\n\nThe B-rank table laughs first. Then everyone.\n\nA man in polished armour sets one silver coin by your hand.\n\n\"Gale. B-rank.\" He smiles at the head, not at you. \"A kill like that needs a real party’s name on it. Porter, a silver a day. Take it, or carry your lizard home.\"",
+    "The crystal on the guild counter glows, hesitates, and lights one number.\n\nLEVEL 1.\n\nThe receptionist reads it aloud to the whole hall, then looks past you. Her badge says TAMSIN. \"You dragged that in? Alone?\"\n\nBehind you, a horned wyvern’s head the size of a hay cart fills half the hall. Eleven miles, on a rope.\n\nThe B-rank table laughs first. Then everyone, except a woman measuring the wound with a tape.\n\nA man in polished armour sets one silver coin by your hand.\n\n\"Gale. B-rank.\" He smiles at the head, not at you. \"A kill like that needs a real party’s name on it. Porter, a silver a day. Take it, or carry your lizard home.\"",
   openingPanel: {
     assetKey: 'story_level_one_wyvern_slayer/opening',
-    alt: 'A guild receptionist staring at a glowing crystal reading 1, a colossal wyvern head filling the hall behind, and a smiling armoured man setting down one silver coin.',
+    alt: 'Tamsin behind the guild counter, two pencils in her black hair, looking over her spectacles at a colossal wyvern head filling the hall, as a smiling armoured man sets down one silver coin.',
   },
   openingSuggestions: [
     '"Keep your silver. I didn’t come here for a job."',
     'I put my hand back on the crystal. "Again."',
     'I lift the head by one horn and hold it out to him. "Your turn."',
   ],
-  publishedAt: '2026-11-22T04:00:00.000Z',
+  publishedAt: null,
 };
 
 export const LEVEL_ONE_WYVERN_SLAYER = StoryVersion.parse(raw);

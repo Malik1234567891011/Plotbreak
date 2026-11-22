@@ -128,6 +128,17 @@ describe('the opener hands the player a choice', () => {
     expect(risky).toMatch(/^I lift the head/);
   });
 
+  it('shows Fia in the hall as the one person not laughing', () => {
+    expect(S.opening).toContain('Then everyone, except a woman measuring the wound with a tape.');
+  });
+
+  it('draws the opening panel on Tamsin, with nothing in it to read', () => {
+    const alt = S.openingPanel!.alt;
+    expect(alt.startsWith('Tamsin ')).toBe(true);
+    expect(alt.length).toBeLessThanOrEqual(200);
+    expect(alt).not.toMatch(/\d/);
+  });
+
   it('puts the three faces of the opener in the hall when it starts', () => {
     const present = charactersPresent(start()).map((c) => c.characterId);
     expect(present).toEqual(expect.arrayContaining(['tamsin', 'gale', 'fia']));
@@ -139,7 +150,9 @@ describe('the premise lives where the storyteller can read it', () => {
   it('starts the player holding the head, and makes the head and its stone story objects', () => {
     // Production's storyteller reads quest items, never the ordinary ones.
     expect(S.rules.startingItems.map((i) => i.itemId)).toContain('wyvern_head');
-    for (const id of ['wyvern_head', 'eye_stone']) {
+    // The notice's struck-through name and the iron tag are clues and the
+    // finale seed, so they are story objects too.
+    for (const id of ['wyvern_head', 'eye_stone', 'wyvern_notice', 'guild_tag']) {
       expect(S.items.find((i) => i.id === id)?.questItem, id).toBe(true);
     }
     expect(S.items.find((i) => i.id === 'eye_stone')!.description).toMatch(/draw/);
@@ -330,7 +343,10 @@ describe('Fia is a person, not a cheerleader', () => {
   it('only lets romance open after her own secret is out, and keeps it at a kiss', () => {
     const gate = character('fia').gates.find((g) => g.kind === 'ROMANCE')!;
     expect(gate.requires.flagsSet).toEqual(['fia_number_known']);
-    expect(S.rules.toneGuide).toMatch(/no further than a kiss/);
+    // The limit lives in hard canon, which the storyteller reads; the tone
+    // guide is also the cover prompt's mood line and stays free of it.
+    expect(S.rules.hardCanon.join(' ')).toMatch(/no further than a kiss/);
+    expect(S.rules.toneGuide).not.toMatch(/kiss|gore/);
     expect(step('partners').directorNotes).toMatch(/no further than a kiss/);
   });
 
@@ -456,6 +472,31 @@ describe('nobody is only there to react', () => {
   it('gives no two of them the same short name', () => {
     const short = S.characters.map((c) => c.calledName ?? c.name.split(' ')[0]!);
     expect(new Set(short).size).toBe(short.length);
+  });
+});
+
+describe('it fits every history', () => {
+  it('never says the wyvern was killed with an edge, because one history used a fence post', () => {
+    const wound = [
+      S.items.find((i) => i.id === 'wyvern_head')!.description,
+      character('fia').cardBlurb,
+      ...character('fia').voiceSamples,
+      event('we_the_proving').publicCopy,
+      event('we_the_proving').directorNotes,
+      step('the_claim').directorNotes,
+      S.endings.find((e) => e.id === 'end_a_silver_a_day')!.condition ?? '',
+    ];
+    for (const text of wound) expect(text).not.toMatch(/\b(cut|stroke|severed)\b/i);
+  });
+});
+
+describe('ready for the release script', () => {
+  it('ships undated, so release-stories stamps it on the day it goes out', () => {
+    expect(S.publishedAt).toBeNull();
+  });
+
+  it('carries a tag that files it on the Fantasy shelf', () => {
+    expect(S.tags).toContain('High fantasy');
   });
 });
 
