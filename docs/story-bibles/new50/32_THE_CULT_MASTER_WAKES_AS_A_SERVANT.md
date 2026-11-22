@@ -25,6 +25,8 @@ and describe costume and pose, never an age number.
 | Pyo Man-deok, "Old Cook Pyo" | 61 |
 | Gong Tae-seok, First Elder | 66 |
 
+Silver Pine takes nobody under eighteen: every disciple, junior disciples included, and every servant on the mountain is an adult. This sentence is also in `hardCanon[0]`.
+
 Nothing reads as childlike. Dol's past is told through debts and chores, never through a childhood.
 Gong says "young friend", never "child".
 
@@ -82,9 +84,9 @@ Water, Steady the Breath.
 
 ## Premise (as shipped)
 
-> You were the most feared martial master alive. Nine days ago you died at your own banquet, of poisoned wine poured by your own right hand.
+> You were the most feared martial master alive, and they called you the Gravekeeper. Nine days ago you died at your own banquet, of poisoned wine poured by your own right hand.
 >
-> This morning you woke up in somebody else's body. It belongs to Dol, a servant in the outer yard of the Silver Pine Sect, a righteous sword school which spent thirty years at war with your cult. Last night a senior disciple beat Dol to death in the woodshed. Nobody here knows it worked.
+> This morning you woke up in somebody else's body. It belongs to Dol, a servant in the outer yard of the Silver Pine Sect, a righteous sword school which spent thirty years at war with your cult, the Nine Graves. Last night a senior disciple beat Dol to death in the woodshed. Nobody here knows it worked.
 >
 > The body is thin, bruised and untrained, with almost no internal energy. Your memory of nine killing forms is perfectly intact, and the first of them needs no strength at all, only precision.
 >
@@ -94,8 +96,9 @@ Water, Steady the Breath.
 >
 > What you do with a second life is yours: revenge, the cult, the truth, or the quiet life of a servant who should be dead.
 
-214 words, six paragraphs, none over 54 words. The premise names who poured the wine and hides who
-made the poison.
+222 words, six paragraphs, none over 57 words. The premise names who poured the wine and hides who
+made the poison. It also ties both names the cast will use from the first beats, the Gravekeeper and
+the Nine Graves, to the player, and its first 40 characters still match the hook.
 
 ## Opener (turn 1, verbatim)
 
@@ -105,14 +108,15 @@ made the poison.
 >
 > "Kneel, servant," says Senior Disciple Mok. "Properly, this time."
 >
-> This body is thin, bruised and untrained. It has never once breathed the right way. Your memory of nine killing forms is perfectly intact.
+> This body is a servant’s: thin, split-lipped, breathing all wrong. Your hands still remember nine killing forms.
 >
 > At the edge of the yard, a woman in white has stopped with two water buckets.
 >
 > Mok leans his weight in. "Forehead on the ground. Tell the lady you fell down the stairs. Do it now, or we do last night again."
 
-117 words. Mok's first line starts at word 43. It ends on a demand that needs an answer now. The only proper noun
-is Mok, and the line introduces him. The woman in white is Seo-ah, unnamed until the player meets her.
+110 words. Mok's first line starts at word 43. It ends on a demand that needs an answer now. The only proper noun
+is Mok, and the line introduces him. The woman in white is Seo-ah, unnamed until the player meets her. Paragraph 4 deliberately does not repeat the
+premise's wording.
 
 **Cards:**
 
@@ -130,14 +134,16 @@ Cover order: Seo-ah, Mok, Seol-hwa.
 ### Baek Seo-ah, 22, the sect leader's daughter
 
 The best sword of her generation. She swore at her mother's funeral to kill the Gravekeeper, who
-killed her mother, Han So-yeon, in a duel So-yeon demanded ten years ago. She is the only person
+killed her mother, Han So-yeon, in a duel So-yeon demanded ten years ago. She is the only disciple
 on the mountain who was ever kind to Dol. She fails her mother's sword form at the eleventh movement
 every night, because she turns on the front foot. The Gravekeeper saw it finished once and knows it
-turns on the back foot.
+turns on the back foot. So-yeon's last words, said to the Gravekeeper alone, were: "Tell her it turns
+on the back foot." That line is in her secret, so the storyteller has it.
 
 - **Wants:** to stop the truce, or say to Seol-hwa's face what she thinks of it; to finish the form.
 - **Fears:** the form dying unfinished; her mother having died for nothing.
 - **Hidden:** relieved the Gravekeeper is dead, and ashamed of the relief.
+- **Boundary:** will not let anybody be beaten in front of her, whatever their rank; a servant who chooses to bow, she lets bow, and hates watching it. (This is why the opener does not collapse into her stepping in on turn 1.)
 - **Voice:** blunt, short, sword vocabulary for everything, flat dry humour. *"Again. Slower. Your feet lie less than your mouth does."*
 - **Romance:** slow and tense, up to a kiss. Gate `seo_ah_closer` needs trust 60 and affection 65.
 
@@ -150,6 +156,7 @@ He does not know Dol died.
 
 - **Wants:** Dol too frightened to talk; to win the open sparring in front of the First Elder.
 - **Fears:** that the box is what killed the Gravekeeper; being sent home to his poor branch family.
+- **Boundary:** will not throw a punch or draw a blade on anybody while the sect leader or Seo-ah is watching; making a servant bow properly does not count, to him, and he will push that as far as she lets him.
 - **Voice:** counted threats, "servant" used as a name, oily honorifics for elders. *"That's one. You get three before I stop counting and start enjoying it."*
 - **Arc:** the rival. Can break (fear 55), can testify (respect 40 plus `knows:gong_sent_it`), or can stay a bully.
 
@@ -189,7 +196,9 @@ last one. His war wound is worse than anyone knows: three breaths of fighting, n
 
 Gentle, courteous, treats servants for free, remembers every name. The cult sent his only son's sword
 home twenty years ago. He bought the Two Sleeps recipe, sent both halves to the banquet through Mok,
-and plans to burn the rest at the altar during the signing and blame the cult's own factions. His
+and plans to burn the rest at the altar during the signing and blame the cult's own factions. At the
+signing the wine half goes only into the guests' cups, from the jar of honour; the sect drinks from its
+own jar, which is why only the delegation falls. His
 dispensary book records every measure in his own hand. He hangs black lanterns on night 2, tied with
 the Silver Pine knot instead of the cult's nine-turn cord.
 
@@ -231,7 +240,7 @@ All edges are two-way. `old_shrine` and `grey_ford` are undiscovered at start, a
 - **`q_the_truce` (MAIN).** Noon on day 4. The routes are the book to Baek, Mok testifying, warning Seol-hwa, the Grave Bell in the Hall, quietly taking the incense, or letting it happen. `let_it_happen` needs only `trap_sprung`, so the war returning is reachable by inaction.
 - **`q_rebuild` A Body Worth Having (SIDE).** Open the channels (slow work, the pill, or Pyo's needles), then fill the well (the cold pool at night, or the open sparring). This grants the fourth and sixth forms.
 - **`q_old_pyo` (SIDE).** Tell him, let him say it first, frighten him, or fool him with Dol's own debts.
-- **`q_the_daughter` (SIDE).** Teach the turn, tell her everything, or give her the words and lie about the source. If she knows, step 2 follows: she spares you, calls the duel, or walks away. Nobody dies on the page.
+- **`q_the_daughter` (SIDE).** Teach the turn, tell her everything, or give her the words and lie about the source. Telling her everything includes her mother's last words, so that route sets `taught_seo_ah` as well as `seo_ah_knows`. If she knows, step 2 follows: she spares you, calls the duel, or walks away. Nobody dies on the page.
 - **`q_the_cache` (LEAD).** The third flagstone on the old north road.
 - **`q_dols_debt` Thirty-One Silver (SIDE).** Pay the last nine silver, steal the contract, or keep Dol bound as cover.
 
@@ -242,12 +251,12 @@ All edges are two-way. `old_shrine` and `grey_ford` are undiscovered at start, a
 | Day 1, 07:20 | Pyo watches you eat | `pyo_watching` |
 | Day 1, 12:00 | The yard talks about Dol walking out of the woodshed | `yard_talking` |
 | Day 1, 21:00 | Mok reports to Gong | `mok_reported` |
-| Nightly, 22:30 (after visiting the pool) | Seo-ah fails the eleventh movement | `saw_her_fail_the_turn` |
+| Day 1, 22:30 (if you have been to the pool) | Seo-ah fails the eleventh movement | `saw_her_fail_the_turn` |
 | Day 2, 09:00 | Open sparring; Mok asks for Dol by name | `sparring_day` |
-| Day 2, 15:00 (if Mok was dropped) | Gong examines the body | `gong_examined_you` |
+| Day 2, 15:00 (if Mok was dropped) | Gong sends for you, wherever you are, and examines the body | `gong_examined_you` |
 | Day 2, 23:00 | Black lanterns, wrong knot | `lanterns_hung` |
 | Day 3, 18:00 | The delegation arrives; Seol-hwa moves to the guest pavilion | `delegation_arrived` |
-| Day 3, 20:00 | Tea for the guests; the steward points at you | `tea_for_the_guests` |
+| Day 3, 20:00 | Tea for the guests; the steward goes looking for a servant nobody will miss, and finds you | `tea_for_the_guests` |
 | Day 4, 12:00 | The signing; cancelled by `trap_exposed`, `gong_exposed` or `seol_hwa_warned` | `trap_sprung` |
 | Day 4, 12:30 (if stopped) | Clean wine | `truce_signed` |
 | Day 5, 06:00 (if sprung) | War drums | `war_again` |
@@ -271,7 +280,7 @@ All edges are two-way. `old_shrine` and `grey_ford` are undiscovered at start, a
 | Down the Mountain | UNCOMMON | `left_the_map`, minTurn 18 |
 | Two Cooks | UNCOMMON | Pyo an ally, truce decided, no reveal |
 | The Right Hand Keeps It | RARE | she was warned, she knows you, you let her keep the cult |
-| The Eleventh Movement | RARE | taught Seo-ah, she spared you, affection 60 |
+| The Eleventh Movement | RARE | told Seo-ah everything, she spared you, affection 60 |
 | The Servant Who Saved Silver Pine | RARE | Baek owes you, Gong exposed, Dol freed, Silver Pine 40 |
 | The Gravekeeper Returns | RARE | the Grave Bell in public, she knows you, Nine Graves 30 |
 | Her Mother's Debt | UNIQUE | the duel at the cold pool |

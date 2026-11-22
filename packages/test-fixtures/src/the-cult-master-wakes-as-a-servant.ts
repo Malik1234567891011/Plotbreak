@@ -43,8 +43,8 @@ const raw = {
   fantasyLabel: 'You died a legend. You woke up a servant.',
   hook: 'You were the most feared martial master alive. You died of poisoned wine, woke up in the beaten body of a servant at the sect that hunted you for thirty years, and your killer arrives in three days to sign a truce.',
   premise:
-    'You were the most feared martial master alive. Nine days ago you died at your own banquet, of poisoned wine poured by your own right hand.\n\n' +
-    'This morning you woke up in somebody else’s body. It belongs to Dol, a servant in the outer yard of the Silver Pine Sect, a righteous sword school which spent thirty years at war with your cult. Last night a senior disciple beat Dol to death in the woodshed. Nobody here knows it worked.\n\n' +
+    'You were the most feared martial master alive, and they called you the Gravekeeper. Nine days ago you died at your own banquet, of poisoned wine poured by your own right hand.\n\n' +
+    'This morning you woke up in somebody else’s body. It belongs to Dol, a servant in the outer yard of the Silver Pine Sect, a righteous sword school which spent thirty years at war with your cult, the Nine Graves. Last night a senior disciple beat Dol to death in the woodshed. Nobody here knows it worked.\n\n' +
     'The body is thin, bruised and untrained, with almost no internal energy. Your memory of nine killing forms is perfectly intact, and the first of them needs no strength at all, only precision.\n\n' +
     'In three days your cult rides up this mountain to sign a truce, led by the woman who poured your wine. The signing is at noon on the fourth day. Dol was killed because of something Dol saw, and the reason is hidden somewhere in a dead servant’s things.\n\n' +
     'If anybody here learns who you are, they will kill this body before lunch. If you say nothing, you may have to serve your killer tea.\n\n' +
@@ -77,7 +77,7 @@ const raw = {
     startWorldMinute: 5 * 60 + 50,
     startingItems: [{ itemId: 'servant_tag', qty: 1 }],
     hardCanon: [
-      'Everybody in this story is an adult. The body the player wakes in, Dol’s, is twenty. Seo-ah is twenty-two, Mok is twenty-five, Seol-hwa is thirty-four, Baek is fifty-five, Pyo is sixty-one and Gong is sixty-six. The Gravekeeper was fifty-two when the wine was poured.',
+      'Everybody in this story is an adult. The body the player wakes in, Dol’s, is twenty. Seo-ah is twenty-two, Mok is twenty-five, Seol-hwa is thirty-four, Baek is fifty-five, Pyo is sixty-one and Gong is sixty-six. The Gravekeeper was fifty-two when the wine was poured. Silver Pine takes nobody under eighteen: every disciple, junior disciples included, and every servant on the mountain is an adult.',
       'The player was the Gravekeeper, master of the Nine Graves Cult and the most feared martial artist alive, until nine days ago, when they died of poisoned wine at the cult’s winter banquet. The name the player chose is the Gravekeeper’s own, which almost nobody alive has heard said aloud.',
       'This morning the player woke in the body of Dol, a twenty-year-old servant in the Silver Pine Sect’s outer yard, who died of a beating in the woodshed last night. Everybody on the mountain knows the body as Dol and calls it Dol. Nobody knows Dol died.',
       'The body has almost no internal energy and its channels are blocked. The Gravekeeper’s memory of the Nine Grave Forms is complete. The first three forms work on precision alone; the fourth needs the channels opened; the sixth needs real internal energy rebuilt; the seventh and eighth are out of reach in four days. The ninth is the form the Gravekeeper used while dying, and it cannot be used again.',
@@ -240,7 +240,8 @@ const raw = {
     {
       id: 'dol_ledger',
       name: 'Dol’s Savings Book',
-      tags: ['document', 'personal'],
+      tags: ['quest', 'document', 'personal'],
+      questItem: true,
       description: 'A thin book of folded paper recording every coin Dol ever earned, won or squeezed out of somebody. The total at the bottom is thirty-one silver. Above it Dol has written forty, and underlined it twice.',
       loreText: 'Forty silver buys an outer-yard servant’s contract back from the sect. The last entry, two days ago, reads: "M. 20, if he pays."',
       icon: 'book',
@@ -304,8 +305,8 @@ const raw = {
       name: 'The Pear-Wood Incense',
       tags: ['quest', 'evidence'],
       questItem: true,
-      description: 'Nine sticks of pale incense wrapped in red paper and labelled for the altar of the Hall of Pines. Lit, it smells of pears in autumn. With the right wine, it is the second half of a poison.',
-      loreText: 'Nobody on this mountain burns pear wood in spring. Anybody from the Nine Graves’ kitchens would know why.',
+      description: 'A bundle of pale incense sticks wrapped in red paper and labelled for the altar of the Hall of Pines. Lit, it smells of pears in autumn. With the right wine, it is the second half of a poison.',
+      loreText: 'Nobody on this mountain burns pear wood at all. Anybody from the Nine Graves’ kitchens would know why.',
       icon: 'incense',
     },
     {
@@ -739,7 +740,7 @@ const raw = {
       name: 'The Shrine on the Old Road',
       shortName: 'Old Shrine',
       description:
-        'A roofless mountain shrine two hours up the old north road where nobody has prayed in years. Under its third flagstone the Gravekeeper buried one of nine emergency caches twelve years ago, and told exactly one person.',
+        'A roofless mountain shrine two hours up the old north road where nobody has prayed in years. Under its third flagstone the Gravekeeper buried one of a handful of emergency caches twelve years ago, and told exactly one person.',
       artDirection:
         'Abandoned roofless stone shrine on a mountain road, cracked flagstones, a weathered stone statue with moss, wildflowers, an overgrown path, grey sky. Forgotten, quiet, secret.',
       connections: [{ to: 'pinefoot_village', travelMinutes: 120, label: 'Back down the old road' }],
@@ -815,7 +816,7 @@ const raw = {
       calledName: 'Seo-ah',
       role: 'The sect leader’s daughter, the best sword of her generation at Silver Pine, and sworn since her mother’s funeral to kill the Gravekeeper',
       cardBlurb:
-        'She is the only person on this mountain who was ever kind to Dol, she swore at her mother’s funeral to kill the Gravekeeper with her own hands, and she has started to notice that you stand like a swordsman.',
+        'She is the only disciple on this mountain who was ever kind to Dol, she swore at her mother’s funeral to kill you with her own hands, and she has started to notice that you do not flinch like a servant.',
       pronouns: 'she/her',
       publicTraits: ['Blunt to the point of rudeness', 'Kind to servants and cold to disciples', 'Trains when she is angry, which is always'],
       hiddenDrives: [
@@ -830,7 +831,7 @@ const raw = {
       socialStyle:
         'Asks one direct question and waits for the answer with her hand resting on her sword. Treats servants as equals and disciples as problems to be corrected.',
       boundaries: [
-        'Will not let anybody be beaten in front of her, whatever their rank',
+        'Will not let anybody be beaten in front of her, whatever their rank; a servant who chooses to bow, she lets bow, and hates watching it',
         'Will not sit at a table with the Nine Graves, truce or no truce',
         'Will not be protected; tell her she cannot do something and she will have done it before supper',
       ],
@@ -847,7 +848,7 @@ const raw = {
         },
         {
           id: 'seo_ah_the_letter',
-          fact: 'Her mother left her a letter that stops mid-sentence: "the eleventh movement turns on". Han So-yeon went to the duel before finishing it. The Gravekeeper saw the movement completed, once, and knows it turns on the back foot.',
+          fact: 'Her mother left her a letter that stops mid-sentence: "the eleventh movement turns on". Han So-yeon went to the duel before finishing it. The Gravekeeper saw the movement completed, once, and knows it turns on the back foot. Han So-yeon’s last words, said to the Gravekeeper alone, were: "Tell her it turns on the back foot."',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She shows the letter only to somebody she trusts enough to watch her practise, and only at the cold pool.',
         },
@@ -912,7 +913,7 @@ const raw = {
       calledName: 'Mok',
       role: 'Senior Disciple of Silver Pine, second-best sword of his generation, and the man who beat Dol in the woodshed last night',
       cardBlurb:
-        'He beat the servant whose body you are wearing, he thinks you are hiding what you saw, and he has decided the safest thing is to make you kneel in front of everybody until you forget it.',
+        'Last night he beat the servant whose body you are wearing. He thinks you are hiding what you saw, and he means to keep you kneeling in front of everybody until you forget it.',
       pronouns: 'he/him',
       publicTraits: ['Polite to elders and vicious to servants', 'Counts everything, out loud', 'Good with a sword and better with a grudge'],
       hiddenDrives: [
@@ -927,7 +928,7 @@ const raw = {
       socialStyle:
         'Performs for whoever is watching. With elders he bows a fraction too low; with servants he stands on things, including them.',
       boundaries: [
-        'Will not raise a hand to anybody while the sect leader or Seo-ah is watching',
+        'Will not throw a punch or draw a blade on anybody while the sect leader or Seo-ah is watching; making a servant bow properly does not count, to him, and he will push that as far as she lets him',
         'Will not admit he was afraid, even to himself, even while he is shaking',
       ],
       goals: [
@@ -1092,7 +1093,7 @@ const raw = {
       publicTraits: ['Gruff, loud, and never wrong about food', 'Feeds everybody, including people he dislikes', 'Hates the Nine Graves more than anybody in the sect, for reasons he will not give'],
       hiddenDrives: [
         'He was a kitchen hand in the Nine Graves’ valley thirty years ago and ran the night they made him carry a dish he knew was poisoned; he has never quite stopped running',
-        'He loved Dol like a nephew and is grieving the only way he knows, which is cooking far too much',
+        'He loved Dol like his own family and is grieving the only way he knows, which is cooking far too much',
       ],
       values: ['Nobody on this mountain goes hungry while he has a pot', 'A debt paid, even a small one'],
       fears: ['That the Nine Graves remember his face', 'That he is about to help whatever killed Dol'],
@@ -1169,7 +1170,7 @@ const raw = {
       calledName: 'Baek',
       role: 'Sect Leader of Silver Pine, Seo-ah’s father, and the man staking thirty years of funerals on one truce',
       cardBlurb:
-        'He has never once noticed you, he is about to sign a truce with the cult whose master killed his wife, and if anybody proves the signing is a trap, he is the only person on the mountain who can stop it.',
+        'He has never once noticed you, which is lucky, because ten years ago you killed his wife. At noon on the fourth day he signs a truce with your cult, and if anybody proves the signing is a trap, he is the only person on the mountain who can stop it.',
       pronouns: 'he/him',
       publicTraits: ['Slow to speak and slower to anger', 'A great swordsman with an old wound', 'Tired in a way the whole sect can see'],
       hiddenDrives: [
@@ -1241,7 +1242,7 @@ const raw = {
       calledName: 'Gong',
       role: 'First Elder of Silver Pine, master of its Medicine Pavilion, and the gentlest voice on the mountain',
       cardBlurb:
-        'He treats the servants’ injuries for free, he lost his only son to the Nine Graves twenty years ago, and he is very interested in how a servant who was carried in not breathing is walking around this morning, and in what you remember.',
+        'He treats the servants’ injuries for free, he lost his only son to your cult twenty years ago, and he is very interested in how a servant who was beaten that badly last night is carrying water this morning, and in what you remember.',
       pronouns: 'he/him',
       publicTraits: ['Gentle, courteous and generous with medicine', 'Remembers every name, including the servants’', 'Speaks of the cult without heat, which unsettles people'],
       hiddenDrives: [
@@ -1264,7 +1265,7 @@ const raw = {
       secrets: [
         {
           id: 'gong_the_poison',
-          fact: 'He bought the Two Sleeps recipe from a cult steward, sent the wine half and the lamp half to the Nine Graves banquet through Mok, and killed the Gravekeeper. Four more measures of pear wood are in his pavilion, wrapped for the altar of the Hall of Pines.',
+          fact: 'He bought the Two Sleeps recipe from a cult steward, sent the wine half and the lamp half to the Nine Graves banquet through Mok, and killed the Gravekeeper. Four more measures of pear wood are in his pavilion, wrapped for the altar of the Hall of Pines. At the signing the wine half goes only into the guests’ cups, poured from the jar of honour Silver Pine keeps for visitors; the sect drinks from its own jar.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He will never say it aloud. His dispensary book records every measure in his own hand.',
         },
@@ -1831,7 +1832,7 @@ const raw = {
                 flagsSet: ['used:say_who_you_are', 'spoke:seo_ah'],
                 minRelationship: [{ characterId: 'seo_ah', dimension: 'trust', value: 40 }],
               },
-              setsFlags: ['seo_ah_knows'],
+              setsFlags: ['seo_ah_knows', 'taught_seo_ah'],
               closesFlags: ['kept_it_from_her'],
             },
             {
@@ -2015,7 +2016,7 @@ const raw = {
       atWorldMinute: 12 * 60,
       locationId: 'servants_yard',
       publicCopy:
-        'At the noon break the outer yard has one subject: Dol was dragged out of the woodshed last night not moving, and walked out of it this morning.',
+        'At the noon break the outer yard has one subject: Dol was left lying in the woodshed straw last night not moving, and walked out of it this morning.',
       directorNotes:
         'The servants make a joke of it, because that is what servants do with things that frighten them. One of them says Dol has a new walk. Another says Mok came back at dawn looking like he had seen a ghost.',
       setsFlags: ['yard_talking'],
@@ -2063,8 +2064,8 @@ const raw = {
     {
       id: 'we_gong_sends_for_you',
       atWorldMinute: 1440 + 15 * 60,
-      locationId: 'elders_pavilion',
-      publicCopy: 'A junior disciple finds you in the yard: the First Elder would like to look at your injuries. Now, if you please.',
+      locationId: null,
+      publicCopy: 'A junior disciple comes looking for you: the First Elder would like to look at your injuries. Now, if you please.',
       directorNotes:
         'Only if the servant put Mok on the ground. Gong examines the body with real skill and real kindness, and he will find the bruises in the pattern of a beating that should have killed. He will ask where the servant learned to fall like that. He will remember the answer.',
       setsFlags: ['gong_examined_you'],
@@ -2101,8 +2102,8 @@ const raw = {
     {
       id: 'we_tea_for_the_guests',
       atWorldMinute: 2 * 1440 + 20 * 60,
-      locationId: 'guest_pavilion',
-      publicCopy: 'The guest pavilion sends down for tea, and the steward looks round the outer kitchen and points at you.',
+      locationId: null,
+      publicCopy: 'The guest pavilion sends down for tea, and the steward goes looking for a servant nobody will miss. He finds you.',
       directorNotes:
         'The steward chose Dol because Dol is expendable. The player will be in a room with the woman who poured their wine, holding a tray, while the sect leader and Seol-hwa talk terms. Nobody looks at the servant. One person might.',
       setsFlags: ['tea_for_the_guests'],
@@ -2115,7 +2116,7 @@ const raw = {
       atWorldMinute: 3 * 1440 + 12 * 60,
       locationId: 'hall_of_pines',
       publicCopy:
-        'Noon in the Hall of Pines. Both sides drink from one jar while pear-wood incense burns at the altar, and one by one the cult delegation stops being able to stand.',
+        'Noon in the Hall of Pines. The guests are poured from the jar of honour while pear-wood incense burns at the altar, and one by one the cult delegation stops being able to stand.',
       directorNotes:
         'This only happens if nobody stopped it. The black lanterns have already told the sect what to think, and the First Elder is the first to shout that the cult has poisoned itself to frame Silver Pine. Write the consequence plainly and without gore: people on the floor, a hall in uproar, a truce over before the ink is dry.',
       setsFlags: ['trap_sprung'],
@@ -2255,12 +2256,12 @@ const raw = {
   setupFields: [
     {
       id: 'displayName',
-      label: 'What name did the martial world fear?',
-      helpText: 'Your own name, which almost nobody alive has heard. Everybody on this mountain will call you Dol.',
+      label: 'What was your own name, under the title?',
+      helpText: 'The martial world knew you as the Gravekeeper. Almost nobody alive has heard your real name. Everybody on this mountain will call you Dol.',
       kind: 'TEXT',
       required: true,
       maxLength: 40,
-      placeholder: 'e.g. Han Mu-gyeol',
+      placeholder: 'e.g. Seok Mu-gyeol',
     },
     { id: 'pronouns', label: 'Pronouns', kind: 'TEXT', required: false, maxLength: 24, placeholder: 'e.g. he/him' },
     {
@@ -2274,7 +2275,7 @@ const raw = {
     {
       id: 'worldKnowsAboutYou',
       label: 'What did the martial world get wrong about you?',
-      helpText: 'One plain sentence. The story will let somebody on the mountain believe it, at the worst moment.',
+      helpText: 'One plain sentence, in your own words.',
       kind: 'TEXT',
       required: false,
       maxLength: 300,
@@ -2364,7 +2365,7 @@ const raw = {
       condition:
         'The player knew Seol-hwa let the poison through, knew the trap was waiting at the signing, and let her walk into it. Revenge, taken by doing nothing. Do not redeem it and do not make it cartoonish: it was a choice a person who had been killed could reasonably make, and it is still a terrible thing.',
       epilogue:
-        'She drank from the same jar as everybody else. She looked across the hall at the servant holding the tea tray and counted to nine, and then she understood. The Gravekeeper carries water for another year and does not sleep well for any of it.',
+        'She drank from the jar of honour with the rest of her riders. She looked across the hall at the servant holding the tea tray and counted to nine, and then she understood. The Gravekeeper carries water for another year and does not sleep well for any of it.',
       hint: '',
     },
     {
@@ -2468,7 +2469,7 @@ const raw = {
     },
   ],
   opening:
-    "You died. You remember it: the wine, the cold climbing your chest, nine hundred of your own people on their knees as the lamps went out.\n\nThen a boot comes down between your shoulder blades and grinds your face into wet straw.\n\n\"Kneel, servant,\" says Senior Disciple Mok. \"Properly, this time.\"\n\nThis body is thin, bruised and untrained. It has never once breathed the right way. Your memory of nine killing forms is perfectly intact.\n\nAt the edge of the yard, a woman in white has stopped with two water buckets.\n\nMok leans his weight in. \"Forehead on the ground. Tell the lady you fell down the stairs. Do it now, or we do last night again.\"",
+    "You died. You remember it: the wine, the cold climbing your chest, nine hundred of your own people on their knees as the lamps went out.\n\nThen a boot comes down between your shoulder blades and grinds your face into wet straw.\n\n\"Kneel, servant,\" says Senior Disciple Mok. \"Properly, this time.\"\n\nThis body is a servant’s: thin, split-lipped, breathing all wrong. Your hands still remember nine killing forms.\n\nAt the edge of the yard, a woman in white has stopped with two water buckets.\n\nMok leans his weight in. \"Forehead on the ground. Tell the lady you fell down the stairs. Do it now, or we do last night again.\"",
   openingSuggestions: [
     "\"I fell down the stairs, my lady.\" I say it to her, not to him.",
     'I lower my forehead to the straw, slowly, and watch exactly where his weight sits.',
