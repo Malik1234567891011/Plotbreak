@@ -552,19 +552,20 @@ struct TabHeader<Trailing: View>: View {
         self.trailing = trailing
     }
 
+    /// Design v3: a large SF bold title on the page, no rule under it.
     var body: some View {
         HStack(alignment: .center) {
             Text(title)
-                .font(.system(size: 22, weight: .semibold))
+                .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(Theme.Colors.textPrimary)
                 .accessibilityAddTraits(.isHeader)
             Spacer(minLength: Theme.Spacing.sm)
             trailing()
         }
-        .padding(.horizontal, 18)
-        .padding(.top, Theme.Spacing.lg)
-        .padding(.bottom, 18)
-        .overlay(alignment: .bottom) { Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5) }
+        .padding(.horizontal, Theme.pageGutter)
+        .padding(.top, Theme.Spacing.md)
+        .padding(.bottom, Theme.Spacing.sm)
+        .background(Theme.Colors.bgBase)
     }
 }
 
@@ -758,11 +759,12 @@ struct SectionLabel: View {
 
     init(_ text: String) { self.text = text }
 
+    /// Design v3: no small-caps kickers. A heading in sentence case, so a
+    /// catalogue string written in capitals ("ACTIVE") reads "Active".
     var body: some View {
-        Text(text)
-            .font(.system(size: 12, weight: .medium))
-            .kerning(0.7)
-            .foregroundStyle(Theme.Colors.textMuted)
+        Text(text.sentenceCased)
+            .font(.system(size: 17, weight: .semibold))
+            .foregroundStyle(Theme.Colors.textPrimary)
             .accessibilityAddTraits(.isHeader)
     }
 }
@@ -982,5 +984,15 @@ struct OnboardingTitle: View {
             .lineSpacing(size * 0.25 - 4)
             .fixedSize(horizontal: false, vertical: true)
             .accessibilityAddTraits(.isHeader)
+    }
+}
+
+extension String {
+    /// An all-capitals string in sentence case ("YOU'LL ENTER AS" → "You'll
+    /// enter as"); anything already in mixed case is returned unchanged.
+    var sentenceCased: String {
+        guard contains(where: \.isLetter), self == uppercased() else { return self }
+        let lower = lowercased()
+        return lower.prefix(1).uppercased() + lower.dropFirst()
     }
 }
