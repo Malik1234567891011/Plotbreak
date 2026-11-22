@@ -37,7 +37,7 @@ import { StoryVersion } from '@plotbreak/contracts';
  * `resolveRest` refills those. Censure comes first among the descending pair
  * on purpose: public violence raises the first GOOD_LOW in array order, and a
  * fight outside the Ring is an expulsion offence before it is anything else.
- * Marked is how hard the Society of the Ring is coming for the scholar.
+ * Marked is how hard the Rail Society is coming for the scholar.
  */
 
 const raw = {
@@ -46,12 +46,12 @@ const raw = {
   version: 1,
   title: 'Crest Academy',
   fantasyLabel: 'Five points to spend. Ten seconds left.',
-  hook: 'The empire’s academy of swords and spells takes one commoner a year. You get five stat points before your first duel, and the crowd is already counting.',
+  hook: 'Four hundred nobles and one commoner a year. You get five stat points and a ten-count before your first duel, and the crowd is already betting on how long you last.',
   premise:
     'Crest Academy sits on a cliff above the imperial capital and takes four hundred students, nearly all of them noble. Each wears a crest: a silver badge over the heart that opens a small window of light with five numbers in it. Strength, Speed, Mana, Guard, Charm. A good student reads five. The best of a year reads seven.\n\n' +
     'Once a year the academy admits one commoner: whoever wins an exam that four thousand people sit across the provinces. This year that is you. Your crest opened this morning at two in every line, plus something no other crest in the academy has. Five unspent points, yours to place in any line at any moment, even halfway through a swing.\n\n' +
     'The Ring Code settles everything here. Any student may challenge you once a week. Lose, and your crest pays the winner a point. Yield before the first exchange, and you serve your challenger for up to a year. If any line ever reads zero, you leave the academy that day.\n\n' +
-    'Twenty-seven commoners came before you, and one graduated. The noble duellists who run the challenge board keep a wager book on how many days each scholar lasts. The record is seventy-one. In seven days the governors vote on ending the scholarship for good.\n\n' +
+    'Twenty-seven commoners came before you. Only the first graduated. Since him, the noble duellists who run the challenge board have kept a wager book on how many days each scholar lasts. The record is seventy-one. In seven days the governors vote on ending the scholarship for good.\n\n' +
     'Your first duel starts on a count of ten. The noblewoman across the sand has never lost.',
   creatorId: 'creator_official',
   creatorName: 'Plotbreak Studios',
@@ -66,10 +66,10 @@ const raw = {
     'Hit zero and you are out',
     'A vote at week’s end',
   ],
-  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY'],
+  contentDescriptors: ['FANTASY_VIOLENCE', 'ROMANCE', 'MORAL_AMBIGUITY', 'ALCOHOL_REFERENCES'],
   intensity: 'MODERATE',
   creatorNote:
-    'You are the weakest crest in the academy and the only person alive who can change your numbers mid-fight. You can yield and carry a noblewoman’s books for a year, spend all five points on Charm and talk your way through the week, or find out what the duelling society writes in its little book. Everybody in the Ring has an opinion about where your points should go.',
+    'You have the lowest numbers in the academy and are the only person alive who can change your numbers mid-fight. You can yield and carry a noblewoman’s books for a year, spend all five points on Charm and talk your way through the week, or find out what the duelling society writes in its little book. Everybody in the Ring has an opinion about where your points should go.',
   rules: {
     defeatMode: 'FAIL_FORWARD',
     progressionMode: 'MILESTONE',
@@ -85,13 +85,13 @@ const raw = {
     ],
     hardCanon: [
       'Everyone in this story is an adult. Crest Academy admits nobody under eighteen. The player is nineteen. Lady Seraphine Aldric is twenty, Mio Fenn twenty-one, Princess Isolde twenty-one, Instructor Brannoch forty-seven, Lord Ansel Varro twenty-two and Lord Piers Hallam twenty. Off stage, Seraphine’s father Lord Marshal Corvin Aldric is fifty-four, Headmistress Ottilie Brask sixty-six, and Varro’s mother Lady Governor Maud Varro forty-nine.',
-      'Crest Academy is the Empire of Vael’s academy of swordwork and sorcery, on a cliff above the imperial capital. Four hundred students over three years, almost all of them noble. The Ring, a sand duelling circle at its centre, decides most things that matter here.',
+      'Crest Academy is the Empire of Vael’s duelling academy, where nobles learn the blade and the spell, on a cliff above the imperial capital. Four hundred students over three years, almost all of them noble. The Ring, a sand duelling circle at its centre, decides most things that matter here.',
       'Every student wears a crest: a silver badge pinned over the heart, issued on the first day, that reads its wearer and opens a small window of light with five lines. Strength is force. Speed is footwork and reaction. Mana is how much sorcery you can cast and how large. Guard is taking a hit and holding a ward. Charm is how easily you are heard, believed and noticed; it never makes anybody like you. Anyone may ask to see a crest, and anyone may refuse.',
       'The crest scale: one is an untrained adult, three a trained soldier, five a good student, seven the best of a year, nine an imperial champion, ten the most a crest can show. A crest counts only what was trained while wearing one. Nobles train under tutors’ crests for years before they arrive, so a noble first-year reads four to six in most lines. Training raises a line about one point a season; nobody gains a point in a week except by winning one in the Ring.',
       'The player is this year’s only commoner scholar, the winner of the Open Trial, an exam four thousand people sat across the provinces. Their scholarship crest opened this morning at 2 in every line with five unspent points, and it is the only crest in the academy that can hold unspent points. The player can put them into any line at any moment, one at a time or all at once, even mid-swing. A spent point arrives as a cold rush through the body, then the new number. Spent points are permanent. The official story is that the five are the founder’s allowance.',
-      'The Ring Code: any student may challenge any other once a week. Duels happen only in the Ring; fighting anywhere else is an expulsion offence. Six ward-stones in the Ring’s rails blunt steel and spell to bruises, so nobody is maimed. A duel ends at the first clean touch, at a yield, at the instructor’s call, or when the minute-glass runs out, which is a draw and moves no point. The loser’s crest pays the winner one point and the winner chooses the line. On the scholarship crest a won point arrives as a new unspent point. A challenged student who does not turn up forfeits and pays the point anyway.',
-      'Yielding: the challenged may yield before the first exchange. No point moves, but the yielder serves the challenger on terms the challenger names: no harm, no money, nothing indecent, no longer than a year. Clause nine: nobody may challenge a student who is serving under yield terms, and a server who issues a challenge ends their own service. Clause fourteen: no challenges in concert; students may not coordinate to drain one crest. The Charter: a crest that reads zero in any line means its wearer leaves the academy the same day.',
-      'The Society of the Ring is forty noble duellists, captained by Lord Ansel Varro, who run the challenge board in the Great Hall, called the Ladder. In the Rail Room above the Ring they keep the Purse, a wager book on how many days each commoner scholar lasts. Twenty-seven scholars, twenty-seven lines, all ended. The record is seventy-one days.',
+      'The Ring Code: any student may challenge any other once a week. Duels happen only in the Ring; fighting anywhere else is an expulsion offence. Six ward-stones in the Ring’s rails blunt steel and spell to bruises, so nobody is maimed. A duel ends at the first clean touch, at a yield, at the instructor’s call, or when the minute-glass runs out, which is a draw and moves no point. The loser’s crest pays the winner one point and the winner chooses the line. On the scholarship crest a won point arrives as a new unspent point. A challenged student who does not turn up forfeits and pays the point anyway. An expulsion offence is heard by the Headmistress, not settled on the spot: a first fight outside the Ring brings a summons and a prefect at the scholar’s elbow; a second, or real harm, ends in expulsion.',
+      'Yielding: the challenged may yield before the first exchange. No point moves, but the yielder serves the challenger on terms the challenger names: no harm, no money, nothing indecent, no longer than a year. Service can also be entered later by agreement, on terms the other student names, and counts the same. Clause nine: nobody may challenge a student who is serving under yield terms, and a server who issues a challenge ends their own service. Clause fourteen: no challenges in concert; students may not coordinate to drain one crest. The Charter: a crest that reads zero in any line means its wearer leaves the academy the same day.',
+      'The Rail Society is forty noble duellists, captained by Lord Ansel Varro, who run the challenge board in the Great Hall, called the Ladder. In the Rail Room above the Ring they keep the Purse, a wager book on how many days each commoner scholar lasts. Twenty-six scholars since the first, twenty-six lines, all ended. The record is seventy-one days.',
       'Last year’s scholar was Mio Fenn. She lasted nineteen days. Varro paid three proxies, Piers Hallam among them, and between forfeits and duels they took her Mana line to zero in one afternoon. That breaks clause fourteen, and the payments are written in the Purse in Varro’s hand. Mio took the maid-knight oath to stay inside the walls and asked to be assigned to this year’s scholar. Few people remember who she was, and she does not say.',
       'The five unspent points come from Instructor Halden Brannoch, master of the Ring. He was the first scholar, twenty-eight years ago, and the only one who ever graduated. Every year since, under the Headmistress’s seal, he has moved five points from his own crest into the scholarship crest, and every year he trains them back and never quite catches up. It is written in the transfer register in Founders’ Hall. He has told nobody. Points move between crests only under that seal.',
       'As a scholar, Brannoch invented a counter that turns an opponent’s higher number against them: the wider the gap, the harder it lands. He has never taught it to anybody, and will teach it only to somebody who has kept the Code when it cost them.',
@@ -100,16 +100,17 @@ const raw = {
       'The week runs on its own. At one in the afternoon of the first day three Society challenges against the scholar go up on the Ladder for the next day, unless the scholar is serving under yield terms. The Lord Marshal rides in on the fifth day, the governors arrive on the sixth, and Week’s End is the seventh.',
     ],
     toneGuide:
-      'Academy anime with the stat window switched on: fast, competitive, funny, and exact about the rules. The player is the weakest crest in the Ring on paper and the only person alive who can change their numbers mid-fight, and the comedy is that everybody has an opinion about where the points should go. ' +
+      'Academy anime with the stat window switched on: fast, competitive, funny, and exact about the rules. The player has the lowest numbers in the Ring on paper and is the only person alive who can change their numbers mid-fight, and the comedy is that everybody has an opinion about where the points should go. ' +
       'Crest lines appear in the prose as short bracketed lines, only when somebody opens a crest, never as tables. Track the player’s five lines and unspent points from the transcript and never contradict them: a spent point stays spent, a lost point stays lost, and a won point arrives as a new unspent one. ' +
       'Duels are short, physical and readable: footwork, a blade, a spell, the rail shouting the count. The ward-stones turn every blow into a bruise, so there is no blood and no gore. A fight outside the Ring is a scandal and people react like it is one. ' +
+      'Narration uses contractions, and so do most voices. Seraphine never does; her full, formal sentences are how the reader knows it is her. ' +
       'Romance is flirtatious, tense and earned, and goes no further than a kiss. Nobody is a prize and nothing is fan service: Seraphine, Mio and Isolde each want something specific from the player, and each can say no. Never linger on bodies. ' +
       'Secrets are earned, never announced: where the five points come from, who Mio used to be, why Seraphine chose the scholar, what the Purse records, who Isolde’s mother was. The face at the top of a beat belongs to whoever reacted to the player most strongly.',
     proseStyle: 'webnovel',
     styleExamples: [
-      'Seraphine comes in low, faster than anything you have ever seen move.\n\nYou spend a point.\n\nCold runs down both arms like well water.\n\n[Speed 3]\n\nIt is not enough. It is almost enough. Her blade skims your sleeve instead of your ribs, and the whole rail goes quiet.\n\n"You spent a point," she says. "During my lunge."\n\n"It seemed like the moment."\n\n"It was." She resets her feet. "Do it again, scholar. Sooner."',
-      'Mio sets the tray on the winch housing, because the gatehouse room has no table.\n\n"Supper is at seven," she says. "Your crest is at two. I can fix one of those."\n\n"Which one?"\n\n"Supper." She lifts the lid. Stew, bread, an apple cut into eight. "The other one is your job."\n\nShe glances at the door. Then she goes and slides the bolt across it, and does not explain.',
-      'Isolde peels an orange in one long ribbon and does not offer you any.\n\n"Suppose I told you," she says, "that three of the twelve governors have not made up their minds."\n\n"Which three?"\n\n"That is the interesting part." The ribbon drops into a dish. "They are waiting to see whether you are still standing on the seventh day. Are you planning to be?"',
+      'Seraphine comes in low, faster than anything you’ve ever seen move.\n\nYou spend a point.\n\nCold runs down both arms like well water.\n\n[Speed 3]\n\nIt isn’t enough. It’s almost enough. Her blade skims your sleeve instead of your ribs, and the whole rail goes quiet.\n\n"You spent a point," she says. "During my lunge."\n\n"It seemed like the moment."\n\n"It was." She resets her feet. "Do it again, scholar. Sooner."',
+      'Mio sets the tray on the winch housing, because the gatehouse room has no table.\n\n"Supper is at seven," she says. "Your crest is at two. I can fix one of those."\n\n"Which one?"\n\n"Supper." She lifts the lid. Stew, bread, an apple cut into eight. "The other one is your job."\n\nShe glances at the door. Then she goes and slides the bolt across it, and doesn’t explain.',
+      'Isolde peels an orange in one long ribbon and doesn’t offer you any.\n\n"Suppose I told you," she says, "that three of the twelve governors haven’t made up their minds."\n\n"Which three?"\n\n"That’s the interesting part." The ribbon drops into a dish. "They’re waiting to see whether you’re still standing on the seventh day. Are you planning to be?"',
     ],
     forkCostCredits: 120,
     loop: null,
@@ -247,7 +248,7 @@ const raw = {
       questItem: true,
       droppable: false,
       description:
-        'A silver badge pinned over your heart, plainer than the nobles’ and stamped with an open hand. Think about it and it opens a small window of light: [Strength 2, Speed 2, Mana 2, Guard 2, Charm 2], and below it a line no other crest in the academy has: [Unspent: 5].',
+        'A silver badge pinned over your heart, plainer than the nobles’ and stamped with an open hand. Think about it and it opens a small window of light showing your five lines as they stand right now. The morning it was issued it read [Strength 2, Speed 2, Mana 2, Guard 2, Charm 2], and below it a line no other crest in the academy has: [Unspent: 5]. Every point spent, won or lost since then has changed those numbers for good.',
       loreText:
         'Unspent points go into any line at any moment, one at a time or all at once, even mid-swing. A spent point lands as a cold rush and the new number, and it never comes back out. A point you win in the Ring arrives here as a new unspent point; a point you lose leaves the line the winner chooses. If any line ever reads zero, the Charter sends you home that day.',
       icon: 'badge',
@@ -275,7 +276,7 @@ const raw = {
       name: 'The Minute-Glass',
       tags: ['tool'],
       description: 'Brannoch’s brass minute-glass, the one every duel in the Ring is timed by. When the sand runs out with no touch, the duel is a draw and no point moves.',
-      loreText: 'The brass is worn smooth where a thumb turns it. It has been turned for twenty-eight years by the same hand.',
+      loreText: 'The brass is worn smooth where a thumb turns it. It has been turned by the same hand for twenty-five years.',
       icon: 'hourglass',
     },
     {
@@ -301,7 +302,7 @@ const raw = {
       tags: ['quest', 'evidence', 'document'],
       questItem: true,
       description:
-        'The Society of the Ring’s wager book: a fat ledger in burgundy leather on a lectern in the Rail Room. Twenty-seven lines, one for each scholar, each with a day count, the bets, and the points spent and lost. A new line at the bottom has your name on it.',
+        'The Rail Society’s wager book: a fat ledger in burgundy leather on a lectern in the Rail Room. Twenty-six lines, one for each scholar since the first, each with a day count, the bets, and the points spent and lost. A new line at the bottom has your name on it.',
       loreText:
         'Last year’s line reads nineteen days. Beside it, in Lord Varro’s hand: three names, three payments, one afternoon. That is a clause fourteen violation written down by the man who committed it.',
       icon: 'book',
@@ -314,7 +315,7 @@ const raw = {
       description:
         'A narrow ledger kept in a case beside the Headmistress’s seal in Founders’ Hall. It records every point ever moved from one crest to another under seal. There are twenty-eight entries.',
       loreText:
-        'Every entry is five points, one a year, into the scholarship crest. Every entry is from the same crest, and signed in the same square hand: H. Brannoch.',
+        'The first entry, twenty-eight years ago, is five points from the founding Empress’s own crest into the first scholar’s. Every entry after it is five points from that scholar’s crest, in the same square hand: H. Brannoch.',
       icon: 'book',
     },
     {
@@ -694,7 +695,7 @@ const raw = {
       name: 'The Rail Room',
       shortName: 'Rail Room',
       description:
-        'The Society of the Ring’s lounge, up a stair above the Ring: leather chairs, decanters, a long window over the sand, and a burgundy ledger open on a lectern. It is members only by custom rather than by lock, which works because nobody outside the Society has ever dared. The only way out is the stair back down to the Ring.',
+        'The Rail Society’s lounge, up a stair above the Ring: leather chairs, decanters, a long window over the sand, and a burgundy ledger open on a lectern. It is members only by custom rather than by lock, which works because nobody outside the Society has ever dared. The only way out is the stair back down to the Ring.',
       artDirection:
         'Luxurious private lounge above a duelling ring, leather armchairs, crystal decanters, a tall window looking down on white sand, a burgundy leather ledger open on a carved lectern. Rich, smoky, exclusive.',
       connections: [{ to: 'the_ring', travelMinutes: 2, label: 'Down the stair to the Ring' }],
@@ -836,7 +837,7 @@ const raw = {
       id: 'faction_academy',
       name: 'The Academy',
       description:
-        'The masters, the Headmistress and the Ring Code itself. It admitted the scholar and will send them home the same day for a zero or for a fight outside the Ring, with exactly equal regret.',
+        'The masters, the Headmistress and the Ring Code itself. It admitted the scholar and will send them home the same day for a zero in any line. A fight outside the Ring goes to the Headmistress: a summons, a prefect at the scholar’s elbow and the whole academy watching. A second one, or real harm, ends in expulsion.',
       startingReputation: 10,
       ranks: [
         { atReputation: 0, label: 'On sufferance' },
@@ -848,9 +849,9 @@ const raw = {
     },
     {
       id: 'faction_society',
-      name: 'The Society of the Ring',
+      name: 'The Rail Society',
       description:
-        'Forty noble duellists, captained by Lord Ansel Varro, who run the Ladder, the Rail Room and the Purse. A dining club with swords, by its own description, and the reason twenty-seven scholars went home.',
+        'Forty noble duellists, captained by Lord Ansel Varro, who run the Ladder, the Rail Room and the Purse. A dining club with swords, by its own description, and the reason twenty-six scholars went home.',
       startingReputation: -10,
       ranks: [
         { atReputation: -50, label: 'A line in the Purse' },
@@ -896,7 +897,7 @@ const raw = {
       calledName: 'Seraphine',
       role: 'The rival. First of this year’s intake, heir of the empire’s sword-masters, and the woman who challenged you before you had unpacked',
       cardBlurb:
-        'She is the best duellist of the year, she has never lost, and she picked you, the weakest crest in the Ring, for her first duel. She has a reason, and she would rather you yielded than heard it.',
+        'She is the best duellist of the year, she has never lost, and she picked you, with the lowest numbers in the Ring, for her first duel. She has a reason, and she would rather you yielded than heard it.',
       pronouns: 'she/her',
       publicTraits: ['Exact about everything', 'Has never lost a duel', 'Insults the people she is protecting'],
       hiddenDrives: [
@@ -942,14 +943,14 @@ const raw = {
         'Carry them properly. Spines out. If anyone from the rail speaks to you, you are busy with my reading.',
       ],
       appearance:
-        'An adult woman with a pale gold braid over one shoulder, grey eyes and a straight back, in a fitted white and gold duelling coat with crossed swords stitched on the cuffs.',
+        'An adult woman with a pale gold braid over one shoulder, grey eyes and a straight back, in a white and gold duelling coat with crossed swords stitched on the cuffs.',
       visualHook: 'A slim duelling sword she holds level without seeming to notice its weight.',
       silhouette: 'Side-on, blade level, chin up, as if the duel had already started.',
       artSeed: 'crest-seraphine-01',
       portrait: null,
       expressions: ['neutral', 'competitive', 'surprised', 'flustered', 'warm'],
       schedule: [
-        { startMinute: 0, endMinute: 360, locationId: 'east_tower', activity: 'in her rooms, a book open face down on her chest' },
+        { startMinute: 0, endMinute: 360, locationId: 'east_tower', activity: 'in her rooms, a book open face down on the pillow' },
         { startMinute: 360, endMinute: 540, locationId: 'training_yard', activity: 'drilling alone before anyone else is up' },
         { startMinute: 540, endMinute: 660, locationId: 'the_ring', activity: 'on the sand, first duel of the intake' },
         { startMinute: 660, endMinute: 780, locationId: 'library', activity: 'top floor of the Library, reading law she says bores her' },
@@ -1013,7 +1014,7 @@ const raw = {
       secrets: [
         {
           id: 'mio_last_scholar',
-          fact: 'She was last year’s scholar. She lasted nineteen days. Varro and three paid proxies, Piers Hallam among them, took her Mana line to zero in one afternoon, a clause fourteen violation written in the Purse. She took the maid-knight oath to stay inside the walls.',
+          fact: 'She was last year’s scholar. She lasted nineteen days. Three proxies Varro paid, Piers Hallam among them, took her Mana line to zero in one afternoon, a clause fourteen violation written in the Purse. She took the maid-knight oath to stay inside the walls.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She tells you over supper in the gatehouse if you ask about her own life rather than the Code, or if you find the old crest in her drawer and wait for her to mention it first.',
         },
@@ -1029,12 +1030,12 @@ const raw = {
       topics: ['supper', 'the Ring Code', 'clause fourteen', 'the servants’ stair', 'the gatehouse room', 'last year'],
       voiceSamples: [
         'Supper is at seven. Your crest is at two. I can fix one of those.',
-        'Clause fourteen. Look it up. Then bolt your door.',
+        'I have put the pocket Code under your pillow, page six folded down. The stew is on the winch. The bolt is for using.',
         'I sweep the servants’ stair at night. All of it. Quickly.',
-        'Stop thanking me. Eat the stew while it is hot.',
+        'Stop thanking me. Eat the stew while it’s hot.',
       ],
       appearance:
-        'An adult woman with short black hair and level dark eyes, in a grey maid-knight’s uniform: an apron over a light steel breastplate, sleeves rolled, a grey crest pinned at the collar.',
+        'An adult woman with short black hair and level dark eyes, in a grey maid-knight’s uniform, plain and practical: an ankle-length grey skirt, a high collar, an apron over a light steel breastplate, sleeves rolled, a grey crest pinned at the collar.',
       visualHook: 'A long-handled broom she carries like a spear.',
       silhouette: 'Square to the room, broom upright beside her, apron perfectly straight.',
       artSeed: 'crest-mio-01',
@@ -1121,7 +1122,7 @@ const raw = {
       topics: ['the vote', 'the governors', 'her mother', 'the orange trees', 'a second', 'the Society'],
       voiceSamples: [
         'Suppose three governors decide on what they see in the Ring this week. Would that change where your points go?',
-        'Oranges take years to fruit up here. My mother planted these. I am patient with anything she planted.',
+        'Oranges take years to fruit up here. My mother planted these. I’m patient with anything she planted.',
         'I would like a champion who owes nothing to any house. Would you like to be owed something by a princess?',
         'You lied to me once, gently. Do it twice and I prune.',
       ],
@@ -1179,7 +1180,7 @@ const raw = {
       pronouns: 'he/him',
       publicTraits: ['Few words', 'Impartial to the clause', 'Says “Again.” more than anything else'],
       hiddenDrives: [
-        'The five unspent points are his, every year for twenty-eight years, and he would rather lose them for good than see the scholarship end',
+        'The five unspent points are his, every year for twenty-seven years, and he would rather lose them for good than see the scholarship end',
         'He wants one more commoner to graduate before he is too old to give the five',
       ],
       values: ['The Code, exactly as written', 'Getting up again'],
@@ -1197,7 +1198,7 @@ const raw = {
       secrets: [
         {
           id: 'brannoch_the_five',
-          fact: 'He has moved five points from his own crest into the scholarship crest every year for twenty-eight years under the Headmistress’s seal, and trains them back every year without quite catching up. It is in the transfer register in Founders’ Hall.',
+          fact: 'He has moved five points from his own crest into the scholarship crest every year for twenty-seven years under the Headmistress’s seal, and trains them back every year without quite catching up. It is in the transfer register in Founders’ Hall.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He will not say it unprompted. The player reads it in the register, or sees his crest open at dawn drill and asks him the right question afterwards.',
         },
@@ -1259,7 +1260,7 @@ const raw = {
       id: 'varro',
       name: 'Lord Ansel Varro',
       calledName: 'Varro',
-      role: 'Third-year, captain of the Society of the Ring, top of the challenge board, and the pleasant man holding the pencil',
+      role: 'Third-year, captain of the Rail Society, top of the challenge board, and the pleasant man holding the pencil',
       cardBlurb:
         'He is charming, generous, top of the board, and delighted to meet you. He also keeps a book on how many days you will last, and he has never once lost money on a scholar.',
       pronouns: 'he/him',
@@ -1496,7 +1497,7 @@ const raw = {
           id: 'answer_the_ladder',
           playerCopy: 'Deal with three challenges before ten tomorrow morning.',
           directorNotes:
-            'Three Society duellists, Piers Hallam first: ten, noon and two tomorrow. They are proxies. Varro paid them, which breaks clause fourteen, and each will take a point from the same line. Skipping all three empties a line and sends the player home tonight, which is exactly what happened to Mio. The ways out are real and different: fight them; prove they act in concert and make Brannoch void the cards; get Piers to withdraw; go back to Seraphine and accept her yield after all, so clause nine closes the board. Mio knows exactly what is happening and says "clause fourteen" and nothing else unless she is asked properly.',
+            'Three Society duellists, Piers Hallam first: ten, noon and two tomorrow. They are proxies. Varro paid them, which breaks clause fourteen, and each will take a point from the same line. Skipping all three empties a line and sends the player home tonight, which is exactly what happened to Mio. The ways out are real and different: fight them; prove they act in concert and make Brannoch void the cards; get Piers to withdraw; go back to Seraphine and ask for her terms after all. The yield itself is gone, since a yield comes before the first exchange, so she has to offer service by agreement as a favour, and she makes the scholar ask properly; once they serve, clause nine closes the board. Mio knows exactly what is happening and says "clause fourteen" and nothing else unless she is asked properly.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1528,7 +1529,7 @@ const raw = {
             },
             {
               routeId: 'went_under_terms',
-              label: 'Accept Seraphine’s yield after all',
+              label: 'Ask Seraphine for her terms after all',
               predicate: { flagsSet: ['serving_seraphine'] },
               setsFlags: ['ladder_shielded'],
               closesFlags: [],
@@ -1551,7 +1552,7 @@ const raw = {
       id: 'q_highest_line',
       title: 'The Highest Line',
       summary:
-        'Seraphine Aldric takes points from her opponent’s highest line, never the lowest, and she picked the weakest crest in the Ring for her first duel. Neither of those is an accident.',
+        'Seraphine Aldric takes points from her opponent’s highest line, never the lowest, and she picked you, with the lowest numbers in the Ring, for her first duel. Neither of those is an accident.',
       kind: 'SIDE',
       discoverWhen: { flagsSet: ['first_duel_over'] },
       involvedCharacterIds: ['seraphine'],
@@ -1763,12 +1764,12 @@ const raw = {
       id: 'q_the_purse',
       title: 'The Purse',
       summary:
-        'Somebody on the rail above the Ring writes down every point you spend. The Society of the Ring keeps a book on how many days each commoner lasts, and nobody outside the Society has ever read it.',
+        'Somebody on the rail above the Ring writes down every point you spend. The Rail Society keeps a book on how many days each commoner lasts, and nobody outside the Society has ever read it.',
       kind: 'MAIN',
       discoverWhen: { flagsSet: ['first_duel_over'] },
       involvedCharacterIds: ['varro', 'piers', 'mio'],
       involvedLocationIds: ['rail_room', 'lowmarket', 'the_ring'],
-      knownRewardCopy: 'What the Society has been doing to scholars for twenty-seven years, in its own handwriting.',
+      knownRewardCopy: 'What the Society has been doing to scholars for twenty-six years, in its own handwriting.',
       steps: [
         {
           id: 'find_the_purse',
@@ -1917,7 +1918,7 @@ const raw = {
           id: 'find_the_register',
           playerCopy: 'Find out where the five points really come from.',
           directorNotes:
-            'It is written down. The transfer register sits in a glass case beside the Headmistress’s seal in Founders’ Hall: twenty-eight entries, one a year, all in the same hand. Brannoch will not tell anybody, and if pressed he says "Founder’s allowance," and goes back to the pells. Only a player who earns his trust or reads the register finds out. Never state it early.',
+            'It is written down. The transfer register sits in a glass case beside the Headmistress’s seal in Founders’ Hall: twenty-eight entries, one a year, every one after the first in the same square hand. Brannoch will not tell anybody, and if pressed he says "Founder’s allowance," and goes back to the pells. Only a player who earns his trust or reads the register finds out. Never state it early.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -2106,6 +2107,22 @@ const raw = {
   ],
   worldEvents: [
     {
+      id: 'we_varro_odds',
+      atWorldMinute: 10 * 60 + 30,
+      locationId: 'the_ring',
+      publicCopy:
+        'Lord Ansel Varro comes down from the rail with a silver pencil behind his ear, shakes the scholar’s hand like an old friend, and tells them their new odds.',
+      directorNotes:
+        'The first duel is over and the Society has already repriced the scholar. Varro is warm, generous and delighted whatever happened: a win moves the odds one way, a yield or a loss the other, and he quotes the number in days. He offers a drink at the rail some evening and mentions, as a kindness, that the Ladder goes up at one. He never threatens. Piers hovers behind him holding his coat and cannot meet the scholar’s eye. If the scholar yielded, Varro congratulates them on an excellent decision and looks at Seraphine a beat too long.',
+      setsFlags: [],
+      cancelledByFlags: [],
+      requiresFlags: ['first_duel_over'],
+      movesCharacters: [
+        { characterId: 'varro', toLocationId: 'the_ring' },
+        { characterId: 'piers', toLocationId: 'the_ring' },
+      ],
+    },
+    {
       id: 'we_the_ladder',
       atWorldMinute: 13 * 60,
       locationId: 'great_hall',
@@ -2149,7 +2166,7 @@ const raw = {
       atWorldMinute: 1440 + 10 * 60,
       locationId: 'great_hall',
       publicCopy:
-        'A royal page in green and gold crosses the Great Hall at breakfast and hands the scholar a card: tea with the Princess Isolde, five o’clock, the Glass Annex.',
+        'A royal page in green and gold crosses the Great Hall mid-morning and hands the scholar a card: tea with the Princess Isolde, five o’clock, the Glass Annex.',
       directorNotes:
         'Everybody sees it, which is the point: the princess wants the Society to see it and cannot be seen to want that. Seraphine goes very still. Varro raises his cup to the scholar across the hall.',
       setsFlags: ['isolde_invited'],
@@ -2175,7 +2192,7 @@ const raw = {
       atWorldMinute: 2 * 1440 + 21 * 60,
       locationId: 'lowmarket',
       publicCopy:
-        'The Society of the Ring takes over the Broken Spur in Lowmarket for the night. The day count is chalked on a slate behind the bar, with the scholar’s name at the top.',
+        'The Rail Society takes over the Broken Spur in Lowmarket for the night. The day count is chalked on a slate behind the bar, with the scholar’s name at the top.',
       directorNotes:
         'Varro buys every round. The Purse is on the table at his elbow, open, because this is the one night a year the Society forgets that anybody else can read. Piers is drunk enough to be honest. The commoners in the tavern are betting the other way, quietly.',
       setsFlags: ['spur_night'],
@@ -2301,13 +2318,13 @@ const raw = {
       kind: 'MYSTERY',
       label: 'Where the five points came from',
       seedHint: 'Brannoch’s crest reads low for a former imperial champion, and he never opens it in front of the scholar.',
-      payoffHint: 'Twenty-eight entries in the transfer register, all five points, all in the same square hand.',
+      payoffHint: 'Twenty-eight entries in the transfer register, all five points, every one after the first in the same square hand.',
       weight: 0.8,
     },
     {
       id: 'p_seraphines_offer',
       kind: 'RIVAL',
-      label: 'Why the best duellist of the year picked the weakest crest in the Ring',
+      label: 'Why the best duellist of the year picked the scholar with the lowest numbers in the Ring',
       seedHint: 'She takes points from the highest line, never the lowest.',
       payoffHint: 'Clause nine: a yield that is a shield, and an insult that was the kindest thing anybody offered.',
       weight: 0.9,
@@ -2472,7 +2489,7 @@ const raw = {
       minTurn: 20,
       requires: { flagsSet: ['bought_into_society'] },
       condition:
-        'The player joined the Society of the Ring and its book. They are safe now: the Society protects its own. They are also the first scholar to bet on the next one. Do not moralise; let the comfort be real and let the player notice who stops sitting with them.',
+        'The player joined the Rail Society and its book. They are safe now: the Society protects its own. They are also the first scholar to bet on the next one. Do not moralise; let the comfort be real and let the player notice who stops sitting with them.',
       epilogue:
         'They get a burgundy coat and a chair in the Rail Room. Varro is a generous captain. Next spring a new scholar walks onto the sand in their first hour, and the pencil on the rail is in the player’s hand.',
       hint: '',
@@ -2539,7 +2556,7 @@ const raw = {
       minTurn: 30,
       requires: { flagsSet: ['purse_exposed'] },
       condition:
-        'The player put the Purse in the governors’ hands, and twenty-seven years of clause fourteen violations were read out in Founders’ Hall in Varro’s own handwriting. The Society is disbanded as it stands. Write the cost honestly: Varro is now a permanent enemy with a powerful mother, and the rail is very quiet for a while.',
+        'The player put the Purse in the governors’ hands. Twenty-six years of wagers on scholars were read out in Founders’ Hall, and last year’s clause fourteen payments in Varro’s own hand. The Society is disbanded as it stands. Write the cost honestly: Varro is now a permanent enemy with a powerful mother, and the rail is very quiet for a while.',
       epilogue:
         'The Rail Room becomes a reading room, which nobody uses. The Purse is kept in the glass case beside the transfer register. Mio reads the line with her name on it once, then asks for it to be left open at that page.',
       hint: '',
@@ -2570,27 +2587,27 @@ const raw = {
     },
   ],
   opening:
-    '"Commoner." Across the duelling ring, a noblewoman in white and gold draws a slim sword. "Yield now, and you can carry my books for a year."\n\nThe nobles on the rails laugh. Someone shouts her name like a toast: "Seraphine!"\n\nIt is your first hour at the academy. The silver crest pinned over your heart opens a window of light:\n\n[Strength 2, Speed 2, Mana 2, Guard 2, Charm 2]\n[Unspent: 5. Spend them any time.]\n\nHers reads Speed 8.\n\nThe scarred instructor raises a hand. "First clean touch wins. Loser’s crest pays the winner a point. Begin on ten."\n\nThe rails start counting.\n\nSeraphine levels her blade at your heart. "Well? Yield, or spend them."',
+    '"Commoner." Across the duelling ring, a noblewoman in white and gold draws a slim sword. "Yield now, and you can carry my books for a year."\n\nThe nobles on the rails laugh. Someone shouts her name like a toast: "Seraphine!"\n\nIt is your first hour at the academy. The silver crest pinned over your heart opens a window of light:\n\n[Strength 2, Speed 2, Mana 2, Guard 2, Charm 2]\n[Unspent: 5. Spend them any time.]\n\nHers reads Speed 8.\n\nThe scarred instructor raises a hand. "First clean touch wins. Loser pays a point. Zero in any line goes home. Begin on ten."\n\nThe rails start counting.\n\nSeraphine levels her blade at your heart. "Well? Yield, or spend them."',
   openingPanel: {
     assetKey: 'story_crest_academy/opening',
     alt: 'Seraphine in a white and gold duelling coat levelling a slim sword across white sand, a crowd on the stone rails behind her, a small window of light glowing over your heart.',
   },
   openingSuggestions: [
     '"I won’t yield. And if I win, you carry mine."',
-    'I put all five points into Speed and take my stance.',
+    'I take my stance and hold all five points until she moves.',
     'I put all five points into Charm and ask her to dinner.',
   ],
   coverDirection: [
     'SUBJECT: Seraphine, the rival duellist, alone and unmistakable in the foreground of a key visual for a fantasy academy anime about duels and stat points.',
     'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
-    'A pale gold braid over one shoulder, grey eyes, a fitted white and gold duelling coat with a high collar and crossed swords stitched on the cuffs.',
+    'A pale gold braid over one shoulder, grey eyes, a white and gold duelling coat with a high collar and crossed swords stitched on the cuffs.',
     'She holds a slim duelling sword levelled just past the viewer, blade catching the light, her other hand on her hip.',
     'Her expression is cool, proud and challenging, one eyebrow raised, looking straight at the viewer.',
     'Between her and the viewer floats a small translucent silver-blue window of light, like a game status panel, showing five glowing bars of different lengths and one brighter empty slot: no letters, no numbers, nothing that reads as writing.',
     'HER FACE STAYS CLEAN: no glow, marks or overlays on her face or skin. The light effects stay on the window and the blade.',
     'BEHIND HER, soft and secondary: a raked white sand duelling ring, carved stone rails crowded with nobles in fine coats, a royal box under a green awning, tall stone academy towers on a cliff edge against a bright sky.',
     'LIGHT: bright late-morning sun from behind her, rimming her in gold, and a cool silver-blue glow from the window across her coat and sword.',
-    'TITLE: the words CREST ACADEMY painted into the art in the upper third as an elegant bold fantasy-academy logo, silver with a gold edge and a small crest emblem between the words,',
+    'TITLE: the words CREST ACADEMY painted into the art in the upper third as an elegant bold fantasy-academy logo, silver with a gold edge and a small plain silver badge stamped with an open hand between the words,',
     'spelled exactly CREST ACADEMY, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   publishedAt: null,

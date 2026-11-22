@@ -145,6 +145,9 @@ describe('the opener hands the player a choice', () => {
     // The risky one spends everything on the one line that cannot win a duel.
     expect(risky).toMatch(/Charm/);
     expect(risky).toMatch(/dinner/);
+    // Only the risky one spends all five, so a tap on the done card keeps the
+    // mid-swing spend the card and the style examples sell.
+    expect(S.openingSuggestions.filter((s) => /all five points into/.test(s))).toEqual([risky]);
   });
 
   it('offers no opening card the parser turns into a fight', async () => {
@@ -169,6 +172,10 @@ describe('the system lives where the storyteller can read it', () => {
     expect(S.rules.startingItems.map((i) => i.itemId)).toContain('scholarship_crest');
     expect(crest.description).toContain('[Strength 2, Speed 2, Mana 2, Guard 2, Charm 2]');
     expect(crest.description).toContain('[Unspent: 5]');
+    // The world brief re-sends this every turn, so the numbers are written as
+    // where the crest started, never as what it reads now.
+    expect(crest.description).toMatch(/The morning it was issued it read \[Strength 2/);
+    expect(crest.description).toMatch(/as they stand right now/);
   });
 
   it('gives every background the power to spend a point, so the storyteller sees it', () => {
@@ -324,7 +331,7 @@ describe('it is its own story', () => {
   it('borrows no franchise name and no competitor tagline', () => {
     const text = JSON.stringify(S);
     const BORROWED =
-      /\b(Lumencia|Sword and Sorcery|Hogwarts|Mahouka|Danmachi|Solo Leveling|Classroom of the Elite|Chivalry of a Failed Knight|Rakudai|Akademeia)\b/i;
+      /\b(Lumencia|Sword and Sorcery|swords and spells|swordwork and sorcery|weakest crest|Society of the Ring|Hogwarts|Mahouka|Danmachi|Solo Leveling|Classroom of the Elite|Chivalry of a Failed Knight|Rakudai|Akademeia)\b/i;
     expect(text.match(BORROWED)?.[0] ?? null).toBeNull();
   });
 });

@@ -2,16 +2,18 @@
 
 **Slate:** #14 · harem academy with stats · male lean · drop 1
 **Genre:** academy action, rivalry, comedy, romance up to a kiss
-**One-line fantasy:** The empire's academy of swords and spells admits one commoner a year. You get five stat points before your first duel, and the crowd has already started counting down.
+**One-line fantasy (the shelf hook):** Four hundred nobles and one commoner a year. You get five stat points and a ten-count before your first duel, and the crowd is already betting on how long you last.
 **Identifiers:** slug `crest-academy`, export `CREST_ACADEMY`, story id `story_crest_academy`, version id `sv_crest_academy_1`, asset prefix `story_crest_academy/`.
-**OOC evidence:** Lumencia Academy, 48.6M plays, #1 all-time: a harem academy with stat allocation. Nothing from it is used here: no title, character, school, system name, tagline or premise beat. An early draft called the school "the Imperial Academy of Sword and Sorcery", which is Lumencia's own tagline word for word, so it is now simply Crest Academy, "the Empire of Vael's academy of swordwork and sorcery".
-**Collision search (2026-11-22):** the only exact "Crest Academy" is a cancelled indie superhero visual novel on itch.io. *Record of Grancrest War* uses "Crests" as hereditary noble powers, so the crests here are deliberately the ordinary English thing: a school badge the academy issues to every student. Nobody inherits one.
+**OOC evidence:** Lumencia Academy, 48.6M plays, #1 all-time: a harem academy with stat allocation. Nothing from it is used here: no title, character, school, system name, tagline or premise beat. An early draft called the school "the Imperial Academy of Sword and Sorcery", which is Lumencia's own tagline word for word. A second draft swapped in synonyms ("the empire's academy of swords and spells", "academy of swordwork and sorcery"), which is still Lumencia's one-line description ("An imperial academy of sword and sorcery"), so the shelf hook now leads on the four hundred nobles and the one commoner, and canon calls it "the Empire of Vael's duelling academy, where nobles learn the blade and the spell". The spec bans both synonym phrasings. Lumencia's builder also offers a "Commoner (Scholarship)" preset; a scholarship commoner at a noble school is a genre staple, and nothing else of Lumencia's is used.
+**Collision search (2026-11-22):** the only exact "Crest Academy" is a cancelled indie superhero visual novel on itch.io. Three titles use crests as bloodline powers: *Record of Grancrest War* (hereditary noble Crests), *The Strongest Sage With the Weakest Crest* (2022 anime; crests decide one's magic at a royal academy) and *Fire Emblem: Three Houses* (an officers' academy for nobles and a few commoners, an Empire, hereditary Crests, an imperial princess). The crests here are deliberately the ordinary English thing: a school badge the academy issues to every student on the first day, which counts training and nothing else. Nobody inherits one, and it confers no power of its own. "The weakest crest" was cut from the fixture for echoing the second title (the spec bans it); the player has "the lowest numbers" instead. The duellists' club was renamed from "the Society of the Ring", which sounds like *The Fellowship of the Ring*, to **the Rail Society**, after the rail it sits on and the Rail Room it keeps.
+**Trope neighbours, not copies:** the weakest student duelling the top girl in week one, with the loser serving the winner, recalls *Rakudai Kishi no Cavalry*; wagers on students, with losers serving, recalls *Kakegurui*. Both are common genre beats; nothing specific (names, rules, ranking systems, scenes) is taken. Neither name may appear in the fixture.
+**Slate overlap:** #36 *Ten Points to Expulsion* is also a scholarship student whom a zero expels. Keep the two in different drops.
 
 ## Why this fantasy works
 
 OOC's biggest title proves the shape: a school, a stat window, a cast of strong women who each want something from the player, and a rival in the first scene. What this version adds is a stat system that is a *choice under pressure* rather than a menu. The player's crest is the only one in the academy that holds unspent points, and they can be spent at any moment, including mid-swing. Five points against a duellist with Speed 8 is a real decision, and everyone in the Ring has an opinion about where they should go.
 
-It is also a stat window the storyteller can actually read. Production runs `runTurnPure`, which never sees resources or the ability list. So the crest is a quest item the player starts holding (its description carries the five lines and the five unspent points), its rules are in hard canon, and every archetype starts with "Spend a Point" so the storyteller is told, in the "Can:" lines, that the player can do it.
+It is also a stat window the storyteller can actually read. Production runs `runTurnPure`, which never sees resources or the ability list. So the crest is a quest item the player starts holding (its description carries the five lines and the five unspent points, written as what the crest read *the morning it was issued*, because the world brief re-sends quest items every turn and present-tense numbers would pull the storyteller back to the 2s), its rules are in hard canon, and every archetype starts with "Spend a Point" so the storyteller is told, in the "Can:" lines, that the player can do it.
 
 The second engine is a rule the whole cast argues about: the Ring Code. Yield and you serve the winner for up to a year. Lose and your crest pays a point. Hit zero in any line and you leave the academy that day. Every person in the cast has a different relationship to those three sentences.
 
@@ -23,13 +25,13 @@ Once a year the academy admits one commoner: whoever wins an exam that four thou
 
 The Ring Code settles everything here. Any student may challenge you once a week. Lose, and your crest pays the winner a point. Yield before the first exchange, and you serve your challenger for up to a year. If any line ever reads zero, you leave the academy that day.
 
-Twenty-seven commoners came before you, and one graduated. The noble duellists who run the challenge board keep a wager book on how many days each scholar lasts. The record is seventy-one. In seven days the governors vote on ending the scholarship for good.
+Twenty-seven commoners came before you. Only the first graduated. Since him, the noble duellists who run the challenge board have kept a wager book on how many days each scholar lasts. The record is seventy-one. In seven days the governors vote on ending the scholarship for good.
 
 Your first duel starts on a count of ten. The noblewoman across the sand has never lost.
 
 ## Story bible
 
-**Crest Academy** is the Empire of Vael's academy of swordwork and sorcery, on a cliff above the imperial capital. It takes four hundred students over three years, almost all of them noble. Each one wears a **crest**: a silver badge pinned over the heart, issued on the first day, that reads its wearer and opens a small window of light showing five numbers.
+**Crest Academy** is the Empire of Vael's duelling academy, where nobles learn the blade and the spell, on a cliff above the imperial capital. It takes four hundred students over three years, almost all of them noble. Each one wears a **crest**: a silver badge pinned over the heart, issued on the first day, that reads its wearer and opens a small window of light showing five numbers.
 
 | Line | What it measures |
 |---|---|
@@ -43,23 +45,25 @@ The scale: 1 is an untrained adult, 3 a trained soldier, 5 a good academy studen
 
 Once a year the academy admits one commoner, the winner of the **Open Trial**, an exam held in every province. This year four thousand sat it. The player won. Their scholarship crest opened this morning at **2 in every line**, with **five unspent points**: no other crest in the academy holds unspent points. The scholar can place them in any line at any moment, and a spent point is real the instant it is spent (a cold rush through the body, then the new number). Spent points are permanent.
 
-The official story is that the five are "the founder's allowance". The truth is that **Instructor Halden Brannoch** transfers five points from his own crest into the scholarship crest every year, under the Headmistress's seal. He was the first scholar, twenty-eight years ago, and the only one who ever graduated. It is written in the transfer register in Founders' Hall.
+The official story is that the five are "the founder's allowance". The truth is that **Instructor Halden Brannoch** transfers five points from his own crest into the scholarship crest every year, under the Headmistress's seal. He was the first scholar, twenty-eight years ago, and the only one who ever graduated. It is written in the transfer register in Founders' Hall: twenty-eight entries, one per scholar. The first is five points from the founding Empress's own crest into Brannoch's; the twenty-seven after it are five points from his crest, in his square hand, one a year ever since.
+
+**The count, settled:** twenty-seven scholars before the player. The first (Brannoch) graduated. The twenty-six since him each have a line in the Purse, all ended. The player is the twenty-eighth: twenty-eight names on the Scholars' Board, twenty-seven scratched into the gatehouse windowsill. Brannoch has turned the minute-glass as instructor for twenty-five years.
 
 ### The Ring Code (the rules the cast argues about)
 
-- Any student may challenge any other once a week. Duels happen only in the Ring. Fighting anywhere else is an expulsion offence.
+- Any student may challenge any other once a week. Duels happen only in the Ring. Fighting anywhere else is an expulsion offence, heard by the Headmistress rather than settled on the spot: a first fight outside the Ring brings a summons and a prefect at the scholar's elbow; a second, or real harm, ends in expulsion. (So a player who shoves Varro in the Great Hall on turn 3 gets a scandal, not a dead end with no ending to land on.)
 - The Ring's six ward-stones blunt steel and spell to bruises. Nobody is maimed in the Ring.
 - A duel ends at the first clean touch, at a yield, at the instructor's call, or when the minute-glass runs out (a draw: no point moves).
 - **The loser's crest pays the winner one point, and the winner chooses the line.** On a noble crest a won point lands in the line it was taken from. On the scholarship crest it arrives as an unspent point.
 - A challenged student who does not turn up forfeits, and pays the point anyway.
-- The challenged may **yield** before the first exchange. No point moves, but the yielder serves the challenger on terms the challenger names: no harm, no money, nothing indecent, no longer than a year.
+- The challenged may **yield** before the first exchange. No point moves, but the yielder serves the challenger on terms the challenger names: no harm, no money, nothing indecent, no longer than a year. Service can also be entered later by agreement, on terms the other student names, and counts the same (this is how "go back under her terms" works on the Ladder: Seraphine offers it as a favour and makes the scholar ask properly).
 - **Clause nine:** nobody may challenge a student who is serving under yield terms. A server who issues a challenge ends the service.
 - **Clause fourteen:** no challenges in concert. Students may not coordinate to drain one crest.
 - **The Charter:** a crest that reads zero in any line means that student leaves the academy the same day.
 
 ### The Purse
 
-The **Society of the Ring**, forty noble duellists who run the challenge board (the Ladder), keeps a wager book called the Purse: how many days each commoner scholar lasts. Twenty-seven scholars since Brannoch, twenty-seven lines, all ended. The record is seventy-one days. Last year's scholar, **Mio Fenn**, lasted nineteen: Lord Ansel Varro paid three proxies, Lord Piers Hallam among them, and between forfeits and duels they took her Mana line to zero in one afternoon. That is a clause fourteen violation, and the payments are in the Purse in Varro's own hand.
+The **Rail Society**, forty noble duellists who run the challenge board (the Ladder), keeps a wager book called the Purse: how many days each commoner scholar lasts. Twenty-six scholars since Brannoch, twenty-six lines, all ended. The record is seventy-one days. Last year's scholar, **Mio Fenn**, lasted nineteen: Lord Ansel Varro paid three proxies, Lord Piers Hallam among them, and between forfeits and duels they took her Mana line to zero in one afternoon. That is a clause fourteen violation, and the payments are in the Purse in Varro's own hand.
 
 ### The vote
 
@@ -81,9 +85,10 @@ Seven days, from the first duel at nine on the first morning to the count on the
 
 - Academy anime with the stat window on: fast, competitive, funny, and exact about the rules.
 - Crest lines appear as short bracketed lines, only when somebody opens a crest. Never tables. The storyteller tracks the five lines and unspent points from the transcript and never contradicts them.
-- The player is the weakest person in the Ring on paper and the only one who can change their numbers mid-fight. The comedy is that everyone has an opinion about where the points go. ("You put a point in Charm. During a duel.")
+- The player has the lowest numbers in the Ring on paper and is the only one who can change them mid-fight. The comedy is that everyone has an opinion about where the points go. ("You put a point in Charm. During a duel.")
 - Romance is flirtatious, tense and earned, and goes no further than a kiss. No fan service, no lingering on bodies. Harem energy comes from three people who each want something specific from the player, each of whom can say no, and none of whom is a prize.
 - Duels are short and physical. The wards turn blows into bruises; there is no blood and no gore.
+- Narration uses contractions, and so do most voices. Seraphine never does: her full, contraction-free sentences are her marker, and it only reads if the prose around her is looser.
 - Secrets are earned: Brannoch's five, Mio's nineteen days, Isolde's mother, clause nine, the Purse. Never stated early.
 
 ## Player starting authority
@@ -106,7 +111,7 @@ The player authors their name, pronouns, look, and their **trade before the acad
 
 ## The opener (turn 1)
 
-116 words. Seraphine speaks to the player in the first word and is named at word 40. It ends on a demand.
+119 words. Seraphine speaks to the player in the first word and is named at word 40. It ends on a demand. Brannoch's line carries the zero rule, so losing a point reads as a real risk and not as cheaper than a year of books.
 
 > "Commoner." Across the duelling ring, a noblewoman in white and gold draws a slim sword. "Yield now, and you can carry my books for a year."
 >
@@ -119,7 +124,7 @@ The player authors their name, pronouns, look, and their **trade before the acad
 >
 > Hers reads Speed 8.
 >
-> The scarred instructor raises a hand. "First clean touch wins. Loser’s crest pays the winner a point. Begin on ten."
+> The scarred instructor raises a hand. "First clean touch wins. Loser pays a point. Zero in any line goes home. Begin on ten."
 >
 > The rails start counting.
 >
@@ -127,10 +132,10 @@ The player authors their name, pronouns, look, and their **trade before the acad
 
 Three suggestions, three different moves:
 - **Said:** "I won’t yield. And if I win, you carry mine."
-- **Done:** I put all five points into Speed and take my stance.
+- **Done:** I take my stance and hold all five points until she moves.
 - **Risky:** I put all five points into Charm and ask her to dinner.
 
-What each one does: refusing changes the stakes and makes Seraphine respect or resent the player in front of everybody. Speed 7 against her 8 makes it a real contest. Charm 7 does nothing to her sword arm and makes the whole Ring hear the dinner invitation, which is either a disaster or the funniest thing that has happened on the sand this decade.
+What each one does: refusing changes the stakes and makes Seraphine respect or resent the player in front of everybody. Taking a stance and holding all five points answers her "yield, or spend them" with neither: the count runs down, she comes in, and the points get spent mid-swing, at the moment she commits, which is the beat the fantasy label and the first style example sell. Only the risky card spends all five up front (the spec holds this), and it avoids "lunge" and other Cross Blades affordances so the parser does not read it as an attack. Charm 7 does nothing to her sword arm and makes the whole Ring hear the dinner invitation, which is either a disaster or the funniest thing that has happened on the sand this decade.
 
 The six routes out of the first duel: yield (and serve her, protected by clause nine), fight her, refuse in front of everybody, haggle over her terms, find the clause that stops the count, or walk off the sand and forfeit.
 
@@ -154,7 +159,7 @@ Every character is an adult. Ages are canon and stated in hard canon.
 **Second secret:** her grey servant's crest now reads Speed 7, from a year of running the servants' stair at night with a broom. Nobody reads a servant's crest.
 **Want:** this scholar to last. Privately, to watch Varro pay a point in front of the Society.
 **Limits:** maid-knights may not duel students. She will not break that oath. She will not be pitied.
-**Voice:** deadpan, short, domestic. Reports facts like a housekeeper. "Supper is at seven. Your crest is at two. I can fix one of those."
+**Voice:** deadpan, short, domestic. Reports facts like a housekeeper. "Supper is at seven. Your crest is at two. I can fix one of those." "I have put the pocket Code under your pillow, page six folded down. The stew is on the winch. The bolt is for using." She never opens on a clause number: that is Brannoch's shape, and the two would blur.
 **Romance:** slow and practical. She shows care by doing things, and gets flustered only when thanked.
 
 ### Princess Isolde of Vael, 21 (called Isolde)
@@ -168,13 +173,13 @@ Every character is an adult. Ages are canon and stated in hard canon.
 ### Instructor Halden Brannoch, 47 (called Brannoch)
 **Role:** master of the Ring. Calls every duel. Gruff, scarred, impartial to the clause.
 **Crest:** Strength 5, Speed 4, Mana 2, Guard 6, Charm 3, low for a former imperial champion, because of where the five go every year.
-**Secret:** the five unspent points are his. Twenty-eight years of them. He has told nobody.
+**Secret:** the five unspent points are his. Twenty-seven years of them (the first scholar's five were the founding Empress's). He has told nobody.
 **Second secret:** the **Gate Counter**, the counter he invented as a scholar. It turns an opponent's higher number against them: the bigger the gap, the harder it lands. He teaches it only to somebody who has kept the Code when it cost them.
 **Limits:** will never bend the Code for the scholar, not once. Will not take points back.
 **Voice:** few words, barks clause numbers, says "Again." a lot. Verb first, subject optional. "Feet. Then blade. Then mouth. You have it backwards."
 
 ### Lord Ansel Varro, 22 (called Varro)
-**Role:** the antagonist. Third-year, captain of the Society of the Ring, top of the challenge board, keeper of the Purse.
+**Role:** the antagonist. Third-year, captain of the Rail Society, top of the challenge board, keeper of the Purse.
 **Crest:** Strength 7, Speed 7, Mana 6, Guard 7, Charm 8.
 **Want:** the scholarship ended at the vote his mother brought, and to look gracious while it happens. Win the Purse on this scholar inside nine days.
 **Underneath:** his crest read Charm 3 the day he arrived; five of those points are his mother's tutors. He suspects he is mostly money, and a commoner who wins would prove it.
@@ -199,7 +204,7 @@ Every character is an adult. Ages are canon and stated in hard canon.
 | Faction | Starts | Ranks |
 |---|---|---|
 | The Academy (masters, Headmistress, the Code) | 10 | On sufferance · Enrolled (30) · Spoken for by the masters (60) |
-| The Society of the Ring | -10 | A line in the Purse (-50) · Tolerated at the rail (0) · One of the forty (40) |
+| The Rail Society | -10 | A line in the Purse (-50) · Tolerated at the rail (0) · One of the forty (40) |
 | The Twelve Governors | 0 | A motion on the table · Worth a second look (20) · Worth keeping (40) |
 | Below Stairs | 20 | Another of them · One of ours (30) · Looked after (60) |
 
@@ -224,6 +229,7 @@ Every place is discovered from the start and every edge runs both ways.
 
 ## The week (things the world does on its own)
 
+- **Day 1, 10:30.** Once the first duel is over, Varro comes down from the rail with his silver pencil, shakes the scholar's hand and quotes their new odds in days; Piers holds his coat. The antagonist's first beat, for yielders as much as fighters.
 - **Day 1, 13:00.** Three challenges against the scholar go up on the Ladder for tomorrow, Piers first. Cancelled if the scholar is serving Seraphine (clause nine).
 - **Day 1, 19:00.** Mio brings supper to the gatehouse room and bolts the door on her way out.
 - **Day 2, 06:15.** At dawn drill Brannoch's crest opens for a moment and reads low. Only for a player who has found the Training Yard.
@@ -239,7 +245,7 @@ Every place is discovered from the start and every edge runs both ways.
 ## Five promises
 
 1. **The count (finale).** Seed: a notice in the Great Hall that the governors sit on the seventh day. Payoff: twelve votes in Founders' Hall, and the scholar either still standing or not.
-2. **Where the five came from (mystery).** Seed: Brannoch's crest reads low for a former champion, and he never opens it in front of the scholar. Payoff: twenty-eight entries in the transfer register, all in the same hand.
+2. **Where the five came from (mystery).** Seed: Brannoch's crest reads low for a former champion, and he never opens it in front of the scholar. Payoff: twenty-eight entries in the transfer register, every one after the first in the same square hand.
 3. **Seraphine's offer (rival).** Seed: she takes from the highest line, never the lowest. Payoff: clause nine, and a shield disguised as an insult.
 4. **Nineteen days (relationship).** Seed: Mio knows the Code clause by clause and is never seen on the sand. Payoff: a grey crest reading Speed 7 and an old silver one reading Mana 0.
 5. **Varro and the Purse (boss).** Seed: a silver pencil on the rail above the Ring, writing down every point the scholar spends. Payoff: the Purse on its lectern, proxies and payments in Varro's hand, and a day count with the scholar's name on it.
@@ -279,8 +285,8 @@ Two abilities are locked: **Gate Counter** (granted only by "Again.") and **Give
 
 ## Image plan
 
-**Cover.** Seraphine alone in the foreground, waist up, in a white and gold duelling coat, a slim sword levelled past the viewer. Between her and the viewer floats the scholar's crest window: glowing abstract bars, no letters, no numbers. Her face stays clean of any glow. Behind her, soft: the sand ring, stone rails, a crowd, a royal box under a green awning, towers on a cliff. Title painted in the upper third: CREST ACADEMY, spelled exactly. Adults only, described by costume and pose.
+**Cover.** Seraphine alone in the foreground, waist up, in a white and gold duelling coat, a slim sword levelled past the viewer. Between her and the viewer floats the scholar's crest window: glowing abstract bars, no letters, no numbers. Her face stays clean of any glow. Behind her, soft: the sand ring, stone rails, a crowd, a royal box under a green awning, towers on a cliff. Title painted in the upper third: CREST ACADEMY, spelled exactly, with a small plain silver badge stamped with an open hand between the words (not a generic "crest emblem", which pulls the model toward known academy insignia). Adults only, described by costume and pose.
 
-**Portraits.** Seraphine (white and gold, pale gold braid, sword), Mio (grey maid-knight uniform with an apron over a light breastplate, short black hair, a broom held like a spear), Isolde (green and gold, dark curls, an orange half peeled in one ribbon), Brannoch (scarred, grey-shot beard, instructor's coat, brass minute-glass on his belt), Varro (burgundy and silver, easy smile, silver pencil behind one ear), Piers (lanky and fair, a Society coat a size too large, a deck of cards).
+**Portraits.** Seraphine (white and gold, pale gold braid, sword), Mio (grey maid-knight uniform, plain and practical: ankle-length grey skirt, high collar, an apron over a light breastplate; short black hair, a broom held like a spear), Isolde (green and gold, dark curls, an orange half peeled in one ribbon), Brannoch (scarred, grey-shot beard, instructor's coat, brass minute-glass on his belt), Varro (burgundy and silver, easy smile, silver pencil behind one ear), Piers (lanky and fair, a Society coat a size too large, a deck of cards).
 
 **Opening panel.** `story_crest_academy/opening`: Seraphine levelling her blade across the sand, the scholar's crest window glowing in the foreground.
