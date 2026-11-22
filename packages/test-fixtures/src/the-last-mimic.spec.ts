@@ -577,16 +577,27 @@ describe('choices are clear and the copy passes the house checks', () => {
     expect(field.helpText).toMatch(/later/);
   });
 
-  it('gives every archetype a distinct playstyle and a first trick', () => {
+  it('gives every archetype a distinct playstyle, the body’s basics and one trick of its own', () => {
     const styles = story.archetypes.map((a) => [...a.playstyle].sort().join('|'));
     expect(new Set(styles).size).toBe(styles.length);
-    for (const a of story.archetypes) expect(a.startingAbilities.length, a.id).toBe(1);
+    const BASICS = ['borrow_a_voice', 'hop'];
+    const tricks = story.archetypes.map((a) => {
+      expect(a.startingAbilities.slice(0, BASICS.length), a.id).toEqual(BASICS);
+      expect(a.startingAbilities.length, a.id).toBe(BASICS.length + 1);
+      return a.startingAbilities[BASICS.length]!;
+    });
+    expect(new Set(tricks).size).toBe(tricks.length);
   });
 
-  it('puts the archetype and the cast in what the storyteller reads', async () => {
+  it('puts the archetype, the body and the cast in what the storyteller reads', async () => {
     const { worldBrief } = await import('@plotbreak/director');
     const brief = worldBrief(story, 'arch_voices');
     expect(brief).toContain('You Did Voices');
+    // The narrator never sees the ability list, only the archetype's starting
+    // abilities and the quest items, so the body's rules have to arrive here.
+    for (const line of ['Can: Borrow a Voice', 'Can: Hop', 'Can: Throw Your Voice', 'Vault Gold', 'The Cinder']) {
+      expect(brief).toContain(line);
+    }
     for (const c of story.characters) expect(brief).toContain(c.name);
   });
 });

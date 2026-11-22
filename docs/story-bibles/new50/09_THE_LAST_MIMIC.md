@@ -57,7 +57,7 @@ Prose style: webnovel. Short paragraphs, punchy lines, characters who interrupt 
 
 The player authors:
 - what they were called before;
-- what they did for a living (the archetype: **You Fixed Locks**, **You Did Voices**, **You Ran a Shop**, **You Worked Doors**), which sets one starting trick and what their human mind is good at;
+- what they did for a living (the archetype: **You Fixed Locks**, **You Did Voices**, **You Ran a Shop**, **You Worked Doors**), which sets one starting trick and what their human mind is good at (every archetype also starts with the body's two basics, Borrow a Voice and Hop, so the narrator always knows how a chest talks and moves);
 - one plain sentence about their old life;
 - optionally, what the chest looks like.
 
@@ -233,7 +233,7 @@ Ten of the twelve are reachable without the mystery.
 
 All characters are adults; prompts describe costume, pose and setting only.
 
-- **Cover:** a lantern-lit stone vault, an iron-banded chest with gold glinting under a lid that is just slightly a grin, Lirelle kneeling beside it with one gloved hand deep in its coins, Bruno behind her with a tower shield. Costume and pose only, effects on the coins and keyhole, never on faces. Title THE LAST MIMIC painted into the upper third. The fixture's `coverDirection` is the prompt.
+- **Cover:** a lantern-lit stone vault, an iron-banded chest with gold glinting under a lid that is just slightly a grin, Lirelle kneeling beside it with one gloved hand deep in its coins, Bruno behind her with a tower shield. Costume and pose only, effects on the coins, the Cinder's bead, the keyhole and the title, never on faces. Title THE LAST MIMIC painted into the upper third as gilded carved capitals edged in iron. The fixture's `coverDirection` is the prompt.
 - **Opening panel** (`story_the_last_mimic/opening`): Lirelle kneeling, arm deep in the chest's coins, staring at the keyhole; Bruno behind, shield raised. The alt starts with "Lirelle" so her portrait is the reference.
 - **Reaction decks:** Lirelle (neutral, amused, wary, surprised, warm), Ash (neutral, courteous, amused, grave, cold), Pell (neutral, delighted, panicked, embarrassed, warm), Bruno (neutral, wary, patient, warm, alarmed), Edda (neutral, polite, assessing, grave, cold).
 - **Environment frames:** the Ninth Vault, the Hall of False Chests, the Keeper's Study, the Back Corridors, the Gallery of Echoes, the Long Stair, the Well Mouth, the Stitchers' Hall.

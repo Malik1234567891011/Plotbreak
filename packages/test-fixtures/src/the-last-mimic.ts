@@ -27,6 +27,12 @@ import { StoryVersion } from '@plotbreak/contracts';
  * — grant broadly, gate by flag, which is the lesson this repo has paid for four
  * times.
  *
+ * The storyteller never reads the ability list, only the chosen archetype's
+ * starting abilities and the quest items. So, as with Skill: ERROR's
+ * `read_window`, every archetype starts with the body's two basics, Borrow a
+ * Voice and Hop, before its own trick, and the vault gold is a quest item the
+ * player starts holding, so the narrator knows what is in their belly.
+ *
  * Voices are the other rule, and the one that makes the opener land: the player
  * has no voice of their own any more and can speak only in voices they have
  * heard. On turn one that is Pell's, from six half-dreamed months of her
@@ -247,6 +253,7 @@ const raw = {
       id: 'vault_gold',
       name: 'Vault Gold',
       tags: ['treasure'],
+      questItem: true,
       description: 'Several hundred gold crowns, inside you, where a stomach would be. You can feel every one of them, and you know which ones are fake.',
       loreText: 'Ash restocks the vault every spring. Some of the coins are three hundred years old; some are this year’s and still smell of the mint.',
       icon: 'coins',
@@ -857,7 +864,7 @@ const raw = {
         'It used to hum. I’d lie awake and listen to it. It stopped two winters ago, and then I put my hand in you and it started again.',
       ],
       appearance:
-        'An elf woman of a hundred and sixty-three who looks about twenty-eight: a long pale braid wound twice round her head, sharp green eyes, practical dark delver’s leathers, scuffed at the knees and patched at one elbow, fingerless gloves, a knife on her belt and a worn leather satchel on her hip.',
+        'An elf woman of a hundred and sixty-three who looks about twenty-eight: a long pale braid wound twice round her head and pinned with a lockpick, long pointed ears, sharp green eyes, practical dark delver’s leathers, scuffed at the knees and patched at one elbow, fingerless gloves, a knife on her belt and a worn leather satchel on her hip.',
       visualHook: 'A long pale braid wound twice round her head like a crown, pinned in place with a lockpick.',
       silhouette: 'Down on one knee beside an open iron-banded treasure chest, one arm deep among its gold coins, head tipped to listen.',
       artSeed: 'mimic-lirelle-01',
@@ -1131,7 +1138,7 @@ const raw = {
         'Eleven years I’ve told Marta I sell barrels. She’s very proud of the barrels.',
       ],
       appearance:
-        'A broad human man of thirty-eight with a sandy beard and a shaved head, dented plate armour over a quilted coat, and a tower shield almost as tall as he is.',
+        'A broad human man of thirty-eight with a sandy beard and a shaved head, dented plate armour over a quilted coat, and a tower shield almost as tall as he is with a small barrel painted on it for luck.',
       visualHook: 'A huge dented tower shield with a small barrel painted on its face for luck.',
       silhouette: 'Square and immovable behind the shield, one eye over the rim.',
       artSeed: 'mimic-bruno-01',
@@ -2067,7 +2074,7 @@ const raw = {
       attributeBonus: { mind: 2, resolve: 1 },
       skillProficiencies: { stillness: 2, deep_sense: 2, appraise: 1 },
       startingItems: [],
-      startingAbilities: ['lock_your_lid'],
+      startingAbilities: ['borrow_a_voice', 'hop', 'lock_your_lid'],
       startingReputation: [{ factionId: 'faction_staff', amount: 5 }],
     },
     {
@@ -2080,7 +2087,7 @@ const raw = {
       attributeBonus: { presence: 2, arcana: 2 },
       skillProficiencies: { mimicry: 3, bargain: 1 },
       startingItems: [],
-      startingAbilities: ['throw_your_voice'],
+      startingAbilities: ['borrow_a_voice', 'hop', 'throw_your_voice'],
       startingReputation: [],
     },
     {
@@ -2093,7 +2100,7 @@ const raw = {
       attributeBonus: { mind: 2, presence: 2 },
       skillProficiencies: { appraise: 3, bargain: 2 },
       startingItems: [],
-      startingAbilities: ['name_a_price'],
+      startingAbilities: ['borrow_a_voice', 'hop', 'name_a_price'],
       startingReputation: [],
     },
     {
@@ -2106,7 +2113,7 @@ const raw = {
       attributeBonus: { might: 3, resolve: 1 },
       skillProficiencies: { jaws: 2, stillness: 2 },
       startingItems: [],
-      startingAbilities: ['dead_weight'],
+      startingAbilities: ['borrow_a_voice', 'hop', 'dead_weight'],
       startingReputation: [],
     },
   ],
@@ -2345,13 +2352,19 @@ const raw = {
     'I shut my lid on her wrist. Gently. And I don’t let go.',
   ],
   coverDirection: [
-    'SUBJECT: an iron-banded wooden treasure chest, lid half open like a sly grin over gold coins, and Lirelle, an elf thief, in the foreground of a key visual for a fantasy anime comedy about a living treasure chest.',
-    'Lirelle kneels beside the chest, one gloved hand reaching into its coins, eyes on its keyhole with wary surprise:',
-    'long pale braid wound twice round her head and pinned with a lockpick, sharp green eyes, practical dark delver’s leathers scuffed at the knees, fingerless gloves, a worn leather satchel on her hip.',
-    'Behind her, soft and secondary: Bruno, a big bearded man in dented plate, raising a tall tower shield with a small barrel painted on it.',
-    'SETTING: a round lantern-lit stone vault with empty plinths; warm gold light from the coins, deep shadows.',
-    'Effects stay on the coins and the keyhole, never on faces.',
-    'TITLE: the words THE LAST MIMIC painted into the art in the upper third as a bold gilded fantasy logo,',
+    'SUBJECT: Lirelle, an elf thief, kneeling beside a living treasure chest, the two of them together in the foreground of a key visual for a fantasy anime comedy about someone reborn as a treasure chest at the bottom of a dungeon.',
+    'They fill the frame, close and centred: Lirelle from the waist up on the right, holding about half the picture, the chest in the lower left foreground.',
+    'Long pale braid wound twice round her head and pinned with a lockpick, long pointed elf ears, sharp green eyes, practical dark delver’s leathers scuffed at the knees and patched at one elbow, fingerless gloves, a worn leather satchel on her hip.',
+    'One gloved hand is deep in the chest’s gold coins; the other rests flat on its iron band. She leans in with her eyebrows raised, wary and delighted at once, eyes on its keyhole.',
+    'THE CHEST: dark oak with iron bands, its lid propped half open in a sly, lopsided grin, the rim just hinting at a row of blunt wooden teeth, cheeky rather than scary, heaped with gold coins. Its brass keyhole sits like a raised eyebrow.',
+    'Deep among the coins a small coal sealed in a glass bead glows ember orange.',
+    'EFFECTS: warm gold light spills up out of the coins, the bead glows, and one bright glint sits on the keyhole.',
+    'Every glow and sparkle stays on the coins, the bead, the keyhole and the title, never on faces.',
+    'HER FACE STAYS CLEAN: no glow marks, sparkles or hard shadows across her face or skin.',
+    'BEHIND HER, soft and secondary: Bruno, a broad bearded shield-bearer with a shaved head, in dented plate over a quilted coat, raising a tall tower shield with a small barrel painted on it, watching the chest.',
+    'SETTING: a round lantern-lit stone vault with empty stone plinths and deep blue shadows.',
+    'LIGHT: warm gold light from the coins under her chin and gloves, a hanging lantern rimming her braid, cool blue shadow in the vault behind.',
+    'TITLE: the words THE LAST MIMIC painted into the art in the upper third as a bold gilded fantasy logo, chunky carved capitals in gold leaf edged in dark iron like the bands of a treasure chest, one coin-bright glint on the first M,',
     'spelled exactly THE LAST MIMIC, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
   publishedAt: null,
