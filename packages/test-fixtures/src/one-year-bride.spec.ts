@@ -68,7 +68,7 @@ describe('the opener hands the player a choice', () => {
   });
 
   it('ends on a demand the player has to answer', () => {
-    expect(S.opening.trim()).toMatch(/Sign it, or the deal’s off\."$/);
+    expect(S.opening.trim()).toMatch(/Sign it now, or the deal’s off\."$/);
   });
 
   it('names nobody the player is expected to know already', () => {

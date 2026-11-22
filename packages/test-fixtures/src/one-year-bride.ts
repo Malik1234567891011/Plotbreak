@@ -96,7 +96,7 @@ const raw = {
       'This story stays 13+ whatever the player does and however far the year runs. Romance in this story goes no further than a kiss, and nobody is touched without being asked; Reina asks first and expects to be asked. Nobody is ever seen half-dressed, bathing or in a towel, and the narration never lingers on anybody’s body. The bathroom door that does not lock is a running joke about knocking and announcing yourself, never a reveal. If they ever share the bed to fool Felix, it is fully dressed, back to back, behind a wall of pillows, and played for comedy.',
     ],
     toneGuide:
-      'Romantic comedy with a contract in it: quick, warm, specific, and a little sad underneath. The comedy comes from two precise people sharing four small rooms — the fridge shelves, the short sofa, the bathroom door that does not lock, the performance at Sunday dinner — and from a town that watches everything. The bathroom door that does not lock is a joke about knocking, timing and a sign hung on the handle: nobody ever walks in on anybody, and nobody is ever shown in a towel or half-dressed. The tension comes from the rules and from who might find out. ' +
+      'Romantic comedy with a contract in it: quick, warm, specific, and a little sad underneath. The comedy comes from two precise people sharing four small rooms — the labelled fridge shelves, the sofa that is too short, the door that does not lock and all the knocking it takes, the performance at Sunday dinner — and from a town that watches everything. The tension comes from the rules and from who might find out. ' +
       'Reina is never a prize and never a tease. She is a person with a deadline, and she can say no, get angry, change her mind, renegotiate and leave. Romance is slow, flirtatious and heartfelt, never more than a kiss, and always asked for. ' +
       'Consequences are social and they stick. Auntie Bo’s kiosk sees everybody who walks onto the pier, a raised voice on the pier is news by breakfast, Felix writes down what he sees, and Masaru calls the police the moment anybody touches him. A player who lies, shouts or walks out gets a town that remembers. ' +
       'The year can be played day by day or crossed in jumps of a week or a season whenever the player asks; Felix’s four visits, the Sunday dinners, the storm, the autumn lantern festival and the anniversary are its landmarks. If a scene has nothing at stake, let it be pleasant and short. The face at the top of a beat is Reina’s whenever she is in the scene. In the first week of story time Reina does not admit to breaking rule one: she can quote it, argue about it and change the subject, whatever the player says.',
@@ -2308,7 +2308,7 @@ const raw = {
     },
   ],
   opening:
-    'Your wife of six hours is standing in your doorway with two suitcases and a potted lemon tree.\n\n"Reina Kurosawa," she says, in case you’d forgotten. "Hello again."\n\nShe steps past you and takes in the flat. One bedroom. One sofa. One bathroom door that doesn’t lock. Downstairs, your grandfather is singing over the grill. You told him this was real.\n\nShe hands you a typed page. Twelve numbered lines.\n\nRule 1: Don’t fall for me.\n\nLine twelve is blank.\n\n"Twelve’s yours. Within reason." She holds out a pen. "Tomorrow I buy your grandfather’s debt. A year from today, I tear it up. Sign it, or the deal’s off."',
+    'Your wife of six hours is standing in your doorway with two suitcases and a potted lemon tree.\n\n"Reina Kurosawa," she says, in case you’d forgotten. "Hello again."\n\nShe steps past you and takes in the flat. One bedroom. One sofa. One bathroom door that doesn’t lock. Downstairs, your grandfather is singing over the grill. You told him this was real.\n\nShe hands you a typed page. Twelve numbered lines.\n\nRule 1: Don’t fall for me.\n\nLine twelve is blank.\n\n"Twelve’s yours. Within reason." She holds out a pen. "Tomorrow I buy your grandfather’s debt. A year from today, I tear it up. Sign it now, or the deal’s off."',
   openingPanel: {
     assetKey: 'story_one_year_bride/opening',
     alt: 'Reina in a cream dress and charcoal trench coat holds out a pen and a typed page in a small flat’s doorway at night, two suitcases and a potted lemon tree beside her.',
@@ -2325,10 +2325,13 @@ const raw = {
     'She holds a typed sheet of paper toward the viewer in one hand and a fountain pen in the other, one eyebrow raised, a small challenging smile.',
     'On the hand holding the pen, a plain gold ring wrapped round with bright red thread, clearly visible.',
     'The paper shows only abstract grey lines: no letters, no numbers, nothing that reads as writing.',
+    'HER FACE STAYS CLEAN: no red thread, glow, marks or shadows across her face or skin.',
+    'The red thread appears only on the ring and in the title, never on her face.',
     'BEHIND HER, soft and secondary: the doorway of a small cosy flat at night, two suitcases and a potted lemon tree, and through a window the warm lights of a wooden pier over a dark harbour.',
     'LIGHT: warm amber lamplight on her face and hands, cool blue harbour night behind her.',
     'TITLE: the words ONE-YEAR BRIDE painted into the art in the upper third as an elegant serif romance logo, cream with a thin red thread looping through the letters,',
-    'spelled exactly ONE-YEAR BRIDE, large and legible at thumbnail size. No other text anywhere.',
+    'spelled exactly ONE-YEAR BRIDE, with the hyphen between ONE and YEAR, large and legible at thumbnail size.',
+    'The thread loops between the letters without hiding any of them. No other text anywhere.',
   ].join(' '),
   publishedAt: null,
 };

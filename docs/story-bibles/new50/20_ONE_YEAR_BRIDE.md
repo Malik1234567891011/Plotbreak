@@ -81,7 +81,7 @@ Ages; Sorrel Bay and Teo’s; the debt and Friday’s auction; the marriage this
 
 ## Opening scene
 
-109 words. Reina speaks in the first sixty, and it ends on a demand.
+110 words. Reina speaks in the first sixty, and it ends on a demand that needs an answer now.
 
 > Your wife of six hours is standing in your doorway with two suitcases and a potted lemon tree.
 >
@@ -95,7 +95,7 @@ Ages; Sorrel Bay and Teo’s; the debt and Friday’s auction; the marriage this
 >
 > Line twelve is blank.
 >
-> "Twelve’s yours. Within reason." She holds out a pen. "Tomorrow I buy your grandfather’s debt. A year from today, I tear it up. Sign it, or the deal’s off."
+> "Twelve’s yours. Within reason." She holds out a pen. "Tomorrow I buy your grandfather’s debt. A year from today, I tear it up. Sign it now, or the deal’s off."
 
 **Suggestions**
 
@@ -239,7 +239,7 @@ The gated ability **Follow the Old Story** is granted by the first step of Sign 
 
 ## Image plan (not generated)
 
-- **Cover:** Reina waist-up, on the evening of her registry-office wedding and still in the dress she married in, holding out a pen and a typed page (abstract lines, no letters), the ring wrapped in red thread, the doorway, suitcases, lemon tree and pier lights behind her. Title ONE-YEAR BRIDE as an elegant serif logo in the upper third with red thread through the letters.
+- **Cover:** Reina waist-up, on the evening of her registry-office wedding and still in the dress she married in, holding out a pen and a typed page (abstract lines, no letters), the ring wrapped in red thread, the doorway, suitcases, lemon tree and pier lights behind her. Title ONE-YEAR BRIDE (hyphen kept) as an elegant serif logo in the upper third with red thread through the letters. The red thread stays on the ring and the title, never on her face. The `TITLE:` line in `coverDirection` owns the lettering, and the tone guide is the cover's mood text, so it carries no bathroom or clothing language: the 13+ rule about the unlockable door lives in hard canon.
 - **Portraits:** Reina, Teo, Bo, Felix, Masaru. Art seeds are `oyb-<id>-01`.
 - **Expressions:** Reina neutral, dry, flustered, annoyed, warm, hurt. Teo warm, grinning, sad, stern. Bo suspicious, amused, warm, stern. Felix polite, careful, hurt, stung. Masaru polite, calculating, cold, grave.
 - **Stages:** the nine places above, each with `artDirection` in the fixture.
