@@ -430,20 +430,73 @@ describe('three hands, one ticket, and a long way round', () => {
     expect(whoRides.succeedWhenAny.some((r) => r.setsFlags.includes('kept_the_ticket'))).toBe(true);
   });
 
-  it('relights each dark line from home, with the right light on the right platform', () => {
-    const relight = story.quests.find((q) => q.id === 'q_the_long_way')!.steps.find((s) => s.id === 'relight')!;
-    const pairs: Array<[string, string, string]> = [
-      ['clan_flame', 'platform_four', 'lamp_four_lit'],
-      ['survey_beacon', 'platform_six', 'lamp_six_lit'],
-      ['moonstone_ring', 'platform_eight', 'lamp_eight_lit'],
+  it('relights each dark line from home, with the right light on the right platform, in a quest of its own', () => {
+    const triples: Array<[string, string, string, string]> = [
+      ['q_relight_four', 'clan_flame', 'platform_four', 'lamp_four_lit'],
+      ['q_relight_six', 'survey_beacon', 'platform_six', 'lamp_six_lit'],
+      ['q_relight_eight', 'moonstone_ring', 'platform_eight', 'lamp_eight_lit'],
     ];
-    for (const [item, platform, flag] of pairs) {
-      const route = relight.succeedWhenAny.find((r) => r.predicate.hasItems.includes(item));
-      expect(route, item).toBeDefined();
+    for (const [questId, item, platform, flag] of triples) {
+      const quest = story.quests.find((q) => q.id === questId)!;
+      expect(quest, questId).toBeDefined();
+      expect(quest.discoverWhen?.flagsSet).toEqual(['knows:home_light']);
+      // One step, one route: the engine closes a step on its first matching
+      // route, so a shared step could relight only one lamp all night.
+      expect(quest.steps).toHaveLength(1);
+      const [route] = quest.steps[0]!.succeedWhenAny;
+      expect(quest.steps[0]!.succeedWhenAny).toHaveLength(1);
+      expect(route!.predicate.hasItems).toContain(item);
       expect(route!.predicate.atLocation).toBe(platform);
       expect(route!.setsFlags).toContain(flag);
       expect(route!.predicate.flagsSet).toContain('used:relight_a_lamp');
+      expect(quest.steps[0]!.rewards.flags).toContain('a_lamp_relit');
     }
+  });
+
+  it('can light every dark lamp from at least two different quests', () => {
+    for (const flag of ['lamp_four_lit', 'lamp_six_lit', 'lamp_eight_lit']) {
+      const quests = new Set(routes.filter(({ route }) => route.setsFlags.includes(flag)).map(({ quest }) => quest));
+      expect(quests.size, flag).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  it('sends a second rider on the mended ticket, to any of the three platforms', () => {
+    const half = story.quests.find((q) => q.id === 'q_the_other_half')!;
+    const second = half.steps.find((s) => s.id === 'second_rider')!;
+    expect(half.steps.indexOf(second)).toBe(half.steps.findIndex((s) => s.id === 'mend_it') + 1);
+    const platforms = second.succeedWhenAny.map((r) => r.predicate.atLocation);
+    expect(platforms).toEqual(['platform_four', 'platform_six', 'platform_eight']);
+    for (const r of second.succeedWhenAny) expect(r.predicate.hasItems).toContain('mended_ticket');
+  });
+
+  it('makes every lit platform a place you can actually ride to and back from', () => {
+    const concourse = story.locations.find((l) => l.id === 'the_concourse')!;
+    const lit = ['salt_coast', 'glass_desert', 'bridge_city', 'owl_market', 'giants_snowfield', 'one_tree_forest'];
+    for (const id of lit) {
+      const place = story.locations.find((l) => l.id === id);
+      expect(place, id).toBeDefined();
+      expect(place!.discoveredByDefault, id).toBe(true);
+      expect(concourse.connections.some((c) => c.to === id && !c.lockedByFlag), id).toBe(true);
+      expect(place!.connections.some((c) => c.to === 'the_concourse'), id).toBe(true);
+      expect(place!.description, id).toMatch(/last one to Lantern Cross|last train back|the train back|The way back/i);
+    }
+    const positions = story.locations.map((l) => `${l.mapPosition.x},${l.mapPosition.y}`);
+    expect(new Set(positions).size).toBe(positions.length);
+  });
+
+  it('lets a player who crosses over be caught on the wrong side of dawn', () => {
+    const crossers = routes.filter(({ route }) => route.setsFlags.includes('you_crossed_over'));
+    const places = new Set(crossers.map(({ route }) => route.predicate.atLocation));
+    for (const id of ['akebono_road', 'long_patience', 'moonward_court']) expect(places.has(id), id).toBe(true);
+    const step = story.quests.find((q) => q.id === 'q_another_world')!.steps[0]!;
+    for (const r of step.succeedWhenAny) expect(r.predicate.flagsSet).toEqual([]);
+  });
+
+  it('only closes the ticket as kept once the punch can no longer reach any deadline', () => {
+    const whoRides = story.quests.find((q) => q.id === 'q_one_ticket')!.steps.find((s) => s.id === 'who_rides')!;
+    const kept = whoRides.succeedWhenAny.find((r) => r.routeId === 'kept_it')!;
+    const burns = story.worldEvents.find((e) => e.id === 'we_akebono_burns')!.atWorldMinute;
+    expect(kept.predicate.afterWorldMinute).toBeGreaterThan(burns);
   });
 
   it('hides the long way behind a lead and a locked ability, in the world’s own words', () => {

@@ -4,6 +4,7 @@
 **Genre:** choose-your-world sandbox, fantasy, light mystery, ensemble comedy, optional romance
 **Audience lean:** both
 **One-line fantasy:** You are the night stationmaster at a station where every platform leads to a different world, and on your first shift three stranded travellers put their hands on the only golden ticket.
+**Hook (Discover card):** Three stranded travellers, one golden ticket, and only your punch can send one of them home. Your first night as stationmaster of a station between worlds.
 
 ## Why this fantasy works
 
@@ -34,7 +35,8 @@ The story opens five minutes after midnight with the three travellers' hands on 
 5. A dark lamp can also be relit by a light carried from its own world, given up freely by the person who carried it. A stolen light will not catch. Each of the three travellers is carrying one without knowing it matters.
 6. At 06:00 somebody must stand at the master lamp in the Lamp Room. Whoever is there becomes stationmaster. If nobody is, every lamp in the station goes out.
 7. The stationmaster may step off at any lit platform, but one who is in another world at dawn cannot come back to the job.
-8. The Conductor runs every train, answers exactly the question asked, cannot climb the Lamp Room stair, and can stop any fight on the concourse with a word. He cannot command the stationmaster.
+8. The Conductor runs every train, answers exactly the question asked, cannot climb the Lamp Room stair, and can stop any fight on the concourse with a word. He cannot command the stationmaster. His silver pocket watch is the only clock in the station still running, and he gives the time to the minute whenever he speaks.
+9. Trimming by hand only keeps a weak lamp from going out. A lamp that has gone dark will not take a match, a wick or a hand: only a golden ticket punched for it, or a light from its own world given freely, relights it. Nothing crosses a dark line, not a train, not a tender, not a traveller on foot; past a dark platform the tunnel ends in cold brick.
 
 ### The night's clock (station time)
 
@@ -101,13 +103,13 @@ The archetype never decides who gets the ticket or whether the player stays.
 
 ## Opening
 
-The opener is the first beat. 111 words. A named character (Ren) speaks within the first 25 words. It ends on a direct question. The only proper noun is Ren, who introduces himself.
+The opener is the first beat. 113 words. A named character (Ren) speaks at word 13 and is named at word 22. It ends on a direct question. The only proper noun is Ren, who introduces himself.
 
 > A golden ticket lies on your counter. Three hands are on it.
 >
 > "Stationmaster." The samurai doesn't raise his voice. "I am Ren. My lord's castle burns at dawn."
 >
-> "My crew has four hours of air," says the astronaut beside him, helmet under her arm.
+> "Item one: my crew has four hours of air," says the astronaut beside him, helmet under her arm.
 >
 > The third is a queen in black lace, pale as the clock face above her. "They crown my cousin at moonset. I intend to be there to object."
 >
@@ -117,10 +119,10 @@ The opener is the first beat. 111 words. A named character (Ren) speaks within t
 >
 > "One ticket," Ren says. "Choose, stationmaster. Who rides?"
 
-Suggestions, three different moves:
+Suggestions, three different moves (said holds off, done chooses, risky claims):
 
 - **Said:** "Hands off, all of you. I'm hearing each of you out first."
-- **Done:** I lift the ticket out from under their hands and hold it up to the lamp.
+- **Done:** I take the ticket out from under their hands and hold it out to the astronaut.
 - **Risky:** I put my hand flat on top of all three. "Actually, it's mine."
 
 The player can also punch it for anyone at once, refuse, walk off to look at the dark platforms, go for tea, attack someone, flirt, lie, or leave the station. The travellers react to the exact thing done.
@@ -146,16 +148,16 @@ All five are adults. The player is an adult.
 ### Commander Adaeze Okafor — 38
 
 **Role:** commander of the survey ship *Long Patience*, stranded behind Platform 6.
-**Appearance:** close-cropped hair going grey at one temple, dark skin, a fresh burn across the knuckles, an orange pressure suit unzipped to the waist over a grey thermal, helmet under one arm. A survey beacon on her chest blinking white every four seconds.
+**Appearance:** close-cropped hair going grey at one temple, dark skin, a fresh burn across the knuckles, an orange pressure suit with the collar ring open and sleeves pushed up, a grey thermal underneath, helmet under one arm. A survey beacon on her chest blinking white every four seconds.
 **Says she wants:** to get back to her crew, six people on reserve air in a dead orbit, with the reactor part she came through to find.
-**True:** all of that is true.
+**True:** all of that is true. Her tender set down on Platform 6 at half past nine, after Ida had gone, and she spent two hours finding a reactor coupling on Ida's shelf of spares in Lost Property. At midnight her line went dark behind her.
 **Secret:** she did not find the station by accident. Her Outer Survey Directorate found Platform 6's lamp in old telemetry. Her sealed orders: locate the station, log a repeatable route, recover the device that controls its tickets if possible. Her beacon has logged the route since she arrived. Giving the beacon to the lamp would relight Platform 6 and burn the route with it.
 **Fear:** reaching her crew an hour late; handing this place to people who would fence it.
 **Voice:** brisk and warm. Counts things out, "Item one. Item two." Says "copy" for yes. Gives the real number, then jokes so nobody has to react.
 **Lines:**
 - "Item one, my crew has four hours of reserve air. Item two, I have the part. Item three is you."
 - "Copy. Bad news first, always. Good news is cheaper and keeps longer."
-- "Somebody back home wants your brass clipper on a lab bench. I haven't decided whether to help them."
+- "Copy. I'll be scared at ten past four. It's on the list."
 
 ### Queen Isolde of Ostravel — 312 (looks about thirty)
 
@@ -172,6 +174,9 @@ All five are adults. The player is an adult.
 - "They crown my cousin at moonset. I intend to be there to object."
 - "Darling, I have outlived four dynasties and a great many people who told me to calm down. Punch the ticket."
 - "Ida cheated at cards for forty years. Badly. I let her. Do you play?"
+- "I have sat through eleven coronations, darling, and I can tell you they are mostly hats."
+
+Voice samples show the voice only. None of them may hint at a secret: the writer model copies samples word for word.
 
 ### The Conductor — centuries old (looks about 60)
 
@@ -200,12 +205,23 @@ All five are adults. The player is an adult.
 - "Those three lamps were always going to go when I did. I kept them going by hand and bad temper."
 - "Tell Isolde she can have my chair. Don't tell her I said so."
 
+### Other named characters
+
+The narrator can voice any of these, so each age is fixed here.
+
+- **Lord Casimir of Ostravel**, 241 (looks about forty): Isolde's cousin, crowned at moonset (02:40) in the Moonward Court with a copy of the crown-ring.
+- **Lord Uraga Shigemasa**, 58: Ren's lord, on the walls of Castle Akebono with forty retainers; means to burn the castle at dawn.
+- **The lamp-wright at the Owl Market**, about 60: sells one answer about lamps for an hour of the night.
+- **Okafor's engineer**, 34: the voice on the radio at 03:10.
+
+The porters, the Regulars, Okafor's crew, the Uraga retainers, the water-seller, the toll-keepers and the three hundred townspeople in the lower bailey are all adults.
+
 ## Places
 
 | Place | What it is | Connects to |
 |---|---|---|
 | The Ticket Counter | Oak booking desk behind a brass grille; the opening scene | Concourse |
-| The Concourse | Iron-and-glass hall, nine platforms, the stopped clock | Everything in the station, the Salt Coast and the Owl Market by train |
+| The Concourse | Iron-and-glass hall, nine platforms, the stopped clock | Everything in the station, and the six lit worlds by train |
 | The Lamp Room | Round glass room up 99 stairs; master lamp, Ida's ledger, the card table | Concourse |
 | Lost Property | Everything ever left on a train; the TICKETS, ASSORTED drawer | Concourse |
 | The First-Class Waiting Room | Fire, samovar, curtains; where the travellers wait | Concourse |
@@ -217,7 +233,11 @@ All five are adults. The player is an adult.
 | Platform 8 | Dark, violet lamp, pale moths on the benches | Concourse; the Moonward Court once lit |
 | The Moonward Court | Ostravel's throne hall, black glass, an enormous moon | Platform 8 |
 | The Salt Coast | Harbour town forty minutes away by Platform 1; Ida | Concourse |
-| The Owl Market | Night bazaar twenty-five minutes away by Platform 5; prices paid in minutes of your night | Concourse |
+| The Owl Market | Night bazaar twenty-five minutes away by Platform 5, every half hour; prices paid in minutes of your night; last train back 05:30 | Concourse |
+| The Glass Desert | Platform 2, twenty past each hour, 20 min; dunes of green glass that ring when the wind crosses them, a halt with one bench, a water-seller who takes payment in stories; last train back 05:30 | Concourse |
+| The City of Bridges | Platform 3, quarter past each hour, 30 min; no ground, only bridges strung between towers over fog, and every span's toll-keeper charges one true sentence; last train back 05:15 | Concourse |
+| The Field of Sleeping Giants | Platform 7, every forty minutes, 35 min; giants the size of hills asleep under the snow, a footpath that rises and falls once an hour with their breathing, a hut that serves soup to anyone who whispers; last train back 05:00 | Concourse |
+| The Forest of One Tree | Platform 9, ten to each hour, 25 min; a single living tree that is the whole forest, hung with lanterns nobody lit, and it notices visitors; last train back 05:20 | Concourse |
 
 ## Behavioural state (invisible)
 
@@ -238,8 +258,10 @@ All five are adults. The player is an adult.
 - **One Ticket** (main, active): the counter, then who rides.
 - **Three Stories, One Lie** (main): what each of them is really going home to.
 - **The Long Way Round** (lead): how else a dark lamp can be lit. Teaches *Relight a Lamp*.
-- **The Other Half** (lead): the torn ticket, Ida, the mend.
+- **A Light for Platform 4 / 6 / 8** (three leads, open once the home-light rule is known): one quest per dark lamp, so all three can be relit in one night. The engine closes a step on its first matching route, so a shared step could only ever light one.
+- **The Other Half** (lead): the torn ticket, Ida, the mend, then a second rider on the mended ticket.
 - **The River Gate** (Ren), **Reserve Air** (Okafor), **A Crown at Moonset** (Isolde): one side thread each.
+- **Step Through** (side): ride a relit line into a traveller's world, and be back by six or not.
 - **Someone at the Lamp** (main): six o'clock.
 - **What the Conductor Was** (lead): his name, and whether he can be let off the trains.
 
@@ -275,7 +297,7 @@ All five are adults. The player is an adult.
 
 ## Content and originality
 
-- Rated 13+. All characters are adults and every age is stated above. Nobody is described as childlike.
+- Rated 13+. All characters are adults and every age is stated above, including the named characters who never reach the counter. Nobody is described as childlike, and no crowd scene (the river gate, the Regulars) adds a minor.
 - Romance stays at flirting, tension and a kiss. No fan service.
 - Violence is short and never graphic. Isolde's feeding is never shown; she keeps a no-feeding rule at the station.
 - The burning castle is a threat; no one is shown burning. Okafor's crew go into cold sleep, alive.
@@ -289,7 +311,7 @@ Vertical anime key art at night in a vast iron-and-glass railway station, nine p
 
 ### Opening panel
 
-Three hands on one golden ticket on an oak counter: a samurai's scarred hand, an astronaut's orange cuff, a queen's black glove with a moonstone ring.
+Ren across an oak counter, one scarred hand on a golden ticket beside an astronaut's orange cuff and a queen's black glove with a moonstone ring. (The alt names Ren so the panel generator keeps his face as the subject.)
 
 ### Hero triggers
 

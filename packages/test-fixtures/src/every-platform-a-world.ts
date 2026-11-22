@@ -39,7 +39,7 @@ const raw = {
   version: 1,
   title: 'Every Platform a World',
   fantasyLabel: 'Three travellers, one ticket, your call.',
-  hook: 'You are the night stationmaster at a station where every platform leads to a different world, and on your first shift three stranded travellers put their hands on the only golden ticket.',
+  hook: 'Three stranded travellers, one golden ticket, and only your punch can send one of them home. Your first night as stationmaster of a station between worlds.',
   premise:
     'You took the night shift at Lantern Cross, a railway station that opens at dusk and closes at dawn. Every platform has a lamp, and while it burns, that platform’s train runs to a different world. Tonight is your first shift. At sunset the old stationmaster, forty-one years in the job, handed you her brass ticket punch and caught the 21:10 to the seaside.\n\n' +
     'At midnight three lamps went out at once, and three travellers were stranded on your concourse. Ren, a samurai, says his lord’s castle burns at dawn. Commander Okafor, an astronaut, says her crew has four hours of air. Isolde, a vampire queen, says her cousin is crowned at moonset unless she is there to stop it.\n\n' +
@@ -86,6 +86,7 @@ const raw = {
       'Lantern Cross is a railway station between worlds. It opens at dusk and closes at dawn. It has nine platforms, and while a platform’s lamp burns, its train runs to one world.',
       'The player is the new night stationmaster, an adult, on their first shift. Ida Fennimore, stationmaster for forty-one years, handed over her brass ticket punch at sunset and took the 21:10 from Platform 1 to retire on the Salt Coast.',
       'At midnight the lamps of Platforms 4, 6 and 8 went out, because Ida had been keeping those three weak lamps lit by hand. The station clock stopped at the same moment. Platforms 1, 2, 3, 5, 7 and 9 are lit and running.',
+      'Trimming by hand only keeps a weak lamp from going out. A lamp that has gone dark will not take a match, a wick or a hand: only a golden ticket punched for it, or a light from its own world given freely, relights it. Nothing crosses a dark line, not a train, not a tender, not a traveller on foot; past a dark platform the tunnel ends in cold brick.',
       'Three travellers are stranded: Ren Shiomi of House Uraga behind Platform 4, Commander Adaeze Okafor of the survey ship Long Patience behind Platform 6, and Queen Isolde of Ostravel behind Platform 8. All three are adults, and so is everyone else in this story.',
       'There is one golden ticket. It came in an envelope addressed to the player, because every stationmaster is given one, once, to anywhere. Punched for a dark platform it relights that lamp long enough for one train, one passenger, one trip.',
       'Only the stationmaster’s punch validates a ticket. In anyone else’s hand the punch is cold brass and will not close.',
@@ -93,13 +94,14 @@ const raw = {
       'Forty-one years ago Ida tore her own golden ticket in half so she could not leave. One half is in a Lost Property drawer marked TICKETS, ASSORTED; she keeps the other in her purse on the Salt Coast. Laid together under the stationmaster’s punch and freely given, the halves make one working ticket.',
       'At 06:00 somebody must be standing at the master lamp in the Lamp Room. Whoever is there becomes stationmaster from then on. If nobody is, every lamp in the station goes out. A stationmaster who is in another world at dawn cannot come back to the job.',
       'The deadlines, in station time: Isolde’s cousin Casimir is crowned at moonset, 02:40. Okafor’s crew runs out of reserve air at 04:10 and goes into emergency cold sleep, alive and adrift. The last train back from the Salt Coast leaves at 05:15. Castle Akebono burns at Ren’s dawn, 05:20. Dawn at Lantern Cross is 06:00.',
-      'The Conductor runs every train, answers exactly the question he is asked, cannot climb the Lamp Room stair, and can stop any train or any fight on the concourse with a word. He cannot command the stationmaster.',
+      'The Conductor runs every train, answers exactly the question he is asked, cannot climb the Lamp Room stair, and can stop any train or any fight on the concourse with a word. He cannot command the stationmaster. His silver pocket watch is the only clock in Lantern Cross still running, and he gives the time to the minute whenever he speaks.',
       'Isolde is lying about wanting to go home. Ren’s need is true, and what he means to do at home is treason under his lord’s law. Okafor’s need is true, and she also carries sealed orders to bring the station’s secret back to her Directorate.',
     ],
     toneGuide:
       'A night shift at a railway station that happens to connect worlds: warm, quick, a little uncanny. Small physical detail carries it — the stopped clock, the samovar, frost on one platform and cedar smoke on another, three hands on one ticket. ' +
       'Every beat is somebody wanting something from the stationmaster, out loud. The three travellers come from stories that do not belong together, and a samurai, an astronaut and a vampire queen sharing one waiting room is allowed to be funny while the clock runs. Nobody at the counter is a villain and every claim is reasonable. ' +
       'The long way round is found, never handed over: the Conductor answers only the exact question asked, the ledger has to be read, Lost Property has to be searched. Deadlines fire on time whether or not the player is looking, and a missed one is a consequence the night carries, never a game over. ' +
+      'The Conductor does not come to the counter to solve it; the counter is the stationmaster’s problem. None of the three confesses to an interrogation: Ren opens to being asked what he will do rather than why he deserves to go, Okafor to being offered a choice rather than given an order, and Isolde to being caught kindly and in private. Keep the clock honest: a conversation costs minutes, a train ride costs its full timetable, and the deadlines fall at their times. ' +
       'Romance with any of the three adults stays at flirting, tension and at most a kiss. Violence on the concourse is short, legible and costly, and the Conductor ends it. Isolde never feeds at the station and feeding is never shown. The face at the top of a beat belongs to whichever traveller is pressing the stationmaster hardest.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -143,7 +145,7 @@ const raw = {
       displayPriority: 1,
       visible: false,
       zeroStateConsequence:
-        'The stationmaster is running on nothing. Words come out late and flat, the stairs to the Lamp Room look like a mountain, and the travellers notice — Okafor offers a stim she should be saving, Isolde gets kinder, which is worse, and Ren simply waits for them to sit down.',
+        'The stationmaster is running on nothing. Words come out late and flat, the stairs to the Lamp Room look like a mountain, and the travellers notice — Okafor offers a ration bar she should be saving, Isolde gets kinder, which is worse, and Ren simply waits for them to sit down.',
       color: '#E8B04B',
       bands: [
         {
@@ -263,6 +265,7 @@ const raw = {
       id: 'idas_envelope',
       name: 'Ida’s Envelope',
       tags: ['document', 'personal'],
+      questItem: true,
       description:
         'A brown envelope with your name on it in round capitals. Inside, a note: "Every stationmaster gets one, once, to anywhere. This is yours. Don’t let anyone tell you what it’s for. Be at the lamp at six. I.F."',
       loreText:
@@ -273,6 +276,7 @@ const raw = {
       id: 'stationmasters_ledger',
       name: 'The Stationmaster’s Ledger',
       tags: ['document'],
+      questItem: true,
       skillModifiers: { station_lore: 2 },
       description:
         'Forty-one years of night shifts in Ida’s hand: lamps trimmed, trains late, travellers sent home. Platforms 4, 6 and 8 are marked "weak, trim by hand" on almost every page. Near the back, under LAMPS, she has written: "From home, given freely. Never stolen."',
@@ -327,7 +331,7 @@ const raw = {
       questItem: true,
       description:
         'A palm-sized survey beacon that blinks white every four seconds. It has logged every metre of the route from her ship to Platform 6.',
-      loreText: 'Amber means her crew has gone into emergency cold sleep. She has told you that once, flatly, and not again.',
+      loreText: 'Amber means her crew has gone into emergency cold sleep.',
       icon: 'beacon',
     },
     {
@@ -357,7 +361,7 @@ const raw = {
       tags: ['document'],
       skillModifiers: { station_lore: 1 },
       description:
-        'A folded card timetable for six open lines. Platform 1, ten past every hour, forty minutes, last return 05:15. Platform 5, every half hour, twenty-five minutes. Platforms 4, 6 and 8 have been crossed out in fresh pencil.',
+        'A folded card timetable for six open lines. Platform 1, ten past every hour, forty minutes, last return 05:15. Platform 2, twenty past, twenty minutes, last return 05:30. Platform 3, quarter past, thirty minutes, last return 05:15. Platform 5, every half hour, twenty-five minutes, last return 05:30. Platform 7, every forty minutes, thirty-five minutes, last return 05:00. Platform 9, ten to the hour, twenty-five minutes, last return 05:20. Platforms 4, 6 and 8 have been crossed out in fresh pencil.',
       loreText: 'The Conductor reprinted it at 00:01. The ink is still a little wet.',
       icon: 'papers',
     },
@@ -576,6 +580,10 @@ const raw = {
         { to: 'platform_eight', travelMinutes: 4, label: 'Platform 8' },
         { to: 'salt_coast', travelMinutes: 40, label: 'The ten-past train from Platform 1' },
         { to: 'owl_market', travelMinutes: 25, label: 'The half-hourly train from Platform 5' },
+        { to: 'glass_desert', travelMinutes: 20, label: 'The twenty-past train from Platform 2' },
+        { to: 'bridge_city', travelMinutes: 30, label: 'The quarter-past train from Platform 3' },
+        { to: 'giants_snowfield', travelMinutes: 35, label: 'The forty-minute train from Platform 7' },
+        { to: 'one_tree_forest', travelMinutes: 25, label: 'The ten-to train from Platform 9' },
       ],
       discoveredByDefault: true,
       mapPosition: { x: 0, y: 1 },
@@ -664,7 +672,7 @@ const raw = {
       name: 'The Road Below Castle Akebono',
       shortName: 'Akebono',
       description:
-        'A riverside road at the foot of a castle on a hill, an hour before dawn. Besieging campfires along the far bank, pitch barrels stacked against the keep, and three hundred townspeople asleep in the lower bailey behind the river gate. The way back to Lantern Cross is the train at the river stop, to Platform 4.',
+        'A riverside road at the foot of a castle on a hill, an hour before dawn. Besieging campfires along the far bank, pitch barrels stacked against the keep, and three hundred grown townspeople asleep in the lower bailey behind the river gate. The way back to Lantern Cross is the train at the river stop, to Platform 4.',
       artDirection:
         'Japanese-style castle on a hill before dawn, a riverside road, a heavy river gate in the lower wall, enemy campfires on the far bank, barrels stacked against the keep. Smoky blue light, high stakes.',
       connections: [{ to: 'platform_four', travelMinutes: 15, label: 'The train back to Platform 4' }],
@@ -677,7 +685,7 @@ const raw = {
       name: 'Platform 6',
       shortName: 'Platform 6',
       description:
-        'A dark platform off the concourse under a white lamp gone black. Frost on the rails, scorch marks where a small spacecraft tender set down at ten to midnight, and Okafor’s pack against a pillar. When the lamp is lit, the line runs out to the survey ship Long Patience.',
+        'A dark platform off the concourse under a white lamp gone black. Frost on the rails, scorch marks where a small spacecraft tender set down at half past nine, and Okafor’s pack against a pillar with the reactor coupling she spent two hours finding on Ida’s shelf of spares in Lost Property. When the lamp is lit, the line runs out to the survey ship Long Patience.',
       artDirection:
         'Dark railway platform with frost on the rails and a dead white lamp, scorch marks on the stone, a small battered spacecraft tender parked at the end, an orange pack against an iron pillar. Cold, quiet.',
       connections: [
@@ -753,12 +761,64 @@ const raw = {
       name: 'The Owl Market',
       shortName: 'Owl Market',
       description:
-        'A night bazaar twenty-five minutes from the concourse by the Platform 5 train, under strings of paper lamps. Stall-keepers sell almost anything, and the price is always paid in minutes: you agree a number, and it is gone from your night. A lamp-wright at the far end will answer one question about lamps for an hour.',
+        'A night bazaar twenty-five minutes from the concourse by the Platform 5 train, under strings of paper lamps. Stall-keepers sell almost anything, and the price is always paid in minutes: you agree a number, and it is gone from your night. A lamp-wright at the far end will answer one question about lamps for an hour. The way back is the train to Platform 5; the last one to Lantern Cross leaves at half past five, which leaves five minutes to climb ninety-nine stairs.',
       artDirection:
         'Crowded night bazaar under strings of paper lanterns, stalls of brass, glass and cloth, traders with owl-feather cloaks, a lamp-maker’s stall glowing at the far end. Busy, magical, a little greedy.',
       connections: [{ to: 'the_concourse', travelMinutes: 25, label: 'The train back to Lantern Cross' }],
       discoveredByDefault: true,
       mapPosition: { x: 2, y: 0 },
+      takeableItems: [],
+    },
+    {
+      id: 'glass_desert',
+      name: 'The Glass Desert',
+      shortName: 'Glass Desert',
+      description:
+        'Dunes of green glass under a white moon, twenty minutes from the concourse by the Platform 2 train, which runs at twenty past each hour. The dunes ring like struck bowls whenever the wind crosses them. The halt has one bench and a water-seller who takes payment in stories, the truer the better. The way back is the train to Platform 2; the last one to Lantern Cross leaves at half past five.',
+      artDirection:
+        'Moonlit desert of rolling green glass dunes, wind leaving faint glowing ripples, a tiny railway halt with one iron bench and a lamp, a hooded water-seller with clay jars. Vast, quiet, chiming.',
+      connections: [{ to: 'the_concourse', travelMinutes: 20, label: 'The train back to Lantern Cross' }],
+      discoveredByDefault: true,
+      mapPosition: { x: -2, y: 0 },
+      takeableItems: [],
+    },
+    {
+      id: 'bridge_city',
+      name: 'The City of Bridges',
+      shortName: 'Bridges',
+      description:
+        'A city with no ground, only towers rising out of fog and bridges strung between them, thirty minutes from the concourse by the Platform 3 train at a quarter past each hour. Every span has a toll-keeper, and the toll is one true sentence about yourself; a lie and the bridge sways until you try again. The way back is the train to Platform 3; the last one to Lantern Cross leaves at a quarter past five.',
+      artDirection:
+        'Towering city rising from a sea of fog at night, rope and stone bridges strung between lit towers, a toll-keeper in a lantern booth at one span, a small railway station clinging to a tower. Dizzy, lamplit, romantic.',
+      connections: [{ to: 'the_concourse', travelMinutes: 30, label: 'The train back to Lantern Cross' }],
+      discoveredByDefault: true,
+      mapPosition: { x: -1, y: 0 },
+      takeableItems: [],
+    },
+    {
+      id: 'giants_snowfield',
+      name: 'The Field of Sleeping Giants',
+      shortName: 'Giants',
+      description:
+        'A snowfield where giants the size of hills lie asleep under the drifts, thirty-five minutes from the concourse by the Platform 7 train, which runs every forty minutes. The footpath across them rises and falls once an hour with their breathing, and a hut at the halt serves hot soup to anyone who orders in a whisper. The way back is the train to Platform 7; the last one to Lantern Cross leaves at five.',
+      artDirection:
+        'Endless snowfield at night with vast hill-sized sleeping giants half buried in drifts, a lantern-lit footpath over one sleeping shoulder, a small hut with steam at a lonely railway halt. Hushed, enormous, gentle.',
+      connections: [{ to: 'the_concourse', travelMinutes: 35, label: 'The train back to Lantern Cross' }],
+      discoveredByDefault: true,
+      mapPosition: { x: 1, y: 0 },
+      takeableItems: [],
+    },
+    {
+      id: 'one_tree_forest',
+      name: 'The Forest of One Tree',
+      shortName: 'One Tree',
+      description:
+        'A forest that is a single living tree, its branches and roots running for miles, twenty-five minutes from the concourse by the Platform 9 train at ten to each hour. It is hung with lanterns nobody lit, and it notices visitors: branches lean in to listen, and paths close behind people it does not like. The way back is the train to Platform 9; the last one to Lantern Cross leaves at twenty past five.',
+      artDirection:
+        'Immense single tree whose branches and roots form a whole forest at night, hundreds of softly glowing lanterns hanging from the boughs, a narrow railway halt among the roots. Ancient, watchful, warm.',
+      connections: [{ to: 'the_concourse', travelMinutes: 25, label: 'The train back to Lantern Cross' }],
+      discoveredByDefault: true,
+      mapPosition: { x: 2, y: 2 },
       takeableItems: [],
     },
   ],
@@ -795,7 +855,7 @@ const raw = {
       id: 'faction_uraga',
       name: 'House Uraga',
       description:
-        'Ren’s lord’s house: Lord Uraga Shigemasa, forty retainers on the walls of Castle Akebono, and an ancestral flame the house believes keeps it alive. Under siege tonight, and planning to burn its own castle at dawn with the enemy inside it.',
+        'Ren’s lord’s house: Lord Uraga Shigemasa, fifty-eight, forty retainers on the walls of Castle Akebono, and an ancestral flame the house believes keeps it alive. Under siege tonight, and planning to burn its own castle at dawn with the enemy inside it.',
       startingReputation: 0,
       ranks: [
         { atReputation: 0, label: 'Strangers' },
@@ -823,7 +883,7 @@ const raw = {
       id: 'faction_moonward',
       name: 'The Moonward Court',
       description:
-        'The night nobility of Ostravel, a kingdom where it is always night. Split between Isolde, who has ruled for two hundred years, and her cousin Casimir, who means to be crowned at moonset and shut the human quarter behind its gates.',
+        'The night nobility of Ostravel, a kingdom where it is always night. Split between Isolde, who has ruled for two hundred years, and her cousin Casimir, two hundred and forty-one and looking about forty, who means to be crowned at moonset and shut the human quarter behind its gates.',
       startingReputation: 0,
       ranks: [
         { atReputation: 0, label: 'Outsider' },
@@ -840,9 +900,9 @@ const raw = {
       name: 'Ren Shiomi',
       role: 'Samurai of House Uraga, sent out of a besieged castle with his lord’s last order, and trying to get back in',
       cardBlurb:
-        'He was ordered to save a flame and has decided to save three hundred people instead, and he needs you to punch his ticket before he has to explain why.',
+        'His lord’s castle burns at dawn and his hand has not left the ticket. What he means to do when he gets home, he has not said. He is waiting, very politely, for you to choose.',
       pronouns: 'he/him',
-      publicTraits: ['Courteous to the point of menace', 'Stands very still', 'Keeps his word even when it was a bad word to give'],
+      publicTraits: ['Thanks people for tea he has not drunk', 'Stands very still', 'Keeps his word even when it was a bad word to give'],
       hiddenDrives: [
         'He has already decided to disobey his lord, and wants one person to know it was a decision and not a panic',
         'He would like, once, to be asked what he wants rather than what he owes',
@@ -978,10 +1038,10 @@ const raw = {
         'Item one, my crew has four hours of reserve air. Item two, I have the part. Item three is you.',
         'Copy. Bad news first, always. Good news is cheaper and keeps longer.',
         'They told me this place was a rumour in some old telemetry. Rumours do not usually have a tea trolley.',
-        'Somebody back home wants your brass clipper on a lab bench. I haven’t decided whether to help them.',
+        'Copy. I’ll be scared at ten past four. It’s on the list.',
       ],
       appearance:
-        'Thirty-eight, close-cropped hair going grey at one temple, dark skin with a fresh burn across the knuckles, an orange pressure suit unzipped to the waist over a grey thermal, helmet under one arm.',
+        'Thirty-eight, close-cropped hair going grey at one temple, dark skin with a fresh burn across the knuckles, an orange pressure suit with the collar ring open and sleeves pushed up, a grey thermal underneath, helmet under one arm.',
       visualHook: 'A survey beacon clipped to her chest that blinks white every four seconds, the only steady light on a dark platform.',
       silhouette: 'Square-shouldered, helmet on her hip, weight forward, already halfway through a plan.',
       artSeed: 'epaw-okafor-01',
@@ -1029,9 +1089,13 @@ const raw = {
       calledName: 'Isolde',
       role: 'Queen of Ostravel, a kingdom where it is always night, stranded behind Platform 8 on the night her cousin is to be crowned',
       cardBlurb:
-        'She says she needs the ticket to stop a coronation, she reaches for it a little slower than the other two, and she has been watching you since you came out from behind the counter.',
+        'She says she needs the ticket to stop a coronation, she reaches for it a little slower than the other two, and she has been watching you since before you looked up.',
       pronouns: 'she/her',
-      publicTraits: ['Effortlessly rude in perfect manners', 'Bored by everything except people who surprise her', 'Never sits with her back to a door'],
+      publicTraits: [
+        'Corrects other people’s manners while forgetting her own',
+        'Leaves a dull conversation mid-sentence, usually the other person’s',
+        'Never sits with her back to a door',
+      ],
       hiddenDrives: [
         'She does not want her crown back, and has wanted to put it down for two hundred years',
         'She came tonight to play cards with an old friend and found a stranger in her friend’s chair',
@@ -1078,7 +1142,7 @@ const raw = {
         'They crown my cousin at moonset. I intend to be there to object.',
         'Darling, I have outlived four dynasties and a great many people who told me to calm down. Punch the ticket.',
         'Ida cheated at cards for forty years. Badly. I let her. Do you play?',
-        'Every queen wants to stop ruling at some point. The good ones never say so. I am, regrettably, one of the good ones.',
+        'I have sat through eleven coronations, darling, and I can tell you they are mostly hats.',
       ],
       appearance:
         'Three hundred and twelve, looks about thirty. Black hair pinned up with silver, pale skin, a high-collared gown of black lace and velvet, long gloves, and a moonstone ring worn over the glove.',
@@ -1174,7 +1238,7 @@ const raw = {
         'At 06:00 someone will be standing at the lamp, or no one will. I have seen both.',
       ],
       appearance:
-        'Looks about sixty and is centuries older: tall, lean, a weathered face with deep lines and grey stubble, a long black coat with brass buttons, white gloves, and a peaked cap.',
+        'Looks about sixty and is centuries older: tall, lean, a weathered face with deep lines and grey stubble, a long black coat with brass buttons, white gloves, and a peaked cap. A silver pocket watch on a chain that keeps running when every clock in the station has stopped.',
       visualHook: 'A silver pocket watch on a chain that keeps running when every clock in the station has stopped.',
       silhouette: 'Very tall and very straight at the far end of a platform, gloved hands folded over a closed watch.',
       artSeed: 'epaw-conductor-01',
@@ -1215,7 +1279,7 @@ const raw = {
       name: 'Ida Fennimore',
       role: 'Night stationmaster of Lantern Cross for forty-one years, retired at sunset tonight to a room over a fish restaurant on the Salt Coast',
       cardBlurb:
-        'She gave you her job and her punch six hours ago, left before anyone could make her cry, and has the other half of something you are going to need.',
+        'She gave you her job and her punch a few hours ago, left before anyone could make her cry, and has the other half of something you are going to need.',
       pronouns: 'she/her',
       publicTraits: ['Cheerful and blunt', 'Swims in the sea at night', 'Cannot keep a straight face when she is fibbing'],
       hiddenDrives: [
@@ -1369,7 +1433,7 @@ const raw = {
             {
               routeId: 'kept_it',
               label: 'Keep it. It has your name on it',
-              predicate: { hasItems: ['golden_ticket'], afterWorldMinute: 290 },
+              predicate: { hasItems: ['golden_ticket'], afterWorldMinute: 355 },
               setsFlags: ['kept_the_ticket'],
               closesFlags: ['ticket_spent'],
             },
@@ -1496,12 +1560,28 @@ const raw = {
             reputation: [],
           },
         },
+      ],
+    },
+    /**
+     * One quest per dark lamp, not one step with three routes: the engine closes
+     * a step on the first route that matches, so a shared step could only ever
+     * relight one of the three, and Every Lamp Lit would be unreachable.
+     */
+    {
+      id: 'q_relight_four',
+      title: 'A Light for Platform 4',
+      summary: 'Ren carries a light from his own world in a lacquered box. Given freely, it could relight his line for good, and it would be gone.',
+      kind: 'LEAD',
+      involvedCharacterIds: ['ren'],
+      involvedLocationIds: ['platform_four'],
+      knownRewardCopy: 'Platform 4 lit for good, at the price of a lord’s last order.',
+      discoverWhen: { flagsSet: ['knows:home_light'] },
+      steps: [
         {
-          id: 'relight',
-          playerCopy: 'Light a dark lamp with something from its own world, given up freely.',
+          id: 'relight_four',
+          playerCopy: 'Relight Platform 4 with Ren’s clan flame, if he will give it.',
           directorNotes:
-            'The light has to be given by the person who carried it, on their own platform, and it does not come back. Ren loses his lord’s last order. Okafor burns the route her Directorate sent her for. Isolde gives up the only crown-ring Ostravel has. Each of them can say no, and a stolen light will not catch: if the player takes one by force or by theft, the wick stays black and the owner knows. Each relit line runs for good, which is more than a ticket gives.',
-          enterWhen: { flagsSet: ['knows:home_light'] },
+            'The light has to be given by the person who carried it, on their own platform, and it does not come back. Ren loses his lord’s last order and the flame his house believes keeps it alive. He can say no, and a stolen light will not catch: if the player takes the box by force or by theft, the wick stays black and Ren knows. A relit line runs for good, which is more than a ticket gives.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1511,6 +1591,34 @@ const raw = {
               setsFlags: ['lamp_four_lit', 'flame_given'],
               closesFlags: [],
             },
+          ],
+          rewards: {
+            xp: 160,
+            items: [],
+            flags: ['a_lamp_relit'],
+            abilities: [],
+            reputation: [{ factionId: 'faction_station', amount: 5 }],
+          },
+        },
+      ],
+    },
+    {
+      id: 'q_relight_six',
+      title: 'A Light for Platform 6',
+      summary: 'Okafor’s beacon is a light from her own world. Given freely, it could relight her line for good, and burn the route her Directorate sent her to log.',
+      kind: 'LEAD',
+      involvedCharacterIds: ['okafor'],
+      involvedLocationIds: ['platform_six'],
+      knownRewardCopy: 'Platform 6 lit for good, and a route nobody can follow again.',
+      discoverWhen: { flagsSet: ['knows:home_light'] },
+      steps: [
+        {
+          id: 'relight_six',
+          playerCopy: 'Relight Platform 6 with Okafor’s beacon, if she will give it.',
+          directorNotes:
+            'The light has to be given by the person who carried it, on their own platform, and it does not come back. Okafor burns the route her Directorate sent her for, which means disobeying her orders. She can say no, and a stolen light will not catch: if the player takes the beacon by force or by theft, the wick stays black and Okafor knows. A relit line runs for good, which is more than a ticket gives.',
+          succeedWhen: null,
+          succeedWhenAny: [
             {
               routeId: 'okafor_gave_the_beacon',
               label: 'Relight Platform 6 with Okafor’s beacon',
@@ -1518,6 +1626,34 @@ const raw = {
               setsFlags: ['lamp_six_lit', 'beacon_given'],
               closesFlags: ['directorate_knows'],
             },
+          ],
+          rewards: {
+            xp: 160,
+            items: [],
+            flags: ['a_lamp_relit'],
+            abilities: [],
+            reputation: [{ factionId: 'faction_station', amount: 5 }],
+          },
+        },
+      ],
+    },
+    {
+      id: 'q_relight_eight',
+      title: 'A Light for Platform 8',
+      summary: 'Isolde’s moonstone ring holds moonlight from home. Given freely, it could relight her line for good, and nobody could be crowned with it again.',
+      kind: 'LEAD',
+      involvedCharacterIds: ['isolde'],
+      involvedLocationIds: ['platform_eight'],
+      knownRewardCopy: 'Platform 8 lit for good, and a crown nobody can wear.',
+      discoverWhen: { flagsSet: ['knows:home_light'] },
+      steps: [
+        {
+          id: 'relight_eight',
+          playerCopy: 'Relight Platform 8 with Isolde’s moonstone ring, if she will give it.',
+          directorNotes:
+            'The light has to be given by the person who carried it, on their own platform, and it does not come back. Isolde gives up the only crown-ring Ostravel has. She can say no, and a stolen light will not catch: if the player takes the ring by force or by theft, the wick stays black and Isolde knows. A relit line runs for good, which is more than a ticket gives.',
+          succeedWhen: null,
+          succeedWhenAny: [
             {
               routeId: 'isolde_gave_the_ring',
               label: 'Relight Platform 8 with Isolde’s moonstone ring',
@@ -1531,7 +1667,7 @@ const raw = {
             items: [],
             flags: ['a_lamp_relit'],
             abilities: [],
-            reputation: [{ factionId: 'faction_station', amount: 10 }],
+            reputation: [{ factionId: 'faction_station', amount: 5 }],
           },
         },
       ],
@@ -1598,6 +1734,93 @@ const raw = {
             flags: [],
             abilities: [],
             reputation: [{ factionId: 'faction_regulars', amount: 10 }],
+          },
+        },
+        {
+          id: 'second_rider',
+          playerCopy: 'Clip the mended ticket on the platform of whoever rides it.',
+          directorNotes:
+            'The mended ticket works exactly like the golden one, once: clipped on a dark platform, it relights that lamp for one train, one passenger, one trip. Platform 4 for Ren, 6 for Okafor, 8 for Isolde. It already has two names on it and the rider’s is neither, which Ida would think was funny.',
+          enterWhen: { flagsSet: ['second_ticket'] },
+          succeedWhen: null,
+          succeedWhenAny: [
+            {
+              routeId: 'mended_for_ren',
+              label: 'Clip the mended ticket for Ren, on Platform 4',
+              predicate: { flagsSet: ['second_ticket', 'used:clip_a_ticket'], hasItems: ['mended_ticket'], atLocation: 'platform_four' },
+              setsFlags: ['lamp_four_lit', 'ren_rode'],
+              closesFlags: [],
+            },
+            {
+              routeId: 'mended_for_okafor',
+              label: 'Clip the mended ticket for Commander Okafor, on Platform 6',
+              predicate: { flagsSet: ['second_ticket', 'used:clip_a_ticket'], hasItems: ['mended_ticket'], atLocation: 'platform_six' },
+              setsFlags: ['lamp_six_lit', 'okafor_rode'],
+              closesFlags: [],
+            },
+            {
+              routeId: 'mended_for_isolde',
+              label: 'Clip the mended ticket for Isolde, on Platform 8',
+              predicate: { flagsSet: ['second_ticket', 'used:clip_a_ticket'], hasItems: ['mended_ticket'], atLocation: 'platform_eight' },
+              setsFlags: ['lamp_eight_lit', 'isolde_rode'],
+              closesFlags: [],
+            },
+          ],
+          rewards: {
+            xp: 120,
+            items: [],
+            flags: [],
+            abilities: [],
+            reputation: [{ factionId: 'faction_regulars', amount: 5 }],
+          },
+        },
+      ],
+    },
+    {
+      id: 'q_another_world',
+      title: 'Step Through',
+      summary: 'A lit platform goes somewhere. You can go too, if you are back by six.',
+      kind: 'SIDE',
+      involvedCharacterIds: ['ren', 'okafor', 'isolde'],
+      involvedLocationIds: ['akebono_road', 'long_patience', 'moonward_court'],
+      knownRewardCopy: 'Another world under your feet, and a train to catch back.',
+      discoverWhen: { flagsSet: ['knows:the_three'] },
+      steps: [
+        {
+          id: 'cross_over',
+          playerCopy: 'Ride a relit line into one of the travellers’ worlds, and decide whether you are coming back.',
+          directorNotes:
+            'Crossing is allowed and it costs the night: the train out and the train back are both on the timetable, and a stationmaster still on the far side at 06:00 cannot come back to the job. Make the far world specific and its people busy with their own night. Nobody there knows what a stationmaster is.',
+          succeedWhen: null,
+          succeedWhenAny: [
+            {
+              routeId: 'crossed_to_akebono',
+              label: 'Step off at the road below Castle Akebono',
+              predicate: { atLocation: 'akebono_road' },
+              setsFlags: ['you_crossed_over'],
+              closesFlags: [],
+            },
+            {
+              routeId: 'crossed_to_the_ship',
+              label: 'Step aboard the Long Patience',
+              predicate: { atLocation: 'long_patience' },
+              setsFlags: ['you_crossed_over'],
+              closesFlags: [],
+            },
+            {
+              routeId: 'crossed_to_ostravel',
+              label: 'Walk into the Moonward Court',
+              predicate: { atLocation: 'moonward_court' },
+              setsFlags: ['you_crossed_over'],
+              closesFlags: [],
+            },
+          ],
+          rewards: {
+            xp: 80,
+            items: [],
+            flags: [],
+            abilities: [],
+            reputation: [],
           },
         },
       ],
@@ -1960,7 +2183,7 @@ const raw = {
       atWorldMinute: 250,
       locationId: 'platform_six',
       publicCopy:
-        'At ten past four the beacon on Okafor’s chest changes its blink from white to amber, which she told you earlier means her crew has gone into emergency cold sleep.',
+        'At ten past four the beacon on Okafor’s chest changes its blink from white to amber. "Cold sleep," she says, to nobody. "That’s my crew."',
       directorNotes:
         'They are alive and adrift in a dead orbit, and without the line nobody from their world will reach them for years. Okafor does not cry in front of anyone. She asks the stationmaster for a pencil and starts working out how long cold sleep lasts.',
       setsFlags: ['crew_asleep'],
@@ -1999,7 +2222,7 @@ const raw = {
       locationId: 'platform_four',
       publicCopy: 'At twenty past five, smoke comes out of the dark tunnel at the end of Platform 4, smelling of pitch and cedar.',
       directorNotes:
-        'Dawn in Ren’s world, and Castle Akebono is burning with the besieging army inside it and three hundred townspeople who were never told. Nobody is shown burning. Ren is on Platform 4 when the smoke comes and he does not move for a long time. Then he unties the lacquered box from his hip and sets it on the bench beside him.',
+        'Dawn in Ren’s world, and Castle Akebono is burning with the besieging army inside it. The three hundred townspeople in the lower bailey were never told, and whether anybody opened the river gate without Ren, nobody on this side of the tunnel can know. Nobody is shown burning. Ren is on Platform 4 when the smoke comes and he does not move for a long time. Then he unties the lacquered box from his hip and sets it on the bench beside him.',
       setsFlags: ['akebono_burned'],
       cancelledByFlags: ['lamp_four_lit'],
       requiresFlags: [],
@@ -2230,7 +2453,7 @@ const raw = {
       condition:
         'The player never chose, and every deadline passed. This must not be written as a punishment for indecision: the player listened, waited, and kept looking for a better answer, and the night ran out first. Nobody makes a speech about it. The ticket is still in the stationmaster’s pocket, unclipped.',
       epilogue:
-        'Smoke from Platform 4, an amber blink on Platform 6, silver frost on Platform 8. All three of them are still in the waiting room at noon. The golden ticket is still in your pocket, and it still goes anywhere, and that is now a different question.',
+        'Smoke from Platform 4, an amber blink on Platform 6, silver frost on Platform 8. All three of them are still in the waiting room at noon, and Ren has not said a word since the smoke; whether his own men opened the river gate without him, nobody on this side of the tunnel can know. The golden ticket is still in your pocket, and it still goes anywhere, and that is now a different question.',
       hint: 'Every deadline is on the timetable.',
     },
     {
@@ -2317,11 +2540,11 @@ const raw = {
       name: 'The River Gate',
       rarity: 'RARE',
       minTurn: 24,
-      requires: { flagsSet: ['gate_opened', 'you_crossed_over', 'someone_at_the_lamp'] },
+      requires: { flagsSet: ['gate_opened', 'visited:akebono_road', 'someone_at_the_lamp'] },
       condition:
         'The player went through Platform 4 with Ren, opened the river gate under his lord’s burning castle, got three hundred people out, and still made it back so that somebody held the lamp at six. Write the gate, the crowd and the run back, and leave Ren’s fate with Ren: he chose the gate knowing what his lord’s law does to traitors.',
       epilogue:
-        'Three hundred people from a burned castle start again in the next valley, and some of them tell their grandchildren about a stranger in a railway coat. House Uraga calls Ren a traitor and a hero in the same letter. He comes through Platform 4 once a year to bring the stationmaster rice cakes.',
+        'Three hundred people from a burned castle start again in the next valley, and some of them tell the story of a stranger in a railway coat for the rest of their lives. House Uraga calls Ren a traitor and a hero in the same letter. He comes through Platform 4 once a year to bring the stationmaster rice cakes.',
       hint: '',
     },
     {
@@ -2362,14 +2585,14 @@ const raw = {
     },
   ],
   opening:
-    "A golden ticket lies on your counter. Three hands are on it.\n\n\"Stationmaster.\" The samurai doesn’t raise his voice. \"I am Ren. My lord’s castle burns at dawn.\"\n\n\"My crew has four hours of air,\" says the astronaut beside him, helmet under her arm.\n\nThe third is a queen in black lace, pale as the clock face above her. \"They crown my cousin at moonset. I intend to be there to object.\"\n\nBehind them, three platforms stand dark. Each led to a different world until midnight. One ticket can wake one of them, and only your punch makes it valid.\n\nNobody lets go.\n\n\"One ticket,\" Ren says. \"Choose, stationmaster. Who rides?\"",
+    "A golden ticket lies on your counter. Three hands are on it.\n\n\"Stationmaster.\" The samurai doesn’t raise his voice. \"I am Ren. My lord’s castle burns at dawn.\"\n\n\"Item one: my crew has four hours of air,\" says the astronaut beside him, helmet under her arm.\n\nThe third is a queen in black lace, pale as the clock face above her. \"They crown my cousin at moonset. I intend to be there to object.\"\n\nBehind them, three platforms stand dark. Each led to a different world until midnight. One ticket can wake one of them, and only your punch makes it valid.\n\nNobody lets go.\n\n\"One ticket,\" Ren says. \"Choose, stationmaster. Who rides?\"",
   openingPanel: {
     assetKey: 'story_every_platform_a_world/opening',
-    alt: 'Three hands on one golden ticket on an oak counter: a samurai’s scarred hand, an astronaut’s orange cuff, a queen’s black glove with a moonstone ring.',
+    alt: 'Ren across an oak counter, one scarred hand on a golden ticket beside an astronaut’s orange cuff and a queen’s black glove with a moonstone ring.',
   },
   openingSuggestions: [
     "\"Hands off, all of you. I’m hearing each of you out first.\"",
-    'I lift the ticket out from under their hands and hold it up to the lamp.',
+    'I take the ticket out from under their hands and hold it out to the astronaut.',
     "I put my hand flat on top of all three. \"Actually, it’s mine.\"",
   ],
   publishedAt: '2026-11-22T04:00:00.000Z',
