@@ -641,3 +641,124 @@ balance, so most likely the shop; not opened to avoid a second shop visit),
 the `Others` and `Fantasy` Explore grids beyond the first row, the Comments
 tab beyond the first three, and actual turn-by-turn play (sending was out of
 scope).
+
+## Update: second pass (2026-11-21, later the same day)
+
+Same phone, same account, same 354x781 shots. `ooc2-*z-*` shots are 2x close-up
+crops. Kept shots are in `shots/` with an `ooc2-` prefix. Colors are sampled
+from the captures. Focus of this pass: the visual UI, plus the four gaps above.
+
+### Gaps closed
+
+| Gap | Result | Shot |
+|---|---|---|
+| Home header, first icon | **The credit shop** ("My Credit", same screen as shot 54). The icon is the credit glyph: a rounded square with a square hole. Nothing tapped inside. | ooc2-02-header-icon (scratchpad only) |
+| `Others` pill | Explore grid, Most Played: SB Game Battle Royale 748.6K (OOC, ORIGINAL), Anime rpg 308.9K, The Last Human 133.8K, your rpg 120.7K, If you were a girl 60.5K, Football Simulator 56K. Game-like "RPG/simulator" UGC lives here. Reached by tapping the right-most pill 8 times; horizontal scroll still does nothing. | ooc2-03-others, ooc2-04-others-grid, ooc2-04z-cards |
+| One story's comments | Anime rpg, 307 comments, Latest first: "followxfollow", "All X All / Foll X Foll", a referral code posted as "500 CREDITS CODE FOR NEW PLAYERS", then a long copypasta. Same farming as Lumencia. | ooc2-06-comments, ooc2-07-comments-more |
+| One played turn | **Blocked.** "New Session" on Anime rpg opened the play screen with the opener and two suggested actions. No free-message counter was visible anywhere in the header or model picker. Sending one line on the default Superb tier (90 credits, balance 0) opened a **"Credit Charge" sheet** (buy packs) with a "not enough credits" toast, instead of using a free message, despite a Home banner "Free Messages Are Back Through November 30". Not worked around: the sheet was closed and the draft deleted. The free messages may apply only to a cheaper tier or after the welcome mission. | ooc2-08-new-session, ooc2-08z-play, ooc2-10-typed, ooc2-11-sending |
+
+Also new since the first pass: **a hero carousel at the top of Home** (6 slides,
+"2/6"), above the pill row, and a dismissible strip "Free Messages Are Back
+Through November 30" under the pills (ooc2-01-home).
+
+Side note for future runs: an iOS notification banner covers the top ~80pt of the
+screen for a few seconds. One tap at y=107 landed on a banner and opened another
+app. Tap header controls only right after a fresh shot shows no banner.
+
+### Visual read, second pass
+
+**Home hero (ooc2-01z-hero).** One 2:3 cover (~147x220pt, ~8pt radius) centered,
+with a **blurred, darkened copy of the same art filling the whole header** behind
+it, so the top of Home takes the color of the featured story. The title sits
+*over the bottom edge of the cover*, 20pt bold white, centered, with a 13pt gray
+one-line hook under it ("Revenge or a new path?"). A "2/6" pager in an 11pt gray
+label on a ~#222 rounded square, top-right. The header row (Story / Character, 3
+line icons) floats on the blur. It is the only place on Home where art bleeds
+beyond a card, and it does the work Character.AI's flat grid lacks.
+
+**Surfaces.** Canvas #131313. Pills, composer and the model pill #1D1D1D.
+Comment cards and suggestion side cells #1A1A1A. Each step is about +7 in value;
+there are three surface values and no shadows. Hairline borders (~#2E2E2E) on
+pills, cards and the composer.
+
+**Grid cards (ooc2-04z-cards).** 3 columns, ~98pt wide, art ~3:4 at ~6pt radius,
+no card body. Title 13pt medium white, up to 2 lines, then "308.9K·AshleyHeathe"
+at 11pt gray with a middle dot. Small corner badges on the art: lime "ORIGINAL"
+tab, a gallery glyph, a green gift glyph. ~10pt gutters, 20pt side margins.
+When scrolled, the pill row **pins under the header** (ooc2-04-others-grid).
+
+**Story detail (ooc2-05-detail).** Two-tab header (Information / Comments, 14pt,
+active white with a full-width 2pt white underline under its half). The cover is
+centered small over a blurred copy of itself, same as the Home hero. Title 17pt
+semibold, the creator in an outlined "@" chip, tags as gray-outlined boxes
+(4pt radius, not pills), stats as three 12pt gray icon+number pairs. A full-width
+**white** "New Session" button pinned at the bottom.
+
+**Comments (ooc2-06-comments).** Each comment a #1A1A1A card, ~10pt radius,
+~16pt padding: 40pt circle avatar (default is the gray OOC asterisk), name 13pt
+semibold, an **activity badge chip under the name** (icon + "Superfan", "Mega
+Star", "Thumbs Up!" at 10pt), time 11pt gray, body 13pt white, then heart and
+reply counts in 11pt gray line icons. "Comment 307" header (17pt bold + gray
+count) and a "Latest ⌄" sort. The input box is a tall #1D1D1D field whose
+placeholder is a warning ("Inappropriate comments about others may be subject to
+penalties"), with a gray "Post" button inside it.
+
+**Play screen, opening (ooc2-08-new-session, ooc2-08z-play).**
+- The screen opens with ~300pt of empty black above the first text: the
+  transcript is bottom-anchored like a chat, so a new session looks empty at the
+  top. This story has no image at all.
+- 11pt gray sans disclaimer "*This session is an AI fiction..." above the opener.
+- **Story text is a serif** (Georgia-like) at ~15pt, ~#8A8A8A for the opener,
+  line height ~1.5. All the UI around it is sans. This is the strongest single
+  typographic choice in OOC: serif = story, sans = app.
+- **Suggested actions are set in the same serif, in white**, in #1E1E1E boxes
+  (~8pt radius), each split into **two cells**: a narrow 24pt-wide cell with a
+  pencil (edit), and the main cell with the action text and a ghost 24pt
+  up-arrow square (send it). They look like lines of the story waiting to be
+  chosen, not like buttons. So OOC also has editable suggestions; Afizzy is not
+  alone.
+- **Composer** (ooc2-10-typed): idle, a single row: #1D1D1D field, ~10pt radius,
+  hairline border, "What do you do?" in 14pt gray sans, then three 28pt circular
+  outline buttons (✳ action, / commands, a sparkle-list "suggest"), a hairline
+  vertical divider, and a **white 28pt rounded-square send with a black play
+  triangle**. Typing: it grows into a box with the text on top and the tool row
+  below, and the send glyph changes from ▶ to ↑.
+- **Credit Charge sheet** (ooc2-11-sending): the same pack list as the shop
+  (radio rows, #1A1A1A cards with hairline border, the selected one with a
+  lighter border and a lime "Popular" tag), refund policy in 11pt gray bullets,
+  a white "Buy Now" and a dark "Save 20% on web". The sheet comes up from the
+  send button with no warning before typing.
+
+**Premium vs cheap, one line:** the serif story text, the blurred-cover hero and
+three disciplined gray surfaces feel premium; the lime-on-everything badges, the
+comment spam and a send that turns into a shop feel cheap.
+
+### UI patterns to steal (second pass)
+
+1. **Blurred copy of the featured cover as the header backdrop, title overlapping
+   the cover's bottom edge** (home, story page; ooc2-01z-hero). Centered 2:3
+   cover ~147x220 at 8pt radius, 20pt bold title centered over its lower edge,
+   13pt gray hook below. Gives Home an art-colored top without a full-bleed image.
+2. **Serif for story, sans for UI, and suggested actions set in the story serif**
+   (play screen; ooc2-08z-play). The suggestion cards read as possible next lines
+   of the story. Combine with Afizzy's smoked panel on art.
+3. **Two-cell suggestion card: pencil cell + text cell with a ghost send square**
+   (play screen; ooc2-08z-play). Edit and send are separate targets, both quiet.
+4. **White rounded-square send button with a black glyph** (play screen;
+   ooc2-10-typed). It is the only white object on the play screen, so it is the
+   obvious next action without any accent color.
+5. **Three surface values, +7 apart, hairlines instead of shadows** (all screens;
+   #131313 canvas, #1A1A1A cards, #1D1D1D controls). A strict, cheap-to-follow
+   rule for Plotbreak's dark theme.
+6. **Tags as small gray-outlined boxes (4pt radius), chips as capsules** (story
+   page; ooc2-05-detail). Two shapes for two jobs: boxes describe, capsules
+   filter.
+7. **Badge chip under the commenter's name** (story page comments;
+   ooc2-06-comments): 10pt icon+label under a 13pt semibold name. If Plotbreak
+   ever shows player names (leaderboards, comments), this is a compact status line.
+
+### Not reached (second pass)
+
+A played turn: blocked by the credit check, see above. The free-message event
+did not apply to a new session on the default tier, and the tier was not changed
+to look for one.
