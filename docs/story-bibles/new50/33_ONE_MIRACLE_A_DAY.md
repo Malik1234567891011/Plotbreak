@@ -303,10 +303,11 @@ Every domain answers the opener differently: Lost Things puts the sword back, Sm
 
 ## Cover direction
 
-Tamsin Reed in the foreground, waist up, centred and close, empty-handed on arena sand, face tipped up toward the viewer (the viewer is the god). Her sword stuck in the sand behind her; the Iron Duke a huge dark silhouette behind, axe raised and still. A thin warm shaft of gold light falls on her face from above. High in soft focus, a tier of stone benches in the sky where Lady Fortune lounges in gold silk. The title "ONE MIRACLE A DAY" painted into the art. No letters or numbers anywhere else, and no glow or marks on her face.
+Tamsin Reed in the foreground, waist up, centred and close, empty-handed on arena sand, face tipped up toward the viewer (the viewer is the god). Her sword stuck in the sand behind her; the Iron Duke a huge dark silhouette behind, axe raised and still. Warm gold rim light from above on her headscarf and shoulders; the gold mark glows on the back of her hand and a small wordless line of gold light hangs between her and the viewer. High in soft focus, a tier of stone benches in the sky where Lady Fortune lounges in gold silk. The title painted into the upper third as a bold hand-lettered logo, warm white with a thin gold glow, spelled exactly "One Miracle a Day". Every gold effect stays on her hand mark, the line of light and the title: no glow, sparks or marks on her face. No letters or numbers anywhere else.
 
 ## Notes for the integrator
 
 - Not registered in `index.ts` (this session may not edit it). To ship: import `ONE_MIRACLE_A_DAY` raw, add it to `LAUNCH_CATALOG`, and wrap with `withDerivedAssetKeys` only once art exists.
-- openingPanel is declared as story_one_miracle_a_day/opening (drawn by opening-panel-art.ts); no prologue.
+- openingPanel is declared as story_one_miracle_a_day/opening (drawn by opening-panel-art.ts, with Tamsin’s portrait as the reference, so the alt starts with her name); no prologue.
+- Titled characters carry `calledName`: Lady Fortune is Fortune, Duke Halvard Stenn is Stenn, Brother Ash is Ash, Mother Sabine Orlo is Sabine.
 - `publishedAt: null`; the drop sets the date.

@@ -1278,6 +1278,7 @@ const raw = {
     {
       id: 'ash',
       name: 'Brother Ash',
+      calledName: 'Ash',
       role: 'Arbiter of the Hearth Games. A monk who prays to no god, and the only mortal in the arena who can see the Gallery',
       cardBlurb:
         'He judges every bout and calls every foul he sees, and he is the only mortal in Merrowgate who can look straight up at the back row and see you sitting there.',
@@ -1446,6 +1447,7 @@ const raw = {
     {
       id: 'sabine',
       name: 'Mother Sabine Orlo',
+      calledName: 'Sabine',
       role: 'High Priestess of the Golden House, Lady Fortune’s temple. Keeps its books, holds its debts, and has challenged your right to be in the Games',
       cardBlurb:
         'She runs Fortune’s temple like a counting house, holds the paper on half the Lower Wards, and has filed a challenge to strike you and your only follower out of the Games before the third day.',
@@ -2930,7 +2932,7 @@ const raw = {
     "The Iron Duke knocks the sword from Tamsin Reed’s hands, and the whole arena roars.\n\nShe doesn’t chase it. She looks up, past the packed stands, to the gallery of gods no mortal can see.\n\nAt you. Back row, by the cracked pillar.\n\n\"I know you’re up there,\" she says, barely moving her lips. You hear her as if she stood at your elbow.\n\nShe is the only person in this city who still prays to you.\n\nA small gold line burns in the air before you:\n\n[Miracles left today: 1]\n\nThe Duke raises his axe and begins the count to yield. \"One.\"\n\nTamsin doesn’t look away from you. \"Well? Are you going to help me or not?\"",
   openingPanel: {
     assetKey: 'story_one_miracle_a_day/opening',
-    alt: 'Tamsin Reed, empty-handed on arena sand, looks up past the roaring stands toward the viewer while the Iron Duke holds his axe raised behind her.',
+    alt: 'Tamsin Reed, in a headscarf and padded jerkin, stands empty-handed on arena sand and looks up past the roaring stands toward you while the Iron Duke raises his axe behind her.',
   },
   openingSuggestions: [
     '"Yield. You’ll get another bout tomorrow, and I’m not going anywhere."',
@@ -2940,17 +2942,18 @@ const raw = {
   coverDirection: [
     'SUBJECT: Tamsin Reed, a dock porter turned arena champion, alone and unmistakable in the foreground of a key visual for a fantasy anime about a very small god.',
     'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
-    'Tall and broad-shouldered, dark brown skin, short tight black curls under a sweat-dark headscarf, a sleeveless padded jerkin, a leather strap round one knee.',
+    'Tall and broad-shouldered, dark brown skin, short tight black curls under a sweat-dark headscarf, a sleeveless padded jerkin over dockworker’s trousers, a leather strap wound round one knee.',
     'Her hands are empty and half raised. Her face is tipped up toward the viewer, because the viewer is the god she prays to: defiant, scared and asking, all at once.',
     'A thumb-sized mark of warm gold light glows on the back of her left hand.',
-    'A thin shaft of warm gold light falls on her face from above, and a small floating line of gold light hangs in the air between her and the viewer.',
+    'A small floating line of gold light hangs in the air between her and the viewer, a few gold sparks drifting off its ends.',
     'The line of light is abstract: a glowing bar with no letters, no numbers, nothing that reads as writing.',
+    'HER FACE STAYS CLEAN: no glow, sparks, marks or light streaks on her face or skin.',
+    'Every gold light effect stays on the mark on her hand, the floating line of light and the title, never on her face.',
     'BEHIND HER, soft and secondary: arena sand, her sword stuck point-down in it, and the Iron Duke as a huge dark armoured silhouette with a double-bitted axe raised and perfectly still.',
-    'HIGH ABOVE, faint in a blue summer sky, a ghostly tier of stone benches where glowing gods sit, and at its gold rail a tall woman in gold silk lounging with a coin on her knuckles.',
-    'LIGHT: hot afternoon sun on the sand, warm gold from above on her face, cool blue sky behind.',
-    'HER FACE STAYS CLEAN: no glow, marks or light effects on her face or skin, only the gold mark on her hand.',
-    'TITLE: the words ONE MIRACLE A DAY painted into the art in the upper third as a bold hand-lettered logo, warm white with a thin gold glow, large and legible at thumbnail size.',
-    'No other text anywhere.',
+    'HIGH ABOVE, faint in a blue summer sky, a ghostly tier of stone benches where small robed figures of gods sit, and at its gold rail a tall figure in draped gold silk lounging with a gold coin on her knuckles.',
+    'LIGHT: hot afternoon sun on the sand, a warm gold rim light from above on her headscarf and shoulders, cool blue sky behind.',
+    'TITLE: the words One Miracle a Day painted into the art across the upper third, over the sky, as a bold hand-lettered storybook logo, warm white with a thin gold glow,',
+    'spelled exactly One Miracle a Day, large and legible at thumbnail size. A few gold sparks rise off the lettering only. No other text anywhere.',
   ].join(' '),
   publishedAt: null,
 };

@@ -265,9 +265,11 @@ describe('everybody on the page is an adult, on the page', () => {
 describe('the cover', () => {
   it('puts the title in the art and keeps her face clean', () => {
     const cover = S.coverDirection;
-    expect(cover).toContain('ONE MIRACLE A DAY');
+    expect(cover).toMatch(/TITLE: the words One Miracle a Day painted into the art across the upper third/);
+    expect(cover).toContain('spelled exactly One Miracle a Day');
     expect(cover).toContain('Tamsin');
     expect(cover).toMatch(/HER FACE STAYS CLEAN/);
+    expect(cover).toMatch(/never on her face/);
     expect(cover).toMatch(/no letters, no numbers/i);
     expect(cover).toMatch(/No other text anywhere/);
   });
@@ -345,6 +347,11 @@ describe('nobody is only there to react', () => {
   it('draws only faces the portrait generator knows', () => {
     const unknown = S.characters.flatMap((c) => c.expressions.filter((e) => !knownExpression(e)).map((e) => `${c.id}: ${e}`));
     expect(unknown).toEqual([]);
+  });
+
+  it('says what every titled character is actually called', () => {
+    const called = Object.fromEntries(S.characters.filter((c) => c.calledName).map((c) => [c.id, c.calledName]));
+    expect(called).toEqual({ fortune: 'Fortune', duke: 'Stenn', ash: 'Ash', sabine: 'Sabine' });
   });
 
   it('gives no two characters the same short name', () => {
