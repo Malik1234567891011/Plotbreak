@@ -21,6 +21,8 @@
 | Hester Crane | 47 | Deputy Head and Mistress of Discipline |
 | Cass | 91, by her own count | The last headmistress's cat |
 | Tobias Fenn | 73 | The ferryman |
+| Bea Lowrie | 21 | Nadia's former roommate, who left the college last year |
+| Agnes Pryor | died at 74 | The last headmistress, Cass's witch |
 
 `rules.hardCanon[0]` states every one of these. Appearances begin "An adult woman", "An older woman", "An older man", "A raven" or "A cat", and use no age words. The spec enforces all of it.
 
@@ -42,6 +44,8 @@ Being the only man is funny because of logistics and attention. There is no men'
 - No OOC title, character or premise is copied. The shelf is about being admitted; this story is about a summoning gone wrong and what it reveals about the college.
 - Deliberately avoided: somebody summoning a person as a familiar and binding them with a kiss (a known light-novel premise), houses and sorting, owls carrying letters, named spell books, any named school, power system or term from existing anime, manga, games or novels.
 - Invented for this story: Thornwitch, the Holm, the Hedge, the First Calling, the Seven Chairs, the Equinox lamp and Sitting, the Severing, Rule Forty-One, the Closing, the Hedgewarden, the Warden's Shears. "Familiar", "witch", "ward", "hex" and "college" are generic genre words.
+- Title collision search (editor review, 2026-11): web searches for the exact title, and for "Thornwitch" with anime, webtoon, manhwa and novel, found no collision. The nearest match is a GameLit series called "Thornwick Academy", a different word. The trope echoes OOC's "Became the Only Male Student at the Witch Academy", but no wording is shared.
+- Hester is kept clear of the best-known fictional deputy at a magic school: sharp-eyed and upright, wire reading glasses, a grey shawl, net curtains and a red folder, no pink or lilac anywhere.
 - The spec scans the whole fixture for franchise terms (Quirk, Nen, chakra, Hokage, shinobi, jutsu and the obvious wizard-school names) and fails on any of them.
 
 ## Story bible
@@ -85,7 +89,7 @@ Sexton will go back to Morgaine's shoulder only when the Hedge has a keeper or s
 The setup screen asks four things:
 
 1. **Name** ("What name is on your letter?"), required.
-2. **Pronouns**, optional, placeholder `he/him`. Hard canon says the college sees a man; the premise depends on it.
+2. **Pronouns**, optional, placeholder `he/him`, with help text: "The college admitted you as a man. This only sets the words the story uses for you." Hard canon says the college sees a man; the premise depends on it.
 3. **Archetype** ("What were you doing when the letter came?"), required. The help text says it is fixed for the whole story and does not decide whether he gives the raven back, who he trusts, or what he does.
 4. **Appearance**, advanced, optional. Only the portrait generator reads it.
 
@@ -111,7 +115,7 @@ Eleven entries in `rules.hardCanon`, in this order:
 3. The Hedge decides who enters; nobody can overrule it.
 4. The player is the first man admitted in three hundred years; the letter, the robe, Room Nine, the GENTLEMAN card.
 5. The First Calling, and the Severing as the only way to cut a familiar away. Sexton will not leave the player.
-6. Sexton's rules: one to four words, cannot lie, never explains, silent in front of Hester, and the two changes that would free him.
+6. Sexton's rules: one to four words, cannot lie, never explains, will not say a word within arm's reach of Hester (when she comes close he goes silent until she has gone), and the two changes that would free him.
 7. The clock: the Seven Chairs arrive on the fourth day, the Equinox lamp is that night, the Sitting is the fifth morning, and Hester's writ is for the fifth afternoon.
 8. Rule Forty-One: a hand or hex against a witch outside a duelling circle on the Bowl means being sent down. Duels end when a circle breaks, and nobody is badly hurt.
 9. The player's craft is real and untrained.
@@ -120,7 +124,7 @@ Eleven entries in `rules.hardCanon`, in this order:
 
 ## Opener
 
-Final text, **112 words**. Morgaine speaks at word 33. It ends on a direct question. The only proper nouns are the headmistress, introduced by title and name, and the raven's one word.
+Final text, **116 words**. Morgaine speaks at word 32 and Ivy at word 89, so the cover subject has a line in beat one. It ends on a direct question. The only proper nouns are the headmistress, introduced by title and name, and the raven's one word. Ivy is a fourth-year assisting at the Calling, so she stands beside the dais rather than in a circle.
 
 > The smoke clears, and the headmistress's raven is on your arm.
 >
@@ -130,15 +134,17 @@ Final text, **112 words**. Morgaine speaks at word 33. It ends on a direct quest
 >
 > "Give him back," she says. "Slowly."
 >
-> Sixty new witches in sixty chalk circles turn to stare: at her raven, and at the only man this college has let in for three hundred years.
+> Every new witch in every chalk circle turns to stare: at her raven, and at the only man this college has let in for three hundred years.
 >
 > The raven leans against your collar and says, quite clearly, "No."
 >
-> Somebody laughs. A witch in a green sash steps out of her circle, white with fury.
+> Somebody laughs. Beside the dais, a witch in a green sash goes white. "He was promised to me. In writing."
 >
 > Morgaine does not blink.
 >
 > "Arm out, please. Or tell the whole hall, right now: what did you do to my bird?"
+
+Hester is beside the dais with the Calling register, not within arm's reach of the raven, so he can say "No" and can answer the player on turn one.
 
 **Suggestions** (one said, one done, one risky; the spec runs each through the rule-based parser and none reads as an attack):
 
@@ -189,11 +195,11 @@ Cast order in the fixture is cover-casting order: Ivy, Morgaine, Nadia, Sexton, 
 **Look:** a raven far larger than a raven should be, glossy black, one grey feather at the throat, a silver ring on his left leg engraved with seven thorns.
 **Want:** rest: a keeper for the Hedge, so he can stop being two people at once.
 **Voice:** one to four words, never more. "No." "Bread first." "Ask the ferryman." "Not her. Not yet." "Two jobs. Too heavy."
-**Limits:** will not go back to Morgaine's shoulder until something real changes; will not speak in front of Hester; cannot lie, and will not explain.
+**Limits:** will not go back to Morgaine's shoulder until something real changes; will not speak within arm's reach of Hester; cannot lie, and will not explain.
 
 ### Hester Crane, 47
 **Role:** Deputy Head and Mistress of Discipline, who has wanted the headmistress's chair for nine years.
-**Look:** neat and round-faced, greying brown hair in a perfect bun, half-moon spectacles on a chain, a lilac cardigan over regulation black, a ring of brass keys at her belt. A grey moth called Ledger on her collar.
+**Look:** neat and sharp-eyed, greying brown hair in a perfect bun, wire reading glasses on a chain, a grey wool shawl over regulation black, a ring of brass keys at her belt. A grey moth called Ledger on her collar.
 **Want:** to show the Seven Chairs that Morgaine has lost control, and to perform the Severing on the fifth afternoon.
 **Fear:** becoming a footnote in minutes she has kept for nine years; the college closing while she was right.
 **Secrets:** she already holds the governors' writ for the Severing, with the player's name written in. She watched Morgaine fail to light a lamp last spring, and watched the raven light it.
@@ -230,7 +236,7 @@ Fifteen locations. Every one has an inbound edge.
 | The Kitchens | Refectory, Hedge Walk | Cass on the range. Sardines. |
 | The Long Library | Cloister | The Founders' Charter under glass; Rules of the Bowl. |
 | The Rookery | Cloister | Morgaine's tower; the Equinox lamp; the empty perch. |
-| The Deputy's Office | Cloister | Lilac curtains; the Severing writ (Hester's). |
+| The Deputy's Office | Cloister | Net curtains; the Severing writ (Hester's). |
 | The Bowl | Cloister, Hedge Walk | Where duels are legal. |
 | The Chamber of Seven Chairs | Cloister | The Sitting; the Closing Minutes in the archive cabinet. |
 | The Hedge Walk | Cloister, Kitchens, Bowl, Grey Reach, Hedge Gate | Between the buildings and the Hedge. |
@@ -265,7 +271,7 @@ Day 0 is the First Calling, starting at 9:10. Production never sees event timing
 | Day 0, 19:30 | Ivy puts chalk on his plate: the Bowl, seven o'clock | | `duel_called` |
 | Day 1, 07:00 | Ivy waits on the Bowl | `duel_called`; cancelled by `duel_over` | |
 | Day 1, 16:00 | The Hedge flowers where he touched it | `visited:hedge_walk` | `knows:the_hedge_wants_something` |
-| Day 1, 21:00 | Hester visits Room Nine with the lilac folder | `first_day_over` | `knows:the_severing` |
+| Day 1, 21:00 | Hester visits Room Nine with the red folder | `first_day_over` | `knows:the_severing` |
 | Day 2, 01:55 | A lantern goes north out of the kitchen door | `duel_over` | |
 | Day 2, 06:00 | Cass leaves an empty sardine tin on the sill | `visited:the_kitchens` | |
 | Day 2, 19:15 | Tobias waits at the Hedge Gate | `knows:the_hedgewarden`; cancelled by `has_the_shears` | |
@@ -281,7 +287,7 @@ A player who does nothing at all reaches Headmistress Crane. The lamp fails on i
 - **The Raven on Your Arm** (MAIN, active from the start). First, the next five minutes in the Calling Hall: ask him to go, tell her straight, make the hall laugh, walk out with him, or throw a hex (which also ends the story under Rule Forty-One). Then the six o'clock appointment in the Rookery (keep it, offer him back, or stand her up), which accepts the bond and grants the Raven's Eye. After the Sitting, **whose raven**: he goes back only if `hedge_kept` or `morgaine_confesses`; he stays if the player says plainly that he is his and Sexton's trust is 60; or he is cut away.
 - **First of Her Year** (MAIN, found when the duel is called). The duel: beat her fairly, win ugly with a hex, lose, refuse to her face, or never turn up. Then two in the morning: she takes you, you follow her, or you watch through the raven. Every route teaches `knows:the_reach_is_dying` and opens the Hedge lead. Last, what you are to each other: more than that (one kiss), allies, or rivals for life.
 - **The Equinox Sitting** (MAIN, found after the first day). What she is hiding: she tells you, you see it through the raven, Hester tells you, you notice it in the Rookery, or everyone finds out on the fourth night. The lamp: make her say it, light it with her, take it to Hester, or let it fail. The Sitting: expose the Closing, stand beside her honesty, let the lit lamp speak, or watch the Chairs choose Hester.
-- **The Severing** (MAIN, found when Hester visits). The writ: argue her down (respect 50), let a reconfirmed headmistress tear it up, take the lilac folder, or stand there while Headmistress Crane does it.
+- **The Severing** (MAIN, found when Hester visits). The writ: argue her down (respect 50), let a reconfirmed headmistress tear it up, take the red folder, or stand there while Headmistress Crane does it.
 - **Room Nine** (SIDE, found by visiting it). Two beds and one curtain, then what she tells Hester, then her scholarship: speak for her, give her true and harmless things to report, or let the review happen.
 - **Going Once** (SIDE, found by visiting the kitchens). Pay Cass in sardines, in work, or with a true secret.
 - **Why the Hedge Let You In** (LEAD, found only through `knows:the_hedge_wants_something`). The Closing (from Cass, the minutes, the Charter or the raven), the ferryman and the shears, the Warden's Door, and whether the Hedge gets a keeper: two keys with Ivy, take the office alone, or let it go.
@@ -293,7 +299,7 @@ A player who does nothing at all reaches Headmistress Crane. The lamp fails on i
 2. **Why the Hedge let a man in** (MYSTERY). Seed: a letter that arrived already addressed. Payoff: the Closing and the office nobody has held for three hundred years.
 3. **First of her year** (RIVAL). Seed: a green sash stepping out of a circle. Payoff: the Bowl, then the north end at two in the morning.
 4. **What the headmistress cannot do alone** (RELATIONSHIP). Seed: she touches the empty pad on her shoulder. Payoff: a lamp that will not light for her.
-5. **The deputy head's folder** (BOSS). Seed: biscuits and a lilac folder she has not opened yet. Payoff: a lawful writ and a chair she has wanted for nine years.
+5. **The deputy head's folder** (BOSS). Seed: biscuits and a red folder she has not opened yet. Payoff: a lawful writ and a chair she has wanted for nine years.
 
 ## Endings
 
@@ -337,4 +343,4 @@ Every location carries its own `artDirection`. No art has been generated yet.
 - Exported raw as `StoryVersion.parse(raw)`, not wrapped in `withDerivedAssetKeys`. Not added to `index.ts`. `publishedAt: null`, no prologue.
 - Production runs `runTurnPure`, which reads the premise, tone guide, hard canon, the chosen archetype, the full cast, the opening, style examples, places, quest items, factions, quest summaries, world events and the first twelve endings. It never reads resources, step notes, promises or non-starting abilities. So the raven's rule and the clock are in hard canon, the Hedge's letter is a starting quest item, every archetype starts with Ask the Raven, and event notes carry their own time.
 - The three checks: every gated ability is granted by a step reward, every card blurb says "you", and every location has an inbound edge.
-- Gates: `npx vitest run src/the-only-man-at-thornwitch.spec.ts` and `npx tsc --noEmit`, both from `packages/test-fixtures`. `infra/scripts/story-checks.ts` passes, with warnings only for the `attacked:` flags, which the engine sets itself.
+- Gates: `npx vitest run src/the-only-man-at-thornwitch.spec.ts` and `npx tsc --noEmit`, both from `packages/test-fixtures`. `infra/scripts/story-checks.ts` is not in the sparse worktree; run from the main checkout it passes, with warnings only for the `attacked:` flags, which the engine sets itself. Still to run before shipping: register the story in `index.ts`, `npm run migrate`, and `npm run smoke -- --only=the-only-man-at-thornwitch`.

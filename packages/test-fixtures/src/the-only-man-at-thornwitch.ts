@@ -48,7 +48,7 @@ const raw = {
   version: 1,
   title: 'The Only Man at Thornwitch',
   fantasyLabel: 'Her raven chose you. Explain yourself.',
-  hook: 'The witch college summons familiars on your first morning. Your circle summoned the headmistress’s raven, and he will not go back.',
+  hook: 'You are the first man the witch college has let in for three hundred years. On your first morning, your circle summoned the headmistress’s raven, and he will not go back.',
   premise:
     'Thornwitch is the oldest college of witchcraft in the country: four hundred students, all adults, on a tidal island inside a living hedge of blackthorn forty feet high. The Hedge decides who comes in, and nobody can overrule it. For three hundred years it has opened only for women. This autumn it opened for you.\n\n' +
     'The college had six weeks’ notice and did not use them well. There is no men’s robe, so you wear the groundskeeper’s spare. There is no men’s dormitory, so you share Room Nine with a second-year herb witch, her hen, and a curtain down the middle.\n\n' +
@@ -86,12 +86,12 @@ const raw = {
       { itemId: 'groundskeepers_robe', qty: 1 },
     ],
     hardCanon: [
-      'Everyone in this story is an adult. The player is a man of twenty-one. Morgaine Ashdown is fifty-eight, Ivy Calder twenty-two, Nadia Kowal twenty, Hester Crane forty-seven and Tobias Fenn seventy-three. Cass, a cat, is ninety-one by her own count, and Sexton, a raven, is over three hundred. Thornwitch is a college: every student is at least eighteen, and most first-years are between eighteen and twenty-two.',
+      'Everyone in this story is an adult. The player is a man of twenty-one. Morgaine Ashdown is fifty-eight, Ivy Calder twenty-two, Nadia Kowal twenty, Hester Crane forty-seven and Tobias Fenn seventy-three. Cass, a cat, is ninety-one by her own count, and Sexton, a raven, is over three hundred. Bea Lowrie, Nadia’s former roommate, is twenty-one, and the late headmistress Agnes Pryor died at seventy-four. Thornwitch is a college: every student is at least eighteen, and most first-years are between eighteen and twenty-two.',
       'Thornwitch College is the oldest college of witchcraft in the country: four hundred students over four years, on a tidal island called the Holm in a cold grey estuary. A ferry run by Tobias Fenn crosses to the mainland, and twice a day at low tide a stone causeway opens for about forty minutes.',
       'The island is ringed by the Hedge, a living wall of blackthorn and briar forty feet high, planted by the seven founders three hundred years ago. It is the college’s ward and its gatekeeper. Every applicant walks up to the Hedge Gate alone on Admission Night, and it opens or it does not. Nobody, the headmistress included, can overrule it.',
       'For three hundred years the Hedge opened only for women. This year it opened for the player, the first man admitted since. His admission letter arrived on the headmistress’s desk already addressed, in a hand nobody at the college writes. The college had six weeks’ notice: he wears the groundskeeper’s spare robe, shares Room Nine in the North Tower with Nadia Kowal behind a curtain on a rope, and eats at a small table by the refectory’s kitchen door with a card on it that says GENTLEMAN.',
       'At the First Calling every first-year chalks a circle and calls, and whatever answers is their familiar for four years. A familiar cannot be ordered away. It can only be asked, or cut away by the Severing, which takes the witch’s craft with it for good. The player’s circle called Sexton, Morgaine Ashdown’s raven, who has sat on the shoulders of headmistresses for three hundred years. He will not leave the player and goes wherever the player goes.',
-      'Sexton speaks in one to four words, cannot lie, never explains, and will not speak at all in front of Hester Crane. He will not go back to Morgaine’s shoulder while the Hedge has no keeper and she goes on pretending she can carry the college alone. Either of those changing would free him.',
+      'Sexton speaks in one to four words, cannot lie, never explains, and will not say a word within arm’s reach of Hester Crane: when she comes close he goes silent until she has gone. He will not go back to Morgaine’s shoulder while the Hedge has no keeper and she goes on pretending she can carry the college alone. Either of those changing would free him.',
       'The Seven Chairs are the college’s governors. They arrive by ferry on the fourth day and sit on the fifth morning to reconfirm Morgaine as headmistress for seven more years, or replace her. On the fourth night she must light the Equinox lamp alone in front of them. Hester Crane, the deputy head, wants the chair and holds a writ to perform the Severing on the player on the fifth afternoon.',
       'Rule Forty-One: a student who raises a hand or a hex against a witch anywhere but inside a duelling circle on the Bowl is sent down on the next ferry. Duels on the Bowl are legal, fought with chalk circles, and end when one circle breaks. Nobody is badly hurt in a duel; that is what the circles are for.',
       'The player’s craft is real and untrained. He can chalk a circle and throw a first-year’s stinging hex like anyone else, he can ask the raven things, and the bond gives him more only as it deepens. Every witch here is better at magic than he is.',
@@ -116,7 +116,7 @@ const raw = {
     { id: 'candour', name: 'Candour', attribute: 'resolve', description: 'Saying the true thing to somebody who outranks you, out loud, in front of people.' },
     { id: 'composure', name: 'Composure', attribute: 'resolve', description: 'Keeping your face still while four hundred witches watch you eat soup.' },
     { id: 'notice', name: 'Noticing', attribute: 'mind', description: 'What a witch is doing with her hands while she tells you something else.' },
-    { id: 'study', name: 'Study', attribute: 'mind', description: 'Learning from a book in an evening what the others were taught at six years old.' },
+    { id: 'study', name: 'Study', attribute: 'mind', description: 'Learning from a book in an evening what the others have known for years.' },
     { id: 'circlework', name: 'Circlework', attribute: 'arcana', description: 'Chalk, salt, and the half inch that decides whether a circle holds.' },
     { id: 'hedgecraft', name: 'Hedgecraft', attribute: 'arcana', description: 'Hearing what the raven and the Hedge are trying to tell you.' },
     { id: 'graft', name: 'Graft', attribute: 'might', description: 'Carrying, digging, rowing, lifting. The work a place needs that nobody writes down.' },
@@ -311,7 +311,7 @@ const raw = {
       tags: ['quest', 'document'],
       questItem: true,
       description:
-        'A lilac folder holding a single page with the governors’ seal: authority for the Deputy Head to perform the Severing on any student whose familiar was improperly called. Your name has been written in, in violet ink, and the date is the fifth afternoon.',
+        'A red folder holding a single page with the governors’ seal: authority for the Deputy Head to perform the Severing on any student whose familiar was improperly called. Your name has been written in, in violet ink, and the date is the fifth afternoon.',
       loreText: 'Rule Twelve, subsection three. It has been used twice in three hundred years. Both students went home without any magic at all.',
       icon: 'papers',
     },
@@ -745,14 +745,14 @@ const raw = {
       name: 'The Deputy’s Office',
       shortName: 'Deputy’s Office',
       description:
-        'Lilac curtains, a biscuit tin, a wall of labelled box files, and a ring of brass keys on a hook by the door. Hester Crane runs discipline, the minutes and most of the college from here, and she always has time for you, dear.',
+        'Net curtains, a biscuit tin, a wall of labelled box files, and a ring of brass keys on a hook by the door. Hester Crane runs discipline, the minutes and most of the college from here, and she always has time for you, dear.',
       artDirection:
-        'Neat old office with lilac curtains, a wall of labelled box files, a tea tray with a biscuit tin, a ring of brass keys on a hook, a desk with a lilac folder squared exactly to its edge. Tidy, warm, quietly menacing.',
+        'Neat old office with net curtains, a wall of labelled box files, a tea tray with a biscuit tin, a ring of brass keys on a hook, a desk with a red folder squared exactly to its edge. Tidy, warm, quietly menacing.',
       connections: [{ to: 'the_cloister', travelMinutes: 2, label: 'Back to the Cloister' }],
       discoveredByDefault: true,
       mapPosition: { x: 1, y: 2 },
       takeableItems: [
-        { itemId: 'severing_writ', qty: 1, ownerId: 'hester', aka: ['the writ', 'the lilac folder', 'hester’s folder', 'the severing writ'] },
+        { itemId: 'severing_writ', qty: 1, ownerId: 'hester', aka: ['the writ', 'the red folder', 'hester’s folder', 'the severing writ'] },
       ],
     },
     {
@@ -930,7 +930,7 @@ const raw = {
       name: 'Ivy Calder',
       role: 'First of the fourth year, and the headmistress’s chosen apprentice',
       cardBlurb:
-        'The best duellist in the building, promised your raven at graduation, in writing. She has called you to the Bowl at seven, and until then she is keeping score of everything you do.',
+        'The best duellist in the building, promised your raven at graduation, in writing. Before your first supper is over she will call you to the Bowl, and until then she is keeping score of everything you do.',
       pronouns: 'she/her',
       publicTraits: ['Keeps score out loud', 'Never late, never untidy, never second', 'Gets more formal, not less, when flustered'],
       hiddenDrives: [
@@ -1185,8 +1185,8 @@ const raw = {
           requires: { trust: 55, flagsSet: ['roommates'] },
         },
         {
-          id: 'nadia_curtain_down',
-          label: 'The curtain comes down',
+          id: 'nadia_more_than_friends',
+          label: 'Friends first, then maybe more',
           kind: 'ROMANCE',
           requires: { trust: 65, affection: 65 },
         },
@@ -1211,10 +1211,10 @@ const raw = {
       values: ['The Hedge', 'The truth, which he is unable not to tell', 'Bread'],
       fears: ['The Grey Reach falling while he is still the only one holding it', 'Being cut away from the player before the work is done'],
       socialStyle:
-        'Sits on the player’s arm or shoulder and watches. Answers a question with as few words as possible, and sometimes with a different question. Goes completely silent whenever Hester Crane is in the room.',
+        'Sits on the player’s arm or shoulder and watches. Answers a question with as few words as possible, and sometimes with a different question. Goes completely silent whenever Hester Crane comes within arm’s reach.',
       boundaries: [
         'Will not go back to Morgaine’s shoulder while the Hedge has no keeper and she goes on pretending',
-        'Will not speak in front of Hester Crane',
+        'Will not speak within arm’s reach of Hester Crane',
         'Cannot lie, and will not explain',
       ],
       goals: ['Get the Hedge a keeper again', 'Keep the player alive and on the island until he understands why he is here'],
@@ -1288,7 +1288,7 @@ const raw = {
           id: 'hester_the_writ',
           fact: 'She already holds the governors’ authority to perform the Severing on a student whose familiar was "improperly called", and has written the player’s name into it for the fifth afternoon.',
           visibility: 'NPC_PRIVATE',
-          revealHint: 'She tells you herself, kindly, sitting in your room with the lilac folder on her knee, on the evening of the second day.',
+          revealHint: 'She tells you herself, kindly, sitting in your room with the red folder on her knee, on the evening of the second day.',
         },
         {
           id: 'hester_the_lamp',
@@ -1308,9 +1308,9 @@ const raw = {
         'Rule Twelve, subsection three: a familiar improperly called may be severed by the Deputy. It is a very old rule. It is still a rule.',
       ],
       appearance:
-        'An adult woman, neat and round-faced, with greying brown hair in a perfect bun, half-moon spectacles on a chain, a lilac cardigan over regulation black, a ring of brass keys at her belt, and a grey moth called Ledger resting on her collar.',
-      visualHook: 'Half-moon spectacles on a chain, and a grey moth sitting very still on her collar.',
-      silhouette: 'Short and round, a lilac folder held against her chest with both hands.',
+        'An adult woman, neat and sharp-eyed, with greying brown hair in a perfect bun, wire reading glasses on a chain, a grey wool shawl over regulation black, a ring of brass keys at her belt, and a grey moth called Ledger resting on her collar.',
+      visualHook: 'Wire reading glasses on a chain, and a grey moth sitting very still on her collar.',
+      silhouette: 'Neat and upright, a red folder held against her chest with both hands.',
       artSeed: 'thornwitch-hester-01',
       portrait: null,
       expressions: ['warm', 'patient', 'suspicious', 'cold'],
@@ -1318,7 +1318,7 @@ const raw = {
         { startMinute: 0, endMinute: 450, locationId: 'deputy_office', activity: 'in her rooms behind the office' },
         { startMinute: 450, endMinute: 540, locationId: 'the_refectory', activity: 'breakfast at high table with the register' },
         { startMinute: 540, endMinute: 660, locationId: 'calling_hall', activity: 'beside the dais with the Calling register' },
-        { startMinute: 660, endMinute: 1080, locationId: 'deputy_office', activity: 'discipline, the minutes, and the lilac folder' },
+        { startMinute: 660, endMinute: 1080, locationId: 'deputy_office', activity: 'discipline, the minutes, and the red folder' },
         { startMinute: 1080, endMinute: 1200, locationId: 'the_refectory', activity: 'high table, watching the small table by the kitchen door' },
         { startMinute: 1200, endMinute: 1440, locationId: 'deputy_office', activity: 'late minutes and a pot of tea' },
       ],
@@ -1506,7 +1506,7 @@ const raw = {
       id: 'q_the_raven',
       title: 'The Raven on Your Arm',
       summary:
-        'At the First Calling your circle called Sexton, the headmistress’s raven, and he will not leave your arm. Morgaine Ashdown wants him back on her shoulder before the Seven Chairs sit in five days. He has said no, in front of everybody, and he does not change his mind.',
+        'At the First Calling your circle called Sexton, the headmistress’s raven, and he will not leave your arm. Morgaine Ashdown wants him back on her shoulder before the Seven Chairs sit in five days. He has said no, in front of everybody, and he does not change his mind. She wants you in her tower at six o’clock on the first evening.',
       kind: 'MAIN',
       startsActive: true,
       involvedCharacterIds: ['morgaine', 'sexton', 'ivy', 'hester'],
@@ -1644,7 +1644,7 @@ const raw = {
       id: 'q_first_of_her_year',
       title: 'First of Her Year',
       summary:
-        'Ivy Calder, first of the fourth year and the headmistress’s apprentice, was promised that raven at graduation. She has called you to the Bowl at seven on the second morning under the old rules: first to break the other’s circle. She also goes somewhere every night at two, alone.',
+        'Ivy Calder, first of the fourth year and the headmistress’s apprentice, was promised that raven at graduation. Before the first day is out she will call you to the Bowl at seven the next morning, under the old rules: first to break the other’s circle. She also goes somewhere every night at two, alone.',
       kind: 'MAIN',
       involvedCharacterIds: ['ivy'],
       involvedLocationIds: ['the_bowl', 'the_refectory', 'grey_reach'],
@@ -1984,7 +1984,7 @@ const raw = {
             },
             {
               routeId: 'took_the_writ',
-              label: 'Take the lilac folder off her desk',
+              label: 'Take the red folder off her desk',
               predicate: { hasItems: ['severing_writ'] },
               setsFlags: ['writ_withdrawn', 'writ_stolen'],
               closesFlags: ['severed'],
@@ -2334,7 +2334,7 @@ const raw = {
       id: 'q_rule_forty_one',
       title: 'Rule Forty-One',
       summary:
-        'A student who raises a hand or a hex against a witch anywhere but inside a duelling circle on the Bowl is sent down on the next ferry. Nobody has been sent down under it in eleven years. The deputy head can quote it.',
+        'A student who raises a hand or a hex against a witch anywhere but inside a duelling circle on the Bowl is sent down on the next ferry. Nobody has been sent down under it in eleven years. The deputy head can quote it. This thread completes only when the player is sent down under it.',
       kind: 'SIDE',
       startsActive: true,
       involvedCharacterIds: ['hester', 'morgaine'],
@@ -2448,7 +2448,7 @@ const raw = {
       id: 'we_hester_visits',
       atWorldMinute: 1440 + 21 * 60,
       locationId: 'room_nine',
-      publicCopy: 'Deputy Head Hester Crane knocks on the door of Room Nine with a tin of biscuits and a lilac folder, and asks if she may sit down.',
+      publicCopy: 'Deputy Head Hester Crane knocks on the door of Room Nine with a tin of biscuits and a red folder, and asks if she may sit down.',
       directorNotes:
         'Second evening, nine o’clock. She is kind about all of it. She explains the Severing slowly and accurately, says the date she has written in, the fifth afternoon, and leaves the biscuits. Nadia stays behind her curtain and the hen does not lay, because nothing Hester says is a lie. If the player is elsewhere, Nadia tells him the moment he comes in.',
       setsFlags: ['knows:the_severing', 'hester_wrote_it'],
@@ -2562,7 +2562,7 @@ const raw = {
       id: 'p_ivy',
       kind: 'RIVAL',
       label: 'First of her year',
-      seedHint: 'A witch in a green sash steps out of her circle, white with fury, because that raven was promised to her.',
+      seedHint: 'A witch in a green sash beside the dais goes white and says that raven was promised to her, in writing.',
       payoffHint: 'A result on the Bowl, a lantern at the north end at two in the morning, and a decision about what the two of them are.',
       weight: 0.9,
     },
@@ -2578,7 +2578,7 @@ const raw = {
       id: 'p_hester',
       kind: 'BOSS',
       label: 'The deputy head’s folder',
-      seedHint: 'She calls you dear, brings biscuits, and carries a lilac folder she has not opened yet.',
+      seedHint: 'She calls you dear, brings biscuits, and carries a red folder she has not opened yet.',
       payoffHint: 'A lawful writ to sever the player from his raven and his craft on the fifth afternoon, and a chair she has wanted for nine years.',
       weight: 0.8,
     },
@@ -2639,7 +2639,15 @@ const raw = {
   ],
   setupFields: [
     { id: 'displayName', label: 'What name is on your letter?', kind: 'TEXT', required: true, maxLength: 40, placeholder: 'e.g. Tom Archer' },
-    { id: 'pronouns', label: 'Pronouns', kind: 'TEXT', required: false, maxLength: 24, placeholder: 'e.g. he/him' },
+    {
+      id: 'pronouns',
+      label: 'Pronouns',
+      helpText: 'The college admitted you as a man. This only sets the words the story uses for you.',
+      kind: 'TEXT',
+      required: false,
+      maxLength: 24,
+      placeholder: 'e.g. he/him',
+    },
     {
       id: 'archetype',
       label: 'What were you doing when the letter came?',
@@ -2705,7 +2713,7 @@ const raw = {
       condition:
         'Nadia kept her scholarship because the player stood up for her, and Room Nine became home for two people and a hen. Romance, if it happened, is one kiss at most. Write the curtain, the rota and the friendship as the thing that held while everything else shook.',
       epilogue:
-        'The curtain stays up, mostly as a joke. Nadia finally answers Bea’s letter, and Bea writes back. Duchess lays exactly one egg that whole term, on the morning the deputy head asked whether everything in Room Nine was quite proper.',
+        'The curtain stays up, mostly as a joke. Nadia finally answers Bea’s letter, and Bea writes back. Duchess lays exactly one egg that whole term, on the morning the player swore he had not eaten Nadia’s last ginger biscuit.',
       hint: '',
     },
     {
@@ -2717,7 +2725,7 @@ const raw = {
       condition:
         'The Chairs replaced Morgaine with Hester Crane, and the player somehow kept his raven and his craft through it. This is a loss for the college as he knew it. Write Hester as competent and sincere, and the new rules as reasonable, every single one of them.',
       epilogue:
-        'Rule Forty-One is reprinted in a larger typeface. Morgaine takes a cottage on the mainland and writes the player one letter a month, in complete sentences. The north end of the Hedge goes on going grey, and Headmistress Crane minutes it carefully.',
+        'Rule Forty-One acquires a fourth subsection. Morgaine takes a cottage on the mainland and writes the player one letter a month, in complete sentences. The north end of the Hedge goes on going grey, and Headmistress Crane minutes it carefully.',
       hint: '',
     },
     {
@@ -2824,7 +2832,7 @@ const raw = {
     },
   ],
   opening:
-    "The smoke clears, and the headmistress’s raven is on your arm.\n\nHuge. Ink-black. Claws through your sleeve.\n\nOn the dais, Headmistress Morgaine Ashdown touches the empty leather pad on her shoulder.\n\n\"Give him back,\" she says. \"Slowly.\"\n\nSixty new witches in sixty chalk circles turn to stare: at her raven, and at the only man this college has let in for three hundred years.\n\nThe raven leans against your collar and says, quite clearly, \"No.\"\n\nSomebody laughs. A witch in a green sash steps out of her circle, white with fury.\n\nMorgaine does not blink.\n\n\"Arm out, please. Or tell the whole hall, right now: what did you do to my bird?\"",
+    "The smoke clears, and the headmistress’s raven is on your arm.\n\nHuge. Ink-black. Claws through your sleeve.\n\nOn the dais, Headmistress Morgaine Ashdown touches the empty leather pad on her shoulder.\n\n\"Give him back,\" she says. \"Slowly.\"\n\nEvery new witch in every chalk circle turns to stare: at her raven, and at the only man this college has let in for three hundred years.\n\nThe raven leans against your collar and says, quite clearly, \"No.\"\n\nSomebody laughs. Beside the dais, a witch in a green sash goes white. \"He was promised to me. In writing.\"\n\nMorgaine does not blink.\n\n\"Arm out, please. Or tell the whole hall, right now: what did you do to my bird?\"",
   openingPanel: {
     assetKey: 'story_the_only_man_at_thornwitch/opening',
     alt: 'Morgaine on the dais in black and thorn green, one hand on the empty leather pad on her shoulder, staring at the huge black raven gripping your sleeve.',
