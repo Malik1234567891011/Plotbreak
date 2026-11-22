@@ -209,3 +209,10 @@ Simulator capture created guest `61aa9e7f-bf00-46a1-8604-1d944578e224` and sessi
 
 ### OOC's "animated" covers (looked 2026-11-22)
 They are muted looping MP4s on cdn.ooc.ai (1080x1620 or 1166x1776, 2.8 to 12 s). Not AI video: a slideshow of 3 to 6 still character illustrations (one character each, chest-up, glamorous) cut every 0.7 to 2 s under one fixed title logo; the title's colour changes to match each character (Hero Academia: purple, red, orange). Copying it costs about 4 single-character pictures per story (PixAI) plus free ffmpeg assembly, and needs an iOS build that plays a muted looping cover video.
+
+### Checkpoint 2026-11-22 (evening): all 50 ready, new covers, waiting on owner's cover verdict
+- Cover style v2: owner picked Tsubaki.2 standard (832x1216, 2,600 credits) and real-type "elegant" titles (Cinzel) over AI-painted titles. Bake-off: `docs/stories-50/cover-style-v2/bakeoff.png`. All 50 covers redrawn: `cover-style-v2/all.png`; tools `docs/stories-50/tools/cover-v2.mts`, `cover-title.py`. My read: about 15 are too dark and covered up next to OOC; I offered a second pass for about 40K.
+- The 11 unfinished stories are done (466.5K credits). #30 stays NAMED (allowlisted in `protagonist.spec.ts`). READY.md now lists all 50. Nothing released; `publishedAt` is null on the 11 and stamped on the first 37.
+- Open bug (production storyteller): all 11 smokes let the player fly despite a no-flying hard-canon rule, and so do the ready stories that carry the same rule. The cause is `runTurnPure` ignoring hard canon, not the stories.
+- Credits from the 1.8M top-up: about 0.70M used (bake-off 24K, packs 34K, covers about 170–185K, the 11 stories 466K).
+- Gallery v2 with the new covers: https://claude.ai/artifact/FT63cNJZ3CBJ1DWzkekdRv
