@@ -229,6 +229,9 @@ struct RootView: View {
             } else {
                 MainShell()
                     .environment(router)
+                    #if DEBUG
+                    .debugLaunchScreen(router)
+                    #endif
                     .onAppear {
                         if let storyId = openStoryId {
                             openStoryId = nil
