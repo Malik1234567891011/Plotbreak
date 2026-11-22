@@ -206,3 +206,6 @@ Simulator capture created guest `61aa9e7f-bf00-46a1-8604-1d944578e224` and sessi
 - PixAI: 2.80M credits used (ledger), about 63K a story (about 20 pictures each), about 24 cover redraws. About 500K more needed for what's left.
 - Gallery of every new-story picture: https://claude.ai/artifact/FT63cNJZ3CBJ1DWzkekdRv
 - Design v3 feedback (Home, Story page stat squares, gems not consistent, gem everywhere, audit for consistency) sent to plotbreak-0d; it audits first, then shows a new Home.
+
+### OOC's "animated" covers (looked 2026-11-22)
+They are muted looping MP4s on cdn.ooc.ai (1080x1620 or 1166x1776, 2.8 to 12 s). Not AI video: a slideshow of 3 to 6 still character illustrations (one character each, chest-up, glamorous) cut every 0.7 to 2 s under one fixed title logo; the title's colour changes to match each character (Hero Academia: purple, red, orange). Copying it costs about 4 single-character pictures per story (PixAI) plus free ffmpeg assembly, and needs an iOS build that plays a muted looping cover video.
