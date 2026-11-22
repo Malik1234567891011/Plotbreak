@@ -849,24 +849,45 @@ export class Stage {
     if (sim.phase !== 'fight') return;
     const { ctx, L } = this;
     const cx = L.heroX + 12 * L.scale, cy = L.ground - 52 * L.scale;
+    const R = 26 * L.scale;
+    const { early, late } = sim.window;
+    // One rule a new player can read without a lesson: the ring is grey while
+    // it is too early, GREEN when a tap counts (RED for a heavy: hit DODGE),
+    // and it shatters grey once it is too late.
+    let now: 'tap' | 'dodge' | null = null;
     for (const a of sim.attacks) {
       if (a.state !== 'pending' || a.tele > tick || a.kind === 'stance' || a.kind === 'fake') continue;
-      const p = (tick - a.tele) / Math.max(1, a.impact - a.tele);
-      if (p > 1.15) continue;
-      const r = 26 * L.scale + (1 - Math.min(1, p)) * 90 * L.scale;
       const heavy = a.kind === 'heavy';
-      ctx.strokeStyle = heavy ? 'rgba(255,90,100,0.85)' : 'rgba(255,255,255,0.9)';
-      ctx.lineWidth = heavy ? 2 : 3;
-      ctx.setLineDash(heavy ? [8, 6] : []);
-      ctx.globalAlpha = Math.min(1, p * 3) * (p > 1 ? 1 - (p - 1) / 0.15 : 1);
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+      const open = tick >= a.impact - early && tick <= a.impact + late;
+      const p = (tick - a.tele) / Math.max(1, a.impact - a.tele);
+      if (open) now = now ?? (heavy ? 'dodge' : 'tap');
+      if (tick > a.impact + late) continue;
+      const r = R + (1 - Math.min(1, p)) * 90 * L.scale;
+      ctx.globalAlpha = Math.min(1, p * 3);
+      ctx.strokeStyle = open ? (heavy ? '#ff3b4e' : '#3dff7a') : 'rgba(255,255,255,0.55)';
+      ctx.lineWidth = open ? 6 : 3;
+      ctx.setLineDash(heavy && !open ? [8, 6] : []);
+      if (open) { ctx.shadowColor = ctx.strokeStyle; ctx.shadowBlur = 18; }
+      ctx.beginPath(); ctx.arc(cx, cy, Math.max(r, R), 0, Math.PI * 2); ctx.stroke();
+      ctx.shadowBlur = 0;
       ctx.setLineDash([]);
       ctx.globalAlpha = 1;
     }
-    // The target circle.
-    ctx.strokeStyle = 'rgba(255,255,255,0.22)';
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.arc(cx, cy, 26 * L.scale, 0, Math.PI * 2); ctx.stroke();
+    // The target circle lights up with the ring, so "when it's green, tap" is the whole lesson.
+    const col = now === 'tap' ? '#3dff7a' : now === 'dodge' ? '#ff3b4e' : null;
+    if (col) {
+      ctx.fillStyle = col;
+      ctx.globalAlpha = 0.28;
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = '#ffffff';
+      ctx.font = `900 ${Math.round(15 * L.scale)}px ${FONT}`;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(now === 'tap' ? 'TAP' : 'DODGE', cx, cy);
+    }
+    ctx.strokeStyle = col ?? 'rgba(255,255,255,0.3)';
+    ctx.lineWidth = col ? 4 : 2;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
   }
 
   #drawSlashes(dt: number): void {

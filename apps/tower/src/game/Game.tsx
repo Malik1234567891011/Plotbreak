@@ -323,9 +323,9 @@ export function Game({ seed, runId, day, characterId, startFloor: firstFloor = 1
 
 /** Each lesson, taught once by a card that pauses the fight. */
 const LESSONS: Record<string, { icon: string; title: string; text: string; tone: string }> = {
-  slash: { icon: '!', title: 'Tap as it lands', tone: 'white', text: 'Watch the enemy dash in. Tap anywhere the moment the blade reaches you. The ring closing on you shows when.' },
+  slash: { icon: '!', title: 'Tap on GREEN', tone: 'white', text: 'A ring closes in on you. Wait. The moment it turns GREEN, tap anywhere to block. Too early or too late and you get hit.' },
   kunai: { icon: '➶', title: 'Kunai', tone: 'white', text: 'Thrown knives. Tap as each one reaches you.' },
-  heavy: { icon: '危', title: 'Red means DODGE', tone: 'red', text: 'Red attacks can’t be parried. Hit the DODGE button as it lands. Only red.' },
+  heavy: { icon: '危', title: 'Red means DODGE', tone: 'red', text: 'Red attacks can’t be blocked. When the ring turns RED, hit the DODGE button. Only red.' },
   feint: { icon: '?!', title: 'Yellow means feint', tone: 'gold', text: 'It flashes yellow, pulls back and grins. Don’t touch anything: the real strike comes right after.' },
   delayed: { icon: '…!', title: 'It’s holding', tone: 'purple', text: 'This one stops mid-swing to catch you early. Wait for it.' },
   stance: { icon: '構', title: 'Blue means hands off', tone: 'blue', text: 'A counter stance. Touch the screen and you get hit. Wait until the aura is gone.' },

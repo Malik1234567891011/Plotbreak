@@ -48,7 +48,7 @@ header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content:
 h1 { font-size: 26px; margin: 0; letter-spacing: -0.01em; }
 h2 { font-size: 18px; margin: 40px 0 4px; }
 .sub { color: var(--muted); font-size: 13px; }
-.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 20px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: 12px; margin-top: 20px; }
 .kpi { background: var(--surface); border: 1px solid var(--ring); border-radius: 14px; padding: 16px 18px; }
 .kpi .label { color: var(--ink-2); font-size: 13px; }
 .kpi .value { font-size: 40px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.1; margin: 6px 0 2px; }
@@ -74,6 +74,7 @@ h2 { font-size: 18px; margin: 40px 0 4px; }
 .tile.today { outline: 2px solid var(--ink); outline-offset: 1px; }
 .tile.week { background: var(--surface); color: var(--ink); }
 .tile.week .big { font-size: 30px; }
+.tile.week .of { font-size: 11px; opacity: 0.7; }
 .on-dark { color: #ffffff; } .on-light { color: #0b0b0b; }
 .legend { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; margin-top: 10px; }
 .legend .ramp { display: flex; gap: 2px; } .legend .ramp i { width: 22px; height: 10px; border-radius: 3px; display: block; }
@@ -107,12 +108,13 @@ h2 { font-size: 18px; margin: 40px 0 4px; }
   <div class="legend" id="legend"></div>
 
   <h2>Do new players come back? (by the week they started)</h2>
-  <div class="sub">D1 = played again the next day · D7 = played on day 7 · Within 7 = any day in the first week after · Ever = any later day so far</div>
+  <div class="sub">D1 = played again the next day · D7 = played on day 7 · Within 7 = any day in the first week after · D-any = any later day, ever</div>
   <div class="scroll"><div class="ret" id="ret"></div></div>
 
   <ul class="notes">
     <li><b>Turns</b>: every turn finished that day. <b>Players</b>: anyone who played at least one turn. <b>New</b>: played their first turn ever that day. <b>Back</b>: played that day, started on an earlier day.</li>
     <li><b>Revenue</b>: gross App Store sales (before Apple's cut), converted to USD at rough fixed rates, plus $2.99 each time a Pass started. Pass renewals aren't recorded by the server, so they're missing.</li>
+    <li>Returning players on a week tile: different people who played that week on a later day than their first, counted once however many days they came. "From before this week" leaves out people who started that same week.</li>
     <li>D1 on a day tile: how many of that day's new players came back the next day. A week or day still in progress is outlined or marked "so far".</li>
     <li>Rebuild with <code>npm run dashboard</code>.</li>
   </ul>
@@ -162,7 +164,13 @@ function kpis() {
     const c = DATA.cohorts.filter(c => c.e7 > 0);
     const done = c[c.length - 1], d1c = DATA.cohorts.filter(c => c.e1 > 0).slice(-1)[0];
     const p = (a, b) => b ? Math.round(a / b * 100) + '%' : '–';
-    return '<div class="kpi"><div class="label">Latest D1 / D7</div><div class="value">' + (d1c ? p(d1c.d1, d1c.e1) : '–') + ' / ' + (done ? p(done.d7, done.e7) : '–') +
+    // D-any: came back on ANY later day. Only players who started 7+ days ago
+    // count, so a week that just began can't drag it down for lack of time.
+    const allE = sum(DATA.cohorts, c => c.e7), allA = sum(DATA.cohorts, c => c.dany);
+    return '<div class="kpi"><div class="label">Ever come back (D-any)</div><div class="value">' + p(allA, allE) +
+      '</div><div class="delta">' + allA + ' of ' + allE + ' players who started 7+ days ago played again on a later day' +
+      (done ? ' · week of ' + short(done.wk) + ': ' + p(done.dany, done.e7) : '') + '</div></div>' +
+      '<div class="kpi"><div class="label">Latest D1 / D7</div><div class="value">' + (d1c ? p(d1c.d1, d1c.e1) : '–') + ' / ' + (done ? p(done.d7, done.e7) : '–') +
       '</div><div class="delta">D1: week of ' + (d1c ? short(d1c.wk) : '–') + ' · D7: week of ' + (done ? short(done.wk) : '–') + '</div></div>';
   })();
 }
@@ -207,16 +215,19 @@ function calendar() {
     const real = wk.filter(Boolean);
     const s = f => real.reduce((a, d) => a + f(d), 0);
     const partial = real.some(d => d.d === today);
+    const wkRow = (DATA.weekly || []).find(w => w.wk === real[0].d);
     html += '<div class="tile week"><div class="date"><span>Week of ' + short(real[0].d) + '</span><span>' + (partial ? 'so far' : '') + '</span></div>' +
       '<div class="big">' + (metric === 'players' ? (s(d => d.players) / real.length).toFixed(1) + '<small>/day</small>' : m.fmt(s(m.get))) + '</div>' +
-      '<div class="rows">' + s(d => d.turns).toLocaleString() + ' turns<br>' + s(d => d.new_players) + ' new players<br><span class="money">' + money(s(d => d.revenue)) + '</span></div></div>';
+      '<div class="rows">' + s(d => d.turns).toLocaleString() + ' turns<br>' + s(d => d.new_players) + ' new players<br>' +
+      (wkRow ? wkRow.returning + ' returning players<br><span class="of">(' + wkRow.earlier + ' from before this week)</span><br>' : '') +
+      '<span class="money">' + money(s(d => d.revenue)) + '</span></div></div>';
   }
   $('cal').innerHTML = html;
   $('legend').innerHTML = '<span>0</span><div class="ramp">' + RAMP.filter((_, i) => i % 2 === 0).map(c => '<i style="background:' + c + '"></i>').join('') + '</div><span>' + m.fmt(max) + ' (busiest day)</span>';
 }
 
 function retention() {
-  let html = ['Started week of', 'New players', 'D1', 'D7', 'Within 7', 'Ever back'].map(h => '<div class="h">' + h + '</div>').join('');
+  let html = ['Started week of', 'New players', 'D1', 'D7', 'Within 7', 'D-any (ever)'].map(h => '<div class="h">' + h + '</div>').join('');
   const cell = (a, b) => {
     if (!b) return '<div class="cell pending"><div class="pct">…</div><div class="of">not in yet</div></div>';
     const p = a / b, c = color(p, 0.5);
