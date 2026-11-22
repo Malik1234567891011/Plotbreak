@@ -78,6 +78,8 @@ enum SheetRoute: Identifiable, Hashable {
     case savedWorlds
     /// Plotbreak Pass — the story-request board.
     case storyRequests
+    /// The Plotbreak Pass paywall (design v3).
+    case pass
 
     var id: String {
         switch self {
@@ -99,6 +101,7 @@ enum SheetRoute: Identifiable, Hashable {
         case .comments(let storyId): return "comments:\(storyId)"
         case .savedWorlds: return "savedWorlds"
         case .storyRequests: return "storyRequests"
+        case .pass: return "pass"
         }
     }
 }
@@ -364,6 +367,7 @@ struct SheetHost: View {
             case .comments(let storyId): CommentsScreen(storyId: storyId)
             case .savedWorlds: SavedWorldsScreen()
             case .storyRequests: StoryRequestsScreen()
+            case .pass: PassScreen()
             }
         }
         .preferredColorScheme(.dark)
