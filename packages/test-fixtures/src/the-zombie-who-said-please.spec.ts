@@ -265,6 +265,22 @@ describe('adults only, and 13+', () => {
     expect(hunger.bands.map((b) => b.behaviour).join(' ')).toMatch(/warm/);
   });
 
+  it('puts the content limits in hard canon, which the storyteller-test briefs keep', () => {
+    // toneGuide alone is not enough: the player-first and all-in briefs win
+    // over it, and their "what still holds" list carries only hardCanon.
+    const canon = STORY.rules.hardCanon.join(' ');
+    expect(canon).toMatch(/Nobody in this story is ever shown wounded, bitten, bleeding or eaten/);
+    expect(canon).toMatch(/A bite always happens off the page/);
+    expect(canon).toMatch(/no further than one kiss/);
+    expect(canon).toMatch(/no scene cuts away to imply it/);
+    expect(canon).toMatch(/Everybody in this story is an adult/);
+    expect(canon).toMatch(/Ivo’s crew, every grey in Wexley, St Ide’s and the valley/);
+  });
+
+  it('says in hard canon what a bolt does to a grey, so turn one has no dead end', () => {
+    expect(STORY.rules.hardCanon.join(' ')).toMatch(/bolt in the shoulder and is dragged in for the doctor/);
+  });
+
   it('borrows no franchise vocabulary', () => {
     const FRANCHISE =
       /\b(walkers?|biters?|clickers?|infected zone|umbrella corp\w*|raccoon city|left 4 dead|the walking dead|resident evil|world war z|28 days|last of us|z nation)\b/i;
@@ -513,6 +529,20 @@ describe('the build screen and the ability cards', () => {
     expect(new Set(STORY.archetypes.map((a) => a.playstyle.join('|'))).size).toBe(STORY.archetypes.length);
   });
 
+  it('names each starting item in the archetype summary, the only place the narrator learns of it', () => {
+    const KIT: Record<string, RegExp> = {
+      arch_nurse: /penlight/,
+      arch_courier: /delivery map/,
+      arch_engineer: /multitool/,
+      arch_talker: /VISITOR lanyard/,
+      arch_doorman: /steel torch/,
+    };
+    for (const option of STORY.archetypes) {
+      expect(KIT[option.id], option.id).toBeDefined();
+      expect(option.summary, option.id).toMatch(KIT[option.id]!);
+    }
+  });
+
   it('gives every ability a card that says whether it can fail and what it costs', async () => {
     const { abilityEffect } = await import('@plotbreak/contracts');
     for (const ability of STORY.abilities) {
@@ -582,9 +612,30 @@ describe('six voices, six mouths', () => {
     expect(sample('ivo')).toMatch(/Friend|friend/);
     expect(sample('the_horde')).toMatch(/^\.\.\./);
   });
+
+  it('leaves the counting to Cole, so the two people in the opening scene sound different', () => {
+    const jessa = STORY.characters.find((c) => c.id === 'jessa')!;
+    const said = [jessa.speechStyle, ...jessa.publicTraits, ...jessa.voiceSamples].join(' | ');
+    expect(said).not.toMatch(/\bcounts?\b|Thirty-eight|Nineteen/i);
+  });
 });
 
 describe('the Horde arrives whatever you do, and can still be answered', () => {
+  it('has one arrival time everywhere the narrator reads it', () => {
+    // World events reach production with no times, and hardCanon is fixed
+    // truth, so the canon line and the events must agree on dawn, day three.
+    const canon = STORY.rules.hardCanon.find((f) => f.startsWith('The Horde'))!;
+    expect(canon).toMatch(/at dawn on the third day/);
+    const atWater = STORY.worldEvents.find((e) => e.id === 'we_at_the_water')!;
+    expect(Math.floor(atWater.atWorldMinute / 1440)).toBe(2);
+    expect(allCopy()).not.toMatch(/\bsecond (day|night)\b/i);
+  });
+
+  it('keeps the cast cards from answering the main mystery', () => {
+    const sunny = STORY.characters.find((c) => c.id === 'sunny')!;
+    expect(sunny.cardBlurb).not.toMatch(/reason|four thousand|horde|walking towards/i);
+  });
+
   it('gives every pressure event a way to be switched off', () => {
     const flags = settable();
     for (const id of ['we_front_in_sight', 'we_at_the_water', 'we_the_lock_gates', 'we_nine_oclock']) {

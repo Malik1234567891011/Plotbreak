@@ -95,42 +95,61 @@ The player is a grey who can think, speak and choose, protagonist `BLANK`
    - **You Kept the Door**: defence and intimidation. Menace, Fighting; a
      doorman's torch.
 3. **What do you still remember about yourself?** (optional, one sentence)
-4. Advanced: first instinct at the wire, and what she sees through the wire.
+4. Advanced: first instinct at the wire, and what you look like now (this
+   reaches only the portrait generator).
 
 The only identity the storyteller reads is the archetype plus name and
-pronouns, so everything the archetype means is in its summary and blurb.
+pronouns, so everything the archetype means, starting item included, is in
+its summary and blurb. Line 3 (`worldKnowsAboutYou`) never reaches the
+production storyteller; that is a platform gap, not one this story can fix.
 
 Everyone starts with **the hospital wristband**: ST IDE'S / TRIAL 9 / 31,
 name scratched off. Looking at it opens the optional Trial Nine thread.
 
 ### Minimal hard canon
 
+All of this is in `rules.hardCanon`. The content limits live there and not
+only in the tone guide, because the storyteller-test briefs override the tone
+guide and keep only hard canon.
+
 - The grey took the cities two years ago. Greys stop speaking, run cold, and
-  walk towards warmth and sound. A bite passes it on.
+  walk towards warmth and sound. A bite or a deep scratch passes it on. Most
+  people go grey within a day; a few run colder for weeks first.
 - The player died last night and woke as a grey who can still think and speak.
   Nobody knows why.
 - Other greys ignore the player. The player hears them as a murmur of last
   sentences.
-- The hunger is for warmth, never flesh, and the player always decides.
+- The hunger is for warmth, never flesh, and the player always decides. They
+  can feel from across a room who is feverish and who is running cold.
 - Kestrel Lock holds 38 survivors. Greys will not cross running water while the
   weir runs. Nothing grey crosses the footbridge.
-- The Horde, about 4,000 greys, reaches the water early on the second day
-  unless its course changes.
-- Every person in the cast and every voice in the murmur is an adult.
+- The Horde, about 4,000 greys, reaches the water at dawn on the third day,
+  about two days from now, unless its course changes.
+- Everybody in this story is an adult: the 38 at the Lock, Ivo's crew, every
+  grey in Wexley, St Ide's and the valley, and every voice in the murmur.
+  Nobody in it is under eighteen.
+- Greys are hard to stop. A crossbow bolt slows the player without ending
+  them. Whoever goes for somebody at the wire takes a bolt in the shoulder and
+  is dragged in for the doctor anyway.
+- Nobody is ever shown wounded, bitten, bleeding or eaten. A bite always
+  happens off the page and is told by what it costs afterwards; any other
+  hurt gets one plain line and never a description of the wound.
+- Romance goes no further than one kiss, on the page or off it. Nobody goes
+  to bed with anybody, and no scene cuts away to imply it.
 
 ## Opening scene
 
 The player is at the landward wire of Kestrel Lock at 06:10 on day one. Jessa
 and Cole are there. Nobody else is.
 
-Opener as shipped (102 words):
+Opener as shipped (104 words):
 
 > "Don't. Move."
 >
 > The woman behind the wire has a crossbow, and the bolt is resting on your
 > chest. Under it, nothing beats.
 >
-> "Jessa!" yells the man on the watchtower. "That's a grey. Put it down!"
+> "Jessa!" yells the man on the watchtower. "That's a grey. Put a bolt in it!"
 >
 > Jessa doesn't. She's staring at your eyes, which are apparently the wrong
 > kind of clear.
@@ -148,11 +167,12 @@ Opener as shipped (102 words):
 > "Say something else."
 
 Checks: Jessa speaks to the player in the first two words and is named by
-word 22. It ends on a demand. No proper noun the player has to know already.
+word 23. It ends on a demand. No proper noun the player has to know already.
 
 Opening suggestions (one said, one done, one risky):
 
-1. Said: *"I'm sorry. I don't know what I am. I only know I'm still in here."*
+1. Said: *"Thank you for not shooting me. I would be very grateful if you kept
+   not doing it."*
 2. Done: *I take my hands off the wire, one at a time, and step back into the
    light so she can see my eyes.*
 3. Risky: *I turn my back on the crossbow and point up the valley.
@@ -170,21 +190,22 @@ Night watch on the wire, the best shot at the Lock, the one who did not fire.
 
 - **Wants:** to know whether there is still a person in there before Cole
   decides for everyone; to hold the wire until the Horde passes.
-- **Hidden:** her older brother Tam (22 when he turned) was left outside the
+- **Hidden:** her older brother Tam (25 when he turned) was left outside the
   gate on the first night. She volunteered for nights so that if he ever came
   to the wire she would be the one who saw him. 712 tally marks on the stock.
 - **Fears:** being right to have waited and finding out too late; becoming the
   person who shoots first.
 - **Voice:** short. Imperatives and questions, almost nothing else. Repeats
-  your last word back. Counts aloud when rattled. Never says sorry; says
-  "Noted." *"Say something else." "You blinked. They do not blink. Do it
-  again."*
+  your last word back. When rattled, goes quiet and makes you say it again.
+  Watches your mouth, not your eyes, while you talk. Never says sorry; says
+  "Noted." She does not count out loud: numbers are Cole's. *"Say something
+  else." "Hungry. You said hungry. Hungry for what?"*
 - **Gates:** lowers the crossbow (trust 30); tells you about Tam (trust 55,
   after day one); sits close on purpose (romance, trust 65 / affection 55).
 
 ### Ife "Doc" Amari (41)
 
-The camp doctor. A vet for nineteen years before the grey.
+The camp doctor. A vet for fourteen years before the grey.
 
 - **Wants:** a sample of your blood and a week to work on it; to keep her
   sleeve down until she has an answer.
@@ -225,7 +246,7 @@ happen at the Lock in two years.
 - **Hidden:** every night at nine he sends a tone and a call for survivors on
   the old valley repeater, against Cole's orders. The Horde turned south the
   first night he did it and has been walking towards the tone ever since. He
-  has no idea.
+  has no idea, and his cast card must not give it away.
 - **Voice:** fast and bright, radio procedure for everything ("copy", "over",
   "say again"). Three questions before you answer one. Goes quiet and formal
   when scared. *"Do they dream? Do you? Is it cold? Sorry. Over. Your turn."*
@@ -236,8 +257,9 @@ Captain of the Ferrymen, a river trader who has come up the weir to buy you.
 
 - **Wants:** to buy you, from Cole or from yourself, before the Horde closes
   the river; to get his crew to the coast before winter.
-- **Hidden:** the coast laboratory he sells to wants live subjects. He tells
-  himself it is for a cure and has never been inside to check.
+- **Hidden:** the coast laboratory he sells to wants greys brought in whole
+  and still moving. He tells himself it is for a cure and has never been
+  inside to check.
 - **Boundary:** will not take you by force, and never breaks a deal once
   shaken on.
 - **Voice:** easy merchant talk. Calls everyone "friend". Prices everything in
@@ -275,8 +297,9 @@ Three invisible banded variables. The prose shows them; no meter does.
 
 ## Places
 
-- **The Wire** (start): two rows of chain-link, tin cans, a scaffold
-  watchtower, a winch footbridge.
+- **The Wire** (start): chain-link, tin cans, a scaffold watchtower, a single
+  mesh gate onto a winch footbridge. The player stands at the gate, close
+  enough to touch through it.
 - **Kestrel Lock**: the island. Lock chamber, narrowboats, cook fire.
 - **The Pump House**: cold brick room that bolts from outside. Where the camp
   keeps things it is not sure about. A folded blanket.
@@ -371,8 +394,8 @@ Twelve endings, all four rarities.
 - **The Lock Falls** (Common): nobody turned the crowd. No mistake needed.
 - **Cargo** (Uncommon): sold downriver by the vote; haggling with Ivo by the
   second lock.
-- **Home, in the Murmur** (Uncommon): joined the crowd. A homecoming and a
-  loss, both true.
+- **Home, in the Murmur** (Uncommon): joined the crowd, still yourself. A
+  homecoming and a loss, both true, and never written as giving up your mind.
 - **The Grey Who Left** (Uncommon, from turn 18): walked away from everyone.
 - **The Shepherd** (Rare): led the crowd away and kept walking.
 - **Say Something Else** (Rare): Jessa, slow and careful, at most one kiss.

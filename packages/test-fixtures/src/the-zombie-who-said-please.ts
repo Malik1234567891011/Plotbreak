@@ -20,8 +20,8 @@ import { StoryVersion } from '@plotbreak/contracts';
  * wants to know whether there is still somebody in there, and she has a
  * private reason for needing the answer to be yes.
  *
- * The clock is the Horde: about four thousand greys that reach the water on
- * the second day whatever the player does, and the camp is safe only as long
+ * The clock is the Horde: about four thousand greys that reach the water at
+ * dawn on the third day whatever the player does, and the camp is safe only as long
  * as the weir runs. It is walking towards the nine o'clock tone Sunny sends on
  * the old repeater, which nobody knows yet. Five things can be done about it
  * and one of them is joining it, written as a choice rather than a failure.
@@ -32,8 +32,8 @@ import { StoryVersion } from '@plotbreak/contracts';
  *
  * 13+, and the rules for that are mechanical rather than a note: the hunger
  * is for warmth, never flesh; horror is posture, sound and temperature; a bite,
- * if one happens, happens off the page. Every person in the cast is an adult,
- * and so is every voice in the murmur.
+ * if one happens, happens off the page. Everybody in the story is an adult,
+ * every grey included, and all of that is in hardCanon, where production reads it.
  *
  * Three variables. Clarity is the only GOOD_HIGH, because `resolveRest`
  * refills those and sitting somewhere cold and quiet really is how a grey gets
@@ -73,7 +73,7 @@ const raw = {
   contentDescriptors: ['HORROR', 'FANTASY_VIOLENCE', 'PSYCHOLOGICAL_THEMES', 'MORAL_AMBIGUITY', 'ROMANCE'],
   intensity: 'MODERATE',
   creatorNote:
-    'You can talk your way through the wire, walk into a dead town for medicine nobody else can reach, sell yourself to a river trader, or walk off and join the crowd coming down the valley. The camp can vote you out. The doctor will ask your permission for everything. Every one of those is the whole game, and the only rule is that you are the one who decides what to do about the hunger.',
+    'You can talk your way through the wire, walk into a dead town for medicine nobody else can reach, sell yourself to a river trader, or walk off and join the crowd coming down the valley. The camp can vote you out. The doctor will ask your permission for everything. Any one of those can be the whole game, and the only rule is that you are the one who decides what to do about the hunger.',
   rules: {
     defeatMode: 'FAIL_FORWARD',
     progressionMode: 'MILESTONE',
@@ -85,14 +85,17 @@ const raw = {
     startWorldMinute: 6 * 60 + 10,
     startingItems: [{ itemId: 'wristband', qty: 1 }],
     hardCanon: [
-      'The grey is an infection that took the cities two years ago. The people it takes, called greys, stop speaking, run cold, and walk towards warmth and sound. A bite passes it on.',
+      'The grey is an infection that took the cities two years ago. The people it takes, called greys, stop speaking, run cold, and walk towards warmth and sound. A bite or a deep scratch passes it on. Most people go grey within a day; a few run colder for weeks first.',
       'The player died last night and woke this morning as a grey who can still think, speak and choose. Nobody, including the player, knows why. Their heart does not beat and their skin is cold to the touch.',
       'Other greys ignore the player and treat them as one of their own. The player can walk among them unharmed, and can hear them as a murmur made of the last things they said.',
-      'The player is hungry for warmth: fires, hot water, and living people, who are the warmest things around. The pull is real and grows when they are cold. It is never an appetite for flesh, and the player always decides what to do with it.',
+      'The player is hungry for warmth: fires, hot water, and living people, who are the warmest things around. The pull is real and grows when they are cold. It is never an appetite for flesh, and the player always decides what to do with it. They can feel from across a room who is feverish and who is running cold.',
       'Kestrel Lock is a canal-lock island holding thirty-eight survivors behind water and wire. Greys will not cross running water while the weir runs. The camp rule is that nothing grey crosses the footbridge.',
-      'The Horde, about four thousand greys, is walking down the valley towards the Lock and will reach the water early on the second day unless something changes its course.',
+      'The Horde, about four thousand greys, is walking down the valley towards the Lock and will reach the water at dawn on the third day, about two days from now, unless something changes its course.',
       'The player wears a hospital wristband printed ST IDE’S / TRIAL 9 / 31 with the name scratched off. What it means is discoverable, and is never pushed on a player who does not go looking.',
-      'Everybody at the Lock, and every voice in the murmur, is an adult. Nobody here is a villain; Cole, Doc Amari and Ivo Kade each want something from the player for a reason they could defend.',
+      'Everybody in this story is an adult: the thirty-eight at the Lock, Ivo’s crew, every grey in Wexley, St Ide’s and the valley, and every voice in the murmur. Nobody in it is under eighteen. Nobody here is a villain; Cole, Doc Amari and Ivo Kade each want something from the player for a reason they could defend.',
+      'Greys are hard to stop. A crossbow bolt slows the player without ending them, and they barely feel it. The Lock would rather net, chain and study something new than kill it: whoever goes for somebody at the wire takes a bolt in the shoulder and is dragged in for the doctor anyway.',
+      'Nobody in this story is ever shown wounded, bitten, bleeding or eaten. A bite always happens off the page and is told only by what it costs afterwards. Any other hurt, the player’s included, gets one plain line about the moment and never a description of the wound.',
+      'Romance in this story goes no further than one kiss, on the page or off it. Nobody goes to bed with anybody, and no scene cuts away to imply it.',
     ],
     toneGuide:
       'Dark comedy with a warm, stubborn heart. The joke is that the only polite person left in the valley is dead, and the joke never gets in the way of the fear or the grief. ' +
@@ -582,8 +585,8 @@ const raw = {
       id: 'answer_the_hum',
       name: 'Answer the Murmur',
       tags: ['survival'],
-      description: 'Stop holding yourself apart and let the murmur have you. It is warm in there. Everyone in it says so.',
-      affordances: ['answer them', 'go to them', 'join them', 'go home to them', 'let it in', 'stop fighting it', 'walk into the horde'],
+      description: 'Walk into the crowd and let it take you in, holding on to your own mind inside it. It is warm in there. Everyone in it says so.',
+      affordances: ['answer them', 'go to them', 'join them', 'go home to them', 'walk into the horde'],
       costs: [{ resourceId: 'clarity', amount: 20 }],
       cooldownMinutes: 0,
       targetRule: 'NONE',
@@ -603,7 +606,7 @@ const raw = {
       name: 'The Wire',
       shortName: 'The Wire',
       description:
-        'The landward fence of Kestrel Lock: two rows of chain-link and pallets strung with tin cans, a scaffold watchtower, and a gate onto a footbridge that winches up at night. Two years of greys have leaned on this wire. The ground in front of it is trodden flat and grey with ash from the burn barrels.',
+        'The landward fence of Kestrel Lock: chain-link and pallets strung with tin cans, a scaffold watchtower, and a single mesh gate onto a footbridge that winches up at night. Whoever comes to the gate stands close enough to touch through it. Two years of greys have leaned on this wire. The ground in front of it is trodden flat and grey with ash from the burn barrels.',
       artDirection:
         'Chain-link fence beside a canal at dawn, tin cans strung along the wire, a scaffold watchtower, a raised wooden footbridge behind, mist on black water, two burn barrels. Cold blue light with one warm lamp.',
       connections: [
@@ -716,7 +719,7 @@ const raw = {
       name: 'The Ferry Landing',
       shortName: 'Landing',
       description:
-        'A stone landing below the weir where the Ferrymen tie up their barge: a long black hull with a wheelhouse, diesel drums on the deck, a striped awning and a brazier. Everything aboard is for sale, and Ivo says the crew are negotiable.',
+        'A stone landing below the weir where the Ferrymen tie up their barge: a long black hull with a wheelhouse, diesel drums on the deck, a striped awning and a brazier. Everything aboard is for sale, and Ivo says even the price of passage is negotiable.',
       artDirection:
         'A stone river landing below a weir, a long black working barge with a wheelhouse and a striped awning, diesel drums, a glowing brazier, ropes and fenders. Busy, smoky, mercantile.',
       connections: [
@@ -891,7 +894,7 @@ const raw = {
       cardBlurb:
         'She has had a bolt resting on your chest since dawn and has not fired it, because you said please. Nobody at the Lock knows why that matters so much to her, and you will have to earn the right to ask.',
       pronouns: 'she/her',
-      publicTraits: ['Counts everything: bolts, steps, nights', 'Says less than anyone and means all of it', 'Funny about once a day, without warning'],
+      publicTraits: ['Watches your mouth, not your eyes, while you talk', 'Says less than anyone and means all of it', 'Funny about once a day, without warning'],
       hiddenDrives: [
         'Her older brother Tam was left outside the gate on the first night, and she has checked the face of every grey that has come to this wire since, in case it was him',
         'She has always wondered whether he would have said something, if somebody had waited one second longer, and you are the first answer she has ever had',
@@ -926,13 +929,13 @@ const raw = {
         },
       ],
       speechStyle:
-        'Short. Imperatives and questions and almost nothing else. Repeats your last word back instead of answering. Counts out loud when she is rattled. Never says sorry; says "Noted." and moves on.',
+        'Short. Imperatives and questions and almost nothing else. Repeats your last word back instead of answering. When she is rattled she goes quiet and makes you say it again. Never says sorry; says "Noted." and moves on.',
       topics: ['the wire', 'the night watch', 'her crossbow', 'her brother', 'Cole Garrity', 'what you remember'],
       voiceSamples: [
         'Say something else.',
-        'Again. Slower. I want to watch your mouth do it.',
+        'Again. Slower. I am watching your lips.',
         'You blinked. They do not blink. Do it again.',
-        'Nineteen bolts. Two days. Thirty-eight people. Noted.',
+        'Hungry. You said hungry. Hungry for what?',
         'Everybody says please at the end. You are the first one who said it at the start.',
       ],
       appearance:
@@ -945,7 +948,7 @@ const raw = {
       schedule: [
         { startMinute: 0, endMinute: 420, locationId: 'the_wire', activity: 'on the night watch at the wire, crossbow across her knees' },
         { startMinute: 420, endMinute: 720, locationId: 'lock_yard', activity: 'on her narrowboat with the hatch shut, sleeping off the watch' },
-        { startMinute: 720, endMinute: 900, locationId: 'the_weir', activity: 'on the weir wall, cleaning and counting bolts' },
+        { startMinute: 720, endMinute: 900, locationId: 'the_weir', activity: 'on the weir wall, cleaning bolts and re-fletching the bent ones' },
         { startMinute: 900, endMinute: 1260, locationId: 'lock_yard', activity: 'mending the fence line and not watching the pump house' },
         { startMinute: 1260, endMinute: 1440, locationId: 'the_wire', activity: 'climbing up for the night watch' },
       ],
@@ -1022,7 +1025,7 @@ const raw = {
       voiceSamples: [
         'May I? Your arm, I mean. You can say no. I would like you to know that you can say no.',
         'Core temperature of a cellar. Pupils reactive. Clinically speaking you are a contradiction, and I mean that warmly.',
-        'I treated sheepdogs for nineteen years. The principles are mostly transferable. Mostly.',
+        'I treated sheepdogs for fourteen years. The principles are mostly transferable. Mostly.',
         'Sorry, sorry, that was the tray. I am apologising to a tray.',
       ],
       appearance:
@@ -1145,7 +1148,7 @@ const raw = {
       name: 'Sunny Abara',
       role: 'Runs the generator and the radios, and decided inside a minute that you are the best thing to happen at the Lock in two years',
       cardBlurb:
-        'He will give you a call sign, follow you around, ask you nine questions a minute and tell everyone you are fine. He is also, without knowing it, the reason four thousand greys are walking towards you.',
+        'He will give you a call sign, follow you around, ask you nine questions a minute and tell everyone you are fine. Every night at nine he shuts himself in the radio shed, and he goes very quiet if you ask him why.',
       pronouns: 'he/him',
       publicTraits: ['Talks in radio procedure even face to face', 'Can fix anything with a plug on it', 'Cannot keep a secret for an hour'],
       hiddenDrives: [
@@ -1218,7 +1221,7 @@ const raw = {
       name: 'Ivo Kade',
       role: 'Captain of the Ferrymen, a river trader who buys anything rare, and who has come up the weir to buy you',
       cardBlurb:
-        'He is charming, honest about prices, and the only person in the valley offering to take you somewhere else. What he plans to sell you as at the coast is a question you should ask before you step onto his barge.',
+        'He is charming, honest about prices, and the only person in the valley offering to take you somewhere else. Before you step onto his barge, ask him who is buying at the coast.',
       pronouns: 'he/him',
       publicTraits: ['Prices everything out loud, including compliments', 'Keeps every bargain to the letter', 'Laughs easily and means about half of it'],
       hiddenDrives: [
@@ -1237,7 +1240,7 @@ const raw = {
       secrets: [
         {
           id: 'ivo_the_coast',
-          fact: 'The coast laboratory he sells to wants live subjects. He has told himself it is to make a cure. He has never been inside to check.',
+          fact: 'The coast laboratory he sells to wants greys brought in whole and still moving. He has told himself it is to make a cure. He has never been inside to check.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'He admits it if you ask him straight what happens to you at the coast and you are already on good terms.',
         },
@@ -1526,7 +1529,7 @@ const raw = {
           id: 'what_to_do_about_it',
           playerCopy: 'Decide what happens when four thousand of your own kind reach the water.',
           directorNotes:
-            'Six real answers and none of them is clean. Leading the crowd away costs the player the camp’s comfort, because everybody has now seen what follows them. Flooding the island needs the camp to trust the player at the paddles. Moving the camp onto Ivo’s barge needs a deal with him and leaves the Lock to the greys. Shutting the broadcast off breaks Sunny’s heart a little, and may be enough. Walking into the crowd is a choice and must be written as one, never as a failure. If nobody does anything, the weight of the crowd pushes the front across the lock gates on the second night, and that is a real outcome too.',
+            'Six real answers and none of them is clean. Leading the crowd away costs the player the camp’s comfort, because everybody has now seen what follows them. Flooding the island needs the camp to trust the player at the paddles. Moving the camp onto Ivo’s barge needs a deal with him and leaves the Lock to the greys. Shutting the broadcast off breaks Sunny’s heart a little, and may be enough. Walking into the crowd is a choice and must be written as one, never as a failure. If nobody does anything, the weight of the crowd pushes the front across the lock gates on the night after it reaches the water, and that is a real outcome too.',
           enterWhen: { flagsSet: ['horde_understood'] },
           succeedWhen: null,
           succeedWhenAny: [
@@ -2110,7 +2113,7 @@ const raw = {
       locationId: 'the_wire',
       publicCopy: 'Night. The crowd behind the front is so heavy that the front is being pushed into the canal, and the old lock gates start to groan.',
       directorNotes:
-        'This is the loss that needs no mistake. If nobody has turned the crowd, flooded the island or moved the camp, the front crosses on the second night. Write it as a scramble to get people onto the boats, never as gore, and let the player decide who they carry.',
+        'This is the loss that needs no mistake. If nobody has turned the crowd, flooded the island or moved the camp, the front crosses that night. Write it as a scramble to get people onto the boats, never as gore, and let the player decide who they carry.',
       setsFlags: ['the_lock_under_pressure'],
       cancelledByFlags: ['horde_turned_aside', 'lock_held', 'lock_abandoned', 'went_with_the_horde'],
       requiresFlags: [],
@@ -2164,7 +2167,7 @@ const raw = {
       id: 'arch_nurse',
       name: 'You Were a Nurse',
       role: 'Healing and steady nerves',
-      summary: 'You know bodies, including your new one, so you stay steadier near warm people and you are better at telling who is sick.',
+      summary: 'You know bodies, including your new one, so you stay steadier near warm people and you are better at telling who is sick. You still have your penlight.',
       playstyle: ['Calm', 'Clinical', 'Reads people'],
       blurb: 'Twelve years of night shifts taught you to keep your voice level while somebody panics, and it turns out that still works from this side.',
       attributeBonus: { resolve: 2, mind: 1 },
@@ -2177,7 +2180,7 @@ const raw = {
       id: 'arch_courier',
       name: 'You Drove Deliveries',
       role: 'Scout and scavenger',
-      summary: 'You know every back street in the dead town and where things were kept, so supply runs into the dead town are where you shine.',
+      summary: 'You know every back street in the dead town and where things were kept, so supply runs are where you shine. Your delivery map of Wexley, every back door and key-safe code in your handwriting, is still in your pocket.',
       playstyle: ['Knows the town', 'Quick hands', 'Scavenger'],
       blurb: 'You delivered to every door on Wexley High Street for six years. Most of the same faces are still standing in them.',
       attributeBonus: { agility: 2, mind: 1 },
@@ -2190,7 +2193,7 @@ const raw = {
       id: 'arch_engineer',
       name: 'You Fixed Machines',
       role: 'Technical and heavy work',
-      summary: 'Locks, pumps, winches and generators make sense to you, and dead strength makes you the best pair of hands the camp has ever had.',
+      summary: 'Locks, pumps, winches and generators make sense to you, and dead strength makes you the best pair of hands the camp has ever had. Your heavy multitool is still on your belt.',
       playstyle: ['Practical', 'Strong', 'Fixes things'],
       blurb: 'You maintained pumping stations up and down this valley. You have opinions about this weir, and they are not kind.',
       attributeBonus: { might: 2, mind: 1 },
@@ -2203,7 +2206,7 @@ const raw = {
       id: 'arch_talker',
       name: 'You Talked for a Living',
       role: 'Persuasion and bluffing',
-      summary: 'You sold things, or taught, or argued for a living, so you are best at talking people out of pointing things at you.',
+      summary: 'You sold things, or taught, or argued for a living, so you are best at talking people out of pointing things at you. A laminated VISITOR lanyard still hangs round your neck.',
       playstyle: ['Persuasive', 'Quick talker', 'Bluffs'],
       blurb: 'You once sold a conservatory to a man who lived in a flat. A crossbow is only a harder room.',
       attributeBonus: { presence: 3 },
@@ -2216,9 +2219,9 @@ const raw = {
       id: 'arch_doorman',
       name: 'You Kept the Door',
       role: 'Defence and intimidation',
-      summary: 'You worked doors and night security, so you know how to stand, how to frighten, and how to win a scrap you did not start.',
+      summary: 'You worked doors and night security, so you know how to stand, how to frighten, and how to win a scrap you did not start. You still carry the long steel torch from the door.',
       playstyle: ['Tough', 'Intimidating', 'Close quarters'],
-      blurb: 'Nine years on the door of a club on the ring road. You have been asked to leave by bigger men than Cole Garrity, and you never once went quietly.',
+      blurb: 'Nine years on the door of a club on the ring road. You have been asked to leave by bigger men than whoever runs that camp, and you never once went quietly.',
       attributeBonus: { might: 2, resolve: 1 },
       skillProficiencies: { menace: 3, fighting: 2 },
       startingItems: [{ itemId: 'door_torch', qty: 1 }],
@@ -2262,7 +2265,7 @@ const raw = {
     },
     {
       id: 'appearance',
-      label: 'What does she see through the wire?',
+      label: 'What do you look like now?',
       kind: 'TEXT',
       advanced: true,
       maxLength: 200,
@@ -2399,7 +2402,7 @@ const raw = {
       minTurn: 24,
       requires: { flagsSet: ['went_with_the_horde'] },
       condition:
-        'The player answered the murmur and walked into the crowd. This is a homecoming as well as a loss, and both must be true on the page: it is warm in there, everybody says so, and the player’s last clear thought is a choice rather than a surrender. No gore, no horror beats; a crowd closing around somebody like a coat.',
+        'The player answered the murmur and walked into the crowd still themselves: one mind of their own inside four thousand. This is a homecoming as well as a loss, and both must be true on the page: it is warm in there, everybody says so, and the player goes in by choice, not in surrender, and does not stop being who they are. No gore, no horror beats; a crowd closing around somebody like a coat.',
       epilogue:
         'For a week afterwards Jessa thinks she can see a face in the crowd that tilts its head a little differently from the rest. Then the crowd moves north, and the murmur has one more word in it than it used to, which is please, said at the start.',
       hint: '',
@@ -2411,7 +2414,7 @@ const raw = {
       minTurn: 30,
       requires: { flagsSet: ['lock_fell'] },
       condition:
-        'Nobody turned the crowd in time, and the front crossed on the second night. This is the honest failure of a camp behind water and must not be written as a punishment. It is a scramble in the dark: boats, ropes, names shouted, and a grey who can walk through the crowd carrying people out of it.',
+        'Nobody turned the crowd in time, and the front crossed the night after it reached the water. This is the honest failure of a camp behind water and must not be written as a punishment. It is a scramble in the dark: boats, ropes, names shouted, and a grey who can walk through the crowd carrying people out of it.',
       epilogue:
         'Twenty-nine of the thirty-eight reach the river. They count the rest out loud on the bank, by name, which is the first time anybody has heard Cole Garrity use first names. The player is the one who goes back in for the last of them.',
       hint: '',
@@ -2445,13 +2448,13 @@ const raw = {
     },
   ],
   opening:
-    "\"Don’t. Move.\"\n\nThe woman behind the wire has a crossbow, and the bolt is resting on your chest. Under it, nothing beats.\n\n\"Jessa!\" yells the man on the watchtower. \"That’s a grey. Put it down!\"\n\nJessa doesn’t. She’s staring at your eyes, which are apparently the wrong kind of clear.\n\nYour hands on the wire are grey. You don’t remember the walk here. You remember one word, the one you said when you reached the fence.\n\nPlease.\n\n\"Two years of them at this wire,\" Jessa says, \"and you’re the first one who ever said please.\"\n\nThe bolt presses in.\n\n\"Say something else.\"",
+    "\"Don’t. Move.\"\n\nThe woman behind the wire has a crossbow, and the bolt is resting on your chest. Under it, nothing beats.\n\n\"Jessa!\" yells the man on the watchtower. \"That’s a grey. Put a bolt in it!\"\n\nJessa doesn’t. She’s staring at your eyes, which are apparently the wrong kind of clear.\n\nYour hands on the wire are grey. You don’t remember the walk here. You remember one word, the one you said when you reached the fence.\n\nPlease.\n\n\"Two years of them at this wire,\" Jessa says, \"and you’re the first one who ever said please.\"\n\nThe bolt presses in.\n\n\"Say something else.\"",
   openingPanel: {
     assetKey: 'story_the_zombie_who_said_please/opening',
     alt: 'Jessa behind a chain-link fence at dawn, crossbow raised, its bolt resting against the chest of a grey-skinned figure whose hands are on the wire.',
   },
   openingSuggestions: [
-    "\"I’m sorry. I don’t know what I am. I only know I’m still in here.\"",
+    "\"Thank you for not shooting me. I would be very grateful if you kept not doing it.\"",
     'I take my hands off the wire, one at a time, and step back into the light so she can see my eyes.',
     "I turn my back on the crossbow and point up the valley. \"Something’s coming. I can hear it. Thousands of them.\"",
   ],
