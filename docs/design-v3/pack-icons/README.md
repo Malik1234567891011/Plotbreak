@@ -1,31 +1,34 @@
-# Credit icons: one crystal
+# Credit icons: one crystal, growing containers
 
 Omar picked the single crystal from the first PixAI set (2026-11-22) as the one
-currency icon. Every other picture is that same crystal, piled up, so the cut,
-color and lineart never change between packs.
+currency icon. Packs show that same crystal in a container that grows with the
+price, the Clash Royale / Genshin step-up.
 
-| File | Used for | What it shows |
-|---|---|---|
-| `crystal.png` | Source for everything below (430×802 cutout) | the crystal |
-| `crystal-inline.png` | Every price, balance and cost in the app, at text size (51×96) | the crystal |
-| `pack-1000.png` | `crd_1000`, the Credits hero, daily log-in, quests | 1 crystal |
-| `pack-2000.png` / `first-purchase.png` | `crd_2000`, `crd_starter_700` (doubled to 1,400) | 2 crystals |
-| `pack-10000.png` | `crd_10000` | 4, a small heap |
-| `pack-20000.png` | `crd_20000` | 7 |
-| `pack-50000.png` | `crd_50000` | 12 |
-| `pack-100000.png` | `crd_100000` | 17 |
+| File | Used for | What it shows | Made by |
+|---|---|---|---|
+| `crystal.png` | Source (430×802 cutout) | the crystal | cut from `raw/pack-1000.webp` |
+| `crystal-inline.png` | Every price, balance and cost, at text size (51×96) | the crystal | same |
+| `pack-1000.png` | `crd_1000`, the Credits hero, log-in, quests | 1 crystal | composite (`pile.py`) |
+| `pack-2000.png` / `first-purchase.png` | `crd_2000`, `crd_starter_700` | 3 crystals | composite |
+| `pack-10000.png` | `crd_10000` | tan leather pouch | PixAI |
+| `pack-20000.png` | `crd_20000` | woven basket | PixAI |
+| `pack-50000.png` | `crd_50000` | open wooden crate | PixAI (`p50000-v2`) |
+| `pack-100000.png` | `crd_100000` | walnut chest, overflowing | PixAI |
 
 All pack PNGs are 512×512 with a transparent background.
 
-How they were made (no new generations; PixAI was at zero credits):
+The containers were made on PixAI Tsubaki.3 pro, 1024×1024, with the crystal
+original as a context image (`gen-containers.mts`), 4,900 credits each: seven
+tasks, 34,300 credits, logged in `docs/stories-50/pixai-ledger.tsv` as
+`design-v3:pack:*`. `raw/containers/` keeps all seven, including the rejects:
+`p2000` (too small, shard-shaped crystals), `p50000` and `p50000-v3` (read as a
+second chest). `cutpack.py` cuts each one from its black background.
 
-1. `python3 cut.py raw/pack-1000.webp crystal_t24.png 24` cuts the crystal out
-   of the 1024 px original. The sparkles around it were then removed by keeping
-   only the crystal's convex hull.
-2. `python3 pile.py` (run next to `crystal.png`) composites the piles: back
-   rows slightly darker, the front row lying down, and a soft contact shadow.
+The 1- and 3-crystal packs are composites of the real crystal, because the
+generated crystals drift toward quartz shards; in a container that drift is
+hidden, on its own it shows.
 
-## Why compositing and not a new generation
+## Earlier: why the first piles were composited and not a new generation
 
 A generated pile, even with the crystal as a reference image, redraws every
 gem, so the cut and the rainbow drift between tiers. That drift is the problem

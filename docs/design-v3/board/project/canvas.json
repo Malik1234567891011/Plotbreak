@@ -56,7 +56,7 @@
    "x": 0,
    "y": 3228,
    "w": 390,
-   "h": 1720,
+   "h": 1690,
    "title": "Story page (full scroll)"
   },
   "CharacterSetup.dc.html": {
@@ -82,98 +82,98 @@
   },
   "Welcome.dc.html": {
    "x": 0,
-   "y": 6076,
+   "y": 6446,
    "w": 390,
    "h": 844,
    "title": "Welcome / sign in"
   },
   "OnbProfile.dc.html": {
    "x": 470,
-   "y": 6076,
+   "y": 6446,
    "w": 390,
    "h": 844,
    "title": "Onboarding: name and birthday"
   },
   "OnbTaste.dc.html": {
    "x": 940,
-   "y": 6076,
+   "y": 6446,
    "w": 390,
    "h": 844,
    "title": "Onboarding: what you like"
   },
   "OnbShowcase.dc.html": {
    "x": 1410,
-   "y": 6076,
+   "y": 6446,
    "w": 390,
    "h": 844,
    "title": "Onboarding: pick a first story"
   },
   "Prologue.dc.html": {
    "x": 1880,
-   "y": 6076,
+   "y": 6446,
    "w": 390,
    "h": 844,
    "title": "Prologue"
   },
   "Library.dc.html": {
    "x": 0,
-   "y": 8008,
+   "y": 8378,
    "w": 390,
    "h": 844,
    "title": "Library"
   },
   "Create.dc.html": {
    "x": 470,
-   "y": 8008,
+   "y": 8378,
    "w": 390,
    "h": 844,
    "title": "Create"
   },
   "Pitch.dc.html": {
    "x": 940,
-   "y": 8008,
+   "y": 8378,
    "w": 390,
    "h": 844,
    "title": "Create: your pitch"
   },
   "Profile.dc.html": {
    "x": 1410,
-   "y": 8008,
+   "y": 8378,
    "w": 390,
    "h": 1000,
    "title": "Profile"
   },
   "Wallet.dc.html": {
    "x": 0,
-   "y": 10076,
+   "y": 10446,
    "w": 390,
    "h": 1600,
    "title": "Credits (full scroll)"
   },
   "Quality.dc.html": {
    "x": 470,
-   "y": 10076,
+   "y": 10446,
    "w": 390,
    "h": 844,
    "title": "Turn quality"
   },
   "Paywall.dc.html": {
    "x": 940,
-   "y": 10076,
+   "y": 10446,
    "w": 390,
    "h": 844,
    "title": "Out of credits"
   },
   "Pass.dc.html": {
    "x": 1410,
-   "y": 10076,
+   "y": 10446,
    "w": 390,
    "h": 844,
    "title": "Plotbreak Pass"
   },
   "Tower.dc.html": {
    "x": 1880,
-   "y": 10076,
+   "y": 10446,
    "w": 390,
    "h": 1000,
    "title": "The Tower"
@@ -215,16 +215,16 @@
   },
   "RefStory.dc.html": {
    "x": 0,
-   "y": 4996,
+   "y": 4966,
    "w": 390,
-   "h": 620,
+   "h": 1080,
    "title": "Where it came from: Story page"
   },
   "RefCharacterSetup.dc.html": {
    "x": 470,
    "y": 4776,
    "w": 390,
-   "h": 580,
+   "h": 720,
    "title": "Where it came from: Who are you?"
   },
   "RefWorldSheet.dc.html": {
@@ -243,100 +243,100 @@
   },
   "RefWelcome.dc.html": {
    "x": 0,
-   "y": 6968,
+   "y": 7338,
    "w": 390,
    "h": 520,
    "title": "Where it came from: Welcome"
   },
   "RefOnbProfile.dc.html": {
    "x": 470,
-   "y": 6968,
+   "y": 7338,
    "w": 390,
    "h": 580,
    "title": "Where it came from: Your name"
   },
   "RefOnbTaste.dc.html": {
    "x": 940,
-   "y": 6968,
+   "y": 7338,
    "w": 390,
    "h": 520,
    "title": "Where it came from: What you like"
   },
   "RefOnbShowcase.dc.html": {
    "x": 1410,
-   "y": 6968,
+   "y": 7338,
    "w": 390,
    "h": 520,
    "title": "Where it came from: First story"
   },
   "RefPrologue.dc.html": {
    "x": 1880,
-   "y": 6968,
+   "y": 7338,
    "w": 390,
    "h": 540,
    "title": "Where it came from: Prologue"
   },
   "RefLibrary.dc.html": {
    "x": 0,
-   "y": 8900,
+   "y": 9270,
    "w": 390,
    "h": 540,
    "title": "Where it came from: Library"
   },
   "RefCreate.dc.html": {
    "x": 470,
-   "y": 8900,
+   "y": 9270,
    "w": 390,
    "h": 560,
    "title": "Where it came from: Create"
   },
   "RefPitch.dc.html": {
    "x": 940,
-   "y": 8900,
+   "y": 9270,
    "w": 390,
    "h": 520,
    "title": "Where it came from: Your pitch"
   },
   "RefProfile.dc.html": {
    "x": 1410,
-   "y": 9056,
+   "y": 9426,
    "w": 390,
    "h": 560,
    "title": "Where it came from: Profile"
   },
   "RefQuality.dc.html": {
    "x": 470,
-   "y": 10968,
+   "y": 11338,
    "w": 390,
    "h": 520,
    "title": "Where it came from: Turn quality"
   },
   "RefPaywall.dc.html": {
    "x": 940,
-   "y": 10968,
+   "y": 11338,
    "w": 390,
    "h": 560,
    "title": "Where it came from: Out of credits"
   },
   "RefPass.dc.html": {
    "x": 1410,
-   "y": 10968,
+   "y": 11338,
    "w": 390,
    "h": 520,
    "title": "Where it came from: Plotbreak Pass"
   },
   "RefTower.dc.html": {
    "x": 1880,
-   "y": 11124,
+   "y": 11494,
    "w": 390,
    "h": 560,
    "title": "Where it came from: The Tower"
   },
   "RefWallet.dc.html": {
    "x": 0,
-   "y": 11724,
+   "y": 12094,
    "w": 390,
-   "h": 1120,
+   "h": 1260,
    "title": "Where it came from: Credits"
   }
  },
@@ -406,21 +406,21 @@
   },
   "rowFirstRun": {
    "x": 0,
-   "y": 5776,
+   "y": 6146,
    "text": "First run",
    "kind": "title1",
    "maxW": 2270
   },
   "rowTabs": {
    "x": 0,
-   "y": 7708,
+   "y": 8078,
    "text": "Library, create, profile",
    "kind": "title1",
    "maxW": 1800
   },
   "rowCredits": {
    "x": 0,
-   "y": 9776,
+   "y": 10146,
    "text": "Credits and the Tower",
    "kind": "title1",
    "maxW": 2270

@@ -190,7 +190,7 @@ glass on the floating layer.
 | Scene / stage 3:2 | full-bleed | Play background, chapter cards | Cropped to fill, centered on the vanishing point; darkened 0–20% by tint depending on brightness |
 | Portrait 2:3 on light paper | character square | Faces in play, cast row, World sheet | Faces are crops of the top 40%. The light paper ground is left as is, so faces read as cards on ink |
 | Prologue / opening 2:3 | full-bleed | Onboarding, prologue, end card | Full art, title card over the bottom third |
-| Crystal 1:1 | none (cut out) | Every currency spot; piles on the Credits store | **The one color exception**, like Character AI's candy beads. One PixAI crystal is the only currency mark. Pack tiles show the same crystal piled up (1, 2, 4, 7, 12, 17), composited, never regenerated, so it never changes cut or color. Files: `pack-icons/`. |
+| Crystal 1:1 | none (cut out) | Every currency spot; piles on the Credits store | **The one color exception**, like Character AI's candy beads. One PixAI crystal is the only currency mark. Pack tiles show that crystal in a container that grows with the price: one crystal, three, a pouch, a basket, a crate, a chest (PixAI, with the crystal as the reference image). Files: `pack-icons/`. |
 | Blurred cover backdrop | full-width wash | Home top, story page top | Blur 40, `story.mid` multiply, fades to `ink.0` over 220pt |
 
 ## Components

@@ -2,110 +2,126 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Story page: Hush House</title>
+<title>Story page</title>
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@800&amp;family=Zen+Old+Mincho:wght@400;500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#0F0E0D}
-a{color:#B4ADA3;text-decoration:none}a:hover{color:#F3EFE8}
-button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;padding:0;background:none}
+.pg{position:relative;width:390px;height:1690px;overflow:hidden;background:#0F0E0D;color:#F3EFE8;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+.glass{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:22px;background:rgba(15,14,13,0.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:inset 0 0 0 1px rgba(243,239,232,0.12)}
+.in{padding:0 20px}
+h1{margin:20px 0 0;font-size:28px;line-height:34px;font-weight:700;letter-spacing:-0.01em}
+.by{margin-top:2px;font-size:13px;line-height:18px;color:#948E85}
+.stats{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;line-height:18px;color:#B4ADA3}
+.stats b{font-weight:600;color:#F3EFE8}
+.dot{color:#45413B}
+.tags{display:flex;gap:6px;margin-top:12px}
+.tag{padding:4px 9px;border-radius:6px;background:#22201D;font-size:12px;line-height:16px;font-weight:500;color:#B4ADA3}
+.hook{margin:16px 0 0;font-size:17px;line-height:22px;font-weight:600}
+.cta{display:flex;gap:10px;margin-top:16px}
+.play{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:26px;background:#F3EFE8;color:#0F0E0D;font-size:17px;font-weight:600}
+.round{flex:none;display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:26px;background:#22201D}
+.as{display:flex;align-items:center;justify-content:space-between;margin-top:12px;font-size:13px;line-height:18px;color:#948E85}
+.as a{font-size:15px;font-weight:600;color:#F3EFE8}
+.sec{margin-top:36px}
+.head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+.head h2{margin:0;font-size:20px;line-height:25px;font-weight:600}
+.head span{font-size:13px;color:#948E85}
+.body{margin:0;font-size:15px;line-height:22px;color:#B4ADA3;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.more{display:inline-block;margin-top:6px;font-size:15px;font-weight:600}
+.cast{display:flex;gap:12px}
+.cast a{display:flex;flex-direction:column;width:76px}
+.cast img{display:block;width:76px;height:76px;border-radius:18px;object-fit:cover;object-position:50% 12%;background:#22201D}
+.cast .n{margin-top:8px;font-size:13px;line-height:18px;font-weight:500}
+.cast .r{font-size:12px;line-height:16px;color:#948E85}
+.ends{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.end{display:flex;align-items:center;justify-content:center;height:56px;border-radius:12px;background:#181715;color:#948E85}
+.end.got{background:#22201D;color:#F3EFE8}
+.note{margin-top:10px;font-size:13px;line-height:18px;color:#948E85}
+.rail{display:flex;gap:12px}
+.tile{flex:none;width:104px;display:flex;flex-direction:column;gap:2px}
+.tile img{display:block;width:104px;height:156px;border-radius:8px;object-fit:cover;margin-bottom:6px}
+.tile .n{font-size:13px;line-height:18px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .m{font-size:12px;line-height:16px;color:#948E85}
 </style>
 </helmet>
-<div style="position: relative; width: 390px; height: 1720px; overflow: hidden; background: #1C100F; color: #F3EFE8; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased">
+<div class="pg">
 
-  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 620px; overflow: hidden">
-    <img src="/_blob/f6d81adac383cbc4d4fe26d041fdbda3" alt="" style="position: absolute; left: -60px; top: -60px; width: 510px; height: 765px; object-fit: cover; filter: blur(40px) saturate(1.1); opacity: 0.55">
-    <div style="position: absolute; inset: 0; background: #442522; mix-blend-mode: multiply; opacity: 0.6"></div>
-    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(28,16,15,0.2) 0%, rgba(28,16,15,0.1) 40%, #1C100F 100%)"></div>
+  <img src="/_blob/f6d81adac383cbc4d4fe26d041fdbda3" alt="Hush House cover" style="display: block; width: 390px; height: 585px; object-fit: cover">
+
+  <a href="Main.dc.html" class="glass" aria-label="Back" style="position: absolute; left: 20px; top: 54px">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+  </a>
+  <div style="position: absolute; right: 20px; top: 54px; display: flex; gap: 8px">
+    <button class="glass" aria-label="Share"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></button>
+    <button class="glass" aria-label="More"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.8" fill="#F3EFE8"></circle><circle cx="12" cy="12" r="1.8" fill="#F3EFE8"></circle><circle cx="19" cy="12" r="1.8" fill="#F3EFE8"></circle></svg></button>
   </div>
 
-  <header style="position: absolute; left: 20px; right: 20px; top: 54px; display: flex; align-items: center; justify-content: space-between">
-    <a href="Main.dc.html" aria-label="Back" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 22px; background: rgba(15,14,13,0.5); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.12)">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
-    </a>
-    <div style="display: flex; gap: 8px">
-      <button aria-label="Like" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; border-radius: 22px; background: rgba(15,14,13,0.5); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.12)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.2-4.4-9.2-8.8C1.4 8 3.4 4.6 6.8 4.6c2 0 3.5 1 5.2 2.9 1.7-1.9 3.2-2.9 5.2-2.9 3.4 0 5.4 3.4 4 6.6C19.2 15.6 12 20 12 20z"></path></svg>
-      </button>
-      <button aria-label="More" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; border-radius: 22px; background: rgba(15,14,13,0.5); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.12)">
-        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="1.7" fill="#F3EFE8"></circle><circle cx="12" cy="12" r="1.7" fill="#F3EFE8"></circle><circle cx="18.5" cy="12" r="1.7" fill="#F3EFE8"></circle></svg>
-      </button>
+  <div class="in">
+    <h1>Hush House</h1>
+    <div class="by">A Plotbreak original</div>
+    <div class="stats">
+      <svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="#B4ADA3"></path></svg><span><b>1.6M</b> plays</span>
+      <span class="dot">·</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.3-9.4C1.5 8.3 3.6 5 7 5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.4 0 5.5 3.3 4.3 6.6C19.5 16.4 12 21 12 21z" fill="#B4ADA3"></path></svg><span><b>86K</b> likes</span>
+      <span class="dot">·</span>
+      <span><b>5</b> endings</span>
     </div>
-  </header>
+    <div class="tags"><span class="tag">Horror</span><span class="tag">Mystery</span><span class="tag">Romance</span></div>
 
-  <div style="position: relative; padding: 110px 20px 0">
-    <div style="display: flex; gap: 4px">
-      <img src="/_blob/f6d81adac383cbc4d4fe26d041fdbda3" alt="Hush House cover" style="display: block; width: 232px; height: 348px; object-fit: cover; border-radius: 3px">
-      <dl style="margin: 0; flex: 1; display: grid; grid-template-rows: repeat(4, minmax(0, 1fr)); gap: 4px">
-        <div style="display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 12px; border-radius: 3px; background: rgba(15,14,13,0.45); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.10)"><dd style="margin: 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 22px; line-height: 26px">86K</dd><dt style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">LIKES</dt></div>
-        <div style="display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 12px; border-radius: 3px; background: rgba(15,14,13,0.45); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.10)"><dd style="margin: 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 22px; line-height: 26px">1.6M</dd><dt style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">PLAYS</dt></div>
-        <div style="display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 12px; border-radius: 3px; background: rgba(15,14,13,0.45); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.10)"><dd style="margin: 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 22px; line-height: 26px">5</dd><dt style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">ENDINGS</dt></div>
-        <div style="display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 12px; border-radius: 3px; background: rgba(15,14,13,0.45); box-shadow: inset 0 0 0 1px rgba(243,239,232,0.10)"><dd style="margin: 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 22px; line-height: 26px">5</dd><dt style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">PEOPLE</dt></div>
-      </dl>
+    <p class="hook">Do not open the door at 2:13 a.m.</p>
+
+    <div class="cta">
+      <a href="Prologue.dc.html" class="play"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="#0F0E0D"></path></svg>Play</a>
+      <button class="round" aria-label="Like"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.3-8.6-8.8C2.3 8.1 4.2 5 7.3 5c1.9 0 3.4 1 4.7 2.8C13.3 6 14.8 5 16.7 5c3.1 0 5 3.1 3.9 6.2C19 15.7 12 20 12 20z"></path></svg></button>
     </div>
+    <div class="as"><span>You play as Ren, on the night shift</span><a href="CharacterSetup.dc.html">Change</a></div>
 
-    <div style="margin-top: 24px">
-      <span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.12em; color: #B4ADA3">ORIGINAL · HORROR · MYSTERY · ROMANCE</span>
-      <h1 style="margin: 8px 0 0; font-family: 'Kaisei Tokumin', serif; font-weight: 800; font-size: 30px; line-height: 36px">Hush House</h1>
-      <p style="margin: 4px 0 0; font-family: 'Zen Old Mincho', serif; font-weight: 500; font-size: 17px; line-height: 26px; color: #F3EFE8">Do not open the door at 2:13 a.m.</p>
-    </div>
+    <section class="sec" aria-labelledby="h-about">
+      <div class="head"><h2 id="h-about">About</h2></div>
+      <p class="body">Hush House is six storeys of dark brick on Bellweather Street, in the old quarter of Morrowgate, and Room 312 is available immediately at a price that should have told you something. Your neighbour in 314 is Ayame Kurose: twenty-two, dryly funny, visibly not sleeping. On your first evening she hands you a canned coffee and gives you three rules as casually as somebody explaining the bins.</p>
+      <a href="#" class="more">More</a>
+    </section>
 
-    <div style="display: flex; align-items: center; gap: 22px; margin-top: 20px">
-      <a href="Play.dc.html" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex: 1; height: 52px; border-radius: 26px; background: #F3EFE8; color: #0F0E0D; font-size: 17px; font-weight: 600">
-        <svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l15-8.5z" fill="#0F0E0D"></path></svg>Play
-      </a>
-      <a href="CharacterSetup.dc.html" style="font-size: 15px; font-weight: 500; color: #B4ADA3">Choose who you are →</a>
-    </div>
-
-    <section aria-labelledby="h-story" style="margin-top: 36px">
-      <h2 id="h-story" style="margin: 0; font-size: 20px; line-height: 25px; font-weight: 600">The story</h2>
-      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px; font-family: 'Zen Old Mincho', serif; font-size: 17px; line-height: 28px; color: #B4ADA3">
-        <p style="margin: 0">Hush House is six storeys of dark brick on Bellweather Street, in the old quarter of Morrowgate, and Room 312 is available immediately at a price that should have told you something.</p>
-        <p style="margin: 0">Your neighbour in 314 is Ayame Kurose: twenty-two, dryly funny, visibly not sleeping. On your first evening she hands you a canned coffee and gives you three rules as casually as somebody explaining the bins.</p>
+    <section class="sec" aria-labelledby="h-cast">
+      <div class="head"><h2 id="h-cast">Characters</h2></div>
+      <div class="cast">
+        <a href="#"><img src="/_blob/caf2d893a072f5d71a510c781de5af76" alt=""><span class="n">Ayame</span><span class="r">Room 314</span></a>
+        <a href="#"><img src="/_blob/2a155a1d19b284e67510b7d8073289b8" alt=""><span class="n">Mrs Vale</span><span class="r">Landlady</span></a>
+        <a href="#"><img src="/_blob/a4444584b0d3043a845a8fb99fe74907" alt=""><span class="n">Tomas</span><span class="r">Room 206</span></a>
+        <a href="#"><img src="/_blob/2740af21c136588be5da644a83f35d28" alt=""><span class="n">Nia</span><span class="r">Room 405</span></a>
       </div>
-      <button style="margin-top: 6px; height: 44px; padding: 0; border: 0; background: none; font-size: 15px; font-weight: 500; color: #F3EFE8">Read more</button>
     </section>
 
-    <section aria-labelledby="h-cast" style="margin-top: 28px">
-      <h2 id="h-cast" style="margin: 0; font-size: 20px; line-height: 25px; font-weight: 600">Who you will meet</h2>
-      <ul style="list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
-        <li style="display: flex; flex-direction: column; gap: 6px"><img src="/_blob/caf2d893a072f5d71a510c781de5af76" alt="Ayame Kurose" style="display: block; width: 80px; height: 80px; border-radius: 19px; object-fit: cover"><span style="font-size: 13px; line-height: 16px; font-weight: 600">Ayame</span><span style="font-size: 12px; line-height: 15px; color: #948E85">Room 314</span></li>
-        <li style="display: flex; flex-direction: column; gap: 6px"><img src="/_blob/2a155a1d19b284e67510b7d8073289b8" alt="Mrs Elara Vale" style="display: block; width: 80px; height: 80px; border-radius: 19px; object-fit: cover"><span style="font-size: 13px; line-height: 16px; font-weight: 600">Mrs Vale</span><span style="font-size: 12px; line-height: 15px; color: #948E85">Landlady</span></li>
-        <li style="display: flex; flex-direction: column; gap: 6px"><img src="/_blob/a4444584b0d3043a845a8fb99fe74907" alt="Tomas Reed" style="display: block; width: 80px; height: 80px; border-radius: 19px; object-fit: cover"><span style="font-size: 13px; line-height: 16px; font-weight: 600">Tomas</span><span style="font-size: 12px; line-height: 15px; color: #948E85">Room 206</span></li>
-        <li style="display: flex; flex-direction: column; gap: 6px"><img src="/_blob/2740af21c136588be5da644a83f35d28" alt="Nia Bell" style="display: block; width: 80px; height: 80px; border-radius: 19px; object-fit: cover"><span style="font-size: 13px; line-height: 16px; font-weight: 600">Nia</span><span style="font-size: 12px; line-height: 15px; color: #948E85">Room 405</span></li>
-      </ul>
-    </section>
-
-    <section aria-labelledby="h-end" style="margin-top: 36px">
-      <div style="display: flex; align-items: baseline; justify-content: space-between">
-        <h2 id="h-end" style="margin: 0; font-size: 20px; line-height: 25px; font-weight: 600">Endings</h2>
-        <span style="font-size: 13px; color: #948E85">1 of 5 found</span>
+    <section class="sec" aria-labelledby="h-end">
+      <div class="head"><h2 id="h-end">Endings</h2><span>1 of 5 found</span></div>
+      <div class="ends">
+        <span class="end got" aria-label="Found"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F3EFE8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+        <span class="end" aria-label="Hidden"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="1.9" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2"></rect><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"></path></svg></span>
+        <span class="end" aria-label="Hidden"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="1.9" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2"></rect><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"></path></svg></span>
+        <span class="end" aria-label="Hidden"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="1.9" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2"></rect><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"></path></svg></span>
+        <span class="end" aria-label="Hidden"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#948E85" stroke-width="1.9" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2"></rect><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"></path></svg></span>
       </div>
-      <ul style="list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column">
-        <li style="display: flex; align-items: center; justify-content: space-between; height: 48px; border-top: 1px solid rgba(243,239,232,0.10)"><span style="font-family: 'Zen Old Mincho', serif; font-weight: 500; font-size: 16px; color: #F3EFE8">Dawn on Bellweather</span><span style="padding: 3px 7px; border-radius: 3px; box-shadow: inset 0 0 0 1px #45413B; font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #B4ADA3">FOUND</span></li>
-        <li style="display: flex; align-items: center; justify-content: space-between; height: 48px; border-top: 1px solid rgba(243,239,232,0.10)"><span style="font-size: 15px; color: #948E85">Hidden ending</span><span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #948E85">RARE</span></li>
-        <li style="display: flex; align-items: center; justify-content: space-between; height: 48px; border-top: 1px solid rgba(243,239,232,0.10)"><span style="font-size: 15px; color: #948E85">Hidden ending</span><span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #948E85">RARE</span></li>
-        <li style="display: flex; align-items: center; justify-content: space-between; height: 48px; border-top: 1px solid rgba(243,239,232,0.10); border-bottom: 1px solid rgba(243,239,232,0.10)"><span style="font-size: 15px; color: #948E85">2 more hidden</span><span style="font-size: 11px; line-height: 13px; font-weight: 600; letter-spacing: 0.08em; color: #948E85">UNIQUE</span></li>
-      </ul>
+      <div class="note">You found Dawn on Bellweather. Four are still hidden.</div>
     </section>
 
-    <section aria-labelledby="h-rel" style="margin-top: 36px">
-      <h2 id="h-rel" style="margin: 0; font-size: 20px; line-height: 25px; font-weight: 600">If you like this</h2>
-      <div style="display: flex; gap: 12px; margin-top: 14px">
-        <a href="Story.dc.html" style="flex: none; width: 108px; color: #F3EFE8"><img src="/_blob/7913899608d28d1267867375c46fc018" alt="Seven Days to Midnight cover" style="display: block; width: 108px; height: 162px; object-fit: cover; border-radius: 3px"><span style="display: block; margin-top: 8px; font-size: 13px; line-height: 18px; font-weight: 500">Seven Days to Midnight</span></a>
-        <a href="Story.dc.html" style="flex: none; width: 108px; color: #F3EFE8"><img src="/_blob/6935e33afdd49bb8fa3e972d9f9d41d9" alt="Window Seven cover" style="display: block; width: 108px; height: 162px; object-fit: cover; border-radius: 3px"><span style="display: block; margin-top: 8px; font-size: 13px; line-height: 18px; font-weight: 500">Window Seven</span></a>
-        <a href="Story.dc.html" style="flex: none; width: 108px; color: #F3EFE8"><img src="/_blob/44b023d760f52d3d3569788aec6bc2ec" alt="The Ninth Archive cover" style="display: block; width: 108px; height: 162px; object-fit: cover; border-radius: 3px"><span style="display: block; margin-top: 8px; font-size: 13px; line-height: 18px; font-weight: 500">The Ninth Archive</span></a>
+    <section class="sec" aria-labelledby="h-like">
+      <div class="head"><h2 id="h-like">More like this</h2></div>
+      <div class="rail">
+        <a href="#" class="tile"><img src="/_blob/7913899608d28d1267867375c46fc018" alt=""><span class="n">Seven Days to Midnight</span><span class="m">41K likes</span></a>
+        <a href="#" class="tile"><img src="/_blob/6935e33afdd49bb8fa3e972d9f9d41d9" alt=""><span class="n">Window Seven</span><span class="m">36K likes</span></a>
+        <a href="#" class="tile"><img src="/_blob/44b023d760f52d3d3569788aec6bc2ec" alt=""><span class="n">The Ninth Archive</span><span class="m">12K likes</span></a>
       </div>
     </section>
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1720}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1690}}'>
 class Component extends DCLogic {
   renderVals() {
     return {};
