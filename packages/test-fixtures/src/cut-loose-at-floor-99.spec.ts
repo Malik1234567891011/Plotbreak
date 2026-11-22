@@ -200,26 +200,26 @@ describe('adults only, and 13+', () => {
     sallow: 88,
     hesper: 56,
   };
-  const UNITS: Record<string, number> = {
-    one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9,
-  };
-  const TENS: Record<string, number> = {
-    twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90,
-  };
-  const leadingAge = (text: string): number | null => {
-    const match = /^([A-Za-z]+)(?:-([A-Za-z]+))?\b/.exec(text.trim());
-    if (!match) return null;
-    const tens = TENS[match[1]!.toLowerCase()];
-    if (tens === undefined) return null;
-    return tens + (match[2] ? (UNITS[match[2].toLowerCase()] ?? NaN) : 0);
-  };
+  const UNITS = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  const TENS = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+  const spell = (n: number): string => TENS[Math.floor(n / 10)]! + (n % 10 ? `-${UNITS[n % 10]}` : '');
 
-  it('states every character’s age, and every one is eighteen or older', () => {
+  it('states every character’s age in hard canon, and every one is eighteen or older', () => {
+    // The storyteller reads hard canon; the portrait generator reads appearance.
+    // Ages go where the storyteller will see them, as in the pilot.
     expect(Object.keys(AGES).sort()).toEqual(STORY.characters.map((c) => c.id).sort());
+    const canon = STORY.rules.hardCanon.join(' ');
     for (const c of STORY.characters) {
-      const age = leadingAge(c.appearance);
-      expect(age, `${c.id} appearance does not open with an age`).toBe(AGES[c.id]);
-      expect(age!, c.id).toBeGreaterThanOrEqual(18);
+      expect(AGES[c.id]!, c.id).toBeGreaterThanOrEqual(18);
+      expect(canon, `${c.id} has no age in hard canon`).toMatch(new RegExp(`${c.name}(?: is)? ${spell(AGES[c.id]!)}\\b`));
+    }
+  });
+
+  it('draws every portrait as an adult, by costume and build, never by a number', () => {
+    const NUMBER = new RegExp(`\\b(${TENS.filter(Boolean).join('|')})(-\\w+)?\\b`, 'i');
+    for (const c of STORY.characters) {
+      expect(c.appearance, c.id).toMatch(/^An (adult|older|elderly) (man|woman)\b/);
+      expect(c.appearance, c.id).not.toMatch(NUMBER);
     }
   });
 
@@ -851,5 +851,66 @@ describe('art', () => {
       ...derived.characters.map((c) => c.portrait),
     ];
     for (const key of keys) expect(key, String(key)).toMatch(/^story_cut_loose_at_floor_99\//);
+  });
+});
+
+/**
+ * What the art and release pipeline needs from a new-50 fixture
+ * (docs/stories-50/PIPELINE.md, after the #7 Skill: ERROR pilot).
+ */
+describe('the release pipeline', () => {
+  it('directs its own cover, title lettering included', () => {
+    const cover = STORY.coverDirection;
+    const title = cover.split(/(?<=[.:]) (?=TITLE:)/)[1] ?? '';
+    expect(title, 'no TITLE: line').toMatch(/^TITLE:/);
+    expect(title).toContain('Cut Loose at Floor 99');
+    expect(title).toContain('CUT LOOSE AT FLOOR 99');
+    expect(title).toMatch(/lower third/);
+    // Effects on objects and the title, never on faces.
+    expect(cover).toMatch(/FACE STAYS CLEAN/);
+    expect(cover).toMatch(/never on her face/);
+    // People by costume and pose, never by age.
+    expect(cover).not.toMatch(/\b(young|younger|youthful|old|older|elderly|aged|teen\w*|girl|boy|child\w*|kid|years? old|twenty|thirty|forty|fifty|sixty|seventy|eighty)\b/i);
+  });
+
+  it('opens on a panel of the character who speaks first', () => {
+    const panel = STORY.openingPanel!;
+    expect(panel.assetKey).toBe(`${STORY.storyId}/opening`);
+    expect(panel.alt.length).toBeLessThanOrEqual(200);
+    const speakers = [...STORY.opening.matchAll(/\b([A-Z][a-z]+) says\b/g)].map((m) => m[1]!);
+    expect(speakers[0]).toBe('Lucan');
+    expect(panel.alt.startsWith(`${speakers[0]} `)).toBe(true);
+  });
+
+  it('has no prologue and no release date yet', () => {
+    expect(STORY.prologue).toEqual([]);
+    expect(STORY.publishedAt).toBeNull();
+  });
+
+  it('gives every carded character a portrait to be drawn from', () => {
+    for (const c of STORY.characters.filter((x) => x.cardBlurb.trim())) {
+      expect(c.appearance.split(',').length, c.id).toBeGreaterThanOrEqual(4);
+    }
+  });
+
+  it('puts the thread system where the storyteller reads it', async () => {
+    const threads = STORY.items.find((i) => i.id === 'four_threads')!;
+    expect(threads.questItem).toBe(true);
+    expect(STORY.rules.startingItems.map((i) => i.itemId)).toContain('four_threads');
+    const CORE = ['hold_the_threads', 'listen_down_the_line', 'tug_the_line', 'cut_a_thread', 'let_them_all_go'];
+    const { worldBrief } = await import('@plotbreak/director');
+    for (const a of STORY.archetypes) {
+      expect(a.startingAbilities.slice(0, CORE.length), a.id).toEqual(CORE);
+      const brief = worldBrief(STORY, a.id);
+      expect(brief, a.id).toContain('### Your Four Threads');
+      expect(brief, a.id).toContain('Can: Hold the Threads');
+      expect(brief, a.id).toContain('Can: Let Them All Go');
+    }
+    expect(STORY.rules.toneGuide.length).toBeGreaterThan(200);
+  });
+
+  it('names titled people by what they are called', () => {
+    const called = Object.fromEntries(STORY.characters.map((c) => [c.id, calledName(c)]));
+    expect(called).toMatchObject({ voice: 'The Voice', sallow: 'Sallow', kes: 'Kes', taro: 'Taro', hesper: 'Hesper' });
   });
 });

@@ -310,7 +310,13 @@ Every place has a way in. The Hollow is the only one that is hidden, and it open
 
 Adults only, described by costume and pose, never by age words.
 
-- **Cover:** a figure falling into darkness with a cut rope trailing, four faint glowing threads still running from their hand up toward four small lantern lights far above; at the top of the frame, Lucan's silhouette at the edge of a ledge holding a knife; cold blue light on wet stone at the bottom. Title in the art.
-- **Opening panel:** Lucan kneeling at the edge of the pit in lantern light, sword on his back, knife resting on a taut rope that runs down into the dark.
+- **Cover (`coverDirection`):** the Voice front and centre from the waist up, in her dark-green binder's coat against the blue lichen, one hand closed round four glowing threads that run straight up out of the frame, the other open toward the viewer. Far above, small, a lamplit ledge where a kneeling swordsman in a sky-blue sash holds a knife and a cut rope end falls away. Title painted into the lower third as carved-stone capitals, CUT LOOSE AT over FLOOR 99, one blue thread through the letters and a knife cut through CUT only. Her face stays clean: every glow is on the threads, the lichen and the title.
+- **Opening panel:** Lucan kneeling at the edge of the pit in lantern light, sword on his back, knife resting on a taut rope that runs down into the dark. The alt starts with "Lucan", the first character who speaks in the opener, because his portrait is the panel's reference image.
 - **Location stages:** the Sump, the Rope Field, the Spine, the Last Door, Rust Company Camp, the Long Stair, Waycamp Ninety, the Rim, the Tally House, the Gilt Rope Hall. The Rim is drawn as a walled market quarter around a great stone lift-house over the dungeon mouth, never as terraced rings around an open pit.
 - **Hero triggers:** the first time a held thread saves somebody on the stair; Elsbeth's lamp coming back down; the clean cut shown to Taro; the Hollow (Agathe seated asleep on a stone bench, never held or sealed in rock); Lucan face to face at Waycamp Ninety; the Book of the Lost; the Gilt Rope Hall ceremony.
+
+## Release pipeline notes
+
+- Ages live in hard canon (first line), where the storyteller reads them. `appearance` describes each person as an adult by build and costume, with no numbers, because portraits are drawn from it.
+- The thread system lives where `runTurnPure` reads it: hard canon, the **Your Four Threads** quest item the player starts holding, and the five thread moves (hold, listen, tug, cut one, let all go) at the head of every archetype's starting abilities.
+- No prologue. `publishedAt` stays null until the real release date.

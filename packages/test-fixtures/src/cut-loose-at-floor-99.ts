@@ -15,9 +15,12 @@ import { StoryVersion } from '@plotbreak/contracts';
  *
  * Production runs `runTurnPure`, which reads the premise, tone, hard canon,
  * cast, opening, places, quest items, factions, quest summaries, world events
- * and the first twelve endings. Abilities and resources never reach it. That is
- * why the thread mechanic is stated in hard canon and in the premise rather than
- * left to live in the ability list, and why there are exactly twelve endings.
+ * and the first twelve endings. Resources, step notes and locked abilities never
+ * reach it; of the ability list it sees only the chosen archetype's starting
+ * abilities. So the thread mechanic lives in three places it does read: hard
+ * canon and the premise, a quest item the player starts holding (Your Four
+ * Threads), and the five thread moves every archetype starts with. That is also
+ * why there are exactly twelve endings.
  *
  * Revenge is one road among several and is allowed to feel good. The four
  * betrayers are four different kinds of guilty — Lucan did it, Kes agreed,
@@ -74,10 +77,12 @@ const raw = {
     startingLocationId: 'the_sump',
     startWorldMinute: 18 * 60 + 10,
     startingItems: [
+      { itemId: 'four_threads', qty: 1 },
       { itemId: 'cut_rope_end', qty: 1 },
       { itemId: 'brass_focus', qty: 1 },
     ],
     hardCanon: [
+      'Everyone in this story is an adult. The player is twenty-six: they and Lucan met at the delvers’ hostel at eighteen and founded Highwater together that year, eight years ago. Bran joined five years ago, Elsbeth three years ago and Kes two years ago. Lucan Harrow is twenty-six, Elsbeth Marr twenty-four, Kestrel Ivo twenty-two, Bran Tull thirty-one, Taro Kade twenty-seven, Hesper Moss fifty-six and Odran Sallow eighty-eight. The Voice is eighty-seven by the calendar, and the shape she shows in the lichen-light is the woman she was at twenty-six.',
       'The Deepway is a dungeon of ninety-nine charted floors under the city of Lowmarch. Nobody had cleared Floor 99 until today. Below it is a floor on no chart, the Sump, where everything that falls anywhere in the Deepway ends up.',
       'The player is Highwater’s support mage, a binder. A binder ties thin threads of mana to people: the threads take a share of their hurt, steady their footing and warn them before a fall. When the story begins, four threads are still tied, to Lucan, Elsbeth, Kes and Bran, and the player can feel each one. The player can hold them, cut one, let all four go, listen down one, or tug one. A thread is felt, not hauled like a rope. A hard tug lands as a jolt, a cold shock at the wrist or a stumble, never enough by itself to throw anybody off a ledge or kill them. Cutting a thread or letting go only takes the ward away; after that the danger comes from the Long Stair and the waking deep, over hours, not in the same instant. If the player pulls Lucan’s thread hard, he stumbles on a ledge two floors up and Kes catches his collar.',
       'At ten past six in the evening Lucan Harrow cut the player’s rope over the pit on Floor 99 and said four shares beat five. Kes agreed beforehand. Elsbeth saw the knife and looked away. Bran was two flights up the stair with the lamp and was told the player slipped.',
@@ -85,12 +90,12 @@ const raw = {
       'Highwater took the Heartglass from the vault behind the Last Door. Since it left the vault the deep floors have been waking, slowly. Only a binder can hold it without the deep waking around them.',
       'The Tally House writes every delver in and out of the Deepway and keeps the Book of the Lost. Under the Delvers’ Peace no delver raises a blade against another below the Rim, and a cut rope proven in front of the Tallykeeper strips the cutter of share, sponsor and the right to go down again.',
       'There is no wayline below Waycamp Ninety: below it there are only stairs and ropes, and the guild lift starts there. Climbing out from the Sump takes days, not hours.',
-      'Every character in this story is an adult, the player included. The player is twenty-six: they and Lucan met at the delvers’ hostel at eighteen and founded Highwater together that year, eight years ago. Bran joined five years ago, Elsbeth three years ago and Kes two years ago. Nobody is owed the player’s forgiveness and nobody is owed their revenge: the player can hold, cut, forgive, expose, bargain, stay below or walk away, and none of these is the correct one.',
+      'Nobody is owed the player’s forgiveness and nobody is owed their revenge: the player can hold, cut, forgive, expose, bargain, stay below or walk away, and none of these is the correct one.',
     ],
     toneGuide:
       'Dungeon action with a betrayal at the centre. Short paragraphs, one hard image each, dialogue that cuts. The dungeon is physical: rope, lamp oil, wet stone, hours and floors. Threads are felt in the wrists and fingertips — a hum, a tug, a sudden cold — and the craft is shown by what it does, never by numbers. ' +
       'Fights are quick and legible: who has the light, the ledge, the rope. Nothing graphic, and no lingering on injuries. Revenge may feel good and it is never free. ' +
-      'The four betrayers are four different kinds of guilty and none of them is a cartoon: Lucan is charming and cornered, Kes is honest about being mercenary, Elsbeth is ashamed, Bran was lied to. The Voice is warm, curious and slightly wrong, never a jump scare. Odran Sallow is courteous all the way down. ' +
+      'The four betrayers are four different kinds of guilty and none of them is a cartoon: Lucan is charming and cornered, Kes is honest about being mercenary, Elsbeth is ashamed, Bran was lied to. The Voice is warm, curious and slightly wrong, never a jump scare. Odran Sallow is courteous all the way down. Who the Voice used to be, and what Sallow did on Floor 61, are reveals the player earns through her badge, her name or a confession; never state them early. ' +
       'Romance is possible, with Elsbeth or with Taro, and stays at tension, honesty and at most a kiss. The face at the top of a beat is the Voice’s whenever the scene is on the bottom floor, and Lucan’s whenever he is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -215,6 +220,18 @@ const raw = {
   ],
   tendencies: [],
   items: [
+    {
+      id: 'four_threads',
+      name: 'Your Four Threads',
+      tags: ['quest', 'binding'],
+      questItem: true,
+      droppable: false,
+      description:
+        'Four thin threads of mana run from the brass ring on your thumb up into the dark, one each to Lucan, Elsbeth, Kes and Bran. Nobody else can see them. You feel each one in your wrist: a steady hum while its person climbs, a jolt when they stumble, a sudden cold if they are hurt.',
+      loreText:
+        'Holding all four costs you strength every hour, and rest is the only thing that gives it back. You can hold them, cut one, let all four go, listen down one to hear what is said at the other end, or tug one so its person feels it. A tug is a jolt, never a shove off a ledge. A cut or dropped thread stops warding its person at once; whatever the Long Stair does after that, it does over hours.',
+      icon: 'rope',
+    },
     {
       id: 'cut_rope_end',
       name: 'The Cut End',
@@ -916,7 +933,7 @@ const raw = {
         'I kept your knife. No idea why I’m telling you.',
       ],
       appearance:
-        'Twenty-six, tall, sun-blond hair cut short for the helm, an easy smile that reaches his eyes on purpose, dented plate under a faded sky-blue guild sash.',
+        'An adult man, tall and easy-shouldered, sun-blond hair cut short for the helm, bright blue eyes, an easy smile that reaches his eyes on purpose, dented steel plate under a faded sky-blue guild sash knotted at the shoulder, a long sword on his back and a small lead-lined box at his hip.',
       visualHook: 'A sky-blue guild sash knotted at the shoulder with a knot only the two of you know how to tie.',
       silhouette: 'Long sword on his back, one hand always resting on the lead box at his hip.',
       artSeed: 'cl99-lucan-01',
@@ -1005,7 +1022,7 @@ const raw = {
         'I shall not make you do anything. A forced thread never holds. Ask any of the four you are still holding up.',
       ],
       appearance:
-        'Eighty-seven by the calendar. The shape she makes in the lichen-light is the woman she was at twenty-six: tall, a binder’s long coat sixty years out of fashion, hair pinned up the old guild way, a face never quite in focus.',
+        'An adult woman, tall and very straight-backed, dark hair pinned up the old guild way, calm pale grey eyes, a binder’s long dark-green coat decades out of fashion with a high collar and brass toggles, a brass ring on her thumb, and a thin thread of cold blue light trailing from one wrist. She shows herself as a shape in the blue lichen-light on bare rock, and her face is always clear.',
       visualHook: 'A woman outlined in cold blue lichen-light on bare rock, a thread of light trailing from one wrist down into the dark.',
       silhouette: 'Long coat, very straight back, one hand raised as if holding a thread taut.',
       artSeed: 'cl99-voice-01',
@@ -1084,7 +1101,7 @@ const raw = {
         'Saint of the Stair, keep this one breathing, and if you can’t, keep me from saying so out loud.',
       ],
       appearance:
-        'Twenty-four, compact and quick, dark hair in a practical braid, a grey healer’s apron over a padded jacket, iodine stains on her cuffs.',
+        'An adult woman, compact and quick, dark brown hair in a practical braid, warm brown eyes, a grey healer’s apron with a dozen full pockets over a padded jacket, sleeves rolled to the elbow, and iodine stains on her cuffs.',
       visualHook: 'A grey healer’s apron with a dozen pockets, every one of them full.',
       silhouette: 'Kneeling, sleeves rolled to the elbow, both hands busy.',
       artSeed: 'cl99-elsbeth-01',
@@ -1121,6 +1138,7 @@ const raw = {
     {
       id: 'taro',
       name: 'Taro Kade',
+      calledName: 'Taro',
       role: 'Captain of the Rust Company, a salvage crew that has come second to Highwater on every floor for three years, camped one floor above the pit',
       cardBlurb:
         'He has lost to your party on every floor for three years, he is camped one floor above the pit, and you climbing out of the dark is the best thing that has happened to him all year. Whether that is good news for you depends on what you can offer him.',
@@ -1166,7 +1184,7 @@ const raw = {
         'Say it out loud and it’s a deal. I don’t sign things. Paper burns.',
       ],
       appearance:
-        'Twenty-seven, broad and scarred, shaved head and a short black beard, rust-red leathers patched at every joint, a salvage hook on his belt.',
+        'An adult man, broad and weathered, shaved head and a short black beard, a wide grin, a rust-red leather coat patched at every joint with the badges of other guilds, and a salvage hook on his belt.',
       visualHook: 'A rust-red leather coat patched with the badges of other guilds he has salvaged from the deep.',
       silhouette: 'Feet planted wide, one thumb hooked in his belt beside the salvage hook, grinning.',
       artSeed: 'cl99-taro-01',
@@ -1240,7 +1258,7 @@ const raw = {
         'Fifty, minus the lift fare, minus my mother’s roof. Leaves exactly enough to hate myself in comfort.',
       ],
       appearance:
-        'Twenty-two, lean and wiry, cropped copper hair, a short bow across her back, fingerless gloves and a scout’s dark green hood.',
+        'An adult woman, lean and wiry, cropped copper hair, sharp green eyes, a scout’s dark green hood and fingerless gloves, a short bow across her back, and a coil of chalk-marked climbing line over one shoulder.',
       visualHook: 'A coil of chalk-marked climbing line over one shoulder, every metre tallied in her own handwriting.',
       silhouette: 'Crouched on a ledge above everybody else, bow across her knees.',
       artSeed: 'cl99-kes-01',
@@ -1317,7 +1335,7 @@ const raw = {
         'Odette painted the house on this shield. Only bit of it nobody’s scratched.',
       ],
       appearance:
-        'Thirty-one, very tall and very broad, close-cropped hair going grey early, a scarred tower shield on his back, a lamp hooked to his belt.',
+        'An adult man, very tall and very broad, close-cropped brown hair going grey at the temples, a quiet heavy face, a padded brown gambeson, a scarred tower shield on his back painted with a small white house, and a lamp hooked to his belt.',
       visualHook: 'A tower shield painted with a small white house, which his wife painted, and which is the only unscarred thing on it.',
       silhouette: 'A wall of a man with a lamp held high, everybody else in his shadow.',
       artSeed: 'cl99-bran-01',
@@ -1400,7 +1418,7 @@ const raw = {
         'A binder, alive. How very fortunate. For both of us, I suspect.',
       ],
       appearance:
-        'Eighty-eight, thin and very upright, white hair combed straight back, a black guild coat with a gold rope knotted at the collar, an ebony cane topped with a gold knot.',
+        'An elderly man, thin and very upright, white hair combed straight back, pale watchful eyes, a black guild coat with a gold rope knotted at the collar, and an ebony cane topped with a gold knot.',
       visualHook: 'A gold rope knotted at his collar, the emblem of the guild he founded.',
       silhouette: 'A narrow upright figure with a cane at the head of a very long table.',
       artSeed: 'cl99-sallow-01',
@@ -1434,6 +1452,7 @@ const raw = {
     {
       id: 'hesper',
       name: 'Hesper Moss',
+      calledName: 'Hesper',
       role: 'Tallykeeper of the Tally House, who wrote your name into the Book of the Lost on Lucan’s word',
       cardBlurb:
         'She wrote your name into the Book of the Lost in ink, on Lucan’s word, and she has never struck a name out. If you walk into her house alive with a clean-cut rope, you will be the first correction in thirty years.',
@@ -1466,7 +1485,7 @@ const raw = {
         'A frayed rope is the Deepway. A clean cut is a person. Nobody has ever handed me a clean cut while standing on the end of it.',
       ],
       appearance:
-        'Fifty-six, grey hair in a tight knot, half-moon spectacles, a grey Tally House coat with brass buttons.',
+        'An older woman, grey hair in a tight knot, half-moon spectacles, ink-black fingertips, a grey Tally House coat with brass buttons, and a pen behind one ear.',
       visualHook: 'Ink-black fingertips from thirty years of writing the names of the lost.',
       silhouette: 'Behind a high desk, pen raised, peering over her spectacles.',
       artSeed: 'cl99-hesper-01',
@@ -2318,7 +2337,7 @@ const raw = {
       attributeBonus: { resolve: 3, might: 1 },
       skillProficiencies: { warding: 3, binding: 2, climbing: 1 },
       startingItems: [],
-      startingAbilities: ['take_the_blow'],
+      startingAbilities: ['hold_the_threads', 'listen_down_the_line', 'tug_the_line', 'cut_a_thread', 'let_them_all_go', 'take_the_blow'],
       startingReputation: [],
     },
     {
@@ -2331,7 +2350,7 @@ const raw = {
       attributeBonus: { mind: 3, arcana: 1 },
       skillProficiencies: { delving: 3, listening: 2, binding: 1 },
       startingItems: [{ itemId: 'chalk_and_line', qty: 1 }],
-      startingAbilities: ['throw_a_light'],
+      startingAbilities: ['hold_the_threads', 'listen_down_the_line', 'tug_the_line', 'cut_a_thread', 'let_them_all_go', 'throw_a_light'],
       startingReputation: [],
     },
     {
@@ -2344,7 +2363,7 @@ const raw = {
       attributeBonus: { arcana: 3, agility: 1 },
       skillProficiencies: { binding: 3, quiet: 2 },
       startingItems: [],
-      startingAbilities: ['hold_it_shut'],
+      startingAbilities: ['hold_the_threads', 'listen_down_the_line', 'tug_the_line', 'cut_a_thread', 'let_them_all_go', 'hold_it_shut'],
       startingReputation: [],
     },
     {
@@ -2357,7 +2376,7 @@ const raw = {
       attributeBonus: { presence: 3, mind: 1 },
       skillProficiencies: { bargaining: 3, listening: 2, binding: 1 },
       startingItems: [{ itemId: 'favour_book', qty: 1 }],
-      startingAbilities: ['call_in_a_favour'],
+      startingAbilities: ['hold_the_threads', 'listen_down_the_line', 'tug_the_line', 'cut_a_thread', 'let_them_all_go', 'call_in_a_favour'],
       startingReputation: [{ factionId: 'faction_rust', amount: 10 }],
     },
   ],
@@ -2556,15 +2575,30 @@ const raw = {
   opening:
     "You hang over the pit on the ninety-ninth floor, and the rope is all that holds you.\n\nLucan kneels at the edge, his knife on the rope. Your best friend for eight years. Behind him, Elsbeth, your healer, looks away.\n\n\"Nothing personal,\" Lucan says. \"Four shares beat five.\"\n\nThe rope parts.\n\nYou fall a long way. Black water. Stone.\n\nIn the dark, a woman’s voice, pleased: \"Finally.\"\n\nBlue light spreads along the wall in the shape of her. She says your name like she has practised it.\n\n\"Your threads are still tied to them, my dear. All four, climbing away, and you’re still holding them up.\n\n\"So. Do they get to reach the top?\"",
   openingPanel: {
-    assetKey: "story_cut_loose_at_floor_99/opening",
-    alt: "Lucan kneeling at the edge of a black pit in a vast underground hall, his knife on a taut rope, Elsbeth turned away behind him, lamplight on the ledge.",
+    assetKey: 'story_cut_loose_at_floor_99/opening',
+    alt: 'Lucan in a sky-blue sash, sword on his back, kneeling at the lamplit edge of a black pit, his knife on a taut rope that runs down to you, Elsbeth turned away behind him.',
   },
   openingSuggestions: [
     "\"Who are you? And how do you know my name?\"",
     "I find the four threads in the dark and hold on. Nobody else falls today.",
     "I take Lucan’s thread in my fist and pull, hard.",
   ],
-  publishedAt: '2026-11-22T04:00:00.000Z',
+  coverDirection: [
+    'SUBJECT: the Voice, a woman in a long dark-green binder’s coat, alone and unmistakable in the foreground of a key visual for a dark fantasy dungeon anime about a betrayal.',
+    'She fills the frame from the waist up, centred and close, holding about two thirds of the picture.',
+    'Dark hair pinned up in a neat formal knot, calm pale grey eyes, a high-collared dark-green coat of an antique cut with brass toggles, a brass ring on her thumb.',
+    'One hand is raised at shoulder height, fingers loosely closed around four thin threads of glowing blue light that run straight up out of the top of the frame, taut as harp strings; her other hand is open at her side, palm toward the viewer, as if offering it.',
+    'Her expression is calm and curious with the faintest smile, looking straight at the viewer, as if she has been waiting for you a very long time.',
+    'HER FACE STAYS CLEAN: no glow, cracks, particles, blur or shadows on her face or skin.',
+    'Every glow effect stays on the threads, on the lichen, on the edges of her coat where it meets the rock, and on the title, never on her face.',
+    'BEHIND HER, soft and secondary: a vast black cavern at the bottom of a dungeon, rock walls covered in faintly glowing cold blue lichen, a still black pool with a shore of broken lamps and fallen ropes.',
+    'High above her, small and far away, a lamplit stone ledge over the dark where a kneeling swordsman in a sky-blue sash holds a knife, and a cut rope end falls away from the ledge; the four threads run up toward that light.',
+    'LIGHT: cold blue lichen-light from below and behind her, one warm amber lamp point far above, so she is lit in blue and rimmed in pale light.',
+    'TITLE: the title Cut Loose at Floor 99 painted into the art across the lower third, in front of her coat and the black water, as heavy condensed carved-stone capitals in pale blue-white with a faint lichen glow:',
+    'CUT LOOSE AT on the first line and FLOOR 99 on the second, larger. One thin glowing blue thread runs through the letters, and a single clean diagonal knife cut slices through the word CUT only.',
+    'Spelled exactly CUT LOOSE AT FLOOR 99, every letter and both nines, large and legible at thumbnail size. No other text anywhere.',
+  ].join(' '),
+  publishedAt: null,
 };
 
 export const CUT_LOOSE_AT_FLOOR_99 = StoryVersion.parse(raw);
