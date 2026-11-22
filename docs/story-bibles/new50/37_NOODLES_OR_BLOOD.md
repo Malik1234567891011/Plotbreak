@@ -2,7 +2,8 @@
 
 **Slate:** #37 of 50 (`docs/stories-50/PLAN.md`).
 **Trope:** delinquent dorm, fight-school hierarchy, with a comedy engine. **Lean:** male.
-**Hook:** Your trade-college dorm has one rule for newcomers: buy noodles for the whole floor on your first night, or take the back stairs with the man who runs it.
+**Hook:** Rent’s due on your first night: noodles for the whole floor, or a fight on the back stairs.
+**Fantasy label:** Pay the floor in noodles, or in bruises.
 **Fixture:** `packages/test-fixtures/src/noodles-or-blood.ts` (`NOODLES_OR_BLOOD`, `story_noodles_or_blood`, `sv_noodles_or_blood_1`). **Spec:** `noodles-or-blood.spec.ts`.
 **Asset key prefix:** `story_noodles_or_blood`. No art yet, so no `openingPanel` and no prologue.
 **Protagonist:** BLANK. The player names themselves; the archetype is the trade they study.
@@ -18,12 +19,14 @@ storyteller has them on every turn.
 | The player, a mid-year transfer | at least 19 |
 | Daigo Hatanaka, head of the third floor | 22 |
 | Rumi Ogata, electrical student in 309 | 20 |
-| Ken Ishiyama, culinary student, keeper of the kitchen | 24 |
+| Ken Ueda, culinary student, keeper of the kitchen | 24 |
 | Bunta Iwai, the player's roommate in 307 | 19 |
 | Sota Mabuchi, head of the fourth floor | 23 |
 | Setsuko Fujii, warden of East Hall | 58 |
 | Shun Arai, the evicted last resident of 307 (off-screen) | 21 |
-| The other residents of the third floor | 18 to 26 |
+| Tetsu Kubota, plumbing student in 302, laughs first at everything Daigo says | 21 |
+| Asako Hirai, bricklaying student in 305, runs the floor's group chat and retells every story bigger | 19 |
+| The other residents of the third and fourth floors | 18 to 26 |
 
 Covers and portraits describe people by build and costume, never by age words. Romance goes no
 further than a kiss. Fights are shoves, holds, body blows and falls, never graphic, and nobody uses
@@ -37,7 +40,7 @@ bowls of noodles or a fight on the back-stairs landing with the man who runs it.
 and it is a real choice with real costs.
 
 Under it sits a week with a clock. The housing office is closing one floor of the building on Friday.
-The third floor has two fights on the record and the fourth floor has none, because the man who runs
+The third floor has two incidents on the record and the fourth floor has none, because the man who runs
 the fourth floor is polite, never fights, and is the thief who got the last resident of your bunk
 evicted. There is a second stolen tool taped under your bed tonight.
 
@@ -46,21 +49,33 @@ evicted. There is a second stolen tool taped under your bed tonight.
 Monday 21:40 (`startWorldMinute` 1300) to the weekend after Friday's review. Friday at nine is Daigo's
 resit; Friday at ten is the housing review. Endings live after the end of term.
 
+Production's header shows only "Day N · night", with no weekday, so `hardCanon[5]` spells the week out:
+Day 1 is Monday, Day 2 Tuesday, Day 3 Wednesday, Day 4 Thursday, Day 5 Friday. The front door locks at
+eleven every night.
+
 ## The world, in plain words
 
 - **East Hall, "the Kettle".** Four residential floors and a roof, a lobby with the warden's office
   behind it, a shared kitchen on the ground floor, a concrete back stairwell, and a boiler that bangs
   all night. The college workshops are across the road; the canal runs along the side.
-- **The rent.** Three years old. Noodles for every resident of the third floor, or the stairs.
-  Ken cooks it and keeps the tab. It is how the floor eats in the last week of the month before the
-  student stipend lands, and Daigo pays whatever it does not cover out of welding side jobs.
+- **The rent.** Three years old. Every resident owes the floor one bowl's worth a month into Ken's tab,
+  and that pot is what feeds everybody in the last week of the month, before the stipend lands. A
+  newcomer pays the whole floor's share on their first night instead: twenty-two bowls, or a fight with
+  Daigo on the landing (taking the stairs). Ken cooks the rent and keeps the tab. It never quite covers
+  the hungry week, and Daigo pays the difference out of his own welding side jobs, and has never told
+  anybody. That is why Rumi, who has never paid, is the exception everyone notices.
 - **Taking the stairs.** On the landing between the third and fourth floors. Rules: nothing to the
   face, nothing in your hands, over when somebody is down. Four people have done it in three years.
-  Nobody has ever gone down headfirst.
+  Nobody has ever gone down headfirst. Daigo will not let a fight start anywhere else: swing at him in
+  the common room or the corridor and he catches it, says "Not here," and walks you to the landing
+  himself, so a turn-1 punch becomes taking the stairs, not the third incident.
 - **The dead camera.** Over the landing, dead for two years because Rumi pulled its fuse after its
-  footage got a first-year evicted for a shove. The warden knows and has left it.
+  footage got a resident evicted for a shove. The warden knows and has left it. Since then it is what
+  has kept the stairs off the record.
 - **The record.** A fight on the landing is off the record. A fight anywhere else is seen and goes in
-  the warden's incident book. A third incident this term closes the third floor.
+  the warden's incident book, but only a fight Daigo cannot move: a second swing after "Not here", or
+  any blow at Mabuchi, at the warden, or in Ken's kitchen. A third incident this term closes the third
+  floor. Mabuchi's two debtors on the fourth floor exist to provoke exactly that.
 
 ## Premise (as shipped)
 
@@ -124,7 +139,7 @@ The rent is also an `openingObligation` with Daigo, due at 23:00 when the front 
 
 ### Daigo Hatanaka, 22, head of the third floor
 
-Fourth-year welding student. Broad, close-cropped hair, a scar through one eyebrow, a scorched leather
+Final-year welding student. Broad, close-cropped hair, a scar through one eyebrow, a scorched leather
 welding jacket, boots on the table.
 
 - **Wants:** the floor fed and off the record until Friday, and somebody he can hand it to.
@@ -150,7 +165,7 @@ the floor who has never paid the rent.
   *"He isn’t a short circuit, he’s a fuse. He blows so the rest of the building doesn’t."*
 - **Romance:** possible, slow, earned; up to a kiss (`end_the_roof`).
 
-### Ken Ishiyama, 24, culinary student, keeper of the kitchen
+### Ken Ueda, 24, culinary student, keeper of the kitchen
 
 Lean, red bandana headband, chef's jacket over a hoodie, burn marks on both forearms, points with a
 ladle. Runs the ground-floor kitchen and a late-night noodle cart on the canal.
@@ -165,7 +180,7 @@ ladle. Runs the ground-floor kitchen and a late-night noodle cart on the canal.
 
 ### Bunta Iwai, 19, the player's roommate
 
-First-year auto mechanics. Stocky, bleached hair growing out, overalls tied at the waist, cracked phone.
+Auto mechanics, nineteen, new to the college this year. Stocky, bleached hair growing out, overalls tied at the waist, cracked phone.
 Paid in noodles on day one and has been broke since.
 
 - **Wants:** to get through the term unnoticed and to pay Mabuchi back so he can stop going upstairs.
@@ -184,7 +199,10 @@ pressed navy jacket zipped to the collar, spotless trainers.
   and to know whether the new resident can be bought.
 - **Hides:** he steals the tools, keeps them in the padlocked dry showers on the fourth floor, and sells
   them under the canal overpass on Wednesday nights. He planted the drill on Shun and taped the grinder
-  for whoever came next.
+  for whoever came next. Two fourth-floor residents owe him money; he sends them to pick fights with
+  third-floor residents where the warden can see, and they never throw the first punch.
+- **Offers:** the moment he suspects you know, a deal: a clean record, the fourth floor's favour, and the
+  third floor's rent quietly forgiven, for a story told to the floor and nothing told to the warden.
 - **Fears:** a camera that works; Daigo deciding the landing rules no longer apply to him.
 - **Won't:** fight anywhere it could be recorded; raise his voice in front of the warden; confess.
   Cornered, he makes an offer.
@@ -233,11 +251,15 @@ Every location has an inbound edge.
 
 ## Threads (quests)
 
-- **Rent's Due** (live on turn 1). Cook, take the stairs, fight on the landing (off the record), swing
-  in the corridor (on the record: third incident), refuse, bluff, walk to bed, or leave the building.
+- **Rent's Due** (live on turn 1). Cook, take the stairs, fight on the landing (off the record), refuse,
+  bluff, walk to bed, or leave the building. Swing at Daigo in the common room and he catches it, says
+  "Not here," and marches you to the landing: the fight you wanted, off the record. Only a second swing
+  after that warning goes in the book. (The legacy engine's `swung_in_the_corridor` route still writes
+  the third incident; production does not read routes.)
   Then the floor decides who you are. Grants *Call the Floor*.
-- **On the Record** (live on turn 1). Hitting Mabuchi, the warden or Ken writes the third incident.
-  Hitting Rumi or Bunta turns the floor on you.
+- **On the Record** (live on turn 1). Two incidents on the book. Hitting Mabuchi, the warden or Ken
+  writes the third. Hitting Rumi or Bunta turns the floor on you. Mabuchi's two debtors try to make you
+  swing in the kitchen on Tuesday night.
 - **Bed 307.** Find the grinder or the note, or get Bunta to confess; follow the towels upstairs via
   Rumi's readings, Ken, Bunta, watching the corridor, or picking the padlock; then report Mabuchi with
   the tags, with Bunta as witness, or with the grinder in the warden's office, call the whole floor up
@@ -248,6 +270,8 @@ Every location has an inbound edge.
   together), which unlocks *Call the Floor*; then learn where the rent goes.
 - **Who Holds the Floor.** Walk Daigo through the paper or let him sit it alone; then the handover:
   Mabuchi, Daigo, you, Rumi, or no rent at all.
+  The handover opens only after the review (`enterWhen: review_held`), so Daigo's Friday 09:40 pass
+  lands first and One More Year stays reachable.
 - **The Dead Camera** (lead). Learn who killed it; put the fuse back or leave it dead.
 
 ## World events
@@ -258,6 +282,7 @@ Every location has an inbound edge.
 | Mon 23:00 | Curfew; the warden's round. |
 | Tue 07:30 | Review notice on every floor (`knows:the_review`). |
 | Tue 18:00 | Stipend delayed a week (`stipend_late`). |
+| Tue 19:30 | Two of Mabuchi's fourth-floor debtors knock your bowl out of your hands in the kitchen queue, in view of the warden's window, and wait for you to swing. "Landing. Now." takes it off the record (`fourth_floor_pushed`). |
 | Wed 00:30 | Daigo on the roof, if he noticed you (`knows:daigo_leaving`). |
 | Wed 21:00 | The inspection of 307, tipped off by Mabuchi, unless you already have the grinder. |
 | Wed 22:40 | Mabuchi's walk to the overpass, if you know about the towels. |
@@ -298,7 +323,7 @@ Every location has an inbound edge.
 |---|---|---|
 | You Train as a Cook | Cooking and talk | Cook for the Floor, Eat With the Floor; knife roll |
 | You Train as an Electrician | Technical and observant | Fix It, Read the Floor; multimeter; Office +5 |
-| You Train as a Steel Fixer | Strength and defence | Take the Stairs, Stand Your Ground; rigger's gloves; Third +5 |
+| You Train as an Ironworker | Strength and defence | Take the Stairs, Stand Your Ground; rigger's gloves; Third +5 |
 | You Train as a Mechanic | Speed and stealth | Slip Away, Talk Big; scooter key |
 
 The archetype is fixed for the whole story and cannot be changed later.
@@ -312,13 +337,31 @@ The archetype is fixed for the whole story and cannot be changed later.
 
 ## Cover direction
 
-Daigo sprawled in a plastic chair, boots up beside a leaning tower of empty noodle bowls, the corridor
-behind him with residents leaning out of doorways and Rumi unimpressed in one of them. Fluorescent
+A key visual for a trade-college dormitory comedy anime. Daigo sprawled in a plastic chair, boots up
+beside a leaning tower of empty noodle bowls, the corridor behind him with residents in work clothes
+(mechanic's overalls, a chef's jacket, paint-stained hoodies, work boots) leaning out of doorways and
+Rumi unimpressed in one of them. No school uniforms. Fluorescent
 green-white light, steam, a red exit sign over the stairwell door. No blood, injuries or weapons.
 Title **NOODLES OR BLOOD** painted into the art in the upper third. No other text.
+
+## Originality
+
+- Title collision search (editor review, 2026-11-22): the exact title searched with "anime" and with
+  "webtoon manhwa" found no work by that name, only unrelated titles such as Blood-C and Noblesse.
+- Ken's surname was Ishiyama in the first draft. It is Ueda now, because Ishiyama High is the school in
+  Beelzebub, a delinquent manga, and this is a delinquent story. Bunta (the roommate) and Fujii (the
+  warden) stay: they are two different characters with common names, not a copied pair.
+- No franchise names or terms. The spec bans the delinquent genre's best-known names and terms.
 
 ## For the integrator
 
 - Not registered in `index.ts` (task said not to edit it). Add the export and catalog entry there,
   then `npm run migrate` and a new session.
-- Add `openingPanel` and art keys once art exists (`story_noodles_or_blood/...`).
+- Add `openingPanel` and art keys once art exists (`story_noodles_or_blood/...`). `release-stories.ts`
+  refuses a story without `openingPanel`, and the story must be exported through `withDerivedAssetKeys`
+  in `index.ts` before any catalog spec covers it.
+- After registering, run smoke with the storyId substring: `npm run smoke -- --only=noodles_or_blood`
+  (underscores). The filter is `storyId.includes(only)`, so the hyphen slug matches no world and passes
+  having played nothing. The run must print `swept Noodles or Blood`.
+- The setup screen's `why_you_transferred`, `worldKnowsAboutYou` and `appearance` never reach
+  `runTurnPure`; a backstory the player picks there is not seen by the production storyteller.

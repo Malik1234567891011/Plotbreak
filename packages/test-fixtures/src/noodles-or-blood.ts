@@ -44,8 +44,8 @@ const raw = {
   storyId: 'story_noodles_or_blood',
   version: 1,
   title: 'Noodles or Blood',
-  fantasyLabel: 'Feed the whole floor, or take the stairs.',
-  hook: 'Your trade-college dorm has one rule for newcomers: buy noodles for the whole floor on your first night, or take the back stairs with the man who runs it.',
+  fantasyLabel: 'Pay the floor in noodles, or in bruises.',
+  hook: 'Rent’s due on your first night: noodles for the whole floor, or a fight on the back stairs.',
   premise:
     'You transferred to the technical college halfway through the year, and the only bed the housing office had left was 307, on the third floor of East Hall, the old dorm by the canal that everybody calls the Kettle.\n\n' +
     'The third floor has twenty-two people on it, one dead camera, and one rule. A newcomer pays rent on their first night: noodles for the whole floor, or a fight on the back-stairs landing with Daigo, who has run the floor for three years and is almost never told no to his face.\n\n' +
@@ -58,7 +58,7 @@ const raw = {
   official: true,
   coverImage: null,
   keyArt: null,
-  tags: ['Martial arts', 'School', 'Comedy', 'Rivalry', 'Drama'],
+  tags: ['Martial arts', 'School', 'Comedy', 'Rivalry', 'Mystery'],
   mechanicsChips: [
     'Pay, fight, or refuse',
     'Fights go on the record',
@@ -91,15 +91,15 @@ const raw = {
       { itemId: 'food_money', qty: 1 },
     ],
     hardCanon: [
-      'Everyone in this story is an adult. East Hall houses students of a post-secondary technical college, every one of them eighteen or older, and the player is a transfer student of at least nineteen. Daigo Hatanaka is twenty-two, Rumi Ogata twenty, Ken Ishiyama twenty-four, Bunta Iwai nineteen, Sota Mabuchi twenty-three, and Setsuko Fujii, the warden, fifty-eight. Shun Arai, the evicted last resident of 307, is twenty-one. The other residents of the third floor are all between eighteen and twenty-six.',
+      'Everyone in this story is an adult. East Hall houses students of a post-secondary technical college, every one of them eighteen or older, and the player is a transfer student of at least nineteen. Daigo Hatanaka is twenty-two, Rumi Ogata twenty, Ken Ueda twenty-four, Bunta Iwai nineteen, Sota Mabuchi twenty-three, and Setsuko Fujii, the warden, fifty-eight. Shun Arai, the evicted last resident of 307, is twenty-one. The other residents of the third and fourth floors are all between eighteen and twenty-six. Two of the third floor’s are Tetsu Kubota, twenty-one, a plumbing student in 302 who laughs first and loudest at everything Daigo says, and Asako Hirai, nineteen, a bricklaying student in 305 who runs the floor’s group chat and retells every story bigger than it was.',
       'East Hall is the oldest dormitory of a technical college in a port town: four residential floors and a roof, a lobby with the warden’s office behind it, a shared kitchen on the ground floor, and a concrete back stairwell. Everybody calls it the Kettle because the boiler in the basement bangs all night. The college workshops are across the road and the canal runs along the side of the building.',
-      'The third floor’s rule is three years old. A newcomer pays rent on their first night: noodles for every resident of the floor, twenty-two bowls, or a fight with Daigo on the back-stairs landing, which the floor calls taking the stairs. Daigo has never actually thrown anybody down the stairs. Nobody on the floor except Rumi knows that for certain.',
-      'Taking the stairs has rules and Daigo enforces them: nothing to the face, nothing in your hands, and it stops the moment somebody is down. Four people have taken the stairs in three years. Fights in this story are shoves, holds, body blows and falls, quick and clumsy and never graphic: a bruise, a split lip, somebody winded on the concrete. Nobody uses a blade or a tool as a weapon. Anybody who picks one up has lost the floor.',
+      'The third floor’s rule is three years old. Every resident owes the floor one bowl’s worth a month into Ken’s tab, and that pot is what feeds everybody in the last week of the month, before the stipend lands. A newcomer pays the whole floor’s share on their first night instead: twenty-two bowls, or a fight with Daigo on the back-stairs landing, which the floor calls taking the stairs. Daigo has never actually thrown anybody down the stairs. Nobody on the floor except Rumi knows that for certain.',
+      'Taking the stairs has rules and Daigo enforces them: nothing to the face, nothing in your hands, and it stops the moment somebody is down. Four people have taken the stairs in three years. Fights in this story are shoves, holds, body blows and falls, quick and clumsy and never graphic: a bruised shoulder, a stiff side, somebody winded on the concrete. Nobody uses a blade or a tool as a weapon. Anybody who picks one up has lost the floor. Daigo will not let a fight start anywhere but the landing. If somebody swings at him in the common room or the corridor, he catches it, says "Not here," and walks them to the landing himself, and it becomes taking the stairs. What goes in the book is a fight he cannot move: a second swing after he has said not here, or any blow at Mabuchi, at the warden, or in Ken’s kitchen.',
       'The camera above the back-stairs landing has been dead for two years because Rumi Ogata pulled its fuse. A fight on the landing is not recorded unless somebody reports it. A fight anywhere else in the building is seen, and goes in the warden’s incident book.',
-      'The housing office is closing one floor of East Hall at the end of term and decides which on Friday at ten, at a review in the warden’s office. The third floor has two incidents on record this term and the fourth floor has none. A third incident will almost certainly close the third floor, and twenty-two people will lose the cheapest rent in town.',
+      'The housing office is closing one floor of East Hall at the end of term and decides which on Friday at ten, at a review in the warden’s office. The third floor has two incidents on record this term and the fourth floor has none. A third incident will almost certainly close the third floor, and twenty-two people will lose the cheapest rent in town. The story opens on Monday night at twenty to ten, which the clock shows as Day 1. Day 2 is Tuesday, Day 3 Wednesday, Day 4 Thursday, and Day 5 is Friday: Daigo’s resit at nine in the morning, the review at ten. The front door locks at eleven every night.',
       'Tools have been going missing from the college workshops for a year. Three weeks ago a stolen drill was found under the bunk in room 307 and its resident, Shun Arai, was evicted. Shun did not take it. Sota Mabuchi, head of the fourth floor and student assistant in the workshop tool room, steals the tools, keeps them in the padlocked shower block on the fourth floor, and sells them to a scrap dealer under the canal overpass on Wednesday nights. He planted the drill.',
       'A second stolen tool, a cordless grinder wrapped in a blue-striped fourth-floor towel, is still taped under the bunk frame in room 307 tonight. Shun left a folded note in the window frame that says: It wasn’t me. Check the towels.',
-      'The noodle rent is how the third floor eats in the last week of every month, before the student stipend lands. Ken Ishiyama cooks it and keeps the tab. Daigo pays whatever the rent does not cover out of his own welding side jobs, and has never told anybody.',
+      'Ken Ueda cooks the rent and keeps the tab. It never quite covers the hungry week, and Daigo pays the difference out of his own welding side jobs, and has never told anybody.',
       'Daigo has failed the written paper of his final welding certification twice. His resit is on Friday at nine. If he fails it he leaves the college at the end of term, and he is quietly looking for somebody to hold the third floor after him.',
       'Bunta Iwai, the player’s roommate in 307, tells Mabuchi what happens on the third floor every afternoon, because Mabuchi paid off his phone debt in October. He hates doing it.',
       'Romance is possible here, slow and earned, and goes no further than a kiss.',
@@ -108,6 +108,7 @@ const raw = {
       'Loud, fast and funny, and on the side of people who are broke. A delinquent-dorm comedy with a heart: threats are about face and mostly performed for an audience, food and money matter more than fists, and when a fight does happen it is quick, clumsy, and still hurts the next morning. ' +
       'Everybody talks like their trade. Nobody is a monster: Daigo is a bully with a reason, Rumi is right and a little pleased about it, Ken sells to both floors, the warden bends rules she believes in, and even Mabuchi is polite. ' +
       'Jokes land more often than speeches. Keep it physical and specific: steam off a pot, boots on a table, the bang of the boiler at two in the morning, a towel with a blue stripe where it should not be. ' +
+      'News moves round the floor overnight and grows in the telling: the morning after anything the player does, let them hear their own story told back wrong at least once. ' +
       'The face at the top of a beat is Daigo’s or Rumi’s whenever one of them is in the scene.',
     proseStyle: 'webnovel',
     styleExamples: [
@@ -225,12 +226,12 @@ const raw = {
         {
           upTo: 50,
           behaviour:
-            'A split lip, a stiff side, a bruise coming up purple on one forearm. Stairs are slow in the morning and sudden movement is a bad idea. Everybody at breakfast can see that something happened last night, including the warden, who says nothing yet.',
+            'A bruised shoulder, a stiff side, a bruise coming up purple on one forearm. Stairs are slow in the morning and sudden movement is a bad idea. Everybody at breakfast can see that something happened last night, including the warden, who says nothing yet.',
         },
         {
           upTo: 100,
           behaviour:
-            'Properly sore. Ribs complain at every breath taken too fast, one eye is puffy, and the player is not winning a fight with anybody this week. People are careful around them, Ken puts extra in the bowl without comment, and the warden will want to know exactly how they fell.',
+            'Properly sore. Ribs complain at every breath taken too fast, one knee is swollen, and the player is not winning a fight with anybody this week. People are careful around them, Ken puts extra in the bowl without comment, and the warden will want to know exactly how they fell.',
         },
       ],
     },
@@ -781,7 +782,7 @@ const raw = {
       id: 'faction_fourth',
       name: 'The Fourth Floor',
       description:
-        'Mabuchi’s floor: quiet, tidy, a clean record, and a lot of favours owed upward. Its residents do not fight, do not get written up, and do not ask where the cheap kitchen kit and the spare phone chargers come from.',
+        'Mabuchi’s floor: quiet, tidy, a clean record, and a lot of favours owed upward. Its residents never throw the first punch, never get written up, and do not ask where the cheap kitchen kit and the spare phone chargers come from.',
       startingReputation: 0,
       ranks: [
         { atReputation: 0, label: 'Downstairs' },
@@ -867,7 +868,7 @@ const raw = {
         { startMinute: 60, endMinute: 420, locationId: 'common_room', activity: 'in bed in 301 with the door propped open, because that is rule five' },
         { startMinute: 420, endMinute: 480, locationId: 'dorm_kitchen', activity: 'eating breakfast standing up, in Ken’s way' },
         { startMinute: 480, endMinute: 1020, locationId: 'workshops', activity: 'in the welding bay, the only place he is ever quiet' },
-        { startMinute: 1020, endMinute: 1140, locationId: 'canal_lane', activity: 'at the canal, paying Ken for something nobody saw him order' },
+        { startMinute: 1020, endMinute: 1140, locationId: 'dorm_kitchen', activity: 'in the kitchen, paying Ken for something nobody saw him order' },
         { startMinute: 1140, endMinute: 1440, locationId: 'common_room', activity: 'boots on the table, holding court' },
       ],
       homeLocationId: 'common_room',
@@ -902,7 +903,7 @@ const raw = {
       id: 'rumi',
       name: 'Rumi Ogata',
       calledName: 'Rumi',
-      role: 'Second-year electrical student in 309, and the only person on the third floor who has never paid the rent',
+      role: 'Electrical student, twenty, in her second year at the college, living in 309, and the only person on the third floor who has never paid the rent',
       cardBlurb:
         'She tells Daigo no every single day and he lets her, she will tell you that you do not have to pay either, and she has not yet said what she wants you to do instead.',
       pronouns: 'she/her',
@@ -928,7 +929,7 @@ const raw = {
       secrets: [
         {
           id: 'rumi_the_fuse',
-          fact: 'She pulled the fuse on the back-stairs camera two years ago, after its footage got a first-year evicted for a shove. She tells herself it was to protect people from the camera. It is also what made the stairs possible.',
+          fact: 'She pulled the fuse on the back-stairs camera two years ago, after its footage got a resident evicted for a shove. She tells herself it was to protect people from the camera. It is also what has kept the stairs off the record ever since.',
           visibility: 'NPC_PRIVATE',
           revealHint: 'She admits it on the roof to somebody who asks her why the camera is dead and does not assume it was Daigo.',
         },
@@ -993,11 +994,11 @@ const raw = {
     },
     {
       id: 'ken',
-      name: 'Ken Ishiyama',
+      name: 'Ken Ueda',
       calledName: 'Ken',
       role: 'Final-year culinary student, keeper of the ground-floor kitchen and the late-night noodle cart, and the man who actually cooks the rent',
       cardBlurb:
-        'Every bowl of rent on your floor comes out of his pots, he knows exactly who has paid and who has not, and he will sell you twenty-two bowls or teach you to make them, depending on how you ask.',
+        'Every bowl of rent on your floor comes out of his pots. He will sell you twenty-two of them tonight, or teach you to make them if you ask nicely.',
       pronouns: 'he/him',
       publicTraits: ['Feeds everybody, charges most of them', 'Gossips while he chops', 'Neutral between the floors, on principle and for business'],
       hiddenDrives: [
@@ -1036,7 +1037,7 @@ const raw = {
       topics: ['noodles', 'the rent', 'his tab book', 'the noodle cart', 'Daigo', 'Mabuchi', 'his final service'],
       voiceSamples: [
         'Twenty-two bowls, chef. On your money that’s your whole week, in soup.',
-        'Four pots, one burner that behaves, and a floor that eats like a building site. Grab a knife or get out of my light.',
+        'Six burners, two of them sulking, and a floor that eats like a building site. Grab a knife or get out of my light.',
         'I write everything down. Who paid, who didn’t, who paid for who. Funny what a column of numbers says about a man.',
         'Nobody walks out of my kitchen hungry. Plenty walk out owing. Different problem, chef.',
       ],
@@ -1088,6 +1089,8 @@ const raw = {
       hiddenDrives: [
         'He has been stealing tools from the workshops for a year, and the college audit at the end of term will find the gap unless somebody else is blamed for it first',
         'He wants the third floor closed, so that the audit, the eviction and the blame all land in one place that is not his',
+        'Two fourth-floor residents owe him money, and he sends them to pick fights with third-floor residents wherever the warden can see. They never throw the first punch, because the point is that somebody downstairs swings first',
+        'The moment he suspects somebody knows about the tools, he offers them a deal: a clean record, the fourth floor’s favour, and the third floor’s rent quietly forgiven, in exchange for a story told to the floor and nothing told to the warden',
       ],
       values: ['A clean record', 'Owing people favours they do not know they owe'],
       fears: ['A camera that works', 'Daigo deciding the landing rules no longer apply to him'],
@@ -1137,7 +1140,7 @@ const raw = {
         { startMinute: 0, endMinute: 420, locationId: 'fourth_floor', activity: 'in 401, the only room on the floor with a lock that works' },
         { startMinute: 420, endMinute: 480, locationId: 'lobby', activity: 'wishing the warden good morning by name' },
         { startMinute: 480, endMinute: 900, locationId: 'workshops', activity: 'behind the tool-room counter, signing tools in and out in very neat handwriting' },
-        { startMinute: 900, endMinute: 1080, locationId: 'canal_lane', activity: 'walking a sports bag along the canal, towards the overpass and back' },
+        { startMinute: 900, endMinute: 1080, locationId: 'fourth_floor', activity: 'in 401 with the door ajar, hearing the third floor’s day from whoever comes up the stairs' },
         { startMinute: 1080, endMinute: 1440, locationId: 'fourth_floor', activity: 'running the fourth floor from a desk chair at the top of the stairs' },
       ],
       homeLocationId: 'fourth_floor',
@@ -1166,7 +1169,7 @@ const raw = {
       id: 'bunta',
       name: 'Bunta Iwai',
       calledName: 'Bunta',
-      role: 'First-year auto mechanics student and your roommate in 307, who paid his rent in noodles on day one and has been broke ever since',
+      role: 'Auto mechanics student, nineteen, new to the college this year, and your roommate in 307, who paid his rent in noodles on day one and has been broke ever since',
       cardBlurb:
         'He shares your room, knows every rule on the floor by heart and will tell you all of them in your first five minutes, and keeps going up to the fourth floor for reasons he explains a little too fast.',
       pronouns: 'he/him',
@@ -1249,7 +1252,7 @@ const raw = {
       calledName: 'Fujii',
       role: 'Warden of East Hall for fourteen years, a former ship’s engineer, and the keeper of the incident book',
       cardBlurb:
-        'She locks the front door at eleven, writes every fight she sees into a book that can close your floor, and has been very carefully not fixing the camera on your back stairs for two years.',
+        'She locks the front door at eleven and writes every fight she sees into a book that can close your floor. Ask her why the back-stairs camera has been dead for two years, and she pours you tea first.',
       pronouns: 'she/her',
       publicTraits: ['Unhurried', 'Hears everything in the building through the pipes', 'Makes tea for people she is about to punish'],
       hiddenDrives: [
@@ -1357,7 +1360,7 @@ const raw = {
           id: 'pay_or_bleed',
           playerCopy: 'Answer Daigo before the front door locks at eleven: noodles, the stairs, or something else.',
           directorNotes:
-            'The whole floor is watching and every answer is a real one. Cooking costs the player their food money or a night of work in Ken’s kitchen and buys goodwill; the stairs cost bruises and buy respect; refusing costs nothing tonight and makes Rumi very interested; a bluff works exactly as long as nobody checks. If the player swings at Daigo in the common room instead of on the landing, he takes it, puts them down without hitting their face, and the warden hears it through the pipes: that is the third incident and the whole floor knows it. Walking off to bed is allowed and Daigo lets them go, loudly, which is worse.',
+            'The whole floor is watching and every answer is a real one. Cooking costs the player their food money or a night of work in Ken’s kitchen and buys goodwill; the stairs cost bruises and buy respect; refusing costs nothing tonight and makes Rumi very interested; a bluff works exactly as long as nobody checks. If the player swings at Daigo in the common room, he catches it, says "Not here," and marches them to the landing: the fight they wanted, off the record. Only a second swing after that warning goes in the book. Walking off to bed is allowed and Daigo lets them go, loudly, which is worse.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -1471,7 +1474,7 @@ const raw = {
       id: 'q_on_the_record',
       title: 'On the Record',
       summary:
-        'The third floor has two fights in the warden’s incident book this term. One more, anywhere but the back-stairs landing under the dead camera, and the housing office closes the floor.',
+        'The third floor has two incidents in the warden’s incident book this term. One more, anywhere but the back-stairs landing under the dead camera, and the housing office closes the floor.',
       kind: 'SIDE',
       startsActive: true,
       involvedCharacterIds: ['fujii', 'mabuchi'],
@@ -1856,6 +1859,7 @@ const raw = {
         {
           id: 'the_handover',
           playerCopy: 'Settle who holds the third floor next term.',
+          enterWhen: { flagsSet: ['review_held'] },
           directorNotes:
             'Whoever it is, Daigo hands it over on the landing, in front of everybody, in one sentence. If the player has thrown in with Mabuchi, Mabuchi simply starts sitting in the plastic chair. If the player has fed the floor and stood up to Daigo with the tab book in their head, they can end the rent altogether, and Daigo will be furious for exactly one evening.',
           succeedWhen: null,
@@ -1922,7 +1926,7 @@ const raw = {
           id: 'why_dead',
           playerCopy: 'Find out why the camera on the back stairs is dead.',
           directorNotes:
-            'Everybody assumes Daigo broke it. Rumi pulled the fuse two years ago after its footage got a first-year evicted for a shove, and the warden has known all along and left it. Either of them says so to somebody who asks straight and does not assume.',
+            'Everybody assumes Daigo broke it. Rumi pulled the fuse two years ago after its footage got a resident evicted for a shove, and the warden has known all along and left it. Either of them says so to somebody who asks straight and does not assume.',
           succeedWhen: null,
           succeedWhenAny: [
             {
@@ -2025,6 +2029,19 @@ const raw = {
         'Half the floor was already living on rice. Ken starts counting the sack. Daigo goes very quiet and then very loud. This is the week the rent was invented for.',
       setsFlags: ['stipend_late'],
       cancelledByFlags: [],
+      requiresFlags: [],
+      movesCharacters: [],
+    },
+    {
+      id: 'we_fourth_floor_shoulder',
+      atWorldMinute: 1440 + 19 * 60 + 30,
+      locationId: 'dorm_kitchen',
+      publicCopy:
+        'Two fourth-floor residents with blue-striped towels round their necks cut into the kitchen queue, and the bigger one knocks the bowl out of your hands in full view of the warden’s window.',
+      directorNotes:
+        'Mabuchi sent them for a swing on the record, and they will not hit first. A swing here is the third incident. Saying "Landing. Now." takes it off the record, and they come, because refusing would cost them face on their own floor. If Daigo is there he says nothing and watches to see which the player picks.',
+      setsFlags: ['fourth_floor_pushed'],
+      cancelledByFlags: ['left_the_map', 'bed_307_answered'],
       requiresFlags: [],
       movesCharacters: [],
     },
@@ -2181,7 +2198,7 @@ const raw = {
     },
     {
       id: 'arch_steel',
-      name: 'You Train as a Steel Fixer',
+      name: 'You Train as an Ironworker',
       role: 'Strength and defence',
       summary: 'You study structural steelwork, which means a year of carrying it up scaffolding. You are the one person here who could take the stairs and win.',
       playstyle: ['Physical', 'Stubborn', 'Hard to move'],
@@ -2425,11 +2442,11 @@ const raw = {
     "I hold the stairwell door open for him. \"After you.\"",
   ],
   coverDirection: [
-    'SUBJECT: Daigo Hatanaka, a broad, tall man with close-cropped black hair and a pale scar through his left eyebrow, alone and unmistakable in the foreground of a key visual for a delinquent dormitory comedy anime.',
+    'SUBJECT: Daigo Hatanaka, a broad, tall man with close-cropped black hair and a pale scar through his left eyebrow, alone and unmistakable in the foreground of a key visual for a trade-college dormitory comedy anime.',
     'He sits sprawled in a cheap plastic chair, centred and close, filling about two thirds of the frame, both steel-toed boots up on a scuffed table.',
     'He wears a scorched brown leather welding jacket open over a white T-shirt, arms folded, chin lifted, a slow challenging grin, looking straight at the viewer.',
     'Beside his boots on the table stands a tall, leaning tower of empty white plastic noodle bowls.',
-    'BEHIND HIM, soft and secondary: a long shabby dormitory corridor at night with propped-open doors and residents leaning out to watch,',
+    'BEHIND HIM, soft and secondary: a long shabby dormitory corridor at night with propped-open doors and residents in work clothes leaning out to watch: mechanic’s overalls, a chef’s jacket, paint-stained hoodies, work boots,',
     'and in one doorway a slim woman with black hair tied back with electrical tape and a small screwdriver behind her ear, arms folded, unimpressed.',
     'LIGHT: green-white fluorescent tubes overhead, warm steam drifting through the frame, a red exit sign glowing over a stairwell door.',
     'Loud, funny, confident, a little dangerous. No blood, no injuries, no weapons anywhere.',
