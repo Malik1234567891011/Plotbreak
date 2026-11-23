@@ -29,7 +29,7 @@
    "id": "title",
    "at": [
     0.037,
-    0.62
+    0.604
    ],
    "anchor": "tl",
    "align": "left",
@@ -38,20 +38,21 @@
     {
      "use": "bc",
      "text": "THE",
-     "size": 50,
-     "tracking": 0.3,
-     "fill": "#ff3b47"
+     "cap": 45,
+     "tracking": 0.14,
+     "fill": "#ffffff",
+     "dx": 10
     },
     {
      "use": "bc",
      "text": "RANKING",
-     "width": 268,
-     "gap": -2
+     "width": 320,
+     "gap": 12
     },
     {
      "use": "bc",
      "text": "BOARD",
-     "width": 268,
+     "width": 320,
      "gap": -10
     }
    ],
@@ -63,13 +64,13 @@
       22,
       30,
       24,
-      206
+      168
      ],
      "slant": 5,
      "fill": {
       "gradient": [
-       "#2a2c36c8",
-       "#0e1016c0"
+       "#2a2c36ec",
+       "#0e1016e6"
       ],
       "angle": 90
      },
@@ -100,10 +101,31 @@
      "anchor": "bl",
      "dx": -6,
      "dy": -24,
-     "w": 330,
+     "w": 382,
      "h": 6,
      "slant": 5,
      "fill": "#ffffff"
+    },
+    {
+     "shape": "plate",
+     "of": 0,
+     "pad": [
+      16,
+      9,
+      18,
+      9
+     ],
+     "slant": 5,
+     "fill": "#e02a36",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 4,
+       "blur": 5,
+       "opacity": 0.35,
+       "color": "#0c0d12"
+      }
+     ]
     }
    ],
    "scale": 1.55
@@ -114,16 +136,16 @@
    "role": "deco",
    "at": [
     0.037,
-    0.62
+    0.604
    ],
    "anchor": "tl",
    "align": "left",
    "dx": -12,
-   "dy": 381,
-   "gap": 18,
+   "dy": 470,
+   "gap": 12,
    "style": {
     "use": "bc",
-    "size": 38
+    "size": 34
    },
    "lines": [
     {
@@ -145,9 +167,9 @@
      "of": 1,
      "pad": [
       34,
-      8,
-      300,
-      8
+      7,
+      352,
+      7
      ],
      "slant": 5,
      "fill": "#e02a36",
@@ -169,7 +191,7 @@
      "to": "mr",
      "anchor": "ml",
      "dx": 26,
-     "w": 172,
+     "w": 222,
      "h": 10,
      "radius": 2,
      "slant": 5,
@@ -181,7 +203,7 @@
      "to": "mr",
      "anchor": "ml",
      "dx": 26,
-     "w": 202,
+     "w": 252,
      "h": 10,
      "radius": 2,
      "slant": 5,
@@ -193,7 +215,7 @@
      "to": "mr",
      "anchor": "ml",
      "dx": 26,
-     "w": 149,
+     "w": 199,
      "h": 10,
      "radius": 2,
      "slant": 5,

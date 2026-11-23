@@ -13,6 +13,12 @@
    1520,
    360,
    1744
+  ],
+  [
+   822,
+   690,
+   1124,
+   1085
   ]
  ],
  "styles": {
@@ -66,10 +72,10 @@
    "type": "text",
    "id": "lock",
    "at": [
-    0.03,
-    0.022
+    0.04,
+    0.676
    ],
-   "anchor": "tl",
+   "anchor": "bl",
    "gap": -2,
    "style": {
     "font": "Titan One",
@@ -77,14 +83,16 @@
    },
    "lines": [
     {
-     "text": "THE",
-     "size": 46,
-     "tracking": 0.12
-    },
-    {
-     "text": "LAST",
-     "size": 72,
-     "tracking": 0.04
+     "runs": [
+      {
+       "text": "THE",
+       "after": 50
+      },
+      {
+       "text": "LAST"
+      }
+     ],
+     "cap": 100
     }
    ],
    "backing": [
@@ -93,9 +101,9 @@
      "of": "block",
      "pad": [
       28,
-      24,
+      22,
       28,
-      96
+      22
      ],
      "radius": 26,
      "fill": {
@@ -132,9 +140,10 @@
     {
      "shape": "dot",
      "of": "block",
-     "to": "bc",
-     "anchor": "tc",
-     "dy": 20,
+     "to": "ml",
+     "anchor": "mc",
+     "dx": 305,
+     "dy": -14,
      "w": 34,
      "h": 34,
      "fill": "#3a1a0a"
@@ -142,11 +151,12 @@
     {
      "shape": "polygon",
      "of": "block",
-     "to": "bc",
+     "to": "ml",
      "anchor": "tc",
-     "dy": 42,
+     "dx": 305,
+     "dy": -4,
      "w": 26,
-     "h": 40,
+     "h": 44,
      "points": [
       [
        0.3,
@@ -172,8 +182,19 @@
      "of": "block",
      "to": "tl",
      "anchor": "mc",
-     "dx": -8,
+     "dx": -14,
      "dy": -6,
+     "w": 12,
+     "h": 12,
+     "fill": "#7a4a14"
+    },
+    {
+     "shape": "dot",
+     "of": "block",
+     "to": "bl",
+     "anchor": "mc",
+     "dx": -14,
+     "dy": 6,
      "w": 12,
      "h": 12,
      "fill": "#7a4a14"
@@ -183,8 +204,19 @@
      "of": "block",
      "to": "tr",
      "anchor": "mc",
-     "dx": 8,
+     "dx": 14,
      "dy": -6,
+     "w": 12,
+     "h": 12,
+     "fill": "#7a4a14"
+    },
+    {
+     "shape": "dot",
+     "of": "block",
+     "to": "br",
+     "anchor": "mc",
+     "dx": 14,
+     "dy": 6,
      "w": 12,
      "h": 12,
      "fill": "#7a4a14"

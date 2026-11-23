@@ -6,7 +6,7 @@
     {
       "type": "text",
       "id": "title",
-      "at": [0.455, 0.9],
+      "at": [0.455, 0.872],
       "anchor": "bc",
       "rotate": -6,
       "lines": [
@@ -16,37 +16,25 @@
           "width": 880,
           "fill": "#ffffff",
           "strokes": [
-            {"width": 21, "fill": "#14245a"},
-            {"width": 16, "fill": "#e2252c"},
-            {"width": 11, "fill": "#ffffff"},
+            {"width": 30, "fill": "#14245a"},
+            {"width": 18, "fill": "#e2252c"},
+            {"width": 12, "fill": "#ffffff"},
             {"width": 6, "fill": "#e2252c"}
           ],
-          "shadow": [{"dx": 0, "dy": 9, "blur": 10, "color": "#0b1a3a", "opacity": 0.5}]
+          "shadow": [{"dx": 0, "dy": 9, "blur": 4, "color": "#0b1a3a", "opacity": 0.75}]
         }
       ]
     },
     {
-      "type": "shape",
-      "id": "string",
-      "shape": "rule",
-      "box": [0.668, 0.8875, 0.79, 0.8905],
-      "rotate": -44,
-      "thickness": 4,
-      "taper": false,
-      "fill": "#efe2c2",
-      "strokes": [{"width": 1.8, "fill": "#4a3218"}],
-      "shadow": [{"dx": 2, "dy": 4, "blur": 3, "opacity": 0.4}]
-    },
-    {
       "type": "text",
       "id": "tag",
-      "at": [0.8, 0.965],
+      "at": [0.762, 0.966],
       "anchor": "bc",
       "rotate": 7,
       "gap": -4,
       "lines": [
-        {"text": "and a", "font": "Gochi Hand", "size": 46, "fill": "#2b1a0c", "dx": -40},
-        {"text": "Porter", "font": "Gochi Hand", "size": 84, "fill": "#2b1a0c", "dx": 16}
+        {"text": "and a", "font": "Gochi Hand", "size": 80, "fill": "#24150a", "dx": -56},
+        {"text": "Porter", "font": "Gochi Hand", "size": 118, "fill": "#24150a", "dx": 20}
       ],
       "backing": [
         {
@@ -79,6 +67,18 @@
         },
         {"shape": "dot", "of": "block", "to": "ml", "anchor": "mc", "dx": -44, "w": 12, "h": 12, "fill": "#3b2a18"}
       ]
+    },
+    {
+      "type": "shape",
+      "id": "string",
+      "shape": "rule",
+      "box": [0.5638, 0.8695, 0.6636, 0.8725],
+      "rotate": -81,
+      "thickness": 4,
+      "taper": false,
+      "fill": "#efe2c2",
+      "strokes": [{"width": 1.8, "fill": "#4a3218"}],
+      "shadow": [{"dx": 2, "dy": 4, "blur": 3, "opacity": 0.4}]
     }
   ]
 }

@@ -6,8 +6,8 @@
     "rampart": {
       "font": "Rampart One",
       "fill": "#16121c",
-      "strokes": [{"width": 17, "fill": "#16121c"}, {"width": 12, "fill": "#ffffff"}],
-      "shadow": [{"dx": 0, "dy": 8, "blur": 12, "color": "#2a0a1e", "opacity": 0.45}]
+      "strokes": [{"width": 25, "fill": "#16121c"}, {"width": 13, "fill": "#ffffff"}],
+      "shadow": [{"dx": 0, "dy": 9, "blur": 12, "color": "#2a0a1e", "opacity": 0.5}]
     }
   },
   "layers": [
@@ -15,7 +15,7 @@
       "type": "shape",
       "id": "tape",
       "shape": "plate",
-      "box": [0.25, 0.926, 0.72, 0.945],
+      "box": [0.33, 0.93, 0.66, 0.949],
       "radius": 3,
       "fill": {"gradient": ["#8dffd0", "#2ee59d", "#13b877"], "stops": [0, 0.5, 1], "angle": 90},
       "opacity": 0.95,
@@ -29,27 +29,27 @@
       "type": "shape",
       "id": "ticks",
       "shape": "plate",
-      "box": [0.26, 0.926, 0.71, 0.9335],
+      "box": [0.34, 0.93, 0.65, 0.9375],
       "fill": {"texture": "stripes", "base": "#0b4a32", "period": 13, "angle": 0, "alpha": 1, "strength": 1}
     },
     {
       "type": "text",
       "id": "left",
-      "at": [0.045, 0.955],
+      "at": [0.042, 0.972],
       "anchor": "bl",
       "align": "left",
-      "gap": 4,
+      "gap": 0,
       "style": {"use": "rampart"},
-      "lines": [{"text": "THREE", "width": 250}, {"text": "FEET", "width": 200}]
+      "lines": [{"text": "THREE", "cap": 96}, {"text": "FEET", "cap": 96}]
     },
     {
       "type": "text",
       "id": "right",
-      "at": [0.965, 0.958],
+      "at": [0.973, 0.972],
       "anchor": "br",
       "align": "right",
       "style": {"use": "rampart"},
-      "lines": [{"text": "APART", "width": 364, "scale": [1, 1.5], "rise": 5}]
+      "lines": [{"text": "APART", "width": 372, "scale": [1, 1.7], "rise": 5}]
     }
   ]
 }
