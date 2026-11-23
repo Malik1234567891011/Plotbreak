@@ -984,11 +984,17 @@ struct OnboardingFrame<Content: View, Footer: View>: View {
                         Color.clear.frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
                     }
                     Spacer(minLength: 0)
-                    HStack(spacing: 4) {
-                        ForEach(1...max(total, 1), id: \.self) { index in
-                            Capsule()
-                                .fill(index <= step ? Theme.Colors.textPrimary : Color(hex: 0x45413B))
-                                .frame(width: 14, height: 2)
+                    HStack(spacing: 10) {
+                        Text(t("onboarding.step_short", ["step": step, "total": total]))
+                            .font(.system(size: 12))
+                            .monospacedDigit()
+                            .foregroundStyle(Theme.Colors.textMuted)
+                        HStack(spacing: 4) {
+                            ForEach(1...max(total, 1), id: \.self) { index in
+                                Capsule()
+                                    .fill(index <= step ? Theme.Colors.textPrimary : Color(hex: 0x45413B))
+                                    .frame(width: 14, height: 2)
+                            }
                         }
                     }
                     .padding(.trailing, Theme.pageGutter - Theme.Spacing.sm)

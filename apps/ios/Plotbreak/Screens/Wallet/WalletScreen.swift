@@ -224,7 +224,7 @@ struct WalletScreen: View {
                             }
                         }
                         if offer.bonusCredits > 0 {
-                            Text(t("wallet.bonus_badge", ["bonus": Format.credits(offer.bonusCredits, locale: store.locale)]))
+                            Text(t("wallet.first_purchase_line"))
                                 .font(.system(size: 13))
                                 .foregroundStyle(Theme.Colors.textPrimary)
                         }
@@ -257,11 +257,20 @@ struct WalletScreen: View {
     /// and the price on a white pill. Apple's payment sheet confirms.
     private var packs: some View {
         let standing = buyableOffers.filter { !$0.firstPurchaseOnly }.sorted { $0.credits < $1.credits }
+        let topBonus = standing.map { bonusPercent($0) }.max() ?? 0
         return VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-            Text(t("wallet.packs_title"))
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundStyle(Theme.Colors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(t("wallet.packs_title"))
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .accessibilityAddTraits(.isHeader)
+                if topBonus > 0 {
+                    Text(t("wallet.packs_subtitle", ["percent": topBonus]))
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: Theme.Spacing.sm), count: 3), spacing: Theme.Spacing.sm) {
                 ForEach(Array(standing.enumerated()), id: \.element.productId) { index, offer in
                     packTile(offer, art: Self.packArt[min(index, Self.packArt.count - 1)])
@@ -280,6 +289,11 @@ struct WalletScreen: View {
     private static let packArt: [(name: String, size: CGFloat)] = [
         ("PackOne", 68), ("PackFew", 74), ("PackPouch", 84), ("PackBasket", 88), ("PackCrate", 92), ("PackChest", 96),
     ]
+
+    /// A pack's bonus as a whole percentage of its base, as its tile shows it.
+    private func bonusPercent(_ offer: StoreOffer) -> Int {
+        Int((Double(offer.bonusCredits) / Double(max(1, offer.credits)) * 100).rounded())
+    }
 
     private func packTile(_ offer: StoreOffer, art: (name: String, size: CGFloat)) -> some View {
         let popular = offer.tier == .POPULAR
@@ -304,7 +318,7 @@ struct WalletScreen: View {
                         Text(Format.credits(offer.credits, locale: store.locale))
                             .strikethrough()
                             .foregroundStyle(Theme.Colors.textMuted)
-                        Text(verbatim: "+\(Int((Double(offer.bonusCredits) / Double(max(1, offer.credits)) * 100).rounded()))%")
+                        Text(verbatim: "+\(bonusPercent(offer))%")
                             .font(.system(size: 11, weight: .bold))
                             .foregroundStyle(Theme.Colors.textPrimary)
                             .padding(.horizontal, 5)
@@ -416,7 +430,7 @@ struct WalletScreen: View {
             daily
 
             if !quests.isEmpty {
-                Text(t("profile.badges"))
+                Text(t("wallet.quests"))
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundStyle(Theme.Colors.textPrimary)
                     .padding(.top, 22)
@@ -471,9 +485,8 @@ struct WalletScreen: View {
                         if busy == "daily" {
                             ProgressView().tint(Theme.Colors.textOnLight)
                         } else {
-                            Text(verbatim: "+" + Format.credits(300 + (passBonusWaiting ? (wallet?.pass?.dailyCredits ?? 0) : 0), locale: store.locale))
+                            Text(t("wallet.claim"))
                                 .font(.system(size: 15, weight: .semibold))
-                                .monospacedDigit()
                         }
                     }
                     .foregroundStyle(Theme.Colors.textOnLight)

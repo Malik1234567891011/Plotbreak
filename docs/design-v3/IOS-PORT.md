@@ -66,41 +66,56 @@ pushed (a push deploys the API; Omar approves pushes).
   (`apps/tower/src/game/*.ts`); left alone.
 - `DeltaKind.resource` still uses ◆ as its glyph, but nothing on screen
   shows that pill today.
-- Copy that needs new keys in packages/i18n (plotbreak-1a adds them):
-  - `pass.headline` "400 credits, every day" (now "400 credits" + tagline)
-  - `pass.perk_daily_v3` "2,800 credits a week" / "Paid daily, for as long as you keep it"
-  - `pass.cta_short` "Get the Pass" (now "Get the Pass · $2.99/week")
-  - `wallet.packs_subtitle` "Bigger packs get a bigger bonus, up to +10%."
-  - `wallet.first_purchase_line` "Doubled on your first purchase" (now "+700 bonus")
-  - `wallet.quests` "Quests" (now "Badges")
-  - `wallet.claim` "Claim" (the daily pill shows "+300")
-  - `discover.continue_meta` "as {name} · Turn {n} · {when}"
-  - `tower.card_streak` without the 🔥 (stripped in Swift for now)
-  - `story.about_heading` "About" (now "Description"), `story.official_byline`
-    "A Plotbreak original" (now "by Plotbreak Studios"), `story.you_play_as`
-    "You play as {name}, {role}" (now "as Ren · Night Shift"),
-    `story.change` "Change" (now "Customize character")
-  - `setup.name_short` "Name", `setup.role_heading` "Your role",
-    `setup.play_as` "Play as {name}" (now "Enter"),
-    `setup.subheading_optional` "Optional. Skip it and you play as {name}, {role}."
-  - `continue.heading_v3` "Out of credits", `continue.paused` "{title} is paused at turn {turn}. Nothing is lost."
-  - `create.start_heading` "Start from an idea" (now "Make a world"),
-    `create.start_story` "Start a story", `create.your_stories` "Your stories"
-  - `library.section_playing` "Playing" (now "Active")
-  - `onboarding.step_short` "{step} of {total}" (the board's counter beside
-    the step dashes; the dashes show alone for now)
-  - `onboarding.genres_title` "What do you like to read?" (now "Choose
-    genres you are interested in"), `onboarding.genres_body` "Pick up to
-    five. Discover opens on these.", `onboarding.audience_title` "Filter by
-    audience?" (now "Want to filter by audience?")
-  - `onboarding.showcase_title` "Pick your first story." (now "All set!
-    Choose a title and play now."), `onboarding.showcase_body` "You start
-    with ◆600." (the board's "about ten turns" is a turn count; left out)
-  - `misc.sign_in_tagline` "Type anything. The story answers.",
-    `misc.sign_in_bonus` "Sign up and start with ◆600." (now "Sign up and get
-    600 credits!"; a ◆ in it needs `Text.crystals`)
-  - the four `◆` strings in tower.* are drawn as the crystal by `Text.crystals`;
-    the notification body cannot show an image and still says ◆300.
+- Board copy through packages/i18n: **done** (en + fr, exported to
+  `Resources/i18n`). A key used only by the screen being changed had its value
+  changed in place; a key shared with another screen got a new key.
+  - Pass: `pass.headline` (new) "400 credits, every day", replacing the
+    credits line and the tagline (`pass.tagline` deleted);
+    `pass.perk_daily_v3` (new) "2,800 credits a week" with
+    `pass.perk_daily_v3_body` (new) "Paid daily, for as long as you keep it";
+    `pass.cta` (in place) "Get the Pass · $2.99 a week". The button keeps
+    the price, as on the board, rather than the bare "Get the Pass" this list
+    first asked for: the price stays the biggest pricing element for review.
+  - Credits: `wallet.packs_subtitle` (new) "Bigger packs get a bigger bonus,
+    up to +10%." (the 10 is the largest pack bonus, computed);
+    `wallet.first_purchase_line` (new) "Doubled on your first purchase";
+    `wallet.quests` (new) "Quests"; `wallet.claim` (new) "Claim" on the daily pill.
+  - Home: `discover.continue_turns_in` (in place) "Turn {count}", so the
+    row reads "Turn 3 · 2 h ago". The board's leading "as Ren" still needs
+    the name on `ContinueCard` (backend); `library.playing_as` is the key for it.
+  - Tower card: `tower.card_streak` (in place) has no 🔥; the Swift strip is gone.
+  - Story page: `story.description_heading` (in place) "About";
+    `story.official_byline` (new) "A Plotbreak original" for official stories;
+    `story.you_play_as` (new) "You play as {name}, {role}" and
+    `story.you_play_as_name` (new) for a world without roles;
+    `story.customize_character` (in place) "Change".
+  - Who are you?: `setup.name_short` (new) "Name"; `setup.archetype_heading`
+    (in place) "Your role" (a world's own field label still wins);
+    `setup.play_as` (new) "Play as {name}" (`setup.enter` stays for an empty
+    name); `setup.subheading` (in place) "Optional. Skip it and you play as
+    {name}, {role}." and `setup.subheading_no_role` (new).
+  - Out of credits: `continue.heading` (in place) "Out of credits";
+    `continue.subheading` (in place) "{title} is paused at turn {turn}.
+    Nothing is lost."
+  - Create: `create.empty_title` (in place) "Start from an idea";
+    `create.new_story` (in place) "Start a story"; `create.your_stories` (new)
+    "Your stories" (`create.title_count` deleted). The block's body is still
+    the old, longer sentence; the board's "Write the premise in a few
+    lines…" was not on this list.
+  - Library: `library.section_active` (in place) "PLAYING", shown sentence-cased.
+  - Onboarding: `onboarding.step_short` (new) "{step} of {total}" beside the
+    dashes; `onboarding.genres_title` (in place) "What do you like to read?";
+    `onboarding.genres_body` (new) "Pick up to five. Discover opens on these.";
+    `onboarding.audience_title` (in place) "Filter by audience?";
+    `onboarding.showcase_title` (in place) "Pick your first story.";
+    `onboarding.showcase_body` (in place) "You start with ◆600." through
+    `Text.crystals` (no turn count).
+  - Welcome: `misc.sign_in_tagline` (in place, was unused) "Type anything.
+    The story answers." under the wordmark; `misc.sign_in_bonus` (in place)
+    "Sign up and start with ◆600." through `Text.crystals`.
+  - The four `◆` strings in tower.* are drawn as the crystal by
+    `Text.crystals`; the notification body cannot show an image and still
+    says ◆300.
 
 ## Left alone on purpose
 

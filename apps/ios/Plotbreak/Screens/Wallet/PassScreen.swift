@@ -132,13 +132,11 @@ struct PassScreen: View {
             Text(t("pass.title"))
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundStyle(Theme.Colors.textSecondary)
-            Text(t("wallet.credits_count", ["credits": Format.credits(pass?.dailyCredits ?? 400, locale: store.locale)]))
+            Text(t("pass.headline", ["credits": Format.credits(pass?.dailyCredits ?? 400, locale: store.locale)]))
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(Theme.Colors.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
                 .accessibilityAddTraits(.isHeader)
-            Text(t("pass.tagline"))
-                .font(.system(size: 17))
-                .foregroundStyle(Theme.Colors.textSecondary)
         }
     }
 
@@ -148,8 +146,8 @@ struct PassScreen: View {
     private var benefits: some View {
         VStack(alignment: .leading, spacing: Theme.Spacing.md) {
             benefit(art: AnyView(Image("PackFew").resizable().scaledToFit()),
-                    title: t("wallet.daily_credits"),
-                    subtitle: t("wallet.bonus_badge", ["bonus": Format.credits(pass?.dailyCredits ?? 400, locale: store.locale)]))
+                    title: t("pass.perk_daily_v3", ["credits": Format.credits((pass?.dailyCredits ?? 400) * 7, locale: store.locale)]),
+                    subtitle: t("pass.perk_daily_v3_body"))
             benefit(art: AnyView(Image("PackOne").resizable().scaledToFit()),
                     title: t("pass.perk_free"), subtitle: nil)
             benefit(art: AnyView(

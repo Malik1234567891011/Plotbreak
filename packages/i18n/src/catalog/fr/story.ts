@@ -45,6 +45,11 @@ export const story = {
   'story.badge_community': 'Communauté',
   /** Signature sous le titre. Fragment, donc minuscule, comme l’anglais. */
   'story.by_creator': 'par {name}',
+  /** La signature d’une de nos histoires, à la place de `par {name}`. */
+  'story.official_byline': 'Une création Plotbreak',
+  /** {role} est le nom du rôle tel que l’auteur du monde l’a écrit. */
+  'story.you_play_as': 'Tu incarnes {name}, {role}',
+  'story.you_play_as_name': 'Tu incarnes {name}',
 
   /**
    * Les deux états d’un même bouton pleine largeur, donc la même grammaire :
@@ -59,7 +64,8 @@ export const story = {
   'story.start': 'Commence l’histoire',
   'story.play': 'Jouer',
   'story.starting': 'Ça commence…',
-  'story.customize_character': 'Personnalise ton personnage',
+  /** Impératif, comme les autres actions de la page ; pas `Change`, qui s’écrit comme l’anglais. */
+  'story.customize_character': 'Modifie',
 
   /**
    * Combien de personnes ont joué ce monde. ⚠️ Côté anglais, l’étiquette dit
@@ -231,7 +237,7 @@ export const story = {
   'story.info_title': 'Infos sur l’histoire',
   'story.tab_information': 'Infos',
   'story.tab_comments': 'Commentaires',
-  'story.description_heading': 'Description',
+  'story.description_heading': 'À propos',
   'story.creator_handle': '@ {name}',
   'story.more_a11y': 'Plus d’options',
   'story.block_creator': 'Bloquer {name}',

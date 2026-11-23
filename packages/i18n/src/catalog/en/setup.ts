@@ -19,11 +19,19 @@
 export const setup = {
   'setup.back': 'Back',
   'setup.heading': 'Who are you?',
-  'setup.subheading':
-    'Only your name is required. Everything else is yours to invent, and the world will use whatever you give it.',
+  /**
+   * Design v3: under "Who are you?", for a world that lets you be anyone.
+   * Skip (top right) starts the story with a default identity; {name} and
+   * {role} are that identity's name and the world's own name for its role.
+   */
+  'setup.subheading': 'Optional. Skip it and you play as {name}, {role}.',
+  /** The same line for a world that offers no roles. */
+  'setup.subheading_no_role': 'Optional. Skip it and you play as {name}.',
   'setup.could_not_start': 'Could not start the story.',
 
   'setup.name_label': 'What do they call you?',
+  /** Design v3: the short label over the name field on the setup screen, beside Pronouns. */
+  'setup.name_short': 'Name',
   'setup.name_placeholder': 'e.g. Malik Sarrow',
 
   /**
@@ -33,7 +41,8 @@ export const setup = {
   'setup.pronouns_label': 'Pronouns',
   'setup.pronouns_placeholder': 'e.g. he/him — or write anything',
 
-  'setup.archetype_heading': 'What kind of character are you?',
+  /** Design v3: the heading over the role grid, when the world gives no label of its own. */
+  'setup.archetype_heading': 'Your role',
   /** Read aloud: name, then role, then the one-line summary. */
   'setup.archetype_a11y': '{name}. {role}. {summary}',
   'setup.write_own_background': 'Write your own background',
@@ -59,6 +68,11 @@ export const setup = {
 
   /** The primary action: begin the story. Not "enter a value". */
   'setup.enter': 'Enter',
+  /**
+   * Design v3: the same button once there is a name. {name} is the character
+   * the player is about to become. `setup.enter` stays for an empty name.
+   */
+  'setup.play_as': 'Play as {name}',
   'setup.entering': 'Entering…',
   /**
    * Sits above the one-line summary of who you have made, just over the Enter

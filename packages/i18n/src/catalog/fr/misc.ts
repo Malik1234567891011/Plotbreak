@@ -276,8 +276,9 @@ export const misc = {
    * The opening passage. `Incipit` is the exact French literary term and is
    * exactly the wrong register for a UI label — RULE 7, simple in the UI.
    */
-  'misc.sign_in_tagline': 'LE RPG JOUABLE',
-  'misc.sign_in_bonus': 'Inscris-toi et reçois 600 crédits !',
+  'misc.sign_in_tagline': 'Écris ce que tu veux. L’histoire te répond.',
+  /** Le ◆ devient le cristal à l’écran. */
+  'misc.sign_in_bonus': 'Inscris-toi et commence avec ◆600.',
   'misc.continue_with_google': 'Continuer avec Google',
   'misc.sign_in_cancelled': 'Connexion annulée.',
 } as const;

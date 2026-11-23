@@ -75,6 +75,11 @@ export const wallet = {
   'wallet.claim_daily': 'Claim 300 daily credits',
   /** The same button while the claim is in flight. */
   'wallet.claiming': 'Claiming…',
+  /**
+   * Design v3: the paper pill on the daily-credits row, beside the crystal
+   * that already shows the amount. A verb: take the free credits now.
+   */
+  'wallet.claim': 'Claim',
   /** When the daily grant has already been taken. `{when}` is `wallet.time_*`. */
   'wallet.next_daily': 'Next daily credits {when}',
   /**
@@ -96,6 +101,11 @@ export const wallet = {
    * `Packs de crédits`, one capital. Same rule for every label on this screen.
    */
   'wallet.packs_title': 'Credit packs',
+  /**
+   * Design v3: one line under `wallet.packs_title`. {percent} is the largest
+   * bonus any pack carries, a whole number (10 for "+10%").
+   */
+  'wallet.packs_subtitle': 'Bigger packs get a bigger bonus, up to +{percent}%.',
   /**
    * A whole pack row read aloud by a screen reader: how many credits, the bonus
    * if there is one, and the price. `{bonus}` is `none` when the pack has no
@@ -119,6 +129,16 @@ export const wallet = {
   'wallet.about_price': 'about {price}',
   /** The bonus credits a pack adds on top, as a badge next to its size. */
   'wallet.bonus_badge': '+{bonus} bonus',
+  /**
+   * Design v3: under the first-purchase pack's total, which is shown with the
+   * base crossed out beside it. Only that pack, only once.
+   */
+  'wallet.first_purchase_line': 'Doubled on your first purchase',
+  /**
+   * Design v3: the heading over the badges that pay credits, in the Earn
+   * credits section of the store. Things to do for a reward.
+   */
+  'wallet.quests': 'Quests',
   /** A limited-time pack's expiry. `{when}` is one of the `wallet.time_*` keys. */
   'wallet.ends': 'Ends {when}',
   /**
@@ -343,9 +363,13 @@ export const wallet = {
   // are the receipt, because a new player cannot answer "is 2,000 a lot?".
   /** Sheet title. Deliberately not "Wallet" or "Store". */
   'continue.title': 'Keep playing',
-  'continue.heading': 'Your story is waiting',
-  /** {title} is the world's own name — what is waiting, said specifically. */
-  'continue.subheading': 'You are out of credits partway through {title}.',
+  'continue.heading': 'Out of credits',
+  /**
+   * {title} is the world's own name — what is waiting, said specifically.
+   * {turn} is the turn the player stopped at: where they are, not a count of
+   * turns to buy.
+   */
+  'continue.subheading': '{title} is paused at turn {turn}. Nothing is lost.',
   /** The headline number. Turns, not credits. */
   'continue.turns_headline': '{count, plural, one {# more turn} other {# more turns}}',
   /**

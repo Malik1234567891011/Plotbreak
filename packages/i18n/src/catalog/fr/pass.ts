@@ -7,12 +7,16 @@
  */
 export const pass = {
   'pass.title': 'Plotbreak Pass',
-  'pass.tagline': 'Plus d’histoire, chaque jour.',
+  'pass.headline': '{credits} crédits, chaque jour',
   'pass.price_week': '{price} / semaine',
   'pass.perk_daily': '+{credits} crédits bonus chaque jour, environ {count, plural, one {# tour de plus} other {# tours de plus}}',
   'pass.perk_free': 'En plus de tes crédits gratuits du jour',
+  /** {credits} : une semaine de crédits du Pass, déjà mis en forme. */
+  'pass.perk_daily_v3': '{credits} crédits par semaine',
+  'pass.perk_daily_v3_body': 'Versés chaque jour, tant que tu le gardes',
   'pass.perk_requests': 'Demande une histoire et vote. La demande la plus votée du mois est réalisée.',
-  'pass.cta': 'Prendre le Pass · {price}/semaine',
+  // fr-lint-disable-next-line FRC002 — le Pass est le nom du produit
+  'pass.cta': 'Prendre le Pass · {price} par semaine',
   'pass.legal': 'Renouvellement automatique chaque semaine à {price} jusqu’à résiliation. Résilie quand tu veux dans Réglages › ton nom › Abonnements, au moins 24 heures avant le prochain renouvellement.',
   'pass.terms': 'Conditions d’utilisation',
   'pass.privacy': 'Confidentialité',

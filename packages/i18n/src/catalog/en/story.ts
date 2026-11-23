@@ -27,6 +27,16 @@ export const story = {
   'story.badge_community': 'Community',
   /** Byline under the title. Lowercase `by` is deliberate — it is a fragment, not a sentence. */
   'story.by_creator': 'by {name}',
+  /** Design v3: the byline under the title for one of our own stories, in place of `by {name}`. */
+  'story.official_byline': 'A Plotbreak original',
+  /**
+   * Design v3: the line under Play saying who Play makes you. {name} is the
+   * character's name; {role} is the world's own name for the role, as
+   * written by its author ("Night Shift").
+   */
+  'story.you_play_as': 'You play as {name}, {role}',
+  /** The same line for a world that offers no roles. */
+  'story.you_play_as_name': 'You play as {name}',
 
   /** The primary CTA when a run is already open — resume it. */
   'story.continue': 'Continue',
@@ -41,11 +51,11 @@ export const story = {
   /** While the session is being created. Present continuous, not "Loading". */
   'story.starting': 'Starting…',
   /**
-   * The secondary action beside Play. Named for what it gives — a character of
-   * your own — rather than for the form it opens, and never worded as a step
-   * to skip: the people this is for actively want it.
+   * Design v3: the action at the end of the `story.you_play_as` line, which
+   * opens character setup. "Change" the character just named — a verb, short,
+   * never worded as a step to skip.
    */
-  'story.customize_character': 'Customize character',
+  'story.customize_character': 'Change',
 
   /** Stat label: how many people have played this world. Not "player characters". */
   'story.stat_views': 'Views',
@@ -172,8 +182,8 @@ export const story = {
   'story.tab_information': 'Information',
   /** Second tab on the detail page. */
   'story.tab_comments': 'Comments',
-  /** Heading over the hook and premise. */
-  'story.description_heading': 'Description',
+  /** Heading over the premise. Design v3: "About" the story, not a form field. */
+  'story.description_heading': 'About',
   /** The creator chip under the title. */
   'story.creator_handle': '@ {name}',
   /** The ⋮ next to the title: save, report. */

@@ -7,15 +7,27 @@
  */
 export const pass = {
   'pass.title': 'Plotbreak Pass',
-  /** The one-line pitch under the title. */
-  'pass.tagline': 'More story, every single day.',
+  /**
+   * Design v3: the big line under the title. {credits} is the Pass's daily
+   * credits, pre-formatted. No turn counts on a money screen.
+   */
+  'pass.headline': '{credits} credits, every day',
   /** {price} is StoreKit's own localised string, e.g. "$2.99". */
   'pass.price_week': '{price} / week',
   /** {credits} is pre-formatted. {count} is the turns it buys at the default quality. */
   'pass.perk_daily': '+{credits} bonus credits every day, about {count, plural, one {# extra turn} other {# extra turns}}',
   'pass.perk_free': 'On top of your free daily credits',
+  /**
+   * Design v3: the first benefit row. {credits} is a week of Pass credits
+   * (seven days' worth), pre-formatted. The Pass is weekly, so the week is
+   * the unit; never a turn count.
+   */
+  'pass.perk_daily_v3': '{credits} credits a week',
+  /** Under `pass.perk_daily_v3`: the credits arrive each day, not in one lump. */
+  'pass.perk_daily_v3_body': 'Paid daily, for as long as you keep it',
   'pass.perk_requests': 'Request a story and vote. The top request each month gets made.',
-  'pass.cta': 'Get the Pass · {price}/week',
+  /** {price} is StoreKit's own localised string, e.g. "$2.99". */
+  'pass.cta': 'Get the Pass · {price} a week',
   'pass.legal': 'Renews automatically every week at {price} until you cancel. Cancel anytime in Settings › your name › Subscriptions, at least 24 hours before the next renewal.',
   /** Link to the Terms of Use (EULA). The document. */
   'pass.terms': 'Terms of Use',

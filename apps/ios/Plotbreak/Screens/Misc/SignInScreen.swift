@@ -96,10 +96,15 @@ struct SignInScreen: View {
             // the quiet one under it.
             VStack(alignment: .leading, spacing: Theme.Spacing.md) {
                 wordmark
-                if store.authConfigured {
-                    Text(t("misc.sign_in_bonus"))
+                VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+                    Text(t("misc.sign_in_tagline"))
                         .font(.system(size: 15))
-                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                    if store.authConfigured {
+                        Text.crystals(t("misc.sign_in_bonus"), fontSize: 15)
+                            .font(.system(size: 15))
+                            .foregroundStyle(Theme.Colors.textSecondary)
+                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

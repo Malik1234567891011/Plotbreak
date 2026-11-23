@@ -195,7 +195,7 @@ struct ContinueStoryScreen: View {
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(Theme.Colors.textPrimary)
                 .accessibilityAddTraits(.isHeader)
-            Text(t("continue.subheading", ["title": storyTitle]))
+            Text(t("continue.subheading", ["title": storyTitle, "turn": max(1, turnsPlayed)]))
                 .font(.system(size: 15))
                 .foregroundStyle(Theme.Colors.textSecondary)
         }

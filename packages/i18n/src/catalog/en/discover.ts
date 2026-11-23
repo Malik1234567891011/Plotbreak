@@ -97,11 +97,12 @@ export const discover = {
   'discover.search_prompt_body':
     'Search by title, creator, tag, premise, or a character you remember.',
   /**
-   * The Continue rail's second line, in the slot a cover card usually gives the
-   * fantasy label. Shares its wording with `discover.continue_turns`, which is
-   * the same sentence in the vertical card.
+   * Design v3: the turn a run in progress has reached, in the Continue row's
+   * meta line ("Turn 3 · 2 h ago"); the time is joined on by the screen. The
+   * board also leads with "as {name}", which waits on the continue card
+   * carrying the player's name.
    */
-  'discover.continue_turns_in': '{count, plural, one {# turn} other {# turns}} in',
+  'discover.continue_turns_in': 'Turn {count}',
   /** The Discover header's first title; `nav.characters` is the second. */
   'discover.tab_worlds': 'Worlds',
   /** The first filter chip: the default shelf, no category. */

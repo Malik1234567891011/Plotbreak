@@ -95,10 +95,8 @@ struct TowerCard: View {
     private func subline(_ s: TowerStatus, played: Bool) -> String {
         if played { return t("tower.card_next", ["time": countdown(s.nextAt)]) }
         // A live streak is the strongest reason to climb today: say what it's worth.
-        // Design v3 has no fire emoji; the catalogue's streak line still starts with one.
         if s.streak.days > 0 {
             return t("tower.card_streak", ["days": s.streak.days, "bonus": s.streak.todayBonusPercent])
-                .replacingOccurrences(of: "🔥 ", with: "")
         }
         let entry = s.free ? t("tower.card_free") : t("tower.card_entry", ["fee": s.fee])
         return "\(t("tower.card_win_up_to", ["max": s.maxReward])) · \(entry)"

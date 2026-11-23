@@ -115,8 +115,9 @@ export const onboarding = {
    * partout ailleurs (TERMINOLOGY §2.1), et `histoires` ici rouvrirait une
    * question de vocabulaire déjà tranchée.
    */
-  'onboarding.showcase_title': 'Tout est prêt\u202f! Choisis un titre et lance-toi.',
-  'onboarding.showcase_body': 'On t\u2019en a mis quelques-uns de côté pour commencer.',
+  'onboarding.showcase_title': 'Choisis ton premier monde.',
+  /** Le ◆ devient le cristal à l’écran ; 600 reste en dur, comme dans `misc.sign_in_bonus`. */
+  'onboarding.showcase_body': 'Tu commences avec ◆600.',
   'onboarding.showcase_card_a11y': '{title}. Lancer cette histoire.',
   'onboarding.see_all_stories': 'Voir tous les mondes',
   'onboarding.birth_date_title': 'Ta date de naissance',
@@ -138,6 +139,9 @@ export const onboarding = {
   'onboarding.audience_male': 'Homme',
   'onboarding.audience_female': 'Femme',
   'onboarding.audience_neutral': 'Neutre',
-  'onboarding.genres_title': 'Choisis les genres qui t’intéressent',
+  'onboarding.genres_title': 'Qu’est-ce que tu aimes lire\u00A0?',
+  /** `Découvrir` est le nom de l’onglet. */
+  'onboarding.genres_body': 'Choisis-en jusqu’à cinq. Découvrir s’ouvrira sur ceux-là.',
   'onboarding.step_a11y': 'Étape {step} sur {total}',
+  'onboarding.step_short': '{step} sur {total}',
 } as const;

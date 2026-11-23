@@ -18,6 +18,6 @@ export const tower = {
   'tower.notify_title': 'Ton ascension t’attend ⚔️',
   'tower.notify_body': 'Une nouvelle tour est là. Une ascension, jusqu’à ◆300.',
   'tower.notify_streak': 'Série de {days} jours 🔥 Grimpe aujourd’hui pour +{bonus}% avant qu’elle ne s’arrête.',
-  'tower.card_streak': '🔥 Série de {days} jours · +{bonus}% aujourd’hui',
+  'tower.card_streak': '{days, plural, one {Série de # jour} other {Série de # jours}} · +{bonus}% aujourd’hui',
   'tower.load_failed': 'La Tour n’a pas pu charger. Réessaie dans un instant.',
 } as const;

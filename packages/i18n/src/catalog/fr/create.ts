@@ -20,12 +20,13 @@ export const create = {
 
   /* --- Le tableau de bord ------------------------------------------------ */
 
-  'create.title_count': '{count, plural, one {# histoire} other {# histoires}}',
+  'create.your_stories': 'Tes histoires',
   'create.filter_all': 'Tout',
   'create.filter_drafts': 'Brouillons',
   'create.filter_published': 'Publiées',
   'create.filter_empty': 'Rien ici pour l’instant.',
-  'create.new_story': 'Nouvelle histoire',
+  /** Impératif `tu`, comme `story.start`. */
+  'create.new_story': 'Commence une histoire',
   'create.untitled': 'Histoire sans titre',
   'create.unnamed': 'Sans nom',
   'create.status_draft': 'Brouillon',
@@ -40,7 +41,7 @@ export const create = {
   'create.delete_title': 'Supprimer cette histoire ?',
   'create.delete_body': 'C’est définitif.',
   'create.delete_confirm': 'Supprimer',
-  'create.empty_title': 'Fabrique un monde',
+  'create.empty_title': 'Pars d’une idée',
   'create.empty_body':
     'Décris une histoire en quelques phrases et elle sera construite pour toi : les gens, les lieux, ce qui va déjà mal, et les façons dont ça peut finir. Ensuite tu changes ce que tu veux.',
   'create.not_found': 'Cette histoire n’est pas ici',

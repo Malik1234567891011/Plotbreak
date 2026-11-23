@@ -101,6 +101,8 @@ export const wallet = {
   'wallet.claim_daily': 'Récupère tes 300 crédits quotidiens',
   /** Le même bouton pendant l’appel. */
   'wallet.claiming': 'Récupération…',
+  /** La pastille de la ligne des crédits quotidiens. Impératif, comme `wallet.claim_daily`. */
+  'wallet.claim': 'Récupère',
   /** `{when}` est une des clés `wallet.time_*`. */
   'wallet.next_daily': 'Prochains crédits quotidiens {when}',
   /**
@@ -118,6 +120,8 @@ export const wallet = {
 
   /** Titre de section. Casse de phrase : une seule capitale (UI_AUDIT §2.8). */
   'wallet.packs_title': 'Packs de crédits',
+  /** {percent} : le plus gros bonus d’un pack, nombre entier. */
+  'wallet.packs_subtitle': 'Plus le pack est gros, plus le bonus l’est aussi\u00A0: jusqu’à +{percent}\u00A0%.',
   /**
    * Une ligne de pack entière, lue par VoiceOver. `{bonus}` vaut `none` quand
    * le pack n’a pas de bonus. `{credits}` et `{price}` arrivent déjà mis en
@@ -140,6 +144,9 @@ export const wallet = {
   'wallet.about_price': 'environ {price}',
   /** Les crédits offerts en plus, en pastille à côté de la taille du pack. */
   'wallet.bonus_badge': '+{bonus} en bonus',
+  'wallet.first_purchase_line': 'Doublés pour ton premier achat',
+  /** Titre au-dessus des badges qui rapportent des crédits. */
+  'wallet.quests': 'Quêtes',
   /** Fin d’une offre limitée. `{when}` est une des clés `wallet.time_*`. */
   'wallet.ends': 'Fin {when}',
   /**
@@ -366,8 +373,8 @@ export const wallet = {
 
   // --- La feuille de continuation (le mur de crédits) ---
   'continue.title': 'Continue à jouer',
-  'continue.heading': 'Ton histoire t’attend',
-  'continue.subheading': 'Tu n’as plus de crédits en plein milieu de {title}.',
+  'continue.heading': 'Crédits épuisés',
+  'continue.subheading': '{title} est en pause au tour {turn}. Rien n’est perdu.',
   'continue.turns_headline': '{count, plural, one {# tour de plus} other {# tours de plus}}',
   'continue.credits_headline': '{credits} crédits',
   'continue.turns_detail': 'Environ {count, plural, one {# tour de plus} other {# tours de plus}} en qualité {tier}',

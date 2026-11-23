@@ -62,8 +62,12 @@ export const onboarding = {
   /**
    * OB-04, the shop window. Five worlds, and a way past them.
    */
-  'onboarding.showcase_title': 'All set! Choose a title and play now.',
-  'onboarding.showcase_body': 'We picked a few to start you off.',
+  'onboarding.showcase_title': 'Pick your first story.',
+  /**
+   * Design v3. The ◆ is drawn as the crystal on screen; the 600 is the
+   * starting balance, a literal, as in `misc.sign_in_bonus`. Never a turn count.
+   */
+  'onboarding.showcase_body': 'You start with ◆600.',
   'onboarding.showcase_card_a11y': '{title}. Start this story.',
   'onboarding.see_all_stories': 'See all stories',
   /** Step 1 of 4 — the age gate, asked as a date. Only the band is kept. */
@@ -93,7 +97,7 @@ export const onboarding = {
   /** Accessible name of the cross in the field. */
   'onboarding.name_clear_a11y': 'Clear name',
   /** Step 3 of 4, first question. */
-  'onboarding.audience_title': 'Want to filter by audience?',
+  'onboarding.audience_title': 'Filter by audience?',
   /** Audience radio card. */
   'onboarding.audience_male': 'Male',
   /** Audience radio card. */
@@ -101,7 +105,11 @@ export const onboarding = {
   /** Audience radio card — no lean either way. */
   'onboarding.audience_neutral': 'Neutral',
   /** Step 3 of 4, second question. */
-  'onboarding.genres_title': 'Choose genres you are interested in',
+  'onboarding.genres_title': 'What do you like to read?',
+  /** Design v3: under the genres question. Discover is the tab, by name. The cap is five. */
+  'onboarding.genres_body': 'Pick up to five. Discover opens on these.',
   /** Accessible name of the progress bar. */
   'onboarding.step_a11y': 'Step {step} of {total}',
+  /** Design v3: the small counter beside the step dashes, "2 of 4". */
+  'onboarding.step_short': '{step} of {total}',
 } as const;

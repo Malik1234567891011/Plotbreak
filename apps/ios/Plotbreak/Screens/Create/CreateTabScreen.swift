@@ -104,7 +104,7 @@ struct CreateTabScreen: View {
                         .padding(.top, Theme.Spacing.md)
                 } else if !titles.isEmpty {
                     HStack(spacing: 6) {
-                        Text(t("create.title_count", ["count": titles.count]))
+                        Text(t("create.your_stories"))
                             .font(.system(size: 20, weight: .semibold))
                             .foregroundStyle(Theme.Colors.textPrimary)
                             .accessibilityAddTraits(.isHeader)

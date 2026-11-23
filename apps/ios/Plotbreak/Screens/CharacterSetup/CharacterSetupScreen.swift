@@ -192,7 +192,7 @@ struct CharacterSetupScreen: View {
                         .foregroundStyle(Theme.Colors.textPrimary)
                         .fixedSize(horizontal: false, vertical: true)
                         .accessibilityAddTraits(.isHeader)
-                    Text(t(named ? "setup.subheading_named" : "setup.subheading"))
+                    Text(named ? t("setup.subheading_named") : skipLine(detail))
                         .font(.system(size: 15))
                         .foregroundStyle(Theme.Colors.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -201,7 +201,7 @@ struct CharacterSetupScreen: View {
                 // Name and pronouns side by side, the name taking the room.
                 if !named {
                     HStack(alignment: .top, spacing: 12) {
-                        SetupField(label: t("setup.name_label"), value: $displayName,
+                        SetupField(label: t("setup.name_short"), value: $displayName,
                                    placeholder: placeholderFor(detail, "displayName", t("setup.name_placeholder")),
                                    maxLength: 40, required: true)
                         SetupField(label: t("setup.pronouns_label"), value: $pronouns,
@@ -249,6 +249,16 @@ struct CharacterSetupScreen: View {
             .padding(.bottom, Theme.Spacing.giant)
         }
         .scrollDismissesKeyboard(.interactively)
+    }
+
+    /// Design v3: what Skip (top right) would start you as — the identity
+    /// `QuickStart` sends: the default name and the world's first role.
+    private func skipLine(_ detail: StoryDetailResponse) -> String {
+        let name = DefaultIdentity.build(for: detail, store: store).displayName
+        guard let role = detail.archetypes.first?.name, !role.isEmpty else {
+            return t("setup.subheading_no_role", ["name": name])
+        }
+        return t("setup.subheading", ["name": name, "role": role])
     }
 
     private var summaryLine: String {
@@ -447,7 +457,8 @@ struct CharacterSetupScreen: View {
                     .foregroundStyle(Theme.Colors.textMuted)
                     .lineLimit(1)
             }
-            PBButton(t("setup.enter"), loadingLabel: t("setup.entering"), variant: .light, loading: starting,
+            PBButton(effectiveName.isEmpty ? t("setup.enter") : t("setup.play_as", ["name": effectiveName]),
+                     loadingLabel: t("setup.entering"), variant: .light, loading: starting,
                      disabled: !canStart, haptic: .medium) {
                 Task { await start() }
             }

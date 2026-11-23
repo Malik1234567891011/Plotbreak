@@ -360,8 +360,14 @@ struct AudienceGenresPicker: View {
     // Design v3 (board frame OnbTaste): genres first as filled chips with a
     // check on the picks, then the audience as one segmented track.
     var body: some View {
-        OnboardingTitle(t("onboarding.genres_title"), size: leadSize)
-            .padding(.bottom, Theme.Spacing.xl)
+        VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+            OnboardingTitle(t("onboarding.genres_title"), size: leadSize)
+            Text(t("onboarding.genres_body"))
+                .font(.system(size: 15))
+                .foregroundStyle(Theme.Colors.textMuted)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.bottom, Theme.Spacing.xl)
 
         FlowLayout(spacing: 10) {
             if genres.isEmpty {
@@ -472,6 +478,11 @@ struct ShowcaseScreen: View {
                 // Design v3 (board frame OnbShowcase): the step dashes, all lit.
                 HStack(spacing: 4) {
                     Spacer(minLength: 0)
+                    Text(t("onboarding.step_short", ["step": onboardingSteps, "total": onboardingSteps]))
+                        .font(.system(size: 12))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.Colors.textMuted)
+                        .padding(.trailing, 6)
                     ForEach(0..<onboardingSteps, id: \.self) { _ in
                         Capsule().fill(Theme.Colors.textPrimary).frame(width: 14, height: 2)
                     }
@@ -490,7 +501,7 @@ struct ShowcaseScreen: View {
                     VStack(alignment: .leading, spacing: 0) {
                         VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
                             OnboardingTitle(t("onboarding.showcase_title"))
-                            Text(t("onboarding.showcase_body"))
+                            Text.crystals(t("onboarding.showcase_body"), fontSize: 15)
                                 .font(.system(size: 15))
                                 .foregroundStyle(Theme.Colors.textMuted)
                         }

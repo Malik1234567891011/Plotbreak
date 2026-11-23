@@ -64,12 +64,14 @@ export const setup = {
    * (`PRODUCT_VOICE.md` règle 5, `ENGLISH_CALQUE_BLACKLIST.md` §2).
    */
   'setup.heading': 'Tu es qui ?',
-  'setup.subheading':
-    'Seul ton nom est obligatoire. Tout le reste, c’est à toi de l’inventer, et le monde se servira de ce que tu lui donnes.',
+  /** {role} est le nom du rôle tel que l’auteur du monde l’a écrit. */
+  'setup.subheading': 'Facultatif. Si tu passes, tu incarneras {name}, {role}.',
+  'setup.subheading_no_role': 'Facultatif. Si tu passes, tu incarneras {name}.',
   'setup.could_not_start': 'Impossible de lancer l’histoire.',
 
   /** `On t’appelle comment ?` — la question, sans inversion, telle qu’elle se dit. */
   'setup.name_label': 'On t’appelle comment ?',
+  'setup.name_short': 'Nom',
   /**
    * Prénom et nom, comme l’anglais.
    *
@@ -94,7 +96,7 @@ export const setup = {
   'setup.pronouns_label': 'Pronoms',
   'setup.pronouns_placeholder': 'Ex. : il/lui — ou écris ce que tu veux',
 
-  'setup.archetype_heading': 'Tu es quel genre de personnage ?',
+  'setup.archetype_heading': 'Ton rôle',
   /** Lu à voix haute : le nom, puis le rôle, puis la ligne de résumé. */
   'setup.archetype_a11y': '{name}. {role}. {summary}',
   /** Onboarding : impératif `tu`, comme le reste de l’écran. */
@@ -146,6 +148,8 @@ export const setup = {
 
   /** L’action principale : entrer dans l’histoire. Pas « saisir une valeur ». Voir l’en-tête. */
   'setup.enter': 'Entrer',
+  /** Impératif `tu`, comme `Continue l’histoire`. {name} : le personnage qu’on va incarner. */
+  'setup.play_as': 'Incarne {name}',
   'setup.entering': 'Entrée…',
   /**
    * `Tu incarnes` plutôt qu'un calque de `you'll enter as` : c'est le verbe

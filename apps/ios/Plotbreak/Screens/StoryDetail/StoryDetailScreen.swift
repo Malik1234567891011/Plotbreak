@@ -264,7 +264,7 @@ struct StoryDetailScreen: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.top, 20)
                         .accessibilityAddTraits(.isHeader)
-                    Text(t("story.by_creator", ["name": story.creatorName]))
+                    Text(story.official ? t("story.official_byline") : t("story.by_creator", ["name": story.creatorName]))
                         .font(.system(size: 13))
                         .foregroundStyle(Theme.Colors.textMuted)
                         .padding(.top, 2)
@@ -440,9 +440,10 @@ struct StoryDetailScreen: View {
     /// offers roles. The same identity `QuickStart` sends.
     private func playingAs(_ detail: StoryDetailResponse) -> String {
         let name = DefaultIdentity.build(for: detail, store: store).displayName
-        let line = t("library.playing_as", ["name": name])
-        guard let role = detail.archetypes.first?.name, !role.isEmpty else { return line }
-        return line + " · " + role
+        guard let role = detail.archetypes.first?.name, !role.isEmpty else {
+            return t("story.you_play_as_name", ["name": name])
+        }
+        return t("story.you_play_as", ["name": name, "role": role])
     }
 
     /// The premise, four lines and a More. Sans, not the story's serif: this is

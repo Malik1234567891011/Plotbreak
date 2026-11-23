@@ -27,7 +27,7 @@ export const library = {
    * written — the caps are in the string, not in the style — so the French must
    * be capitalised in the catalogue too.
    */
-  'library.section_active': 'ACTIVE',
+  'library.section_active': 'PLAYING',
   /**
    * The companion heading, over runs that have ended. Capitals as written; see
    * `library.section_active`.

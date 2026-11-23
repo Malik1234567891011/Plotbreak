@@ -13,12 +13,14 @@ export const create = {
 
   /* --- The dashboard ----------------------------------------------------- */
 
-  'create.title_count': '{count, plural, one {# story} other {# stories}}',
+  /** Design v3: the heading over the creator's own stories, with the filter chips beside it. */
+  'create.your_stories': 'Your stories',
   'create.filter_all': 'All',
   'create.filter_drafts': 'Drafts',
   'create.filter_published': 'Published',
   'create.filter_empty': 'Nothing here yet.',
-  'create.new_story': 'New story',
+  /** Design v3: the one button in the "Start from an idea" block; opens the pitch. */
+  'create.new_story': 'Start a story',
   'create.untitled': 'Untitled story',
   'create.unnamed': 'Unnamed',
   'create.status_draft': 'Draft',
@@ -33,7 +35,8 @@ export const create = {
   'create.delete_title': 'Delete this story?',
   'create.delete_body': 'This cannot be undone.',
   'create.delete_confirm': 'Delete',
-  'create.empty_title': 'Make a world',
+  /** Design v3: the heading of the block at the top of Create, always shown. */
+  'create.empty_title': 'Start from an idea',
   'create.empty_body':
     'Describe a story in a few sentences and it will be built for you — the people, the places, the things already going wrong, and the ways it can end. Then you change whatever you like.',
   'create.not_found': 'That story is not here',

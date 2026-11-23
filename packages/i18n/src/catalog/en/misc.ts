@@ -141,10 +141,13 @@ export const misc = {
    * The opening passage of a story — the first thing the player reads.
    * Not an aperture, a job opening, or an opening move.
    */
-  /** Under the wordmark on the sign-in screen. Upper case by design. */
-  'misc.sign_in_tagline': 'THE PLAYABLE RPG',
-  /** The bubble above the provider buttons. 600 is GRANT_NEW_USER. */
-  'misc.sign_in_bonus': 'Sign up and get 600 credits!',
+  /** Design v3: under the wordmark on the sign-in screen, one sentence each. */
+  'misc.sign_in_tagline': 'Type anything. The story answers.',
+  /**
+   * The line above the provider buttons. 600 is GRANT_NEW_USER. The ◆ is
+   * drawn as the crystal on screen.
+   */
+  'misc.sign_in_bonus': 'Sign up and start with ◆600.',
   /** Google, through the hosted sign-in page. First button on the sign-in screen. */
   'misc.continue_with_google': 'Continue with Google',
   /** Shown when the player closes the provider's page without finishing. */
