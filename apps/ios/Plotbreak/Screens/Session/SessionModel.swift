@@ -371,6 +371,11 @@ final class SessionModel {
         guard let store, let router else { return }
         let seen = store.recordWall()
         let shown = overrideBalance ?? balance
+        // How far the run has got. `turns` holds only the recent page of a
+        // long run (eight of a seventeen-turn run), so its count is not that:
+        // the wall said "paused at turn 8" beside a Continue row reading
+        // "Turn 17". The newest turn's index is, as the server counts it.
+        let turnsPlayed = max(turns.count, (turns.map(\.turnIndex).max() ?? -1) + 1)
 
         Telemetry.track(.insufficientCreditsShown, sessionId: sessionId, [
             "required": required,
@@ -378,7 +383,7 @@ final class SessionModel {
             "shortfall": shortfall,
             "qualityTier": tier.id.rawValue,
             "storyId": detail?.session.storyId ?? "",
-            "turnsPlayed": turns.count,
+            "turnsPlayed": turnsPlayed,
             "wallCount": seen,
             "firstWall": seen == 1,
         ])
@@ -388,7 +393,7 @@ final class SessionModel {
             storyId: detail?.session.storyId ?? "",
             storyTitle: detail?.session.title ?? "",
             shortfall: max(0, shortfall),
-            turnsPlayed: turns.count,
+            turnsPlayed: turnsPlayed,
             // The last thing somebody said, so the wall opens on their voice.
             quote: SpeakerLine.latest(turns: turns, cast: detail?.scene.cast ?? [])
         ))
