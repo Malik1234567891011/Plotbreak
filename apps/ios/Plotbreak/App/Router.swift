@@ -54,8 +54,11 @@ enum SheetRoute: Identifiable, Hashable {
      mind, and the old flow sent both to the same store front — 41 of the 47
      players who reached ten turns opened it and one of them bought anything.
      This one knows which story is waiting and what it costs to carry on.
+     `quote` is the last thing a character said, drawn with their face over
+     the art; nil draws the screen without it.
      */
-    case continueStory(sessionId: String, storyId: String, storyTitle: String, shortfall: Int, turnsPlayed: Int)
+    case continueStory(sessionId: String, storyId: String, storyTitle: String, shortfall: Int, turnsPlayed: Int,
+                       quote: SpeakerLine? = nil)
     case signIn
     /// SH-01 — everything the card needs is passed in, so it composes offline.
     /// `storyId` is optional because the world-sheet timeline can share a
@@ -86,7 +89,7 @@ enum SheetRoute: Identifiable, Hashable {
         case .search: return "search"
         case .worldSheet(let sessionId, let tab): return "worldSheet:\(sessionId):\(tab ?? "")"
         case .wallet(let shortfall): return "wallet:\(shortfall ?? 0)"
-        case .continueStory(let sessionId, _, _, let shortfall, _): return "continue:\(sessionId):\(shortfall)"
+        case .continueStory(let sessionId, _, _, let shortfall, _, _): return "continue:\(sessionId):\(shortfall)"
         case .signIn: return "signIn"
         case .share(_, let title, _, _, _, _): return "share:\(title)"
         case .report(let type, let id): return "report:\(type):\(id)"
@@ -352,9 +355,9 @@ struct SheetHost: View {
             case .search: SearchScreen()
             case .worldSheet(let sessionId, let tab): WorldSheetScreen(sessionId: sessionId, initialTab: tab)
             case .wallet(let shortfall): WalletScreen(shortfall: shortfall)
-            case .continueStory(let sessionId, let storyId, let title, let shortfall, let turns):
+            case .continueStory(let sessionId, let storyId, let title, let shortfall, let turns, let quote):
                 ContinueStoryScreen(sessionId: sessionId, storyId: storyId, storyTitle: title,
-                                    shortfall: shortfall, turnsPlayed: turns)
+                                    shortfall: shortfall, turnsPlayed: turns, quote: quote)
             case .signIn: SignInScreen()
             case .share(let storyId, let title, let action, let scene, let hero, let name):
                 ShareScreen(storyId: storyId, storyTitle: title, actionText: action, sceneText: scene, heroImageUrl: hero, displayName: name)

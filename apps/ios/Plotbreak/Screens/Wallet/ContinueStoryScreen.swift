@@ -23,6 +23,9 @@ struct ContinueStoryScreen: View {
     let storyTitle: String
     let shortfall: Int
     let turnsPlayed: Int
+    /// The last thing a character said in this run, drawn with their face over
+    /// the art (design v3). Nil leaves the screen exactly as it was.
+    var quote: SpeakerLine? = nil
 
     @Environment(AppStore.self) private var store
     @Environment(Router.self) private var router
@@ -102,8 +105,17 @@ struct ContinueStoryScreen: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
+                        // The heading stays 200pt down with or without a quote:
+                        // the quote sits at the bottom of that band, over the
+                        // art, and grows upwards.
+                        ZStack(alignment: .bottomLeading) {
+                            Color.clear.frame(height: 200)
+                            if let quote {
+                                SpeakerLineView(line: quote, style: .wall)
+                                    .padding(.bottom, 30)
+                            }
+                        }
                         storyLine
-                            .padding(.top, 200)
                         if let headline {
                             offerTile(headline)
                                 .padding(.top, Theme.Spacing.xl)
