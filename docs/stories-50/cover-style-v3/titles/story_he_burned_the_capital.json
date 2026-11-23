@@ -1,0 +1,63 @@
+{
+  "storyId": "story_he_burned_the_capital", "seed": 17,
+  "avoid": [[369, 87, 668, 453], [714, 87, 968, 349], [69, 1008, 610, 1378]],
+  "layers": [
+    {"type": "scrim", "edge": "bottom", "from": 0.74, "to": 1.0, "color": "#0b0507", "opacity": 0.62},
+    {
+      "type": "text", "id": "title", "at": [0.5, 0.962], "anchor": "bc", "gap": -2,
+      "lines": [
+        {
+          "text": "He Burned the", "font": "Cormorant", "weight": 700, "italic": true, "size": 84, "fill": "#f6ecdc",
+          "strokes": [{"width": 4, "fill": "#140a0a"}],
+          "shadow": [{"dx": 0, "dy": 3, "blur": 6, "color": "#000000", "opacity": 0.7}]
+        },
+        {
+          "text": "CAPITAL", "font": "Cinzel", "weight": 900, "width": 920, "tracking": 0.03,
+          "fill": {
+            "gradient": ["#fff1b0", "#ffc23a", "#ff7a1a", "#d8281a", "#7c0b0b"], "stops": [0, 0.22, 0.5, 0.78, 1],
+            "angle": 90
+          },
+          "innerGlow": {"size": 3, "color": "#fff3c0", "opacity": 0.5}, "strokes": [{"width": 5, "fill": "#2a0606"}],
+          "shadow": [
+            {"dx": 0, "dy": -14, "blur": 22, "color": "#140808", "opacity": 0.75},
+            {"dx": 0, "dy": 8, "blur": 10, "color": "#000000", "opacity": 0.7}
+          ],
+          "glow": [
+            {"radius": 18, "color": "#ff6a12", "opacity": 0.6, "blend": "screen"},
+            {"radius": 44, "color": "#ff3a0a", "opacity": 0.35, "blend": "screen"}
+          ]
+        }
+      ],
+      "ornaments": [
+        {
+          "shape": "sparkles", "of": "block", "pad": [20, 80, 20, 0], "inner": 0.5, "fill": "#ffc35a",
+          "points": [
+            [0.618, 0.123, 12],
+            [0.828, 0.387, 9],
+            [0.048, 0.262, 6],
+            [0.643, 0.554, 5],
+            [0.377, 0.206, 8],
+            [0.571, 0.079, 6],
+            [0.412, 0.192, 12],
+            [0.755, 0.057, 12],
+            [0.089, 0.364, 8],
+            [0.142, 0.071, 12],
+            [0.025, 0.468, 6],
+            [0.858, 0.144, 6],
+            [0.538, 0.115, 6],
+            [0.95, 0.082, 8],
+            [0.307, 0.192, 6],
+            [0.918, 0.127, 7],
+            [0.309, 0.219, 5],
+            [0.699, -0.006, 7],
+            [0.806, 0.272, 7],
+            [0.197, 0.267, 6],
+            [0.075, 0.603, 5],
+            [0.931, 0.19, 8]
+          ],
+          "glow": [{"radius": 5, "spread": 1, "color": "#ff6a12", "opacity": 0.95, "blend": "screen"}], "z": 0
+        }
+      ]
+    }
+  ]
+}

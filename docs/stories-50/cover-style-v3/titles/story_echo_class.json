@@ -1,0 +1,56 @@
+{
+  "storyId": "story_echo_class", "seed": 5, "avoid": [[438, 244, 737, 558], [668, 1500, 912, 1744]],
+  "layers": [
+    {
+      "type": "text", "id": "echo3", "role": "deco", "at": [0.93, 0.8], "anchor": "br", "dx": -174, "dy": 84,
+      "lines": [
+        {
+          "text": "ECHO", "font": "Russo One", "size": 236, "slant": 8, "fill": "clear",
+          "strokes": [{"width": 5, "fill": "#2aa7ff"}, {"width": 0, "fill": "clear"}], "opacity": 0.34,
+          "glow": [{"radius": 6, "color": "#6fd0ff", "opacity": 0.5, "blend": "screen"}]
+        }
+      ]
+    },
+    {
+      "type": "text", "id": "echo2", "role": "deco", "at": [0.93, 0.8], "anchor": "br", "dx": -116, "dy": 56,
+      "lines": [
+        {
+          "text": "ECHO", "font": "Russo One", "size": 236, "slant": 8, "fill": "clear",
+          "strokes": [{"width": 6, "fill": "#2aa7ff"}, {"width": 0, "fill": "clear"}], "opacity": 0.56,
+          "glow": [{"radius": 6, "color": "#6fd0ff", "opacity": 0.5, "blend": "screen"}]
+        }
+      ]
+    },
+    {
+      "type": "text", "id": "echo1", "role": "deco", "at": [0.93, 0.8], "anchor": "br", "dx": -58, "dy": 28,
+      "lines": [
+        {
+          "text": "ECHO", "font": "Russo One", "size": 236, "slant": 8, "fill": "clear",
+          "strokes": [{"width": 7, "fill": "#2aa7ff"}, {"width": 0, "fill": "clear"}], "opacity": 0.82,
+          "glow": [{"radius": 6, "color": "#6fd0ff", "opacity": 0.5, "blend": "screen"}]
+        }
+      ]
+    },
+    {
+      "type": "text", "id": "title", "at": [0.93, 0.8], "anchor": "br",
+      "lines": [
+        {
+          "text": "ECHO", "font": "Russo One", "size": 236, "slant": 8,
+          "fill": {"gradient": ["#ffffff", "#ffffff", "#cfe8ff"], "stops": [0, 0.55, 1], "angle": 90},
+          "strokes": [{"width": 10, "fill": "#0b0f1a"}]
+        }
+      ]
+    },
+    {
+      "type": "text", "id": "class", "at": [0.955, 0.804], "anchor": "tr", "rotate": 0,
+      "lines": [{"text": "CLASS", "font": "Teko", "weight": 700, "size": 92, "tracking": 0.12, "fill": "#ffffff"}],
+      "backing": [
+        {
+          "shape": "plate", "of": "block", "pad": [34, 8, 40, 10], "slant": -14,
+          "fill": {"gradient": ["#3bb4ff", "#1677e6"], "angle": 90}, "strokes": [{"width": 6, "fill": "#0b0f1a"}],
+          "shadow": [{"dx": 8, "dy": 8, "blur": 0, "color": "#0b0f1a", "opacity": 0.9}]
+        }
+      ]
+    }
+  ]
+}

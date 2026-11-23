@@ -1,0 +1,61 @@
+{
+  "storyId": "story_cleanup_crew_e_rank", "seed": 4, "avoid": [[484, 593, 691, 837]],
+  "layers": [
+    {
+      "type": "text", "id": "title", "at": [0.405, 0.181], "anchor": "mc", "rotate": -7, "bleed": true,
+      "lines": [
+        {
+          "text": "CLEANUP CREW", "font": "Bungee", "width": 740, "fill": "#141414",
+          "distress": {"amount": 0.12, "scale": 14, "edge": 0.2, "scratches": 4}
+        }
+      ],
+      "backing": [
+        {
+          "shape": "plate", "of": 0, "pad": [700, 32, 700, 32],
+          "fill": {"texture": "noise", "base": "#ffd21a", "color": "#8a6a00", "strength": 0.18, "scale": 40},
+          "gloss": {"height": 0.45, "opacity": 0.22},
+          "distress": {"amount": 0.08, "scale": 10, "edge": 0.5, "scratches": 6},
+          "shadow": [{"dx": 0, "dy": 14, "blur": 14, "color": "#000000", "opacity": 0.6}]
+        }
+      ],
+      "ornaments": [
+        {
+          "shape": "plate", "of": 0, "to": "ml", "anchor": "mr", "dx": -26, "w": 300, "h": 116,
+          "fill": {
+            "texture": "stripes", "base": "#ffd21a", "color": "#141414", "strength": 1, "period": 64, "angle": -50,
+            "mode": "mix"
+          }
+        },
+        {
+          "shape": "plate", "of": 0, "to": "mr", "anchor": "ml", "dx": 26, "w": 400, "h": 116,
+          "fill": {
+            "texture": "stripes", "base": "#ffd21a", "color": "#141414", "strength": 1, "period": 64, "angle": -50,
+            "mode": "mix"
+          }
+        }
+      ]
+    },
+    {
+      "type": "text", "id": "badge", "at": [0.868, 0.163], "anchor": "mc", "rotate": 6, "gap": 4,
+      "lines": [
+        {"text": "E", "font": "Bungee", "size": 140, "fill": "#e3242b", "strokes": [{"width": 5, "fill": "#1a1a1a"}]},
+        {"text": "RANK", "font": "Bungee", "size": 34, "tracking": 0.12, "fill": "#1d2126"}
+      ],
+      "backing": [
+        {
+          "shape": "polygon", "of": "block", "pad": [52, 34, 52, 40],
+          "points": [[0.5, 0], [1, 0.25], [1, 0.75], [0.5, 1], [0, 0.75], [0, 0.25]],
+          "fill": {"metal": "steel", "horizon": 0.45},
+          "distress": {"amount": 0.15, "scale": 12, "edge": 0.4, "scratches": 10},
+          "strokes": [{"width": 5, "fill": "#151515"}, {"width": 3, "fill": "#5b636b"}],
+          "inline": {"inset": 12, "width": 2.5, "fill": "#2b3036"},
+          "shadow": [{"dx": 4, "dy": 12, "blur": 12, "color": "#000000", "opacity": 0.65}]
+        },
+        {
+          "shape": "dot", "of": "block", "to": "tc", "anchor": "mc", "dy": -22, "w": 16, "h": 16,
+          "fill": {"metal": "steel"}, "strokes": [{"width": 2.5, "fill": "#151515"}]
+        }
+      ]
+    }
+  ]
+}

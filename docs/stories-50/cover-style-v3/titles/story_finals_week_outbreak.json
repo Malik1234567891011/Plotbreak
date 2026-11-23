@@ -1,0 +1,19 @@
+{
+  "storyId": "story_finals_week_outbreak",
+  "seed": 9,
+  "avoid": [[420, 180, 720, 600]],
+  "layers": [
+    {"type": "text", "id": "title", "at": [0.055, 0.962], "anchor": "bl", "rotate": -6, "align": "left", "gap": 2,
+     "lines": [
+       {"text": "FINALS WEEK", "font": "Big Shoulders Display", "weight": 900, "size": 100, "tracking": 0.06, "fill": "#141414",
+        "dx": 40, "rotate": 2.5},
+       {"text": "OUTBREAK", "font": "Black Ops One", "width": 1010, "fill": "#d01c22",
+        "strokes": [{"width": 6, "fill": "#0d0d0d"}],
+        "distress": {"amount": 0.2, "scale": 18, "edge": 0.3, "scratches": 8},
+        "shadow": [{"dx": 9, "dy": 10, "blur": 0, "color": "#0d0d0d", "opacity": 0.92}]}
+     ],
+     "backing": [
+       {"shape": "torn", "of": 0, "pad": [38, 22, 46, 24], "jag": 5, "tape": ["tl", "tr"]}
+     ]}
+  ]
+}

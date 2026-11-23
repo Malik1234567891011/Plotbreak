@@ -1,0 +1,83 @@
+{
+  "storyId": "story_every_platform_a_world", "seed": 3, "avoid": [[560, 170, 880, 560], [470, 560, 830, 800]],
+  "layers": [
+    {
+      "type": "shape", "shape": "plate", "at": [0.1, 0.0], "anchor": "tc", "w": 7, "h": 134, "bleed": true,
+      "fill": {"metal": "steel", "angle": 0}, "strokes": [{"width": 1.5, "fill": "#0c0f16"}],
+      "shadow": [{"dx": 3, "dy": 4, "blur": 4, "color": "#000000", "opacity": 0.45}]
+    },
+    {
+      "type": "shape", "shape": "plate", "at": [0.374, 0.0], "anchor": "tc", "w": 7, "h": 134, "bleed": true,
+      "fill": {"metal": "steel", "angle": 0}, "strokes": [{"width": 1.5, "fill": "#0c0f16"}],
+      "shadow": [{"dx": 3, "dy": 4, "blur": 4, "color": "#000000", "opacity": 0.45}]
+    },
+    {
+      "type": "text", "id": "sign", "at": [0.237, 0.068], "anchor": "tc", "gap": 10,
+      "lines": [
+        {"text": "EVERY", "font": "Train One", "size": 52, "tracking": 0.55, "fill": "#f3e8c9"},
+        {"text": "PLATFORM", "font": "Train One", "width": 392, "scale": [0.68, 1.06], "fill": "#f3e8c9"}
+      ],
+      "backing": [
+        {
+          "shape": "plate", "of": "block", "pad": [34, 26, 34, 30], "radius": 14,
+          "fill": {"gradient": ["#2a3d72", "#1c2b55", "#142044"], "angle": 90},
+          "gloss": {"height": 0.5, "opacity": 0.18}, "inline": {"inset": 11, "width": 2.5, "fill": "#f3e8c9"},
+          "strokes": [{"width": 11, "fill": "#0c1430"}, {"width": 8, "fill": "#f3e8c9"}],
+          "shadow": [{"dx": 0, "dy": 12, "blur": 16, "color": "#000000", "opacity": 0.5}]
+        }
+      ]
+    },
+    {
+      "type": "shape", "shape": "dot", "at": [0.1, 0.0705], "anchor": "mc", "w": 20, "h": 20,
+      "fill": {"metal": "steel"}, "strokes": [{"width": 2, "fill": "#0c0f16"}]
+    },
+    {
+      "type": "shape", "shape": "dot", "at": [0.374, 0.0705], "anchor": "mc", "w": 20, "h": 20,
+      "fill": {"metal": "steel"}, "strokes": [{"width": 2, "fill": "#0c0f16"}]
+    },
+    {
+      "type": "text", "id": "ticket", "at": [0.262, 0.182], "anchor": "tc", "rotate": 5,
+      "lines": [{"text": "A WORLD", "font": "Limelight", "size": 70, "tracking": 0.08, "fill": "#1c2b55"}],
+      "backing": [
+        {
+          "shape": "polygon", "of": "block", "pad": [52, 20, 52, 22],
+          "points": [
+            [0, 0],
+            [1, 0],
+            [1, 0.3],
+            [0.984, 0.307],
+            [0.97, 0.327],
+            [0.958, 0.359],
+            [0.948, 0.4],
+            [0.942, 0.448],
+            [0.94, 0.5],
+            [0.942, 0.552],
+            [0.948, 0.6],
+            [0.958, 0.641],
+            [0.97, 0.673],
+            [0.984, 0.693],
+            [1, 0.7],
+            [1, 1],
+            [0, 1],
+            [0, 0.7],
+            [0.016, 0.693],
+            [0.03, 0.673],
+            [0.042, 0.641],
+            [0.052, 0.6],
+            [0.058, 0.552],
+            [0.06, 0.5],
+            [0.058, 0.448],
+            [0.052, 0.4],
+            [0.042, 0.359],
+            [0.03, 0.327],
+            [0.016, 0.307],
+            [0, 0.3]
+          ],
+          "fill": {"metal": "gold", "horizon": 0.55}, "inline": {"inset": 9, "width": 1.6, "fill": "#7a5414"},
+          "strokes": [{"width": 3, "fill": "#5a3c0c"}],
+          "shadow": [{"dx": 4, "dy": 10, "blur": 12, "color": "#000000", "opacity": 0.5}]
+        }
+      ]
+    }
+  ]
+}
