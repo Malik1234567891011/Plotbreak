@@ -12,10 +12,14 @@ import SwiftUI
 // mid-scene is a number changing in a corner; a reward you come and take is a
 // small moment. Unclaimed rewards are surfaced on Profile so this never
 // becomes a screen you have to remember to check.
+//
+// Design v3 (docs/design-v3/AUDIT.md, rules 1-7): plain rows on the page, no
+// boxes. The badge art is the loud thing; the words are SF; the reward is the
+// crystal inline. The Collect pills stay small white capsules: like the shop's
+// price pills, each one is money, which is the documented exception to one
+// primary per screen.
 
 struct BadgesScreen: View {
-    /// Drawn as a root tab (a title, no back chevron) rather than as a sheet.
-
     @Environment(AppStore.self) private var store
     @Environment(Router.self) private var router
     @Environment(\.translator) private var t
@@ -36,57 +40,51 @@ struct BadgesScreen: View {
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                ScreenHeader(title: t("profile.badges"), backLabel: t("story.back"), onBack: { router.dismissSheet() })
+                ScreenHeader(backLabel: t("story.back"), onBack: { router.dismissSheet() })
 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: Theme.Spacing.xxl) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(t("profile.badges"))
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .accessibilityAddTraits(.isHeader)
+
                         if store.isGuest {
-                            Txt(t("badges.guest"), .bodyCompact, color: Theme.Colors.textMuted)
+                            Text(t("badges.guest"))
+                                .font(.system(size: 15))
+                                .foregroundStyle(Theme.Colors.textMuted)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .padding(.top, Theme.Spacing.sm)
                         }
 
                         if !claimable.isEmpty {
-                            VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                                Txt(t("badges.ready"), .h3)
+                            section(t("badges.ready")) {
                                 ForEach(claimable) { badge in
-                                    BadgeRow(badge: badge) {
-                                        Button {
-                                            Task { await claim(badge) }
-                                        } label: {
-                                            Text(t("badges.claim", ["credits": badge.creditReward]))
-                                                .font(.system(size: 14, weight: .medium))
-                                                .foregroundStyle(Theme.Colors.textOnLight)
-                                                .padding(.horizontal, Theme.Spacing.lg)
-                                                .padding(.vertical, 9)
-                                                .background(Theme.Colors.light, in: Capsule())
-                                        }
-                                        .buttonStyle(PressScaleStyle())
-                                        .disabled(claiming == badge.id)
-                                        .accessibilityLabel(t("badges.claim_a11y", ["title": badge.title, "credits": badge.creditReward]))
-                                    }
+                                    BadgeRow(badge: badge, showsReward: false) { collectPill(badge) }
                                 }
                             }
                         }
 
                         if !inProgress.isEmpty {
-                            VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                                Txt(t("badges.in_progress"), .h3)
+                            section(t("badges.in_progress")) {
                                 ForEach(inProgress) { badge in
                                     BadgeRow(badge: badge)
                                     if badge.id == DiscordQuestPanel.badgeId, let discordCode {
                                         DiscordQuestPanel(code: discordCode)
+                                            .padding(.leading, BadgeRow<EmptyView>.textInset)
+                                            .padding(.bottom, Theme.Spacing.md)
                                     }
                                 }
                             }
                         }
 
                         if !done.isEmpty {
-                            VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                                Txt(t("badges.earned"), .h3)
+                            section(t("badges.earned")) {
                                 ForEach(done) { badge in BadgeRow(badge: badge) }
                             }
                         }
                     }
-                    .padding(Theme.pageGutter)
+                    .padding(.horizontal, Theme.pageGutter)
                     .padding(.top, Theme.Spacing.xs)
                     .padding(.bottom, Theme.Spacing.giant)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -105,6 +103,44 @@ struct BadgesScreen: View {
         .onChange(of: store.isGuest) { _, _ in Task { await load() } }
         // Back from Discord after posting the code: the badge is likely ready.
         .onChange(of: scenePhase) { _, phase in if phase == .active { Task { await load() } } }
+    }
+
+    /// A 20pt sentence-case heading over plain rows (the Library pattern).
+    private func section<Rows: View>(_ title: String, @ViewBuilder rows: () -> Rows) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(title.sentenceCased)
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
+                .padding(.bottom, Theme.Spacing.xs)
+            rows()
+        }
+        .padding(.top, Theme.Spacing.xxl)
+    }
+
+    /// The small white capsule that pays. "Collect ◆50", the ◆ drawn as the crystal.
+    private func collectPill(_ badge: BadgeView) -> some View {
+        Button {
+            Task { await claim(badge) }
+        } label: {
+            ZStack {
+                Text.crystals(t("badges.claim", ["credits": badge.creditReward]), fontSize: 14)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(Theme.Colors.textOnLight)
+                    .lineLimit(1)
+                    .opacity(claiming == badge.id ? 0 : 1)
+                if claiming == badge.id {
+                    ProgressView().tint(Theme.Colors.textOnLight)
+                }
+            }
+            .padding(.horizontal, Theme.Spacing.lg)
+            .frame(minHeight: 36)
+            .background(Theme.Colors.light, in: Capsule())
+            .contentShape(Capsule())
+        }
+        .buttonStyle(PressScaleStyle())
+        .disabled(claiming != nil)
+        .accessibilityLabel(t("badges.claim_a11y", ["title": badge.title, "credits": badge.creditReward]))
     }
 
     private func load() async {
@@ -137,6 +173,9 @@ struct BadgesScreen: View {
 
 /// The code to post in the server, and the way there. The bot unlocks the
 /// badge when it sees the code; the claim is the ordinary one above.
+///
+/// Design v3: no box. The code inline in monospace, a filled Copy capsule
+/// beside it, then the Discord button, indented under the badge it belongs to.
 struct DiscordQuestPanel: View {
     static let badgeId = "discord_hello"
 
@@ -146,52 +185,64 @@ struct DiscordQuestPanel: View {
     @State private var copied = false
 
     var body: some View {
-        Card {
-            VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                HStack(spacing: Theme.Spacing.md) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Txt(t("badges.discord_code_label"), .micro, color: Theme.Colors.textMuted)
-                        Text(code)
-                            .font(.system(size: 20, weight: .semibold, design: .monospaced))
-                            .foregroundStyle(Theme.Colors.textPrimary)
-                            .textSelection(.enabled)
-                    }
-                    Spacer(minLength: Theme.Spacing.sm)
-                    Button {
-                        UIPasteboard.general.string = code
-                        Haptic.play(.success)
-                        copied = true
-                    } label: {
-                        Text(copied ? t("badges.discord_copied") : t("badges.discord_copy"))
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundStyle(Theme.Colors.textOnLight)
-                            .padding(.horizontal, Theme.Spacing.lg)
-                            .padding(.vertical, 9)
-                            .background(Theme.Colors.light, in: Capsule())
-                    }
-                    .buttonStyle(PressScaleStyle())
-                    .accessibilityLabel(t("badges.discord_copy_a11y", ["code": code]))
+        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+            HStack(spacing: Theme.Spacing.md) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(t("badges.discord_code_label"))
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                    Text(verbatim: code)
+                        .font(.system(size: 20, weight: .semibold, design: .monospaced))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .textSelection(.enabled)
                 }
-                DiscordButton(label: t("badges.discord_open"), source: "badges")
+                Spacer(minLength: Theme.Spacing.sm)
+                Button {
+                    UIPasteboard.general.string = code
+                    Haptic.play(.success)
+                    copied = true
+                } label: {
+                    Text(copied ? t("badges.discord_copied") : t("badges.discord_copy"))
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .padding(.horizontal, Theme.Spacing.lg)
+                        .frame(minHeight: 36)
+                        .background(Theme.Colors.bgRaised, in: Capsule())
+                        .contentShape(Capsule())
+                }
+                .buttonStyle(PressScaleStyle())
+                .accessibilityLabel(t("badges.discord_copy_a11y", ["code": code]))
             }
+            DiscordButton(label: t("badges.discord_open"), source: "badges")
         }
     }
 }
 
 // MARK: - BadgeRow
 
+/// One badge as a plain row: the art at 44pt, the title, the blurb, progress
+/// as a thin capsule with "3 of 10" beside it, and what it pays (or the
+/// Collect pill) at the end.
 struct BadgeRow<Action: View>: View {
     let badge: BadgeView
+    /// Off when the trailing action already names the reward (the Collect pill).
+    var showsReward = true
     @ViewBuilder var action: () -> Action
 
     @Environment(\.translator) private var t
 
-    init(badge: BadgeView, @ViewBuilder action: @escaping () -> Action = { EmptyView() }) {
+    /// Where the row's words start: the mark plus the gap after it. Anything
+    /// that belongs to a badge (the Discord panel) lines up under its title.
+    static var textInset: CGFloat { BadgeMark.rowSize + 14 }
+
+    init(badge: BadgeView, showsReward: Bool = true, @ViewBuilder action: @escaping () -> Action = { EmptyView() }) {
         self.badge = badge
+        self.showsReward = showsReward
         self.action = action
     }
 
     private var earned: Bool { badge.unlockedAt != nil }
+    private var claimed: Bool { badge.claimedAt != nil }
     /// Masked while a secret badge is still locked, in both languages.
     private var hidden: Bool { badge.secret && !earned }
     private var title: String {
@@ -207,41 +258,54 @@ struct BadgeRow<Action: View>: View {
     }
 
     var body: some View {
-        Card {
-            HStack(spacing: Theme.Spacing.md) {
-                BadgeMark(badge: badge, earned: earned)
-                VStack(alignment: .leading, spacing: 2) {
-                    // The server sends English; the words are ours. But a
-                    // locked secret badge arrives already masked, and looking
-                    // its name up by id would hand back the real one — which
-                    // is the whole thing the mask exists to prevent.
-                    Txt(title, .bodyStrong, color: earned ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
-                    Txt(blurb, .caption, color: Theme.Colors.textMuted)
-                    if !earned, fraction > 0 {
-                        VStack(alignment: .leading, spacing: 2) {
-                            GeometryReader { proxy in
-                                ZStack(alignment: .leading) {
-                                    RoundedRectangle(cornerRadius: 2).fill(Theme.Colors.bgElevated)
-                                    RoundedRectangle(cornerRadius: 2)
-                                        .fill(Theme.Colors.accentPrimary)
-                                        .frame(width: proxy.size.width * fraction)
-                                }
+        HStack(alignment: .center, spacing: 14) {
+            BadgeMark(badge: badge, earned: earned)
+            VStack(alignment: .leading, spacing: 2) {
+                // The server sends English; the words are ours. But a
+                // locked secret badge arrives already masked, and looking
+                // its name up by id would hand back the real one — which
+                // is the whole thing the mask exists to prevent.
+                Text(title)
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(earned ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(blurb)
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .fixedSize(horizontal: false, vertical: true)
+                if !earned, fraction > 0 {
+                    HStack(spacing: Theme.Spacing.sm) {
+                        GeometryReader { proxy in
+                            ZStack(alignment: .leading) {
+                                Capsule().fill(Theme.Colors.track)
+                                Capsule()
+                                    .fill(Theme.Colors.textPrimary)
+                                    .frame(width: max(3, proxy.size.width * fraction))
                             }
-                            .frame(height: 3)
-                            Txt(t("badges.progress", ["done": badge.progress, "target": badge.target]), .micro, color: Theme.Colors.textMuted)
                         }
-                        .padding(.top, Theme.Spacing.xs)
+                        .frame(height: 3)
+                        .accessibilityHidden(true)
+                        Text(t("badges.progress", ["done": min(badge.progress, badge.target), "target": badge.target]))
+                            .font(.system(size: 13))
+                            .monospacedDigit()
+                            .foregroundStyle(Theme.Colors.textMuted)
+                            .fixedSize()
                     }
+                    .padding(.top, 6)
                 }
-                Spacer(minLength: Theme.Spacing.sm)
-                // The reward, on every row rather than only on the ones that
-                // are ready to claim. A badge screen that does not say what a
-                // badge is worth is a list of chores: the number is the reason
-                // to go and do it, and it belongs where the eye lands last.
-                BadgeReward(credits: badge.creditReward, earned: earned, claimed: badge.claimedAt != nil)
-                action()
             }
+            Spacer(minLength: Theme.Spacing.sm)
+            // The reward, on every row still out there to be won. A badge
+            // screen that does not say what a badge is worth is a list of
+            // chores: the number is the reason to go and do it, and it belongs
+            // where the eye lands last. A ready badge says it on its pill.
+            if showsReward {
+                BadgeReward(credits: badge.creditReward, earned: earned, claimed: claimed)
+            }
+            action()
         }
+        .padding(.vertical, Theme.Spacing.md)
+        .accessibilityElement(children: .contain)
     }
 }
 
@@ -252,9 +316,12 @@ struct BadgeRow<Action: View>: View {
 /// catalogue, and a badge added in code before its art is drawn should appear
 /// as a slightly cheap row rather than an empty one.
 struct BadgeMark: View {
+    /// A badge row's mark (design v3: 44pt, art at an 8pt corner).
+    static let rowSize: CGFloat = 44
+
     let badge: BadgeView
     let earned: Bool
-    var size: CGFloat = 40
+    var size: CGFloat = BadgeMark.rowSize
 
     private var art: Image? {
         UIImage(named: "badge_\(badge.id)").map { Image(uiImage: $0) }
@@ -263,11 +330,13 @@ struct BadgeMark: View {
     var body: some View {
         Group {
             if let art {
-                art.resizable().scaledToFit().frame(width: size, height: size)
+                art.resizable().scaledToFit()
             } else {
                 Text(badge.icon).font(.system(size: size * 0.8))
             }
         }
+        .frame(width: size, height: size)
+        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         // Locked marks are dimmed rather than greyed: the colour is the reward,
         // and a desaturated one stops reading as a thing worth having.
         .opacity(earned ? 1 : 0.62)
@@ -276,29 +345,26 @@ struct BadgeMark: View {
     }
 }
 
-/// What a badge pays, in the accent when it is still out there to be won and
-/// dimmed once it has been collected.
+/// What a badge pays, inline: the crystal and the number, in paper while it
+/// waits to be collected and muted while it is still to be won. Gone once it
+/// has been collected.
 struct BadgeReward: View {
     let credits: Int
     let earned: Bool
     let claimed: Bool
 
-    @Environment(AppStore.self) private var store
     @Environment(\.translator) private var t
 
     var body: some View {
         if credits > 0, !claimed {
-            HStack(spacing: 3) {
-                CreditGlyph(size: 11, color: earned ? Theme.Colors.accentPrimary : Theme.Colors.textMuted)
-                // `Text("\(credits)")` resolves to a LocalizedStringKey, which
-                // formats the number with the *device* locale — so a French
-                // player on an English phone read "1,000" instead of "1 000".
-                // Formatted against the app's own language instead.
-                Text(verbatim: Format.credits(credits, locale: store.locale))
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(earned ? Theme.Colors.accentPrimary : Theme.Colors.textMuted)
-            }
-            .accessibilityLabel(t("badges.reward_a11y", ["credits": credits]))
+            // `t` formats the number against the app's own language, so a
+            // French player on an English phone reads "1 000", not "1,000".
+            Text.crystals(t("badges.reward", ["credits": credits]), fontSize: 13)
+                .font(.system(size: 13, weight: .semibold))
+                .monospacedDigit()
+                .foregroundStyle(earned ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
+                .fixedSize()
+                .accessibilityLabel(t("badges.reward_a11y", ["credits": credits]))
         }
     }
 }
