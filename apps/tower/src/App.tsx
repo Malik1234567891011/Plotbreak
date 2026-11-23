@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
   ARCS, CHARACTERS, CHARACTERS_BY_ID, CLEAR_PAYOUT, FLOORS, MODIFIERS_BY_ID, PAYOUT_TIERS, STREAK_CAP, floorSpec,
   type CharacterDef, type Input, type ModifierId, type RunResult,
@@ -7,6 +7,14 @@ import { bridge, type FinishResult, type TowerStatus } from './bridge';
 import { Game } from './game/Game';
 import { isMuted, setMuted, sfx, unlockAudio } from './game/audio';
 import { Portrait } from './game/Portrait';
+import crystal from './assets/crystal.png';
+
+/** Design v3: the crystal picture is the only currency mark, never the ◆ glyph. */
+function Gem() { return <img className="gem" src={crystal} alt="" aria-hidden="true" />; }
+/** A sentence with ◆ in it, each ◆ drawn as the crystal. */
+function gems(text: string): ReactNode {
+  return text.split('◆').flatMap((part, i) => (i === 0 ? [part] : [<Gem key={i} />, part]));
+}
 
 type Screen =
   | { kind: 'loading' }
@@ -178,49 +186,57 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
     <div className="lobby">
       <header className="lobby-head">
         <button className="icon" onClick={onClose} aria-label="Close">✕</button>
-        <div className="balance">◆ {status.balance.toLocaleString()}</div>
-        <button className="icon" onClick={() => { setMuted(!muted); setM(!muted); }} aria-label={muted ? 'Sound on' : 'Sound off'}>{muted ? '🔇' : '🔊'}</button>
+        <div className="lobby-head-right">
+          <div className="balance"><Gem />{status.balance.toLocaleString()}</div>
+          <button className="icon" onClick={() => { setMuted(!muted); setM(!muted); }} aria-label={muted ? 'Sound on' : 'Sound off'}>{muted ? '🔇' : '🔊'}</button>
+        </div>
       </header>
 
-      <div className="title compact">
-        <h1>THE TOWER <span className="title-jp-inline">塔</span></h1>
-        <div className={`today-chip ${played ? 'done' : ''}`}>
+      {/* Design v3 (board frame Tower): a quiet line, the title in SF bold, one sentence. */}
+      <div className="v3-title">
+        <div className="v3-kicker">
           {played
-            ? <>Today’s climb done · next in <b>{countdown}</b></>
-            : <>1 climb today · {status.free ? <b>FREE (first climb this week)</b> : <b>◆ {status.fee} entry</b>} · resets in <b>{countdown}</b></>}
+            ? <>Today’s climb done · next in {countdown}</>
+            : <>One climb a day · {status.free ? 'first climb this week is free' : <><Gem />{status.fee} entry</>} · resets in {countdown}</>}
         </div>
+        <h1>The Tower</h1>
+        <p>Thirty floors and the Author at the top. Wherever you fall, you are paid for the floor you reached.</p>
       </div>
 
-      <div className={`streak-card ${status.revive ? 'broken' : status.streak.alive ? '' : 'cold'}`}>
-        <div className="flame">{status.revive ? '💔' : '🔥'}</div>
-        <div className="streak-main">
-          <b>{status.revive ? `${status.revive.days}-day streak died` : `${status.streak.days}-day streak`}</b>
-          <span>
-            {status.revive
-              ? `Revive for ◆${status.revive.cost}: the top prize goes from ◆${Math.round(CLEAR_PAYOUT * 1.05)} to ◆${Math.round((CLEAR_PAYOUT * (100 + Math.min(20, status.revive.days + 1) * 5)) / 100)}.${status.revive.nextCost ? ` ◆${status.revive.nextCost} tomorrow.` : ' Last chance.'}`
-              : played ? `Today paid +${status.streak.todayBonusPercent}%. Tomorrow +${Math.min(20, status.streak.days + 1) * 5}%.` : `Climb today for +${status.streak.todayBonusPercent}% on your payout`}
-          </span>
-          <div className="streak-bar"><i style={{ width: `${(Math.min(STREAK_CAP, (status.revive ? status.revive.days : status.streak.days) + (played ? 0 : 1)) / STREAK_CAP) * 100}%` }} /></div>
+      <div className={`v3-streak ${status.revive ? 'broken' : ''}`}>
+        <div className="v3-days" aria-hidden="true">
+          {Array.from({ length: 5 }, (_, k) => {
+            const days = Math.min(STREAK_CAP, status.revive ? status.revive.days : status.streak.days);
+            return <i key={k} className={k < Math.min(5, days) ? 'on' : ''} />;
+          })}
         </div>
-        {status.revive ? (
+        <span>
+          {status.revive
+            ? <>{status.revive.days}-day streak died · <b>{gems(`Revive ◆${status.revive.cost}`)}</b></>
+            : played
+              ? <>{status.streak.days}-day streak · <b>+{status.streak.todayBonusPercent}% paid today</b></>
+              : <>{status.streak.days}-day streak · <b>+{status.streak.todayBonusPercent}% today</b></>}
+        </span>
+      </div>
+      {status.revive && (
+        <div className="v3-revive">
+          <span>{gems(`The top prize goes from ◆${Math.round(CLEAR_PAYOUT * 1.05)} to ◆${Math.round((CLEAR_PAYOUT * (100 + Math.min(20, status.revive.days + 1) * 5)) / 100)}.${status.revive.nextCost ? ` ◆${status.revive.nextCost} tomorrow.` : ' Last chance.'}`)}</span>
           <button className="btn primary small" disabled={reviving || status.balance < status.revive.cost}
             onClick={async () => { setReviving(true); await onRevive(); setReviving(false); }}>
-            Revive<br />◆{status.revive.cost}
+            Revive · <Gem />{status.revive.cost}
           </button>
-        ) : (
-          <div className="streak-badge">+{status.streak.todayBonusPercent}%</div>
-        )}
-      </div>
+        </div>
+      )}
 
-      <div className="twist-banner"><b><span className="jp">{mod.jp}</span> {mod.name}</b><span>{mod.text}</span></div>
-
-      <button className="fighter-row" onClick={onFighters}>
-        <Portrait c={hero} size={52} />
-        <span><small>FIGHTING AS</small><b>{hero.name}</b></span>
-        <span className="fighter-cta">Change ›</span>
-      </button>
+      <div className="v3-twist"><b>{mod.name}</b> · {mod.text}</div>
 
       <Ladder best={status.best} today={played ? status.today!.fellOn : null} cleared={!!status.today?.cleared} bonus={status.streak.todayBonusPercent} />
+
+      <button className="fighter-row" onClick={onFighters}>
+        <Portrait c={hero} size={44} />
+        <span><small>Fighting as</small><b>{hero.name}</b></span>
+        <span className="fighter-cta">Change</span>
+      </button>
 
       <footer className="lobby-foot">
         {played ? (
@@ -229,16 +245,16 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
               <span>{status.today!.cleared ? 'You cleared all 30 floors' : `You fell on floor ${status.today!.fellOn}`}</span>
               <b>+{status.today!.reward}</b>
             </div>
-            <button className="btn primary big" onClick={openPractice}>Practice · ◆1 a floor ({practiceLeft} left today)</button>
+            <button className="btn primary big" onClick={openPractice}>Practice · <Gem />1 a floor ({practiceLeft} left today)</button>
           </>
         ) : (
           <>
             <button className="btn primary big" disabled={starting || (!canPay && !resume)} onClick={onStart}>
-              {resume ? 'Continue today’s climb' : status.free ? 'Climb · FREE this week' : <>Climb · <span className="fee">◆ {status.fee}</span></>}
+              {resume ? 'Continue today’s climb' : status.free ? 'Climb · FREE this week' : <>Climb · <span className="fee"><Gem />{status.fee}</span></>}
             </button>
             <div className="fine">
-              {!canPay && !resume ? `You need ◆ ${status.fee} to enter. Your first climb each week is free.` : 'One climb a day. Miss a day and the streak restarts.'}
-              {' '}<button className="link" onClick={openPractice}>Practice (◆1 a floor)</button>
+              {gems(!canPay && !resume ? `You need ◆${status.fee} to enter. Your first climb each week is free.` : 'One climb a day. Miss a day and the streak restarts.')}
+              {' '}<button className="link" onClick={openPractice}>Practice (<Gem />1 a floor)</button>
             </div>
             <button className="link hand" onClick={() => { const next = !left; try { localStorage.setItem('tower-left', next ? '1' : '0'); } catch { /* private mode */ } setLeft(next); }}>
               DODGE button: {left ? 'left hand' : 'right hand'} (change)
@@ -251,7 +267,7 @@ function Lobby({ status, onStart, onPractice, onClose, onFighters, onRevive, sta
         <div className="confirm" onClick={() => setPicking(false)}>
           <div className="confirm-card picker" onClick={(e) => e.stopPropagation()}>
             <h3>Practice from floor</h3>
-            <p>Any floor you’ve reached. ◆1 for each floor you clear from there, {practiceLeft} left today.</p>
+            <p>Any floor you’ve reached. <Gem />1 for each floor you clear from there, {practiceLeft} left today.</p>
             <div className="stepper">
               <button className="icon" onClick={() => setFloor((f) => Math.max(1, f - 1))} aria-label="Lower">−</button>
               <div><b>{floor}</b><small>{ARCS[floorSpec(floor).arc]!.name}{floorSpec(floor).boss ? ' · boss' : ''}</small></div>
@@ -285,16 +301,15 @@ function Ladder({ best, today, cleared, bonus }: { best: number; today: number |
         return (
           <div key={i} className={`storey ${clear ? 'top' : ''} ${here ? 'here' : ''} ${t === nextRung ? 'next' : ''}`}
             style={{ width: `${width}%`, ['--arc' as string]: arc?.sky[1] ?? '#ffd23f', ['--arc2' as string]: arc?.sky[0] ?? '#ffb020' }}>
-            <span className="storey-floors">{clear ? 'TOP' : `${t.from}–${t.to}`}</span>
-            <span className="storey-name">{clear ? 'THE AUTHOR' : arc!.name}</span>
-            <span className="storey-pay">◆{pay}</span>
-            {t === reachedTier && best > 0 && <span className="pin best">BEST</span>}
+            <span className="storey-floors">{clear ? '' : `${t.from}–${t.to}`}</span>
+            <span className="storey-name">{clear ? 'The Author' : arc!.name}{t === reachedTier && best > 0 && <span className="pin best">BEST {best}</span>}</span>
+            <span className="storey-pay"><Gem />{pay}</span>
             {t === nextRung && <span className="pin next">NEXT</span>}
             {here && <span className="pin today">TODAY</span>}
           </div>
         );
       })}
-      <div className="tower-note">You’re paid for the floor you fall on{bonus ? `, +${bonus}% streak included` : ''}. ◆30 gets your entry back.</div>
+      <div className="tower-note">You’re paid for the floor you fall on{bonus ? `, +${bonus}% streak included` : ''}. <Gem />30 gets your entry back.</div>
     </section>
   );
 }
@@ -336,12 +351,12 @@ function Fighters({ status, onBack }: { status: TowerStatus; onBack: () => void 
     <div className="lobby fighters">
       <header className="lobby-head">
         <button className="icon" onClick={onBack} aria-label="Back">‹</button>
-        <div className="balance">◆ {balance.toLocaleString()}</div>
+        <div className="balance"><Gem />{balance.toLocaleString()}</div>
         <span style={{ width: 38 }} />
       </header>
       <div className="title small">
         <h1>FIGHTERS</h1>
-        <p className="tagline">Same skills, different style. Unlock one for ◆500 and it’s yours for good.</p>
+        <p className="tagline">Same skills, different style. Unlock one for <Gem />500 and it’s yours for good.</p>
       </div>
       {error && <p className="error center-text">{error}</p>}
       <div className="roster">
@@ -353,7 +368,7 @@ function Fighters({ status, onBack }: { status: TowerStatus; onBack: () => void 
               <Portrait c={c} size={110} dim={!has} />
               <b>{c.name}</b>
               <small>{c.title}</small>
-              <span className="fighter-tag">{on ? 'FIGHTING' : has ? 'Use' : `◆ ${c.price}`}</span>
+              <span className="fighter-tag">{on ? 'FIGHTING' : has ? 'Use' : <><Gem />{c.price}</>}</span>
             </button>
           );
         })}
@@ -367,7 +382,7 @@ function Fighters({ status, onBack }: { status: TowerStatus; onBack: () => void 
             <div className="confirm-row">
               <button className="btn ghost" onClick={() => setConfirm(null)}>Not now</button>
               <button className="btn primary" disabled={busy || balance < confirm.price} onClick={() => void buy(confirm)}>
-                {balance < confirm.price ? `Need ◆${confirm.price}` : `Unlock · ◆${confirm.price}`}
+                {gems(balance < confirm.price ? `Need ◆${confirm.price}` : `Unlock · ◆${confirm.price}`)}
               </button>
             </div>
           </div>
@@ -407,10 +422,10 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
       <div className="episode">
         <span className="ep-label">{finish.cleared ? 'FINAL EPISODE' : 'NEXT EPISODE'}</span>
         <h1>{finish.cleared ? 'The tower is yours.' : `Floor ${finish.fellOn}. ${enemy} wins this one.`}</h1>
-        <p>{finish.cleared ? 'You beat THE AUTHOR. Nobody wrote that ending for you.' : next ? `Reach floor ${next.from} tomorrow for ◆${next.credits}.` : 'One floor from the top. Tomorrow.'}</p>
+        <p>{gems(finish.cleared ? 'You beat THE AUTHOR. Nobody wrote that ending for you.' : next ? `Reach floor ${next.from} tomorrow for ◆${next.credits}.` : 'One floor from the top. Tomorrow.')}</p>
       </div>
       <div className="reward">
-        <span className="reward-num">◆ {shown}</span>
+        <span className="reward-num"><Gem />{shown}</span>
         {finish.newBest && <span className="best-chip">NEW BEST</span>}
         <div className="math">
           <span>Floor pay <b>+{finish.base}</b></span>
@@ -436,7 +451,7 @@ function Result({ result, finish, status, fee, onClose, onPractice }: {
           onClick={async () => { const ok = await bridge.remind(); setReminded(ok); if (ok) bridge.haptic('success'); }}>
           {reminded === null ? '🔔 Remind me when it opens' : reminded ? '✓ We’ll remind you' : 'Turn on notifications in Settings to get a reminder'}
         </button>
-        <button className="btn" onClick={onPractice}>Practice · ◆1 a floor</button>
+        <button className="btn" onClick={onPractice}>Practice · <Gem />1 a floor</button>
         <div className="row">
         <button className="btn share" onClick={() => {
           const mod = MODIFIERS_BY_ID[(status?.modifier ?? 'none') as ModifierId] ?? MODIFIERS_BY_ID.none;
@@ -462,10 +477,10 @@ function Practiced({ result, finish, status, onAgain, onBack }: {
       <div className="episode">
         <span className="ep-label">PRACTICE</span>
         <h1>{fell}.</h1>
-        <p>{finish ? (finish.reward ? `+◆${finish.reward} for the floors you cleared.` : 'Today’s practice credits are used up. Still good training.') : 'Practice result couldn’t be saved.'}</p>
+        <p>{gems(finish ? (finish.reward ? `+◆${finish.reward} for the floors you cleared.` : 'Today’s practice credits are used up. Still good training.') : 'Practice result couldn’t be saved.')}</p>
       </div>
       <div className="reward small">
-        <span className="reward-num">◆ {finish?.reward ?? 0}</span>
+        <span className="reward-num"><Gem />{finish?.reward ?? 0}</span>
         <div className="math"><span>{left} practice credits left today</span></div>
       </div>
       <div className="result-actions">

@@ -307,3 +307,69 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .streak-card { padding: 10px 12px; }
 .pin.next { right: auto; left: 50%; transform: translateX(-50%); }
 .result-actions .row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+/* ── Design v3 (board frame Tower) ─────────────────────────────────────────
+   The lobby and the fighters screen in the app's own system: ink, paper, one
+   SF face, filled rows, no gradients, no italics, the crystal as the only
+   currency mark. Scoped to .lobby so the game, the boons and the results keep
+   their own look. */
+.gem{display:inline-block;height:1.05em;width:auto;vertical-align:-0.17em;margin-right:.08em}
+.lobby{--bg:#0F0E0D;--raised:#22201D;--line:#2E2B27;--text:#F3EFE8;--dim:#B4ADA3;--muted:#948E85;--accent:#F3EFE8;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;padding:calc(var(--sat) + 10px) 20px calc(var(--sab) + 16px)}
+.lobby .icon{background:var(--raised);width:44px;height:44px;border-radius:22px;color:var(--text);font-size:15px}
+.lobby-head-right{display:flex;align-items:center;gap:8px}
+.lobby .balance{display:flex;align-items:center;gap:2px;height:36px;padding:0 14px;border-radius:18px;background:var(--raised);font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.v3-title{margin-top:18px}
+.v3-kicker{font-size:13px;line-height:18px;color:var(--muted)}
+.v3-title h1{margin:4px 0 0;font-size:28px;line-height:34px;font-weight:700;letter-spacing:-.01em;color:var(--text)}
+.v3-title p{margin:8px 0 0;font-size:15px;line-height:21px;color:var(--dim)}
+.v3-streak{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:14px;border-top:.5px solid var(--line);font-size:13px;color:var(--muted)}
+.v3-streak b{color:var(--text);font-weight:600}
+.v3-days{display:flex;gap:4px}
+.v3-days i{display:block;width:14px;height:14px;border-radius:3px;box-shadow:inset 0 0 0 1.5px #45413B}
+.v3-days i.on{background:var(--text);box-shadow:none}
+.v3-revive{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:13px;line-height:18px;color:var(--dim)}
+.v3-revive .btn{flex:none}
+.v3-twist{margin-top:10px;font-size:13px;line-height:18px;color:var(--muted)}
+.v3-twist b{color:var(--text);font-weight:600}
+.lobby .tower{margin-top:20px;gap:6px}
+.lobby .storey{grid-template-columns:auto 1fr auto;gap:10px;height:40px;padding:0 14px;border:0;border-radius:10px;background:var(--raised)}
+.lobby .storey.top{background:var(--text);border-radius:10px}
+.lobby .storey.top .storey-name,.lobby .storey.top .storey-pay{color:var(--bg);font-weight:600}
+.lobby .storey-floors{min-width:0;font-size:13px;font-weight:500;font-style:normal;color:var(--muted)}
+.lobby .storey-name{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text)}
+.lobby .storey-pay{font-size:15px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.lobby .storey.here,.lobby .storey:has(.pin.best){outline:none;box-shadow:inset 0 0 0 1.5px var(--text)}
+.lobby .storey.next{outline:none}
+.lobby .pin{font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 6px;border-radius:4px;background:var(--text);color:var(--bg)}
+.lobby .pin.best{position:static;transform:none}
+.lobby .pin.next,.lobby .pin.today{top:-7px;bottom:auto;left:50%;right:auto;transform:translate(-50%)}
+.lobby .pin.next{background:#45413B;color:var(--text)}
+.lobby .tower-note{margin-top:8px;font-size:12px;color:var(--muted)}
+.lobby .fighter-row{gap:12px;margin:16px 0 0;padding:12px 0;border:0;border-top:.5px solid var(--line);border-radius:0;background:none}
+.lobby .fighter-row small{font-size:13px;font-weight:400;letter-spacing:0;color:var(--muted)}
+.lobby .fighter-row b{font-size:17px;font-weight:600}
+.lobby .fighter-row > :first-child{border-radius:50%;overflow:hidden}
+.lobby .fighter-cta{color:var(--dim);font-size:15px;font-weight:500}
+.lobby .btn{border-radius:26px;font-weight:600}
+.lobby .btn.primary{background:var(--text);color:var(--bg)}
+.lobby .btn.primary:disabled{background:#2E2B27;color:#6E6860}
+.lobby .btn.big{height:52px;padding:0 20px;font-size:17px}
+.lobby .btn.small{border-radius:18px;padding:8px 14px}
+.lobby .fee{color:inherit}
+.lobby .fine{font-size:13px;line-height:18px;color:var(--muted)}
+.lobby .link{color:var(--text);font-weight:600;text-decoration:none}
+.lobby .link.hand{color:var(--muted);font-weight:400}
+.lobby .played{border-radius:12px;background:#181715;color:var(--dim)}
+.lobby .played b{color:var(--text)}
+.lobby .confirm-card{border-radius:20px;background:#181715}
+.lobby .confirm-card input[type=range]{accent-color:var(--text)}
+.lobby .stepper b{font-style:normal}
+.lobby .title h1{font-size:28px;font-weight:700;font-style:normal;letter-spacing:-.01em;background:none;-webkit-text-fill-color:var(--text);color:var(--text);filter:none}
+.lobby .title-jp,.lobby .title-jp-inline{display:none}
+.lobby .tagline{color:var(--dim);font-size:15px}
+.lobby .fighter{border:2px solid transparent;background:#181715}
+.lobby .fighter.on{border-color:var(--text);box-shadow:none}
+.lobby .fighter.on .fighter-tag{background:var(--text);color:var(--bg)}
+.lobby .fighter.locked .fighter-tag{background:var(--text);color:var(--bg)}
+/* The lobby scrolls; nothing scrolls under the clock. */
+.lobby::before{content:"";position:fixed;left:0;right:0;top:0;height:var(--sat);background:var(--bg);z-index:5;pointer-events:none}
