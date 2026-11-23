@@ -322,28 +322,22 @@ struct CharacterSetupScreen: View {
                 }
             }
 
-            LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-                ForEach(detail.archetypes) { option in
-                    let selected = archetypeId == option.id
-                    Button {
-                        Haptic.play(.light)
-                        archetypeId = selected ? nil : option.id
-                    } label: {
-                        roleTile(title: option.name, line: option.role, selected: selected)
+            // Two columns, each row as tall as its taller tile. Rows are built
+            // by hand rather than with LazyVGrid, which sizes every cell to
+            // its own content and leaves ragged pairs.
+            let art = RoleArt.showsArt(detail.archetypes)
+            VStack(spacing: 10) {
+                ForEach(Array(RoleArt.rows(roleChoices(detail, art: art)).enumerated()), id: \.offset) { _, row in
+                    HStack(alignment: .top, spacing: 10) {
+                        ForEach(row) { choice in
+                            roleButton(choice, art: art)
+                        }
+                        if row.count == 1 {
+                            Color.clear.frame(maxWidth: .infinity, maxHeight: 1)
+                        }
                     }
-                    .buttonStyle(PressOpacityStyle(pressed: 0.85))
-                    .accessibilityLabel(t("setup.archetype_a11y", ["name": option.name, "role": option.role, "summary": option.summary]))
-                    .accessibilityAddTraits(selected ? .isSelected : [])
+                    .fixedSize(horizontal: false, vertical: true)
                 }
-                Button {
-                    Haptic.play(.light)
-                    archetypeId = usingCustomArchetype ? nil : customChoice
-                } label: {
-                    roleTile(title: t("setup.something_else"), line: t("setup.write_own_background"), selected: usingCustomArchetype)
-                }
-                .buttonStyle(PressOpacityStyle(pressed: 0.85))
-                .accessibilityLabel(t("setup.write_own_background"))
-                .accessibilityAddTraits(usingCustomArchetype ? .isSelected : [])
             }
 
             if let option = archetype {
@@ -376,6 +370,103 @@ struct CharacterSetupScreen: View {
         }
     }
 
+    /// Every role, then "Something else". With art (newer servers), each role
+    /// shows one of the story's stage images and "Something else" the key art
+    /// at half strength; without, the tiles are text only, as before.
+    private func roleChoices(_ detail: StoryDetailResponse, art: Bool) -> [RoleChoice] {
+        detail.archetypes.map { option in
+            RoleChoice(
+                id: option.id,
+                title: option.name,
+                line: option.role,
+                image: option.image,
+                imageOpacity: 1,
+                a11y: t("setup.archetype_a11y", ["name": option.name, "role": option.role, "summary": option.summary])
+            )
+        } + [
+            RoleChoice(
+                id: customChoice,
+                title: t("setup.something_else"),
+                line: t("setup.write_own_background"),
+                image: art ? RoleArt.somethingElseImage(detail.story) : nil,
+                imageOpacity: 0.5,
+                a11y: t("setup.write_own_background")
+            ),
+        ]
+    }
+
+    private func roleButton(_ choice: RoleChoice, art: Bool) -> some View {
+        let custom = choice.id == customChoice
+        let selected = custom ? usingCustomArchetype : archetypeId == choice.id
+        return Button {
+            Haptic.play(.light)
+            if custom {
+                archetypeId = usingCustomArchetype ? nil : customChoice
+            } else {
+                archetypeId = selected ? nil : choice.id
+            }
+        } label: {
+            if art {
+                roleArtTile(choice, selected: selected)
+            } else {
+                roleTile(title: choice.title, line: choice.line, selected: selected)
+            }
+        }
+        .buttonStyle(PressOpacityStyle(pressed: 0.85))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .accessibilityLabel(choice.a11y)
+        .accessibilityAddTraits(selected ? .isSelected : [])
+    }
+
+    /// Design v3 (board frame Who are you?): a 72pt picture band over the
+    /// filled body, the picked tile ringed in paper with a check on the art.
+    private func roleArtTile(_ choice: RoleChoice, selected: Bool) -> some View {
+        let shape = RoundedRectangle(cornerRadius: 12, style: .continuous)
+        return VStack(alignment: .leading, spacing: 0) {
+            Color.clear
+                .frame(height: 72)
+                .frame(maxWidth: .infinity)
+                .overlay {
+                    RemoteImage(choice.image?.assetURL) { Theme.Colors.bgRaised }
+                        .opacity(choice.imageOpacity)
+                }
+                .background(Theme.Colors.bgRaised)
+                .clipped()
+                .accessibilityHidden(true)
+            Text(choice.title)
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundStyle(Theme.Colors.textPrimary)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+                .padding(.top, 10)
+                .padding(.horizontal, 12)
+            Text(choice.line)
+                .font(.system(size: 13))
+                .foregroundStyle(Theme.Colors.textSecondary)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+                .padding(.top, 2)
+                .padding(.horizontal, 12)
+                .padding(.bottom, 12)
+            Spacer(minLength: 0)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .background(Theme.Colors.bgElevated)
+        .clipShape(shape)
+        .overlay { if selected { shape.strokeBorder(Theme.Colors.textPrimary, lineWidth: 2) } }
+        .overlay(alignment: .topTrailing) {
+            if selected {
+                Image(systemName: "checkmark")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundStyle(Theme.Colors.textOnLight)
+                    .frame(width: 24, height: 24)
+                    .background(Theme.Colors.light, in: Circle())
+                    .padding(8)
+            }
+        }
+        .contentShape(shape)
+    }
+
     private func roleTile(title: String, line: String, selected: Bool) -> some View {
         let shape = RoundedRectangle(cornerRadius: 16, style: .continuous)
         return VStack(alignment: .leading, spacing: 4) {
@@ -392,7 +483,7 @@ struct CharacterSetupScreen: View {
             Spacer(minLength: 0)
         }
         .padding(14)
-        .frame(maxWidth: .infinity, minHeight: 96, alignment: .topLeading)
+        .frame(maxWidth: .infinity, minHeight: 96, maxHeight: .infinity, alignment: .topLeading)
         .background(Theme.Colors.bgElevated, in: shape)
         .overlay { if selected { shape.strokeBorder(Theme.Colors.textPrimary, lineWidth: 2) } }
         .overlay(alignment: .topTrailing) {
@@ -752,5 +843,36 @@ struct SelectableCard<Content: View>: View {
                 }
             }
             .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+}
+
+// MARK: - Role tiles
+
+/// One tile on the "Who are you?" grid: a role, or "Something else".
+private struct RoleChoice: Identifiable {
+    let id: String
+    let title: String
+    let line: String
+    let image: String?
+    let imageOpacity: Double
+    let a11y: String
+}
+
+/// Whether the role grid draws pictures, and how it pairs tiles into rows.
+enum RoleArt {
+    /// True once any role carries an image. An older server sends none, and
+    /// the grid stays text only rather than drawing empty picture bands.
+    static func showsArt(_ archetypes: [SetupArchetype]) -> Bool {
+        archetypes.contains { !($0.image ?? "").isEmpty }
+    }
+
+    /// "Something else" has no stage of its own; it gets the story's key art.
+    static func somethingElseImage(_ story: StorySummary) -> String? {
+        story.keyArt ?? story.coverImage
+    }
+
+    /// Pairs for the two-column grid; an odd one out sits alone in the last row.
+    static func rows<T>(_ items: [T]) -> [[T]] {
+        stride(from: 0, to: items.count, by: 2).map { Array(items[$0..<min($0 + 2, items.count)]) }
     }
 }

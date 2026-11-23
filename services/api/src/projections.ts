@@ -37,6 +37,7 @@ import {
 import { translatorFor, type Locale, type TranslationKey, type Translator } from '@plotbreak/i18n';
 import type { SessionRecord, StorySignals } from './repo/types.js';
 import { lastSpokenLine, recapLineOf } from './last-line.js';
+import { archetypeImages } from './archetype-art.js';
 
 /**
  * Read models. Authoritative state lives in `GameState`; these shape it into
@@ -167,6 +168,7 @@ export function toStoryDetail(
   sessions: StoryDetailResponse['sessions'] = [],
   social?: { likes?: number; comments?: number; likedByMe?: boolean },
 ): StoryDetailResponse {
+  const roleArt = archetypeImages(story);
   return {
     story: toStorySummary(story, signals, saved, social),
     sessions,
@@ -199,8 +201,13 @@ export function toStoryDetail(
     archetypes: story.archetypes.map((archetype) => ({
       ...archetype,
       grants: archetypeGrants(story, archetype),
+      // One of the world's own stage images, so the role tile has a picture
+      // without anybody generating one. See archetype-art.ts.
+      image: resolveAssetUrl(roleArt.get(archetype.id) ?? null, story.version),
     })),
     protagonist: story.protagonist,
+    // The count only. Names and conditions are spoilers and stay here.
+    endingCount: story.endings.length,
   };
 }
 

@@ -249,4 +249,7 @@ export const story = {
   'story.block_creator_title': 'Bloquer {name} ?',
   'story.block_creator_body': 'Tu ne verras plus rien de ce qu’elle ou il a créé. Tu peux annuler ça depuis ton profil.',
   'story.block_confirm': 'Bloquer',
+  'story.endings_count': '{count, plural, one {# fin} other {# fins}}',
+  'story.share_a11y': 'Partager',
+  'story.share_message': '{title} sur Plotbreak. {hook}',
 } as const;

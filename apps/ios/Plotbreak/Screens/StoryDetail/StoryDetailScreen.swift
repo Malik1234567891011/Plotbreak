@@ -87,50 +87,30 @@ struct StoryDetailScreen: View {
 
     // MARK: Chrome
 
-    /// Design v3: two glass buttons floating over the cover, back and more.
+    /// Design v3: glass buttons floating over the cover: back on the left,
+    /// share and more on the right.
     private var topBar: some View {
         let solid = scrollY > coverHeight - 110
         return HStack {
             glassButton(systemName: "chevron.left", label: t("story.back")) { router.pop() }
             Spacer()
+            if let story = detail?.story {
+                HStack(spacing: 8) {
+                    shareButton(story)
+                    moreMenu(story)
+                }
+            }
+        }
+        // Centred on the bar whatever sits either side of it, and kept clear
+        // of the two buttons on the right.
+        .overlay {
             Text(detail?.story.title ?? "")
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundStyle(Theme.Colors.textPrimary)
                 .lineLimit(1)
+                .padding(.horizontal, 44 * 2 + 8 + Theme.Spacing.sm)
                 .opacity(solid ? 1 : 0)
                 .accessibilityHidden(!solid)
-            Spacer()
-            if let story = detail?.story {
-                Menu {
-                    Button {
-                        router.present(.comments(storyId: story.storyId))
-                    } label: {
-                        Label(t("story.tab_comments"), systemImage: "text.bubble")
-                    }
-                    Button {
-                        toggleSaved(story)
-                    } label: {
-                        Label(saved ? t("story.remove_from_saved") : t("story.save_story"), systemImage: saved ? "bookmark.slash" : "bookmark")
-                    }
-                    Button(role: .destructive) {
-                        router.present(.report(targetType: "STORY", targetId: story.storyId))
-                    } label: {
-                        Label(t("story.report_story"), systemImage: "flag")
-                    }
-                    // Only for a world a person wrote. There is nobody to block
-                    // behind an official one, and offering it would be nonsense.
-                    if !story.official, !story.creatorId.isEmpty {
-                        Button(role: .destructive) {
-                            blockTarget = story
-                        } label: {
-                            Label(t("story.block_creator", ["name": story.creatorName]), systemImage: "person.slash")
-                        }
-                    }
-                } label: {
-                    glassFace(systemName: "ellipsis")
-                }
-                .accessibilityLabel(t("story.more_a11y"))
-            }
         }
         .padding(.horizontal, Theme.pageGutter)
         .padding(.top, Theme.Spacing.sm)
@@ -146,6 +126,59 @@ struct StoryDetailScreen: View {
                 .opacity(solid ? 1 : 0)
         }
         .animation(.easeOut(duration: Theme.Durations.short), value: solid)
+    }
+
+    /// The App Store page with the story's title and hook. There is no web
+    /// page per story yet, so this is the honest link; it disappears when the
+    /// build has no App Store id.
+    @ViewBuilder
+    private func shareButton(_ story: StorySummary) -> some View {
+        if let url = StoryShareLink.url(appID: AppConfig.appleAppID) {
+            // No custom preview: the system's link preview of the App Store
+            // page (the app's icon and name) beats a title over a blank icon.
+            // The message rides along wherever text goes (Messages, Mail).
+            ShareLink(
+                item: url,
+                subject: Text(story.title),
+                message: Text(StoryShareLink.message(title: story.title, hook: story.hook, t: t))
+            ) {
+                glassFace(systemName: "square.and.arrow.up")
+            }
+            .buttonStyle(PressOpacityStyle())
+            .accessibilityLabel(t("story.share_a11y"))
+        }
+    }
+
+    private func moreMenu(_ story: StorySummary) -> some View {
+        Menu {
+            Button {
+                router.present(.comments(storyId: story.storyId))
+            } label: {
+                Label(t("story.tab_comments"), systemImage: "text.bubble")
+            }
+            Button {
+                toggleSaved(story)
+            } label: {
+                Label(saved ? t("story.remove_from_saved") : t("story.save_story"), systemImage: saved ? "bookmark.slash" : "bookmark")
+            }
+            Button(role: .destructive) {
+                router.present(.report(targetType: "STORY", targetId: story.storyId))
+            } label: {
+                Label(t("story.report_story"), systemImage: "flag")
+            }
+            // Only for a world a person wrote. There is nobody to block
+            // behind an official one, and offering it would be nonsense.
+            if !story.official, !story.creatorId.isEmpty {
+                Button(role: .destructive) {
+                    blockTarget = story
+                } label: {
+                    Label(t("story.block_creator", ["name": story.creatorName]), systemImage: "person.slash")
+                }
+            }
+        } label: {
+            glassFace(systemName: "ellipsis")
+        }
+        .accessibilityLabel(t("story.more_a11y"))
     }
 
     private func glassButton(systemName: String, label: String, action: @escaping () -> Void) -> some View {
@@ -268,7 +301,7 @@ struct StoryDetailScreen: View {
                         .font(.system(size: 13))
                         .foregroundStyle(Theme.Colors.textMuted)
                         .padding(.top, 2)
-                    statsLine(story)
+                    statsLine(story, endingCount: detail.endingCount)
                         .padding(.top, 10)
                     tagsRow(story, detail: detail)
                         .padding(.top, 12)
@@ -314,20 +347,34 @@ struct StoryDetailScreen: View {
 
     // MARK: Sections
 
-    /// "▶ 1.6M plays · ♥ 86K likes", the numbers bright and the words quiet.
-    private func statsLine(_ story: StorySummary) -> some View {
-        HStack(spacing: 6) {
-            if story.runs > 0 {
+    /// "▶ 1.6M plays · ♥ 86K likes · 9 endings", the numbers bright and the
+    /// words quiet. On a narrow screen the comments count goes first (the
+    /// More menu still reaches them), so the line never truncates mid-word.
+    private func statsLine(_ story: StorySummary, endingCount: Int) -> some View {
+        ViewThatFits(in: .horizontal) {
+            statsRow(story, endingCount: endingCount, comments: true)
+            statsRow(story, endingCount: endingCount, comments: false)
+        }
+        .font(.system(size: 13))
+        .foregroundStyle(Theme.Colors.textSecondary)
+        .accessibilityElement(children: .combine)
+    }
+
+    private func statsRow(_ story: StorySummary, endingCount: Int, comments: Bool) -> some View {
+        let showPlays = story.runs > 0
+        let showLikes = likes > 0
+        let showComments = comments && story.comments > 0
+        let endings = StoryEndingsLabel.text(count: endingCount, t: t)
+        return HStack(spacing: 6) {
+            if showPlays {
                 stat("play.fill", Format.credits(story.runs, compact: true, locale: store.locale), t("create.metric_plays"))
             }
-            if story.runs > 0, likes > 0 {
-                Text(verbatim: "·").foregroundStyle(Theme.Colors.borderStrong)
-            }
-            if likes > 0 {
+            if showPlays, showLikes { statDot }
+            if showLikes {
                 stat("heart.fill", Format.credits(likes, compact: true, locale: store.locale), t("create.metric_likes"))
             }
-            if story.comments > 0 {
-                Text(verbatim: "·").foregroundStyle(Theme.Colors.borderStrong)
+            if showComments {
+                if showPlays || showLikes { statDot }
                 Button {
                     router.present(.comments(storyId: story.storyId))
                 } label: {
@@ -335,10 +382,18 @@ struct StoryDetailScreen: View {
                 }
                 .buttonStyle(PressOpacityStyle())
             }
+            if let endings {
+                if showPlays || showLikes || showComments { statDot }
+                // Board: "5 endings", no icon, the number bold like the others.
+                StoryEndingsLabel.styled(endings, count: endingCount)
+            }
         }
-        .font(.system(size: 13))
-        .foregroundStyle(Theme.Colors.textSecondary)
-        .accessibilityElement(children: .combine)
+        .lineLimit(1)
+        .fixedSize(horizontal: true, vertical: false)
+    }
+
+    private var statDot: some View {
+        Text(verbatim: "·").foregroundStyle(Theme.Colors.borderStrong)
     }
 
     private func stat(_ symbol: String, _ value: String, _ word: String) -> some View {
@@ -741,5 +796,46 @@ private struct CastSheet: View {
         .presentationDetents([.medium, .large])
         .presentationDragIndicator(.visible)
         .presentationBackground(Theme.Colors.bgRaised)
+    }
+}
+
+// MARK: - Share and endings
+
+/// What the story page's share button sends.
+///
+/// The App Store page is the only public link there is: no web page per story
+/// exists and the app has no Associated Domains, so a link that opens the story
+/// itself is an infrastructure decision, not a design one. The message names the
+/// story so the link is not anonymous. The Tower shares the same way.
+enum StoryShareLink {
+    /// nil when the build has no App Store id, and then there is no button.
+    static func url(appID: String?) -> URL? {
+        guard let id = appID?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !id.isEmpty, id.allSatisfy({ $0.isASCII && $0.isNumber })
+        else { return nil }
+        return URL(string: "https://apps.apple.com/app/id\(id)")
+    }
+
+    static func message(title: String, hook: String, t: Translator) -> String {
+        t("story.share_message", ["title": title, "hook": hook.trimmingCharacters(in: .whitespacesAndNewlines)])
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+/// "9 endings" on the stats line. Only the count reaches the client; which
+/// endings exist, and whether this player found any, is not known here.
+enum StoryEndingsLabel {
+    /// nil for a world without endings, and for an older server that omits them.
+    static func text(count: Int, t: Translator) -> String? {
+        guard count > 0 else { return nil }
+        return t("story.endings_count", ["count": count])
+    }
+
+    /// The number bright and semibold, the word in the line's quiet colour.
+    static func styled(_ text: String, count: Int) -> Text {
+        guard let range = text.range(of: String(count)) else { return Text(text) }
+        return Text(text[..<range.lowerBound])
+            + Text(text[range]).fontWeight(.semibold).foregroundStyle(Theme.Colors.textPrimary)
+            + Text(text[range.upperBound...])
     }
 }

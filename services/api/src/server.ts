@@ -81,6 +81,7 @@ import {
 } from './projections.js';
 import { deriveCustomBuildWithModel } from '@plotbreak/director';
 import { availableCategories, categoriesFor, searchCatalog } from './catalog-taxonomy.js';
+import { searchCharacters } from './search-characters.js';
 import { registerMediaRoutes } from './media-routes.js';
 import { registerCreateRoutes } from './create-routes.js';
 import { TowerError, TowerService, towerEnabledFor } from './tower.js';
@@ -782,7 +783,15 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
             .map((entry) => entry.summary)
             .sort((a, b) => (order.get(a.storyId) ?? 0) - (order.get(b.storyId) ?? 0));
 
-    return { results: ranked };
+    // The Characters tab, over the same localized, readable, visible list, so a
+    // blocked creator's cast is as unreachable as their stories. Ties break in
+    // the order the stories are shown: ranked for a browse, matched otherwise.
+    const byId = new Map(stories.map((story) => [story.storyId, story]));
+    const shown = ranked.map((summary) => byId.get(summary.storyId)).filter((s): s is StoryVersion => !!s);
+    const rest = stories.filter((story) => !order.has(story.storyId));
+    const characters = searchCharacters(query.length === 0 ? shown : [...shown, ...rest], query);
+
+    return { results: ranked, characters };
   });
 
   app.get<{ Params: { storyId: string } }>('/v1/stories/:storyId', async (request, reply) => {

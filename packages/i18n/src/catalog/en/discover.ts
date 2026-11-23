@@ -123,4 +123,10 @@ export const discover = {
   'discover.search_popular': 'Popular',
   /** Accessible name of a recent term's cross. */
   'discover.search_remove_a11y': 'Remove {term}',
+  /** The two filled chips under the search field. Results are worlds. */
+  'discover.search_tab_stories': 'Stories',
+  /** The second chip: people across every world, by name or what they are. */
+  'discover.search_tab_characters': 'Characters',
+  /** Under a character's name in search: what they are, then their world. */
+  'discover.search_character_line': '{role} · {story}',
 } as const;
