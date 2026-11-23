@@ -1,0 +1,106 @@
+{
+  "storyId": "story_the_villain_dies_in_chapter_three",
+  "seed": 41,
+  "avoid": [[484, 140, 737, 488], [610, 1110, 910, 1385]],
+  "layers": [
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.665, 0.958],
+      "anchor": "bc",
+      "rotate": -8,
+      "scale": 0.95,
+      "gap": 6,
+      "lines": [
+        {
+          "runs": [
+            {"text": "The ", "font": "UnifrakturMaguntia", "size": 92, "fill": "#17121a"},
+            {"text": "Villain", "font": "UnifrakturMaguntia", "size": 150, "fill": "#17121a"}
+          ]
+        },
+        {"text": "dies in", "font": "Shippori Mincho B1", "size": 36, "tracking": 0.32, "fill": "#3a2a2c", "gap": 0},
+        {
+          "text": "CHAPTER THREE",
+          "font": "Shippori Mincho B1",
+          "size": 34,
+          "tracking": 0.22,
+          "fill": "#fff3e0",
+          "gap": 16
+        }
+      ],
+      "backing": [
+        {
+          "shape": "plate",
+          "of": "block",
+          "pad": [48, 26, 48, 32],
+          "z": -1,
+          "fill": {
+            "texture": "grain",
+            "base": {"gradient": ["#cdb88f", "#efe4cc", "#f5ecd9", "#f1e6cf"], "stops": [0, 0.07, 0.6, 1], "angle": 0},
+            "color": "#b89a6a",
+            "strength": 0.16
+          },
+          "rough": {"amount": 2.2, "scale": 3},
+          "innerGlow": {"size": 9, "color": "#b98f57", "opacity": 0.55},
+          "shadow": [{"dx": 4, "dy": 14, "blur": 16, "opacity": 0.38, "color": "#3a3048"}]
+        },
+        {
+          "shape": "banner",
+          "of": 2,
+          "pad": [26, 12, 120, 12],
+          "ends": ["flat", "notch"],
+          "depth": 26,
+          "fill": {"gradient": ["#c8202c", "#8e0f1c"], "angle": 90},
+          "shadow": [{"dx": 0, "dy": 4, "blur": 4, "opacity": 0.35}]
+        }
+      ],
+      "ornaments": [
+        {
+          "shape": "rule",
+          "of": 1,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -18,
+          "w": 70,
+          "h": 10,
+          "thickness": 2,
+          "taper": false,
+          "fill": "#3a2a2c"
+        },
+        {
+          "shape": "rule",
+          "of": 1,
+          "to": "mr",
+          "anchor": "ml",
+          "dx": 18,
+          "w": 70,
+          "h": 10,
+          "thickness": 2,
+          "taper": false,
+          "fill": "#3a2a2c"
+        },
+        {
+          "shape": "polygon",
+          "of": 0,
+          "to": "br",
+          "anchor": "bl",
+          "dx": 6,
+          "dy": 0,
+          "w": 24,
+          "h": 36,
+          "fill": {"gradient": ["#e0303c", "#9c0e1a"], "angle": 90},
+          "points": [
+            [0.5, 0.0], [0.503, 0.004], [0.516, 0.017], [0.537, 0.038], [0.569, 0.067], [0.608, 0.103], [0.655, 0.146],
+            [0.707, 0.196], [0.762, 0.25], [0.817, 0.309], [0.87, 0.371], [0.918, 0.435], [0.958, 0.5], [0.989, 0.565],
+            [1.008, 0.629], [1.014, 0.691], [1.006, 0.75], [0.983, 0.804], [0.947, 0.854], [0.896, 0.897],
+            [0.833, 0.933], [0.76, 0.962], [0.678, 0.983], [0.59, 0.996], [0.5, 1.0], [0.41, 0.996], [0.322, 0.983],
+            [0.24, 0.962], [0.167, 0.933], [0.104, 0.897], [0.053, 0.854], [0.017, 0.804], [-0.006, 0.75],
+            [-0.014, 0.691], [-0.008, 0.629], [0.011, 0.565], [0.042, 0.5], [0.082, 0.435], [0.13, 0.371],
+            [0.183, 0.309], [0.238, 0.25], [0.293, 0.196], [0.345, 0.146], [0.392, 0.103], [0.431, 0.067],
+            [0.463, 0.038], [0.484, 0.017], [0.497, 0.004]
+          ]
+        }
+      ]
+    }
+  ]
+}

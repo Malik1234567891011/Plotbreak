@@ -1,0 +1,84 @@
+{
+  "storyId": "story_three_heroines_and_a_porter",
+  "seed": 47,
+  "avoid": [[184, 192, 461, 453], [576, 227, 806, 453]],
+  "layers": [
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.455, 0.9],
+      "anchor": "bc",
+      "rotate": -6,
+      "lines": [
+        {
+          "text": "Three Heroines",
+          "font": "Kaushan Script",
+          "width": 880,
+          "fill": "#ffffff",
+          "strokes": [
+            {"width": 21, "fill": "#14245a"},
+            {"width": 16, "fill": "#e2252c"},
+            {"width": 11, "fill": "#ffffff"},
+            {"width": 6, "fill": "#e2252c"}
+          ],
+          "shadow": [{"dx": 0, "dy": 9, "blur": 10, "color": "#0b1a3a", "opacity": 0.5}]
+        }
+      ]
+    },
+    {
+      "type": "shape",
+      "id": "string",
+      "shape": "rule",
+      "box": [0.668, 0.8875, 0.79, 0.8905],
+      "rotate": -44,
+      "thickness": 4,
+      "taper": false,
+      "fill": "#efe2c2",
+      "strokes": [{"width": 1.8, "fill": "#4a3218"}],
+      "shadow": [{"dx": 2, "dy": 4, "blur": 3, "opacity": 0.4}]
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "at": [0.8, 0.965],
+      "anchor": "bc",
+      "rotate": 7,
+      "gap": -4,
+      "lines": [
+        {"text": "and a", "font": "Gochi Hand", "size": 46, "fill": "#2b1a0c", "dx": -40},
+        {"text": "Porter", "font": "Gochi Hand", "size": 84, "fill": "#2b1a0c", "dx": 16}
+      ],
+      "backing": [
+        {
+          "shape": "polygon",
+          "of": "block",
+          "pad": [70, 20, 26, 20],
+          "points": [[0.2, 0], [1, 0], [1, 1], [0.2, 1], [0, 0.7], [0, 0.3]],
+          "fill": {
+            "texture": "grain",
+            "base": {"gradient": ["#d9b67e", "#c49a5e"], "angle": 90},
+            "color": "#8a6534",
+            "strength": 0.2
+          },
+          "strokes": [{"width": 2.5, "fill": "#7a5528"}],
+          "inline": {"inset": 8, "width": 1.6, "fill": "#a57b45"},
+          "shadow": [{"dx": 4, "dy": 9, "blur": 9, "opacity": 0.45}]
+        }
+      ],
+      "ornaments": [
+        {
+          "shape": "dot",
+          "of": "block",
+          "to": "ml",
+          "anchor": "mc",
+          "dx": -44,
+          "w": 26,
+          "h": 26,
+          "fill": "#f1e4c8",
+          "strokes": [{"width": 2, "fill": "#7a5528"}]
+        },
+        {"shape": "dot", "of": "block", "to": "ml", "anchor": "mc", "dx": -44, "w": 12, "h": 12, "fill": "#3b2a18"}
+      ]
+    }
+  ]
+}

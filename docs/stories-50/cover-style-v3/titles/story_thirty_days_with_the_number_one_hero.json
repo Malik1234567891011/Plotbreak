@@ -1,0 +1,120 @@
+{
+  "storyId": "story_thirty_days_with_the_number_one_hero",
+  "seed": 45,
+  "avoid": [[46, 645, 253, 872], [300, 419, 518, 698]],
+  "layers": [
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.47, 0.034],
+      "anchor": "tc",
+      "gap": 18,
+      "lines": [
+        {
+          "text": "THIRTY DAYS WITH THE",
+          "font": "Alfa Slab One",
+          "size": 50,
+          "tracking": 0.04,
+          "fill": "#d7262e",
+          "rotate": -3,
+          "dx": -110
+        },
+        {
+          "text": "NUMBER ONE HERO",
+          "font": "Bangers",
+          "width": 940,
+          "tracking": 0.03,
+          "rise": 3,
+          "fill": {"gradient": ["#fff27a", "#ffd23f", "#ffb21f"], "stops": [0, 0.5, 1], "angle": 90},
+          "strokes": [
+            {
+              "width": 0,
+              "offset": [11, 12],
+              "fill": {
+                "texture": "halftone",
+                "base": "#14245a",
+                "color": "#8dbbf2",
+                "strength": 1,
+                "period": 11,
+                "ramp": false,
+                "mode": "mix"
+              }
+            },
+            {"width": 8, "fill": "#14245a"}
+          ],
+          "outerStrokes": [{"width": 5, "fill": "#ffffff"}]
+        }
+      ],
+      "backing": [
+        {
+          "shape": "torn",
+          "of": 0,
+          "pad": [30, 26, 30, 18],
+          "jag": 4,
+          "fill": {"texture": "grain", "base": "#fbfaf6", "strength": 0.08},
+          "shadow": [{"dx": 0, "dy": 6, "blur": 8, "opacity": 0.3, "color": "#0c2a55"}]
+        }
+      ],
+      "ornaments": [
+        {"shape": "plate", "of": 0, "pad": [30, 34, 30, -50], "fill": "#14245a", "z": 0.2},
+        {
+          "shape": "dot",
+          "of": 0,
+          "to": [0.06, 0],
+          "anchor": "mc",
+          "dy": -22,
+          "w": 14,
+          "h": 14,
+          "fill": "#ffffff",
+          "strokes": [{"width": 2, "fill": "#14245a"}]
+        },
+        {
+          "shape": "dot",
+          "of": 0,
+          "to": [0.94, 0],
+          "anchor": "mc",
+          "dy": -22,
+          "w": 14,
+          "h": 14,
+          "fill": "#ffffff",
+          "strokes": [{"width": 2, "fill": "#14245a"}]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "role": "deco",
+      "of": "title",
+      "at": [0.87, 0.085],
+      "anchor": "mc",
+      "rotate": 12,
+      "lines": [
+        {
+          "text": "No.1",
+          "font": "Bangers",
+          "size": 54,
+          "fill": "#ffffff",
+          "strokes": [{"width": 4, "fill": "#14245a"}]
+        }
+      ],
+      "backing": [
+        {
+          "shape": "star",
+          "of": "block",
+          "to": "mc",
+          "anchor": "mc",
+          "w": 150,
+          "h": 150,
+          "points": 5,
+          "inner": 0.55,
+          "dy": 4,
+          "fill": "#d7262e",
+          "strokes": [{"width": 5, "fill": "#14245a"}],
+          "outerStrokes": [{"width": 5, "fill": "#ffffff"}],
+          "shadow": [{"dx": 6, "dy": 7, "blur": 0, "color": "#14245a", "opacity": 0.9}]
+        }
+      ]
+    }
+  ]
+}

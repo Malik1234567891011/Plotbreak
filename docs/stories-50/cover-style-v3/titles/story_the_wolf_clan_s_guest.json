@@ -1,0 +1,144 @@
+{
+  "storyId": "story_the_wolf_clan_s_guest",
+  "seed": 42,
+  "avoid": [[530, 192, 737, 436]],
+  "styles": {
+    "bone": {
+      "font": "Grenze Gotisch",
+      "weight": 800,
+      "fill": {"gradient": ["#fbf5e8", "#eee2c8", "#d9c7a3"], "stops": [0, 0.55, 1], "angle": 90},
+      "strokes": [{"width": 5, "fill": "#2a170b"}],
+      "bevel": {"depth": 3, "highlight": 0.45, "shadow": 0.35},
+      "shadow": [{"dx": 0, "dy": 5, "blur": 5, "color": "#1c0e05", "opacity": 0.6}]
+    },
+    "stitch": {
+      "inline": {
+        "inset": 9,
+        "width": 2.6,
+        "fill": {"texture": "stripes", "base": "#e6cfa2", "period": 13, "angle": 0, "alpha": 1, "strength": 1}
+      }
+    }
+  },
+  "layers": [
+    {"type": "scrim", "edge": "bottom", "from": 0.7, "to": 1.0, "color": "#1a0e07", "opacity": 0.5},
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.5, 0.962],
+      "anchor": "bc",
+      "gap": 34,
+      "lines": [
+        {
+          "text": "THE WOLF CLAN’S",
+          "use": "bone",
+          "size": 58,
+          "tracking": 0.16,
+          "strokes": [{"width": 4, "fill": "#2a170b"}],
+          "bevel": null,
+          "arc": 8
+        },
+        {"text": "GUEST", "use": "bone", "size": 230, "tracking": 0.04, "arc": 12}
+      ],
+      "backing": [
+        {
+          "shape": "ribbon",
+          "of": 1,
+          "pad": [60, 26, 60, 14],
+          "tail": 78,
+          "drop": 20,
+          "notch": 30,
+          "use": "stitch",
+          "fill": {
+            "texture": "noise",
+            "base": {"gradient": ["#83522f", "#5c3519", "#3f2210"], "stops": [0, 0.55, 1], "angle": 90},
+            "color": "#2b170a",
+            "strength": 0.35,
+            "scale": 30
+          },
+          "strokes": [{"width": 3, "fill": "#1f1007"}],
+          "shadow": [{"dx": 0, "dy": 10, "blur": 12, "opacity": 0.55}],
+          "arc": 18
+        }
+      ],
+      "ornaments": [
+        {
+          "shape": "ellipse",
+          "of": 0,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -30,
+          "dy": 6,
+          "w": 30,
+          "h": 26,
+          "fill": "#efe4cc",
+          "strokes": [{"width": 3, "fill": "#2a170b"}]
+        },
+        {
+          "shape": "ellipse",
+          "of": 0,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -51,
+          "dy": -14,
+          "w": 11,
+          "h": 14,
+          "fill": "#efe4cc",
+          "rotate": -25,
+          "strokes": [{"width": 3, "fill": "#2a170b"}]
+        },
+        {
+          "shape": "ellipse",
+          "of": 0,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -38,
+          "dy": -24,
+          "w": 11,
+          "h": 14,
+          "fill": "#efe4cc",
+          "rotate": -8,
+          "strokes": [{"width": 3, "fill": "#2a170b"}]
+        },
+        {
+          "shape": "ellipse",
+          "of": 0,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -22,
+          "dy": -24,
+          "w": 11,
+          "h": 14,
+          "fill": "#efe4cc",
+          "rotate": 8,
+          "strokes": [{"width": 3, "fill": "#2a170b"}]
+        },
+        {
+          "shape": "ellipse",
+          "of": 0,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -9,
+          "dy": -14,
+          "w": 11,
+          "h": 14,
+          "fill": "#efe4cc",
+          "rotate": 25,
+          "strokes": [{"width": 3, "fill": "#2a170b"}]
+        },
+        {
+          "shape": "sparkles",
+          "of": 1,
+          "to": "tl",
+          "anchor": "mc",
+          "dx": 18,
+          "dy": 14,
+          "w": 120,
+          "h": 90,
+          "points": [[0.5, 0.5, 58], [0.86, 0.12, 22], [0.16, 0.88, 16]],
+          "fill": "#f4fbff",
+          "glow": [{"radius": 9, "color": "#9fdcff", "opacity": 0.85, "blend": "screen"}]
+        }
+      ]
+    }
+  ]
+}

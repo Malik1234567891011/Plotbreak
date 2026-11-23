@@ -1,0 +1,438 @@
+{
+  "storyId": "story_three_skills_a_morning",
+  "seed": 48,
+  "avoid": [[311, 296, 553, 610], [0, 1300, 330, 1744]],
+  "layers": [
+    {
+      "type": "text",
+      "id": "card?-12",
+      "role": "deco",
+      "at": [0.625, 0.792],
+      "anchor": "mc",
+      "rotate": -12,
+      "lines": [{"text": "?", "font": "Press Start 2P", "size": 64, "fill": "#111111"}],
+      "backing": [
+        {
+          "shape": "plate",
+          "of": "block",
+          "pad": [60, 78, 60, 78],
+          "fill": "#ffffff",
+          "join": "square",
+          "strokes": [{"width": 8, "fill": "#111111"}],
+          "inline": {"inset": 12, "width": 4, "fill": "#111111"},
+          "shadow": [{"dx": 8, "dy": 8, "blur": 0, "color": "#111111", "opacity": 0.9}]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "card?12",
+      "role": "deco",
+      "at": [0.865, 0.792],
+      "anchor": "mc",
+      "rotate": 12,
+      "lines": [{"text": "?", "font": "Press Start 2P", "size": 64, "fill": "#111111"}],
+      "backing": [
+        {
+          "shape": "plate",
+          "of": "block",
+          "pad": [60, 78, 60, 78],
+          "fill": "#ffffff",
+          "join": "square",
+          "strokes": [{"width": 8, "fill": "#111111"}],
+          "inline": {"inset": 12, "width": 4, "fill": "#111111"},
+          "shadow": [{"dx": 8, "dy": 8, "blur": 0, "color": "#111111", "opacity": 0.9}]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "card!0",
+      "role": "deco",
+      "at": [0.745, 0.772],
+      "anchor": "mc",
+      "rotate": 0,
+      "lines": [{"text": "!", "font": "Press Start 2P", "size": 64, "fill": "#ffffff"}],
+      "backing": [
+        {
+          "shape": "plate",
+          "of": "block",
+          "pad": [60, 78, 60, 78],
+          "fill": "#d0141e",
+          "join": "square",
+          "strokes": [{"width": 8, "fill": "#111111"}],
+          "inline": {"inset": 12, "width": 4, "fill": "#ffffff"},
+          "shadow": [{"dx": 8, "dy": 8, "blur": 0, "color": "#111111", "opacity": 0.9}]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.75, 0.962],
+      "anchor": "bc",
+      "gap": 14,
+      "style": {
+        "font": "Press Start 2P",
+        "fill": "#111111",
+        "join": "square",
+        "strokes": [{"width": 12, "fill": "#111111"}, {"width": 8, "fill": "#ffffff"}]
+      },
+      "lines": [
+        {"text": "THREE", "size": 78},
+        {"text": "SKILLS", "size": 78},
+        {"text": "A MORNING", "size": 34, "gap": 22, "dx": 36}
+      ],
+      "ornaments": [
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -48,
+          "dy": -28,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -69,
+          "dy": -21,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -27,
+          "dy": -21,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -55,
+          "dy": -14,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -48,
+          "dy": -14,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -41,
+          "dy": -14,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -62,
+          "dy": -7,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -55,
+          "dy": -7,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -48,
+          "dy": -7,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -41,
+          "dy": -7,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -34,
+          "dy": -7,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -76,
+          "dy": 0,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -62,
+          "dy": 0,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -55,
+          "dy": 0,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -48,
+          "dy": 0,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -41,
+          "dy": 0,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -34,
+          "dy": 0,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -20,
+          "dy": 0,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -62,
+          "dy": 7,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -55,
+          "dy": 7,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -48,
+          "dy": 7,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -41,
+          "dy": 7,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -34,
+          "dy": 7,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -55,
+          "dy": 14,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -48,
+          "dy": 14,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -41,
+          "dy": 14,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -69,
+          "dy": 21,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -27,
+          "dy": 21,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -48,
+          "dy": 28,
+          "w": 7,
+          "h": 7,
+          "fill": "#e0161f",
+          "z": 2
+        }
+      ]
+    }
+  ]
+}
