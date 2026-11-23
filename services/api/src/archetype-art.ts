@@ -38,6 +38,11 @@ export const ARCHETYPE_ART_OVERRIDES: Readonly<Record<string, Readonly<Record<st
  * `floor(i * n / k)`, so neighbouring tiles do not show neighbouring rooms, and
  * no stage is used twice. A role left without a stage gets the key art, then
  * the cover, then null.
+ *
+ * A world with no stage images at all (every community world: the Create flow
+ * ships none) gets null for every role. The fallback is one picture, so it
+ * would be the same cover on every tile, and the text-only grid reads better
+ * than four copies of it.
  */
 export function archetypeImages(
   story: Pick<StoryVersion, 'storyId' | 'archetypes' | 'locations' | 'rules' | 'keyArt' | 'coverImage'>,
@@ -50,6 +55,10 @@ export function archetypeImages(
     (location): location is typeof location & { stageImage: string } =>
       typeof location.stageImage === 'string' && location.stageImage.length > 0,
   );
+  if (staged.length === 0) {
+    for (const role of roles) images.set(role.id, null);
+    return images;
+  }
   const used = new Set<string>();
 
   const overrides = ARCHETYPE_ART_OVERRIDES[story.storyId] ?? {};

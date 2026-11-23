@@ -101,6 +101,13 @@ describe('archetypeImages', () => {
     expect(archetypeImages(synthetic(0, 2, { keyArt: null, coverImage: null })).get('arch_0')).toBeNull();
   });
 
+  it('draws no art for a world without stages rather than one cover on every tile', () => {
+    // A community world: a cover and key art, and no stage images.
+    const images = archetypeImages(synthetic(0, 3));
+    expect(images.size).toBe(3);
+    expect([...images.values()]).toEqual([null, null, null]);
+  });
+
   it('ignores an override whose location has no stage image', () => {
     const story = synthetic(4, 2, { storyId: 'story_hush_house' });
     // The Hush House picks name locations this story does not have.

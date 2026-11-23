@@ -186,8 +186,9 @@ export const SetupArchetype = ArchetypeDef.extend({
   /**
    * A picture for the role tile: one of the story's own location stage
    * images, chosen by `services/api/src/archetype-art.ts`. Never generated,
-   * never authored on the archetype. Null when the story has no art at all,
-   * and absent from older servers, so a client draws the text-only tile.
+   * never authored on the archetype. Null when the story has no stage images
+   * (community worlds), and absent from older servers, so a client draws the
+   * text-only tile.
    */
   image: z.string().nullable().default(null),
 }).strict();

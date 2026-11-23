@@ -146,6 +146,11 @@ struct SearchScreen: View {
                 results = response.results
                 characters = response.characters
             } catch {
+                // A keystroke cancels the request in flight. That is not a
+                // failure: the next task answers in a moment, and clearing
+                // here would collapse the Stories | Characters chips and
+                // flash "No worlds matched" on every letter typed.
+                guard !Task.isCancelled else { return }
                 results = []
                 characters = nil
             }
