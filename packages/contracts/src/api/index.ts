@@ -579,6 +579,28 @@ export const WorldSheetResponse = z
           z.object({ characterId: z.string(), name: z.string(), label: z.string() }).strict(),
         ),
         recentEvents: z.array(z.string()),
+        /**
+         * Who is in the room with the player right now, for the sheet's Now
+         * tab: the characters whose location is the player's
+         * (`charactersPresent`), with a face and one public line each
+         * (`cardBlurb`, or the role when a world wrote none).
+         *
+         * Additive, and defaulted: a client built before it reads the sheet
+         * exactly as before, and one built after it hides the section when an
+         * older server leaves it out.
+         */
+        hereNow: z
+          .array(
+            z
+              .object({
+                characterId: z.string(),
+                name: z.string(),
+                portrait: z.string().nullable(),
+                line: z.string(),
+              })
+              .strict(),
+          )
+          .default([]),
       })
       .strict(),
     character: z
