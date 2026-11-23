@@ -616,6 +616,10 @@ struct SessionSummary: Codable, Hashable, Identifiable {
     var lastLine: SpeakerLine?
     /// The newest beat's recap, for a row with no line to quote.
     var recapLine: String?
+    /// Who the player is, as the story calls them ("as Ren"). Not
+    /// `displayName`, the run's own label, which reads "Ren (fork)" on a fork.
+    /// Absent from servers before design v3, where the row uses `displayName`.
+    var playingAs: String?
 }
 
 struct PresentCharacter: Codable, Hashable, Identifiable {

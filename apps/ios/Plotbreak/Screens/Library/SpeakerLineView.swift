@@ -73,13 +73,22 @@ extension SpeakerLine {
 
     private static let closingQuotes: Set<Character> = ["”", "»", "\"", "’", "」", "』"]
     private static let openingQuotes: Set<Character> = ["“", "«", "\"", "„", "‘", "'", "‹", "「", "『"]
+    /// Marks that only ever quote. Not ’ or ', which are apostrophes far more
+    /// often than they are quotes ("That’s the fish path").
+    private static let speechMarks: Set<Character> = ["“", "”", "„", "«", "»", "\"", "‹", "›", "「", "」", "『", "』"]
 
     /// The line as it is drawn. Most stored dialogue carries its own quote
     /// marks and is shown as stored; some worlds store bare lines, which get
     /// the interface language's marks (`library.quoted_line`) so they never
     /// read as narration beside a face.
+    ///
+    /// A line with a speech mark anywhere in it is left alone too. Those are
+    /// a gesture and then the words (`She glances at Bruno. “We came…”`), or
+    /// the tail of a long line split across blocks (`…and then I’ll tell you.”`);
+    /// wrapping either nests one pair of marks inside another.
     static func quoted(_ text: String, _ t: Translator) -> String {
-        guard let first = text.first, !openingQuotes.contains(first) else { return text }
+        guard let first = text.first, !openingQuotes.contains(first),
+              !text.contains(where: speechMarks.contains) else { return text }
         return t("library.quoted_line", ["text": text])
     }
 

@@ -620,10 +620,12 @@ private struct ContinueRow: View {
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundStyle(Theme.Colors.textPrimary)
                         .lineLimit(1)
+                    // Two lines: "dans le rôle de Robin Vale · Tour 17 · il y
+                    // a 2 h" is wider than the column, and one line cut the date.
                     Text(meta)
                         .font(.system(size: 13))
                         .foregroundStyle(Theme.Colors.textMuted)
-                        .lineLimit(1)
+                        .lineLimit(2)
                     if let spoken = card.lastLine {
                         SpeakerLineView(line: spoken)
                             .padding(.top, 4)

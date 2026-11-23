@@ -49,7 +49,15 @@ final class SpeakerLineDecodingTests: XCTestCase {
         let row = try session("")
         XCTAssertNil(row.lastLine)
         XCTAssertNil(row.recapLine)
+        XCTAssertNil(row.playingAs)
         XCTAssertEqual(row.displayName, "Ren")
+    }
+
+    func testPlayingAsDecodesBesideTheRunLabel() throws {
+        let row = try session(#","playingAs":"Itachi""#)
+        XCTAssertEqual(row.playingAs, "Itachi")
+        XCTAssertEqual(row.displayName, "Ren")
+        XCTAssertNil(try session(#","playingAs":null"#).playingAs)
     }
 
     func testNewSessionSummaryDecodesLineAndRecap() throws {
@@ -138,6 +146,17 @@ final class SpeakerLineRuleTests: XCTestCase {
         XCTAssertEqual(SpeakerLine.quoted("Bare line.", Translator(locale: .en)), "“Bare line.”")
         XCTAssertEqual(SpeakerLine.quoted("Bare line.", Translator(locale: .fr)), "«\u{00A0}Bare line.\u{00A0}»")
         XCTAssertEqual(SpeakerLine.quoted("", Translator(locale: .en)), "")
+        // An apostrophe is not a quote mark: the line is still bare.
+        XCTAssertEqual(SpeakerLine.quoted("That’s the fish path.", Translator(locale: .en)), "“That’s the fish path.”")
+    }
+
+    /// A gesture then the words, or the tail of a line split across blocks:
+    /// both already have their marks, and wrapping them nests a second pair.
+    func testALineWithMarksInsideIsLeftAlone() {
+        let en = Translator(locale: .en)
+        XCTAssertEqual(SpeakerLine.quoted("She glances at Bruno. “We came down.”", en), "She glances at Bruno. “We came down.”")
+        XCTAssertEqual(SpeakerLine.quoted("Mira Holt: \"Use Mira.\"", en), "Mira Holt: \"Use Mira.\"")
+        XCTAssertEqual(SpeakerLine.quoted("and then I’ll tell you.”", en), "and then I’ll tell you.”")
     }
 
     func testCapMatchesTheServer() {

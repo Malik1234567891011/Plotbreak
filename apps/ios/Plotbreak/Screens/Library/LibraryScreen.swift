@@ -196,7 +196,10 @@ private struct SessionCard: View {
     /// "as Ren · Turn 3 · 2 h ago", the board's line under the title.
     private var meta: String {
         var parts: [String] = []
-        if !session.displayName.isEmpty { parts.append(t("library.playing_as", ["name": session.displayName])) }
+        // `playingAs` is what the story calls you; an older server only has
+        // the run's label, which carries " (fork)" on a fork.
+        let name = session.playingAs ?? session.displayName
+        if !name.isEmpty { parts.append(t("library.playing_as", ["name": name])) }
         parts.append(t("discover.continue_turns_in", ["count": session.turnCount]))
         if let date = ISO8601.date(from: session.lastPlayedAt) {
             parts.append(Format.relative(date, locale: store.locale))
