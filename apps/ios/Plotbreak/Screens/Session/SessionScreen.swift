@@ -59,7 +59,7 @@ struct SessionScreen: View {
                 }
                 SessionComposer(model: model)
             }
-            .overlay(alignment: .top) { tierHint }
+            .overlay(alignment: .bottom) { tierHint }
             .overlay { overlays }
             // Over the whole session, not instead of it: the feed is already
             // loaded and waiting underneath, so `Begin` is instant.
@@ -158,11 +158,25 @@ struct SessionScreen: View {
     }
 
     private var backButton: some View {
-        IconButton(t("session.back_to_library"), action: { router.exitSession() }) {
-            Image(systemName: "chevron.left")
-                .font(.system(size: 22, weight: .medium))
+        glassButton("chevron.left", label: t("session.back_to_library")) { router.exitSession() }
+    }
+
+    /// Design v3: round glass buttons over the scene.
+    private func glassButton(_ symbol: String, label: String, action: @escaping () -> Void) -> some View {
+        Button {
+            Haptic.play(.light)
+            action()
+        } label: {
+            Image(systemName: symbol)
+                .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(Theme.Colors.textPrimary)
+                .frame(width: 44, height: 44)
+                .background(.ultraThinMaterial, in: Circle())
+                .background(Theme.Colors.bgBase.opacity(0.35), in: Circle())
+                .overlay { Circle().strokeBorder(Theme.Colors.textPrimary.opacity(0.12), lineWidth: 1) }
         }
+        .buttonStyle(PressOpacityStyle())
+        .accessibilityLabel(label)
     }
 
     /// The header's shape while the run loads. Back works; the rest are
@@ -171,62 +185,47 @@ struct SessionScreen: View {
     private var loadingHeader: some View {
         HStack(spacing: Theme.Spacing.sm) {
             backButton
-            Skeleton(width: 140, height: 14, radius: 7)
             Spacer(minLength: 0)
-            Skeleton(width: 104, height: 36, radius: Theme.Radius.control)
-            Skeleton(width: 26, height: 26, radius: 13)
-                .frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
+            Skeleton(width: 180, height: 40, radius: 20)
+            Spacer(minLength: 0)
+            Skeleton(width: 44, height: 44, radius: 22)
         }
-        .padding(.leading, Theme.Spacing.sm)
-        .padding(.trailing, Theme.Spacing.xs)
+        .padding(.horizontal, Theme.Spacing.lg)
         .frame(height: 56)
     }
 
+    /// Design v3 (board frame Play): back and the world sheet as round glass
+    /// buttons, the story and the place in one glass capsule between them. The
+    /// quality moved down to the line over the composer.
     private var header: some View {
         HStack(spacing: Theme.Spacing.sm) {
             backButton
-            Text(headerTitle)
-                .font(.system(size: 17, weight: .semibold))
-                .foregroundStyle(Theme.Colors.textPrimary)
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .accessibilityAddTraits(.isHeader)
-
-            Button {
-                Haptic.play(.light)
-                showTierHint = false
-                model.showQuality = true
-            } label: {
-                HStack(spacing: 7) {
-                    ZStack {
-                        Circle().strokeBorder(Theme.Colors.accentPrimary, lineWidth: 1.6)
-                        Circle().fill(Theme.Colors.accentPrimary).frame(width: 5.5, height: 5.5)
-                    }
-                    .frame(width: 17, height: 17)
-                    Text(t(TierCopy.labelKey(model.tier.id)))
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(Theme.Colors.textPrimary)
-                    Image(systemName: "chevron.down")
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(Theme.Colors.textPrimary)
-                }
-                .padding(.horizontal, 13)
-                .padding(.vertical, 9)
-                .background(Theme.Colors.surfaceButton, in: RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous))
-            }
-            .buttonStyle(PressOpacityStyle())
-            .accessibilityLabel(t("session.turn_quality"))
-            .accessibilityValue(t(TierCopy.labelKey(model.tier.id)))
-
-            IconButton(t("session.open_world_sheet"), action: { router.present(.worldSheet(sessionId: sessionId, tab: nil)) }) {
-                Image(systemName: "line.3.horizontal")
-                    .font(.system(size: 22, weight: .medium))
+            Spacer(minLength: 0)
+            HStack(spacing: 6) {
+                Text(model.detail?.session.title ?? "")
+                    .font(.system(size: 15, weight: .semibold))
                     .foregroundStyle(Theme.Colors.textPrimary)
+                if let place = model.scene?.locationName, !place.isEmpty {
+                    Text(place)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                }
+            }
+            .lineLimit(1)
+            .padding(.horizontal, 16)
+            .frame(height: 40)
+            .background(.ultraThinMaterial, in: Capsule())
+            .background(Theme.Colors.bgBase.opacity(0.35), in: Capsule())
+            .overlay { Capsule().strokeBorder(Theme.Colors.textPrimary.opacity(0.12), lineWidth: 1) }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(headerTitle)
+            .accessibilityAddTraits(.isHeader)
+            Spacer(minLength: 0)
+            glassButton("list.bullet", label: t("session.open_world_sheet")) {
+                router.present(.worldSheet(sessionId: sessionId, tab: nil))
             }
         }
-        .padding(.leading, Theme.Spacing.sm)
-        .padding(.trailing, Theme.Spacing.xs)
+        .padding(.horizontal, Theme.Spacing.lg)
         .frame(height: 56)
     }
 
@@ -234,10 +233,11 @@ struct SessionScreen: View {
         if showTierHint {
             HStack {
                 Spacer(minLength: 0)
-                TooltipBubble(text: t(TierCopy.promiseKey(model.tier.id)), tail: .up)
-                    .padding(.trailing, 60)
+                TooltipBubble(text: t(TierCopy.promiseKey(model.tier.id)), tail: .down)
+                Spacer(minLength: 0)
             }
-            .padding(.top, 58)
+            .padding(.horizontal, Theme.pageGutter)
+            .padding(.bottom, 92)
             .transition(.opacity)
             .allowsHitTesting(false)
             .accessibilityHidden(true)

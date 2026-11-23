@@ -16,8 +16,39 @@ struct SessionComposer: View {
     private var draftEmpty: Bool { model.draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     private var isPending: Bool { model.pending != nil }
 
+    /// Design v3 (board frame Play): the quality and its price as one quiet
+    /// line over the composer (no turns-left count); tap for the quality sheet.
+    private var qualityLine: some View {
+        Button {
+            Haptic.play(.light)
+            model.showQuality = true
+        } label: {
+            HStack(spacing: 4) {
+                Text(t(TierCopy.labelKey(model.tier.id)))
+                    .fontWeight(.semibold)
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                Text(verbatim: "·")
+                CreditGlyph(size: 12)
+                Text(Format.credits(model.tier.costCredits, locale: store.locale))
+                    .monospacedDigit()
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 10, weight: .semibold))
+            }
+            .font(.system(size: 13))
+            .foregroundStyle(Theme.Colors.textMuted)
+            .frame(minHeight: 28)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressOpacityStyle())
+        .accessibilityLabel(t("session.turn_quality"))
+        .accessibilityValue(t(TierCopy.labelKey(model.tier.id)))
+    }
+
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
+            qualityLine
+                .padding(.horizontal, Theme.gutter)
+                .padding(.top, 4)
             // Autocorrect rewrote what the player actually typed, in a game
             // whose entire input is prose full of invented proper nouns.
             // Spell check stays on; what stops is the silent replacement.
@@ -34,9 +65,9 @@ struct SessionComposer: View {
                         axis: .vertical
                     )
                     .lineLimit(1...5)
-                    .font(.system(size: 15))
-                    .foregroundStyle(Theme.Colors.textPrimary)
-                    .tint(Theme.Colors.accentPrimary)
+                    .font(.system(size: 17))
+                    .foregroundStyle(Theme.Colors.textOnLight)
+                    .tint(Theme.Colors.textOnLight)
                     .autocorrectionDisabled(true)
                     .focused($focused)
                     .padding(.vertical, 13)
@@ -52,36 +83,25 @@ struct SessionComposer: View {
                     .accessibilityLabel(t("session.what_do_you_do"))
                     if !focused { sendButton }
                 }
-                .padding(.leading, 14)
-                .padding(.trailing, focused ? 14 : 10)
+                .padding(.leading, 18)
+                .padding(.trailing, focused ? 14 : 6)
                 if focused {
                     sendButton
                         .padding(.trailing, 11)
                         .padding(.bottom, 12)
                 }
             }
-            .frame(minHeight: 44)
+            .frame(minHeight: 48)
+            // Design v3: a paper capsule, no outline and no focus ring; the
+            // caret and the keyboard say it is focused.
             .background(Box.fill, in: RoundedRectangle(cornerRadius: Box.radius, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: Box.radius, style: .continuous)
-                    .strokeBorder(Box.border, lineWidth: 1)
-            }
-            // The focus ring sits outside the box rather than eating into it,
-            // so the words do not shift when it appears.
-            .overlay {
-                if focused {
-                    RoundedRectangle(cornerRadius: Box.radius + Box.ring / 2, style: .continuous)
-                        .stroke(Box.focusRing, lineWidth: Box.ring)
-                        .padding(-Box.ring / 2)
-                }
-            }
             // The whole box is the field: the empty half of the typing state
             // included.
             .contentShape(RoundedRectangle(cornerRadius: Box.radius, style: .continuous))
             .onTapGesture { if !isPending { focused = true } }
             .animation(.easeOut(duration: Theme.Durations.short), value: focused)
             .padding(.horizontal, Theme.gutter)
-            .padding(.top, Theme.Spacing.sm)
+            .padding(.top, 4)
             .padding(.bottom, Theme.Spacing.md)
         }
         .background(Theme.Colors.bgBase)
@@ -98,11 +118,11 @@ struct SessionComposer: View {
                 Task { await model.send() }
             }
         } label: {
-            Image(systemName: isPending ? "stop.fill" : "play.fill")
-                .font(.system(size: 12, weight: .bold))
+            Image(systemName: isPending ? "stop.fill" : "arrow.up")
+                .font(.system(size: 15, weight: .bold))
                 .foregroundStyle(Box.sendGlyph)
-                .frame(width: 32, height: 32)
-                .background(Box.sendFill, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+                .frame(width: 36, height: 36)
+                .background(Box.sendFill, in: Circle())
         }
         .buttonStyle(PressScaleStyle())
         .disabled(draftEmpty && !isPending)
@@ -110,17 +130,14 @@ struct SessionComposer: View {
         .accessibilityLabel(isPending ? t("session.stop") : t("session.send_action"))
     }
 
-    /// The input box, measured off the reference screenshots: neutral greys
-    /// rather than the app's blue-black, and a white send key.
+    /// Design v3: a paper box (24pt corners: a capsule at one line, a rounded
+    /// box as it grows), ink text, an ink round send key.
     private enum Box {
-        static let fill = Color(hex: 0x1C1C1C)
-        static let border = Color(hex: 0x2B2B2B)
-        static let focusRing = Color(hex: 0x747476)
-        static let placeholder = Color(hex: 0xB8B8B8)
-        static let sendFill = Color.white
-        static let sendGlyph = Color.black
-        static let radius: CGFloat = 8
-        static let ring: CGFloat = 3
+        static let fill = Theme.Colors.light
+        static let placeholder = Theme.Colors.bgBase.opacity(0.5)
+        static let sendFill = Theme.Colors.bgBase
+        static let sendGlyph = Theme.Colors.light
+        static let radius: CGFloat = 24
     }
 }
 
