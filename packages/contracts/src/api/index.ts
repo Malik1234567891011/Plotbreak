@@ -183,6 +183,13 @@ export const SetupArchetype = ArchetypeDef.extend({
       standing: z.array(z.string()),
     })
     .strict(),
+  /**
+   * A picture for the role tile: one of the story's own location stage
+   * images, chosen by `services/api/src/archetype-art.ts`. Never generated,
+   * never authored on the archetype. Null when the story has no art at all,
+   * and absent from older servers, so a client draws the text-only tile.
+   */
+  image: z.string().nullable().default(null),
 }).strict();
 export type SetupArchetype = z.infer<typeof SetupArchetype>;
 
@@ -252,9 +259,43 @@ export const StoryDetailResponse = z
     archetypes: z.array(SetupArchetype),
     /** Whether the setup screen should ask who the player is, or already knows. */
     protagonist: StoryVersion.shape.protagonist,
+    /**
+     * How many endings the world has authored. Only the count: ending names
+     * and conditions are spoilers and never leave the server.
+     */
+    endingCount: z.number().int().min(0).default(0),
   })
   .strict();
 export type StoryDetailResponse = z.infer<typeof StoryDetailResponse>;
+
+/**
+ * A cast member found by search, with the world they belong to.
+ *
+ * The same public fields the story page's cast carousel already sends, plus
+ * enough of the story to draw the row and open it. Hidden drives never ship.
+ */
+export const SearchCharacter = z
+  .object({
+    characterId: z.string(),
+    name: z.string(),
+    role: z.string(),
+    cardBlurb: z.string(),
+    portrait: z.string().nullable(),
+    storyId: z.string(),
+    storyTitle: z.string(),
+    coverImage: z.string().nullable(),
+  })
+  .strict();
+export type SearchCharacter = z.infer<typeof SearchCharacter>;
+
+/** `GET /v1/search`. `characters` is newer than `results`; older servers omit it. */
+export const SearchResponse = z
+  .object({
+    results: z.array(StorySummary),
+    characters: z.array(SearchCharacter).default([]),
+  })
+  .strict();
+export type SearchResponse = z.infer<typeof SearchResponse>;
 
 // --- Sessions (§33.3) ------------------------------------------------------
 
