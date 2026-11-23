@@ -218,6 +218,13 @@ struct NameAndBirthdayScreen: View {
     let onDone: () -> Void
 
     @State private var form = NameAndBirthdayForm()
+    /// What the fields show, kept apart from `form` and written back to what
+    /// the form kept. SwiftUI does not redraw a TextField whose binding is set
+    /// to the value it already holds, so a character the form refuses (a 25th
+    /// letter, a fifth digit in the year) would otherwise stay on screen while
+    /// the state quietly lacks it.
+    @State private var nameText = ""
+    @State private var dateText: [BirthdayEntry.Part: String] = [:]
     @State private var seeded = false
     @State private var saving = false
     @FocusState private var focus: Field?
@@ -285,10 +292,20 @@ struct NameAndBirthdayScreen: View {
             guard !seeded else { return }
             seeded = true
             form.asksBirthday = !store.ageVerified
-            if let existing = store.displayName { form.name = existing }
+            if let existing = store.displayName {
+                form.name = existing
+                nameText = form.name
+            }
             focus = .name
         }
-        .onChange(of: form.birthday) { _, _ in form.dropNameIfTooYoung() }
+        .onChange(of: nameText) { _, value in
+            form.name = value
+            if form.name != value { nameText = form.name }
+        }
+        .onChange(of: form.birthday) { _, _ in
+            form.dropNameIfTooYoung()
+            if nameText != form.name { nameText = form.name }
+        }
     }
 
     private var hintText: String? {
@@ -304,7 +321,7 @@ struct NameAndBirthdayScreen: View {
     /// The paper capsule with the 3/24 count and a clear cross.
     private var nameField: some View {
         HStack(spacing: Theme.Spacing.md) {
-            TextField(t("onboarding.name_placeholder"), text: $form.name,
+            TextField(t("onboarding.name_placeholder"), text: $nameText,
                       prompt: Text(t("onboarding.name_placeholder")).foregroundStyle(Theme.Colors.textOnLight.opacity(0.5)))
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundStyle(Theme.Colors.textOnLight)
@@ -328,7 +345,7 @@ struct NameAndBirthdayScreen: View {
                 .accessibilityHidden(true)
             if !form.name.isEmpty {
                 Button {
-                    form.name = ""
+                    nameText = ""
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .font(.system(size: 20, weight: .regular))
@@ -371,13 +388,10 @@ struct NameAndBirthdayScreen: View {
 
     private func numberField(_ part: BirthdayEntry.Part) -> some View {
         TextField(placeholder(part), text: Binding(
-            get: { form.birthday[part] },
-            set: { value in
-                if let next = form.birthday.type(value, into: part, order: order) {
-                    focus = .birthday(next)
-                }
-            }
+            get: { dateText[part] ?? "" },
+            set: { dateText[part] = $0 }
         ), prompt: Text(placeholder(part)).foregroundStyle(Theme.Colors.textOnLight.opacity(0.45)))
+            .onChange(of: dateText[part] ?? "") { _, value in typed(value, into: part) }
             .font(.system(size: 17, weight: .semibold))
             .monospacedDigit()
             .foregroundStyle(Theme.Colors.textOnLight)
@@ -388,6 +402,19 @@ struct NameAndBirthdayScreen: View {
             .fixedSize()
             .frame(minHeight: 44)
             .accessibilityLabel(label(part))
+    }
+
+    /// A keystroke or a paste in one of the numbers. The form keeps its digits
+    /// and carries the rest on; then every number shows what the form kept,
+    /// and the cursor follows to the next one when this one is full.
+    private func typed(_ value: String, into part: BirthdayEntry.Part) {
+        // The write-back below comes through here too, already applied.
+        guard value != form.birthday[part] else { return }
+        let next = form.birthday.type(value, into: part, order: order)
+        for each in order where (dateText[each] ?? "") != form.birthday[each] {
+            dateText[each] = form.birthday[each]
+        }
+        if let next { focus = .birthday(next) }
     }
 
     private func placeholder(_ part: BirthdayEntry.Part) -> String {
