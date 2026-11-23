@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <title>Profile</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8.75 4.125H15.25C17.85 4.125 19.875 6.15 19.875 8.75V15.25C19.875 17.85 17.85 19.875 15.25 19.875H8.75C6.15 19.875 4.125 17.85 4.125 15.25V8.75C4.125 6.15 6.15 4.125 8.75 4.125Z"/>
+    <circle cx="12" cy="10.35" r="2.85"/>
+    <path d="M7.05 19.6C7.8 17 9.65 15.6 12 15.6C14.35 15.6 16.2 17 16.95 19.6"/>
+  </g>
+</svg>

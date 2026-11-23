@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <title>Profile</title>
+  <defs>
+    <mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+      <rect width="24" height="24" fill="#fff"/>
+      <circle cx="12" cy="10.35" r="2.6" fill="#000"/>
+      <path d="M7.75 19.0C8.45 17.35 9.95 16.35 12 16.35C14.05 16.35 15.55 17.35 16.25 19.0Z" fill="#000" stroke="#000" stroke-width="0.6" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <path mask="url(#cut)" d="M8.75 4.125H15.25C17.85 4.125 19.875 6.15 19.875 8.75V15.25C19.875 17.85 17.85 19.875 15.25 19.875H8.75C6.15 19.875 4.125 17.85 4.125 15.25V8.75C4.125 6.15 6.15 4.125 8.75 4.125Z" fill="currentColor" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/>
+</svg>

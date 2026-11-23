@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="-2 -2 28 28">
+  <title>Create</title>
+  <defs>
+    <mask id="nib" maskUnits="userSpaceOnUse" x="-2" y="-2" width="28" height="28">
+      <rect x="-2" y="-2" width="28" height="28" fill="#fff"/>
+      <circle cx="10.354" cy="13.646" r="1.6" fill="#000"/>
+      <path d="M10.354 13.646L4.044 19.956" stroke="#000" stroke-width="1.2"/>
+    </mask>
+  </defs>
+  <path mask="url(#nib)" d="M19.27 4.73L17.144 15.224L4.73 19.27L8.776 6.856Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>

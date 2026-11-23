@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="-2 -2 28 28">
+  <title>Discover</title>
+  <defs>
+    <mask id="front" maskUnits="userSpaceOnUse" x="-2" y="-2" width="28" height="28">
+      <rect x="-2" y="-2" width="28" height="28" fill="#fff"/>
+      <path d="M9.2 0H14.8A1.5 1.5 0 0 1 16.3 1.5V11.9A1.5 1.5 0 0 1 14.8 13.4H9.2A1.5 1.5 0 0 1 7.7 11.9V1.5A1.5 1.5 0 0 1 9.2 0Z" transform="translate(3.191 4.07) rotate(8 12 17.9)" fill="#000" stroke="#000" stroke-width="3.2" stroke-linejoin="round"/>
+    </mask>
+    <mask id="middle" maskUnits="userSpaceOnUse" x="-2" y="-2" width="28" height="28">
+      <rect x="-2" y="-2" width="28" height="28" fill="#fff"/>
+      <path d="M9.2 0H14.8A1.5 1.5 0 0 1 16.3 1.5V11.9A1.5 1.5 0 0 1 14.8 13.4H9.2A1.5 1.5 0 0 1 7.7 11.9V1.5A1.5 1.5 0 0 1 9.2 0Z" transform="translate(3.191 4.07) rotate(-12 12 17.9)" fill="#000" stroke="#000" stroke-width="3.2" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <g fill="currentColor">
+    <g mask="url(#middle)"><g mask="url(#front)"><path d="M9.2 0H14.8A1.5 1.5 0 0 1 16.3 1.5V11.9A1.5 1.5 0 0 1 14.8 13.4H9.2A1.5 1.5 0 0 1 7.7 11.9V1.5A1.5 1.5 0 0 1 9.2 0Z" transform="translate(3.191 4.07) rotate(-32 12 17.9)"/></g></g>
+    <g mask="url(#front)"><path d="M9.2 0H14.8A1.5 1.5 0 0 1 16.3 1.5V11.9A1.5 1.5 0 0 1 14.8 13.4H9.2A1.5 1.5 0 0 1 7.7 11.9V1.5A1.5 1.5 0 0 1 9.2 0Z" transform="translate(3.191 4.07) rotate(-12 12 17.9)"/></g>
+    <path d="M9.2 0H14.8A1.5 1.5 0 0 1 16.3 1.5V11.9A1.5 1.5 0 0 1 14.8 13.4H9.2A1.5 1.5 0 0 1 7.7 11.9V1.5A1.5 1.5 0 0 1 9.2 0Z" transform="translate(3.191 4.07) rotate(8 12 17.9)"/>
+  </g>
+  <path d="M20.456 0.949L20.768 -0.824M22.202 1.877L23.928 0.21M23.069 3.655L24.851 3.404" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

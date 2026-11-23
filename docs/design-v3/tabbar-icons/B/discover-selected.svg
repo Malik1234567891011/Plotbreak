@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <title>Discover</title>
+  <defs>
+    <mask id="cut" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+      <rect width="24" height="24" fill="#fff"/>
+      <path d="M4.5 7.31L19.5 10.49M4.5 15.9L19.5 12.6M12.6 14.118L11.45 22.5" stroke="#000" stroke-width="1.75"/>
+    </mask>
+  </defs>
+  <rect mask="url(#cut)" x="5" y="2" width="14" height="20" rx="2.875" fill="currentColor"/>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <title>Library</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 6.9C10.35 5.55 7.85 4.95 4.3 5Q3.25 5.02 3.25 6.05V17.25Q3.25 18.2 4.3 18.15C7.85 18 10.35 18.55 12 19.9M12 6.9C13.65 5.55 16.15 4.95 19.7 5Q20.75 5.02 20.75 6.05V17.25Q20.75 18.2 19.7 18.15C16.15 18 13.65 18.55 12 19.9M12 6.9V19.9"/>
+  </g>
+  <path d="M15.35 5.6L18.05 5.25V11.4L16.7 10.15L15.35 11.4Z" fill="currentColor" stroke="currentColor" stroke-width="0.75" stroke-linejoin="round"/>
+</svg>

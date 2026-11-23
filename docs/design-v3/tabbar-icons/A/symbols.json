@@ -1,0 +1,13 @@
+{
+  "note": "Set A ships as SF Symbols (Image(systemName:)), so there is no SVG: the PNGs here are 3x renders of the real symbols on a 36x32pt canvas, paper.3 #948E85 idle and paper #F3EFE8 selected.",
+  "pointSize": 21,
+  "weight": "regular",
+  "frameHeight": 24,
+  "tabs": {
+    "discover": { "idle": "safari", "selected": "safari.fill" },
+    "library":  { "idle": "book.closed", "selected": "book.closed.fill" },
+    "create":   { "idle": "plus.square", "selected": "plus.square.fill" },
+    "profile":  { "idle": "person.crop.circle", "selected": "person.crop.circle.fill" }
+  },
+  "label": { "font": "SF Pro 11pt", "idle": "medium #948E85", "selected": "semibold #F3EFE8" }
+}
