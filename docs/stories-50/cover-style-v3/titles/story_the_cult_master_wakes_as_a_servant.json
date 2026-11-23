@@ -1,0 +1,205 @@
+{
+ "storyId": "story_the_cult_master_wakes_as_a_servant",
+ "seed": 32,
+ "avoid": [
+  [
+   484,
+   140,
+   691,
+   419
+  ]
+ ],
+ "styles": {
+  "dry-ink": {
+   "font": "Protest Revolution",
+   "fill": {
+    "texture": "brush",
+    "base": "#121212",
+    "color": "#6b6b6b",
+    "strength": 0.42,
+    "scale": 34,
+    "stretch": 16
+   },
+   "rough": {
+    "amount": 1.6,
+    "scale": 6,
+    "grit": 0.35
+   }
+  },
+  "splat": {
+   "fill": "#121212",
+   "rough": {
+    "amount": 2.5,
+    "scale": 4
+   }
+  }
+ },
+ "layers": [
+  {
+   "type": "text",
+   "id": "top",
+   "at": [
+    0.975,
+    0.022
+   ],
+   "anchor": "tr",
+   "align": "right",
+   "gap": -4,
+   "lines": [
+    {
+     "use": "dry-ink",
+     "text": "THE CULT",
+     "width": 372,
+     "dx": -10
+    },
+    {
+     "use": "dry-ink",
+     "text": "MASTER",
+     "width": 416,
+     "gap": -2
+    }
+   ],
+   "backing": [],
+   "ornaments": [
+    {
+     "shape": "swash",
+     "of": 1,
+     "to": "bl",
+     "anchor": "tl",
+     "dx": 16,
+     "dy": 10,
+     "w": 410,
+     "h": 24,
+     "fill": "#121212",
+     "tilt": -1.5,
+     "curve": 3,
+     "head": 0.03,
+     "tail": 0.5,
+     "dry": 0.9
+    },
+    {
+     "shape": "dot",
+     "use": "splat",
+     "of": "block",
+     "to": "bl",
+     "anchor": "mc",
+     "dx": 26,
+     "dy": 40,
+     "w": 22,
+     "h": 20
+    },
+    {
+     "shape": "dot",
+     "use": "splat",
+     "of": "block",
+     "to": "bl",
+     "anchor": "mc",
+     "dx": 66,
+     "dy": 56,
+     "w": 9,
+     "h": 9
+    },
+    {
+     "shape": "dot",
+     "use": "splat",
+     "of": "block",
+     "to": "bl",
+     "anchor": "mc",
+     "dx": 4,
+     "dy": 74,
+     "w": 7,
+     "h": 6
+    },
+    {
+     "shape": "dot",
+     "use": "splat",
+     "of": "block",
+     "to": "tl",
+     "anchor": "mc",
+     "dx": 70,
+     "dy": 114,
+     "w": 14,
+     "h": 13
+    },
+    {
+     "shape": "dot",
+     "use": "splat",
+     "of": "block",
+     "to": "br",
+     "anchor": "mc",
+     "dx": -40,
+     "dy": 48,
+     "w": 12,
+     "h": 11
+    },
+    {
+     "shape": "dot",
+     "use": "splat",
+     "of": "block",
+     "to": "br",
+     "anchor": "mc",
+     "dx": -90,
+     "dy": 66,
+     "w": 6,
+     "h": 6
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "bottom",
+   "at": [
+    0.975,
+    0.49
+   ],
+   "anchor": "tr",
+   "align": "right",
+   "gap": 6,
+   "style": {
+    "font": "Shippori Mincho B1",
+    "weight": 800,
+    "fill": "#121212"
+   },
+   "lines": [
+    {
+     "text": "WAKES AS A",
+     "width": 226,
+     "tracking": 0.3
+    },
+    {
+     "text": "SERVANT",
+     "width": 228,
+     "tracking": 0.04
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "rule",
+     "of": "block",
+     "to": "bc",
+     "anchor": "tc",
+     "dy": 14,
+     "w": 236,
+     "h": 12,
+     "thickness": 2,
+     "fill": "#121212",
+     "taper": true
+    },
+    {
+     "shape": "seal",
+     "of": "block",
+     "to": "br",
+     "anchor": "tr",
+     "dy": 42,
+     "w": 96,
+     "h": 96,
+     "text": "教主",
+     "font": "Shippori Mincho B1",
+     "style": "intaglio",
+     "fill": "#c8202c",
+     "rotate": 4
+    }
+   ]
+  }
+ ]
+}

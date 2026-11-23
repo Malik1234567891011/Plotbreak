@@ -1,0 +1,357 @@
+{
+ "storyId": "story_the_last_mimic",
+ "seed": 34,
+ "avoid": [
+  [
+   369,
+   70,
+   737,
+   453
+  ],
+  [
+   140,
+   1520,
+   360,
+   1744
+  ]
+ ],
+ "styles": {
+  "fang": {
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0.96,
+     0.3
+    ],
+    [
+     0.56,
+     1
+    ],
+    [
+     0.44,
+     1
+    ],
+    [
+     0.04,
+     0.3
+    ]
+   ],
+   "fill": "#fffaf0",
+   "strokes": [
+    {
+     "width": 5,
+     "fill": "#3a1a0a"
+    }
+   ],
+   "shadow": [
+    {
+     "dx": 0,
+     "dy": 4,
+     "blur": 4,
+     "opacity": 0.35,
+     "color": "#3a1a0a"
+    }
+   ]
+  }
+ },
+ "layers": [
+  {
+   "type": "text",
+   "id": "lock",
+   "at": [
+    0.03,
+    0.022
+   ],
+   "anchor": "tl",
+   "gap": -2,
+   "style": {
+    "font": "Titan One",
+    "fill": "#3a1a0a"
+   },
+   "lines": [
+    {
+     "text": "THE",
+     "size": 46,
+     "tracking": 0.12
+    },
+    {
+     "text": "LAST",
+     "size": 72,
+     "tracking": 0.04
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "pad": [
+      28,
+      24,
+      28,
+      96
+     ],
+     "radius": 26,
+     "fill": {
+      "metal": "gold",
+      "horizon": 0.5
+     },
+     "bevel": {
+      "depth": 6,
+      "highlight": 0.6,
+      "shadow": 0.45
+     },
+     "strokes": [
+      {
+       "width": 10,
+       "fill": "#ffffff"
+      },
+      {
+       "width": 5,
+       "fill": "#3a1a0a"
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 6,
+       "blur": 6,
+       "opacity": 0.35,
+       "color": "#5a0f2a"
+      }
+     ]
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "dot",
+     "of": "block",
+     "to": "bc",
+     "anchor": "tc",
+     "dy": 20,
+     "w": 34,
+     "h": 34,
+     "fill": "#3a1a0a"
+    },
+    {
+     "shape": "polygon",
+     "of": "block",
+     "to": "bc",
+     "anchor": "tc",
+     "dy": 42,
+     "w": 26,
+     "h": 40,
+     "points": [
+      [
+       0.3,
+       0
+      ],
+      [
+       0.7,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     "fill": "#3a1a0a"
+    },
+    {
+     "shape": "dot",
+     "of": "block",
+     "to": "tl",
+     "anchor": "mc",
+     "dx": -8,
+     "dy": -6,
+     "w": 12,
+     "h": 12,
+     "fill": "#7a4a14"
+    },
+    {
+     "shape": "dot",
+     "of": "block",
+     "to": "tr",
+     "anchor": "mc",
+     "dx": 8,
+     "dy": -6,
+     "w": 12,
+     "h": 12,
+     "fill": "#7a4a14"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "mimic",
+   "at": [
+    0.5,
+    0.865
+   ],
+   "anchor": "bc",
+   "lines": [
+    {
+     "text": "MIMIC",
+     "font": "Titan One",
+     "width": 1000,
+     "tracking": 0.02,
+     "fill": {
+      "metal": "gold",
+      "horizon": 0.52
+     },
+     "bevel": {
+      "depth": 7,
+      "highlight": 0.7,
+      "shadow": 0.5
+     },
+     "strokes": [
+      {
+       "width": 11,
+       "fill": "#3a1a0a"
+      }
+     ],
+     "extrude": {
+      "depth": 16,
+      "angle": 96,
+      "fill": {
+       "gradient": [
+        "#5c2c0c",
+        "#241005"
+       ]
+      }
+     },
+     "outerStrokes": [
+      {
+       "width": 8,
+       "fill": "#ffffff"
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 14,
+       "blur": 16,
+       "opacity": 0.4,
+       "color": "#5a0f2a"
+      }
+     ],
+     "jitter": {
+      "rot": 5,
+      "y": 10,
+      "pattern": "alternate"
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "use": "fang",
+     "shape": "polygon",
+     "z": 2,
+     "of": 0,
+     "to": [
+      0.085,
+      1.0
+     ],
+     "anchor": "tc",
+     "dy": -12,
+     "w": 50,
+     "h": 70
+    },
+    {
+     "use": "fang",
+     "shape": "polygon",
+     "z": 2,
+     "of": 0,
+     "to": [
+      0.185,
+      1.0
+     ],
+     "anchor": "tc",
+     "dy": -6,
+     "w": 40,
+     "h": 54
+    },
+    {
+     "use": "fang",
+     "shape": "polygon",
+     "z": 2,
+     "of": 0,
+     "to": [
+      0.325,
+      1.0
+     ],
+     "anchor": "tc",
+     "dy": 8,
+     "w": 44,
+     "h": 62
+    },
+    {
+     "use": "fang",
+     "shape": "polygon",
+     "z": 2,
+     "of": 0,
+     "to": [
+      0.46,
+      1.0
+     ],
+     "anchor": "tc",
+     "dy": -12,
+     "w": 52,
+     "h": 74
+    },
+    {
+     "use": "fang",
+     "shape": "polygon",
+     "z": 2,
+     "of": 0,
+     "to": [
+      0.585,
+      1.0
+     ],
+     "anchor": "tc",
+     "dy": -8,
+     "w": 40,
+     "h": 56
+    },
+    {
+     "use": "fang",
+     "shape": "polygon",
+     "z": 2,
+     "of": 0,
+     "to": [
+      0.725,
+      1.0
+     ],
+     "anchor": "tc",
+     "dy": 8,
+     "w": 44,
+     "h": 62
+    },
+    {
+     "use": "fang",
+     "shape": "polygon",
+     "z": 2,
+     "of": 0,
+     "to": [
+      0.865,
+      1.0
+     ],
+     "anchor": "tc",
+     "dy": -12,
+     "w": 50,
+     "h": 70
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,357 @@
+{
+ "storyId": "story_the_one_copper_inn",
+ "seed": 37,
+ "avoid": [
+  [
+   576,
+   366,
+   737,
+   541
+  ],
+  [
+   640,
+   280,
+   930,
+   470
+  ]
+ ],
+ "styles": {
+  "copper": {
+   "fill": {
+    "gradient": [
+     "#fff0dc",
+     "#ffc48e",
+     "#e58a48",
+     "#9a4418",
+     "#c8703a",
+     "#f8b47c",
+     "#ffe6c8"
+    ],
+    "stops": [
+     0,
+     0.22,
+     0.46,
+     0.52,
+     0.58,
+     0.82,
+     1
+    ]
+   }
+  },
+  "link": {
+   "fill": "clear",
+   "strokes": [
+    {
+     "width": 5,
+     "fill": {
+      "gradient": [
+       "#f2b07a",
+       "#7a3412"
+      ],
+      "angle": 0
+     }
+    },
+    {
+     "width": 0,
+     "fill": "clear"
+    }
+   ],
+   "shadow": [
+    {
+     "dx": 0,
+     "dy": 3,
+     "blur": 3,
+     "opacity": 0.5
+    }
+   ]
+  }
+ },
+ "layers": [
+  {
+   "type": "shape",
+   "use": "link",
+   "shape": "ellipse",
+   "at": [
+    0.31,
+    0.004
+   ],
+   "w": 22,
+   "h": 38,
+   "bleed": true
+  },
+  {
+   "type": "shape",
+   "use": "link",
+   "shape": "ellipse",
+   "at": [
+    0.31,
+    0.019
+   ],
+   "w": 14,
+   "h": 38,
+   "bleed": true
+  },
+  {
+   "type": "shape",
+   "use": "link",
+   "shape": "ellipse",
+   "at": [
+    0.31,
+    0.034
+   ],
+   "w": 22,
+   "h": 38,
+   "bleed": true
+  },
+  {
+   "type": "shape",
+   "use": "link",
+   "shape": "ellipse",
+   "at": [
+    0.69,
+    0.004
+   ],
+   "w": 22,
+   "h": 38,
+   "bleed": true
+  },
+  {
+   "type": "shape",
+   "use": "link",
+   "shape": "ellipse",
+   "at": [
+    0.69,
+    0.019
+   ],
+   "w": 14,
+   "h": 38,
+   "bleed": true
+  },
+  {
+   "type": "shape",
+   "use": "link",
+   "shape": "ellipse",
+   "at": [
+    0.69,
+    0.034
+   ],
+   "w": 22,
+   "h": 38,
+   "bleed": true
+  },
+  {
+   "type": "text",
+   "id": "sign",
+   "at": [
+    0.5,
+    0.036
+   ],
+   "anchor": "tc",
+   "gap": 0,
+   "lines": [
+    {
+     "text": "THE ONE-COPPER",
+     "font": "Rye",
+     "size": 56,
+     "tracking": 0.08,
+     "use": "copper",
+     "innerShadow": {
+      "dx": 0,
+      "dy": 2,
+      "blur": 1.5,
+      "color": "#2a0f02",
+      "opacity": 0.6
+     },
+     "strokes": [
+      {
+       "width": 2.5,
+       "fill": "#1c0b03"
+      }
+     ]
+    },
+    {
+     "text": "INN",
+     "font": "Rye",
+     "size": 124,
+     "tracking": 0.08,
+     "use": "copper",
+     "bevel": {
+      "depth": 4,
+      "highlight": 0.55,
+      "shadow": 0.45
+     },
+     "innerShadow": {
+      "dx": 0,
+      "dy": 4,
+      "blur": 3,
+      "color": "#2a0f02",
+      "opacity": 0.45
+     },
+     "strokes": [
+      {
+       "width": 5,
+       "fill": "#140802"
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": -2,
+       "blur": 0,
+       "color": "#fff0d8",
+       "opacity": 0.18
+      }
+     ],
+     "outerStrokes": [
+      {
+       "width": 2,
+       "fill": "#ffcf9a"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "pad": [
+      64,
+      20,
+      64,
+      18
+     ],
+     "radius": 22,
+     "fill": {
+      "texture": "brush",
+      "base": {
+       "gradient": [
+        "#5a3218",
+        "#3c200e",
+        "#2c1608"
+       ]
+      },
+      "color": "#1c0d04",
+      "strength": 0.55,
+      "scale": 40,
+      "stretch": 22
+     },
+     "bevel": {
+      "depth": 7,
+      "highlight": 0.35,
+      "shadow": 0.6,
+      "highlightColor": "#ffcf9a"
+     },
+     "strokes": [
+      {
+       "width": 6,
+       "fill": "#170a03"
+      },
+      {
+       "width": 3,
+       "fill": {
+        "gradient": [
+         "#f2b07a",
+         "#8a3c14"
+        ]
+       }
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 14,
+       "blur": 18,
+       "opacity": 0.55,
+       "color": "#2a1004"
+      }
+     ]
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "dot",
+     "of": "block",
+     "to": "ml",
+     "anchor": "mc",
+     "dx": -50,
+     "dy": 18,
+     "w": 92,
+     "h": 92,
+     "fill": {
+      "gradient": [
+       "#ffd8b0",
+       "#e48a4e",
+       "#9c4a1c",
+       "#e89a62"
+      ],
+      "stops": [
+       0,
+       0.35,
+       0.6,
+       1
+      ],
+      "angle": 60
+     },
+     "bevel": {
+      "depth": 6,
+      "highlight": 0.7,
+      "shadow": 0.5
+     },
+     "strokes": [
+      {
+       "width": 3,
+       "fill": "#3a1606"
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 2,
+       "dy": 6,
+       "blur": 6,
+       "opacity": 0.55
+      }
+     ]
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "ml",
+     "anchor": "mc",
+     "dx": -50,
+     "dy": 18,
+     "w": 22,
+     "h": 22,
+     "radius": 2,
+     "fill": "#2c1206",
+     "innerShadow": {
+      "dx": 0,
+      "dy": 2,
+      "blur": 2,
+      "opacity": 0.7
+     }
+    },
+    {
+     "shape": "ellipse",
+     "of": "block",
+     "to": "ml",
+     "anchor": "mc",
+     "dx": -50,
+     "dy": 18,
+     "w": 66,
+     "h": 66,
+     "fill": "clear",
+     "strokes": [
+      {
+       "width": 2,
+       "fill": "#7a3410"
+      },
+      {
+       "width": 0,
+       "fill": "clear"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

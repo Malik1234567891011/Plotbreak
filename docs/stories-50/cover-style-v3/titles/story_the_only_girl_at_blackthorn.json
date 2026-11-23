@@ -1,0 +1,215 @@
+{
+ "storyId": "story_the_only_girl_at_blackthorn",
+ "seed": 38,
+ "avoid": [
+  [
+   507,
+   140,
+   714,
+   436
+  ],
+  [
+   560,
+   1140,
+   780,
+   1560
+  ],
+  [
+   700,
+   1450,
+   845,
+   1598
+  ],
+  [
+   280,
+   1440,
+   500,
+   1744
+  ],
+  [
+   500,
+   1440,
+   560,
+   1590
+  ],
+  [
+   860,
+   1120,
+   1060,
+   1330
+  ]
+ ],
+ "layers": [
+  {
+   "type": "spot",
+   "at": [
+    0.8,
+    0.93
+   ],
+   "r": [
+    520,
+    200
+   ],
+   "color": "#f7f8fc",
+   "opacity": 0.5
+  },
+  {
+   "type": "text",
+   "id": "kicker",
+   "at": [
+    0.975,
+    0.888
+   ],
+   "anchor": "br",
+   "align": "right",
+   "lines": [
+    {
+     "text": "The Only Girl at",
+     "font": "Italiana",
+     "size": 38,
+     "tracking": 0.04,
+     "fill": "#b0345a",
+     "strokes": [
+      {
+       "width": 1.2,
+       "fill": "#b0345a"
+      }
+     ],
+     "glow": [
+      {
+       "radius": 6,
+       "color": "#ffffff",
+       "opacity": 0.8
+      }
+     ]
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "polygon",
+     "of": 0,
+     "to": "br",
+     "anchor": "mr",
+     "dx": -52,
+     "dy": 20,
+     "w": 216,
+     "h": 7,
+     "points": [
+      [
+       0,
+       0.5
+      ],
+      [
+       0.1,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0.1,
+       1
+      ]
+     ],
+     "fill": "#221e28"
+    },
+    {
+     "shape": "plate",
+     "of": 0,
+     "to": "br",
+     "anchor": "mr",
+     "dx": -46,
+     "dy": 20,
+     "w": 6,
+     "h": 30,
+     "radius": 2,
+     "fill": "#221e28"
+    },
+    {
+     "shape": "diamond",
+     "of": 0,
+     "to": "br",
+     "anchor": "mc",
+     "dx": -49,
+     "dy": 5,
+     "w": 9,
+     "h": 9,
+     "fill": "#221e28"
+    },
+    {
+     "shape": "diamond",
+     "of": 0,
+     "to": "br",
+     "anchor": "mc",
+     "dx": -49,
+     "dy": 35,
+     "w": 9,
+     "h": 9,
+     "fill": "#221e28"
+    },
+    {
+     "shape": "plate",
+     "of": 0,
+     "to": "br",
+     "anchor": "mr",
+     "dx": -12,
+     "dy": 20,
+     "w": 36,
+     "h": 6,
+     "radius": 2,
+     "fill": "#221e28"
+    },
+    {
+     "shape": "diamond",
+     "of": 0,
+     "to": "br",
+     "anchor": "mr",
+     "dx": 0,
+     "dy": 20,
+     "w": 14,
+     "h": 14,
+     "fill": "#b0345a"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "hero",
+   "at": [
+    0.975,
+    0.982
+   ],
+   "anchor": "br",
+   "align": "right",
+   "lines": [
+    {
+     "text": "BLACKTHORN",
+     "font": "Pirata One",
+     "width": 590,
+     "tracking": 0.02,
+     "fill": "#121016",
+     "inline": {
+      "inset": 3.5,
+      "width": 1.6,
+      "fill": {
+       "metal": "silver",
+       "horizon": 0.5
+      }
+     },
+     "glow": [
+      {
+       "radius": 8,
+       "color": "#ffffff",
+       "opacity": 0.7
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

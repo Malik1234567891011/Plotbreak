@@ -1,0 +1,188 @@
+{
+ "storyId": "story_the_maid_owns_the_house_now",
+ "seed": 35,
+ "avoid": [
+  [
+   576,
+   105,
+   783,
+   349
+  ],
+  [
+   150,
+   470,
+   420,
+   860
+  ]
+ ],
+ "layers": [
+  {
+   "type": "spot",
+   "at": [
+    0.16,
+    0.86
+   ],
+   "r": [
+    520,
+    320
+   ],
+   "color": "#fff1c8",
+   "opacity": 0.35,
+   "blend": "screen"
+  },
+  {
+   "type": "text",
+   "id": "title",
+   "at": [
+    0.04,
+    0.885
+   ],
+   "anchor": "bl",
+   "align": "left",
+   "gap": 10,
+   "lines": [
+    {
+     "text": "The Maid",
+     "font": "Playfair Display",
+     "weight": 800,
+     "italic": true,
+     "width": 600,
+     "fill": {
+      "gradient": [
+       "#127a4d",
+       "#0b4f33",
+       "#06301f"
+      ],
+      "stops": [
+       0,
+       0.55,
+       1
+      ]
+     },
+     "inline": {
+      "inset": 5,
+      "width": 2.2,
+      "fill": {
+       "metal": "gold",
+       "horizon": 0.5
+      }
+     },
+     "strokes": [
+      {
+       "width": 4,
+       "fill": "#fff4d6"
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 6,
+       "blur": 10,
+       "opacity": 0.45,
+       "color": "#2a1a04"
+      }
+     ]
+    },
+    {
+     "text": "OWNS THE HOUSE",
+     "font": "Playfair Display",
+     "weight": 700,
+     "tracking": 0.16,
+     "fill": "#0b4f33",
+     "dx": 6,
+     "strokes": [
+      {
+       "width": 3,
+       "fill": "#fff4d6"
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 3,
+       "blur": 5,
+       "opacity": 0.4,
+       "color": "#2a1a04"
+      }
+     ],
+     "width": 540
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "rule",
+     "of": 1,
+     "to": "bl",
+     "anchor": "tl",
+     "dy": 14,
+     "w": 400,
+     "h": 12,
+     "thickness": 3,
+     "ends": "diamond",
+     "size": 12,
+     "fill": {
+      "metal": "gold"
+     }
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "now",
+   "at": [
+    0.5,
+    0.918
+   ],
+   "anchor": "mc",
+   "rotate": -10,
+   "lines": [
+    {
+     "text": "NOW",
+     "font": "Rubik Dirt",
+     "size": 100,
+     "tracking": 0.06,
+     "fill": "#e2232c",
+     "opacity": 0.95
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": 0,
+     "pad": [
+      26,
+      18,
+      26,
+      18
+     ],
+     "radius": 10,
+     "fill": "clear",
+     "strokes": [
+      {
+       "width": 11,
+       "fill": "#e2232c"
+      },
+      {
+       "width": 8,
+       "fill": "clear"
+      },
+      {
+       "width": 5,
+       "fill": "#e2232c"
+      },
+      {
+       "width": 0,
+       "fill": "clear"
+      }
+     ],
+     "distress": {
+      "amount": 0.22,
+      "scale": 10,
+      "edge": 0.3
+     },
+     "opacity": 0.95
+    }
+   ]
+  }
+ ]
+}

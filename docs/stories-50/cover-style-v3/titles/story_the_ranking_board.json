@@ -1,0 +1,204 @@
+{
+ "storyId": "story_the_ranking_board",
+ "seed": 40,
+ "avoid": [
+  [
+   484,
+   87,
+   749,
+   419
+  ],
+  [
+   0,
+   640,
+   380,
+   1040
+  ]
+ ],
+ "styles": {
+  "bc": {
+   "font": "Barlow Condensed",
+   "weight": 800,
+   "italic": true,
+   "fill": "#ffffff"
+  }
+ },
+ "layers": [
+  {
+   "type": "text",
+   "id": "title",
+   "at": [
+    0.042,
+    0.045
+   ],
+   "anchor": "tl",
+   "align": "left",
+   "gap": 2,
+   "lines": [
+    {
+     "use": "bc",
+     "text": "THE",
+     "size": 40,
+     "tracking": 0.3,
+     "fill": "#ff3b47"
+    },
+    {
+     "use": "bc",
+     "text": "RANKING",
+     "width": 268,
+     "gap": -2
+    },
+    {
+     "use": "bc",
+     "text": "BOARD",
+     "width": 268,
+     "gap": -10
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "pad": [
+      22,
+      30,
+      24,
+      206
+     ],
+     "slant": 5,
+     "fill": {
+      "gradient": [
+       "#2a2c36c8",
+       "#0e1016c0"
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#ffffff40"
+      }
+     ],
+     "gloss": {
+      "height": 0.22,
+      "opacity": 0.12
+     },
+     "shadow": [
+      {
+       "dx": 8,
+       "dy": 10,
+       "blur": 0,
+       "color": "#0c0d12",
+       "opacity": 0.35
+      }
+     ]
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "tl",
+     "anchor": "bl",
+     "dx": -6,
+     "dy": -24,
+     "w": 330,
+     "h": 6,
+     "slant": 5,
+     "fill": "#ffffff"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "rows",
+   "role": "deco",
+   "at": [
+    0.042,
+    0.045
+   ],
+   "anchor": "tl",
+   "align": "left",
+   "dx": -8,
+   "dy": 246,
+   "gap": 18,
+   "style": {
+    "use": "bc",
+    "size": 38
+   },
+   "lines": [
+    {
+     "text": "86",
+     "fill": "#ffffffb0"
+    },
+    {
+     "text": "87",
+     "fill": "#ffffff"
+    },
+    {
+     "text": "88",
+     "fill": "#ffffffb0"
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": 1,
+     "pad": [
+      34,
+      8,
+      300,
+      8
+     ],
+     "slant": 5,
+     "fill": "#e02a36",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 5,
+       "blur": 6,
+       "opacity": 0.35,
+       "color": "#0c0d12"
+      }
+     ]
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": 0,
+     "to": "mr",
+     "anchor": "ml",
+     "dx": 26,
+     "w": 172,
+     "h": 10,
+     "radius": 2,
+     "slant": 5,
+     "fill": "#ffffff55"
+    },
+    {
+     "shape": "plate",
+     "of": 1,
+     "to": "mr",
+     "anchor": "ml",
+     "dx": 26,
+     "w": 202,
+     "h": 10,
+     "radius": 2,
+     "slant": 5,
+     "fill": "#ffffff"
+    },
+    {
+     "shape": "plate",
+     "of": 2,
+     "to": "mr",
+     "anchor": "ml",
+     "dx": 26,
+     "w": 149,
+     "h": 10,
+     "radius": 2,
+     "slant": 5,
+     "fill": "#ffffff55"
+    }
+   ]
+  }
+ ]
+}

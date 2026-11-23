@@ -1,0 +1,236 @@
+{
+ "storyId": "story_ten_points_to_expulsion",
+ "seed": 31,
+ "avoid": [
+  [
+   460,
+   87,
+   691,
+   384
+  ]
+ ],
+ "styles": {
+  "hud-shadow": {
+   "shadow": [
+    {
+     "dx": 7,
+     "dy": 7,
+     "blur": 0,
+     "color": "#1b2450",
+     "opacity": 0.22
+    },
+    {
+     "dx": 0,
+     "dy": 6,
+     "blur": 14,
+     "color": "#1b2450",
+     "opacity": 0.18
+    }
+   ]
+  }
+ },
+ "layers": [
+  {
+   "type": "spot",
+   "at": [
+    0.24,
+    0.86
+   ],
+   "r": [
+    640,
+    380
+   ],
+   "color": "#f4f6fb",
+   "opacity": 0.6
+  },
+  {
+   "type": "text",
+   "id": "title",
+   "at": [
+    0.045,
+    0.878
+   ],
+   "anchor": "bl",
+   "align": "left",
+   "gap": 0,
+   "lines": [
+    {
+     "runs": [
+      {
+       "text": "TEN",
+       "fill": {
+        "gradient": [
+         "#ff5466",
+         "#e0162f",
+         "#9a0b20"
+        ],
+        "stops": [
+         0,
+         0.45,
+         1
+        ]
+       },
+       "strokes": [
+        {
+         "width": 4,
+         "fill": "#1b2450"
+        }
+       ],
+       "after": 26
+      },
+      {
+       "text": "POINTS",
+       "fill": "#1b2450"
+      }
+     ],
+     "font": "Teko",
+     "weight": 700,
+     "width": 720,
+     "slant": 9,
+     "outerStrokes": [
+      {
+       "width": 5,
+       "fill": "#ffffff"
+      }
+     ],
+     "use": "hud-shadow"
+    },
+    {
+     "text": "TO EXPULSION",
+     "font": "Teko",
+     "weight": 600,
+     "width": 500,
+     "tracking": 0.2,
+     "fill": "#ffffff",
+     "slant": 9,
+     "gap": 16,
+     "dx": 8
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": 1,
+     "pad": [
+      18,
+      9,
+      22,
+      9
+     ],
+     "chamfer": 10,
+     "fill": "#1b2450",
+     "shadow": [
+      {
+       "dx": 6,
+       "dy": 6,
+       "blur": 0,
+       "color": "#d3122c",
+       "opacity": 0.9
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "shape",
+   "shape": "plate",
+   "of": "title",
+   "to": "bl",
+   "anchor": "tl",
+   "dx": -2,
+   "dy": 26,
+   "w": 530,
+   "h": 32,
+   "chamfer": 8,
+   "slant": 9,
+   "fill": {
+    "texture": "stripes",
+    "base": "#ffffffe0",
+    "color": "#1b2450",
+    "strength": 0.14,
+    "period": 26,
+    "angle": 0
+   },
+   "strokes": [
+    {
+     "width": 7,
+     "fill": "#ffffff"
+    },
+    {
+     "width": 3.5,
+     "fill": "#1b2450"
+    }
+   ],
+   "shadow": [
+    {
+     "dx": 0,
+     "dy": 4,
+     "blur": 8,
+     "color": "#1b2450",
+     "opacity": 0.2
+    }
+   ]
+  },
+  {
+   "type": "shape",
+   "shape": "plate",
+   "of": "title",
+   "to": "bl",
+   "anchor": "tl",
+   "dx": 6,
+   "dy": 33,
+   "w": 18,
+   "h": 18,
+   "chamfer": 3,
+   "slant": 9,
+   "fill": {
+    "gradient": [
+     "#ff5466",
+     "#c8102a"
+    ]
+   },
+   "glow": [
+    {
+     "radius": 7,
+     "color": "#ff2a40",
+     "opacity": 0.75,
+     "blend": "normal"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "readout",
+   "role": "deco",
+   "at": [
+    0.045,
+    0.878
+   ],
+   "anchor": "tl",
+   "dx": 556,
+   "dy": 22,
+   "lines": [
+    {
+     "runs": [
+      {
+       "text": "10",
+       "fill": "#d3122c"
+      },
+      {
+       "text": " / 1000",
+       "fill": "#1b2450"
+      }
+     ],
+     "font": "VT323",
+     "size": 54,
+     "outerStrokes": [
+      {
+       "width": 3,
+       "fill": "#ffffff"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

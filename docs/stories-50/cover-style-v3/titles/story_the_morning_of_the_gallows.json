@@ -1,0 +1,20 @@
+{
+  "storyId": "story_the_morning_of_the_gallows",
+  "seed": 11,
+  "avoid": [[380, 110, 720, 480]],
+  "layers": [
+    {"type": "scrim", "edge": "bottom", "from": 0.66, "to": 0.97, "color": "#f6f5f8", "opacity": 0.6},
+    {"type": "text", "id": "title", "at": [0.5, 0.958], "anchor": "bc", "gap": 8,
+     "lines": [
+       {"text": "The Morning", "font": "Alex Brush", "size": 176, "fill": "#8c1526",
+        "strokes": [{"width": 8, "fill": "#f7f5f2"}]},
+       {"text": "OF THE", "font": "Cinzel", "weight": 700, "size": 34, "tracking": 0.6, "fill": "#1b1a22", "gap": -6},
+       {"text": "GALLOWS", "font": "Bodoni Moda", "weight": 800, "width": 940, "tracking": 0.05, "fill": "#17151d", "gap": 14,
+        "shadow": [{"dx": 0, "dy": 3, "blur": 6, "opacity": 0.22}]}
+     ],
+     "ornaments": [
+       {"shape": "rule", "of": 1, "to": "ml", "anchor": "mr", "dx": -26, "w": 230, "h": 16, "thickness": 2.4, "ends": "diamond", "size": 14, "fill": "#1b1a22"},
+       {"shape": "rule", "of": 1, "to": "mr", "anchor": "ml", "dx": 26, "w": 230, "h": 16, "thickness": 2.4, "ends": "diamond", "size": 14, "fill": "#1b1a22"}
+     ]}
+  ]
+}
