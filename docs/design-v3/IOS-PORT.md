@@ -29,6 +29,17 @@ pushed (a push deploys the API; Omar approves pushes).
 | Portraits | 004afc5 | Characters rounded squares (24%), you a circle |
 | Story page | b4edc44 | Full-width cover, glass back/more, inline stats, Play + like, sans About with Read more, faces rail; comments moved to the more menu; solid bar past the cover |
 | Who are you? | 7bac21c | Skip (QuickStart), name + pronouns side by side, 2-column role grid, details under it |
+| Tab titles | 1d018d1 | 28pt bold tab titles on a solid ink header; section labels are sentence-case headings, not kickers |
+| Library | 911d393 | Round search, 20pt section headings, plain rows (56×84 cover, title, "as X · N turns · date") |
+| Create | 78c27fb | "Start from an idea" block with one light button (FAB gone), filled filter chips, plain story rows with a filled status tag |
+| Profile | dabf762 | Identity row, balance as a row with Add credits (no turn estimate), relic and badge rows with thumbnails, grouped settings |
+| Search | f83895e | Filled capsule field, filled chips, sentence-case headings, result rows |
+| Tower lobby | 9b9a281 | `apps/tower` source + rebuilt `tower.html`: SF bold title, five day squares, flat ladder, BEST {floor} tag, round avatar, white Climb; every ◆ is the crystal picture |
+| Play chrome | 1dc5096 | Glass back / world-sheet buttons around a glass title capsule; the quality as one line over a paper composer with a round send |
+| World sheet | deb49be | The place as the title, chapter · hour above it, round close, Overview without a card. **Also fixes a crash**: opening the sheet aborted the app (`async let` pair, SIGABRT in swift_task_dealloc on iOS 26.1) |
+| Pitch | b28cc64 | Plain back, 28pt question, filled pitch box with the count inside, 38pt tone chips, segmented length, radio rows |
+| Onboarding | fa1bfe9 | Step dashes top-right, 28pt bold titles, paper fields, a 60pt round next; taste: genres first, check chips, segmented audience, Skip as text; showcase: covers only, page dashes, hook, Play + See all |
+| Welcome | 248dd0a | Upright bright cover wall with one scrim, Home's wordmark left-aligned, Apple first as the paper button, Google quiet |
 
 ## Not matched (needs data or copy)
 
@@ -41,6 +52,20 @@ pushed (a push deploys the API; Omar approves pushes).
   endings row is skipped), and no share link for a story (no share button).
 - Who are you?: the board's role tiles have a picture each; `SetupArchetype`
   has no image, so the tiles are text only.
+- Play: the board's full-screen scene art behind smoked story panels, and
+  the editable reply cards with », are a larger change to the feed; only
+  the chrome (header, quality line, composer) is ported.
+- World sheet: the board's Now tab (the character's rules, Here now with
+  faces, You are carrying) mixes data from the People and Inventory tabs;
+  the Overview tab keeps its own sections. The other tabs are unchanged.
+- Onboarding: the board puts the birthday on the name step; the app keeps
+  it as its own step (a flow change, not a visual one).
+- Badges, Relic vault and Settings are not on the board. They keep the old
+  look (boxed badge rows; relic tiers as a coloured kicker with a rule).
+- Tower: two ◆ are drawn as canvas text inside the game itself
+  (`apps/tower/src/game/*.ts`); left alone.
+- `DeltaKind.resource` still uses ◆ as its glyph, but nothing on screen
+  shows that pill today.
 - Copy that needs new keys in packages/i18n (plotbreak-1a adds them):
   - `pass.headline` "400 credits, every day" (now "400 credits" + tagline)
   - `pass.perk_daily_v3` "2,800 credits a week" / "Paid daily, for as long as you keep it"
@@ -59,10 +84,34 @@ pushed (a push deploys the API; Omar approves pushes).
     `setup.play_as` "Play as {name}" (now "Enter"),
     `setup.subheading_optional` "Optional. Skip it and you play as {name}, {role}."
   - `continue.heading_v3` "Out of credits", `continue.paused` "{title} is paused at turn {turn}. Nothing is lost."
+  - `create.start_heading` "Start from an idea" (now "Make a world"),
+    `create.start_story` "Start a story", `create.your_stories` "Your stories"
+  - `library.section_playing` "Playing" (now "Active")
+  - `onboarding.step_short` "{step} of {total}" (the board's counter beside
+    the step dashes; the dashes show alone for now)
+  - `onboarding.genres_title` "What do you like to read?" (now "Choose
+    genres you are interested in"), `onboarding.genres_body` "Pick up to
+    five. Discover opens on these.", `onboarding.audience_title` "Filter by
+    audience?" (now "Want to filter by audience?")
+  - `onboarding.showcase_title` "Pick your first story." (now "All set!
+    Choose a title and play now."), `onboarding.showcase_body` "You start
+    with ◆600." (the board's "about ten turns" is a turn count; left out)
+  - `misc.sign_in_tagline` "Type anything. The story answers.",
+    `misc.sign_in_bonus` "Sign up and start with ◆600." (now "Sign up and get
+    600 credits!"; a ◆ in it needs `Text.crystals`)
   - the four `◆` strings in tower.* are drawn as the crystal by `Text.crystals`;
     the notification body cannot show an image and still says ◆300.
 
-## Next
+## Left alone on purpose
 
-The sweep: Search, Library, Create, Pitch, Profile, Tower, World sheet,
-onboarding, Prologue, Play.
+Prologue, Chapter card and End card keep their title cards (they sit inside
+the story; AUDIT.md says the same).
+
+## Checks
+
+- Pinned headers: Home and the Story page were the two with content under
+  a header; both are solid now. Tab headers are solid ink; `ScreenHeader`
+  sits above its scroll view. Badges, Relics and Settings checked scrolled.
+- Unit tests: 63 pass on the design simulator (`LocalStorePurchaseTests`
+  skipped as before). `npm run typecheck` passes; `tsc --noEmit` passes in
+  `apps/tower`.
