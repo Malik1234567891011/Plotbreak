@@ -142,7 +142,12 @@ export const ContinueCard = z
     turnCount: z.number().int(),
     currentObjective: z.string().nullable(),
     recapLine: z.string().nullable(),
-    /** Who the player is in this run ("as Ren"). Added after 1.0; absent from older servers. */
+    /**
+     * Who the player is in this run, as the story calls them ("as Ren"): the
+     * canon name for a NAMED lead, otherwise the name the player gave. Read
+     * from the run's state, so a fork is not "Ren (fork)". Added after 1.0;
+     * absent from older servers.
+     */
     displayName: z.string().nullable().default(null),
     /** The newest line a character spoke. Null when nobody has spoken lately. */
     lastLine: SpeakerLine.nullable().default(null),
@@ -327,6 +332,15 @@ export const SessionSummary = z
     lastLine: SpeakerLine.nullable().default(null),
     /** The first line of the newest beat's scene summary. Same rule as `ContinueCard.recapLine`. */
     recapLine: z.string().nullable().default(null),
+    /**
+     * Who the player is in this run, as the story calls them ("as Ren"). The
+     * same value as `ContinueCard.displayName`. Not `displayName`, which is the
+     * run's own label: a fork's reads "Ren (fork)", and a NAMED lead's can be
+     * the player's account name although the story calls them Itachi. Added
+     * after 1.0; null from older servers, where the row falls back to
+     * `displayName`.
+     */
+    playingAs: z.string().nullable().default(null),
   })
   .strict();
 export type SessionSummary = z.infer<typeof SessionSummary>;

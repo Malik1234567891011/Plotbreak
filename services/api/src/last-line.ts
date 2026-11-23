@@ -70,6 +70,10 @@ export function capLine(raw: string, max: number = LAST_LINE_MAX): string {
   const close = CLOSING_QUOTE.exec(text)?.[0] ?? '';
   const room = max - 1 - close.length;
   let head = text.slice(0, room);
+  // `slice` counts UTF-16 units, so it can split an emoji in two. A lone high
+  // surrogate goes out as `\ud83d`, which a strict JSON decoder rejects, and it
+  // would take the whole Discover payload down with it.
+  if (/[\uD800-\uDBFF]$/.test(head)) head = head.slice(0, -1);
   const space = head.search(/\s\S*$/u);
   // A boundary in the last 40% only. One very long word is cut where it stands
   // rather than throwing most of the line away.

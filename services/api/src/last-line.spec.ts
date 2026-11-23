@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type { FastifyInstance } from 'fastify';
-import { ContinueCard, SessionSummary, type NarrativeBlock } from '@plotbreak/contracts';
+import { ContinueCard, SessionSummary, type GameState, type NarrativeBlock, type StoryVersion } from '@plotbreak/contracts';
 import { NINTH_ARCHIVE } from '@plotbreak/test-fixtures';
 import { createDefaultPipeline, RuleBasedModerator } from '@plotbreak/director';
 import { JobQueue } from '@plotbreak/worker';
@@ -8,7 +8,9 @@ import { NoopSink } from '@plotbreak/analytics';
 import { DevTokenVerifier } from './auth.js';
 import { loadConfig, type AppContext } from './context.js';
 import { capLine, lastSpokenLine, LAST_LINE_MAX } from './last-line.js';
+import { playingAs } from './projections.js';
 import { MemoryRepository } from './repo/memory.js';
+import type { SessionRecord } from './repo/types.js';
 import { buildServer } from './server.js';
 import { createStoreVerifierFromEnv } from './store-verifier.js';
 import { WalletService } from './wallet.js';
@@ -105,6 +107,33 @@ describe('the last line a character spoke', () => {
   it('drops a dangling comma before the ellipsis', () => {
     expect(capLine('one two, three four', 12)).toBe('one two…');
   });
+
+  it('never cuts an emoji in half', () => {
+    // The cut lands between the two UTF-16 halves of the emoji. A lone half
+    // is invalid JSON text for a strict decoder.
+    const text = capLine(`${'x'.repeat(LAST_LINE_MAX - 2)}😀${'x'.repeat(50)}`);
+    expect(text).toBe(`${'x'.repeat(LAST_LINE_MAX - 2)}…`);
+  });
+});
+
+describe('who you are in a run', () => {
+  const record = { displayName: 'Robin Vale (fork)' } as SessionRecord;
+  const state = { player: { identity: { displayName: 'Robin Vale' } } } as unknown as GameState;
+  const named = { ...story, protagonist: { ...story.protagonist, kind: 'NAMED', name: 'Severin Grauen' } } as StoryVersion;
+
+  it('is the canon name for a NAMED lead, whatever the row says', () => {
+    expect(playingAs(record, named, state)).toBe('Severin Grauen');
+  });
+
+  it('is the name in the run’s state otherwise, not the fork’s label', () => {
+    expect(playingAs(record, story, state)).toBe('Robin Vale');
+  });
+
+  it('falls back to the row, then to nobody', () => {
+    const unnamed = { player: { identity: { displayName: ' ' } } } as unknown as GameState;
+    expect(playingAs(record, story, unnamed)).toBe('Robin Vale (fork)');
+    expect(playingAs({ displayName: '' } as SessionRecord, story, unnamed)).toBeNull();
+  });
 });
 
 /**
@@ -190,6 +219,31 @@ describe('the rows that show it', () => {
     expect(card.displayName).toBe('Malik');
     expect(card.lastLine?.text).toBe('“You are late.”');
     expect(card.recapLine).toBe('Late, again.');
+  });
+
+  it('names a fork by who you play, not by the fork’s label', async () => {
+    const sessionId = await startRun();
+    const fork = await app.inject({ method: 'POST', url: `/v1/sessions/${sessionId}/forks`, headers: auth, payload: {} });
+    expect(fork.statusCode).toBe(201);
+    const forkId = fork.json().session.sessionId as string;
+    expect(fork.json().session).toMatchObject({ displayName: 'Malik (fork)', playingAs: 'Malik' });
+
+    const rows = (await app.inject({ method: 'GET', url: '/v1/sessions', headers: auth })).json();
+    const row = SessionSummary.parse(rows.sessions.find((s: { sessionId: string }) => s.sessionId === forkId));
+    expect(row.playingAs).toBe('Malik');
+
+    const discover = (await app.inject({ method: 'GET', url: '/v1/discover', headers: auth })).json();
+    const card = ContinueCard.parse(discover.continueCards.find((c: { sessionId: string }) => c.sessionId === forkId));
+    expect(card.displayName).toBe('Malik');
+  });
+
+  it('still parses a row from a server that predates the new fields', () => {
+    const old = {
+      sessionId: 's', storyId: 'st', storyVersionId: 'sv', title: 'T', coverImage: null, revision: 1, turnCount: 3,
+      status: 'ACTIVE', createdAt: '2026-11-23T00:00:00Z', lastPlayedAt: '2026-11-23T00:00:00Z', displayName: 'Ren',
+      forkedFromSessionId: null, forkedAtTurnIndex: null, locale: 'en',
+    };
+    expect(SessionSummary.parse(old)).toMatchObject({ lastLine: null, recapLine: null, playingAs: null });
   });
 
   it('still parses a card from a server that predates both fields', () => {
