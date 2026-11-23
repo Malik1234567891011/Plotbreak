@@ -349,6 +349,9 @@ struct SetupArchetype: Codable, Hashable, Identifiable {
     @Default<EmptyArray<String>> var playstyle: [String]
     @Default<EmptyString> var blurb: String
     var grants: ArchetypeGrants
+    /// A picture for the role tile: one of the story's own stage images. Newer
+    /// servers only; nil draws the text-only tile, as before.
+    var image: String?
 }
 
 enum SetupFieldKind: String, LenientEnum {
@@ -485,6 +488,23 @@ struct DiscoverResponse: Codable, Hashable {
 
 struct SearchResponse: Codable, Hashable {
     @Default<EmptyArray<StorySummary>> var results: [StorySummary]
+    /// The Characters tab. nil means a server older than the tab, and then the
+    /// screen shows stories only, exactly as before; an empty array is a real
+    /// "nobody matched".
+    var characters: [SearchCharacter]?
+}
+
+/// A cast member found by search, with the world they belong to.
+struct SearchCharacter: Codable, Hashable, Identifiable {
+    var id: String { storyId + "/" + characterId }
+    var characterId: String
+    var name: String
+    var role: String
+    @Default<EmptyString> var cardBlurb: String
+    var portrait: String?
+    var storyId: String
+    var storyTitle: String
+    var coverImage: String?
 }
 
 // MARK: - Story detail
@@ -534,6 +554,8 @@ struct StoryDetailResponse: Codable, Hashable {
     @Default<EmptyArray<CharacterSetupField>> var setupFields: [CharacterSetupField]
     @Default<EmptyArray<SetupArchetype>> var archetypes: [SetupArchetype]
     var protagonist: Protagonist?
+    /// How many endings the world has. Only the count; older servers omit it.
+    @Default<Zero> var endingCount: Int
 }
 
 // MARK: - Sessions

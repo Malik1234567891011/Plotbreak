@@ -15,11 +15,20 @@ struct SearchScreen: View {
 
     @State private var query = ""
     @State private var results: [StorySummary] = []
+    /// nil until a server that knows the Characters tab answers; then the
+    /// "Stories | Characters" chips appear.
+    @State private var characters: [SearchCharacter]?
+    @State private var tab: SearchTab = .stories
     @State private var loading = false
     @State private var filters: [String] = []
     @FocusState private var focused: Bool
 
     private var trimmedQuery: String { query.trimmingCharacters(in: .whitespaces) }
+
+    private var showsTabs: Bool { SearchTab.showsTabs(characters: characters, query: trimmedQuery) }
+
+    /// The tab actually drawn: Characters only while the server sends them.
+    private var activeTab: SearchTab { showsTabs ? tab : .stories }
 
     private var filtered: [StorySummary] {
         results.filter { story in
@@ -86,7 +95,11 @@ struct SearchScreen: View {
                 .padding(.trailing, Theme.pageGutter)
                 .padding(.top, Theme.Spacing.sm)
 
-                if !availableFilters.isEmpty, !trimmedQuery.isEmpty {
+                if showsTabs {
+                    tabRow
+                }
+
+                if activeTab == .stories, !availableFilters.isEmpty, !trimmedQuery.isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: Theme.Spacing.sm) {
                             ForEach(availableFilters, id: \.self) { filter in
@@ -100,13 +113,15 @@ struct SearchScreen: View {
                             }
                         }
                         .padding(.horizontal, Theme.pageGutter)
-                        .padding(.top, Theme.Spacing.lg)
+                        .padding(.top, showsTabs ? Theme.Spacing.md : Theme.Spacing.lg)
                     }
                 }
 
                 ScrollView {
                     if trimmedQuery.isEmpty {
                         idle
+                    } else if activeTab == .characters {
+                        charactersList
                     } else {
                         resultsList
                     }
@@ -121,14 +136,18 @@ struct SearchScreen: View {
             guard !Task.isCancelled else { return }
             guard !trimmedQuery.isEmpty else {
                 results = []
+                characters = nil
                 return
             }
             loading = true
             defer { loading = false }
             do {
-                results = try await store.api.search(trimmedQuery).results
+                let response = try await store.api.search(trimmedQuery)
+                results = response.results
+                characters = response.characters
             } catch {
                 results = []
+                characters = nil
             }
         }
     }
@@ -225,6 +244,48 @@ struct SearchScreen: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    // MARK: Tabs
+
+    /// Design v3 (board frame Search): two filled chips under the field, the
+    /// active one in paper.
+    private var tabRow: some View {
+        HStack(spacing: Theme.Spacing.sm) {
+            ForEach(SearchTab.allCases, id: \.self) { item in
+                SearchTabChip(
+                    label: item == .stories ? t("discover.search_tab_stories") : t("discover.search_tab_characters"),
+                    selected: activeTab == item
+                ) {
+                    withAnimation(.easeOut(duration: Theme.Durations.short)) { tab = item }
+                }
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(.horizontal, Theme.pageGutter)
+        .padding(.top, 14)
+    }
+
+    // MARK: Characters
+
+    private var charactersList: some View {
+        LazyVStack(alignment: .leading, spacing: Theme.Spacing.lg) {
+            if (characters ?? []).isEmpty, !loading {
+                EmptyState(
+                    title: t("discover.search_no_results_title"),
+                    message: t("discover.search_no_results_body")
+                )
+            }
+            ForEach(characters ?? []) { character in
+                SearchCharacterRow(character: character) {
+                    store.rememberSearch(trimmedQuery)
+                    router.dismissSheet()
+                    router.push(.storyDetail(storyId: character.storyId))
+                }
+            }
+        }
+        .padding(Theme.pageGutter)
+        .padding(.top, Theme.Spacing.sm)
+    }
+
     // MARK: Results
 
     private var resultsList: some View {
@@ -245,6 +306,108 @@ struct SearchScreen: View {
         }
         .padding(Theme.pageGutter)
         .padding(.top, Theme.Spacing.sm)
+    }
+}
+
+/// Stories or Characters, under the search field.
+enum SearchTab: CaseIterable, Hashable {
+    case stories, characters
+
+    /// The chips show only for a typed query, and only when the server sent a
+    /// characters list at all: an older server omits it, and then the screen
+    /// is exactly what it was before the tab existed.
+    static func showsTabs(characters: [SearchCharacter]?, query: String) -> Bool {
+        characters != nil && !query.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+}
+
+/// "{role} · {story}" under a character's name in search.
+enum SearchCharacterLine {
+    /// Roles are written as sentences ("Room 314. Four years into an
+    /// investigation nobody asked her to run"), and one line holds the first
+    /// clause and the world's name, not the whole sentence. The same cut the
+    /// story page's cast rail makes.
+    static func shortRole(_ role: String) -> String {
+        let cut = role.split(whereSeparator: { $0 == "," || $0 == "." || $0 == ";" }).first.map(String.init) ?? role
+        return cut.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    static func text(role: String, story: String, t: Translator) -> String {
+        let role = shortRole(role)
+        if role.isEmpty { return story }
+        return t("discover.search_character_line", ["role": role, "story": story])
+    }
+}
+
+/// Board: 34pt capsule, 16pt sides; paper when active, raised with a hairline
+/// when not.
+private struct SearchTabChip: View {
+    let label: String
+    let selected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button {
+            Haptic.play(.light)
+            action()
+        } label: {
+            Text(label)
+                .font(.system(size: 13, weight: selected ? .semibold : .medium))
+                .foregroundStyle(selected ? Theme.Colors.textOnLight : Theme.Colors.textPrimary)
+                .lineLimit(1)
+                .padding(.horizontal, 16)
+                .frame(height: 34)
+                .background(selected ? Theme.Colors.light : Theme.Colors.bgRaised, in: Capsule())
+                .overlay {
+                    if !selected { Capsule().strokeBorder(Theme.Colors.borderSubtle, lineWidth: 1) }
+                }
+                .contentShape(Capsule())
+        }
+        .buttonStyle(PressOpacityStyle())
+        .accessibilityAddTraits(selected ? [.isButton, .isSelected] : .isButton)
+    }
+}
+
+/// A cast member: their face, their name, what they are and where.
+private struct SearchCharacterRow: View {
+    let character: SearchCharacter
+    let onPress: () -> Void
+    @Environment(\.translator) private var t
+
+    private var line: String {
+        SearchCharacterLine.text(role: character.role, story: character.storyTitle, t: t)
+    }
+
+    var body: some View {
+        Button {
+            Haptic.play(.light)
+            onPress()
+        } label: {
+            HStack(alignment: .center, spacing: Theme.Spacing.md) {
+                CharacterPortrait(name: character.name, uri: character.portrait, size: 48)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(character.name)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .lineLimit(1)
+                    // The world's name says where the tap goes, so when the
+                    // role and the world do not fit on one line together, the
+                    // world wins rather than both being cut mid-word.
+                    ViewThatFits(in: .horizontal) {
+                        Text(line).fixedSize()
+                        Text(character.storyTitle).lineLimit(1)
+                    }
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.Colors.textMuted)
+                }
+                Spacer(minLength: 0)
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressScaleStyle())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(character.name + ", " + line)
+        .accessibilityAddTraits(.isButton)
     }
 }
 
