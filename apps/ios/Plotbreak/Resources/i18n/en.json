@@ -519,6 +519,7 @@
   "library.session_card_a11y": "{title}, {count, plural, one {# turn} other {# turns}}. Continue.",
   "library.sign_out_confirm_body": "Your worlds stay saved to your account. Sign back in on any device to pick them up.",
   "library.sign_out_stay": "Stay signed in",
+  "library.speaker_line_a11y": "{name}: {text}",
   "library.stat_badges": "Badges",
   "library.stat_created": "Created",
   "library.stat_turns": "Turns",

@@ -68,6 +68,11 @@ export const library = {
    */
   'library.session_card_a11y': '{title}, {count, plural, one {# tour} other {# tours}}. Continuer.',
   /**
+   * La dernière réplique d’un personnage, lue par le lecteur d’écran. `text`
+   * porte déjà ses guillemets. Espace insécable avant le deux-points.
+   */
+  'library.speaker_line_a11y': '{name}\u00A0: {text}',
+  /**
    * ## `fork` → `bifurquer` / `une bifurcation`. **À faire confirmer.**
    *
    * TERMINOLOGY.md laisse le choix ouvert entre `Bifurquer` et

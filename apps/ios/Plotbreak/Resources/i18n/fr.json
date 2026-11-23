@@ -519,6 +519,7 @@
   "library.session_card_a11y": "{title}, {count, plural, one {# tour} other {# tours}}. Continuer.",
   "library.sign_out_confirm_body": "Tes mondes restent enregistrés sur ton compte. Reconnecte-toi sur n’importe quel appareil pour les retrouver.",
   "library.sign_out_stay": "Rester connecté",
+  "library.speaker_line_a11y": "{name} : {text}",
   "library.stat_badges": "Badges",
   "library.stat_created": "Créations",
   "library.stat_turns": "Tours",

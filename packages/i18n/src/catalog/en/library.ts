@@ -56,6 +56,13 @@ export const library = {
    */
   'library.session_card_a11y': '{title}, {count, plural, one {# turn} other {# turns}}. Continue.',
   /**
+   * The last line a character spoke in a run, read aloud by a screen reader.
+   * Shown beside that character's face on the Continue row, the Library row and
+   * the out-of-credits screen. `text` is the line itself and already carries its
+   * own quote marks.
+   */
+  'library.speaker_line_a11y': '{name}: {text}',
+  /**
    * A badge on a run that was branched off another one. **Fork** here means to
    * split a playthrough in two at a chosen point, not cutlery and not a road
    * junction. The French wording is undecided — `Bifurquer` and
