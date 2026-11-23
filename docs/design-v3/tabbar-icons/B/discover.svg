@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
   <title>Discover</title>
   <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="5.875" y="2.875" width="12.25" height="18.25" rx="2"/>
-    <path d="M5.875 7.601L18.125 10.198M5.875 15.598L18.125 12.902M12.6 14.118L11.6 21.125"/>
+    <rect x="4.875" y="2.875" width="14.25" height="18.25" rx="1"/>
+    <path d="M4.875 7.518L19.125 10.082M4.875 15.783L19.125 13.217M12.75 14.365L11.7 21.125"/>
   </g>
 </svg>

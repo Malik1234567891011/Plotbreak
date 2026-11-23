@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
   <title>Create</title>
   <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M8.6 15.4C7.186 12.572 8.176 9.319 10.509 7.127L12.631 7.834L11.888 5.96C14.964 3.945 18.499 3.238 20.6 3.4C20.479 7.198 14.045 13.774 8.6 15.4Z"/>
-    <path d="M8.6 15.4L4.1 19.9M12.75 21.125H20.25"/>
+    <path d="M15.363 2.872L19.528 7.037L17.043 12.344C13.684 15.702 9.116 16.777 4.951 17.449C5.623 13.284 6.698 8.716 10.056 5.357Z"/>
+    <circle cx="11.669" cy="10.731" r="1.575"/>
+    <path d="M10.325 12.075L6.966 15.434M8.851 21.125H19.75"/>
   </g>
 </svg>

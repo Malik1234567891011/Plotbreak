@@ -1,7 +1,29 @@
-import os
+"""Rebuilds everything: python3 gen_svgs.py && python3 build.py. Renders go to tools/r (ignored)."""
+import os, json, subprocess
 from PIL import Image, ImageDraw, ImageFont
 from compose import *
 INK0 = (15, 14, 13)
+
+def render_sf():
+    """Set A's symbols (from A/symbols.json) and the tab labels, rendered by AppKit into tools/r."""
+    os.makedirs(S + '/r', exist_ok=True)
+    spec = json.load(open(D + '/A/symbols.json'))
+    jobs = []
+    for t in TABS:
+        tab = spec['tabs'][t]
+        jobs.append(f"sym\t{tab['idle']}\t{tab['pointSize']}\t{spec['weight']}\t{PAPER3[1:]}\tA-{t}-u")
+        jobs.append(f"sym\t{tab['selected']}\t{tab['pointSize']}\t{spec['weight']}\t{PAPER[1:]}\tA-{t}-s")
+        jobs.append(f"text\t{LABELS[t]}\t11\tmedium\t{PAPER3[1:]}\tL-{LABELS[t]}-u")
+        jobs.append(f"text\t{LABELS[t]}\t11\tsemibold\t{PAPER[1:]}\tL-{LABELS[t]}-s")
+    open(S + '/r/sf-jobs.tsv', 'w').write('\n'.join(jobs) + '\n')
+    if not os.path.exists(S + '/r/sfrender'):
+        subprocess.run(['swiftc', '-O', '-o', S + '/r/sfrender', S + '/sfrender.swift'], check=True)
+    subprocess.run([S + '/r/sfrender', S + '/r/sf-jobs.tsv', S + '/r'], check=True, stdout=subprocess.DEVNULL)
+    for t in TABS:   # the committed copies in A/
+        Image.open(f'{S}/r/A-{t}-u.png').save(f'{D}/A/{t}.png')
+        Image.open(f'{S}/r/A-{t}-s.png').save(f'{D}/A/{t}-selected.png')
+
+render_sf()
 base = clean_backdrop()
 HOME = (0, 1560, 1206, 2622)       # bottom of Home: Top ranked rows under the bar
 STRIP = (0, 2286, 1206, 2538)      # just the bar
@@ -32,9 +54,9 @@ orig_home = Image.open(BACK).convert('RGB').crop(HOME)
 orig_lib = bar_only(Image.open(REPO + '/docs/design-v3/gaps-shots/final-library.png').convert('RGB'))
 rows = [('Today', 'house / books.vertical / square.and.pencil / person. SF Symbols 20pt regular, labels 11pt.', orig_home, orig_lib)]
 desc = {
- 'A': ('A  Refined SF Symbols', 'safari / book.closed / plus.square / person.crop.circle, 21pt regular, outline to .fill on select. Labels as today.'),
- 'B': ('B  Story line set', 'Custom 24pt grid, 1.75pt round strokes: a manga page / an open book with a ribbon / a quill writing a line / the face card speakers get in a story. Fills on select, with cut gutters. Labels as today.'),
- 'C': ('C  Bold glyphs', 'Custom solid 26pt glyphs, no labels: a hand of covers / book + ribbon / crystal-cut nib / you, with an ahoge. Selected gets manga emphasis marks.'),
+ 'A': ('A  Refined SF Symbols', 'rectangle.portrait.on.rectangle.portrait.angled / book / plus.square / person.crop.circle at 17 / 20 / 22 / 21pt, so each lands on the 20pt keyline. Outline to .fill on select. Labels as today.'),
+ 'B': ('B  Story line set', 'Custom 24pt grid, 1.75pt round strokes: a manga page / an open book with a ribbon / a nib writing a line / you, in your circle. Fills on select, with cut gutters. Labels as today.'),
+ 'C': ('C  Bold glyphs', 'Custom solid glyphs on the same grid, no labels: two covers / an open book, ribbon out of the spine / a rhombus nib / you, in your circle. Selected is paper, idle paper.3, nothing else.'),
 }
 for st in 'ABC': rows.append((desc[st][0], desc[st][1], *mocks[st]))
 HC = 1062 - 560   # show the lower part of the Home crop in the comparison

@@ -62,11 +62,10 @@ def icon_png(set_, tab, sel, size_pt):
 def build_bar(base, set_, selected):
     im = base.copy()
     labels = set_ in ('A', 'B')
-    size_pt = 24 if labels else 26
+    size_pt = 24          # B and C are both drawn one unit to the point; C's glyphs fill more of the frame
     cy = ICON_CY if labels else (CY0 + CY1) / 2
     jobs = []
     if set_ != 'A':
-        vb = 24 if set_ == 'B' else 28
         for t in TABS:
             for sel in (False, True):
                 name = f'{t}{"-selected" if sel else ""}'

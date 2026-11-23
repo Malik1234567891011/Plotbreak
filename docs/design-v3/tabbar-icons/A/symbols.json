@@ -1,13 +1,12 @@
 {
-  "note": "Set A ships as SF Symbols (Image(systemName:)), so there is no SVG: the PNGs here are 3x renders of the real symbols on a 36x32pt canvas, paper.3 #948E85 idle and paper #F3EFE8 selected.",
-  "pointSize": 21,
+  "note": "Set A ships as SF Symbols (Image(systemName:)), so there is no SVG: the PNGs here are 3x renders of the real symbols on a 36x32pt canvas, paper.3 #948E85 idle and paper #F3EFE8 selected. Point sizes differ per tab on purpose: at one size the angled covers stand 22pt tall and the plus square 18pt wide, so each is set to land on the 20pt keyline.",
   "weight": "regular",
   "frameHeight": 24,
   "tabs": {
-    "discover": { "idle": "safari", "selected": "safari.fill" },
-    "library":  { "idle": "book.closed", "selected": "book.closed.fill" },
-    "create":   { "idle": "plus.square", "selected": "plus.square.fill" },
-    "profile":  { "idle": "person.crop.circle", "selected": "person.crop.circle.fill" }
+    "discover": { "idle": "rectangle.portrait.on.rectangle.portrait.angled", "selected": "rectangle.portrait.on.rectangle.portrait.angled.fill", "pointSize": 17 },
+    "library":  { "idle": "book", "selected": "book.fill", "pointSize": 20 },
+    "create":   { "idle": "plus.square", "selected": "plus.square.fill", "pointSize": 22 },
+    "profile":  { "idle": "person.crop.circle", "selected": "person.crop.circle.fill", "pointSize": 21 }
   },
   "label": { "font": "SF Pro 11pt", "idle": "medium #948E85", "selected": "semibold #F3EFE8" }
 }

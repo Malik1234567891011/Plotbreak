@@ -1,0 +1,5 @@
+tools/r/
+tools/__pycache__/
+tools/backdrop-clean.png
+tools/compose-jobs.json
+tools/clean-check.png
