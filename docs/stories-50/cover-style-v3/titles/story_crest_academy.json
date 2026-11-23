@@ -6,7 +6,7 @@
   "layers": [
     {"type": "scrim", "edge": "bottom", "from": 0.74, "to": 1.0, "color": "#e4e9f4", "opacity": 0.4},
     {
-      "type": "text", "id": "title", "at": [0.5, 0.962], "anchor": "bc", "gap": 30,
+      "type": "text", "id": "title", "at": [0.5, 0.962], "anchor": "bc", "gap": 26,
       "lines": [
         {
           "text": "CREST", "font": "Marcellus", "width": 880, "tracking": 0.05,
@@ -17,8 +17,10 @@
           "shadow": [{"dx": 0, "dy": 10, "blur": 14, "color": "#0d1830", "opacity": 0.45}]
         },
         {
-          "text": "ACADEMY", "font": "Marcellus", "size": 50, "tracking": 0.55,
-          "fill": {"metal": "silver", "horizon": 0.55}
+          "text": "ACADEMY", "font": "Marcellus", "size": 92, "tracking": 0.22,
+          "fill": {"gradient": ["#ffffff", "#eef2f9", "#c4cee2"], "stops": [0, 0.5, 1], "angle": 90},
+          "strokes": [{"width": 2.5, "fill": "#0c1733"}],
+          "shadow": [{"dx": 0, "dy": 3, "blur": 3, "color": "#060c1c", "opacity": 0.7}]
         }
       ],
       "backing": [
@@ -35,7 +37,7 @@
           "shadow": [{"dx": 0, "dy": 10, "blur": 16, "color": "#0d1830", "opacity": 0.45}]
         },
         {
-          "shape": "ribbon", "of": 1, "pad": [64, 18, 64, 18], "tail": 58, "drop": 14, "notch": 22, "arc": 6,
+          "shape": "ribbon", "of": 1, "pad": [56, 16, 56, 16], "tail": 64, "drop": 16, "notch": 26, "arc": 6,
           "fill": {"gradient": ["#2a4378", "#14213d"], "angle": 90},
           "strokes": [{"width": 3, "fill": {"metal": "silver", "horizon": 0.5}}],
           "shadow": [{"dx": 0, "dy": 6, "blur": 8, "color": "#0d1830", "opacity": 0.45}]

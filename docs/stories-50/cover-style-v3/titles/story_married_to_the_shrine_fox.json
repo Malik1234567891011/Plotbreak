@@ -18,24 +18,24 @@
     {
       "type": "text",
       "id": "title",
-      "at": [0.955, 0.975],
+      "at": [0.955, 0.98],
       "anchor": "br",
       "align": "right",
-      "gap": 8,
+      "gap": 4,
       "lines": [
         {
           "text": "Married to the",
           "font": "Cormorant",
           "weight": 700,
           "italic": true,
-          "size": 68,
-          "fill": "#f6e6bf",
-          "strokes": [{"width": 3, "fill": "#1a0b05"}],
-          "shadow": [{"dx": 0, "dy": 3, "blur": 7, "opacity": 0.85}],
+          "size": 92,
+          "fill": "#fbf0d4",
+          "strokes": [{"width": 5, "fill": "#1a0b05"}],
+          "shadow": [{"dx": 0, "dy": 4, "blur": 7, "opacity": 0.9}],
           "dx": -8
         },
-        {"use": "lacquer", "text": "SHRINE", "size": 110, "tracking": 0.02},
-        {"use": "lacquer", "text": "FOX", "size": 182, "gap": 10}
+        {"use": "lacquer", "text": "SHRINE", "size": 102, "tracking": 0.02},
+        {"use": "lacquer", "text": "FOX", "size": 166, "gap": 8}
       ],
       "ornaments": [
         {

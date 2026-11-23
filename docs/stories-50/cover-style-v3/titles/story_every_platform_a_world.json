@@ -21,7 +21,7 @@
    "shape": "plate",
    "box": [
     0.03125,
-    0.7786697247706422,
+    0.73968,
     0.96875,
     0.9793577981651376
    ],
@@ -58,9 +58,9 @@
    "shape": "polygon",
    "box": [
     0.057291666666666664,
-    0.9409403669724771,
-    0.5329861111111112,
-    0.9569954128440367
+    0.93177,
+    0.39062,
+    0.94782
    ],
    "points": [
     [
@@ -98,19 +98,19 @@
   {
    "type": "text",
    "at": [
-    0.07812,
-    0.80906
+    0.09375,
+    0.77924
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "E",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -122,8 +122,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -156,8 +156,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -167,7 +167,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8
@@ -177,19 +177,19 @@
   {
    "type": "text",
    "at": [
-    0.13542,
-    0.80906
+    0.17361,
+    0.77924
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "V",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -201,8 +201,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -235,8 +235,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -246,7 +246,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8
@@ -256,19 +256,19 @@
   {
    "type": "text",
    "at": [
-    0.19271,
-    0.80906
+    0.25347,
+    0.77924
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "E",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -280,8 +280,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -314,8 +314,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -325,7 +325,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8
@@ -335,19 +335,19 @@
   {
    "type": "text",
    "at": [
-    0.25,
-    0.80906
+    0.33333,
+    0.77924
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "R",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -359,8 +359,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -393,8 +393,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -404,7 +404,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8
@@ -414,19 +414,19 @@
   {
    "type": "text",
    "at": [
-    0.30729,
-    0.80906
+    0.41319,
+    0.77924
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "Y",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -438,8 +438,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -472,8 +472,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -483,7 +483,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8
@@ -494,7 +494,7 @@
    "type": "text",
    "at": [
     0.10428,
-    0.87901
+    0.85952
    ],
    "anchor": "mc",
    "lines": [
@@ -576,7 +576,7 @@
    "type": "text",
    "at": [
     0.21734,
-    0.87901
+    0.85952
    ],
    "anchor": "mc",
    "lines": [
@@ -658,7 +658,7 @@
    "type": "text",
    "at": [
     0.3304,
-    0.87901
+    0.85952
    ],
    "anchor": "mc",
    "lines": [
@@ -740,7 +740,7 @@
    "type": "text",
    "at": [
     0.44347,
-    0.87901
+    0.85952
    ],
    "anchor": "mc",
    "lines": [
@@ -822,7 +822,7 @@
    "type": "text",
    "at": [
     0.55653,
-    0.87901
+    0.85952
    ],
    "anchor": "mc",
    "lines": [
@@ -904,7 +904,7 @@
    "type": "text",
    "at": [
     0.6696,
-    0.87901
+    0.85952
    ],
    "anchor": "mc",
    "lines": [
@@ -986,7 +986,7 @@
    "type": "text",
    "at": [
     0.78266,
-    0.87901
+    0.85952
    ],
    "anchor": "mc",
    "lines": [
@@ -1068,7 +1068,7 @@
    "type": "text",
    "at": [
     0.89572,
-    0.87901
+    0.85952
    ],
    "anchor": "mc",
    "lines": [
@@ -1149,19 +1149,19 @@
   {
    "type": "text",
    "at": [
-    0.57812,
-    0.94897
+    0.43403,
+    0.93979
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "A",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -1173,8 +1173,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -1207,8 +1207,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -1218,7 +1218,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8
@@ -1229,12 +1229,12 @@
    "type": "shape",
    "shape": "plate",
    "at": [
-    0.63542,
-    0.94897
+    0.51389,
+    0.93979
    ],
    "anchor": "mc",
-   "w": 60,
-   "h": 74,
+   "w": 84,
+   "h": 106,
    "radius": 6,
    "fill": {
     "gradient": [
@@ -1263,19 +1263,19 @@
   {
    "type": "text",
    "at": [
-    0.69271,
-    0.94897
+    0.59375,
+    0.93979
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "W",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -1287,8 +1287,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -1321,8 +1321,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -1332,7 +1332,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8
@@ -1342,19 +1342,19 @@
   {
    "type": "text",
    "at": [
-    0.75,
-    0.94897
+    0.67361,
+    0.93979
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "O",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -1366,8 +1366,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -1400,8 +1400,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -1411,7 +1411,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8
@@ -1421,19 +1421,19 @@
   {
    "type": "text",
    "at": [
-    0.80729,
-    0.94897
+    0.75347,
+    0.93979
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "R",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -1445,8 +1445,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -1479,8 +1479,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -1490,7 +1490,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8
@@ -1500,19 +1500,19 @@
   {
    "type": "text",
    "at": [
-    0.86458,
-    0.94897
+    0.83333,
+    0.93979
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "L",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -1524,8 +1524,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -1558,8 +1558,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -1569,7 +1569,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8
@@ -1579,19 +1579,19 @@
   {
    "type": "text",
    "at": [
-    0.92188,
-    0.94897
+    0.91319,
+    0.93979
    ],
    "anchor": "mc",
    "lines": [
     {
      "text": "D",
      "font": "Train One",
-     "cap": 42,
+     "cap": 62,
      "fill": "#1c1206",
      "strokes": [
       {
-       "width": 1.6,
+       "width": 2.4,
        "fill": "#1c1206"
       }
      ]
@@ -1603,8 +1603,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 74,
+     "w": 84,
+     "h": 106,
      "radius": 6,
      "fill": {
       "gradient": [
@@ -1637,8 +1637,8 @@
      "of": "block",
      "to": "mc",
      "anchor": "mc",
-     "w": 60,
-     "h": 3.5,
+     "w": 84,
+     "h": 4,
      "fill": "#050506",
      "opacity": 0.9
     },
@@ -1648,7 +1648,7 @@
      "to": "mc",
      "anchor": "tc",
      "dy": 2,
-     "w": 56,
+     "w": 80,
      "h": 1.5,
      "fill": "#45474d",
      "opacity": 0.8

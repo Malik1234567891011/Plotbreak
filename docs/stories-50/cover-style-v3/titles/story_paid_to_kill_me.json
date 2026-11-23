@@ -9,8 +9,8 @@
             "shadow": [{"dx": 0, "dy": 4, "blur": 8, "color": "#ffffff", "opacity": 0.7}]}
   },
   "layers": [
-    {"type": "text", "id": "paid", "at": [0.165, 0.092], "anchor": "mc", "rotate": -8,
-     "lines": [{"use": "stamp-ink", "text": "PAID", "font": "Alfa Slab One", "cap": 64, "tracking": 0.06}],
+    {"type": "text", "id": "paid", "at": [0.178, 0.092], "anchor": "mc", "rotate": -8,
+     "lines": [{"use": "stamp-ink", "text": "PAID", "font": "Alfa Slab One", "cap": 74, "tracking": 0.06}],
      "backing": [
        {"shape": "plate", "of": 0, "pad": [26, 22, 26, 22], "fill": "clear", "use": "stamp-ink",
         "strokes": [{"width": 7, "fill": {"texture": "noise", "base": "#d7141d", "color": "#9e0a12", "strength": 0.35, "scale": 18}}, {"width": 0, "fill": "clear"}]},
@@ -19,7 +19,7 @@
      ]},
     {"type": "text", "id": "kill", "at": [0.955, 0.03], "anchor": "tr", "align": "right", "gap": 10,
      "lines": [
-       {"use": "hit", "text": "TO", "cap": 52, "tracking": 0.2, "dx": -6},
+       {"use": "hit", "text": "TO", "cap": 72, "tracking": 0.12, "dx": -6},
        {"use": "hit", "text": "KILL", "cap": 150, "tracking": 0.02},
        {"use": "hit", "text": "ME", "cap": 150, "tracking": 0.02}
      ],
