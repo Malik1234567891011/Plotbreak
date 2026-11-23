@@ -26,20 +26,45 @@
       "id": "title",
       "at": [0.5, 0.962],
       "anchor": "bc",
-      "gap": 34,
+      "gap": 30,
       "lines": [
         {
           "text": "THE WOLF CLAN’S",
           "use": "bone",
-          "size": 58,
-          "tracking": 0.16,
-          "strokes": [{"width": 4, "fill": "#2a170b"}],
+          "size": 92,
+          "tracking": 0.04,
+          "strokes": [{"width": 5, "fill": "#1f1007"}],
           "bevel": null,
+          "shadow": [{"dx": 0, "dy": 3, "blur": 3, "color": "#120802", "opacity": 0.8}],
           "arc": 8
         },
         {"text": "GUEST", "use": "bone", "size": 230, "tracking": 0.04, "arc": 12}
       ],
       "backing": [
+        {
+          "shape": "ribbon",
+          "of": 0,
+          "pad": [34, 10, 34, 6],
+          "tail": 0,
+          "drop": 0,
+          "notch": 0,
+          "use": "stitch",
+          "inline": {
+            "inset": 6,
+            "width": 2.2,
+            "fill": {"texture": "stripes", "base": "#e6cfa2", "period": 11, "angle": 0, "alpha": 1, "strength": 1}
+          },
+          "fill": {
+            "texture": "noise",
+            "base": {"gradient": ["#6e4224", "#4c2b14", "#33190a"], "stops": [0, 0.55, 1], "angle": 90},
+            "color": "#2b170a",
+            "strength": 0.35,
+            "scale": 26
+          },
+          "strokes": [{"width": 3, "fill": "#1f1007"}],
+          "shadow": [{"dx": 0, "dy": 6, "blur": 8, "opacity": 0.5}],
+          "arc": 12
+        },
         {
           "shape": "ribbon",
           "of": 1,

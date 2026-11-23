@@ -72,14 +72,38 @@
     {
      "text": "OWNS THE HOUSE",
      "font": "Playfair Display",
-     "weight": 700,
-     "width": 640,
-     "tracking": 0.24,
+     "weight": 800,
+     "width": 790,
+     "tracking": 0.07,
      "fill": {
-      "metal": "gold",
-      "horizon": 0.5
+      "gradient": [
+       "#fff1c4",
+       "#f3d27c",
+       "#d9a948"
+      ],
+      "stops": [
+       0,
+       0.55,
+       1
+      ],
+      "angle": 90
      },
-     "dx": 6
+     "strokes": [
+      {
+       "width": 3.5,
+       "fill": "#140b01"
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 4,
+       "blur": 4,
+       "color": "#000000",
+       "opacity": 0.6
+      }
+     ],
+     "dx": 4
     }
    ],
    "backing": [
@@ -147,7 +171,7 @@
      "to": "tc",
      "anchor": "bc",
      "dy": -10,
-     "w": 640,
+     "w": 760,
      "h": 12,
      "thickness": 2,
      "center": "diamond",
@@ -162,8 +186,8 @@
    "type": "text",
    "id": "now",
    "at": [
-    0.718,
-    0.772
+    0.728,
+    0.752
    ],
    "anchor": "mc",
    "rotate": -8,

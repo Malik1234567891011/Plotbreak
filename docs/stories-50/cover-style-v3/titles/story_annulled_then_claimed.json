@@ -1,13 +1,14 @@
 {
   "storyId": "story_annulled_then_claimed", "seed": 21, "avoid": [[507, 87, 737, 384]],
   "layers": [
-    {"type": "scrim", "edge": "bottom", "from": 0.66, "to": 1.0, "color": "#03170f", "opacity": 0.62},
+    {"type": "scrim", "edge": "bottom", "from": 0.66, "to": 1.0, "color": "#03170f", "opacity": 0.7},
     {
       "type": "text", "id": "title", "at": [0.5, 0.95], "anchor": "bc", "gap": 4,
       "lines": [
         {
-          "text": "ANNULLED, THEN", "font": "Cinzel", "weight": 700, "size": 62, "tracking": 0.22, "fill": "#f4ead2",
-          "shadow": [{"dx": 0, "dy": 3, "blur": 5, "color": "#000000", "opacity": 0.6}], "dx": 44
+          "text": "ANNULLED, THEN", "font": "Cinzel", "weight": 800, "size": 88, "tracking": 0.06, "fill": "#fbf3df",
+          "strokes": [{"width": 4, "fill": "#03170f"}],
+          "shadow": [{"dx": 0, "dy": 4, "blur": 6, "color": "#000000", "opacity": 0.8}], "dx": 30
         },
         {
           "text": "Claimed", "font": "Great Vibes", "width": 880, "fill": {"metal": "gold", "horizon": 0.56},
@@ -19,7 +20,7 @@
       ],
       "ornaments": [
         {
-          "shape": "rule", "of": 0, "to": "ml", "anchor": "ml", "dx": -16, "w": 500, "h": 12, "thickness": 4.5,
+          "shape": "rule", "of": 0, "to": "ml", "anchor": "ml", "dx": -16, "w": 600, "h": 14, "thickness": 6,
           "taper": false, "rotate": -2.5, "fill": "#c8163a", "shadow": [{"dx": 0, "dy": 2, "blur": 3, "opacity": 0.5}]
         },
         {

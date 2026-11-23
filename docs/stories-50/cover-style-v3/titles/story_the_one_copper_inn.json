@@ -144,17 +144,29 @@
    "id": "sign",
    "at": [
     0.5,
-    0.036
+    0.022
    ],
    "anchor": "tc",
-   "gap": 0,
+   "gap": 10,
    "lines": [
     {
      "text": "THE ONE-COPPER",
      "font": "Rye",
-     "size": 56,
-     "tracking": 0.08,
-     "use": "copper",
+     "size": 76,
+     "tracking": 0.04,
+     "fill": {
+      "gradient": [
+       "#fff4e4",
+       "#ffd6aa",
+       "#f0a468"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
      "innerShadow": {
       "dx": 0,
       "dy": 2,
@@ -164,16 +176,16 @@
      },
      "strokes": [
       {
-       "width": 2.5,
-       "fill": "#1c0b03"
+       "width": 4,
+       "fill": "#140802"
       }
      ]
     },
     {
      "text": "INN",
      "font": "Rye",
-     "size": 124,
-     "tracking": 0.08,
+     "size": 130,
+     "tracking": 0.16,
      "use": "copper",
      "bevel": {
       "depth": 4,
@@ -215,10 +227,10 @@
      "shape": "plate",
      "of": "block",
      "pad": [
-      64,
-      20,
-      64,
-      18
+      56,
+      14,
+      56,
+      12
      ],
      "radius": 22,
      "fill": {

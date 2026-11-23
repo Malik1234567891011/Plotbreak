@@ -6,34 +6,35 @@
     {
       "type": "text",
       "id": "title",
-      "at": [0.625, 0.957],
+      "at": [0.5, 0.952],
       "anchor": "bc",
-      "rotate": -6,
+      "rotate": 6,
       "scale": 1.0,
       "gap": 0,
       "lines": [
         {
           "runs": [
-            {"text": "The ", "font": "UnifrakturMaguntia", "size": 106, "fill": "#17121a"},
-            {"text": "Villain", "font": "UnifrakturMaguntia", "size": 176, "fill": "#17121a"}
+            {"text": "The ", "font": "UnifrakturMaguntia", "size": 96, "fill": "#17121a"},
+            {"text": "Villain", "font": "UnifrakturMaguntia", "size": 150, "fill": "#17121a"}
           ]
         },
         {
           "text": "dies in",
           "font": "Shippori Mincho B1",
-          "weight": 600,
-          "size": 64,
-          "tracking": 0.22,
-          "fill": "#3a2a2c",
-          "gap": -2
+          "weight": 800,
+          "size": 72,
+          "tracking": 0.1,
+          "fill": "#241a1c",
+          "gap": 2
         },
         {
           "text": "CHAPTER THREE",
           "font": "Shippori Mincho B1",
-          "weight": 700,
-          "size": 42,
-          "tracking": 0.2,
-          "fill": "#fff3e0",
+          "weight": 800,
+          "size": 66,
+          "tracking": 0.05,
+          "fill": "#fff6e8",
+          "strokes": [{"width": 2, "fill": "#5a0710"}],
           "gap": 14
         }
       ],
@@ -56,7 +57,7 @@
         {
           "shape": "banner",
           "of": 2,
-          "pad": [26, 12, 110, 12],
+          "pad": [24, 12, 64, 12],
           "ends": ["flat", "notch"],
           "depth": 30,
           "fill": {"gradient": ["#c8202c", "#8e0f1c"], "angle": 90},
@@ -70,11 +71,11 @@
           "to": "ml",
           "anchor": "mr",
           "dx": -24,
-          "w": 110,
-          "h": 12,
-          "thickness": 2.6,
+          "w": 90,
+          "h": 14,
+          "thickness": 3.2,
           "taper": false,
-          "fill": "#3a2a2c"
+          "fill": "#241a1c"
         },
         {
           "shape": "rule",
@@ -82,11 +83,11 @@
           "to": "mr",
           "anchor": "ml",
           "dx": 24,
-          "w": 110,
-          "h": 12,
-          "thickness": 2.6,
+          "w": 90,
+          "h": 14,
+          "thickness": 3.2,
           "taper": false,
-          "fill": "#3a2a2c"
+          "fill": "#241a1c"
         },
         {
           "shape": "polygon",
