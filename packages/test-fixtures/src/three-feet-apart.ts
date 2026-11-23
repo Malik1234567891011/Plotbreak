@@ -2402,7 +2402,7 @@ const raw = {
     'I take his left hand and check that the grey is really gone.',
     'I step back. Slowly. Watching his face.',
   ],
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const THREE_FEET_APART = StoryVersion.parse(raw);

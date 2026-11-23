@@ -2497,7 +2497,7 @@ const raw = {
     'set on two centred lines, ANNULLED, on the first and THEN CLAIMED on the second, spelled exactly ANNULLED, THEN CLAIMED with the comma after ANNULLED,',
     'large and legible at thumbnail size. A single fine gold crack runs through the word ANNULLED only. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const ANNULLED_THEN_CLAIMED = StoryVersion.parse(raw);

@@ -2686,7 +2686,7 @@ const raw = {
     'set on two lines, Thirty Days With the smaller on top and Number One Hero large below, with One written out as a word, never as a numeral,',
     'spelled exactly Thirty Days With the Number One Hero, large and legible at thumbnail size. No other text anywhere: no signs, no letters on the backdrop, no numbers.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const THIRTY_DAYS_WITH_THE_NUMBER_ONE_HERO = StoryVersion.parse(raw);

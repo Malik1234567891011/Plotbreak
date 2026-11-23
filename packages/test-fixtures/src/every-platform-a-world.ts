@@ -2615,7 +2615,7 @@ const raw = {
     'I take the ticket out from under their hands and hold it out to the astronaut.',
     "I put my hand flat on top of all three. \"Actually, it’s mine.\"",
   ],
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const EVERY_PLATFORM_A_WORLD = StoryVersion.parse(raw);

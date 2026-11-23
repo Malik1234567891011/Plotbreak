@@ -2611,7 +2611,7 @@ const raw = {
     'THE ONLY GIRL AT on a smaller line on top, BLACKTHORN large beneath it, and a single cold glint running across the word BLACKTHORN only.',
     'Spelled exactly The Only Girl at Blackthorn, large and legible at thumbnail size. No other text anywhere: no numbers, no writing on the books, the coats or the walls.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const THE_ONLY_GIRL_AT_BLACKTHORN = StoryVersion.parse(raw);

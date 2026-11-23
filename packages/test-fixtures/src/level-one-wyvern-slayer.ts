@@ -2311,7 +2311,7 @@ const raw = {
     'I put my hand back on the crystal. "Again."',
     'I lift the head by one horn and hold it out to him. "Your turn."',
   ],
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const LEVEL_ONE_WYVERN_SLAYER = StoryVersion.parse(raw);

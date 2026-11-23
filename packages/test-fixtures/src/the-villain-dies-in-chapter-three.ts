@@ -2391,7 +2391,7 @@ const raw = {
     'I look past her blade into the crowd for the face that kills me at midnight.',
     'I finish the line word for word, exactly as the book wrote it.',
   ],
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const THE_VILLAIN_DIES_IN_CHAPTER_THREE = StoryVersion.parse(raw);

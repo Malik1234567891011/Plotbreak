@@ -2418,7 +2418,7 @@ const raw = {
     'HE BURNED on the first line and THE CAPITAL larger on the second, warm ivory-white letters with a thin black outline and a soft ember-orange glow along their lower edges, a few small sparks drifting up off the last line,',
     'spelled exactly HE BURNED THE CAPITAL, large and legible at thumbnail size. No other text anywhere: nothing written on the ring, the door, the candles or the sky.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const HE_BURNED_THE_CAPITAL = StoryVersion.parse(raw);

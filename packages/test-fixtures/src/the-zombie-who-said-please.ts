@@ -2484,7 +2484,7 @@ const raw = {
     'THE ZOMBIE on the first line and WHO SAID PLEASE on the second, off-white letters with a cold frost-blue edge like paint on a wooden camp sign, the word PLEASE a little larger than the rest.',
     'Spelled exactly THE ZOMBIE WHO SAID PLEASE, five words, large and legible at thumbnail size. A thin rim of frost runs along the letters only. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const THE_ZOMBIE_WHO_SAID_PLEASE = StoryVersion.parse(raw);

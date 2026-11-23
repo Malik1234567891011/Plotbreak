@@ -2380,7 +2380,7 @@ const raw = {
     'ROOMMATE on the first line and LOTTERY larger on the second, white with a thick pink outline and a silver scratch-card shimmer across the letters,',
     'spelled exactly ROOMMATE LOTTERY, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const ROOMMATE_LOTTERY = StoryVersion.parse(raw);

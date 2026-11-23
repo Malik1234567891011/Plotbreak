@@ -2654,7 +2654,7 @@ const raw = {
     'TITLE: the words PAID TO KILL ME painted into the art in the upper third as a tall, elegant high-contrast serif thriller logo, ivory white with a thin gold edge,',
     'spelled exactly Paid to Kill Me and set in capitals, large and legible at thumbnail size. One clean diagonal knife-cut slices through the word KILL only, its two halves slightly offset. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const PAID_TO_KILL_ME = StoryVersion.parse(raw);

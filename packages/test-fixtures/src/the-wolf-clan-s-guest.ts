@@ -2491,7 +2491,7 @@ const raw = {
     'TITLE: the story title "The Wolf Clan’s Guest" painted into the art across the upper third, above their heads, as a bold rustic serif logo in all capitals, cream-white letters with a dark charcoal outline and a thin crust of snow along the top edge of each letter.',
     'Set on two lines, THE WOLF CLAN’S smaller above and GUEST large below, spelled exactly THE WOLF CLAN’S GUEST with the apostrophe, large and legible at thumbnail size. No other text anywhere.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const THE_WOLF_CLAN_S_GUEST = StoryVersion.parse(raw);

@@ -2585,7 +2585,7 @@ const raw = {
     'BEHIND HIM, soft and secondary: a candlelit palace ballroom hung with pale pink roses, crystal chandeliers glowing out of focus.',
     'LIGHT: warm candle gold on his face and coat, a cool lilac glow from the frame above his head falling on his hair, so he is lit in gold and rimmed in lilac.',
   ].join(' '),
-  publishedAt: null,
+  publishedAt: '2026-11-23T16:02:47.017Z',
 };
 
 export const AFFECTION_97 = StoryVersion.parse(raw);
