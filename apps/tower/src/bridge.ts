@@ -253,7 +253,7 @@ function mockBridge(): Bridge {
     },
     revive: () => {
       const s = load();
-      if (s.balance < 5) return fail('You need ◆5.');
+      if (s.balance < 5) return fail('You need 5 credits.');
       s.balance -= 5;
       s.days.push(addDays(today(), -1));
       save(s);
@@ -290,7 +290,7 @@ function mockBridge(): Bridge {
       const def = CHARACTERS_BY_ID[id];
       if (!def) return fail('No such character.');
       if (def.price > 0 && !s.owned.includes(id)) {
-        if (s.balance < def.price) return fail(`You need ◆${def.price} to unlock ${def.name}.`);
+        if (s.balance < def.price) return fail(`You need ${def.price} credits to unlock ${def.name}.`);
         s.balance -= def.price;
         s.owned.push(id);
       }

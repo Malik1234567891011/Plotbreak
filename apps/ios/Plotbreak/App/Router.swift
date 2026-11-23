@@ -182,6 +182,8 @@ struct RootView: View {
     @Environment(AppStore.self) private var store
     @State private var router = Router()
     @State private var nameDone = false
+    /// Back from the taste step: show the (already saved) name again.
+    @State private var editingName = false
     @State private var tasteDone = false
     @State private var showcaseDone = false
     @State private var openStoryId: String?
@@ -211,15 +213,21 @@ struct RootView: View {
             } else if !store.signInSeen, store.isGuest {
                 // 01 — sign in. Asked once; a guest may pass.
                 SignInScreen(embedded: true)
-            } else if !store.ageVerified {
-                // 02/03 — before any personalized content.
-                BirthDateScreen()
-            } else if !store.onboarded, !nameDone, store.displayName == nil {
-                // 04 — what characters call you.
-                DisplayNameScreen(onDone: { nameDone = true })
+            } else if !store.ageVerified || (!store.onboarded && !nameDone && (store.displayName == nil || editingName)) {
+                // 1 of 3 (board OnbProfile) — what characters call you, and,
+                // before any personalized content, the birthday under it. A
+                // player whose age is known sees the name alone.
+                NameAndBirthdayScreen(onDone: {
+                    nameDone = true
+                    editingName = false
+                })
             } else if !store.onboarded, !tasteDone {
-                // 05 — optional and skippable.
-                AudienceGenresScreen(onDone: { tasteDone = true }, onBack: { nameDone = false })
+                // 2 of 3 — optional and skippable. Back reopens the name, which
+                // by now is saved, so it needs saying that it is being edited.
+                AudienceGenresScreen(onDone: { tasteDone = true }, onBack: {
+                    editingName = true
+                    nameDone = false
+                })
             } else if !store.onboarded, !showcaseDone {
                 // OB-04 — five worlds and a way in.
                 ShowcaseScreen(

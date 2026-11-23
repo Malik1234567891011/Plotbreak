@@ -6,6 +6,11 @@ import SwiftUI
 // purpose — as silhouettes with their rarity, their story, the odds and a hint —
 // because a shape you can see and do not have is the reason to go back in.
 // Sorted rarest first so the top of the screen is always the most wanted thing.
+//
+// Design v3 (docs/design-v3/AUDIT.md, rules 1-7): the relics are the loud
+// thing, in their rarity frames; everything around them is plain SF. The
+// counts are one inline line, the rarity sections are sentence-case headings
+// in the rarity's colour, the filters are the standard chips.
 
 struct RelicVaultScreen: View {
     /// Where the player came from, for `relic_vault_opened`: "profile" or "reveal".
@@ -29,25 +34,38 @@ struct RelicVaultScreen: View {
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                ScreenHeader(title: t("relics.vault_title"), backLabel: t("story.back"), onBack: { router.dismissSheet() })
+                ScreenHeader(backLabel: t("story.back"), onBack: { router.dismissSheet() })
 
                 if let vault {
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 22) {
-                            summary(vault)
-                            filters(vault)
+                        VStack(alignment: .leading, spacing: 0) {
+                            Text(t("relics.vault_title"))
+                                .font(.system(size: 28, weight: .bold))
+                                .foregroundStyle(Theme.Colors.textPrimary)
+                                .accessibilityAddTraits(.isHeader)
+                            summary
+                                .padding(.top, 6)
+                            if vault.stories.count > 1 {
+                                filters(vault)
+                                    .padding(.top, Theme.Spacing.lg)
+                            }
                             ForEach(RelicRarity.allCases, id: \.self) { rarity in
                                 let items = shown.filter { RelicRarity($0.rarity) == rarity }
-                                if !items.isEmpty { section(rarity, items) }
+                                if !items.isEmpty {
+                                    section(rarity, items)
+                                        .padding(.top, Theme.Spacing.xxl)
+                                }
                             }
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.top, 12)
-                        .padding(.bottom, 48)
+                        .padding(.horizontal, Theme.pageGutter)
+                        .padding(.top, Theme.Spacing.xs)
+                        .padding(.bottom, Theme.Spacing.giant)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 } else if failed {
                     Spacer()
                     Text(t("relics.vault_closed"))
+                        .font(.system(size: 15))
                         .foregroundStyle(Theme.Colors.textMuted)
                     Spacer()
                 } else {
@@ -59,9 +77,10 @@ struct RelicVaultScreen: View {
         }
         .task { await load() }
         .sheet(item: $selected) { relic in
-            RelicDetailSheet(relic: relic)
+            RelicDetailSheet(relic: relic, locale: store.locale)
                 .presentationDetents([.large])
-                .presentationBackground(Color(hex: 0x07090D))
+                .presentationBackground(Theme.Colors.bgBase)
+                .presentationCornerRadius(Theme.Radius.large)
                 .preferredColorScheme(.dark)
         }
     }
@@ -78,80 +97,69 @@ struct RelicVaultScreen: View {
 
     // MARK: Pieces
 
-    private func summary(_ vault: RelicCollectionResponse) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .firstTextBaseline, spacing: 6) {
-                Text("\(vault.owned)")
-                    .font(.system(size: 44, weight: .bold, design: .serif))
-                    .foregroundStyle(.white)
-                Text("/ " + t("relics.found_of", ["total": vault.total]))
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(Theme.Colors.textSecondary)
-            }
-            GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    Capsule().fill(Theme.Colors.track)
-                    Capsule()
-                        .fill(LinearGradient(colors: [Color(hex: 0x3FA9FF), Color(hex: 0xB061FF), Color(hex: 0xFFB627), Color(hex: 0xFF4FB8)], startPoint: .leading, endPoint: .trailing))
-                        .frame(width: max(6, geo.size.width * CGFloat(vault.owned) / CGFloat(max(1, vault.total))))
-                }
-            }
-            .frame(height: 6)
-            HStack(spacing: 4) {
-                ForEach(RelicRarity.allCases, id: \.self) { rarity in
-                    let all = vault.relics.filter { RelicRarity($0.rarity) == rarity }
-                    VStack(spacing: 2) {
-                        Text("\(all.filter(\.owned).count)/\(all.count)")
-                            .font(.system(size: 13, weight: .bold).monospacedDigit())
-                            .foregroundStyle(.white)
-                        RarityTag(rarity: rarity, size: 8)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.6)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    .frame(maxWidth: .infinity)
-                }
+    /// "3 of 42 relics found", then one quiet count per rarity. For the story
+    /// picked in the filters when there is one, so the line answers the page
+    /// you are looking at.
+    private var summary: some View {
+        let relics = shown
+        let counts = RelicRarity.allCases.compactMap { rarity -> String? in
+            let all = relics.filter { RelicRarity($0.rarity) == rarity }
+            guard !all.isEmpty else { return nil }
+            return t("relics.rarity_count", [
+                "rarity": t("relics.rarity_\(rarity.rawValue.lowercased())"),
+                "owned": all.filter(\.owned).count,
+                "total": all.count,
+            ])
+        }
+        return VStack(alignment: .leading, spacing: 2) {
+            Text(t("relics.found_of", ["owned": relics.filter(\.owned).count, "total": relics.count]))
+                .font(.system(size: 15))
+                .monospacedDigit()
+                .foregroundStyle(Theme.Colors.textSecondary)
+            if !counts.isEmpty {
+                // i18n-exempt: the list separator between counts, not copy
+                Text(verbatim: counts.joined(separator: " · "))
+                    .font(.system(size: 13))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.Colors.textMuted)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
+        .accessibilityElement(children: .combine)
     }
 
     private func filters(_ vault: RelicCollectionResponse) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                pill(t("relics.filter_all"), count: "\(vault.owned)/\(vault.total)", on: storyFilter == nil) { storyFilter = nil }
+            HStack(spacing: Theme.Spacing.sm) {
+                Chip(t("relics.filter_all"), selected: storyFilter == nil) { pick(nil) }
                 ForEach(vault.stories) { story in
-                    pill(story.title, count: "\(story.owned)/\(story.total)", on: storyFilter == story.storyId) { storyFilter = story.storyId }
+                    Chip(story.title, selected: storyFilter == story.storyId) { pick(story.storyId) }
                 }
             }
+            .padding(.horizontal, Theme.pageGutter)
         }
+        .padding(.horizontal, -Theme.pageGutter)
     }
 
-    private func pill(_ label: String, count: String, on: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: { withAnimation(.easeOut(duration: 0.2)) { action() } }) {
-            HStack(spacing: 6) {
-                Text(label).font(.system(size: 14, weight: .semibold))
-                Text(count).font(.system(size: 12, weight: .medium).monospacedDigit()).opacity(0.6)
-            }
-            .foregroundStyle(on ? Theme.Colors.textOnLight : .white)
-            .padding(.horizontal, 14).padding(.vertical, 8)
-            .background(Capsule().fill(on ? Color.white : Theme.Colors.surfaceButton))
-        }
-        .buttonStyle(.plain)
+    private func pick(_ storyId: String?) {
+        withAnimation(.easeOut(duration: Theme.Durations.short)) { storyFilter = storyId }
     }
 
+    /// The rarity as a heading in its own colour, then its relics.
     private func section(_ rarity: RelicRarity, _ items: [RelicEntry]) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                RarityTag(rarity: rarity, size: 12)
-                Rectangle().fill(rarity.color.opacity(0.25)).frame(height: 1)
-            }
-            LazyVGrid(columns: columns, spacing: 12) {
+        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+            Text(t("relics.rarity_\(rarity.rawValue.lowercased())").sentenceCased)
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(rarity.color)
+                .accessibilityAddTraits(.isHeader)
+            LazyVGrid(columns: columns, spacing: 14) {
                 ForEach(items) { relic in
                     Button {
+                        Haptic.play(.light)
                         selected = relic
                         Telemetry.track(.relicViewed, ["relicId": relic.id, "rarity": relic.rarity, "owned": relic.owned])
                     } label: { RelicCell(relic: relic) }
-                        .buttonStyle(.plain)
+                        .buttonStyle(PressOpacityStyle(pressed: 0.8))
                 }
             }
         }
@@ -165,41 +173,46 @@ struct RelicCell: View {
     private var rarity: RelicRarity { RelicRarity(relic.rarity) }
 
     var body: some View {
-        VStack(spacing: 6) {
+        VStack(alignment: .leading, spacing: 6) {
             ZStack(alignment: .topTrailing) {
                 RelicArt(url: relic.imageUrl, rarity: rarity, owned: relic.owned, animated: relic.owned)
                     .padding(12)
                     .frame(maxWidth: .infinity)
                     .aspectRatio(1, contentMode: .fit)
-                    .relicFrame(rarity, owned: relic.owned, cornerRadius: 16)
+                    // Design v3: art at an 8pt corner. The rarity frame stays:
+                    // it is part of the item, not a box around it.
+                    .relicFrame(rarity, owned: relic.owned, cornerRadius: 8)
                 if relic.count > 1 {
-                    Text("×\(relic.count)")
+                    Text(verbatim: "×\(relic.count)")
                         .font(.system(size: 11, weight: .bold))
-                        .foregroundStyle(.white)
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.Colors.textPrimary)
                         .padding(.horizontal, 6).padding(.vertical, 2)
                         .background(Capsule().fill(rarity.color.opacity(0.85)))
                         .padding(6)
                 } else if !relic.owned {
                     Image(systemName: "lock.fill")
                         .font(.system(size: 10))
-                        .foregroundStyle(.white.opacity(0.45))
+                        .foregroundStyle(Theme.Colors.textMuted)
                         .padding(8)
                 }
             }
             Text(relic.name)
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundStyle(relic.owned ? .white : Theme.Colors.textMuted)
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(relic.owned ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
                 .lineLimit(2)
-                .multilineTextAlignment(.center)
-                .frame(height: 30, alignment: .top)
+                .frame(maxWidth: .infinity, minHeight: 32, alignment: .topLeading)
             if !relic.owned {
-                Text("\(relicChanceLabel(relic.chancePercent)) · \(relicTimingLabel(relic.timing, t))")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(rarity.color.opacity(0.8))
+                // i18n-exempt: the separator between two catalogue strings
+                Text(verbatim: "\(relicChanceLabel(relic.chancePercent)) · \(relicTimingLabel(relic.timing, t))")
+                    .font(.system(size: 11))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.Colors.textMuted)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.8)
+                    .minimumScaleFactor(0.85)
             }
         }
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -208,6 +221,7 @@ struct RelicCell: View {
 /// One relic, big. Drag to tilt it and the foil follows your finger.
 struct RelicDetailSheet: View {
     let relic: RelicEntry
+    let locale: AppLocale
     @Environment(\.translator) private var t
     @Environment(\.dismiss) private var dismiss
     @State private var tilt: CGSize = .zero
@@ -217,58 +231,78 @@ struct RelicDetailSheet: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 22) {
+            VStack(alignment: .leading, spacing: 0) {
                 HStack {
                     Spacer()
                     Button { dismiss() } label: {
                         Image(systemName: "xmark")
                             .font(.system(size: 15, weight: .semibold))
-                            .foregroundStyle(.white.opacity(0.7))
+                            .foregroundStyle(Theme.Colors.textPrimary)
                             .frame(width: 36, height: 36)
-                            .background(Circle().fill(.white.opacity(0.08)))
+                            .background(Theme.Colors.bgRaised, in: Circle())
+                            .frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
+                            .contentShape(Rectangle())
                     }
+                    .buttonStyle(PressOpacityStyle())
+                    .accessibilityLabel(t("misc.close"))
                 }
+                .padding(.top, Theme.Spacing.sm)
 
                 hero
+                    .frame(maxWidth: .infinity)
 
-                VStack(spacing: 8) {
-                    RarityTag(rarity: rarity, size: 13)
-                    Text(relic.name)
-                        .font(.system(size: 30, weight: .bold, design: .serif))
-                        .foregroundStyle(.white)
-                        .multilineTextAlignment(.center)
-                    Text(relic.owned
-                         ? (relic.flavor ?? "")
-                         : t("relics.locked_flavor"))
-                        .font(.system(size: 16, design: .serif).italic())
-                        .foregroundStyle(.white.opacity(relic.owned ? 0.78 : 0.4))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 12)
-                }
+                Text(relic.name)
+                    .font(.system(size: 28, weight: .bold))
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityAddTraits(.isHeader)
+                    .padding(.top, Theme.Spacing.sm)
+                Text(t("relics.rarity_\(rarity.rawValue.lowercased())").sentenceCased)
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundStyle(rarity.color)
+                    .padding(.top, 2)
+                // In-world words, so the story's serif; upright, not italic.
+                Text(relic.owned ? (relic.flavor ?? "") : t("relics.locked_flavor"))
+                    .font(.system(size: 17, design: .serif))
+                    .foregroundStyle(relic.owned ? Theme.Colors.textSecondary : Theme.Colors.textMuted)
+                    .lineSpacing(4)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, Theme.Spacing.md)
 
                 VStack(spacing: 0) {
-                    row(t("relics.row_found_in"), relic.storyTitle)
-                    row(t("relics.row_when"), relicTimingLabel(relic.timing, t))
-                    row(t("relics.row_chance"), t("relics.row_chance_value", ["chance": relicChanceLabel(relic.chancePercent)]))
-                    row(t("relics.row_hint"), "“\(relic.hint)”")
-                    if relic.owned {
-                        row(t("relics.row_count"), relic.count == 1 ? "1" : "\(relic.count)")
-                        if let first = relic.firstFoundAt.flatMap(Self.date) {
-                            row(t("relics.row_first"), first)
+                    let rows = detailRows
+                    ForEach(Array(rows.enumerated()), id: \.offset) { index, item in
+                        row(item.label, item.value)
+                        if index < rows.count - 1 {
+                            Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5)
+                                .padding(.leading, Theme.Spacing.lg)
                         }
                     }
                 }
-                .background(RoundedRectangle(cornerRadius: 16).fill(.white.opacity(0.04)))
-                .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(rarity.color.opacity(0.25)))
+                .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .padding(.top, Theme.Spacing.xxl)
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 40)
+            .padding(.horizontal, Theme.pageGutter)
+            .padding(.bottom, Theme.Spacing.huge)
         }
-        .background(
-            RadialGradient(colors: [rarity.color.opacity(0.28 * rarity.intensity + 0.06), .clear], center: .top, startRadius: 20, endRadius: 520)
-                .ignoresSafeArea()
-        )
+        .background(Theme.Colors.bgBase.ignoresSafeArea())
         .onAppear { withAnimation(.easeInOut(duration: 2.6).repeatForever(autoreverses: true)) { floating = true } }
+    }
+
+    private var detailRows: [(label: String, value: String)] {
+        var rows: [(label: String, value: String)] = [
+            (t("relics.row_found_in"), relic.storyTitle),
+            (t("relics.row_when"), relicTimingLabel(relic.timing, t)),
+            (t("relics.row_chance"), t("relics.row_chance_value", ["chance": relicChanceLabel(relic.chancePercent)])),
+            (t("relics.row_hint"), "“\(relic.hint)”"),
+        ]
+        if relic.owned {
+            rows.append((t("relics.row_count"), Format.number(relic.count, locale: locale)))
+            if let first = relic.firstFoundAt.flatMap(date) {
+                rows.append((t("relics.row_first"), first))
+            }
+        }
+        return rows
     }
 
     private var hero: some View {
@@ -278,10 +312,10 @@ struct RelicDetailSheet: View {
                     .frame(width: 320, height: 320)
             }
             RelicArt(url: relic.imageUrl, rarity: rarity, owned: relic.owned, animated: relic.owned)
-                .frame(width: 260, height: 260)
+                .frame(width: 240, height: 240)
                 .offset(y: floating ? -6 : 6)
         }
-        .frame(height: 320)
+        .frame(height: 300)
         .rotation3DEffect(.degrees(Double(tilt.width) / 6), axis: (x: 0, y: 1, z: 0))
         .rotation3DEffect(.degrees(Double(-tilt.height) / 6), axis: (x: 1, y: 0, z: 0))
         .gesture(
@@ -291,88 +325,30 @@ struct RelicDetailSheet: View {
                 }
                 .onEnded { _ in withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) { tilt = .zero } }
         )
+        .accessibilityHidden(true)
     }
 
     private func row(_ label: String, _ value: String) -> some View {
-        HStack(alignment: .top) {
+        HStack(alignment: .top, spacing: Theme.Spacing.md) {
             Text(label)
-                .font(.system(size: 13, weight: .medium))
+                .font(.system(size: 15))
                 .foregroundStyle(Theme.Colors.textMuted)
-                .frame(width: 96, alignment: .leading)
+                .frame(width: 104, alignment: .leading)
             Text(value)
-                .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(.white)
+                .font(.system(size: 15))
+                .foregroundStyle(Theme.Colors.textPrimary)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .padding(.horizontal, Theme.Spacing.lg)
+        .padding(.vertical, 13)
+        .accessibilityElement(children: .combine)
     }
 
-    private static func date(_ iso: String) -> String? {
+    private func date(_ iso: String) -> String? {
         let parser = ISO8601DateFormatter()
         parser.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         guard let date = parser.date(from: iso) ?? ISO8601DateFormatter().date(from: iso) else { return nil }
-        return date.formatted(date: .abbreviated, time: .omitted)
-    }
-}
-
-// MARK: - Profile entry
-
-/// The vault's door on Profile: a strip of the best things you own, or the
-/// shapes of what you do not, and the count. Hidden entirely while relics are
-/// off for this player — the endpoint 404s and nothing renders.
-struct RelicVaultCard: View {
-    let vault: RelicCollectionResponse
-    let onOpen: () -> Void
-    @Environment(\.translator) private var t
-
-    /// Four slots, always: your best finds first, then the shapes of the
-    /// rarest things you do not have yet.
-    private var showcase: [RelicEntry] {
-        let byRarity = { (a: RelicEntry, b: RelicEntry) in RelicRarity(a.rarity).sortIndex < RelicRarity(b.rarity).sortIndex }
-        let owned = vault.relics.filter(\.owned).sorted(by: byRarity)
-        let locked = vault.relics.filter { !$0.owned }.sorted(by: byRarity)
-        return Array((owned + locked).prefix(4))
-    }
-
-    var body: some View {
-        Button(action: onOpen) {
-            VStack(alignment: .leading, spacing: 14) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(t("relics.card_label"))
-                            .font(.system(size: 11, weight: .heavy))
-                            .tracking(2)
-                            .foregroundStyle(.white.opacity(0.6))
-                        Text(t("relics.card_count", ["owned": vault.owned, "total": vault.total]))
-                            .font(.system(size: 20, weight: .bold, design: .serif))
-                            .foregroundStyle(.white)
-                    }
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(.white.opacity(0.5))
-                }
-                HStack(spacing: 10) {
-                    ForEach(showcase) { relic in
-                        RelicArt(url: relic.imageUrl, rarity: RelicRarity(relic.rarity), owned: relic.owned, animated: false)
-                            .padding(8)
-                            .frame(maxWidth: .infinity)
-                            .aspectRatio(1, contentMode: .fit)
-                            .relicFrame(RelicRarity(relic.rarity), owned: relic.owned, cornerRadius: 12)
-                    }
-                }
-            }
-            .padding(16)
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(LinearGradient(colors: [Color(hex: 0x1A1430), Color(hex: 0x0E1118)], startPoint: .topLeading, endPoint: .bottomTrailing))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .strokeBorder(RelicRarity.MYTHIC.gradient, lineWidth: 1)
-                    .opacity(0.6)
-            )
-        }
-        .buttonStyle(.plain)
+        return Format.date(date, locale: locale, style: .medium)
     }
 }

@@ -44,9 +44,15 @@ export const profile = {
   'badges.ready': 'Ready to collect',
   'badges.in_progress': 'In progress',
   'badges.earned': 'Earned',
-  'badges.claim': 'Collect {credits}',
+  /** Design v3: the ◆ is drawn as the crystal (`Text.crystals`). */
+  'badges.claim': 'Collect ◆{credits}',
   'badges.claim_a11y': 'Collect {credits} credits for {title}.',
   'badges.progress': '{done} of {target}',
+  /**
+   * Design v3: what a badge still pays, quiet at the end of its row. The ◆ is
+   * drawn as the crystal; VoiceOver reads `badges.reward_a11y` instead.
+   */
+  'badges.reward': '◆{credits}',
   'badges.guest': 'Sign in to keep the badges you earn.',
   /**
    * The gear in Profile's corner, and the screen behind it.

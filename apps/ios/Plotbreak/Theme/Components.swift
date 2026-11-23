@@ -322,7 +322,9 @@ enum DeltaKind: String {
 
     var glyph: String {
         switch self {
-        case .resource: return "◆"
+        // A resource is Suspicion or Heat, not money: a dot, so it never
+        // reads as the currency mark (design v3 has one, the crystal).
+        case .resource: return "●"
         case .relationship: return "♥"
         case .item: return "▣"
         case .quest: return "❯"
