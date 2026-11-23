@@ -7,23 +7,17 @@
    506,
    691,
    733
-  ],
-  [
-   548,
-   1262,
-   800,
-   1500
   ]
  ],
  "layers": [
   {
    "type": "spot",
    "at": [
-    0.2,
+    0.3,
     0.86
    ],
    "r": [
-    520,
+    620,
     380
    ],
    "color": "#020a04",
@@ -33,31 +27,32 @@
    "type": "text",
    "id": "banner",
    "at": [
-    0.03,
-    0.733
+    0.04,
+    0.772
    ],
-   "anchor": "tl",
+   "anchor": "bl",
+   "dx": 34,
    "lines": [
     {
-     "text": "THE HERO’S",
+     "text": "THE HERO\u2019S",
      "font": "Marcellus",
-     "size": 58,
+     "size": 96,
      "tracking": 0.08,
      "fill": "#3a2408",
      "innerShadow": {
       "dx": 0,
-      "dy": 2,
-      "blur": 1.5,
+      "dy": 3,
+      "blur": 2,
       "color": "#000000",
       "opacity": 0.7
      },
      "strokes": [
       {
-       "width": 1.5,
+       "width": 2.2,
        "fill": "#fff3c4",
        "offset": [
         0,
-        2
+        3
        ],
        "opacity": 0.8
       }
@@ -69,61 +64,60 @@
      "shape": "banner",
      "of": 0,
      "pad": [
-      30,
-      18,
-      30,
-      16
+      50,
+      28,
+      50,
+      26
      ],
      "ends": [
       "notch",
       "notch"
      ],
-     "depth": 26,
+     "depth": 42,
      "fill": {
       "metal": "gold",
       "horizon": 0.52
      },
      "bevel": {
-      "depth": 4,
+      "depth": 6,
       "highlight": 0.5,
       "shadow": 0.4
      },
      "strokes": [
       {
-       "width": 4,
+       "width": 6,
        "fill": "#2a1604"
       }
      ],
      "shadow": [
       {
        "dx": 0,
-       "dy": 8,
-       "blur": 10,
+       "dy": 12,
+       "blur": 14,
        "opacity": 0.6
       }
      ]
     }
-   ],
-   "dx": 12
+   ]
   },
   {
    "type": "text",
    "id": "tag",
    "at": [
-    0.252,
-    0.909
+    0.39,
+    0.762
    ],
-   "anchor": "bc",
-   "rotate": -8,
+   "anchor": "tc",
+   "rotate": -4,
    "lines": [
     {
      "text": "SPARE",
      "font": "Gochi Hand",
-     "width": 380,
+     "width": 612,
      "fill": "#141414",
      "rough": {
-      "amount": 0.8,
-      "scale": 5
+      "amount": 1.2,
+      "scale": 6
      }
     }
    ],
@@ -132,18 +126,18 @@
      "shape": "plate",
      "of": 0,
      "pad": [
-      40,
-      90,
-      40,
-      24
+      70,
+      140,
+      70,
+      34
      ],
-     "radius": 18,
+     "radius": 28,
      "fill": "#fbfaf6",
      "shadow": [
       {
-       "dx": 4,
-       "dy": 10,
-       "blur": 10,
+       "dx": 6,
+       "dy": 14,
+       "blur": 14,
        "opacity": 0.55
       }
      ]
@@ -153,10 +147,10 @@
      "of": 0,
      "to": "tc",
      "anchor": "tc",
-     "dy": -90,
-     "w": 460,
-     "h": 74,
-     "radius": 18,
+     "dy": -140,
+     "w": 752,
+     "h": 112,
+     "radius": 28,
      "fill": "#d42a2a"
     },
     {
@@ -164,9 +158,9 @@
      "of": 0,
      "to": "tc",
      "anchor": "tc",
-     "dy": -50,
-     "w": 460,
-     "h": 34,
+     "dy": -84.0,
+     "w": 752,
+     "h": 56.0,
      "fill": "#d42a2a"
     }
    ]
@@ -176,17 +170,19 @@
    "id": "hello",
    "role": "deco",
    "at": [
-    0.217,
-    0.819
+    0.39,
+    0.762
    ],
    "anchor": "mc",
-   "rotate": -8,
+   "rotate": -4,
+   "dx": 3.9,
+   "dy": 55.9,
    "lines": [
     {
      "text": "HELLO, MY NAME IS",
      "font": "Marcellus",
-     "size": 30,
-     "tracking": 0.22,
+     "size": 46,
+     "tracking": 0.2,
      "fill": "#ffffff"
     }
    ]

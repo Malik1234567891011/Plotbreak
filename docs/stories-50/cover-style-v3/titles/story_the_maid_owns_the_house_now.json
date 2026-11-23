@@ -17,69 +17,55 @@
  ],
  "layers": [
   {
-   "type": "spot",
-   "at": [
-    0.16,
-    0.86
-   ],
-   "r": [
-    520,
-    320
-   ],
-   "color": "#fff1c8",
-   "opacity": 0.35,
-   "blend": "screen"
-  },
-  {
    "type": "text",
    "id": "title",
    "at": [
-    0.04,
-    0.885
+    0.035,
+    0.958
    ],
    "anchor": "bl",
    "align": "left",
-   "gap": 10,
+   "gap": 22,
    "lines": [
     {
-     "text": "The Maid",
+     "text": "THE MAID",
      "font": "Playfair Display",
-     "weight": 800,
-     "italic": true,
-     "width": 600,
+     "weight": 900,
+     "width": 800,
+     "tracking": 0.02,
      "fill": {
       "gradient": [
-       "#127a4d",
-       "#0b4f33",
-       "#06301f"
+       "#fffbf2",
+       "#f7ecd2",
+       "#e9d6a8"
       ],
       "stops": [
        0,
-       0.55,
+       0.6,
        1
-      ]
-     },
-     "inline": {
-      "inset": 5,
-      "width": 2.2,
-      "fill": {
-       "metal": "gold",
-       "horizon": 0.5
-      }
+      ],
+      "angle": 90
      },
      "strokes": [
       {
-       "width": 4,
-       "fill": "#fff4d6"
+       "width": 4.5,
+       "fill": "#1a0f02"
+      },
+      {
+       "width": 2.6,
+       "fill": {
+        "metal": "gold",
+        "horizon": 0.5
+       }
       }
      ],
      "shadow": [
       {
        "dx": 0,
-       "dy": 6,
-       "blur": 10,
-       "opacity": 0.45,
-       "color": "#2a1a04"
+       "dy": 5,
+       "blur": 6,
+       "color": "#000000",
+       "opacity": 0.6
       }
      ]
     },
@@ -87,38 +73,84 @@
      "text": "OWNS THE HOUSE",
      "font": "Playfair Display",
      "weight": 700,
-     "tracking": 0.16,
-     "fill": "#0b4f33",
-     "dx": 6,
+     "width": 640,
+     "tracking": 0.24,
+     "fill": {
+      "metal": "gold",
+      "horizon": 0.5
+     },
+     "dx": 6
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "pad": [
+      40,
+      36,
+      52,
+      34
+     ],
+     "radius": 6,
+     "fill": {
+      "texture": "noise",
+      "base": {
+       "gradient": [
+        "#0f5a3a",
+        "#0a3a26",
+        "#04170e"
+       ],
+       "stops": [
+        0,
+        0.5,
+        1
+       ],
+       "angle": 90
+      },
+      "color": "#000000",
+      "strength": 0.18,
+      "scale": 3
+     },
+     "inline": {
+      "inset": 11,
+      "width": 2.2,
+      "fill": {
+       "metal": "gold"
+      }
+     },
      "strokes": [
       {
        "width": 3,
-       "fill": "#fff4d6"
+       "fill": "#2a1a04"
       }
      ],
+     "gloss": {
+      "height": 0.35,
+      "opacity": 0.12
+     },
      "shadow": [
       {
        "dx": 0,
-       "dy": 3,
-       "blur": 5,
-       "opacity": 0.4,
-       "color": "#2a1a04"
+       "dy": 12,
+       "blur": 18,
+       "color": "#000000",
+       "opacity": 0.55
       }
-     ],
-     "width": 540
+     ]
     }
    ],
    "ornaments": [
     {
      "shape": "rule",
      "of": 1,
-     "to": "bl",
-     "anchor": "tl",
-     "dy": 14,
-     "w": 400,
+     "to": "tc",
+     "anchor": "bc",
+     "dy": -10,
+     "w": 640,
      "h": 12,
-     "thickness": 3,
-     "ends": "diamond",
+     "thickness": 2,
+     "center": "diamond",
      "size": 12,
      "fill": {
       "metal": "gold"
@@ -130,19 +162,29 @@
    "type": "text",
    "id": "now",
    "at": [
-    0.5,
-    0.918
+    0.718,
+    0.772
    ],
    "anchor": "mc",
-   "rotate": -10,
+   "rotate": -8,
    "lines": [
     {
      "text": "NOW",
      "font": "Rubik Dirt",
-     "size": 100,
+     "size": 190,
      "tracking": 0.06,
-     "fill": "#e2232c",
-     "opacity": 0.95
+     "fill": "#ff2d2d",
+     "opacity": 1.0,
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 0,
+       "blur": 10,
+       "spread": 4,
+       "color": "#1a0204",
+       "opacity": 0.55
+      }
+     ]
     }
    ],
    "backing": [
@@ -150,25 +192,25 @@
      "shape": "plate",
      "of": 0,
      "pad": [
-      26,
-      18,
-      26,
-      18
+      36,
+      22,
+      36,
+      22
      ],
-     "radius": 10,
+     "radius": 14,
      "fill": "clear",
      "strokes": [
       {
-       "width": 11,
-       "fill": "#e2232c"
+       "width": 15,
+       "fill": "#ff2d2d"
       },
       {
-       "width": 8,
+       "width": 10,
        "fill": "clear"
       },
       {
-       "width": 5,
-       "fill": "#e2232c"
+       "width": 6,
+       "fill": "#ff2d2d"
       },
       {
        "width": 0,
@@ -176,11 +218,21 @@
       }
      ],
      "distress": {
-      "amount": 0.22,
-      "scale": 10,
+      "amount": 0.16,
+      "scale": 12,
       "edge": 0.3
      },
-     "opacity": 0.95
+     "opacity": 1.0,
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 0,
+       "blur": 8,
+       "spread": 3,
+       "color": "#1a0204",
+       "opacity": 0.5
+      }
+     ]
     }
    ]
   }

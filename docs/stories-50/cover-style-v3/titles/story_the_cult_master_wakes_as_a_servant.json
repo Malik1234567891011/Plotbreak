@@ -10,20 +10,25 @@
   ]
  ],
  "styles": {
-  "dry-ink": {
+  "paper": {
    "font": "Protest Revolution",
    "fill": {
     "texture": "brush",
-    "base": "#121212",
-    "color": "#6b6b6b",
-    "strength": 0.42,
-    "scale": 34,
-    "stretch": 16
+    "base": "#f7f4ec",
+    "color": "#9a968c",
+    "strength": 0.35,
+    "scale": 30,
+    "stretch": 14
    },
    "rough": {
-    "amount": 1.6,
+    "amount": 2.2,
     "scale": 6,
-    "grit": 0.35
+    "grit": 0.45
+   },
+   "distress": {
+    "amount": 0.16,
+    "scale": 5,
+    "edge": 0.5
    }
   },
   "splat": {
@@ -37,54 +42,101 @@
  "layers": [
   {
    "type": "text",
-   "id": "top",
+   "id": "title",
    "at": [
-    0.975,
-    0.022
+    0.5,
+    0.826
    ],
-   "anchor": "tr",
-   "align": "right",
-   "gap": -4,
+   "anchor": "mc",
+   "rotate": -6,
+   "align": "left",
+   "gap": 6,
    "lines": [
     {
-     "use": "dry-ink",
+     "use": "paper",
      "text": "THE CULT",
-     "width": 372,
-     "dx": -10
+     "cap": 74,
+     "tracking": 0.06,
+     "dx": 8
     },
     {
-     "use": "dry-ink",
+     "use": "paper",
      "text": "MASTER",
-     "width": 416,
-     "gap": -2
+     "width": 860,
+     "tracking": 0.02,
+     "gap": 2
+    },
+    {
+     "text": "WAKES AS A SERVANT",
+     "font": "Shippori Mincho B1",
+     "weight": 800,
+     "cap": 45,
+     "tracking": 0.07,
+     "fill": "#f7f4ec",
+     "gap": 34,
+     "dx": 40
     }
    ],
-   "backing": [],
-   "ornaments": [
+   "backing": [
     {
      "shape": "swash",
-     "of": 1,
-     "to": "bl",
-     "anchor": "tl",
-     "dx": 16,
-     "dy": 10,
-     "w": 410,
-     "h": 24,
-     "fill": "#121212",
-     "tilt": -1.5,
-     "curve": 3,
-     "head": 0.03,
-     "tail": 0.5,
-     "dry": 0.9
+     "of": "block",
+     "pad": [
+      70,
+      50,
+      260,
+      46
+     ],
+     "fill": "#111111",
+     "tilt": 0,
+     "curve": 10,
+     "head": 0.05,
+     "tail": 0.16,
+     "dry": 0.8,
+     "dryAll": 0.02,
+     "rough": {
+      "amount": 3,
+      "scale": 8,
+      "grit": 0.5
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "rule",
+     "of": 2,
+     "to": "tc",
+     "anchor": "bc",
+     "dy": -14,
+     "w": 820,
+     "h": 10,
+     "thickness": 3.5,
+     "taper": true,
+     "fill": "#d0202c"
+    },
+    {
+     "shape": "seal",
+     "of": "block",
+     "to": "tr",
+     "anchor": "mc",
+     "dx": -200,
+     "dy": 24,
+     "w": 112,
+     "h": 112,
+     "text": "\u6559\u4e3b",
+     "font": "Shippori Mincho B1",
+     "style": "intaglio",
+     "fill": "#c8202c",
+     "rotate": 5
     },
     {
      "shape": "dot",
      "use": "splat",
      "of": "block",
-     "to": "bl",
+     "to": "tl",
      "anchor": "mc",
-     "dx": 26,
-     "dy": 40,
+     "dx": -40,
+     "dy": -50,
      "w": 22,
      "h": 20
     },
@@ -92,10 +144,10 @@
      "shape": "dot",
      "use": "splat",
      "of": "block",
-     "to": "bl",
+     "to": "tl",
      "anchor": "mc",
-     "dx": 66,
-     "dy": 56,
+     "dx": 10,
+     "dy": -70,
      "w": 9,
      "h": 9
     },
@@ -105,19 +157,8 @@
      "of": "block",
      "to": "bl",
      "anchor": "mc",
-     "dx": 4,
-     "dy": 74,
-     "w": 7,
-     "h": 6
-    },
-    {
-     "shape": "dot",
-     "use": "splat",
-     "of": "block",
-     "to": "tl",
-     "anchor": "mc",
-     "dx": 70,
-     "dy": 114,
+     "dx": 120,
+     "dy": 70,
      "w": 14,
      "h": 13
     },
@@ -125,12 +166,12 @@
      "shape": "dot",
      "use": "splat",
      "of": "block",
-     "to": "br",
+     "to": "bl",
      "anchor": "mc",
-     "dx": -40,
-     "dy": 48,
-     "w": 12,
-     "h": 11
+     "dx": 60,
+     "dy": 84,
+     "w": 7,
+     "h": 6
     },
     {
      "shape": "dot",
@@ -138,68 +179,13 @@
      "of": "block",
      "to": "br",
      "anchor": "mc",
-     "dx": -90,
-     "dy": 66,
-     "w": 6,
-     "h": 6
-    }
-   ]
-  },
-  {
-   "type": "text",
-   "id": "bottom",
-   "at": [
-    0.975,
-    0.49
-   ],
-   "anchor": "tr",
-   "align": "right",
-   "gap": 6,
-   "style": {
-    "font": "Shippori Mincho B1",
-    "weight": 800,
-    "fill": "#121212"
-   },
-   "lines": [
-    {
-     "text": "WAKES AS A",
-     "width": 226,
-     "tracking": 0.3
-    },
-    {
-     "text": "SERVANT",
-     "width": 228,
-     "tracking": 0.04
+     "dx": 40,
+     "dy": -60,
+     "w": 10,
+     "h": 10
     }
    ],
-   "ornaments": [
-    {
-     "shape": "rule",
-     "of": "block",
-     "to": "bc",
-     "anchor": "tc",
-     "dy": 14,
-     "w": 236,
-     "h": 12,
-     "thickness": 2,
-     "fill": "#121212",
-     "taper": true
-    },
-    {
-     "shape": "seal",
-     "of": "block",
-     "to": "br",
-     "anchor": "tr",
-     "dy": 42,
-     "w": 96,
-     "h": 96,
-     "text": "教主",
-     "font": "Shippori Mincho B1",
-     "style": "intaglio",
-     "fill": "#c8202c",
-     "rotate": 4
-    }
-   ]
+   "bleed": true
   }
  ]
 }

@@ -1,83 +1,1659 @@
 {
-  "storyId": "story_every_platform_a_world", "seed": 3, "avoid": [[560, 170, 880, 560], [470, 560, 830, 800]],
-  "layers": [
-    {
-      "type": "shape", "shape": "plate", "at": [0.1, 0.0], "anchor": "tc", "w": 7, "h": 134, "bleed": true,
-      "fill": {"metal": "steel", "angle": 0}, "strokes": [{"width": 1.5, "fill": "#0c0f16"}],
-      "shadow": [{"dx": 3, "dy": 4, "blur": 4, "color": "#000000", "opacity": 0.45}]
-    },
-    {
-      "type": "shape", "shape": "plate", "at": [0.374, 0.0], "anchor": "tc", "w": 7, "h": 134, "bleed": true,
-      "fill": {"metal": "steel", "angle": 0}, "strokes": [{"width": 1.5, "fill": "#0c0f16"}],
-      "shadow": [{"dx": 3, "dy": 4, "blur": 4, "color": "#000000", "opacity": 0.45}]
-    },
-    {
-      "type": "text", "id": "sign", "at": [0.237, 0.068], "anchor": "tc", "gap": 10,
-      "lines": [
-        {"text": "EVERY", "font": "Train One", "size": 52, "tracking": 0.55, "fill": "#f3e8c9"},
-        {"text": "PLATFORM", "font": "Train One", "width": 392, "scale": [0.68, 1.06], "fill": "#f3e8c9"}
-      ],
-      "backing": [
-        {
-          "shape": "plate", "of": "block", "pad": [34, 26, 34, 30], "radius": 14,
-          "fill": {"gradient": ["#2a3d72", "#1c2b55", "#142044"], "angle": 90},
-          "gloss": {"height": 0.5, "opacity": 0.18}, "inline": {"inset": 11, "width": 2.5, "fill": "#f3e8c9"},
-          "strokes": [{"width": 11, "fill": "#0c1430"}, {"width": 8, "fill": "#f3e8c9"}],
-          "shadow": [{"dx": 0, "dy": 12, "blur": 16, "color": "#000000", "opacity": 0.5}]
-        }
-      ]
-    },
-    {
-      "type": "shape", "shape": "dot", "at": [0.1, 0.0705], "anchor": "mc", "w": 20, "h": 20,
-      "fill": {"metal": "steel"}, "strokes": [{"width": 2, "fill": "#0c0f16"}]
-    },
-    {
-      "type": "shape", "shape": "dot", "at": [0.374, 0.0705], "anchor": "mc", "w": 20, "h": 20,
-      "fill": {"metal": "steel"}, "strokes": [{"width": 2, "fill": "#0c0f16"}]
-    },
-    {
-      "type": "text", "id": "ticket", "at": [0.262, 0.182], "anchor": "tc", "rotate": 5,
-      "lines": [{"text": "A WORLD", "font": "Limelight", "size": 70, "tracking": 0.08, "fill": "#1c2b55"}],
-      "backing": [
-        {
-          "shape": "polygon", "of": "block", "pad": [52, 20, 52, 22],
-          "points": [
-            [0, 0],
-            [1, 0],
-            [1, 0.3],
-            [0.984, 0.307],
-            [0.97, 0.327],
-            [0.958, 0.359],
-            [0.948, 0.4],
-            [0.942, 0.448],
-            [0.94, 0.5],
-            [0.942, 0.552],
-            [0.948, 0.6],
-            [0.958, 0.641],
-            [0.97, 0.673],
-            [0.984, 0.693],
-            [1, 0.7],
-            [1, 1],
-            [0, 1],
-            [0, 0.7],
-            [0.016, 0.693],
-            [0.03, 0.673],
-            [0.042, 0.641],
-            [0.052, 0.6],
-            [0.058, 0.552],
-            [0.06, 0.5],
-            [0.058, 0.448],
-            [0.052, 0.4],
-            [0.042, 0.359],
-            [0.03, 0.327],
-            [0.016, 0.307],
-            [0, 0.3]
-          ],
-          "fill": {"metal": "gold", "horizon": 0.55}, "inline": {"inset": 9, "width": 1.6, "fill": "#7a5414"},
-          "strokes": [{"width": 3, "fill": "#5a3c0c"}],
-          "shadow": [{"dx": 4, "dy": 10, "blur": 12, "color": "#000000", "opacity": 0.5}]
-        }
-      ]
-    }
+ "storyId": "story_every_platform_a_world",
+ "seed": 3,
+ "avoid": [
+  [
+   560,
+   170,
+   880,
+   560
+  ],
+  [
+   470,
+   560,
+   830,
+   800
   ]
+ ],
+ "layers": [
+  {
+   "type": "shape",
+   "shape": "plate",
+   "box": [
+    0.03125,
+    0.7786697247706422,
+    0.96875,
+    0.9793577981651376
+   ],
+   "radius": 10,
+   "fill": {
+    "gradient": [
+     "#17181c",
+     "#0b0c0e"
+    ],
+    "angle": 90
+   },
+   "strokes": [
+    {
+     "width": 4,
+     "fill": "#6a7079"
+    },
+    {
+     "width": 1.5,
+     "fill": "#050506"
+    }
+   ],
+   "shadow": [
+    {
+     "dx": 0,
+     "dy": 10,
+     "blur": 18,
+     "color": "#000000",
+     "opacity": 0.6
+    }
+   ]
+  },
+  {
+   "type": "shape",
+   "shape": "polygon",
+   "box": [
+    0.057291666666666664,
+    0.9409403669724771,
+    0.5329861111111112,
+    0.9569954128440367
+   ],
+   "points": [
+    [
+     0,
+     0.43
+    ],
+    [
+     0.95,
+     0.43
+    ],
+    [
+     0.95,
+     0.0
+    ],
+    [
+     1.0,
+     0.5
+    ],
+    [
+     0.95,
+     1.0
+    ],
+    [
+     0.95,
+     0.57
+    ],
+    [
+     0,
+     0.57
+    ]
+   ],
+   "fill": "#f6ebcc",
+   "opacity": 0.85
+  },
+  {
+   "type": "text",
+   "at": [
+    0.07812,
+    0.80906
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "E",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.13542,
+    0.80906
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "V",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.19271,
+    0.80906
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "E",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.25,
+    0.80906
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "R",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.30729,
+    0.80906
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "Y",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.10428,
+    0.87901
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "P",
+     "font": "Train One",
+     "cap": 98,
+     "fill": "#f6ebcc",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 2,
+       "blur": 2,
+       "color": "#000000",
+       "opacity": 0.6
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 150,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#2b2c30",
+       "#1b1c1f",
+       "#101113"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 116.25,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.21734,
+    0.87901
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "L",
+     "font": "Train One",
+     "cap": 98,
+     "fill": "#f6ebcc",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 2,
+       "blur": 2,
+       "color": "#000000",
+       "opacity": 0.6
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 150,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#2b2c30",
+       "#1b1c1f",
+       "#101113"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 116.25,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.3304,
+    0.87901
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "A",
+     "font": "Train One",
+     "cap": 98,
+     "fill": "#f6ebcc",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 2,
+       "blur": 2,
+       "color": "#000000",
+       "opacity": 0.6
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 150,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#2b2c30",
+       "#1b1c1f",
+       "#101113"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 116.25,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.44347,
+    0.87901
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "T",
+     "font": "Train One",
+     "cap": 98,
+     "fill": "#f6ebcc",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 2,
+       "blur": 2,
+       "color": "#000000",
+       "opacity": 0.6
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 150,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#2b2c30",
+       "#1b1c1f",
+       "#101113"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 116.25,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.55653,
+    0.87901
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "F",
+     "font": "Train One",
+     "cap": 98,
+     "fill": "#f6ebcc",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 2,
+       "blur": 2,
+       "color": "#000000",
+       "opacity": 0.6
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 150,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#2b2c30",
+       "#1b1c1f",
+       "#101113"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 116.25,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.6696,
+    0.87901
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "O",
+     "font": "Train One",
+     "cap": 98,
+     "fill": "#f6ebcc",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 2,
+       "blur": 2,
+       "color": "#000000",
+       "opacity": 0.6
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 150,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#2b2c30",
+       "#1b1c1f",
+       "#101113"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 116.25,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.78266,
+    0.87901
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "R",
+     "font": "Train One",
+     "cap": 98,
+     "fill": "#f6ebcc",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 2,
+       "blur": 2,
+       "color": "#000000",
+       "opacity": 0.6
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 150,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#2b2c30",
+       "#1b1c1f",
+       "#101113"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 116.25,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.89572,
+    0.87901
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "M",
+     "font": "Train One",
+     "cap": 98,
+     "fill": "#f6ebcc",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 2,
+       "blur": 2,
+       "color": "#000000",
+       "opacity": 0.6
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 150,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#2b2c30",
+       "#1b1c1f",
+       "#101113"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 120.25,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 116.25,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.57812,
+    0.94897
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "A",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "shape",
+   "shape": "plate",
+   "at": [
+    0.63542,
+    0.94897
+   ],
+   "anchor": "mc",
+   "w": 60,
+   "h": 74,
+   "radius": 6,
+   "fill": {
+    "gradient": [
+     "#ffd06a",
+     "#ffb12c",
+     "#e48a12"
+    ],
+    "stops": [
+     0,
+     0.5,
+     1
+    ],
+    "angle": 90
+   },
+   "strokes": [
+    {
+     "width": 1.5,
+     "fill": "#050506"
+    }
+   ],
+   "gloss": {
+    "height": 0.5,
+    "opacity": 0.1
+   }
+  },
+  {
+   "type": "text",
+   "at": [
+    0.69271,
+    0.94897
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "W",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.75,
+    0.94897
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "O",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.80729,
+    0.94897
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "R",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.86458,
+    0.94897
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "L",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    0.92188,
+    0.94897
+   ],
+   "anchor": "mc",
+   "lines": [
+    {
+     "text": "D",
+     "font": "Train One",
+     "cap": 42,
+     "fill": "#1c1206",
+     "strokes": [
+      {
+       "width": 1.6,
+       "fill": "#1c1206"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 74,
+     "radius": 6,
+     "fill": {
+      "gradient": [
+       "#ffd06a",
+       "#ffb12c",
+       "#e48a12"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ],
+      "angle": 90
+     },
+     "strokes": [
+      {
+       "width": 1.5,
+       "fill": "#050506"
+      }
+     ],
+     "gloss": {
+      "height": 0.5,
+      "opacity": 0.1
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "mc",
+     "w": 60,
+     "h": 3.5,
+     "fill": "#050506",
+     "opacity": 0.9
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "to": "mc",
+     "anchor": "tc",
+     "dy": 2,
+     "w": 56,
+     "h": 1.5,
+     "fill": "#45474d",
+     "opacity": 0.8
+    }
+   ]
+  }
+ ]
 }
