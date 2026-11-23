@@ -47,43 +47,68 @@ struct PitchScreen: View {
     @ViewBuilder
     private func form(_ model: BuilderModel) -> some View {
         VStack(spacing: 0) {
-            ScreenHeader(title: t("create.new_story"), backLabel: t("misc.close"), backGlyph: "✕") {
-                router.pop()
+            // Design v3 (board frame Pitch): a plain back button; the
+            // question is the page title.
+            HStack {
+                Button {
+                    focused = false
+                    router.pop()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(PressOpacityStyle())
+                .accessibilityLabel(t("misc.close"))
+                Spacer(minLength: 0)
             }
+            .padding(.horizontal, Theme.Spacing.sm)
+            .frame(height: 52)
 
             ScrollView {
-                VStack(alignment: .leading, spacing: Theme.Spacing.xxl) {
+                VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
                     VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                        Txt(t("create.pitch_heading"), .h2)
-                        Txt(t("create.pitch_body"), .bodyCompact, color: Theme.Colors.textSecondary)
+                        Text(t("create.pitch_heading"))
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .accessibilityAddTraits(.isHeader)
+                        Text(t("create.pitch_body"))
+                            .font(.system(size: 15))
+                            .foregroundStyle(Theme.Colors.textMuted)
                     }
 
-                    VStack(alignment: .leading, spacing: 6) {
-                        TextEditor(text: $text)
-                            .focused($focused)
-                            .scrollContentBackground(.hidden)
-                            .font(Theme.TypeStyle.body.font())
-                            .foregroundStyle(Theme.Colors.textPrimary)
-                            .frame(minHeight: 180)
-                            .padding(Theme.Spacing.md)
-                            .background(Theme.Colors.bgElevated, in: RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
-                            .overlay {
-                                RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous)
-                                    .strokeBorder(focused ? Theme.Colors.accentPrimary : Theme.Colors.borderSubtle, lineWidth: focused ? 1 : 0.5)
+                    // A filled box, no outline; the count sits inside it.
+                    TextEditor(text: $text)
+                        .focused($focused)
+                        .scrollContentBackground(.hidden)
+                        .font(.system(size: 17))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .tint(Theme.Colors.textPrimary)
+                        .frame(minHeight: 150)
+                        .padding(.horizontal, 12)
+                        .padding(.top, 10)
+                        .padding(.bottom, 30)
+                        .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .overlay(alignment: .topLeading) {
+                            if text.isEmpty {
+                                Text(t("create.pitch_placeholder"))
+                                    .font(.system(size: 17))
+                                    .foregroundStyle(Theme.Colors.textMuted)
+                                    .padding(.horizontal, 17)
+                                    .padding(.top, 18)
+                                    .allowsHitTesting(false)
                             }
-                            .overlay(alignment: .topLeading) {
-                                if text.isEmpty {
-                                    Txt(t("create.pitch_placeholder"), .body, color: Theme.Colors.textMuted)
-                                        .padding(.horizontal, Theme.Spacing.md + 5)
-                                        .padding(.top, Theme.Spacing.md + 8)
-                                        .allowsHitTesting(false)
-                                }
-                            }
-                        HStack {
-                            Spacer()
-                            Txt("\(text.count)/1500", .micro, color: Theme.Colors.textMuted)
                         }
-                    }
+                        .overlay(alignment: .bottomTrailing) {
+                            Text(verbatim: "\(text.count.formatted()) / \(1500.formatted())")
+                                .font(.system(size: 13))
+                                .monospacedDigit()
+                                .foregroundStyle(Theme.Colors.textMuted)
+                                .padding(14)
+                                .allowsHitTesting(false)
+                        }
 
                     chips(
                         label: t("create.pitch_tone"),
@@ -96,22 +121,15 @@ struct PitchScreen: View {
                         tone = tone == option ? nil : option
                     }
 
-                    chips(
-                        label: t("create.pitch_length"),
-                        options: DraftLength.allCases,
-                        selected: { $0 == length },
-                        label: { t($0.labelKey) }
-                    ) { length = $0 }
+                    lengthTrack
 
-                    VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+                    VStack(alignment: .leading, spacing: 4) {
                         SectionLabel(t("create.pitch_pov"))
-                        ForEach(DraftPov.allCases, id: \.self) { option in
-                            RadioCard(selected: pov == option) { pov = option } content: {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Txt(t(option.labelKey), .bodyCompact)
-                                    Txt(t(option.labelKey + "_body"), .micro, color: Theme.Colors.textMuted)
-                                }
+                        ForEach(Array(DraftPov.allCases.enumerated()), id: \.element) { index, option in
+                            if index > 0 {
+                                Rectangle().fill(Theme.Colors.borderSubtle).frame(height: 0.5).padding(.leading, 34)
                             }
+                            povRow(option)
                         }
                     }
 
@@ -154,6 +172,66 @@ struct PitchScreen: View {
         }
     }
 
+    /// Design v3: Length as one segmented track.
+    private var lengthTrack: some View {
+        VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+            SectionLabel(t("create.pitch_length"))
+            HStack(spacing: 0) {
+                ForEach(DraftLength.allCases, id: \.self) { option in
+                    let on = option == length
+                    Button {
+                        Haptic.play(.light)
+                        withAnimation(.easeOut(duration: Theme.Durations.short)) { length = option }
+                    } label: {
+                        Text(t(option.labelKey))
+                            .font(.system(size: 16, weight: on ? .semibold : .regular))
+                            .foregroundStyle(on ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
+                            .frame(maxWidth: .infinity, minHeight: 40)
+                            .background {
+                                if on { Capsule().fill(Color(hex: 0x45413B)) }
+                            }
+                            .contentShape(Capsule())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityAddTraits(on ? .isSelected : [])
+                }
+            }
+            .padding(3)
+            .background(Theme.Colors.bgRaised, in: Capsule())
+        }
+    }
+
+    /// Design v3: a plain radio row, no box.
+    private func povRow(_ option: DraftPov) -> some View {
+        let on = pov == option
+        return Button {
+            Haptic.play(.light)
+            pov = option
+        } label: {
+            HStack(alignment: .top, spacing: 12) {
+                ZStack {
+                    Circle().strokeBorder(on ? Theme.Colors.textPrimary : Color(hex: 0x6E6860), lineWidth: 1.5)
+                    if on { Circle().fill(Theme.Colors.textPrimary).frame(width: 10, height: 10) }
+                }
+                .frame(width: 22, height: 22)
+                .padding(.top, 1)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(t(option.labelKey))
+                        .font(.system(size: 17))
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                    Text(t(option.labelKey + "_body"))
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.Colors.textMuted)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(.vertical, 12)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressOpacityStyle())
+        .accessibilityAddTraits(on ? .isSelected : [])
+    }
+
     @ViewBuilder
     private func chips<Option: Hashable>(
         label: String,
@@ -166,7 +244,20 @@ struct PitchScreen: View {
             SectionLabel(label)
             FlowLayout(spacing: Theme.Spacing.sm) {
                 ForEach(options, id: \.self) { option in
-                    Chip(toLabel(option), selected: selected(option)) { onTap(option) }
+                    let on = selected(option)
+                    Button {
+                        Haptic.play(.light)
+                        onTap(option)
+                    } label: {
+                        Text(toLabel(option))
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundStyle(on ? Theme.Colors.textOnLight : Theme.Colors.textPrimary)
+                            .padding(.horizontal, 16)
+                            .frame(height: 38)
+                            .background(on ? Theme.Colors.light : Theme.Colors.bgRaised, in: Capsule())
+                    }
+                    .buttonStyle(PressOpacityStyle())
+                    .accessibilityAddTraits(on ? .isSelected : [])
                 }
             }
         }
