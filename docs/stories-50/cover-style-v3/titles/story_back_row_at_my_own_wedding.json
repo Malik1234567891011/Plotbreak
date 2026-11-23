@@ -1,83 +1,379 @@
 {
-  "storyId": "story_back_row_at_my_own_wedding", "seed": 12, "avoid": [[196, 314, 507, 628], [576, 52, 852, 331]],
-  "styles": {
-    "chalk": {
-      "fill": {"texture": "chalk", "base": "#f7f5ee", "strength": 0.22, "alpha": 0.22, "scale": 10},
-      "glow": [{"radius": 3, "color": "#ffffff", "opacity": 0.18}]
-    }
-  },
-  "layers": [
-    {
-      "type": "text", "id": "title", "at": [0.295, 0.855], "anchor": "bc", "rotate": -3, "gap": 10,
-      "lines": [
-        {"use": "chalk", "text": "Back Row", "font": "Parisienne", "size": 170},
-        {
-          "use": "chalk", "text": "AT MY OWN WEDDING", "font": "Playfair Display", "weight": 700, "size": 44,
-          "tracking": 0.14
-        }
-      ],
-      "backing": [
-        {
-          "shape": "plate", "of": "block", "pad": [46, 128, 46, 44], "radius": 6,
-          "fill": {"texture": "noise", "base": "#24282a", "color": "#3d4447", "strength": 0.7, "scale": 70},
-          "inline": {"inset": 16, "width": 1.6, "fill": "#b8933f"},
-          "strokes": [{"width": 10, "fill": "#1a1207"}, {"width": 8, "fill": {"metal": "gold", "horizon": 0.5}}],
-          "shadow": [{"dx": 4, "dy": 12, "blur": 16, "color": "#000000", "opacity": 0.55}]
-        }
-      ],
-      "maxWidth": 590
-    },
-    {
-      "type": "text", "id": "front", "role": "deco", "at": [0.115, 0.7385], "anchor": "ml", "rotate": -3,
-      "lines": [{"use": "chalk", "text": "Front Row", "font": "Parisienne", "size": 60, "opacity": 0.8}]
-    },
-    {
-      "type": "shape", "shape": "underline", "of": "front", "to": "mc", "anchor": "mc", "dy": 4, "w": 250, "h": 22,
-      "weight": 6, "curve": 7, "curl": false, "rotate": -6,
-      "fill": {"texture": "chalk", "base": "#ff5a6e", "strength": 0.2, "alpha": 0.3, "scale": 10}
-    },
-    {
-      "type": "shape", "shape": "polygon", "of": "title", "to": "br", "anchor": "br", "dx": -30, "dy": -50, "w": 34,
-      "h": 30, "rotate": -3,
-      "points": [
-        [0.5, 0.237],
-        [0.504, 0.211],
-        [0.528, 0.145],
-        [0.586, 0.068],
-        [0.677, 0.013],
-        [0.787, 0.007],
-        [0.894, 0.056],
-        [0.972, 0.151],
-        [1.0, 0.271],
-        [0.972, 0.398],
-        [0.894, 0.518],
-        [0.787, 0.629],
-        [0.677, 0.732],
-        [0.586, 0.827],
-        [0.528, 0.908],
-        [0.504, 0.963],
-        [0.5, 0.983],
-        [0.496, 0.963],
-        [0.472, 0.908],
-        [0.414, 0.827],
-        [0.323, 0.732],
-        [0.213, 0.629],
-        [0.106, 0.518],
-        [0.028, 0.398],
-        [0.0, 0.271],
-        [0.028, 0.151],
-        [0.106, 0.056],
-        [0.213, 0.007],
-        [0.323, 0.013],
-        [0.414, 0.068],
-        [0.472, 0.145],
-        [0.496, 0.211]
-      ],
-      "fill": "clear",
-      "strokes": [
-        {"width": 3, "fill": {"texture": "chalk", "base": "#ff5a6e", "strength": 0.2, "alpha": 0.3, "scale": 10}},
-        {"width": 0, "fill": "clear"}
-      ]
-    }
+ "storyId": "story_back_row_at_my_own_wedding",
+ "seed": 12,
+ "avoid": [
+  [
+   196,
+   314,
+   507,
+   628
+  ],
+  [
+   576,
+   52,
+   852,
+   331
   ]
+ ],
+ "styles": {
+  "chalk": {
+   "fill": {
+    "texture": "chalk",
+    "base": "#f7f5ee",
+    "strength": 0.22,
+    "alpha": 0.2,
+    "scale": 10
+   },
+   "strokes": [
+    {
+     "width": 3,
+     "fill": {
+      "texture": "chalk",
+      "base": "#f7f5ee",
+      "strength": 0.22,
+      "alpha": 0.2,
+      "scale": 10
+     }
+    }
+   ],
+   "glow": [
+    {
+     "radius": 3,
+     "color": "#ffffff",
+     "opacity": 0.16
+    }
+   ]
+  }
+ },
+ "layers": [
+  {
+   "type": "text",
+   "id": "title",
+   "at": [
+    0.62,
+    0.958
+   ],
+   "anchor": "bc",
+   "rotate": -3,
+   "gap": 22,
+   "lines": [
+    {
+     "use": "chalk",
+     "text": "Back Row",
+     "font": "Parisienne",
+     "cap": 124,
+     "dx": 30
+    },
+    {
+     "use": "chalk",
+     "text": "AT MY OWN WEDDING",
+     "font": "Playfair Display",
+     "weight": 700,
+     "cap": 44,
+     "tracking": 0.04,
+     "strokes": [
+      {
+       "width": 1.2,
+       "fill": {
+        "texture": "chalk",
+        "base": "#f7f5ee",
+        "strength": 0.22,
+        "alpha": 0.2,
+        "scale": 10
+       }
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": "block",
+     "pad": [
+      34,
+      150,
+      34,
+      38
+     ],
+     "radius": 6,
+     "fill": {
+      "texture": "noise",
+      "base": "#23282a",
+      "color": "#3a4245",
+      "strength": 0.75,
+      "scale": 70
+     },
+     "inline": {
+      "inset": 16,
+      "width": 1.6,
+      "fill": "#b8933f"
+     },
+     "strokes": [
+      {
+       "width": 11,
+       "fill": "#1a1207"
+      },
+      {
+       "width": 9,
+       "fill": {
+        "metal": "gold",
+        "horizon": 0.5
+       }
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 5,
+       "dy": 14,
+       "blur": 18,
+       "color": "#000000",
+       "opacity": 0.6
+      }
+     ]
+    },
+    {
+     "shape": "plate",
+     "of": "block",
+     "pad": [
+      30,
+      142,
+      30,
+      30
+     ],
+     "fill": {
+      "texture": "chalk",
+      "base": "#ffffff",
+      "strength": 0.6,
+      "alpha": 0.92,
+      "scale": 40
+     },
+     "opacity": 0.06,
+     "z": 0.2
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "rule",
+     "of": 1,
+     "to": "tc",
+     "anchor": "bc",
+     "dy": -10,
+     "w": 300,
+     "h": 18,
+     "thickness": 2.5,
+     "center": "dot",
+     "size": 9,
+     "taper": true,
+     "fill": {
+      "texture": "chalk",
+      "base": "#f7f5ee",
+      "strength": 0.22,
+      "alpha": 0.2,
+      "scale": 10
+     },
+     "z": 2
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "front",
+   "role": "deco",
+   "at": [
+    0.32,
+    0.778
+   ],
+   "anchor": "ml",
+   "rotate": -3,
+   "lines": [
+    {
+     "use": "chalk",
+     "text": "Front Row",
+     "font": "Parisienne",
+     "cap": 50,
+     "opacity": 0.9
+    }
+   ]
+  },
+  {
+   "type": "shape",
+   "shape": "underline",
+   "of": "front",
+   "to": "mc",
+   "anchor": "mc",
+   "dy": 2,
+   "w": 300,
+   "h": 24,
+   "weight": 8,
+   "curve": 5,
+   "curl": false,
+   "rotate": -7,
+   "fill": {
+    "texture": "chalk",
+    "base": "#ff6b7d",
+    "strength": 0.22,
+    "alpha": 0.22,
+    "scale": 10
+   }
+  },
+  {
+   "type": "shape",
+   "shape": "polygon",
+   "of": "front",
+   "to": "mr",
+   "anchor": "ml",
+   "dx": 22,
+   "dy": 6,
+   "w": 44,
+   "h": 40,
+   "rotate": -3,
+   "points": [
+    [
+     0.5,
+     0.237
+    ],
+    [
+     0.504,
+     0.211
+    ],
+    [
+     0.528,
+     0.145
+    ],
+    [
+     0.586,
+     0.068
+    ],
+    [
+     0.677,
+     0.013
+    ],
+    [
+     0.787,
+     0.007
+    ],
+    [
+     0.894,
+     0.056
+    ],
+    [
+     0.972,
+     0.151
+    ],
+    [
+     1.0,
+     0.271
+    ],
+    [
+     0.972,
+     0.398
+    ],
+    [
+     0.894,
+     0.518
+    ],
+    [
+     0.787,
+     0.629
+    ],
+    [
+     0.677,
+     0.732
+    ],
+    [
+     0.586,
+     0.827
+    ],
+    [
+     0.528,
+     0.908
+    ],
+    [
+     0.504,
+     0.963
+    ],
+    [
+     0.5,
+     0.983
+    ],
+    [
+     0.496,
+     0.963
+    ],
+    [
+     0.472,
+     0.908
+    ],
+    [
+     0.414,
+     0.827
+    ],
+    [
+     0.323,
+     0.732
+    ],
+    [
+     0.213,
+     0.629
+    ],
+    [
+     0.106,
+     0.518
+    ],
+    [
+     0.028,
+     0.398
+    ],
+    [
+     0.0,
+     0.271
+    ],
+    [
+     0.028,
+     0.151
+    ],
+    [
+     0.106,
+     0.056
+    ],
+    [
+     0.213,
+     0.007
+    ],
+    [
+     0.323,
+     0.013
+    ],
+    [
+     0.414,
+     0.068
+    ],
+    [
+     0.472,
+     0.145
+    ],
+    [
+     0.496,
+     0.211
+    ]
+   ],
+   "fill": "clear",
+   "strokes": [
+    {
+     "width": 3.5,
+     "fill": {
+      "texture": "chalk",
+      "base": "#ff6b7d",
+      "strength": 0.22,
+      "alpha": 0.22,
+      "scale": 10
+     }
+    },
+    {
+     "width": 0,
+     "fill": "clear"
+    }
+   ]
+  }
+ ]
 }

@@ -1,44 +1,292 @@
 {
-  "storyId": "story_cut_loose_at_floor_99", "seed": 99,
-  "avoid": [[400, 200, 830, 480], [266, 1228, 340, 1330], [832, 1282, 906, 1388]],
-  "styles": {
-    "dirt": {
-      "font": "Rubik Dirt", "fill": "#f4f2ee",
-      "strokes": [{"width": 10, "fill": "#0b0b0b"}, {"width": 1.5, "fill": "#f4f2ee"}],
-      "shadow": [{"dx": 0, "dy": 6, "blur": 8, "color": "#000000", "opacity": 0.55}]
-    }
-  },
-  "layers": [
-    {
-      "type": "text", "id": "corner", "at": [0.964, 0.022], "anchor": "tr", "align": "right", "gap": 6,
-      "lines": [{"use": "dirt", "text": "CUT LOOSE", "width": 430}, {"use": "dirt", "text": "AT FLOOR", "width": 318}]
-    },
-    {"type": "spot", "at": [0.24, 0.84], "r": [420, 330], "color": "#000000", "opacity": 0.35},
-    {
-      "type": "text", "id": "hero", "at": [0.04, 0.966], "anchor": "bl", "gap": 0,
-      "lines": [
-        {
-          "use": "dirt", "text": "99", "size": 402, "tracking": -0.02,
-          "strokes": [{"width": 13, "fill": "#0b0b0b"}, {"width": 2, "fill": "#f4f2ee"}],
-          "shadow": [{"dx": 10, "dy": 12, "blur": 0, "color": "#000000", "opacity": 0.85}]
-        }
-      ],
-      "ornaments": [
-        {
-          "shape": "plate", "of": 0, "to": "mc", "anchor": "mc", "w": 760, "h": 24, "rotate": -27, "knockout": true,
-          "fill": "#000000"
-        },
-        {
-          "shape": "rule", "of": 0, "to": "mc", "anchor": "mc", "w": 740, "h": 14, "thickness": 7, "rotate": -27,
-          "fill": "#d4141c", "glow": [{"radius": 6, "color": "#ff2a2a", "opacity": 0.4}]
-        },
-        {
-          "shape": "swash", "of": 0, "to": "bl", "anchor": "tl", "dx": -24, "dy": -14, "w": 600, "h": 26, "head": 0.0,
-          "tail": 0.18, "dry": 0.9, "tilt": 0,
-          "fill": {"texture": "stripes", "base": "#e9e5db", "color": "#2a2a2a", "strength": 0.75, "period": 11, "angle": 62},
-          "strokes": [{"width": 3, "fill": "#0b0b0b"}], "curve": 5
-        }
-      ]
-    }
+ "storyId": "story_cut_loose_at_floor_99",
+ "seed": 99,
+ "avoid": [
+  [
+   400,
+   200,
+   830,
+   480
+  ],
+  [
+   832,
+   1282,
+   906,
+   1388
   ]
+ ],
+ "styles": {
+  "kick": {
+   "font": "Stardos Stencil",
+   "weight": 700,
+   "fill": "#efece6",
+   "strokes": [
+    {
+     "width": 6,
+     "fill": "#070707"
+    }
+   ],
+   "shadow": [
+    {
+     "dx": 0,
+     "dy": 5,
+     "blur": 7,
+     "color": "#000000",
+     "opacity": 0.75
+    }
+   ]
+  }
+ },
+ "layers": [
+  {
+   "type": "spot",
+   "at": [
+    0.22,
+    0.83
+   ],
+   "r": [
+    470,
+    400
+   ],
+   "color": "#000000",
+   "opacity": 0.5
+  },
+  {
+   "type": "text",
+   "id": "kicker",
+   "at": [
+    0.048,
+    0.738
+   ],
+   "anchor": "bl",
+   "align": "left",
+   "gap": 14,
+   "lines": [
+    {
+     "use": "kick",
+     "text": "CUT LOOSE",
+     "cap": 76,
+     "tracking": 0.05
+    },
+    {
+     "use": "kick",
+     "text": "AT FLOOR",
+     "cap": 76,
+     "tracking": 0.05
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "nine",
+   "at": [
+    0.05,
+    0.966
+   ],
+   "anchor": "bl",
+   "lines": [
+    {
+     "text": "99",
+     "font": "Stardos Stencil",
+     "weight": 700,
+     "cap": 356,
+     "tracking": -0.01,
+     "fill": {
+      "texture": "noise",
+      "base": {
+       "gradient": [
+        "#fbfaf7",
+        "#e6e3dc",
+        "#cdc9c1"
+       ],
+       "stops": [
+        0,
+        0.55,
+        1
+       ],
+       "angle": 90
+      },
+      "color": "#aaa69e",
+      "strength": 0.3,
+      "scale": 7,
+      "mode": "mix"
+     },
+     "bevel": {
+      "depth": 12,
+      "mode": "chisel",
+      "angle": 125,
+      "elevation": 35,
+      "highlight": 0.6,
+      "shadow": 0.8,
+      "strength": 1.2
+     },
+     "strokes": [
+      {
+       "width": 9,
+       "fill": "#050505"
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 10,
+       "dy": 12,
+       "blur": 0,
+       "color": "#000000",
+       "opacity": 0.9
+      }
+     ]
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "polygon",
+     "of": 0,
+     "pad": [
+      40,
+      0,
+      40,
+      0
+     ],
+     "points": [
+      [
+       0,
+       0.8634
+      ],
+      [
+       1,
+       0.0954
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     "knockout": true,
+     "fill": "#000000"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "nine-lower",
+   "at": [
+    0.05,
+    0.966
+   ],
+   "anchor": "bl",
+   "lines": [
+    {
+     "text": "99",
+     "font": "Stardos Stencil",
+     "weight": 700,
+     "cap": 356,
+     "tracking": -0.01,
+     "fill": {
+      "texture": "noise",
+      "base": {
+       "gradient": [
+        "#fbfaf7",
+        "#e6e3dc",
+        "#cdc9c1"
+       ],
+       "stops": [
+        0,
+        0.55,
+        1
+       ],
+       "angle": 90
+      },
+      "color": "#aaa69e",
+      "strength": 0.3,
+      "scale": 7,
+      "mode": "mix"
+     },
+     "bevel": {
+      "depth": 12,
+      "mode": "chisel",
+      "angle": 125,
+      "elevation": 35,
+      "highlight": 0.6,
+      "shadow": 0.8,
+      "strength": 1.2
+     },
+     "strokes": [
+      {
+       "width": 9,
+       "fill": "#050505"
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 10,
+       "dy": 12,
+       "blur": 0,
+       "color": "#000000",
+       "opacity": 0.9
+      }
+     ]
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "polygon",
+     "of": 0,
+     "pad": [
+      40,
+      0,
+      40,
+      0
+     ],
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       0.1366
+      ],
+      [
+       0,
+       0.9046
+      ]
+     ],
+     "knockout": true,
+     "fill": "#000000"
+    }
+   ],
+   "role": "deco",
+   "dx": -15,
+   "dy": 6.7
+  },
+  {
+   "type": "shape",
+   "shape": "rule",
+   "of": "nine",
+   "to": "mc",
+   "anchor": "mc",
+   "dx": -7.5,
+   "dy": 3.35,
+   "w": 720,
+   "h": 16,
+   "thickness": 6,
+   "rotate": -24,
+   "fill": "#d4141c",
+   "glow": [
+    {
+     "radius": 7,
+     "color": "#ff2a2a",
+     "opacity": 0.5
+    }
+   ]
+  }
+ ]
 }
