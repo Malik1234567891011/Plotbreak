@@ -20,6 +20,8 @@ struct SessionFeed: View {
 
     /// Whether the story is being read over art, and so on smoked panels.
     private var overArt: Bool { model.scene?.stageImage != nil }
+    /// Who the story calls the player, for the circle beside their lines.
+    private var playerName: String? { model.detail?.session.playingAs ?? model.detail?.session.displayName }
 
     var body: some View {
         ScrollViewReader { proxy in
@@ -89,7 +91,7 @@ struct SessionFeed: View {
         ForEach(model.historyTurns) { turn in
             VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
                 if let action = turn.actionText, !action.isEmpty {
-                    SessionPlayerAction(text: action)
+                    SessionPlayerAction(text: action, name: playerName)
                 }
                 if let panel = turn.panel {
                     SessionTopPanel(url: panel.url, alt: panel.alt, isFace: panel.characterId != nil) { model.fullScreenImage = panel.url }
@@ -156,9 +158,9 @@ struct SessionFeed: View {
         let latest = model.latest
 
         if let pending {
-            SessionPlayerAction(text: pending.actionText)
+            SessionPlayerAction(text: pending.actionText, name: playerName)
         } else if let action = latest?.actionText, !action.isEmpty {
-            SessionPlayerAction(text: action)
+            SessionPlayerAction(text: action, name: playerName)
         }
 
         if let check = pending?.check, worthRevealing(label: check.label, math: check.math) {
@@ -321,7 +323,8 @@ struct SessionBlock: View {
                 speaker: block.speakerId == "player" ? t("session.you") : (name ?? block.speakerId ?? t("session.someone")),
                 text: block.text,
                 portraitUri: portrait,
-                voiceEligible: block.voiceEligible ?? false
+                voiceEligible: block.voiceEligible ?? false,
+                overArt: scene?.stageImage != nil
             )
         case .SYSTEM:
             // Over art the muted grey drops under 4.5:1 on the brightest
@@ -571,19 +574,36 @@ struct SessionThinkingDot: View {
 
 // MARK: - Player action
 
+/// Your line (design v3, board frame Play): right-aligned with 20pt corners,
+/// and your circle beside it when the run has a name. The fill stays solid
+/// rather than the board's glass, so the grey keeps its contrast over the
+/// brightest stages.
 struct SessionPlayerAction: View {
     let text: String
+    /// Who the story calls you. Nil or empty draws no circle.
+    var name: String? = nil
     @Environment(\.translator) private var t
 
+    private var you: String? {
+        guard let name = name?.trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty else { return nil }
+        return name
+    }
+
     var body: some View {
-        HStack {
+        HStack(alignment: .bottom, spacing: Theme.Spacing.sm) {
             Spacer(minLength: 0)
             Txt(text, .bodyCompact, color: Theme.Colors.textSecondary)
-                .padding(.horizontal, Theme.Spacing.lg)
-                .padding(.vertical, Theme.Spacing.md)
-                .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: Theme.Radius.card, style: .continuous))
-                .containerRelativeFrame(.horizontal, alignment: .trailing) { width, _ in width * 0.85 }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: Theme.Radius.large, style: .continuous))
+                // Narrower with the circle, so line and circle still fit the column.
+                .containerRelativeFrame(.horizontal, alignment: .trailing) { width, _ in width * (you == nil ? 0.85 : 0.75) }
                 .fixedSize(horizontal: true, vertical: false)
+            if let you {
+                // One initial, as on the board: two letters do not fit 26pt.
+                CharacterPortrait(name: String(you.split(separator: " ").first ?? Substring(you)), uri: nil, size: 26, isYou: true)
+                    .accessibilityHidden(true)
+            }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(t("session.player_action_a11y", ["text": text]))

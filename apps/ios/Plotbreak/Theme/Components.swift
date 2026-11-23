@@ -249,19 +249,38 @@ struct CharacterPortrait: View {
 
 // MARK: Narrative blocks
 
+/// One spoken line (design v3, DESIGN-SYSTEM "Story panel"; board frame Play):
+/// a 28pt face, the speaker as an 11pt caps label, then the line in the
+/// story's serif at 17/28 in paper, so dialogue reads white beside the grey
+/// narration.
+///
+/// The line is shown as stored when it already carries speech marks, which
+/// most worlds write ("“Two is the lift.”"); wrapping those again drew a
+/// second pair round every line. A bare line gets the locale's marks through
+/// `SpeakerLine.quoted`, the same rule the Continue and Library rows use.
 struct DialogueBlock: View {
     let speaker: String
     let text: String
     var portraitUri: String? = nil
     var voiceEligible: Bool = false
     var onPlayVoice: (() -> Void)? = nil
+    /// Over stage art the board's label grey drops under 4.5:1 on the
+    /// brightest stages, even on the smoked panel; the secondary grey holds.
+    var overArt: Bool = false
+    @Environment(\.translator) private var t
 
     var body: some View {
-        HStack(alignment: .top, spacing: Theme.Spacing.md) {
-            CharacterPortrait(name: speaker, uri: portraitUri, size: 36)
-            VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
+        HStack(alignment: .top, spacing: Theme.Spacing.sm) {
+            CharacterPortrait(name: speaker, uri: portraitUri, size: 28)
+                .padding(.top, 2)
+            VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: Theme.Spacing.sm) {
-                    Txt(speaker, .caption, color: Theme.Colors.accentSecondary)
+                    Text(speaker)
+                        .font(.system(size: 11, weight: .semibold))
+                        .tracking(0.88)
+                        .textCase(.uppercase)
+                        .foregroundStyle(overArt ? Theme.Colors.textSecondary : Theme.Colors.textMuted)
+                        .lineLimit(1)
                     if voiceEligible, let onPlayVoice {
                         Button(action: onPlayVoice) {
                             Image(systemName: "speaker.wave.2").font(.system(size: 12)).foregroundStyle(Theme.Colors.textMuted)
@@ -269,7 +288,11 @@ struct DialogueBlock: View {
                         .buttonStyle(PressOpacityStyle())
                     }
                 }
-                Txt("“\(text)”", .body)
+                Text(SpeakerLine.quoted(text, t))
+                    .font(.system(size: 17, weight: .regular, design: .serif))
+                    .lineSpacing(6.5)
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
