@@ -1,8 +1,12 @@
 /** Relics — the vault, the drop reveal and the relic badges. See docs/relics.md. */
 export const relics = {
-  'relics.vault_title': 'Relic Vault',
+  /** Design v3: the vault's page title, in sentence case like every page title. */
+  'relics.vault_title': 'Relic vault',
   'relics.vault_closed': 'The vault is not open yet.',
-  'relics.found_of': 'of {total} relics found',
+  /** Design v3: the vault's one summary line, for the story filtered to or for all of them. */
+  'relics.found_of': '{owned} of {total} relics found',
+  /** Design v3: one quiet count per rarity after the summary, "Rare 2/6". */
+  'relics.rarity_count': '{rarity} {owned}/{total}',
   'relics.filter_all': 'All',
   'relics.card_label': 'RELIC VAULT',
   'relics.card_count': '{owned} of {total} found',

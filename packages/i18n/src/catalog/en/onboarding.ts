@@ -70,12 +70,25 @@ export const onboarding = {
   'onboarding.showcase_body': 'You start with ◆600.',
   'onboarding.showcase_card_a11y': '{title}. Start this story.',
   'onboarding.see_all_stories': 'See all stories',
-  /** Step 1 of 4 — the age gate, asked as a date. Only the band is kept. */
-  'onboarding.birth_date_title': 'Enter birth date',
-  /** The empty date field. */
-  'onboarding.birth_date_placeholder': 'Pick a date',
-  /** The wheel picker's button. */
-  'onboarding.birth_date_confirm': 'Confirm',
+  /**
+   * Design v3, step 1 of 3 (board OnbProfile): the age gate, asked under the
+   * name as a date typed in three numbers. Only the age band is kept.
+   */
+  'onboarding.birthday_heading': 'And your birthday?',
+  /** Under the date. "Under-13s" are the players the gate exists for. */
+  'onboarding.birthday_note': 'Only used to keep under-13s safe. Nobody else sees it.',
+  /** Accessible names of the three numbers, in the order the language writes a date. */
+  'onboarding.birthday_month': 'Month',
+  'onboarding.birthday_day': 'Day',
+  'onboarding.birthday_year': 'Year',
+  /** The empty numbers: two letters, two letters, four letters, as on a form. */
+  'onboarding.birthday_month_short': 'MM',
+  'onboarding.birthday_day_short': 'DD',
+  'onboarding.birthday_year_short': 'YYYY',
+  /** Beside the disabled Next, until the date is a whole one. */
+  'onboarding.birthday_finish_year': 'Finish the year to go on',
+  /** Beside the disabled Next, when all three are typed but name no real day. */
+  'onboarding.birthday_check': 'Check the date',
   /** Advance one onboarding step. */
   'onboarding.next': 'Next',
   /** Go back one onboarding step. */
@@ -88,7 +101,7 @@ export const onboarding = {
   'onboarding.privacy_policy': 'Privacy Policy',
   /** Between the two legal links. */
   'onboarding.legal_and': 'and',
-  /** Step 2 of 4 — the display name. */
+  /** Step 1 of 3 — the display name, with the birthday under it. */
   'onboarding.name_title': 'What should characters call you?',
   /** Under the title; the path names two screens the way they are labelled. */
   'onboarding.name_hint': 'You can change it anytime in Profile › Session settings.',
@@ -96,7 +109,7 @@ export const onboarding = {
   'onboarding.name_placeholder': 'Your name',
   /** Accessible name of the cross in the field. */
   'onboarding.name_clear_a11y': 'Clear name',
-  /** Step 3 of 4, first question. */
+  /** Step 2 of 3, second question. */
   'onboarding.audience_title': 'Filter by audience?',
   /** Audience radio card. */
   'onboarding.audience_male': 'Male',
@@ -104,12 +117,12 @@ export const onboarding = {
   'onboarding.audience_female': 'Female',
   /** Audience radio card — no lean either way. */
   'onboarding.audience_neutral': 'Neutral',
-  /** Step 3 of 4, second question. */
+  /** Step 2 of 3, first question. */
   'onboarding.genres_title': 'What do you like to read?',
   /** Design v3: under the genres question. Discover is the tab, by name. The cap is five. */
   'onboarding.genres_body': 'Pick up to five. Discover opens on these.',
   /** Accessible name of the progress bar. */
   'onboarding.step_a11y': 'Step {step} of {total}',
-  /** Design v3: the small counter beside the step dashes, "2 of 4". */
+  /** Design v3: the small counter beside the step dashes, "1 of 3". */
   'onboarding.step_short': '{step} of {total}',
 } as const;

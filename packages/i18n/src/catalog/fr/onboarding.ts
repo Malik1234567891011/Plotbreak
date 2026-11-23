@@ -120,9 +120,20 @@ export const onboarding = {
   'onboarding.showcase_body': 'Tu commences avec ◆600.',
   'onboarding.showcase_card_a11y': '{title}. Lancer cette histoire.',
   'onboarding.see_all_stories': 'Voir tous les mondes',
-  'onboarding.birth_date_title': 'Ta date de naissance',
-  'onboarding.birth_date_placeholder': 'Choisis une date',
-  'onboarding.birth_date_confirm': 'Confirmer',
+  /**
+   * Design v3, étape 1 sur 3 : la date sous le prénom, en trois nombres dans
+   * l’ordre français (jour, mois, année). Seule la tranche d’âge est gardée.
+   */
+  'onboarding.birthday_heading': 'Et ta date de naissance ?',
+  'onboarding.birthday_note': 'Elle sert uniquement à protéger les moins de 13 ans. Personne d’autre ne la voit.',
+  'onboarding.birthday_month': 'Mois',
+  'onboarding.birthday_day': 'Jour',
+  'onboarding.birthday_year': 'Année',
+  'onboarding.birthday_month_short': 'MM',
+  'onboarding.birthday_day_short': 'JJ',
+  'onboarding.birthday_year_short': 'AAAA',
+  'onboarding.birthday_finish_year': 'Termine l’année pour continuer',
+  'onboarding.birthday_check': 'Vérifie la date',
   'onboarding.next': 'Suivant',
   'onboarding.previous': 'Précédent',
   'onboarding.legal_footer': 'En continuant, tu acceptes nos',

@@ -98,9 +98,11 @@ export const profile = {
   'badges.ready': 'À récupérer',
   'badges.in_progress': 'En cours',
   'badges.earned': 'Obtenus',
-  'badges.claim': 'Récupérer {credits}',
+  'badges.claim': 'Récupérer ◆{credits}',
   'badges.claim_a11y': 'Récupérer {credits} crédits pour {title}.',
   'badges.progress': '{done} sur {target}',
+  /** Le ◆ est dessiné en cristal ; VoiceOver lit `badges.reward_a11y`. */
+  'badges.reward': '◆{credits}',
   'badges.guest': 'Connecte-toi pour garder les badges que tu obtiens.',
   /** Voir `en/profile.ts` : la roue dentée et son écran. */
   'settings.title': 'Réglages',
