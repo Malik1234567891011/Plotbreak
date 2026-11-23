@@ -165,4 +165,7 @@ export const discover = {
   'discover.search_delete_all': 'Tout effacer',
   'discover.search_popular': 'Populaires',
   'discover.search_remove_a11y': 'Retirer {term}',
+  'discover.search_tab_stories': 'Histoires',
+  'discover.search_tab_characters': 'Personnages',
+  'discover.search_character_line': '{role} · {story}',
 } as const;

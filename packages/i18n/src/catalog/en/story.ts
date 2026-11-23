@@ -192,4 +192,17 @@ export const story = {
   'story.block_creator_title': 'Block {name}?',
   'story.block_creator_body': 'You will not see anything they have made. You can undo this in your profile.',
   'story.block_confirm': 'Block',
+  /**
+   * The stats line under the title: how many endings the world has authored.
+   * Only the count is known on the client; which ones exist is a spoiler. The
+   * number is drawn bold and the word quiet, like plays and likes beside it.
+   */
+  'story.endings_count': '{count, plural, one {# ending} other {# endings}}',
+  /** The glass share button over the cover, left of More. Read aloud only. */
+  'story.share_a11y': 'Share',
+  /**
+   * What the share sheet sends with the App Store link. There is no web page
+   * per story yet, so the link opens the App Store and this says which story.
+   */
+  'story.share_message': '{title} on Plotbreak. {hook}',
 } as const;
