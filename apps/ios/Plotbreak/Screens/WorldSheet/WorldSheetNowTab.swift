@@ -142,6 +142,10 @@ struct WorldSheetNowTab: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(PressOpacityStyle())
+                    // A full 44pt to hit, but only the heading's height to lay
+                    // out, so a section with the link starts its content as
+                    // close under the heading as one without it.
+                    .padding(.vertical, -(Theme.minTouchTarget - 25) / 2)
                     .accessibilityLabel("\(t("worldsheet.see_all")), \(title)")
                 }
             }
