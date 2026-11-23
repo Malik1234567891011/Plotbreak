@@ -369,6 +369,31 @@ function visibleResources(story: StoryVersion, state: GameState): SessionSceneSt
     .map(({ priority: _priority, ...rest }) => rest);
 }
 
+/**
+ * The World Sheet's "Here now": everybody in the player's room, with a face
+ * and one line.
+ *
+ * Presence is `charactersPresent`, the same list the session's stage reads,
+ * which `runTurnPure` keeps current as people come and go. The line is the
+ * world's public one for the cast card (`cardBlurb`), falling back to the role
+ * for a world that never wrote one, so the row is never just a name. Hidden
+ * drives and secrets stay on the server, as they do for the story page's cast.
+ */
+function hereNow(story: StoryVersion, state: GameState): WorldSheetResponse['overview']['hereNow'] {
+  return charactersPresent(state)
+    .map((runtime) => {
+      const def = story.characters.find((c) => c.id === runtime.characterId);
+      if (!def) return null;
+      return {
+        characterId: def.id,
+        name: def.name,
+        portrait: resolveAssetUrl(def.portrait, story.version),
+        line: def.cardBlurb.trim() || def.role,
+      };
+    })
+    .filter((c): c is NonNullable<typeof c> => c !== null);
+}
+
 export function toWorldSheet(
   story: StoryVersion,
   state: GameState,
@@ -403,6 +428,7 @@ export function toWorldSheet(
         .filter((f) => f.supersededByFactId === null)
         .slice(-5)
         .map((f) => f.text),
+      hereNow: hereNow(story, state),
     },
 
     character: {

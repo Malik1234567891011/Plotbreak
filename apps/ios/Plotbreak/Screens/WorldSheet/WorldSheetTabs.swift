@@ -47,68 +47,6 @@ struct WorldSheetInventoryTab: View {
     }
 }
 
-// MARK: - Quests (WS-04 — active, leads, completed, failed, §11.4)
-
-struct WorldSheetQuestsTab: View {
-    let sheet: WorldSheetResponse
-    @Environment(\.translator) private var t
-
-    /// The key, not the label, so a group's identity and its heading do not
-    /// both change when the language does.
-    private var groups: [(TranslationKey, [QuestView])] {
-        // The Swift `QuestStatus` twin has no BLOCKED / DISCOVERED / EXPIRED
-        // cases; they decode to `.UNKNOWN`. Until the model catches up, an
-        // unknown status is shown as a lead rather than dropped.
-        [
-            ("worldsheet.quests_active", sheet.quests.filter { $0.status == .ACTIVE }),
-            ("worldsheet.quests_leads", sheet.quests.filter { $0.status == .AVAILABLE || $0.status == .UNKNOWN }),
-            ("worldsheet.quests_completed", sheet.quests.filter { $0.status == .COMPLETED }),
-            ("worldsheet.quests_closed", sheet.quests.filter { $0.status == .FAILED }),
-        ]
-    }
-
-    var body: some View {
-        if sheet.quests.isEmpty {
-            EmptyState(title: t("worldsheet.quests_empty_title"), message: t("worldsheet.quests_empty_body"))
-        } else {
-            VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
-                ForEach(groups.filter { !$0.1.isEmpty }, id: \.0) { labelKey, quests in
-                    VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                        Txt(t(labelKey).uppercased(), .caption, color: Theme.Colors.textMuted)
-                        ForEach(quests) { quest in
-                            Card {
-                                VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
-                                    HStack(alignment: .top) {
-                                        Txt(quest.title, .bodyStrong)
-                                        Spacer(minLength: Theme.Spacing.sm)
-                                        if let deadline = quest.deadlineLabel, !deadline.isEmpty {
-                                            // The tone, not the text: the label the player reads is
-                                            // quest.deadlineLabel itself, which is server copy (UI_AUDIT §5).
-                                            // i18n-exempt: a sentinel compared against the server's own deadlineLabel, never rendered
-                                            Chip(deadline, tone: deadline == "Overdue" ? .danger : .warning)
-                                        }
-                                    }
-                                    Txt(quest.summary, .caption, color: Theme.Colors.textSecondary)
-                                    if let step = quest.currentStepCopy, !step.isEmpty {
-                                        Txt(t("worldsheet.quest_step", ["step": step]), .bodyCompact, color: Theme.Colors.accentPrimary)
-                                            .padding(.top, Theme.Spacing.xs)
-                                    } else {
-                                        Txt(t("worldsheet.quest_step_unclear"), .caption, color: Theme.Colors.textMuted)
-                                            .padding(.top, Theme.Spacing.xs)
-                                    }
-                                    if !quest.involvedNames.isEmpty {
-                                        Txt(quest.involvedNames.joined(separator: ", "), .micro, color: Theme.Colors.textMuted)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 // MARK: - Relationships (WS-05 — qualitative labels by default, §11.5)
 
 /// The five relationship dimensions, in the shape of `relationship.dimensions`;

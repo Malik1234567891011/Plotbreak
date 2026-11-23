@@ -1,40 +1,44 @@
 /**
- * WS-01 to WS-08 — the World Sheet. Seven tabs and the canon inspector.
+ * WS-01 to WS-08 — the World Sheet. Six tabs and the canon inspector.
  *
- * Values are the exact strings the app shipped. Three of these are rendered
- * through `.toUpperCase()` by the screen (the quest group headers) and are
- * stored in sentence case, the way they are written in the source.
+ * Values are the exact strings the app shipped, except where design v3 changed
+ * them in place (the tab labels, the section headings). Headings are stored in
+ * sentence case and rendered as stored.
  */
 export const worldsheet = {
   'worldsheet.title': 'World Sheet',
   'worldsheet.close': 'Close',
 
-  /* -- The tab strip (WS-01…WS-07). Seven labels across one row: UI_AUDIT §2.6
-        measured French inflation on exactly these. -- */
-  'worldsheet.tab_overview': 'Overview',
-  /** The player's own character sheet. `Personnage`. */
-  'worldsheet.tab_character': 'Character',
-  'worldsheet.tab_inventory': 'Inventory',
-  'worldsheet.tab_quests': 'Quests',
+  /* -- The tab strip. Design v3 (board frame World sheet): six labels,
+        Now · People · Things · Map · Timeline · You. Overview and Quests left
+        the strip; what they held lives on Now and You. -- */
+  /** What is going on right now: open threads, who is here, what you carry. */
+  'worldsheet.tab_now': 'Now',
+  /** The player's own character sheet. `Toi` in French: the product says tu. */
+  'worldsheet.tab_character': 'You',
+  /** What the player is carrying. Plain on purpose: not "Inventory". */
+  'worldsheet.tab_inventory': 'Things',
   /** The relationships tab — the people you know. Not a population count. */
   'worldsheet.tab_people': 'People',
   'worldsheet.tab_map': 'Map',
   /** The ordered record of what happened. `Chronologie`. */
   'worldsheet.tab_timeline': 'Timeline',
 
-  /* -- WS-01 Overview. The four headers are written upper-case in the source
-        and are rendered exactly as stored. -- */
-  'worldsheet.current_objective': 'CURRENT OBJECTIVE',
-  /** Status effects currently on the player — buffs and debuffs. */
-  'worldsheet.active_effects': 'ACTIVE EFFECTS',
-  /** Header over the characters the player has been dealing with lately. */
-  'worldsheet.relationship_highlights': "WHO'S ON YOUR MIND",
-  /** Header over the last few things that happened. Adverb, not a noun. */
-  'worldsheet.recently': 'RECENTLY',
-  /** One recent event, bulleted. `{event}` is prose the engine wrote. */
-  'worldsheet.recent_event': '· {event}',
-  /** A character chip: their name, then how they currently regard the player. */
-  'worldsheet.highlight': '{name} · {label}',
+  /* -- Now. Four sentence-case section headings, rendered as stored. -- */
+  /** The objective and the quests still in play. Not sewing thread. */
+  'worldsheet.open_threads': 'Open threads',
+  /** Read aloud for a quest already finished, listed muted under the open ones. */
+  'worldsheet.thread_done_a11y': 'Completed: {title}',
+  /** The people in the same place as the player at this moment. */
+  'worldsheet.here_now': 'Here now',
+  /** The things the player has on them. */
+  'worldsheet.carrying': 'You are carrying',
+  /** The last few things that happened. An adverb, not a noun. */
+  'worldsheet.lately': 'Lately',
+  /** Trailing link beside a heading: opens the full tab for that section. */
+  'worldsheet.see_all': 'See all',
+  /** Heading over the buffs and debuffs on the player, on the You tab. */
+  'worldsheet.active_effects': 'Active effects',
 
   /* -- WS-02 Character -- */
   'worldsheet.level': 'Level {level}',
@@ -67,19 +71,9 @@ export const worldsheet = {
   /** Item state: worn or wielded right now. `Équipé`. */
   'worldsheet.equipped': 'Equipped',
 
-  /* -- WS-04 Quests. The four group headers are upper-cased by the screen. -- */
-  'worldsheet.quests_active': 'Active',
-  /** Investigative leads — `pistes`. Not leadership, and not a lead actor. */
-  'worldsheet.quests_leads': 'Leads',
-  'worldsheet.quests_completed': 'Completed',
-  /** A quest route closed off — `fermée`. Not "closed" as in shut for the night. */
-  'worldsheet.quests_closed': 'Closed',
+  /* -- Now, with nothing to show yet. -- */
   'worldsheet.quests_empty_title': 'No objectives yet',
   'worldsheet.quests_empty_body': 'Objectives appear as the story gives you something to chase.',
-  /** The quest's current step. `❯` is the step marker and stays in the message. */
-  'worldsheet.quest_step': '❯ {step}',
-  /** Shown where a quest has no next step yet — the way forward is not known. */
-  'worldsheet.quest_step_unclear': '❯ Not yet clear.',
 
   /* -- WS-05 Relationships. The five dimension labels are written lower-case in
         the source and are rendered exactly as stored. -- */

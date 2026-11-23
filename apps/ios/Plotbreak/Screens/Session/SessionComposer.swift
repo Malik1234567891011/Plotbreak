@@ -15,6 +15,8 @@ struct SessionComposer: View {
 
     private var draftEmpty: Bool { model.draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     private var isPending: Bool { model.pending != nil }
+    /// The stage art runs under the composer (design v3).
+    private var overArt: Bool { model.scene?.stageImage != nil }
 
     /// Design v3 (board frame Play): the quality and its price as one quiet
     /// line over the composer (no turns-left count); tap for the quality sheet.
@@ -35,7 +37,9 @@ struct SessionComposer: View {
                     .font(.system(size: 10, weight: .semibold))
             }
             .font(.system(size: 13))
-            .foregroundStyle(Theme.Colors.textMuted)
+            // The muted grey is never on art (design system); the board draws
+            // this line in the secondary grey.
+            .foregroundStyle(overArt ? Theme.Colors.textSecondary : Theme.Colors.textMuted)
             .frame(minHeight: 28)
             .contentShape(Rectangle())
         }
@@ -104,7 +108,31 @@ struct SessionComposer: View {
             .padding(.top, 4)
             .padding(.bottom, Theme.Spacing.md)
         }
-        .background(Theme.Colors.bgBase)
+        // No solid fill since design v3: the stage art runs under the
+        // composer. With no stage, the screen's own ink shows through, as
+        // before.
+        //
+        // Over art, a 70% ink of its own, faded in over the first few points.
+        // The session's scrim alone is not enough for the quality line (13pt):
+        // at rest it sits where the scrim is about 0.8, and with the keyboard
+        // up and a draft of a few lines the composer rides up to where it is
+        // 0.35. With this under it the line keeps 4.5:1 over a white stage,
+        // wherever the composer is.
+        .background {
+            if overArt {
+                VStack(spacing: 0) {
+                    LinearGradient(
+                        colors: [Theme.Colors.bgBase.opacity(0), Theme.Colors.bgBase.opacity(0.7)],
+                        startPoint: .top, endPoint: .bottom
+                    )
+                    .frame(height: 8)
+                    Theme.Colors.bgBase.opacity(0.7)
+                }
+                .ignoresSafeArea(.container, edges: .bottom)
+                .allowsHitTesting(false)
+                .accessibilityHidden(true)
+            }
+        }
     }
 
     /// Send, or Stop while a turn is in flight. White with a black glyph,

@@ -71,11 +71,15 @@ export const worldsheet = {
   /** Infinitive: this control sits against system chrome. `PRODUCT_VOICE.md` rule 2. */
   'worldsheet.close': 'Fermer',
 
-  /* -- La barre d'onglets (WS-01…WS-07). Voir la note 1 en tête de fichier. -- */
-  'worldsheet.tab_overview': 'Aperçu',
-  'worldsheet.tab_character': 'Personnage',
-  'worldsheet.tab_inventory': 'Inventaire',
-  'worldsheet.tab_quests': 'Quêtes',
+  /* -- La barre d'onglets, design v3 : six libellés (Maintenant · Relations ·
+        Objets · Carte · Chronologie · Toi). Aperçu et Quêtes en sont sortis ;
+        leur contenu vit dans Maintenant et Toi. Voir la note 1. -- */
+  /** Ce qui se passe en ce moment. `Maintenant`, pas `Présent` (un temps verbal). */
+  'worldsheet.tab_now': 'Maintenant',
+  /** Ta fiche à toi. `Toi` : le produit dit tu (`PRODUCT_VOICE.md` règle 1). */
+  'worldsheet.tab_character': 'Toi',
+  /** Ce que tu portes. `Objets`, plus simple qu’`Inventaire`, comme l’anglais `Things`. */
+  'worldsheet.tab_inventory': 'Objets',
   /**
    * `Relations`, not `Personnes`. Two reasons, and the second one decides it:
    * WS-05 *is* the relationships tab, and `Personnes` would sit two tabs away
@@ -88,22 +92,24 @@ export const worldsheet = {
   /** The widest label in the strip, 11 against `Timeline`'s 8. See note 1. */
   'worldsheet.tab_timeline': 'Chronologie',
 
-  /* -- WS-01 Aperçu. En capitales, rendu tel quel : quatre en-têtes de
-        rubrique, jamais des boutons. -- */
-  'worldsheet.current_objective': 'OBJECTIF EN COURS',
-  'worldsheet.active_effects': 'EFFETS ACTIFS',
+  /* -- Maintenant. Quatre titres de rubrique en casse de phrase, rendus tels quels. -- */
   /**
-   * Not a translation of "who's on your mind" — French has no short form of
-   * that question that works as a header. `DANS TES PENSÉES` is the French
-   * header for the same idea: the people you have been dealing with lately.
+   * L’objectif et les quêtes encore ouvertes. `Affaires en cours`, pas `Fils` :
+   * `fil` est déjà le fil de l’histoire (`TERMINOLOGY.md` §3.1).
    */
-  'worldsheet.relationship_highlights': 'DANS TES PENSÉES',
-  /** Adverbe, comme en anglais — pas `NOUVEAUTÉS`, qui serait un nom. */
-  'worldsheet.recently': 'RÉCEMMENT',
-  /** Ponctuation seule : rien à écrire en français. */
-  'worldsheet.recent_event': '· {event}',
-  /** Idem — le nom, puis l'étiquette de relation, qui arrive déjà en français. */
-  'worldsheet.highlight': '{name} · {label}',
+  'worldsheet.open_threads': 'Affaires en cours',
+  /** Lu à voix haute pour une quête finie, listée en gris sous les autres. */
+  'worldsheet.thread_done_a11y': 'Quête terminée\u00A0: {title}',
+  /** Les personnes au même endroit que toi, en ce moment. */
+  'worldsheet.here_now': 'Ici avec toi',
+  /** « Sur toi », comme `inventory_empty_title` (`Rien sur toi`). */
+  'worldsheet.carrying': 'Sur toi',
+  /** Adverbe, comme en anglais. */
+  'worldsheet.lately': 'Dernièrement',
+  /** Lien en bout de titre : ouvre l’onglet complet. Comme `library.see_all`. */
+  'worldsheet.see_all': 'Voir tout',
+  /** Titre sur l’onglet Toi, au-dessus des effets en cours. */
+  'worldsheet.active_effects': 'Effets actifs',
 
   /* -- WS-02 Personnage -- */
   'worldsheet.level': 'Niveau {level}',
@@ -155,30 +161,15 @@ export const worldsheet = {
    */
   'worldsheet.equipped': 'Équipé',
 
-  /* -- WS-04 Quêtes. Les quatre en-têtes sont passés en capitales par l'écran,
-        donc ils sont stockés en minuscules et s'accordent avec « quêtes ». -- */
-  'worldsheet.quests_active': 'En cours',
-  /** Pistes d'enquête. Ni la direction, ni le premier rôle. */
-  'worldsheet.quests_leads': 'Pistes',
-  /** `Terminées`, jamais `Complétées` — `compléter`, c'est ajouter à. */
-  'worldsheet.quests_completed': 'Terminées',
-  /** Une voie qui s'est refermée, pas un magasin qui ferme le soir. */
-  'worldsheet.quests_closed': 'Fermées',
+  /* -- Maintenant, quand il n’y a encore rien à montrer. -- */
   'worldsheet.quests_empty_title': 'Pas encore d’objectifs',
   /**
    * « te lance sur une piste » is the French set phrase for being given
-   * something to chase, and it lands on the same word as the `Pistes` group
-   * above. A literal `quelque chose à poursuivre` is correct and reads like a
+   * something to chase, and `piste` is the word French players already use
+   * for a lead. A literal `quelque chose à poursuivre` is correct and reads like a
    * subtitle.
    */
   'worldsheet.quests_empty_body': 'Des objectifs apparaissent dès que l’histoire te lance sur une piste.',
-  'worldsheet.quest_step': '❯ {step}',
-  /**
-   * Affirmative where the English is negative: `Pas encore clair` is a fine
-   * sentence and a poor quest step. What the player needs to know is that the
-   * next move has to be found, so the French says that.
-   */
-  'worldsheet.quest_step_unclear': '❯ La suite reste à trouver.',
 
   /* -- WS-05 Relations. Les cinq dimensions sont stockées en minuscules et
         rendues telles quelles. -- */
