@@ -104,7 +104,7 @@ export const onboarding = {
   /** Step 1 of 3 — the display name, with the birthday under it. */
   'onboarding.name_title': 'What should characters call you?',
   /** Under the title; the path names two screens the way they are labelled. */
-  'onboarding.name_hint': 'You can change it anytime in Profile › Session settings.',
+  'onboarding.name_hint': 'They say it out loud. You can pick a different name in any story.',
   /** The empty name field. */
   'onboarding.name_placeholder': 'Your name',
   /** Accessible name of the cross in the field. */

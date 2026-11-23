@@ -143,7 +143,7 @@ export const onboarding = {
   'onboarding.name_title': 'Comment les personnages doivent-ils t’appeler ?',
   // Profil is the tab's name, not Title Case.
   // fr-lint-disable-next-line FRC002
-  'onboarding.name_hint': 'Tu pourras le changer à tout moment dans Profil › Réglages de session.',
+  'onboarding.name_hint': 'Ils le disent à voix haute. Tu peux choisir un autre nom dans chaque histoire.',
   'onboarding.name_placeholder': 'Ton prénom',
   'onboarding.name_clear_a11y': 'Effacer le nom',
   'onboarding.audience_title': 'Filtrer par public ?',
