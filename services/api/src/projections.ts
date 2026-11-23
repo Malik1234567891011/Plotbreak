@@ -36,6 +36,7 @@ import {
 } from '@plotbreak/engine';
 import { translatorFor, type Locale, type TranslationKey, type Translator } from '@plotbreak/i18n';
 import type { SessionRecord, StorySignals } from './repo/types.js';
+import { lastSpokenLine, recapLineOf } from './last-line.js';
 
 /**
  * Read models. Authoritative state lives in `GameState`; these shape it into
@@ -203,7 +204,18 @@ export function toStoryDetail(
   };
 }
 
-export function toSessionSummary(record: SessionRecord, story: StoryVersion, state: GameState, turnCount: number): SessionSummary {
+/**
+ * @param turns The run's turns, when the caller has already read them. Only
+ * `GET /v1/sessions` passes them, for the Library row's line; every other
+ * response sends `lastLine` and `recapLine` as null.
+ */
+export function toSessionSummary(
+  record: SessionRecord,
+  story: StoryVersion,
+  state: GameState,
+  turnCount: number,
+  turns?: readonly TurnRecord[],
+): SessionSummary {
   return {
     sessionId: record.sessionId,
     storyId: record.storyId,
@@ -221,6 +233,8 @@ export function toSessionSummary(record: SessionRecord, story: StoryVersion, sta
     // From the state, never from the session row or the request. The run's
     // locale was frozen when it was created and this is the copy that froze.
     locale: state.locale,
+    lastLine: turns ? lastSpokenLine(story, turns) : null,
+    recapLine: turns ? recapLineOf(turns) : null,
   };
 }
 
@@ -662,7 +676,10 @@ export function toContinueCard(
     lastPlayedAt: record.lastPlayedAt,
     turnCount: turns.length,
     currentObjective: topObjective(state, story),
-    recapLine: turns.at(-1)?.sceneSummary.split('\n')[0] ?? null,
+    recapLine: recapLineOf(turns),
+    // Empty is "nobody named": a row reads "Turn 3" rather than "as  · Turn 3".
+    displayName: record.displayName || null,
+    lastLine: lastSpokenLine(story, turns),
   };
 }
 

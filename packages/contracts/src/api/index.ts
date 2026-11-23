@@ -112,6 +112,26 @@ export const DiscoverRail = z
   .strict();
 export type DiscoverRail = z.infer<typeof DiscoverRail>;
 
+/**
+ * The last thing a character said in a run, with who said it.
+ *
+ * Continue rows, Library rows and the credit wall show it beside the speaker's
+ * face, so a run is remembered by a voice rather than by a turn count. Only a
+ * cast member's line qualifies: the player's own words and narration have no
+ * face to put beside them. `text` is the stored line, quote marks included,
+ * capped at 280 characters. See `services/api/src/last-line.ts`.
+ */
+export const SpeakerLine = z
+  .object({
+    characterId: z.string(),
+    name: z.string(),
+    portrait: z.string().nullable(),
+    text: z.string().max(280),
+    turnIndex: z.number().int(),
+  })
+  .strict();
+export type SpeakerLine = z.infer<typeof SpeakerLine>;
+
 export const ContinueCard = z
   .object({
     sessionId: z.string(),
@@ -122,6 +142,10 @@ export const ContinueCard = z
     turnCount: z.number().int(),
     currentObjective: z.string().nullable(),
     recapLine: z.string().nullable(),
+    /** Who the player is in this run ("as Ren"). Added after 1.0; absent from older servers. */
+    displayName: z.string().nullable().default(null),
+    /** The newest line a character spoke. Null when nobody has spoken lately. */
+    lastLine: SpeakerLine.nullable().default(null),
   })
   .strict();
 export type ContinueCard = z.infer<typeof ContinueCard>;
@@ -295,6 +319,14 @@ export const SessionSummary = z
      * apart, and the session screen needs it to render server-sent keys.
      */
     locale: LocaleSchema,
+    /**
+     * The newest line a character spoke, for the Library row. Filled only by
+     * `GET /v1/sessions`, which already reads every run's turns; null on the
+     * session, create and fork responses.
+     */
+    lastLine: SpeakerLine.nullable().default(null),
+    /** The first line of the newest beat's scene summary. Same rule as `ContinueCard.recapLine`. */
+    recapLine: z.string().nullable().default(null),
   })
   .strict();
 export type SessionSummary = z.infer<typeof SessionSummary>;
