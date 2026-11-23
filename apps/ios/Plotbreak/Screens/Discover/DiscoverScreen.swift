@@ -588,8 +588,10 @@ struct StoryMetaLine: View {
     }
 }
 
-/// A run in progress (design v3): the cover, the title, how far in and when,
-/// and the story's last line in the story's own type.
+/// A run in progress (design v3): the cover, the title, who you are, how far
+/// in and when, and the last thing somebody said beside their face. A server
+/// that predates `displayName` and `lastLine` gets today's row: "Turn 3 · 2 h
+/// ago" and the recap in the story's own type.
 private struct ContinueRow: View {
     let card: ContinueCard
     let locale: AppLocale
@@ -597,7 +599,9 @@ private struct ContinueRow: View {
     @Environment(\.translator) private var t
 
     private var meta: String {
-        var parts = [t("discover.continue_turns_in", ["count": card.turnCount])]
+        var parts: [String] = []
+        if let name = card.displayName, !name.isEmpty { parts.append(t("library.playing_as", ["name": name])) }
+        parts.append(t("discover.continue_turns_in", ["count": card.turnCount]))
         if let date = ISO8601.date(from: card.lastPlayedAt) { parts.append(Format.relative(date, locale: locale)) }
         return parts.joined(separator: " · ")
     }
@@ -616,11 +620,16 @@ private struct ContinueRow: View {
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundStyle(Theme.Colors.textPrimary)
                         .lineLimit(1)
+                    // Two lines: "dans le rôle de Robin Vale · Tour 17 · il y
+                    // a 2 h" is wider than the column, and one line cut the date.
                     Text(meta)
                         .font(.system(size: 13))
                         .foregroundStyle(Theme.Colors.textMuted)
-                        .lineLimit(1)
-                    if let line = card.recapLine ?? card.currentObjective, !line.isEmpty {
+                        .lineLimit(2)
+                    if let spoken = card.lastLine {
+                        SpeakerLineView(line: spoken)
+                            .padding(.top, 4)
+                    } else if let line = card.recapLine ?? card.currentObjective, !line.isEmpty {
                         Text(line)
                             .font(.system(size: 15, design: .serif))
                             .foregroundStyle(Theme.Colors.textSecondary)

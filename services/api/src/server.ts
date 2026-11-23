@@ -1535,7 +1535,9 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       const state = await ctx.repo.getState(record.sessionId);
       if (!story || !state) continue;
       const turns = await ctx.repo.listTurns(record.sessionId);
-      sessions.push(toSessionSummary(record, story, state, turns.length));
+      // The turns are already read for the count, so the Library row's last
+      // line and recap cost nothing extra.
+      sessions.push(toSessionSummary(record, story, state, turns.length, turns));
     }
     return { sessions };
   });

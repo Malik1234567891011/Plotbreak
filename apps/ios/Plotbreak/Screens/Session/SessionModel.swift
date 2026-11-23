@@ -388,7 +388,9 @@ final class SessionModel {
             storyId: detail?.session.storyId ?? "",
             storyTitle: detail?.session.title ?? "",
             shortfall: max(0, shortfall),
-            turnsPlayed: turns.count
+            turnsPlayed: turns.count,
+            // The last thing somebody said, so the wall opens on their voice.
+            quote: SpeakerLine.latest(turns: turns, cast: detail?.scene.cast ?? [])
         ))
     }
 

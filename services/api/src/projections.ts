@@ -36,6 +36,7 @@ import {
 } from '@plotbreak/engine';
 import { translatorFor, type Locale, type TranslationKey, type Translator } from '@plotbreak/i18n';
 import type { SessionRecord, StorySignals } from './repo/types.js';
+import { lastSpokenLine, recapLineOf } from './last-line.js';
 
 /**
  * Read models. Authoritative state lives in `GameState`; these shape it into
@@ -203,7 +204,18 @@ export function toStoryDetail(
   };
 }
 
-export function toSessionSummary(record: SessionRecord, story: StoryVersion, state: GameState, turnCount: number): SessionSummary {
+/**
+ * @param turns The run's turns, when the caller has already read them. Only
+ * `GET /v1/sessions` passes them, for the Library row's line; every other
+ * response sends `lastLine` and `recapLine` as null.
+ */
+export function toSessionSummary(
+  record: SessionRecord,
+  story: StoryVersion,
+  state: GameState,
+  turnCount: number,
+  turns?: readonly TurnRecord[],
+): SessionSummary {
   return {
     sessionId: record.sessionId,
     storyId: record.storyId,
@@ -221,7 +233,24 @@ export function toSessionSummary(record: SessionRecord, story: StoryVersion, sta
     // From the state, never from the session row or the request. The run's
     // locale was frozen when it was created and this is the copy that froze.
     locale: state.locale,
+    lastLine: turns ? lastSpokenLine(story, turns) : null,
+    recapLine: turns ? recapLineOf(turns) : null,
+    playingAs: playingAs(record, story, state),
   };
+}
+
+/**
+ * Who the player is in this run, as the story calls them, for "as Ren".
+ *
+ * The storyteller reads the canon name for a NAMED lead and the identity in
+ * the run's state otherwise (`packages/director/src/pure/narrator.ts`), so
+ * this does too. Not the session row's `displayName`: a fork's row is named
+ * "Ren (fork)" so the Library can tell the branches apart, and a NAMED lead's
+ * row can hold the player's account name. Null when nobody is named.
+ */
+export function playingAs(record: SessionRecord, story: StoryVersion, state: GameState): string | null {
+  const canon = story.protagonist?.kind === 'NAMED' ? story.protagonist.name.trim() : '';
+  return canon || state.player.identity?.displayName?.trim() || record.displayName.trim() || null;
 }
 
 /**
@@ -662,7 +691,10 @@ export function toContinueCard(
     lastPlayedAt: record.lastPlayedAt,
     turnCount: turns.length,
     currentObjective: topObjective(state, story),
-    recapLine: turns.at(-1)?.sceneSummary.split('\n')[0] ?? null,
+    recapLine: recapLineOf(turns),
+    // Null is "nobody named": a row reads "Turn 3" rather than "as  · Turn 3".
+    displayName: playingAs(record, story, state),
+    lastLine: lastSpokenLine(story, turns),
   };
 }
 
