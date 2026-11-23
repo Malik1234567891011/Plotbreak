@@ -48,8 +48,6 @@ struct SignInScreen: View {
                 }
 
                 Spacer(minLength: 0)
-                wordmark
-                Spacer(minLength: 0)
 
                 if !store.isGuest {
                     signedIn
@@ -66,15 +64,16 @@ struct SignInScreen: View {
     // MARK: Pieces
 
     /// The brand lockup from `docs/brand`, in the interface language.
+    /// Design v3: the app's wordmark, the same one Home wears, left-aligned
+    /// over the buttons.
     private var wordmark: some View {
-        Image(store.locale == .fr ? "WordmarkFR" : "WordmarkEN")
+        Image("WordmarkInk")
             .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(maxWidth: 300)
-            .padding(.horizontal, Theme.Spacing.xxxl)
-            .padding(.bottom, 120)
+            .scaledToFit()
+            .frame(height: 46)
             // i18n-exempt: the product name is the same word in every language
-            .accessibilityLabel("Plotbreak")
+            .accessibilityLabel(Text(verbatim: "Plotbreak"))
+            .accessibilityAddTraits(.isHeader)
     }
 
     private var signedIn: some View {
@@ -92,21 +91,22 @@ struct SignInScreen: View {
 
     @ViewBuilder private var footer: some View {
         VStack(spacing: 0) {
-            if store.authConfigured {
-                TooltipBubble(text: t("misc.sign_in_bonus"))
-                    .padding(.bottom, 18)
-                    .accessibilityHidden(true)
-
-                if store.googleConfigured {
-                    PBButton(t("misc.continue_with_google"), loadingLabel: t("misc.signing_in"), variant: .neutral, size: .medium,
-                             loading: busy == "google", disabled: busy != nil) {
-                        run("google") { try await store.signInWithGoogle() }
-                    }
-                    .overlay(alignment: .leading) { GoogleMark().padding(.leading, 18).allowsHitTesting(false) }
-                    .padding(.bottom, 14)
+            // Design v3 (board frame Welcome): the wordmark and the bonus as a
+            // quiet line, left-aligned; Apple is the one paper button, Google
+            // the quiet one under it.
+            VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                wordmark
+                if store.authConfigured {
+                    Text(t("misc.sign_in_bonus"))
+                        .font(.system(size: 15))
+                        .foregroundStyle(Theme.Colors.textSecondary)
                 }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.bottom, 40)
 
-                PBButton(t("misc.continue_with_apple"), loadingLabel: t("misc.signing_in"), variant: .neutral, size: .medium,
+            if store.authConfigured {
+                PBButton(t("misc.continue_with_apple"), loadingLabel: t("misc.signing_in"), variant: .light, size: .medium,
                          loading: busy == "apple", disabled: busy != nil) {
                     run("apple") {
                         let (credential, nonce) = try await apple.request()
@@ -116,11 +116,20 @@ struct SignInScreen: View {
                 .overlay(alignment: .leading) {
                     Image(systemName: "apple.logo")
                         .font(.system(size: 20, weight: .medium))
-                        .foregroundStyle(Theme.Colors.textPrimary)
+                        .foregroundStyle(Theme.Colors.textOnLight)
                         .padding(.leading, 20)
                         .allowsHitTesting(false)
                 }
-                .padding(.bottom, 30)
+                .padding(.bottom, 12)
+
+                if store.googleConfigured {
+                    PBButton(t("misc.continue_with_google"), loadingLabel: t("misc.signing_in"), variant: .neutral, size: .medium,
+                             loading: busy == "google", disabled: busy != nil) {
+                        run("google") { try await store.signInWithGoogle() }
+                    }
+                    .overlay(alignment: .leading) { GoogleMark().padding(.leading, 18).allowsHitTesting(false) }
+                }
+                Spacer().frame(height: 24)
             } else {
                 // A developer build: say so, and let them through.
                 Card { Txt(t("misc.sign_in_not_configured"), .bodyCompact) }
@@ -140,8 +149,8 @@ struct SignInScreen: View {
 
             LegalFooter()
         }
-        .padding(.horizontal, Theme.Spacing.xl)
-        .padding(.bottom, Theme.Spacing.xxl)
+        .padding(.horizontal, Theme.pageGutter)
+        .padding(.bottom, Theme.Spacing.xl)
     }
 
     // MARK: Behaviour
@@ -299,20 +308,19 @@ private struct CoverWall: View {
                     }
                 }
                 .frame(width: width, height: columnHeight * 2)
-                .rotationEffect(.degrees(-7))
                 .position(x: proxy.size.width / 2, y: proxy.size.height * 0.45)
 
-                Theme.Colors.bgBase.opacity(0.86)
-
-                RadialGradient(
+                // Design v3: the covers stay bright at the top; the only
+                // gradient is the scrim under the wordmark and the buttons.
+                LinearGradient(
                     stops: [
-                        .init(color: Theme.Colors.bgBase.opacity(0), location: 0),
-                        .init(color: Theme.Colors.bgBase.opacity(0.55), location: 0.6),
-                        .init(color: Theme.Colors.bgBase.opacity(0.95), location: 1),
+                        .init(color: Theme.Colors.bgBase.opacity(0.1), location: 0),
+                        .init(color: Theme.Colors.bgBase.opacity(0.25), location: 0.35),
+                        .init(color: Theme.Colors.bgBase.opacity(0.88), location: 0.56),
+                        .init(color: Theme.Colors.bgBase, location: 0.7),
                     ],
-                    center: UnitPoint(x: 0.5, y: 0.4),
-                    startRadius: 0,
-                    endRadius: max(proxy.size.width, proxy.size.height) * 0.62
+                    startPoint: .top,
+                    endPoint: .bottom
                 )
             }
             .clipped()
