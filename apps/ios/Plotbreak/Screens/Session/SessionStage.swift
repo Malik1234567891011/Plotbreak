@@ -156,7 +156,8 @@ struct SessionStage: View {
                 }
                 if let objective = scene.objective, !objective.isEmpty {
                     ObjectiveStrip(objective: objective) {
-                        router.present(.worldSheet(sessionId: sessionId, tab: "quests"))
+                        // The quests live on Now since design v3.
+                        router.present(.worldSheet(sessionId: sessionId, tab: WorldSheetTab.now.rawValue))
                     }
                 }
                 // Who is with you, and how that is going. A word, not a bar.

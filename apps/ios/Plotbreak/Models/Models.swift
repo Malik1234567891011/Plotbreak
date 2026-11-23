@@ -950,6 +950,20 @@ struct WorldSheetOverview: Codable, Hashable {
     @Default<EmptyArray<StatusEffect>> var statuses: [StatusEffect]
     @Default<EmptyArray<RelationshipHighlight>> var relationshipHighlights: [RelationshipHighlight]
     @Default<EmptyArray<String>> var recentEvents: [String]
+    /// Who is in the room with the player (design v3's Now tab). Optional, not
+    /// defaulted: `nil` is an older server that does not send it, and the Now
+    /// tab hides the section rather than claiming the room is empty.
+    var hereNow: [HereNowCharacter]?
+}
+
+/// One person in the player's room, for the World Sheet's Now tab.
+struct HereNowCharacter: Codable, Hashable, Identifiable {
+    var id: String { characterId }
+    var characterId: String
+    var name: String
+    var portrait: String?
+    /// The world's public line for them (the cast card's blurb, or the role).
+    @Default<EmptyString> var line: String
 }
 
 struct AttributeView: Codable, Hashable, Identifiable {

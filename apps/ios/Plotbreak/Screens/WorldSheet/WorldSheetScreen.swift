@@ -7,19 +7,31 @@ import SwiftUI
 // Spec §11 — the authoritative record. Everything here is engine truth, which
 // is why the player can trust it over anything the prose said.
 
+/// Design v3 (board frame World sheet): Now · People · Things · Map ·
+/// Timeline · You, in that order. Overview and Quests left the strip; their
+/// sections live on Now (threads, recent events) and You (resources, effects).
+///
+/// The raw values are what telemetry reports, so the surviving tabs keep the
+/// names they always had.
 enum WorldSheetTab: String, CaseIterable {
-    case overview, character, inventory, quests, relationships, map, timeline
+    case now, relationships, inventory, map, timeline, character
 
     var labelKey: TranslationKey {
         switch self {
-        case .overview: return "worldsheet.tab_overview"
-        case .character: return "worldsheet.tab_character"
-        case .inventory: return "worldsheet.tab_inventory"
-        case .quests: return "worldsheet.tab_quests"
+        case .now: return "worldsheet.tab_now"
         case .relationships: return "worldsheet.tab_people"
+        case .inventory: return "worldsheet.tab_inventory"
         case .map: return "worldsheet.tab_map"
         case .timeline: return "worldsheet.tab_timeline"
+        case .character: return "worldsheet.tab_character"
         }
+    }
+
+    /// The tab a caller asked for. `nil`, the retired `overview` and `quests`
+    /// (the objective strip still asks for that one) and anything unknown open
+    /// on Now, where the objective and the quests now are.
+    static func initial(_ requested: String?) -> WorldSheetTab {
+        requested.flatMap(WorldSheetTab.init(rawValue:)) ?? .now
     }
 }
 
@@ -38,7 +50,7 @@ struct WorldSheetScreen: View {
     init(sessionId: String, initialTab: String?) {
         self.sessionId = sessionId
         self.initialTab = initialTab
-        _tab = State(initialValue: initialTab.flatMap(WorldSheetTab.init(rawValue:)) ?? .overview)
+        _tab = State(initialValue: WorldSheetTab.initial(initialTab))
     }
 
     var body: some View {
@@ -93,10 +105,9 @@ struct WorldSheetScreen: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
                             switch tab {
-                            case .overview: WorldSheetOverviewTab(sheet: sheet)
+                            case .now: WorldSheetNowTab(sheet: sheet) { tab = $0 }
                             case .character: WorldSheetCharacterTab(sheet: sheet, sessionId: sessionId)
                             case .inventory: WorldSheetInventoryTab(sheet: sheet)
-                            case .quests: WorldSheetQuestsTab(sheet: sheet)
                             case .relationships: WorldSheetRelationshipsTab(sheet: sheet)
                             case .map: WorldSheetMapTab(sheet: sheet)
                             case .timeline:
@@ -151,88 +162,6 @@ struct WorldSheetScreen: View {
     }
 }
 
-// MARK: - Wrapping row
-//
-// The RN screens use `flexWrap: 'wrap'` rows of chips; SwiftUI has no built-in
-// wrapping stack, so this is the one layout the three screens share.
-
-// MARK: - Overview (WS-01 — current essentials only, §11.1)
-
-struct WorldSheetOverviewTab: View {
-    let sheet: WorldSheetResponse
-    @Environment(AppStore.self) private var store
-    @Environment(\.translator) private var t
-
-    private var overview: WorldSheetOverview { sheet.overview }
-
-    var body: some View {
-        // Design v3: no card. The place, the hour and the chapter are the
-        // sheet's header; here only what the run is carrying, under plain
-        // sentence-case headings.
-        VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
-            if !overview.resources.isEmpty {
-                VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
-                    ForEach(overview.resources) { resource in
-                        ResourceBar(
-                            name: resource.name,
-                            current: resource.current,
-                            max: resource.max,
-                            color: resource.color,
-                            polarity: resource.polarity,
-                            locale: store.locale
-                        )
-                    }
-                }
-            }
-
-            if let objective = overview.topObjective, !objective.isEmpty {
-                VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    heading(t("worldsheet.current_objective"))
-                    Txt(objective, .body)
-                }
-            }
-
-            if !overview.statuses.isEmpty {
-                VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    heading(t("worldsheet.active_effects"))
-                    FlowLayout {
-                        ForEach(overview.statuses) { status in
-                            Chip(status.label, tone: status.kind == .DEBUFF ? .warning : status.kind == .BUFF ? .success : .neutral)
-                        }
-                    }
-                }
-            }
-
-            if !overview.relationshipHighlights.isEmpty {
-                VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    heading(t("worldsheet.relationship_highlights"))
-                    FlowLayout {
-                        ForEach(overview.relationshipHighlights) { highlight in
-                            Chip(t("worldsheet.highlight", ["name": highlight.name, "label": highlight.label]))
-                        }
-                    }
-                }
-            }
-
-            if !overview.recentEvents.isEmpty {
-                VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    heading(t("worldsheet.recently"))
-                    ForEach(Array(overview.recentEvents.enumerated()), id: \.offset) { _, event in
-                        Txt(t("worldsheet.recent_event", ["event": event]), .bodyCompact, color: Theme.Colors.textSecondary)
-                    }
-                }
-            }
-        }
-    }
-
-    private func heading(_ text: String) -> some View {
-        Text(text.sentenceCased)
-            .font(.system(size: 20, weight: .semibold))
-            .foregroundStyle(Theme.Colors.textPrimary)
-            .accessibilityAddTraits(.isHeader)
-    }
-}
-
 // MARK: - Character (WS-02 — attributes explain themselves in plain language, §11.2)
 
 struct WorldSheetCharacterTab: View {
@@ -241,6 +170,7 @@ struct WorldSheetCharacterTab: View {
     /// `IdentitySheet` for why this lives in the story rather than in front of
     /// it.
     var sessionId: String = ""
+    @Environment(AppStore.self) private var store
     @Environment(\.translator) private var t
     @State private var expanded: String?
     @State private var editing = false
@@ -277,6 +207,34 @@ struct WorldSheetCharacterTab: View {
                         }
                     }
                     .padding(.top, Theme.Spacing.sm)
+                }
+            }
+
+            // From the retired Overview: what the run is carrying in the body
+            // (resources) and what is on you right now (effects).
+            if !sheet.overview.resources.isEmpty {
+                VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
+                    ForEach(sheet.overview.resources) { resource in
+                        ResourceBar(
+                            name: resource.name,
+                            current: resource.current,
+                            max: resource.max,
+                            color: resource.color,
+                            polarity: resource.polarity,
+                            locale: store.locale
+                        )
+                    }
+                }
+            }
+
+            if !sheet.overview.statuses.isEmpty {
+                VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                    Txt(t("worldsheet.active_effects"), .h3)
+                    FlowLayout {
+                        ForEach(sheet.overview.statuses) { status in
+                            Chip(status.label, tone: status.kind == .DEBUFF ? .warning : status.kind == .BUFF ? .success : .neutral)
+                        }
+                    }
                 }
             }
 
