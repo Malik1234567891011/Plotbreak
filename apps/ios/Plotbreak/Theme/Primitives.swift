@@ -696,6 +696,43 @@ struct FieldStyle: ViewModifier {
 
 extension View {
     func fieldStyle(focused: Bool = false) -> some View { modifier(FieldStyle(focused: focused)) }
+    /// Design v3 onboarding field: a paper capsule; what sits in it is ink.
+    func paperFieldStyle() -> some View {
+        padding(.horizontal, 22)
+            .frame(minHeight: 52)
+            .background(Theme.Colors.light, in: Capsule())
+    }
+}
+
+/// Design v3: onboarding's forward button, a 60pt paper circle with a chevron,
+/// bottom right. Says "Next" to VoiceOver.
+struct OnboardingNextButton: View {
+    var loading = false
+    var disabled = false
+    let action: () -> Void
+    @Environment(\.translator) private var t
+
+    var body: some View {
+        Button {
+            Haptic.play(.light)
+            action()
+        } label: {
+            ZStack {
+                if loading {
+                    ProgressView().tint(Theme.Colors.textOnLight)
+                } else {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(disabled ? Theme.Colors.textMuted : Theme.Colors.textOnLight)
+                }
+            }
+            .frame(width: 60, height: 60)
+            .background(disabled ? Theme.Colors.bgRaised : Theme.Colors.light, in: Circle())
+        }
+        .buttonStyle(PressScaleStyle())
+        .disabled(disabled || loading)
+        .accessibilityLabel(t("onboarding.next"))
+    }
 }
 
 // MARK: Settings row
@@ -919,6 +956,8 @@ struct OnboardingFrame<Content: View, Footer: View>: View {
     let step: Int
     let total: Int
     var onClose: (() -> Void)? = nil
+    /// Design v3: a back chevron top-left when the step has one behind it.
+    var onBack: (() -> Void)? = nil
     @ViewBuilder let content: () -> Content
     @ViewBuilder let footer: () -> Footer
     @Environment(\.translator) private var t
@@ -926,32 +965,45 @@ struct OnboardingFrame<Content: View, Footer: View>: View {
     var body: some View {
         Screen {
             VStack(spacing: 0) {
+                // Design v3 (board frames Onb*): back (or close) on the left,
+                // the steps as short dashes on the right; no full-width bar.
                 HStack {
-                    Spacer(minLength: 0)
-                    if let onClose {
+                    if let onBack {
+                        IconButton(t("onboarding.previous"), action: onBack) {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundStyle(Theme.Colors.textPrimary)
+                        }
+                    } else if let onClose {
                         IconButton(t("onboarding.skip"), action: onClose) {
                             Image(systemName: "xmark")
-                                .font(.system(size: 20, weight: .medium))
-                                .foregroundStyle(Theme.Colors.textMuted)
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundStyle(Theme.Colors.textPrimary)
                         }
                     } else {
                         Color.clear.frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
                     }
+                    Spacer(minLength: 0)
+                    HStack(spacing: 4) {
+                        ForEach(1...max(total, 1), id: \.self) { index in
+                            Capsule()
+                                .fill(index <= step ? Theme.Colors.textPrimary : Color(hex: 0x45413B))
+                                .frame(width: 14, height: 2)
+                        }
+                    }
+                    .padding(.trailing, Theme.pageGutter - Theme.Spacing.sm)
+                    .accessibilityElement()
+                    .accessibilityLabel(t("onboarding.step_a11y", ["step": step, "total": total]))
                 }
                 .padding(.horizontal, Theme.Spacing.sm)
                 .padding(.top, Theme.Spacing.xs)
-
-                ProgressBar(fraction: Double(step) / Double(total))
-                    .padding(.horizontal, Theme.pageGutter)
-                    .padding(.top, Theme.Spacing.md)
-                    .accessibilityLabel(t("onboarding.step_a11y", ["step": step, "total": total]))
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
                         content()
                     }
                     .padding(.horizontal, Theme.pageGutter)
-                    .padding(.top, 44)
+                    .padding(.top, Theme.Spacing.lg)
                     .padding(.bottom, Theme.Spacing.xxl)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -967,19 +1019,19 @@ struct OnboardingFrame<Content: View, Footer: View>: View {
     }
 }
 
-/// An onboarding step's title: 26pt semibold, tight leading.
+/// An onboarding step's title. Design v3: 28pt bold, like every page title.
 struct OnboardingTitle: View {
     let text: String
-    var size: CGFloat = 26
+    var size: CGFloat = 28
 
-    init(_ text: String, size: CGFloat = 26) {
+    init(_ text: String, size: CGFloat = 28) {
         self.text = text
         self.size = size
     }
 
     var body: some View {
         Text(text)
-            .font(.system(size: size, weight: .semibold))
+            .font(.system(size: size, weight: size >= 24 ? .bold : .semibold))
             .foregroundStyle(Theme.Colors.textPrimary)
             .lineSpacing(size * 0.25 - 4)
             .fixedSize(horizontal: false, vertical: true)

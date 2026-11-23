@@ -75,14 +75,14 @@ struct BirthDateScreen: View {
             } label: {
                 HStack(spacing: 14) {
                     Image(systemName: "calendar")
-                        .font(.system(size: 20, weight: .regular))
-                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .font(.system(size: 18, weight: .regular))
+                        .foregroundStyle(Theme.Colors.textOnLight.opacity(0.6))
                     Text(birthDate.map(formatted) ?? t("onboarding.birth_date_placeholder"))
-                        .font(.system(size: 17))
-                        .foregroundStyle(birthDate == nil ? Theme.Colors.textMuted : Theme.Colors.textPrimary)
+                        .font(.system(size: 17, weight: birthDate == nil ? .regular : .semibold))
+                        .foregroundStyle(birthDate == nil ? Theme.Colors.textOnLight.opacity(0.5) : Theme.Colors.textOnLight)
                     Spacer(minLength: 0)
                 }
-                .fieldStyle()
+                .paperFieldStyle()
                 .contentShape(Rectangle())
             }
             .buttonStyle(PressOpacityStyle(pressed: 0.8))
@@ -95,7 +95,9 @@ struct BirthDateScreen: View {
             }
         } footer: {
             LegalFooter()
-            PBButton(t("onboarding.next"), variant: .light, size: .medium, loading: confirming, disabled: birthDate == nil || tooYoung) {
+            HStack {
+                Spacer(minLength: 0)
+                OnboardingNextButton(loading: confirming, disabled: birthDate == nil || tooYoung) {
                 guard let birthDate else { return }
                 confirming = true
                 Task {
@@ -106,6 +108,7 @@ struct BirthDateScreen: View {
                     // is personal data we have no reason to hand a vendor
                     // (§30.2).
                     Telemetry.track(.ageGateCompleted, ["ageBand": AppStore.ageBand(birthDate: birthDate)])
+                }
                 }
             }
         }
@@ -205,19 +208,14 @@ struct DisplayNameScreen: View {
     var body: some View {
         OnboardingFrame(step: 2, total: onboardingSteps) {
             OnboardingTitle(t("onboarding.name_title"))
-                .padding(.bottom, Theme.Spacing.md)
-            Text(t("onboarding.name_hint"))
-                .font(.system(size: 15))
-                .lineSpacing(3)
-                .foregroundStyle(Theme.Colors.textDim)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.bottom, Theme.Spacing.xxxl)
+                .padding(.bottom, Theme.Spacing.xl)
 
             HStack(spacing: Theme.Spacing.md) {
-                TextField(t("onboarding.name_placeholder"), text: $name)
-                    .font(.system(size: 17))
-                    .foregroundStyle(Theme.Colors.textPrimary)
-                    .tint(Theme.Colors.accentPrimary)
+                TextField(t("onboarding.name_placeholder"), text: $name,
+                          prompt: Text(t("onboarding.name_placeholder")).foregroundStyle(Theme.Colors.textOnLight.opacity(0.5)))
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(Theme.Colors.textOnLight)
+                    .tint(Theme.Colors.textOnLight)
                     .textInputAutocapitalization(.words)
                     .autocorrectionDisabled()
                     .submitLabel(.done)
@@ -228,16 +226,17 @@ struct DisplayNameScreen: View {
                     .onSubmit { if !trimmed.isEmpty { save() } }
                     .accessibilityLabel(t("onboarding.name_title"))
                 Text("\(name.count)/\(Self.limit)")
-                    .font(.system(size: 13, design: .monospaced))
-                    .foregroundStyle(Theme.Colors.textDim)
+                    .font(.system(size: 13))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.Colors.textOnLight.opacity(0.55))
                     .accessibilityHidden(true)
                 if !name.isEmpty {
                     Button {
                         name = ""
                     } label: {
-                        Image(systemName: "xmark.circle")
-                            .font(.system(size: 22, weight: .regular))
-                            .foregroundStyle(Theme.Colors.textDim)
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 20, weight: .regular))
+                            .foregroundStyle(Theme.Colors.textOnLight.opacity(0.35))
                             .frame(width: 32, height: 32)
                             .contentShape(Rectangle())
                     }
@@ -245,9 +244,19 @@ struct DisplayNameScreen: View {
                     .accessibilityLabel(t("onboarding.name_clear_a11y"))
                 }
             }
-            .fieldStyle(focused: focused)
+            .paperFieldStyle()
+
+            // The hint under the field, quiet (board: help text below).
+            Text(t("onboarding.name_hint"))
+                .font(.system(size: 13))
+                .foregroundStyle(Theme.Colors.textMuted)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, Theme.Spacing.md)
         } footer: {
-            PBButton(t("onboarding.next"), variant: .light, size: .medium, loading: saving, disabled: trimmed.isEmpty) { save() }
+            HStack {
+                Spacer(minLength: 0)
+                OnboardingNextButton(loading: saving, disabled: trimmed.isEmpty) { save() }
+            }
         }
         .onAppear {
             if name.isEmpty, let existing = store.displayName { name = existing }
@@ -282,16 +291,24 @@ struct AudienceGenresScreen: View {
     @State private var refreshed = false
 
     var body: some View {
-        OnboardingFrame(step: 3, total: onboardingSteps, onClose: { finish(skip: true) }) {
-            AudienceGenresPicker(audience: $audience, picked: $picked)
+        OnboardingFrame(step: 3, total: onboardingSteps, onBack: onBack) {
+            AudienceGenresPicker(audience: $audience, picked: $picked, leadSize: 28)
         } footer: {
             LegalFooter()
-            // Two equal halves, the way the reference splits Previous and Next.
-            HStack(spacing: Theme.Spacing.md) {
-                if let onBack {
-                    PBButton(t("onboarding.previous"), variant: .outline, size: .medium, action: onBack)
+            // Design v3: Skip as plain text on the left, the round next on the right.
+            HStack {
+                Button {
+                    finish(skip: true)
+                } label: {
+                    Text(t("onboarding.skip"))
+                        .font(.system(size: 17, weight: .medium))
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
                 }
-                PBButton(t("onboarding.next"), size: .medium) { finish(skip: false) }
+                .buttonStyle(PressOpacityStyle())
+                Spacer(minLength: 0)
+                OnboardingNextButton { finish(skip: false) }
             }
         }
         .task {
@@ -322,6 +339,8 @@ struct AudienceGenresScreen: View {
 struct AudienceGenresPicker: View {
     @Binding var audience: String?
     @Binding var picked: [String]
+    /// The genres heading's size: 28 as onboarding's page title, 20 in Settings.
+    var leadSize: CGFloat = 20
     @Environment(AppStore.self) private var store
     @Environment(\.translator) private var t
 
@@ -338,43 +357,72 @@ struct AudienceGenresPicker: View {
     // English word survives even when a French word is on the chip.
     private var genres: [Genre] { store.bootstrap?.genres ?? [] }
 
+    // Design v3 (board frame OnbTaste): genres first as filled chips with a
+    // check on the picks, then the audience as one segmented track.
     var body: some View {
-        OnboardingTitle(t("onboarding.audience_title"), size: 22)
+        OnboardingTitle(t("onboarding.genres_title"), size: leadSize)
             .padding(.bottom, Theme.Spacing.xl)
 
-        HStack(spacing: 10) {
-            ForEach(audiences, id: \.id) { option in
-                let selected = audience == option.id
-                RadioCard(selected: selected, centered: true, action: { audience = selected ? nil : option.id }) {
-                    Text(option.label)
-                        .font(.system(size: selected ? 15 : 16, weight: selected ? .medium : .regular))
-                        .foregroundStyle(selected ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.7)
-                }
-                .accessibilityLabel(option.label)
-            }
-        }
-        .padding(.bottom, 44)
-
-        OnboardingTitle(t("onboarding.genres_title"), size: 22)
-            .padding(.bottom, Theme.Spacing.xl)
-
-        // Chip-shaped placeholders while the catalogue is still coming. An
-        // empty space under a heading that says "pick genres" reads as broken.
-        FlowLayout(spacing: Theme.Spacing.md) {
+        FlowLayout(spacing: 10) {
             if genres.isEmpty {
                 ForEach(Array([96, 120, 104, 88, 112, 92].enumerated()), id: \.offset) { _, width in
-                    Skeleton(width: CGFloat(width), height: 38, radius: Theme.Radius.pill)
+                    Skeleton(width: CGFloat(width), height: 40, radius: 20)
                 }
             } else {
                 ForEach(genres) { genre in
-                    Chip(t.category(genre.id, fallback: genre.label), selected: picked.contains(genre.label)) {
+                    let on = picked.contains(genre.label)
+                    Button {
+                        Haptic.play(.light)
                         toggle(genre.label)
+                    } label: {
+                        HStack(spacing: 6) {
+                            if on {
+                                Image(systemName: "checkmark")
+                                    .font(.system(size: 12, weight: .bold))
+                            }
+                            Text(t.category(genre.id, fallback: genre.label))
+                                .font(.system(size: 15, weight: .medium))
+                        }
+                        .foregroundStyle(on ? Theme.Colors.textOnLight : Theme.Colors.textPrimary)
+                        .padding(.horizontal, 16)
+                        .frame(height: 40)
+                        .background(on ? Theme.Colors.light : Theme.Colors.bgRaised, in: Capsule())
                     }
+                    .buttonStyle(PressOpacityStyle())
+                    .accessibilityAddTraits(on ? .isSelected : [])
                 }
             }
         }
+        .padding(.bottom, 40)
+
+        OnboardingTitle(t("onboarding.audience_title"), size: 20)
+            .padding(.bottom, Theme.Spacing.md)
+
+        HStack(spacing: 0) {
+            ForEach(audiences, id: \.id) { option in
+                let on = audience == option.id
+                Button {
+                    Haptic.play(.light)
+                    withAnimation(.easeOut(duration: Theme.Durations.short)) { audience = on ? nil : option.id }
+                } label: {
+                    Text(option.label)
+                        .font(.system(size: 16, weight: on ? .semibold : .regular))
+                        .foregroundStyle(on ? Theme.Colors.textPrimary : Theme.Colors.textSecondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                        .frame(maxWidth: .infinity, minHeight: 40)
+                        .background {
+                            if on { Capsule().fill(Color(hex: 0x45413B)) }
+                        }
+                        .contentShape(Capsule())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(option.label)
+                .accessibilityAddTraits(on ? .isSelected : [])
+            }
+        }
+        .padding(3)
+        .background(Theme.Colors.bgRaised, in: Capsule())
     }
 
     private func toggle(_ genre: String) {
@@ -412,21 +460,27 @@ struct ShowcaseScreen: View {
     let onOpen: (String) -> Void
 
     @State private var stories: [StorySummary] = []
+    @State private var focusedId: String?
+
+    private var focused: StorySummary? {
+        stories.first { $0.storyId == focusedId } ?? stories.first
+    }
 
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                HStack {
+                // Design v3 (board frame OnbShowcase): the step dashes, all lit.
+                HStack(spacing: 4) {
                     Spacer(minLength: 0)
-                    Color.clear.frame(width: Theme.minTouchTarget, height: Theme.minTouchTarget)
+                    ForEach(0..<onboardingSteps, id: \.self) { _ in
+                        Capsule().fill(Theme.Colors.textPrimary).frame(width: 14, height: 2)
+                    }
                 }
-                .padding(.horizontal, Theme.Spacing.sm)
+                .frame(height: Theme.minTouchTarget)
+                .padding(.horizontal, Theme.pageGutter)
                 .padding(.top, Theme.Spacing.xs)
-
-                ProgressBar(fraction: 1)
-                    .padding(.horizontal, Theme.pageGutter)
-                    .padding(.top, Theme.Spacing.md)
-                    .accessibilityLabel(t("onboarding.step_a11y", ["step": onboardingSteps, "total": onboardingSteps]))
+                .accessibilityElement()
+                .accessibilityLabel(t("onboarding.step_a11y", ["step": onboardingSteps, "total": onboardingSteps]))
 
                 GeometryReader { proxy in
                     // A card wide enough that the next one peeks in at the edge,
@@ -434,14 +488,14 @@ struct ShowcaseScreen: View {
                     let cardWidth = min(proxy.size.width * 0.62, 260)
 
                     VStack(alignment: .leading, spacing: 0) {
-                        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                        VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
                             OnboardingTitle(t("onboarding.showcase_title"))
                             Text(t("onboarding.showcase_body"))
                                 .font(.system(size: 15))
-                                .foregroundStyle(Theme.Colors.textDim)
+                                .foregroundStyle(Theme.Colors.textMuted)
                         }
                         .padding(.horizontal, Theme.pageGutter)
-                        .padding(.top, 44)
+                        .padding(.top, Theme.Spacing.lg)
 
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(alignment: .top, spacing: Theme.Spacing.md) {
@@ -450,35 +504,66 @@ struct ShowcaseScreen: View {
                                         Haptic.play(.light)
                                         onOpen(story.storyId)
                                     } label: {
-                                        VStack(alignment: .leading, spacing: 2) {
-                                            StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
-                                                .frame(width: cardWidth, height: cardWidth * 1.5)
-                                                .clipShape(RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous))
-                                                .overlay {
-                                                    RoundedRectangle(cornerRadius: Theme.Radius.field, style: .continuous)
-                                                        .strokeBorder(Theme.Colors.borderSubtle, lineWidth: 0.5)
-                                                }
-                                                .padding(.bottom, Theme.Spacing.md)
-                                            Txt(story.title, .h3, lineLimit: 2)
-                                            Txt(story.fantasyLabel, .caption, color: Theme.Colors.textDim, lineLimit: 2)
-                                        }
-                                        .frame(width: cardWidth, alignment: .leading)
-                                        .contentShape(Rectangle())
+                                        // The title is painted into the cover; the
+                                        // hook is under the carousel for the
+                                        // story in front.
+                                        StoryArt(seed: story.storyId, title: story.title, uri: story.coverImage)
+                                            .frame(width: cardWidth, height: cardWidth * 1.5)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                                            .contentShape(Rectangle())
                                     }
                                     .buttonStyle(PressOpacityStyle(pressed: 0.85))
                                     .accessibilityLabel(t("onboarding.showcase_card_a11y", ["title": story.title]))
                                 }
                             }
                             .padding(.horizontal, Theme.pageGutter)
-                            .padding(.top, Theme.Spacing.xxl)
+                            .padding(.top, Theme.Spacing.xl)
                             .scrollTargetLayout()
                         }
                         .scrollTargetBehavior(.viewAligned)
-                        .frame(maxHeight: .infinity)
+                        .scrollPosition(id: $focusedId, anchor: .leading)
+                        .frame(height: cardWidth * 1.5 + Theme.Spacing.xl)
 
-                        PBButton(t("onboarding.see_all_stories"), variant: .light, size: .medium, action: onSeeAll)
-                            .padding(.horizontal, Theme.pageGutter)
-                            .padding(.bottom, Theme.Spacing.md)
+                        // Page dashes and the hook of the story in front.
+                        VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                            HStack(spacing: 4) {
+                                ForEach(stories) { story in
+                                    Capsule()
+                                        .fill(story.storyId == focused?.storyId ? Theme.Colors.textPrimary : Color(hex: 0x45413B))
+                                        .frame(width: 14, height: 2)
+                                }
+                            }
+                            .accessibilityHidden(true)
+                            if let focused {
+                                Text(focused.fantasyLabel)
+                                    .font(.system(size: 15))
+                                    .foregroundStyle(Theme.Colors.textPrimary)
+                                    .lineLimit(3)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .animation(.easeOut(duration: Theme.Durations.short), value: focused.storyId)
+                            }
+                        }
+                        .padding(.horizontal, Theme.pageGutter)
+                        .padding(.top, Theme.Spacing.lg)
+
+                        Spacer(minLength: 0)
+
+                        // One white Play for the story in front; See all as text.
+                        HStack(spacing: Theme.Spacing.lg) {
+                            PBButton(t("story.play"), variant: .light, size: .medium, disabled: focused == nil, icon: "play.fill") {
+                                if let focused { onOpen(focused.storyId) }
+                            }
+                            Button(action: onSeeAll) {
+                                Text(t("onboarding.see_all_stories"))
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundStyle(Theme.Colors.textSecondary)
+                                    .frame(minHeight: 44)
+                                    .contentShape(Rectangle())
+                            }
+                            .buttonStyle(PressOpacityStyle())
+                        }
+                        .padding(.horizontal, Theme.pageGutter)
+                        .padding(.bottom, Theme.Spacing.md)
                     }
                 }
             }
