@@ -58,11 +58,11 @@
       {
        "text": "THIN",
        "font": "Big Shoulders Display",
-       "weight": 300,
-       "cap": 90,
-       "tracking": 0.06,
+       "weight": 400,
+       "cap": 142,
+       "tracking": 0.04,
        "fill": "#eaf3ff",
-       "after": 48,
+       "after": 44,
        "glow": [
         {
          "radius": 10,
@@ -74,10 +74,16 @@
        "shadow": [
         {
          "dx": 0,
-         "dy": 4,
-         "blur": 6,
+         "dy": 5,
+         "blur": 10,
          "color": "#000000",
-         "opacity": 0.6
+         "opacity": 0.75
+        }
+       ],
+       "strokes": [
+        {
+         "width": 3,
+         "fill": "#050a14"
         }
        ]
       },
@@ -128,11 +134,11 @@
      "shape": "plate",
      "of": 0,
      "to": [
-      0.264,
+      0.352,
       1
      ],
      "anchor": "bc",
-     "w": 3,
+     "w": 4,
      "h": 168,
      "fill": "#eaf3ff",
      "dy": 6,

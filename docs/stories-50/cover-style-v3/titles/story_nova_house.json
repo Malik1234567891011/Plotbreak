@@ -26,6 +26,10 @@
    },
    "strokes": [
     {
+     "width": 9,
+     "fill": "#1e1008"
+    },
+    {
      "width": 5,
      "fill": {
       "gradient": [
@@ -44,24 +48,18 @@
    "shadow": [
     {
      "dx": 0,
-     "dy": 4,
-     "blur": 6,
-     "spread": 2,
+     "dy": 5,
+     "blur": 10,
+     "spread": 4,
      "color": "#140a03",
-     "opacity": 0.85
+     "opacity": 0.9
     }
    ],
    "glow": [
     {
-     "radius": 6,
-     "color": "#ffd27a",
-     "opacity": 0.7,
-     "blend": "screen"
-    },
-    {
-     "radius": 26,
+     "radius": 30,
      "color": "#ff9a2e",
-     "opacity": 0.45,
+     "opacity": 0.28,
      "blend": "screen"
     }
    ]
@@ -71,15 +69,15 @@
   {
    "type": "spot",
    "at": [
-    0.25,
+    0.24,
     0.1
    ],
    "r": [
-    430,
-    270
+    500,
+    330
    ],
-   "color": "#1a120a",
-   "opacity": 0.6
+   "color": "#140c05",
+   "opacity": 0.78
   },
   {
    "type": "text",
@@ -97,30 +95,13 @@
    "lines": [
     {
      "text": "NOVA",
-     "width": 500,
+     "width": 470,
      "tracking": 0.04
     },
     {
      "text": "HOUSE",
-     "width": 500,
-     "tracking": 0.34,
-     "strokes": [
-      {
-       "width": 3.4,
-       "fill": {
-        "gradient": [
-         "#fffaf0",
-         "#ffe7b8",
-         "#f4c477"
-        ],
-        "stops": [
-         0,
-         0.5,
-         1
-        ]
-       }
-      }
-     ],
+     "width": 470,
+     "tracking": 0.26,
      "dx": 2
     }
    ],
@@ -133,7 +114,7 @@
       0.5
      ],
      "anchor": "mc",
-     "w": 250,
+     "w": 236,
      "h": 8,
      "thickness": 2.2,
      "taper": true,
