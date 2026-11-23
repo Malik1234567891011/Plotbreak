@@ -19,14 +19,21 @@ struct PersonalizationScreen: View {
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                ScreenHeader(title: t("settings.personalization"), backLabel: t("misc.close"), backGlyph: "✕", onBack: { router.dismissSheet() })
+                ScreenHeader(backLabel: t("misc.close"), backGlyph: "✕", onBack: { router.dismissSheet() })
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
+                        // Design v3: the 28pt bold page title, then the two
+                        // questions under their own 20pt headings.
+                        Text(t("settings.personalization"))
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .accessibilityAddTraits(.isHeader)
+                            .padding(.bottom, Theme.Spacing.xxl)
                         AudienceGenresPicker(audience: $audience, picked: $picked)
                     }
                     .padding(.horizontal, Theme.pageGutter)
-                    .padding(.top, Theme.Spacing.xxl)
+                    .padding(.top, Theme.Spacing.xs)
                     .padding(.bottom, Theme.Spacing.xxl)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
