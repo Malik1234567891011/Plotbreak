@@ -511,6 +511,7 @@
   "library.no_worlds_yet": "No worlds yet",
   "library.offline": "You're offline. Your worlds are safe — they live on the server, not on this phone.",
   "library.playing_as": "as {name}",
+  "library.quoted_line": "“{text}”",
   "library.run_started": "{count, plural, one {# turn} other {# turns}} · started {date}",
   "library.runs": "{count, plural, one {# run} other {# runs}}",
   "library.section_active": "PLAYING",

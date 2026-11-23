@@ -63,6 +63,12 @@ export const library = {
    */
   'library.speaker_line_a11y': '{name}: {text}',
   /**
+   * The same line on screen, put in quote marks when the story stored it
+   * without any. Most stored lines already carry their own marks and are shown
+   * as they are; this is only for the ones that do not.
+   */
+  'library.quoted_line': '“{text}”',
+  /**
    * A badge on a run that was branched off another one. **Fork** here means to
    * split a playthrough in two at a chosen point, not cutlery and not a road
    * junction. The French wording is undecided — `Bifurquer` and

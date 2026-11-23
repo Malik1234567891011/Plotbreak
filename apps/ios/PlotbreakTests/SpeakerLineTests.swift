@@ -130,6 +130,16 @@ final class SpeakerLineRuleTests: XCTestCase {
         XCTAssertNil(SpeakerLine.latest(turns: [try turn(1, [block("ayame", "“Hi.”")])], cast: []))
     }
 
+    /// Some worlds store dialogue without quote marks. A bare line gets the
+    /// interface language's marks; a line that has its own is left alone.
+    func testABareLineIsQuotedInTheInterfaceLanguage() {
+        XCTAssertEqual(SpeakerLine.quoted("“Already quoted.”", Translator(locale: .en)), "“Already quoted.”")
+        XCTAssertEqual(SpeakerLine.quoted("« Déjà. »", Translator(locale: .fr)), "« Déjà. »")
+        XCTAssertEqual(SpeakerLine.quoted("Bare line.", Translator(locale: .en)), "“Bare line.”")
+        XCTAssertEqual(SpeakerLine.quoted("Bare line.", Translator(locale: .fr)), "«\u{00A0}Bare line.\u{00A0}»")
+        XCTAssertEqual(SpeakerLine.quoted("", Translator(locale: .en)), "")
+    }
+
     func testCapMatchesTheServer() {
         XCTAssertEqual(SpeakerLine.cap("  “Short.”  "), "“Short.”")
         let long = "“" + Array(repeating: "word", count: 100).joined(separator: " ") + "”"

@@ -511,6 +511,7 @@
   "library.no_worlds_yet": "Pas encore de monde",
   "library.offline": "Tu es hors connexion. Tes mondes ne risquent rien — ils sont sur le serveur, pas sur ce téléphone.",
   "library.playing_as": "dans le rôle de {name}",
+  "library.quoted_line": "« {text} »",
   "library.run_started": "{count, plural, one {# tour} other {# tours}} · commencée le {date}",
   "library.runs": "{count, plural, one {# partie} other {# parties}}",
   "library.section_active": "EN COURS",

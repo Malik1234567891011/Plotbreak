@@ -27,8 +27,7 @@ struct SpeakerLineView: View {
     var body: some View {
         HStack(alignment: .top, spacing: style == .row ? 8 : 10) {
             CharacterPortrait(name: line.name, uri: line.portrait, size: faceSize)
-            // As stored: the line already carries its own quote marks.
-            Text(line.text)
+            Text(SpeakerLine.quoted(line.text, t))
                 .font(.system(size: fontSize, design: .serif))
                 .lineSpacing(lineSpacing)
                 .foregroundStyle(style == .row ? Theme.Colors.textSecondary : Theme.Colors.textPrimary)
@@ -73,6 +72,16 @@ extension SpeakerLine {
     }
 
     private static let closingQuotes: Set<Character> = ["”", "»", "\"", "’", "」", "』"]
+    private static let openingQuotes: Set<Character> = ["“", "«", "\"", "„", "‘", "'", "‹", "「", "『"]
+
+    /// The line as it is drawn. Most stored dialogue carries its own quote
+    /// marks and is shown as stored; some worlds store bare lines, which get
+    /// the interface language's marks (`library.quoted_line`) so they never
+    /// read as narration beside a face.
+    static func quoted(_ text: String, _ t: Translator) -> String {
+        guard let first = text.first, !openingQuotes.contains(first) else { return text }
+        return t("library.quoted_line", ["text": text])
+    }
 
     /// Trimmed, and cut on a word boundary with "…" past `max`, keeping a
     /// closing quote mark. The server's `capLine`.
