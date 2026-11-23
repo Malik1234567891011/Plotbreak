@@ -44,12 +44,39 @@ struct WorldSheetScreen: View {
     var body: some View {
         Screen {
             VStack(spacing: 0) {
-                HStack {
-                    Txt(t("worldsheet.title"), .h2)
-                    Spacer(minLength: 0)
-                    IconButton(t("worldsheet.close"), glyph: "✕") { router.dismissSheet() }
+                // Design v3 (board frame World sheet): where you are is the
+                // title, the chapter and the hour one quiet line over it, a
+                // round close button.
+                HStack(alignment: .top, spacing: Theme.Spacing.md) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        if let overview = sheet?.overview {
+                            Text([overview.chapterLabel, overview.worldTimeLabel].filter { !$0.isEmpty }.joined(separator: " · "))
+                                .font(.system(size: 13))
+                                .foregroundStyle(Theme.Colors.textMuted)
+                                .lineLimit(1)
+                        }
+                        Text(sheet.map { $0.overview.locationName.isEmpty ? t("worldsheet.title") : $0.overview.locationName } ?? t("worldsheet.title"))
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .lineLimit(2)
+                            .accessibilityAddTraits(.isHeader)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    Button {
+                        Haptic.play(.light)
+                        router.dismissSheet()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundStyle(Theme.Colors.textPrimary)
+                            .frame(width: 44, height: 44)
+                            .background(Theme.Colors.bgRaised, in: Circle())
+                    }
+                    .buttonStyle(PressOpacityStyle())
+                    .accessibilityLabel(t("worldsheet.close"))
                 }
                 .padding(.horizontal, Theme.gutter)
+                .padding(.top, Theme.Spacing.lg)
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: Theme.Spacing.sm) {
@@ -111,11 +138,16 @@ struct WorldSheetScreen: View {
         }
     }
 
+    /// Both requests at once. Not `async let`: on iOS 26.1 the pair aborted
+    /// the app in `swift_task_dealloc` (asyncLet_finish_after_task_completion)
+    /// the moment the sheet opened. Two tasks do the same work without it.
     private func load() async {
-        async let sheetTask = store.api.worldSheet(sessionId)
-        async let timelineTask = store.api.timeline(sessionId)
-        if let loaded = try? await sheetTask { sheet = loaded }
-        if let loaded = try? await timelineTask { timeline = loaded.entries }
+        let api = store.api
+        let id = sessionId
+        let sheetTask = Task { try await api.worldSheet(id) }
+        let timelineTask = Task { try await api.timeline(id) }
+        if let loaded = try? await sheetTask.value { sheet = loaded }
+        if let loaded = try? await timelineTask.value { timeline = loaded.entries }
     }
 }
 
@@ -134,40 +166,35 @@ struct WorldSheetOverviewTab: View {
     private var overview: WorldSheetOverview { sheet.overview }
 
     var body: some View {
+        // Design v3: no card. The place, the hour and the chapter are the
+        // sheet's header; here only what the run is carrying, under plain
+        // sentence-case headings.
         VStack(alignment: .leading, spacing: Theme.Spacing.xl) {
-            Card {
-                VStack(alignment: .leading, spacing: Theme.Spacing.md) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Txt(overview.locationName, .h3)
-                        Spacer(minLength: Theme.Spacing.sm)
-                        Txt(overview.worldTimeLabel, .caption, color: Theme.Colors.textMuted)
-                    }
-                    Txt(overview.chapterLabel, .micro, color: Theme.Colors.textMuted)
-                    VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
-                        ForEach(overview.resources) { resource in
-                            ResourceBar(
-                                name: resource.name,
-                                current: resource.current,
-                                max: resource.max,
-                                color: resource.color,
-                                polarity: resource.polarity,
-                                locale: store.locale
-                            )
-                        }
+            if !overview.resources.isEmpty {
+                VStack(alignment: .leading, spacing: Theme.Spacing.lg) {
+                    ForEach(overview.resources) { resource in
+                        ResourceBar(
+                            name: resource.name,
+                            current: resource.current,
+                            max: resource.max,
+                            color: resource.color,
+                            polarity: resource.polarity,
+                            locale: store.locale
+                        )
                     }
                 }
             }
 
             if let objective = overview.topObjective, !objective.isEmpty {
                 VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    Txt(t("worldsheet.current_objective"), .caption, color: Theme.Colors.textMuted)
+                    heading(t("worldsheet.current_objective"))
                     Txt(objective, .body)
                 }
             }
 
             if !overview.statuses.isEmpty {
                 VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    Txt(t("worldsheet.active_effects"), .caption, color: Theme.Colors.textMuted)
+                    heading(t("worldsheet.active_effects"))
                     FlowLayout {
                         ForEach(overview.statuses) { status in
                             Chip(status.label, tone: status.kind == .DEBUFF ? .warning : status.kind == .BUFF ? .success : .neutral)
@@ -178,7 +205,7 @@ struct WorldSheetOverviewTab: View {
 
             if !overview.relationshipHighlights.isEmpty {
                 VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    Txt(t("worldsheet.relationship_highlights"), .caption, color: Theme.Colors.textMuted)
+                    heading(t("worldsheet.relationship_highlights"))
                     FlowLayout {
                         ForEach(overview.relationshipHighlights) { highlight in
                             Chip(t("worldsheet.highlight", ["name": highlight.name, "label": highlight.label]))
@@ -189,13 +216,20 @@ struct WorldSheetOverviewTab: View {
 
             if !overview.recentEvents.isEmpty {
                 VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
-                    Txt(t("worldsheet.recently"), .caption, color: Theme.Colors.textMuted)
+                    heading(t("worldsheet.recently"))
                     ForEach(Array(overview.recentEvents.enumerated()), id: \.offset) { _, event in
                         Txt(t("worldsheet.recent_event", ["event": event]), .bodyCompact, color: Theme.Colors.textSecondary)
                     }
                 }
             }
         }
+    }
+
+    private func heading(_ text: String) -> some View {
+        Text(text.sentenceCased)
+            .font(.system(size: 20, weight: .semibold))
+            .foregroundStyle(Theme.Colors.textPrimary)
+            .accessibilityAddTraits(.isHeader)
     }
 }
 
