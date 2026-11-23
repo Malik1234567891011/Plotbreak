@@ -1,0 +1,26 @@
+{
+  "storyId": "story_seven_years_early",
+  "seed": 28,
+  "avoid": [[323, 122, 553, 419], [700, 450, 900, 650]],
+  "styles": {
+    "ink": {
+      "font": "Oswald",
+      "fill": "#121214",
+      "shadow": [{"dx": 0, "dy": 2, "blur": 6, "color": "#ffffff", "opacity": 0.6}]
+    }
+  },
+  "layers": [
+    {"type": "spot", "at": [0.82, 0.15], "r": [330, 300], "color": "#f4f4f2", "opacity": 0.5},
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.962, 0.05],
+      "anchor": "tr",
+      "align": "right",
+      "gap": 16,
+      "lines": [{"use": "ink", "text": "SEVEN", "weight": 700, "width": 372, "tracking": 0.02}, {"use": "ink", "text": "YEARS", "weight": 600, "cap": 40, "tracking": 0.62, "dx": 10}, {"use": "ink", "text": "EARLY", "weight": 700, "cap": 78, "tracking": 0.06, "fill": "#d3121c", "gap": 20}],
+      "backing": [],
+      "ornaments": [{"shape": "rule", "of": 0, "to": "tc", "anchor": "bc", "w": 372, "h": 14, "dy": -16, "taper": false, "thickness": 4, "double": 7, "fill": "#121214"}, {"shape": "polygon", "of": 2, "to": "ml", "anchor": "mr", "w": 34, "h": 54, "dx": -14, "points": [[0.0, 0.5], [1.0, 0.0], [1.0, 1.0]], "fill": "#d3121c"}, {"shape": "polygon", "of": 2, "to": "ml", "anchor": "mr", "w": 34, "h": 54, "dx": -46, "points": [[0.0, 0.5], [1.0, 0.0], [1.0, 1.0]], "fill": "#d3121c"}, {"shape": "polygon", "of": 2, "to": "br", "anchor": "tr", "w": 330, "h": 18, "dy": 22, "points": [[0.0, 0.5], [0.86, 0.22], [0.9, 0.5], [0.86, 0.78]], "fill": "#121214"}, {"shape": "polygon", "of": 2, "to": "br", "anchor": "tr", "w": 330, "h": 18, "dy": 22, "points": [[0.9, 0.5], [0.95, 0.3], [1.0, 0.5], [0.95, 0.7]], "fill": "#121214"}, {"shape": "dot", "of": 2, "to": "br", "anchor": "mc", "w": 16, "h": 16, "dx": -36, "dy": 31, "fill": "#d3121c", "strokes": [{"width": 3, "fill": "#121214"}]}]
+    }
+  ]
+}

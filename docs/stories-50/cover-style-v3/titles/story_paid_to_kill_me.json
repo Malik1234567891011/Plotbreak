@@ -1,0 +1,37 @@
+{
+  "storyId": "story_paid_to_kill_me",
+  "seed": 22,
+  "avoid": [[484, 140, 714, 436], [390, 290, 600, 520]],
+  "styles": {
+    "stamp-ink": {"fill": {"texture": "noise", "base": "#d7141d", "color": "#9e0a12", "strength": 0.35, "scale": 18},
+                  "rough": {"amount": 1.2, "scale": 5}, "distress": {"amount": 0.2, "scale": 7, "edge": 0.35}},
+    "hit": {"font": "Bebas Neue", "fill": "#0c0c0e", "strokes": [{"width": 4, "fill": "#ffffff"}],
+            "shadow": [{"dx": 0, "dy": 4, "blur": 8, "color": "#ffffff", "opacity": 0.7}]}
+  },
+  "layers": [
+    {"type": "text", "id": "paid", "at": [0.165, 0.092], "anchor": "mc", "rotate": -8,
+     "lines": [{"use": "stamp-ink", "text": "PAID", "font": "Alfa Slab One", "cap": 64, "tracking": 0.06}],
+     "backing": [
+       {"shape": "plate", "of": 0, "pad": [26, 22, 26, 22], "fill": "clear", "use": "stamp-ink",
+        "strokes": [{"width": 7, "fill": {"texture": "noise", "base": "#d7141d", "color": "#9e0a12", "strength": 0.35, "scale": 18}}, {"width": 0, "fill": "clear"}]},
+       {"shape": "plate", "of": 0, "pad": [12, 9, 12, 9], "fill": "clear", "use": "stamp-ink",
+        "strokes": [{"width": 2.5, "fill": "#d7141d"}, {"width": 0, "fill": "clear"}]}
+     ]},
+    {"type": "text", "id": "kill", "at": [0.955, 0.03], "anchor": "tr", "align": "right", "gap": 10,
+     "lines": [
+       {"use": "hit", "text": "TO", "cap": 52, "tracking": 0.2, "dx": -6},
+       {"use": "hit", "text": "KILL", "cap": 150, "tracking": 0.02},
+       {"use": "hit", "text": "ME", "cap": 150, "tracking": 0.02}
+     ],
+     "ornaments": [
+       {"shape": "ellipse", "of": 2, "to": "bl", "anchor": "mc", "w": 92, "h": 78, "dx": -8, "dy": -40, "z": 0.5, "fill": "#d7141d", "rough": {"amount": 9, "scale": 9}},
+       {"shape": "ellipse", "of": 2, "to": "bl", "anchor": "mc", "w": 46, "h": 40, "dx": -62, "dy": -98, "z": 0.5, "fill": "#d7141d", "rough": {"amount": 5, "scale": 6}},
+       {"shape": "ellipse", "of": 2, "to": "bl", "anchor": "mc", "w": 22, "h": 20, "dx": -96, "dy": -130, "z": 0.5, "fill": "#d7141d", "rough": {"amount": 2, "scale": 4}},
+       {"shape": "ellipse", "of": 2, "to": "bl", "anchor": "mc", "w": 12, "h": 12, "dx": -118, "dy": -152, "z": 0.5, "fill": "#d7141d"},
+       {"shape": "ellipse", "of": 2, "to": "bl", "anchor": "mc", "w": 16, "h": 15, "dx": -70, "dy": 18, "z": 0.5, "fill": "#d7141d"},
+       {"shape": "ellipse", "of": 2, "to": "bl", "anchor": "mc", "w": 9, "h": 9, "dx": -104, "dy": 40, "z": 0.5, "fill": "#d7141d"},
+       {"shape": "ellipse", "of": 2, "to": "bl", "anchor": "mc", "w": 14, "h": 34, "dx": 10, "dy": 22, "z": 0.5, "fill": "#d7141d", "rough": {"amount": 2, "scale": 4}},
+       {"shape": "ellipse", "of": 2, "to": "bl", "anchor": "mc", "w": 12, "h": 12, "dx": 10, "dy": 52, "z": 0.5, "fill": "#d7141d"}
+     ]}
+  ]
+}

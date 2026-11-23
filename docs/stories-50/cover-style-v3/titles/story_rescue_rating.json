@@ -1,0 +1,50 @@
+{
+  "storyId": "story_rescue_rating",
+  "seed": 25,
+  "avoid": [[415, 157, 726, 506], [880, 1150, 1110, 1330]],
+  "styles": {
+    "glass": {
+      "fill": {"gradient": ["#2b2b35ea", "#0c0c12f2", "#050507f6"], "stops": [0, 0.5, 1]},
+      "strokes": [{"width": 2, "fill": "#ffffff38"}],
+      "gloss": {"height": 0.46, "opacity": 0.14},
+      "shadow": [{"dx": 0, "dy": 12, "blur": 18, "opacity": 0.5}]
+    },
+    "ystar": {
+      "fill": {"gradient": ["#ffe766", "#ffc400"]},
+      "strokes": [{"width": 1.5, "fill": "#b37f00"}]
+    },
+    "gstar": {"fill": "#4a4a55"}
+  },
+  "layers": [
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.06, 0.962],
+      "anchor": "bl",
+      "align": "left",
+      "gap": 30,
+      "lines": [{"text": "RESCUE", "font": "Exo 2", "weight": 900, "italic": true, "cap": 150, "tracking": 0.01, "fill": {"gradient": ["#ffffff", "#ffffff", "#e3e6ef"], "stops": [0, 0.6, 1]}, "shadow": [{"dx": 6, "dy": 6, "blur": 0, "color": "#ff2d6f", "opacity": 1.0}]}, {"text": "RATING", "font": "Exo 2", "weight": 900, "italic": true, "cap": 54, "tracking": 0.14, "dx": 6, "fill": "#ffffff"}],
+      "backing": [{"shape": "plate", "of": 0, "pad": [40, 30, 56, 30], "slant": 5, "use": "glass"}, {"shape": "plate", "of": 0, "to": "ml", "anchor": "mr", "w": 16, "h": 222, "dx": -34, "slant": 5, "fill": "#ff2d6f"}, {"shape": "plate", "of": 1, "pad": [28, 18, 344, 18], "slant": 5, "use": "glass"}],
+      "ornaments": [{"shape": "polygon", "of": 1, "to": "mr", "anchor": "ml", "w": 50, "h": 50, "dx": 34, "dy": -2, "points": [[0.5, 0.03], [0.6323, 0.348], [0.9755, 0.3755], [0.714, 0.5995], [0.7939, 0.9345], [0.5, 0.755], [0.2061, 0.9345], [0.286, 0.5995], [0.0245, 0.3755], [0.3677, 0.348]], "use": "ystar"}, {"shape": "polygon", "of": 1, "to": "mr", "anchor": "ml", "w": 50, "h": 50, "dx": 92, "dy": -2, "points": [[0.5, 0.03], [0.6323, 0.348], [0.9755, 0.3755], [0.714, 0.5995], [0.7939, 0.9345], [0.5, 0.755], [0.2061, 0.9345], [0.286, 0.5995], [0.0245, 0.3755], [0.3677, 0.348]], "use": "ystar"}, {"shape": "polygon", "of": 1, "to": "mr", "anchor": "ml", "w": 50, "h": 50, "dx": 150, "dy": -2, "points": [[0.5, 0.03], [0.6323, 0.348], [0.9755, 0.3755], [0.714, 0.5995], [0.7939, 0.9345], [0.5, 0.755], [0.2061, 0.9345], [0.286, 0.5995], [0.0245, 0.3755], [0.3677, 0.348]], "use": "ystar"}, {"shape": "polygon", "of": 1, "to": "mr", "anchor": "ml", "w": 50, "h": 50, "dx": 208, "dy": -2, "points": [[0.5, 0.03], [0.6323, 0.348], [0.9755, 0.3755], [0.714, 0.5995], [0.7939, 0.9345], [0.5, 0.755], [0.2061, 0.9345], [0.286, 0.5995], [0.0245, 0.3755], [0.3677, 0.348]], "use": "ystar"}, {"shape": "polygon", "of": 1, "to": "mr", "anchor": "ml", "w": 50, "h": 50, "dx": 266, "dy": -2, "points": [[0.5, 0.03], [0.6323, 0.348], [0.9755, 0.3755], [0.714, 0.5995], [0.7939, 0.9345], [0.5, 0.755], [0.2061, 0.9345], [0.286, 0.5995], [0.0245, 0.3755], [0.3677, 0.348]], "use": "gstar"}, {"shape": "polygon", "of": 1, "to": "mr", "anchor": "ml", "w": 50, "h": 50, "dx": 266, "dy": -2, "points": [[0.5, 0.03], [0.5, 0.03], [0.5, 0.755], [0.5, 0.755], [0.2061, 0.9345], [0.286, 0.5995], [0.0245, 0.3755], [0.3677, 0.348]], "use": "ystar"}]
+    },
+    {
+      "type": "text",
+      "id": "live",
+      "role": "deco",
+      "at": [0.095, 0.795],
+      "anchor": "ml",
+      "lines": [{"text": "LIVE", "font": "Exo 2", "weight": 900, "italic": true, "cap": 30, "tracking": 0.12, "fill": "#ffffff"}],
+      "backing": [{"shape": "plate", "of": 0, "pad": [50, 13, 18, 13], "radius": 8, "slant": 5, "fill": {"gradient": ["#ff4a5e", "#e0102e"]}, "shadow": [{"dx": 0, "dy": 4, "blur": 6, "opacity": 0.45}]}],
+      "ornaments": [{"shape": "dot", "of": 0, "to": "ml", "anchor": "mc", "w": 16, "h": 16, "dx": -26, "fill": "#ffffff"}]
+    },
+    {
+      "type": "text",
+      "id": "viewers",
+      "role": "deco",
+      "at": [0.268, 0.795],
+      "anchor": "ml",
+      "lines": [{"text": "12.4K WATCHING", "font": "Exo 2", "weight": 700, "italic": true, "cap": 24, "tracking": 0.1, "fill": "#ffffff"}],
+      "backing": [{"shape": "plate", "of": 0, "pad": [16, 16, 18, 16], "radius": 8, "slant": 5, "fill": "#0c0c12d8", "shadow": [{"dx": 0, "dy": 4, "blur": 6, "opacity": 0.4}]}]
+    }
+  ]
+}

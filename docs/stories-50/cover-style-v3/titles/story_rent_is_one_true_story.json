@@ -1,0 +1,68 @@
+{
+  "storyId": "story_rent_is_one_true_story",
+  "seed": 24,
+  "avoid": [[518, 279, 611, 384]],
+  "styles": {
+    "moon": {
+      "font": "Klee One",
+      "weight": 600,
+      "fill": {"gradient": ["#ffffff", "#eef4ff", "#c9dcff"], "stops": [0, 0.5, 1]},
+      "strokes": [{"width": 1.2, "fill": "#f4f8ff"}],
+      "shadow": [{"dx": 0, "dy": 3, "blur": 9, "spread": 2, "color": "#070b2e", "opacity": 0.85}],
+      "glow": [{"radius": 7, "color": "#a9cfff", "opacity": 0.75, "blend": "screen"}, {"radius": 22, "color": "#5f8fff", "opacity": 0.45, "blend": "screen"}]
+    }
+  },
+  "layers": [
+    {"type": "spot", "at": [0.7, 0.82], "r": [520, 300], "color": "#060a2a", "opacity": 0.45},
+    {
+      "type": "shape",
+      "shape": "polygon",
+      "box": [0.55035, 0.75229, 0.68576, 0.77867],
+      "points": [[0.9635, 0.8421], [0.0404, 0.1029], [0.0365, 0.1579], [0.9596, 0.8971]],
+      "fill": "#d6e6ffd0",
+      "glow": [{"radius": 4, "color": "#b9d6ff", "opacity": 0.8, "blend": "screen"}, {"radius": 12, "color": "#6f9bff", "opacity": 0.5, "blend": "screen"}]
+    },
+    {
+      "type": "shape",
+      "shape": "polygon",
+      "box": [0.4184, 0.75229, 0.56076, 0.77867],
+      "points": [[0.9617, 0.1029], [0.0349, 0.842], [0.0383, 0.8971], [0.9651, 0.158]],
+      "fill": "#d6e6ffd0",
+      "glow": [{"radius": 4, "color": "#b9d6ff", "opacity": 0.8, "blend": "screen"}, {"radius": 12, "color": "#6f9bff", "opacity": 0.5, "blend": "screen"}]
+    },
+    {
+      "type": "shape",
+      "shape": "polygon",
+      "box": [0.38542, 0.88245, 0.51562, 0.93578],
+      "points": [[0.0356, 0.0766], [0.9556, 0.9475], [0.9644, 0.9234], [0.0444, 0.0525]],
+      "fill": "#d6e6ffd0",
+      "glow": [{"radius": 4, "color": "#b9d6ff", "opacity": 0.8, "blend": "screen"}, {"radius": 12, "color": "#6f9bff", "opacity": 0.5, "blend": "screen"}]
+    },
+    {
+      "type": "shape",
+      "shape": "polygon",
+      "box": [0.50521, 0.89908, 0.60243, 0.93578],
+      "points": [[0.0589, 0.9243], [0.9518, 0.1118], [0.9411, 0.0757], [0.0482, 0.8882]],
+      "fill": "#d6e6ffd0",
+      "glow": [{"radius": 4, "color": "#b9d6ff", "opacity": 0.8, "blend": "screen"}, {"radius": 12, "color": "#6f9bff", "opacity": 0.5, "blend": "screen"}]
+    },
+    {
+      "type": "shape",
+      "shape": "sparkles",
+      "box": [0.3472222222222222, 0.7454128440366973, 0.9722222222222222, 0.97477],
+      "inner": 0.16,
+      "points": [[0.5333, 0.13, 46], [0.3333, 0.045, 18], [0.1222, 0.13, 30], [0.0694, 0.6125, 40], [0.2611, 0.815, 18], [0.4, 0.685, 32], [0.5097, 0.2275, 24], [0.9194, 0.075, 14]],
+      "fill": "#ffffff",
+      "glow": [{"radius": 5, "color": "#cfe4ff", "opacity": 0.95, "blend": "screen"}, {"radius": 16, "color": "#7aa6ff", "opacity": 0.6, "blend": "screen"}]
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.94, 0.945],
+      "anchor": "br",
+      "align": "right",
+      "gap": 14,
+      "lines": [{"use": "moon", "text": "Rent Is", "cap": 46, "tracking": 0.08, "dx": -18}, {"use": "moon", "text": "One True", "cap": 108, "tracking": 0.01}, {"use": "moon", "text": "Story", "cap": 108, "tracking": 0.01}]
+    }
+  ]
+}
