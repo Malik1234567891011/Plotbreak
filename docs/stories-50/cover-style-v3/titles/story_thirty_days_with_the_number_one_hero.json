@@ -13,11 +13,11 @@
         {
           "text": "THIRTY DAYS WITH THE",
           "font": "Alfa Slab One",
-          "size": 50,
-          "tracking": 0.04,
+          "size": 58,
+          "tracking": 0,
           "fill": "#d7262e",
           "rotate": -3,
-          "dx": -110
+          "dx": -78
         },
         {
           "text": "NUMBER ONE HERO",

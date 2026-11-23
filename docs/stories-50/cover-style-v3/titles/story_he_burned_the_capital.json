@@ -7,9 +7,9 @@
       "type": "text", "id": "title", "at": [0.5, 0.962], "anchor": "bc", "gap": -2,
       "lines": [
         {
-          "text": "He Burned the", "font": "Cormorant", "weight": 700, "italic": true, "size": 84, "fill": "#f6ecdc",
-          "strokes": [{"width": 4, "fill": "#140a0a"}],
-          "shadow": [{"dx": 0, "dy": 3, "blur": 6, "color": "#000000", "opacity": 0.7}]
+          "text": "He Burned the", "font": "Cormorant", "weight": 700, "italic": true, "size": 112, "fill": "#fbf3e6",
+          "strokes": [{"width": 6, "fill": "#140a0a"}],
+          "shadow": [{"dx": 0, "dy": 4, "blur": 7, "color": "#000000", "opacity": 0.85}]
         },
         {
           "text": "CAPITAL", "font": "Cinzel", "weight": 900, "width": 920, "tracking": 0.03,
@@ -30,7 +30,7 @@
       ],
       "ornaments": [
         {
-          "shape": "sparkles", "of": "block", "pad": [20, 80, 20, 0], "inner": 0.5, "fill": "#ffc35a",
+          "shape": "sparkles", "of": "block", "pad": [20, 48, 20, 0], "inner": 0.5, "fill": "#ffc35a",
           "points": [
             [0.618, 0.123, 12],
             [0.828, 0.387, 9],
