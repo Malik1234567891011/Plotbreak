@@ -30,6 +30,15 @@ struct SessionScreen: View {
     /// shows in the feed, with its retry.
     private var loading: Bool { model.detail == nil && model.error == nil }
 
+    /// Whether the header floats over the stage art rather than plain ink.
+    private var overArt: Bool { model.scene?.stageImage != nil }
+
+    /// The ink under the header's glass. Over art it is the design system's
+    /// glass (60% ink): at the 0.35 it had over plain ink, the place name in
+    /// the capsule fell to 1.7:1 over the brightest stages. Without art it
+    /// stays as it was, so a stageless story looks the same.
+    private var glassInk: Double { overArt ? 0.6 : 0.35 }
+
     /// Whether to play the opening cinematic over the session.
     ///
     /// The server only sends panels for a run nobody has played yet, and
@@ -175,7 +184,7 @@ struct SessionScreen: View {
                 .foregroundStyle(Theme.Colors.textPrimary)
                 .frame(width: 44, height: 44)
                 .background(.ultraThinMaterial, in: Circle())
-                .background(Theme.Colors.bgBase.opacity(0.35), in: Circle())
+                .background(Theme.Colors.bgBase.opacity(glassInk), in: Circle())
                 .overlay { Circle().strokeBorder(Theme.Colors.textPrimary.opacity(0.12), lineWidth: 1) }
         }
         .buttonStyle(PressOpacityStyle())
@@ -211,14 +220,16 @@ struct SessionScreen: View {
                 if let place = model.scene?.locationName, !place.isEmpty {
                     Text(place)
                         .font(.system(size: 13))
-                        .foregroundStyle(Theme.Colors.textMuted)
+                        // The muted grey is never on art (design system): the
+                        // secondary grey, as on the board.
+                        .foregroundStyle(overArt ? Theme.Colors.textSecondary : Theme.Colors.textMuted)
                 }
             }
             .lineLimit(1)
             .padding(.horizontal, 16)
             .frame(height: 40)
             .background(.ultraThinMaterial, in: Capsule())
-            .background(Theme.Colors.bgBase.opacity(0.35), in: Capsule())
+            .background(Theme.Colors.bgBase.opacity(glassInk), in: Capsule())
             .overlay { Capsule().strokeBorder(Theme.Colors.textPrimary.opacity(0.12), lineWidth: 1) }
             .accessibilityElement(children: .combine)
             .accessibilityLabel(headerTitle)
@@ -307,12 +318,14 @@ private struct SessionBackdrop: View {
         .accessibilityHidden(true)
     }
 
-    /// The board's `rgba(15,14,13,…)`: darker under the status bar, thinnest
-    /// where the art shows, 0.92 under the composer. Text never relies on it;
-    /// the panels and cards bring their own contrast.
+    /// The board's `rgba(15,14,13,…)`: darker under the status bar (the
+    /// board's 0.7, which with the header's 60% glass keeps the place name at
+    /// 4.5:1 over every stage), thinnest where the art shows, 0.92 under the
+    /// composer. Text never relies on it alone; the panels, the cards, the
+    /// header glass and the composer bring their own contrast.
     static let scrim = LinearGradient(
         stops: [
-            .init(color: Theme.Colors.bgBase.opacity(0.6), location: 0),
+            .init(color: Theme.Colors.bgBase.opacity(0.7), location: 0),
             .init(color: Theme.Colors.bgBase.opacity(0.35), location: 0.18),
             .init(color: Theme.Colors.bgBase.opacity(0.35), location: 0.38),
             .init(color: Theme.Colors.bgBase.opacity(0.6), location: 0.66),
