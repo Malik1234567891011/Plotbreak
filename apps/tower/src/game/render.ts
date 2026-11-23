@@ -8,6 +8,25 @@ import {
   type Attack, type SimEvent, type TowerSim,
 } from '@tower';
 import { basePose, drawChar, type Gear, type Pose } from './chars';
+import crystalUrl from '../assets/crystal.png';
+
+/**
+ * Design v3: the crystal picture is the only currency mark, on the canvas too.
+ * Made on first use rather than at import, so nothing breaks where there is no
+ * DOM; until it has decoded the chip simply draws without it for a frame.
+ */
+let crystalImage: HTMLImageElement | null = null;
+function crystal(): HTMLImageElement | null {
+  if (typeof Image === 'undefined') return null;
+  if (!crystalImage) {
+    crystalImage = new Image();
+    crystalImage.src = crystalUrl;
+  }
+  return crystalImage.complete && crystalImage.naturalWidth > 0 ? crystalImage : null;
+}
+
+/** One run of the payout chip: words, or a credit amount drawn as crystal + number. */
+type ChipPart = { text: string } | { credits: number };
 
 const TPS = 60;
 const TAUGHT_KEY = 'tower-taught-v1';
@@ -80,6 +99,7 @@ export class Stage {
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d', { alpha: false })!;
+    crystal(); // start decoding before the first HUD frame needs it
   }
 
   resize(w: number, h: number, dpr: number, top: number, bottom: number): void {
@@ -1075,14 +1095,47 @@ export class Stage {
     // Payout chip.
     const fall = payoutFor(sim.floor, false);
     const next = PAYOUT_TIERS.find((t) => t.from > sim.floor);
-    const chip = next ? `If you fall here  +${fall}   ·   Floor ${next.from}  +${next.credits}` : `If you fall here  +${fall}   ·   Clear  +${CLEAR_PAYOUT}`;
-    ctx.font = `800 13.5px ${FONT}`;
-    const cw = Math.min(L.w - 32, ctx.measureText(chip).width + 24);
+    const parts: ChipPart[] = next
+      ? [{ text: 'If you fall here  +' }, { credits: fall }, { text: `   ·   Floor ${next.from}  +` }, { credits: next.credits }]
+      : [{ text: 'If you fall here  +' }, { credits: fall }, { text: '   ·   Clear  +' }, { credits: CLEAR_PAYOUT }];
+    const gem = crystal();
+    // Measured run by run, the crystal included, and shrunk to the screen if
+    // a narrow phone cannot hold it at full size.
+    const measure = (size: number) => {
+      ctx.font = `800 ${size}px ${FONT}`;
+      const gemH = Math.round(size * 1.05);
+      const gemW = gem ? (gemH * gem.naturalWidth) / gem.naturalHeight + size * 0.12 : 0;
+      let width = 0;
+      for (const p of parts) width += 'text' in p ? ctx.measureText(p.text).width : gemW + ctx.measureText(String(p.credits)).width;
+      return { width, gemH, gemW };
+    };
+    let size = 13.5;
+    let m = measure(size);
+    const room = L.w - 32 - 24;
+    if (m.width > room) {
+      size = Math.max(10, (size * room) / m.width);
+      m = measure(size);
+    }
+    const cw = Math.min(L.w - 32, m.width + 24);
     ctx.fillStyle = 'rgba(10,12,20,0.78)';
     ctx.beginPath(); ctx.roundRect(16, top + 54, cw, 28, 14); ctx.fill();
     ctx.strokeStyle = 'rgba(255,210,63,0.5)'; ctx.lineWidth = 1.5; ctx.stroke();
     ctx.fillStyle = '#ffd23f';
-    ctx.fillText(chip, 28, top + 73);
+    let x = 28;
+    for (const p of parts) {
+      if ('text' in p) {
+        ctx.fillText(p.text, x, top + 73);
+        x += ctx.measureText(p.text).width;
+        continue;
+      }
+      if (gem) {
+        ctx.drawImage(gem, x, top + 68 - m.gemH / 2, m.gemW - size * 0.12, m.gemH);
+        x += m.gemW;
+      }
+      const amount = String(p.credits);
+      ctx.fillText(amount, x, top + 73);
+      x += ctx.measureText(amount).width;
+    }
 
     // Enemy name + guard.
     if (sim.phase === 'fight' || sim.phase === 'break') {

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ARCS, CHARACTERS, CHARACTERS_BY_ID, CLEAR_PAYOUT, FLOORS, MODIFIERS_BY_ID, PAYOUT_TIERS, STREAK_CAP, floorSpec,
   type CharacterDef, type Input, type ModifierId, type RunResult,
@@ -7,14 +7,7 @@ import { bridge, type FinishResult, type TowerStatus } from './bridge';
 import { Game } from './game/Game';
 import { isMuted, setMuted, sfx, unlockAudio } from './game/audio';
 import { Portrait } from './game/Portrait';
-import crystal from './assets/crystal.png';
-
-/** Design v3: the crystal picture is the only currency mark, never the ◆ glyph. */
-function Gem() { return <img className="gem" src={crystal} alt="" aria-hidden="true" />; }
-/** A sentence with ◆ in it, each ◆ drawn as the crystal. */
-function gems(text: string): ReactNode {
-  return text.split('◆').flatMap((part, i) => (i === 0 ? [part] : [<Gem key={i} />, part]));
-}
+import { Gem, gems } from './gems';
 
 type Screen =
   | { kind: 'loading' }

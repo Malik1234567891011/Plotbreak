@@ -3,6 +3,7 @@ import { BOONS_BY_ID, CHARACTERS, CHARACTERS_BY_ID, ENEMIES, TowerSim, dailyTowe
 import { Portrait } from './Portrait';
 import type { BotDriver } from '../../../../packages/tower/src/bots';
 import { bridge } from '../bridge';
+import { gems } from '../gems';
 import { sfx, unlockAudio } from './audio';
 import { Stage } from './render';
 
@@ -295,12 +296,12 @@ export function Game({ seed, runId, day, characterId, startFloor: firstFloor = 1
           </div>
         </div>
       )}
-      {practice && <div className="practice-tag">PRACTICE · ◆1 a floor</div>}
+      {practice && <div className="practice-tag">{gems('PRACTICE · ◆1 a floor')}</div>}
       {quit && (
         <div data-ui className="confirm">
           <div className="confirm-card">
             <h3>{practice ? 'Stop practising?' : 'Give up this climb?'}</h3>
-            <p>{practice ? 'You keep ◆1 for each floor you cleared.' : 'You’ll be paid for the floor you’re on, and today’s try is used.'}</p>
+            <p>{practice ? gems('You keep ◆1 for each floor you cleared.') :'You’ll be paid for the floor you’re on, and today’s try is used.'}</p>
             <div className="confirm-row">
               <button className="btn ghost" onClick={() => setQuit(false)}>Keep fighting</button>
               <button
