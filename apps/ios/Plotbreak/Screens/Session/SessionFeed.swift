@@ -18,6 +18,9 @@ struct SessionFeed: View {
     /// story can always be scrolled clear of it.
     private static let bottomClearance: CGFloat = Theme.minTouchTarget + Theme.Spacing.md * 2
 
+    /// Whether the story is being read over art, and so on smoked panels.
+    private var overArt: Bool { model.scene?.stageImage != nil }
+
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
@@ -42,26 +45,9 @@ struct SessionFeed: View {
                     .padding(.trailing, Theme.gutter - ScrollToLatestButton.hitMargin)
                     .padding(.bottom, Theme.Spacing.md - ScrollToLatestButton.hitMargin)
             }
-            // The stage art, as a wash behind the words rather than a frame
-            // above them: fourteen percent, fading to the page at the bottom.
-            .background {
-                ZStack {
-                    if let stage = model.scene?.stageImage {
-                        RemoteImage(stage.assetURL) { Color.clear }
-                            .opacity(0.14)
-                    }
-                    LinearGradient(
-                        stops: [
-                            .init(color: Theme.Colors.bgBase.opacity(0.35), location: 0),
-                            .init(color: Theme.Colors.bgBase, location: 0.78),
-                        ],
-                        startPoint: .top, endPoint: .bottom
-                    )
-                }
-                .clipped()
-                .allowsHitTesting(false)
-                .accessibilityHidden(true)
-            }
+            // The stage art is no longer a wash here: since design v3 it fills
+            // the screen behind the session (`SessionBackdrop`), and the words
+            // sit on smoked panels over it.
             .onChange(of: model.scrollRequest) { _, request in
                 // Next runloop, so the beat being scrolled to has been laid out
                 // at its held-open height first.
@@ -88,9 +74,9 @@ struct SessionFeed: View {
     /// server sent none.
     @ViewBuilder private var recap: some View {
         if let recap = model.detail?.recap, !recap.bullets.isEmpty, !model.turns.isEmpty {
-            VStack(alignment: .leading, spacing: Theme.Spacing.xs) {
+            SessionBeatPanel(smoked: overArt, spacing: Theme.Spacing.xs) {
                 ForEach(Array(recap.bullets.enumerated()), id: \.offset) { _, bullet in
-                    Txt("· \(bullet)", .caption, color: Theme.Colors.textMuted)
+                    Txt("· \(bullet)", .caption, color: overArt ? Theme.Colors.textSecondary : Theme.Colors.textMuted)
                 }
             }
             .padding(.bottom, Theme.Spacing.sm)
@@ -108,8 +94,12 @@ struct SessionFeed: View {
                 if let panel = turn.panel {
                     SessionTopPanel(url: panel.url, alt: panel.alt, isFace: panel.characterId != nil) { model.fullScreenImage = panel.url }
                 }
-                ForEach(Array(turn.blocks.enumerated()), id: \.offset) { _, block in
-                    SessionBlock(block: block, scene: model.scene)
+                if !turn.blocks.isEmpty {
+                    SessionBeatPanel(smoked: overArt, spacing: Theme.Spacing.sm) {
+                        ForEach(Array(turn.blocks.enumerated()), id: \.offset) { _, block in
+                            SessionBlock(block: block, scene: model.scene)
+                        }
+                    }
                 }
                 // The frame belongs to the beat that earned it, under its
                 // prose — the same place the live slot put it.
@@ -205,9 +195,16 @@ struct SessionFeed: View {
         // One list for the streamed blocks and the committed ones, so the
         // commit updates these rows in place instead of swapping in new ones —
         // the same words, with the same speakers, ten seconds early.
-        ForEach(Array(model.visibleBlocks.enumerated()), id: \.offset) { _, block in
-            SessionBlock(block: block, scene: model.scene)
-                .fadesIn()
+        //
+        // Over art, the beat's words share one smoked panel, which appears
+        // with the first of them and grows as the rest stream in.
+        if !model.visibleBlocks.isEmpty {
+            SessionBeatPanel(smoked: overArt, spacing: Theme.Spacing.lg) {
+                ForEach(Array(model.visibleBlocks.enumerated()), id: \.offset) { _, block in
+                    SessionBlock(block: block, scene: model.scene)
+                        .fadesIn()
+                }
+            }
         }
 
         if let pending, pending.blocks.isEmpty, pending.streamed.isEmpty {
@@ -267,13 +264,13 @@ struct SessionFeed: View {
         if !model.suggestions.isEmpty, model.pending == nil {
             VStack(spacing: Theme.Spacing.sm) {
                 ForEach(Array(model.suggestions.enumerated()), id: \.offset) { index, item in
-                    ActionSuggestion(
+                    // Design v3: a pencil to edit, the line, a white send.
+                    SessionReplyCard(
                         suggestion: item,
-                        editLabel: t("ui.edit_response_a11y"),
                         // The position matters: §37 asks whether players take
                         // the first card or read all of them, which decides how
                         // many are worth generating.
-                        onPress: { model.choose(item, position: index) },
+                        onSend: { model.choose(item, position: index) },
                         onEdit: { model.edit(item) }
                     )
                 }
@@ -327,7 +324,9 @@ struct SessionBlock: View {
                 voiceEligible: block.voiceEligible ?? false
             )
         case .SYSTEM:
-            Txt(block.text, .caption, color: Theme.Colors.textMuted)
+            // Over art the muted grey drops under 4.5:1 on the brightest
+            // daylight stages, even on the panel; the secondary grey holds.
+            Txt(block.text, .caption, color: scene?.stageImage != nil ? Theme.Colors.textSecondary : Theme.Colors.textMuted)
         case .NARRATION:
             NarrationBlock(text: block.text, t: t)
         }

@@ -3,9 +3,9 @@ import SwiftUI
 // MARK: - SessionScreen (GP-01)
 //
 // Screen 08 of the redesign. Spec §10.1 is the non-negotiable: this must not
-// look like a black chat thread or an ebook. Top to bottom it is the header
-// with the quality pill, the story on a faint wash of the stage art, the
-// round action buttons, and the composer (§10.2).
+// look like a black chat thread or an ebook. Design v3 (board frame Play): the
+// stage art fills the screen under a scrim; over it the glass header, the
+// story on smoked panels, the reply cards, and the composer (§10.2).
 // Twin of `apps/mobile/src/screens/Session.tsx`.
 
 struct SessionScreen: View {
@@ -45,6 +45,9 @@ struct SessionScreen: View {
 
     var body: some View {
         Screen {
+            // Design v3 (board frame Play): the place, full screen, behind
+            // everything; the words sit on smoked panels over it.
+            SessionBackdrop(stage: model.scene?.stageImage)
             VStack(spacing: 0) {
                 if loading {
                     loadingHeader
@@ -276,6 +279,93 @@ struct SessionScreen: View {
             )
         }
 
+    }
+}
+
+// MARK: - Backdrop
+
+/// The current place, full bleed behind the whole session, under a scrim.
+///
+/// It changes when the player moves (`scene.stageImage` arrives with every
+/// committed turn), and crossfades: the new picture is loaded first and only
+/// then faded in over the old one, so a move never flashes to black. A story
+/// with no stages gets nothing here, which is the plain ink it always had.
+private struct SessionBackdrop: View {
+    let stage: String?
+
+    var body: some View {
+        ZStack {
+            if let url = stage?.assetURL {
+                SessionBackdropArt(url: url)
+                    // The art does not move when the keyboard comes up.
+                    .ignoresSafeArea()
+                // The scrim does: its darkest end stays under the composer.
+                Self.scrim.ignoresSafeArea(.container)
+            }
+        }
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+    }
+
+    /// The board's `rgba(15,14,13,…)`: darker under the status bar, thinnest
+    /// where the art shows, 0.92 under the composer. Text never relies on it;
+    /// the panels and cards bring their own contrast.
+    static let scrim = LinearGradient(
+        stops: [
+            .init(color: Theme.Colors.bgBase.opacity(0.6), location: 0),
+            .init(color: Theme.Colors.bgBase.opacity(0.35), location: 0.18),
+            .init(color: Theme.Colors.bgBase.opacity(0.35), location: 0.38),
+            .init(color: Theme.Colors.bgBase.opacity(0.6), location: 0.66),
+            .init(color: Theme.Colors.bgBase.opacity(0.92), location: 1),
+        ],
+        startPoint: .top, endPoint: .bottom
+    )
+}
+
+/// The picture itself: decoded off the main thread, kept for the session's
+/// life, swapped with a crossfade.
+private struct SessionBackdropArt: View {
+    let url: URL
+    @State private var shown: Shown?
+
+    private struct Shown: Equatable {
+        let url: URL
+        let image: UIImage
+    }
+
+    /// Decoded stages, so reopening a run (or walking back into a room) does
+    /// not decode the same 1200×800 picture again.
+    private static let cache = NSCache<NSURL, UIImage>()
+
+    var body: some View {
+        Color.clear
+            .overlay {
+                if let shown {
+                    Image(uiImage: shown.image)
+                        .resizable()
+                        .scaledToFill()
+                        .id(shown.url)
+                        .transition(.opacity)
+                }
+            }
+            .clipped()
+            .task(id: url) {
+                guard shown?.url != url, let image = await Self.load(url) else { return }
+                withAnimation(.easeInOut(duration: 0.6)) { shown = Shown(url: url, image: image) }
+            }
+    }
+
+    private static func load(_ url: URL) async -> UIImage? {
+        if let cached = cache.object(forKey: url as NSURL) { return cached }
+        guard let (data, response) = try? await URLSession.shared.data(from: url),
+              (response as? HTTPURLResponse).map({ (200..<300).contains($0.statusCode) }) ?? true
+        else { return nil }
+        // Decoded here, not on the first frame that draws it.
+        let image = await Task.detached(priority: .userInitiated) {
+            UIImage(data: data)?.preparingForDisplay()
+        }.value
+        if let image { cache.setObject(image, forKey: url as NSURL) }
+        return image
     }
 }
 

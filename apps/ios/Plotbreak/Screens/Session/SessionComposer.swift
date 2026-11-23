@@ -104,7 +104,9 @@ struct SessionComposer: View {
             .padding(.top, 4)
             .padding(.bottom, Theme.Spacing.md)
         }
-        .background(Theme.Colors.bgBase)
+        // No fill of its own since design v3: the stage art runs under the
+        // composer, and the session's scrim is at its darkest (0.92) here.
+        // With no stage, the screen's own ink shows through, as before.
     }
 
     /// Send, or Stop while a turn is in flight. White with a black glyph,
