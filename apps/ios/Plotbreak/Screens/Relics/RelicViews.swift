@@ -231,11 +231,12 @@ struct Sparkles: View {
     }
 }
 
-/// The rarity frame every relic sits in.
+/// The rarity frame every relic sits in. Design v3: art takes an 8pt corner;
+/// the reveal passes its own, larger one.
 struct RelicFrame: ViewModifier {
     let rarity: RelicRarity
     var owned: Bool = true
-    var cornerRadius: CGFloat = 18
+    var cornerRadius: CGFloat = 8
 
     func body(content: Content) -> some View {
         content
@@ -258,7 +259,7 @@ struct RelicFrame: ViewModifier {
 }
 
 extension View {
-    func relicFrame(_ rarity: RelicRarity, owned: Bool = true, cornerRadius: CGFloat = 18) -> some View {
+    func relicFrame(_ rarity: RelicRarity, owned: Bool = true, cornerRadius: CGFloat = 8) -> some View {
         modifier(RelicFrame(rarity: rarity, owned: owned, cornerRadius: cornerRadius))
     }
 }
