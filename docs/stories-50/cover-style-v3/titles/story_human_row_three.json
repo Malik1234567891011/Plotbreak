@@ -1,0 +1,75 @@
+{
+  "storyId": "story_human_row_three",
+  "seed": 13,
+  "avoid": [[380, 87, 726, 401], [120, 1040, 350, 1405]],
+  "styles": {
+    "hero": {"font": "Dela Gothic One", "strokes": [{"width": 17, "fill": "#0d0a0e"}, {"width": 8, "fill": "#ffffff"}]}
+  },
+  "layers": [
+    {
+      "type": "text",
+      "id": "halftone",
+      "role": "deco",
+      "at": [0.045, 0.951],
+      "anchor": "bl",
+      "rotate": -8,
+      "dx": 48,
+      "dy": 20,
+      "lines": [
+        {
+          "use": "hero",
+          "text": "HUMAN,",
+          "width": 950,
+          "slant": 6,
+          "jitter": {"rot": 2.5, "y": 7, "pattern": "alternate"},
+          "fill": {"texture": "halftone", "base": "#e8186f", "alpha": 1, "period": 13},
+          "strokes": [{"width": 30, "fill": {"texture": "halftone", "base": "#e8186f", "alpha": 1, "period": 13}}]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "hero",
+      "at": [0.045, 0.951],
+      "anchor": "bl",
+      "rotate": -8,
+      "lines": [
+        {
+          "use": "hero",
+          "text": "HUMAN,",
+          "width": 950,
+          "slant": 6,
+          "jitter": {"rot": 2.5, "y": 7, "pattern": "alternate"},
+          "fill": {"gradient": ["#ff7ab0", "#ff3f8e", "#f0216f"], "stops": [0, 0.45, 1]},
+          "gloss": {"opacity": 0.28, "height": 0.42},
+          "extrude": {"depth": 20, "angle": 84, "fill": "#0d0a0e"},
+          "outerStrokes": [{"width": 11, "fill": "#ffffff"}, {"width": 4, "fill": "#0d0a0e"}]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "seat",
+      "at": [0.95, 0.94],
+      "anchor": "br",
+      "rotate": -8,
+      "lines": [{"text": "ROW THREE", "font": "Teko", "weight": 600, "size": 92, "tracking": 0.16, "fill": "#ffffff"}],
+      "backing": [
+        {
+          "shape": "plate",
+          "of": 0,
+          "pad": [30, 8, 30, 10],
+          "radius": 10,
+          "fill": "#0d0a0e",
+          "inline": {"inset": 6, "width": 2.5, "fill": "#ff3f8e"},
+          "strokes": [{"width": 4, "fill": "#ffffff"}],
+          "shadow": [{"dx": 7, "dy": 9, "blur": 0, "color": "#e8186f", "opacity": 0.95}]
+        }
+      ],
+      "ornaments": [
+        {"shape": "dot", "of": 0, "to": "ml", "anchor": "mc", "dx": -15, "w": 10, "h": 10, "fill": "#ff3f8e"},
+        {"shape": "dot", "of": 0, "to": "mr", "anchor": "mc", "dx": 15, "w": 10, "h": 10, "fill": "#ff3f8e"}
+      ]
+    }
+  ]
+}

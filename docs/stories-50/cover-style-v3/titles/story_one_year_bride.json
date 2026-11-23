@@ -1,0 +1,111 @@
+{
+  "storyId": "story_one_year_bride",
+  "seed": 20,
+  "avoid": [[576, 87, 783, 384], [520, 400, 800, 560]],
+  "layers": [
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.297, 0.765],
+      "anchor": "mc",
+      "rotate": -4,
+      "gap": 4,
+      "lines": [
+        {
+          "runs": [{"text": "ONE", "after": 40}, {"text": "YEAR"}],
+          "font": "Italiana",
+          "size": 62,
+          "tracking": 0.24,
+          "fill": "#0e4d35",
+          "strokes": [{"width": 1.6, "fill": "#0e4d35"}]
+        },
+        {
+          "text": "Bride",
+          "font": "Alex Brush",
+          "width": 430,
+          "fill": {"gradient": ["#17734f", "#0e4d35", "#082e20"], "stops": [0, 0.5, 1]},
+          "strokes": [{"width": 2.2, "fill": {"metal": "gold", "horizon": 0.5}}],
+          "gap": 0
+        }
+      ],
+      "backing": [
+        {
+          "shape": "torn",
+          "of": "block",
+          "pad": [50, 84, 50, 118],
+          "jag": 2.2,
+          "tape": [],
+          "fill": {"texture": "grain", "base": {"gradient": ["#fbf6e8", "#f1e7cf"]}, "strength": 0.08},
+          "shadow": [{"dx": 6, "dy": 14, "blur": 18, "opacity": 0.5}, {"dx": 0, "dy": 2, "blur": 2, "opacity": 0.3}]
+        },
+        {
+          "shape": "plate",
+          "of": "block",
+          "pad": [32, 66, 32, 100],
+          "fill": "clear",
+          "strokes": [{"width": 3, "fill": {"metal": "gold", "horizon": 0.5}}, {"width": 0, "fill": "clear"}],
+          "z": 0.4
+        },
+        {
+          "shape": "plate",
+          "of": "block",
+          "pad": [25, 59, 25, 93],
+          "fill": "clear",
+          "strokes": [{"width": 1.2, "fill": {"metal": "gold", "horizon": 0.5}}, {"width": 0, "fill": "clear"}],
+          "z": 0.4
+        }
+      ],
+      "ornaments": [
+        {"shape": "plate", "of": 0, "to": [0.4425, 0.62], "anchor": "mc", "w": 19, "h": 3.8, "fill": "#0e4d35", "z": 2},
+        {
+          "shape": "flourish",
+          "of": 1,
+          "to": "bc",
+          "anchor": "tc",
+          "dy": 10,
+          "w": 300,
+          "h": 50,
+          "weight": 3.2,
+          "fill": {"metal": "gold", "horizon": 0.5},
+          "z": 2
+        },
+        {
+          "shape": "ellipse",
+          "of": "block",
+          "to": "br",
+          "anchor": "mc",
+          "dx": 34,
+          "dy": 96,
+          "w": 130,
+          "h": 124,
+          "rotate": 10,
+          "fill": {"gradient": ["#e0343a", "#a3101c", "#7a0812"], "stops": [0, 0.55, 1], "angle": 120},
+          "rough": {"amount": 5, "scale": 22},
+          "bevel": {"depth": 8, "mode": "smooth", "highlight": 0.55, "shadow": 0.5},
+          "shadow": [{"dx": 3, "dy": 7, "blur": 7, "opacity": 0.55}],
+          "z": 3
+        },
+        {
+          "shape": "seal",
+          "of": "block",
+          "to": "br",
+          "anchor": "mc",
+          "dx": 34,
+          "dy": 96,
+          "w": 86,
+          "h": 86,
+          "rotate": 10,
+          "form": "round",
+          "style": "relief",
+          "text": "B",
+          "font": "Alex Brush",
+          "fill": "#8e0b16",
+          "rough": {"amount": 0.6, "scale": 5},
+          "distress": null,
+          "bevel": {"depth": 2.5, "highlight": 0.7, "shadow": 0.6, "angle": 120},
+          "z": 3.1
+        }
+      ]
+    }
+  ]
+}

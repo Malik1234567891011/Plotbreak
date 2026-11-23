@@ -1,0 +1,56 @@
+{
+  "storyId": "story_married_to_the_shrine_fox",
+  "seed": 5,
+  "avoid": [[518, 105, 691, 314], [880, 760, 1090, 1302], [560, 760, 880, 1345]],
+  "styles": {
+    "lacquer": {
+      "font": "Shojumaru",
+      "fill": {"gradient": ["#f06a45", "#d8432a", "#a92815"], "stops": [0, 0.5, 1]},
+      "gloss": {"opacity": 0.26, "height": 0.44},
+      "inline": {"inset": 6, "width": 2.5, "fill": "#f6e6bf"},
+      "strokes": [{"width": 13, "fill": "#170804"}, {"width": 8, "fill": {"metal": "gold", "horizon": 0.5}}],
+      "shadow": [{"dx": 0, "dy": 9, "blur": 14, "opacity": 0.75}],
+      "glow": [{"radius": 34, "color": "#ffb347", "opacity": 0.28, "blend": "screen"}]
+    }
+  },
+  "layers": [
+    {"type": "spot", "at": [0.76, 0.9], "r": [560, 300], "color": "#120803", "opacity": 0.55},
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.955, 0.975],
+      "anchor": "br",
+      "align": "right",
+      "gap": 8,
+      "lines": [
+        {
+          "text": "Married to the",
+          "font": "Cormorant",
+          "weight": 700,
+          "italic": true,
+          "size": 68,
+          "fill": "#f6e6bf",
+          "strokes": [{"width": 3, "fill": "#1a0b05"}],
+          "shadow": [{"dx": 0, "dy": 3, "blur": 7, "opacity": 0.85}],
+          "dx": -8
+        },
+        {"use": "lacquer", "text": "SHRINE", "size": 110, "tracking": 0.02},
+        {"use": "lacquer", "text": "FOX", "size": 182, "gap": 10}
+      ],
+      "ornaments": [
+        {
+          "shape": "sparkles",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mr",
+          "dx": -10,
+          "w": 240,
+          "h": 190,
+          "fill": {"metal": "gold", "horizon": 0.5},
+          "points": [[0.78, 0.3, 56], [0.38, 0.62, 34], [0.62, 0.86, 22], [0.12, 0.25, 20]],
+          "glow": [{"radius": 10, "color": "#ffc867", "opacity": 0.9, "blend": "screen"}]
+        }
+      ]
+    }
+  ]
+}

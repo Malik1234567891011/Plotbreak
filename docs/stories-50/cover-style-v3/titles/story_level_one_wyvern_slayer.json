@@ -1,0 +1,29 @@
+{
+  "storyId": "story_level_one_wyvern_slayer",
+  "seed": 4,
+  "avoid": [[400, 110, 800, 500]],
+  "styles": {
+    "gold-logo": {"font": "Cinzel Decorative", "weight": 900, "fill": {"metal": "gold", "horizon": 0.55},
+                  "bevel": {"depth": 5, "highlight": 0.7, "shadow": 0.5},
+                  "strokes": [{"width": 9, "fill": "#1a0b05"}, {"width": 4, "fill": {"metal": "bronze"}}],
+                  "extrude": {"depth": 12, "angle": 95, "fill": {"gradient": ["#4a2208", "#120602"]}},
+                  "outerStrokes": [{"width": 5, "fill": "#120602"}],
+                  "shadow": [{"dx": 0, "dy": 10, "blur": 14, "opacity": 0.6}],
+                  "glow": [{"radius": 26, "color": "#ff8a1f", "opacity": 0.35, "blend": "screen"}]}
+  },
+  "layers": [
+    {"type": "scrim", "edge": "bottom", "from": 0.7, "to": 1.0, "color": "#14060a", "opacity": 0.55},
+    {"type": "text", "id": "title", "at": [0.5, 0.968], "anchor": "bc", "gap": -4,
+     "lines": [
+       {"text": "LEVEL ONE", "font": "Exo 2", "weight": 800, "size": 50, "tracking": 0.28, "fill": "#fff6e6",
+        "shadow": [{"dx": 0, "dy": 2, "blur": 2, "opacity": 0.5}]},
+       {"use": "gold-logo", "text": "WYVERN", "width": 900, "arc": 9, "gap": 24},
+       {"use": "gold-logo", "text": "SLAYER", "width": 900, "arc": 9}
+     ],
+     "backing": [
+       {"shape": "ribbon", "of": 0, "pad": [44, 16, 44, 16], "fill": {"gradient": ["#d8303a", "#8e0f1c"]},
+        "strokes": [{"width": 3, "fill": "#2a0508"}], "tail": 60, "drop": 16, "notch": 22,
+        "shadow": [{"dx": 0, "dy": 5, "blur": 6, "opacity": 0.5}]}
+     ]}
+  ]
+}

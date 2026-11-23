@@ -1,0 +1,124 @@
+{
+  "storyId": "story_inherited_one_failing_clan",
+  "seed": 21,
+  "avoid": [[438, 52, 634, 297], [490, 540, 680, 760]],
+  "styles": {
+    "mincho": {
+      "font": "Shippori Mincho B1",
+      "weight": 800,
+      "fill": "#f4ead2",
+      "strokes": [{"width": 5, "fill": "#0c0604"}],
+      "shadow": [{"dx": 0, "dy": 6, "blur": 10, "opacity": 0.75}]
+    },
+    "gold": {
+      "fill": {"metal": "gold", "horizon": 0.52},
+      "bevel": {"depth": 2, "highlight": 0.5, "shadow": 0.4},
+      "strokes": [{"width": 3, "fill": "#1a0c04"}],
+      "shadow": [{"dx": 0, "dy": 3, "blur": 5, "opacity": 0.6}]
+    }
+  },
+  "layers": [
+    {"type": "spot", "at": [0.16, 0.05], "r": [460, 230], "color": "#120604", "opacity": 0.62},
+    {"type": "scrim", "edge": "bottom", "from": 0.6, "to": 0.97, "color": "#0e0503", "opacity": 0.82},
+    {
+      "type": "text",
+      "id": "crest",
+      "at": [0.04, 0.112],
+      "anchor": "bl",
+      "align": "left",
+      "lines": [
+        {
+          "use": "mincho",
+          "text": "INHERITED:",
+          "size": 45,
+          "tracking": 0.1,
+          "strokes": [{"width": 3, "fill": "#0c0604"}],
+          "shadow": [{"dx": 0, "dy": 3, "blur": 6, "opacity": 0.8}]
+        }
+      ],
+      "ornaments": [
+        {
+          "use": "gold",
+          "of": 0,
+          "to": "tc",
+          "anchor": "mc",
+          "shape": "ellipse",
+          "dy": -62,
+          "w": 88,
+          "h": 88,
+          "fill": {"gradient": ["#2a140a", "#0c0503"], "angle": 90},
+          "strokes": [{"width": 6, "fill": {"metal": "gold", "horizon": 0.52}}],
+          "bevel": null
+        },
+        {"use": "gold", "of": 0, "to": "tc", "anchor": "mc", "shape": "diamond", "dy": -81, "w": 32, "h": 32},
+        {"use": "gold", "of": 0, "to": "tc", "anchor": "mc", "shape": "diamond", "dx": -19, "dy": -62, "w": 32, "h": 32},
+        {"use": "gold", "of": 0, "to": "tc", "anchor": "mc", "shape": "diamond", "dx": 19, "dy": -62, "w": 32, "h": 32},
+        {"use": "gold", "of": 0, "to": "tc", "anchor": "mc", "shape": "diamond", "dy": -43, "w": 32, "h": 32},
+        {
+          "use": "gold",
+          "shape": "rule",
+          "of": 0,
+          "to": "tl",
+          "anchor": "ml",
+          "dy": -62,
+          "w": 120,
+          "h": 10,
+          "thickness": 2.2,
+          "strokes": [],
+          "bevel": null
+        },
+        {
+          "use": "gold",
+          "shape": "rule",
+          "of": 0,
+          "to": "tr",
+          "anchor": "mr",
+          "dy": -62,
+          "w": 120,
+          "h": 10,
+          "thickness": 2.2,
+          "strokes": [],
+          "bevel": null
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "at": [0.5, 0.958],
+      "anchor": "bc",
+      "gap": 10,
+      "style": {"use": "mincho"},
+      "lines": [
+        {"text": "ONE FAILING", "size": 92, "tracking": 0.12},
+        {
+          "text": "CLAN",
+          "width": 900,
+          "tracking": 0.04,
+          "inline": {"inset": 7, "width": 3, "fill": {"metal": "gold", "horizon": 0.5}},
+          "strokes": [{"width": 7, "fill": "#0c0604"}],
+          "shadow": [{"dx": 0, "dy": 10, "blur": 16, "opacity": 0.8}],
+          "glow": [{"radius": 28, "color": "#ffc867", "opacity": 0.18, "blend": "screen"}]
+        }
+      ],
+      "ornaments": [
+        {
+          "shape": "seal",
+          "of": 0,
+          "to": "mr",
+          "anchor": "ml",
+          "dx": 26,
+          "dy": 16,
+          "w": 124,
+          "h": 124,
+          "rotate": -6,
+          "text": "組",
+          "font": "Shippori Mincho B1",
+          "style": "intaglio",
+          "fill": "#c8202c",
+          "shadow": [{"dx": 0, "dy": 5, "blur": 7, "opacity": 0.55}]
+        }
+      ]
+    }
+  ]
+}
