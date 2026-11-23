@@ -216,3 +216,10 @@ They are muted looping MP4s on cdn.ooc.ai (1080x1620 or 1166x1776, 2.8 to 12 s).
 - Open bug (production storyteller): all 11 smokes let the player fly despite a no-flying hard-canon rule, and so do the ready stories that carry the same rule. The cause is `runTurnPure` ignoring hard canon, not the stories.
 - Credits from the 1.8M top-up: about 0.70M used (bake-off 24K, packs 34K, covers about 170–185K, the 11 stories 466K).
 - Gallery v2 with the new covers: https://claude.ai/artifact/FT63cNJZ3CBJ1DWzkekdRv
+
+## Checkpoint 2026-11-23: shipped
+
+- **50 new stories live in production** (release-stories --prod, 50 new v1, verified on /v1/discover: 50 of 50, 107 stories total). Covers: cover style v3 art (10 OOC-derived recipes, 209K PixAI credits + 24K test) with v4 titles (one font and placement per story, typeset, no sideways text). Commit 418ff0df.
+- **API pushed** (origin/main 9aa33868): design v3 gap fields (continue/library last line, speaker face, archetype images, search characters), all additive.
+- **iOS 1.0.11 (20)** archived (design v3 + Tower), Info.plist checked (prod API URL, codesign ok). Omar uploads from Xcode Organizer, swaps build 19 → 20 on the 1.0.11 submission in review.
+- Open: tab bar icon set (A/B/C in docs/design-v3/tabbar-icons/, B recommended) not chosen; endings-found tracking, story share deep link, character rules block need product decisions; runTurnPure ignores hard canon (players can fly).
