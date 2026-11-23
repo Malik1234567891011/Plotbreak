@@ -458,6 +458,17 @@ struct DiscoverRail: Codable, Hashable, Identifiable {
     @Default<EmptyArray<StorySummary>> var stories: [StorySummary]
 }
 
+/// The last thing a character said in a run, with their face. The server's
+/// rule is `services/api/src/last-line.ts`; `SpeakerLine.latest` is the same
+/// rule on the client, for the credit wall. `text` carries its own quote marks.
+struct SpeakerLine: Codable, Hashable {
+    var characterId: String
+    var name: String
+    var portrait: String?
+    var text: String
+    var turnIndex: Int
+}
+
 struct ContinueCard: Codable, Hashable, Identifiable {
     var id: String { sessionId }
     var sessionId: String
@@ -468,6 +479,10 @@ struct ContinueCard: Codable, Hashable, Identifiable {
     var turnCount: Int
     var currentObjective: String?
     var recapLine: String?
+    /// Who the player is in this run. Absent from servers before design v3.
+    var displayName: String?
+    /// The newest line a character spoke. Absent from servers before design v3.
+    var lastLine: SpeakerLine?
 }
 
 struct DiscoverCategory: Codable, Hashable, Identifiable {
@@ -596,6 +611,11 @@ struct SessionSummary: Codable, Hashable, Identifiable {
     var forkedFromSessionId: String?
     var forkedAtTurnIndex: Int?
     @Default<Fallback<AppLocale>> var locale: AppLocale = .en
+    /// The Library row's line. Only `GET /v1/sessions` sends it, and only
+    /// servers after design v3.
+    var lastLine: SpeakerLine?
+    /// The newest beat's recap, for a row with no line to quote.
+    var recapLine: String?
 }
 
 struct PresentCharacter: Codable, Hashable, Identifiable {

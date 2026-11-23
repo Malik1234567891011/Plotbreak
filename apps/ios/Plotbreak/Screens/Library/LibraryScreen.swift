@@ -193,8 +193,23 @@ private struct SessionCard: View {
     let onPress: () -> Void
     let onManage: () -> Void
 
+    /// "as Ren · Turn 3 · 2 h ago", the board's line under the title.
+    private var meta: String {
+        var parts: [String] = []
+        if !session.displayName.isEmpty { parts.append(t("library.playing_as", ["name": session.displayName])) }
+        parts.append(t("discover.continue_turns_in", ["count": session.turnCount]))
+        if let date = ISO8601.date(from: session.lastPlayedAt) {
+            parts.append(Format.relative(date, locale: store.locale))
+        } else {
+            parts.append(Format.shortISODate(session.lastPlayedAt, locale: store.locale))
+        }
+        return parts.joined(separator: " · ")
+    }
+
     /// Design v3: a plain row, the cover at 2:3 with an 8pt corner, the
-    /// title, then who you are and how far in. No box.
+    /// title, then who you are and how far in, then the last thing somebody
+    /// said beside their face, or the recap when nobody has spoken lately. A
+    /// server that sends neither gets the row without a line.
     var body: some View {
         HStack(alignment: .top, spacing: 14) {
             StoryArt(seed: session.storyId, title: session.title, uri: session.coverImage)
@@ -216,11 +231,21 @@ private struct SessionCard: View {
                             .background(Theme.Colors.bgRaised, in: RoundedRectangle(cornerRadius: 5, style: .continuous))
                     }
                 }
-                Text(t("library.playing_as", ["name": session.displayName]) + " · "
-                     + t("library.turns_and_date", ["count": session.turnCount, "date": Format.shortISODate(session.lastPlayedAt, locale: store.locale)]))
+                Text(meta)
                     .font(.system(size: 13))
                     .foregroundStyle(Theme.Colors.textMuted)
                     .lineLimit(2)
+                if let spoken = session.lastLine {
+                    SpeakerLineView(line: spoken)
+                        .padding(.top, 5)
+                } else if let recap = session.recapLine, !recap.isEmpty {
+                    Text(recap)
+                        .font(.system(size: 15, design: .serif))
+                        .lineSpacing(4)
+                        .foregroundStyle(Theme.Colors.textSecondary)
+                        .lineLimit(2)
+                        .padding(.top, 5)
+                }
             }
             .padding(.top, 6)
             .frame(maxWidth: .infinity, alignment: .leading)
