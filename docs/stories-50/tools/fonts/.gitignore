@@ -1,4 +1,4 @@
-# Font binaries are fetched on first use by cover-title-v3.py from a pinned google/fonts commit (see README.md).
+# Font binaries are fetched on first use by cover-title-v3.py and cover-title-v4.py from a pinned google/fonts commit (see README.md).
 # Shippori Mincho B1 alone is 15 MB, so they are not committed.
 *.ttf
 *.part

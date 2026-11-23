@@ -1,0 +1,177 @@
+{
+ "storyId": "story_ice_queen_s_fake_boyfriend",
+ "seed": 2,
+ "avoid": [
+  [
+   200,
+   600,
+   450,
+   920
+  ],
+  [
+   620,
+   470,
+   920,
+   830
+  ]
+ ],
+ "layers": [
+  {
+   "type": "text",
+   "id": "title",
+   "at": [
+    0.5,
+    0.026
+   ],
+   "anchor": "tc",
+   "gap": -14,
+   "style": {
+    "strokes": [
+     {
+      "width": 16,
+      "fill": "#1d3466"
+     },
+     {
+      "width": 9,
+      "fill": "#ffffff"
+     }
+    ],
+    "extrude": {
+     "depth": 9,
+     "angle": 100,
+     "fill": "#1d3466"
+    }
+   },
+   "lines": [
+    {
+     "text": "Ice Queen’s",
+     "font": "Mochiy Pop One",
+     "size": 104,
+     "arc": 10,
+     "fill": {
+      "gradient": [
+       "#ffffff",
+       "#c4ecff",
+       "#58b4ef"
+      ],
+      "stops": [
+       0,
+       0.4,
+       1
+      ]
+     },
+     "gloss": {
+      "opacity": 0.4
+     }
+    },
+    {
+     "text": "FAKE",
+     "font": "Bungee",
+     "size": 60,
+     "tracking": 0.1,
+     "fill": "#ffffff",
+     "rotate": -12,
+     "dx": -372,
+     "dy": 0,
+     "strokes": [],
+     "extrude": null,
+     "gap": 10,
+     "z": 3
+    },
+    {
+     "text": "Boyfriend",
+     "font": "Fredoka",
+     "weight": 700,
+     "size": 178,
+     "gap": -96,
+     "fill": {
+      "gradient": [
+       "#ffc2db",
+       "#ff4f93",
+       "#de1f6c"
+      ],
+      "stops": [
+       0,
+       0.5,
+       1
+      ]
+     },
+     "gloss": {
+      "opacity": 0.38
+     },
+     "jitter": {
+      "rot": 4,
+      "y": 7,
+      "pattern": "alternate"
+     },
+     "dx": 92
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": 1,
+     "pad": [
+      18,
+      12,
+      18,
+      12
+     ],
+     "radius": 12,
+     "fill": "#ff3d86",
+     "strokes": [
+      {
+       "width": 10,
+       "fill": "#1d3466"
+      },
+      {
+       "width": 5,
+       "fill": "#ffffff"
+      }
+     ],
+     "extrude": {
+      "depth": 6,
+      "angle": 100,
+      "fill": "#1d3466"
+     }
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "sparkles",
+     "of": "block",
+     "pad": [
+      10,
+      6,
+      10,
+      6
+     ],
+     "fill": "#ffffff",
+     "points": [
+      [
+       0.04,
+       0.14,
+       54
+      ],
+      [
+       0.97,
+       0.36,
+       40
+      ],
+      [
+       0.89,
+       0.06,
+       26
+      ]
+     ],
+     "strokes": [
+      {
+       "width": 4,
+       "fill": "#1d3466"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

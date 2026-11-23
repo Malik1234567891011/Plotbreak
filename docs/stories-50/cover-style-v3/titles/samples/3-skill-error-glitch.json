@@ -1,0 +1,149 @@
+{
+ "storyId": "story_skill_error",
+ "seed": 3,
+ "avoid": [
+  [
+   440,
+   500,
+   690,
+   740
+  ]
+ ],
+ "layers": [
+  {
+   "type": "spot",
+   "at": [
+    0.5,
+    0.15
+   ],
+   "r": [
+    660,
+    300
+   ],
+   "color": "#010604",
+   "opacity": 0.65
+  },
+  {
+   "type": "text",
+   "id": "title",
+   "at": [
+    0.5,
+    0.05
+   ],
+   "anchor": "tc",
+   "align": "left",
+   "gap": 18,
+   "lines": [
+    {
+     "text": "SKILL:",
+     "font": "VT323",
+     "size": 88,
+     "tracking": 0.14,
+     "fill": "#8dffbd",
+     "dx": 26,
+     "glow": [
+      {
+       "radius": 7,
+       "color": "#36ff8a",
+       "opacity": 0.7,
+       "blend": "screen"
+      }
+     ]
+    },
+    {
+     "text": "ERROR",
+     "font": "Chakra Petch",
+     "weight": 700,
+     "width": 990,
+     "tracking": 0.02,
+     "fill": {
+      "texture": "scanlines",
+      "base": {
+       "gradient": [
+        "#ff9aa6",
+        "#ff2442",
+        "#b8001f"
+       ],
+       "stops": [
+        0,
+        0.45,
+        1
+       ]
+      },
+      "strength": 0.22,
+      "period": 5
+     },
+     "strokes": [
+      {
+       "width": 6,
+       "fill": "#16000a"
+      }
+     ],
+     "glitch": {
+      "offset": 5,
+      "colors": [
+       "#ff00b8",
+       "#00ffd5"
+      ],
+      "slices": 3,
+      "shift": 14,
+      "seed": 6,
+      "opacity": 0.85
+     },
+     "glow": [
+      {
+       "radius": 20,
+       "color": "#ff1e3c",
+       "opacity": 0.5,
+       "blend": "screen"
+      }
+     ]
+    }
+   ],
+   "backing": [
+    {
+     "shape": "plate",
+     "of": 0,
+     "pad": [
+      28,
+      10,
+      36,
+      14
+     ],
+     "chamfer": 14,
+     "fill": "#05200fe8",
+     "strokes": [
+      {
+       "width": 2.5,
+       "fill": "#36ff8a"
+      }
+     ]
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "brackets",
+     "of": "block",
+     "pad": [
+      30,
+      24,
+      30,
+      24
+     ],
+     "style": "corners",
+     "len": 52,
+     "thickness": 4,
+     "fill": "#36ff8a",
+     "glow": [
+      {
+       "radius": 6,
+       "color": "#36ff8a",
+       "opacity": 0.6,
+       "blend": "screen"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

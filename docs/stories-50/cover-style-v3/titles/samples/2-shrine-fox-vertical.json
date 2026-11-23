@@ -1,0 +1,115 @@
+{
+ "storyId": "story_married_to_the_shrine_fox",
+ "seed": 5,
+ "avoid": [
+  [
+   540,
+   130,
+   860,
+   470
+  ]
+ ],
+ "layers": [
+  {
+   "type": "scrim",
+   "edge": "left",
+   "from": 0.7,
+   "to": 1.0,
+   "color": "#0b0703",
+   "opacity": 0.6
+  },
+  {
+   "type": "text",
+   "id": "title",
+   "at": [
+    0.135,
+    0.47
+   ],
+   "anchor": "mc",
+   "rotate": 90,
+   "gap": 4,
+   "lines": [
+    {
+     "text": "Married to the",
+     "font": "Cormorant",
+     "weight": 700,
+     "italic": true,
+     "size": 88,
+     "fill": "#f6e6bf",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 3,
+       "blur": 6,
+       "opacity": 0.7
+      }
+     ]
+    },
+    {
+     "text": "SHRINE FOX",
+     "font": "Shojumaru",
+     "width": 1240,
+     "fill": {
+      "metal": "gold",
+      "horizon": 0.56
+     },
+     "bevel": {
+      "depth": 3,
+      "highlight": 0.6,
+      "shadow": 0.45
+     },
+     "strokes": [
+      {
+       "width": 11,
+       "fill": "#170804"
+      },
+      {
+       "width": 5,
+       "fill": "#b8321e"
+      }
+     ],
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 8,
+       "blur": 14,
+       "opacity": 0.7
+      }
+     ],
+     "glow": [
+      {
+       "radius": 30,
+       "color": "#ffb347",
+       "opacity": 0.3,
+       "blend": "screen"
+      }
+     ]
+    }
+   ],
+   "ornaments": [
+    {
+     "shape": "seal",
+     "of": 1,
+     "to": "mr",
+     "anchor": "ml",
+     "dx": 30,
+     "w": 128,
+     "h": 128,
+     "rotate": -90,
+     "text": "SF",
+     "font": "Shippori Mincho B1",
+     "style": "intaglio",
+     "fill": "#d42a20",
+     "shadow": [
+      {
+       "dx": 0,
+       "dy": 4,
+       "blur": 6,
+       "opacity": 0.5
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

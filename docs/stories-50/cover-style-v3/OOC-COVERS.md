@@ -251,3 +251,67 @@ All 10 except Die Hard Stalker appear in the 108:
 | Cinematic wedding | The Groom Who Was Replaced | 9 |
 | Soft pink bokeh | The Divorcée Wants to Be the Top Idol Again, I Got Picked Up | 8 |
 | Die Hard Stalker | Not on the web home shelf | Closest relatives are the Vampire cover (vertical red hashtags, cluster 11) and cluster 13 |
+
+## Title logos (2026-11-23)
+
+Added for v4 titles. The owner's complaint about v3: covers that share a recipe share
+a font, so "the ones with the same art style have the same font". On OOC no two titles
+are set alike, even inside one look. This section looks at the title as a **logo**
+rather than as a type choice. Sources: the app shots (01, 03, 06, 12, 13, 35, 64, 77,
+ooc2-01z, ooc2-04z) enlarged 2x, plus the 37 detailed records above. The web shelf
+was not reopened for this pass.
+
+### What OOC's logos have in common
+
+- **Every logo mixes at least two voices.** A small kicker in one face and a big word
+  in another (OYABUN, HUMAN, AGAIN, APEX). Fewer than 1 in 10 use one font at one size.
+- **One word carries the logo.** The hero word is 2-4x the cap height of the rest:
+  "Burned" in The World I Burned to Make You Mine, "AGAIN", "HUMAN", "OYABUN",
+  "ACADEMY" in Trash Noble's. The small words are tucked around it, never stacked as
+  equals.
+- **Colour comes from the art.** HUMAN is the background pink, Oyabun's cream comes
+  from the kimono, Hunter Academy's silver from the lightning, and Lumencia's
+  lavender-white from the halo. A title colour that appears nowhere in the art is rare.
+- **Position follows the empty space, not a template.** Bottom third is most common,
+  but Reincarnated OP Skill and Psychic Academy NOVA sit at the top, Vampire in Korea
+  and LOOKISM run down the side, The Hero Who Came to Kill Me is set on a diagonal,
+  and The Last Human is a small top-right corner logo.
+- **Finish is part of the genre.** Engraved metal for nobility, a bevelled 3D gold for
+  games, white-and-outline stickers for comedy, neon tubes for city nights, a brush and
+  a red seal for East Asian settings, distress for horror.
+
+### 14 treatments, each with an OOC example and a v4 recipe
+
+Spec keys refer to `tools/cover-title-v4.py`.
+
+| # | Treatment | OOC example | How it is built | v4 spec |
+|---|---|---|---|---|
+| 1 | **Script over Didone**: a red or gold swash script crossing the top of a big high-contrast serif word, with a tiny tracked connector between | The Groom Who Was Replaced, The World I Burned to Make You Mine, Constellation | Script about 0.6x the serif's width, with a thin paper-coloured stroke so it reads where it overlaps; connector words at 30-40 px with 0.5 em tracking between hairline rules | Alex Brush or Great Vibes + Bodoni Moda or Cormorant; `strokes` on the script; `rule` ornaments `of` the connector line |
+| 2 | **Engraved metal tiers**: three tiers, small / huge / small, all in gold or silver caps, with fleurons | A Trash Noble's Academy Survival, The Betrayal, Oyabun | Caps serif, the middle word fitted to the full width; metal gradient with a hard horizon; chisel bevel; dark keyline; a fleuron or crest above | Cinzel Decorative or Marcellus; `fill: {metal}`; `bevel`; `width` on the hero line; `flourish` or `rule` with `center: diamond` |
+| 3 | **Giant word in the field colour**: one condensed word filling 80-90% of the width in the background hue, with white kicker and tag | I'm the Only Human in the Monster Academy, Hero Academia | Condensed heavy caps; colour sampled from the background and pushed lighter; white inner stroke plus dark outer stroke; small lines on a black plate | Anton, Bebas Neue or Dela Gothic One; `fill: {sample, l}`; two `strokes`; `plate` backing on the tag line |
+| 4 | **Sticker comedy**: rounded letters with a white sticker border, a dark outer line, a short 3D drop and gloss, each letter bobbing | Was School Easy, AGAIN, Gender-Reversed Campus Life | Rounded heavy face; gradient fill; strokes [dark 16, white 9]; `extrude` 6-10 px; `gloss`; `jitter` with `pattern: alternate`; one word in a tilted stamp | Fredoka, Mochiy Pop One, Titan One; `jitter`; `plate` backing tied to one line with `rotate` |
+| 5 | **Game logo**: bevelled gold caps on a slight arc, a dark extrusion and outer outline, the kicker on a red ribbon | Everwake Online, Reincarnated With an OP Skill, Mythical Beast Academy | Decorative caps; `metal: gold`; chisel `bevel`; `extrude` with a brown-to-black gradient; `outerStrokes`; `arc` 6-12 deg; the kicker on a `ribbon` with swallowtails | Cinzel Decorative, Grenze Gotisch, Alfa Slab One |
+| 6 | **Vertical side column**: the title rotated or stacked down one edge, with a seal at its foot | LOOKISM, Vampire in Korea (hashtags), Transmigrated | A block `rotate: 90` along the empty edge, the big word on the outside and the kicker inside; a hanko `seal` turned upright at the end | Shojumaru, Shippori Mincho B1, Yuji Syuku kanji for seals; `vertical: true` for stacked capitals |
+| 7 | **Noir brush with one red mark** | Monochrome City, Hunter Academy | Dry-brush caps, slanted 6-10 deg, a red `seal` or red underline swash; ink grain | Protest Revolution; `rough` with `grit`; `swash` or `underline` in red; `seal` intaglio |
+| 8 | **Distressed stencil on a prop**: a worn stencil word in red, the kicker typed on a taped paper scrap, the block on a diagonal | Day 2222 in Hiding (notebook scrap), Extra in the Zombie Apocalypse | `torn` backing with `tape`, black condensed kicker; the hero word in a stencil with `distress` (edge wear and scratches) and a hard offset shadow; block `rotate` -4 to -8 | Black Ops One, Stardos Stencil, Rubik Dirt, Big Shoulders Display |
+| 9 | **System glitch**: a terminal kicker in a HUD tab, the hero word in red with an RGB split and a few sliced bands, corner brackets | WORLDLINE, Life Simulator, Reincarnated OP Skill's SYSTEM window | VT323 kicker on a chamfered `plate`; hero word with `glitch` (offset 5, 3 slices), `scanlines` texture and a red screen-blend glow; `brackets` around the block | Chakra Petch, Orbitron, Rubik Glitch, VT323 |
+| 10 | **Neon sign**: tube letters with a white-hot core and layered coloured glow, sometimes a second colour in script | Life Simulator, HUNTERS (red neon) | `neon` (core, inner rim, three screen glows); `tube` for hollow letters; mix a tube face with a script | Monoton, Parisienne with `neon.tube`, Audiowide |
+| 11 | **Label strips**: each line on its own strip of paper or tape, the strips stepped and crooked | I Saw My Childhood Friend Working at a Maid Café, Day 2222 | `backingEach` with `torn` or `plate`, each line with its own small `rotate` and `dx` | Caveat, Gochi Hand, Nanum Pen Script, Klee One |
+| 12 | **Small corner logo**: an unobtrusive title tucked in a top corner, so the art carries the cover | The Last Human, Psychic Academy NOVA, Lumencia Academy | 8-12% of the height, thin serif or script, light tracking, colour sampled from a pale highlight | Italiana, Poiret One, Marcellus, Pinyon Script |
+| 13 | **Diagonal script across the art**: a white italic script set along the line of a pose | The Hero Who Came to Kill Me Fell for Me Instead | Block `rotate` -15 to -30, left-aligned, 3-4 lines with negative `gap`, a soft dark `shadow` for contrast | Parisienne, Alex Brush, Playfair Display italic |
+| 14 | **Monogram lockup**: one or two giant initials with the rest of the title set small inside their counters | SB Game Battle Royale | Runs with very different sizes on one line (`valign: center`), the small words in a script between the big letters | Rampart One, Bungee, Cinzel Decorative for the initials |
+| 15 | **Drop cap**: a first letter at 2x, the rest of the word sitting on its baseline or hanging from its top | The World I Burned (the "B"), Isekai Gone Wrong | `runs`: the first letter at 2x size and `valign: bottom` (or `top`), often in a second colour or metal | Limelight, Bodoni Moda, Cinzel Decorative |
+
+### Rules for the 50
+
+1. **No font family on more than 3 covers**, and never on two covers that share a
+   look (a v3 recipe). The library has 60 families, so this is easy to keep.
+2. **Each cover gets a hero word** at least 2x the cap height of the rest of the
+   title. A title without an obvious hero word ("Three Feet Apart") picks the most
+   visual one ("APART").
+3. **Sample the title colour from the art** (`fill: {"sample": [x, y]}`) or pick a
+   complement of the art's dominant hue, then check it at shelf size (160 px wide).
+4. **Place the title in the art's empty space**, with every face boxed in `avoid`. At
+   least 8 of the 50 go top, 4 go vertical or diagonal, and 4 are small corner logos.
+5. **One genre finish per cover** (metal, sticker, neon, brush, distress, glitch,
+   engraved, paper). Do not stack two finishes on one word.
