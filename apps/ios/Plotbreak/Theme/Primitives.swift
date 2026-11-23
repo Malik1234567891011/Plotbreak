@@ -487,14 +487,18 @@ extension Text {
     /// `string` with every "◆" drawn as the crystal at `fontSize`. The catalogue
     /// still writes credits as "◆300" (packages/i18n); this is where that glyph
     /// becomes the one currency mark design v3 allows.
+    ///
+    /// `onLight` draws the crystal as a silhouette in the text's own colour.
+    /// The picture is a pale crystal made for ink; on a paper capsule (the
+    /// Badges Collect pill) it washed out to nearly nothing.
     @MainActor
-    static func crystals(_ string: String, fontSize: CGFloat) -> Text {
+    static func crystals(_ string: String, fontSize: CGFloat, onLight: Bool = false) -> Text {
         let parts = string.components(separatedBy: "◆")
         var text = Text(verbatim: parts[0])
+        let picture = Image(uiImage: CrystalImage.inline(fontSize))
+        let mark = Text(onLight ? picture.renderingMode(.template) : picture).baselineOffset(-fontSize * 0.17)
         for part in parts.dropFirst() {
-            text = text
-                + Text(Image(uiImage: CrystalImage.inline(fontSize))).baselineOffset(-fontSize * 0.17)
-                + Text(verbatim: part)
+            text = text + mark + Text(verbatim: part)
         }
         return text
     }

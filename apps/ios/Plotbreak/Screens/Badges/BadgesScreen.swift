@@ -124,7 +124,7 @@ struct BadgesScreen: View {
             Task { await claim(badge) }
         } label: {
             ZStack {
-                Text.crystals(t("badges.claim", ["credits": badge.creditReward]), fontSize: 14)
+                Text.crystals(t("badges.claim", ["credits": badge.creditReward]), fontSize: 14, onLight: true)
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundStyle(Theme.Colors.textOnLight)
                     .lineLimit(1)
