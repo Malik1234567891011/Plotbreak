@@ -73,8 +73,8 @@ export const library = {
    */
   'library.speaker_line_a11y': '{name}\u00A0: {text}',
   /**
-   * La m\u00EAme r\u00E9plique \u00E0 l\u2019\u00E9cran, entre guillemets quand l\u2019histoire l\u2019a stock\u00E9e
-   * sans. Guillemets fran\u00E7ais, espaces ins\u00E9cables \u00E0 l\u2019int\u00E9rieur.
+   * La même réplique à l’écran, entre guillemets quand l’histoire l’a stockée
+   * sans. Guillemets français, espaces insécables à l’intérieur.
    */
   'library.quoted_line': '\u00AB\u00A0{text}\u00A0\u00BB',
   /**
