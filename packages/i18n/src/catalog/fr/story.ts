@@ -64,8 +64,13 @@ export const story = {
   'story.start': 'Commence l’histoire',
   'story.play': 'Jouer',
   'story.starting': 'Ça commence…',
-  /** Impératif, comme les autres actions de la page ; pas `Change`, qui s’écrit comme l’anglais. */
-  'story.customize_character': 'Modifie',
+  /**
+   * Le lien au bout de `story.you_play_as`. Infinitif : c’est une action
+   * facultative et réversible, pas l’élan du bouton Jouer (PRODUCT_VOICE
+   * règle 2), et un `Modifie` seul, sans complément, se lit comme une phrase
+   * coupée. Pas `Change`, qui s’écrit comme l’anglais.
+   */
+  'story.customize_character': 'Modifier',
 
   /**
    * Combien de personnes ont joué ce monde. ⚠️ Côté anglais, l’étiquette dit
