@@ -1,15 +1,30 @@
 {
-  "storyId": "story_affection_97", "seed": 97, "avoid": [[426, 105, 726, 523]],
+  "storyId": "story_affection_97",
+  "seed": 97,
+  "avoid": [[426, 105, 726, 523]],
   "layers": [
     {
-      "type": "text", "id": "title", "at": [0.93, 0.925], "anchor": "br", "gap": 4,
+      "type": "text",
+      "id": "title",
+      "at": [0.93, 0.925],
+      "anchor": "br",
+      "gap": 4,
       "lines": [
         {
-          "text": "Affection", "font": "Cormorant", "weight": 700, "italic": true, "size": 124, "fill": "#9b2251",
+          "text": "Affection",
+          "font": "Cormorant",
+          "weight": 700,
+          "italic": true,
+          "size": 124,
+          "fill": "#9b2251",
           "glow": [{"radius": 6, "spread": 3, "color": "#ffffff", "opacity": 0.95}]
         },
         {
-          "text": "97", "font": "Cormorant", "weight": 700, "size": 430, "features": ["lnum"],
+          "text": "97",
+          "font": "Cormorant",
+          "weight": 700,
+          "size": 430,
+          "features": ["lnum"],
           "fill": {"gradient": ["#f6a9c4", "#e0517f", "#c4436a", "#d9a35a"], "stops": [0, 0.38, 0.62, 1], "angle": 90},
           "strokes": [{"width": 3, "fill": "#ffffff"}],
           "shadow": [{"dx": 0, "dy": 10, "blur": 18, "color": "#9b2251", "opacity": 0.28}]
@@ -17,76 +32,100 @@
       ],
       "backing": [
         {
-          "shape": "plate", "of": "block", "pad": [66, 104, 66, 118], "radius": 30,
-          "fill": {"gradient": ["#ffffffe6", "#fff3f8c8", "#fdedf4bc"], "stops": [0, 0.5, 1], "angle": 90},
+          "shape": "plate",
+          "of": "block",
+          "pad": [66, 104, 66, 118],
+          "radius": 30,
+          "fill": {"gradient": ["#fffffff0", "#fff3f8dc", "#fdedf4d4"], "stops": [0, 0.5, 1], "angle": 90},
           "innerGlow": {"size": 18, "color": "#ffffff", "opacity": 0.9},
-          "strokes": [{"width": 2.5, "fill": {"metal": "rose"}}],
-          "shadow": [{"dx": 0, "dy": 14, "blur": 26, "color": "#6b3a55", "opacity": 0.22}],
-          "glow": [{"radius": 26, "spread": 2, "color": "#ff8db8", "opacity": 0.55}]
+          "strokes": [
+            {"width": 5, "fill": {"gradient": ["#c0708c", "#93395c"], "angle": 90}},
+            {"width": 2, "fill": {"metal": "rose"}}
+          ],
+          "shadow": [{"dx": 0, "dy": 16, "blur": 28, "color": "#5a2340", "opacity": 0.34}],
+          "glow": [{"radius": 30, "spread": 3, "color": "#e0517f", "opacity": 0.6}]
         }
-      ]
+      ],
+      "scale": 1.25
     },
     {
-      "type": "text", "id": "label", "role": "deco", "at": [0.5009, 0.5728], "anchor": "tl",
-      "lines": [{"text": "CROWN PRINCE", "font": "Orbitron", "weight": 700, "size": 21, "tracking": 0.34, "fill": "#b4577c"}]
+      "type": "text",
+      "id": "label",
+      "role": "deco",
+      "at": [0.3936, 0.4847],
+      "anchor": "tl",
+      "lines": [{"text": "CROWN PRINCE", "font": "Orbitron", "weight": 700, "size": 26, "tracking": 0.34, "fill": "#b4577c"}]
     },
     {
-      "type": "shape", "shape": "rule", "of": "title", "to": "tc", "anchor": "tc", "dy": 72, "w": 420, "h": 10,
-      "thickness": 1.6, "taper": false, "fill": {"metal": "rose"}
+      "type": "shape",
+      "shape": "rule",
+      "of": "title",
+      "to": "tc",
+      "anchor": "tc",
+      "dy": 90.0,
+      "w": 525.0,
+      "h": 12.5,
+      "thickness": 2.0,
+      "taper": false,
+      "fill": {"metal": "rose"}
     },
     {
-      "type": "shape", "shape": "plate", "of": "title", "to": "bl", "anchor": "bl", "dx": 110, "dy": -50, "w": 360,
-      "h": 16, "radius": 8, "fill": "#f5d3df",
+      "type": "shape",
+      "shape": "plate",
+      "of": "title",
+      "to": "bl",
+      "anchor": "bl",
+      "dx": 137.5,
+      "dy": -62.5,
+      "w": 450.0,
+      "h": 20.0,
+      "radius": 10.0,
+      "fill": "#f5d3df",
       "innerShadow": {"dx": 0, "dy": 2, "blur": 2, "color": "#b4577c", "opacity": 0.35}
     },
     {
-      "type": "shape", "shape": "plate", "of": "title", "to": "bl", "anchor": "bl", "dx": 110, "dy": -50, "w": 349,
-      "h": 16, "radius": 8, "fill": {"gradient": ["#ff9cc0", "#e0517f"], "angle": 0},
-      "gloss": {"height": 0.45, "opacity": 0.4}, "glow": [{"radius": 6, "color": "#ff6fa3", "opacity": 0.5}]
-    },
-    {
-      "type": "shape", "shape": "polygon", "of": "title", "to": "bl", "anchor": "bl", "dx": 60, "dy": -42, "w": 36,
-      "h": 32,
-      "points": [
-        [0.5, 0.237],
-        [0.504, 0.211],
-        [0.528, 0.145],
-        [0.586, 0.068],
-        [0.677, 0.013],
-        [0.787, 0.007],
-        [0.894, 0.056],
-        [0.972, 0.151],
-        [1.0, 0.271],
-        [0.972, 0.398],
-        [0.894, 0.518],
-        [0.787, 0.629],
-        [0.677, 0.732],
-        [0.586, 0.827],
-        [0.528, 0.908],
-        [0.504, 0.963],
-        [0.5, 0.983],
-        [0.496, 0.963],
-        [0.472, 0.908],
-        [0.414, 0.827],
-        [0.323, 0.732],
-        [0.213, 0.629],
-        [0.106, 0.518],
-        [0.028, 0.398],
-        [0.0, 0.271],
-        [0.028, 0.151],
-        [0.106, 0.056],
-        [0.213, 0.007],
-        [0.323, 0.013],
-        [0.414, 0.068],
-        [0.472, 0.145],
-        [0.496, 0.211]
-      ],
-      "fill": {"gradient": ["#ff9cc0", "#e0517f"], "angle": 0}, "strokes": [{"width": 2, "fill": "#ffffff"}],
+      "type": "shape",
+      "shape": "plate",
+      "of": "title",
+      "to": "bl",
+      "anchor": "bl",
+      "dx": 137.5,
+      "dy": -62.5,
+      "w": 436.2,
+      "h": 20.0,
+      "radius": 10.0,
+      "fill": {"gradient": ["#ff9cc0", "#e0517f"], "angle": 0},
+      "gloss": {"height": 0.45, "opacity": 0.4},
       "glow": [{"radius": 6, "color": "#ff6fa3", "opacity": 0.5}]
     },
     {
-      "type": "shape", "shape": "sparkles", "of": "title", "pad": [0, 0, 0, 0],
-      "points": [[0.985, 0.02, 46], [0.93, 0.1, 22], [-0.01, 0.5, 26]], "fill": "#ffffff",
+      "type": "shape",
+      "shape": "polygon",
+      "of": "title",
+      "to": "bl",
+      "anchor": "bl",
+      "dx": 75.0,
+      "dy": -52.5,
+      "w": 45.0,
+      "h": 40.0,
+      "points": [
+        [0.5, 0.237], [0.504, 0.211], [0.528, 0.145], [0.586, 0.068], [0.677, 0.013], [0.787, 0.007], [0.894, 0.056],
+        [0.972, 0.151], [1.0, 0.271], [0.972, 0.398], [0.894, 0.518], [0.787, 0.629], [0.677, 0.732], [0.586, 0.827],
+        [0.528, 0.908], [0.504, 0.963], [0.5, 0.983], [0.496, 0.963], [0.472, 0.908], [0.414, 0.827], [0.323, 0.732],
+        [0.213, 0.629], [0.106, 0.518], [0.028, 0.398], [0.0, 0.271], [0.028, 0.151], [0.106, 0.056], [0.213, 0.007],
+        [0.323, 0.013], [0.414, 0.068], [0.472, 0.145], [0.496, 0.211]
+      ],
+      "fill": {"gradient": ["#ff9cc0", "#e0517f"], "angle": 0},
+      "strokes": [{"width": 2, "fill": "#ffffff"}],
+      "glow": [{"radius": 6, "color": "#ff6fa3", "opacity": 0.5}]
+    },
+    {
+      "type": "shape",
+      "shape": "sparkles",
+      "of": "title",
+      "pad": [0, 0, 0, 0],
+      "points": [[0.985, 0.02, 58], [0.93, 0.1, 28], [-0.01, 0.5, 32]],
+      "fill": "#ffffff",
       "glow": [{"radius": 8, "color": "#ff8db8", "opacity": 0.8}]
     }
   ]

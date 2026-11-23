@@ -10,115 +10,116 @@
       "strokes": [{"width": 5, "fill": "#0c0604"}],
       "shadow": [{"dx": 0, "dy": 6, "blur": 10, "opacity": 0.75}]
     },
-    "gold": {
-      "fill": {"metal": "gold", "horizon": 0.52},
-      "bevel": {"depth": 2, "highlight": 0.5, "shadow": 0.4},
-      "strokes": [{"width": 3, "fill": "#1a0c04"}],
-      "shadow": [{"dx": 0, "dy": 3, "blur": 5, "opacity": 0.6}]
-    }
+    "leaf": {
+      "fill": {
+        "texture": "grain",
+        "base": {"gradient": ["#f0d488", "#dcb862", "#cfa44c", "#e6c677"], "stops": [0, 0.4, 0.7, 1], "angle": 90},
+        "strength": 0.3
+      }
+    },
+    "mon": {"fill": {"gradient": ["#f6dc92", "#c99a3e"], "angle": 90}}
   },
   "layers": [
-    {"type": "spot", "at": [0.16, 0.05], "r": [460, 230], "color": "#120604", "opacity": 0.62},
-    {"type": "scrim", "edge": "bottom", "from": 0.6, "to": 0.97, "color": "#0e0503", "opacity": 0.82},
-    {
-      "type": "text",
-      "id": "crest",
-      "at": [0.04, 0.112],
-      "anchor": "bl",
-      "align": "left",
-      "lines": [
-        {
-          "use": "mincho",
-          "text": "INHERITED:",
-          "size": 45,
-          "tracking": 0.1,
-          "strokes": [{"width": 3, "fill": "#0c0604"}],
-          "shadow": [{"dx": 0, "dy": 3, "blur": 6, "opacity": 0.8}]
-        }
-      ],
-      "ornaments": [
-        {
-          "use": "gold",
-          "of": 0,
-          "to": "tc",
-          "anchor": "mc",
-          "shape": "ellipse",
-          "dy": -62,
-          "w": 88,
-          "h": 88,
-          "fill": {"gradient": ["#2a140a", "#0c0503"], "angle": 90},
-          "strokes": [{"width": 6, "fill": {"metal": "gold", "horizon": 0.52}}],
-          "bevel": null
-        },
-        {"use": "gold", "of": 0, "to": "tc", "anchor": "mc", "shape": "diamond", "dy": -81, "w": 32, "h": 32},
-        {"use": "gold", "of": 0, "to": "tc", "anchor": "mc", "shape": "diamond", "dx": -19, "dy": -62, "w": 32, "h": 32},
-        {"use": "gold", "of": 0, "to": "tc", "anchor": "mc", "shape": "diamond", "dx": 19, "dy": -62, "w": 32, "h": 32},
-        {"use": "gold", "of": 0, "to": "tc", "anchor": "mc", "shape": "diamond", "dy": -43, "w": 32, "h": 32},
-        {
-          "use": "gold",
-          "shape": "rule",
-          "of": 0,
-          "to": "tl",
-          "anchor": "ml",
-          "dy": -62,
-          "w": 120,
-          "h": 10,
-          "thickness": 2.2,
-          "strokes": [],
-          "bevel": null
-        },
-        {
-          "use": "gold",
-          "shape": "rule",
-          "of": 0,
-          "to": "tr",
-          "anchor": "mr",
-          "dy": -62,
-          "w": 120,
-          "h": 10,
-          "thickness": 2.2,
-          "strokes": [],
-          "bevel": null
-        }
-      ]
-    },
+    {"type": "scrim", "edge": "bottom", "from": 0.56, "to": 0.97, "color": "#0e0503", "opacity": 0.72},
     {
       "type": "text",
       "id": "title",
-      "at": [0.5, 0.958],
+      "at": [0.5, 0.95],
       "anchor": "bc",
-      "gap": 10,
+      "gap": 16,
       "style": {"use": "mincho"},
       "lines": [
-        {"text": "ONE FAILING", "size": 92, "tracking": 0.12},
+        {
+          "text": "INHERITED:",
+          "cap": 76,
+          "tracking": 0.08,
+          "rotate": 0,
+          "fill": "#fbf1de",
+          "strokes": [{"width": 2, "fill": "#6a0b10"}],
+          "shadow": [],
+          "gap": 0
+        },
+        {"text": "ONE FAILING", "size": 104, "tracking": 0.14, "gap": 30},
         {
           "text": "CLAN",
-          "width": 900,
-          "tracking": 0.04,
-          "inline": {"inset": 7, "width": 3, "fill": {"metal": "gold", "horizon": 0.5}},
-          "strokes": [{"width": 7, "fill": "#0c0604"}],
-          "shadow": [{"dx": 0, "dy": 10, "blur": 16, "opacity": 0.8}],
-          "glow": [{"radius": 28, "color": "#ffc867", "opacity": 0.18, "blend": "screen"}]
+          "width": 690,
+          "tracking": 0.06,
+          "gap": 58,
+          "fill": {"gradient": ["#3d342c", "#120e0b", "#050403"], "stops": [0, 0.5, 1], "angle": 90},
+          "gloss": {"height": 0.42, "opacity": 0.2},
+          "strokes": [
+            {"width": 9, "fill": "#0a0604"},
+            {"width": 6, "fill": {"texture": "grain", "base": {"metal": "gold", "horizon": 0.5}, "strength": 0.25}}
+          ],
+          "shadow": [{"dx": 0, "dy": 6, "blur": 6, "opacity": 0.45, "color": "#2a1408"}]
+        }
+      ],
+      "backing": [
+        {
+          "shape": "plate",
+          "of": 0,
+          "pad": [36, 22, 36, 22],
+          "radius": 6,
+          "fill": "#c41f2b",
+          "rough": {"amount": 1.4, "scale": 6},
+          "distress": {"amount": 0.12, "scale": 5},
+          "inline": {"inset": 9, "width": 2.5, "fill": "#f4d9c8"},
+          "shadow": [{"dx": 0, "dy": 6, "blur": 8, "opacity": 0.6}]
+        },
+        {
+          "shape": "plate",
+          "of": 2,
+          "pad": [136, 34, 136, 34],
+          "radius": 3,
+          "use": "leaf",
+          "strokes": [{"width": 10, "fill": "#0a0604"}],
+          "inline": {"inset": 9, "width": 3, "fill": {"metal": "gold", "horizon": 0.5}},
+          "shadow": [{"dx": 0, "dy": 10, "blur": 16, "opacity": 0.7}]
         }
       ],
       "ornaments": [
         {
-          "shape": "seal",
-          "of": 0,
+          "shape": "ellipse",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mc",
+          "dx": -72,
+          "w": 96,
+          "h": 96,
+          "fill": "#140d09",
+          "inline": {"inset": 6, "width": 3, "fill": {"gradient": ["#f6dc92", "#c99a3e"], "angle": 90}}
+        },
+        {
+          "shape": "diamond",
+          "of": 2,
+          "to": "ml",
+          "anchor": "mc",
+          "dx": -72,
+          "dy": -15,
+          "w": 26,
+          "h": 26,
+          "use": "mon"
+        },
+        {"shape": "diamond", "of": 2, "to": "ml", "anchor": "mc", "dx": -87, "w": 26, "h": 26, "use": "mon"},
+        {"shape": "diamond", "of": 2, "to": "ml", "anchor": "mc", "dx": -57, "w": 26, "h": 26, "use": "mon"},
+        {"shape": "diamond", "of": 2, "to": "ml", "anchor": "mc", "dx": -72, "dy": 15, "w": 26, "h": 26, "use": "mon"},
+        {
+          "shape": "ellipse",
+          "of": 2,
           "to": "mr",
-          "anchor": "ml",
-          "dx": 26,
-          "dy": 16,
-          "w": 124,
-          "h": 124,
-          "rotate": -6,
-          "text": "組",
-          "font": "Shippori Mincho B1",
-          "style": "intaglio",
-          "fill": "#c8202c",
-          "shadow": [{"dx": 0, "dy": 5, "blur": 7, "opacity": 0.55}]
-        }
-      ]
+          "anchor": "mc",
+          "dx": 72,
+          "w": 96,
+          "h": 96,
+          "fill": "#140d09",
+          "inline": {"inset": 6, "width": 3, "fill": {"gradient": ["#f6dc92", "#c99a3e"], "angle": 90}}
+        },
+        {"shape": "diamond", "of": 2, "to": "mr", "anchor": "mc", "dx": 72, "dy": -15, "w": 26, "h": 26, "use": "mon"},
+        {"shape": "diamond", "of": 2, "to": "mr", "anchor": "mc", "dx": 57, "w": 26, "h": 26, "use": "mon"},
+        {"shape": "diamond", "of": 2, "to": "mr", "anchor": "mc", "dx": 87, "w": 26, "h": 26, "use": "mon"},
+        {"shape": "diamond", "of": 2, "to": "mr", "anchor": "mc", "dx": 72, "dy": 15, "w": 26, "h": 26, "use": "mon"}
+      ],
+      "rotate": -6
     }
   ]
 }

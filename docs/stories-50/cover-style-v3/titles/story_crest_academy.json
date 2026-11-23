@@ -1,105 +1,59 @@
 {
   "storyId": "story_crest_academy", "seed": 8, "avoid": [[484, 105, 760, 419]],
+  "styles": {
+    "silver": {"fill": {"metal": "silver", "horizon": 0.5}, "strokes": [{"width": 1.5, "fill": "#0d1830"}]}
+  },
   "layers": [
-    {"type": "scrim", "edge": "bottom", "from": 0.8, "to": 1.0, "color": "#dfe5f2", "opacity": 0.35},
+    {"type": "scrim", "edge": "bottom", "from": 0.74, "to": 1.0, "color": "#e4e9f4", "opacity": 0.4},
     {
-      "type": "text", "id": "title", "at": [0.525, 0.962], "anchor": "bc", "gap": 14,
+      "type": "text", "id": "title", "at": [0.5, 0.962], "anchor": "bc", "gap": 30,
       "lines": [
         {
-          "text": "CREST", "font": "Marcellus", "size": 214, "tracking": 0.04,
-          "fill": {
-            "gradient": ["#ffffff", "#d3dae5", "#8794a8", "#4a566c", "#7c899d", "#dfe5ee"],
-            "stops": [0, 0.3, 0.5, 0.56, 0.78, 1], "angle": 90
-          },
-          "bevel": {"depth": 3, "mode": "chisel", "highlight": 0.6, "shadow": 0.55},
-          "strokes": [{"width": 10, "fill": "#1b2a4a"}, {"width": 3.5, "fill": "#dbe2ec"}],
-          "shadow": [{"dx": 0, "dy": 8, "blur": 14, "color": "#0d1830", "opacity": 0.5}]
+          "text": "CREST", "font": "Marcellus", "width": 880, "tracking": 0.05,
+          "fill": {"gradient": ["#3a5a9a", "#1f3463", "#132246", "#0c1733"], "stops": [0, 0.42, 0.5, 1], "angle": 90},
+          "gloss": {"height": 0.46, "opacity": 0.2},
+          "inline": {"inset": 8, "width": 1.6, "fill": "#9fb2d6"},
+          "strokes": [{"width": 14, "fill": "#f3f5fa"}, {"width": 10, "fill": "#0c1733"}, {"width": 6, "fill": {"metal": "silver", "horizon": 0.5}}],
+          "shadow": [{"dx": 0, "dy": 10, "blur": 14, "color": "#0d1830", "opacity": 0.45}]
         },
         {
-          "text": "ACADEMY", "font": "Marcellus", "size": 44, "tracking": 0.6, "fill": "#1b2a4a",
-          "glow": [{"radius": 4, "spread": 2, "color": "#ffffff", "opacity": 0.8}]
+          "text": "ACADEMY", "font": "Marcellus", "size": 50, "tracking": 0.55,
+          "fill": {"metal": "silver", "horizon": 0.55}
+        }
+      ],
+      "backing": [
+        {
+          "shape": "polygon", "of": 0, "to": "tc", "anchor": "tc", "dy": -214, "w": 300, "h": 452,
+          "points": [[0, 0], [0.5, 0.06], [1, 0], [1, 0.42], [0.996, 0.496], [0.983, 0.57], [0.962, 0.642], [0.933, 0.71], [0.897, 0.773],
+                     [0.854, 0.83], [0.804, 0.88], [0.75, 0.922], [0.691, 0.956], [0.629, 0.98], [0.565, 0.995], [0.5, 1],
+                     [0.435, 0.995], [0.371, 0.98], [0.309, 0.956], [0.25, 0.922], [0.196, 0.88], [0.146, 0.83], [0.103, 0.773],
+                     [0.067, 0.71], [0.038, 0.642], [0.017, 0.57], [0.004, 0.496], [0, 0.42]],
+          "fill": {"gradient": ["#33528f", "#1b2a4a", "#101b35"], "angle": 90},
+          "gloss": {"height": 0.4, "opacity": 0.22},
+          "inline": {"inset": 16, "width": 3, "fill": {"metal": "silver", "horizon": 0.5}},
+          "strokes": [{"width": 12, "fill": "#0c1733"}, {"width": 8, "fill": {"metal": "silver", "horizon": 0.5}}],
+          "shadow": [{"dx": 0, "dy": 10, "blur": 16, "color": "#0d1830", "opacity": 0.45}]
+        },
+        {
+          "shape": "ribbon", "of": 1, "pad": [64, 18, 64, 18], "tail": 58, "drop": 14, "notch": 22, "arc": 6,
+          "fill": {"gradient": ["#2a4378", "#14213d"], "angle": 90},
+          "strokes": [{"width": 3, "fill": {"metal": "silver", "horizon": 0.5}}],
+          "shadow": [{"dx": 0, "dy": 6, "blur": 8, "color": "#0d1830", "opacity": 0.45}]
         }
       ],
       "ornaments": [
-        {
-          "shape": "rule", "of": 1, "to": "ml", "anchor": "mr", "dx": -22, "w": 130, "h": 14, "thickness": 2.4,
-          "ends": "diamond", "size": 12, "fill": {"metal": "silver", "horizon": 0.5},
-          "strokes": [{"width": 1.5, "fill": "#1b2a4a"}]
-        },
-        {
-          "shape": "rule", "of": 1, "to": "mr", "anchor": "ml", "dx": 22, "w": 130, "h": 14, "thickness": 2.4,
-          "ends": "diamond", "size": 12, "fill": {"metal": "silver", "horizon": 0.5},
-          "strokes": [{"width": 1.5, "fill": "#1b2a4a"}]
-        },
-        {
-          "shape": "polygon", "of": "block", "to": "ml", "anchor": "mr", "dx": -30, "w": 168, "h": 204,
-          "points": [
-            [0, 0],
-            [1, 0],
-            [1, 0.42],
-            [0.996, 0.496],
-            [0.983, 0.57],
-            [0.962, 0.642],
-            [0.933, 0.71],
-            [0.897, 0.773],
-            [0.854, 0.83],
-            [0.804, 0.88],
-            [0.75, 0.922],
-            [0.691, 0.956],
-            [0.629, 0.98],
-            [0.565, 0.995],
-            [0.5, 1],
-            [0.435, 0.995],
-            [0.371, 0.98],
-            [0.309, 0.956],
-            [0.25, 0.922],
-            [0.196, 0.88],
-            [0.146, 0.83],
-            [0.103, 0.773],
-            [0.067, 0.71],
-            [0.038, 0.642],
-            [0.017, 0.57],
-            [0.004, 0.496],
-            [0, 0.42]
-          ],
-          "fill": {"gradient": ["#2c4478", "#1b2a4a", "#121d36"], "angle": 90},
-          "gloss": {"height": 0.45, "opacity": 0.22},
-          "inline": {"inset": 12, "width": 2.5, "fill": {"metal": "silver", "horizon": 0.5}},
-          "strokes": [{"width": 9, "fill": "#1b2a4a"}, {"width": 6, "fill": {"metal": "silver", "horizon": 0.5}}],
-          "shadow": [{"dx": 0, "dy": 8, "blur": 12, "color": "#0d1830", "opacity": 0.45}]
-        },
-        {
-          "shape": "rule", "of": "block", "to": "ml", "anchor": "mc", "dx": -114, "dy": 10, "w": 160, "h": 12,
-          "thickness": 7, "size": 15, "rotate": 42, "fill": {"metal": "silver", "horizon": 0.5},
-          "strokes": [{"width": 1.5, "fill": "#0d1830"}]
-        },
-        {
-          "shape": "rule", "of": "block", "to": "ml", "anchor": "mc", "dx": -114, "dy": 10, "w": 160, "h": 12,
-          "thickness": 7, "size": 15, "rotate": -42, "fill": {"metal": "silver", "horizon": 0.5},
-          "strokes": [{"width": 1.5, "fill": "#0d1830"}]
-        },
-        {
-          "shape": "rule", "of": "block", "to": "ml", "anchor": "mc", "dx": -72, "dy": 48, "w": 40, "h": 10,
-          "thickness": 6, "taper": false, "rotate": -48, "fill": {"metal": "silver", "horizon": 0.5},
-          "strokes": [{"width": 1.5, "fill": "#0d1830"}]
-        },
-        {
-          "shape": "dot", "of": "block", "to": "ml", "anchor": "mc", "dx": -54, "dy": 64, "w": 15, "h": 15,
-          "fill": {"metal": "silver", "horizon": 0.5}, "strokes": [{"width": 1.5, "fill": "#0d1830"}]
-        },
-        {
-          "shape": "rule", "of": "block", "to": "ml", "anchor": "mc", "dx": -156, "dy": 48, "w": 40, "h": 10,
-          "thickness": 6, "taper": false, "rotate": 48, "fill": {"metal": "silver", "horizon": 0.5},
-          "strokes": [{"width": 1.5, "fill": "#0d1830"}]
-        },
-        {
-          "shape": "dot", "of": "block", "to": "ml", "anchor": "mc", "dx": -174, "dy": 64, "w": 15, "h": 15,
-          "fill": {"metal": "silver", "horizon": 0.5}, "strokes": [{"width": 1.5, "fill": "#0d1830"}]
-        },
-        {
-          "shape": "star", "of": "block", "to": "ml", "anchor": "mc", "dx": -114, "dy": -56, "w": 50, "h": 50,
-          "points": 5, "inner": 0.45, "fill": {"metal": "silver"}, "strokes": [{"width": 1.5, "fill": "#0d1830"}]
-        }
+        {"shape": "rule", "of": 0, "to": "tc", "anchor": "mc", "dy": -92, "w": 196, "h": 14, "thickness": 8, "size": 16,
+         "rotate": 40, "use": "silver"},
+        {"shape": "rule", "of": 0, "to": "tc", "anchor": "mc", "dy": -92, "w": 196, "h": 14, "thickness": 8, "size": 16,
+         "rotate": -40, "use": "silver"},
+        {"shape": "rule", "of": 0, "to": "tc", "anchor": "mc", "dx": 44, "dy": -55, "w": 46, "h": 10, "thickness": 7, "taper": false,
+         "rotate": -50, "use": "silver"},
+        {"shape": "rule", "of": 0, "to": "tc", "anchor": "mc", "dx": -44, "dy": -55, "w": 46, "h": 10, "thickness": 7, "taper": false,
+         "rotate": 50, "use": "silver"},
+        {"shape": "dot", "of": 0, "to": "tc", "anchor": "mc", "dx": 72, "dy": -32, "w": 16, "h": 16, "use": "silver"},
+        {"shape": "dot", "of": 0, "to": "tc", "anchor": "mc", "dx": -72, "dy": -32, "w": 16, "h": 16, "use": "silver"},
+        {"shape": "star", "of": 0, "to": "tc", "anchor": "mc", "dy": -158, "w": 62, "h": 62, "points": 5, "inner": 0.45,
+         "use": "silver"}
       ]
     }
   ]

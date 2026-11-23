@@ -28,8 +28,8 @@
    "type": "text",
    "id": "title",
    "at": [
-    0.042,
-    0.045
+    0.037,
+    0.62
    ],
    "anchor": "tl",
    "align": "left",
@@ -38,7 +38,7 @@
     {
      "use": "bc",
      "text": "THE",
-     "size": 40,
+     "size": 50,
      "tracking": 0.3,
      "fill": "#ff3b47"
     },
@@ -105,20 +105,21 @@
      "slant": 5,
      "fill": "#ffffff"
     }
-   ]
+   ],
+   "scale": 1.55
   },
   {
    "type": "text",
    "id": "rows",
    "role": "deco",
    "at": [
-    0.042,
-    0.045
+    0.037,
+    0.62
    ],
    "anchor": "tl",
    "align": "left",
-   "dx": -8,
-   "dy": 246,
+   "dx": -12,
+   "dy": 381,
    "gap": 18,
    "style": {
     "use": "bc",
@@ -198,7 +199,8 @@
      "slant": 5,
      "fill": "#ffffff55"
     }
-   ]
+   ],
+   "scale": 1.55
   }
  ]
 }

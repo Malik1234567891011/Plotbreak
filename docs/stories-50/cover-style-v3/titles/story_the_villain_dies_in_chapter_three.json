@@ -1,38 +1,47 @@
 {
   "storyId": "story_the_villain_dies_in_chapter_three",
   "seed": 41,
-  "avoid": [[484, 140, 737, 488], [610, 1110, 910, 1385]],
+  "avoid": [[484, 140, 737, 488], [610, 1110, 910, 1340]],
   "layers": [
     {
       "type": "text",
       "id": "title",
-      "at": [0.665, 0.958],
+      "at": [0.625, 0.957],
       "anchor": "bc",
-      "rotate": -8,
-      "scale": 0.95,
-      "gap": 6,
+      "rotate": -6,
+      "scale": 1.0,
+      "gap": 0,
       "lines": [
         {
           "runs": [
-            {"text": "The ", "font": "UnifrakturMaguntia", "size": 92, "fill": "#17121a"},
-            {"text": "Villain", "font": "UnifrakturMaguntia", "size": 150, "fill": "#17121a"}
+            {"text": "The ", "font": "UnifrakturMaguntia", "size": 106, "fill": "#17121a"},
+            {"text": "Villain", "font": "UnifrakturMaguntia", "size": 176, "fill": "#17121a"}
           ]
         },
-        {"text": "dies in", "font": "Shippori Mincho B1", "size": 36, "tracking": 0.32, "fill": "#3a2a2c", "gap": 0},
+        {
+          "text": "dies in",
+          "font": "Shippori Mincho B1",
+          "weight": 600,
+          "size": 64,
+          "tracking": 0.22,
+          "fill": "#3a2a2c",
+          "gap": -2
+        },
         {
           "text": "CHAPTER THREE",
           "font": "Shippori Mincho B1",
-          "size": 34,
-          "tracking": 0.22,
+          "weight": 700,
+          "size": 42,
+          "tracking": 0.2,
           "fill": "#fff3e0",
-          "gap": 16
+          "gap": 14
         }
       ],
       "backing": [
         {
           "shape": "plate",
           "of": "block",
-          "pad": [48, 26, 48, 32],
+          "pad": [46, 20, 46, 20],
           "z": -1,
           "fill": {
             "texture": "grain",
@@ -47,9 +56,9 @@
         {
           "shape": "banner",
           "of": 2,
-          "pad": [26, 12, 120, 12],
+          "pad": [26, 12, 110, 12],
           "ends": ["flat", "notch"],
-          "depth": 26,
+          "depth": 30,
           "fill": {"gradient": ["#c8202c", "#8e0f1c"], "angle": 90},
           "shadow": [{"dx": 0, "dy": 4, "blur": 4, "opacity": 0.35}]
         }
@@ -60,10 +69,10 @@
           "of": 1,
           "to": "ml",
           "anchor": "mr",
-          "dx": -18,
-          "w": 70,
-          "h": 10,
-          "thickness": 2,
+          "dx": -24,
+          "w": 110,
+          "h": 12,
+          "thickness": 2.6,
           "taper": false,
           "fill": "#3a2a2c"
         },
@@ -72,10 +81,10 @@
           "of": 1,
           "to": "mr",
           "anchor": "ml",
-          "dx": 18,
-          "w": 70,
-          "h": 10,
-          "thickness": 2,
+          "dx": 24,
+          "w": 110,
+          "h": 12,
+          "thickness": 2.6,
           "taper": false,
           "fill": "#3a2a2c"
         },
@@ -84,10 +93,10 @@
           "of": 0,
           "to": "br",
           "anchor": "bl",
-          "dx": 6,
+          "dx": 8,
           "dy": 0,
-          "w": 24,
-          "h": 36,
+          "w": 30,
+          "h": 44,
           "fill": {"gradient": ["#e0303c", "#9c0e1a"], "angle": 90},
           "points": [
             [0.5, 0.0], [0.503, 0.004], [0.516, 0.017], [0.537, 0.038], [0.569, 0.067], [0.608, 0.103], [0.655, 0.146],
