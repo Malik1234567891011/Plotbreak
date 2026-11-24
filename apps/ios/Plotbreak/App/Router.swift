@@ -406,8 +406,9 @@ struct TabBarShell: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        // Design v3: a floating glass capsule. Pages scroll under it, and the
-        // inset keeps their last row clear of it.
+        // A flat bar pinned to the bottom edge (like OOC), not a floating dock.
+        // Solid fill runs under the home indicator; a hairline separates it
+        // from the page. The inset keeps each page's last row above it.
         .safeAreaInset(edge: .bottom, spacing: 0) {
             HStack(spacing: 0) {
                 ForEach(Tab.allCases, id: \.self) { tab in
@@ -426,7 +427,7 @@ struct TabBarShell: View {
                                 .minimumScaleFactor(0.8)
                         }
                         .foregroundStyle(selected ? Theme.Colors.textPrimary : Theme.Colors.textMuted)
-                        .frame(maxWidth: .infinity, minHeight: 64)
+                        .frame(maxWidth: .infinity, minHeight: 52)
                         .contentShape(Rectangle())
                     }
                     .buttonStyle(PressOpacityStyle())
@@ -434,11 +435,12 @@ struct TabBarShell: View {
                     .accessibilityAddTraits(selected ? [.isSelected, .isButton] : .isButton)
                 }
             }
-            .background(Theme.Colors.bgElevated.opacity(0.72), in: Capsule())
-            .background(.ultraThinMaterial, in: Capsule())
-            .overlay { Capsule().strokeBorder(Theme.Colors.textPrimary.opacity(0.10), lineWidth: 1) }
-            .padding(.horizontal, Theme.pageGutter)
-            .padding(.bottom, 4)
+            .padding(.top, 4)
+            .frame(maxWidth: .infinity)
+            .background(Theme.Colors.bgElevated.ignoresSafeArea(edges: .bottom))
+            .overlay(alignment: .top) {
+                Rectangle().fill(Theme.Colors.borderHairline).frame(height: 0.5)
+            }
         }
         .background(Theme.Colors.bgBase.ignoresSafeArea())
         .toolbar(.hidden, for: .navigationBar)
