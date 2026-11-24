@@ -120,3 +120,94 @@ export function newestFirst(worlds: readonly ShelfWorld[], day: string): string[
     .sort((a, b) => b.at - a.at || compareText(a.key, b.key) || compareText(a.id, b.id))
     .map((world) => world.id);
 }
+
+// ---------------------------------------------------------------------------
+// Fresh worlds, mixed into the other shelves
+// ---------------------------------------------------------------------------
+
+/**
+ * How long a world counts as fresh. A release of fifty worlds used to land in
+ * the twelve-card New row and nowhere else: Featured is editorial, Trending
+ * and Top ranked need plays and likes a new world cannot have yet, and the
+ * All grid is ranked, so they all sank to its bottom. Omar, 23 Nov 2026: "they
+ * shouldn't only be in the new story section ... disperse this all throughout
+ * the homepage".
+ */
+export const FRESH_WINDOW_MS = 21 * DAY_MS;
+
+/** How many genre rows the main page carries, and how many worlds each. */
+export const GENRE_RAILS = 4;
+export const GENRE_RAIL_LIMIT = 16;
+/** A genre row needs this many worlds to be a row and not a repeat of others. */
+export const GENRE_RAIL_MIN = 8;
+
+/**
+ * Worlds first published within `FRESH_WINDOW_MS`, cover required, in an
+ * order shuffled by `salt` and the UTC day: stable on a refresh, different
+ * tomorrow, and different per shelf, so each row leads with other new worlds.
+ */
+export function freshWorlds(worlds: readonly ShelfWorld[], now: Date, salt = ''): string[] {
+  const since = now.getTime() - FRESH_WINDOW_MS;
+  const fresh = worlds.filter((world) => {
+    const at = Date.parse(world.activity.firstPublishedAt ?? '');
+    return world.hasCover && Number.isFinite(at) && at >= since && at <= now.getTime();
+  });
+  return dailyShuffle(fresh, `${utcDay(now)}${salt}`).map((world) => world.storyId);
+}
+
+/**
+ * `base` with `extra` worked in: one of `extra` after every `every` of `base`,
+ * nothing twice. Whatever is left of `extra` follows the end of `base`.
+ */
+export function interleave(base: readonly string[], extra: readonly string[], every: number): string[] {
+  const out: string[] = [];
+  const seen = new Set<string>();
+  const add = (id: string): void => {
+    if (seen.has(id)) return;
+    seen.add(id);
+    out.push(id);
+  };
+  const pending = extra.filter((id) => !base.includes(id));
+  let next = 0;
+  base.forEach((id, index) => {
+    add(id);
+    if ((index + 1) % Math.max(1, every) === 0 && next < pending.length) add(pending[next++]!);
+  });
+  while (next < pending.length) add(pending[next++]!);
+  return out;
+}
+
+/**
+ * The genre rows for the main page: categories with at least
+ * `GENRE_RAIL_MIN` worlds, `GENRE_RAILS` of them picked by the day's shuffle.
+ * Each row alternates the category's best-ranked older worlds with its fresh
+ * ones, so a new world sits next to a proven one in every genre.
+ */
+export function genreRails(
+  worlds: readonly ShelfWorld[],
+  rankedIds: readonly string[],
+  now: Date,
+): { category: string; storyIds: string[] }[] {
+  const byId = new Map(worlds.map((world) => [world.storyId, world]));
+  const counts = new Map<string, number>();
+  for (const world of worlds) {
+    if (!world.hasCover) continue;
+    for (const category of world.categories) counts.set(category, (counts.get(category) ?? 0) + 1);
+  }
+  const eligible = [...counts.entries()]
+    .filter(([, count]) => count >= GENRE_RAIL_MIN)
+    .map(([category]) => ({ storyId: category }));
+  const day = utcDay(now);
+  return dailyShuffle(eligible, `${day}:genres`)
+    .slice(0, GENRE_RAILS)
+    .map(({ storyId: category }) => {
+      const inCategory = (id: string): boolean => {
+        const world = byId.get(id);
+        return !!world && world.hasCover && world.categories.includes(category);
+      };
+      const fresh = freshWorlds(worlds, now, `:${category}`).filter(inCategory);
+      const older = rankedIds.filter((id) => inCategory(id) && !fresh.includes(id));
+      return { category, storyIds: interleave(older, fresh, 1).slice(0, GENRE_RAIL_LIMIT) };
+    })
+    .filter((rail) => rail.storyIds.length >= GENRE_RAIL_MIN);
+}

@@ -5,7 +5,11 @@ import {
   DAY_MS,
   NEW_LIMIT,
   activityWindows,
+  GENRE_RAIL_MIN,
   dailyShuffle,
+  freshWorlds,
+  genreRails,
+  interleave,
   newestFirst,
   utcDay,
   utcDayOfYear,
@@ -195,5 +199,55 @@ describe('recent activity (in-memory repository)', () => {
     const activity = await repo.getStoryActivity([STORY, ...undated], activityWindows(NOW));
     expect(activity.get(STORY)!.firstPublishedAt).toBe(LAUNCH_CATALOG[0]!.publishedAt);
     for (const id of undated) expect(activity.get(id)!.firstPublishedAt, id).toBeNull();
+  });
+});
+
+describe('fresh worlds across the page', () => {
+  const daysAgo = (days: number): string => hoursAgo(days * 24).toISOString();
+
+  it('interleaves one extra after every n of the base, never twice, leftovers at the end', () => {
+    expect(interleave(['a', 'b', 'c'], ['x', 'y'], 1)).toEqual(['a', 'x', 'b', 'y', 'c']);
+    expect(interleave(['a', 'b', 'c', 'd'], ['x'], 2)).toEqual(['a', 'b', 'x', 'c', 'd']);
+    expect(interleave(['a'], ['x', 'y', 'z'], 1)).toEqual(['a', 'x', 'y', 'z']);
+    expect(interleave(['a', 'x', 'b'], ['x', 'y'], 1)).toEqual(['a', 'y', 'x', 'b']);
+  });
+
+  it('counts a world as fresh for three weeks, with a cover, and not before it is published', () => {
+    const worlds = [
+      world('story_today', { activity: { firstPublishedAt: daysAgo(0.5) } }),
+      world('story_20d', { activity: { firstPublishedAt: daysAgo(20) } }),
+      world('story_30d', { activity: { firstPublishedAt: daysAgo(30) } }),
+      world('story_nocover', { hasCover: false, activity: { firstPublishedAt: daysAgo(1) } }),
+      world('story_future', { activity: { firstPublishedAt: new Date(NOW.getTime() + 3_600_000).toISOString() } }),
+      world('story_undated'),
+    ];
+    expect(freshWorlds(worlds, NOW).sort()).toEqual(['story_20d', 'story_today']);
+  });
+
+  it('shuffles fresh worlds per shelf, stable within the day', () => {
+    const worlds = ids(20).map(({ storyId }) => world(storyId, { activity: { firstPublishedAt: daysAgo(1) } }));
+    expect(freshWorlds(worlds, NOW, ':a')).toEqual(freshWorlds(worlds, NOW, ':a'));
+    expect(freshWorlds(worlds, NOW, ':a')).not.toEqual(freshWorlds(worlds, NOW, ':b'));
+  });
+
+  it('builds genre rows that alternate proven and fresh worlds of that genre only', () => {
+    const old = Array.from({ length: 10 }, (_, i) =>
+      world(`story_old_${i}`, { categories: ['romance'], activity: { firstPublishedAt: daysAgo(60) } }),
+    );
+    const fresh = Array.from({ length: 10 }, (_, i) =>
+      world(`story_new_${i}`, { categories: ['romance'], activity: { firstPublishedAt: daysAgo(1) } }),
+    );
+    const other = world('story_action', { categories: ['action'], activity: { firstPublishedAt: daysAgo(1) } });
+    const worlds = [...old, ...fresh, other];
+    const ranked = worlds.map((w) => w.storyId);
+    const rows = genreRails(worlds, ranked, NOW);
+    expect(rows.map((r) => r.category)).toEqual(['romance']);
+    const row = rows[0]!.storyIds;
+    expect(row.length).toBeGreaterThanOrEqual(GENRE_RAIL_MIN);
+    expect(row).not.toContain('story_action');
+    expect(row[0]).toBe('story_old_0');
+    expect(row[1]!.startsWith('story_new_')).toBe(true);
+    expect(row[2]).toBe('story_old_1');
+    expect(new Set(row).size).toBe(row.length);
   });
 });

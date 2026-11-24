@@ -87,7 +87,16 @@ import { registerCreateRoutes } from './create-routes.js';
 import { TowerError, TowerService, towerEnabledFor } from './tower.js';
 import { CHARACTERS_BY_ID } from '@plotbreak/tower';
 import { visibilityContext, visibleStories } from './catalogue-visibility.js';
-import { NEW_LIMIT, activityWindows, newestFirst, utcDay, type ShelfWorld } from './discover-feed.js';
+import {
+  NEW_LIMIT,
+  activityWindows,
+  freshWorlds,
+  genreRails,
+  interleave,
+  newestFirst,
+  utcDay,
+  type ShelfWorld,
+} from './discover-feed.js';
 import type { StoryVersion } from '@plotbreak/contracts';
 import type { SessionRecord, StorySignals } from './repo/types.js';
 import { EMPTY_ACTIVITY, EMPTY_SIGNALS } from './repo/types.js';
@@ -593,9 +602,21 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
     const featuredRank = new Map(
       editorial.filter((e) => e.featuredRank !== null).map((e) => [e.storyId, e.featuredRank!]),
     );
-    const featured = [...ranked]
+    //
+    // Every other slot goes to a fresh world (published in the last three
+    // weeks, with art wide enough for the banner), rotated daily, so a release
+    // is on the first screen and not only in the New row.
+    const freshIds = new Set(freshWorlds(worlds, now));
+    const editorialOrder = [...ranked]
       .sort((a, b) => (featuredRank.get(a.storyId) ?? 999) - (featuredRank.get(b.storyId) ?? 999))
-      .slice(0, 6);
+      .map((summary) => summary.storyId)
+      .filter((id) => !freshIds.has(id));
+    const freshBanners = freshWorlds(
+      worlds.filter((world) => world.hasBannerArt),
+      now,
+      ':hero',
+    );
+    const featured = summariesOf(interleave(editorialOrder, freshBanners, 1).slice(0, 6));
     if (featured.length > 0) {
       rails.push({
         id: 'hero',
@@ -642,7 +663,14 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
         subtitle: t('rail.for_you_because', { tags }),
         subtitleKey: 'rail.for_you_because',
         subtitleParams: { tags },
-        stories: forYou,
+        // Fresh matches alternate with proven ones instead of trailing them.
+        stories: summariesOf(
+          interleave(
+            forYou.map((s) => s.storyId).filter((id) => !freshIds.has(id)),
+            freshWorlds(worlds, now, ':for_you').filter((id) => forYou.some((s) => s.storyId === id)),
+            1,
+          ),
+        ),
       });
     }
 
@@ -700,9 +728,30 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       });
     }
 
+    // Genre rows, each alternating proven and fresh worlds in that genre.
+    // Old clients draw any rail that is not HERO as a horizontal row, so these
+    // need nothing new from the app. The title is a catalog label (authored
+    // data), so no key, as for the filtered `category` rail.
+    if (enough(30)) {
+      for (const row of genreRails(worlds, ranked.map((s) => s.storyId), now)) {
+        rails.push({
+          id: `genre_${row.category}`,
+          title: labelFor(categories, row.category),
+          titleKey: null,
+          kind: 'GENRE',
+          subtitle: null,
+          subtitleKey: null,
+          subtitleParams: null,
+          stories: summariesOf(row.storyIds),
+        });
+      }
+    }
+
     // Everything, always, as the floor of the page — a grid rather than
     // another horizontal rail, so the catalog is browsable rather than
     // sampled. This is the rail that makes the page feel like a catalog.
+    // Fresh worlds alternate with ranked ones; ranked alone sank every new
+    // world (no plays, no likes yet) to the bottom of the grid.
     rails.push({
       id: 'all',
       title: t('rail.all'),
@@ -711,7 +760,13 @@ export function buildServer(options: BuildServerOptions = {}): FastifyInstance &
       subtitle: null,
       subtitleKey: null,
       subtitleParams: null,
-      stories: ranked,
+      stories: summariesOf(
+        interleave(
+          ranked.map((s) => s.storyId).filter((id) => !freshIds.has(id)),
+          freshWorlds(worlds, now, ':all'),
+          1,
+        ),
+      ),
     });
 
     return { rails, continueCards: await continueCardsFor(ctx, user), categories, activeCategory: null };
