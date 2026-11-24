@@ -224,11 +224,17 @@ struct CharacterPortrait: View {
                 : AnyShape(RoundedRectangle(cornerRadius: size * 0.24, style: .continuous))
             ZStack {
                 shape.fill(Theme.Colors.bgRaised)
-                RemoteImage(uri?.assetURL) {
-                    Text(initials.isEmpty ? "?" : initials)
-                        .font(.system(size: size * 0.36, weight: .semibold))
-                        .foregroundStyle(Theme.Colors.textSecondary)
-                }
+                Text(initials.isEmpty ? "?" : initials)
+                    .font(.system(size: size * 0.36, weight: .semibold))
+                    .foregroundStyle(Theme.Colors.textSecondary)
+                // Head and shoulders. Every portrait is a 2:3 half-body shot
+                // with the face in its top third, so a centred square fill
+                // showed chests and hands and cut foreheads off. Zoom to 72%
+                // of the width, pin to the top, nudge up past the headroom.
+                RemoteImage(uri?.assetURL) { Color.clear }
+                    .frame(width: size / 0.72, height: size / 0.72 * 1.5)
+                    .offset(y: -size * 0.04)
+                    .frame(width: size, height: size, alignment: .top)
             }
             .frame(width: size, height: size)
             .clipShape(shape)
