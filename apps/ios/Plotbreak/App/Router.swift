@@ -11,13 +11,17 @@ enum Tab: Hashable, CaseIterable {
 
     /// SF Symbols, outlined when idle and filled when selected — the way the
     /// reference draws the bar.
-    func symbol(selected: Bool) -> String {
+    /// Custom "story line" set (design v3, option B): outline at rest,
+    /// filled with cut gutters when selected. Template images in Assets.
+    func icon(selected: Bool) -> String {
+        let base: String
         switch self {
-        case .discover: return selected ? "house.fill" : "house"
-        case .library: return selected ? "books.vertical.fill" : "books.vertical"
-        case .create: return "square.and.pencil"
-        case .profile: return selected ? "person.fill" : "person"
+        case .discover: base = "tab-discover"
+        case .library: base = "tab-library"
+        case .create: base = "tab-create"
+        case .profile: base = "tab-profile"
         }
+        return selected ? base + "-fill" : base
     }
 
     var labelKey: TranslationKey {
@@ -418,9 +422,9 @@ struct TabBarShell: View {
                         router.tab = tab
                     } label: {
                         VStack(spacing: 3) {
-                            Image(systemName: tab.symbol(selected: selected))
-                                .font(.system(size: 20, weight: .regular))
-                                .frame(height: 24)
+                            Image(tab.icon(selected: selected))
+                                .renderingMode(.template)
+                                .frame(width: 24, height: 24)
                             Text(t(tab.labelKey))
                                 .font(.system(size: 11, weight: selected ? .semibold : .medium))
                                 .lineLimit(1)
